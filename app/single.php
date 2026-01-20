@@ -69,17 +69,41 @@ get_header();
                     <div class="prose prose-lg max-w-full" data-toc-content>
                         <?php the_content(); ?>
                     </div>
-
-                    <nav class="mt-12 pt-8 border-t border-slate-200 flex justify-between">
-                        <div>
-                            <?php previous_post_link('%link', '&larr; %title'); ?>
-                        </div>
-                        <div>
-                            <?php next_post_link('%link', '%title &rarr;'); ?>
-                        </div>
-                    </nav>
                 </div>
             </div>
+
+            <!-- Post Navigation -->
+            <?php
+            $prev_post = get_previous_post();
+            $next_post = get_next_post();
+            if ($prev_post || $next_post) :
+            ?>
+                <nav class="container mx-auto py-12 border-t border-slate-200" aria-label="<?php esc_attr_e('Post navigation', 'standard'); ?>">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <?php if ($prev_post) : ?>
+                            <a href="<?php echo esc_url(get_permalink($prev_post)); ?>" class="block p-4 border border-slate-300 bg-white no-underline hover:bg-slate-50 transition-colors">
+                                <span class="flex items-center gap-2 text-xs text-slate-500 font-mono uppercase tracking-wide mb-2">
+                                    <?php icon('arrow--left', ['class' => 'w-3 h-3']); ?>
+                                    <span class="font-mono"><?php esc_html_e('Previous', 'standard'); ?></span>
+                                </span>
+                                <span class="block text-base text-primary line-clamp-2"><?php echo esc_html($prev_post->post_title); ?></span>
+                            </a>
+                        <?php else : ?>
+                            <div></div>
+                        <?php endif; ?>
+
+                        <?php if ($next_post) : ?>
+                            <a href="<?php echo esc_url(get_permalink($next_post)); ?>" class="block p-4 border border-slate-300 bg-white no-underline hover:bg-slate-50 transition-colors text-right">
+                                <span class="flex items-center justify-end gap-2 text-xs text-slate-500 font-mono uppercase tracking-wide mb-2">
+                                    <span class="font-mono"><?php esc_html_e('Next', 'standard'); ?></span>
+                                    <?php icon('arrow--right', ['class' => 'w-3 h-3']); ?>
+                                </span>
+                                <span class="block text-base text-primary line-clamp-2"><?php echo esc_html($next_post->post_title); ?></span>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                </nav>
+            <?php endif; ?>
 
             <!-- Related Posts -->
             <div class="container mx-auto">

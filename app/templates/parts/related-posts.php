@@ -15,7 +15,7 @@ if (!$related->have_posts()) {
 }
 ?>
 
-<section class="related-posts mt-12 pt-8 border-t border-slate-200">
+<section class="related-posts py-12 border-t border-slate-200">
     <h2 class="text-2xl font-bold font-mono mb-8"><?php esc_html_e('Related', 'standard'); ?></h2>
 
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
