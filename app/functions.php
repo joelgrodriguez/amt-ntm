@@ -23,6 +23,7 @@ $theme_includes = [
     'inc/sidebars.php',
     'inc/fonts.php',
     'inc/icons.php',
+    'inc/related-posts.php',
     'inc/walkers/class-pagination.php',
     'inc/walkers/class-mobile-nav-walker.php',
     'inc/walkers/class-primary-nav-walker.php',

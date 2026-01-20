@@ -21,6 +21,9 @@ function theme_setup(): void {
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
     add_theme_support('custom-logo');
+
+    // Custom image sizes
+    add_image_size('card-thumbnail', 400, 225, true); // 16:9 aspect ratio, hard crop
     add_theme_support('align-wide');
     add_theme_support('wp-block-styles');
     add_theme_support('html5', [

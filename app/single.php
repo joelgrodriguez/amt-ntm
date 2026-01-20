@@ -80,6 +80,11 @@ get_header();
                     </nav>
                 </div>
             </div>
+
+            <!-- Related Posts -->
+            <div class="container mx-auto">
+                <?php get_template_part('templates/parts/related-posts'); ?>
+            </div>
         </article>
 
     <?php endwhile; ?>
