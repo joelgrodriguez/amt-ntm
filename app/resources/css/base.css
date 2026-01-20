@@ -1,0 +1,63 @@
+/**
+ * Base Styles
+ *
+ * Global element defaults, resets, and foundational styles.
+ * Sets typography, colors, focus states, and link behaviors.
+ *
+ * @file base.css
+ */
+
+@layer base {
+  /*
+   * Tailwind CSS v4 border color compatibility.
+   * The default border color changed to `currentColor` in v4.
+   * This restores v3 behavior using the theme border color.
+   */
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-border, currentColor);
+  }
+
+  /* Smooth scrolling - respects user preference for reduced motion */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    @apply font-sans antialiased text-slate-900 bg-white;
+  }
+
+  /* Page transition fade-in (keyframes defined in animations.css) */
+  @media (prefers-reduced-motion: no-preference) {
+    main {
+      animation: fadeIn var(--duration-base, 200ms) var(--ease-out, ease-out);
+    }
+  }
+
+  a {
+    @apply text-primary transition-colors duration-150;
+  }
+
+  a:hover {
+    @apply text-blue-700;
+  }
+
+  /* Remove underline default, use animated underline component instead */
+  a:not(.btn):not(.no-underline):hover {
+    @apply underline;
+  }
+
+  img {
+    @apply max-w-full h-auto;
+  }
+
+  /* Focus states for accessibility */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+  }
+}

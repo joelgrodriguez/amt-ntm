@@ -1,0 +1,33 @@
+/**
+ * Block Editor Styles
+ *
+ * These styles are loaded in the WordPress block editor to match the frontend.
+ * Imports theme variables and base styles for consistent editing experience.
+ */
+
+@import "tailwindcss";
+
+/* Design tokens from theme.json */
+@import "./tokens.css";
+
+/* Base element styles */
+@import "./base.css";
+
+/* Editor-specific adjustments */
+.editor-styles-wrapper {
+  font-family: var(--font-sans);
+  color: var(--color-dark);
+}
+
+/* Match frontend container width in editor */
+.editor-styles-wrapper .wp-block {
+  max-width: var(--layout-content, 720px);
+}
+
+.editor-styles-wrapper .wp-block[data-align="wide"] {
+  max-width: var(--layout-wide, 1200px);
+}
+
+.editor-styles-wrapper .wp-block[data-align="full"] {
+  max-width: none;
+}

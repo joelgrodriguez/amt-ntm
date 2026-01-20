@@ -1,0 +1,139 @@
+/**
+ * Animation Utilities
+ *
+ * Subtle, performant animations and transitions including
+ * scroll reveals, page transitions, and mobile menu effects.
+ * Timing: 150-300ms for responsiveness.
+ *
+ * @file animations.css
+ */
+
+/* Base timing variables */
+@theme {
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --duration-slow: 300ms;
+  --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@layer utilities {
+  /* Page transition - fade in on load */
+  .page-transition {
+    animation: fadeIn var(--duration-base) var(--ease-out);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Scroll reveal animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity var(--duration-slow) var(--ease-out),
+      transform var(--duration-slow) var(--ease-out);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition:
+      opacity var(--duration-slow) var(--ease-out),
+      transform var(--duration-slow) var(--ease-out);
+  }
+
+  .reveal-left.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(20px);
+    transition:
+      opacity var(--duration-slow) var(--ease-out),
+      transform var(--duration-slow) var(--ease-out);
+  }
+
+  .reveal-right.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .reveal-scale {
+    opacity: 0;
+    transform: scale(0.95);
+    transition:
+      opacity var(--duration-slow) var(--ease-out),
+      transform var(--duration-slow) var(--ease-out);
+  }
+
+  .reveal-scale.is-visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Stagger children - add delay to sequential items */
+  .stagger > *:nth-child(1) { transition-delay: 0ms; }
+  .stagger > *:nth-child(2) { transition-delay: 50ms; }
+  .stagger > *:nth-child(3) { transition-delay: 100ms; }
+  .stagger > *:nth-child(4) { transition-delay: 150ms; }
+  .stagger > *:nth-child(5) { transition-delay: 200ms; }
+  .stagger > *:nth-child(6) { transition-delay: 250ms; }
+
+  /* Mobile menu - slide in from left */
+  .mobile-menu {
+    transform: translateX(-100%);
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+
+  .mobile-menu.is-open {
+    transform: translateX(0);
+  }
+
+  /* Header darkens when menu is open */
+  .header-menu-open {
+    @apply bg-slate-50;
+  }
+
+  .header-menu-open .text-slate-700,
+  .header-menu-open .text-slate-600 {
+    @apply text-white;
+  }
+}
+
+/* Reduced motion support - disable animations for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .mobile-menu {
+    transition: none;
+  }
+
+  .page-transition {
+    animation: none;
+  }
+
+  .stagger > * {
+    transition-delay: 0ms;
+  }
+}

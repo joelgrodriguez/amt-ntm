@@ -1,0 +1,45 @@
+# Auto-detect text files and normalize line endings
+* text=auto
+
+# Force Unix line endings
+*.php text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.xml text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.pdf binary
+*.zip binary
+
+# Export ignore (for GitHub releases/archives)
+.git export-ignore
+.gitignore export-ignore
+.gitattributes export-ignore
+.distignore export-ignore
+.editorconfig export-ignore
+.claude/ export-ignore
+node_modules/ export-ignore
+resources/ export-ignore
+package.json export-ignore
+package-lock.json export-ignore
+vite.config.js export-ignore
+safelist.txt export-ignore
+tests/ export-ignore
+phpunit.xml* export-ignore
+phpcs.xml* export-ignore
+*.log export-ignore

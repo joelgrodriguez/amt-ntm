@@ -1,0 +1,44 @@
+/**
+ * Auto-generated from theme.json
+ * Do not edit directly - modify app/theme.json instead
+ */
+@theme {
+  /* Colors */
+  --color-primary: #0078C2;
+  --color-secondary: #F7951D;
+  --color-accent: #B91C1C;
+  --color-dark: #18181b;
+  --color-dark-medium: #3f3f46;
+  --color-medium: #71717a;
+  --color-light-medium: #d4d4d8;
+  --color-light: #fafafa;
+  --color-white: #ffffff;
+  --color-border: #e4e4e7;
+
+  /* Font Families */
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "IBM Plex Serif", ui-serif, Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Font Sizes */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  --text-7xl: 4.5rem;
+  --text-8xl: 6rem;
+  --text-9xl: 8rem;
+
+  /* Layout */
+  --layout-content: 720px;
+  --layout-wide: 1440px;
+
+  /* Custom */
+  --radius: 0;
+}

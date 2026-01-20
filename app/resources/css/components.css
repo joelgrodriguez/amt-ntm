@@ -1,0 +1,83 @@
+/**
+ * Component Styles
+ *
+ * Reusable UI patterns including buttons, cards, navigation,
+ * and interactive elements with micro-interactions.
+ *
+ * @file components.css
+ */
+
+@layer components {
+  /* Buttons with subtle lift on hover */
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 font-medium;
+    @apply transition-all duration-150 ease-out;
+    @apply hover:-translate-y-0.5 hover:shadow-md;
+    @apply active:translate-y-0 active:shadow-sm;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-blue-600;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-white hover:bg-slate-600;
+  }
+
+  /* Link underline animation */
+  .link-animated {
+    @apply relative inline-block no-underline;
+  }
+
+  .link-animated::after {
+    @apply absolute bottom-0 left-0 w-0 h-px bg-current;
+    @apply transition-all duration-200 ease-out;
+    content: '';
+  }
+
+  .link-animated:hover::after {
+    @apply w-full;
+  }
+
+  /* Card with subtle hover lift */
+  .card {
+    @apply bg-white shadow-sm;
+    @apply transition-all duration-200 ease-out;
+    @apply hover:shadow-lg hover:-translate-y-1;
+  }
+
+  /* Icon button with scale effect */
+  .icon-btn {
+    @apply inline-flex items-center justify-center;
+    @apply transition-transform duration-150 ease-out;
+    @apply hover:scale-110 active:scale-95;
+  }
+
+  .container {
+    @apply mx-auto px-4 lg:px-0;
+    max-width: var(--layout-wide);
+  }
+
+  /* IBM-style navigation */
+  #primary-menu {
+    @apply flex items-center h-full m-0 p-0 list-none;
+  }
+
+  #primary-menu > li {
+    @apply h-full;
+  }
+
+  #primary-menu > li > a {
+    @apply flex items-center h-full px-4 text-slate-700 no-underline hover:bg-slate-100 transition-colors;
+  }
+
+  #primary-menu > li.current-menu-item > a,
+  #primary-menu > li.current-menu-parent > a {
+    @apply text-slate-900 font-medium;
+  }
+
+  /* Mobile menu styles */
+  #mobile-menu-list {
+    @apply m-0 p-0 list-none;
+  }
+}
