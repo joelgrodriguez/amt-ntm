@@ -1,0 +1,51 @@
+/**
+ * Single Post Styles
+ *
+ * Styles specific to single post pages including
+ * content images, typography overrides, and decorative elements.
+ *
+ * @file single.css
+ */
+
+@layer components {
+  /* Full-width images in post content */
+  .prose img {
+    @apply w-full;
+  }
+
+  /* Futuristic grid background */
+  .single-post {
+    position: relative;
+  }
+
+  .single-post::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 800px;
+    pointer-events: none;
+    z-index: 0;
+
+    /* Dot grid pattern */
+    background-image: radial-gradient(circle, theme(colors.slate.300) 1px, transparent 1px);
+    background-size: 24px 24px;
+
+    /* Fade to transparent - stay solid longer then fade */
+    mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
+  }
+
+  @media (min-width: 1024px) {
+    .single-post::before {
+      height: 1200px;
+    }
+  }
+
+  /* Ensure content sits above grid */
+  .single-post > * {
+    position: relative;
+    z-index: 1;
+  }
+}

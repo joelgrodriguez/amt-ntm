@@ -13,12 +13,16 @@ import '../css/_app.css';
 import { initMobileMenu } from './modules/MobileMenu.js';
 import { initMegaMenu } from './modules/MegaMenu.js';
 import { initScrollReveal } from './modules/ScrollReveal.js';
+import { initTableOfContents } from './modules/TableOfContents.js';
 
 /** @type {Function|null} Cleanup function for mobile menu */
 let mobileMenuCleanup = null;
 
 /** @type {Function|null} Cleanup function for mega menu */
 let megaMenuCleanup = null;
+
+/** @type {Function|null} Cleanup function for table of contents */
+let tocCleanup = null;
 
 /**
  * Executes callback when DOM is ready.
@@ -43,6 +47,7 @@ const initApp = () => {
   mobileMenuCleanup = initMobileMenu();
   megaMenuCleanup = initMegaMenu();
   initScrollReveal();
+  tocCleanup = initTableOfContents();
 };
 
 // Bootstrap
@@ -57,6 +62,9 @@ if (import.meta.hot) {
     }
     if (megaMenuCleanup) {
       megaMenuCleanup();
+    }
+    if (tocCleanup) {
+      tocCleanup();
     }
     // Reinitialize
     initApp();

@@ -25,5 +25,7 @@
 @import "./base.css";
 @import "./components.css";
 @import "./menus.css";
+@import "./toc.css";
+@import "./single.css";
 @import "./utilities.css";
 @import "./animations.css";

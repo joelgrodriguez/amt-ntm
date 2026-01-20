@@ -1,0 +1,83 @@
+/**
+ * Table of Contents Styles
+ *
+ * Sticky sidebar navigation with scrollspy highlighting.
+ * IBM-inspired design with left border indicator for active state.
+ *
+ * @file toc.css
+ */
+
+@layer components {
+  /* Container */
+  .toc {
+    @apply py-8;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+  }
+
+  /* Title */
+  .toc__title {
+    @apply font-mono text-xs font-bold uppercase tracking-wider text-slate-500 mb-4;
+  }
+
+  /* List */
+  .toc__list {
+    @apply space-y-1 border-l border-slate-200 m-0 p-0 list-none;
+  }
+
+  /* Item */
+  .toc__item {
+    @apply relative;
+  }
+
+  /* Nested items (h3) */
+  .toc__item--nested {
+    @apply pl-3;
+  }
+
+  /* Link */
+  .toc__link {
+    @apply block py-1.5 pl-4 -ml-px text-sm text-slate-600 no-underline;
+    @apply border-l-2 border-transparent;
+    @apply transition-colors duration-150;
+  }
+
+  .toc__link:hover {
+    @apply text-slate-900;
+  }
+
+  /* Active state - left border indicator */
+  .toc__link.is-active {
+    @apply text-primary font-medium;
+    @apply border-l-2 border-primary;
+  }
+
+  /* Focus state for keyboard navigation */
+  .toc__link:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2;
+  }
+
+  /* Scrollbar styling for TOC overflow */
+  .toc::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .toc::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .toc::-webkit-scrollbar-thumb {
+    @apply bg-slate-200 rounded-full;
+  }
+
+  .toc::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-300;
+  }
+}
+
+/* Reduced motion: disable transitions */
+@media (prefers-reduced-motion: reduce) {
+  .toc__link {
+    @apply transition-none;
+  }
+}
