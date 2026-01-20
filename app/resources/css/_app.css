@@ -13,6 +13,7 @@
 /* Scan PHP templates for Tailwind classes */
 @source "../../../*.php";
 @source "../../../templates/**/*.php";
+@source "../../../templates/parts/**/*.php";
 @source "../../../inc/**/*.php";
 
 /* Safelist WordPress classes that appear in database content */

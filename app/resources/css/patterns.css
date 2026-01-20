@@ -40,4 +40,43 @@
   .pattern-dot-grid > * {
     @apply relative z-[1];
   }
+
+  /**
+   * Square Grid Pattern
+   *
+   * Subtle square grid that fades diagonally from corners.
+   * Use on containers that need an industrial/technical accent.
+   *
+   * Usage:
+   * <div class="pattern-square-grid">
+   *   <div class="pattern-square-grid__overlay pattern-square-grid__overlay--top-left"></div>
+   *   <div class="pattern-square-grid__overlay pattern-square-grid__overlay--bottom-right"></div>
+   *   <div class="relative z-10">Content here</div>
+   * </div>
+   */
+  .pattern-square-grid {
+    @apply relative overflow-hidden;
+  }
+
+  .pattern-square-grid__overlay {
+    @apply absolute inset-0 pointer-events-none;
+    background-image:
+      linear-gradient(to right, #cbd5e1 1px, transparent 1px),
+      linear-gradient(to bottom, #cbd5e1 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .pattern-square-grid__overlay--top-left {
+    mask-image: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, transparent 50%);
+    -webkit-mask-image: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, transparent 50%);
+  }
+
+  .pattern-square-grid__overlay--bottom-right {
+    mask-image: linear-gradient(315deg, rgba(0,0,0,0.4) 0%, transparent 50%);
+    -webkit-mask-image: linear-gradient(315deg, rgba(0,0,0,0.4) 0%, transparent 50%);
+  }
+
+  .pattern-square-grid > *:not(.pattern-square-grid__overlay) {
+    @apply relative z-[1];
+  }
 }

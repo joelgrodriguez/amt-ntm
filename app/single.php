@@ -116,5 +116,7 @@ get_header();
     <?php endwhile; ?>
 </main>
 
+<?php get_template_part('templates/parts/cta/subscribe'); ?>
+
 <?php
 get_footer();
