@@ -69,6 +69,8 @@ get_header();
                     <div class="prose prose-lg max-w-full" data-toc-content>
                         <?php the_content(); ?>
                     </div>
+
+                    <?php get_template_part('templates/parts/disclaimer'); ?>
                 </div>
             </div>
 
