@@ -10,7 +10,7 @@
 
 ?>
 
-<aside class="my-12 p-6 bg-yellow-100 border border-yellow-500 flex items-center gap-4 text-sm text-yellow-700">
+<aside class="mt-6 lg:mt-12 p-6 bg-yellow-100 border border-yellow-500 flex items-center gap-4 text-sm text-yellow-700">
     <span class="shrink-0">
         <?php icon('warning--outline', ['class' => 'text-yellow-700 w-6 h-6']); ?>
     </span>

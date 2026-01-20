@@ -14,11 +14,11 @@ get_header();
 
 <main id="primary" class="py-6 lg:py-12">
     <?php while (have_posts()) : the_post(); ?>
-        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-            <header class="mb-8">
-                <div class="container mx-auto grid gap-12">
+        <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-6 lg:gap-12'); ?>>
+            <header>
+                <div class="container mx-auto grid gap-6 lg:gap-12">
                     <?php if (has_category()) : ?>
-                        <div class="flex flex-wrap gap-2">
+                        <div class="flex flex-wrap gap-3">
                             <?php
                             $categories = get_the_category();
                             foreach ($categories as $category) :
@@ -57,7 +57,7 @@ get_header();
             <!-- Two-column layout: TOC sidebar + Content -->
             <div class="container mx-auto lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
                 <!-- TOC Sidebar (desktop only) -->
-                <aside id="table-of-contents" class="hidden lg:block" aria-label="<?php esc_attr_e('Table of Contents', 'theme'); ?>">
+                <aside id="table-of-contents" class="hidden lg:block" aria-label="<?php esc_attr_e('Table of Contents', 'Standard'); ?>">
                     <nav class="toc sticky top-16">
                         <p class="toc__title"><?php esc_html_e('On this page', 'theme'); ?></p>
                         <ol id="toc-list" class="toc__list"></ol>
@@ -80,7 +80,7 @@ get_header();
             $next_post = get_next_post();
             if ($prev_post || $next_post) :
             ?>
-                <nav class="container mx-auto py-12 border-t border-slate-200" aria-label="<?php esc_attr_e('Post navigation', 'standard'); ?>">
+                <nav class="container mx-auto pt-6 lg:pt-12 border-t border-slate-200" aria-label="<?php esc_attr_e('Post navigation', 'Standard'); ?>">
                     <div class="grid md:grid-cols-2 gap-6">
                         <?php if ($prev_post) : ?>
                             <a href="<?php echo esc_url(get_permalink($prev_post)); ?>" class="block p-4 border border-slate-300 bg-white no-underline hover:bg-slate-50 transition-colors">
