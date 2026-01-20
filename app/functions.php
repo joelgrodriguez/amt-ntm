@@ -25,6 +25,7 @@ $theme_includes = [
     'inc/icons.php',
     'inc/walkers/class-pagination.php',
     'inc/walkers/class-mobile-nav-walker.php',
+    'inc/walkers/class-primary-nav-walker.php',
 ];
 
 foreach ($theme_includes as $file) {

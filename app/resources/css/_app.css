@@ -24,5 +24,6 @@
 /* Theme styles */
 @import "./base.css";
 @import "./components.css";
+@import "./menus.css";
 @import "./utilities.css";
 @import "./animations.css";

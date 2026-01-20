@@ -11,10 +11,14 @@ import '../css/_app.css';
 
 // Modules
 import { initMobileMenu } from './modules/MobileMenu.js';
+import { initMegaMenu } from './modules/MegaMenu.js';
 import { initScrollReveal } from './modules/ScrollReveal.js';
 
 /** @type {Function|null} Cleanup function for mobile menu */
 let mobileMenuCleanup = null;
+
+/** @type {Function|null} Cleanup function for mega menu */
+let megaMenuCleanup = null;
 
 /**
  * Executes callback when DOM is ready.
@@ -37,6 +41,7 @@ const domReady = (callback) => {
  */
 const initApp = () => {
   mobileMenuCleanup = initMobileMenu();
+  megaMenuCleanup = initMegaMenu();
   initScrollReveal();
 };
 
@@ -49,6 +54,9 @@ if (import.meta.hot) {
     // Cleanup previous module instances
     if (mobileMenuCleanup) {
       mobileMenuCleanup();
+    }
+    if (megaMenuCleanup) {
+      megaMenuCleanup();
     }
     // Reinitialize
     initApp();

@@ -63,12 +63,13 @@
                     'fallback_cb'    => false,
                     'link_before'    => '<span class="flex items-center gap-1 font-medium">',
                     'link_after'     => '</span>',
+                    'walker'         => new \Standard\Walkers\Primary_Nav_Walker(),
                 ]);
                 ?>
             </nav>
 
             <!-- Right side icons -->
-            <div id="header-actions" class="flex items-center h-12 ml-auto px-2 lg:px-6 transition-opacity duration-200">
+            <div id="header-actions" class="flex items-center h-12 ml-auto px-2 lg:px-0 transition-opacity duration-200">
                 <a href="<?php echo esc_url(home_url('/?s=')); ?>" class="flex items-center justify-center w-12 h-12 text-slate-600 hover:bg-slate-100 transition-colors" aria-label="Search">
                     <?php icon('search', ['class' => 'w-5 h-5']); ?>
                 </a>
@@ -76,6 +77,9 @@
         </div>
     </div>
 </header>
+
+<!-- Mega menu overlay -->
+<div id="mega-menu-overlay" aria-hidden="true"></div>
 
 <!-- Mobile menu (full width, below header) -->
 <nav id="mobile-menu" class="mobile-menu fixed top-12 left-0 right-0 bottom-0 bg-white z-40 lg:hidden overflow-y-auto">
