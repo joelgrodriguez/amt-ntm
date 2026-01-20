@@ -1,0 +1,43 @@
+/**
+ * Background Patterns
+ *
+ * Decorative background patterns for visual accents.
+ * Apply to elements using the pattern class names.
+ *
+ * @file patterns.css
+ */
+
+@layer components {
+  /**
+   * Dot Grid Pattern
+   *
+   * Subtle dot grid that fades from top to transparent.
+   * Use on containers that need a futuristic accent.
+   *
+   * Usage: <div class="pattern-dot-grid">...</div>
+   */
+  .pattern-dot-grid {
+    @apply relative;
+  }
+
+  .pattern-dot-grid::before {
+    @apply absolute inset-x-0 top-0 pointer-events-none;
+    content: '';
+    height: 800px;
+    z-index: 0;
+    background-image: radial-gradient(circle, theme(colors.slate.200) 1px, transparent 1px);
+    background-size: 16px 16px;
+    mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
+  }
+
+  @media (min-width: 1024px) {
+    .pattern-dot-grid::before {
+      height: 1200px;
+    }
+  }
+
+  .pattern-dot-grid > * {
+    @apply relative z-[1];
+  }
+}

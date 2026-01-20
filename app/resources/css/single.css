@@ -8,44 +8,37 @@
  */
 
 @layer components {
-  /* Full-width images in post content */
-  .prose img {
+  /* Post content images - full width */
+  .prose img,
+  .prose picture img {
+    @apply w-full h-auto;
+  }
+
+  /* Override Gutenberg block constraints */
+  .prose figure,
+  .prose .wp-block-image {
     @apply w-full;
   }
 
-  /* Futuristic grid background */
+  .prose .wp-block-image.is-resized,
+  .prose .wp-block-image.is-resized img,
+  .prose .wp-block-image.is-resized picture {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Featured image - 16:9 aspect ratio */
+  .featured-image {
+    @apply w-full aspect-video overflow-hidden;
+  }
+
+  .featured-image img,
+  .featured-image picture img {
+    @apply w-full h-full object-cover;
+  }
+
+  /* Single post uses dot grid pattern from patterns.css */
   .single-post {
-    position: relative;
-  }
-
-  .single-post::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 800px;
-    pointer-events: none;
-    z-index: 0;
-
-    /* Dot grid pattern */
-    background-image: radial-gradient(circle, theme(colors.slate.300) 1px, transparent 1px);
-    background-size: 24px 24px;
-
-    /* Fade to transparent - stay solid longer then fade */
-    mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
-  }
-
-  @media (min-width: 1024px) {
-    .single-post::before {
-      height: 1200px;
-    }
-  }
-
-  /* Ensure content sits above grid */
-  .single-post > * {
-    position: relative;
-    z-index: 1;
+    @apply pattern-dot-grid;
   }
 }

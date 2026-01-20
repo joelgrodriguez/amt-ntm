@@ -2,7 +2,7 @@
 /**
  * The template for displaying pages.
  *
- * Displays static pages with optional featured image and comments.
+ * Displays static pages with optional featured image.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-page
  *
@@ -33,11 +33,6 @@ get_header();
             </div>
         </article>
 
-        <?php if (comments_open() || get_comments_number()) : ?>
-            <div class="max-w-3xl mx-auto mt-12">
-                <?php comments_template(); ?>
-            </div>
-        <?php endif; ?>
     <?php endwhile; ?>
 </main>
 
