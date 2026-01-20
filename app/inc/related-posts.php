@@ -16,7 +16,7 @@ namespace Standard;
  * Get related posts for the current post.
  *
  * Queries posts that share categories with the current post.
- * Returns posts of any post type, excluding the current post.
+ * Limited to post, video, download, and resource post types.
  *
  * @param int $count Number of posts to return. Default 4.
  * @return \WP_Query Query object with related posts.
@@ -34,12 +34,11 @@ function get_related_posts(int $count = 4): \WP_Query
     // Get category IDs
     $category_ids = array_map(fn($cat) => $cat->term_id, $categories);
 
-    // Get all public post types
-    $post_types = get_post_types(['public' => true], 'names');
-    unset($post_types['attachment']); // Exclude attachments
+    // Limit to specific post types
+    $post_types = ['post', 'video', 'download', 'resource'];
 
     $args = [
-        'post_type'      => array_values($post_types),
+        'post_type'      => $post_types,
         'posts_per_page' => $count,
         'post__not_in'   => [$post_id],
         'category__in'   => $category_ids,
