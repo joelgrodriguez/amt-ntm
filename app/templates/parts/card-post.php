@@ -3,10 +3,24 @@
  * Template part for displaying a post card.
  *
  * Reusable card component for displaying posts in grids.
- * Shows thumbnail, category, title, date, and arrow link.
+ * Shows thumbnail, category, title, and post type CTA.
  *
  * @package Standard
  */
+
+// Determine post type icon and CTA text
+$post_type = get_post_type();
+$post_type_config = [
+    'post'     => ['icon' => 'document', 'cta' => __('Read Article', 'standard-theme')],
+    'video'    => ['icon' => 'play--solid', 'cta' => __('Watch Video', 'standard-theme')],
+    'download' => ['icon' => 'download', 'cta' => __('View Download', 'standard-theme')],
+    'resource' => ['icon' => 'folder', 'cta' => __('View Resource', 'standard-theme')],
+    'product'  => ['icon' => 'purchase', 'cta' => __('View Product', 'standard-theme')],
+    'profile'  => ['icon' => 'user', 'cta' => __('View Profile', 'standard-theme')],
+];
+
+$icon = $post_type_config[$post_type]['icon'] ?? 'link';
+$cta_text = $post_type_config[$post_type]['cta'] ?? __('View', 'standard-theme');
 
 ?>
 
@@ -32,11 +46,9 @@
     </a>
 
     <a href="<?php the_permalink(); ?>" class="flex items-center justify-between text-xs text-slate-500 font-mono p-4 border-t border-slate-200 no-underline hover:bg-slate-50">
-        <span class="flex items-center gap-1">
-            <?php icon('calendar', ['class' => 'w-3 h-3']); ?>
-            <time datetime="<?php echo esc_attr(get_the_date('c')); ?>">
-                <?php echo esc_html(get_the_date('M j, Y')); ?>
-            </time>
+        <span class="flex items-center gap-1.5">
+            <?php icon($icon, ['class' => 'w-4 h-4']); ?>
+            <span><?php echo esc_html($cta_text); ?></span>
         </span>
         <span class="text-slate-400">
             <?php icon('arrow--right', ['class' => 'w-3 h-3']); ?>
