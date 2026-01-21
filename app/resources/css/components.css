@@ -12,8 +12,8 @@
   .btn {
     @apply inline-flex items-center justify-center px-4 py-2 font-medium;
     @apply transition-all duration-150 ease-out;
-    @apply hover:-translate-y-0.5 hover:shadow-md;
-    @apply active:translate-y-0 active:shadow-sm;
+    @apply hover:-translate-y-0.5;
+    @apply active:translate-y-0;
   }
 
   .btn-primary {
@@ -43,7 +43,7 @@
   .card {
     @apply bg-white border;
     @apply transition-all duration-200 ease-out;
-    @apply hover:shadow-lg hover:-translate-y-1;
+    @apply hover:-translate-y-1;
   }
 
   /* Icon button with scale effect */

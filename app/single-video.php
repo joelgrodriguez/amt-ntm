@@ -19,17 +19,17 @@ get_header();
             <!-- Video Player Section -->
             <?php $video = get_field('video'); ?>
             <?php if ($video) : ?>
-                <section class="bg-slate-950">
+                <section class="bg-slate-950 text-slate-500">
                     <!-- Top Bar -->
                     <div class="border-b border-slate-800">
                         <div class="border-x border-slate-800 container mx-auto">
                             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
-                                <div class="flex items-center gap-3 text-slate-500 pl-3">
+                                <div class="flex items-center gap-3 pl-3">
                                     <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-                                    <span class="text-slate-400"><?php echo esc_html(get_the_title()); ?></span>
+                                    <span><?php echo esc_html(get_the_title()); ?></span>
                                 </div>
-                                <div class="flex items-center gap-3 text-slate-500 pr-3">
-                                    <span class="text-slate-400">Portable Rollforming Channel</span>
+                                <div class="flex items-center gap-3 pr-3">
+                                    <span>Portable Rollforming Channel</span>
                                 </div>
                             </div>
                         </div>
@@ -48,11 +48,11 @@ get_header();
                     <div class="border-t border-slate-800">
                         <div class="border-x border-slate-800 container mx-auto">
                             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
-                                <div class="flex items-center gap-2 text-slate-500 pl-3">
+                                <div class="flex items-center gap-2 pl-3">
                                     <?php icon('calendar', ['class' => 'w-3 h-3 fill-current']); ?>
                                     <span><?php echo esc_html(get_the_date('Y.m.d')); ?></span>
                                 </div>
-                                <div class="flex items-center gap-4 text-slate-600 pr-3">
+                                <div class="flex items-center gap-4 pr-3">
                                     <span>New Tech Machinery</span>
                                     <div class="flex gap-1">
                                         <span class="w-1 h-3 bg-slate-700"></span>
@@ -70,7 +70,7 @@ get_header();
             <!-- Content Section -->
             <section class="pattern-dot-grid gradient-fade-bottom py-6 lg:py-12">
                 <div class="container mx-auto grid gap-6 lg:gap-12">
-                    <header class="grid gap-6">
+                    <header class="max-w-4xl mx-auto grid gap-6">
                         <?php if (has_category()) : ?>
                             <div class="flex flex-wrap gap-3">
                                 <?php
@@ -85,23 +85,17 @@ get_header();
                         <?php endif; ?>
 
                         <?php the_title('<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold font-mono">', '</h1>'); ?>
-
-                        <div class="flex items-center gap-6 text-slate-500 font-mono text-sm">
-                            <span class="flex items-center gap-2">
-                                <?php icon('calendar', ['class' => 'w-4 h-4']); ?>
-                                <time datetime="<?php echo esc_attr(get_the_date('c')); ?>">
-                                    <?php echo esc_html(get_the_date('j F Y')); ?>
-                                </time>
-                            </span>
-                        </div>
                     </header>
 
                     <!-- Content -->
-                    <div class="prose prose-lg max-w-3xl">
+                    <div class="prose prose-lg max-w-4xl mx-auto">
                         <?php the_content(); ?>
                     </div>
+                    <div class="max-w-4xl mx-auto">
+                        <?php get_template_part('templates/parts/disclaimer'); ?>
+                    </div>
 
-                    <?php get_template_part('templates/parts/disclaimer'); ?>
+
 
                     <?php get_template_part('templates/parts/post-navigation'); ?>
 

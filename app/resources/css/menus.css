@@ -20,7 +20,7 @@
 }
 
 #site-header.header--sticky {
-  @apply fixed top-0 left-0 right-0 shadow-md;
+  @apply fixed top-0 left-0 right-0;
 }
 
 /* Prevent content jump when header becomes fixed */
