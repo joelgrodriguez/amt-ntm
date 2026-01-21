@@ -2,7 +2,8 @@
 /**
  * The template for displaying 404 pages (not found).
  *
- * Displays a friendly error message with a link home and search form.
+ * Displays a friendly error message with search, helpful links,
+ * and navigation to key resources.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#404-not-found
  *
@@ -10,22 +11,103 @@
  */
 
 get_header();
+
+$helpful_links = [
+    [
+        'title' => __('Learning Center', 'standard'),
+        'description' => __('Articles, videos, and resources', 'standard'),
+        'url' => home_url('/learning-center/'),
+        'icon' => 'document',
+    ],
+    [
+        'title' => __('Profiles', 'standard'),
+        'description' => __('Panel and gutter profiles', 'standard'),
+        'url' => get_post_type_archive_link('profile') ?: home_url('/profiles/'),
+        'icon' => 'folder',
+    ],
+    [
+        'title' => __('Manuals', 'standard'),
+        'description' => __('Machine documentation', 'standard'),
+        'url' => get_post_type_archive_link('manual') ?: home_url('/manuals/'),
+        'icon' => 'document',
+    ],
+    [
+        'title' => __('Resources', 'standard'),
+        'description' => __('Downloads and literature', 'standard'),
+        'url' => get_post_type_archive_link('resource') ?: home_url('/resources/'),
+        'icon' => 'download',
+    ],
+    [
+        'title' => __('Machines', 'standard'),
+        'description' => __('Rollforming equipment', 'standard'),
+        'url' => home_url('/machines/'),
+        'icon' => 'settings',
+    ],
+    [
+        'title' => __('Contact Us', 'standard'),
+        'description' => __('Get in touch with our team', 'standard'),
+        'url' => home_url('/contact/'),
+        'icon' => 'email',
+    ],
+];
 ?>
 
-<main id="primary" class="container py-16">
-    <div class="max-w-xl mx-auto text-center">
-        <h1 class="text-6xl font-bold text-slate-900 mb-4">404</h1>
-        <h2 class="text-2xl font-semibold text-slate-700 mb-4"><?php esc_html_e('Page Not Found', 'standard-press'); ?></h2>
-        <p class="text-slate-600 mb-8"><?php esc_html_e('The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.', 'standard-press'); ?></p>
+<main id="primary" class="pattern-dot-grid gradient-fade-bottom-sm py-12 lg:py-24">
+    <div class="container mx-auto">
 
-        <a href="<?php echo esc_url(home_url('/')); ?>" class="btn btn-primary">
-            <?php esc_html_e('Back to Home', 'standard-press'); ?>
-        </a>
+        <!-- Error Message -->
+        <div class="max-w-2xl mx-auto text-center mb-12 lg:mb-16">
+            <p class="font-mono text-lg text-secondary font-bold uppercase tracking-wider mt-1 mb-4">
+                <?php esc_html_e('404', 'standard'); ?>
+            </p>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold font-mono text-slate-900 mb-6">
+                <?php esc_html_e('Page Not Found', 'standard'); ?>
+            </h1>
+            <p class="text-lg text-slate-600 mb-8">
+                <?php esc_html_e('The page you\'re looking for doesn\'t exist or has been moved.', 'standard'); ?>
+            </p>
 
-        <div class="mt-12">
-            <h3 class="text-lg font-medium mb-4"><?php esc_html_e('Try searching:', 'standard-press'); ?></h3>
-            <?php get_search_form(); ?>
+            <!-- Search Form -->
+            <div class="max-w-md mx-auto">
+                <?php get_search_form(); ?>
+            </div>
         </div>
+
+        <!-- Helpful Links -->
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-sm font-semibold text-slate-900 uppercase tracking-wider text-center mb-8">
+                <?php esc_html_e('Helpful Links', 'standard'); ?>
+            </h2>
+
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <?php foreach ($helpful_links as $link) : ?>
+                    <a href="<?php echo esc_url($link['url']); ?>" class="group block p-6 bg-white border border-slate-200 hover:border-primary transition-colors">
+                        <div class="flex items-start gap-4">
+                            <span class="shrink-0 text-slate-400 group-hover:text-primary transition-colors">
+                                <?php icon($link['icon'], ['class' => 'w-6 h-6']); ?>
+                            </span>
+                            <div>
+                                <h3 class="font-semibold text-slate-900 group-hover:text-primary transition-colors">
+                                    <?php echo esc_html($link['title']); ?>
+                                </h3>
+                                <p class="text-sm text-slate-500 mt-1">
+                                    <?php echo esc_html($link['description']); ?>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+
+            <!-- Back to Home -->
+            <div class="text-center mt-12">
+                <a href="<?php echo esc_url(home_url('/')); ?>" class="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline">
+                    <?php icon('arrow--left', ['class' => 'w-4 h-4']); ?>
+                    <?php esc_html_e('Back to Home', 'standard'); ?>
+                </a>
+            </div>
+        </div>
+
     </div>
 </main>
 

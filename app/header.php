@@ -41,16 +41,19 @@
                 <span id="menu-icon-close" class="hidden"><?php icon('close', ['class' => 'w-4 h-4']); ?></span>
             </button>
 
-            <!-- Logo -->
-            <div class="flex items-center h-12 px-4 lg:px-6 lg:border-r border-slate-200">
+            <!-- Logo + Site Name -->
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-4 bg-slate-100 h-12 px-4 lg:px-6 lg:border-r border-slate-200 no-underline">
                 <?php if (has_custom_logo()) : ?>
-                    <?php the_custom_logo(); ?>
-                <?php else : ?>
-                    <a href="<?php echo esc_url(home_url('/')); ?>" class="font-mono font-bold text-primary no-underline hover:text-blue-700">
-                        <?php echo esc_html(get_bloginfo('name')); ?>
-                    </a>
+                    <?php
+                    $custom_logo_id = get_theme_mod('custom_logo');
+                    $logo_url = wp_get_attachment_image_url($custom_logo_id, 'full');
+                    ?>
+                    <img src="<?php echo esc_url($logo_url); ?>" alt="" class="w-14 object-contain">
                 <?php endif; ?>
-            </div>
+                <span class="font-mono font-bold text-primary hover:text-blue-700">
+                    <?php echo esc_html(get_bloginfo('name')); ?>
+                </span>
+            </a>
 
             <!-- Desktop navigation -->
             <nav id="desktop-navigation" class="hidden lg:flex items-center h-12 flex-1 border-r border-slate-200">

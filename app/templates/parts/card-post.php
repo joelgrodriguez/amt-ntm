@@ -11,16 +11,16 @@
 // Determine post type icon and CTA text
 $post_type = get_post_type();
 $post_type_config = [
-    'post'     => ['icon' => 'document', 'cta' => __('Read Article', 'standard-theme')],
-    'video'    => ['icon' => 'play--solid', 'cta' => __('Watch Video', 'standard-theme')],
-    'download' => ['icon' => 'download', 'cta' => __('View Download', 'standard-theme')],
-    'resource' => ['icon' => 'folder', 'cta' => __('View Resource', 'standard-theme')],
-    'product'  => ['icon' => 'purchase', 'cta' => __('View Product', 'standard-theme')],
-    'profile'  => ['icon' => 'user', 'cta' => __('View Profile', 'standard-theme')],
+    'post'     => ['icon' => 'document', 'cta' => __('Read Article', 'standard')],
+    'video'    => ['icon' => 'play--solid', 'cta' => __('Watch Video', 'standard')],
+    'download' => ['icon' => 'download', 'cta' => __('View Download', 'standard')],
+    'resource' => ['icon' => 'folder', 'cta' => __('View Resource', 'standard')],
+    'product'  => ['icon' => 'purchase', 'cta' => __('View Product', 'standard')],
+    'profile'  => ['icon' => 'user', 'cta' => __('View Profile', 'standard')],
 ];
 
 $icon = $post_type_config[$post_type]['icon'] ?? 'link';
-$cta_text = $post_type_config[$post_type]['cta'] ?? __('View', 'standard-theme');
+$cta_text = $post_type_config[$post_type]['cta'] ?? __('View', 'standard');
 
 ?>
 
@@ -45,7 +45,7 @@ $cta_text = $post_type_config[$post_type]['cta'] ?? __('View', 'standard-theme')
         <?php the_title('<h3 class="text-base font-semibold line-clamp-2 text-slate-900 hover:text-primary">', '</h3>'); ?>
     </a>
 
-    <a href="<?php the_permalink(); ?>" class="flex items-center justify-between text-xs text-slate-500 font-mono p-4 border-t border-slate-200 no-underline hover:bg-slate-50">
+    <a href="<?php the_permalink(); ?>" class="flex items-center justify-between text-xs text-slate-500 font-mono py-3 px-4 border-t border-slate-200 no-underline hover:bg-slate-50">
         <span class="flex items-center gap-1.5">
             <?php icon($icon, ['class' => 'w-4 h-4']); ?>
             <span><?php echo esc_html($cta_text); ?></span>

@@ -58,6 +58,23 @@ function theme_setup(): void {
 add_action('after_setup_theme', __NAMESPACE__ . '\\theme_setup');
 
 /**
+ * Remove archive title prefixes (Archives:, Category:, Tag:, etc.)
+ */
+function clean_archive_title(string $title): string {
+    if (is_category()) {
+        return single_cat_title('', false);
+    } elseif (is_tag()) {
+        return single_tag_title('', false);
+    } elseif (is_post_type_archive()) {
+        return post_type_archive_title('', false);
+    } elseif (is_author()) {
+        return get_the_author();
+    }
+    return $title;
+}
+add_filter('get_the_archive_title', __NAMESPACE__ . '\\clean_archive_title');
+
+/**
  * Get editor style URL from Vite manifest or dev server.
  */
 function get_editor_style_url(): string {

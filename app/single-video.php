@@ -95,8 +95,6 @@ get_header();
                         <?php get_template_part('templates/parts/disclaimer'); ?>
                     </div>
 
-
-
                     <?php get_template_part('templates/parts/post-navigation'); ?>
 
                     <!-- Related Posts -->
