@@ -70,7 +70,7 @@ get_header();
             <!-- Content Section -->
             <section class="pattern-dot-grid gradient-fade-bottom py-6 lg:py-12">
                 <div class="container mx-auto grid gap-6 lg:gap-12">
-                    <header class="grid gap-6">
+                    <header class="grid gap-6 max-w-4xl mx-auto">
                         <?php if (has_category()) : ?>
                             <div class="flex flex-wrap gap-3">
                                 <?php
@@ -97,11 +97,13 @@ get_header();
                     </header>
 
                     <!-- Content -->
-                    <div class="prose prose-lg max-w-3xl">
+                    <div class="prose prose-lg max-w-4xl mx-auto">
                         <?php the_content(); ?>
                     </div>
 
-                    <?php get_template_part('templates/parts/disclaimer'); ?>
+                    <div class="max-w-4xl mx-auto">
+                        <?php get_template_part('templates/parts/disclaimer'); ?>
+                    </div>
 
                     <?php get_template_part('templates/parts/post-navigation'); ?>
 
