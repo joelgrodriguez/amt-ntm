@@ -26,7 +26,7 @@ class Primary_Nav_Walker extends Walker_Nav_Menu
     public function start_lvl(&$output, $depth = 0, $args = null): void
     {
         if ($depth === 0) {
-            $output .= '<div class="sub-menu"><ul class="container mx-auto">';
+            $output .= '<div class="sub-menu"><ul class="mx-auto lg:container">';
         } else {
             $output .= '<ul class="sub-menu">';
         }
