@@ -7,6 +7,27 @@
  * @file menus.css
  */
 
+/* ==========================================================================
+   Scroll-aware Header
+   ========================================================================== */
+
+#site-header {
+  @apply transition-transform duration-300 ease-out;
+}
+
+#site-header.header--hidden {
+  transform: translateY(-100%);
+}
+
+#site-header.header--sticky {
+  @apply fixed top-0 left-0 right-0 shadow-md;
+}
+
+/* Prevent content jump when header becomes fixed */
+body.header-is-sticky {
+  padding-top: var(--header-height, 3rem);
+}
+
 /* Primary navigation */
 #primary-menu {
   @apply flex items-center h-full m-0 p-0 list-none;

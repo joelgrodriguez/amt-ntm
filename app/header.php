@@ -25,7 +25,7 @@
     <?php esc_html_e('Skip to main content', 'standard-press'); ?>
 </a>
 
-<header id="site-header" class="bg-white border-b border-slate-200 sticky top-0 z-50 transition-colors duration-200">
+<header id="site-header" class="bg-white border-b border-slate-200 z-50 transition-colors duration-200">
     <div class="mx-auto lg:container lg:border-x lg:border-slate-200">
         <div class="flex items-center h-12">
             <!-- Mobile menu toggle -->

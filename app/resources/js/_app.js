@@ -14,6 +14,7 @@ import { initMobileMenu } from './modules/MobileMenu.js';
 import { initMegaMenu } from './modules/MegaMenu.js';
 import { initScrollReveal } from './modules/ScrollReveal.js';
 import { initTableOfContents } from './modules/TableOfContents.js';
+import { init as initScrollHeader } from './modules/ScrollHeader.js';
 
 /** @type {Function|null} Cleanup function for mobile menu */
 let mobileMenuCleanup = null;
@@ -23,6 +24,9 @@ let megaMenuCleanup = null;
 
 /** @type {Function|null} Cleanup function for table of contents */
 let tocCleanup = null;
+
+/** @type {Function|null} Cleanup function for scroll header */
+let scrollHeaderCleanup = null;
 
 /**
  * Executes callback when DOM is ready.
@@ -48,6 +52,7 @@ const initApp = () => {
   megaMenuCleanup = initMegaMenu();
   initScrollReveal();
   tocCleanup = initTableOfContents();
+  scrollHeaderCleanup = initScrollHeader();
 };
 
 // Bootstrap
@@ -65,6 +70,9 @@ if (import.meta.hot) {
     }
     if (tocCleanup) {
       tocCleanup();
+    }
+    if (scrollHeaderCleanup) {
+      scrollHeaderCleanup();
     }
     // Reinitialize
     initApp();
