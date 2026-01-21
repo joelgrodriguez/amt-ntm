@@ -11,16 +11,16 @@
 // Determine post type icon and CTA text
 $post_type = get_post_type();
 $post_type_config = [
-    'post'     => ['icon' => 'document', 'cta' => __('Read Article', 'standard-theme')],
-    'video'    => ['icon' => 'play--solid', 'cta' => __('Watch Video', 'standard-theme')],
-    'download' => ['icon' => 'download', 'cta' => __('View Download', 'standard-theme')],
-    'resource' => ['icon' => 'folder', 'cta' => __('View Resource', 'standard-theme')],
-    'product'  => ['icon' => 'purchase', 'cta' => __('View Product', 'standard-theme')],
-    'profile'  => ['icon' => 'user', 'cta' => __('View Profile', 'standard-theme')],
+    'post'     => ['icon' => 'document', 'cta' => __('Read Article', 'standard')],
+    'video'    => ['icon' => 'play--solid', 'cta' => __('Watch Video', 'standard')],
+    'download' => ['icon' => 'download', 'cta' => __('View Download', 'standard')],
+    'resource' => ['icon' => 'folder', 'cta' => __('View Resource', 'standard')],
+    'product'  => ['icon' => 'purchase', 'cta' => __('View Product', 'standard')],
+    'profile'  => ['icon' => 'user', 'cta' => __('View Profile', 'standard')],
 ];
 
 $icon = $post_type_config[$post_type]['icon'] ?? 'link';
-$cta_text = $post_type_config[$post_type]['cta'] ?? __('View', 'standard-theme');
+$cta_text = $post_type_config[$post_type]['cta'] ?? __('View', 'standard');
 
 ?>
 
