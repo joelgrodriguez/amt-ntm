@@ -5,6 +5,6 @@
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="caret--down" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <polygon id="caret" fill="#000000" points="0 0 5 4.99774791 10 0"></polygon>
+        <polygon id="caret" fill="currentColor" points="0 0 5 4.99774791 10 0"></polygon>
     </g>
 </svg>

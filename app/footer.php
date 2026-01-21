@@ -64,13 +64,13 @@ $legal_links = [
 
 <footer class="mt-auto bg-slate-900 text-slate-300">
     <!-- Main Footer Content -->
-    <div class="container mx-auto py-12">
+    <div class="container mx-auto py-8 lg:py-12">
         <!-- Desktop: 5 columns | Mobile: Logo + Accordions -->
-        <div class="grid gap-8 lg:grid-cols-5 lg:gap-12">
+        <div class="grid gap-0 lg:grid-cols-5 lg:gap-12">
 
             <!-- Logo Column (always visible) -->
-            <div class="lg:col-span-1">
-                <a href="<?php echo esc_url(home_url('/')); ?>" class="block mb-4">
+            <div class="lg:col-span-1 pb-4 lg:pb-0">
+                <a href="<?php echo esc_url(home_url('/')); ?>" class="block">
                     <img
                         src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/ntm-logo-white.png'); ?>"
                         alt="<?php echo esc_attr(get_bloginfo('name')); ?>"
@@ -97,7 +97,7 @@ $legal_links = [
                             <?php echo esc_html($section['title']); ?>
                         </h3>
                         <span class="footer-accordion-icon lg:hidden">
-                            <?php icon('caret--down', ['class' => 'w-4 h-4 text-slate-400 transition-transform duration-300 peer-checked:rotate-180']); ?>
+                            <?php icon('caret--down', ['class' => 'w-3 h-3 text-slate-300 transition-transform duration-300']); ?>
                         </span>
                     </label>
 
