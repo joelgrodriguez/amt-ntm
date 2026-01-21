@@ -52,6 +52,18 @@
   }
 }
 
+.gradient-fade-bottom-sm::before {
+  mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
+  height: 400px;
+}
+
+@media (min-width: 1024px) {
+  .gradient-fade-bottom-sm::before {
+    height: 600px;
+  }
+}
+
 /**
  * Square Grid Pattern
  *

@@ -58,6 +58,8 @@ get_header();
                 <div class="prose prose-lg max-w-3xl">
                     <?php the_content(); ?>
                 </div>
+
+                <?php get_template_part('templates/parts/disclaimer'); ?>
             </div>
 
             <!-- Related Posts -->
