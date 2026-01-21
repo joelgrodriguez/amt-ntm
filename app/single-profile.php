@@ -17,20 +17,15 @@ $categories = get_the_terms(get_the_ID(), 'category');
 $machine_tags = get_the_tags();
 ?>
 
-<main id="primary" class="bg-slate-100 min-h-screen">
+<main id="primary" class="bg-slate-50 min-h-screen">
     <?php while (have_posts()) : the_post(); ?>
 
         <!-- Dashboard Header -->
         <header class="bg-white border-b border-slate-200">
             <div class="container mx-auto py-6">
-                <div class="flex items-center gap-4">
-                    <div class="flex items-center gap-3">
-                        <?php icon('folder', ['class' => 'w-8 h-8 text-primary']); ?>
-                        <div>
-                            <p class="text-xs font-mono uppercase tracking-wider text-slate-500"><?php esc_html_e('Profile', 'standard'); ?></p>
-                            <?php the_title('<h1 class="text-2xl font-bold font-mono">', '</h1>'); ?>
-                        </div>
-                    </div>
+                <div>
+                    <p class="text-xs font-mono uppercase tracking-wider text-slate-500"><?php esc_html_e('Profile', 'standard'); ?></p>
+                    <?php the_title('<h1 class="text-2xl font-bold font-mono">', '</h1>'); ?>
                 </div>
             </div>
         </header>
@@ -82,7 +77,7 @@ $machine_tags = get_the_tags();
                         <!-- Filter by Machine -->
                         <div class="bg-white border border-slate-200 p-6">
                             <h3 class="text-sm font-semibold text-slate-900 mb-4 flex items-center gap-2">
-                                <?php icon('cog', ['class' => 'w-4 h-4']); ?>
+                                <?php icon('settings', ['class' => 'w-4 h-4']); ?>
                                 <?php esc_html_e('Filter by Machine', 'standard'); ?>
                             </h3>
                             <ul class="grid gap-2">
@@ -127,53 +122,18 @@ $machine_tags = get_the_tags();
                 <!-- Main Content -->
                 <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-8'); ?>>
 
-                    <!-- Profile PDF Section -->
-                    <section class="bg-white border border-slate-200">
-                        <div class="border-b border-slate-200 px-6 py-4 flex items-center justify-between">
-                            <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
-                                <?php icon('document', ['class' => 'w-4 h-4']); ?>
-                                <?php esc_html_e('Profile Specifications', 'standard'); ?>
-                            </h2>
-                            <?php
-                            // @todo: Add download button when PDF field is connected
-                            // $pdf = get_field('profile_pdf');
-                            ?>
-                            <a href="#" class="btn btn-sm btn-outline">
-                                <?php icon('download', ['class' => 'w-4 h-4']); ?>
-                                <span><?php esc_html_e('Download PDF', 'standard'); ?></span>
-                            </a>
-                        </div>
-                        <div class="p-6">
-                            <!-- PDF Embed -->
-                            <div class="aspect-[8.5/11] bg-slate-50 border border-slate-200 flex items-center justify-center">
-                                <?php
-                                // @todo: Replace with actual PDF embed
-                                // $pdf = get_field('profile_pdf');
-                                // if ($pdf) : echo wp_get_attachment_embed($pdf);
-                                ?>
-                                <div class="text-center">
-                                    <?php icon('document', ['class' => 'w-16 h-16 text-slate-300 mx-auto mb-4']); ?>
-                                    <p class="text-slate-500 font-mono text-sm"><?php esc_html_e('PDF Embed Placeholder', 'standard'); ?></p>
-                                    <p class="text-slate-400 text-xs mt-1"><?php esc_html_e('Connect ACF PDF field to display document', 'standard'); ?></p>
-                                </div>
-                            </div>
+                    <!-- Profile Content (PDF embedded via Gutenberg) -->
+                    <section class="bg-white border border-slate-200 p-6">
+                        <div class="prose prose-lg max-w-full">
+                            <?php the_content(); ?>
                         </div>
                     </section>
-
-                    <!-- Profile Content -->
-                    <?php if (get_the_content()) : ?>
-                        <section class="bg-white border border-slate-200 p-6">
-                            <div class="prose prose-lg max-w-full">
-                                <?php the_content(); ?>
-                            </div>
-                        </section>
-                    <?php endif; ?>
 
                     <!-- Compatible Machines Section -->
                     <section class="bg-white border border-slate-200">
                         <div class="border-b border-slate-200 px-6 py-4">
                             <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
-                                <?php icon('cog', ['class' => 'w-4 h-4']); ?>
+                                <?php icon('settings', ['class' => 'w-4 h-4']); ?>
                                 <?php esc_html_e('Compatible NTM Machines', 'standard'); ?>
                             </h2>
                         </div>
@@ -188,7 +148,7 @@ $machine_tags = get_the_tags();
                                         <a href="<?php echo esc_url(get_tag_link($machine_tag->term_id)); ?>" class="group block border border-slate-200 hover:border-primary transition-colors">
                                             <!-- Machine Image Placeholder -->
                                             <div class="aspect-video bg-slate-100 flex items-center justify-center">
-                                                <?php icon('cog', ['class' => 'w-12 h-12 text-slate-300 group-hover:text-primary transition-colors']); ?>
+                                                <?php icon('settings', ['class' => 'w-12 h-12 text-slate-300 group-hover:text-primary transition-colors']); ?>
                                             </div>
                                             <div class="p-4 border-t border-slate-200">
                                                 <p class="font-semibold text-slate-900 group-hover:text-primary transition-colors">
@@ -208,15 +168,13 @@ $machine_tags = get_the_tags();
                                 </div>
                             <?php else : ?>
                                 <div class="text-center py-8">
-                                    <?php icon('cog', ['class' => 'w-12 h-12 text-slate-300 mx-auto mb-4']); ?>
+                                    <?php icon('settings', ['class' => 'w-12 h-12 text-slate-300 mx-auto mb-4']); ?>
                                     <p class="text-slate-500"><?php esc_html_e('No machines tagged for this profile.', 'standard'); ?></p>
                                     <p class="text-slate-400 text-xs mt-1"><?php esc_html_e('Add machine tags to display compatible equipment.', 'standard'); ?></p>
                                 </div>
                             <?php endif; ?>
                         </div>
                     </section>
-
-                    <?php get_template_part('templates/parts/disclaimer'); ?>
 
                 </article>
 
