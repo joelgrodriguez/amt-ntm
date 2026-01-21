@@ -20,7 +20,7 @@ get_header();
                     <?php if (has_category()) : ?>
                         <div class="flex flex-wrap gap-3">
                             <?php
-                            $categories = get_the_category();
+                            $categories = array_slice(get_the_category(), 0, 3);
                             foreach ($categories as $category) :
                             ?>
                                 <a href="<?php echo esc_url(get_category_link($category->term_id)); ?>" class="badge">
