@@ -180,6 +180,16 @@ $legal_links = [
     </div>
 </footer>
 
+<!-- Scroll to Top Button -->
+<button
+    id="scroll-to-top"
+    type="button"
+    class="fixed bottom-6 right-6 z-50 w-10 h-10 bg-secondary text-white flex items-center justify-center hover:bg-slate-600 transition-all duration-300 opacity-0 pointer-events-none"
+    aria-label="<?php esc_attr_e('Scroll to top', 'standard'); ?>"
+>
+    <?php icon('back-to-top', ['class' => 'w-4 h-4']); ?>
+</button>
+
 <?php wp_footer(); ?>
 </body>
 </html>
