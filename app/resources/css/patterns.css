@@ -10,34 +10,46 @@
 /**
  * Dot Grid Pattern
  *
- * Subtle dot grid that fades from top to transparent.
- * Use on containers that need a futuristic accent.
+ * Subtle dot grid background. Can be combined with
+ * gradient-fade-bottom for a fade effect.
  *
  * Usage: <div class="pattern-dot-grid">...</div>
+ * With fade: <div class="pattern-dot-grid gradient-fade-bottom">...</div>
  */
 .pattern-dot-grid {
   @apply relative;
 }
 
 .pattern-dot-grid::before {
-  @apply absolute inset-x-0 top-0 pointer-events-none;
+  @apply absolute inset-0 pointer-events-none;
   content: '';
-  height: 800px;
   z-index: 0;
   background-image: radial-gradient(circle, theme(colors.slate.200) 1px, transparent 1px);
   background-size: 16px 16px;
-  mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
-}
-
-@media (min-width: 1024px) {
-  .pattern-dot-grid::before {
-    height: 1200px;
-  }
 }
 
 .pattern-dot-grid > * {
   @apply relative z-[1];
+}
+
+/**
+ * Gradient Fade Bottom
+ *
+ * Fades content from visible at top to transparent at bottom.
+ * Use with pattern classes or standalone for overlay effects.
+ *
+ * Usage: <div class="pattern-dot-grid gradient-fade-bottom">...</div>
+ */
+.gradient-fade-bottom::before {
+  mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
+  height: 800px;
+}
+
+@media (min-width: 1024px) {
+  .gradient-fade-bottom::before {
+    height: 1200px;
+  }
 }
 
 /**
