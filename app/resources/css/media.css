@@ -7,63 +7,61 @@
  * @file media.css
  */
 
-@layer components {
-  /**
-   * Responsive Video Container
-   *
-   * Wrapper for video embeds that maintains 16:9 aspect ratio.
-   * Use when you need explicit control over video responsiveness.
-   *
-   * Usage: <div class="video-responsive"><iframe>...</iframe></div>
-   */
-  .video-responsive {
-    @apply relative w-full aspect-video;
-  }
+/**
+ * Responsive Video Container
+ *
+ * Wrapper for video embeds that maintains 16:9 aspect ratio.
+ * Use when you need explicit control over video responsiveness.
+ *
+ * Usage: <div class="video-responsive"><iframe>...</iframe></div>
+ */
+.video-responsive {
+  @apply relative w-full aspect-video;
+}
 
-  .video-responsive iframe,
-  .video-responsive video,
-  .video-responsive embed,
-  .video-responsive object {
-    @apply absolute inset-0 w-full h-full;
-  }
+.video-responsive iframe,
+.video-responsive video,
+.video-responsive embed,
+.video-responsive object {
+  @apply absolute inset-0 w-full h-full;
+}
 
-  /**
-   * WordPress Embed Blocks
-   *
-   * Automatic responsive handling for WordPress video embeds
-   * including YouTube, Vimeo, Wistia, and other oEmbed providers.
-   */
-  .wp-block-embed {
-    @apply w-full;
-  }
+/**
+ * WordPress Embed Blocks
+ *
+ * Automatic responsive handling for WordPress video embeds
+ * including YouTube, Vimeo, Wistia, and other oEmbed providers.
+ */
+.wp-block-embed {
+  @apply w-full;
+}
 
-  .wp-block-embed__wrapper {
-    @apply relative w-full aspect-video;
-  }
+.wp-block-embed__wrapper {
+  @apply relative w-full aspect-video;
+}
 
-  .wp-block-embed__wrapper iframe,
-  .wp-block-embed__wrapper video {
-    @apply absolute inset-0 w-full h-full;
-  }
+.wp-block-embed__wrapper iframe,
+.wp-block-embed__wrapper video {
+  @apply absolute inset-0 w-full h-full;
+}
 
-  /**
-   * Prose Content Videos
-   *
-   * Ensures all video embeds within post content are responsive.
-   * Wraps standalone iframes in a pseudo-container using display: block
-   * and padding-based aspect ratio technique for maximum compatibility.
-   */
-  .prose iframe[src*="youtube"],
-  .prose iframe[src*="vimeo"],
-  .prose iframe[src*="wistia"],
-  .prose iframe.wp-embedded-content {
-    @apply block w-full;
-    aspect-ratio: 16 / 9;
-    height: auto !important;
-    min-height: 300px;
-  }
+/**
+ * Prose Content Videos
+ *
+ * Ensures all video embeds within post content are responsive.
+ * Wraps standalone iframes in a pseudo-container using display: block
+ * and padding-based aspect ratio technique for maximum compatibility.
+ */
+.prose iframe[src*="youtube"],
+.prose iframe[src*="vimeo"],
+.prose iframe[src*="wistia"],
+.prose iframe.wp-embedded-content {
+  @apply block w-full;
+  aspect-ratio: 16 / 9;
+  height: auto !important;
+  min-height: 300px;
+}
 
-  .prose .wp-block-embed {
-    @apply my-8;
-  }
+.prose .wp-block-embed {
+  @apply my-8;
 }

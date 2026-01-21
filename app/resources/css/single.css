@@ -7,38 +7,31 @@
  * @file single.css
  */
 
-@layer components {
-  /* Post content images - full width */
-  .prose img,
-  .prose picture img {
-    @apply w-full h-auto;
-  }
+/* Post content images - full width */
+.prose img,
+.prose picture img {
+  @apply w-full h-auto;
+}
 
-  /* Override Gutenberg block constraints */
-  .prose figure,
-  .prose .wp-block-image {
-    @apply w-full;
-  }
+/* Override Gutenberg block constraints */
+.prose figure,
+.prose .wp-block-image {
+  @apply w-full;
+}
 
-  .prose .wp-block-image.is-resized,
-  .prose .wp-block-image.is-resized img,
-  .prose .wp-block-image.is-resized picture {
-    width: 100% !important;
-    height: auto !important;
-  }
+.prose .wp-block-image.is-resized,
+.prose .wp-block-image.is-resized img,
+.prose .wp-block-image.is-resized picture {
+  width: 100% !important;
+  height: auto !important;
+}
 
-  /* Featured image - 16:9 aspect ratio */
-  .featured-image {
-    @apply w-full aspect-video overflow-hidden;
-  }
+/* Featured image - 16:9 aspect ratio */
+.featured-image {
+  @apply w-full aspect-video overflow-hidden;
+}
 
-  .featured-image img,
-  .featured-image picture img {
-    @apply w-full h-full object-cover;
-  }
-
-  /* Single post uses dot grid pattern from patterns.css */
-  .single-post {
-    @apply pattern-dot-grid;
-  }
+.featured-image img,
+.featured-image picture img {
+  @apply w-full h-full object-cover;
 }

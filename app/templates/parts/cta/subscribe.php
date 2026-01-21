@@ -6,20 +6,14 @@
  * for videos, articles, downloads, and resources.
  *
  * @package Standard
- *
- * @todo Refactor inline grid pattern styles to use CSS classes from patterns.css.
- *       The BEM-style classes (pattern-square-grid__overlay--top-left) were not
- *       being picked up by Tailwind/Vite. Investigate why and move styles to CSS.
  */
 
 ?>
 
-<section class="border-t border-slate-200 bg-slate-100 relative overflow-hidden">
-    <!-- Square Grid Pattern - Top Left -->
-    <div class="absolute inset-0 pointer-events-none" style="background-image: linear-gradient(to right, #cbd5e1 1px, transparent 1px), linear-gradient(to bottom, #cbd5e1 1px, transparent 1px); background-size: 32px 32px; mask-image: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, transparent 50%); -webkit-mask-image: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, transparent 50%);"></div>
-    <!-- Square Grid Pattern - Bottom Right -->
-    <div class="absolute inset-0 pointer-events-none" style="background-image: linear-gradient(to right, #cbd5e1 1px, transparent 1px), linear-gradient(to bottom, #cbd5e1 1px, transparent 1px); background-size: 32px 32px; mask-image: linear-gradient(315deg, rgba(0,0,0,0.4) 0%, transparent 50%); -webkit-mask-image: linear-gradient(315deg, rgba(0,0,0,0.4) 0%, transparent 50%);"></div>
-    <div class="container mx-auto py-12 relative z-10">
+<section class="pattern-square-grid border-t border-slate-200 bg-slate-100">
+    <div class="pattern-square-grid__overlay pattern-square-grid__overlay--top-left"></div>
+    <div class="pattern-square-grid__overlay pattern-square-grid__overlay--bottom-right"></div>
+    <div class="container mx-auto py-12">
         <div class="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
             <!-- Content -->
             <div class="grid gap-6">
