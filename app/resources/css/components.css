@@ -62,4 +62,23 @@
   .badge {
     @apply inline-block px-3 py-1 text-sm font-medium capitalize border text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors;
   }
+
+  /* Footer Accordion (CSS-only) */
+  .footer-section {
+    @apply relative;
+  }
+
+  .footer-accordion-toggle:checked ~ label .footer-accordion-icon svg {
+    transform: rotate(180deg);
+  }
+
+  .footer-accordion-toggle:checked ~ .footer-accordion-content {
+    max-height: 24rem;
+  }
+
+  @media (min-width: 1024px) {
+    .footer-accordion-content {
+      max-height: none !important;
+    }
+  }
 }
