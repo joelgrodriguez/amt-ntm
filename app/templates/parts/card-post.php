@@ -45,7 +45,7 @@ $cta_text = $post_type_config[$post_type]['cta'] ?? __('View', 'standard-theme')
         <?php the_title('<h3 class="text-base font-semibold line-clamp-2 text-slate-900 hover:text-primary">', '</h3>'); ?>
     </a>
 
-    <a href="<?php the_permalink(); ?>" class="flex items-center justify-between text-xs text-slate-500 font-mono p-4 border-t border-slate-200 no-underline hover:bg-slate-50">
+    <a href="<?php the_permalink(); ?>" class="flex items-center justify-between text-xs text-slate-500 font-mono py-3 px-4 border-t border-slate-200 no-underline hover:bg-slate-50">
         <span class="flex items-center gap-1.5">
             <?php icon($icon, ['class' => 'w-4 h-4']); ?>
             <span><?php echo esc_html($cta_text); ?></span>
