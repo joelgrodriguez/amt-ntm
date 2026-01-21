@@ -23,7 +23,7 @@ get_header();
                         <?php the_title('<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold font-mono">', '</h1>'); ?>
 
                         <?php if (get_the_excerpt()) : ?>
-                            <p class="text-lg text-slate-600"><?php echo esc_html(get_the_excerpt()); ?></p>
+                            <p class="text-slate-600"><?php echo esc_html(get_the_excerpt()); ?></p>
                         <?php endif; ?>
                     </div>
 
