@@ -5,6 +5,10 @@
  * content images, typography overrides, and decorative elements.
  *
  * @file single.css
+ *
+ * @usage Single Post (single.php)
+ * @see toc.css - Table of contents sidebar styles
+ * @see js/modules/TableOfContents.js - TOC generation and scrollspy
  */
 
 /* Post content images - full width */

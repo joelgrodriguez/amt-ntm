@@ -5,6 +5,10 @@
  * IBM-inspired design with left border indicator for active state.
  *
  * @file toc.css
+ *
+ * @usage Single Post (single.php)
+ * @see single.css - Single post page styles
+ * @see js/modules/TableOfContents.js - TOC generation and scrollspy
  */
 
 /* Container */

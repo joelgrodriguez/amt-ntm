@@ -4,7 +4,11 @@
  * Generates a sticky table of contents from post headings with scrollspy
  * highlighting. Uses IntersectionObserver for efficient scroll tracking.
  *
- * @file TableOfContents.js
+ * @module TableOfContents
+ *
+ * @usage Single Post (single.php)
+ * @styles css/toc.css
+ * @see css/single.css - Single post page styles
  */
 
 /** @type {number} Header height plus padding for scroll offset */
