@@ -1,8 +1,8 @@
 /**
  * Explore Machines Section Styles
  *
- * Minimal styles for tab/panel state management and scrollbar hiding.
- * Most styling is inline Tailwind in the template.
+ * Styles for tab/panel state, scrollbar hiding, and navigation arrows.
+ * Section layout uses inline Tailwind in the template.
  *
  * @file explore-machines.css
  *
@@ -12,9 +12,9 @@
  * @see js/modules/ExploreMachines.js - Tab switching and scroll navigation
  */
 
-/* Track - horizontal scroll with padding for card borders */
+/* Track - horizontal scroll with hidden scrollbar */
 .explore-machines__track {
-  @apply py-2 pr-4;
+  @apply py-2;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -33,7 +33,27 @@
   @apply block;
 }
 
-/* Tab active state - toggled by JS */
+/* Tab styles */
+.explore-machines__tab {
+  @apply px-4 py-2 text-sm font-medium text-slate-600;
+  @apply bg-transparent border-b border-transparent -mb-px;
+  @apply cursor-pointer whitespace-nowrap;
+  @apply transition-colors duration-200;
+  @apply hover:text-slate-900;
+  @apply focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2;
+  @apply lg:text-base lg:px-6;
+}
+
 .explore-machines__tab--active {
   @apply text-secondary border-b-secondary;
+}
+
+/* Arrow navigation buttons */
+.explore-machines__arrow {
+  @apply flex items-center justify-center w-8 h-8;
+  @apply bg-slate-200 text-slate-600 border-none cursor-pointer;
+  @apply transition-colors duration-200;
+  @apply hover:bg-slate-900 hover:text-white;
+  @apply disabled:opacity-40 disabled:cursor-not-allowed;
+  @apply focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2;
 }
