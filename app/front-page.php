@@ -38,6 +38,8 @@ get_header();
 
     <?php get_template_part('templates/parts/front-page/learning-center'); ?>
 
+    <?php get_template_part('templates/parts/front-page/final-cta'); ?>
+
 </main>
 
 <?php
