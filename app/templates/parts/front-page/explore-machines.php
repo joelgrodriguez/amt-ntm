@@ -22,7 +22,7 @@ if (empty($categories)) {
 $first_category = array_key_first($categories);
 ?>
 
-<section class="explore-machines" aria-labelledby="explore-machines-title">
+<section class="explore-machines pattern-dot-grid gradient-fade-bottom-sm" aria-labelledby="explore-machines-title">
     <div class="container">
         <h2 id="explore-machines-title" class="explore-machines__title">
             <?php esc_html_e('Explore All Machines', 'standard'); ?>
