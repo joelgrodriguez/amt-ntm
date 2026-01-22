@@ -44,9 +44,7 @@ $first_category = array_key_first($categories);
                 ><?php echo esc_html($label); ?></button>
             <?php endforeach; ?>
         </div>
-    </div>
 
-    <div class="container overflow-visible">
         <?php foreach ($categories as $slug => $label) : ?>
             <?php $products = get_products_by_category($slug); ?>
             <div
@@ -85,9 +83,7 @@ $first_category = array_key_first($categories);
                 </div>
             </div>
         <?php endforeach; ?>
-    </div>
 
-    <div class="container">
         <div class="flex justify-center gap-4 flex-wrap mt-8 lg:mt-10">
             <a href="/machines/" class="btn btn-outline-dark">
                 <?php esc_html_e('Explore All Machines', 'standard'); ?>
