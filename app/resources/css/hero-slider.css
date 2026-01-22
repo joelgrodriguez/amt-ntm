@@ -200,7 +200,7 @@
 }
 
 .hero-slider--playing .hero-slider__progress-bar {
-  animation: progress 6s linear infinite;
+  animation: progress 8s linear infinite;
 }
 
 @keyframes progress {

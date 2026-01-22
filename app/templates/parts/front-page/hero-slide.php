@@ -71,10 +71,10 @@ $is_first         = $index === 0;
         <?php endif; ?>
 
         <div class="hero-slider__cta">
-            <a href="<?php echo esc_url($finance_url); ?>" class="btn btn-primary text-sm">
+            <a href="<?php echo esc_url($finance_url); ?>" class="btn btn-sm btn-light">
                 <?php esc_html_e('Build & Finance', 'standard'); ?>
             </a>
-            <a href="<?php echo esc_url($learn_more_url); ?>" class="btn btn-secondary text-sm">
+            <a href="<?php echo esc_url($learn_more_url); ?>" class="btn btn-sm btn-outline-light">
                 <?php esc_html_e('Learn More', 'standard'); ?>
             </a>
         </div>
