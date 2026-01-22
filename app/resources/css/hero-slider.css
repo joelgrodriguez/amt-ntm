@@ -59,9 +59,9 @@
   z-index: 2;
   background: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.85) 0%,
-    rgba(0, 0, 0, 0.6) 30%,
-    rgba(0, 0, 0, 0.3) 60%,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.8) 25%,
+    rgba(0, 0, 0, 0.4) 55%,
     rgba(0, 0, 0, 0.1) 100%
   );
 }
@@ -95,8 +95,66 @@
   font-size: 1.75rem;
   font-weight: 700;
   line-height: 1.1;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   max-width: 90%;
+}
+
+/* Marketing slogan */
+.hero-slider__slogan {
+  font-size: 1rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 0.75rem;
+  max-width: 80%;
+}
+
+/* Finance info */
+.hero-slider__finance {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero-slider__finance-prefix {
+  font-size: 0.6875rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hero-slider__finance-details {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.hero-slider__finance-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-slider__finance-value {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.hero-slider__finance-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.hero-slider__finance-divider {
+  width: 1px;
+  height: 3rem;
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 /* CTA buttons container */
@@ -104,7 +162,7 @@
   display: flex;
   gap: 0.75rem;
   padding: 0 1rem;
-  margin-top: 1.25rem;
+  margin-top: 1rem;
 }
 
 /* Navigation arrows */
@@ -227,6 +285,26 @@
     font-size: 2.5rem;
   }
 
+  .hero-slider__slogan {
+    font-size: 1.125rem;
+  }
+
+  .hero-slider__finance-prefix {
+    font-size: 0.75rem;
+  }
+
+  .hero-slider__finance-value {
+    font-size: 2.5rem;
+  }
+
+  .hero-slider__finance-label {
+    font-size: 1rem;
+  }
+
+  .hero-slider__finance-divider {
+    height: 3.5rem;
+  }
+
   .hero-slider__nav {
     width: 2.75rem;
     height: 2.75rem;
@@ -244,6 +322,26 @@
 @media (min-width: 1024px) {
   .hero-slider__title {
     font-size: 3rem;
+  }
+
+  .hero-slider__slogan {
+    font-size: 1.25rem;
+  }
+
+  .hero-slider__finance-prefix {
+    font-size: 0.8125rem;
+  }
+
+  .hero-slider__finance-value {
+    font-size: 3rem;
+  }
+
+  .hero-slider__finance-label {
+    font-size: 1.125rem;
+  }
+
+  .hero-slider__finance-divider {
+    height: 4rem;
   }
 }
 
