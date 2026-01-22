@@ -10,6 +10,11 @@
  * @package Standard
  */
 
+declare(strict_types=1);
+
+$content = [
+    'read_more' => __('Read More', 'standard'),
+];
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class('bg-white border border-slate-200 overflow-hidden'); ?>>
@@ -40,7 +45,7 @@
         </div>
 
         <a href="<?php the_permalink(); ?>" class="btn btn-primary text-sm">
-            Read More &rarr;
+            <?php echo esc_html($content['read_more']); ?> &rarr;
         </a>
     </div>
 </article>

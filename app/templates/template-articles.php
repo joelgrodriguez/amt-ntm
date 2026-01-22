@@ -8,6 +8,16 @@
  * @package Standard
  */
 
+declare(strict_types=1);
+
+$content = [
+    'eyebrow'          => __('Learning Center', 'standard'),
+    'title'            => __('Articles', 'standard'),
+    'filter_title'     => __('Filter by Category', 'standard'),
+    'back_link'        => __('Learning Center', 'standard'),
+    'back_url'         => home_url('/learning-center/'),
+];
+
 get_header();
 
 // Get current page for pagination
@@ -36,8 +46,8 @@ $categories = get_categories([
     <!-- Header -->
     <header class="container mx-auto mb-6 lg:mb-12">
         <div class="grid gap-4 justify-items-start">
-            <span class="text-xs font-mono uppercase tracking-widest text-secondary"><?php esc_html_e('Learning Center', 'standard'); ?></span>
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold font-mono"><?php esc_html_e('Articles', 'standard'); ?></h1>
+            <span class="text-xs font-mono uppercase tracking-widest text-secondary"><?php echo esc_html($content['eyebrow']); ?></span>
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold font-mono"><?php echo esc_html($content['title']); ?></h1>
         </div>
     </header>
 
@@ -52,7 +62,7 @@ $categories = get_categories([
                 <div>
                     <h3 class="text-sm font-semibold text-slate-900 mb-4 flex items-center gap-2">
                         <?php icon('filter', ['class' => 'w-4 h-4']); ?>
-                        <?php esc_html_e('Filter by Category', 'standard'); ?>
+                        <?php echo esc_html($content['filter_title']); ?>
                     </h3>
                     <ul class="grid gap-1 border-l border-slate-200">
                         <?php if (!empty($categories)) : ?>
@@ -69,9 +79,9 @@ $categories = get_categories([
                 </div>
 
                 <!-- Back to Learning Center -->
-                <a href="<?php echo esc_url(home_url('/learning-center/')); ?>" class="flex items-center gap-2 text-sm font-medium text-primary hover:underline">
+                <a href="<?php echo esc_url($content['back_url']); ?>" class="flex items-center gap-2 text-sm font-medium text-primary hover:underline">
                     <?php icon('arrow--left', ['class' => 'w-4 h-4']); ?>
-                    <?php esc_html_e('Learning Center', 'standard'); ?>
+                    <?php echo esc_html($content['back_link']); ?>
                 </a>
 
             </nav>

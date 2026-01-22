@@ -12,6 +12,10 @@
 
 declare(strict_types=1);
 
+$content = [
+    'title' => __('Tools to Help You Decide', 'standard'),
+];
+
 $tools = [
     [
         'icon'  => 'settings',
@@ -39,7 +43,7 @@ $tools = [
 <section class="py-12 bg-white md:py-16" aria-labelledby="tools-title">
     <div class="container">
         <h2 id="tools-title" class="text-2xl font-bold text-slate-900 mb-6 md:text-3xl">
-            <?php esc_html_e('Tools to Help You Decide', 'standard'); ?>
+            <?php echo esc_html($content['title']); ?>
         </h2>
 
         <div class="grid grid-cols-2 border border-slate-200 md:grid-cols-4">

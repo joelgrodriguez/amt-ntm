@@ -17,6 +17,18 @@ declare(strict_types=1);
 use function Standard\Products\get_product_categories;
 use function Standard\Products\get_products_by_category;
 
+$content = [
+    'title'           => __('Explore All Machines', 'standard'),
+    'tabs_label'      => __('Machine categories', 'standard'),
+    'prev_label'      => __('Previous products', 'standard'),
+    'next_label'      => __('Next products', 'standard'),
+    'of'              => __('of', 'standard'),
+    'cta_explore'     => __('Explore All Machines', 'standard'),
+    'cta_explore_url' => '/machines/',
+    'cta_build'       => __('Build & Finance', 'standard'),
+    'cta_build_url'   => '/build-finance/',
+];
+
 $categories = get_product_categories();
 
 if (empty($categories)) {
@@ -29,10 +41,10 @@ $first_category = array_key_first($categories);
 <section class="explore-machines py-16 bg-slate-50 pattern-dot-grid gradient-fade-bottom-sm md:py-20" aria-labelledby="explore-machines-title">
     <div class="container">
         <h2 id="explore-machines-title" class="text-3xl font-bold text-center text-slate-900 m-0 mb-8 md:text-4xl lg:text-5xl lg:mb-10">
-            <?php esc_html_e('Explore All Machines', 'standard'); ?>
+            <?php echo esc_html($content['title']); ?>
         </h2>
 
-        <div class="explore-machines__tabs flex justify-center flex-wrap border-b border-slate-300 mb-8 lg:mb-10" role="tablist" aria-label="<?php esc_attr_e('Machine categories', 'standard'); ?>">
+        <div class="explore-machines__tabs flex justify-center flex-wrap border-b border-slate-300 mb-8 lg:mb-10" role="tablist" aria-label="<?php echo esc_attr($content['tabs_label']); ?>">
             <?php foreach ($categories as $slug => $label) : ?>
                 <button
                     type="button"

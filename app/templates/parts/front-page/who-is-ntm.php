@@ -13,6 +13,15 @@
  */
 
 declare(strict_types=1);
+
+$content = [
+    'title'         => __('Who Is NTM?', 'standard'),
+    'channel'       => __('Portable Rollforming Channel', 'standard'),
+    'video_title'   => __('Who Is NTM? Video', 'standard'),
+    'video_type'    => __('Company Overview', 'standard'),
+    'company_name'  => __('New Tech Machinery', 'standard'),
+    'video_url'     => 'https://fast.wistia.net/embed/iframe/kdv2kphni1?seo=false&videoFoam=true',
+];
 ?>
 
 <section class="who-is-ntm bg-slate-950 text-slate-500" aria-labelledby="who-is-ntm-title">
@@ -22,10 +31,10 @@ declare(strict_types=1);
             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
                 <div class="flex items-center gap-3 pl-3">
                     <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-                    <span id="who-is-ntm-title"><?php esc_html_e('Who Is NTM?', 'standard'); ?></span>
+                    <span id="who-is-ntm-title"><?php echo esc_html($content['title']); ?></span>
                 </div>
                 <div class="flex items-center gap-3 pr-3">
-                    <span><?php esc_html_e('Portable Rollforming Channel', 'standard'); ?></span>
+                    <span><?php echo esc_html($content['channel']); ?></span>
                 </div>
             </div>
         </div>
@@ -36,8 +45,8 @@ declare(strict_types=1);
         <div class="max-w-5xl mx-auto">
             <div class="video-responsive">
                 <iframe
-                    src="https://fast.wistia.net/embed/iframe/kdv2kphni1?seo=false&videoFoam=true"
-                    title="<?php esc_attr_e('Who Is NTM? Video', 'standard'); ?>"
+                    src="<?php echo esc_url($content['video_url']); ?>"
+                    title="<?php echo esc_attr($content['video_title']); ?>"
                     allow="autoplay; fullscreen"
                     allowtransparency="true"
                     frameborder="0"
@@ -58,10 +67,10 @@ declare(strict_types=1);
             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
                 <div class="flex items-center gap-2 pl-3">
                     <?php icon('play--solid', ['class' => 'w-3 h-3 fill-current']); ?>
-                    <span><?php esc_html_e('Company Overview', 'standard'); ?></span>
+                    <span><?php echo esc_html($content['video_type']); ?></span>
                 </div>
                 <div class="flex items-center gap-4 pr-3">
-                    <span><?php esc_html_e('New Tech Machinery', 'standard'); ?></span>
+                    <span><?php echo esc_html($content['company_name']); ?></span>
                     <div class="flex gap-1">
                         <span class="w-1 h-3 bg-slate-700"></span>
                         <span class="w-1 h-3 bg-slate-700"></span>

@@ -13,12 +13,12 @@
 ?>
 
 <section class="no-results text-center py-16">
-    <h1 class="text-2xl font-semibold mb-4"><?php esc_html_e('Nothing Found', 'standard-press'); ?></h1>
+    <h1 class="text-2xl font-semibold mb-4"><?php esc_html_e('Nothing Found', 'standard'); ?></h1>
 
     <?php if (is_search()) : ?>
-        <p class="text-slate-600 mb-6"><?php esc_html_e('Sorry, but nothing matched your search terms. Please try again with different keywords.', 'standard-press'); ?></p>
+        <p class="text-slate-600 mb-6"><?php esc_html_e('Sorry, but nothing matched your search terms. Please try again with different keywords.', 'standard'); ?></p>
         <?php get_search_form(); ?>
     <?php else : ?>
-        <p class="text-slate-600"><?php esc_html_e('It seems we can\'t find what you\'re looking for.', 'standard-press'); ?></p>
+        <p class="text-slate-600"><?php esc_html_e('It seems we can\'t find what you\'re looking for.', 'standard'); ?></p>
     <?php endif; ?>
 </section>

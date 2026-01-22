@@ -10,6 +10,14 @@
 
 declare(strict_types=1);
 
+$content = [
+    'as_low_as'     => __('As low as', 'standard'),
+    'apr_label'     => __('APR', 'standard'),
+    'months_label'  => __('mos', 'standard'),
+    'cta_finance'   => __('Build & Finance', 'standard'),
+    'cta_learn'     => __('Learn More', 'standard'),
+];
+
 // Get machine data from args
 $machine = $args['machine'] ?? [];
 $index   = $args['index'] ?? 0;
@@ -81,16 +89,16 @@ $is_first         = $index === 0;
 
         <?php if ($finance_apr && $finance_months) : ?>
             <div class="hero-slider__finance">
-                <span class="hero-slider__finance-prefix"><?php esc_html_e('As low as', 'standard'); ?></span>
+                <span class="hero-slider__finance-prefix"><?php echo esc_html($content['as_low_as']); ?></span>
                 <div class="hero-slider__finance-details">
                     <div class="hero-slider__finance-item">
                         <span class="hero-slider__finance-value"><?php echo esc_html($finance_apr); ?></span>
-                        <span class="hero-slider__finance-label"><?php esc_html_e('APR', 'standard'); ?></span>
+                        <span class="hero-slider__finance-label"><?php echo esc_html($content['apr_label']); ?></span>
                     </div>
                     <span class="hero-slider__finance-divider"></span>
                     <div class="hero-slider__finance-item">
                         <span class="hero-slider__finance-value"><?php echo esc_html($finance_months); ?></span>
-                        <span class="hero-slider__finance-label"><?php esc_html_e('mos', 'standard'); ?></span>
+                        <span class="hero-slider__finance-label"><?php echo esc_html($content['months_label']); ?></span>
                     </div>
                 </div>
             </div>
@@ -98,10 +106,10 @@ $is_first         = $index === 0;
 
         <div class="hero-slider__cta">
             <a href="<?php echo esc_url($finance_url); ?>" class="btn btn-sm btn-light">
-                <?php esc_html_e('Build & Finance', 'standard'); ?>
+                <?php echo esc_html($content['cta_finance']); ?>
             </a>
             <a href="<?php echo esc_url($learn_more_url); ?>" class="btn btn-sm btn-outline-light">
-                <?php esc_html_e('Learn More', 'standard'); ?>
+                <?php echo esc_html($content['cta_learn']); ?>
             </a>
         </div>
     </div>
