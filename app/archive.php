@@ -36,7 +36,7 @@ $categories = get_categories([
     <!-- Header -->
     <header class="container mx-auto mb-6 lg:mb-12">
         <div class="grid gap-4 justify-items-start">
-            <span class="badge inline"><?php esc_html_e('Learning Center', 'standard'); ?></span>
+            <span class="text-xs font-mono uppercase tracking-widest text-secondary"><?php esc_html_e('Learning Center', 'standard'); ?></span>
             <?php the_archive_title('<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold font-mono">', '</h1>'); ?>
             <?php the_archive_description('<p class="text-slate-600 max-w-2xl">', '</p>'); ?>
         </div>
