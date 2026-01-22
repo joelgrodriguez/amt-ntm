@@ -170,9 +170,9 @@ $content_sections = [
                             $recent_icon = $type_icons[$recent_post_type] ?? 'document';
                         ?>
                             <article class="group bg-white border border-slate-200 hover:border-slate-300 transition-colors shrink-0">
-                                <a href="<?php the_permalink(); ?>" class="flex items-center gap-4 p-3 no-underline">
+                                <a href="<?php the_permalink(); ?>" class="flex items-center gap-4 p-4 no-underline">
                                     <?php if (has_post_thumbnail()) : ?>
-                                        <div class="shrink-0 w-16 h-16 overflow-hidden">
+                                        <div class="shrink-0 w-24 h-24 overflow-hidden">
                                             <?php the_post_thumbnail('thumbnail', [
                                                 'class' => 'w-full h-full object-cover',
                                             ]); ?>
@@ -191,7 +191,7 @@ $content_sections = [
                                             echo esc_html($type_labels[$recent_post_type] ?? '');
                                             ?>
                                         </span>
-                                        <h3 class="font-semibold text-slate-900 group-hover:text-primary transition-colors line-clamp-2 text-sm">
+                                        <h3 class="font-semibold text-slate-900 group-hover:text-primary transition-colors line-clamp-2 text-base">
                                             <?php the_title(); ?>
                                         </h3>
                                     </div>
