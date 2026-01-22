@@ -5,6 +5,10 @@
  * and keyboard navigation.
  *
  * @module HeroSlider
+ *
+ * @usage Front Page (front-page.php)
+ * @template templates/parts/front-page/hero-slider.php
+ * @styles css/hero-slider.css
  */
 
 const DEFAULTS = {

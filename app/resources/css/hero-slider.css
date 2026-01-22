@@ -5,6 +5,12 @@
  * Uses CSS transforms for performant slide transitions.
  *
  * @file hero-slider.css
+ *
+ * @usage Front Page (front-page.php)
+ * @template templates/parts/front-page/hero-slider.php
+ * @see templates/parts/front-page/hero-slide.php - Individual slide component
+ * @see js/modules/HeroSlider.js - Slider navigation and auto-play
+ * @see inc/machines.php - Machine data configuration
  */
 
 /* Slider container */

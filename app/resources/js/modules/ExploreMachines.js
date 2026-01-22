@@ -5,6 +5,10 @@
  * for the Explore Machines section.
  *
  * @module ExploreMachines
+ *
+ * @usage Front Page (front-page.php)
+ * @template templates/parts/front-page/explore-machines.php
+ * @styles css/explore-machines.css
  */
 
 const DEFAULTS = {

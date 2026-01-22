@@ -5,6 +5,11 @@
  * Uses @apply for Tailwind utilities where extraction is needed.
  *
  * @file explore-machines.css
+ *
+ * @usage Front Page (front-page.php)
+ * @template templates/parts/front-page/explore-machines.php
+ * @see templates/parts/card-product.php - Product card component
+ * @see js/modules/ExploreMachines.js - Tab switching and scroll navigation
  */
 
 /* Track - horizontal scroll (needs custom scrollbar hiding) */
