@@ -1,0 +1,118 @@
+<?php
+/**
+ * Contact Section Template Part
+ *
+ * Two-column layout with contact info/map on left and HubSpot form on right.
+ * Light background with dot grid pattern.
+ *
+ * @package Standard
+ *
+ * @usage Front Page (front-page.php)
+ */
+
+declare(strict_types=1);
+
+$contact = [
+    'address' => '16265 E. 33rd Dr. Suite 40, Aurora, Colorado 80011',
+    'email'   => 'support@newtechmachinery.com',
+    'phone'   => '303.294.0538',
+    'map_url' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3066.8553948429734!2d-104.82490548462348!3d39.76307597944626!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x876c62956ef5f97b%3A0x8b6b5a3928336406!2s16265%20E%2033rd%20Dr%20%2340%2C%20Aurora%2C%20CO%2080011%2C%20USA!5e0!3m2!1sen!2sus!4v1634704182859!5m2!1sen!2sus',
+];
+
+$directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact['address']);
+?>
+
+<section id="contact" class="py-16 bg-white pattern-dot-grid gradient-fade-bottom overflow-hidden md:py-20 lg:py-24" aria-labelledby="contact-title">
+    <div class="container">
+
+        <!-- Section Header -->
+        <div class="text-center mb-12 lg:mb-16">
+            <p class="text-sm font-semibold uppercase tracking-wider text-secondary mb-2">
+                <?php esc_html_e('Get in Touch', 'standard'); ?>
+            </p>
+            <div class="w-12 h-1 bg-secondary mx-auto mb-6"></div>
+
+            <h2 id="contact-title" class="text-3xl font-bold text-slate-900 mb-4 md:text-4xl lg:text-5xl">
+                <?php esc_html_e("Let's Talk", 'standard'); ?>
+            </h2>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                <?php esc_html_e('Ready to take control of your business? Contact us today to discuss your equipment needs.', 'standard'); ?>
+            </p>
+        </div>
+
+        <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
+
+            <!-- Left Column: Contact Info + Map -->
+            <div class="space-y-6">
+
+                <!-- Contact Info -->
+                <div class="space-y-4">
+                    <a
+                        href="<?php echo esc_url($directions_url); ?>"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="group flex items-center gap-3 text-slate-700 hover:text-secondary transition-colors"
+                    >
+                        <?php icon('launch', ['class' => 'w-5 h-5 text-secondary shrink-0']); ?>
+                        <span><?php echo esc_html($contact['address']); ?></span>
+                    </a>
+
+                    <a
+                        href="mailto:<?php echo esc_attr($contact['email']); ?>"
+                        class="group flex items-center gap-3 text-slate-700 hover:text-secondary transition-colors"
+                    >
+                        <?php icon('email', ['class' => 'w-5 h-5 text-secondary shrink-0']); ?>
+                        <span><?php echo esc_html($contact['email']); ?></span>
+                    </a>
+
+                    <a
+                        href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $contact['phone'])); ?>"
+                        class="group flex items-center gap-3 text-slate-700 hover:text-secondary transition-colors"
+                    >
+                        <?php icon('mobile', ['class' => 'w-5 h-5 text-secondary shrink-0']); ?>
+                        <span><?php echo esc_html($contact['phone']); ?></span>
+                    </a>
+                </div>
+
+                <!-- Map -->
+                <div class="relative aspect-video bg-slate-100 border border-slate-200 overflow-hidden">
+                    <iframe
+                        src="<?php echo esc_url($contact['map_url']); ?>"
+                        width="100%"
+                        height="100%"
+                        class="absolute inset-0"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="<?php esc_attr_e('NTM Location Map', 'standard'); ?>"
+                    ></iframe>
+                </div>
+
+            </div>
+
+            <!-- Right Column: Form -->
+            <div class="bg-slate-50 border border-slate-200 p-8 lg:p-10">
+                <h3 class="text-xl font-bold text-slate-900 mb-2">
+                    <?php esc_html_e('Send Us a Message', 'standard'); ?>
+                </h3>
+                <p class="text-slate-600 mb-6">
+                    <?php esc_html_e('Fill out the form below and we\'ll get back to you within one business day.', 'standard'); ?>
+                </p>
+
+                <div id="contact-form">
+                    <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+                    <script>
+                        hbspt.forms.create({
+                            region: "na1",
+                            portalId: "4478417",
+                            formId: "8819d347-bf19-49e1-8e49-cd45dbd7235f"
+                        });
+                    </script>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>

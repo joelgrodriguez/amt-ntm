@@ -34,6 +34,8 @@ get_header();
 
     <?php get_template_part('templates/parts/front-page/configurator'); ?>
 
+    <?php get_template_part('templates/parts/front-page/contact'); ?>
+
 </main>
 
 <?php
