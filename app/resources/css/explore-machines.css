@@ -1,0 +1,347 @@
+/**
+ * Explore Machines Section Styles
+ *
+ * Tabbed product showcase with horizontal scrolling cards.
+ *
+ * @file explore-machines.css
+ */
+
+/* Section */
+.explore-machines {
+  padding: 4rem 0;
+  background-color: var(--color-slate-50, #f8fafc);
+}
+
+.explore-machines > .container {
+  display: grid;
+  gap: 2rem;
+}
+
+.explore-machines__title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--color-slate-900, #0f172a);
+}
+
+/* Tabs */
+.explore-machines__tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--color-slate-300, #cbd5e1);
+}
+
+.explore-machines__tab {
+  padding: 0.5rem 1rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-slate-600, #475569);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid transparent;
+  margin-bottom: -1px;
+  cursor: pointer;
+  transition: all 200ms ease;
+  white-space: nowrap;
+}
+
+.explore-machines__tab:hover {
+  color: var(--color-slate-900, #0f172a);
+}
+
+.explore-machines__tab--active {
+  color: var(--color-secondary, #F7951D);
+  border-bottom-color: var(--color-secondary, #F7951D);
+}
+
+.explore-machines__tab:focus-visible {
+  outline: 2px solid var(--color-primary, #0066cc);
+  outline-offset: 2px;
+}
+
+/* Panels */
+.explore-machines__panel {
+  display: none;
+}
+
+.explore-machines__panel--active {
+  display: grid;
+  gap: 2rem;
+}
+
+.explore-machines__panel[hidden] {
+  display: none;
+}
+
+/* Track - horizontal scroll */
+.explore-machines__track {
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.explore-machines__track::-webkit-scrollbar {
+  display: none;
+}
+
+/* Navigation */
+.explore-machines__nav {
+  display: flex;
+  justify-content: center;
+}
+
+.explore-machines__nav-arrows {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.explore-machines__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--color-slate-200, #e2e8f0);
+  color: var(--color-slate-600, #475569);
+  border: none;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+.explore-machines__arrow:hover:not(:disabled) {
+  background-color: var(--color-slate-900, #0f172a);
+  color: white;
+}
+
+.explore-machines__arrow:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.explore-machines__arrow:focus-visible {
+  outline: 2px solid var(--color-primary, #0066cc);
+  outline-offset: 2px;
+}
+
+.explore-machines__counter {
+  font-size: 0.875rem;
+  color: var(--color-slate-600, #475569);
+  min-width: 4rem;
+  text-align: center;
+}
+
+/* Footer CTAs */
+.explore-machines__footer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Product Card */
+.card-product {
+  display: flex;
+  flex-direction: column;
+  min-width: 280px;
+  max-width: 320px;
+  background-color: white;
+  border: 1px solid var(--color-slate-200, #e2e8f0);
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: box-shadow 200ms ease;
+}
+
+.card-product:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Card image */
+.card-product__image-wrapper {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background-color: var(--color-slate-100, #f1f5f9);
+  overflow: hidden;
+  padding: 0.5rem;
+}
+
+.card-product__image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 300ms ease;
+}
+
+.card-product:hover .card-product__image {
+  transform: scale(1.05);
+}
+
+.card-product__badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  color: white;
+  background-color: var(--color-slate-800, #1e293b);
+}
+
+/* Card content */
+.card-product__content {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  flex-grow: 1;
+}
+
+.card-product__year {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-slate-500, #64748b);
+  margin-bottom: 0.125rem;
+}
+
+.card-product__title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-slate-900, #0f172a);
+  margin-bottom: 0.25rem;
+}
+
+.card-product__tagline {
+  font-size: 0.875rem;
+  color: var(--color-slate-600, #475569);
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+/* Price */
+.card-product__price {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.card-product__price-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-slate-700, #334155);
+}
+
+.card-product__price-label {
+  font-size: 0.625rem;
+  color: var(--color-slate-500, #64748b);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+/* CTAs */
+.card-product__cta {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.card-product__cta .btn-outline-dark {
+  flex: 0 0 auto;
+}
+
+.card-product__cta .btn-ghost {
+  flex: 0 0 auto;
+  gap: 0.25rem;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .explore-machines {
+    padding: 5rem 0;
+  }
+
+  .explore-machines__title {
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .explore-machines__track {
+    padding: 0 2rem;
+    gap: 1.5rem;
+  }
+
+  .card-product {
+    flex-direction: row;
+    min-width: 400px;
+    max-width: 450px;
+    height: 200px;
+  }
+
+  .card-product__image-wrapper {
+    width: 45%;
+    flex-shrink: 0;
+    aspect-ratio: auto;
+    height: 100%;
+  }
+
+  .card-product__content {
+    width: 55%;
+    padding: 1.25rem;
+  }
+
+  .explore-machines__track {
+    padding: 0.5rem 2rem;
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .explore-machines__title {
+    font-size: 3rem;
+  }
+
+  .explore-machines > .container {
+    gap: 2.5rem;
+  }
+
+  .explore-machines__panel--active {
+    gap: 2.5rem;
+  }
+
+  .explore-machines__tabs {
+    gap: 0;
+  }
+
+  .explore-machines__tab {
+    font-size: 1rem;
+    padding: 0.5rem 1.5rem 0.5rem;
+  }
+
+  .card-product {
+    min-width: 450px;
+    max-width: 500px;
+    height: 220px;
+  }
+
+  .card-product__title {
+    font-size: 1.25rem;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .explore-machines__tab,
+  .explore-machines__arrow,
+  .card-product,
+  .card-product__image {
+    transition: none;
+  }
+}

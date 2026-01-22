@@ -18,6 +18,8 @@ get_header();
 
     <?php get_template_part('templates/parts/front-page/hero-slider'); ?>
 
+    <?php get_template_part('templates/parts/front-page/explore-machines'); ?>
+
 </main>
 
 <?php
