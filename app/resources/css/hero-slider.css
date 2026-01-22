@@ -1,0 +1,264 @@
+/**
+ * Hero Slider Styles
+ *
+ * Full-viewport hero slider for the front page.
+ * Uses CSS transforms for performant slide transitions.
+ *
+ * @file hero-slider.css
+ */
+
+/* Slider container */
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  height: 70dvh;
+  min-height: 450px;
+  max-height: 750px;
+  overflow: hidden;
+}
+
+/* Slides track - holds all slides in a row */
+.hero-slider__track {
+  display: flex;
+  height: 100%;
+  transition: transform 500ms cubic-bezier(0.33, 1, 0.68, 1);
+  will-change: transform;
+}
+
+/* Individual slide */
+.hero-slider__slide {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+}
+
+/* Background media (image/video) */
+.hero-slider__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-slider__video {
+  z-index: 1;
+}
+
+.hero-slider__image {
+  z-index: 0;
+}
+
+/* Gradient overlay for text readability */
+.hero-slider__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.6) 30%,
+    rgba(0, 0, 0, 0.3) 60%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+}
+
+/* Content container */
+.hero-slider__content {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 4rem;
+  text-align: center;
+  color: white;
+}
+
+/* Category label */
+.hero-slider__category {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-secondary, #F7951D);
+  margin-bottom: 0.5rem;
+}
+
+/* Title */
+.hero-slider__title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+  max-width: 90%;
+}
+
+/* CTA buttons container */
+.hero-slider__cta {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0 1rem;
+  margin-top: 1.25rem;
+}
+
+/* Navigation arrows */
+.hero-slider__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 200ms ease;
+}
+
+.hero-slider__nav:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.hero-slider__nav:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+.hero-slider__nav--prev {
+  left: 1rem;
+}
+
+.hero-slider__nav--next {
+  right: 1rem;
+}
+
+.hero-slider__nav-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Dot indicators */
+.hero-slider__dots {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.hero-slider__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+  border: none;
+  cursor: pointer;
+  transition: background-color 200ms ease;
+  padding: 0;
+}
+
+.hero-slider__dot:hover {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.hero-slider__dot--active {
+  background-color: white;
+}
+
+.hero-slider__dot:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+/* Progress bar */
+.hero-slider__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.hero-slider__progress-bar {
+  height: 100%;
+  background-color: var(--color-secondary, #F7951D);
+  width: 0;
+}
+
+.hero-slider--playing .hero-slider__progress-bar {
+  animation: progress 8s linear infinite;
+}
+
+@keyframes progress {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .hero-slider {
+    min-height: 550px;
+    max-height: 850px;
+  }
+
+  .hero-slider__content {
+    padding-bottom: 5rem;
+  }
+
+  .hero-slider__category {
+    font-size: 0.875rem;
+  }
+
+  .hero-slider__title {
+    font-size: 2.5rem;
+  }
+
+  .hero-slider__nav {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .hero-slider__nav--prev {
+    left: 2rem;
+  }
+
+  .hero-slider__nav--next {
+    right: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-slider__title {
+    font-size: 3rem;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .hero-slider__track {
+    transition: none;
+  }
+
+  .hero-slider__progress-bar {
+    animation: none;
+  }
+
+  .hero-slider__nav,
+  .hero-slider__dot {
+    transition: none;
+  }
+}

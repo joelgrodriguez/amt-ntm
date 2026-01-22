@@ -24,6 +24,7 @@ $theme_includes = [
     'inc/fonts.php',
     'inc/icons.php',
     'inc/related-posts.php',
+    'inc/machines.php',
     'inc/walkers/class-pagination.php',
     'inc/walkers/class-mobile-nav-walker.php',
     'inc/walkers/class-primary-nav-walker.php',

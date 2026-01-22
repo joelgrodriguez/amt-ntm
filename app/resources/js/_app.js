@@ -16,6 +16,7 @@ import { initScrollReveal } from './modules/ScrollReveal.js';
 import { initTableOfContents } from './modules/TableOfContents.js';
 import { init as initScrollHeader } from './modules/ScrollHeader.js';
 import { init as initScrollToTop } from './modules/ScrollToTop.js';
+import { initHeroSlider } from './modules/HeroSlider.js';
 
 /** @type {Function|null} Cleanup function for mobile menu */
 let mobileMenuCleanup = null;
@@ -31,6 +32,9 @@ let scrollHeaderCleanup = null;
 
 /** @type {Function|null} Cleanup function for scroll to top */
 let scrollToTopCleanup = null;
+
+/** @type {Function|null} Cleanup function for hero slider */
+let heroSliderCleanup = null;
 
 /**
  * Executes callback when DOM is ready.
@@ -58,6 +62,7 @@ const initApp = () => {
   tocCleanup = initTableOfContents();
   scrollHeaderCleanup = initScrollHeader();
   scrollToTopCleanup = initScrollToTop();
+  heroSliderCleanup = initHeroSlider();
 };
 
 // Bootstrap
@@ -81,6 +86,9 @@ if (import.meta.hot) {
     }
     if (scrollToTopCleanup) {
       scrollToTopCleanup();
+    }
+    if (heroSliderCleanup) {
+      heroSliderCleanup();
     }
     // Reinitialize
     initApp();

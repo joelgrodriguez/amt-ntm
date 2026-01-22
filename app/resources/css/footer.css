@@ -1,0 +1,27 @@
+/**
+ * Footer Styles
+ *
+ * CSS-only accordion for mobile footer navigation
+ * and related footer component styles.
+ *
+ * @file footer.css
+ */
+
+/* Footer Accordion (CSS-only) */
+.footer-section {
+  @apply relative;
+}
+
+.footer-accordion-toggle:checked ~ label .footer-accordion-icon svg {
+  @apply rotate-180;
+}
+
+.footer-accordion-toggle:checked ~ .footer-accordion-content {
+  @apply max-h-96;
+}
+
+@media (min-width: 1024px) {
+  .footer-accordion-content {
+    @apply !max-h-none;
+  }
+}
