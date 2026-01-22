@@ -8,7 +8,6 @@
  * @package Standard
  *
  * @usage Front Page (front-page.php)
- * @styles css/tools.css
  */
 
 declare(strict_types=1);
@@ -41,22 +40,25 @@ $tools = [
 ];
 ?>
 
-<section class="tools py-12 bg-white md:py-16" aria-labelledby="tools-title">
+<section class="py-12 bg-white md:py-16" aria-labelledby="tools-title">
     <div class="container">
         <h2 id="tools-title" class="text-2xl font-bold text-center text-slate-900 mb-8 md:text-3xl md:mb-12">
             <?php esc_html_e('Tools to Help You Decide', 'standard'); ?>
         </h2>
 
-        <div class="tools__grid grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-8 lg:gap-12">
+        <div class="grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-8 lg:gap-12">
             <?php foreach ($tools as $tool) : ?>
-                <a href="<?php echo esc_url($tool['url']); ?>" class="tools__item group">
-                    <div class="tools__icon-wrapper">
-                        <?php icon($tool['icon'], ['class' => 'tools__icon w-10 h-10 md:w-12 md:h-12']); ?>
+                <a
+                    href="<?php echo esc_url($tool['url']); ?>"
+                    class="group flex flex-col items-center text-center no-underline transition-transform duration-200 hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-4"
+                >
+                    <div class="flex items-center justify-center mb-4 w-20 h-20 bg-slate-100 transition-colors duration-200 group-hover:bg-slate-200 motion-reduce:transition-none md:w-24 md:h-24">
+                        <?php icon($tool['icon'], ['class' => 'w-10 h-10 text-slate-700 transition-colors duration-200 group-hover:text-secondary motion-reduce:transition-none md:w-12 md:h-12']); ?>
                     </div>
-                    <h3 class="tools__title">
+                    <h3 class="text-base font-semibold text-slate-900 mb-1 md:text-lg">
                         <?php echo esc_html($tool['title']); ?>
                     </h3>
-                    <p class="tools__description">
+                    <p class="text-sm text-slate-500 leading-snug hidden md:block">
                         <?php echo esc_html($tool['description']); ?>
                     </p>
                 </a>
