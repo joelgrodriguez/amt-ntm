@@ -36,6 +36,8 @@ get_header();
 
     <?php get_template_part('templates/parts/front-page/contact'); ?>
 
+    <?php get_template_part('templates/parts/front-page/learning-center'); ?>
+
 </main>
 
 <?php
