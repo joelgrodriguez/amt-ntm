@@ -12,7 +12,7 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class('card overflow-hidden'); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class('bg-white border border-slate-200 overflow-hidden'); ?>>
     <?php if (has_post_thumbnail()) : ?>
         <a href="<?php the_permalink(); ?>" class="block aspect-video overflow-hidden">
             <?php the_post_thumbnail('medium_large', [

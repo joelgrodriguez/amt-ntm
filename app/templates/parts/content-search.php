@@ -12,7 +12,7 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class('bg-white shadow-sm p-6'); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class('bg-white border border-slate-200 p-6'); ?>>
     <header class="mb-4">
         <?php the_title(sprintf('<h2 class="text-xl font-semibold mb-2"><a href="%s" class="text-slate-900 no-underline hover:text-primary">', esc_url(get_permalink())), '</a></h2>'); ?>
 

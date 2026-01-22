@@ -62,7 +62,7 @@ $legal_links = [
 ];
 ?>
 
-<footer class="mt-auto bg-slate-900 text-slate-300">
+<footer class="mt-auto bg-slate-900 text-slate-300 border-t border-slate-700">
     <!-- Main Footer Content -->
     <div class="container mx-auto py-8 lg:py-12">
         <!-- Desktop: 5 columns | Mobile: Logo + Accordions -->
