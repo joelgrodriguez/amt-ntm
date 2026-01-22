@@ -42,7 +42,7 @@ $first_category = array_key_first($categories);
         </div>
     </div>
 
-    <div class="container mx-auto">
+    <div class="container mx-auto overflow-visible">
         <?php foreach ($categories as $slug => $label) : ?>
             <?php $products = get_products_by_category($slug); ?>
             <div
@@ -52,11 +52,11 @@ $first_category = array_key_first($categories);
                     aria-labelledby="tab-<?php echo esc_attr($slug); ?>"
                     <?php echo $slug !== $first_category ? 'hidden' : ''; ?>
             >
-                <div class="explore-machines__track flex gap-4 overflow-x-auto md:gap-6">
+                <div class="explore-machines__track -mx-4 px-4 flex gap-4 overflow-x-auto md:-mx-8 md:px-8 md:gap-6">
                     <?php foreach ($products as $product) : ?>
                         <?php get_template_part('templates/parts/card-product', null, ['product' => $product]); ?>
                     <?php endforeach; ?>
-                    <div class="shrink-0 w-px" aria-hidden="true"></div>
+                    <div class="shrink-0 w-4 md:w-8" aria-hidden="true"></div>
                 </div>
 
                 <div class="flex justify-center mt-8 lg:mt-10">
