@@ -53,22 +53,20 @@ $total_slides = count($machines);
         <?php icon('arrow--right', ['class' => 'hero-slider__nav-icon']); ?>
     </button>
 
-    <!-- Dot Indicators -->
-    <div class="hero-slider__dots" role="tablist" aria-label="<?php esc_attr_e('Slide navigation', 'standard'); ?>">
+    <!-- Segmented Progress Bar -->
+    <div class="hero-slider__progress" role="tablist" aria-label="<?php esc_attr_e('Slide navigation', 'standard'); ?>">
         <?php for ($i = 0; $i < $total_slides; $i++) : ?>
             <button
                 type="button"
-                class="hero-slider__dot <?php echo $i === 0 ? 'hero-slider__dot--active' : ''; ?>"
+                class="hero-slider__segment <?php echo $i === 0 ? 'hero-slider__segment--active' : ''; ?>"
                 aria-label="<?php echo esc_attr(sprintf(__('Go to slide %d', 'standard'), $i + 1)); ?>"
                 aria-selected="<?php echo $i === 0 ? 'true' : 'false'; ?>"
                 role="tab"
-            ></button>
+                data-slide="<?php echo esc_attr((string) $i); ?>"
+            >
+                <span class="hero-slider__segment-fill"></span>
+            </button>
         <?php endfor; ?>
-    </div>
-
-    <!-- Progress Bar -->
-    <div class="hero-slider__progress">
-        <div class="hero-slider__progress-bar"></div>
     </div>
 
 </section>

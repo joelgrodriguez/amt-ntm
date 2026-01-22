@@ -31,8 +31,7 @@ export function initHeroSlider(options = {}) {
   const slides = slider.querySelectorAll('.hero-slider__slide');
   const prevBtn = slider.querySelector('.hero-slider__nav--prev');
   const nextBtn = slider.querySelector('.hero-slider__nav--next');
-  const dots = slider.querySelectorAll('.hero-slider__dot');
-  const progressBar = slider.querySelector('.hero-slider__progress-bar');
+  const segments = slider.querySelectorAll('.hero-slider__segment');
 
   if (!track || slides.length === 0) return;
 
@@ -58,24 +57,26 @@ export function initHeroSlider(options = {}) {
     currentIndex = ((index % slides.length) + slides.length) % slides.length;
     track.style.transform = `translateX(-${currentIndex * 100}%)`;
 
-    // Update dots
-    dots.forEach((dot, i) => {
+    // Update segments
+    segments.forEach((segment, i) => {
       const isActive = i === currentIndex;
-      dot.classList.toggle('hero-slider__dot--active', isActive);
-      dot.setAttribute('aria-selected', String(isActive));
+      const fill = segment.querySelector('.hero-slider__segment-fill');
+
+      segment.classList.toggle('hero-slider__segment--active', isActive);
+      segment.setAttribute('aria-selected', String(isActive));
+
+      // Reset animation on active segment
+      if (fill) {
+        fill.style.animation = 'none';
+        fill.offsetHeight; // Trigger reflow
+        fill.style.animation = '';
+      }
     });
 
     // Update slide visibility for screen readers
     slides.forEach((slide, i) => {
       slide.setAttribute('aria-hidden', String(i !== currentIndex));
     });
-
-    // Reset progress bar animation
-    if (progressBar && isPlaying) {
-      progressBar.style.animation = 'none';
-      progressBar.offsetHeight; // Trigger reflow
-      progressBar.style.animation = '';
-    }
   }
 
   function nextSlide() {
@@ -108,7 +109,7 @@ export function initHeroSlider(options = {}) {
     stopAutoPlay();
   }
 
-  function handleDotClick(index) {
+  function handleSegmentClick(index) {
     goToSlide(index);
     stopAutoPlay();
   }
@@ -148,9 +149,9 @@ export function initHeroSlider(options = {}) {
     prevBtn?.addEventListener('click', () => handleNavClick('prev'), { signal });
     nextBtn?.addEventListener('click', () => handleNavClick('next'), { signal });
 
-    // Dot indicators
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => handleDotClick(index), { signal });
+    // Segment indicators
+    segments.forEach((segment, index) => {
+      segment.addEventListener('click', () => handleSegmentClick(index), { signal });
     });
 
     // Touch events
@@ -179,10 +180,10 @@ export function initHeroSlider(options = {}) {
       slide.setAttribute('aria-hidden', String(i !== 0));
     });
 
-    dots.forEach((dot, i) => {
-      dot.setAttribute('role', 'tab');
-      dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
-      dot.setAttribute('aria-selected', String(i === 0));
+    segments.forEach((segment, i) => {
+      segment.setAttribute('role', 'tab');
+      segment.setAttribute('aria-label', `Go to slide ${i + 1}`);
+      segment.setAttribute('aria-selected', String(i === 0));
     });
   }
 
