@@ -20,6 +20,8 @@ get_header();
 
     <?php get_template_part('templates/parts/front-page/explore-machines'); ?>
 
+    <?php get_template_part('templates/parts/front-page/tools'); ?>
+
 </main>
 
 <?php
