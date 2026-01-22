@@ -137,7 +137,7 @@
    * @see templates/parts/card-product.php
    */
   .card-product {
-    @apply group flex flex-col bg-white border border-slate-200 overflow-hidden;
+    @apply flex flex-col bg-white border border-slate-200 overflow-hidden;
     @apply transition-shadow duration-200 hover:shadow-lg;
     @apply motion-reduce:transition-none;
     min-width: 280px;
@@ -153,8 +153,13 @@
 
   .card-product__image {
     @apply w-full h-full object-contain;
-    @apply transition-transform duration-300 group-hover:scale-105;
-    @apply motion-reduce:transition-none motion-reduce:group-hover:scale-100;
+    @apply transition-transform duration-300;
+    @apply motion-reduce:transition-none;
+  }
+
+  .card-product:hover .card-product__image {
+    @apply scale-105;
+    @apply motion-reduce:scale-100;
   }
 
   .card-product__badge {

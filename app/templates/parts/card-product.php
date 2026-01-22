@@ -29,7 +29,7 @@ $badge         = $product['badge'] ?? '';
 $is_accessory  = empty($price);
 ?>
 
-<article class="card-product">
+<article class="card-product group">
     <div class="card-product__image-wrapper">
         <?php if ($badge) : ?>
             <span class="card-product__badge"><?php echo esc_html($badge); ?></span>
