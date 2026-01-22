@@ -1,20 +1,19 @@
 /**
  * Explore Machines Section Styles
  *
- * Tabbed product showcase with horizontal scrolling cards.
- * Uses @apply for Tailwind utilities where extraction is needed.
+ * Minimal styles for tab/panel state management and scrollbar hiding.
+ * Most styling is inline Tailwind in the template.
  *
  * @file explore-machines.css
  *
  * @usage Front Page (front-page.php)
  * @template templates/parts/front-page/explore-machines.php
- * @see templates/parts/card-product.php - Product card component
+ * @see css/components.css - Card product styles
  * @see js/modules/ExploreMachines.js - Tab switching and scroll navigation
  */
 
-/* Track - horizontal scroll (needs custom scrollbar hiding) */
+/* Track - custom scrollbar hiding (no Tailwind equivalent) */
 .explore-machines__track {
-  @apply py-2;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -24,7 +23,7 @@
   @apply hidden;
 }
 
-/* Panels - state management */
+/* Panel state - toggled by JS */
 .explore-machines__panel {
   @apply hidden;
 }
@@ -33,122 +32,7 @@
   @apply grid gap-8 lg:gap-10;
 }
 
-/* Tab active state */
+/* Tab active state - toggled by JS */
 .explore-machines__tab--active {
   @apply text-secondary border-b-secondary;
-}
-
-/* Product Card */
-.card-product {
-  @apply flex flex-col bg-white border border-slate-200 overflow-hidden transition-shadow duration-200;
-  min-width: 280px;
-  max-width: 320px;
-  scroll-snap-align: start;
-  flex-shrink: 0;
-}
-
-.card-product:hover {
-  @apply shadow-lg;
-}
-
-/* Card image */
-.card-product__image-wrapper {
-  @apply relative bg-slate-100 overflow-hidden p-2;
-  aspect-ratio: 4 / 3;
-}
-
-.card-product__image {
-  @apply w-full h-full object-contain transition-transform duration-300;
-}
-
-.card-product:hover .card-product__image {
-  @apply scale-105;
-}
-
-.card-product__badge {
-  @apply absolute top-3 left-3 px-2 py-1 text-xs font-semibold uppercase tracking-wide text-white bg-slate-800;
-}
-
-/* Card content */
-.card-product__content {
-  @apply flex flex-col p-4 grow;
-}
-
-.card-product__year {
-  @apply text-xs font-medium text-slate-500 mb-0.5;
-}
-
-.card-product__title {
-  @apply text-lg font-semibold text-slate-900 mb-1;
-}
-
-.card-product__tagline {
-  @apply text-sm text-slate-600 mb-3 leading-relaxed;
-}
-
-/* Price */
-.card-product__price {
-  @apply flex flex-col mt-3 mb-4;
-}
-
-.card-product__price-value {
-  @apply text-base font-semibold text-slate-700;
-}
-
-.card-product__price-label {
-  @apply text-xs text-slate-500 uppercase tracking-wide;
-}
-
-/* CTAs */
-.card-product__cta {
-  @apply flex gap-2 mt-auto;
-}
-
-.card-product__cta .btn-outline-dark {
-  @apply flex-none;
-}
-
-.card-product__cta .btn-ghost {
-  @apply flex-none gap-1;
-}
-
-/* Responsive - Card layout changes */
-@media (min-width: 768px) {
-  .card-product {
-    @apply flex-row;
-    min-width: 400px;
-    max-width: 450px;
-    height: 200px;
-  }
-
-  .card-product__image-wrapper {
-    @apply w-5/12 shrink-0 h-full;
-    aspect-ratio: auto;
-  }
-
-  .card-product__content {
-    @apply w-7/12 p-5;
-  }
-}
-
-@media (min-width: 1024px) {
-  .card-product {
-    min-width: 450px;
-    max-width: 500px;
-    height: 220px;
-  }
-
-  .card-product__title {
-    @apply text-xl;
-  }
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .explore-machines__tab,
-  .explore-machines__arrow,
-  .card-product,
-  .card-product__image {
-    @apply transition-none;
-  }
 }

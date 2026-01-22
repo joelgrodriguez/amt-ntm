@@ -127,4 +127,111 @@
     @apply border text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors;
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
   }
+
+  /**
+   * Product Card
+   *
+   * Horizontal card for displaying products/machines.
+   * Vertical on mobile, horizontal on tablet+.
+   *
+   * @see templates/parts/card-product.php
+   */
+  .card-product {
+    @apply group flex flex-col bg-white border border-slate-200 overflow-hidden;
+    @apply transition-shadow duration-200 hover:shadow-lg;
+    @apply motion-reduce:transition-none;
+    min-width: 280px;
+    max-width: 320px;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+
+  .card-product__image-wrapper {
+    @apply relative bg-slate-100 overflow-hidden p-2;
+    aspect-ratio: 4 / 3;
+  }
+
+  .card-product__image {
+    @apply w-full h-full object-contain;
+    @apply transition-transform duration-300 group-hover:scale-105;
+    @apply motion-reduce:transition-none motion-reduce:group-hover:scale-100;
+  }
+
+  .card-product__badge {
+    @apply absolute top-3 left-3 px-2 py-1;
+    @apply text-xs font-semibold uppercase tracking-wide;
+    @apply text-white bg-slate-800;
+  }
+
+  .card-product__content {
+    @apply flex flex-col p-4 grow;
+  }
+
+  .card-product__year {
+    @apply text-xs font-medium text-slate-500 mb-0.5;
+  }
+
+  .card-product__title {
+    @apply text-lg font-semibold text-slate-900 mb-1;
+  }
+
+  .card-product__tagline {
+    @apply text-sm text-slate-600 mb-3 leading-relaxed;
+  }
+
+  .card-product__price {
+    @apply flex flex-col mt-3 mb-4;
+  }
+
+  .card-product__price-value {
+    @apply text-base font-semibold text-slate-700;
+  }
+
+  .card-product__price-label {
+    @apply text-xs text-slate-500 uppercase tracking-wide;
+  }
+
+  .card-product__cta {
+    @apply flex gap-2 mt-auto;
+  }
+
+  .card-product__cta .btn-outline-dark,
+  .card-product__cta .btn-ghost {
+    @apply flex-none;
+  }
+
+  .card-product__cta .btn-ghost {
+    @apply gap-1;
+  }
+
+  /* Responsive - horizontal layout on tablet+ */
+  @media (min-width: 768px) {
+    .card-product {
+      @apply flex-row;
+      min-width: 400px;
+      max-width: 450px;
+      height: 200px;
+    }
+
+    .card-product__image-wrapper {
+      @apply w-5/12 shrink-0 h-full;
+      aspect-ratio: auto;
+    }
+
+    .card-product__content {
+      @apply w-7/12 p-5;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .card-product {
+      min-width: 450px;
+      max-width: 500px;
+      height: 220px;
+    }
+
+    .card-product__title {
+      @apply text-xl;
+    }
+  }
 }
