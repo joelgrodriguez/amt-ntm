@@ -56,6 +56,7 @@ $first_category = array_key_first($categories);
                     <?php foreach ($products as $product) : ?>
                         <?php get_template_part('templates/parts/card-product', null, ['product' => $product]); ?>
                     <?php endforeach; ?>
+                    <div class="shrink-0 w-px" aria-hidden="true"></div>
                 </div>
 
                 <div class="flex justify-center mt-8 lg:mt-10">
