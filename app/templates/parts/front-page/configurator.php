@@ -12,6 +12,17 @@
 
 declare(strict_types=1);
 
+$content = [
+    'eyebrow'  => __('Machine Configurator', 'standard'),
+    'title'    => __('Configure Your Machine Online', 'standard'),
+    'text'     => __('Design your perfect rollformer, see exactly what it costs, and apply for financing—all from your browser. No phone calls. No waiting.', 'standard'),
+    'image'    => get_theme_file_uri('assets/images/config-mockup.png'),
+    'image_alt' => __('NTM Machine Configurator Interface', 'standard'),
+    'cta_text' => __('Try the Configurator', 'standard'),
+    'cta_url'  => '/configurator/',
+    'cta_note' => __('Get your machine today', 'standard'),
+];
+
 $features = [
     [
         'icon'  => 'settings',
@@ -38,8 +49,8 @@ $features = [
             <!-- Image Panel -->
             <div class="order-2 lg:order-1">
                 <img
-                    src="<?php echo esc_url(get_theme_file_uri('assets/images/config-mockup.png')); ?>"
-                    alt="<?php esc_attr_e('NTM Machine Configurator Interface', 'standard'); ?>"
+                    src="<?php echo esc_url($content['image']); ?>"
+                    alt="<?php echo esc_attr($content['image_alt']); ?>"
                     class="w-full h-auto"
                     loading="lazy"
                 >
@@ -48,16 +59,16 @@ $features = [
             <!-- Content Panel -->
             <div class="order-1 lg:order-2">
                 <p class="text-sm font-semibold uppercase tracking-wider text-secondary mb-2">
-                    <?php esc_html_e('Machine Configurator', 'standard'); ?>
+                    <?php echo esc_html($content['eyebrow']); ?>
                 </p>
                 <div class="w-12 h-1 bg-secondary mb-6"></div>
 
                 <h2 id="configurator-title" class="text-3xl font-bold text-slate-900 mb-4 md:text-4xl lg:text-5xl">
-                    <?php esc_html_e('Configure Your Machine Online', 'standard'); ?>
+                    <?php echo esc_html($content['title']); ?>
                 </h2>
 
                 <p class="text-lg text-slate-600 mb-10 max-w-xl">
-                    <?php esc_html_e('Design your perfect rollformer, see exactly what it costs, and apply for financing—all from your browser. No phone calls. No waiting.', 'standard'); ?>
+                    <?php echo esc_html($content['text']); ?>
                 </p>
 
                 <!-- Feature Grid -->
@@ -79,12 +90,12 @@ $features = [
 
                 <!-- CTA -->
                 <div class="flex flex-wrap items-center gap-4">
-                    <a href="/configurator/" class="btn btn-primary btn-lg group">
-                        <?php esc_html_e('Try the Configurator', 'standard'); ?>
+                    <a href="<?php echo esc_url($content['cta_url']); ?>" class="btn btn-primary btn-lg group">
+                        <?php echo esc_html($content['cta_text']); ?>
                         <?php icon('arrow--right', ['class' => 'w-5 h-5 ml-2 transition-transform group-hover:translate-x-1']); ?>
                     </a>
                     <span class="text-sm text-slate-500">
-                        <?php esc_html_e('Get your machine today', 'standard'); ?>
+                        <?php echo esc_html($content['cta_note']); ?>
                     </span>
                 </div>
             </div>

@@ -15,6 +15,11 @@
 
 declare(strict_types=1);
 
+$content = [
+    'title' => __('Customer Testimonials', 'standard'),
+    'nav_label' => __('Testimonial navigation', 'standard'),
+];
+
 // Placeholder testimonials - will be replaced with CPT query
 $testimonials = [
     [
@@ -51,7 +56,7 @@ if (empty($testimonials)) {
 <section class="social-proof py-16 bg-slate-900 md:py-20 lg:py-24" aria-labelledby="social-proof-title">
     <div class="container">
         <h2 id="social-proof-title" class="sr-only">
-            <?php esc_html_e('Customer Testimonials', 'standard'); ?>
+            <?php echo esc_html($content['title']); ?>
         </h2>
 
         <div class="social-proof__slider relative max-w-4xl mx-auto text-center">
@@ -81,7 +86,7 @@ if (empty($testimonials)) {
                 <?php endforeach; ?>
             </div>
 
-            <nav class="flex justify-center gap-2 mt-10" aria-label="<?php esc_attr_e('Testimonial navigation', 'standard'); ?>">
+            <nav class="flex justify-center gap-2 mt-10" aria-label="<?php echo esc_attr($content['nav_label']); ?>">
                 <?php foreach ($testimonials as $index => $testimonial) : ?>
                     <button
                         type="button"

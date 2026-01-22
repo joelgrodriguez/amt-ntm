@@ -13,14 +13,25 @@
 
 declare(strict_types=1);
 
-$value_points = [
+$content = [
+    'eyebrow'   => __('The NTM Advantage', 'standard'),
+    'title'     => __('Own Your Machine. Own Your Future.', 'standard'),
+    'text'      => __("When you invest in an NTM rollformer, you're not just buying equipment—you're unlocking a new revenue stream and taking control of your business.", 'standard'),
+    'image'     => 'https://newtechmachinery.com/wp-content/uploads/2024/10/Ross-in-front-of-SSQ-scaled.jpg',
+    'image_alt' => __('NTM customer with SSQ roof panel machine', 'standard'),
+    'image_caption' => __("Join thousands of contractors who've taken control of their business.", 'standard'),
+    'cta_text'  => __('Schedule a Call', 'standard'),
+    'cta_url'   => '/contact/',
+];
+
+$points = [
     [
         'title' => __('Keep 100% of Panel Profits', 'standard'),
-        'text'  => __('Roll your own panels on-site and capture the margin you\'ve been paying to suppliers.', 'standard'),
+        'text'  => __("Roll your own panels on-site and capture the margin you've been paying to suppliers.", 'standard'),
     ],
     [
         'title' => __('Win More Bids', 'standard'),
-        'text'  => __('Quote faster with better pricing. Owning your machine gives you the edge competitors can\'t match.', 'standard'),
+        'text'  => __("Quote faster with better pricing. Owning your machine gives you the edge competitors can't match.", 'standard'),
     ],
     [
         'title' => __('Control Your Schedule', 'standard'),
@@ -35,32 +46,32 @@ $value_points = [
 
             <div class="order-2 lg:order-1">
                 <img
-                    src="https://newtechmachinery.com/wp-content/uploads/2024/10/Ross-in-front-of-SSQ-scaled.jpg"
-                    alt="<?php esc_attr_e('NTM customer with SSQ roof panel machine', 'standard'); ?>"
+                    src="<?php echo esc_url($content['image']); ?>"
+                    alt="<?php echo esc_attr($content['image_alt']); ?>"
                     class="w-full h-auto"
                     loading="lazy"
                 >
                 <p class="mt-4 text-center text-sm text-slate-600">
-                    <?php esc_html_e('Join thousands of contractors who\'ve taken control of their business.', 'standard'); ?>
+                    <?php echo esc_html($content['image_caption']); ?>
                 </p>
             </div>
 
             <div class="order-1 lg:order-2">
                 <p class="text-sm font-semibold uppercase tracking-wider text-secondary mb-2">
-                    <?php esc_html_e('The NTM Advantage', 'standard'); ?>
+                    <?php echo esc_html($content['eyebrow']); ?>
                 </p>
                 <div class="w-12 h-1 bg-secondary mb-6"></div>
 
                 <h2 id="value-prop-title" class="text-3xl font-bold text-slate-900 mb-4 md:text-4xl lg:text-5xl">
-                    <?php esc_html_e('Own Your Machine. Own Your Future.', 'standard'); ?>
+                    <?php echo esc_html($content['title']); ?>
                 </h2>
 
                 <p class="text-lg text-slate-600 mb-8 lg:mb-10">
-                    <?php esc_html_e('When you invest in an NTM rollformer, you\'re not just buying equipment—you\'re unlocking a new revenue stream and taking control of your business.', 'standard'); ?>
+                    <?php echo esc_html($content['text']); ?>
                 </p>
 
                 <ul class="space-y-6 mb-8 lg:mb-10">
-                    <?php foreach ($value_points as $point) : ?>
+                    <?php foreach ($points as $point) : ?>
                         <li class="flex gap-4">
                             <span class="shrink-0 mt-1">
                                 <?php icon('checkmark', ['class' => 'w-4 h-4 text-green-600']); ?>
@@ -78,8 +89,8 @@ $value_points = [
                 </ul>
 
                 <div class="flex flex-wrap gap-4">
-                    <a href="/contact/" class="btn btn-primary">
-                        <?php esc_html_e('Schedule a Call', 'standard'); ?>
+                    <a href="<?php echo esc_url($content['cta_url']); ?>" class="btn btn-primary">
+                        <?php echo esc_html($content['cta_text']); ?>
                     </a>
                 </div>
             </div>

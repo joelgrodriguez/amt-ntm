@@ -12,6 +12,14 @@
 
 declare(strict_types=1);
 
+$content = [
+    'eyebrow'  => __('The 3 Step Plan', 'standard'),
+    'title'    => __('Your Path to Better Equipment Financing', 'standard'),
+    'text'     => __('Working with NTM is simple, transparent, and designed around your needs.', 'standard'),
+    'cta_text' => __('Schedule a Call', 'standard'),
+    'cta_url'  => '/contact/',
+];
+
 $steps = [
     [
         'number' => 1,
@@ -21,7 +29,7 @@ $steps = [
     [
         'number' => 2,
         'title'  => __('Get a Tailored Solution', 'standard'),
-        'text'   => __('We\'ll design a custom financing package that fits your business requirements.', 'standard'),
+        'text'   => __("We'll design a custom financing package that fits your business requirements.", 'standard'),
     ],
     [
         'number' => 3,
@@ -37,15 +45,15 @@ $steps = [
 
     <div class="container text-center">
         <p class="text-sm font-semibold uppercase tracking-wider text-secondary mb-2">
-            <?php esc_html_e('The 3 Step Plan', 'standard'); ?>
+            <?php echo esc_html($content['eyebrow']); ?>
         </p>
         <div class="w-12 h-1 bg-secondary mx-auto mb-6"></div>
 
         <h2 id="three-step-title" class="text-3xl font-bold text-slate-900 mb-4 md:text-4xl">
-            <?php esc_html_e('Your Path to Better Equipment Financing', 'standard'); ?>
+            <?php echo esc_html($content['title']); ?>
         </h2>
         <p class="text-lg text-slate-600 mb-12 max-w-2xl mx-auto">
-            <?php esc_html_e('Working with NTM is simple, transparent, and designed around your needs.', 'standard'); ?>
+            <?php echo esc_html($content['text']); ?>
         </p>
 
         <div class="grid gap-8 pt-6 md:grid-cols-3 md:gap-6 lg:gap-8">
@@ -65,8 +73,8 @@ $steps = [
         </div>
 
         <div class="mt-12">
-            <a href="/contact/" class="btn btn-primary">
-                <?php esc_html_e('Schedule a Call', 'standard'); ?>
+            <a href="<?php echo esc_url($content['cta_url']); ?>" class="btn btn-primary">
+                <?php echo esc_html($content['cta_text']); ?>
             </a>
         </div>
     </div>

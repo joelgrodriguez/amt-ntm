@@ -12,14 +12,22 @@
 
 declare(strict_types=1);
 
-$contact = [
+$content = [
+    'eyebrow'    => __('Get in Touch', 'standard'),
+    'title'      => __("Let's Talk", 'standard'),
+    'text'       => __('Ready to take control of your business? Contact us today to discuss your equipment needs.', 'standard'),
+    'form_title' => __('Send Us a Message', 'standard'),
+    'form_text'  => __("Fill out the form below and we'll get back to you within one business day.", 'standard'),
+];
+
+$contact_info = [
     'address' => '16265 E. 33rd Dr. Suite 40, Aurora, Colorado 80011',
     'email'   => 'support@newtechmachinery.com',
     'phone'   => '303.294.0538',
     'map_url' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3066.8553948429734!2d-104.82490548462348!3d39.76307597944626!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x876c62956ef5f97b%3A0x8b6b5a3928336406!2s16265%20E%2033rd%20Dr%20%2340%2C%20Aurora%2C%20CO%2080011%2C%20USA!5e0!3m2!1sen!2sus!4v1634704182859!5m2!1sen!2sus',
 ];
 
-$directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact['address']);
+$directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact_info['address']);
 ?>
 
 <section id="contact" class="py-16 bg-white pattern-dot-grid gradient-fade-bottom overflow-hidden md:py-20 lg:py-24" aria-labelledby="contact-title">
@@ -28,15 +36,15 @@ $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact['addr
         <!-- Section Header -->
         <div class="text-center mb-12 lg:mb-16">
             <p class="text-sm font-semibold uppercase tracking-wider text-secondary mb-2">
-                <?php esc_html_e('Get in Touch', 'standard'); ?>
+                <?php echo esc_html($content['eyebrow']); ?>
             </p>
             <div class="w-12 h-1 bg-secondary mx-auto mb-6"></div>
 
             <h2 id="contact-title" class="text-3xl font-bold text-slate-900 mb-4 md:text-4xl lg:text-5xl">
-                <?php esc_html_e("Let's Talk", 'standard'); ?>
+                <?php echo esc_html($content['title']); ?>
             </h2>
             <p class="text-lg text-slate-600 max-w-2xl mx-auto">
-                <?php esc_html_e('Ready to take control of your business? Contact us today to discuss your equipment needs.', 'standard'); ?>
+                <?php echo esc_html($content['text']); ?>
             </p>
         </div>
 
@@ -54,30 +62,30 @@ $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact['addr
                         class="group flex items-center gap-3 text-slate-700 hover:text-secondary transition-colors"
                     >
                         <?php icon('launch', ['class' => 'w-5 h-5 text-secondary shrink-0']); ?>
-                        <span><?php echo esc_html($contact['address']); ?></span>
+                        <span><?php echo esc_html($contact_info['address']); ?></span>
                     </a>
 
                     <a
-                        href="mailto:<?php echo esc_attr($contact['email']); ?>"
+                        href="mailto:<?php echo esc_attr($contact_info['email']); ?>"
                         class="group flex items-center gap-3 text-slate-700 hover:text-secondary transition-colors"
                     >
                         <?php icon('email', ['class' => 'w-5 h-5 text-secondary shrink-0']); ?>
-                        <span><?php echo esc_html($contact['email']); ?></span>
+                        <span><?php echo esc_html($contact_info['email']); ?></span>
                     </a>
 
                     <a
-                        href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $contact['phone'])); ?>"
+                        href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $contact_info['phone'])); ?>"
                         class="group flex items-center gap-3 text-slate-700 hover:text-secondary transition-colors"
                     >
                         <?php icon('mobile', ['class' => 'w-5 h-5 text-secondary shrink-0']); ?>
-                        <span><?php echo esc_html($contact['phone']); ?></span>
+                        <span><?php echo esc_html($contact_info['phone']); ?></span>
                     </a>
                 </div>
 
                 <!-- Map -->
                 <div class="relative aspect-video bg-slate-100 border border-slate-200 overflow-hidden">
                     <iframe
-                        src="<?php echo esc_url($contact['map_url']); ?>"
+                        src="<?php echo esc_url($contact_info['map_url']); ?>"
                         width="100%"
                         height="100%"
                         class="absolute inset-0"
@@ -85,7 +93,7 @@ $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact['addr
                         allowfullscreen=""
                         loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade"
-                        title="<?php esc_attr_e('NTM Location Map', 'standard'); ?>"
+                        title="<?php echo esc_attr__('NTM Location Map', 'standard'); ?>"
                     ></iframe>
                 </div>
 
@@ -94,10 +102,10 @@ $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact['addr
             <!-- Right Column: Form -->
             <div class="bg-slate-50 border border-slate-200 p-8 lg:p-10">
                 <h3 class="text-xl font-bold text-slate-900 mb-2">
-                    <?php esc_html_e('Send Us a Message', 'standard'); ?>
+                    <?php echo esc_html($content['form_title']); ?>
                 </h3>
                 <p class="text-slate-600 mb-6">
-                    <?php esc_html_e('Fill out the form below and we\'ll get back to you within one business day.', 'standard'); ?>
+                    <?php echo esc_html($content['form_text']); ?>
                 </p>
 
                 <div id="contact-form">
