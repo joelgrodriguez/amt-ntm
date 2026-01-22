@@ -26,6 +26,8 @@ get_header();
 
     <?php get_template_part('templates/parts/front-page/pain-points'); ?>
 
+    <?php get_template_part('templates/parts/front-page/value-prop'); ?>
+
 </main>
 
 <?php

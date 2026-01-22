@@ -1,0 +1,89 @@
+<?php
+/**
+ * Value Proposition Section Template Part
+ *
+ * Two-column layout presenting the solution to pain points.
+ * Left: action image with marketing message.
+ * Right: eyebrow, heading, intro text, bullet points with checkmarks, CTA.
+ *
+ * @package Standard
+ *
+ * @usage Front Page (front-page.php)
+ */
+
+declare(strict_types=1);
+
+$value_points = [
+    [
+        'title' => __('Keep 100% of Panel Profits', 'standard'),
+        'text'  => __('Roll your own panels on-site and capture the margin you\'ve been paying to suppliers.', 'standard'),
+    ],
+    [
+        'title' => __('Win More Bids', 'standard'),
+        'text'  => __('Quote faster with better pricing. Owning your machine gives you the edge competitors can\'t match.', 'standard'),
+    ],
+    [
+        'title' => __('Control Your Schedule', 'standard'),
+        'text'  => __('No more waiting on deliveries. Produce exactly what you need, when you need it.', 'standard'),
+    ],
+];
+?>
+
+<section class="py-16 md:py-20 lg:py-24" aria-labelledby="value-prop-title">
+    <div class="container">
+        <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-center">
+
+            <div class="order-2 lg:order-1">
+                <img
+                    src="https://newtechmachinery.com/wp-content/uploads/2024/10/Ross-in-front-of-SSQ-scaled.jpg"
+                    alt="<?php esc_attr_e('NTM customer with SSQ roof panel machine', 'standard'); ?>"
+                    class="w-full h-auto"
+                    loading="lazy"
+                >
+                <p class="mt-4 text-center text-sm text-slate-600">
+                    <?php esc_html_e('Join thousands of contractors who\'ve taken control of their business.', 'standard'); ?>
+                </p>
+            </div>
+
+            <div class="order-1 lg:order-2">
+                <p class="text-sm font-semibold uppercase tracking-wider text-secondary mb-2">
+                    <?php esc_html_e('The NTM Advantage', 'standard'); ?>
+                </p>
+                <div class="w-12 h-1 bg-secondary mb-6"></div>
+
+                <h2 id="value-prop-title" class="text-3xl font-bold text-slate-900 mb-4 md:text-4xl lg:text-5xl">
+                    <?php esc_html_e('Own Your Machine. Own Your Future.', 'standard'); ?>
+                </h2>
+
+                <p class="text-lg text-slate-600 mb-8 lg:mb-10">
+                    <?php esc_html_e('When you invest in an NTM rollformer, you\'re not just buying equipment—you\'re unlocking a new revenue stream and taking control of your business.', 'standard'); ?>
+                </p>
+
+                <ul class="space-y-6 mb-8 lg:mb-10">
+                    <?php foreach ($value_points as $point) : ?>
+                        <li class="flex gap-4">
+                            <span class="shrink-0 mt-1">
+                                <?php icon('checkmark', ['class' => 'w-4 h-4 text-green-600']); ?>
+                            </span>
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-900 mb-1">
+                                    <?php echo esc_html($point['title']); ?>
+                                </h3>
+                                <p class="text-slate-600">
+                                    <?php echo esc_html($point['text']); ?>
+                                </p>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+
+                <div class="flex flex-wrap gap-4">
+                    <a href="/contact/" class="btn btn-primary">
+                        <?php esc_html_e('Schedule a Call', 'standard'); ?>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
