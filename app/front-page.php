@@ -32,6 +32,8 @@ get_header();
 
     <?php get_template_part('templates/parts/front-page/social-proof'); ?>
 
+    <?php get_template_part('templates/parts/front-page/configurator'); ?>
+
 </main>
 
 <?php
