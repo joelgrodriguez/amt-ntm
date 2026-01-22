@@ -43,8 +43,8 @@ $tools = [
 
 <section class="tools py-12 bg-white md:py-16" aria-labelledby="tools-title">
     <div class="container">
-        <h2 id="tools-title" class="sr-only">
-            <?php esc_html_e('Shopping Tools', 'standard'); ?>
+        <h2 id="tools-title" class="text-2xl font-bold text-center text-slate-900 mb-8 md:text-3xl md:mb-12">
+            <?php esc_html_e('Tools to Help You Decide', 'standard'); ?>
         </h2>
 
         <div class="tools__grid grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-8 lg:gap-12">

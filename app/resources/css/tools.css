@@ -26,9 +26,10 @@
 
 /* Icon wrapper */
 .tools__icon-wrapper {
-  @apply flex items-center justify-center mb-3;
-  @apply w-16 h-16 rounded-full bg-slate-100;
+  @apply flex items-center justify-center mb-4;
+  @apply w-20 h-20 bg-slate-100;
   @apply transition-colors duration-200;
+  @apply md:w-24 md:h-24;
 }
 
 .tools__item:hover .tools__icon-wrapper {
