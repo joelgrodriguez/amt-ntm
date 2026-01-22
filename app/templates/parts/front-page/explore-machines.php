@@ -42,44 +42,46 @@ $first_category = array_key_first($categories);
         </div>
     </div>
 
-    <?php foreach ($categories as $slug => $label) : ?>
-        <?php $products = get_products_by_category($slug); ?>
-        <div
-            id="panel-<?php echo esc_attr($slug); ?>"
-            class="explore-machines__panel hidden <?php echo $slug === $first_category ? 'explore-machines__panel--active' : ''; ?>"
-            role="tabpanel"
-            aria-labelledby="tab-<?php echo esc_attr($slug); ?>"
-            <?php echo $slug !== $first_category ? 'hidden' : ''; ?>
-        >
-            <div class="explore-machines__track flex gap-4 overflow-x-auto md:gap-6">
-                <?php foreach ($products as $product) : ?>
-                    <?php get_template_part('templates/parts/card-product', null, ['product' => $product]); ?>
-                <?php endforeach; ?>
-            </div>
+    <div class="container mx-auto">
+        <?php foreach ($categories as $slug => $label) : ?>
+            <?php $products = get_products_by_category($slug); ?>
+            <div
+                    id="panel-<?php echo esc_attr($slug); ?>"
+                    class="explore-machines__panel hidden <?php echo $slug === $first_category ? 'explore-machines__panel--active' : ''; ?>"
+                    role="tabpanel"
+                    aria-labelledby="tab-<?php echo esc_attr($slug); ?>"
+                    <?php echo $slug !== $first_category ? 'hidden' : ''; ?>
+            >
+                <div class="explore-machines__track flex gap-4 overflow-x-auto md:gap-6">
+                    <?php foreach ($products as $product) : ?>
+                        <?php get_template_part('templates/parts/card-product', null, ['product' => $product]); ?>
+                    <?php endforeach; ?>
+                </div>
 
-            <div class="flex justify-center mt-8 lg:mt-10">
-                <div class="flex items-center gap-4">
-                    <button
-                        type="button"
-                        class="explore-machines__arrow explore-machines__arrow--prev flex items-center justify-center w-8 h-8 bg-slate-200 text-slate-600 border-none cursor-pointer transition-all duration-200 hover:bg-slate-900 hover:text-white disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
-                        aria-label="<?php esc_attr_e('Previous products', 'standard'); ?>"
-                        data-panel="<?php echo esc_attr($slug); ?>"
-                    ><?php icon('arrow--left', ['class' => 'w-4 h-4']); ?></button>
-                    <span class="text-sm text-slate-600 min-w-16 text-center">
+                <div class="flex justify-center mt-8 lg:mt-10">
+                    <div class="flex items-center gap-4">
+                        <button
+                                type="button"
+                                class="explore-machines__arrow explore-machines__arrow--prev flex items-center justify-center w-8 h-8 bg-slate-200 text-slate-600 border-none cursor-pointer transition-all duration-200 hover:bg-slate-900 hover:text-white disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+                                aria-label="<?php esc_attr_e('Previous products', 'standard'); ?>"
+                                data-panel="<?php echo esc_attr($slug); ?>"
+                        ><?php icon('arrow--left', ['class' => 'w-4 h-4']); ?></button>
+                        <span class="text-sm text-slate-600 min-w-16 text-center">
                         <span class="explore-machines__current">1</span>
                         <?php esc_html_e('of', 'standard'); ?>
                         <span class="explore-machines__total"><?php echo count($products); ?></span>
                     </span>
-                    <button
-                        type="button"
-                        class="explore-machines__arrow explore-machines__arrow--next flex items-center justify-center w-8 h-8 bg-slate-200 text-slate-600 border-none cursor-pointer transition-all duration-200 hover:bg-slate-900 hover:text-white disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
-                        aria-label="<?php esc_attr_e('Next products', 'standard'); ?>"
-                        data-panel="<?php echo esc_attr($slug); ?>"
-                    ><?php icon('arrow--right', ['class' => 'w-4 h-4']); ?></button>
+                        <button
+                                type="button"
+                                class="explore-machines__arrow explore-machines__arrow--next flex items-center justify-center w-8 h-8 bg-slate-200 text-slate-600 border-none cursor-pointer transition-all duration-200 hover:bg-slate-900 hover:text-white disabled:opacity-40 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+                                aria-label="<?php esc_attr_e('Next products', 'standard'); ?>"
+                                data-panel="<?php echo esc_attr($slug); ?>"
+                        ><?php icon('arrow--right', ['class' => 'w-4 h-4']); ?></button>
+                    </div>
                 </div>
             </div>
-        </div>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
+    </div>
 
     <div class="container">
         <div class="flex justify-center gap-4 flex-wrap mt-8 lg:mt-10">
