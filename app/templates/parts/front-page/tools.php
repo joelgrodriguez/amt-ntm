@@ -14,53 +14,47 @@ declare(strict_types=1);
 
 $tools = [
     [
-        'icon'        => 'settings',
-        'title'       => __('Build & Finance', 'standard'),
-        'description' => __('Configure your machine', 'standard'),
-        'url'         => '/build-finance/',
+        'icon'  => 'settings',
+        'title' => __('Build & Finance', 'standard'),
+        'url'   => '/build-finance/',
     ],
     [
-        'icon'        => 'help--outline',
-        'title'       => __('Machine Quiz', 'standard'),
-        'description' => __('Find your perfect machine', 'standard'),
-        'url'         => '/roof-panel-machine-assessment-quiz/',
+        'icon'  => 'help--outline',
+        'title' => __('Machine Quiz', 'standard'),
+        'url'   => '/roof-panel-machine-assessment-quiz/',
     ],
     [
-        'icon'        => 'predictive',
-        'title'       => __('Profit Calculator', 'standard'),
-        'description' => __('Estimate your ROI', 'standard'),
-        'url'         => '/learning-center/download/portable-rollforming-profit-calculator/',
+        'icon'  => 'predictive',
+        'title' => __('Profit Calculator', 'standard'),
+        'url'   => '/learning-center/download/portable-rollforming-profit-calculator/',
     ],
     [
-        'icon'        => 'finance',
-        'title'       => __('Financing Options', 'standard'),
-        'description' => __('Flexible payment plans', 'standard'),
-        'url'         => '/machines/leasing-financing/',
+        'icon'  => 'finance',
+        'title' => __('Financing Options', 'standard'),
+        'url'   => '/machines/leasing-financing/',
     ],
 ];
 ?>
 
 <section class="py-12 bg-white md:py-16" aria-labelledby="tools-title">
     <div class="container">
-        <h2 id="tools-title" class="text-2xl font-bold text-center text-slate-900 mb-8 md:text-3xl md:mb-12">
+        <h2 id="tools-title" class="sr-only">
             <?php esc_html_e('Tools to Help You Decide', 'standard'); ?>
         </h2>
 
-        <div class="grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-8 lg:gap-12">
-            <?php foreach ($tools as $tool) : ?>
+        <div class="grid grid-cols-2 border border-slate-200 md:grid-cols-4">
+            <?php foreach ($tools as $index => $tool) : ?>
                 <a
                     href="<?php echo esc_url($tool['url']); ?>"
-                    class="group flex flex-col items-center text-center no-underline transition-transform duration-200 hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-4"
+                    class="group flex flex-col justify-between p-6 no-underline border-slate-200 transition-colors duration-200 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-[-2px] <?php echo $index % 2 === 1 ? 'border-l' : ''; ?> <?php echo $index >= 2 ? 'border-t md:border-t-0' : ''; ?> <?php echo $index >= 1 ? 'md:border-l' : ''; ?>"
                 >
-                    <div class="flex items-center justify-center mb-4 w-20 h-20 bg-slate-100 transition-colors duration-200 group-hover:bg-slate-200 motion-reduce:transition-none md:w-24 md:h-24">
-                        <?php icon($tool['icon'], ['class' => 'w-10 h-10 text-slate-700 transition-colors duration-200 group-hover:text-secondary motion-reduce:transition-none md:w-12 md:h-12']); ?>
-                    </div>
-                    <h3 class="text-base font-semibold text-slate-900 mb-1 md:text-lg">
+                    <h3 class="text-base font-medium text-slate-900 mb-12 md:text-lg">
                         <?php echo esc_html($tool['title']); ?>
                     </h3>
-                    <p class="text-sm text-slate-500 leading-snug hidden md:block">
-                        <?php echo esc_html($tool['description']); ?>
-                    </p>
+                    <div class="flex items-end justify-between">
+                        <?php icon($tool['icon'], ['class' => 'w-10 h-10 text-primary md:w-12 md:h-12']); ?>
+                        <?php icon('arrow--right', ['class' => 'w-5 h-5 text-slate-400 transition-colors duration-200 group-hover:text-primary']); ?>
+                    </div>
                 </a>
             <?php endforeach; ?>
         </div>
