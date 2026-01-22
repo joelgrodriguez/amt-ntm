@@ -29,7 +29,7 @@
 }
 
 .explore-machines__panel--active {
-  @apply grid gap-8 lg:gap-10;
+  @apply block;
 }
 
 /* Tab active state - toggled by JS */
