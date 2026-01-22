@@ -18,6 +18,7 @@ import { init as initScrollHeader } from './modules/ScrollHeader.js';
 import { init as initScrollToTop } from './modules/ScrollToTop.js';
 import { initHeroSlider } from './modules/HeroSlider.js';
 import { initExploreMachines } from './modules/ExploreMachines.js';
+import { initSocialProof, cleanup as cleanupSocialProof } from './modules/SocialProof.js';
 
 /** @type {Function|null} Cleanup function for mobile menu */
 let mobileMenuCleanup = null;
@@ -39,6 +40,9 @@ let heroSliderCleanup = null;
 
 /** @type {Function|null} Cleanup function for explore machines */
 let exploreMachinesCleanup = null;
+
+/** @type {Function|null} Cleanup function for social proof */
+let socialProofCleanup = null;
 
 /**
  * Executes callback when DOM is ready.
@@ -68,6 +72,7 @@ const initApp = () => {
   scrollToTopCleanup = initScrollToTop();
   heroSliderCleanup = initHeroSlider();
   exploreMachinesCleanup = initExploreMachines();
+  initSocialProof();
 };
 
 // Bootstrap
@@ -98,6 +103,7 @@ if (import.meta.hot) {
     if (exploreMachinesCleanup) {
       exploreMachinesCleanup();
     }
+    cleanupSocialProof();
     // Reinitialize
     initApp();
   });
