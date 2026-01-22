@@ -24,6 +24,8 @@ get_header();
 
     <?php get_template_part('templates/parts/front-page/who-is-ntm'); ?>
 
+    <?php get_template_part('templates/parts/front-page/pain-points'); ?>
+
 </main>
 
 <?php
