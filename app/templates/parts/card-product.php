@@ -54,10 +54,6 @@ $is_accessory  = empty($price);
             <h3 class="card-product__title"><?php echo esc_html($title); ?></h3>
         <?php endif; ?>
 
-        <?php if ($tagline) : ?>
-<!--            <p class="card-product__tagline">--><?php //echo esc_html($tagline); ?><!--</p>-->
-        <?php endif; ?>
-
         <?php if ($price) : ?>
             <div class="card-product__price">
                 <span class="card-product__price-value"><?php echo esc_html($price); ?></span>

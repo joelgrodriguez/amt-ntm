@@ -10,7 +10,23 @@
 const DEFAULTS = {
   selector: '.explore-machines',
   scrollAmount: 400,
+  debounceDelay: 100,
 };
+
+/**
+ * Creates a debounced version of a function.
+ *
+ * @param {Function} fn - Function to debounce
+ * @param {number} delay - Delay in milliseconds
+ * @returns {Function} Debounced function
+ */
+function debounce(fn, delay) {
+  let timeoutId;
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn.apply(this, args), delay);
+  };
+}
 
 /**
  * Initializes the Explore Machines functionality.
@@ -88,13 +104,11 @@ export function initExploreMachines(options = {}) {
     // Update arrow states
     const prevBtn = panel.querySelector('.explore-machines__arrow--prev');
     const nextBtn = panel.querySelector('.explore-machines__arrow--next');
+    const isAtStart = track.scrollLeft <= 0;
+    const isAtEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 10;
 
-    if (prevBtn) {
-      prevBtn.disabled = track.scrollLeft <= 0;
-    }
-    if (nextBtn) {
-      prevBtn.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 10;
-    }
+    if (prevBtn) prevBtn.disabled = isAtStart;
+    if (nextBtn) nextBtn.disabled = isAtEnd;
   }
 
   /**
@@ -127,33 +141,28 @@ export function initExploreMachines(options = {}) {
       );
     });
 
-    // Arrow clicks
-    section.querySelectorAll('.explore-machines__arrow').forEach((arrow) => {
-      arrow.addEventListener(
-        'click',
-        () => {
-          const panelId = arrow.dataset.panel;
-          const panel = section.querySelector(`#panel-${panelId}`);
-          if (panel) {
-            const direction = arrow.classList.contains('explore-machines__arrow--next')
-              ? 'next'
-              : 'prev';
-            scrollTrack(panel, direction);
-          }
-        },
-        { signal }
-      );
-    });
+    // Arrow clicks (using event delegation for efficiency)
+    section.addEventListener(
+      'click',
+      (e) => {
+        const arrow = e.target.closest('.explore-machines__arrow');
+        if (!arrow) return;
 
-    // Track scroll events for counter updates
+        const panel = section.querySelector(`#panel-${arrow.dataset.panel}`);
+        if (!panel) return;
+
+        const direction = arrow.classList.contains('explore-machines__arrow--next') ? 'next' : 'prev';
+        scrollTrack(panel, direction);
+      },
+      { signal }
+    );
+
+    // Track scroll events for counter updates (debounced for performance)
     panels.forEach((panel) => {
       const track = panel.querySelector('.explore-machines__track');
       if (track) {
-        track.addEventListener(
-          'scroll',
-          () => updateCounter(panel, track),
-          { passive: true, signal }
-        );
+        const debouncedUpdate = debounce(() => updateCounter(panel, track), config.debounceDelay);
+        track.addEventListener('scroll', debouncedUpdate, { passive: true, signal });
       }
     });
 
