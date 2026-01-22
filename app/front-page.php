@@ -22,6 +22,8 @@ get_header();
 
     <?php get_template_part('templates/parts/front-page/tools'); ?>
 
+    <?php get_template_part('templates/parts/front-page/who-is-ntm'); ?>
+
 </main>
 
 <?php
