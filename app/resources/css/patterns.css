@@ -109,3 +109,10 @@
     linear-gradient(to right, #334155 1px, transparent 1px),
     linear-gradient(to bottom, #334155 1px, transparent 1px);
 }
+
+/* Primary variant for primary color backgrounds */
+.pattern-square-grid--primary .pattern-square-grid__overlay {
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.15) 1px, transparent 1px);
+}
