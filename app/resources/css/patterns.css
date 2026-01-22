@@ -48,7 +48,7 @@
 
 @media (min-width: 1024px) {
   .gradient-fade-bottom::before {
-    height: 1200px;
+    height: 800px;
   }
 }
 
@@ -84,8 +84,8 @@
 .pattern-square-grid__overlay {
   @apply absolute inset-0 pointer-events-none;
   background-image:
-    linear-gradient(to right, #e2e8f0 1px, transparent 1px),
-    linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
+    linear-gradient(to right, #cbd5e1 1px, transparent 1px),
+    linear-gradient(to bottom, #cbd5e1 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
