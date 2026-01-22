@@ -12,11 +12,20 @@
  * @see js/modules/ExploreMachines.js - Tab switching and scroll navigation
  */
 
-/* Track - custom scrollbar hiding (no Tailwind equivalent) */
+/* Track - horizontal scroll with container-aligned padding */
 .explore-machines__track {
+  @apply px-4 md:px-8;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   -ms-overflow-style: none;
+}
+
+/* Align track start with container on large screens */
+@media (min-width: 1024px) {
+  .explore-machines__track {
+    padding-left: calc((100vw - var(--layout-wide)) / 2);
+    padding-right: calc((100vw - var(--layout-wide)) / 2);
+  }
 }
 
 .explore-machines__track::-webkit-scrollbar {
