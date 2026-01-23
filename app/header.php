@@ -50,7 +50,7 @@
                     ?>
                     <img src="<?php echo esc_url($logo_url); ?>" alt="" class="w-14 object-contain">
                 <?php endif; ?>
-                <span class="font-mono font-bold text-primary hover:text-blue-700">
+                <span class="font-mono font-bold text-slate-600 hover:text-primary">
                     <?php echo esc_html(get_bloginfo('name')); ?>
                 </span>
             </a>

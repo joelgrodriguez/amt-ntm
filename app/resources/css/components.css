@@ -13,14 +13,27 @@
   /*
    * Buttons
    * Sizes based on Carbon: sm=32px, md=40px, lg=48px, xl=64px
+   * Hover effect: color sweep from left to right using ::after pseudo-element
    */
   .btn {
-    @apply inline-flex items-center justify-center font-medium;
-    @apply transition-all duration-150 ease-out;
-    @apply hover:-translate-y-0.5 hover:shadow-md;
-    @apply active:translate-y-0 active:shadow-sm;
+    @apply inline-flex items-center justify-center font-medium relative overflow-hidden;
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary;
     @apply h-12 px-4 min-w-32;
+  }
+
+  .btn::after {
+    @apply absolute inset-0 w-0;
+    content: '';
+    transition: width 0.25s ease-out;
+  }
+
+  .btn:hover::after {
+    @apply w-full;
+  }
+
+  /* Ensure text/icons stay above the sweep overlay */
+  .btn > * {
+    @apply relative z-10;
   }
 
   .btn-sm {
@@ -39,50 +52,79 @@
     @apply h-16 px-5 min-w-40;
   }
 
-  /* Primary - solid brand color */
+  /* Primary - solid brand color with darker sweep on hover */
   .btn-primary {
     @apply bg-primary text-white;
-    @apply hover:bg-blue-700;
     @apply focus-visible:ring-primary;
   }
 
-  /* Secondary - solid secondary/orange color */
+  .btn-primary::after {
+    @apply bg-black/20;
+  }
+
+  /* Secondary - solid secondary/orange color with darker sweep on hover */
   .btn-secondary {
     @apply bg-secondary text-white;
-    @apply hover:brightness-90;
     @apply focus-visible:ring-secondary;
+  }
+
+  .btn-secondary::after {
+    @apply bg-black/20;
   }
 
   /* Light - white/light background */
   .btn-light {
     @apply bg-white text-slate-900;
-    @apply hover:bg-slate-100;
     @apply focus-visible:ring-slate-400;
+  }
+
+  .btn-light::after {
+    @apply bg-slate-100;
   }
 
   /* Outline/Tertiary - transparent with border */
   .btn-outline {
     @apply bg-transparent border border-current;
-    @apply hover:bg-white/10;
+  }
+
+  .btn-outline::after {
+    @apply bg-white/10;
   }
 
   .btn-outline-light {
     @apply bg-transparent text-white border border-white/60;
-    @apply hover:bg-white hover:text-slate-900 hover:border-white;
     @apply focus-visible:ring-white focus-visible:ring-offset-slate-900;
+  }
+
+  .btn-outline-light::after {
+    @apply bg-white;
+  }
+
+  .btn-outline-light:hover {
+    @apply text-slate-900 border-white;
   }
 
   .btn-outline-dark {
     @apply bg-transparent text-slate-900 border border-slate-900;
-    @apply hover:bg-slate-900 hover:text-white;
     @apply focus-visible:ring-slate-900;
+  }
+
+  .btn-outline-dark::after {
+    @apply bg-slate-900;
+  }
+
+  .btn-outline-dark:hover {
+    @apply text-white;
   }
 
   /* Ghost - no background, no border */
   .btn-ghost {
     @apply bg-transparent min-w-0;
-    @apply hover:bg-slate-100;
     @apply focus-visible:ring-slate-400;
+  }
+
+  .btn-ghost::after {
+    @apply bg-slate-100;
   }
 
   /* Link underline animation */
