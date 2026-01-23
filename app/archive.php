@@ -113,7 +113,7 @@ $categories = get_categories([
 
                 <!-- All Posts Link -->
                 <a href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>" class="flex items-center gap-2 text-sm font-medium text-primary hover:underline">
-                    <?php icon('arrow--left', ['class' => 'w-4 h-4']); ?>
+                    <?php icon('arrow-left', ['class' => 'w-4 h-4']); ?>
                     <?php echo esc_html($content['view_all']); ?>
                 </a>
 

@@ -27,7 +27,7 @@ $helpful_links = [
         'title' => __('Learning Center', 'standard'),
         'description' => __('Articles, videos, and resources', 'standard'),
         'url' => home_url('/learning-center/'),
-        'icon' => 'document',
+        'icon' => 'file-text',
     ],
     [
         'title' => __('Profiles', 'standard'),
@@ -39,7 +39,7 @@ $helpful_links = [
         'title' => __('Manuals', 'standard'),
         'description' => __('Machine documentation', 'standard'),
         'url' => get_post_type_archive_link('manual') ?: home_url('/manuals/'),
-        'icon' => 'document',
+        'icon' => 'file-text',
     ],
     [
         'title' => __('Resources', 'standard'),
@@ -57,7 +57,7 @@ $helpful_links = [
         'title' => __('Contact Us', 'standard'),
         'description' => __('Get in touch with our team', 'standard'),
         'url' => home_url('/contact/'),
-        'icon' => 'email',
+        'icon' => 'mail',
     ],
 ];
 ?>
@@ -112,7 +112,7 @@ $helpful_links = [
             <!-- Back to Home -->
             <div class="text-center mt-12">
                 <a href="<?php echo esc_url(home_url('/')); ?>" class="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline">
-                    <?php icon('arrow--left', ['class' => 'w-4 h-4']); ?>
+                    <?php icon('arrow-left', ['class' => 'w-4 h-4']); ?>
                     <?php echo esc_html($content['back_home']); ?>
                 </a>
             </div>

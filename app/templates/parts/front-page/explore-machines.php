@@ -80,7 +80,7 @@ $first_category = array_key_first($categories);
                                 class="explore-machines__arrow explore-machines__arrow--prev"
                                 aria-label="<?php esc_attr_e('Previous products', 'standard'); ?>"
                                 data-panel="<?php echo esc_attr($slug); ?>"
-                            ><?php icon('arrow--left', ['class' => 'w-4 h-4']); ?></button>
+                            ><?php icon('arrow-left', ['class' => 'w-4 h-4']); ?></button>
                             <span class="text-sm text-slate-600 min-w-16 text-center">
                                 <span class="explore-machines__current">1</span>
                                 <?php esc_html_e('of', 'standard'); ?>
@@ -91,7 +91,7 @@ $first_category = array_key_first($categories);
                                 class="explore-machines__arrow explore-machines__arrow--next"
                                 aria-label="<?php esc_attr_e('Next products', 'standard'); ?>"
                                 data-panel="<?php echo esc_attr($slug); ?>"
-                            ><?php icon('arrow--right', ['class' => 'w-4 h-4']); ?></button>
+                            ><?php icon('arrow-right', ['class' => 'w-4 h-4']); ?></button>
                         </div>
                     </div>
                 </div>
@@ -104,7 +104,7 @@ $first_category = array_key_first($categories);
             </a>
             <a href="/build-finance/" class="btn btn-ghost">
                 <?php esc_html_e('Build & Finance', 'standard'); ?>
-                <?php icon('arrow--right', ['class' => 'w-4 h-4']); ?>
+                <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
             </a>
         </div>
     </div>

@@ -23,17 +23,17 @@ $tools = [
         'url'   => '/build-finance/',
     ],
     [
-        'icon'  => 'help--outline',
+        'icon'  => 'help-circle',
         'title' => __('Machine Quiz', 'standard'),
         'url'   => '/roof-panel-machine-assessment-quiz/',
     ],
     [
-        'icon'  => 'predictive',
+        'icon'  => 'dollar-sign',
         'title' => __('Profit Calculator', 'standard'),
         'url'   => '/learning-center/download/portable-rollforming-profit-calculator/',
     ],
     [
-        'icon'  => 'finance',
+        'icon'  => 'trending-up',
         'title' => __('Financing Options', 'standard'),
         'url'   => '/machines/leasing-financing/',
     ],
@@ -57,7 +57,7 @@ $tools = [
                     </h3>
                     <div class="flex items-end justify-between">
                         <?php icon($tool['icon'], ['class' => 'w-8 h-8 text-slate-700 transition-colors duration-200 group-hover:text-primary md:w-10 md:h-10']); ?>
-                        <?php icon('arrow--right', ['class' => 'w-5 h-5 text-slate-400 transition-colors duration-200 group-hover:text-primary']); ?>
+                        <?php icon('arrow-right', ['class' => 'w-5 h-5 text-slate-400 transition-colors duration-200 group-hover:text-primary']); ?>
                     </div>
                 </a>
             <?php endforeach; ?>

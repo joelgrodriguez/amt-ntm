@@ -30,12 +30,12 @@ $features = [
         'text'  => __('Choose your profile, coil width, and options.', 'standard'),
     ],
     [
-        'icon'  => 'dollars',
+        'icon'  => 'dollar-sign',
         'title' => __('See Real Pricing', 'standard'),
         'text'  => __('Get transparent pricing instantly—no waiting.', 'standard'),
     ],
     [
-        'icon'  => 'finance',
+        'icon'  => 'trending-up',
         'title' => __('Apply for Financing', 'standard'),
         'text'  => __('Flexible financing options built right in.', 'standard'),
     ],
@@ -92,7 +92,7 @@ $features = [
                 <div class="flex flex-wrap items-center gap-4">
                     <a href="<?php echo esc_url($content['cta_url']); ?>" class="btn btn-primary btn-lg group">
                         <?php echo esc_html($content['cta_text']); ?>
-                        <?php icon('arrow--right', ['class' => 'w-5 h-5 ml-2 transition-transform group-hover:translate-x-1']); ?>
+                        <?php icon('arrow-right', ['class' => 'w-5 h-5 ml-2 transition-transform group-hover:translate-x-1']); ?>
                     </a>
                     <span class="text-sm text-slate-500">
                         <?php echo esc_html($content['cta_note']); ?>

@@ -97,7 +97,7 @@ $legal_links = [
                             <?php echo esc_html($section['title']); ?>
                         </h3>
                         <span class="footer-accordion-icon lg:hidden">
-                            <?php icon('caret--down', ['class' => 'w-3 h-3 text-slate-300 transition-transform duration-300']); ?>
+                            <?php icon('chevron-down', ['class' => 'w-3 h-3 text-slate-300 transition-transform duration-300']); ?>
                         </span>
                     </label>
 
@@ -187,7 +187,7 @@ $legal_links = [
     class="fixed bottom-6 right-6 z-50 w-10 h-10 bg-secondary text-white flex items-center justify-center hover:bg-slate-600 transition-all duration-300 opacity-0 pointer-events-none"
     aria-label="<?php esc_attr_e('Scroll to top', 'standard'); ?>"
 >
-    <?php icon('back-to-top', ['class' => 'w-4 h-4']); ?>
+    <?php icon('chevron-up', ['class' => 'w-4 h-4']); ?>
 </button>
 
 <?php wp_footer(); ?>

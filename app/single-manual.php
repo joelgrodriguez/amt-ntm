@@ -122,7 +122,7 @@ $machine_tags = get_the_tags();
 
                         <!-- All Manuals Link -->
                         <a href="<?php echo esc_url(get_post_type_archive_link('manual')); ?>" class="flex items-center gap-2 text-sm font-medium text-primary hover:underline">
-                            <?php icon('arrow--left', ['class' => 'w-4 h-4']); ?>
+                            <?php icon('arrow-left', ['class' => 'w-4 h-4']); ?>
                             <?php echo esc_html($content['view_all']); ?>
                         </a>
 

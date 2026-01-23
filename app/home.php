@@ -52,14 +52,14 @@ $content_sections = [
     [
         'title'     => __('Latest Articles', 'standard'),
         'post_type' => 'post',
-        'icon'      => 'document',
+        'icon'      => 'file-text',
         'link'      => home_url('/learning-center/articles/'),
         'link_text' => __('View All Articles', 'standard'),
     ],
     [
         'title'     => __('Latest Videos', 'standard'),
         'post_type' => 'video',
-        'icon'      => 'play--solid',
+        'icon'      => 'play',
         'link'      => get_post_type_archive_link('video'),
         'link_text' => __('View All Videos', 'standard'),
     ],
@@ -117,12 +117,12 @@ $content_sections = [
                                 <?php
                                 $featured_post_type = get_post_type();
                                 $featured_type_config = [
-                                    'post'     => ['icon' => 'document', 'cta' => __('Read Article', 'standard')],
-                                    'video'    => ['icon' => 'play--solid', 'cta' => __('Watch Video', 'standard')],
+                                    'post'     => ['icon' => 'file-text', 'cta' => __('Read Article', 'standard')],
+                                    'video'    => ['icon' => 'play', 'cta' => __('Watch Video', 'standard')],
                                     'resource' => ['icon' => 'folder', 'cta' => __('View Resource', 'standard')],
                                     'download' => ['icon' => 'download', 'cta' => __('View Download', 'standard')],
                                 ];
-                                $featured_icon = $featured_type_config[$featured_post_type]['icon'] ?? 'document';
+                                $featured_icon = $featured_type_config[$featured_post_type]['icon'] ?? 'file-text';
                                 $featured_cta = $featured_type_config[$featured_post_type]['cta'] ?? __('Read More', 'standard');
                                 ?>
                                 <span class="inline-flex items-center px-3 py-1 bg-primary text-white text-xs font-mono uppercase tracking-wider mb-4">
@@ -147,7 +147,7 @@ $content_sections = [
                                 </div>
                                 <span class="inline-flex items-center gap-2 text-sm font-medium text-primary">
                                     <?php echo esc_html($featured_cta); ?>
-                                    <?php icon('arrow--right', ['class' => 'w-4 h-4']); ?>
+                                    <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                                 </span>
                             </div>
                         </a>
@@ -158,8 +158,8 @@ $content_sections = [
                 <div class="flex flex-col gap-3">
                     <?php
                     $type_icons = [
-                        'post'     => 'document',
-                        'video'    => 'play--solid',
+                        'post'     => 'file-text',
+                        'video'    => 'play',
                         'resource' => 'folder',
                         'download' => 'download',
                     ];
@@ -167,7 +167,7 @@ $content_sections = [
                     <?php if ($recent_query->have_posts()) : ?>
                         <?php while ($recent_query->have_posts()) : $recent_query->the_post();
                             $recent_post_type = get_post_type();
-                            $recent_icon = $type_icons[$recent_post_type] ?? 'document';
+                            $recent_icon = $type_icons[$recent_post_type] ?? 'file-text';
                         ?>
                             <article class="group bg-white border border-slate-200 hover:border-slate-300 transition-colors shrink-0">
                                 <a href="<?php the_permalink(); ?>" class="flex items-center gap-4 p-4 no-underline">
@@ -212,7 +212,7 @@ $content_sections = [
                             <?php esc_html_e('Get the latest articles, videos, and resources delivered to your inbox.', 'standard'); ?>
                         </p>
                         <a href="#subscribe" class="inline-flex items-center gap-2 bg-white text-primary px-4 py-2 text-sm font-medium hover:bg-slate-100 transition-colors w-fit">
-                            <?php icon('email', ['class' => 'w-4 h-4']); ?>
+                            <?php icon('mail', ['class' => 'w-4 h-4']); ?>
                             <?php esc_html_e('Subscribe Now', 'standard'); ?>
                         </a>
                     </div>
@@ -248,7 +248,7 @@ $content_sections = [
                             <?php endforeach; ?>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                            <?php icon('caret--down', ['class' => 'w-3 h-3 text-slate-400']); ?>
+                            <?php icon('chevron-down', ['class' => 'w-3 h-3 text-slate-400']); ?>
                         </div>
                     </div>
                 </div>
@@ -256,7 +256,7 @@ $content_sections = [
                 <!-- Resource Type Dropdown -->
                 <div class="flex items-center gap-2">
                     <label class="flex items-center gap-1.5 text-sm text-slate-600">
-                        <?php icon('document', ['class' => 'w-4 h-4']); ?>
+                        <?php icon('file-text', ['class' => 'w-4 h-4']); ?>
                         <?php esc_html_e('Resource Type', 'standard'); ?>
                     </label>
                     <div class="relative">
@@ -268,7 +268,7 @@ $content_sections = [
                             <option value="download"><?php esc_html_e('Downloads', 'standard'); ?></option>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                            <?php icon('caret--down', ['class' => 'w-3 h-3 text-slate-400']); ?>
+                            <?php icon('chevron-down', ['class' => 'w-3 h-3 text-slate-400']); ?>
                         </div>
                     </div>
                 </div>
@@ -290,7 +290,7 @@ $content_sections = [
                                 <?php endforeach; ?>
                             </select>
                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                                <?php icon('caret--down', ['class' => 'w-3 h-3 text-slate-400']); ?>
+                                <?php icon('chevron-down', ['class' => 'w-3 h-3 text-slate-400']); ?>
                             </div>
                         </div>
                     </div>
@@ -324,7 +324,7 @@ $content_sections = [
                     <?php if ($section['link']) : ?>
                         <a href="<?php echo esc_url($section['link']); ?>" class="hidden sm:inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline">
                             <?php echo esc_html($section['link_text']); ?>
-                            <?php icon('arrow--right', ['class' => 'w-4 h-4']); ?>
+                            <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                         </a>
                     <?php endif; ?>
                 </header>
@@ -341,7 +341,7 @@ $content_sections = [
                     <div class="mt-6 sm:hidden">
                         <a href="<?php echo esc_url($section['link']); ?>" class="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline">
                             <?php echo esc_html($section['link_text']); ?>
-                            <?php icon('arrow--right', ['class' => 'w-4 h-4']); ?>
+                            <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                         </a>
                     </div>
                 <?php endif; ?>

@@ -57,7 +57,7 @@ $first_machine = $machines[0] ?? null;
         class="hero-slider__nav hero-slider__nav--prev"
         aria-label="<?php echo esc_attr($content['prev_label']); ?>"
     >
-        <?php icon('arrow--left', ['class' => 'hero-slider__nav-icon']); ?>
+        <?php icon('arrow-left', ['class' => 'hero-slider__nav-icon']); ?>
     </button>
 
     <button
@@ -65,7 +65,7 @@ $first_machine = $machines[0] ?? null;
         class="hero-slider__nav hero-slider__nav--next"
         aria-label="<?php echo esc_attr($content['next_label']); ?>"
     >
-        <?php icon('arrow--right', ['class' => 'hero-slider__nav-icon']); ?>
+        <?php icon('arrow-right', ['class' => 'hero-slider__nav-icon']); ?>
     </button>
 
     <!-- Segmented Progress Bar -->

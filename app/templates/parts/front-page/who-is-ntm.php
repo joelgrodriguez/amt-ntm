@@ -66,7 +66,7 @@ $content = [
         <div class="border-x border-slate-800 container">
             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
                 <div class="flex items-center gap-2 pl-3">
-                    <?php icon('play--solid', ['class' => 'w-3 h-3 fill-current']); ?>
+                    <?php icon('play', ['class' => 'w-3 h-3 fill-current']); ?>
                     <span><?php echo esc_html($content['video_type']); ?></span>
                 </div>
                 <div class="flex items-center gap-4 pr-3">

@@ -72,7 +72,7 @@ $is_accessory  = empty($price);
                 </a>
                 <a href="<?php echo esc_url($build_url); ?>" class="btn btn-sm btn-ghost">
                     <?php esc_html_e('Build', 'standard'); ?>
-                    <?php icon('arrow--right', ['class' => 'w-4 h-4']); ?>
+                    <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                 </a>
             <?php endif; ?>
         </div>

@@ -11,11 +11,11 @@
 // Determine post type icon and CTA text
 $post_type = get_post_type();
 $post_type_config = [
-    'post'     => ['icon' => 'document', 'cta' => __('Read Article', 'standard')],
-    'video'    => ['icon' => 'play--solid', 'cta' => __('Watch Video', 'standard')],
+    'post'     => ['icon' => 'file-text', 'cta' => __('Read Article', 'standard')],
+    'video'    => ['icon' => 'play', 'cta' => __('Watch Video', 'standard')],
     'download' => ['icon' => 'download', 'cta' => __('View Download', 'standard')],
     'resource' => ['icon' => 'folder', 'cta' => __('View Resource', 'standard')],
-    'product'  => ['icon' => 'purchase', 'cta' => __('View Product', 'standard')],
+    'product'  => ['icon' => 'shopping-cart', 'cta' => __('View Product', 'standard')],
     'profile'  => ['icon' => 'user', 'cta' => __('View Profile', 'standard')],
 ];
 
@@ -51,7 +51,7 @@ $cta_text = $post_type_config[$post_type]['cta'] ?? __('View', 'standard');
             <span><?php echo esc_html($cta_text); ?></span>
         </span>
         <span class="text-slate-400">
-            <?php icon('arrow--right', ['class' => 'w-3 h-3']); ?>
+            <?php icon('arrow-right', ['class' => 'w-3 h-3']); ?>
         </span>
     </a>
 </article>

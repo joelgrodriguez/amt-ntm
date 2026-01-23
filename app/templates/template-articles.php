@@ -80,7 +80,7 @@ $categories = get_categories([
 
                 <!-- Back to Learning Center -->
                 <a href="<?php echo esc_url($content['back_url']); ?>" class="flex items-center gap-2 text-sm font-medium text-primary hover:underline">
-                    <?php icon('arrow--left', ['class' => 'w-4 h-4']); ?>
+                    <?php icon('arrow-left', ['class' => 'w-4 h-4']); ?>
                     <?php echo esc_html($content['back_link']); ?>
                 </a>
 

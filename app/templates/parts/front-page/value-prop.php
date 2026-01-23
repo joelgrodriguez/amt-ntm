@@ -74,7 +74,7 @@ $points = [
                     <?php foreach ($points as $point) : ?>
                         <li class="flex gap-4">
                             <span class="shrink-0 mt-1">
-                                <?php icon('checkmark', ['class' => 'w-4 h-4 text-green-600']); ?>
+                                <?php icon('check', ['class' => 'w-4 h-4 text-green-600']); ?>
                             </span>
                             <div>
                                 <h3 class="text-lg font-semibold text-slate-900 mb-1">

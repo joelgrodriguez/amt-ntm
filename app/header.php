@@ -38,7 +38,7 @@
                 aria-label="Toggle menu"
             >
                 <span id="menu-icon-open"><?php icon('menu', ['class' => 'w-5 h-5']); ?></span>
-                <span id="menu-icon-close" class="hidden"><?php icon('close', ['class' => 'w-4 h-4']); ?></span>
+                <span id="menu-icon-close" class="hidden"><?php icon('x', ['class' => 'w-4 h-4']); ?></span>
             </button>
 
             <!-- Logo + Site Name -->
@@ -50,7 +50,7 @@
                     ?>
                     <img src="<?php echo esc_url($logo_url); ?>" alt="" class="w-14 object-contain">
                 <?php endif; ?>
-                <span class="font-mono font-bold text-slate-600 hover:text-primary">
+                <span class="text-sm font-mono font-bold text-slate-600 hover:text-primary">
                     <?php echo esc_html(get_bloginfo('name')); ?>
                 </span>
             </a>

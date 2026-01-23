@@ -38,7 +38,7 @@ $content = [
                 <div class="flex flex-wrap gap-4 mt-2">
                     <a href="<?php echo esc_url($content['cta_url']); ?>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-red-600 text-white font-medium hover:bg-red-700 transition-colors">
                         <?php echo esc_html($content['cta_text']); ?>
-                        <?php icon('arrow--right', ['class' => 'w-4 h-4']); ?>
+                        <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                     </a>
                 </div>
             </div>

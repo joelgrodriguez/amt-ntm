@@ -60,7 +60,7 @@ $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact_info[
                         rel="noopener noreferrer"
                         class="group flex items-center gap-3 text-slate-700 hover:text-secondary transition-colors"
                     >
-                        <?php icon('launch', ['class' => 'w-5 h-5 text-secondary shrink-0']); ?>
+                        <?php icon('external-link', ['class' => 'w-5 h-5 text-secondary shrink-0']); ?>
                         <span><?php echo esc_html($contact_info['address']); ?></span>
                     </a>
 
@@ -68,7 +68,7 @@ $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact_info[
                         href="mailto:<?php echo esc_attr($contact_info['email']); ?>"
                         class="group flex items-center gap-3 text-slate-700 hover:text-secondary transition-colors"
                     >
-                        <?php icon('email', ['class' => 'w-5 h-5 text-secondary shrink-0']); ?>
+                        <?php icon('mail', ['class' => 'w-5 h-5 text-secondary shrink-0']); ?>
                         <span><?php echo esc_html($contact_info['email']); ?></span>
                     </a>
 
@@ -76,7 +76,7 @@ $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact_info[
                         href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $contact_info['phone'])); ?>"
                         class="group flex items-center gap-3 text-slate-700 hover:text-secondary transition-colors"
                     >
-                        <?php icon('mobile', ['class' => 'w-5 h-5 text-secondary shrink-0']); ?>
+                        <?php icon('phone', ['class' => 'w-5 h-5 text-secondary shrink-0']); ?>
                         <span><?php echo esc_html($contact_info['phone']); ?></span>
                     </a>
                 </div>
