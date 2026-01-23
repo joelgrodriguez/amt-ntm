@@ -63,6 +63,7 @@ $is_first         = $index === 0;
             src="<?php echo esc_url($background_image); ?>"
             alt="<?php echo esc_attr($title); ?>"
             loading="<?php echo $is_first ? 'eager' : 'lazy'; ?>"
+            fetchpriority="<?php echo $is_first ? 'high' : 'auto'; ?>"
         >
     <?php endif; ?>
 

@@ -28,7 +28,14 @@ if (empty($machines)) {
 }
 
 $total_slides = count($machines);
+
+// Preload first slide image for faster LCP
+$first_machine = $machines[0] ?? null;
 ?>
+
+<?php if ($first_machine && !empty($first_machine['background_image'])) : ?>
+<link rel="preload" as="image" href="<?php echo esc_url($first_machine['background_image']); ?>" fetchpriority="high">
+<?php endif; ?>
 
 <section class="hero-slider" aria-label="<?php echo esc_attr($content['section_label']); ?>">
 
