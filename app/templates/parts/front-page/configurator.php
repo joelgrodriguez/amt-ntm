@@ -42,7 +42,7 @@ $features = [
 ];
 ?>
 
-<section class="configurator py-16 bg-slate-50 md:py-20 lg:py-24" aria-labelledby="configurator-title">
+<section class="configurator section" aria-labelledby="configurator-title">
     <div class="container">
         <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-center">
 
@@ -57,22 +57,22 @@ $features = [
             </div>
 
             <!-- Content Panel -->
-            <div class="order-1 lg:order-2">
-                <p class="text-sm font-semibold uppercase tracking-wider text-secondary mb-2">
-                    <?php echo esc_html($content['eyebrow']); ?>
-                </p>
-                <div class="w-12 h-1 bg-secondary mb-6"></div>
-
-                <h2 id="configurator-title" class="text-3xl font-bold text-slate-900 mb-4 md:text-4xl lg:text-5xl">
-                    <?php echo esc_html($content['title']); ?>
-                </h2>
-
-                <p class="text-lg text-slate-600 mb-10 max-w-xl">
-                    <?php echo esc_html($content['text']); ?>
-                </p>
+            <div class="order-1 lg:order-2 grid gap-8 lg:gap-10 content-start">
+                <div class="section-header-left">
+                    <p class="section-eyebrow">
+                        <?php echo esc_html($content['eyebrow']); ?>
+                    </p>
+                    <div class="section-divider"></div>
+                    <h2 id="configurator-title" class="section-title">
+                        <?php echo esc_html($content['title']); ?>
+                    </h2>
+                    <p class="section-subtitle max-w-xl">
+                        <?php echo esc_html($content['text']); ?>
+                    </p>
+                </div>
 
                 <!-- Feature Grid -->
-                <div class="grid gap-6 sm:grid-cols-3 mb-10">
+                <div class="grid gap-6 sm:grid-cols-3">
                     <?php foreach ($features as $feature) : ?>
                         <div class="flex flex-col">
                             <div class="flex items-center justify-center w-12 h-12 bg-primary/10 text-primary mb-4">

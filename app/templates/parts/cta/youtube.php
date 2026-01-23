@@ -22,7 +22,7 @@ $content = [
 ?>
 
 <section class="bg-slate-950 border-t border-slate-800">
-    <div class="container mx-auto py-12">
+    <div class="container py-12">
         <div class="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
             <!-- Content -->
             <div class="grid gap-6">

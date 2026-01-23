@@ -36,7 +36,7 @@ $machine_tags = get_the_tags();
         <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-6 lg:gap-12'); ?>>
 
             <!-- Header -->
-            <header class="container mx-auto">
+            <header class="container">
                 <div class="grid gap-4 justify-items-start">
                     <span class="badge inline"><?php echo esc_html($content['badge']); ?></span>
                     <?php the_title('<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold font-mono">', '</h1>'); ?>
@@ -44,7 +44,7 @@ $machine_tags = get_the_tags();
             </header>
 
             <!-- Two-column layout: Filter Sidebar + Content -->
-            <div class="container mx-auto lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
+            <div class="container lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
 
                 <!-- Filter Sidebar -->
                 <aside class="hidden lg:block border-r border-slate-200 pr-8">

@@ -22,16 +22,18 @@ $content = [
 ];
 ?>
 
-<section class="py-16 bg-slate-900 md:py-20 lg:py-24" aria-labelledby="final-cta-title">
-    <div class="container text-center">
+<section class="section bg-slate-900" aria-labelledby="final-cta-title">
+    <div class="container grid gap-8 lg:gap-10 text-center">
 
-        <h2 id="final-cta-title" class="text-3xl font-bold text-white mb-4 md:text-4xl lg:text-5xl">
-            <?php echo esc_html($content['title']); ?>
-        </h2>
+        <div class="grid gap-4">
+            <h2 id="final-cta-title" class="text-3xl font-bold text-white md:text-4xl lg:text-5xl">
+                <?php echo esc_html($content['title']); ?>
+            </h2>
 
-        <p class="text-lg text-slate-300 max-w-2xl mx-auto mb-10">
-            <?php echo esc_html($content['text']); ?>
-        </p>
+            <p class="text-lg text-slate-300 max-w-2xl mx-auto">
+                <?php echo esc_html($content['text']); ?>
+            </p>
+        </div>
 
         <div class="flex flex-col sm:flex-row justify-center gap-4">
             <a href="<?php echo esc_url($content['cta_primary_url']); ?>" class="btn btn-secondary btn-lg">

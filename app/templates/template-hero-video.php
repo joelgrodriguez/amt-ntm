@@ -34,7 +34,7 @@ while (have_posts()) :
             <div class="pattern-square-grid__overlay pattern-square-grid__overlay--top-left"></div>
             <div class="pattern-square-grid__overlay pattern-square-grid__overlay--bottom-right"></div>
 
-            <div class="container mx-auto relative z-10">
+            <div class="container relative z-10">
                 <div class="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center">
 
                     <?php if ($hero_title || $hero_description) : ?>
@@ -65,7 +65,7 @@ while (have_posts()) :
     <?php endif; ?>
 
     <section class="py-12 lg:py-24">
-        <div class="container mx-auto">
+        <div class="container">
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                 <div class="prose prose-lg max-w-4xl mx-auto">
                     <?php the_content(); ?>

@@ -9,8 +9,6 @@
  *
  * @usage Front Page (front-page.php)
  * @see js/modules/SocialProof.js - Slider functionality
- *
- * @todo Replace hardcoded testimonials with custom post type query
  */
 
 declare(strict_types=1);
@@ -53,22 +51,22 @@ if (empty($testimonials)) {
 }
 ?>
 
-<section class="social-proof py-16 bg-slate-900 md:py-20 lg:py-24" aria-labelledby="social-proof-title">
+<section class="social-proof section bg-slate-900" aria-labelledby="social-proof-title">
     <div class="container">
         <h2 id="social-proof-title" class="sr-only">
             <?php echo esc_html($content['title']); ?>
         </h2>
 
-        <div class="social-proof__slider relative max-w-4xl mx-auto text-center">
+        <div class="social-proof__slider relative max-w-4xl mx-auto text-center grid justify-center gap-8 lg:gap-10">
             <div class="social-proof__track">
                 <?php foreach ($testimonials as $index => $testimonial) : ?>
                     <blockquote
-                        class="social-proof__slide <?php echo $index === 0 ? 'social-proof__slide--active' : ''; ?>"
+                        class="social-proof__slide grid gap-8 <?php echo $index === 0 ? 'block' : 'hidden'; ?>"
                         data-index="<?php echo esc_attr($index); ?>"
                     >
-                        <?php icon('quotes', ['class' => 'w-10 h-10 text-secondary mx-auto mb-6 md:w-12 md:h-12']); ?>
+                        <?php icon('quotes', ['class' => 'w-10 h-10 text-secondary mx-auto md:w-12 md:h-12']); ?>
 
-                        <p class="text-xl text-white font-medium leading-relaxed mb-8 md:text-2xl lg:text-3xl">
+                        <p class="text-xl text-white font-medium leading-relaxed md:text-2xl lg:text-3xl">
                             "<?php echo esc_html($testimonial['quote']); ?>"
                         </p>
 
@@ -86,11 +84,11 @@ if (empty($testimonials)) {
                 <?php endforeach; ?>
             </div>
 
-            <nav class="flex justify-center gap-2 mt-10" aria-label="<?php echo esc_attr($content['nav_label']); ?>">
+            <nav class="flex justify-center gap-2" aria-label="<?php echo esc_attr($content['nav_label']); ?>">
                 <?php foreach ($testimonials as $index => $testimonial) : ?>
                     <button
                         type="button"
-                        class="social-proof__dot <?php echo $index === 0 ? 'social-proof__dot--active' : ''; ?>"
+                        class="social-proof__dot h-3 rounded-full border-none cursor-pointer transition-all duration-200 hover:bg-slate-400 focus-visible:outline-2 focus-visible:outline-secondary focus-visible:outline-offset-2 <?php echo $index === 0 ? 'bg-secondary w-8' : 'bg-slate-600 w-3'; ?>"
                         data-index="<?php echo esc_attr($index); ?>"
                         aria-label="<?php echo esc_attr(sprintf(__('View testimonial %d', 'standard'), $index + 1)); ?>"
                     ></button>

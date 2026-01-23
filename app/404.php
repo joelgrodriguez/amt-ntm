@@ -63,7 +63,7 @@ $helpful_links = [
 ?>
 
 <main id="primary" class="pattern-dot-grid gradient-fade-bottom-sm py-12 lg:py-24">
-    <div class="container mx-auto">
+    <div class="container">
 
         <!-- Error Message -->
         <div class="max-w-2xl mx-auto text-center mb-12 lg:mb-16">

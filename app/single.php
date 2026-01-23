@@ -16,7 +16,7 @@ get_header();
     <?php while (have_posts()) : the_post(); ?>
         <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-6 lg:gap-12'); ?>>
             <header>
-                <div class="container mx-auto grid gap-6 lg:gap-12">
+                <div class="container grid gap-6">
                     <?php if (has_category()) : ?>
                         <div class="flex flex-wrap gap-3">
                             <?php
@@ -55,7 +55,7 @@ get_header();
             </header>
 
             <!-- Two-column layout: TOC sidebar + Content -->
-            <div class="container mx-auto lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
+            <div class="container lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
                 <!-- TOC Sidebar (desktop only) -->
                 <aside id="table-of-contents" class="hidden lg:block" aria-label="<?php esc_attr_e('Table of Contents', 'standard'); ?>">
                     <nav class="toc sticky top-16">
@@ -74,12 +74,12 @@ get_header();
                 </div>
             </div>
 
-            <div class="container mx-auto">
+            <div class="container">
                 <?php get_template_part('templates/parts/post-navigation'); ?>
             </div>
 
             <!-- Related Posts -->
-            <div class="container mx-auto">
+            <div class="container">
                 <?php get_template_part('templates/parts/related-posts'); ?>
             </div>
         </article>

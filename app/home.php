@@ -84,7 +84,7 @@ $content_sections = [
 
     <!-- Hero Section -->
     <section class="pattern-dot-grid gradient-fade-bottom-sm border-b border-slate-200">
-        <div class="container mx-auto py-8 lg:py-12">
+        <div class="container py-8 lg:py-12">
 
             <!-- Header -->
             <header class="mb-8 lg:mb-12">
@@ -225,7 +225,7 @@ $content_sections = [
 
     <!-- Quick Filters -->
     <section class="border-b border-slate-200 bg-slate-50 ">
-        <div class="container mx-auto py-6">
+        <div class="container py-6">
             <form class="flex flex-wrap items-center justify-center gap-8" method="get" action="<?php echo esc_url(home_url('/')); ?>">
                 <span class="text-sm font-semibold text-slate-700 flex items-center gap-2">
                     <?php icon('filter', ['class' => 'w-4 h-4']); ?>
@@ -313,7 +313,7 @@ $content_sections = [
         }
     ?>
         <section class="py-12 lg:py-16 border-b border-slate-200">
-            <div class="container mx-auto">
+            <div class="container">
 
                 <!-- Section Header -->
                 <header class="flex items-center justify-between mb-8">

@@ -48,20 +48,19 @@ if (!$query->have_posts()) {
 }
 ?>
 
-<section class="py-16 bg-slate-50 md:py-20 lg:py-24" aria-labelledby="learning-center-title">
-    <div class="container">
+<section class="section pattern-dot-grid gradient-fade-bottom" aria-labelledby="learning-center-title">
+    <div class="container section-content">
 
         <!-- Section Header -->
-        <div class="text-center mb-12 lg:mb-16">
-            <p class="text-sm font-semibold uppercase tracking-wider text-secondary mb-2">
+        <div class="section-header">
+            <p class="section-eyebrow">
                 <?php echo esc_html($args['eyebrow']); ?>
             </p>
-            <div class="w-12 h-1 bg-secondary mx-auto mb-6"></div>
-
-            <h2 id="learning-center-title" class="text-3xl font-bold text-slate-900 mb-4 md:text-4xl lg:text-5xl">
+            <div class="section-divider-center"></div>
+            <h2 id="learning-center-title" class="section-title">
                 <?php echo esc_html($args['title']); ?>
             </h2>
-            <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+            <p class="section-subtitle-centered">
                 <?php echo esc_html($args['subtitle']); ?>
             </p>
         </div>
@@ -76,7 +75,7 @@ if (!$query->have_posts()) {
 
         <!-- CTA -->
         <?php if ($args['cta_url']) : ?>
-            <div class="text-center mt-12">
+            <div class="text-center">
                 <a href="<?php echo esc_url($args['cta_url']); ?>" class="btn btn-primary">
                     <?php echo esc_html($args['cta_text']); ?>
                     <?php icon('arrow--right', ['class' => 'w-5 h-5 ml-2']); ?>

@@ -29,7 +29,7 @@ get_header();
                 <section class="bg-slate-950 text-slate-500">
                     <!-- Top Bar -->
                     <div class="border-b border-slate-800">
-                        <div class="border-x border-slate-800 container mx-auto">
+                        <div class="border-x border-slate-800 container">
                             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
                                 <div class="flex items-center gap-3 pl-3">
                                     <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
@@ -43,7 +43,7 @@ get_header();
                     </div>
 
                     <!-- Video Embed -->
-                    <div class="border-x border-slate-800 container mx-auto py-6 lg:py-12">
+                    <div class="border-x border-slate-800 container py-6 lg:py-12">
                         <div class="max-w-5xl mx-auto">
                             <div class="video-responsive">
                                 <?php echo $video; ?>
@@ -53,7 +53,7 @@ get_header();
 
                     <!-- Bottom Bar -->
                     <div class="border-t border-slate-800">
-                        <div class="border-x border-slate-800 container mx-auto">
+                        <div class="border-x border-slate-800 container">
                             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
                                 <div class="flex items-center gap-2 pl-3">
                                     <?php icon('calendar', ['class' => 'w-3 h-3 fill-current']); ?>
@@ -76,7 +76,7 @@ get_header();
 
             <!-- Content Section -->
             <section class="pattern-dot-grid gradient-fade-bottom py-6 lg:py-12">
-                <div class="container mx-auto grid gap-6 lg:gap-12">
+                <div class="container grid gap-6 lg:gap-12">
                     <header class="max-w-4xl mx-auto grid gap-6">
                         <?php if (has_category()) : ?>
                             <div class="flex flex-wrap gap-3">

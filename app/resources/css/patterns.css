@@ -106,8 +106,8 @@
 /* Dark variant for dark backgrounds */
 .pattern-square-grid--dark .pattern-square-grid__overlay {
   background-image:
-    linear-gradient(to right, #334155 1px, transparent 1px),
-    linear-gradient(to bottom, #334155 1px, transparent 1px);
+    linear-gradient(to right, #475569 1px, transparent 1px),
+    linear-gradient(to bottom, #475569 1px, transparent 1px);
 }
 
 /* Primary variant for primary color backgrounds */

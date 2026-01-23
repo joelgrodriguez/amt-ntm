@@ -44,7 +44,7 @@ $categories = get_categories([
 <main id="primary" class="pattern-dot-grid gradient-fade-bottom-sm py-6 lg:py-12">
 
     <!-- Header -->
-    <header class="container mx-auto mb-6 lg:mb-12">
+    <header class="container mb-6 lg:mb-12">
         <div class="grid gap-4 justify-items-start">
             <span class="text-xs font-mono uppercase tracking-widest text-secondary"><?php echo esc_html($content['eyebrow']); ?></span>
             <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold font-mono"><?php echo esc_html($content['title']); ?></h1>
@@ -52,7 +52,7 @@ $categories = get_categories([
     </header>
 
     <!-- Two-column layout: Filter Sidebar + Content -->
-    <div class="container mx-auto lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
+    <div class="container lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
 
         <!-- Filter Sidebar -->
         <aside class="hidden lg:block border-r border-slate-200 pr-8">

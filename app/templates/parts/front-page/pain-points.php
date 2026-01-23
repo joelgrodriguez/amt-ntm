@@ -43,25 +43,25 @@ $points = [
 ];
 ?>
 
-<section class="py-16 bg-white md:py-20 lg:py-24" aria-labelledby="pain-points-title">
+<section class="section bg-white" aria-labelledby="pain-points-title">
     <div class="container">
         <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-center">
 
-            <div>
-                <p class="text-sm font-semibold uppercase tracking-wider text-secondary mb-2">
-                    <?php echo esc_html($content['eyebrow']); ?>
-                </p>
-                <div class="w-12 h-1 bg-secondary mb-6"></div>
+            <div class="grid gap-8 lg:gap-10 content-start">
+                <div class="section-header-left">
+                    <p class="section-eyebrow">
+                        <?php echo esc_html($content['eyebrow']); ?>
+                    </p>
+                    <div class="section-divider"></div>
+                    <h2 id="pain-points-title" class="section-title">
+                        <?php echo esc_html($content['title']); ?>
+                    </h2>
+                    <p class="section-subtitle">
+                        <?php echo esc_html($content['text']); ?>
+                    </p>
+                </div>
 
-                <h2 id="pain-points-title" class="text-3xl font-bold text-slate-900 mb-4 md:text-4xl lg:text-5xl">
-                    <?php echo esc_html($content['title']); ?>
-                </h2>
-
-                <p class="text-lg text-slate-600 mb-8 lg:mb-10">
-                    <?php echo esc_html($content['text']); ?>
-                </p>
-
-                <ul class="space-y-6 mb-8 lg:mb-10">
+                <ul class="space-y-6">
                     <?php foreach ($points as $point) : ?>
                         <li class="flex gap-4">
                             <span class="shrink-0 mt-1">

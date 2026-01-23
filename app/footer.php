@@ -64,7 +64,7 @@ $legal_links = [
 
 <footer class="mt-auto bg-slate-900 text-slate-300 border-t border-slate-700">
     <!-- Main Footer Content -->
-    <div class="container mx-auto py-8 lg:py-12">
+    <div class="container py-8 lg:py-12">
         <!-- Desktop: 5 columns | Mobile: Logo + Accordions -->
         <div class="grid gap-0 lg:grid-cols-5 lg:gap-12">
 
@@ -139,7 +139,7 @@ $legal_links = [
 
     <!-- Bottom Bar -->
     <div class="border-t border-slate-700">
-        <div class="container mx-auto py-6">
+        <div class="container py-6">
             <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
 
                 <!-- Legal Links (left) -->

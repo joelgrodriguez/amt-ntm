@@ -27,7 +27,7 @@ $content = [
 <section class="who-is-ntm bg-slate-950 text-slate-500" aria-labelledby="who-is-ntm-title">
     <!-- Top Bar -->
     <div class="border-b border-slate-800">
-        <div class="border-x border-slate-800 container mx-auto">
+        <div class="border-x border-slate-800 container">
             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
                 <div class="flex items-center gap-3 pl-3">
                     <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
@@ -41,7 +41,7 @@ $content = [
     </div>
 
     <!-- Video Embed -->
-    <div class="border-x border-slate-800 container mx-auto py-6 lg:py-12">
+    <div class="border-x border-slate-800 container py-6 lg:py-12">
         <div class="max-w-5xl mx-auto">
             <div class="video-responsive">
                 <iframe
@@ -63,7 +63,7 @@ $content = [
 
     <!-- Bottom Bar -->
     <div class="border-t border-slate-800">
-        <div class="border-x border-slate-800 container mx-auto">
+        <div class="border-x border-slate-800 container">
             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
                 <div class="flex items-center gap-2 pl-3">
                     <?php icon('play--solid', ['class' => 'w-3 h-3 fill-current']); ?>

@@ -7,12 +7,9 @@
  *
  * @usage Front Page (front-page.php)
  * @template templates/parts/front-page/social-proof.php
- * @styles css/social-proof.css
  */
 
 const AUTOPLAY_INTERVAL = 6000;
-const SLIDE_ACTIVE_CLASS = 'social-proof__slide--active';
-const DOT_ACTIVE_CLASS = 'social-proof__dot--active';
 
 let autoplayTimer = null;
 let abortController = null;
@@ -41,13 +38,19 @@ export function initSocialProof() {
    * @param {number} index
    */
   function goToSlide(index) {
-    slides[currentIndex].classList.remove(SLIDE_ACTIVE_CLASS);
-    dots[currentIndex].classList.remove(DOT_ACTIVE_CLASS);
+    // Hide current slide
+    slides[currentIndex].classList.add('hidden');
+    slides[currentIndex].classList.remove('block');
+    dots[currentIndex].classList.remove('bg-secondary', 'w-8');
+    dots[currentIndex].classList.add('bg-slate-600', 'w-3');
 
     currentIndex = index;
 
-    slides[currentIndex].classList.add(SLIDE_ACTIVE_CLASS);
-    dots[currentIndex].classList.add(DOT_ACTIVE_CLASS);
+    // Show new slide
+    slides[currentIndex].classList.remove('hidden');
+    slides[currentIndex].classList.add('block');
+    dots[currentIndex].classList.remove('bg-slate-600', 'w-3');
+    dots[currentIndex].classList.add('bg-secondary', 'w-8');
   }
 
   /**

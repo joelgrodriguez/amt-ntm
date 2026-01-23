@@ -24,7 +24,7 @@ $content = [
 <section class="pattern-square-grid border-t border-slate-200 bg-slate-100">
     <div class="pattern-square-grid__overlay pattern-square-grid__overlay--top-left"></div>
     <div class="pattern-square-grid__overlay pattern-square-grid__overlay--bottom-right"></div>
-    <div class="container mx-auto py-12">
+    <div class="container py-12">
         <div class="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
             <!-- Content -->
             <div class="grid gap-6">

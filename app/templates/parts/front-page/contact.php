@@ -30,20 +30,19 @@ $contact_info = [
 $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact_info['address']);
 ?>
 
-<section id="contact" class="py-16 bg-white pattern-dot-grid gradient-fade-bottom overflow-hidden md:py-20 lg:py-24" aria-labelledby="contact-title">
-    <div class="container">
+<section id="contact" class="section bg-slate-50 overflow-hidden" aria-labelledby="contact-title">
+    <div class="container section-content">
 
         <!-- Section Header -->
-        <div class="text-center mb-12 lg:mb-16">
-            <p class="text-sm font-semibold uppercase tracking-wider text-secondary mb-2">
+        <div class="section-header">
+            <p class="section-eyebrow">
                 <?php echo esc_html($content['eyebrow']); ?>
             </p>
-            <div class="w-12 h-1 bg-secondary mx-auto mb-6"></div>
-
-            <h2 id="contact-title" class="text-3xl font-bold text-slate-900 mb-4 md:text-4xl lg:text-5xl">
+            <div class="section-divider-center"></div>
+            <h2 id="contact-title" class="section-title">
                 <?php echo esc_html($content['title']); ?>
             </h2>
-            <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+            <p class="section-subtitle-centered">
                 <?php echo esc_html($content['text']); ?>
             </p>
         </div>

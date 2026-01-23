@@ -40,9 +40,9 @@ $tools = [
 ];
 ?>
 
-<section class="py-12 bg-white md:py-16" aria-labelledby="tools-title">
-    <div class="container">
-        <h2 id="tools-title" class="text-2xl font-bold text-slate-900 mb-6 md:text-3xl">
+<section class="section-compact bg-slate-50" aria-labelledby="tools-title">
+    <div class="container grid gap-8 lg:gap-10">
+        <h2 id="tools-title" class="section-title">
             <?php echo esc_html($content['title']); ?>
         </h2>
 
@@ -50,7 +50,7 @@ $tools = [
             <?php foreach ($tools as $index => $tool) : ?>
                 <a
                     href="<?php echo esc_url($tool['url']); ?>"
-                    class="group flex flex-col justify-between p-6 no-underline border-slate-200 transition-colors duration-200 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-[-2px] <?php echo $index % 2 === 1 ? 'border-l' : ''; ?> <?php echo $index >= 2 ? 'border-t md:border-t-0' : ''; ?> <?php echo $index >= 1 ? 'md:border-l' : ''; ?>"
+                    class="group flex flex-col justify-between p-6 no-underline border-slate-200 transition-colors duration-200 hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-[-2px] <?php echo $index % 2 === 1 ? 'border-l' : ''; ?> <?php echo $index >= 2 ? 'border-t md:border-t-0' : ''; ?> <?php echo $index >= 1 ? 'md:border-l' : ''; ?>"
                 >
                     <h3 class="text-base font-medium text-slate-900 mb-12 transition-colors duration-200 group-hover:text-primary md:text-lg">
                         <?php echo esc_html($tool['title']); ?>

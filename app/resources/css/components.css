@@ -239,4 +239,71 @@
       @apply text-xl;
     }
   }
+
+  /*
+   * Section Spacing
+   * Standard responsive vertical padding for page sections.
+   */
+  .section {
+    @apply py-16 md:py-20 lg:py-24;
+  }
+
+  .section-compact {
+    @apply py-12 md:py-16;
+  }
+
+  /*
+   * Section Content
+   * Gap-based container for section content (header + body).
+   * Use this as wrapper to separate header from content via gap.
+   */
+  .section-content {
+    @apply grid gap-12 lg:gap-16;
+  }
+
+  /*
+   * Section Header
+   * Gap-based header containers for consistent spacing.
+   * No margin - parent .section-content gap handles separation.
+   */
+  .section-header {
+    @apply text-center grid gap-4;
+  }
+
+  .section-header-left {
+    @apply grid gap-4;
+  }
+
+  /* Eyebrow - small uppercase label above title */
+  .section-eyebrow {
+    @apply text-sm font-semibold uppercase tracking-wider text-secondary;
+  }
+
+  /* Divider - accent bar below eyebrow */
+  .section-divider {
+    @apply w-12 h-1 bg-secondary;
+  }
+
+  .section-divider-center {
+    @apply w-12 h-1 bg-secondary mx-auto;
+  }
+
+  /* Title - main heading with responsive sizing (no margin - parent gap controls spacing) */
+  .section-title {
+    @apply text-3xl font-bold text-slate-900 md:text-4xl lg:text-5xl;
+  }
+
+  /* Subtitle - intro text (no margin, last element in header) */
+  .section-subtitle {
+    @apply text-lg text-slate-600;
+  }
+
+  .section-subtitle-centered {
+    @apply text-lg text-slate-600 max-w-2xl mx-auto;
+  }
+
+  /* Body - paragraph text with bottom margin (use when preceding variable content) */
+  .section-body {
+    @apply text-lg text-slate-600 mb-8 lg:mb-10;
+  }
 }

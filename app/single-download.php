@@ -22,7 +22,7 @@ get_header();
 <main id="primary" class="pattern-dot-grid gradient-fade-bottom-sm py-6 lg:py-12">
     <?php while (have_posts()) : the_post(); ?>
         <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-6 lg:gap-12'); ?>>
-            <header class="container mx-auto">
+            <header class="container">
                 <div class="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
                     <div class="grid gap-6 justify-items-start">
                         <span class="badge inline"><?php echo esc_html($content['badge']); ?></span>
@@ -45,7 +45,7 @@ get_header();
             </header>
 
             <!-- Two-column layout: Content + Downloads Sidebar -->
-            <div class="container mx-auto lg:grid lg:grid-cols-[1fr_300px] lg:gap-12">
+            <div class="container lg:grid lg:grid-cols-[1fr_300px] lg:gap-12">
                 <!-- Content -->
                 <div>
                     <div class="prose prose-lg max-w-full">
@@ -87,12 +87,12 @@ get_header();
                 </aside>
             </div>
 
-            <div class="container mx-auto">
+            <div class="container">
                 <?php get_template_part('templates/parts/post-navigation'); ?>
             </div>
 
             <!-- Related Posts -->
-            <div class="container mx-auto">
+            <div class="container">
                 <?php get_template_part('templates/parts/related-posts'); ?>
             </div>
 

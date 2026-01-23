@@ -39,30 +39,31 @@ $steps = [
 ];
 ?>
 
-<section class="py-16 bg-slate-100 pattern-square-grid md:py-20 lg:py-24" aria-labelledby="three-step-title">
+<section class="section bg-slate-100 pattern-square-grid" aria-labelledby="three-step-title">
     <div class="pattern-square-grid__overlay pattern-square-grid__overlay--top-left"></div>
     <div class="pattern-square-grid__overlay pattern-square-grid__overlay--bottom-right"></div>
 
-    <div class="container text-center">
-        <p class="text-sm font-semibold uppercase tracking-wider text-secondary mb-2">
-            <?php echo esc_html($content['eyebrow']); ?>
-        </p>
-        <div class="w-12 h-1 bg-secondary mx-auto mb-6"></div>
+    <div class="container section-content text-center">
+        <div class="section-header">
+            <p class="section-eyebrow">
+                <?php echo esc_html($content['eyebrow']); ?>
+            </p>
+            <div class="section-divider-center"></div>
+            <h2 id="three-step-title" class="section-title">
+                <?php echo esc_html($content['title']); ?>
+            </h2>
+            <p class="section-subtitle-centered">
+                <?php echo esc_html($content['text']); ?>
+            </p>
+        </div>
 
-        <h2 id="three-step-title" class="text-3xl font-bold text-slate-900 mb-4 md:text-4xl">
-            <?php echo esc_html($content['title']); ?>
-        </h2>
-        <p class="text-lg text-slate-600 mb-12 max-w-2xl mx-auto">
-            <?php echo esc_html($content['text']); ?>
-        </p>
-
-        <div class="grid gap-8 pt-6 md:grid-cols-3 md:gap-6 lg:gap-8">
+        <div class="grid gap-6 md:grid-cols-3 lg:gap-8">
             <?php foreach ($steps as $step) : ?>
-                <div class="bg-white border border-slate-200 p-8">
-                    <span class="inline-flex items-center justify-center w-14 h-14 bg-secondary text-white text-2xl font-bold -mt-14 mb-4">
+                <div class="grid gap-3 justify-items-center bg-white border border-slate-200 p-8">
+                    <span class="inline-flex items-center justify-center w-14 h-14 bg-slate-200 text-slate-800 text-2xl font-bold">
                         <?php echo esc_html($step['number']); ?>
                     </span>
-                    <h3 class="text-xl font-semibold text-slate-900 mb-3">
+                    <h3 class="text-xl font-semibold text-slate-900">
                         <?php echo esc_html($step['title']); ?>
                     </h3>
                     <p class="text-slate-600">
@@ -72,7 +73,7 @@ $steps = [
             <?php endforeach; ?>
         </div>
 
-        <div class="mt-12">
+        <div>
             <a href="<?php echo esc_url($content['cta_url']); ?>" class="btn btn-primary">
                 <?php echo esc_html($content['cta_text']); ?>
             </a>
