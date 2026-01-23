@@ -9,6 +9,13 @@
  * @package Standard
  */
 
+declare(strict_types=1);
+
+$content = [
+    'badge'         => __('Resource', 'standard'),
+    'sidebar_title' => __('All Resources', 'standard'),
+];
+
 get_header();
 ?>
 
@@ -18,7 +25,7 @@ get_header();
             <header class="container mx-auto">
                 <div class="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
                     <div class="grid gap-6 justify-items-start">
-                        <span class="badge inline"><?php esc_html_e('Resource', 'standard'); ?></span>
+                        <span class="badge inline"><?php echo esc_html($content['badge']); ?></span>
 
                         <?php the_title('<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold font-mono">', '</h1>'); ?>
 
@@ -51,7 +58,7 @@ get_header();
                 <!-- Resources Sidebar -->
                 <aside class="hidden lg:block border-l border-slate-200 pl-12">
                     <nav class="sticky top-16">
-                        <p class="text-sm font-semibold text-slate-900 mb-4"><?php esc_html_e('All Resources', 'standard'); ?></p>
+                        <p class="text-sm font-semibold text-slate-900 mb-4"><?php echo esc_html($content['sidebar_title']); ?></p>
                         <ul class="grid gap-2">
                             <?php
                             $resources = new WP_Query([

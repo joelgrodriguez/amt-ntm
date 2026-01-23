@@ -57,9 +57,9 @@ get_header();
             <!-- Two-column layout: TOC sidebar + Content -->
             <div class="container mx-auto lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
                 <!-- TOC Sidebar (desktop only) -->
-                <aside id="table-of-contents" class="hidden lg:block" aria-label="<?php esc_attr_e('Table of Contents', 'Standard'); ?>">
+                <aside id="table-of-contents" class="hidden lg:block" aria-label="<?php esc_attr_e('Table of Contents', 'standard'); ?>">
                     <nav class="toc sticky top-16">
-                        <p class="toc__title"><?php esc_html_e('On this page', 'theme'); ?></p>
+                        <p class="toc__title"><?php esc_html_e('On this page', 'standard'); ?></p>
                         <ol id="toc-list" class="toc__list"></ol>
                     </nav>
                 </aside>

@@ -9,6 +9,13 @@
  * @package Standard
  */
 
+declare(strict_types=1);
+
+$content = [
+    'channel'      => __('Portable Rollforming Channel', 'standard'),
+    'company_name' => __('New Tech Machinery', 'standard'),
+];
+
 get_header();
 ?>
 
@@ -29,7 +36,7 @@ get_header();
                                     <span><?php echo esc_html(get_the_title()); ?></span>
                                 </div>
                                 <div class="flex items-center gap-3 pr-3">
-                                    <span>Portable Rollforming Channel</span>
+                                    <span><?php echo esc_html($content['channel']); ?></span>
                                 </div>
                             </div>
                         </div>
@@ -53,7 +60,7 @@ get_header();
                                     <span><?php echo esc_html(get_the_date('Y.m.d')); ?></span>
                                 </div>
                                 <div class="flex items-center gap-4 pr-3">
-                                    <span>New Tech Machinery</span>
+                                    <span><?php echo esc_html($content['company_name']); ?></span>
                                     <div class="flex gap-1">
                                         <span class="w-1 h-3 bg-slate-700"></span>
                                         <span class="w-1 h-3 bg-slate-700"></span>

@@ -10,6 +10,19 @@
  * @package Standard
  */
 
+declare(strict_types=1);
+
+$content = [
+    'badge'               => __('Profile', 'standard'),
+    'filter_type'         => __('Filter by Type', 'standard'),
+    'filter_machine'      => __('Filter by Machine', 'standard'),
+    'view_all'            => __('View All Profiles', 'standard'),
+    'compatible_machines' => __('Compatible NTM Machines', 'standard'),
+    'profiles_available'  => __('%d profiles available', 'standard'),
+    'no_machines'         => __('No machines tagged for this profile.', 'standard'),
+    'add_tags_hint'       => __('Add machine tags to display compatible equipment.', 'standard'),
+];
+
 get_header();
 
 // Get profile categories and machine tags
@@ -24,7 +37,7 @@ $machine_tags = get_the_tags();
             <!-- Header -->
             <header class="container mx-auto">
                 <div class="grid gap-4 justify-items-start">
-                    <span class="badge inline"><?php esc_html_e('Profile', 'standard'); ?></span>
+                    <span class="badge inline"><?php echo esc_html($content['badge']); ?></span>
                     <?php the_title('<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold font-mono">', '</h1>'); ?>
                 </div>
             </header>
@@ -40,7 +53,7 @@ $machine_tags = get_the_tags();
                         <div>
                             <h3 class="text-sm font-semibold text-slate-900 mb-4 flex items-center gap-2">
                                 <?php icon('filter', ['class' => 'w-4 h-4']); ?>
-                                <?php esc_html_e('Filter by Type', 'standard'); ?>
+                                <?php echo esc_html($content['filter_type']); ?>
                             </h3>
                             <ul class="grid gap-1 border-l border-slate-200">
                                 <?php
@@ -75,7 +88,7 @@ $machine_tags = get_the_tags();
                         <div>
                             <h3 class="text-sm font-semibold text-slate-900 mb-4 flex items-center gap-2">
                                 <?php icon('settings', ['class' => 'w-4 h-4']); ?>
-                                <?php esc_html_e('Filter by Machine', 'standard'); ?>
+                                <?php echo esc_html($content['filter_machine']); ?>
                             </h3>
                             <ul class="grid gap-1 border-l border-slate-200">
                                 <?php
@@ -109,7 +122,7 @@ $machine_tags = get_the_tags();
                         <!-- All Profiles Link -->
                         <a href="<?php echo esc_url(get_post_type_archive_link('profile')); ?>" class="flex items-center gap-2 text-sm font-medium text-primary hover:underline">
                             <?php icon('arrow--left', ['class' => 'w-4 h-4']); ?>
-                            <?php esc_html_e('View All Profiles', 'standard'); ?>
+                            <?php echo esc_html($content['view_all']); ?>
                         </a>
 
                     </nav>
@@ -129,7 +142,7 @@ $machine_tags = get_the_tags();
                     <section class="border-t border-slate-200 pt-8">
                         <h2 class="text-sm font-semibold text-slate-900 mb-6 flex items-center gap-2">
                             <?php icon('settings', ['class' => 'w-4 h-4']); ?>
-                            <?php esc_html_e('Compatible NTM Machines', 'standard'); ?>
+                            <?php echo esc_html($content['compatible_machines']); ?>
                         </h2>
                         <?php if ($machine_tags && !empty($machine_tags)) : ?>
                             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -150,7 +163,7 @@ $machine_tags = get_the_tags();
                                             <p class="text-xs text-slate-500 mt-1 font-mono">
                                                 <?php
                                                 printf(
-                                                    esc_html__('%d profiles available', 'standard'),
+                                                    esc_html($content['profiles_available']),
                                                     $machine_tag->count
                                                 );
                                                 ?>
@@ -162,8 +175,8 @@ $machine_tags = get_the_tags();
                         <?php else : ?>
                             <div class="text-center py-8 border border-slate-200 bg-white">
                                 <?php icon('settings', ['class' => 'w-12 h-12 text-slate-300 mx-auto mb-4']); ?>
-                                <p class="text-slate-500"><?php esc_html_e('No machines tagged for this profile.', 'standard'); ?></p>
-                                <p class="text-slate-400 text-xs mt-1"><?php esc_html_e('Add machine tags to display compatible equipment.', 'standard'); ?></p>
+                                <p class="text-slate-500"><?php echo esc_html($content['no_machines']); ?></p>
+                                <p class="text-slate-400 text-xs mt-1"><?php echo esc_html($content['add_tags_hint']); ?></p>
                             </div>
                         <?php endif; ?>
                     </section>

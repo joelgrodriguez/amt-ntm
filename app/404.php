@@ -10,6 +10,16 @@
  * @package Standard
  */
 
+declare(strict_types=1);
+
+$content = [
+    'error_code'    => __('404', 'standard'),
+    'title'         => __('Page Not Found', 'standard'),
+    'text'          => __("The page you're looking for doesn't exist or has been moved.", 'standard'),
+    'links_title'   => __('Helpful Links', 'standard'),
+    'back_home'     => __('Back to Home', 'standard'),
+];
+
 get_header();
 
 $helpful_links = [
@@ -58,13 +68,13 @@ $helpful_links = [
         <!-- Error Message -->
         <div class="max-w-2xl mx-auto text-center mb-12 lg:mb-16">
             <p class="font-mono text-lg text-secondary font-bold uppercase tracking-wider mt-1 mb-4">
-                <?php esc_html_e('404', 'standard'); ?>
+                <?php echo esc_html($content['error_code']); ?>
             </p>
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold font-mono text-slate-900 mb-6">
-                <?php esc_html_e('Page Not Found', 'standard'); ?>
+                <?php echo esc_html($content['title']); ?>
             </h1>
             <p class="text-lg text-slate-600 mb-8">
-                <?php esc_html_e('The page you\'re looking for doesn\'t exist or has been moved.', 'standard'); ?>
+                <?php echo esc_html($content['text']); ?>
             </p>
 
             <!-- Search Form -->
@@ -76,7 +86,7 @@ $helpful_links = [
         <!-- Helpful Links -->
         <div class="max-w-4xl mx-auto">
             <h2 class="text-sm font-semibold text-slate-900 uppercase tracking-wider text-center mb-8">
-                <?php esc_html_e('Helpful Links', 'standard'); ?>
+                <?php echo esc_html($content['links_title']); ?>
             </h2>
 
             <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -103,7 +113,7 @@ $helpful_links = [
             <div class="text-center mt-12">
                 <a href="<?php echo esc_url(home_url('/')); ?>" class="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline">
                     <?php icon('arrow--left', ['class' => 'w-4 h-4']); ?>
-                    <?php esc_html_e('Back to Home', 'standard'); ?>
+                    <?php echo esc_html($content['back_home']); ?>
                 </a>
             </div>
         </div>

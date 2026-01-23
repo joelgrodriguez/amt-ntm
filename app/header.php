@@ -42,7 +42,7 @@
             </button>
 
             <!-- Logo + Site Name -->
-            <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-4 bg-slate-100 h-12 px-4 lg:px-6 lg:border-r border-slate-200 no-underline">
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-4 h-12 px-4 lg:px-6 lg:border-r border-slate-200 no-underline">
                 <?php if (has_custom_logo()) : ?>
                     <?php
                     $custom_logo_id = get_theme_mod('custom_logo');

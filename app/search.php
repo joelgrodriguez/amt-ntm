@@ -9,13 +9,21 @@
  * @package Standard
  */
 
+declare(strict_types=1);
+
+$content = [
+    'title'    => __('Search Results for: %s', 'standard'),
+    'prev'     => __('Previous', 'standard'),
+    'next'     => __('Next', 'standard'),
+];
+
 get_header();
 ?>
 
 <main id="primary" class="container py-8">
     <header class="mb-8">
         <h1 class="text-3xl font-bold">
-            <?php printf(esc_html__('Search Results for: %s', 'standard-press'), '<span class="text-primary">' . esc_html(get_search_query()) . '</span>'); ?>
+            <?php printf(esc_html($content['title']), '<span class="text-primary">' . esc_html(get_search_query()) . '</span>'); ?>
         </h1>
     </header>
 
@@ -29,8 +37,8 @@ get_header();
         <nav class="mt-8">
             <?php the_posts_pagination([
                 'mid_size'  => 2,
-                'prev_text' => '&larr; ' . esc_html__('Previous', 'standard-press'),
-                'next_text' => esc_html__('Next', 'standard-press') . ' &rarr;',
+                'prev_text' => '&larr; ' . esc_html($content['prev']),
+                'next_text' => esc_html($content['next']) . ' &rarr;',
             ]); ?>
         </nav>
     <?php else : ?>

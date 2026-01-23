@@ -24,8 +24,8 @@ get_header();
         <nav class="mt-8">
             <?php the_posts_pagination([
                 'mid_size'  => 2,
-                'prev_text' => '&larr; ' . esc_html__('Previous', 'standard-press'),
-                'next_text' => esc_html__('Next', 'standard-press') . ' &rarr;',
+                'prev_text' => '&larr; ' . esc_html__('Previous', 'standard'),
+                'next_text' => esc_html__('Next', 'standard') . ' &rarr;',
                 'class'     => 'flex items-center justify-center gap-2',
             ]); ?>
         </nav>

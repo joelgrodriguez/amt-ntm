@@ -10,6 +10,16 @@
  * @package Standard
  */
 
+declare(strict_types=1);
+
+$content = [
+    'eyebrow'           => __('Learning Center', 'standard'),
+    'filter_category'   => __('Filter by Category', 'standard'),
+    'filter_type'       => __('Filter by Type', 'standard'),
+    'blog_posts'        => __('Blog Posts', 'standard'),
+    'view_all'          => __('View All Posts', 'standard'),
+];
+
 get_header();
 
 // Get current query info
@@ -36,7 +46,7 @@ $categories = get_categories([
     <!-- Header -->
     <header class="container mx-auto mb-6 lg:mb-12">
         <div class="grid gap-4 justify-items-start">
-            <span class="text-xs font-mono uppercase tracking-widest text-secondary"><?php esc_html_e('Learning Center', 'standard'); ?></span>
+            <span class="text-xs font-mono uppercase tracking-widest text-secondary"><?php echo esc_html($content['eyebrow']); ?></span>
             <?php the_archive_title('<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold font-mono">', '</h1>'); ?>
             <?php the_archive_description('<p class="text-slate-600 max-w-2xl">', '</p>'); ?>
         </div>
@@ -53,7 +63,7 @@ $categories = get_categories([
                 <div>
                     <h3 class="text-sm font-semibold text-slate-900 mb-4 flex items-center gap-2">
                         <?php icon('filter', ['class' => 'w-4 h-4']); ?>
-                        <?php esc_html_e('Filter by Category', 'standard'); ?>
+                        <?php echo esc_html($content['filter_category']); ?>
                     </h3>
                     <ul class="grid gap-1 border-l border-slate-200">
                         <?php if (!empty($categories)) : ?>
@@ -75,13 +85,13 @@ $categories = get_categories([
                 <div>
                     <h3 class="text-sm font-semibold text-slate-900 mb-4 flex items-center gap-2">
                         <?php icon('settings', ['class' => 'w-4 h-4']); ?>
-                        <?php esc_html_e('Filter by Type', 'standard'); ?>
+                        <?php echo esc_html($content['filter_type']); ?>
                     </h3>
                     <ul class="grid gap-1 border-l border-slate-200">
                         <!-- All Posts -->
                         <li>
                             <a href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>" class="flex items-center justify-between text-sm py-2 pl-4 border-l-2 -ml-px border-transparent text-slate-600 hover:text-slate-900 hover:border-slate-300">
-                                <span><?php esc_html_e('Blog Posts', 'standard'); ?></span>
+                                <span><?php echo esc_html($content['blog_posts']); ?></span>
                                 <span class="text-xs text-slate-400"><?php echo esc_html(wp_count_posts('post')->publish); ?></span>
                             </a>
                         </li>
@@ -104,7 +114,7 @@ $categories = get_categories([
                 <!-- All Posts Link -->
                 <a href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>" class="flex items-center gap-2 text-sm font-medium text-primary hover:underline">
                     <?php icon('arrow--left', ['class' => 'w-4 h-4']); ?>
-                    <?php esc_html_e('View All Posts', 'standard'); ?>
+                    <?php echo esc_html($content['view_all']); ?>
                 </a>
 
             </nav>
