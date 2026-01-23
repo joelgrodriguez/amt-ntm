@@ -78,7 +78,7 @@ if (!$query->have_posts()) {
             <div class="text-center">
                 <a href="<?php echo esc_url($args['cta_url']); ?>" class="btn btn-primary">
                     <?php echo esc_html($args['cta_text']); ?>
-                    <?php icon('arrow-right', ['class' => 'w-5 h-5 ml-2']); ?>
+                    <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                 </a>
             </div>
         <?php endif; ?>

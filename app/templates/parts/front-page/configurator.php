@@ -90,9 +90,9 @@ $features = [
 
                 <!-- CTA -->
                 <div class="flex flex-wrap items-center gap-4">
-                    <a href="<?php echo esc_url($content['cta_url']); ?>" class="btn btn-primary btn-lg group">
+                    <a href="<?php echo esc_url($content['cta_url']); ?>" class="btn btn-primary btn-lg">
                         <?php echo esc_html($content['cta_text']); ?>
-                        <?php icon('arrow-right', ['class' => 'w-5 h-5 ml-2 transition-transform group-hover:translate-x-1']); ?>
+                        <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                     </a>
                     <span class="text-sm text-slate-500">
                         <?php echo esc_html($content['cta_note']); ?>
