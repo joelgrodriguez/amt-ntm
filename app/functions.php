@@ -26,6 +26,7 @@ $theme_includes = [
     'inc/related-posts.php',
     'inc/machines.php',
     'inc/products.php',
+    'inc/machines-data.php',
     'inc/walkers/class-pagination.php',
     'inc/walkers/class-mobile-nav-walker.php',
     'inc/walkers/class-primary-nav-walker.php',

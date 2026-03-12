@@ -27,7 +27,7 @@
 
 <header id="site-header" class="bg-white border-b border-slate-200 z-50 transition-colors duration-200">
     <div class="mx-auto lg:container lg:border-x lg:border-slate-200">
-        <div class="flex items-center h-14">
+        <div class="flex items-center h-12">
             <!-- Mobile menu toggle -->
             <button
                 type="button"
@@ -42,13 +42,13 @@
             </button>
 
             <!-- Logo + Site Name -->
-            <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-4 h-24 px-4 lg:px-6 lg:border-r border-slate-200 no-underline">
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-4 h-12 px-4 lg:px-6 lg:border-r border-slate-200 no-underline">
                 <?php if (has_custom_logo()) : ?>
                     <?php
                     $custom_logo_id = get_theme_mod('custom_logo');
                     $logo_url = wp_get_attachment_image_url($custom_logo_id, 'full');
                     ?>
-                    <img src="<?php echo esc_url($logo_url); ?>" alt="" class="w-18 object-contain">
+                    <img src="<?php echo esc_url($logo_url); ?>" alt="" class="w-14 object-contain">
                 <?php endif; ?>
                 <span class="text-sm font-mono font-bold text-slate-600 hover:text-primary">
                     <?php echo esc_html(get_bloginfo('name')); ?>
