@@ -12,8 +12,8 @@
 declare(strict_types=1);
 
 $content = [
-    'title' => __('Built for the Jobsite', 'standard'),
-    'text'  => __('New Tech Machinery manufactures portable rollforming machines that let contractors fabricate metal panels on-site or in-plant — eliminating factory delays, transportation costs, and damage risks. From standing seam roofing to seamless gutters, NTM machines are trusted in 40+ countries across all seven continents.', 'standard'),
+    'title' => __('Stop Buying Panels. Start Making Profit.', 'standard'),
+    'text'  => __("Every panel you buy from a supplier is profit you're giving away. NTM portable rollformers let you fabricate standing seam roofing and seamless gutters on-site — cutting material costs in half, winning more bids, and controlling your own schedule. Trusted by contractors in 40+ countries.", 'standard'),
 ];
 ?>
 
