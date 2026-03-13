@@ -45,7 +45,7 @@ $stats = [
 
             <div class="grid gap-8 content-start">
                 <div class="section-header-left">
-                    <p class="section-eyebrow">
+                    <p id="customer-story-title" class="section-eyebrow">
                         <?php echo esc_html($content['eyebrow']); ?>
                     </p>
                     <div class="section-divider"></div>
