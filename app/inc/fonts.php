@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-const FONTS_URL = 'https://fonts.bunny.net/css?family=IBM+Plex+Sans:400,500,600,700|IBM+Plex+Serif:400,500,600,700|IBM+Plex+Mono:400,500,600&display=swap';
+const FONTS_URL = 'https://fonts.bunny.net/css?family=Noto+Sans:400,500,600,700|Noto+Serif:400,500,600,700|Noto+Sans+Mono:400,500,600&display=swap';
 
 add_action('wp_head', function (): void {
     echo '<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>' . "\n";

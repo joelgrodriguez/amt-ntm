@@ -79,17 +79,17 @@
         {
           "name": "Sans",
           "slug": "sans",
-          "fontFamily": "\"IBM Plex Sans\", ui-sans-serif, system-ui, sans-serif"
+          "fontFamily": "\"Noto Sans\", ui-sans-serif, system-ui, sans-serif"
         },
         {
           "name": "Serif",
           "slug": "serif",
-          "fontFamily": "\"IBM Plex Serif\", ui-serif, Georgia, serif"
+          "fontFamily": "\"Noto Serif\", ui-serif, Georgia, serif"
         },
         {
           "name": "Mono",
           "slug": "mono",
-          "fontFamily": "\"IBM Plex Mono\", ui-monospace, monospace"
+          "fontFamily": "\"Noto Sans Mono\", ui-monospace, monospace"
         }
       ],
       "fontSizes": [

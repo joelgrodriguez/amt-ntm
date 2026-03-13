@@ -16,9 +16,9 @@
   --color-border: #e4e4e7;
 
   /* Font Families */
-  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "IBM Plex Serif", ui-serif, Georgia, serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-sans: "Noto Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Noto Serif", ui-serif, Georgia, serif;
+  --font-mono: "Noto Sans Mono", ui-monospace, monospace;
 
   /* Font Sizes */
   --text-xs: 0.75rem;

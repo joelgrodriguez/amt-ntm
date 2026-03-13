@@ -91,12 +91,12 @@ $stats = [
         <div class="max-w-xl lg:max-w-lg xl:max-w-xl grid gap-6">
 
             <!-- Eyebrow -->
-            <p class="text-sm font-semibold uppercase tracking-wider text-primary">
+            <p class="text-sm font-semibold uppercase tracking-wider text-secondary">
                 <?php echo esc_html($content['eyebrow']); ?>
             </p>
 
             <!-- Title -->
-            <h1 id="roof-wall-hero-title" class="text-3xl font-bold text-white md:text-4xl lg:text-5xl xl:text-6xl leading-tight">
+            <h1 id="roof-wall-hero-title" class="text-3xl font-bold font-mono text-white md:text-4xl lg:text-[2.75rem] xl:text-5xl leading-tight">
                 <?php echo esc_html($content['title']); ?>
             </h1>
 
@@ -109,7 +109,7 @@ $stats = [
             <div class="flex gap-6 sm:gap-8 border-t border-white/20 pt-6">
                 <?php foreach ($stats as $stat) : ?>
                     <div class="grid gap-0.5">
-                        <span class="text-2xl font-bold text-primary lg:text-3xl">
+                        <span class="text-2xl font-bold text-white lg:text-3xl">
                             <?php echo esc_html($stat['value']); ?>
                         </span>
                         <span class="text-xs text-slate-400 uppercase tracking-wider">
@@ -121,7 +121,7 @@ $stats = [
 
             <!-- CTAs -->
             <div class="flex flex-col sm:flex-row gap-4 pt-2">
-                <a href="<?php echo esc_url($content['cta_primary_url']); ?>" class="btn btn-secondary btn-lg">
+                <a href="<?php echo esc_url($content['cta_primary_url']); ?>" class="btn btn-primary btn-lg">
                     <?php echo esc_html($content['cta_primary']); ?>
                     <?php icon('arrow-down', ['class' => 'w-5 h-5']); ?>
                 </a>

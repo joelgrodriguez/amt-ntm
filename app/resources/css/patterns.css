@@ -24,7 +24,7 @@
   @apply absolute inset-0 pointer-events-none;
   content: '';
   z-index: 0;
-  background-image: radial-gradient(circle, theme(colors.slate.200) 1px, transparent 1px);
+  background-image: radial-gradient(circle, #d3dbe4 1px, transparent 1px);
   background-size: 16px 16px;
 }
 
