@@ -41,6 +41,10 @@ get_header();
 
     <?php get_template_part('templates/pages/machines/which-machine'); ?>
 
+    <?php get_template_part('templates/pages/machines/configurator'); ?>
+
+    <?php get_template_part('templates/pages/machines/learning-center'); ?>
+
     <?php get_template_part('templates/pages/machines/final-cta'); ?>
 
 </main>

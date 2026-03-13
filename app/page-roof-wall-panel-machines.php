@@ -23,6 +23,8 @@ get_header();
 
     <?php get_template_part('templates/pages/roof-wall/product-grid'); ?>
 
+    <?php get_template_part('templates/pages/roof-wall/configurator'); ?>
+
     <?php get_template_part('templates/pages/machines/roi-snapshot'); ?>
 
     <?php get_template_part('templates/pages/machines/which-machine'); ?>
@@ -30,6 +32,8 @@ get_header();
     <?php get_template_part('templates/pages/roof-wall/faq'); ?>
 
     <?php get_template_part('templates/pages/roof-wall/customer-story'); ?>
+
+    <?php get_template_part('templates/pages/roof-wall/learning-center'); ?>
 
     <?php get_template_part('templates/pages/roof-wall/final-cta'); ?>
 

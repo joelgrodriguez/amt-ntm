@@ -32,11 +32,11 @@ get_header();
 
     <?php get_template_part('templates/parts/front-page/social-proof'); ?>
 
-    <?php get_template_part('templates/parts/front-page/configurator'); ?>
+    <?php get_template_part('templates/parts/configurator'); ?>
 
     <?php get_template_part('templates/parts/front-page/contact'); ?>
 
-    <?php get_template_part('templates/parts/front-page/learning-center'); ?>
+    <?php get_template_part('templates/parts/learning-center'); ?>
 
     <?php get_template_part('templates/parts/front-page/final-cta'); ?>
 

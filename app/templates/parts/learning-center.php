@@ -14,8 +14,9 @@
  * @param string       $subtitle   Optional. Section subtitle.
  * @param int          $post_count Optional. Number of posts to show. Default 4.
  * @param string|array $post_type  Optional. Post type(s) to query.
- * @param string       $cta_url    Optional. CTA button URL.
- * @param string       $cta_text   Optional. CTA button text.
+ * @param string       $cta_url       Optional. CTA button URL.
+ * @param string       $cta_text      Optional. CTA button text.
+ * @param string       $category_slug Optional. WordPress category slug to filter by.
  */
 
 declare(strict_types=1);
@@ -28,20 +29,27 @@ $defaults = [
     'post_count' => 4,
     'post_type'  => ['post', 'video', 'resource', 'download'],
     'cta_url'    => '/learning-center/',
-    'cta_text'   => __('View All Resources', 'standard'),
+    'cta_text'      => __('View All Resources', 'standard'),
+    'category_slug' => '',
 ];
 
 $args = wp_parse_args($args ?? [], $defaults);
 
 // Query latest posts from multiple post types
-$query = new WP_Query([
+$query_args = [
     'post_type'      => $args['post_type'],
     'posts_per_page' => $args['post_count'],
     'post_status'    => 'publish',
     'orderby'        => 'date',
     'order'          => 'DESC',
     'no_found_rows'  => true,
-]);
+];
+
+if (!empty($args['category_slug'])) {
+    $query_args['category_name'] = $args['category_slug'];
+}
+
+$query = new WP_Query($query_args);
 
 if (!$query->have_posts()) {
     return;

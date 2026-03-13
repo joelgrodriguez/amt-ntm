@@ -23,6 +23,8 @@ get_header();
 
     <?php get_template_part('templates/pages/gutter/product-grid'); ?>
 
+    <?php get_template_part('templates/pages/gutter/configurator'); ?>
+
     <?php get_template_part('templates/pages/machines/roi-snapshot'); ?>
 
     <?php get_template_part('templates/pages/machines/which-machine'); ?>
@@ -30,6 +32,8 @@ get_header();
     <?php get_template_part('templates/pages/gutter/faq'); ?>
 
     <?php get_template_part('templates/pages/gutter/customer-story'); ?>
+
+    <?php get_template_part('templates/pages/gutter/learning-center'); ?>
 
     <?php get_template_part('templates/pages/gutter/final-cta'); ?>
 

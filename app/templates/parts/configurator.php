@@ -12,16 +12,19 @@
 
 declare(strict_types=1);
 
-$content = [
-    'eyebrow'  => __('Machine Configurator', 'standard'),
-    'title'    => __('Configure Your Machine Online', 'standard'),
-    'text'     => __('Design your perfect rollformer, see exactly what it costs, and apply for financing—all from your browser. No phone calls. No waiting.', 'standard'),
-    'image'    => get_theme_file_uri('assets/images/config-mockup.png'),
+$defaults = [
+    'eyebrow'   => __('Machine Configurator', 'standard'),
+    'title'     => __('Configure Your Machine Online', 'standard'),
+    'text'      => __('Design your perfect rollformer, see exactly what it costs, and apply for financing—all from your browser. No phone calls. No waiting.', 'standard'),
+    'image'     => get_theme_file_uri('assets/images/config-mockup.png'),
     'image_alt' => __('NTM Machine Configurator Interface', 'standard'),
-    'cta_text' => __('Try the Configurator', 'standard'),
-    'cta_url'  => '/configurator/',
-    'cta_note' => __('Get your machine today', 'standard'),
+    'cta_text'  => __('Try the Configurator', 'standard'),
+    'cta_url'   => '/configurator/',
+    'cta_note'  => __('Get your machine today', 'standard'),
+    'section_id' => 'configurator',
 ];
+
+$content = wp_parse_args($args ?? [], $defaults);
 
 $features = [
     [
@@ -42,7 +45,7 @@ $features = [
 ];
 ?>
 
-<section class="configurator section" aria-labelledby="configurator-title">
+<section class="configurator section" aria-labelledby="<?php echo esc_attr($content['section_id']); ?>-title">
     <div class="container">
         <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-center">
 
@@ -63,7 +66,7 @@ $features = [
                         <?php echo esc_html($content['eyebrow']); ?>
                     </p>
                     <div class="section-divider"></div>
-                    <h2 id="configurator-title" class="section-title">
+                    <h2 id="<?php echo esc_attr($content['section_id']); ?>-title" class="section-title">
                         <?php echo esc_html($content['title']); ?>
                     </h2>
                     <p class="section-subtitle max-w-xl">
