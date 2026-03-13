@@ -1,42 +1,41 @@
 <?php
 /**
- * Roof & Wall Panel Machines — Value Proposition Cards
+ * Seamless Gutter Machines — Value Proposition Cards
  *
- * Three-card horizontal feature strip highlighting key benefits.
- * Distinct from the machines page centered text block.
+ * Three-card horizontal feature strip highlighting key gutter benefits.
  *
  * @package Standard
  *
- * @usage Roof & Wall Panel Machines (page-roof-wall-panel-machines.php)
+ * @usage Seamless Gutter Machines (page-seamless-gutter-machines.php)
  */
 
 declare(strict_types=1);
 
 $content = [
-    'eyebrow' => __('Why Portable Rollforming', 'standard'),
-    'title'   => __('Freedom from Factory Constraints', 'standard'),
+    'eyebrow' => __('Why Portable Gutter Machines', 'standard'),
+    'title'   => __('30 Years of Proven Performance', 'standard'),
 ];
 
 $cards = [
     [
         'icon'  => 'settings',
         'title' => __('On-Site Fabrication', 'standard'),
-        'text'  => __('Produce panels right on the jobsite. No factory lead times, no shipping damage, no wasted trips waiting on deliveries.', 'standard'),
+        'text'  => __('Produce seamless gutters anywhere — no pre-fab joints, no shipping, no wasted material. One continuous piece from coil to install.', 'standard'),
     ],
     [
         'icon'  => 'trending-up',
-        'title' => __('Multi-Profile Versatility', 'standard'),
-        'text'  => __('Up to 16 profiles from a single machine — standing seam roof, flush wall, and board & batten siding panels on demand.', 'standard'),
+        'title' => __('Industry Standard', 'standard'),
+        'text'  => __('NTM pioneered polyurethane drive rollers for gutter machines. The MACH II line has been the industry benchmark for over 30 years.', 'standard'),
     ],
     [
         'icon'  => 'dollar-sign',
-        'title' => __('Proven ROI', 'standard'),
-        'text'  => __('Save up to $2.25/sq ft versus factory panels. Most contractors pay off their machine within the first 1–2 years.', 'standard'),
+        'title' => __('Low Entry Cost', 'standard'),
+        'text'  => __('Starting at $87,245 with flexible financing options. Most gutter contractors pay off their machine within the first year of operation.', 'standard'),
     ],
 ];
 ?>
 
-<section class="section pattern-dot-grid gradient-fade-bottom-sm" aria-labelledby="roof-wall-value-prop-title">
+<section class="section pattern-dot-grid gradient-fade-bottom-sm" aria-labelledby="gutter-value-prop-title">
     <div class="container section-content">
 
         <div class="section-header">
@@ -44,7 +43,7 @@ $cards = [
                 <?php echo esc_html($content['eyebrow']); ?>
             </p>
             <div class="section-divider-center"></div>
-            <h2 id="roof-wall-value-prop-title" class="section-title">
+            <h2 id="gutter-value-prop-title" class="section-title">
                 <?php echo esc_html($content['title']); ?>
             </h2>
         </div>

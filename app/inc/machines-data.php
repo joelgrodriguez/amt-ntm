@@ -298,6 +298,46 @@ function get_roof_wall_faq_items(): array {
 }
 
 /**
+ * Get seamless gutter machines as a flat array.
+ *
+ * @return array
+ */
+function get_gutter_machines(): array {
+    $categories = get_machine_categories();
+    return $categories['gutter']['machines'] ?? [];
+}
+
+/**
+ * Get FAQ items specific to the seamless gutter machines category.
+ *
+ * @return array<int, array{question: string, answer: string}>
+ */
+function get_gutter_faq_items(): array {
+    return [
+        [
+            'question' => 'How much does a seamless gutter machine cost?',
+            'answer'   => 'NTM seamless gutter machines start at $87,245 for the MACH II 5" and 6" models. The 5"/6" combo machine and BG7 box gutter machine are priced based on configuration. Flexible financing options — including lease-to-own and seasonal plans — make it easy to get started.',
+        ],
+        [
+            'question' => 'How long does delivery take after ordering?',
+            'answer'   => 'Most NTM gutter machines ship within 1–2 weeks thanks to streamlined production. The MACH II line is our highest-volume product — current lead times are among the shortest in the industry. Contact your specialist for exact availability.',
+        ],
+        [
+            'question' => 'What warranty comes with NTM gutter machines?',
+            'answer'   => 'Every NTM gutter machine includes a 3-year limited warranty covering manufacturing defects and workmanship. Drive rollers — the heart of the machine — carry a lifetime warranty. Your account specialist can walk you through the full coverage details.',
+        ],
+        [
+            'question' => 'Can I purchase a gutter machine online?',
+            'answer'   => 'Select MACH II models are available for online purchase directly from NTM. Custom configurations, combo machines, and the BG7 are handled through our sales team to ensure you get the right setup for your business.',
+        ],
+        [
+            'question' => 'What kind of support does NTM provide?',
+            'answer'   => 'NTM provides phone and email technical support, an online service portal, and access to service centers across the country. Every machine purchase includes hands-on operator training. Replacement parts and consumables are stocked for fast shipping.',
+        ],
+    ];
+}
+
+/**
  * Get SSQ3 feature improvements for the spotlight section.
  *
  * @return array<int, array{title: string, text: string}>
