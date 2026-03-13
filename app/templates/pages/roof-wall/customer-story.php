@@ -1,51 +1,63 @@
 <?php
 /**
- * Machines Page — Customer Story
+ * Roof & Wall Panel Machines — Customer Story
  *
- * Real customer case study with pull quote and key stats.
- * Data sourced from NTM's published ROI article.
+ * Category-specific customer story with image on the left,
+ * content on the right. Different layout and story from
+ * the machines page version.
  *
  * @package Standard
  *
- * @usage Machines Page (page-machines.php)
+ * @usage Roof & Wall Panel Machines (page-roof-wall-panel-machines.php)
  */
 
 declare(strict_types=1);
 
 $content = [
     'eyebrow'    => __('Customer Story', 'standard'),
-    'quote'      => __("Once I got the SSR, things really excelled. It's basically a printing press — you put coil on top, turn it on, and every foot that comes out, you're making money.", 'standard'),
-    'name'       => 'Jim Averill',
-    'company'    => 'Gunnison Sheet Metal',
-    'machine'    => 'SSR MultiPro Jr.',
+    'quote'      => __("With NTM equipment, we produce panels faster, cut costs, and reduced our lead times by about 75%. We're winning more metal roofing jobs because we can offer faster delivery than anyone relying on a factory.", 'standard'),
+    'name'       => 'Riley Hays',
+    'company'    => 'Riley Hays Roofing & Construction',
+    'machine'    => 'SSQ II MultiPro',
     'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/04/Nate-training-East-Kentucky-Metal-9-scaled.jpg',
-    'cta_text'   => __('Read the Full Story', 'standard'),
-    'cta_url'    => '/learning-center/ntm-customers-roi-behind-portable-standing-seam-panel-production/',
+    'cta_text'   => __('Watch the Full Story', 'standard'),
+    'cta_url'    => '/learning-center/video/how-riley-hays-cut-lead-times-by-75-percent-with-ntm-video/',
 ];
 
 $stats = [
     [
-        'stat'  => '100+',
-        'label' => __('Jobs in 3 Years', 'standard'),
+        'stat'  => '75%',
+        'label' => __('Shorter Lead Times', 'standard'),
     ],
     [
-        'stat'  => '$200K+',
-        'label' => __('Estimated Savings', 'standard'),
+        'stat'  => '2x',
+        'label' => __('More Jobs Won', 'standard'),
     ],
     [
-        'stat'  => '1,000%',
-        'label' => __('Business Growth', 'standard'),
+        'stat'  => 'Year 1',
+        'label' => __('Machine Paid Off', 'standard'),
     ],
 ];
 ?>
 
-<section class="section bg-slate-50" aria-labelledby="customer-story-title">
+<section class="section bg-slate-50" aria-labelledby="roof-wall-customer-story-title">
     <div class="container">
         <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-center">
 
+            <!-- Image — LEFT -->
+            <div>
+                <img
+                    src="<?php echo esc_url($content['image']); ?>"
+                    alt="<?php echo esc_attr($content['name'] . ' — ' . $content['company']); ?>"
+                    class="w-full h-[300px] md:h-[400px] lg:h-[500px] object-cover"
+                    loading="lazy"
+                >
+            </div>
+
+            <!-- Content — RIGHT -->
             <div class="grid gap-8 content-start">
                 <div class="section-header-left">
-                    <p id="customer-story-title" class="section-eyebrow">
+                    <p id="roof-wall-customer-story-title" class="section-eyebrow">
                         <?php echo esc_html($content['eyebrow']); ?>
                     </p>
                     <div class="section-divider"></div>
@@ -81,19 +93,10 @@ $stats = [
 
                 <div>
                     <a href="<?php echo esc_url($content['cta_url']); ?>" class="btn btn-outline-dark">
+                        <?php icon('play', ['class' => 'w-5 h-5']); ?>
                         <?php echo esc_html($content['cta_text']); ?>
-                        <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                     </a>
                 </div>
-            </div>
-
-            <div>
-                <img
-                    src="<?php echo esc_url($content['image']); ?>"
-                    alt="<?php echo esc_attr($content['name'] . ' — ' . $content['company']); ?>"
-                    class="w-full h-[300px] md:h-[400px] lg:h-[500px] object-cover"
-                    loading="lazy"
-                >
             </div>
 
         </div>

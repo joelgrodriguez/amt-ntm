@@ -22,7 +22,7 @@ if (!$machine) {
 $has_price = !empty($machine['price']);
 ?>
 
-<div class="bg-white flex flex-col h-full">
+<div class="bg-white flex flex-col h-full relative group hover:bg-slate-50 transition-colors duration-150">
     <!-- Product Image -->
     <div class="p-6 flex items-center justify-center aspect-4/3">
         <img
@@ -41,7 +41,9 @@ $has_price = !empty($machine['price']);
                 <?php echo esc_html($machine['year']); ?>
             </p>
             <h4 class="text-2xl font-bold text-slate-900 mt-1">
-                <?php echo esc_html($machine['name']); ?>
+                <a href="<?php echo esc_url($machine['url']); ?>" class="after:absolute after:inset-0 no-underline text-inherit">
+                    <?php echo esc_html($machine['name']); ?>
+                </a>
             </h4>
         </div>
 
@@ -66,7 +68,7 @@ $has_price = !empty($machine['price']);
 
         <!-- CTAs -->
         <?php if ($has_price) : ?>
-            <div class="flex gap-3 mt-auto">
+            <div class="flex gap-3 mt-auto relative z-10">
                 <a href="<?php echo esc_url($machine['url']); ?>" class="btn btn-outline-dark btn-sm">
                     <?php esc_html_e('Explore', 'standard'); ?>
                 </a>
@@ -75,7 +77,7 @@ $has_price = !empty($machine['price']);
                 </a>
             </div>
         <?php else : ?>
-            <a href="<?php echo esc_url($machine['url']); ?>" class="inline-flex items-center gap-1 text-sm font-semibold text-slate-900 hover:text-primary transition-colors no-underline mt-auto">
+            <a href="<?php echo esc_url($machine['url']); ?>" class="inline-flex items-center gap-1 text-sm font-semibold text-slate-900 hover:text-primary transition-colors no-underline mt-auto relative z-10">
                 <?php esc_html_e('Explore More', 'standard'); ?>
                 <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
             </a>

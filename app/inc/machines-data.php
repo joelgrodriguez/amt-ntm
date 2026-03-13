@@ -258,6 +258,46 @@ function get_all_machines(): array {
 }
 
 /**
+ * Get roof & wall panel machines as a flat array.
+ *
+ * @return array
+ */
+function get_roof_wall_machines(): array {
+    $categories = get_machine_categories();
+    return $categories['roof-wall']['machines'] ?? [];
+}
+
+/**
+ * Get FAQ items specific to the roof & wall panel machines category.
+ *
+ * @return array<int, array{question: string, answer: string}>
+ */
+function get_roof_wall_faq_items(): array {
+    return [
+        [
+            'question' => 'How long does it take to get a roof panel machine after ordering?',
+            'answer'   => 'Lead times vary by model, but most NTM roof and wall panel machines ship within 4–8 weeks. The SSQ3 MultiPro and SSQ II MultiPro are our highest-demand models — contact your specialist for current availability.',
+        ],
+        [
+            'question' => 'How much does a portable roof panel machine cost?',
+            'answer'   => 'Pricing depends on the model and configuration. Entry-level machines like the SSR MultiPro Jr. start at a lower investment, while flagship models like the SSQ3 MultiPro are priced for high-volume commercial contractors. Flexible financing options — including lease-to-own and seasonal plans — make it easy to get started.',
+        ],
+        [
+            'question' => 'What warranty comes with NTM roof and wall panel machines?',
+            'answer'   => 'Every NTM machine is backed by a comprehensive warranty covering manufacturing defects and workmanship. Specific coverage terms vary by model. Your account specialist can walk you through the full warranty details for the machine you\'re considering.',
+        ],
+        [
+            'question' => 'What kind of training and ongoing support do I get?',
+            'answer'   => 'Every machine purchase includes hands-on operator training. NTM also provides ongoing technical support, troubleshooting assistance, and access to replacement parts. Machines with the UNIQ controller include built-in help pages and diagnostic videos for in-field problem solving.',
+        ],
+        [
+            'question' => 'What materials can these machines process?',
+            'answer'   => 'NTM roof and wall panel machines handle painted steel, Galvalume, aluminum, copper, zinc, and terne-coated stainless steel. The SSQ3 and SSQ II process up to 24 gauge steel. The WAV is purpose-built for heavy commercial wall panel work with 4 profiles on 25 polyurethane drive rollers.',
+        ],
+    ];
+}
+
+/**
  * Get SSQ3 feature improvements for the spotlight section.
  *
  * @return array<int, array{title: string, text: string}>
