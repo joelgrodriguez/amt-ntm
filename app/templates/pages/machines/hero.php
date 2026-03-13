@@ -12,8 +12,8 @@
 declare(strict_types=1);
 
 $content = [
-    'title'    => __("The World's Finest Portable Rollforming Equipment", 'standard'),
-    'subtitle' => __('Machines built for the metal construction industry since 1991.', 'standard'),
+    'title'    => __('Make More Money on Every Metal Roof Job', 'standard'),
+    'subtitle' => __('Save up to $2.25/sq ft by fabricating panels on-site with NTM portable rollformers.', 'standard'),
     'cta_text' => __('Explore the Lineup', 'standard'),
     'cta_url'  => '#lineup',
     'image'    => 'https://newtechmachinery.com/wp-content/uploads/2025/09/Machine-on-rooftop-scaled.jpg',
