@@ -17,7 +17,7 @@ $content = [
 ];
 ?>
 
-<section class="section pattern-square-grid" style="padding-block: calc(var(--spacing) * 25.4);" aria-labelledby="brand-statement-title">
+<section class="py-16 md:py-24 lg:py-32 pattern-square-grid" aria-labelledby="brand-statement-title">
     <div class="pattern-square-grid__overlay pattern-square-grid__overlay--top-left"></div>
     <div class="pattern-square-grid__overlay pattern-square-grid__overlay--bottom-right"></div>
     <div class="container grid gap-6 text-center max-w-3xl mx-auto relative z-10">

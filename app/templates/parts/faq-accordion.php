@@ -53,6 +53,7 @@ if (empty($content) || empty($faqs)) {
                                 class="cds-accordion-trigger flex items-center justify-between gap-4 w-full py-4 text-left text-sm font-semibold text-slate-900 hover:bg-slate-100 transition-colors duration-150 cursor-pointer"
                                 data-accordion-trigger
                                 aria-expanded="<?php echo $i === 0 ? 'true' : 'false'; ?>"
+                                aria-controls="<?php echo esc_attr($section_id . '-panel-' . $i); ?>"
                             >
                                 <span class="leading-snug">
                                     <?php echo esc_html($faq['question']); ?>
@@ -62,7 +63,9 @@ if (empty($content) || empty($faqs)) {
                                 </span>
                             </button>
                             <div
+                                id="<?php echo esc_attr($section_id . '-panel-' . $i); ?>"
                                 class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out"
+                                role="region"
                                 data-accordion-content
                             >
                                 <p class="pb-6 pr-8 text-sm text-slate-600 leading-relaxed border-l-2 border-primary pl-4">

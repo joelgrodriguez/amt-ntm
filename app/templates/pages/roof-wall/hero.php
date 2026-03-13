@@ -50,6 +50,7 @@ $stats = [
         muted
         loop
         playsinline
+        preload="metadata"
         poster="<?php echo esc_url($content['poster']); ?>"
     >
         <source src="<?php echo esc_url($content['video']); ?>" type="video/mp4">

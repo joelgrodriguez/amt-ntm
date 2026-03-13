@@ -24,7 +24,7 @@ $has_price = !empty($machine['price']);
 
 <div class="bg-white flex flex-col h-full relative group hover:bg-slate-50 transition-colors duration-150">
     <!-- Product Image -->
-    <div class="p-6 flex items-center justify-center aspect-4/3">
+    <div class="p-4 sm:p-6 flex items-center justify-center aspect-4/3">
         <img
             src="<?php echo esc_url($machine['image']); ?>"
             alt="<?php echo esc_attr($machine['name']); ?>"
@@ -34,7 +34,7 @@ $has_price = !empty($machine['price']);
     </div>
 
     <!-- Content -->
-    <div class="p-6 flex flex-col grow gap-4">
+    <div class="p-4 sm:p-6 flex flex-col grow gap-4">
         <!-- Year + Name -->
         <div>
             <p class="text-sm text-slate-500">

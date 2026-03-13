@@ -17,6 +17,8 @@
 declare(strict_types=1);
 
 use function Standard\MachinesData\get_machine_categories;
+use function Standard\MachinesData\get_card_border_classes;
+use function Standard\MachinesData\get_overflow_border_classes;
 
 $content = [
     'eyebrow' => __('Our Machines', 'standard'),
@@ -55,17 +57,7 @@ $categories = get_machine_categories();
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-<?php echo esc_attr((string) $cols); ?>">
                     <?php foreach ($top_row as $idx => $machine) : ?>
-                        <?php
-                        // Right border: every card except last in its row
-                        // sm (2-col): even-index cards get border-r (0, 2, 4…)
-                        // lg (n-col): every card except nth gets border-r
-                        $is_last_sm = ($idx % 2 === 1) || ($idx === count($top_row) - 1);
-                        $is_last_lg = (($idx + 1) % $cols === 0) || ($idx === count($top_row) - 1);
-                        $border_classes = 'border-b border-slate-200';
-                        $border_classes .= $is_last_sm ? '' : ' sm:border-r';
-                        $border_classes .= $is_last_lg ? ' lg:border-r-0' : ' lg:border-r';
-                        ?>
-                        <div class="<?php echo esc_attr($border_classes); ?>">
+                        <div class="<?php echo esc_attr(get_card_border_classes($idx, count($top_row), $cols)); ?>">
                             <?php get_template_part('templates/pages/machines/lineup-card', null, ['machine' => $machine]); ?>
                         </div>
                     <?php endforeach; ?>
@@ -76,14 +68,8 @@ $categories = get_machine_categories();
                         $offset = (int) floor(($cols - $overflow_count) / 2);
                         ?>
                         <?php foreach ($bottom_row as $i => $machine) : ?>
-                            <?php
-                            $col_start = $offset + $i + 1;
-                            $is_last = ($i === $overflow_count - 1);
-                            $overflow_border = 'border-b border-slate-200';
-                            $overflow_border .= ($i % 2 === 0 && !$is_last) ? ' sm:border-r' : '';
-                            $overflow_border .= $is_last ? '' : ' lg:border-r';
-                            ?>
-                            <div class="lg:col-start-<?php echo esc_attr((string) $col_start); ?> <?php echo esc_attr($overflow_border); ?>">
+                            <?php $col_start = $offset + $i + 1; ?>
+                            <div class="lg:col-start-<?php echo esc_attr((string) $col_start); ?> <?php echo esc_attr(get_overflow_border_classes($i, $overflow_count)); ?>">
                                 <?php get_template_part('templates/pages/machines/lineup-card', null, ['machine' => $machine]); ?>
                             </div>
                         <?php endforeach; ?>

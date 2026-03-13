@@ -42,7 +42,7 @@ $stats = get_roi_stats();
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto text-center">
             <?php foreach ($stats as $stat) : ?>
                 <div class="grid gap-2">
-                    <span class="text-4xl font-bold text-secondary lg:text-5xl">
+                    <span class="text-3xl font-bold text-secondary sm:text-4xl lg:text-5xl">
                         <?php echo esc_html($stat['stat']); ?>
                     </span>
                     <span class="text-sm text-slate-400 uppercase tracking-wider">

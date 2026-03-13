@@ -53,7 +53,7 @@ $cards = [
             <?php foreach ($cards as $card) : ?>
                 <div class="grid gap-4 text-center">
                     <div class="flex justify-center">
-                        <div class="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center">
+                        <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
                             <?php icon($card['icon'], ['class' => 'w-6 h-6 text-primary']); ?>
                         </div>
                     </div>
