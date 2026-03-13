@@ -405,3 +405,25 @@ function get_journey_stats(): array {
         ],
     ];
 }
+
+/**
+ * Get ROI statistics for the ROI snapshot section.
+ *
+ * @return array<int, array{stat: string, label: string}>
+ */
+function get_roi_stats(): array {
+    return [
+        [
+            'stat'  => '$2.25',
+            'label' => 'Saved Per Sq Ft vs. Factory Panels',
+        ],
+        [
+            'stat'  => '1–2 Yrs',
+            'label' => 'Typical Machine Payback Period',
+        ],
+        [
+            'stat'  => '1,000%',
+            'label' => 'Business Growth Reported by Owners',
+        ],
+    ];
+}
