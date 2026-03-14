@@ -34,8 +34,10 @@ if (empty($profiles)) {
 }
 ?>
 
-<section class="section bg-slate-50" aria-labelledby="profiles-title">
-    <div class="container section-content">
+<section class="section relative overflow-hidden" aria-labelledby="profiles-title">
+    <?php // Square grid background pattern ?>
+    <div class="absolute inset-0 opacity-[0.04]" aria-hidden="true" style="background-image: linear-gradient(to right, #0f172a 1px, transparent 1px), linear-gradient(to bottom, #0f172a 1px, transparent 1px); background-size: 48px 48px;"></div>
+    <div class="container section-content relative z-10">
 
         <div class="section-header">
             <p class="section-eyebrow">Panel Profiles</p>

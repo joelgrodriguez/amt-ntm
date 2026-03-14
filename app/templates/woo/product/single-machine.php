@@ -40,6 +40,12 @@ if (!$machine) {
     <?php // CTA Strip 1: Financing — catches early "can I afford this?" buyers ?>
     <?php get_template_part('templates/woo/product/parts/cta-finance', null, compact('product', 'machine')); ?>
 
+    <?php // Dot grid transition — fades from dark (hero/stats) into light (breakdown) ?>
+    <div class="h-24 md:h-32 relative overflow-hidden" aria-hidden="true">
+        <div class="absolute inset-0" style="background-image: radial-gradient(circle, rgba(148,163,184,0.3) 1px, transparent 1px); background-size: 20px 20px;"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white"></div>
+    </div>
+
     <?php get_template_part('templates/woo/product/parts/machine-breakdown', null, compact('machine')); ?>
 
     <?php get_template_part('templates/woo/product/parts/blueprint', null, compact('machine')); ?>

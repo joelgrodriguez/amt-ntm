@@ -217,37 +217,39 @@ if (empty($sections)) {
 <section class="section" aria-labelledby="specs-title">
     <div class="container section-content">
 
-        <div class="section-header-left">
-            <p class="section-eyebrow">Technical Specifications</p>
-            <div class="section-divider"></div>
-            <h2 id="specs-title" class="section-title">Full Details</h2>
-        </div>
+        <div class="grid lg:grid-cols-2 gap-12 items-start">
 
-        <div class="grid lg:grid-cols-[1fr_320px] gap-8 items-start">
+            <!-- Left column: header + accordions -->
+            <div>
+                <div class="section-header-left mb-10">
+                    <p class="section-eyebrow"><?php esc_html_e('Technical Specifications', 'standard'); ?></p>
+                    <div class="section-divider"></div>
+                    <h2 id="specs-title" class="section-title"><?php esc_html_e('Full Details', 'standard'); ?></h2>
+                </div>
 
-            <!-- Accordion column -->
-            <div class="grid gap-0">
-                <?php foreach ($sections as $title => $content) : ?>
-                    <details class="border border-slate-200 -mt-px group">
-                        <summary class="px-6 py-4 cursor-pointer flex items-center justify-between bg-white hover:bg-slate-50 transition-colors font-semibold text-slate-900">
-                            <?php echo esc_html($title); ?>
-                            <span class="text-slate-400 transition-transform group-open:rotate-180">&#9660;</span>
-                        </summary>
-                        <div class="px-6 py-6 border-t border-slate-200 text-sm text-slate-600">
-                            <?php echo $content; // Already escaped during build. ?>
+                <div class="grid gap-0">
+                    <?php foreach ($sections as $title => $content) : ?>
+                        <details class="border border-slate-200 -mt-px group">
+                            <summary class="px-6 py-4 cursor-pointer flex items-center justify-between bg-white hover:bg-slate-50 transition-colors font-semibold text-slate-900">
+                                <?php echo esc_html($title); ?>
+                                <span class="text-slate-400 transition-transform group-open:rotate-180">&#9660;</span>
+                            </summary>
+                            <div class="px-6 py-6 border-t border-slate-200 text-sm text-slate-600">
+                                <?php echo $content; // Already escaped during build. ?>
+                            </div>
+                        </details>
+                    <?php endforeach; ?>
+
+                    <?php if (!empty($resources['brochure'])) : ?>
+                        <div class="mt-6">
+                            <a href="<?php echo esc_url($resources['brochure']); ?>" class="btn btn-sm btn-outline-dark" target="_blank" rel="noopener"><?php esc_html_e('Download Full Spec Sheet', 'standard'); ?></a>
                         </div>
-                    </details>
-                <?php endforeach; ?>
-
-                <?php if (!empty($resources['brochure'])) : ?>
-                    <div class="mt-6">
-                        <a href="<?php echo esc_url($resources['brochure']); ?>" class="btn btn-sm btn-outline-dark" target="_blank" rel="noopener"><?php esc_html_e('Download Full Spec Sheet', 'standard'); ?></a>
-                    </div>
-                <?php endif; ?>
+                    <?php endif; ?>
+                </div>
             </div>
 
-            <!-- Vertical image column — stretches full height of accordion content -->
-            <div class="hidden lg:flex bg-slate-100 rounded overflow-hidden items-center justify-center self-stretch">
+            <!-- Right column: vertical image fills full height of content -->
+            <div class="hidden lg:flex bg-slate-100 rounded overflow-hidden items-center justify-center self-stretch min-h-[500px]">
                 <span class="text-slate-400 text-sm font-mono">[Machine image]</span>
             </div>
 
