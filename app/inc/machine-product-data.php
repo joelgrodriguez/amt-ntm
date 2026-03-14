@@ -21,7 +21,23 @@ namespace Standard\MachineProductData;
  */
 function get_machine_product_data(string $slug): ?array {
     $machines = get_all_machine_product_data();
-    return $machines[$slug] ?? null;
+
+    // Exact match first
+    if (isset($machines[$slug])) {
+        return $machines[$slug];
+    }
+
+    // Prefix match: WooCommerce slugs often include the full name
+    // e.g., 'ssq3-multipro-roof-panel-machine' should match key 'ssq3-multipro'
+    foreach ($machines as $key => $data) {
+        if (str_starts_with($slug, $key)) {
+            return $data;
+        }
+    }
+
+    // Fallback: return default skeleton data so all machines render the custom template
+    // TODO: remove once all machines have dedicated data entries
+    return get_default_machine_data();
 }
 
 /**
@@ -141,5 +157,34 @@ function get_all_machine_product_data(): array {
         ],
 
         // Additional machines follow the same structure
+    ];
+}
+
+/**
+ * Default skeleton data for machines without dedicated entries.
+ * Pulls headline from the WooCommerce product name.
+ * TODO: remove once all machines have dedicated data.
+ *
+ * @return array
+ */
+function get_default_machine_data(): array {
+    return [
+        'hero_headline' => '', // falls back to product name in template
+        'hero_subtitle' => '',
+        'hero_image'    => '',
+        'hero_video'    => null,
+        'stats'         => [],
+        'breakdown'     => [],
+        'blueprint_svg' => '',
+        'blueprint_dimensions' => [],
+        'blueprint_trailer'    => [],
+        'gallery_images'  => [],
+        'rotator_images'  => [],
+        'profiles'        => [],
+        'testimonials'    => [],
+        'compare_with'    => [],
+        'best_for'        => '',
+        'featured_accessories' => [],
+        'resources'       => [],
     ];
 }
