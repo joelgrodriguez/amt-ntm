@@ -56,7 +56,7 @@ $carousel_id = 'accessories-carousel';
         </div>
 
         <div id="<?php echo esc_attr($carousel_id); ?>"
-             class="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 -mx-4 px-4"
+             class="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 -mx-4 px-4"
              style="scrollbar-width: none; -ms-overflow-style: none;">
             <?php foreach ($accessories as $accessory) :
                 /** @var \WC_Product $accessory */
@@ -64,7 +64,7 @@ $carousel_id = 'accessories-carousel';
                 $desc = wp_trim_words(wp_strip_all_tags($desc), 12, '&hellip;');
             ?>
                 <a href="<?php echo esc_url($accessory->get_permalink()); ?>"
-                   class="snap-start shrink-0 w-[280px] border border-slate-200 bg-white p-6 grid gap-3 hover:border-slate-400 hover:shadow-md transition-all">
+                   class="snap-start shrink-0 w-[200px] border border-slate-200 bg-white p-4 grid gap-2 hover:border-slate-400 hover:shadow-md transition-all">
                     <div class="bg-slate-50 aspect-square flex items-center justify-center overflow-hidden rounded">
                         <?php if ($accessory->get_image_id()) : ?>
                             <?php echo wp_get_attachment_image($accessory->get_image_id(), 'product-card', false, ['class' => 'w-full h-full object-contain p-4']); ?>

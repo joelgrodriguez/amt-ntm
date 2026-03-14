@@ -46,13 +46,13 @@ if (empty($profiles)) {
             <h2 id="profiles-title" class="section-title"><?php esc_html_e('Your Panels, Your Way', 'standard'); ?></h2>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             <?php foreach ($profiles as $profile) :
                 $categories = get_the_terms($profile->ID, 'category');
                 $cat_name   = (!empty($categories) && !is_wp_error($categories)) ? $categories[0]->name : '';
             ?>
-                <a href="<?php echo esc_url(get_permalink($profile)); ?>" class="group border border-slate-200 bg-white p-6 grid gap-4 hover:border-slate-400 hover:shadow-md transition-all">
-                    <div class="bg-slate-50 aspect-[4/3] flex items-center justify-center overflow-hidden rounded">
+                <a href="<?php echo esc_url(get_permalink($profile)); ?>" class="group border border-slate-200 bg-white p-4 grid gap-3 hover:border-slate-400 hover:shadow-md transition-all">
+                    <div class="bg-slate-50 aspect-square flex items-center justify-center overflow-hidden rounded">
                         <?php if (has_post_thumbnail($profile)) : ?>
                             <?php echo get_the_post_thumbnail($profile, 'medium', ['class' => 'w-full h-full object-contain p-4 group-hover:scale-105 transition-transform']); ?>
                         <?php else : ?>

@@ -19,7 +19,9 @@ if (empty($faqs)) {
 }
 ?>
 
-<section class="section bg-white" aria-labelledby="faq-title">
+<section class="section bg-slate-100 pattern-square-grid" aria-labelledby="faq-title">
+    <div class="pattern-square-grid__overlay pattern-square-grid__overlay--top-left" aria-hidden="true"></div>
+    <div class="pattern-square-grid__overlay pattern-square-grid__overlay--bottom-right" aria-hidden="true"></div>
     <div class="container section-content">
 
         <div class="section-header">
