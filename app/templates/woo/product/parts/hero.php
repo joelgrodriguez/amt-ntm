@@ -45,7 +45,7 @@ $machine_name     = $product->get_name();
 
     <div class="container relative z-10 pb-16 pt-32">
         <div class="grid gap-6 max-w-xl">
-            <p class="text-sm font-extrabold uppercase tracking-widest text-secondary"><?php echo esc_html($machine_name); ?></p>
+            <p><span class="inline-block bg-secondary text-white text-sm font-bold uppercase tracking-widest px-4 py-2"><?php echo esc_html($machine_name); ?></span></p>
             <h1 id="machine-hero-title" class="text-3xl font-bold font-mono text-white md:text-4xl lg:text-5xl">
                 <?php echo esc_html($headline); ?>
             </h1>

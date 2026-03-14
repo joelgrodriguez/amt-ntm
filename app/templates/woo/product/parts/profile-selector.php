@@ -2,6 +2,9 @@
 /**
  * Machine Product — Profile Selector
  *
+ * Flex-wrap layout with fixed-width cards so it adapts
+ * whether a machine has 2 profiles or 16.
+ *
  * @package Standard
  * @var array{product: \WC_Product, machine: array} $args
  */
@@ -34,28 +37,26 @@ if (empty($profiles)) {
 }
 ?>
 
-<section class="section pattern-square-grid" aria-labelledby="profiles-title">
-    <div class="pattern-square-grid__overlay pattern-square-grid__overlay--top-left" aria-hidden="true"></div>
-    <div class="pattern-square-grid__overlay pattern-square-grid__overlay--bottom-right" aria-hidden="true"></div>
+<section class="section bg-slate-50" aria-labelledby="profiles-title">
     <div class="container section-content">
 
         <div class="section-header">
-            <p class="section-eyebrow">Panel Profiles</p>
+            <p class="section-eyebrow"><?php esc_html_e('Panel Profiles', 'standard'); ?></p>
             <div class="section-divider-center"></div>
-            <h2 id="profiles-title" class="section-title">Your Panels, Your Way</h2>
+            <h2 id="profiles-title" class="section-title"><?php esc_html_e('Your Panels, Your Way', 'standard'); ?></h2>
         </div>
 
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div class="flex flex-wrap justify-center gap-6">
             <?php foreach ($profiles as $profile) :
                 $categories = get_the_terms($profile->ID, 'category');
                 $cat_name   = (!empty($categories) && !is_wp_error($categories)) ? $categories[0]->name : '';
             ?>
-                <a href="<?php echo esc_url(get_permalink($profile)); ?>" class="group border border-slate-200 bg-white p-6 grid gap-4 hover:border-slate-400 hover:shadow-md transition-all">
+                <a href="<?php echo esc_url(get_permalink($profile)); ?>" class="group w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)] border border-slate-200 bg-white p-6 grid gap-4 hover:border-slate-400 hover:shadow-md transition-all">
                     <div class="bg-slate-50 aspect-[4/3] flex items-center justify-center overflow-hidden rounded">
                         <?php if (has_post_thumbnail($profile)) : ?>
                             <?php echo get_the_post_thumbnail($profile, 'medium', ['class' => 'w-full h-full object-contain p-4 group-hover:scale-105 transition-transform']); ?>
                         <?php else : ?>
-                            <span class="text-slate-400 text-sm font-mono">Profile</span>
+                            <span class="text-slate-400 text-sm font-mono"><?php esc_html_e('Profile', 'standard'); ?></span>
                         <?php endif; ?>
                     </div>
                     <div class="grid gap-1">
