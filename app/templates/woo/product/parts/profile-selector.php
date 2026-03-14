@@ -99,7 +99,7 @@ $carousel_id = 'profiles-carousel';
     const track = document.getElementById(id);
     if (!track) return;
 
-    const scrollAmount = 220;
+    const scrollAmount = 640;
 
     document.querySelectorAll(`[data-carousel-prev="${id}"]`).forEach(btn => {
         btn.addEventListener('click', () => track.scrollBy({ left: -scrollAmount, behavior: 'smooth' }));
