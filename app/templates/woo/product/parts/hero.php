@@ -43,8 +43,9 @@ $configurator_url = '/configurator/' . $product->get_slug() . '/';
     <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/40 to-transparent"></div>
 
     <div class="container relative z-10 pb-16 pt-32">
+        <p class="absolute top-8 right-8 text-xs font-mono uppercase tracking-widest text-white/60 hidden lg:block"><?php echo esc_html($product->get_name()); ?></p>
         <div class="grid gap-6 max-w-xl">
-            <h1 id="machine-hero-title" class="text-4xl font-bold text-white md:text-5xl lg:text-6xl">
+            <h1 id="machine-hero-title" class="text-4xl font-bold font-mono text-white md:text-5xl lg:text-6xl">
                 <?php echo esc_html($headline); ?>
             </h1>
             <?php if (!empty($subtitle)) : ?>

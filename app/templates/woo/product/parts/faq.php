@@ -25,7 +25,7 @@ if (empty($faqs)) {
         <div class="section-header">
             <p class="section-eyebrow"><?php esc_html_e('FAQ', 'standard'); ?></p>
             <div class="section-divider-center"></div>
-            <h2 id="faq-title" class="text-4xl font-bold text-slate-900 md:text-5xl"><?php esc_html_e('Frequently Asked Questions', 'standard'); ?></h2>
+            <h2 id="faq-title" class="text-4xl font-bold font-mono text-slate-900 md:text-5xl"><?php esc_html_e('Frequently Asked Questions', 'standard'); ?></h2>
         </div>
 
         <div class="max-w-4xl mx-auto grid gap-0">

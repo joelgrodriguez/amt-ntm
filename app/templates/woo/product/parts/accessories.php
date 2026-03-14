@@ -67,7 +67,7 @@ $carousel_id = 'accessories-carousel';
                    class="snap-start shrink-0 w-[280px] border border-slate-200 bg-white p-6 grid gap-3 hover:border-slate-400 hover:shadow-md transition-all">
                     <div class="bg-slate-50 aspect-square flex items-center justify-center overflow-hidden rounded">
                         <?php if ($accessory->get_image_id()) : ?>
-                            <?php echo $accessory->get_image('woocommerce_thumbnail', ['class' => 'w-full h-full object-contain p-2']); ?>
+                            <?php echo wp_get_attachment_image($accessory->get_image_id(), 'product-card', false, ['class' => 'w-full h-full object-contain p-4']); ?>
                         <?php else : ?>
                             <span class="text-slate-400 text-sm font-mono"><?php esc_html_e('Photo', 'standard'); ?></span>
                         <?php endif; ?>
