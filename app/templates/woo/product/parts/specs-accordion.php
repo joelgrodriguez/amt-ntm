@@ -217,7 +217,7 @@ if (empty($sections)) {
 <section class="section" aria-labelledby="specs-title">
     <div class="container section-content">
 
-        <div class="grid lg:grid-cols-2 gap-12 items-start">
+        <div class="grid lg:grid-cols-2 gap-12 items-stretch">
 
             <!-- Left column: header + accordions -->
             <div>
@@ -248,9 +248,9 @@ if (empty($sections)) {
                 </div>
             </div>
 
-            <!-- Right column: vertical machine image -->
-            <div class="hidden lg:block self-stretch">
-                <div class="bg-slate-100 rounded overflow-hidden sticky top-24 h-[600px] flex items-center justify-center">
+            <!-- Right column: vertical machine image — fills full height of container -->
+            <div class="hidden lg:block">
+                <div class="bg-slate-100 rounded overflow-hidden h-full flex items-center justify-center">
                     <div class="text-center grid gap-4">
                         <svg class="w-16 h-16 text-slate-300 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
