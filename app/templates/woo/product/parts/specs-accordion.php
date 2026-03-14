@@ -246,11 +246,9 @@ if (empty($sections)) {
                 <?php endif; ?>
             </div>
 
-            <!-- Vertical image column -->
-            <div class="hidden lg:block bg-slate-100 rounded overflow-hidden sticky top-24">
-                <div class="aspect-[3/5] flex items-center justify-center">
-                    <span class="text-slate-400 text-sm font-mono">[Machine image]</span>
-                </div>
+            <!-- Vertical image column — stretches full height of accordion content -->
+            <div class="hidden lg:flex bg-slate-100 rounded overflow-hidden items-center justify-center self-stretch">
+                <span class="text-slate-400 text-sm font-mono">[Machine image]</span>
             </div>
 
         </div>

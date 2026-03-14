@@ -44,6 +44,8 @@ if (!$machine) {
 
     <?php get_template_part('templates/woo/product/parts/blueprint', null, compact('machine')); ?>
 
+    <?php get_template_part('templates/woo/product/parts/gallery', null, compact('product', 'machine')); ?>
+
     <?php get_template_part('templates/woo/product/parts/profile-selector', null, compact('product', 'machine')); ?>
 
     <?php // CTA Strip 2: Configurator — catches engaged "I want this" buyers ?>

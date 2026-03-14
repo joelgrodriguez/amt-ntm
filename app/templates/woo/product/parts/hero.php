@@ -42,8 +42,8 @@ $configurator_url = '/configurator/' . $product->get_slug() . '/';
 
     <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/40 to-transparent"></div>
 
-    <div class="container relative z-10 pb-16 pt-32 flex justify-end">
-        <div class="grid gap-6 max-w-xl text-right">
+    <div class="container relative z-10 pb-16 pt-32">
+        <div class="grid gap-6 max-w-xl">
             <h1 id="machine-hero-title" class="text-4xl font-bold text-white md:text-5xl lg:text-6xl">
                 <?php echo esc_html($headline); ?>
             </h1>
@@ -53,7 +53,7 @@ $configurator_url = '/configurator/' . $product->get_slug() . '/';
             <?php if (!empty($price_display)) : ?>
                 <p class="text-sm text-slate-300 uppercase tracking-wider">Starting at <span class="text-white font-semibold"><?php echo wp_kses_post($price_display); ?></span></p>
             <?php endif; ?>
-            <div class="flex gap-4 mt-2 justify-end">
+            <div class="flex gap-4 mt-2">
                 <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary">Build &amp; Quote</a>
                 <a href="#machine-breakdown" class="btn btn-outline-light">Explore</a>
             </div>
