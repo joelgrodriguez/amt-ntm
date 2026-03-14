@@ -43,17 +43,25 @@ if (empty($profiles)) {
             <h2 id="profiles-title" class="section-title">Your Panels, Your Way</h2>
         </div>
 
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
-            <?php foreach ($profiles as $profile) : ?>
-                <a href="<?php echo esc_url(get_permalink($profile)); ?>" class="border border-slate-200 bg-white p-4 text-center grid gap-2 hover:border-slate-400 transition-colors">
-                    <div class="bg-slate-100 h-20 flex items-center justify-center overflow-hidden">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <?php foreach ($profiles as $profile) :
+                $categories = get_the_terms($profile->ID, 'category');
+                $cat_name   = (!empty($categories) && !is_wp_error($categories)) ? $categories[0]->name : '';
+            ?>
+                <a href="<?php echo esc_url(get_permalink($profile)); ?>" class="group border border-slate-200 bg-white p-6 grid gap-4 hover:border-slate-400 hover:shadow-md transition-all">
+                    <div class="bg-slate-50 aspect-[4/3] flex items-center justify-center overflow-hidden rounded">
                         <?php if (has_post_thumbnail($profile)) : ?>
-                            <?php echo get_the_post_thumbnail($profile, 'medium', ['class' => 'w-full h-full object-contain']); ?>
+                            <?php echo get_the_post_thumbnail($profile, 'medium', ['class' => 'w-full h-full object-contain p-4 group-hover:scale-105 transition-transform']); ?>
                         <?php else : ?>
-                            <span class="text-slate-400 text-xs font-mono">Profile</span>
+                            <span class="text-slate-400 text-sm font-mono">Profile</span>
                         <?php endif; ?>
                     </div>
-                    <span class="text-sm font-semibold text-slate-900"><?php echo esc_html(get_the_title($profile)); ?></span>
+                    <div class="grid gap-1">
+                        <h3 class="text-base font-bold text-slate-900 group-hover:text-primary transition-colors"><?php echo esc_html(get_the_title($profile)); ?></h3>
+                        <?php if ($cat_name) : ?>
+                            <p class="text-sm text-slate-500"><?php echo esc_html($cat_name); ?></p>
+                        <?php endif; ?>
+                    </div>
                 </a>
             <?php endforeach; ?>
         </div>

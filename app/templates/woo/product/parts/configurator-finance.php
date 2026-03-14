@@ -22,7 +22,7 @@ $has_monthly = !empty($finance['monthly_price']);
 $has_range   = !empty($finance['price_range']);
 ?>
 
-<section class="section bg-slate-900" aria-labelledby="config-finance-title">
+<section class="section bg-slate-900 border-b border-slate-700" aria-labelledby="config-finance-title">
     <div class="container section-content">
 
         <div class="section-header">
