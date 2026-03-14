@@ -43,12 +43,10 @@ $machine_name     = $product->get_name();
 
     <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/40 to-transparent"></div>
 
-    <!-- Machine name — top right, orange, extra bold -->
-    <p class="absolute top-8 right-8 text-sm font-extrabold uppercase tracking-widest text-secondary z-10 hidden lg:block"><?php echo esc_html($machine_name); ?></p>
-
     <div class="container relative z-10 pb-16 pt-32">
-        <div class="grid gap-5 max-w-xl">
-            <h1 id="machine-hero-title" class="text-3xl font-bold font-mono text-white md:text-4xl lg:text-5xl leading-normal">
+        <div class="grid gap-6 max-w-xl">
+            <p class="text-sm font-extrabold uppercase tracking-widest text-secondary"><?php echo esc_html($machine_name); ?></p>
+            <h1 id="machine-hero-title" class="text-3xl font-bold font-mono text-white md:text-4xl lg:text-5xl">
                 <?php echo esc_html($headline); ?>
             </h1>
             <?php if (!empty($subtitle)) : ?>

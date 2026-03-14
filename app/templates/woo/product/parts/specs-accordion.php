@@ -221,7 +221,7 @@ if (empty($sections)) {
 
             <!-- Left column: header + accordions -->
             <div>
-                <div class="section-header-left mb-10">
+                <div class="section-header-left mb-12">
                     <p class="section-eyebrow"><?php esc_html_e('Technical Specifications', 'standard'); ?></p>
                     <div class="section-divider"></div>
                     <h2 id="specs-title" class="section-title"><?php esc_html_e('Full Details', 'standard'); ?></h2>

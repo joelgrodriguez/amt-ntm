@@ -48,8 +48,11 @@ if (empty($cards)) {
                    class="group border border-slate-200 bg-white overflow-hidden hover:border-slate-400 hover:shadow-md transition-all"
                    target="_blank"
                    rel="noopener">
-                    <div class="bg-slate-100 aspect-[16/9] flex items-center justify-center">
-                        <span class="text-slate-400 text-sm font-mono">[<?php echo esc_html($card['title']); ?> image]</span>
+                    <div class="bg-slate-100 aspect-[4/3] flex flex-col items-center justify-center gap-3 p-6">
+                        <svg class="w-12 h-12 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                        </svg>
+                        <span class="text-slate-400 text-xs font-mono"><?php echo esc_html($card['title']); ?></span>
                     </div>
                     <div class="p-6 grid gap-3">
                         <h3 class="text-lg font-bold text-slate-900 group-hover:text-primary transition-colors"><?php echo esc_html($card['title']); ?></h3>

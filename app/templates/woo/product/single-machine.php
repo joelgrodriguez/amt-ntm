@@ -40,12 +40,11 @@ if (!$machine) {
     <?php // CTA Strip 1: Financing — catches early "can I afford this?" buyers ?>
     <?php get_template_part('templates/woo/product/parts/cta-finance', null, compact('product', 'machine')); ?>
 
-    <?php // Dot grid transition — fades into breakdown section ?>
-    <div class="pattern-dot-grid gradient-fade-bottom-sm" aria-hidden="true">
-        <div class="h-20 md:h-28"></div>
+    <?php // Dot grid transition — behind breakdown section ?>
+    <div class="relative">
+        <div class="pattern-dot-grid gradient-fade-bottom-sm absolute inset-0 -z-10" aria-hidden="true"></div>
+        <?php get_template_part('templates/woo/product/parts/machine-breakdown', null, compact('machine')); ?>
     </div>
-
-    <?php get_template_part('templates/woo/product/parts/machine-breakdown', null, compact('machine')); ?>
 
     <?php get_template_part('templates/woo/product/parts/blueprint', null, compact('machine')); ?>
 
