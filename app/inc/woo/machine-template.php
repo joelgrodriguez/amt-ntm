@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Standard\MachineProduct;
+namespace Standard\Woo\MachineTemplate;
 
 /**
  * Machine product category slugs that get the custom template.
@@ -35,7 +35,7 @@ add_filter('template_include', function (string $template): string {
         return $template;
     }
 
-    $custom = get_theme_file_path('templates/pages/product/single-machine.php');
+    $custom = get_theme_file_path('templates/woo/product/single-machine.php');
 
     return file_exists($custom) ? $custom : $template;
 }, 99);

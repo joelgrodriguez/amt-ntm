@@ -1,16 +1,17 @@
 <?php
 /**
- * Products Configuration
+ * Product Catalog Data
  *
- * Product data for the Explore Machines section.
- * Uses WooCommerce products if available, otherwise falls back to sample data.
+ * WooCommerce product queries for theme templates.
+ * Uses WooCommerce as a catalog data source when available,
+ * otherwise falls back to sample data for development.
  *
  * @package Standard
  */
 
 declare(strict_types=1);
 
-namespace Standard\Products;
+namespace Standard\Woo\Catalog;
 
 /**
  * Get product categories for the Explore Machines section.

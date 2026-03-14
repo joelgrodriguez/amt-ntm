@@ -14,8 +14,8 @@
 
 declare(strict_types=1);
 
-use function Standard\Products\get_product_categories;
-use function Standard\Products\get_products_by_category;
+use function Standard\Woo\Catalog\get_product_categories;
+use function Standard\Woo\Catalog\get_products_by_category;
 
 $content = [
     'title'           => __('Explore All Machines', 'standard'),

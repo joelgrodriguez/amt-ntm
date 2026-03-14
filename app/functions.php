@@ -24,11 +24,14 @@ $theme_includes = [
     'inc/fonts.php',
     'inc/icons.php',
     'inc/related-posts.php',
+    // WooCommerce integration
+    'inc/woo/setup.php',
+    'inc/woo/catalog.php',
+    'inc/woo/machine-template.php',
+    // Machine content data
     'inc/machines.php',
-    'inc/products.php',
     'inc/machines-data.php',
     'inc/machine-product-data.php',
-    'inc/machine-product-template.php',
     'inc/walkers/class-pagination.php',
     'inc/walkers/class-mobile-nav-walker.php',
     'inc/walkers/class-primary-nav-walker.php',

@@ -15,6 +15,7 @@
 @source "../../../templates/**/*.php";
 @source "../../../templates/parts/**/*.php";
 @source "../../../templates/pages/**/*.php";
+@source "../../../templates/woo/**/*.php";
 @source "../../../inc/**/*.php";
 
 /* Safelist WordPress classes that appear in database content */
@@ -36,3 +37,4 @@
 @import "./animations.css";
 @import "./hero-slider.css";
 @import "./explore-machines.css";
+@import "./woocommerce.css";
