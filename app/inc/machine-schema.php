@@ -106,8 +106,8 @@ function build_additional_properties(array $specs, array $machine): array {
     if (!empty($perf['drive']['type'])) {
         $props[] = pv('Drive Type', $perf['drive']['type']);
     }
-    if (!empty($perf['speed'][0]['value'])) {
-        $props[] = pv('Max Speed', $perf['speed'][0]['value']);
+    if (!empty($perf['speed'][0]['rate'])) {
+        $props[] = pv('Max Speed', $perf['speed'][0]['rate']);
     }
 
     foreach (($machine['stats'] ?? []) as $stat) {
@@ -115,7 +115,7 @@ function build_additional_properties(array $specs, array $machine): array {
     }
 
     foreach (($specs['materials'] ?? []) as $mat) {
-        $props[] = pv('Material: ' . $mat['type'], $mat['gauge']);
+        $props[] = pv('Material: ' . $mat['name'], $mat['gauge']);
     }
 
     if (!empty($specs['warranty']['description'])) {
