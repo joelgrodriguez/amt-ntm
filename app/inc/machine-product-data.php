@@ -29,9 +29,12 @@ function get_machine_product_data(string $slug): ?array {
 
     // Prefix match: WooCommerce slugs often include the full name
     // e.g., 'ssq3-multipro-roof-panel-machine' should match key 'ssq3-multipro'
-    foreach ($machines as $key => $data) {
+    // Sort by key length descending so longest prefix wins (prevents 'ssh' matching before 'ssh-multipro')
+    $keys = array_keys($machines);
+    usort($keys, fn($a, $b) => strlen($b) - strlen($a));
+    foreach ($keys as $key) {
         if (str_starts_with($slug, $key)) {
-            return $data;
+            return $machines[$key];
         }
     }
 

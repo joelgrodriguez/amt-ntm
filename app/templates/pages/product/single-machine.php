@@ -13,17 +13,9 @@ declare(strict_types=1);
 
 use function Standard\MachineProductData\get_machine_product_data;
 
-/** @var \WC_Product $product */
+/** @var \WC_Product|false $product */
 $product = wc_get_product(get_the_ID());
-$machine = $product ? get_machine_product_data($product->get_slug()) : null;
-
-// DEBUG: remove after wiring up slugs
-if (current_user_can('manage_options') && $product) {
-    echo '<div style="position:fixed;top:32px;left:0;right:0;z-index:99999;background:#1e293b;color:#94a3b8;padding:12px 16px;font-family:monospace;font-size:13px;">';
-    echo 'Slug: <strong style="color:#fff;">' . esc_html($product->get_slug()) . '</strong>';
-    echo ' &nbsp;|&nbsp; Data match: <strong style="color:' . ($machine ? '#4ade80' : '#f87171') . ';">' . ($machine ? 'YES' : 'NO') . '</strong>';
-    echo '</div>';
-}
+$machine = $product !== false ? get_machine_product_data($product->get_slug()) : null;
 
 get_header();
 
@@ -79,7 +71,11 @@ if (!$machine) {
 </main>
 
 <?php
-// Preserve WooCommerce structured data (JSON-LD for Google rich snippets)
+// Generate WooCommerce structured data (JSON-LD for Google rich snippets).
+// The default template fires woocommerce_single_product_summary which triggers
+// WC_Structured_Data::generate_product_data(). Since we skip that action,
+// call generate_product_data() directly so the JSON-LD outputs in wp_footer.
+WC()->structured_data->generate_product_data($product);
 do_action('woocommerce_after_single_product');
 
 get_footer();
