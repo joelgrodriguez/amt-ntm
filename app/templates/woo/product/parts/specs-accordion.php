@@ -248,9 +248,11 @@ if (empty($sections)) {
                 </div>
             </div>
 
-            <!-- Right column: vertical image fills full height of content -->
-            <div class="hidden lg:flex bg-slate-100 rounded overflow-hidden items-center justify-center self-stretch min-h-[500px]">
-                <span class="text-slate-400 text-sm font-mono">[Machine image]</span>
+            <!-- Right column: vertical machine image -->
+            <div class="hidden lg:block">
+                <div class="bg-slate-100 rounded overflow-hidden sticky top-24 flex items-center justify-center" style="height: calc(100vh - 8rem);">
+                    <span class="text-slate-400 text-sm font-mono">[Machine image]</span>
+                </div>
             </div>
 
         </div>
