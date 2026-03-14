@@ -32,6 +32,7 @@ $theme_includes = [
     'inc/machines.php',
     'inc/machines-data.php',
     'inc/machine-product-data.php',
+    'inc/machine-schema.php',
     'inc/walkers/class-pagination.php',
     'inc/walkers/class-mobile-nav-walker.php',
     'inc/walkers/class-primary-nav-walker.php',

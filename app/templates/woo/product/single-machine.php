@@ -12,6 +12,7 @@
 declare(strict_types=1);
 
 use function Standard\MachineProductData\get_machine_product_data;
+use function Standard\MachineSchema\render_machine_schema;
 
 /** @var \WC_Product|false $product */
 $product = wc_get_product(get_the_ID());
@@ -60,6 +61,8 @@ if (!$machine) {
 
     <?php get_template_part('templates/woo/product/parts/resources', null, compact('machine')); ?>
 
+    <?php get_template_part('templates/woo/product/parts/faq', null, compact('machine')); ?>
+
     <?php // Combined configurator + financing deep section ?>
     <?php get_template_part('templates/woo/product/parts/configurator-finance', null, compact('product', 'machine')); ?>
 
@@ -75,7 +78,7 @@ if (!$machine) {
 // The default template fires woocommerce_single_product_summary which triggers
 // WC_Structured_Data::generate_product_data(). Since we skip that action,
 // call generate_product_data() directly so the JSON-LD outputs in wp_footer.
-WC()->structured_data->generate_product_data($product);
+render_machine_schema($product, $machine);
 do_action('woocommerce_after_single_product');
 
 get_footer();
