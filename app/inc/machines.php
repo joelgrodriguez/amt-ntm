@@ -56,7 +56,7 @@ function get_featured_machines(): array {
             'finance_apr'      => '4.99%',
             'finance_months'   => '84',
             'finance_url'      => '/build-finance/?machine=ssq3-multipro',
-            'learn_more_url'   => '/machines/ssq3-multipro/',
+            'learn_more_url'   => '/machines/roof-wall-panel-machines/ssq3-multipro/',
         ],
         [
             'id'               => 'ssq-ii-multipro',
@@ -68,7 +68,7 @@ function get_featured_machines(): array {
             'finance_apr'      => '5.49%',
             'finance_months'   => '72',
             'finance_url'      => '/build-finance/?machine=ssq-ii-multipro',
-            'learn_more_url'   => '/machines/ssq-ii-multipro/',
+            'learn_more_url'   => '/machines/roof-wall-panel-machines/ssq-ii-multipro/',
         ],
         [
             'id'               => 'ssh-multipro',
@@ -80,7 +80,7 @@ function get_featured_machines(): array {
             'finance_apr'      => '5.49%',
             'finance_months'   => '72',
             'finance_url'      => '/build-finance/?machine=ssh-multipro',
-            'learn_more_url'   => '/machines/ssh-multipro/',
+            'learn_more_url'   => '/machines/roof-wall-panel-machines/ssh-multipro/',
         ],
         [
             'id'               => 'ssr-multipro-jr',
@@ -92,7 +92,7 @@ function get_featured_machines(): array {
             'finance_apr'      => '',
             'finance_months'   => '',
             'finance_url'      => '/build-finance/?machine=ssr-multipro-jr',
-            'learn_more_url'   => '/machines/ssr-multipro-jr/',
+            'learn_more_url'   => '/machines/roof-wall-panel-machines/ssr-multipro-jr/',
         ],
         [
             'id'               => '5vc-5v-crimp',
@@ -104,7 +104,7 @@ function get_featured_machines(): array {
             'finance_apr'      => '5.99%',
             'finance_months'   => '60',
             'finance_url'      => '/build-finance/?machine=5vc-5v-crimp',
-            'learn_more_url'   => '/machines/5vc-5v-crimp/',
+            'learn_more_url'   => '/machines/roof-wall-panel-machines/5vc-5v-crimp/',
         ],
         [
             'id'               => 'wav-wall-panel',
@@ -116,7 +116,7 @@ function get_featured_machines(): array {
             'finance_apr'      => '',
             'finance_months'   => '',
             'finance_url'      => '/build-finance/?machine=wav-wall-panel',
-            'learn_more_url'   => '/machines/wav-wall-panel/',
+            'learn_more_url'   => '/machines/roof-wall-panel-machines/wav-wall-panel/',
         ],
         // Seamless Gutter Machines
         [
@@ -129,7 +129,7 @@ function get_featured_machines(): array {
             'finance_apr'      => '5.99%',
             'finance_months'   => '60',
             'finance_url'      => '/build-finance/?machine=mach-ii',
-            'learn_more_url'   => '/machines/mach-ii/',
+            'learn_more_url'   => '/machines/gutter-machines/mach-ii/',
         ],
         [
             'id'               => 'bg7-box-gutter',
@@ -141,7 +141,7 @@ function get_featured_machines(): array {
             'finance_apr'      => '4.99%',
             'finance_months'   => '72',
             'finance_url'      => '/build-finance/?machine=bg7-box-gutter',
-            'learn_more_url'   => '/machines/bg7-box-gutter/',
+            'learn_more_url'   => '/machines/gutter-machines/bg7-box-gutter/',
         ],
     ];
 }

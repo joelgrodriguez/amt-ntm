@@ -20,7 +20,7 @@ $content = [
     'subtitle' => __("NTM's latest and most advanced portable rollformer, building on the proven SSQ II platform. Up to 16 panel profiles with high-speed hydraulic drive and advanced touchscreen controls.", 'standard'),
     'image'    => 'https://newtechmachinery.com/wp-content/uploads/2025/10/SSQ3_For-Render_Trailer_Flattened-SQUARE.png',
     'cta_text' => __('Learn More About SSQ3', 'standard'),
-    'cta_url'  => '/machines/ssq3-multipro/',
+    'cta_url'  => '/machines/roof-wall-panel-machines/ssq3-multipro/',
 ];
 
 $features = get_ssq3_features();

@@ -51,9 +51,17 @@ $categories = get_machine_categories();
             $bottom_row = $has_overflow ? array_slice($machines, 4) : [];
             ?>
             <div>
-                <h3 class="text-lg font-semibold text-slate-400 uppercase tracking-wider border-b border-slate-200 pb-4">
-                    <?php echo esc_html($category['label']); ?>
-                </h3>
+                <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                    <h3 class="text-lg font-semibold text-slate-400 uppercase tracking-wider">
+                        <?php echo esc_html($category['label']); ?>
+                    </h3>
+                    <?php if (!empty($category['url'])) : ?>
+                        <a href="<?php echo esc_url($category['url']); ?>" class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/80 transition-colors no-underline">
+                            <?php esc_html_e('View All', 'standard'); ?>
+                            <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                        </a>
+                    <?php endif; ?>
+                </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-<?php echo esc_attr((string) $cols); ?>">
                     <?php foreach ($top_row as $idx => $machine) : ?>
