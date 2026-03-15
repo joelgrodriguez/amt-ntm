@@ -27,11 +27,10 @@ if (empty($accessories)) {
     return;
 }
 
-// Build standardized card data for the carousel
+// Build standardized card data for the carousel — same shape as profiles
 $cards = [];
 foreach ($accessories as $accessory) {
     /** @var \WC_Product $accessory */
-    $desc       = wp_trim_words(wp_strip_all_tags($accessory->get_short_description()), 12, '&hellip;');
     $image_html = $accessory->get_image_id()
         ? wp_get_attachment_image($accessory->get_image_id(), 'product-card', false, ['class' => 'w-full h-full object-contain p-3 group-hover:scale-105 transition-transform'])
         : '';
@@ -40,8 +39,7 @@ foreach ($accessories as $accessory) {
         'url'        => $accessory->get_permalink(),
         'image_html' => $image_html,
         'title'      => $accessory->get_name(),
-        'subtitle'   => $desc ?: null,
-        'meta'       => $accessory->get_price_html() ?: null,
+        'subtitle'   => $accessory->get_price_html() ?: null,
     ];
 }
 ?>
