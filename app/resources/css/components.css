@@ -259,6 +259,82 @@
   }
 
   /*
+   * Carousel
+   *
+   * Reusable horizontal card carousel with navigation.
+   * Used for profiles, accessories, and any card-based scroller.
+   *
+   * @see templates/woo/product/parts/carousel.php
+   */
+  .carousel__track {
+    @apply flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 -mx-4 px-4;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .carousel__track::-webkit-scrollbar {
+    @apply hidden;
+  }
+
+  .carousel__card {
+    @apply flex flex-col bg-white border border-slate-200 overflow-hidden;
+    @apply transition-all duration-200;
+    @apply hover:border-slate-400 hover:shadow-md;
+    @apply motion-reduce:transition-none;
+    width: 180px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+
+  .carousel__card-image {
+    @apply bg-slate-50 flex items-center justify-center overflow-hidden;
+    aspect-ratio: 1 / 1;
+  }
+
+  .carousel__card-image img {
+    @apply w-full h-full object-contain p-3;
+    @apply transition-transform duration-300;
+    @apply motion-reduce:transition-none;
+  }
+
+  .carousel__card:hover .carousel__card-image img {
+    @apply scale-105;
+    @apply motion-reduce:scale-100;
+  }
+
+  .carousel__card-body {
+    @apply p-3 grid gap-1;
+  }
+
+  .carousel__card-title {
+    @apply text-sm font-bold text-slate-900 leading-tight;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .carousel__card:hover .carousel__card-title {
+    @apply text-primary;
+  }
+
+  .carousel__card-subtitle {
+    @apply text-xs text-slate-500;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .carousel__nav {
+    @apply w-8 h-8 flex items-center justify-center;
+    @apply bg-slate-200 text-slate-600 border-none cursor-pointer;
+    @apply transition-colors duration-200;
+    @apply hover:bg-slate-900 hover:text-white;
+    @apply focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2;
+  }
+
+  /*
    * Section Spacing
    * Standard responsive vertical padding for page sections.
    */
