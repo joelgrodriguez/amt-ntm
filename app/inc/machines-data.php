@@ -13,6 +13,34 @@ declare(strict_types=1);
 namespace Standard\MachinesData;
 
 /**
+ * Get WooCommerce product permalink by slug.
+ *
+ * Builds a slug→URL map on first call, then serves from cache.
+ *
+ * @param string $slug Product slug.
+ * @return string Product permalink or '#'.
+ */
+function get_product_url(string $slug): string {
+    static $urls = null;
+
+    if ($urls === null) {
+        $urls = [];
+        if (function_exists('wc_get_products')) {
+            $products = wc_get_products([
+                'limit'  => -1,
+                'status' => 'publish',
+                'type'   => 'simple',
+            ]);
+            foreach ($products as $product) {
+                $urls[$product->get_slug()] = $product->get_permalink();
+            }
+        }
+    }
+
+    return $urls[$slug] ?? '#';
+}
+
+/**
  * Get all machines organized by category.
  *
  * @return array<string, array{label: string, machines: array}>
@@ -30,7 +58,7 @@ function get_machine_categories(): array {
                     'name'       => 'SSQ3™ MultiPro',
                     'year'       => '2025',
                     'image'      => $base . '2025/10/SSQ3_For-Render_Trailer_Flattened-SQUARE.png',
-                    'url'        => '/machines/roof-wall-panel-machines/ssq3-multipro/',
+                    'url'        => get_product_url('ssq3-multipro'),
                     'badge'      => 'New — Flagship',
                     'highlights' => [
                         'Up to 16 panel profiles — standing seam, flush wall, and board & batten siding',
@@ -50,7 +78,7 @@ function get_machine_categories(): array {
                     'name'       => 'SSQ II™ MultiPro',
                     'year'       => '2025',
                     'image'      => $base . '2025/09/20250911_NTM_SSQ-II_1000x1000.png',
-                    'url'        => '/machines/roof-wall-panel-machines/ssq-ii-multipro/',
+                    'url'        => get_product_url('ssq-ii-multipro'),
                     'badge'      => '',
                     'highlights' => [
                         'Up to 16 profile options — standing seam roof, wall panels, and board & batten',
@@ -70,7 +98,7 @@ function get_machine_categories(): array {
                     'name'       => 'SSH™ MultiPro',
                     'year'       => '2025',
                     'image'      => $base . '2025/09/20250911_NTM_SSH_1000x1000.png',
-                    'url'        => '/machines/roof-wall-panel-machines/ssh-multipro/',
+                    'url'        => get_product_url('ssh-multipro'),
                     'badge'      => '',
                     'highlights' => [
                         '7 panel profiles for residential and light commercial roofing',
@@ -90,7 +118,7 @@ function get_machine_categories(): array {
                     'name'       => 'SSR™ MultiPro Jr.',
                     'year'       => '2025',
                     'image'      => $base . '2025/09/20250911_NTM_SSR_1000x1000.png',
-                    'url'        => '/machines/roof-wall-panel-machines/ssr-multipro-jr/',
+                    'url'        => get_product_url('ssr-multipro-jr'),
                     'badge'      => '',
                     'highlights' => [
                         'Most affordable entry point into portable rollforming',
@@ -110,7 +138,7 @@ function get_machine_categories(): array {
                     'name'       => '5V Crimp',
                     'year'       => '2025',
                     'image'      => $base . '2025/09/20250911_NTM_5VC_1000x1000.png',
-                    'url'        => '/machines/roof-wall-panel-machines/5vc-5v-crimp/',
+                    'url'        => get_product_url('5vc-5v-crimp'),
                     'badge'      => '',
                     'highlights' => [
                         'NTM\'s only exposed fastener roof panel machine',
@@ -130,7 +158,7 @@ function get_machine_categories(): array {
                     'name'       => 'WAV™',
                     'year'       => '2025',
                     'image'      => $base . '2025/09/20250911_NTM_WAV_1000x1000.png',
-                    'url'        => '/machines/roof-wall-panel-machines/wav-wall-panel/',
+                    'url'        => get_product_url('wav-wall-panel'),
                     'badge'      => '',
                     'highlights' => [
                         'Purpose-built for heavy commercial and industrial wall panel work',
@@ -156,7 +184,7 @@ function get_machine_categories(): array {
                     'name'       => 'MACH II™ 5" Gutter Machine',
                     'year'       => '2026',
                     'image'      => $base . '2025/09/20250911_NTM_MACH-II-5_1000x1000.png',
-                    'url'        => '/machines/gutter-machines/mach-ii-5-gutter/',
+                    'url'        => get_product_url('mach-ii-5-gutter'),
                     'badge'      => '',
                     'price'      => '$87,245',
                     'price_label' => 'Starting at',
@@ -178,7 +206,7 @@ function get_machine_categories(): array {
                     'name'       => 'MACH II™ 6" Gutter Machine',
                     'year'       => '2026',
                     'image'      => $base . '2025/09/20250911_NTM_MACH-II-6_1000x1000.png',
-                    'url'        => '/machines/gutter-machines/mach-ii-6-gutter/',
+                    'url'        => get_product_url('mach-ii-6-gutter'),
                     'badge'      => '',
                     'price'      => '$87,245',
                     'price_label' => 'Starting at',
@@ -200,7 +228,7 @@ function get_machine_categories(): array {
                     'name'       => 'MACH II™ 5"/6" Combo Gutter Machine',
                     'year'       => '2026',
                     'image'      => $base . '2025/09/20250911_NTM_MACH-II-5-6-Combo_1000x1000.png',
-                    'url'        => '/machines/gutter-machines/mach-ii-combo-gutter/',
+                    'url'        => get_product_url('mach-ii-combo-gutter'),
                     'badge'      => '',
                     'price'      => '$87,245',
                     'price_label' => 'Starting at',
@@ -222,7 +250,7 @@ function get_machine_categories(): array {
                     'name'       => 'BG7™',
                     'year'       => '2026',
                     'image'      => $base . '2025/09/20250911_NTM_BG7_1000x1000.png',
-                    'url'        => '/machines/gutter-machines/bg7-box-gutter/',
+                    'url'        => get_product_url('bg7-box-gutter'),
                     'badge'      => '',
                     'price'      => '',
                     'price_label' => '',

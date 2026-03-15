@@ -24,12 +24,17 @@ declare(strict_types=1);
 
 return [
 
+    // ── Identity ──
+    'category' => __('Roof & Wall Panel Machines', 'standard'),
+    'slogan'   => __('Compact power, professional results.', 'standard'),
+
     // ── Hero ──
     'hero' => [
-        'headline' => __('Affordable Entry Into Portable Rollforming.', 'standard'),
-        'subtitle' => __('The state-of-the-art SSR™ MultiPro Junior produces up to seven different panel profiles.', 'standard'),
-        'image'    => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_SSR_1000x1000.png',
-        'video'    => null,
+        'headline'   => __('Affordable Entry Into Portable Rollforming.', 'standard'),
+        'subtitle'   => __('The state-of-the-art SSR™ MultiPro Junior produces up to seven different panel profiles.', 'standard'),
+        'hero_image' => 'https://newtechmachinery.com/wp-content/uploads/2023/05/5V-on-site.jpg',
+        'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_SSR_1000x1000.png',
+        'video'      => null,
     ],
 
     // ── Stats ──
@@ -45,6 +50,8 @@ return [
         'monthly_price' => null,
         'price_range'   => __('$43,400+', 'standard'),
         'note'          => __('Depending on machine configuration; includes choice of one profile', 'standard'),
+        'apr'           => '',
+        'months'        => '',
     ],
 
     // ── Breakdown ──

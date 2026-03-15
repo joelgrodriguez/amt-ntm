@@ -24,12 +24,17 @@ declare(strict_types=1);
 
 return [
 
+    // ── Identity ──
+    'category' => __('Roof & Wall Panel Machines', 'standard'),
+    'slogan'   => __('Versatility meets precision.', 'standard'),
+
     // ── Hero ──
     'hero' => [
-        'headline' => __('16 Quick-Change Profiles. One Proven Machine.', 'standard'),
-        'subtitle' => __('The best-selling, most advanced multi-profile machine. Contractors worldwide trust this machine with their business.', 'standard'),
-        'image'    => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_SSQ-II_1000x1000.png',
-        'video'    => null,
+        'headline'   => __('16 Quick-Change Profiles. One Proven Machine.', 'standard'),
+        'subtitle'   => __('The best-selling, most advanced multi-profile machine. Contractors worldwide trust this machine with their business.', 'standard'),
+        'hero_image' => 'https://newtechmachinery.com/wp-content/uploads/2025/12/starting-SSQ-on-job-site-1024x576-1.jpg',
+        'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_SSQ-II_1000x1000.png',
+        'video'      => null,
     ],
 
     // ── Stats ──
@@ -45,6 +50,8 @@ return [
         'monthly_price' => null,
         'price_range'   => __('$115K – $130K', 'standard'),
         'note'          => __('Depending on profile; notching option not included', 'standard'),
+        'apr'           => '5.49%',
+        'months'        => '72',
     ],
 
     // ── Breakdown ──

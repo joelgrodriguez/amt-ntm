@@ -24,12 +24,17 @@ declare(strict_types=1);
 
 return [
 
+    // ── Identity ──
+    'category' => __('Roof & Wall Panel Machines', 'standard'),
+    'slogan'   => __('Classic profiles, modern efficiency.', 'standard'),
+
     // ── Hero ──
     'hero' => [
-        'headline' => __('The Portable Solution to Your 5V Crimp Needs.', 'standard'),
-        'subtitle' => __('NTM\'s only exposed fastener roof panel machine. Profiles available in 21" and 24" widths.', 'standard'),
-        'image'    => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_5VC_1000x1000.png',
-        'video'    => null,
+        'headline'   => __('The Portable Solution to Your 5V Crimp Needs.', 'standard'),
+        'subtitle'   => __('NTM\'s only exposed fastener roof panel machine. Profiles available in 21" and 24" widths.', 'standard'),
+        'hero_image' => 'https://newtechmachinery.com/wp-content/uploads/2023/05/5V-on-site.jpg',
+        'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_5VC_1000x1000.png',
+        'video'      => null,
     ],
 
     // ── Stats ──
@@ -45,6 +50,8 @@ return [
         'monthly_price' => null,
         'price_range'   => __('$70,800+', 'standard'),
         'note'          => __('Depending on machine configuration', 'standard'),
+        'apr'           => '5.99%',
+        'months'        => '60',
     ],
 
     // ── Breakdown ──

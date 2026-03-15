@@ -17,6 +17,15 @@ $gallery = $machine['gallery'] ?? [];
 $images  = $gallery['images'] ?? [];
 $rotator = $gallery['rotator'] ?? [];
 $name    = $product ? $product->get_name() : '';
+
+// Use WC featured image as primary, fall back to product render from data file
+$featured_url = '';
+if ($product && $product->get_image_id()) {
+    $featured_url = wp_get_attachment_image_url($product->get_image_id(), 'full');
+}
+if (empty($featured_url)) {
+    $featured_url = $machine['hero']['image'] ?? '';
+}
 ?>
 
 <section class="section bg-slate-100 pattern-square-grid" aria-labelledby="gallery-title">
@@ -36,6 +45,10 @@ $name    = $product ? $product->get_name() : '';
                 <!-- TODO: Wire up 360° rotator with frame sequence -->
                 <img src="<?php echo esc_url($rotator[0]); ?>"
                      alt="<?php echo esc_attr($name . ' — 360° view'); ?>"
+                     class="w-full h-full object-contain p-8">
+            <?php elseif (!empty($featured_url)) : ?>
+                <img src="<?php echo esc_url($featured_url); ?>"
+                     alt="<?php echo esc_attr($name); ?>"
                      class="w-full h-full object-contain p-8">
             <?php elseif (!empty($images[0])) : ?>
                 <img src="<?php echo esc_url($images[0]); ?>"

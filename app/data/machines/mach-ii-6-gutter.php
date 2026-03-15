@@ -24,12 +24,17 @@ declare(strict_types=1);
 
 return [
 
+    // ── Identity ──
+    'category' => __('Seamless Gutter Machines', 'standard'),
+    'slogan'   => __('Speed and precision, job after job.', 'standard'),
+
     // ── Hero ──
     'hero' => [
-        'headline' => __('6" K-Style Gutters. The Industry Standard.', 'standard'),
-        'subtitle' => __('6" seamless gutter machine with the original polyurethane drive system. Over 30 years of proven performance.', 'standard'),
-        'image'    => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_MACH-II-6_1000x1000.png',
-        'video'    => null,
+        'headline'   => __('6" K-Style Gutters. The Industry Standard.', 'standard'),
+        'subtitle'   => __('6" seamless gutter machine with the original polyurethane drive system. Over 30 years of proven performance.', 'standard'),
+        'hero_image' => 'https://newtechmachinery.com/wp-content/uploads/2024/07/20240612_NTM_CS-Rain-Gutters-Interview_V1.00_03_30_06.Still002.jpg',
+        'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_MACH-II-6_1000x1000.png',
+        'video'      => null,
     ],
 
     // ── Stats ──
@@ -45,6 +50,8 @@ return [
         'monthly_price' => null,
         'price_range'   => __('$12,300+', 'standard'),
         'note'          => __('Depending on machine configuration', 'standard'),
+        'apr'           => '5.99%',
+        'months'        => '60',
     ],
 
     // ── Breakdown ──

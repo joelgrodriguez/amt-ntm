@@ -24,12 +24,17 @@ declare(strict_types=1);
 
 return [
 
+    // ── Identity ──
+    'category' => __('Roof & Wall Panel Machines', 'standard'),
+    'slogan'   => __('Wave panels, endless possibilities.', 'standard'),
+
     // ── Hero ──
     'hero' => [
-        'headline' => __('The Industry\'s Only Portable WAV Profile Machine.', 'standard'),
-        'subtitle' => __('Purpose-built for heavy commercial and industrial wall panel work. UNIQ® Automatic Control System comes standard.', 'standard'),
-        'image'    => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_WAV_1000x1000.png',
-        'video'    => null,
+        'headline'   => __('The Industry\'s Only Portable WAV Profile Machine.', 'standard'),
+        'subtitle'   => __('Purpose-built for heavy commercial and industrial wall panel work. UNIQ® Automatic Control System comes standard.', 'standard'),
+        'hero_image' => 'https://newtechmachinery.com/wp-content/uploads/2025/09/Machine-on-rooftop-scaled.jpg',
+        'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_WAV_1000x1000.png',
+        'video'      => null,
     ],
 
     // ── Stats ──
@@ -45,6 +50,8 @@ return [
         'monthly_price' => null,
         'price_range'   => __('$232,000+', 'standard'),
         'note'          => __('Depending on configuration', 'standard'),
+        'apr'           => '',
+        'months'        => '',
     ],
 
     // ── Breakdown ──

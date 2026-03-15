@@ -24,12 +24,17 @@ declare(strict_types=1);
 
 return [
 
+    // ── Identity ──
+    'category' => __('Roof & Wall Panel Machines', 'standard'),
+    'slogan'   => __('Built for standing seam perfection.', 'standard'),
+
     // ── Hero ──
     'hero' => [
-        'headline' => __('7 Profiles. Hydraulic Power. Residential Precision.', 'standard'),
-        'subtitle' => __('The high-performance solution to your residential and light commercial needs.', 'standard'),
-        'image'    => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_SSH_1000x1000.png',
-        'video'    => null,
+        'headline'   => __('7 Profiles. Hydraulic Power. Residential Precision.', 'standard'),
+        'subtitle'   => __('The high-performance solution to your residential and light commercial needs.', 'standard'),
+        'hero_image' => 'https://newtechmachinery.com/wp-content/uploads/2025/09/Machine-on-rooftop-scaled.jpg',
+        'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_SSH_1000x1000.png',
+        'video'      => null,
     ],
 
     // ── Stats ──
@@ -45,6 +50,8 @@ return [
         'monthly_price' => null,
         'price_range'   => __('$69,200+', 'standard'),
         'note'          => __('Depending on machine configuration; includes choice of one profile', 'standard'),
+        'apr'           => '5.49%',
+        'months'        => '72',
     ],
 
     // ── Breakdown ──

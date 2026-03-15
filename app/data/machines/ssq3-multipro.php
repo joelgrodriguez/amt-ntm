@@ -24,12 +24,17 @@ declare(strict_types=1);
 
 return [
 
+    // ── Identity ──
+    'category' => __('Roof & Wall Panel Machines', 'standard'),
+    'slogan'   => __('The future of portable roll forming.', 'standard'),
+
     // ── Hero ──
     'hero' => [
-        'headline' => __('Produce 16 Panel Profiles On-Site. One Machine.', 'standard'),
-        'subtitle' => __('The most advanced portable roof and wall panel machine we\'ve ever built. Smarter, safer, and more efficient than ever.', 'standard'),
-        'image'    => 'https://newtechmachinery.com/wp-content/uploads/2025/09/Machine-on-rooftop-scaled.jpg',
-        'video'    => null,
+        'headline'   => __('Produce 16 Panel Profiles On-Site. One Machine.', 'standard'),
+        'subtitle'   => __('The most advanced portable roof and wall panel machine we\'ve ever built. Smarter, safer, and more efficient than ever.', 'standard'),
+        'hero_image' => 'https://newtechmachinery.com/wp-content/uploads/2026/01/Screenshot-2026-01-07-at-9.37.43-AM.png',
+        'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/Machine-on-rooftop-scaled.jpg',
+        'video'      => null,
     ],
 
     // ── Stats ──
@@ -45,6 +50,8 @@ return [
         'monthly_price' => null,
         'price_range'   => __('$121K – $137K', 'standard'),
         'note'          => __('Depending on profile; notching option not included', 'standard'),
+        'apr'           => '4.99%',
+        'months'        => '84',
     ],
 
     // ── Breakdown ──

@@ -24,12 +24,17 @@ declare(strict_types=1);
 
 return [
 
+    // ── Identity ──
+    'category' => __('Seamless Gutter Machines', 'standard'),
+    'slogan'   => __('Two sizes, one machine, maximum versatility.', 'standard'),
+
     // ── Hero ──
     'hero' => [
-        'headline' => __('5" and 6" K-Style in One Machine.', 'standard'),
-        'subtitle' => __('The combo runs both 5" and 6" K-style seamless gutters. Maximum versatility for gutter contractors.', 'standard'),
-        'image'    => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_MACH-II-5-6-Combo_1000x1000.png',
-        'video'    => null,
+        'headline'   => __('5" and 6" K-Style in One Machine.', 'standard'),
+        'subtitle'   => __('The combo runs both 5" and 6" K-style seamless gutters. Maximum versatility for gutter contractors.', 'standard'),
+        'hero_image' => 'https://newtechmachinery.com/wp-content/uploads/2024/07/20240612_NTM_CS-Rain-Gutters-Interview_V1.00_03_30_06.Still002.jpg',
+        'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_MACH-II-5-6-Combo_1000x1000.png',
+        'video'      => null,
     ],
 
     // ── Stats ──
@@ -45,6 +50,8 @@ return [
         'monthly_price' => null,
         'price_range'   => __('$15,500+', 'standard'),
         'note'          => __('Depending on machine configuration', 'standard'),
+        'apr'           => '5.99%',
+        'months'        => '60',
     ],
 
     // ── Breakdown ──

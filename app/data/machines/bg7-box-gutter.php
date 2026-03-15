@@ -24,12 +24,17 @@ declare(strict_types=1);
 
 return [
 
+    // ── Identity ──
+    'category' => __('Seamless Gutter Machines', 'standard'),
+    'slogan'   => __('Commercial-grade, built to last.', 'standard'),
+
     // ── Hero ──
     'hero' => [
-        'headline' => __('Two Profiles. One Commercial-Grade Machine.', 'standard'),
-        'subtitle' => __('7" commercial box gutter machine designed for industrial buildings. Two profiles in one machine.', 'standard'),
-        'image'    => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_BG7_1000x1000.png',
-        'video'    => null,
+        'headline'   => __('Two Profiles. One Commercial-Grade Machine.', 'standard'),
+        'subtitle'   => __('7" commercial box gutter machine designed for industrial buildings. Two profiles in one machine.', 'standard'),
+        'hero_image' => 'https://newtechmachinery.com/wp-content/uploads/2023/09/BG7-forming-gutter-scaled.jpg',
+        'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_BG7_1000x1000.png',
+        'video'      => null,
     ],
 
     // ── Stats ──
@@ -45,6 +50,8 @@ return [
         'monthly_price' => null,
         'price_range'   => __('$69,200+', 'standard'),
         'note'          => __('Depending on machine configuration', 'standard'),
+        'apr'           => '4.99%',
+        'months'        => '72',
     ],
 
     // ── Breakdown ──

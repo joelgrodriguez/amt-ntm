@@ -2,8 +2,8 @@
 /**
  * Featured Machines Configuration
  *
- * Centralized machine data for the front page hero slider.
- * This can be converted to WooCommerce product queries later.
+ * Defines which machines appear in the front-page hero slider
+ * and builds slide data from the machine data files.
  *
  * @package Standard
  */
@@ -12,136 +12,61 @@ declare(strict_types=1);
 
 namespace Standard\Machines;
 
+use function Standard\MachineProductData\get_machine_product_data;
+
 /**
  * Get featured machines for the hero slider.
  *
- * Each machine includes:
- * - id: Unique identifier (used for CSS/JS targeting)
- * - category: Machine category (displayed as label)
- * - title: Machine name displayed on slide
- * - slogan: Marketing tagline highlighting key feature
- * - background_image: Path to background image (required)
- * - background_video: Path to background video (optional, mp4)
- * - finance_apr: Financing APR rate (e.g., '6.99%')
- * - finance_months: Financing term in months (e.g., '72')
- * - finance_url: URL for "Build & Finance" button
- * - learn_more_url: URL for "Learn More" button
+ * Machine data (images, finance, category, slogan) comes from data/machines/*.php.
+ * Product URLs come from WooCommerce. Only the slug list and display titles live here.
  *
- * @return array<int, array{
- *     id: string,
- *     category: string,
- *     title: string,
- *     slogan: string,
- *     background_image: string,
- *     background_video: string,
- *     finance_apr: string,
- *     finance_months: string,
- *     finance_url: string,
- *     learn_more_url: string
- * }>
+ * @return array<int, array>
  */
 function get_featured_machines(): array {
-    // Using images from the WordPress media library
-    $uploads_url = 'https://newtechmachinery.com/wp-content/uploads';
-
-    return [
-        // Roof & Wall Panel Machines
-        [
-            'id'               => 'ssq3-multipro',
-            'category'         => 'Roof & Wall Panel Machines',
-            'title'            => 'SSQ3™ MultiPro',
-            'slogan'           => 'The future of portable roll forming.',
-            'background_image' => $uploads_url . '/2026/01/Screenshot-2026-01-07-at-9.37.43-AM.png',
-            'background_video' => '',
-            'finance_apr'      => '4.99%',
-            'finance_months'   => '84',
-            'finance_url'      => '/build-finance/?machine=ssq3-multipro',
-            'learn_more_url'   => '/machines/roof-wall-panel-machines/ssq3-multipro/',
-        ],
-        [
-            'id'               => 'ssq-ii-multipro',
-            'category'         => 'Roof & Wall Panel Machines',
-            'title'            => 'SSQ II™ MultiPro',
-            'slogan'           => 'Versatility meets precision.',
-            'background_image' => $uploads_url . '/2025/12/starting-SSQ-on-job-site-1024x576-1.jpg',
-            'background_video' => '',
-            'finance_apr'      => '5.49%',
-            'finance_months'   => '72',
-            'finance_url'      => '/build-finance/?machine=ssq-ii-multipro',
-            'learn_more_url'   => '/machines/roof-wall-panel-machines/ssq-ii-multipro/',
-        ],
-        [
-            'id'               => 'ssh-multipro',
-            'category'         => 'Roof & Wall Panel Machines',
-            'title'            => 'SSH™ MultiPro',
-            'slogan'           => 'Built for standing seam perfection.',
-            'background_image' => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
-            'background_video' => '',
-            'finance_apr'      => '5.49%',
-            'finance_months'   => '72',
-            'finance_url'      => '/build-finance/?machine=ssh-multipro',
-            'learn_more_url'   => '/machines/roof-wall-panel-machines/ssh-multipro/',
-        ],
-        [
-            'id'               => 'ssr-multipro-jr',
-            'category'         => 'Roof & Wall Panel Machines',
-            'title'            => 'SSR™ MultiPro Jr.',
-            'slogan'           => 'Compact power, professional results.',
-            'background_image' => $uploads_url . '/2023/05/5V-on-site.jpg',
-            'background_video' => '',
-            'finance_apr'      => '',
-            'finance_months'   => '',
-            'finance_url'      => '/build-finance/?machine=ssr-multipro-jr',
-            'learn_more_url'   => '/machines/roof-wall-panel-machines/ssr-multipro-jr/',
-        ],
-        [
-            'id'               => '5vc-5v-crimp',
-            'category'         => 'Roof & Wall Panel Machines',
-            'title'            => '5VC-5V CRIMP™',
-            'slogan'           => 'Classic profiles, modern efficiency.',
-            'background_image' => $uploads_url . '/2023/05/5V-on-site.jpg',
-            'background_video' => '',
-            'finance_apr'      => '5.99%',
-            'finance_months'   => '60',
-            'finance_url'      => '/build-finance/?machine=5vc-5v-crimp',
-            'learn_more_url'   => '/machines/roof-wall-panel-machines/5vc-5v-crimp/',
-        ],
-        [
-            'id'               => 'wav-wall-panel',
-            'category'         => 'Roof & Wall Panel Machines',
-            'title'            => 'WAV™',
-            'slogan'           => 'Wave panels, endless possibilities.',
-            'background_image' => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
-            'background_video' => '',
-            'finance_apr'      => '',
-            'finance_months'   => '',
-            'finance_url'      => '/build-finance/?machine=wav-wall-panel',
-            'learn_more_url'   => '/machines/roof-wall-panel-machines/wav-wall-panel/',
-        ],
-        // Seamless Gutter Machines
-        [
-            'id'               => 'mach-ii-gutter',
-            'category'         => 'Seamless Gutter Machines',
-            'title'            => 'MACH II™',
-            'slogan'           => 'Speed and precision, job after job.',
-            'background_image' => $uploads_url . '/2024/07/20240612_NTM_CS-Rain-Gutters-Interview_V1.00_03_30_06.Still002.jpg',
-            'background_video' => '',
-            'finance_apr'      => '5.99%',
-            'finance_months'   => '60',
-            'finance_url'      => '/build-finance/?machine=mach-ii',
-            'learn_more_url'   => '/machines/gutter-machines/mach-ii/',
-        ],
-        [
-            'id'               => 'bg7-box-gutter',
-            'category'         => 'Seamless Gutter Machines',
-            'title'            => 'BG7™',
-            'slogan'           => 'Commercial-grade, built to last.',
-            'background_image' => $uploads_url . '/2023/09/BG7-forming-gutter-scaled.jpg',
-            'background_video' => '',
-            'finance_apr'      => '4.99%',
-            'finance_months'   => '72',
-            'finance_url'      => '/build-finance/?machine=bg7-box-gutter',
-            'learn_more_url'   => '/machines/gutter-machines/bg7-box-gutter/',
-        ],
+    $slider_slugs = [
+        'ssq3-multipro'    => 'SSQ3™ MultiPro',
+        'ssq-ii-multipro'  => 'SSQ II™ MultiPro',
+        'ssh-multipro'     => 'SSH™ MultiPro',
+        'ssr-multipro-jr'  => 'SSR™ MultiPro Jr.',
+        '5vc-5v-crimp'     => '5VC-5V CRIMP™',
+        'wav-wall-panel'   => 'WAV™',
+        'mach-ii-5-gutter' => 'MACH II™',
+        'bg7-box-gutter'   => 'BG7™',
     ];
+
+    // Build slug → permalink map from WooCommerce
+    $permalinks = [];
+    if (function_exists('wc_get_products')) {
+        $products = wc_get_products([
+            'slug'   => array_keys($slider_slugs),
+            'limit'  => count($slider_slugs),
+            'status' => 'publish',
+        ]);
+        foreach ($products as $product) {
+            $permalinks[$product->get_slug()] = $product->get_permalink();
+        }
+    }
+
+    $machines = [];
+    foreach ($slider_slugs as $slug => $title) {
+        $data = get_machine_product_data($slug);
+        if (!$data) {
+            continue;
+        }
+
+        $machines[] = [
+            'id'               => $slug,
+            'category'         => $data['category'] ?? '',
+            'title'            => $title,
+            'slogan'           => $data['slogan'] ?? '',
+            'background_image' => $data['hero']['hero_image'] ?? $data['hero']['image'] ?? '',
+            'background_video' => $data['hero']['video'] ?? '',
+            'finance_apr'      => $data['finance']['apr'] ?? '',
+            'finance_months'   => $data['finance']['months'] ?? '',
+            'finance_url'      => '/build-finance/?machine=' . $slug,
+            'learn_more_url'   => $permalinks[$slug] ?? '#',
+        ];
+    }
+
+    return $machines;
 }

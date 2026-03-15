@@ -20,7 +20,7 @@ $finance  = $machine['finance'] ?? [];
 
 $headline  = !empty($hero['headline']) ? $hero['headline'] : $product->get_name();
 $subtitle  = !empty($hero['subtitle']) ? $hero['subtitle'] : $product->get_short_description();
-$image     = $hero['image'] ?? '';
+$image     = $hero['hero_image'] ?? $hero['image'] ?? '';
 $video     = $hero['video'] ?? '';
 
 $price_display = '';
