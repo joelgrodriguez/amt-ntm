@@ -64,10 +64,10 @@ $carousel_id = 'accessories-carousel';
                 $desc = wp_trim_words(wp_strip_all_tags($desc), 12, '&hellip;');
             ?>
                 <a href="<?php echo esc_url($accessory->get_permalink()); ?>"
-                   class="snap-start shrink-0 w-[200px] border border-slate-200 bg-white p-4 grid gap-2 hover:border-slate-400 hover:shadow-md transition-all">
+                   class="snap-start shrink-0 w-[200px] group border border-slate-200 bg-white p-4 grid gap-3 hover:border-slate-400 hover:shadow-md transition-all">
                     <div class="bg-slate-50 aspect-square flex items-center justify-center overflow-hidden rounded">
                         <?php if ($accessory->get_image_id()) : ?>
-                            <?php echo wp_get_attachment_image($accessory->get_image_id(), 'product-card', false, ['class' => 'w-full h-full object-contain p-4']); ?>
+                            <?php echo wp_get_attachment_image($accessory->get_image_id(), 'product-card', false, ['class' => 'w-full h-full object-contain p-3']); ?>
                         <?php else : ?>
                             <span class="text-slate-400 text-sm font-mono"><?php esc_html_e('Photo', 'standard'); ?></span>
                         <?php endif; ?>
@@ -92,7 +92,7 @@ $carousel_id = 'accessories-carousel';
     const track = document.getElementById(id);
     if (!track) return;
 
-    const scrollAmount = 300;
+    const scrollAmount = 640;
 
     document.querySelectorAll(`[data-carousel-prev="${id}"]`).forEach(btn => {
         btn.addEventListener('click', () => track.scrollBy({ left: -scrollAmount, behavior: 'smooth' }));
