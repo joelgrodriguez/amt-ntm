@@ -80,5 +80,26 @@ if (!$machine) {
 // call generate_product_data() directly so the JSON-LD outputs in wp_footer.
 render_machine_schema($product, $machine);
 do_action('woocommerce_after_single_product');
+?>
 
+<script>
+/** Carousel navigation — handles all [data-carousel-prev] / [data-carousel-next] on the page. */
+(function() {
+    const scrollAmount = 640;
+    document.querySelectorAll('[data-carousel-prev]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var track = document.getElementById(btn.getAttribute('data-carousel-prev'));
+            if (track) track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
+    });
+    document.querySelectorAll('[data-carousel-next]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var track = document.getElementById(btn.getAttribute('data-carousel-next'));
+            if (track) track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+    });
+})();
+</script>
+
+<?php
 get_footer();
