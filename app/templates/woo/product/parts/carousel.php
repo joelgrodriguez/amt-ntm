@@ -63,7 +63,7 @@ if (empty($cards)) {
     <?php foreach ($cards as $card) : ?>
         <a href="<?php echo esc_url($card['url']); ?>"
            class="snap-start shrink-0 w-[200px] h-[280px] group border border-slate-200 bg-white p-4 grid grid-rows-[1fr_auto] gap-3 hover:border-slate-400 hover:shadow-md transition-all overflow-hidden">
-            <div class="bg-slate-50 flex items-center justify-center overflow-hidden rounded">
+            <div class="bg-slate-50 flex items-center justify-center overflow-hidden rounded min-h-0">
                 <?php if (!empty($card['image_html'])) : ?>
                     <?php echo $card['image_html']; // Already escaped by WP image functions. ?>
                 <?php else : ?>

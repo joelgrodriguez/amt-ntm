@@ -32,7 +32,7 @@ $cards = [];
 foreach ($accessories as $accessory) {
     /** @var \WC_Product $accessory */
     $image_html = $accessory->get_image_id()
-        ? wp_get_attachment_image($accessory->get_image_id(), 'product-card', false, ['class' => 'w-full h-full object-contain p-3 group-hover:scale-105 transition-transform'])
+        ? wp_get_attachment_image($accessory->get_image_id(), 'medium', false, ['class' => 'w-full h-full object-contain p-3 group-hover:scale-105 transition-transform'])
         : '';
 
     $cards[] = [
