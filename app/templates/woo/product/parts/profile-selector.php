@@ -53,7 +53,7 @@ foreach ($profiles as $profile) {
 }
 ?>
 
-<section class="section bg-slate-50 pattern-dot-grid gradient-fade-bottom-sm" aria-labelledby="profiles-title">
+<section class="section bg-slate-50" aria-labelledby="profiles-title">
     <div class="container section-content">
         <?php get_template_part('templates/woo/product/parts/carousel', null, [
             'carousel_id' => 'profiles-carousel',
