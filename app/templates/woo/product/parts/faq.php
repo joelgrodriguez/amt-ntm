@@ -37,7 +37,7 @@ if (empty($faqs)) {
                         <?php echo esc_html($faq['question']); ?>
                         <span class="text-slate-400 transition-transform group-open:rotate-180 shrink-0 ml-4">&#9660;</span>
                     </summary>
-                    <div class="px-6 pb-8 pt-2 border-t border-slate-200 text-base text-slate-600 leading-relaxed border-l-2 border-primary ml-6">
+                    <div class="px-6 pb-8 pt-2 border-t border-slate-200 text-base text-slate-600 leading-relaxed border-l-2 border-primary ml-6 bg-white">
                         <div class="pl-4">
                             <?php echo wp_kses_post($faq['answer']); ?>
                         </div>
