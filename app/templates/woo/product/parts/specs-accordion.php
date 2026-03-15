@@ -214,7 +214,7 @@ if (empty($sections)) {
 }
 ?>
 
-<section class="section" aria-labelledby="specs-title">
+<section class="section bg-slate-50" aria-labelledby="specs-title">
     <div class="container section-content">
 
         <div class="grid lg:grid-cols-2 gap-12 items-stretch">
