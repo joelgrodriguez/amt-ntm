@@ -40,20 +40,19 @@ if (empty($featured_url)) {
         </div>
 
         <!-- Main rotator area -->
-        <div class="bg-white border border-slate-200 aspect-[16/9] max-w-5xl mx-auto flex items-center justify-center overflow-hidden rounded">
+        <div class="max-w-md mx-auto">
             <?php if (!empty($rotator)) : ?>
-                <!-- TODO: Wire up 360° rotator with frame sequence -->
                 <img src="<?php echo esc_url($rotator[0]); ?>"
                      alt="<?php echo esc_attr($name . ' — 360° view'); ?>"
-                     class="w-full h-full object-contain p-8">
+                     class="max-w-full max-h-full object-contain">
             <?php elseif (!empty($featured_url)) : ?>
                 <img src="<?php echo esc_url($featured_url); ?>"
                      alt="<?php echo esc_attr($name); ?>"
-                     class="w-full h-full object-contain p-8">
+                     class="max-w-full max-h-full object-contain">
             <?php elseif (!empty($images[0])) : ?>
                 <img src="<?php echo esc_url($images[0]); ?>"
                      alt="<?php echo esc_attr($name); ?>"
-                     class="w-full h-full object-contain p-8">
+                     class="max-w-full max-h-full object-contain">
             <?php else : ?>
                 <div class="text-center grid gap-3">
                     <span class="text-slate-300 text-6xl">&#8635;</span>
@@ -63,14 +62,20 @@ if (empty($featured_url)) {
             <?php endif; ?>
         </div>
 
+        <p class="text-center text-sm text-slate-400 flex items-center justify-center gap-2">
+            <span>&larr;</span>
+            <?php esc_html_e('Drag to Rotate', 'standard'); ?>
+            <span>&rarr;</span>
+        </p>
+
         <!-- Thumbnail strip -->
         <?php if (!empty($images)) : ?>
             <div class="flex justify-center gap-3 max-w-5xl mx-auto">
                 <?php foreach (array_slice($images, 0, 6) as $i => $thumb) : ?>
-                    <div class="w-20 h-20 bg-white border border-slate-200 flex items-center justify-center overflow-hidden rounded cursor-pointer hover:border-slate-400 transition-colors">
+                    <div class="w-20 h-20 flex items-center justify-center overflow-hidden rounded cursor-pointer hover:opacity-75 transition-opacity">
                         <img src="<?php echo esc_url($thumb); ?>"
                              alt="<?php echo esc_attr($name . ' — angle ' . ($i + 1)); ?>"
-                             class="w-full h-full object-contain p-1">
+                             class="w-full h-full object-contain">
                     </div>
                 <?php endforeach; ?>
             </div>
