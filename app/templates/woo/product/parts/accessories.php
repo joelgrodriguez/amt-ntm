@@ -46,7 +46,7 @@ foreach ($accessories as $accessory) {
 }
 ?>
 
-<section class="section" aria-labelledby="accessories-title">
+<section class="section pattern-dot-grid gradient-fade-bottom-sm" aria-labelledby="accessories-title">
     <div class="container section-content">
         <?php get_template_part('templates/woo/product/parts/carousel', null, [
             'carousel_id' => 'accessories-carousel',

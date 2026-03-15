@@ -16,7 +16,7 @@ if (empty($breakdown)) {
 }
 ?>
 
-<section id="machine-breakdown" class="section pattern-dot-grid gradient-fade-bottom-sm" aria-labelledby="breakdown-title">
+<section id="machine-breakdown" class="section" aria-labelledby="breakdown-title">
     <div class="container section-content">
 
         <div class="section-header">
