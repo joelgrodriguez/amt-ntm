@@ -62,18 +62,18 @@ if (empty($cards)) {
      style="scrollbar-width: none; -ms-overflow-style: none;">
     <?php foreach ($cards as $card) : ?>
         <a href="<?php echo esc_url($card['url']); ?>"
-           class="snap-start shrink-0 w-[200px] group border border-slate-200 bg-white p-4 grid gap-3 hover:border-slate-400 hover:shadow-md transition-all">
-            <div class="bg-slate-50 aspect-square flex items-center justify-center overflow-hidden rounded">
+           class="snap-start shrink-0 w-[200px] h-[280px] group border border-slate-200 bg-white p-4 grid grid-rows-[1fr_auto] gap-3 hover:border-slate-400 hover:shadow-md transition-all overflow-hidden">
+            <div class="bg-slate-50 flex items-center justify-center overflow-hidden rounded">
                 <?php if (!empty($card['image_html'])) : ?>
                     <?php echo $card['image_html']; // Already escaped by WP image functions. ?>
                 <?php else : ?>
                     <span class="text-slate-400 text-sm font-mono"><?php echo esc_html($card['title']); ?></span>
                 <?php endif; ?>
             </div>
-            <div class="grid gap-1">
-                <h3 class="text-sm font-bold text-slate-900 group-hover:text-primary transition-colors leading-tight"><?php echo esc_html($card['title']); ?></h3>
+            <div class="grid gap-1 content-end">
+                <h3 class="text-sm font-bold text-slate-900 group-hover:text-primary transition-colors leading-tight line-clamp-2"><?php echo esc_html($card['title']); ?></h3>
                 <?php if (!empty($card['subtitle'])) : ?>
-                    <p class="text-xs text-slate-500"><?php echo esc_html($card['subtitle']); ?></p>
+                    <p class="text-xs text-slate-500 line-clamp-1"><?php echo esc_html($card['subtitle']); ?></p>
                 <?php endif; ?>
                 <?php if (!empty($card['meta'])) : ?>
                     <span class="text-xs font-semibold text-slate-700"><?php echo wp_kses_post($card['meta']); ?></span>
