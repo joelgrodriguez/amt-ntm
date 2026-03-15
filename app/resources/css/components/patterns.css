@@ -110,3 +110,17 @@
     linear-gradient(to right, rgba(255,255,255,0.15) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255,255,255,0.15) 1px, transparent 1px);
 }
+
+/**
+ * Dot Matrix Pattern
+ *
+ * Halftone-style dot overlay for dark hero sections.
+ * Adds subtle texture without overpowering the image.
+ *
+ * Usage: <div class="pattern-dot-matrix"></div>
+ */
+.pattern-dot-matrix {
+  @apply absolute inset-0 pointer-events-none;
+  background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
