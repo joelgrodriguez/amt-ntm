@@ -40,13 +40,13 @@ $cards = [];
 foreach ($profiles as $profile) {
     $categories = get_the_terms($profile->ID, 'category');
     $cat_name   = (!empty($categories) && !is_wp_error($categories)) ? $categories[0]->name : '';
-    $image_html = has_post_thumbnail($profile)
-        ? get_the_post_thumbnail($profile, 'medium', ['class' => 'w-full h-full object-contain p-3 group-hover:scale-105 transition-transform'])
+    $image_url = has_post_thumbnail($profile)
+        ? get_the_post_thumbnail_url($profile, 'medium')
         : '';
 
     $cards[] = [
         'url'        => get_permalink($profile),
-        'image_html' => $image_html,
+        'image_url'  => $image_url,
         'title'      => get_the_title($profile),
         'subtitle'   => $cat_name,
     ];

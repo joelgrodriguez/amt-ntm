@@ -31,13 +31,13 @@ if (empty($accessories)) {
 $cards = [];
 foreach ($accessories as $accessory) {
     /** @var \WC_Product $accessory */
-    $image_html = $accessory->get_image_id()
-        ? wp_get_attachment_image($accessory->get_image_id(), 'medium', false, ['class' => 'w-full h-full object-contain p-3 group-hover:scale-105 transition-transform'])
+    $image_url = $accessory->get_image_id()
+        ? wp_get_attachment_image_url($accessory->get_image_id(), 'medium')
         : '';
 
     $cards[] = [
         'url'        => $accessory->get_permalink(),
-        'image_html' => $image_html,
+        'image_url'  => $image_url,
         'title'      => $accessory->get_name(),
         'subtitle'   => $accessory->get_price_html() ?: null,
     ];

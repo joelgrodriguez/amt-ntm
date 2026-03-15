@@ -12,7 +12,7 @@
  *   'title_id'     => string  ID for aria-labelledby
  *   'prev_label'   => string  Aria label for prev button
  *   'next_label'   => string  Aria label for next button
- *   'cards'        => array[] Each card: [url, image_html, title, subtitle?]
+ *   'cards'        => array[] Each card: [url, image_url, title, subtitle?]
  *
  * @package Standard
  * @var array $args
@@ -64,8 +64,11 @@ if (empty($cards)) {
         <a href="<?php echo esc_url($card['url']); ?>"
            class="snap-start shrink-0 w-[200px] group border border-slate-200 bg-white p-4 grid gap-3 hover:border-slate-400 hover:shadow-md transition-all">
             <div class="bg-slate-50 aspect-square flex items-center justify-center overflow-hidden rounded">
-                <?php if (!empty($card['image_html'])) : ?>
-                    <?php echo $card['image_html']; ?>
+                <?php if (!empty($card['image_url'])) : ?>
+                    <img src="<?php echo esc_url($card['image_url']); ?>"
+                         alt="<?php echo esc_attr($card['title']); ?>"
+                         class="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform"
+                         loading="lazy">
                 <?php else : ?>
                     <span class="text-slate-400 text-sm font-mono"><?php echo esc_html($card['title']); ?></span>
                 <?php endif; ?>
