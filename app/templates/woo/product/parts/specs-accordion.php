@@ -234,7 +234,7 @@ if (empty($sections)) {
                                 <?php echo esc_html($title); ?>
                                 <span class="text-slate-400 transition-transform group-open:rotate-180">&#9660;</span>
                             </summary>
-                            <div class="px-6 py-6 border-t border-slate-200 text-sm text-slate-600">
+                            <div class="px-8 py-8 border-t border-slate-200 text-sm text-slate-600">
                                 <?php echo $content; // Already escaped during build. ?>
                             </div>
                         </details>
