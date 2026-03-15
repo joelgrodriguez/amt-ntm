@@ -1,0 +1,52 @@
+/**
+ * Cards & Small UI Components
+ *
+ * Generic card, badge, icon button, link animation, and container.
+ *
+ * @file components/cards.css
+ */
+
+@layer components {
+  /* Link underline animation */
+  .link-animated {
+    @apply relative inline-block no-underline;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+  }
+
+  .link-animated::after {
+    @apply absolute bottom-0 left-0 w-0 h-px bg-current;
+    @apply transition-all duration-200 ease-out;
+    content: '';
+  }
+
+  .link-animated:hover::after {
+    @apply w-full;
+  }
+
+  /* Card with subtle hover lift */
+  .card {
+    @apply bg-white border transition-all duration-200 ease-out;
+    @apply hover:shadow-lg hover:-translate-y-1;
+    @apply focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2;
+  }
+
+  /* Icon button with scale effect */
+  .icon-btn {
+    @apply inline-flex items-center justify-center;
+    @apply transition-transform duration-150 ease-out;
+    @apply hover:scale-110 active:scale-95;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+  }
+
+  .container {
+    @apply mx-auto px-4 md:px-8 lg:px-12 xl:px-0;
+    max-width: var(--layout-wide);
+  }
+
+  /* Badge - reusable label component */
+  .badge {
+    @apply inline-block px-3 py-1 text-sm font-medium capitalize;
+    @apply border text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+  }
+}

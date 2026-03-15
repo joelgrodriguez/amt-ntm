@@ -1,0 +1,27 @@
+/**
+ * Spec List
+ *
+ * Bulleted list with colored dot markers.
+ * Default dot is secondary (orange). Use .spec-list--green for emerald dots.
+ *
+ * @file components/spec-list.css
+ */
+
+@layer components {
+  .spec-list {
+    @apply grid gap-2;
+  }
+
+  .spec-list li {
+    @apply flex items-start gap-2 text-sm;
+  }
+
+  .spec-list li::before {
+    @apply w-1.5 h-1.5 rounded-full bg-secondary shrink-0 mt-1.5;
+    content: '';
+  }
+
+  .spec-list--green li::before {
+    @apply bg-emerald-400;
+  }
+}

@@ -27,17 +27,17 @@ if (empty($faqs)) {
         <div class="section-header">
             <p class="section-eyebrow"><?php esc_html_e('FAQ', 'standard'); ?></p>
             <div class="section-divider-center"></div>
-            <h2 id="faq-title" class="text-4xl font-bold font-mono text-slate-900 md:text-5xl"><?php esc_html_e('Frequently Asked Questions', 'standard'); ?></h2>
+            <h2 id="faq-title" class="section-title"><?php esc_html_e('Frequently Asked Questions', 'standard'); ?></h2>
         </div>
 
         <div class="max-w-4xl mx-auto grid gap-0">
             <?php foreach ($faqs as $i => $faq) : ?>
-                <details class="border border-slate-200 -mt-px group" <?php echo $i === 0 ? 'open' : ''; ?>>
-                    <summary class="px-6 py-6 cursor-pointer flex items-center justify-between bg-white hover:bg-slate-50 transition-colors text-xl font-bold text-slate-900">
+                <details class="accordion" <?php echo $i === 0 ? 'open' : ''; ?>>
+                    <summary class="py-6 text-xl font-bold">
                         <?php echo esc_html($faq['question']); ?>
-                        <span class="text-slate-400 transition-transform group-open:rotate-180 shrink-0 ml-4">&#9660;</span>
+                        <span class="accordion__icon shrink-0 ml-4">&#9660;</span>
                     </summary>
-                    <div class="px-8 py-8 border-t border-slate-200 text-base text-slate-600 leading-relaxed border-l-2 border-primary ml-6 bg-white">
+                    <div class="accordion__body text-base text-slate-600 leading-relaxed border-l-2 border-primary ml-6 bg-white">
                         <div class="pl-4">
                             <?php echo wp_kses_post($faq['answer']); ?>
                         </div>

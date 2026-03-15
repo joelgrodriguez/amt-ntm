@@ -22,12 +22,9 @@ $sections = [];
 // 1. Standard Features
 if (!empty($specs['standard_features'])) {
     ob_start(); ?>
-    <ul class="grid gap-2">
+    <ul class="spec-list text-slate-700">
         <?php foreach ($specs['standard_features'] as $feature) : ?>
-            <li class="flex items-start gap-2 text-sm text-slate-700">
-                <span class="w-1.5 h-1.5 rounded-full bg-secondary mt-1.5 shrink-0"></span>
-                <?php echo esc_html($feature); ?>
-            </li>
+            <li><?php echo esc_html($feature); ?></li>
         <?php endforeach; ?>
     </ul>
     <?php $sections['Standard Features'] = ob_get_clean();
@@ -77,12 +74,9 @@ if (!empty($perf)) {
             <p class="text-sm text-slate-600 mb-1"><?php echo esc_html($shear['type']); ?></p>
         <?php endif; ?>
         <?php if (!empty($shear['details'])) : ?>
-            <ul class="grid gap-1 mb-4">
+            <ul class="spec-list text-slate-700 mb-4">
                 <?php foreach ($shear['details'] as $detail) : ?>
-                    <li class="flex items-start gap-2 text-sm text-slate-700">
-                        <span class="w-1.5 h-1.5 rounded-full bg-secondary mt-1.5 shrink-0"></span>
-                        <?php echo esc_html($detail); ?>
-                    </li>
+                    <li><?php echo esc_html($detail); ?></li>
                 <?php endforeach; ?>
             </ul>
         <?php endif; ?>
@@ -93,12 +87,9 @@ if (!empty($perf)) {
             <p class="text-sm text-slate-600 mb-1"><?php echo esc_html($drive['type']); ?></p>
         <?php endif; ?>
         <?php if (!empty($drive['details'])) : ?>
-            <ul class="grid gap-1 mb-4">
+            <ul class="spec-list text-slate-700 mb-4">
                 <?php foreach ($drive['details'] as $detail) : ?>
-                    <li class="flex items-start gap-2 text-sm text-slate-700">
-                        <span class="w-1.5 h-1.5 rounded-full bg-secondary mt-1.5 shrink-0"></span>
-                        <?php echo esc_html($detail); ?>
-                    </li>
+                    <li><?php echo esc_html($detail); ?></li>
                 <?php endforeach; ?>
             </ul>
         <?php endif; ?>
@@ -166,12 +157,9 @@ if (!empty($coil)) {
 $power = $specs['power_options'] ?? [];
 if (!empty($power)) {
     ob_start(); ?>
-    <ul class="grid gap-2">
+    <ul class="spec-list text-slate-700">
         <?php foreach ($power as $option) : ?>
-            <li class="flex items-start gap-2 text-sm text-slate-700">
-                <span class="w-1.5 h-1.5 rounded-full bg-secondary mt-1.5 shrink-0"></span>
-                <?php echo esc_html($option); ?>
-            </li>
+            <li><?php echo esc_html($option); ?></li>
         <?php endforeach; ?>
     </ul>
     <?php $sections['Power Options'] = ob_get_clean();
@@ -229,12 +217,12 @@ if (empty($sections)) {
 
                 <div class="grid gap-0">
                     <?php foreach ($sections as $title => $content) : ?>
-                        <details class="border border-slate-200 -mt-px group">
-                            <summary class="px-6 py-4 cursor-pointer flex items-center justify-between bg-white hover:bg-slate-50 transition-colors font-semibold text-slate-900">
+                        <details class="accordion">
+                            <summary>
                                 <?php echo esc_html($title); ?>
-                                <span class="text-slate-400 transition-transform group-open:rotate-180">&#9660;</span>
+                                <span class="accordion__icon">&#9660;</span>
                             </summary>
-                            <div class="px-8 py-8 border-t border-slate-200 text-sm text-slate-600">
+                            <div class="accordion__body text-sm text-slate-600">
                                 <?php echo $content; // Already escaped during build. ?>
                             </div>
                         </details>

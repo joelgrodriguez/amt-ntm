@@ -3,7 +3,7 @@
  * Machine Product — Reusable Card Carousel
  *
  * Shared carousel for profiles, accessories, and any card-based scroller.
- * Uses inline Tailwind — no external CSS dependency.
+ * Styling via carousel__* classes in components.css.
  *
  * Expected $args:
  *   'carousel_id'  => string  Unique ID for this carousel instance
@@ -44,30 +44,26 @@ if (empty($cards)) {
     <div class="flex gap-2 shrink-0">
         <button type="button"
                 data-carousel-prev="<?php echo esc_attr($carousel_id); ?>"
-                class="w-10 h-10 border border-slate-300 flex items-center justify-center hover:bg-slate-100 transition-colors"
+                class="carousel__nav"
                 aria-label="<?php echo esc_attr($prev_label); ?>">
             <span class="text-slate-600">&larr;</span>
         </button>
         <button type="button"
                 data-carousel-next="<?php echo esc_attr($carousel_id); ?>"
-                class="w-10 h-10 border border-slate-300 flex items-center justify-center hover:bg-slate-100 transition-colors"
+                class="carousel__nav"
                 aria-label="<?php echo esc_attr($next_label); ?>">
             <span class="text-slate-600">&rarr;</span>
         </button>
     </div>
 </div>
 
-<div id="<?php echo esc_attr($carousel_id); ?>"
-     class="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 -mx-4 px-4"
-     style="scrollbar-width: none; -ms-overflow-style: none;">
+<div id="<?php echo esc_attr($carousel_id); ?>" class="carousel__track">
     <?php foreach ($cards as $card) : ?>
-        <a href="<?php echo esc_url($card['url']); ?>"
-           class="snap-start shrink-0 w-[200px] group border border-slate-200 bg-white p-4 grid gap-3 hover:border-slate-400 hover:shadow-md transition-all">
-            <div class="bg-slate-50 aspect-square flex items-center justify-center overflow-hidden rounded">
+        <a href="<?php echo esc_url($card['url']); ?>" class="carousel__card group">
+            <div class="carousel__card-image">
                 <?php if (!empty($card['image_url'])) : ?>
                     <img src="<?php echo esc_url($card['image_url']); ?>"
                          alt="<?php echo esc_attr($card['title']); ?>"
-                         class="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform"
                          loading="lazy">
                 <?php else : ?>
                     <span class="text-slate-400 text-sm font-mono"><?php echo esc_html($card['title']); ?></span>

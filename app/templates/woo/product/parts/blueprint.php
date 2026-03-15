@@ -43,8 +43,8 @@ $trailer_cols = count($trailer_dims);
     <div class="container section-content">
 
         <div class="section-header">
-            <p class="text-sm font-semibold uppercase tracking-wider text-emerald-400">Engineering Specs</p>
-            <h2 id="blueprint-title" class="text-3xl font-bold text-white md:text-4xl">Machine Footprint</h2>
+            <p class="section-eyebrow text-emerald-400">Engineering Specs</p>
+            <h2 id="blueprint-title" class="section-title text-white">Machine Footprint</h2>
         </div>
 
         <div class="border border-slate-700 aspect-[16/7] flex items-center justify-center mx-auto max-w-4xl">

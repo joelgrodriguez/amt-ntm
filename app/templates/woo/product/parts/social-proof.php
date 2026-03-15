@@ -20,8 +20,8 @@ if (empty($testimonials)) {
     <div class="container section-content">
 
         <div class="section-header">
-            <p class="text-sm font-semibold uppercase tracking-wider text-secondary">Customer Stories</p>
-            <h2 id="social-proof-title" class="text-3xl font-bold text-white md:text-4xl">Trusted by Contractors Nationwide</h2>
+            <p class="section-eyebrow">Customer Stories</p>
+            <h2 id="social-proof-title" class="section-title text-white">Trusted by Contractors Nationwide</h2>
         </div>
 
         <div class="grid md:grid-cols-<?php echo esc_attr((string) min(count($testimonials), 3)); ?> gap-8">

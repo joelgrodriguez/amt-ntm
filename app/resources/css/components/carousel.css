@@ -1,0 +1,56 @@
+/**
+ * Carousel
+ *
+ * Horizontal card scroller with snap and nav buttons.
+ * Cards show 2 → 3 → 4 per viewport at sm → md → lg.
+ *
+ * @see templates/woo/product/parts/carousel.php
+ * @file components/carousel.css
+ */
+
+@layer components {
+  .carousel__track {
+    @apply flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 -mx-4 px-4;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .carousel__track::-webkit-scrollbar {
+    @apply hidden;
+  }
+
+  .carousel__card {
+    @apply snap-start shrink-0 border border-slate-200 bg-white p-4 grid gap-3;
+    @apply hover:border-slate-400 hover:shadow-md transition-all;
+    width: calc(50% - 0.5rem);
+  }
+
+  @media (min-width: 768px) {
+    .carousel__card {
+      width: calc(33.333% - 0.75rem);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .carousel__card {
+      width: calc(25% - 0.75rem);
+    }
+  }
+
+  .carousel__card-image {
+    @apply bg-slate-50 aspect-square flex items-center justify-center overflow-hidden rounded;
+  }
+
+  .carousel__card-image img {
+    @apply w-full h-full object-contain p-3 transition-transform;
+  }
+
+  .carousel__card:hover .carousel__card-image img {
+    @apply scale-105;
+  }
+
+  .carousel__nav {
+    @apply w-10 h-10 border border-slate-300 flex items-center justify-center;
+    @apply hover:bg-slate-100 transition-colors;
+  }
+}

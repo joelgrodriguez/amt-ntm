@@ -24,7 +24,7 @@ function theme_setup(): void {
 
     // Custom image sizes
     add_image_size('card-thumbnail', 400, 225, true); // 16:9 aspect ratio, hard crop
-    add_image_size('product-card', 400, 400, false);  // Square, soft crop for product cards
+    add_image_size('product-card', 300, 300, true);   // Square, hard crop for carousel cards
     add_theme_support('align-wide');
     add_theme_support('wp-block-styles');
     add_theme_support('html5', [

@@ -2,7 +2,7 @@
 /**
  * Machine Product — Accessories Carousel
  *
- * Queries accessories by product_tag, then delegates to the shared carousel part.
+ * Thin wrapper that passes machine config to the generic carousel-section.
  *
  * @package Standard
  * @var array{product: \WC_Product, machine: array} $args
@@ -17,43 +17,15 @@ if (empty($product_tag)) {
     return;
 }
 
-$accessories = wc_get_products([
-    'tag'    => [$product_tag],
-    'limit'  => 12,
-    'status' => 'publish',
+get_template_part('templates/woo/product/parts/carousel-section', null, [
+    'query_type'    => 'product',
+    'product_tag'   => $product_tag,
+    'limit'         => 12,
+    'section_class' => 'pattern-dot-grid gradient-fade-bottom-sm',
+    'carousel_id'   => 'accessories-carousel',
+    'eyebrow'       => __('Accessories', 'standard'),
+    'title'         => __('Complete Your Setup', 'standard'),
+    'title_id'      => 'accessories-title',
+    'prev_label'    => __('Previous accessories', 'standard'),
+    'next_label'    => __('Next accessories', 'standard'),
 ]);
-
-if (empty($accessories)) {
-    return;
-}
-
-// Build standardized card data for the carousel — same shape as profiles
-$cards = [];
-foreach ($accessories as $accessory) {
-    /** @var \WC_Product $accessory */
-    $image_url = $accessory->get_image_id()
-        ? wp_get_attachment_image_url($accessory->get_image_id(), 'medium')
-        : '';
-
-    $cards[] = [
-        'url'        => $accessory->get_permalink(),
-        'image_url'  => $image_url,
-        'title'      => $accessory->get_name(),
-        'subtitle'   => $accessory->get_price_html() ?: null,
-    ];
-}
-?>
-
-<section class="section pattern-dot-grid gradient-fade-bottom-sm" aria-labelledby="accessories-title">
-    <div class="container section-content">
-        <?php get_template_part('templates/woo/product/parts/carousel', null, [
-            'carousel_id' => 'accessories-carousel',
-            'eyebrow'     => __('Accessories', 'standard'),
-            'title'       => __('Complete Your Setup', 'standard'),
-            'title_id'    => 'accessories-title',
-            'prev_label'  => __('Previous accessories', 'standard'),
-            'next_label'  => __('Next accessories', 'standard'),
-            'cards'       => $cards,
-        ]); ?>
-    </div>
-</section>

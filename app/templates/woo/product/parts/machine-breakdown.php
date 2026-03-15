@@ -50,12 +50,9 @@ if (empty($breakdown)) {
                     <h3 class="text-2xl font-bold text-slate-900 lg:text-3xl"><?php echo esc_html($headline); ?></h3>
                     <p class="text-slate-600"><?php echo esc_html($copy); ?></p>
                     <?php if (!empty($specs)) : ?>
-                        <ul class="grid gap-2 mt-2">
+                        <ul class="spec-list mt-2 text-slate-700">
                             <?php foreach ($specs as $spec) : ?>
-                                <li class="flex items-start gap-2 text-sm text-slate-700">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-secondary mt-1.5 shrink-0"></span>
-                                    <?php echo esc_html($spec); ?>
-                                </li>
+                                <li><?php echo esc_html($spec); ?></li>
                             <?php endforeach; ?>
                         </ul>
                     <?php endif; ?>

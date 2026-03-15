@@ -44,7 +44,7 @@ $ctas = [
     <div class="container section-content">
 
         <div class="section-header">
-            <h2 id="final-cta-title" class="text-3xl font-bold text-white md:text-4xl"><?php esc_html_e('Ready to Get Started?', 'standard'); ?></h2>
+            <h2 id="final-cta-title" class="section-title text-white"><?php esc_html_e('Ready to Get Started?', 'standard'); ?></h2>
         </div>
 
         <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
