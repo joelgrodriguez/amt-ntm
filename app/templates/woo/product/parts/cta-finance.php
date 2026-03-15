@@ -31,12 +31,12 @@ $note = !empty($finance['note'])
     : 'Flexible financing — lease-to-own, seasonal plans, quick approval';
 ?>
 
-<div class="bg-secondary py-6">
+<div class="bg-primary py-6">
     <div class="container flex flex-col sm:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-4">
             <p class="text-white font-bold text-lg"><?php echo esc_html($label); ?></p>
             <p class="text-white/80 text-sm hidden md:block"><?php echo esc_html($note); ?></p>
         </div>
-        <a href="<?php echo esc_url('/machines/leasing-financing/'); ?>" class="btn btn-sm bg-white text-secondary hover:bg-slate-100 shrink-0">Explore Financing</a>
+        <a href="<?php echo esc_url('/machines/leasing-financing/'); ?>" class="btn btn-sm bg-white text-primary hover:bg-slate-100 shrink-0">Explore Financing</a>
     </div>
 </div>

@@ -34,7 +34,7 @@ $configurator_url = '/configurator/' . $product->get_slug() . '/';
 $machine_name     = $product->get_name();
 ?>
 
-<section id="machine-hero" class="relative min-h-[70vh] flex items-end overflow-hidden bg-slate-800" aria-labelledby="machine-hero-title">
+<section id="machine-hero" class="relative flex-1 flex items-end overflow-hidden bg-slate-800" aria-labelledby="machine-hero-title">
     <?php if (!empty($image)) : ?>
         <img src="<?php echo esc_url($image); ?>"
              alt="<?php echo esc_attr($headline); ?>"
@@ -43,9 +43,10 @@ $machine_name     = $product->get_name();
 
     <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/40 to-transparent"></div>
 
+    <p class="absolute top-8 right-8 z-10 text-sm font-bold uppercase tracking-widest text-white md:top-10 md:right-12"><?php echo esc_html($machine_name); ?></p>
+
     <div class="container relative z-10 pb-16 pt-32">
         <div class="grid gap-6 max-w-xl">
-            <p><span class="inline-block bg-secondary text-white text-xs font-bold uppercase tracking-widest px-4 py-2"><?php echo esc_html($machine_name); ?></span></p>
             <h1 id="machine-hero-title" class="text-3xl font-bold font-mono text-white md:text-4xl lg:text-5xl">
                 <?php echo esc_html($headline); ?>
             </h1>
@@ -56,7 +57,7 @@ $machine_name     = $product->get_name();
                 <p class="text-sm text-slate-300 uppercase tracking-wider">Starting at <span class="text-white font-semibold"><?php echo wp_kses_post($price_display); ?></span></p>
             <?php endif; ?>
             <div class="flex gap-4 mt-2">
-                <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary">Build &amp; Quote</a>
+                <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-secondary">Build &amp; Quote</a>
                 <a href="#machine-breakdown" class="btn btn-outline-light">Explore</a>
             </div>
         </div>
