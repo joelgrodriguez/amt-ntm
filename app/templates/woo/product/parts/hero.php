@@ -41,8 +41,8 @@ $machine_name     = $product->get_name();
              class="absolute inset-0 w-full h-full object-cover">
     <?php endif; ?>
 
-    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/40 to-transparent"></div>
-    <div class="pattern-dot-matrix"></div>
+    <div class="absolute inset-0 bg-slate-950/45"></div>
+    <div class="pattern-png-texture" style="background-image: url('<?php echo esc_url(get_template_directory_uri() . '/assets/images/hero-bg-pattern-bg.png'); ?>');"></div>
 
     <p class="absolute top-8 right-8 z-10 text-sm font-bold uppercase tracking-widest text-white md:top-10 md:right-12"><?php echo esc_html($machine_name); ?></p>
 

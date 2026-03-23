@@ -55,22 +55,17 @@ $content_ml = $is_right ? ' lg:ml-auto' : '';
         fetchpriority="high"
     >
 
-    <!-- Mobile: full dark overlay -->
-    <div class="absolute inset-0 bg-slate-950/90 lg:hidden"></div>
+    <!-- Mobile: solid dark overlay -->
+    <div class="absolute inset-0 bg-slate-950/75 lg:hidden"></div>
 
     <!-- Desktop: angled dark wedge overlay -->
     <div
-        class="hidden lg:block absolute inset-0 bg-slate-950/90"
+        class="hidden lg:block absolute inset-0 bg-slate-950/75"
         style="clip-path: <?php echo esc_attr($clip_path); ?>;"
     ></div>
 
-    <!-- Square-grid texture on the wedge (desktop only) -->
-    <div
-        class="hidden lg:block absolute inset-0 pattern-square-grid pattern-square-grid--dark opacity-20"
-        style="clip-path: <?php echo esc_attr($clip_path); ?>;"
-    >
-        <div class="pattern-square-grid__overlay <?php echo esc_attr($grid_fade); ?>"></div>
-    </div>
+    <!-- PNG texture over the full image -->
+    <div class="pattern-png-texture" style="background-image: url('<?php echo esc_url(get_template_directory_uri() . '/assets/images/hero-bg-pattern-bg.png'); ?>');"></div>
 
     <!-- Subtle gradient bleed at the wedge edge for softness -->
     <div

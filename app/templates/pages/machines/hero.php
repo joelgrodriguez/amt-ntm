@@ -27,7 +27,8 @@ $content = [
         class="absolute inset-0 w-full h-full object-cover"
         fetchpriority="high"
     >
-    <div class="absolute inset-0 bg-slate-950/60"></div>
+    <div class="absolute inset-0 bg-slate-950/45"></div>
+    <div class="pattern-png-texture" style="background-image: url('<?php echo esc_url(get_template_directory_uri() . '/assets/images/hero-bg-pattern-bg.png'); ?>');"></div>
 
     <div class="relative z-10 container text-center grid gap-6 py-20">
         <h1 id="machines-hero-title" class="text-3xl font-bold text-white md:text-5xl lg:text-6xl max-w-4xl mx-auto">
