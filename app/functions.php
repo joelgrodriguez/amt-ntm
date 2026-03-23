@@ -23,6 +23,7 @@ $theme_includes = [
     'inc/sidebars.php',
     'inc/fonts.php',
     'inc/icons.php',
+    'inc/video.php',
     'inc/related-posts.php',
     // WooCommerce integration
     'inc/woo/setup.php',

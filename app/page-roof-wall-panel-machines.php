@@ -23,6 +23,15 @@ get_header();
 
     <?php get_template_part('templates/pages/roof-wall/product-grid'); ?>
 
+    <?php
+    get_template_part('templates/parts/video-section', null, [
+        'title'      => __('Roof & Wall Panel Machines', 'standard'),
+        'video_url'  => get_field('video') ?: null,
+        'video_type' => __('Category Overview', 'standard'),
+        'section_id' => 'roof-wall-video',
+    ]);
+    ?>
+
     <?php get_template_part('templates/pages/roof-wall/configurator'); ?>
 
     <?php get_template_part('templates/pages/machines/roi-snapshot'); ?>

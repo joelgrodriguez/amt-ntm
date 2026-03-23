@@ -48,6 +48,15 @@ if (!$machine) {
 
     <?php get_template_part('templates/woo/product/parts/gallery', null, compact('product', 'machine')); ?>
 
+    <?php
+    get_template_part('templates/parts/video-section', null, [
+        'title'      => $product->get_name(),
+        'video_url'  => get_field('video') ?: null,
+        'video_type' => __('Product Video', 'standard'),
+        'section_id' => 'machine-video',
+    ]);
+    ?>
+
     <?php get_template_part('templates/woo/product/parts/profile-selector', null, compact('product', 'machine')); ?>
 
     <?php // CTA Strip 2: Configurator — catches engaged "I want this" buyers ?>

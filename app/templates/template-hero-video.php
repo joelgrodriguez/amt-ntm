@@ -55,7 +55,7 @@ while (have_posts()) :
 
                     <?php if ($hero_video) : ?>
                         <div class="video-responsive">
-                            <?php echo render_video_embed($hero_video); ?>
+                            <?php echo Standard\Video\render_video_embed($hero_video); ?>
                         </div>
                     <?php endif; ?>
 
@@ -81,35 +81,3 @@ endwhile;
 
 get_footer();
 
-/**
- * Render video embed from various sources.
- *
- * Handles iframe embeds, Wistia URLs, YouTube, Vimeo, and generic oEmbed.
- *
- * @param string $video The video URL or embed code.
- * @return string The rendered embed HTML.
- */
-function render_video_embed(string $video): string {
-    // Already an embed (iframe or embed tag)
-    if (str_contains($video, '<iframe') || str_contains($video, '<embed')) {
-        return $video;
-    }
-
-    // Strip any HTML tags to get clean URL
-    $url = wp_strip_all_tags($video);
-
-    // Wistia
-    if (str_contains($url, 'wistia.com/medias/')) {
-        if (preg_match('/medias\/([a-zA-Z0-9]+)/', $url, $matches)) {
-            return sprintf(
-                '<iframe src="https://fast.wistia.net/embed/iframe/%s?videoFoam=true" allowtransparency="true" frameborder="0" scrolling="no" name="wistia_embed" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>',
-                esc_attr($matches[1])
-            );
-        }
-    }
-
-    // YouTube, Vimeo, or other oEmbed providers
-    $embed = wp_oembed_get($url);
-
-    return $embed ?: '';
-}
