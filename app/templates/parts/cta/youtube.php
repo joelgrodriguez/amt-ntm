@@ -10,6 +10,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $content = [
     'eyebrow'   => __('YouTube', 'standard'),
     'title'     => __('Subscribe to the Portable Rollforming Channel', 'standard'),

@@ -9,6 +9,10 @@
  * @package Standard
  */
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 get_header();
 ?>
 

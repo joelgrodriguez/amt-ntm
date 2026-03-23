@@ -12,6 +12,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $content = [
     'read_more' => __('Read More', 'standard'),
 ];

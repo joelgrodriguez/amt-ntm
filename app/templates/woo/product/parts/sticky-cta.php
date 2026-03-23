@@ -15,6 +15,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $product = $args['product'] ?? null;
 $machine = $args['machine'] ?? null;
 

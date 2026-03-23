@@ -8,6 +8,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $machine    = $args['machine'] ?? [];
 $dimensions = $machine['specs']['dimensions'] ?? [];
 $svg_name   = $machine['blueprint']['svg'] ?? '';

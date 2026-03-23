@@ -11,6 +11,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 get_template_part('templates/parts/value-prop-cards', null, [
     'section_id' => 'gutter-value-prop',
     'content'    => [

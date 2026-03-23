@@ -11,6 +11,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $content = [
     'title'    => __('Make More Money on Every Metal Roof Job', 'standard'),
     'subtitle' => __('Save up to $2.25/sq ft by fabricating panels on-site with NTM portable rollformers.', 'standard'),

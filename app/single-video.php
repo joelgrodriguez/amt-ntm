@@ -11,6 +11,13 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+$video = function_exists('get_field') ? get_field('video', false, false) : null;
+$video_embed = Standard\Video\render_video_embed(is_string($video) ? $video : null);
+
 $content = [
     'channel'      => __('Portable Rollforming Channel', 'standard'),
     'company_name' => __('New Tech Machinery', 'standard'),
@@ -24,8 +31,7 @@ get_header();
         <article id="post-<?php the_ID(); ?>" <?php post_class(''); ?>>
 
             <!-- Video Player Section -->
-            <?php $video = get_field('video'); ?>
-            <?php if ($video) : ?>
+            <?php if ($video_embed !== '') : ?>
                 <section class="bg-slate-950 text-slate-500">
                     <!-- Top Bar -->
                     <div class="border-b border-slate-800">
@@ -46,7 +52,7 @@ get_header();
                     <div class="border-x border-slate-800 container py-6 lg:py-12">
                         <div class="max-w-5xl mx-auto">
                             <div class="video-responsive">
-                                <?php echo $video; ?>
+                                <?php echo $video_embed; ?>
                             </div>
                         </div>
                     </div>

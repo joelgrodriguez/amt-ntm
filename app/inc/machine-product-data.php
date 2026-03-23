@@ -13,6 +13,10 @@ declare(strict_types=1);
 
 namespace Standard\MachineProductData;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 /**
  * All recognised machine data-file keys.
  *

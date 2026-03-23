@@ -15,6 +15,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $content    = $args['content'] ?? [];
 $section_id = $args['section_id'] ?? 'final-cta-title';
 

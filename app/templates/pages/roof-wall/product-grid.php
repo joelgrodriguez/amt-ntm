@@ -11,6 +11,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 use function Standard\MachinesData\get_roof_wall_machines;
 
 get_template_part('templates/parts/product-grid', null, [

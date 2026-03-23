@@ -13,6 +13,10 @@ declare(strict_types=1);
 
 namespace Standard\Woo\Catalog;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 /**
  * Get product categories for the Explore Machines section.
  *

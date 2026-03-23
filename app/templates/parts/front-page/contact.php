@@ -12,6 +12,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $content = [
     'eyebrow'    => __('Get in Touch', 'standard'),
     'title'      => __("Let's Talk", 'standard'),
@@ -108,7 +112,7 @@ $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact_info[
                 </p>
 
                 <div id="contact-form">
-                    <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+                    <script charset="utf-8" type="text/javascript" src="https://js.hsforms.net/forms/embed/v2.js"></script>
                     <script>
                         hbspt.forms.create({
                             region: "na1",

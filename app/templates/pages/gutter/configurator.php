@@ -11,6 +11,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 get_template_part('templates/parts/configurator', null, [
     'section_id' => 'gutter-configurator',
     'title'      => __('Configure Your Gutter Machine', 'standard'),

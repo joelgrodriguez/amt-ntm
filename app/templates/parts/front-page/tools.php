@@ -12,6 +12,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $content = [
     'title' => __('Tools to Help You Decide', 'standard'),
 ];

@@ -11,6 +11,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $content = [
     'badge'         => __('Download', 'standard'),
     'sidebar_title' => __('All Downloads', 'standard'),

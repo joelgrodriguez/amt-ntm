@@ -13,6 +13,10 @@ declare(strict_types=1);
 
 namespace Standard\Woo;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 /**
  * Declare WooCommerce theme support.
  *

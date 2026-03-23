@@ -12,6 +12,10 @@ declare(strict_types=1);
 
 namespace Standard;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 /**
  * Get related posts for the current post.
  *

@@ -11,6 +11,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $content = [
     'label'       => __('Search for:', 'standard'),
     'placeholder' => __('Search...', 'standard'),

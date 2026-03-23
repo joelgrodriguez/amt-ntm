@@ -11,6 +11,12 @@ declare(strict_types=1);
 
 namespace Standard\MachineSchema;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+const SCHEMA_JSON_FLAGS = JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT;
+
 /**
  * Render Product + FAQPage JSON-LD schema for a machine product.
  *
@@ -20,12 +26,12 @@ namespace Standard\MachineSchema;
 function render_machine_schema(\WC_Product $product, array $machine): void {
     $product_schema = build_product_schema($product, $machine);
     if ($product_schema) {
-        echo '<script type="application/ld+json">' . wp_json_encode($product_schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . '</script>' . "\n";
+        echo '<script type="application/ld+json">' . wp_json_encode($product_schema, SCHEMA_JSON_FLAGS) . '</script>' . "\n";
     }
 
     $faq_schema = build_faq_schema($machine);
     if ($faq_schema) {
-        echo '<script type="application/ld+json">' . wp_json_encode($faq_schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . '</script>' . "\n";
+        echo '<script type="application/ld+json">' . wp_json_encode($faq_schema, SCHEMA_JSON_FLAGS) . '</script>' . "\n";
     }
 }
 
@@ -43,7 +49,7 @@ function build_product_schema(\WC_Product $product, array $machine): ?array {
         '@context'    => 'https://schema.org',
         '@type'       => 'Product',
         'name'        => $product->get_name(),
-        'description' => $hero['subtitle'] ?? $product->get_short_description(),
+        'description' => wp_strip_all_tags($hero['subtitle'] ?? $product->get_short_description()),
         'url'         => get_permalink($product->get_id()),
         'image'       => wp_get_attachment_url($product->get_image_id()) ?: ($hero['image'] ?? ''),
         'brand'       => [
@@ -155,7 +161,7 @@ function build_faq_schema(array $machine): ?array {
             'name'  => $faq['question'],
             'acceptedAnswer' => [
                 '@type' => 'Answer',
-                'text'  => $faq['answer'],
+                'text'  => wp_strip_all_tags($faq['answer']),
             ],
         ];
     }

@@ -14,6 +14,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 use function Standard\Woo\Catalog\get_product_categories;
 use function Standard\Woo\Catalog\get_products_by_category;
 

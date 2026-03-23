@@ -12,6 +12,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $content = [
     'eyebrow'           => __('Learning Center', 'standard'),
     'filter_category'   => __('Filter by Category', 'standard'),

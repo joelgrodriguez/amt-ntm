@@ -11,6 +11,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 get_template_part('templates/parts/final-cta', null, [
     'section_id' => 'machines-final-cta-title',
     'content'    => [

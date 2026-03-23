@@ -12,6 +12,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $defaults = [
     'eyebrow'   => __('Machine Configurator', 'standard'),
     'title'     => __('Configure Your Machine Online', 'standard'),

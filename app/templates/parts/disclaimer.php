@@ -8,6 +8,10 @@
  * @package Standard
  */
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 ?>
 
 <aside class="mt-6 lg:mt-12 p-3 bg-yellow-50 border border-yellow-400 flex items-center gap-4 text-sm text-yellow-600">

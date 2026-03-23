@@ -11,6 +11,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 use function Standard\MachinesData\get_differentiators;
 
 $differentiators = get_differentiators();

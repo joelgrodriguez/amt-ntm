@@ -34,6 +34,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $query_type    = $args['query_type'] ?? '';
 $section_class = $args['section_class'] ?? '';
 $carousel_id   = $args['carousel_id'] ?? 'carousel';

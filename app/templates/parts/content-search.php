@@ -10,6 +10,10 @@
  * @package Standard
  */
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class('bg-white border border-slate-200 p-6'); ?>>

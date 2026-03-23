@@ -10,6 +10,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $content = [
     'eyebrow'   => __('Stay Informed', 'standard'),
     'title'     => __('Subscribe to the Learning Center', 'standard'),

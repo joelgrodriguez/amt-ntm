@@ -12,6 +12,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $content = [
     'eyebrow'  => __('The 3 Step Plan', 'standard'),
     'title'    => __('Your Path to Better Equipment Financing', 'standard'),

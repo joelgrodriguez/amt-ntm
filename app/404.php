@@ -12,6 +12,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $content = [
     'error_code'    => __('404', 'standard'),
     'title'         => __('Page Not Found', 'standard'),

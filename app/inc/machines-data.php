@@ -12,6 +12,10 @@ declare(strict_types=1);
 
 namespace Standard\MachinesData;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 /**
  * Get WooCommerce product permalink by slug.
  *

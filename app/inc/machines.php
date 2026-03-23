@@ -12,6 +12,10 @@ declare(strict_types=1);
 
 namespace Standard\Machines;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 use function Standard\MachineProductData\get_machine_product_data;
 
 /**

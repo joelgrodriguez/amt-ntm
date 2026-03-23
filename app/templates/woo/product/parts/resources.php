@@ -10,6 +10,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $machine   = $args['machine'] ?? [];
 $resources = $machine['resources'] ?? null;
 

@@ -8,6 +8,10 @@
  * @package Standard
  */
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 // Determine post type icon and CTA text
 $post_type = get_post_type();
 $post_type_config = [

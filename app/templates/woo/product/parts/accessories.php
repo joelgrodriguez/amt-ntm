@@ -10,6 +10,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $machine     = $args['machine'] ?? [];
 $product_tag = $machine['accessories']['product_tag'] ?? '';
 

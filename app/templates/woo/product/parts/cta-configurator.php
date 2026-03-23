@@ -9,6 +9,10 @@
  */
 
 declare(strict_types=1);
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 ?>
 
 <div class="bg-primary py-6">

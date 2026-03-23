@@ -8,6 +8,10 @@
  * @package Standard
  */
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $related = \Standard\get_related_posts(4);
 
 if (!$related->have_posts()) {

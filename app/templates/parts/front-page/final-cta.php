@@ -12,6 +12,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $content = [
     'title'         => __('Ready to Take Control of Your Business?', 'standard'),
     'text'          => __('Join thousands of contractors who stopped waiting on suppliers and started rolling their own profits.', 'standard'),

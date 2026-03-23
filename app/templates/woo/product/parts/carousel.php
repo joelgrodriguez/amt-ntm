@@ -20,6 +20,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $carousel_id = $args['carousel_id'] ?? 'carousel';
 $eyebrow     = $args['eyebrow'] ?? '';
 $title       = $args['title'] ?? '';

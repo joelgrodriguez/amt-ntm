@@ -10,6 +10,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $machine   = $args['machine'] ?? [];
 $tag_slugs = $machine['profiles']['tag_slugs'] ?? [];
 

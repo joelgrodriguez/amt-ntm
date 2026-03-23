@@ -12,6 +12,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $content = [
     'badge'               => __('Profile', 'standard'),
     'filter_type'         => __('Filter by Type', 'standard'),

@@ -11,6 +11,10 @@
  * @package Standard
  */
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $footer_sections = [
     [
         'title' => __('About', 'standard'),

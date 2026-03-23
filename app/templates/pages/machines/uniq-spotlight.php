@@ -12,6 +12,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 use function Standard\MachinesData\get_uniq_features;
 
 $content = [

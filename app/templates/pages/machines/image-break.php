@@ -11,6 +11,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $content = [
     'image' => content_url('/uploads/2020/03/ssqii-updated.png'),
     'alt'   => __('NTM rollforming machine on a jobsite rooftop', 'standard'),

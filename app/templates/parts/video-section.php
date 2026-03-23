@@ -3,14 +3,14 @@
  * Video Section — Shared Template Part
  *
  * Utilitarian video player with top/bottom chrome bars.
- * Supports Wistia, YouTube, Vimeo, and any oEmbed source.
+ * Supports Wistia plus allowed oEmbed video providers.
  *
  * @package Standard
  *
  * @param array $args {
  *     @type string $title        Top bar left text.            Default 'Who Is NTM?'.
  *     @type string $channel      Top bar right text.           Default 'Portable Rollforming Channel'.
- *     @type string $video_url    Video URL or embed HTML.      Default Wistia company overview.
+ *     @type string $video_url    Video URL or legacy embed HTML. URLs are preferred.
  *     @type string $video_type   Bottom bar left label.        Default 'Company Overview'.
  *     @type string $company_name Bottom bar right text.        Default 'New Tech Machinery'.
  *     @type string $section_id   Unique ID for aria/anchoring. Default 'video-section'.
@@ -18,6 +18,10 @@
  */
 
 declare(strict_types=1);
+
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 use function Standard\Video\render_video_embed;
 use function Standard\Video\is_wistia_url;
@@ -32,10 +36,10 @@ $defaults = [
 ];
 
 $args = wp_parse_args($args ?? [], $defaults);
+$embed_html = render_video_embed($args['video_url'] ?? null);
 
-// Ensure video_url falls back to default when empty/null
-if (empty($args['video_url'])) {
-    $args['video_url'] = $defaults['video_url'];
+if ($embed_html === '') {
+    return;
 }
 ?>
 
@@ -59,7 +63,7 @@ if (empty($args['video_url'])) {
     <div class="border-x border-slate-800 container py-6 lg:py-12">
         <div class="max-w-5xl mx-auto">
             <div class="video-responsive">
-                <?php echo render_video_embed($args['video_url']); ?>
+                <?php echo $embed_html; ?>
             </div>
         </div>
     </div>
@@ -86,6 +90,6 @@ if (empty($args['video_url'])) {
     </div>
 </section>
 
-<?php if (is_wistia_url($args['video_url'])) : ?>
+<?php if (is_wistia_url($args['video_url'] ?? null)) : ?>
     <script src="https://fast.wistia.net/assets/external/E-v1.js" async></script>
 <?php endif; ?>

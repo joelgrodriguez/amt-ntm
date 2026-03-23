@@ -21,6 +21,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 // Default values - can be overridden via $args when using get_template_part
 $defaults = [
     'eyebrow'    => __('Learning Center', 'standard'),

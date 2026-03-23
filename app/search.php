@@ -11,6 +11,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $content = [
     'title'    => __('Search Results for: %s', 'standard'),
     'prev'     => __('Previous', 'standard'),

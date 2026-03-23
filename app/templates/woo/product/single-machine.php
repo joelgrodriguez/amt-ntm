@@ -11,12 +11,17 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 use function Standard\MachineProductData\get_machine_product_data;
 use function Standard\MachineSchema\render_machine_schema;
 
 /** @var \WC_Product|false $product */
 $product = wc_get_product(get_the_ID());
 $machine = $product !== false ? get_machine_product_data($product->get_slug()) : null;
+$video_url = function_exists('get_field') ? get_field('video', false, false) : null;
 
 get_header();
 
@@ -51,7 +56,7 @@ if (!$machine) {
     <?php
     get_template_part('templates/parts/video-section', null, [
         'title'      => $product->get_name(),
-        'video_url'  => get_field('video') ?: null,
+        'video_url'  => is_string($video_url) ? $video_url : null,
         'video_type' => __('Product Video', 'standard'),
         'section_id' => 'machine-video',
     ]);

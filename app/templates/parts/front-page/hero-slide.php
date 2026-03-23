@@ -10,6 +10,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $content = [
     'as_low_as'     => __('As low as', 'standard'),
     'apr_label'     => __('APR', 'standard'),

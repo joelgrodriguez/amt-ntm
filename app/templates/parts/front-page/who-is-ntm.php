@@ -12,6 +12,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 get_template_part('templates/parts/video-section', null, [
     'title'      => __('Who Is NTM?', 'standard'),
     'channel'    => __('Portable Rollforming Channel', 'standard'),

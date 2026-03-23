@@ -16,6 +16,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 use function Standard\MachinesData\get_machine_categories;
 use function Standard\MachinesData\get_card_border_classes;
 use function Standard\MachinesData\get_overflow_border_classes;

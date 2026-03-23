@@ -13,6 +13,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $content = [
     'eyebrow'   => __('The NTM Advantage', 'standard'),
     'title'     => __('Own Your Machine. Own Your Future.', 'standard'),

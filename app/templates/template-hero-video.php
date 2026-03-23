@@ -15,16 +15,21 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 get_header();
 
 while (have_posts()) :
     the_post();
 
     // Get ACF fields
-    $hero_video       = get_field('hero_video');
+    $hero_video       = function_exists('get_field') ? get_field('hero_video', false, false) : null;
+    $hero_video_embed = Standard\Video\render_video_embed(is_string($hero_video) ? $hero_video : null);
     $hero_title       = get_field('hero_title');
     $hero_description = get_field('hero_description');
-    $has_hero         = $hero_video || $hero_title || $hero_description;
+    $has_hero         = $hero_video_embed !== '' || $hero_title || $hero_description;
 ?>
 
 <main id="primary">
@@ -53,9 +58,9 @@ while (have_posts()) :
                         </div>
                     <?php endif; ?>
 
-                    <?php if ($hero_video) : ?>
+                    <?php if ($hero_video_embed !== '') : ?>
                         <div class="video-responsive">
-                            <?php echo Standard\Video\render_video_embed($hero_video); ?>
+                            <?php echo $hero_video_embed; ?>
                         </div>
                     <?php endif; ?>
 
@@ -80,4 +85,3 @@ while (have_posts()) :
 endwhile;
 
 get_footer();
-

@@ -13,6 +13,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 use function Standard\MachinesData\get_journey_stats;
 
 $content = [

@@ -8,6 +8,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 use function Standard\MachineProductData\get_machine_product_data;
 
 $product    = $args['product'] ?? null;

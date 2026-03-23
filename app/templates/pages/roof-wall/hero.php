@@ -11,6 +11,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 get_template_part('templates/parts/hero-asymmetric', null, [
     'section_id'       => 'roof-wall-hero',
     'content_position' => 'left',

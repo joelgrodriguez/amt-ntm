@@ -12,6 +12,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 get_template_part('templates/parts/learning-center', null, [
     'title'         => __('Roof & Wall Panel Resources', 'standard'),
     'subtitle'      => __('Guides, videos, and tips to help you get the most from your roof and wall panel machines.', 'standard'),

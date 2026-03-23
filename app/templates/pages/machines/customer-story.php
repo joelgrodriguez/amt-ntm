@@ -12,6 +12,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 get_template_part('templates/parts/customer-story', null, [
     'section_id'     => 'customer-story-title',
     'image_position' => 'right',

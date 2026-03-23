@@ -9,6 +9,10 @@ declare(strict_types=1);
 
 namespace Standard;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 // Theme version
 define('THEME_VERSION', '1.0.0');
 define('THEME_DIR', get_template_directory());

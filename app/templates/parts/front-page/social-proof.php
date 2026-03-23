@@ -13,6 +13,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $content = [
     'title' => __('Customer Testimonials', 'standard'),
     'nav_label' => __('Testimonial navigation', 'standard'),

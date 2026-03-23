@@ -13,6 +13,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $content = [
     'eyebrow'       => __('Why Own Your Machine', 'standard'),
     'title'         => __("What's It Costing You to Not Own a Rollformer?", 'standard'),

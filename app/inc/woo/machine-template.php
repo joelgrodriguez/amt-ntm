@@ -13,6 +13,10 @@ declare(strict_types=1);
 
 namespace Standard\Woo\MachineTemplate;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 /**
  * Machine product category slugs that get the custom template.
  */

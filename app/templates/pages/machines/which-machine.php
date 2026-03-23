@@ -12,6 +12,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $content = [
     'title'         => __('Not Sure Which Machine Is Right for You?', 'standard'),
     'text'          => __("Answer a few questions about your business and project types, and we'll recommend the best machine for your needs — or talk directly with one of our specialists.", 'standard'),

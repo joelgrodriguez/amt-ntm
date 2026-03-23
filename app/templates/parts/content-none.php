@@ -10,6 +10,10 @@
  * @package Standard
  */
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 ?>
 
 <section class="no-results text-center py-16">

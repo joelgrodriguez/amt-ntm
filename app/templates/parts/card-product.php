@@ -10,6 +10,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 // Get product data from args or use WooCommerce product
 $product = $args['product'] ?? null;
 
