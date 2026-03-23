@@ -3,7 +3,7 @@
  * Shared Template Part — FAQ Accordion
  *
  * Two-column layout: accordion on the left, large image on the right.
- * JS-driven accordion with single-open behavior via Accordion.js.
+ * Uses native <details>/<summary> with .accordion--lg styling.
  *
  * @package Standard
  *
@@ -12,10 +12,13 @@
  *   - faqs: array of {question, answer}
  *   - section_id: string for aria-labelledby
  *   - image_alt: string (optional)
- * @see js/modules/Accordion.js
  */
 
 declare(strict_types=1);
+
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 $content    = $args['content'] ?? [];
 $faqs       = $args['faqs'] ?? [];
@@ -42,37 +45,21 @@ if (empty($content) || empty($faqs)) {
                     </h2>
                 </div>
 
-                <div data-accordion>
+                <div data-accordion-group>
                     <?php foreach ($faqs as $i => $faq) : ?>
-                        <div
-                            class="border-t border-slate-200 last:border-b"
-                            data-accordion-item
-                        >
-                            <button
-                                type="button"
-                                class="cds-accordion-trigger flex items-center justify-between gap-4 w-full py-4 text-left text-sm font-semibold text-slate-900 hover:bg-slate-100 transition-colors duration-150 cursor-pointer"
-                                data-accordion-trigger
-                                aria-expanded="<?php echo $i === 0 ? 'true' : 'false'; ?>"
-                                aria-controls="<?php echo esc_attr($section_id . '-panel-' . $i); ?>"
-                            >
+                        <details class="accordion accordion--lg" <?php echo $i === 0 ? 'open' : ''; ?>>
+                            <summary>
                                 <span class="leading-snug">
                                     <?php echo esc_html($faq['question']); ?>
                                 </span>
-                                <span class="cds-accordion-icon shrink-0 text-slate-500 transition-transform duration-200 ease-out">
+                                <span class="accordion__icon">
                                     <?php icon('chevron-down', ['class' => 'w-5 h-5']); ?>
                                 </span>
-                            </button>
-                            <div
-                                id="<?php echo esc_attr($section_id . '-panel-' . $i); ?>"
-                                class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out"
-                                role="region"
-                                data-accordion-content
-                            >
-                                <p class="pb-6 pr-8 text-sm text-slate-600 leading-relaxed border-l-2 border-primary pl-4">
-                                    <?php echo esc_html($faq['answer']); ?>
-                                </p>
+                            </summary>
+                            <div class="accordion__body text-base text-slate-600 leading-relaxed">
+                                <p><?php echo esc_html($faq['answer']); ?></p>
                             </div>
-                        </div>
+                        </details>
                     <?php endforeach; ?>
                 </div>
             </div>

@@ -8,10 +8,13 @@
  * @package Standard
  *
  * @usage Seamless Gutter Machines (page-seamless-gutter-machines.php)
- * @see js/modules/Accordion.js
  */
 
 declare(strict_types=1);
+
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 use function Standard\MachinesData\get_gutter_faq_items;
 

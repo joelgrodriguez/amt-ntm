@@ -7,10 +7,13 @@
  * @package Standard
  *
  * @usage Machines Page (page-machines.php)
- * @see js/modules/Accordion.js
  */
 
 declare(strict_types=1);
+
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 use function Standard\MachinesData\get_faq_items;
 

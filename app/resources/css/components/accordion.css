@@ -1,31 +1,83 @@
 /**
  * Accordion
  *
- * Collapsible details/summary panels.
- * Used by specs and FAQ sections.
+ * Carbon UI-inspired collapsible panels using native <details>/<summary>.
+ * Base size for specs/technical data; --lg modifier for FAQ sections.
+ * Single-open + always-one-open behavior via Accordion.js.
  *
  * @file components/accordion.css
  */
 
+/* <details> elements have quirky intrinsic sizing — force block/full-width.
+   Outside @layer so it can't be overridden. */
+[data-accordion-group] {
+  display: block;
+  width: 100%;
+}
+
+[data-accordion-group] > .accordion {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 @layer components {
+
+  /* ── Container ──────────────────────────────────────────────────── */
   .accordion {
-    @apply border border-slate-200 -mt-px;
+    @apply border border-slate-200 -mt-px bg-white;
   }
 
+  .accordion:first-child {
+    @apply mt-0;
+  }
+
+  /* ── Trigger (summary) ──────────────────────────────────────────── */
   .accordion summary {
-    @apply px-6 py-4 cursor-pointer flex items-center justify-between;
-    @apply bg-white hover:bg-slate-50 transition-colors font-semibold text-slate-900;
+    @apply px-6 py-4 cursor-pointer flex items-center justify-between gap-4;
+    @apply bg-white font-semibold text-slate-900;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary;
+    list-style: none;
+    transition: background-color var(--duration-fast, 150ms) var(--ease-out, ease-out);
   }
 
-  .accordion summary .accordion__icon {
-    @apply text-slate-400 transition-transform;
+  .accordion summary::-webkit-details-marker {
+    display: none;
   }
 
-  .accordion[open] summary .accordion__icon {
-    @apply rotate-180;
+  .accordion summary:hover {
+    @apply bg-slate-50;
   }
 
+  /* ── Icon ────────────────────────────────────────────────────────── */
+  .accordion__icon {
+    @apply shrink-0 text-slate-400;
+    transition: transform var(--duration-base, 200ms) var(--ease-out, ease-out),
+                color var(--duration-base, 200ms) var(--ease-out, ease-out);
+  }
+
+  .accordion[open] > summary .accordion__icon {
+    @apply rotate-180 text-primary;
+  }
+
+  /* ── Content body ───────────────────────────────────────────────── */
   .accordion__body {
-    @apply px-8 py-8 border-t border-slate-200;
+    @apply px-6 py-6 border-t border-slate-200 bg-slate-50;
+    @apply border-l-2 border-l-primary;
+  }
+
+  /* ── Modifier: Large (FAQ) ──────────────────────────────────────── */
+  .accordion--lg summary {
+    @apply py-5 text-lg font-bold;
+  }
+
+  @media (min-width: 768px) {
+    .accordion--lg summary {
+      @apply text-xl;
+    }
+  }
+
+  .accordion--lg .accordion__body {
+    @apply px-8 py-8;
   }
 }

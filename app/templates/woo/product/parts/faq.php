@@ -11,6 +11,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $machine = $args['machine'] ?? null;
 $faqs    = $machine['faq'] ?? [];
 
@@ -30,17 +34,17 @@ if (empty($faqs)) {
             <h2 id="faq-title" class="section-title"><?php esc_html_e('Frequently Asked Questions', 'standard'); ?></h2>
         </div>
 
-        <div class="max-w-4xl mx-auto grid gap-0">
+        <div class="max-w-4xl mx-auto" data-accordion-group>
             <?php foreach ($faqs as $i => $faq) : ?>
-                <details class="accordion" <?php echo $i === 0 ? 'open' : ''; ?>>
-                    <summary class="py-6 text-xl font-bold">
+                <details class="accordion accordion--lg" <?php echo $i === 0 ? 'open' : ''; ?>>
+                    <summary>
                         <?php echo esc_html($faq['question']); ?>
-                        <span class="accordion__icon shrink-0 ml-4">&#9660;</span>
+                        <span class="accordion__icon">
+                            <?php icon('chevron-down', ['class' => 'w-5 h-5']); ?>
+                        </span>
                     </summary>
-                    <div class="accordion__body text-base text-slate-600 leading-relaxed border-l-2 border-primary ml-6 bg-white">
-                        <div class="pl-4">
-                            <?php echo wp_kses_post($faq['answer']); ?>
-                        </div>
+                    <div class="accordion__body text-base text-slate-600 leading-relaxed">
+                        <?php echo wp_kses_post($faq['answer']); ?>
                     </div>
                 </details>
             <?php endforeach; ?>

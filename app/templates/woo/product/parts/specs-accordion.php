@@ -8,6 +8,10 @@
 
 declare(strict_types=1);
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 $machine   = $args['machine'] ?? [];
 $specs     = $machine['specs'] ?? null;
 $resources = $machine['resources'] ?? [];
@@ -215,12 +219,12 @@ if (empty($sections)) {
                     <h2 id="specs-title" class="section-title"><?php esc_html_e('Full Details', 'standard'); ?></h2>
                 </div>
 
-                <div class="grid gap-0">
+                <div data-accordion-group>
                     <?php foreach ($sections as $title => $content) : ?>
                         <details class="accordion">
                             <summary>
                                 <?php echo esc_html($title); ?>
-                                <span class="accordion__icon">&#9660;</span>
+                                <span class="accordion__icon"><?php icon('chevron-down', ['class' => 'w-4 h-4']); ?></span>
                             </summary>
                             <div class="accordion__body text-sm text-slate-600">
                                 <?php echo $content; // Already escaped during build. ?>

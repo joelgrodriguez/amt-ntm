@@ -8,10 +8,13 @@
  * @package Standard
  *
  * @usage Roof & Wall Panel Machines (page-roof-wall-panel-machines.php)
- * @see js/modules/Accordion.js
  */
 
 declare(strict_types=1);
+
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 use function Standard\MachinesData\get_roof_wall_faq_items;
 
