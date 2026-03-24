@@ -4,6 +4,8 @@
  *
  * Hardcoded machine data for the /machines landing page.
  * Sourced from docs/ntm-machines.md research brief.
+ * This module is intentionally content-focused; presentation/layout helpers
+ * live in inc/grid.php so content changes do not drag view logic with them.
  *
  * @package Standard
  */
@@ -540,43 +542,4 @@ function get_roi_stats(): array {
             'label' => 'Business Growth Reported by Owners',
         ],
     ];
-}
-
-/**
- * Get border classes for a card in a responsive grid.
- *
- * Computes right and bottom border classes per breakpoint
- * so cards form a clean grid with dividers between them.
- *
- * @param int $idx       Zero-based card index.
- * @param int $total     Total cards in this row.
- * @param int $cols      Number of columns at lg breakpoint.
- * @return string        Space-separated Tailwind border classes.
- */
-function get_card_border_classes(int $idx, int $total, int $cols): string {
-    $is_last_sm = ($idx % 2 === 1) || ($idx === $total - 1);
-    $is_last_lg = (($idx + 1) % $cols === 0) || ($idx === $total - 1);
-
-    $classes = 'border-b border-slate-200';
-    $classes .= $is_last_sm ? '' : ' sm:border-r';
-    $classes .= $is_last_lg ? ' lg:border-r-0' : ' lg:border-r';
-
-    return $classes;
-}
-
-/**
- * Get border classes for overflow (centered) row cards.
- *
- * @param int  $idx   Zero-based index within the overflow row.
- * @param int  $total Total cards in the overflow row.
- * @return string     Space-separated Tailwind border classes.
- */
-function get_overflow_border_classes(int $idx, int $total): string {
-    $is_last = ($idx === $total - 1);
-
-    $classes = 'border-b border-slate-200';
-    $classes .= ($idx % 2 === 0 && !$is_last) ? ' sm:border-r' : '';
-    $classes .= $is_last ? '' : ' lg:border-r';
-
-    return $classes;
 }

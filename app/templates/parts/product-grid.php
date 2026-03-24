@@ -19,8 +19,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use function Standard\MachinesData\get_card_border_classes;
-use function Standard\MachinesData\get_overflow_border_classes;
+use function Standard\Grid\get_card_border_classes;
+use function Standard\Grid\get_overflow_border_classes;
 
 $machines   = $args['machines'] ?? [];
 $cols       = $args['cols'] ?? 3;

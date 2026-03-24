@@ -21,8 +21,8 @@ if (!defined('ABSPATH')) {
 }
 
 use function Standard\MachinesData\get_machine_categories;
-use function Standard\MachinesData\get_card_border_classes;
-use function Standard\MachinesData\get_overflow_border_classes;
+use function Standard\Grid\get_card_border_classes;
+use function Standard\Grid\get_overflow_border_classes;
 
 $content = [
     'eyebrow' => __('Our Machines', 'standard'),

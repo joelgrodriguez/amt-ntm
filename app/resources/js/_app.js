@@ -20,6 +20,7 @@ import { initHeroSlider } from './modules/HeroSlider.js';
 import { initExploreMachines } from './modules/ExploreMachines.js';
 import { initSocialProof, cleanup as cleanupSocialProof } from './modules/SocialProof.js';
 import { initAccordion } from './modules/Accordion.js';
+import { initCarouselNav } from './modules/CarouselNav.js';
 
 /** @type {Function|null} Cleanup function for mobile menu */
 let mobileMenuCleanup = null;
@@ -47,6 +48,9 @@ let socialProofCleanup = null;
 
 /** @type {Function|null} Cleanup function for accordion */
 let accordionCleanup = null;
+
+/** @type {Function|null} Cleanup function for reusable carousel navigation */
+let carouselNavCleanup = null;
 
 /**
  * Executes callback when DOM is ready.
@@ -78,6 +82,7 @@ const initApp = () => {
   exploreMachinesCleanup = initExploreMachines();
   initSocialProof();
   accordionCleanup = initAccordion();
+  carouselNavCleanup = initCarouselNav();
 };
 
 // Bootstrap
@@ -111,6 +116,9 @@ if (import.meta.hot) {
     cleanupSocialProof();
     if (accordionCleanup) {
       accordionCleanup();
+    }
+    if (carouselNavCleanup) {
+      carouselNavCleanup();
     }
     // Reinitialize
     initApp();

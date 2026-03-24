@@ -4,6 +4,8 @@
  *
  * Shared carousel for profiles, accessories, and any card-based scroller.
  * Styling via carousel__* classes in components.css.
+ * Interactive prev/next behavior is initialized by
+ * app/resources/js/modules/CarouselNav.js.
  *
  * Expected $args:
  *   'carousel_id'  => string  Unique ID for this carousel instance
