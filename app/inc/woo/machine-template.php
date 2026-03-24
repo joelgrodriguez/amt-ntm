@@ -1,10 +1,10 @@
 <?php
 /**
- * Machine Product Template Router
+ * Product Template Router
  *
- * Routes WooCommerce single product pages for machine categories
- * to a custom landing page template. Accessories and other products
- * use the default WooCommerce template.
+ * Routes WooCommerce single product pages to custom templates
+ * based on product category. Machines get a full landing page,
+ * accessories get a branded product page.
  *
  * @package Standard
  */
@@ -43,3 +43,27 @@ add_filter('template_include', function (string $template): string {
 
     return file_exists($custom) ? $custom : $template;
 }, 99);
+
+/**
+ * Accessory product category slugs that get the branded template.
+ */
+const ACCESSORY_CATEGORIES = [
+    'accessories-add-on-equipment',
+];
+
+/**
+ * Swap the template for accessory products.
+ */
+add_filter('template_include', function (string $template): string {
+    if (!is_singular('product')) {
+        return $template;
+    }
+
+    if (!has_term(ACCESSORY_CATEGORIES, 'product_cat')) {
+        return $template;
+    }
+
+    $custom = get_theme_file_path('templates/woo/product/single-accessory.php');
+
+    return file_exists($custom) ? $custom : $template;
+}, 98);
