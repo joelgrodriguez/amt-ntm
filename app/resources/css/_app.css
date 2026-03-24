@@ -54,3 +54,4 @@
 /* ── WooCommerce ───────────────────────────────────────────────────── */
 @import "./woo/product-card.css";
 @import "./woo/woocommerce.css";
+@import "./woo/accessory-product.css";

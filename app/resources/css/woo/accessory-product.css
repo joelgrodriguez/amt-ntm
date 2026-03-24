@@ -1,0 +1,34 @@
+/**
+ * Accessory Product Page
+ *
+ * Styles for the branded accessory product template.
+ * Most layout uses Tailwind utilities inline — this file
+ * covers gallery interaction and WooCommerce attribute table.
+ *
+ * @file woo/accessory-product.css
+ */
+
+@layer components {
+
+  /* ── Gallery thumbnail active state ────────────────────────────── */
+  .accessory-gallery__thumb--active {
+    @apply border-primary;
+  }
+
+  /* ── WooCommerce attribute table styling ────────────────────────── */
+  .woocommerce-product-attributes {
+    @apply w-full text-sm;
+  }
+
+  .woocommerce-product-attributes th {
+    @apply py-2 pr-4 text-left text-xs text-slate-500 uppercase tracking-wider font-mono font-normal align-top;
+  }
+
+  .woocommerce-product-attributes td {
+    @apply py-2 text-slate-700;
+  }
+
+  .woocommerce-product-attributes tr + tr {
+    @apply border-t border-slate-200;
+  }
+}
