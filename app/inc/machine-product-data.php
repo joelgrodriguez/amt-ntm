@@ -38,9 +38,36 @@ function get_machine_data_keys(): array {
 }
 
 /**
+ * Explicit WooCommerce slug → data key aliases.
+ *
+ * Maps product slugs that don't match data file keys.
+ * Add entries here when WooCommerce product slugs differ
+ * from the data file names in app/data/machines/.
+ *
+ * @return array<string, string>
+ */
+function get_slug_aliases(): array {
+    return [
+        // Roof & wall panel machines
+        'ssq-roof-panel-machine'            => 'ssq-ii-multipro',
+        'ssq3-roof-panel-machine'           => 'ssq3-multipro',
+        'ssh-roof-panel-machine'            => 'ssh-multipro',
+        'ssr-roof-panel-machine'            => 'ssr-multipro-jr',
+        '5vc-5v-crimp-roof-panel-machine'   => '5vc-5v-crimp',
+        'wav-wall-panel-machine'            => 'wav-wall-panel',
+        // Gutter machines
+        'mach-ii-5-gutter-machine'          => 'mach-ii-5-gutter',
+        'mach-ii-6-gutter-machine'          => 'mach-ii-6-gutter',
+        'mach-ii-5-6-combo-gutter-machine'  => 'mach-ii-combo-gutter',
+        'mach-ii-combo-gutter-machine'      => 'mach-ii-combo-gutter',
+        'bg7-box-gutter-machine'            => 'bg7-box-gutter',
+    ];
+}
+
+/**
  * Resolve a WooCommerce product slug to a machine data key.
  *
- * Tries an exact match first, then longest-prefix match.
+ * Tries: exact match → alias map → longest-prefix match.
  *
  * @param string $slug WooCommerce product slug.
  * @return string|null The matching machine key, or null.
@@ -48,12 +75,18 @@ function get_machine_data_keys(): array {
 function resolve_machine_key(string $slug): ?string {
     $keys = get_machine_data_keys();
 
-    // Exact match
+    // 1. Exact match
     if (in_array($slug, $keys, true)) {
         return $slug;
     }
 
-    // Longest-prefix match
+    // 2. Alias map
+    $aliases = get_slug_aliases();
+    if (isset($aliases[$slug])) {
+        return $aliases[$slug];
+    }
+
+    // 3. Longest-prefix match
     $sorted = $keys;
     usort($sorted, fn(string $a, string $b): int => strlen($b) - strlen($a));
 
