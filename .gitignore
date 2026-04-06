@@ -29,3 +29,6 @@ app/.vite-dev-server
 docs/references/
 docs/*.pdf
 docs/*.png
+
+# Brainstorm sessions
+.superpowers/
