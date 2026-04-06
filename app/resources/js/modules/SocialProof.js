@@ -6,7 +6,9 @@
  * @file SocialProof.js
  *
  * @usage Front Page (front-page.php)
+ * @usage Single Machine Product (single-machine.php)
  * @template templates/parts/front-page/social-proof.php
+ * @template templates/woo/product/parts/testimonials.php
  */
 
 const AUTOPLAY_INTERVAL = 6000;

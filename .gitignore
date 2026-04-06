@@ -24,3 +24,8 @@ app/dist/
 # Generated files
 app/resources/css/theme-vars.css
 app/.vite-dev-server
+
+# Reference assets (large images/PDFs for design reference only)
+docs/references/
+docs/*.pdf
+docs/*.png
