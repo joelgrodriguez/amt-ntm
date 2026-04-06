@@ -27,6 +27,9 @@ $section_id       = $args['section_id'] ?? 'hero';
 
 // Position-dependent values
 $is_right   = ($content_position === 'right');
+$clip_path  = $is_right
+    ? 'polygon(55% 0, 100% 0, 100% 100%, 40% 100%)'
+    : 'polygon(0 0, 60% 0, 45% 100%, 0% 100%)';
 $content_ml = $is_right ? ' lg:ml-auto' : '';
 ?>
 
@@ -53,8 +56,22 @@ $content_ml = $is_right ? ' lg:ml-auto' : '';
         fetchpriority="high"
     >
 
-    <!-- Dark overlay -->
-    <div class="hero-overlay"></div>
+    <!-- Mobile: solid dark overlay -->
+    <div class="absolute inset-0 bg-slate-950/75 lg:hidden"></div>
+
+    <!-- Desktop: angled dark wedge overlay -->
+    <div
+        class="hidden lg:block absolute inset-0 bg-slate-950/75"
+        style="clip-path: <?php echo esc_attr($clip_path); ?>;"
+    ></div>
+
+    <!-- Subtle gradient bleed at the wedge edge for softness -->
+    <div
+        class="hidden lg:block absolute inset-0"
+        style="background: linear-gradient(105deg, transparent 42%, rgba(0,0,0,0.4) 48%, transparent 55%);"
+    ></div>
+
+    <!-- Grain texture -->
     <div class="hero-overlay__grain"></div>
 
     <!-- Content -->
