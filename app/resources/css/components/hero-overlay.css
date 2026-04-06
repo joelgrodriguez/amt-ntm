@@ -36,6 +36,13 @@
     );
 }
 
+/* ── Hero text safety net ─────────────────────────────────────────── */
+
+.hero-overlay ~ [class*="z-10"],
+.hero-overlay ~ .hero-slider__content {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
 /* ── SVG grain texture ────────────────────────────────────────────── */
 
 .hero-overlay__grain {
