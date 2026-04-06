@@ -1,7 +1,7 @@
 /**
  * Accordion Module
  *
- * Single-open behavior for native <details> accordion groups.
+ * Smooth animated open/close for native <details> accordion groups.
  * Add [data-accordion-group] to the parent container.
  * First <details> opens on init; clicking another closes the rest.
  *
@@ -9,6 +9,68 @@
  */
 
 const GROUP_SELECTOR = '[data-accordion-group]';
+const DURATION = 250; // ms
+const EASING = 'ease-out';
+
+/**
+ * Animate a <details> element open.
+ * @param {HTMLDetailsElement} detail
+ */
+function animateOpen(detail) {
+  const body = detail.querySelector('.accordion__body');
+  if (!body) {
+    detail.open = true;
+    return;
+  }
+
+  // Set open so the content renders (needed to measure height)
+  detail.open = true;
+  const height = body.scrollHeight;
+
+  // Animate from 0 to measured height
+  body.style.overflow = 'hidden';
+  const anim = body.animate(
+    [
+      { height: '0px', opacity: 0, paddingTop: '0px', paddingBottom: '0px' },
+      { height: `${height}px`, opacity: 1 },
+    ],
+    { duration: DURATION, easing: EASING }
+  );
+
+  anim.onfinish = () => {
+    body.style.overflow = '';
+    body.style.height = '';
+  };
+}
+
+/**
+ * Animate a <details> element closed.
+ * @param {HTMLDetailsElement} detail
+ */
+function animateClose(detail) {
+  const body = detail.querySelector('.accordion__body');
+  if (!body) {
+    detail.open = false;
+    return;
+  }
+
+  const height = body.scrollHeight;
+
+  body.style.overflow = 'hidden';
+  const anim = body.animate(
+    [
+      { height: `${height}px`, opacity: 1 },
+      { height: '0px', opacity: 0, paddingTop: '0px', paddingBottom: '0px' },
+    ],
+    { duration: DURATION, easing: EASING }
+  );
+
+  anim.onfinish = () => {
+    detail.open = false;
+    body.style.overflow = '';
+    body.style.height = '';
+  };
+}
 
 /**
  * Initializes all accordion groups on the page.
@@ -31,19 +93,26 @@ export function initAccordion() {
     }
 
     items.forEach((detail) => {
-      // Prevent closing the active item — one must always be open
-      detail.querySelector('summary')?.addEventListener('click', (e) => {
-        if (detail.open) e.preventDefault();
-      }, { signal: controller.signal });
+      const summary = detail.querySelector('summary');
+      if (!summary) return;
 
-      // Close siblings when one opens
-      detail.addEventListener('toggle', () => {
-        if (!detail.open) return;
+      summary.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        if (detail.open) {
+          // Don't close if it's the only open one (always-one-open)
+          return;
+        }
+
+        // Close any open sibling with animation
         items.forEach((other) => {
           if (other !== detail && other.open) {
-            other.open = false;
+            animateClose(other);
           }
         });
+
+        // Open the clicked one with animation
+        animateOpen(detail);
       }, { signal: controller.signal });
     });
   });
