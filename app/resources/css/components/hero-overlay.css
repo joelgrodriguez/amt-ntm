@@ -38,8 +38,13 @@
 
 /* ── Hero text safety net ─────────────────────────────────────────── */
 
-.hero-overlay ~ [class*="z-10"],
-.hero-overlay ~ .hero-slider__content {
+.hero-overlay ~ [class*="z-10"] h1,
+.hero-overlay ~ [class*="z-10"] h2,
+.hero-overlay ~ [class*="z-10"] p,
+.hero-overlay ~ [class*="z-10"] span,
+.hero-overlay ~ .hero-slider__content h2,
+.hero-overlay ~ .hero-slider__content p,
+.hero-overlay ~ .hero-slider__content span {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
