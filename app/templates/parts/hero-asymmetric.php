@@ -26,9 +26,8 @@ $content_position = $args['content_position'] ?? 'left';
 $section_id       = $args['section_id'] ?? 'hero';
 
 // Position-dependent values
-$is_right      = ($content_position === 'right');
-$overlay_class = $is_right ? 'hero-overlay--asymmetric-right' : 'hero-overlay--asymmetric-left';
-$content_ml    = $is_right ? ' lg:ml-auto' : '';
+$is_right   = ($content_position === 'right');
+$content_ml = $is_right ? ' lg:ml-auto' : '';
 ?>
 
 <section class="relative min-h-[70vh] lg:min-h-[80vh] flex items-end lg:items-center overflow-hidden" aria-labelledby="<?php echo esc_attr($section_id); ?>-title">
@@ -54,8 +53,8 @@ $content_ml    = $is_right ? ' lg:ml-auto' : '';
         fetchpriority="high"
     >
 
-    <!-- Cinematic vignette overlay -->
-    <div class="hero-overlay <?php echo esc_attr($overlay_class); ?>"></div>
+    <!-- Dark overlay -->
+    <div class="hero-overlay"></div>
     <div class="hero-overlay__grain"></div>
 
     <!-- Content -->
