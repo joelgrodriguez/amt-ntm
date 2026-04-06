@@ -30,9 +30,6 @@ $is_right   = ($content_position === 'right');
 $clip_path  = $is_right
     ? 'polygon(55% 0, 100% 0, 100% 100%, 40% 100%)'
     : 'polygon(0 0, 60% 0, 45% 100%, 0% 100%)';
-$grid_fade  = $is_right
-    ? 'pattern-square-grid__overlay--bottom-left'
-    : 'pattern-square-grid__overlay--bottom-right';
 $content_ml = $is_right ? ' lg:ml-auto' : '';
 ?>
 
@@ -68,14 +65,14 @@ $content_ml = $is_right ? ' lg:ml-auto' : '';
         style="clip-path: <?php echo esc_attr($clip_path); ?>;"
     ></div>
 
-    <!-- PNG texture over the full image -->
-    <div class="pattern-png-texture" style="background-image: url('<?php echo esc_url(get_template_directory_uri() . '/assets/images/hero-bg-pattern-bg.png'); ?>');"></div>
-
     <!-- Subtle gradient bleed at the wedge edge for softness -->
     <div
         class="hidden lg:block absolute inset-0"
         style="background: linear-gradient(105deg, transparent 42%, rgba(0,0,0,0.4) 48%, transparent 55%);"
     ></div>
+
+    <!-- Grain texture -->
+    <div class="hero-overlay__grain"></div>
 
     <!-- Content -->
     <div class="relative z-10 container py-16 lg:py-24">

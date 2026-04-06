@@ -59,14 +59,6 @@
   z-index: 0;
 }
 
-/* Dark overlay for text readability */
-.hero-slider__overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background-color: rgba(0, 0, 0, 0.45);
-}
-
 /* Content container */
 .hero-slider__content {
   position: absolute;

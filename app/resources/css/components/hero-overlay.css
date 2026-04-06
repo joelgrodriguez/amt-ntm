@@ -1,0 +1,56 @@
+/**
+ * Hero Overlay
+ *
+ * Premium overlay system for all hero sections.
+ * Solid dark overlay + SVG grain + text-shadow safety net.
+ *
+ * @file hero-overlay.css
+ *
+ * @usage Front Page slider (hero-slide.php)
+ * @usage Machines page hero (machines/hero.php)
+ * @usage Product page hero (woo/product/parts/hero.php)
+ * @usage Asymmetric hero — grain only (hero-asymmetric.php)
+ * @usage Template hero video — grain only (template-hero-video.php)
+ *
+ * Usage:
+ *   <div class="hero-overlay"></div>
+ *   <div class="hero-overlay__grain"></div>
+ */
+
+/* ── Solid dark overlay ──────────────────────────────────────────── */
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background-color: rgba(2, 6, 23, 0.45);
+}
+
+/* ── SVG grain texture ────────────────────────────────────────────── */
+
+.hero-overlay__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  filter: url(#hero-grain-filter);
+}
+
+/* ── Hero text safety net ─────────────────────────────────────────── */
+
+.hero-overlay ~ [class*="z-10"] h1,
+.hero-overlay ~ [class*="z-10"] h2,
+.hero-overlay ~ [class*="z-10"] p,
+.hero-overlay ~ [class*="z-10"] span,
+.hero-overlay ~ .hero-slider__content h2,
+.hero-overlay ~ .hero-slider__content p,
+.hero-overlay ~ .hero-slider__content span,
+.hero-overlay__grain ~ [class*="z-10"] h1,
+.hero-overlay__grain ~ [class*="z-10"] h2,
+.hero-overlay__grain ~ [class*="z-10"] p,
+.hero-overlay__grain ~ [class*="z-10"] span {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}

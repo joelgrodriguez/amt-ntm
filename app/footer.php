@@ -194,6 +194,14 @@ $legal_links = [
     <?php icon('chevron-up', ['class' => 'w-4 h-4']); ?>
 </button>
 
+<!-- SVG grain filter for hero overlays -->
+<svg style="position:absolute;width:0;height:0" aria-hidden="true">
+    <filter id="hero-grain-filter">
+        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+        <feColorMatrix type="saturate" values="0"/>
+    </filter>
+</svg>
+
 <?php wp_footer(); ?>
 </body>
 </html>

@@ -45,13 +45,13 @@ $machine_name     = $product->get_name();
              class="absolute inset-0 w-full h-full object-cover">
     <?php endif; ?>
 
-    <div class="absolute inset-0 bg-slate-950/45"></div>
-    <div class="pattern-png-texture" style="background-image: url('<?php echo esc_url(get_template_directory_uri() . '/assets/images/hero-bg-pattern-bg.png'); ?>');"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-overlay__grain"></div>
 
     <p class="absolute top-8 right-8 z-10 text-sm font-bold uppercase tracking-widest text-white md:top-10 md:right-12"><?php echo esc_html($machine_name); ?></p>
 
     <div class="container relative z-10 pb-16 pt-32">
-        <div class="grid gap-6 max-w-xl" style="text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+        <div class="grid gap-6 max-w-xl">
             <h1 id="machine-hero-title" class="text-3xl font-bold font-mono text-white md:text-4xl lg:text-5xl">
                 <?php echo esc_html($headline); ?>
             </h1>
@@ -61,7 +61,7 @@ $machine_name     = $product->get_name();
             <?php if (!empty($price_display)) : ?>
                 <p class="text-sm text-slate-300 uppercase tracking-wider">Starting at <span class="text-white font-semibold"><?php echo wp_kses_post($price_display); ?></span></p>
             <?php endif; ?>
-            <div class="flex gap-4 mt-2" style="text-shadow: none;">
+            <div class="flex gap-4 mt-2">
                 <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-secondary">Build &amp; Quote</a>
                 <a href="#machine-breakdown" class="btn btn-outline-light">Explore</a>
             </div>

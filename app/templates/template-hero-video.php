@@ -35,9 +35,8 @@ while (have_posts()) :
 <main id="primary">
 
     <?php if ($has_hero) : ?>
-        <section class="pattern-square-grid pattern-square-grid--dark bg-slate-900 text-white py-12 lg:py-24 relative">
-            <div class="pattern-square-grid__overlay pattern-square-grid__overlay--top-left"></div>
-            <div class="pattern-square-grid__overlay pattern-square-grid__overlay--bottom-right"></div>
+        <section class="bg-slate-900 text-white py-12 lg:py-24 relative">
+            <div class="hero-overlay__grain"></div>
 
             <div class="container relative z-10">
                 <div class="grid gap-8 lg:grid-cols-2 lg:gap-12 items-center">
