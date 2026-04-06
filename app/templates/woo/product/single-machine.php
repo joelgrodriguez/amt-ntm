@@ -67,7 +67,9 @@ if (!$machine) {
     <?php // CTA Strip 2: Configurator — catches engaged "I want this" buyers ?>
     <?php get_template_part('templates/woo/product/parts/cta-configurator', null, compact('product', 'machine')); ?>
 
-    <?php get_template_part('templates/woo/product/parts/social-proof', null, compact('machine')); ?>
+    <?php get_template_part('templates/woo/product/parts/testimonials', null, compact('machine')); ?>
+
+    <?php get_template_part('templates/woo/product/parts/case-study', null, compact('machine')); ?>
 
     <?php get_template_part('templates/woo/product/parts/comparison', null, compact('product', 'machine')); ?>
 
