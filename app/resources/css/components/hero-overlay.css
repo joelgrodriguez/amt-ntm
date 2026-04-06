@@ -1,8 +1,9 @@
 /**
- * Hero Overlay — Cinematic Vignette
+ * Hero Overlay — Eased Gradient
  *
  * Premium overlay system for all hero sections.
- * Radial vignette + bottom fade + SVG grain.
+ * Multi-stop eased gradient + SVG grain.
+ * Text pops reliably across any image composition.
  *
  * @file hero-overlay.css
  *
@@ -15,7 +16,7 @@
  *   .hero-overlay--asymmetric-right  Directional fade for right-positioned text
  */
 
-/* ── Standard: vignette + bottom fade ─────────────────────────────── */
+/* ── Standard: eased bottom-to-top gradient ──────────────────────── */
 
 .hero-overlay {
   position: absolute;
@@ -23,20 +24,15 @@
   z-index: 2;
   pointer-events: none;
   background:
-    /* Bottom floor-fade */
     linear-gradient(
       to top,
-      rgba(2, 6, 23, 0.7) 0%,
-      rgba(2, 6, 23, 0.3) 30%,
-      transparent 60%
-    ),
-    /* Radial vignette */
-    radial-gradient(
-      ellipse at 55% 45%,
-      transparent 20%,
-      rgba(2, 6, 23, 0.15) 45%,
-      rgba(2, 6, 23, 0.5) 75%,
-      rgba(2, 6, 23, 0.75) 100%
+      rgba(2, 6, 23, 0.85) 0%,
+      rgba(2, 6, 23, 0.72) 15%,
+      rgba(2, 6, 23, 0.55) 30%,
+      rgba(2, 6, 23, 0.35) 50%,
+      rgba(2, 6, 23, 0.18) 70%,
+      rgba(2, 6, 23, 0.08) 85%,
+      rgba(2, 6, 23, 0.03) 100%
     );
 }
 
@@ -57,27 +53,21 @@
 @media (min-width: 1024px) {
   .hero-overlay--asymmetric-left {
     background:
-      /* Directional: dark left, transparent right */
+      /* Directional: dark left, fading right */
       linear-gradient(
         to right,
-        rgba(2, 6, 23, 0.8) 0%,
-        rgba(2, 6, 23, 0.6) 30%,
-        rgba(2, 6, 23, 0.2) 55%,
-        transparent 75%
+        rgba(2, 6, 23, 0.82) 0%,
+        rgba(2, 6, 23, 0.65) 25%,
+        rgba(2, 6, 23, 0.35) 50%,
+        rgba(2, 6, 23, 0.12) 70%,
+        rgba(2, 6, 23, 0.05) 100%
       ),
-      /* Subtle bottom anchor */
+      /* Bottom anchor for text */
       linear-gradient(
         to top,
-        rgba(2, 6, 23, 0.4) 0%,
-        transparent 40%
-      ),
-      /* Vignette for depth */
-      radial-gradient(
-        ellipse at 70% 45%,
-        transparent 25%,
-        rgba(2, 6, 23, 0.2) 50%,
-        rgba(2, 6, 23, 0.5) 80%,
-        rgba(2, 6, 23, 0.65) 100%
+        rgba(2, 6, 23, 0.5) 0%,
+        rgba(2, 6, 23, 0.2) 30%,
+        transparent 50%
       );
   }
 
@@ -85,27 +75,21 @@
 
   .hero-overlay--asymmetric-right {
     background:
-      /* Directional: dark right, transparent left */
+      /* Directional: dark right, fading left */
       linear-gradient(
         to left,
-        rgba(2, 6, 23, 0.8) 0%,
-        rgba(2, 6, 23, 0.6) 30%,
-        rgba(2, 6, 23, 0.2) 55%,
-        transparent 75%
+        rgba(2, 6, 23, 0.82) 0%,
+        rgba(2, 6, 23, 0.65) 25%,
+        rgba(2, 6, 23, 0.35) 50%,
+        rgba(2, 6, 23, 0.12) 70%,
+        rgba(2, 6, 23, 0.05) 100%
       ),
-      /* Subtle bottom anchor */
+      /* Bottom anchor for text */
       linear-gradient(
         to top,
-        rgba(2, 6, 23, 0.4) 0%,
-        transparent 40%
-      ),
-      /* Vignette for depth */
-      radial-gradient(
-        ellipse at 30% 45%,
-        transparent 25%,
-        rgba(2, 6, 23, 0.2) 50%,
-        rgba(2, 6, 23, 0.5) 80%,
-        rgba(2, 6, 23, 0.65) 100%
+        rgba(2, 6, 23, 0.5) 0%,
+        rgba(2, 6, 23, 0.2) 30%,
+        transparent 50%
       );
   }
 }
@@ -118,10 +102,11 @@
     background:
       linear-gradient(
         to top,
-        rgba(2, 6, 23, 0.75) 0%,
-        rgba(2, 6, 23, 0.5) 30%,
-        rgba(2, 6, 23, 0.3) 60%,
-        rgba(2, 6, 23, 0.15) 100%
+        rgba(2, 6, 23, 0.82) 0%,
+        rgba(2, 6, 23, 0.65) 20%,
+        rgba(2, 6, 23, 0.45) 40%,
+        rgba(2, 6, 23, 0.25) 65%,
+        rgba(2, 6, 23, 0.1) 100%
       );
   }
 }
