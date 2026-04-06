@@ -125,16 +125,3 @@
   background-size: 4px 4px;
 }
 
-/**
- * PNG Texture Overlay
- *
- * Tiling PNG texture for hero sections.
- * Alternative to the CSS dot matrix for comparison.
- *
- * Usage: <div class="pattern-png-texture"></div>
- */
-.pattern-png-texture {
-  @apply absolute inset-0 pointer-events-none;
-  background-repeat: repeat;
-  opacity: 0.4;
-}

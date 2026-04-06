@@ -37,6 +37,7 @@
 @import "./components/spec-list.css";
 @import "./components/carousel.css";
 @import "./components/patterns.css";
+@import "./components/hero-overlay.css";
 
 /* ── Layout ────────────────────────────────────────────────────────── */
 @import "./layout/header.css";

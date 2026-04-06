@@ -26,14 +26,9 @@ $content_position = $args['content_position'] ?? 'left';
 $section_id       = $args['section_id'] ?? 'hero';
 
 // Position-dependent values
-$is_right   = ($content_position === 'right');
-$clip_path  = $is_right
-    ? 'polygon(55% 0, 100% 0, 100% 100%, 40% 100%)'
-    : 'polygon(0 0, 60% 0, 45% 100%, 0% 100%)';
-$grid_fade  = $is_right
-    ? 'pattern-square-grid__overlay--bottom-left'
-    : 'pattern-square-grid__overlay--bottom-right';
-$content_ml = $is_right ? ' lg:ml-auto' : '';
+$is_right      = ($content_position === 'right');
+$overlay_class = $is_right ? 'hero-overlay--asymmetric-right' : 'hero-overlay--asymmetric-left';
+$content_ml    = $is_right ? ' lg:ml-auto' : '';
 ?>
 
 <section class="relative min-h-[70vh] lg:min-h-[80vh] flex items-end lg:items-center overflow-hidden" aria-labelledby="<?php echo esc_attr($section_id); ?>-title">
@@ -59,23 +54,9 @@ $content_ml = $is_right ? ' lg:ml-auto' : '';
         fetchpriority="high"
     >
 
-    <!-- Mobile: solid dark overlay -->
-    <div class="absolute inset-0 bg-slate-950/75 lg:hidden"></div>
-
-    <!-- Desktop: angled dark wedge overlay -->
-    <div
-        class="hidden lg:block absolute inset-0 bg-slate-950/75"
-        style="clip-path: <?php echo esc_attr($clip_path); ?>;"
-    ></div>
-
-    <!-- PNG texture over the full image -->
-    <div class="pattern-png-texture" style="background-image: url('<?php echo esc_url(get_template_directory_uri() . '/assets/images/hero-bg-pattern-bg.png'); ?>');"></div>
-
-    <!-- Subtle gradient bleed at the wedge edge for softness -->
-    <div
-        class="hidden lg:block absolute inset-0"
-        style="background: linear-gradient(105deg, transparent 42%, rgba(0,0,0,0.4) 48%, transparent 55%);"
-    ></div>
+    <!-- Cinematic vignette overlay -->
+    <div class="hero-overlay <?php echo esc_attr($overlay_class); ?>"></div>
+    <div class="hero-overlay__grain"></div>
 
     <!-- Content -->
     <div class="relative z-10 container py-16 lg:py-24">

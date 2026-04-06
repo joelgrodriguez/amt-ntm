@@ -71,8 +71,8 @@ $is_first         = $index === 0;
         >
     <?php endif; ?>
 
-    <div class="hero-slider__overlay"></div>
-    <div class="pattern-png-texture" style="z-index: 2; background-image: url('<?php echo esc_url(get_template_directory_uri() . '/assets/images/hero-bg-pattern-bg.png'); ?>');"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-overlay__grain"></div>
 
     <div class="hero-slider__content">
         <?php if ($category) : ?>

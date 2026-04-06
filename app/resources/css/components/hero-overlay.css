@@ -1,0 +1,127 @@
+/**
+ * Hero Overlay — Cinematic Vignette
+ *
+ * Premium overlay system for all hero sections.
+ * Radial vignette + bottom fade + SVG grain.
+ *
+ * @file hero-overlay.css
+ *
+ * Usage:
+ *   <div class="hero-overlay"></div>
+ *   <div class="hero-overlay__grain"></div>
+ *
+ * Variants:
+ *   .hero-overlay--asymmetric-left   Directional fade for left-positioned text
+ *   .hero-overlay--asymmetric-right  Directional fade for right-positioned text
+ */
+
+/* ── Standard: vignette + bottom fade ─────────────────────────────── */
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    /* Bottom floor-fade */
+    linear-gradient(
+      to top,
+      rgba(2, 6, 23, 0.7) 0%,
+      rgba(2, 6, 23, 0.3) 30%,
+      transparent 60%
+    ),
+    /* Radial vignette */
+    radial-gradient(
+      ellipse at 55% 45%,
+      transparent 20%,
+      rgba(2, 6, 23, 0.15) 45%,
+      rgba(2, 6, 23, 0.5) 75%,
+      rgba(2, 6, 23, 0.75) 100%
+    );
+}
+
+/* ── SVG grain texture ────────────────────────────────────────────── */
+
+.hero-overlay__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  filter: url(#hero-grain-filter);
+}
+
+/* ── Asymmetric: text on the left ─────────────────────────────────── */
+
+@media (min-width: 1024px) {
+  .hero-overlay--asymmetric-left {
+    background:
+      /* Directional: dark left, transparent right */
+      linear-gradient(
+        to right,
+        rgba(2, 6, 23, 0.8) 0%,
+        rgba(2, 6, 23, 0.6) 30%,
+        rgba(2, 6, 23, 0.2) 55%,
+        transparent 75%
+      ),
+      /* Subtle bottom anchor */
+      linear-gradient(
+        to top,
+        rgba(2, 6, 23, 0.4) 0%,
+        transparent 40%
+      ),
+      /* Vignette for depth */
+      radial-gradient(
+        ellipse at 70% 45%,
+        transparent 25%,
+        rgba(2, 6, 23, 0.2) 50%,
+        rgba(2, 6, 23, 0.5) 80%,
+        rgba(2, 6, 23, 0.65) 100%
+      );
+  }
+
+  /* ── Asymmetric: text on the right ────────────────────────────────── */
+
+  .hero-overlay--asymmetric-right {
+    background:
+      /* Directional: dark right, transparent left */
+      linear-gradient(
+        to left,
+        rgba(2, 6, 23, 0.8) 0%,
+        rgba(2, 6, 23, 0.6) 30%,
+        rgba(2, 6, 23, 0.2) 55%,
+        transparent 75%
+      ),
+      /* Subtle bottom anchor */
+      linear-gradient(
+        to top,
+        rgba(2, 6, 23, 0.4) 0%,
+        transparent 40%
+      ),
+      /* Vignette for depth */
+      radial-gradient(
+        ellipse at 30% 45%,
+        transparent 25%,
+        rgba(2, 6, 23, 0.2) 50%,
+        rgba(2, 6, 23, 0.5) 80%,
+        rgba(2, 6, 23, 0.65) 100%
+      );
+  }
+}
+
+/* ── Asymmetric mobile fallback ───────────────────────────────────── */
+
+@media (max-width: 1023px) {
+  .hero-overlay--asymmetric-left,
+  .hero-overlay--asymmetric-right {
+    background:
+      linear-gradient(
+        to top,
+        rgba(2, 6, 23, 0.75) 0%,
+        rgba(2, 6, 23, 0.5) 30%,
+        rgba(2, 6, 23, 0.3) 60%,
+        rgba(2, 6, 23, 0.15) 100%
+      );
+  }
+}
