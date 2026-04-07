@@ -2,7 +2,9 @@
  * Machine Sub-Navigation Module
  *
  * Sticky sub-nav for machine product pages.
- * - Shows after scrolling past the hero
+ * Sits in normal flow below the hero/CTA, then sticks to the viewport top
+ * when the user scrolls past its original position (sentinel-based).
+ *
  * - Highlights the active section link via IntersectionObserver
  * - Smooth scrolls to sections on click
  * - Toggles machine switcher dropdown
@@ -11,6 +13,7 @@
  *
  * @usage Single Machine Product (single-machine.php)
  * @see templates/woo/product/parts/subnav.php
+ * @see css/woo/machine-subnav.css
  */
 
 /**
@@ -19,22 +22,23 @@
  */
 export function initMachineSubnav() {
   const subnav = document.getElementById('machine-subnav');
-  const hero = document.getElementById('machine-hero');
+  const sentinel = document.getElementById('machine-subnav-sentinel');
 
-  if (!subnav || !hero) return () => {};
+  if (!subnav || !sentinel) return () => {};
 
   const controller = new AbortController();
   const { signal } = controller;
 
-  // ── Sticky visibility ────────────────────────────────────────────
+  // ── Sticky behavior (sentinel-based) ────────────────────────────
 
-  const heroObserver = new IntersectionObserver(
+  const stickyObserver = new IntersectionObserver(
     ([entry]) => {
-      subnav.classList.toggle('is-visible', !entry.isIntersecting);
+      const shouldStick = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+      subnav.classList.toggle('is-sticky', shouldStick);
     },
     { threshold: 0 }
   );
-  heroObserver.observe(hero);
+  stickyObserver.observe(sentinel);
 
   // ── Active section tracking ──────────────────────────────────────
 
@@ -57,7 +61,6 @@ export function initMachineSubnav() {
   // Observe each section — the one nearest the top of the viewport wins
   const sectionObserver = new IntersectionObserver(
     (entries) => {
-      // Find the topmost visible section
       let topSection = null;
       let topY = Infinity;
 
@@ -95,8 +98,12 @@ export function initMachineSubnav() {
       if (!target) return;
 
       // Account for header + subnav height
-      const offset =
-        (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height'), 10) || 48) + 48 + 16;
+      const headerH = parseInt(
+        getComputedStyle(document.documentElement).getPropertyValue('--header-height'),
+        10
+      ) || 48;
+      const subnavH = subnav.offsetHeight;
+      const offset = headerH + subnavH + 16;
 
       const y = target.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top: y, behavior: 'smooth' });
@@ -151,7 +158,7 @@ export function initMachineSubnav() {
   // ── Cleanup ──────────────────────────────────────────────────────
 
   return () => {
-    heroObserver.disconnect();
+    stickyObserver.disconnect();
     sectionObserver.disconnect();
     controller.abort();
   };

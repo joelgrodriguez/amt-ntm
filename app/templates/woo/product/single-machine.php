@@ -38,8 +38,6 @@ if (!$machine) {
 
 <main id="primary" class="machine-product">
 
-    <?php get_template_part('templates/woo/product/parts/subnav', null, compact('product', 'machine')); ?>
-
     <div class="flex flex-col min-h-[calc(100dvh-var(--header-height,3rem))]">
         <?php get_template_part('templates/woo/product/parts/hero', null, compact('product', 'machine')); ?>
 
@@ -48,6 +46,8 @@ if (!$machine) {
         <?php // CTA Strip 1: Financing — catches early "can I afford this?" buyers ?>
         <?php get_template_part('templates/woo/product/parts/cta-finance', null, compact('product', 'machine')); ?>
     </div>
+
+    <?php get_template_part('templates/woo/product/parts/subnav', null, compact('product', 'machine')); ?>
 
     <?php get_template_part('templates/woo/product/parts/machine-breakdown', null, compact('machine')); ?>
 

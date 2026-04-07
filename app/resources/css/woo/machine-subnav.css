@@ -1,8 +1,9 @@
 /**
  * Machine Sub-Navigation
  *
- * Sticky bar below the header on machine product pages.
- * Machine switcher (left), section anchors (center), Build CTA (right).
+ * In-flow bar below the hero on machine product pages.
+ * Sticks to the top of the viewport when scrolled past.
+ * Left: machine switcher dropdown. Right: section anchors + Build CTA.
  *
  * @file machine-subnav.css
  *
@@ -14,29 +15,23 @@
 /* ── Container ────────────────────────────────────────────────────── */
 
 .machine-subnav {
+  position: relative;
+  z-index: 40;
+  background-color: white;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.machine-subnav.is-sticky {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 40;
-  background-color: white;
-  border-bottom: 1px solid #e2e8f0;
-  transform: translateY(-100%);
-  opacity: 0;
-  transition: transform 300ms ease-out, opacity 300ms ease-out;
-  pointer-events: none;
 }
 
-.machine-subnav.is-visible {
-  transform: translateY(var(--header-height, 3rem));
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* When header is hidden on scroll-down, snap to top */
-.header--hidden ~ .machine-subnav.is-visible,
-body:has(.header--hidden) .machine-subnav.is-visible {
-  transform: translateY(0);
+/* When header is visible and sticky, sit below it */
+.header--sticky:not(.header--hidden) ~ main .machine-subnav.is-sticky,
+body:has(.header--sticky:not(.header--hidden)) .machine-subnav.is-sticky {
+  top: var(--header-height, 3rem);
 }
 
 .machine-subnav__inner {
@@ -47,11 +42,18 @@ body:has(.header--hidden) .machine-subnav.is-visible {
   gap: 1rem;
 }
 
-/* ── Machine Switcher (left) ──────────────────────────────────────── */
+/* ── Left group: switcher dropdown ───────────────────────────────── */
+
+.machine-subnav__left {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ── Machine Switcher ─────────────────────────────────────────────── */
 
 .machine-subnav__switcher {
   position: relative;
-  flex-shrink: 0;
 }
 
 .machine-subnav__switcher-btn {
@@ -147,7 +149,23 @@ body:has(.header--hidden) .machine-subnav.is-visible {
   color: white;
 }
 
-/* ── Section Anchors (center) ─────────────────────────────────────── */
+/* ── Right group: anchors + Build CTA ────────────────────────────── */
+
+.machine-subnav__right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  height: 100%;
+  min-width: 0;
+}
+
+/* ── Build CTA ────────────────────────────────────────────────────── */
+
+.machine-subnav__cta {
+  flex-shrink: 0;
+}
+
+/* ── Section Anchors ─────────────────────────────────────────────── */
 
 .machine-subnav__links {
   display: flex;
@@ -190,17 +208,17 @@ body:has(.header--hidden) .machine-subnav.is-visible {
   border-bottom-color: var(--color-primary, #0057A0);
 }
 
-/* ── Build CTA (right) ────────────────────────────────────────────── */
-
-.machine-subnav__cta {
-  flex-shrink: 0;
-}
-
 /* ── Responsive ───────────────────────────────────────────────────── */
 
-/* Mobile: hide switcher and CTA, show only links */
 @media (max-width: 767px) {
-  .machine-subnav__switcher,
+  .machine-subnav__left {
+    display: none;
+  }
+
+  .machine-subnav__right {
+    width: 100%;
+  }
+
   .machine-subnav__cta {
     display: none;
   }
@@ -215,7 +233,6 @@ body:has(.header--hidden) .machine-subnav.is-visible {
   }
 }
 
-/* Tablet: show switcher + links, compact CTA */
 @media (min-width: 768px) and (max-width: 1023px) {
   .machine-subnav__link {
     padding: 0 0.625rem;
