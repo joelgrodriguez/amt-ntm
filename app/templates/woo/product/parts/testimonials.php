@@ -63,7 +63,7 @@ $content = [
 ];
 ?>
 
-<section class="social-proof section bg-slate-900" aria-labelledby="testimonials-title">
+<section id="machine-testimonials" class="social-proof section bg-slate-900" aria-labelledby="testimonials-title">
     <div class="container">
         <div class="section-content">
 

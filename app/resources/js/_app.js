@@ -22,6 +22,7 @@ import { initSocialProof, cleanup as cleanupSocialProof } from './modules/Social
 import { initAccordion } from './modules/Accordion.js';
 import { initCarouselNav } from './modules/CarouselNav.js';
 import { initFloatingQuoteCta } from './modules/FloatingQuoteCta.js';
+import { initMachineSubnav } from './modules/MachineSubnav.js';
 
 /** @type {Function|null} Cleanup function for mobile menu */
 let mobileMenuCleanup = null;
@@ -56,6 +57,9 @@ let carouselNavCleanup = null;
 /** @type {Function|null} Cleanup function for floating quote CTA */
 let floatingQuoteCtaCleanup = null;
 
+/** @type {Function|null} Cleanup function for machine sub-nav */
+let machineSubnavCleanup = null;
+
 /**
  * Executes callback when DOM is ready.
  *
@@ -88,6 +92,7 @@ const initApp = () => {
   accordionCleanup = initAccordion();
   carouselNavCleanup = initCarouselNav();
   floatingQuoteCtaCleanup = initFloatingQuoteCta();
+  machineSubnavCleanup = initMachineSubnav();
 };
 
 // Bootstrap
@@ -127,6 +132,9 @@ if (import.meta.hot) {
     }
     if (floatingQuoteCtaCleanup) {
       floatingQuoteCtaCleanup();
+    }
+    if (machineSubnavCleanup) {
+      machineSubnavCleanup();
     }
     // Reinitialize
     initApp();
