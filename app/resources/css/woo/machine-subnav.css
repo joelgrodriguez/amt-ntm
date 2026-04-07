@@ -1,0 +1,223 @@
+/**
+ * Machine Sub-Navigation
+ *
+ * Sticky bar below the header on machine product pages.
+ * Machine switcher (left), section anchors (center), Build CTA (right).
+ *
+ * @file machine-subnav.css
+ *
+ * @usage Single Machine Product (single-machine.php)
+ * @see templates/woo/product/parts/subnav.php
+ * @see js/modules/MachineSubnav.js
+ */
+
+/* ── Container ────────────────────────────────────────────────────── */
+
+.machine-subnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  background-color: white;
+  border-bottom: 1px solid #e2e8f0;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 300ms ease-out, opacity 300ms ease-out;
+  pointer-events: none;
+}
+
+.machine-subnav.is-visible {
+  transform: translateY(var(--header-height, 3rem));
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* When header is hidden on scroll-down, snap to top */
+.header--hidden ~ .machine-subnav.is-visible,
+body:has(.header--hidden) .machine-subnav.is-visible {
+  transform: translateY(0);
+}
+
+.machine-subnav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 3rem;
+  gap: 1rem;
+}
+
+/* ── Machine Switcher (left) ──────────────────────────────────────── */
+
+.machine-subnav__switcher {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.machine-subnav__switcher-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #0f172a;
+  background: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.machine-subnav__switcher-btn:hover {
+  color: var(--color-primary, #0057A0);
+}
+
+.machine-subnav__chevron {
+  transition: transform 200ms ease-out;
+}
+
+.machine-subnav__switcher-btn[aria-expanded="true"] .machine-subnav__chevron {
+  transform: rotate(180deg);
+}
+
+/* ── Dropdown ─────────────────────────────────────────────────────── */
+
+.machine-subnav__dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  min-width: 260px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  padding: 0.5rem 0;
+  z-index: 50;
+}
+
+.machine-subnav__dropdown[hidden] {
+  display: none;
+}
+
+.machine-subnav__dropdown-group {
+  padding: 0.25rem 0;
+}
+
+.machine-subnav__dropdown-group + .machine-subnav__dropdown-group {
+  border-top: 1px solid #f1f5f9;
+}
+
+.machine-subnav__dropdown-label {
+  display: block;
+  padding: 0.5rem 1rem 0.25rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+}
+
+.machine-subnav__dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.8125rem;
+  color: #334155;
+  text-decoration: none;
+  transition: background-color 100ms ease;
+}
+
+.machine-subnav__dropdown-item:hover {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+.machine-subnav__dropdown-item.is-active {
+  font-weight: 600;
+  color: var(--color-primary, #0057A0);
+}
+
+.machine-subnav__badge {
+  font-size: 0.5625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.125rem 0.375rem;
+  background-color: var(--color-primary, #0057A0);
+  color: white;
+}
+
+/* ── Section Anchors (center) ─────────────────────────────────────── */
+
+.machine-subnav__links {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.machine-subnav__links::-webkit-scrollbar {
+  display: none;
+}
+
+.machine-subnav__link {
+  display: flex;
+  align-items: center;
+  height: 3rem;
+  padding: 0 0.875rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #64748b;
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.machine-subnav__link:hover {
+  color: #0f172a;
+}
+
+.machine-subnav__link.is-active {
+  color: #0f172a;
+  font-weight: 600;
+  border-bottom-color: var(--color-primary, #0057A0);
+}
+
+/* ── Build CTA (right) ────────────────────────────────────────────── */
+
+.machine-subnav__cta {
+  flex-shrink: 0;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────── */
+
+/* Mobile: hide switcher and CTA, show only links */
+@media (max-width: 767px) {
+  .machine-subnav__switcher,
+  .machine-subnav__cta {
+    display: none;
+  }
+
+  .machine-subnav__links {
+    width: 100%;
+  }
+
+  .machine-subnav__link {
+    font-size: 0.75rem;
+    padding: 0 0.625rem;
+  }
+}
+
+/* Tablet: show switcher + links, compact CTA */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .machine-subnav__link {
+    padding: 0 0.625rem;
+  }
+}
