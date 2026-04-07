@@ -62,6 +62,7 @@ function get_machine_categories(): array {
                 [
                     'slug'       => 'ssq3-multipro',
                     'name'       => 'SSQ3™ MultiPro',
+                    'short_name' => 'SSQ3™',
                     'year'       => '2025',
                     'image'      => $base . '2025/10/SSQ3_For-Render_Trailer_Flattened-SQUARE.png',
                     'url'        => get_product_url('ssq3-multipro'),
@@ -82,6 +83,7 @@ function get_machine_categories(): array {
                 [
                     'slug'       => 'ssq-ii-multipro',
                     'name'       => 'SSQ II™ MultiPro',
+                    'short_name' => 'SSQ II™',
                     'year'       => '2025',
                     'image'      => $base . '2025/09/20250911_NTM_SSQ-II_1000x1000.png',
                     'url'        => get_product_url('ssq-ii-multipro'),
@@ -102,6 +104,7 @@ function get_machine_categories(): array {
                 [
                     'slug'       => 'ssh-multipro',
                     'name'       => 'SSH™ MultiPro',
+                    'short_name' => 'SSH™',
                     'year'       => '2025',
                     'image'      => $base . '2025/09/20250911_NTM_SSH_1000x1000.png',
                     'url'        => get_product_url('ssh-multipro'),
@@ -122,6 +125,7 @@ function get_machine_categories(): array {
                 [
                     'slug'       => 'ssr-multipro-jr',
                     'name'       => 'SSR™ MultiPro Jr.',
+                    'short_name' => 'SSR™',
                     'year'       => '2025',
                     'image'      => $base . '2025/09/20250911_NTM_SSR_1000x1000.png',
                     'url'        => get_product_url('ssr-multipro-jr'),
@@ -142,6 +146,7 @@ function get_machine_categories(): array {
                 [
                     'slug'       => '5vc-5v-crimp',
                     'name'       => '5V Crimp',
+                    'short_name' => '5V Crimp',
                     'year'       => '2025',
                     'image'      => $base . '2025/09/20250911_NTM_5VC_1000x1000.png',
                     'url'        => get_product_url('5vc-5v-crimp'),
@@ -162,6 +167,7 @@ function get_machine_categories(): array {
                 [
                     'slug'       => 'wav-wall-panel',
                     'name'       => 'WAV™',
+                    'short_name' => 'WAV™',
                     'year'       => '2025',
                     'image'      => $base . '2025/09/20250911_NTM_WAV_1000x1000.png',
                     'url'        => get_product_url('wav-wall-panel'),
@@ -188,6 +194,7 @@ function get_machine_categories(): array {
                 [
                     'slug'       => 'mach-ii-5-gutter',
                     'name'       => 'MACH II™ 5" Gutter Machine',
+                    'short_name' => 'MACH II™ 5"',
                     'year'       => '2026',
                     'image'      => $base . '2025/09/20250911_NTM_MACH-II-5_1000x1000.png',
                     'url'        => get_product_url('mach-ii-5-gutter'),
@@ -210,6 +217,7 @@ function get_machine_categories(): array {
                 [
                     'slug'       => 'mach-ii-6-gutter',
                     'name'       => 'MACH II™ 6" Gutter Machine',
+                    'short_name' => 'MACH II™ 6"',
                     'year'       => '2026',
                     'image'      => $base . '2025/09/20250911_NTM_MACH-II-6_1000x1000.png',
                     'url'        => get_product_url('mach-ii-6-gutter'),
@@ -232,6 +240,7 @@ function get_machine_categories(): array {
                 [
                     'slug'       => 'mach-ii-combo-gutter',
                     'name'       => 'MACH II™ 5"/6" Combo Gutter Machine',
+                    'short_name' => 'MACH II™ 5"/6"',
                     'year'       => '2026',
                     'image'      => $base . '2025/09/20250911_NTM_MACH-II-5-6-Combo_1000x1000.png',
                     'url'        => get_product_url('mach-ii-combo-gutter'),
@@ -254,6 +263,7 @@ function get_machine_categories(): array {
                 [
                     'slug'       => 'bg7-box-gutter',
                     'name'       => 'BG7™',
+                    'short_name' => 'BG7™',
                     'year'       => '2026',
                     'image'      => $base . '2025/09/20250911_NTM_BG7_1000x1000.png',
                     'url'        => get_product_url('bg7-box-gutter'),

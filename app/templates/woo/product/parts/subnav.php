@@ -80,7 +80,7 @@ $categories = function_exists('Standard\MachinesData\get_machine_categories')
                                         href="<?php echo esc_url($m['url'] ?? '#'); ?>"
                                         class="machine-subnav__dropdown-item <?php echo ($m['slug'] === $product->get_slug()) ? 'is-active' : ''; ?>"
                                     >
-                                        <?php echo esc_html($m['name']); ?>
+                                        <?php echo esc_html($m['short_name'] ?? $m['name']); ?>
                                         <?php if (!empty($m['badge'])) : ?>
                                             <span class="machine-subnav__badge"><?php echo esc_html($m['badge']); ?></span>
                                         <?php endif; ?>
