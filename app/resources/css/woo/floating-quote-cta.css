@@ -20,7 +20,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
-  background-color: var(--color-secondary, #F7951D);
+  background-color: var(--color-primary, #0057A0);
   color: white;
   font-size: 0.875rem;
   font-weight: 600;
@@ -46,7 +46,7 @@
 }
 
 .floating-quote-cta:hover {
-  background-color: var(--color-secondary-dark, #e0870e);
+  background-color: var(--color-primary-dark, #004080);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.12);
 }
 
