@@ -9,7 +9,7 @@
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center gap-2 font-medium uppercase tracking-wider;
+    @apply inline-flex items-center justify-center gap-2 font-semibold uppercase tracking-wider;
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary;
     @apply h-12 px-4 min-w-32;
     background-size: 200% 100%;
