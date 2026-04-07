@@ -1,0 +1,68 @@
+/**
+ * Floating Quote CTA
+ *
+ * Fixed bottom-left button on machine product pages.
+ * Slides in from the left after scrolling past the hero.
+ * On mobile, this replaces the scroll-to-top button.
+ *
+ * @file floating-quote-cta.css
+ *
+ * @usage Single Machine Product (single-machine.php)
+ * @see js/modules/FloatingQuoteCta.js
+ */
+
+.floating-quote-cta {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--color-secondary, #F7951D);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition:
+    opacity 300ms ease-out,
+    transform 300ms ease-out,
+    background-color 150ms ease-out,
+    box-shadow 150ms ease-out;
+
+  /* Hidden by default — JS reveals on scroll */
+  opacity: 0;
+  transform: translateX(-1rem);
+  pointer-events: none;
+}
+
+.floating-quote-cta.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.floating-quote-cta:hover {
+  background-color: var(--color-secondary-dark, #e0870e);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.12);
+}
+
+.floating-quote-cta:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+.floating-quote-cta__label {
+  letter-spacing: 0.02em;
+}
+
+/* ── Mobile: hide scroll-to-top on machine pages ──────────────────── */
+
+@media (max-width: 767px) {
+  .machine-product ~ #scroll-to-top {
+    display: none;
+  }
+}
