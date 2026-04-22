@@ -148,3 +148,40 @@ function get_default_machine_data(): array {
         'schema'       => null,
     ];
 }
+
+/**
+ * Resolve a machine data key to its WooCommerce product permalink and name.
+ *
+ * @param string $machine_key Machine data key (e.g. 'mach-ii-5-gutter').
+ * @return array{url: string, name: string}|null Product URL and name, or null.
+ */
+function get_machine_product_link(string $machine_key): ?array {
+    $aliases = get_slug_aliases();
+    $reverse = array_flip($aliases);
+    $slugs   = isset($reverse[$machine_key]) ? [$reverse[$machine_key]] : [$machine_key];
+
+    if (!in_array($machine_key, $slugs, true)) {
+        $slugs[] = $machine_key;
+    }
+
+    foreach ($slugs as $slug) {
+        $posts = get_posts([
+            'post_type'   => 'product',
+            'name'        => $slug,
+            'numberposts' => 1,
+            'fields'      => 'ids',
+        ]);
+
+        if (!empty($posts)) {
+            $product = wc_get_product($posts[0]);
+            if ($product) {
+                return [
+                    'url'  => get_permalink($posts[0]),
+                    'name' => $product->get_name(),
+                ];
+            }
+        }
+    }
+
+    return null;
+}
