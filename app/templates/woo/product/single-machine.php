@@ -51,6 +51,8 @@ if (!$machine) {
 
     <?php get_template_part('templates/woo/product/parts/machine-breakdown', null, compact('machine')); ?>
 
+    <?php get_template_part('templates/woo/product/parts/machine-fit', null, compact('machine')); ?>
+
     <?php get_template_part('templates/woo/product/parts/blueprint', null, compact('machine')); ?>
 
     <?php get_template_part('templates/woo/product/parts/gallery', null, compact('product', 'machine')); ?>
