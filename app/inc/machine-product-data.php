@@ -135,6 +135,7 @@ function get_default_machine_data(): array {
         'stats'        => [],
         'finance'      => null,
         'breakdown'    => [],
+        'fit'          => null,
         'blueprint'    => null,
         'gallery'      => null,
         'profiles'     => null,
