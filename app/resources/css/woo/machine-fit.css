@@ -1,0 +1,55 @@
+/**
+ * Machine Fit — "Is For / Is Not For" Cards
+ *
+ * Mobile-first: stacked cards.
+ * Desktop (md): side-by-side grid.
+ *
+ * @file woo/machine-fit.css
+ */
+
+@layer components {
+  .machine-fit__grid {
+    @apply grid gap-6 md:grid-cols-2;
+  }
+
+  .machine-fit__card {
+    @apply p-6 border-l-4 bg-white;
+  }
+
+  .machine-fit__card--for {
+    @apply border-l-emerald-600 bg-emerald-50/50;
+  }
+
+  .machine-fit__card--not-for {
+    @apply border-l-rose-600 bg-rose-50/50;
+  }
+
+  .machine-fit__heading {
+    @apply flex items-center gap-2 text-lg font-bold mb-4;
+  }
+
+  .machine-fit__heading--for {
+    @apply text-emerald-700;
+  }
+
+  .machine-fit__heading--not-for {
+    @apply text-rose-700;
+  }
+
+  .machine-fit__list {
+    @apply space-y-3 text-base text-slate-700;
+  }
+
+  .machine-fit__list li {
+    @apply leading-relaxed;
+  }
+
+  .machine-fit__alt {
+    @apply text-sm text-slate-500;
+  }
+
+  .machine-fit__link {
+    @apply text-primary underline decoration-primary/30 underline-offset-2
+           hover:decoration-primary transition-colors;
+  }
+}
