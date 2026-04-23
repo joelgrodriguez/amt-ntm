@@ -98,6 +98,22 @@ return [
         ],
     ],
 
+    // ── Fit ──
+    'fit' => [
+        'is_for' => [
+            __('Commercial and industrial gutter contractors running 7" box gutters', 'standard'),
+            __('Operations needing hydraulic drive and shear for heavy-gauge material', 'standard'),
+            __('Contractors processing Grade 50 steel (22–26 ga.) or .040" aluminum', 'standard'),
+            __('Businesses serving commercial building markets', 'standard'),
+        ],
+        'is_not_for' => [
+            ['text' => __('Residential K-style gutter installers', 'standard'), 'machine' => 'mach-ii-combo-gutter'],
+            ['text' => __('Contractors needing 5" or 6" residential gutters', 'standard'), 'machine' => 'mach-ii-5-gutter'],
+            ['text' => __('Roofing contractors needing roof or wall panels', 'standard'), 'machine' => 'ssq3-multipro'],
+            ['text' => __('Copper gutter specialists — BG7 does not process copper', 'standard')],
+        ],
+    ],
+
     // ── Blueprint ──
     'blueprint' => [
         'svg' => 'bg7-machine',

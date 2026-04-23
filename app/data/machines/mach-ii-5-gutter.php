@@ -98,6 +98,22 @@ return [
         ],
     ],
 
+    // ── Fit ──
+    'fit' => [
+        'is_for' => [
+            __('Residential gutter contractors running 5" K-style gutters', 'standard'),
+            __('Budget-conscious businesses wanting proven gutter technology', 'standard'),
+            __('Crews who prefer a lightweight, compact machine (1,000 lbs)', 'standard'),
+            __('Contractors processing steel, aluminum, or copper gutter material', 'standard'),
+        ],
+        'is_not_for' => [
+            ['text' => __('Contractors who also need 6" gutters', 'standard'), 'machine' => 'mach-ii-combo-gutter'],
+            ['text' => __('Commercial box gutter operations', 'standard'), 'machine' => 'bg7-box-gutter'],
+            ['text' => __('Roofing contractors needing roof or wall panels', 'standard'), 'machine' => 'ssr-multipro-jr'],
+            ['text' => __('High-volume operations needing hydraulic drive', 'standard')],
+        ],
+    ],
+
     // ── Blueprint ──
     'blueprint' => [
         'svg' => 'mach-ii-5-machine',

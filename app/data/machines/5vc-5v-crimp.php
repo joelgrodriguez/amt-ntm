@@ -98,6 +98,22 @@ return [
         ],
     ],
 
+    // ── Fit ──
+    'fit' => [
+        'is_for' => [
+            __('Contractors specializing in exposed-fastener 5V crimp roofing', 'standard'),
+            __('Businesses serving markets where 5V crimp is the standard', 'standard'),
+            __('Crews who need hydraulic power and on-site portability', 'standard'),
+            __('Operations running steel, aluminum, or copper materials', 'standard'),
+        ],
+        'is_not_for' => [
+            ['text' => __('Contractors needing concealed-fastener standing seam profiles', 'standard'), 'machine' => 'ssh-multipro'],
+            ['text' => __('High-volume multi-profile commercial operations', 'standard'), 'machine' => 'ssq3-multipro'],
+            ['text' => __('Gutter installers', 'standard'), 'machine' => 'mach-ii-5-gutter'],
+            ['text' => __('Shops focused on wall panel production', 'standard'), 'machine' => 'wav-wall-panel'],
+        ],
+    ],
+
     // ── Blueprint ──
     'blueprint' => [
         'svg' => '5vc-machine',
