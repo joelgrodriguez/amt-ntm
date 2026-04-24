@@ -5,15 +5,14 @@
 @theme {
   /* Colors */
   --color-primary: #0078C2;
-  --color-secondary: #F7951D;
-  --color-accent: #B91C1C;
-  --color-dark: #18181b;
-  --color-dark-medium: #3f3f46;
-  --color-medium: #71717a;
-  --color-light-medium: #d4d4d8;
-  --color-light: #fafafa;
+  --color-secondary: #cd1018;
+  --color-dark: #0f172a;
+  --color-dark-medium: #334155;
+  --color-medium: #64748b;
+  --color-light-medium: #cbd5e1;
+  --color-light: #f8fafc;
   --color-white: #ffffff;
-  --color-border: #e4e4e7;
+  --color-border: #e2e8f0;
 
   /* Font Families */
   --font-sans: "Noto Sans", ui-sans-serif, system-ui, sans-serif;
