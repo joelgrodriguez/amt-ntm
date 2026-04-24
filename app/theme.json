@@ -29,37 +29,32 @@
         {
           "name": "Secondary",
           "slug": "secondary",
-          "color": "#F7951D"
-        },
-        {
-          "name": "Accent",
-          "slug": "accent",
-          "color": "#B91C1C"
+          "color": "#cd1018"
         },
         {
           "name": "Dark",
           "slug": "dark",
-          "color": "#18181b"
+          "color": "#0f172a"
         },
         {
           "name": "Dark Medium",
           "slug": "dark-medium",
-          "color": "#3f3f46"
+          "color": "#334155"
         },
         {
           "name": "Medium",
           "slug": "medium",
-          "color": "#71717a"
+          "color": "#64748b"
         },
         {
           "name": "Light Medium",
           "slug": "light-medium",
-          "color": "#d4d4d8"
+          "color": "#cbd5e1"
         },
         {
           "name": "Light",
           "slug": "light",
-          "color": "#fafafa"
+          "color": "#f8fafc"
         },
         {
           "name": "White",
@@ -69,7 +64,7 @@
         {
           "name": "Border",
           "slug": "border",
-          "color": "#e4e4e7"
+          "color": "#e2e8f0"
         }
       ]
     },
