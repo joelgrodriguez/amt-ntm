@@ -3,7 +3,7 @@
  * Machines Page — Lineup Card
  *
  * Individual machine card for the lineup grid.
- * Shows product image, year, name, highlights, and CTA.
+ * Shows product image, descriptor, name, highlights, and CTA.
  * If machine has price data, shows price + Explore/Build dual CTAs.
  *
  * @package Standard
@@ -39,12 +39,9 @@ $has_price = !empty($machine['price']);
 
     <!-- Content -->
     <div class="p-4 sm:p-6 flex flex-col grow gap-4">
-        <!-- Year + Name -->
+        <!-- Name -->
         <div>
-            <p class="text-sm text-slate-500">
-                <?php echo esc_html($machine['year']); ?>
-            </p>
-            <h4 class="text-2xl font-bold text-slate-900 mt-1">
+            <h4 class="text-2xl font-bold text-slate-900">
                 <a href="<?php echo esc_url($machine['url']); ?>" class="after:absolute after:inset-0 no-underline text-inherit">
                     <?php echo esc_html($machine['name']); ?>
                 </a>

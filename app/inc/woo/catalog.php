@@ -56,8 +56,6 @@ function get_products_by_category(string $category_slug): array {
  * @return array<int, array> Array of product data
  */
 function get_woocommerce_products(string $category_slug): array {
-    $current_year = date('Y');
-
     // Handle "all" category - query each category separately to maintain order
     if ($category_slug === 'all') {
         $all_formatted = [];
@@ -91,7 +89,7 @@ function get_woocommerce_products(string $category_slug): array {
             'id'          => $product->get_id(),
             'title'       => $product->get_name(),
             'tagline'     => $product->get_short_description(),
-            'year'        => $is_accessory ? '' : $current_year,
+            'descriptor'  => $is_accessory ? '' : wp_strip_all_tags($product->get_short_description()),
             'image'       => \wp_get_attachment_url($product->get_image_id()),
             'price'       => $is_accessory ? '' : '$87,245',
             'price_label' => \__('Starting at', 'standard'),
@@ -112,7 +110,6 @@ function get_woocommerce_products(string $category_slug): array {
  */
 function get_sample_products(string $category_slug): array {
     $uploads_url = 'https://newtechmachinery.com/wp-content/uploads';
-    $current_year = date('Y');
 
     $products = [
         'roof-wall-panel-machines' => [
@@ -120,7 +117,7 @@ function get_sample_products(string $category_slug): array {
                 'id'          => 'ssq3-multipro',
                 'title'       => 'SSQ3™ MultiPro',
                 'tagline'     => 'The future of portable roll forming.',
-                'year'        => $current_year,
+                'descriptor'  => 'The most advanced portable roll former ever built',
                 'image'       => $uploads_url . '/2026/01/Screenshot-2026-01-07-at-9.37.43-AM.png',
                 'price'       => '$87,245',
                 'price_label' => \__('Starting at', 'standard'),
@@ -132,7 +129,7 @@ function get_sample_products(string $category_slug): array {
                 'id'          => 'ssq-ii-multipro',
                 'title'       => 'SSQ II™ MultiPro',
                 'tagline'     => 'Versatility meets precision.',
-                'year'        => $current_year,
+                'descriptor'  => 'The proven multi-profile workhorse',
                 'image'       => $uploads_url . '/2025/12/starting-SSQ-on-job-site-1024x576-1.jpg',
                 'price'       => '$87,245',
                 'price_label' => \__('Starting at', 'standard'),
@@ -144,7 +141,7 @@ function get_sample_products(string $category_slug): array {
                 'id'          => 'ssh-multipro',
                 'title'       => 'SSH™ MultiPro',
                 'tagline'     => 'Built for standing seam perfection.',
-                'year'        => $current_year,
+                'descriptor'  => 'Residential & light commercial machine',
                 'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
                 'price'       => '$87,245',
                 'price_label' => \__('Starting at', 'standard'),
@@ -156,7 +153,7 @@ function get_sample_products(string $category_slug): array {
                 'id'          => 'ssr-multipro-jr',
                 'title'       => 'SSR™ MultiPro Jr.',
                 'tagline'     => 'Compact power, professional results.',
-                'year'        => $current_year,
+                'descriptor'  => 'Affordable entry into portable rollforming',
                 'image'       => $uploads_url . '/2023/05/5V-on-site.jpg',
                 'price'       => '$87,245',
                 'price_label' => \__('Starting at', 'standard'),
@@ -168,7 +165,7 @@ function get_sample_products(string $category_slug): array {
                 'id'          => '5vc-5v-crimp',
                 'title'       => '5VC-5V CRIMP™',
                 'tagline'     => 'Classic profiles, modern efficiency.',
-                'year'        => $current_year,
+                'descriptor'  => 'The industry\'s only portable 5V crimp machine',
                 'image'       => $uploads_url . '/2023/05/5V-on-site.jpg',
                 'price'       => '$87,245',
                 'price_label' => \__('Starting at', 'standard'),
@@ -182,7 +179,7 @@ function get_sample_products(string $category_slug): array {
                 'id'          => 'mach-ii-5',
                 'title'       => 'MACH II™ 5"',
                 'tagline'     => 'Speed and precision, job after job.',
-                'year'        => $current_year,
+                'descriptor'  => 'The most trusted 5" gutter machine since 1994',
                 'image'       => $uploads_url . '/2024/07/20240612_NTM_CS-Rain-Gutters-Interview_V1.00_03_30_06.Still002.jpg',
                 'price'       => '$87,245',
                 'price_label' => \__('Starting at', 'standard'),
@@ -194,7 +191,7 @@ function get_sample_products(string $category_slug): array {
                 'id'          => 'mach-ii-6',
                 'title'       => 'MACH II™ 6"',
                 'tagline'     => 'Larger capacity for bigger jobs.',
-                'year'        => $current_year,
+                'descriptor'  => 'Dedicated 6" K-style for larger homes',
                 'image'       => $uploads_url . '/2024/07/20240612_NTM_CS-Rain-Gutters-Interview_V1.00_03_30_06.Still002.jpg',
                 'price'       => '$87,245',
                 'price_label' => \__('Starting at', 'standard'),
@@ -206,7 +203,7 @@ function get_sample_products(string $category_slug): array {
                 'id'          => 'mach-ii-combo',
                 'title'       => 'MACH II™ 5"/6" Combo',
                 'tagline'     => 'Two sizes, one machine.',
-                'year'        => $current_year,
+                'descriptor'  => 'Two gutter sizes, one machine',
                 'image'       => $uploads_url . '/2024/07/20240612_NTM_CS-Rain-Gutters-Interview_V1.00_03_30_06.Still002.jpg',
                 'price'       => '$87,245',
                 'price_label' => \__('Starting at', 'standard'),
@@ -218,7 +215,7 @@ function get_sample_products(string $category_slug): array {
                 'id'          => 'bg7-box-gutter',
                 'title'       => 'BG7™',
                 'tagline'     => 'Commercial-grade, built to last.',
-                'year'        => $current_year,
+                'descriptor'  => 'Commercial-grade 7" box gutter machine',
                 'image'       => $uploads_url . '/2023/09/BG7-forming-gutter-scaled.jpg',
                 'price'       => '$87,245',
                 'price_label' => \__('Starting at', 'standard'),
@@ -232,7 +229,7 @@ function get_sample_products(string $category_slug): array {
                 'id'          => 'coil-reel',
                 'title'       => 'Coil Reel',
                 'tagline'     => 'Smooth, consistent coil feeding.',
-                'year'        => '',
+                'descriptor'  => '',
                 'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
                 'price'       => '',
                 'price_label' => '',
@@ -244,7 +241,7 @@ function get_sample_products(string $category_slug): array {
                 'id'          => 'run-out-stand',
                 'title'       => 'Run-Out Stand',
                 'tagline'     => 'Support for longer panel runs.',
-                'year'        => '',
+                'descriptor'  => '',
                 'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
                 'price'       => '',
                 'price_label' => '',
@@ -256,7 +253,7 @@ function get_sample_products(string $category_slug): array {
                 'id'          => 'slitter',
                 'title'       => 'Slitter Attachment',
                 'tagline'     => 'Precision cutting on the job site.',
-                'year'        => '',
+                'descriptor'  => '',
                 'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
                 'price'       => '',
                 'price_label' => '',
@@ -268,7 +265,7 @@ function get_sample_products(string $category_slug): array {
                 'id'          => 'notcher',
                 'title'       => 'Notcher',
                 'tagline'     => 'Clean notches for seamless seams.',
-                'year'        => '',
+                'descriptor'  => '',
                 'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
                 'price'       => '',
                 'price_label' => '',
@@ -280,7 +277,7 @@ function get_sample_products(string $category_slug): array {
                 'id'          => 'hemmer',
                 'title'       => 'Hemmer',
                 'tagline'     => 'Professional edge finishing.',
-                'year'        => '',
+                'descriptor'  => '',
                 'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
                 'price'       => '',
                 'price_label' => '',
