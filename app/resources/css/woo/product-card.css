@@ -46,10 +46,6 @@
     @apply flex flex-col p-4 grow;
   }
 
-  .card-product__descriptor {
-    @apply text-xs font-medium text-secondary mb-0.5;
-  }
-
   .card-product__title {
     @apply text-lg font-semibold text-slate-900 mb-1;
   }

@@ -23,7 +23,7 @@ if (!$product) {
 
 $title         = $product['title'] ?? '';
 $tagline       = $product['tagline'] ?? '';
-$descriptor    = $product['descriptor'] ?? '';
+// descriptor field available but not displayed
 $image         = $product['image'] ?? '';
 $price         = $product['price'] ?? '';
 $price_label   = $product['price_label'] ?? __('Starting at', 'standard');
@@ -50,10 +50,6 @@ $is_accessory  = empty($price);
     </div>
 
     <div class="card-product__content">
-        <?php if ($descriptor) : ?>
-            <span class="card-product__descriptor"><?php echo esc_html($descriptor); ?></span>
-        <?php endif; ?>
-
         <?php if ($title) : ?>
             <h3 class="card-product__title"><?php echo esc_html($title); ?></h3>
         <?php endif; ?>
