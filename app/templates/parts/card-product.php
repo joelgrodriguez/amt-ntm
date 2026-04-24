@@ -23,7 +23,7 @@ if (!$product) {
 
 $title         = $product['title'] ?? '';
 $tagline       = $product['tagline'] ?? '';
-$year          = $product['year'] ?? '';
+$descriptor    = $product['descriptor'] ?? '';
 $image         = $product['image'] ?? '';
 $price         = $product['price'] ?? '';
 $price_label   = $product['price_label'] ?? __('Starting at', 'standard');
@@ -50,8 +50,8 @@ $is_accessory  = empty($price);
     </div>
 
     <div class="card-product__content">
-        <?php if ($year) : ?>
-            <span class="card-product__year"><?php echo esc_html($year); ?></span>
+        <?php if ($descriptor) : ?>
+            <span class="card-product__descriptor"><?php echo esc_html($descriptor); ?></span>
         <?php endif; ?>
 
         <?php if ($title) : ?>

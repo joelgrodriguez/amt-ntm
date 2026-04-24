@@ -46,8 +46,8 @@
     @apply flex flex-col p-4 grow;
   }
 
-  .card-product__year {
-    @apply text-xs font-medium text-slate-500 mb-0.5;
+  .card-product__descriptor {
+    @apply text-xs font-medium text-secondary mb-0.5;
   }
 
   .card-product__title {
