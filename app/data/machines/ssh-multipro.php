@@ -110,6 +110,22 @@ return [
         ],
     ],
 
+    // ── Fit ──
+    'fit' => [
+        'is_for' => [
+            __('Residential and light commercial roofing contractors', 'standard'),
+            __('Contractors who need hydraulic shear and drive at a mid-range price', 'standard'),
+            __('Businesses running 7 standing seam and snap-lock profiles', 'standard'),
+            __('Crews processing steel, aluminum, copper, or terne-coat stainless', 'standard'),
+        ],
+        'is_not_for' => [
+            ['text' => __('High-volume commercial operations needing 16+ profiles', 'standard'), 'machine' => 'ssq3-multipro'],
+            ['text' => __('Gutter-only installers', 'standard'), 'machine' => 'mach-ii-5-gutter'],
+            ['text' => __('Contractors who only need exposed-fastener 5V crimp', 'standard'), 'machine' => '5vc-5v-crimp'],
+            ['text' => __('Shops focused exclusively on wall panel production', 'standard'), 'machine' => 'wav-wall-panel'],
+        ],
+    ],
+
     // ── Blueprint ──
     'blueprint' => [
         'svg' => 'ssh-machine',

@@ -98,6 +98,22 @@ return [
         ],
     ],
 
+    // ── Fit ──
+    'fit' => [
+        'is_for' => [
+            __('Heavy commercial and industrial wall panel contractors', 'standard'),
+            __('High-volume operations needing up to 150 ft/min production speed', 'standard'),
+            __('Businesses running 8", 12", and 16" WAV-style profiles', 'standard'),
+            __('Operations with 460V 3-phase power or gas engine capability', 'standard'),
+        ],
+        'is_not_for' => [
+            ['text' => __('Residential roofing contractors', 'standard'), 'machine' => 'ssr-multipro-jr'],
+            ['text' => __('Contractors needing standing seam roof panels', 'standard'), 'machine' => 'ssq3-multipro'],
+            ['text' => __('Gutter installers', 'standard'), 'machine' => 'mach-ii-5-gutter'],
+            ['text' => __('Budget-conscious startups — this is the highest-price NTM machine', 'standard')],
+        ],
+    ],
+
     // ── Blueprint ──
     'blueprint' => [
         'svg' => 'wav-machine',

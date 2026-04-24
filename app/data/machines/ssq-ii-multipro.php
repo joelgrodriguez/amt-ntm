@@ -110,6 +110,23 @@ return [
         ],
     ],
 
+    // ── Fit ──
+    'fit' => [
+        'is_for' => [
+            __('High-volume commercial and residential roofing contractors', 'standard'),
+            __('Crews running multiple panel profiles on the same job', 'standard'),
+            __('Businesses that need gas and electric flexibility on-site', 'standard'),
+            __('Contractors processing steel, aluminum, copper, or terne-coat stainless', 'standard'),
+            __('Budget-conscious buyers who want SSQ capability at a lower price', 'standard'),
+        ],
+        'is_not_for' => [
+            ['text' => __('Contractors who want the fastest tooling changeovers', 'standard'), 'machine' => 'ssq3-multipro'],
+            ['text' => __('Residential-only gutter installers', 'standard'), 'machine' => 'mach-ii-5-gutter'],
+            ['text' => __('Shops that only need exposed-fastener panels', 'standard'), 'machine' => '5vc-5v-crimp'],
+            ['text' => __('Budget-conscious startups looking for entry-level rollforming', 'standard'), 'machine' => 'ssr-multipro-jr'],
+        ],
+    ],
+
     // ── Blueprint ──
     'blueprint' => [
         'svg' => 'ssq-ii-machine',

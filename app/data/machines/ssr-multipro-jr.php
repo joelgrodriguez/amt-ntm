@@ -110,6 +110,22 @@ return [
         ],
     ],
 
+    // ── Fit ──
+    'fit' => [
+        'is_for' => [
+            __('Residential roofing contractors entering portable rollforming', 'standard'),
+            __('Budget-conscious businesses looking for an affordable entry point', 'standard'),
+            __('Crews who prefer simple electric-only operation', 'standard'),
+            __('Contractors processing steel, aluminum, or copper up to 24 gauge', 'standard'),
+        ],
+        'is_not_for' => [
+            ['text' => __('High-volume commercial operations needing maximum speed', 'standard'), 'machine' => 'ssq3-multipro'],
+            ['text' => __('Contractors who need gas power or hydraulic shear', 'standard'), 'machine' => 'ssh-multipro'],
+            ['text' => __('Gutter installers', 'standard'), 'machine' => 'mach-ii-5-gutter'],
+            ['text' => __('Shops focused on wall panel or WAV profiles', 'standard'), 'machine' => 'wav-wall-panel'],
+        ],
+    ],
+
     // ── Blueprint ──
     'blueprint' => [
         'svg' => 'ssr-machine',
