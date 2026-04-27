@@ -46,9 +46,9 @@ function theme_setup(): void {
 
     // Register navigation menus
     register_nav_menus([
-        'primary' => __('Primary Menu', 'standard-press'),
-        'mobile'  => __('Mobile Menu', 'standard-press'),
-        'footer'  => __('Footer Menu', 'standard-press'),
+        'primary' => __('Primary Menu', 'standard'),
+        'mobile'  => __('Mobile Menu', 'standard'),
+        'footer'  => __('Footer Menu', 'standard'),
     ]);
 
     // Set content width

@@ -26,7 +26,7 @@ if (!defined('ABSPATH')) {
 <?php wp_body_open(); ?>
 
 <a href="#primary" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-    <?php esc_html_e('Skip to main content', 'standard-press'); ?>
+    <?php esc_html_e('Skip to main content', 'standard'); ?>
 </a>
 
 <header id="site-header" class="bg-white border-b border-slate-200 z-50 transition-colors duration-200">
