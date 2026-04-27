@@ -32,3 +32,18 @@ docs/*.png
 
 # Brainstorm sessions
 .superpowers/
+
+# Office temp/lock files
+.~lock.*#
+~$*
+
+# Local dev tools
+solo.yml
+
+# Local-only planning docs
+docs/*.docx
+docs/*.xlsx
+docs/superpowers/
+docs/content-needs-*.md
+docs/meeting-*.md
+docs/page-outlines-*.md
