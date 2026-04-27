@@ -56,7 +56,7 @@ if (empty($content)) {
                     <div class="section-divider"></div>
                 </div>
 
-                <blockquote class="text-xl font-serif text-slate-800 leading-relaxed lg:text-2xl">
+                <blockquote class="text-xl font-mono text-slate-800 leading-relaxed lg:text-2xl">
                     <span class="text-secondary text-3xl leading-none" aria-hidden="true">&ldquo;</span>
                     <?php echo esc_html($content['quote']); ?>
                     <span class="text-secondary text-3xl leading-none" aria-hidden="true">&rdquo;</span>

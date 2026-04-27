@@ -2,7 +2,7 @@
 /**
  * Roof & Wall Panel Machines — Hero
  *
- * Data wrapper for the shared hero-asymmetric template part.
+ * Data wrapper for the shared hero-category template part.
  *
  * @package Standard
  *
@@ -15,10 +15,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-get_template_part('templates/parts/hero-asymmetric', null, [
-    'section_id'       => 'roof-wall-hero',
-    'content_position' => 'left',
-    'content'          => [
+get_template_part('templates/parts/hero-category', null, [
+    'section_id' => 'roof-wall-hero',
+    'content'    => [
         'eyebrow'           => __('Roof & Wall Panel Machines', 'standard'),
         'title'             => __('Fabricate Panels On-Site. Cut Lead Times by 75%.', 'standard'),
         'subtitle'          => __('Portable rollformers that produce standing seam, flush wall, and board & batten panels right on the jobsite.', 'standard'),

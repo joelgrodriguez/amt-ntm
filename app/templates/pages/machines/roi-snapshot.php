@@ -34,7 +34,7 @@ $stats = get_roi_stats();
     <div class="container section-content">
 
         <div class="section-header">
-            <p class="text-sm font-semibold uppercase tracking-wider text-secondary">
+            <p class="text-sm font-semibold uppercase tracking-wider text-primary">
                 <?php echo esc_html($content['eyebrow']); ?>
             </p>
             <div class="section-divider-center"></div>
@@ -46,7 +46,7 @@ $stats = get_roi_stats();
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto text-center">
             <?php foreach ($stats as $stat) : ?>
                 <div class="grid gap-2">
-                    <span class="text-3xl font-bold text-secondary sm:text-4xl lg:text-5xl">
+                    <span class="text-3xl font-bold text-primary sm:text-4xl lg:text-5xl">
                         <?php echo esc_html($stat['stat']); ?>
                     </span>
                     <span class="text-sm text-slate-400 uppercase tracking-wider">
@@ -57,7 +57,7 @@ $stats = get_roi_stats();
         </div>
 
         <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="<?php echo esc_url($content['cta_url']); ?>" class="btn btn-secondary">
+            <a href="<?php echo esc_url($content['cta_url']); ?>" class="btn btn-primary">
                 <?php echo esc_html($content['cta_text']); ?>
                 <?php icon('dollar-sign', ['class' => 'w-5 h-5']); ?>
             </a>

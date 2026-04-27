@@ -183,7 +183,7 @@ if (empty($case_study)) {
                 <div class="reveal">
                     <div class="bg-slate-900 p-8 md:p-12 lg:p-16 text-center grid gap-6">
                         <?php icon('quote', ['class' => 'w-10 h-10 text-secondary mx-auto']); ?>
-                        <blockquote class="text-xl text-white font-serif leading-relaxed max-w-3xl mx-auto md:text-2xl">
+                        <blockquote class="text-xl text-white font-mono leading-relaxed max-w-3xl mx-auto md:text-2xl">
                             &ldquo;<?php echo esc_html($case_study['quote']['text']); ?>&rdquo;
                         </blockquote>
                         <footer>

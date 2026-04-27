@@ -51,13 +51,13 @@ $expect      = $content['expect_items'] ?? [];
                 <?php if (!empty($expect)) : ?>
                     <!-- What to Expect -->
                     <div class="grid gap-4">
-                        <p class="text-sm font-semibold uppercase tracking-wider text-secondary">
+                        <p class="text-sm font-semibold uppercase tracking-wider text-primary">
                             <?php esc_html_e('What to expect on the call', 'standard'); ?>
                         </p>
                         <ul class="grid gap-3" role="list">
                             <?php foreach ($expect as $item) : ?>
                                 <li class="flex items-start gap-3 text-slate-300">
-                                    <?php icon('check', ['class' => 'w-5 h-5 text-secondary shrink-0 mt-0.5']); ?>
+                                    <?php icon('check', ['class' => 'w-5 h-5 text-primary shrink-0 mt-0.5']); ?>
                                     <span><?php echo esc_html($item); ?></span>
                                 </li>
                             <?php endforeach; ?>
@@ -67,8 +67,8 @@ $expect      = $content['expect_items'] ?? [];
 
                 <?php if (!empty($testimonial)) : ?>
                     <!-- Testimonial -->
-                    <blockquote class="border-l-4 border-secondary pl-5">
-                        <p class="text-slate-300 italic">
+                    <blockquote class="border-l-4 border-primary pl-5">
+                        <p class="text-slate-300 font-mono">
                             &ldquo;<?php echo esc_html($testimonial['quote']); ?>&rdquo;
                         </p>
                         <footer class="mt-2 text-sm text-slate-400">
@@ -83,7 +83,7 @@ $expect      = $content['expect_items'] ?? [];
                 <!-- CTAs -->
                 <div class="grid gap-3">
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="<?php echo esc_url($content['cta_primary_url']); ?>" class="btn btn-secondary btn-lg">
+                        <a href="<?php echo esc_url($content['cta_primary_url']); ?>" class="btn btn-primary btn-lg">
                             <?php echo esc_html($content['cta_primary']); ?>
                             <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                         </a>
@@ -128,7 +128,7 @@ $expect      = $content['expect_items'] ?? [];
                                 loading="lazy"
                             >
                             <div class="bg-slate-800 px-4 py-3">
-                                <p class="text-xs uppercase tracking-wider text-secondary font-semibold">
+                                <p class="text-xs uppercase tracking-wider text-primary font-semibold">
                                     <?php esc_html_e('Book a call with', 'standard'); ?>
                                 </p>
                                 <p class="text-base font-bold text-white">

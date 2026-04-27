@@ -47,7 +47,7 @@
   }
 
   .card-product__title {
-    @apply text-lg font-semibold text-slate-900 mb-1;
+    @apply text-lg font-semibold font-mono text-slate-900 mb-1;
   }
 
   .card-product__tagline {

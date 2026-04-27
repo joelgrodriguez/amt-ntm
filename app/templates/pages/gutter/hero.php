@@ -2,7 +2,7 @@
 /**
  * Seamless Gutter Machines — Hero
  *
- * Data wrapper for the shared hero-asymmetric template part.
+ * Data wrapper for the shared hero-category template part.
  *
  * @package Standard
  *
@@ -15,10 +15,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-get_template_part('templates/parts/hero-asymmetric', null, [
-    'section_id'       => 'gutter-hero',
-    'content_position' => 'right',
-    'content'          => [
+get_template_part('templates/parts/hero-category', null, [
+    'section_id' => 'gutter-hero',
+    'content'    => [
         'eyebrow'           => __('Seamless Gutter Machines', 'standard'),
         'title'             => __('Seamless Gutters. Fabricated On-Site. Ready for Install.', 'standard'),
         'subtitle'          => __('Portable gutter machines that produce seamless K-style and box gutters right on the jobsite — from raw coil to finished product.', 'standard'),

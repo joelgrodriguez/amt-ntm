@@ -101,9 +101,9 @@ $features = [
                         <?php echo esc_html($content['cta_text']); ?>
                         <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                     </a>
-                    <span class="text-sm text-slate-500">
+                    <a href="<?php echo esc_url($content['cta_url']); ?>" class="btn btn-outline-dark btn-lg">
                         <?php echo esc_html($content['cta_note']); ?>
-                    </span>
+                    </a>
                 </div>
             </div>
 

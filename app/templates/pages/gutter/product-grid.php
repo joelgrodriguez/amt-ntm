@@ -19,7 +19,7 @@ use function Standard\MachinesData\get_gutter_machines;
 
 get_template_part('templates/parts/product-grid', null, [
     'section_id' => 'product-grid',
-    'cols'       => 2,
+    'cols'       => 4,
     'machines'   => get_gutter_machines(),
     'content'    => [
         'eyebrow' => __('The Lineup', 'standard'),

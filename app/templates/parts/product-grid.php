@@ -31,7 +31,11 @@ $count        = count($machines);
 $has_overflow  = ($count % $cols !== 0);
 $top_row       = $has_overflow ? array_slice($machines, 0, $cols) : $machines;
 $bottom_row    = $has_overflow ? array_slice($machines, $cols) : [];
-$grid_cols_class = $cols === 2 ? 'sm:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-3';
+$grid_cols_class = match ($cols) {
+    2       => 'sm:grid-cols-2',
+    4       => 'sm:grid-cols-2 lg:grid-cols-4',
+    default => 'sm:grid-cols-2 lg:grid-cols-3',
+};
 ?>
 
 <section id="<?php echo esc_attr($section_id); ?>" class="section" aria-labelledby="<?php echo esc_attr($section_id); ?>-title">

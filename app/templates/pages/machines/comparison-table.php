@@ -3,7 +3,8 @@
  * Machines Page — Comparison Table
  *
  * Responsive machine specs comparison table.
- * Horizontal scroll on mobile, full table on desktop.
+ * Dark header, alternating rows, highlighted flagship column.
+ * Stacks to card layout on mobile, full table on desktop.
  *
  * @package Standard
  *
@@ -25,8 +26,7 @@ $content = [
 
 $machines = get_all_machines();
 
-$columns = [
-    'name'     => __('Machine', 'standard'),
+$rows = [
     'profiles' => __('Profiles', 'standard'),
     'speed'    => __('Speed', 'standard'),
     'power'    => __('Power', 'standard'),
@@ -48,57 +48,95 @@ $columns = [
             </h2>
         </div>
 
-        <!-- Scroll hint on mobile -->
-        <p class="text-xs text-slate-400 text-center mb-2 lg:hidden">
-            <?php icon('arrow-right', ['class' => 'w-3 h-3 inline']); ?>
-            <?php esc_html_e('Scroll to compare', 'standard'); ?>
-        </p>
+        <!-- Mobile: Card layout -->
+        <div class="grid gap-6 sm:grid-cols-2 lg:hidden">
+            <?php foreach ($machines as $machine) :
+                $is_flagship = !empty($machine['badge']);
+            ?>
+                <div class="border <?php echo $is_flagship ? 'border-primary border-2' : 'border-slate-200'; ?>">
+                    <!-- Card header -->
+                    <div class="<?php echo $is_flagship ? 'bg-primary' : 'bg-slate-800'; ?> px-4 py-4 text-center">
+                        <a href="<?php echo esc_url($machine['url']); ?>" class="text-lg font-bold text-white no-underline hover:underline">
+                            <?php echo esc_html($machine['short_name'] ?? $machine['name']); ?>
+                        </a>
+                        <?php if ($is_flagship) : ?>
+                            <span class="block text-xs font-semibold uppercase tracking-wider text-white/70 mt-1">
+                                <?php echo esc_html($machine['badge']); ?>
+                            </span>
+                        <?php endif; ?>
+                    </div>
+                    <!-- Card rows -->
+                    <?php $i = 0; foreach ($rows as $key => $label) : ?>
+                        <div class="flex justify-between px-4 py-3 text-sm border-b border-slate-100 <?php echo ($i % 2 === 0) ? 'bg-white' : 'bg-slate-50'; ?>">
+                            <span class="font-medium text-slate-700"><?php echo esc_html($label); ?></span>
+                            <span class="text-slate-600 text-right"><?php echo esc_html($machine['specs'][$key]); ?></span>
+                        </div>
+                    <?php $i++; endforeach; ?>
+                    <!-- Card CTA -->
+                    <div class="px-4 py-4 bg-white border-t border-slate-200">
+                        <a href="<?php echo esc_url($machine['url']); ?>" class="btn <?php echo $is_flagship ? 'btn-primary' : 'btn-outline-dark'; ?> btn-sm w-full justify-center">
+                            <?php esc_html_e('Explore', 'standard'); ?>
+                        </a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
 
-        <div class="overflow-x-auto -mx-4 lg:mx-0">
-            <table class="w-full text-left text-sm min-w-[700px]">
+        <!-- Desktop: Full table -->
+        <div class="hidden lg:block overflow-x-auto">
+            <table class="w-full text-sm border-collapse border border-slate-200">
+                <!-- Header row: machine names -->
                 <thead>
-                    <tr class="border-b-2 border-slate-300">
-                        <?php $first = true; ?>
-                        <?php foreach ($columns as $col) : ?>
-                            <th class="py-3 px-4 font-semibold text-slate-900 whitespace-nowrap <?php echo $first ? 'sticky left-0 bg-white z-10 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.1)] lg:static lg:shadow-none' : ''; ?>">
-                                <?php echo esc_html($col); ?>
+                    <tr>
+                        <th class="bg-slate-800 text-white py-4 px-5 text-left font-bold text-base border-r border-slate-700">
+                            <?php esc_html_e('Machine', 'standard'); ?>
+                        </th>
+                        <?php foreach ($machines as $machine) :
+                            $is_flagship = !empty($machine['badge']);
+                        ?>
+                            <th class="<?php echo $is_flagship ? 'bg-primary' : 'bg-slate-800'; ?> text-white py-4 px-4 text-center border-r border-slate-700">
+                                <a href="<?php echo esc_url($machine['url']); ?>" class="text-white no-underline hover:underline font-bold text-sm">
+                                    <?php echo esc_html($machine['short_name'] ?? $machine['name']); ?>
+                                </a>
+                                <?php if ($is_flagship) : ?>
+                                    <span class="block text-xs font-semibold uppercase tracking-wider text-white/70 mt-0.5">
+                                        <?php echo esc_html($machine['badge']); ?>
+                                    </span>
+                                <?php endif; ?>
                             </th>
-                            <?php $first = false; ?>
                         <?php endforeach; ?>
                     </tr>
                 </thead>
+                <!-- Data rows -->
                 <tbody>
-                    <?php foreach ($machines as $machine) : ?>
-                        <?php $is_flagship = !empty($machine['badge']); ?>
-                        <?php $row_bg = $is_flagship ? 'bg-primary/5' : 'bg-white'; ?>
-                        <tr class="border-b border-slate-200 <?php echo $is_flagship ? 'font-medium' : ''; ?>">
-                            <td class="py-3 px-4 whitespace-nowrap sticky left-0 <?php echo esc_attr($row_bg); ?> z-10 shadow-[2px_0_4px_-2px_rgba(0,0,0,0.1)] lg:static lg:shadow-none">
-                                <a href="<?php echo esc_url($machine['url']); ?>" class="text-primary font-semibold hover:underline">
-                                    <?php echo esc_html($machine['name']); ?>
-                                </a>
-                                <?php if ($is_flagship) : ?>
-                                    <span class="ml-2 px-1.5 py-0.5 text-xs font-semibold uppercase bg-secondary text-white">
-                                        <?php esc_html_e('New', 'standard'); ?>
-                                    </span>
-                                <?php endif; ?>
+                    <?php $row_idx = 0; foreach ($rows as $key => $label) : ?>
+                        <tr class="border-b border-slate-200 <?php echo ($row_idx % 2 === 0) ? 'bg-white' : 'bg-slate-50'; ?>">
+                            <td class="py-3 px-5 font-medium text-slate-800 border-r border-slate-200 bg-slate-100">
+                                <?php echo esc_html($label); ?>
                             </td>
-                            <td class="py-3 px-4 text-slate-600">
-                                <?php echo esc_html($machine['specs']['profiles']); ?>
-                            </td>
-                            <td class="py-3 px-4 text-slate-600">
-                                <?php echo esc_html($machine['specs']['speed']); ?>
-                            </td>
-                            <td class="py-3 px-4 text-slate-600">
-                                <?php echo esc_html($machine['specs']['power']); ?>
-                            </td>
-                            <td class="py-3 px-4 text-slate-600">
-                                <?php echo esc_html($machine['specs']['shear']); ?>
-                            </td>
-                            <td class="py-3 px-4 text-slate-600">
-                                <?php echo esc_html($machine['specs']['best_for']); ?>
-                            </td>
+                            <?php foreach ($machines as $machine) :
+                                $is_flagship = !empty($machine['badge']);
+                                $value = $machine['specs'][$key] ?? '—';
+                            ?>
+                                <td class="py-3 px-4 text-center text-slate-600 border-r border-slate-200 <?php echo $is_flagship ? 'bg-primary/5' : ''; ?>">
+                                    <?php echo esc_html($value); ?>
+                                </td>
+                            <?php endforeach; ?>
                         </tr>
-                    <?php endforeach; ?>
+                    <?php $row_idx++; endforeach; ?>
+                    <!-- Explore row -->
+                    <tr class="bg-white border-t border-slate-200">
+                        <td class="py-4 px-5 bg-slate-100 border-r border-slate-200"></td>
+                        <?php foreach ($machines as $machine) :
+                            $is_flagship = !empty($machine['badge']);
+                        ?>
+                            <td class="py-4 px-4 text-center border-r border-slate-200 <?php echo $is_flagship ? 'bg-primary/5' : ''; ?>">
+                                <a href="<?php echo esc_url($machine['url']); ?>" class="btn <?php echo $is_flagship ? 'btn-primary' : 'btn-outline-dark'; ?> btn-sm">
+                                    <?php esc_html_e('Explore', 'standard'); ?>
+                                </a>
+                            </td>
+                        <?php endforeach; ?>
+                    </tr>
                 </tbody>
             </table>
         </div>

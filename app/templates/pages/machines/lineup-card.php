@@ -41,7 +41,7 @@ $has_price = !empty($machine['price']);
     <div class="p-4 sm:p-6 flex flex-col grow gap-4">
         <!-- Name -->
         <div>
-            <h4 class="text-2xl font-bold text-slate-900">
+            <h4 class="text-2xl font-bold font-mono text-slate-900">
                 <a href="<?php echo esc_url($machine['url']); ?>" class="after:absolute after:inset-0 no-underline text-inherit">
                     <?php echo esc_html($machine['name']); ?>
                 </a>
