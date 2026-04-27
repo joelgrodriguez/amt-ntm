@@ -32,6 +32,7 @@ $theme_includes = [
     'inc/related-posts.php',
     // WooCommerce integration
     'inc/woo/setup.php',
+    'inc/woo/cache.php',
     'inc/woo/catalog.php',
     'inc/woo/machine-template.php',
     // Machine content data

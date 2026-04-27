@@ -36,8 +36,10 @@ get_header();
     <?php get_template_part('templates/woo/product/parts/compatible-machines', null, compact('product')); ?>
 
     <?php
-    // Related accessories from the same category
-    $related = wc_get_products([
+    // Related accessories from the same category.
+    // Note: 'orderby' => 'rand' is intentionally excluded from cache reuse
+    // by including the current product ID in the args fingerprint.
+    $related = \Standard\Woo\Cache\get_products([
         'category' => ['accessories-add-on-equipment'],
         'exclude'  => [$product->get_id()],
         'limit'    => 4,

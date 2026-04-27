@@ -41,7 +41,7 @@ function get_featured_machines(): array {
     // Build slug → permalink map from WooCommerce
     $permalinks = [];
     if (function_exists('wc_get_products')) {
-        $products = wc_get_products([
+        $products = \Standard\Woo\Cache\get_products([
             'slug'   => array_keys($slider_slugs),
             'limit'  => count($slider_slugs),
             'status' => 'publish',

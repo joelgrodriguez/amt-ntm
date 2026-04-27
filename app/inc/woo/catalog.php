@@ -75,7 +75,7 @@ function get_woocommerce_products(string $category_slug): array {
 
     $is_accessory = $category_slug === 'accessories-add-on-equipment';
 
-    $products = \wc_get_products([
+    $products = \Standard\Woo\Cache\get_products([
         'category' => [$category_slug],
         'limit'    => $is_accessory ? 7 : 10,
         'status'   => 'publish',

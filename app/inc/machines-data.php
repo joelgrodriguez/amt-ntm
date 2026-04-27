@@ -32,7 +32,7 @@ function get_product_url(string $slug): string {
     if ($urls === null) {
         $urls = [];
         if (function_exists('wc_get_products')) {
-            $products = wc_get_products([
+            $products = \Standard\Woo\Cache\get_products([
                 'limit'  => -1,
                 'status' => 'publish',
                 'type'   => 'simple',

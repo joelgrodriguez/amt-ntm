@@ -57,7 +57,7 @@ if ($query_type === 'product') {
         return;
     }
 
-    $products = wc_get_products([
+    $products = \Standard\Woo\Cache\get_products([
         'tag'    => [$product_tag],
         'limit'  => $args['limit'] ?? 12,
         'status' => 'publish',
