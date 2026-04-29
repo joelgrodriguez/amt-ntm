@@ -40,45 +40,36 @@
     height: 100%;
 }
 
-/* Track grid: N columns, each 100% of the viewport width. The track's
- * total width is therefore N × viewport, so translateX percentages
- * resolve relative to that. Per-panel transforms below use index/N as
- * the percentage so the math always lines up regardless of panel count. */
 .mobile-menu__track {
-    /* Per-instance: how many panel columns the grid has. The header
-     * template counts panel-type items in get_mobile_nav_tree() and
-     * sets this on the element; defaulting to 3 covers the current
-     * (root + 2 panels) layout if the inline style is ever omitted. */
-    --panel-count: 3;
-    display: grid;
-    grid-template-columns: repeat(var(--panel-count), 100%);
+    display: flex;
     height: 100%;
     transition: transform 360ms cubic-bezier(0.32, 0.72, 0.16, 1);
     will-change: transform;
 }
 
-/* Each known panel slug shifts the track by its index × (100% / N).
- * Calc evaluates to (-i / N × track_width) = -i × viewport_width — one
- * panel slot per index, which is exactly what we want.
+/* Each panel is exactly one viewport wide, so each active level moves the
+ * track left by one full panel slot.
  * NOTE: when adding a new panel-type item to get_mobile_nav_tree(),
- *   1. bump the default --panel-count above (or set per-instance);
- *   2. add a matching rule here at the next index. */
+ * add a matching rule here at the next index. */
 .mobile-menu__track[data-active-panel="root"] {
     transform: translateX(0);
 }
 .mobile-menu__track[data-active-panel="roof-wall-panel-machines"] {
-    transform: translateX(calc(-100% / var(--panel-count)));
+    transform: translateX(-100%);
 }
 .mobile-menu__track[data-active-panel="seamless-gutter-machines"] {
-    transform: translateX(calc(-200% / var(--panel-count)));
+    transform: translateX(-200%);
+}
+
+.mobile-menu:not(.is-open) .mobile-menu__track {
+    transition: none;
 }
 
 /* ── Panel ────────────────────────────────────────────────────────────── */
 
 .mobile-menu__panel {
-    /* Width is set by the parent grid (one column = 100% of viewport).
-     * min-width:0 lets the grid item shrink properly when content
-     * (like the L2 cards) tries to push it wider. */
+    flex: 0 0 100%;
+    width: 100%;
     min-width: 0;
     height: 100%;
     overflow-y: auto;

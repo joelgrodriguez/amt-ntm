@@ -17,9 +17,6 @@
 
 const DESKTOP_BREAKPOINT = 1024;
 const RESIZE_DEBOUNCE_MS = 100;
-/** Slightly longer than the .mobile-menu opacity transition (240ms) so the
- * panel reset happens after the menu is visually gone. */
-const CLOSE_RESET_DELAY_MS = 280;
 
 /**
  * Initializes the mobile menu functionality.
@@ -41,7 +38,6 @@ export function initMobileMenu() {
   /** @type {HTMLElement | null} Element to refocus when returning to root. */
   let lastTrigger = null;
   let resizeTimeout = null;
-  let closeResetTimeout = null;
 
   const panels = menu.querySelectorAll('.mobile-menu__panel');
 
@@ -74,9 +70,6 @@ export function initMobileMenu() {
   };
 
   const open = () => {
-    // If the user reopens before the close-reset timeout fires, eagerly run
-    // the reset so the menu always lands on root regardless of timing.
-    clearTimeout(closeResetTimeout);
     state.activePanel = 'root';
     lastTrigger = null;
     state.isOpen = true;
@@ -85,15 +78,9 @@ export function initMobileMenu() {
 
   const close = () => {
     state.isOpen = false;
+    state.activePanel = 'root';
+    lastTrigger = null;
     render();
-    // Reset to root after the close transition completes so the rewind
-    // isn't visible to the user.
-    clearTimeout(closeResetTimeout);
-    closeResetTimeout = setTimeout(() => {
-      state.activePanel = 'root';
-      lastTrigger = null;
-      render();
-    }, CLOSE_RESET_DELAY_MS);
   };
 
   /**
@@ -200,6 +187,5 @@ export function initMobileMenu() {
     document.removeEventListener('keydown', handleKeydown);
     window.removeEventListener('resize', handleResize);
     clearTimeout(resizeTimeout);
-    clearTimeout(closeResetTimeout);
   };
 }
