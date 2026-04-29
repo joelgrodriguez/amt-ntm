@@ -2,8 +2,8 @@
  * Mobile Menu
  *
  * Two-level slide-in panel menu. The track holds the L1 panel and one panel
- * per product category, laid out horizontally. JS toggles
- * data-active-panel="<slug>" on the track to translate it.
+ * per product category, laid out horizontally. JS translates the track by the
+ * active panel's measured offset.
  */
 
 /* ── Container: closed state ──────────────────────────────────────────── */
@@ -130,7 +130,7 @@
     justify-content: flex-start;
     padding: 1rem 1.25rem;
     font-family: var(--font-mono);
-    font-size: 0.875rem;
+    font-size: var(--text-xs);
     font-weight: 500;
     color: var(--color-dark-medium);
 }
@@ -150,8 +150,6 @@
 }
 
 .mobile-menu__row-chevron {
-    /* Tailwind v4 emits --color-slate-400 from the default palette; no
-     * semantic token in tokens.css matches this exact tone. */
     color: var(--color-slate-400);
     flex-shrink: 0;
 }

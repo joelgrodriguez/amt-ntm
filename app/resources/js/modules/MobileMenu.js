@@ -11,11 +11,11 @@
  *   - .mobile-menu__panel              — sibling panels with data-panel="<slug>"
  *   - [data-panel-target="<slug>"]     — L1 row that drills into a panel
  *   - [data-action="back"]             — drills back to root
- *   - [data-action="close"]            — closes the menu from any panel
  *
  * @module MobileMenu
  */
 
+const ROOT_PANEL = 'root';
 const DESKTOP_BREAKPOINT = 1024;
 const RESIZE_DEBOUNCE_MS = 100;
 
@@ -34,14 +34,31 @@ export function initMobileMenu() {
 
   if (!toggle || !menu || !viewport || !track) return;
 
-  /** @type {{ isOpen: boolean, activePanel: string }} */
-  const state = { isOpen: false, activePanel: 'root' };
+  /** @type {{ isOpen: boolean, activePanel: string, lastTrigger: HTMLElement | null }} */
+  const state = {
+    isOpen: false,
+    activePanel: ROOT_PANEL,
+    lastTrigger: null,
+  };
 
-  /** @type {HTMLElement | null} Element to refocus when returning to root. */
-  let lastTrigger = null;
   let resizeTimeout = null;
 
   const panels = menu.querySelectorAll('.mobile-menu__panel');
+  const pageElements = document.querySelectorAll(
+    'main, footer, #site-header a, #site-header button:not(#mobile-menu-toggle)'
+  );
+
+  /**
+   * @param {string} slug
+   * @returns {Element|null}
+   */
+  const getPanel = (slug) => {
+    for (const panel of panels) {
+      if (panel.dataset.panel === slug) return panel;
+    }
+
+    return null;
+  };
 
   /**
    * Positions the track so the active panel starts flush with the viewport.
@@ -52,36 +69,31 @@ export function initMobileMenu() {
     // Focus on off-screen panels can change scrollLeft even with overflow hidden.
     // Keep the clip window fixed; panel movement belongs only to the track.
     viewport.scrollLeft = 0;
-    const activePanel = [...panels].find((panel) => panel.dataset.panel === state.activePanel);
+    const activePanel = getPanel(state.activePanel);
     const offset = activePanel instanceof HTMLElement ? activePanel.offsetLeft : 0;
     track.style.transform = `translate3d(${-offset}px, 0, 0)`;
     viewport.scrollLeft = 0;
   };
 
-  /**
-   * Sync DOM to current state. Idempotent.
-   */
-  const render = () => {
-    // Open/close visibility and aria
+  const syncOpenState = () => {
     menu.classList.toggle('is-open', state.isOpen);
     menu.setAttribute('aria-hidden', String(!state.isOpen));
     menu.inert = !state.isOpen;
     toggle.setAttribute('aria-expanded', String(state.isOpen));
 
-    // Hamburger icon swap
     iconOpen?.classList.toggle('hidden', state.isOpen);
     iconClose?.classList.toggle('hidden', !state.isOpen);
 
-    // Body scroll lock + main/footer inert
     document.body.classList.toggle('overflow-hidden', state.isOpen);
-    const main = document.querySelector('main');
-    const footer = document.querySelector('footer');
-    if (main) main.inert = state.isOpen;
-    if (footer) footer.inert = state.isOpen;
+    pageElements.forEach((element) => {
+      element.inert = state.isOpen;
+    });
+  };
 
-    // Active panel
+  const syncPanels = () => {
     track.setAttribute('data-active-panel', state.activePanel);
     positionTrack();
+
     panels.forEach((panel) => {
       const isActive = panel.dataset.panel === state.activePanel;
       panel.setAttribute('aria-hidden', String(!isActive));
@@ -89,9 +101,24 @@ export function initMobileMenu() {
     });
   };
 
+  /**
+   * Sync DOM to current state. Idempotent.
+   */
+  const render = () => {
+    syncOpenState();
+    syncPanels();
+  };
+
+  const resetMenu = () => {
+    state.isOpen = false;
+    state.activePanel = ROOT_PANEL;
+    state.lastTrigger = null;
+    render();
+  };
+
   const open = () => {
-    state.activePanel = 'root';
-    lastTrigger = null;
+    state.activePanel = ROOT_PANEL;
+    state.lastTrigger = null;
     render();
     // Force the closed/root state to commit before opening, so reopening from
     // an L2 panel can never animate or flash from the previous panel.
@@ -101,10 +128,7 @@ export function initMobileMenu() {
   };
 
   const close = () => {
-    state.isOpen = false;
-    state.activePanel = 'root';
-    lastTrigger = null;
-    render();
+    resetMenu();
   };
 
   /**
@@ -115,10 +139,10 @@ export function initMobileMenu() {
     // Guard: if the markup references a slug with no matching panel, do
     // nothing. Prevents a typo'd data-panel-target from putting the track
     // into an invisible-broken state (active=bogus, no CSS rule, stuck on L1).
-    const newPanel = menu.querySelector(`[data-panel="${slug}"]`);
+    const newPanel = getPanel(slug);
     if (!newPanel) return;
 
-    lastTrigger = trigger;
+    state.lastTrigger = trigger;
     state.activePanel = slug;
     render();
 
@@ -128,16 +152,16 @@ export function initMobileMenu() {
   };
 
   const goBack = () => {
-    state.activePanel = 'root';
+    state.activePanel = ROOT_PANEL;
     render();
-    if (lastTrigger instanceof HTMLElement) {
-      lastTrigger.focus({ preventScroll: true });
-      lastTrigger = null;
+    if (state.lastTrigger instanceof HTMLElement) {
+      state.lastTrigger.focus({ preventScroll: true });
+      state.lastTrigger = null;
     }
   };
 
   /**
-   * Click delegation inside the menu: drill in / back / close.
+   * Click delegation inside the menu: drill in / back.
    *
    * @param {MouseEvent} e
    */
@@ -161,10 +185,6 @@ export function initMobileMenu() {
       if (action === 'back') {
         e.preventDefault();
         goBack();
-      } else if (action === 'close') {
-        e.preventDefault();
-        close();
-        toggle.focus();
       }
     }
   };
@@ -215,5 +235,6 @@ export function initMobileMenu() {
     document.removeEventListener('keydown', handleKeydown);
     window.removeEventListener('resize', handleResize);
     clearTimeout(resizeTimeout);
+    resetMenu();
   };
 }
