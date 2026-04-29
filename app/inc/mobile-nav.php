@@ -27,8 +27,11 @@ if (!defined('ABSPATH')) {
  *           - the two may match (e.g. roof-wall-panel-machines) or differ
  *             (e.g. slug=seamless-gutter-machines, category=gutter-machines)
  *       - link items navigate directly; require label, url
- *   - featured: optional card-style CTA rendered between the top and bottom
- *     groups on the L1 panel; requires label, subtitle, url, image
+ *   - featured: optional card-style CTA rendered above the top group on
+ *     the L1 panel; requires label, subtitle, url, image
+ *   - contact: optional brand-red CTA banner rendered between the top
+ *     group and the secondary group on the L1 panel; requires label,
+ *     url; may include an optional icon
  *   - bottom: array of secondary link items rendered at the panel bottom
  *       - each requires label, url; may include an optional `icon` (icon
  *         name from app/assets/icons/ rendered to the left of the label)
@@ -71,6 +74,11 @@ function get_mobile_nav_tree(): array {
             // (hero.image). Hardcoded here rather than reaching across systems.
             'image'    => 'https://newtechmachinery.com/wp-content/uploads/2025/09/Machine-on-rooftop-scaled.jpg',
         ],
+        'contact' => [
+            'label' => __('Contact us', 'standard'),
+            'url'   => '/contact/',
+            'icon'  => 'mail',
+        ],
         'bottom' => [
             [
                 'type'  => 'link',
@@ -89,12 +97,6 @@ function get_mobile_nav_tree(): array {
                 'label' => __('About', 'standard'),
                 'url'   => '/about/',
                 'icon'  => 'help-circle',
-            ],
-            [
-                'type'  => 'link',
-                'label' => __('Contact', 'standard'),
-                'url'   => '/contact/',
-                'icon'  => 'mail',
             ],
         ],
     ];

@@ -128,6 +128,20 @@ if (!defined('ABSPATH')) {
                     <?php endforeach; ?>
                 </ul>
 
+                <?php if (!empty($mobile_nav['contact'])) : $contact = $mobile_nav['contact']; ?>
+                    <a class="mobile-menu__contact" href="<?php echo esc_url($contact['url']); ?>">
+                        <?php if (!empty($contact['icon'])) : ?>
+                            <span class="mobile-menu__contact-icon" aria-hidden="true">
+                                <?php icon($contact['icon'], ['class' => 'w-5 h-5']); ?>
+                            </span>
+                        <?php endif; ?>
+                        <span class="mobile-menu__contact-label"><?php echo esc_html($contact['label']); ?></span>
+                        <span class="mobile-menu__contact-arrow" aria-hidden="true">
+                            <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                        </span>
+                    </a>
+                <?php endif; ?>
+
                 <ul class="mobile-menu__list mobile-menu__list--bottom">
                     <?php foreach ($mobile_nav['bottom'] as $item) : ?>
                         <li class="mobile-menu__item">
