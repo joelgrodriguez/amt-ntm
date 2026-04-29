@@ -98,7 +98,12 @@
  * as a less-important, supporting region. */
 .mobile-menu__list--bottom {
     margin-top: auto;
+    padding: 1.25rem 0;
     background: var(--color-light);
+    border-top: 1px solid var(--color-border);
+}
+
+.mobile-menu__list--bottom .mobile-menu__item + .mobile-menu__item {
     border-top: 1px solid var(--color-border);
 }
 
@@ -128,9 +133,9 @@
 .mobile-menu__row--secondary {
     gap: 0.875rem;
     justify-content: flex-start;
-    padding: 0.75rem 1.25rem;
+    padding: 1rem 1.25rem;
     font-family: var(--font-mono);
-    font-size: 0.9375rem;
+    font-size: 0.875rem;
     font-weight: 500;
     color: var(--color-dark-medium);
 }
