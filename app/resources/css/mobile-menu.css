@@ -10,12 +10,12 @@
 
 .mobile-menu {
     position: fixed;
-    top: 3rem;             /* below the 48px (h-12) site header */
+    top: var(--header-height, 3rem);
     left: 0;
     right: 0;
     bottom: 0;
     z-index: 40;
-    background: white;
+    background: var(--color-white);
     pointer-events: none;
     opacity: 0;
     transform: translateY(-0.5rem);
@@ -44,7 +44,10 @@
     will-change: transform;
 }
 
-/* Each known panel slug shifts the track. Add a rule per panel. */
+/* Each known panel slug shifts the track by its index in the panel list.
+ * NOTE: when adding a new panel-type item to get_mobile_nav_tree(), add a
+ * matching rule here at the next -100% increment, otherwise the new panel
+ * renders off-screen with no slide. */
 .mobile-menu__track[data-active-panel="root"] {
     transform: translateX(0);
 }
@@ -77,11 +80,11 @@
 }
 
 .mobile-menu__item {
-    border-bottom: 1px solid var(--color-slate-200, #e2e8f0);
+    border-bottom: 1px solid var(--color-border);
 }
 
 .mobile-menu__list--top .mobile-menu__item:first-child {
-    border-top: 1px solid var(--color-slate-200, #e2e8f0);
+    border-top: 1px solid var(--color-border);
 }
 
 .mobile-menu__row {
@@ -94,7 +97,7 @@
     border: 0;
     text-align: left;
     text-decoration: none;
-    color: var(--color-slate-900, #0f172a);
+    color: var(--color-dark);
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
@@ -103,17 +106,19 @@
 
 .mobile-menu__row:hover,
 .mobile-menu__row:focus-visible {
-    background: var(--color-slate-50, #f8fafc);
+    background: var(--color-light);
     outline: none;
 }
 
 .mobile-menu__row--secondary {
     font-weight: 500;
-    color: var(--color-slate-700, #334155);
+    color: var(--color-dark-medium);
 }
 
 .mobile-menu__row-chevron {
-    color: var(--color-slate-400, #94a3b8);
+    /* Tailwind v4 emits --color-slate-400 from the default palette; no
+     * semantic token in tokens.css matches this exact tone. */
+    color: var(--color-slate-400);
     flex-shrink: 0;
 }
 
@@ -123,7 +128,9 @@
     border: 0;
     height: 8px;
     margin: 0;
-    background: var(--color-slate-100, #f1f5f9);
+    /* Slightly darker than --color-light (slate-50) so the band reads as a
+     * visual separator distinct from row hover. */
+    background: var(--color-slate-100);
 }
 
 /* ── L2: sub-header (sticky, three-column grid) ───────────────────────── */
@@ -136,8 +143,8 @@
     grid-template-columns: 3rem 1fr 3rem;
     align-items: center;
     height: 3rem;
-    background: white;
-    border-bottom: 1px solid var(--color-slate-200, #e2e8f0);
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-border);
 }
 
 .mobile-menu__panel-title {
@@ -145,7 +152,7 @@
     font-size: 1rem;
     font-weight: 700;
     text-align: center;
-    color: var(--color-slate-900, #0f172a);
+    color: var(--color-dark);
 }
 
 .mobile-menu__back,
@@ -157,7 +164,7 @@
     height: 3rem;
     background: transparent;
     border: 0;
-    color: var(--color-slate-700, #334155);
+    color: var(--color-dark-medium);
     cursor: pointer;
     transition: background-color 150ms ease;
 }
@@ -166,7 +173,7 @@
 .mobile-menu__back:focus-visible,
 .mobile-menu__close:hover,
 .mobile-menu__close:focus-visible {
-    background: var(--color-slate-100, #f1f5f9);
+    background: var(--color-slate-100);
     outline: none;
 }
 
@@ -203,22 +210,27 @@
     text-align: center;
     text-decoration: none;
     font-weight: 600;
-    color: var(--color-slate-900, #0f172a);
-    border: 1px solid var(--color-slate-300, #cbd5e1);
+    color: var(--color-dark);
+    border: 1px solid var(--color-light-medium);
     border-radius: 0.5rem;
     transition: background-color 150ms ease;
 }
 
 .mobile-menu__view-all:hover,
 .mobile-menu__view-all:focus-visible {
-    background: var(--color-slate-50, #f8fafc);
+    background: var(--color-light);
     outline: none;
 }
 
 /* ── Reduced motion ───────────────────────────────────────────────────── */
 
+/* Kill the slide animation; keep the container fade. WCAG's reduced-motion
+ * intent is to suppress motion (translation), not opacity transitions. */
 @media (prefers-reduced-motion: reduce) {
-    .mobile-menu,
+    .mobile-menu {
+        transition: opacity 200ms ease;
+    }
+
     .mobile-menu__track {
         transition: none;
     }
