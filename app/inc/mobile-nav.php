@@ -64,15 +64,21 @@ function get_mobile_nav_tree(): array {
         'bottom' => [
             [
                 'type'  => 'link',
+                'label' => __('View All Machines', 'standard'),
+                'url'   => '/machines/',
+                'icon'  => 'settings',
+            ],
+            [
+                'type'  => 'link',
                 'label' => __('Service & Repair', 'standard'),
                 'url'   => '/service-training/',
-                'icon'  => 'settings',
+                'icon'  => 'life-buoy',
             ],
             [
                 'type'  => 'link',
                 'label' => __('Learning Center', 'standard'),
                 'url'   => '/learning-center/',
-                'icon'  => 'file-text',
+                'icon'  => 'graduation-cap',
             ],
             [
                 'type'  => 'link',
