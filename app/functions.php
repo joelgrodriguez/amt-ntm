@@ -24,6 +24,7 @@ define('THEME_URI', get_template_directory_uri());
 $theme_includes = [
     'inc/vite.php',
     'inc/setup.php',
+    'inc/mobile-nav.php',
     'inc/sidebars.php',
     'inc/fonts.php',
     'inc/icons.php',
