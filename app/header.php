@@ -96,6 +96,21 @@ if (!defined('ABSPATH')) {
 
             <!-- L1 (root) panel -->
             <section class="mobile-menu__panel" data-panel="root" aria-hidden="false">
+                <?php if (!empty($mobile_nav['featured'])) : $featured = $mobile_nav['featured']; ?>
+                    <a class="mobile-menu__featured" href="<?php echo esc_url($featured['url']); ?>">
+                        <span class="mobile-menu__featured-image" aria-hidden="true">
+                            <img src="<?php echo esc_url($featured['image']); ?>" alt="" loading="lazy" />
+                        </span>
+                        <span class="mobile-menu__featured-text">
+                            <span class="mobile-menu__featured-label"><?php echo esc_html($featured['label']); ?></span>
+                            <span class="mobile-menu__featured-subtitle">
+                                <?php echo esc_html($featured['subtitle']); ?>
+                                <?php icon('arrow-right', ['class' => 'w-3.5 h-3.5']); ?>
+                            </span>
+                        </span>
+                    </a>
+                <?php endif; ?>
+
                 <ul class="mobile-menu__list mobile-menu__list--top">
                     <?php foreach ($mobile_nav['top'] as $item) : ?>
                         <li class="mobile-menu__item">
@@ -112,21 +127,6 @@ if (!defined('ABSPATH')) {
                         </li>
                     <?php endforeach; ?>
                 </ul>
-
-                <?php if (!empty($mobile_nav['featured'])) : $featured = $mobile_nav['featured']; ?>
-                    <a class="mobile-menu__featured" href="<?php echo esc_url($featured['url']); ?>">
-                        <span class="mobile-menu__featured-image" aria-hidden="true">
-                            <img src="<?php echo esc_url($featured['image']); ?>" alt="" loading="lazy" />
-                        </span>
-                        <span class="mobile-menu__featured-text">
-                            <span class="mobile-menu__featured-label"><?php echo esc_html($featured['label']); ?></span>
-                            <span class="mobile-menu__featured-subtitle">
-                                <?php echo esc_html($featured['subtitle']); ?>
-                                <?php icon('arrow-right', ['class' => 'w-3.5 h-3.5']); ?>
-                            </span>
-                        </span>
-                    </a>
-                <?php endif; ?>
 
                 <ul class="mobile-menu__list mobile-menu__list--bottom">
                     <?php foreach ($mobile_nav['bottom'] as $item) : ?>

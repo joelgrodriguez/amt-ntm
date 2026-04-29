@@ -86,10 +86,6 @@
     border-bottom: 1px solid var(--color-border);
 }
 
-.mobile-menu__list--top .mobile-menu__item:first-child {
-    border-top: 1px solid var(--color-border);
-}
-
 /* Push the secondary group to the panel bottom and tint it so it reads
  * as a less-important, supporting region. */
 .mobile-menu__list--bottom {
@@ -99,29 +95,24 @@
 
 /* ── L1: featured CTA card ────────────────────────────────────────────── */
 
-/* Sits in the flow between the top group and the (bottom-pinned) secondary
- * group. margin-top:auto on this card pushes the secondary group to the
- * very bottom while letting the card itself float just above it. */
+/* Edge-to-edge banner at the top of the L1 panel. Acts as the hero
+ * affordance ("Find your machine") above the chevron rows. No outer
+ * margin or border-radius — the card spans the full viewport width and
+ * sits flush under the L2 sub-header / page header. */
 .mobile-menu__featured {
     display: flex;
     align-items: stretch;
     gap: 0;
-    margin: auto 1.25rem 1.25rem;
     background: var(--color-white);
-    border: 1px solid var(--color-border);
-    border-radius: 0.75rem;
-    overflow: hidden;
+    border-bottom: 1px solid var(--color-border);
     text-decoration: none;
     color: inherit;
-    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 12px rgba(15, 23, 42, 0.06);
-    transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+    transition: background-color 150ms ease;
 }
 
 .mobile-menu__featured:hover,
 .mobile-menu__featured:focus-visible {
-    transform: translateY(-1px);
-    border-color: var(--color-light-medium);
-    box-shadow: 0 2px 4px rgba(15, 23, 42, 0.06), 0 8px 18px rgba(15, 23, 42, 0.08);
+    background: var(--color-light);
     outline: none;
 }
 
