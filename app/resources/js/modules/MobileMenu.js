@@ -6,6 +6,7 @@
  *   - #mobile-menu-toggle              — hamburger button in the site header
  *   - #menu-icon-open / #menu-icon-close — hamburger / X icons swapped via .hidden
  *   - #mobile-menu                     — root <nav>; .is-open class drives visibility
+ *   - #mobile-menu .mobile-menu__viewport — clipped panel viewport
  *   - #mobile-menu .mobile-menu__track — flex container moved by exact panel offset
  *   - .mobile-menu__panel              — sibling panels with data-panel="<slug>"
  *   - [data-panel-target="<slug>"]     — L1 row that drills into a panel
@@ -28,9 +29,10 @@ export function initMobileMenu() {
   const menu = document.querySelector('#mobile-menu');
   const iconOpen = document.querySelector('#menu-icon-open');
   const iconClose = document.querySelector('#menu-icon-close');
+  const viewport = menu?.querySelector('.mobile-menu__viewport');
   const track = menu?.querySelector('.mobile-menu__track');
 
-  if (!toggle || !menu || !track) return;
+  if (!toggle || !menu || !viewport || !track) return;
 
   /** @type {{ isOpen: boolean, activePanel: string }} */
   const state = { isOpen: false, activePanel: 'root' };
@@ -47,9 +49,13 @@ export function initMobileMenu() {
    * against the transformed element's own box, not the clipped viewport.
    */
   const positionTrack = () => {
+    // Focus on off-screen panels can change scrollLeft even with overflow hidden.
+    // Keep the clip window fixed; panel movement belongs only to the track.
+    viewport.scrollLeft = 0;
     const activePanel = [...panels].find((panel) => panel.dataset.panel === state.activePanel);
     const offset = activePanel instanceof HTMLElement ? activePanel.offsetLeft : 0;
     track.style.transform = `translate3d(${-offset}px, 0, 0)`;
+    viewport.scrollLeft = 0;
   };
 
   /**
@@ -59,6 +65,7 @@ export function initMobileMenu() {
     // Open/close visibility and aria
     menu.classList.toggle('is-open', state.isOpen);
     menu.setAttribute('aria-hidden', String(!state.isOpen));
+    menu.inert = !state.isOpen;
     toggle.setAttribute('aria-expanded', String(state.isOpen));
 
     // Hamburger icon swap
@@ -78,6 +85,7 @@ export function initMobileMenu() {
     panels.forEach((panel) => {
       const isActive = panel.dataset.panel === state.activePanel;
       panel.setAttribute('aria-hidden', String(!isActive));
+      panel.inert = !isActive;
     });
   };
 
@@ -116,14 +124,14 @@ export function initMobileMenu() {
 
     // Move focus to the new panel's back button for keyboard/SR users.
     const backBtn = newPanel.querySelector('[data-action="back"]');
-    if (backBtn instanceof HTMLElement) backBtn.focus();
+    if (backBtn instanceof HTMLElement) backBtn.focus({ preventScroll: true });
   };
 
   const goBack = () => {
     state.activePanel = 'root';
     render();
     if (lastTrigger instanceof HTMLElement) {
-      lastTrigger.focus();
+      lastTrigger.focus({ preventScroll: true });
       lastTrigger = null;
     }
   };
