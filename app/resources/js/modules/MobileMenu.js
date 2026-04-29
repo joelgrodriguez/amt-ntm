@@ -6,7 +6,7 @@
  *   - #mobile-menu-toggle              — hamburger button in the site header
  *   - #menu-icon-open / #menu-icon-close — hamburger / X icons swapped via .hidden
  *   - #mobile-menu                     — root <nav>; .is-open class drives visibility
- *   - #mobile-menu .mobile-menu__track — flex container; data-active-panel="<slug>"
+ *   - #mobile-menu .mobile-menu__track — flex container moved by exact panel offset
  *   - .mobile-menu__panel              — sibling panels with data-panel="<slug>"
  *   - [data-panel-target="<slug>"]     — L1 row that drills into a panel
  *   - [data-action="back"]             — drills back to root
@@ -42,6 +42,17 @@ export function initMobileMenu() {
   const panels = menu.querySelectorAll('.mobile-menu__panel');
 
   /**
+   * Positions the track so the active panel starts flush with the viewport.
+   * Percent transforms are easy to get subtly wrong here because they resolve
+   * against the transformed element's own box, not the clipped viewport.
+   */
+  const positionTrack = () => {
+    const activePanel = [...panels].find((panel) => panel.dataset.panel === state.activePanel);
+    const offset = activePanel instanceof HTMLElement ? activePanel.offsetLeft : 0;
+    track.style.transform = `translate3d(${-offset}px, 0, 0)`;
+  };
+
+  /**
    * Sync DOM to current state. Idempotent.
    */
   const render = () => {
@@ -63,6 +74,7 @@ export function initMobileMenu() {
 
     // Active panel
     track.setAttribute('data-active-panel', state.activePanel);
+    positionTrack();
     panels.forEach((panel) => {
       const isActive = panel.dataset.panel === state.activePanel;
       panel.setAttribute('aria-hidden', String(!isActive));
@@ -72,6 +84,10 @@ export function initMobileMenu() {
   const open = () => {
     state.activePanel = 'root';
     lastTrigger = null;
+    render();
+    // Force the closed/root state to commit before opening, so reopening from
+    // an L2 panel can never animate or flash from the previous panel.
+    void menu.offsetHeight;
     state.isOpen = true;
     render();
   };
@@ -146,7 +162,8 @@ export function initMobileMenu() {
   };
 
   const handleToggleClick = () => {
-    if (state.isOpen) {
+    const isOpen = menu.classList.contains('is-open');
+    if (isOpen) {
       close();
     } else {
       open();
@@ -157,7 +174,7 @@ export function initMobileMenu() {
    * @param {KeyboardEvent} e
    */
   const handleKeydown = (e) => {
-    if (e.key === 'Escape' && state.isOpen) {
+    if (e.key === 'Escape' && menu.classList.contains('is-open')) {
       close();
       toggle.focus();
     }
@@ -166,8 +183,11 @@ export function initMobileMenu() {
   const handleResize = () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-      if (window.innerWidth >= DESKTOP_BREAKPOINT && state.isOpen) {
+      const isOpen = menu.classList.contains('is-open');
+      if (window.innerWidth >= DESKTOP_BREAKPOINT && isOpen) {
         close();
+      } else if (isOpen) {
+        render();
       }
     }, RESIZE_DEBOUNCE_MS);
   };
