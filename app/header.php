@@ -102,7 +102,7 @@ if (!defined('ABSPATH')) {
                             <?php if ($item['type'] === 'panel') : ?>
                                 <button type="button" class="mobile-menu__row mobile-menu__row--panel" data-panel-target="<?php echo esc_attr($item['slug']); ?>">
                                     <span class="mobile-menu__row-label"><?php echo esc_html($item['label']); ?></span>
-                                    <?php icon('arrow-right', ['class' => 'w-4 h-4 mobile-menu__row-chevron']); ?>
+                                    <?php icon('chevron-right', ['class' => 'w-4 h-4 mobile-menu__row-chevron']); ?>
                                 </button>
                             <?php else : ?>
                                 <a class="mobile-menu__row mobile-menu__row--link" href="<?php echo esc_url($item['url']); ?>">
