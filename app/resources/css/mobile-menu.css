@@ -31,50 +31,55 @@
 
 /* ── Viewport + track ─────────────────────────────────────────────────── */
 
+/* The viewport is the slide window: full menu width, clips overflow. The
+ * track inside it is N viewports wide, transformed left to expose one
+ * panel at a time. */
 .mobile-menu__viewport {
     overflow: hidden;
     width: 100%;
     height: 100%;
 }
 
+/* Track grid: N columns, each 100% of the viewport width. The track's
+ * total width is therefore N × viewport, so translateX percentages
+ * resolve relative to that. Per-panel transforms below use index/N as
+ * the percentage so the math always lines up regardless of panel count. */
 .mobile-menu__track {
-    display: flex;
-    /* Children are flex: 0 0 100% (one viewport each); track must grow to
-     * their natural sum, not be clamped to 100%, otherwise the browser
-     * compresses each panel into 1/N of a viewport and translateX(-100%)
-     * only shifts by one compressed slot. */
-    width: max-content;
+    /* Per-instance: how many panel columns the grid has. The header
+     * template counts panel-type items in get_mobile_nav_tree() and
+     * sets this on the element; defaulting to 3 covers the current
+     * (root + 2 panels) layout if the inline style is ever omitted. */
+    --panel-count: 3;
+    display: grid;
+    grid-template-columns: repeat(var(--panel-count), 100%);
     height: 100%;
     transition: transform 360ms cubic-bezier(0.32, 0.72, 0.16, 1);
     will-change: transform;
 }
 
-/* Each known panel slug shifts the track by its index times one viewport.
- * Uses vw rather than % because the track is width:max-content, so % would
- * resolve to a fraction of the (much wider) track instead of one panel.
- * NOTE: when adding a new panel-type item to get_mobile_nav_tree(), add a
- * matching rule here at the next -100vw increment, otherwise the new panel
- * renders off-screen with no slide. */
+/* Each known panel slug shifts the track by its index × (100% / N).
+ * Calc evaluates to (-i / N × track_width) = -i × viewport_width — one
+ * panel slot per index, which is exactly what we want.
+ * NOTE: when adding a new panel-type item to get_mobile_nav_tree(),
+ *   1. bump the default --panel-count above (or set per-instance);
+ *   2. add a matching rule here at the next index. */
 .mobile-menu__track[data-active-panel="root"] {
     transform: translateX(0);
 }
 .mobile-menu__track[data-active-panel="roof-wall-panel-machines"] {
-    transform: translateX(-100vw);
+    transform: translateX(calc(-100% / var(--panel-count)));
 }
 .mobile-menu__track[data-active-panel="seamless-gutter-machines"] {
-    transform: translateX(-200vw);
+    transform: translateX(calc(-200% / var(--panel-count)));
 }
 
 /* ── Panel ────────────────────────────────────────────────────────────── */
 
 .mobile-menu__panel {
-    /* Each panel must be exactly one viewport wide. flex: 0 0 100% would
-     * resolve relative to the track's width, which gets clamped if the
-     * track has a finite width — so panels would compress and translateX
-     * shifts wouldn't line up. 100vw makes panel width independent of the
-     * (max-content) track. */
-    flex: 0 0 100vw;
-    width: 100vw;
+    /* Width is set by the parent grid (one column = 100% of viewport).
+     * min-width:0 lets the grid item shrink properly when content
+     * (like the L2 cards) tries to push it wider. */
+    min-width: 0;
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
