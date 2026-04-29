@@ -183,8 +183,7 @@
     color: var(--color-dark);
 }
 
-.mobile-menu__back,
-.mobile-menu__close {
+.mobile-menu__back {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -198,11 +197,24 @@
 }
 
 .mobile-menu__back:hover,
-.mobile-menu__back:focus-visible,
-.mobile-menu__close:hover,
-.mobile-menu__close:focus-visible {
+.mobile-menu__back:focus-visible {
     background: var(--color-slate-100);
     outline: none;
+}
+
+/* Spacer keeps the title visually centered now that the L2 close button
+ * has been removed in favor of the hamburger toggle's close-X. */
+.mobile-menu__panel-spacer {
+    display: block;
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Tint the hamburger toggle's close-X red so its "destructive" affordance
+ * reads at a glance. The icon inherits via currentColor; only the close
+ * span (#menu-icon-close) is targeted, not the open hamburger. */
+#menu-icon-close {
+    color: var(--color-secondary);
 }
 
 /* ── L2: body, cards, view-all ────────────────────────────────────────── */

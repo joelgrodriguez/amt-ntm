@@ -41,9 +41,7 @@ $products = get_products_by_category($category);
         <h2 id="mobile-menu-title-<?php echo esc_attr($slug); ?>" class="mobile-menu__panel-title">
             <?php echo esc_html($label); ?>
         </h2>
-        <button type="button" class="mobile-menu__close" data-action="close" aria-label="<?php esc_attr_e('Close menu', 'standard'); ?>">
-            <?php icon('x', ['class' => 'w-5 h-5']); ?>
-        </button>
+        <span class="mobile-menu__panel-spacer" aria-hidden="true"></span>
     </header>
 
     <div class="mobile-menu__panel-body">
