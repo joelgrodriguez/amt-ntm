@@ -24,6 +24,7 @@ define('THEME_URI', get_template_directory_uri());
 $theme_includes = [
     'inc/vite.php',
     'inc/setup.php',
+    'inc/mobile-nav.php',
     'inc/sidebars.php',
     'inc/fonts.php',
     'inc/icons.php',
@@ -41,7 +42,6 @@ $theme_includes = [
     'inc/machine-product-data.php',
     'inc/machine-schema.php',
     'inc/walkers/class-pagination.php',
-    'inc/walkers/class-mobile-nav-walker.php',
     'inc/walkers/class-primary-nav-walker.php',
 ];
 

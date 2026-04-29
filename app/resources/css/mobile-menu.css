@@ -1,0 +1,237 @@
+/**
+ * Mobile Menu
+ *
+ * Two-level slide-in panel menu. The track holds the L1 panel and one panel
+ * per product category, laid out horizontally. JS toggles
+ * data-active-panel="<slug>" on the track to translate it.
+ */
+
+/* ── Container: closed state ──────────────────────────────────────────── */
+
+.mobile-menu {
+    position: fixed;
+    top: var(--header-height, 3rem);
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    background: var(--color-white);
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-0.5rem);
+    transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.mobile-menu.is-open {
+    pointer-events: auto;
+    opacity: 1;
+    transform: none;
+}
+
+/* ── Viewport + track ─────────────────────────────────────────────────── */
+
+.mobile-menu__viewport {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.mobile-menu__track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 280ms cubic-bezier(0.32, 0.72, 0, 1);
+    will-change: transform;
+}
+
+/* Each known panel slug shifts the track by its index in the panel list.
+ * NOTE: when adding a new panel-type item to get_mobile_nav_tree(), add a
+ * matching rule here at the next -100% increment, otherwise the new panel
+ * renders off-screen with no slide. */
+.mobile-menu__track[data-active-panel="root"] {
+    transform: translateX(0);
+}
+.mobile-menu__track[data-active-panel="roof-wall-panel-machines"] {
+    transform: translateX(-100%);
+}
+.mobile-menu__track[data-active-panel="seamless-gutter-machines"] {
+    transform: translateX(-200%);
+}
+
+/* ── Panel ────────────────────────────────────────────────────────────── */
+
+.mobile-menu__panel {
+    flex: 0 0 100%;
+    min-width: 0;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── L1: lists ────────────────────────────────────────────────────────── */
+
+.mobile-menu__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.mobile-menu__item {
+    border-bottom: 1px solid var(--color-border);
+}
+
+.mobile-menu__list--top .mobile-menu__item:first-child {
+    border-top: 1px solid var(--color-border);
+}
+
+.mobile-menu__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1rem 1.25rem;
+    background: transparent;
+    border: 0;
+    text-align: left;
+    text-decoration: none;
+    color: var(--color-dark);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 150ms ease;
+}
+
+.mobile-menu__row:hover,
+.mobile-menu__row:focus-visible {
+    background: var(--color-light);
+    outline: none;
+}
+
+.mobile-menu__row--secondary {
+    font-weight: 500;
+    color: var(--color-dark-medium);
+}
+
+.mobile-menu__row-chevron {
+    /* Tailwind v4 emits --color-slate-400 from the default palette; no
+     * semantic token in tokens.css matches this exact tone. */
+    color: var(--color-slate-400);
+    flex-shrink: 0;
+}
+
+/* ── L1: divider between top and bottom groups ────────────────────────── */
+
+.mobile-menu__divider {
+    border: 0;
+    height: 8px;
+    margin: 0;
+    /* Slightly darker than --color-light (slate-50) so the band reads as a
+     * visual separator distinct from row hover. */
+    background: var(--color-slate-100);
+}
+
+/* ── L2: sub-header (sticky, three-column grid) ───────────────────────── */
+
+.mobile-menu__panel-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 3rem 1fr 3rem;
+    align-items: center;
+    height: 3rem;
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.mobile-menu__panel-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--color-dark);
+}
+
+.mobile-menu__back,
+.mobile-menu__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    background: transparent;
+    border: 0;
+    color: var(--color-dark-medium);
+    cursor: pointer;
+    transition: background-color 150ms ease;
+}
+
+.mobile-menu__back:hover,
+.mobile-menu__back:focus-visible,
+.mobile-menu__close:hover,
+.mobile-menu__close:focus-visible {
+    background: var(--color-slate-100);
+    outline: none;
+}
+
+/* ── L2: body, cards, view-all ────────────────────────────────────────── */
+
+.mobile-menu__panel-body {
+    padding: 1rem 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.mobile-menu__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* In-menu card overrides: cards are designed for a horizontal carousel on
+ * the home page. Inside the menu they need to be full-width and stack
+ * vertically. card-product.php uses .card-product as its top-level class. */
+.mobile-menu__cards .card-product {
+    width: 100%;
+    flex-shrink: 1;
+}
+
+.mobile-menu__view-all {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0.5rem 0 0;
+    padding: 0.875rem 1rem;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--color-dark);
+    border: 1px solid var(--color-light-medium);
+    border-radius: 0.5rem;
+    transition: background-color 150ms ease;
+}
+
+.mobile-menu__view-all:hover,
+.mobile-menu__view-all:focus-visible {
+    background: var(--color-light);
+    outline: none;
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────── */
+
+/* Kill the slide animation; keep the container fade. WCAG's reduced-motion
+ * intent is to suppress motion (translation), not opacity transitions. */
+@media (prefers-reduced-motion: reduce) {
+    .mobile-menu {
+        transition: opacity 200ms ease;
+    }
+
+    .mobile-menu__track {
+        transition: none;
+    }
+}

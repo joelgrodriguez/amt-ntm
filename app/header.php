@@ -89,15 +89,55 @@ if (!defined('ABSPATH')) {
 <div id="mega-menu-overlay" aria-hidden="true"></div>
 
 <!-- Mobile menu (full width, below header) -->
-<nav id="mobile-menu" class="mobile-menu fixed top-12 left-0 right-0 bottom-0 bg-white z-40 lg:hidden overflow-y-auto">
-    <?php
-    wp_nav_menu([
-        'theme_location' => 'mobile',
-        'menu_id'        => 'mobile-menu-list',
-        'container'      => false,
-        'menu_class'     => 'divide-y divide-slate-200',
-        'fallback_cb'    => '__return_false',
-        'walker'         => new \Standard\Walkers\Mobile_Nav_Walker(),
-    ]);
-    ?>
+<?php $mobile_nav = \Standard\Nav\get_mobile_nav_tree(); ?>
+<nav id="mobile-menu" class="mobile-menu lg:hidden" aria-hidden="true" aria-label="<?php esc_attr_e('Mobile navigation', 'standard'); ?>">
+    <div class="mobile-menu__viewport">
+        <div class="mobile-menu__track" data-active-panel="root">
+
+            <!-- L1 (root) panel -->
+            <section class="mobile-menu__panel" data-panel="root" aria-hidden="false">
+                <ul class="mobile-menu__list mobile-menu__list--top">
+                    <?php foreach ($mobile_nav['top'] as $item) : ?>
+                        <li class="mobile-menu__item">
+                            <?php if ($item['type'] === 'panel') : ?>
+                                <button type="button" class="mobile-menu__row mobile-menu__row--panel" data-panel-target="<?php echo esc_attr($item['slug']); ?>">
+                                    <span class="mobile-menu__row-label"><?php echo esc_html($item['label']); ?></span>
+                                    <?php icon('chevron-right', ['class' => 'w-4 h-4 mobile-menu__row-chevron']); ?>
+                                </button>
+                            <?php else : ?>
+                                <a class="mobile-menu__row mobile-menu__row--link" href="<?php echo esc_url($item['url']); ?>">
+                                    <span class="mobile-menu__row-label"><?php echo esc_html($item['label']); ?></span>
+                                </a>
+                            <?php endif; ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+
+                <hr class="mobile-menu__divider" />
+
+                <ul class="mobile-menu__list mobile-menu__list--bottom">
+                    <?php foreach ($mobile_nav['bottom'] as $item) : ?>
+                        <li class="mobile-menu__item">
+                            <a class="mobile-menu__row mobile-menu__row--link mobile-menu__row--secondary" href="<?php echo esc_url($item['url']); ?>">
+                                <span class="mobile-menu__row-label"><?php echo esc_html($item['label']); ?></span>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </section>
+
+            <!-- L2 panels (one per panel-type top item) -->
+            <?php foreach ($mobile_nav['top'] as $item) : ?>
+                <?php if ($item['type'] === 'panel') : ?>
+                    <?php get_template_part('templates/parts/mobile-menu-panel', null, [
+                        'slug'         => $item['slug'],
+                        'label'        => $item['label'],
+                        'category'     => $item['category'],
+                        'view_all_url' => $item['view_all_url'],
+                    ]); ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
+
+        </div>
+    </div>
 </nav>

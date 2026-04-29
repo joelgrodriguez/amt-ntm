@@ -1,16 +1,23 @@
 /**
  * Mobile Menu Module
  *
- * Full-width mobile menu with header darkening effect.
+ * Two-level slide-in panel menu. Owns open/close state and L1↔L2 navigation.
+ * Markup contract:
+ *   - #mobile-menu-toggle              — hamburger button in the site header
+ *   - #mobile-menu                     — root <nav>; .is-open class drives visibility
+ *   - #mobile-menu .mobile-menu__track — flex container; data-active-panel="<slug>"
+ *   - .mobile-menu__panel              — sibling panels with data-panel="<slug>"
+ *   - [data-panel-target="<slug>"]     — L1 row that drills into a panel
+ *   - [data-action="back"]             — drills back to root
+ *   - [data-action="close"]            — closes the menu from any panel
  *
  * @module MobileMenu
  */
 
-/** @type {number} Breakpoint for desktop view (matches Tailwind lg) */
 const DESKTOP_BREAKPOINT = 1024;
-
-/** @type {number} Debounce delay for resize handler in ms */
 const RESIZE_DEBOUNCE_MS = 100;
+/** Match the .mobile-menu transition duration in mobile-menu.css */
+const CLOSE_RESET_DELAY_MS = 220;
 
 /**
  * Initializes the mobile menu functionality.
@@ -23,101 +30,174 @@ export function initMobileMenu() {
   const header = document.querySelector('#site-header');
   const iconOpen = document.querySelector('#menu-icon-open');
   const iconClose = document.querySelector('#menu-icon-close');
+  const track = menu?.querySelector('.mobile-menu__track');
 
-  if (!toggle || !menu || !header) return;
+  if (!toggle || !menu || !header || !track) return;
 
-  let isOpen = false;
+  /** @type {{ isOpen: boolean, activePanel: string }} */
+  const state = { isOpen: false, activePanel: 'root' };
+
+  /** @type {HTMLElement | null} Element to refocus when returning to root. */
+  let lastTrigger = null;
   let resizeTimeout = null;
+  let closeResetTimeout = null;
+
+  const panels = menu.querySelectorAll('.mobile-menu__panel');
 
   /**
-   * Updates DOM state based on isOpen.
+   * Sync DOM to current state. Idempotent.
    */
-  const updateState = () => {
-    // Toggle menu visibility
-    menu.classList.toggle('is-open', isOpen);
+  const render = () => {
+    // Open/close visibility and aria
+    menu.classList.toggle('is-open', state.isOpen);
+    menu.setAttribute('aria-hidden', String(!state.isOpen));
+    toggle.setAttribute('aria-expanded', String(state.isOpen));
 
-    // Toggle header dark mode
-    header.classList.toggle('header-menu-open', isOpen);
+    // Header darken
+    header.classList.toggle('header-menu-open', state.isOpen);
 
-    // Toggle header icons
-    iconOpen?.classList.toggle('hidden', isOpen);
-    iconClose?.classList.toggle('hidden', !isOpen);
+    // Hamburger icon swap
+    iconOpen?.classList.toggle('hidden', state.isOpen);
+    iconClose?.classList.toggle('hidden', !state.isOpen);
 
-    // Update aria state
-    toggle.setAttribute('aria-expanded', isOpen);
-
-    // Prevent body scroll when menu is open
-    document.body.classList.toggle('overflow-hidden', isOpen);
-
-    // Add inert to main content when menu is open (blocks interactions)
+    // Body scroll lock + main/footer inert
+    document.body.classList.toggle('overflow-hidden', state.isOpen);
     const main = document.querySelector('main');
     const footer = document.querySelector('footer');
-    if (main) main.inert = isOpen;
-    if (footer) footer.inert = isOpen;
+    if (main) main.inert = state.isOpen;
+    if (footer) footer.inert = state.isOpen;
+
+    // Active panel
+    track.setAttribute('data-active-panel', state.activePanel);
+    panels.forEach((panel) => {
+      const isActive = panel.dataset.panel === state.activePanel;
+      panel.setAttribute('aria-hidden', String(!isActive));
+    });
   };
 
-  /**
-   * Opens the menu.
-   */
   const open = () => {
-    isOpen = true;
-    updateState();
+    clearTimeout(closeResetTimeout);
+    state.isOpen = true;
+    render();
   };
 
-  /**
-   * Closes the menu.
-   */
   const close = () => {
-    isOpen = false;
-    updateState();
+    state.isOpen = false;
+    render();
+    // Reset to root after the close transition completes so the rewind
+    // isn't visible to the user.
+    clearTimeout(closeResetTimeout);
+    closeResetTimeout = setTimeout(() => {
+      state.activePanel = 'root';
+      lastTrigger = null;
+      render();
+    }, CLOSE_RESET_DELAY_MS);
   };
 
   /**
-   * Handles toggle button click.
+   * @param {string} slug
+   * @param {HTMLElement} trigger
    */
-  const handleClick = () => {
-    isOpen ? close() : open();
+  const goToPanel = (slug, trigger) => {
+    // Guard: if the markup references a slug with no matching panel, do
+    // nothing. Prevents a typo'd data-panel-target from putting the track
+    // into an invisible-broken state (active=bogus, no CSS rule, stuck on L1).
+    const newPanel = menu.querySelector(`[data-panel="${slug}"]`);
+    if (!newPanel) return;
+
+    lastTrigger = trigger;
+    state.activePanel = slug;
+    render();
+
+    // Move focus to the new panel's back button for keyboard/SR users.
+    const backBtn = newPanel.querySelector('[data-action="back"]');
+    if (backBtn instanceof HTMLElement) backBtn.focus();
   };
 
-  /**
-   * Handles keydown events for Escape key.
-   *
-   * @param {KeyboardEvent} e - Keyboard event
-   */
-  const handleKeydown = (e) => {
-    if (e.key === 'Escape' && isOpen) {
-      close();
-      toggle.focus(); // Return focus to toggle button
+  const goBack = () => {
+    state.activePanel = 'root';
+    render();
+    if (lastTrigger instanceof HTMLElement) {
+      lastTrigger.focus();
+      lastTrigger = null;
     }
   };
 
   /**
-   * Handles window resize with debouncing.
+   * Click delegation inside the menu: drill in / back / close.
+   *
+   * @param {MouseEvent} e
    */
+  const handleMenuClick = (e) => {
+    const target = e.target instanceof Element ? e.target : null;
+    if (!target) return;
+
+    const drillTrigger = target.closest('[data-panel-target]');
+    if (drillTrigger instanceof HTMLElement) {
+      const slug = drillTrigger.dataset.panelTarget;
+      if (slug) {
+        e.preventDefault();
+        goToPanel(slug, drillTrigger);
+        return;
+      }
+    }
+
+    const actionEl = target.closest('[data-action]');
+    if (actionEl instanceof HTMLElement) {
+      const action = actionEl.dataset.action;
+      if (action === 'back') {
+        e.preventDefault();
+        goBack();
+      } else if (action === 'close') {
+        e.preventDefault();
+        close();
+        toggle.focus();
+      }
+    }
+  };
+
+  const handleToggleClick = () => {
+    if (state.isOpen) {
+      close();
+    } else {
+      open();
+    }
+  };
+
+  /**
+   * @param {KeyboardEvent} e
+   */
+  const handleKeydown = (e) => {
+    if (e.key === 'Escape' && state.isOpen) {
+      close();
+      toggle.focus();
+    }
+  };
+
   const handleResize = () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
-      if (window.innerWidth >= DESKTOP_BREAKPOINT && isOpen) {
+      if (window.innerWidth >= DESKTOP_BREAKPOINT && state.isOpen) {
         close();
       }
     }, RESIZE_DEBOUNCE_MS);
   };
 
-  // Attach event listeners
-  toggle.addEventListener('click', handleClick);
+  // Wire up
+  toggle.addEventListener('click', handleToggleClick);
+  menu.addEventListener('click', handleMenuClick);
   document.addEventListener('keydown', handleKeydown);
   window.addEventListener('resize', handleResize);
 
-  /**
-   * Cleanup function to remove event listeners.
-   * Used for HMR to prevent memory leaks.
-   *
-   * @returns {void}
-   */
+  // Initial render so aria-hidden values are correct on load.
+  render();
+
   return () => {
-    toggle.removeEventListener('click', handleClick);
+    toggle.removeEventListener('click', handleToggleClick);
+    menu.removeEventListener('click', handleMenuClick);
     document.removeEventListener('keydown', handleKeydown);
     window.removeEventListener('resize', handleResize);
     clearTimeout(resizeTimeout);
+    clearTimeout(closeResetTimeout);
   };
 }
