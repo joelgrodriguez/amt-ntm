@@ -161,14 +161,14 @@
 
 /* ── L1: Contact banner (between top group and secondary group) ───────── */
 
-/* Brand-red full-width CTA. Promotes Contact out of the secondary group
+/* Brand-blue full-width CTA. Promotes Contact out of the secondary group
  * into the primary commercial path alongside Build & Finance. */
 .mobile-menu__contact {
     display: flex;
     align-items: center;
     gap: 0.875rem;
     padding: 1.5rem 1.25rem;
-    background: var(--color-secondary);
+    background: var(--color-primary);
     color: var(--color-white);
     font-size: 1rem;
     font-weight: 700;
@@ -178,8 +178,8 @@
 
 .mobile-menu__contact:hover,
 .mobile-menu__contact:focus-visible {
-    /* Slightly darker red on hover. No semantic token for this; one-off. */
-    background: #b00d14;
+    /* Slightly darker blue on hover. No semantic token for this; one-off. */
+    background: #005f9c;
     outline: none;
 }
 
