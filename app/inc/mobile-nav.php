@@ -27,6 +27,8 @@ if (!defined('ABSPATH')) {
  *           - the two may match (e.g. roof-wall-panel-machines) or differ
  *             (e.g. slug=seamless-gutter-machines, category=gutter-machines)
  *       - link items navigate directly; require label, url
+ *   - featured: optional card-style CTA rendered between the top and bottom
+ *     groups on the L1 panel; requires label, subtitle, url, image
  *   - bottom: array of secondary link items rendered at the panel bottom
  *       - each requires label, url; may include an optional `icon` (icon
  *         name from app/assets/icons/ rendered to the left of the label)
@@ -61,13 +63,15 @@ function get_mobile_nav_tree(): array {
                 'url'   => '/build-finance/',
             ],
         ],
+        'featured' => [
+            'label'    => __('Find your machine', 'standard'),
+            'subtitle' => __('See the full lineup', 'standard'),
+            'url'      => '/machines/',
+            // SSQ3 in-context shot pulled from app/data/machines/ssq3-multipro.php
+            // (hero.image). Hardcoded here rather than reaching across systems.
+            'image'    => 'https://newtechmachinery.com/wp-content/uploads/2025/09/Machine-on-rooftop-scaled.jpg',
+        ],
         'bottom' => [
-            [
-                'type'  => 'link',
-                'label' => __('View All Machines', 'standard'),
-                'url'   => '/machines/',
-                'icon'  => 'settings',
-            ],
             [
                 'type'  => 'link',
                 'label' => __('Service & Repair', 'standard'),
