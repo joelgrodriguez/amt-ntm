@@ -113,12 +113,15 @@ if (!defined('ABSPATH')) {
                     <?php endforeach; ?>
                 </ul>
 
-                <hr class="mobile-menu__divider" />
-
                 <ul class="mobile-menu__list mobile-menu__list--bottom">
                     <?php foreach ($mobile_nav['bottom'] as $item) : ?>
                         <li class="mobile-menu__item">
                             <a class="mobile-menu__row mobile-menu__row--link mobile-menu__row--secondary" href="<?php echo esc_url($item['url']); ?>">
+                                <?php if (!empty($item['icon'])) : ?>
+                                    <span class="mobile-menu__row-icon" aria-hidden="true">
+                                        <?php icon($item['icon'], ['class' => 'w-5 h-5']); ?>
+                                    </span>
+                                <?php endif; ?>
                                 <span class="mobile-menu__row-label"><?php echo esc_html($item['label']); ?></span>
                             </a>
                         </li>
