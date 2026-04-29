@@ -42,6 +42,7 @@
 /* ── Layout ────────────────────────────────────────────────────────── */
 @import "./layout/header.css";
 @import "./layout/footer.css";
+@import "./mobile-menu.css";
 
 /* ── Pages ─────────────────────────────────────────────────────────── */
 @import "./pages/single.css";
