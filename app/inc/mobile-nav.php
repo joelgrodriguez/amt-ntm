@@ -27,7 +27,9 @@ if (!defined('ABSPATH')) {
  *           - the two may match (e.g. roof-wall-panel-machines) or differ
  *             (e.g. slug=seamless-gutter-machines, category=gutter-machines)
  *       - link items navigate directly; require label, url
- *   - bottom: array of link items rendered below the divider on L1
+ *   - bottom: array of secondary link items rendered at the panel bottom
+ *       - each requires label, url; may include an optional `icon` (icon
+ *         name from app/assets/icons/ rendered to the left of the label)
  *
  * @return array{top: array<int, array<string, mixed>>, bottom: array<int, array<string, mixed>>}
  */
@@ -64,21 +66,25 @@ function get_mobile_nav_tree(): array {
                 'type'  => 'link',
                 'label' => __('Service & Repair', 'standard'),
                 'url'   => '/service-training/',
+                'icon'  => 'settings',
             ],
             [
                 'type'  => 'link',
                 'label' => __('Learning Center', 'standard'),
                 'url'   => '/learning-center/',
+                'icon'  => 'file-text',
             ],
             [
                 'type'  => 'link',
                 'label' => __('About', 'standard'),
                 'url'   => '/about/',
+                'icon'  => 'help-circle',
             ],
             [
                 'type'  => 'link',
                 'label' => __('Contact', 'standard'),
                 'url'   => '/contact/',
+                'icon'  => 'mail',
             ],
         ],
     ];

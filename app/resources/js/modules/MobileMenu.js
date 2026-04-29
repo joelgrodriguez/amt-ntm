@@ -4,6 +4,7 @@
  * Two-level slide-in panel menu. Owns open/close state and L1↔L2 navigation.
  * Markup contract:
  *   - #mobile-menu-toggle              — hamburger button in the site header
+ *   - #menu-icon-open / #menu-icon-close — hamburger / X icons swapped via .hidden
  *   - #mobile-menu                     — root <nav>; .is-open class drives visibility
  *   - #mobile-menu .mobile-menu__track — flex container; data-active-panel="<slug>"
  *   - .mobile-menu__panel              — sibling panels with data-panel="<slug>"
@@ -16,8 +17,9 @@
 
 const DESKTOP_BREAKPOINT = 1024;
 const RESIZE_DEBOUNCE_MS = 100;
-/** Match the .mobile-menu transition duration in mobile-menu.css */
-const CLOSE_RESET_DELAY_MS = 220;
+/** Slightly longer than the .mobile-menu opacity transition (240ms) so the
+ * panel reset happens after the menu is visually gone. */
+const CLOSE_RESET_DELAY_MS = 280;
 
 /**
  * Initializes the mobile menu functionality.
@@ -27,12 +29,11 @@ const CLOSE_RESET_DELAY_MS = 220;
 export function initMobileMenu() {
   const toggle = document.querySelector('#mobile-menu-toggle');
   const menu = document.querySelector('#mobile-menu');
-  const header = document.querySelector('#site-header');
   const iconOpen = document.querySelector('#menu-icon-open');
   const iconClose = document.querySelector('#menu-icon-close');
   const track = menu?.querySelector('.mobile-menu__track');
 
-  if (!toggle || !menu || !header || !track) return;
+  if (!toggle || !menu || !track) return;
 
   /** @type {{ isOpen: boolean, activePanel: string }} */
   const state = { isOpen: false, activePanel: 'root' };
@@ -52,9 +53,6 @@ export function initMobileMenu() {
     menu.classList.toggle('is-open', state.isOpen);
     menu.setAttribute('aria-hidden', String(!state.isOpen));
     toggle.setAttribute('aria-expanded', String(state.isOpen));
-
-    // Header darken
-    header.classList.toggle('header-menu-open', state.isOpen);
 
     // Hamburger icon swap
     iconOpen?.classList.toggle('hidden', state.isOpen);
@@ -76,7 +74,11 @@ export function initMobileMenu() {
   };
 
   const open = () => {
+    // If the user reopens before the close-reset timeout fires, eagerly run
+    // the reset so the menu always lands on root regardless of timing.
     clearTimeout(closeResetTimeout);
+    state.activePanel = 'root';
+    lastTrigger = null;
     state.isOpen = true;
     render();
   };

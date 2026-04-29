@@ -93,25 +93,6 @@
   .stagger > *:nth-child(5) { transition-delay: 200ms; }
   .stagger > *:nth-child(6) { transition-delay: 250ms; }
 
-  /* Mobile menu - slide in from left */
-  .mobile-menu {
-    transform: translateX(-100%);
-    transition: transform var(--duration-base) var(--ease-out);
-  }
-
-  .mobile-menu.is-open {
-    transform: translateX(0);
-  }
-
-  /* Header darkens when menu is open */
-  .header-menu-open {
-    @apply bg-slate-50;
-  }
-
-  .header-menu-open .text-slate-700,
-  .header-menu-open .text-slate-600 {
-    @apply text-white;
-  }
 }
 
 /* Reduced motion support - disable animations for users who prefer it */
