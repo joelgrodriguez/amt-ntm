@@ -119,7 +119,7 @@ if (!defined('ABSPATH')) {
                             <a class="mobile-menu__row mobile-menu__row--link mobile-menu__row--secondary" href="<?php echo esc_url($item['url']); ?>">
                                 <?php if (!empty($item['icon'])) : ?>
                                     <span class="mobile-menu__row-icon" aria-hidden="true">
-                                        <?php icon($item['icon'], ['class' => 'w-5 h-5']); ?>
+                                        <?php icon($item['icon'], ['class' => 'w-4 h-4']); ?>
                                     </span>
                                 <?php endif; ?>
                                 <span class="mobile-menu__row-label"><?php echo esc_html($item['label']); ?></span>
