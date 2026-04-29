@@ -22,6 +22,10 @@ if (!defined('ABSPATH')) {
  * Shape:
  *   - top: array of items rendered above the divider on L1
  *       - panel items open an L2 panel; require slug, label, category, view_all_url
+ *           - slug is the panel identifier used by data attributes / aria hooks
+ *           - category is the WooCommerce product category slug used to query L2 cards
+ *           - the two may match (e.g. roof-wall-panel-machines) or differ
+ *             (e.g. slug=seamless-gutter-machines, category=gutter-machines)
  *       - link items navigate directly; require label, url
  *   - bottom: array of link items rendered below the divider on L1
  *
