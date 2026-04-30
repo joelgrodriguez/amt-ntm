@@ -67,7 +67,7 @@ $is_accessory  = empty($price);
 
         <?php if (!$is_accessory) : ?>
             <div class="card-product__cta">
-                <a href="<?php echo esc_url($build_url); ?>" class="btn btn-sm btn-ghost relative z-10">
+                <a href="<?php echo esc_url($build_url); ?>" class="btn btn-sm btn-outline-dark relative z-10">
                     <?php esc_html_e('Build', 'standard'); ?>
                     <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                 </a>
