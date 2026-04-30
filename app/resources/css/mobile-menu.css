@@ -118,7 +118,7 @@
 }
 
 .mobile-menu__featured-image {
-    flex: 0 0 9.5rem;
+    flex: 0 0 50%;
     background: var(--color-light);
 }
 
