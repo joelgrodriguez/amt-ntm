@@ -50,6 +50,13 @@
     @apply text-lg font-semibold font-mono text-slate-900 mb-1;
   }
 
+  /* Title anchor is the card's primary link, with its hit area expanded to
+   * fill the whole card via ::after (see template). Inherit color so the
+   * anchor doesn't pick up default blue, and underline only on hover. */
+  .card-product__title a {
+    @apply text-inherit no-underline hover:text-primary;
+  }
+
   .card-product__tagline {
     @apply text-sm text-slate-600 mb-3 leading-relaxed;
   }

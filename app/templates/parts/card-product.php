@@ -33,7 +33,7 @@ $badge         = $product['badge'] ?? '';
 $is_accessory  = empty($price);
 ?>
 
-<article class="card-product group">
+<article class="card-product group relative">
     <div class="card-product__image-wrapper">
         <?php if ($badge) : ?>
             <span class="card-product__badge"><?php echo esc_html($badge); ?></span>
@@ -42,7 +42,7 @@ $is_accessory  = empty($price);
         <?php if ($image) : ?>
             <img
                 src="<?php echo esc_url($image); ?>"
-                alt="<?php echo esc_attr($title); ?>"
+                alt=""
                 class="card-product__image"
                 loading="lazy"
             >
@@ -51,7 +51,11 @@ $is_accessory  = empty($price);
 
     <div class="card-product__content">
         <?php if ($title) : ?>
-            <h3 class="card-product__title"><?php echo esc_html($title); ?></h3>
+            <h3 class="card-product__title">
+                <a href="<?php echo esc_url($explore_url); ?>" class="after:content-[''] after:absolute after:inset-0">
+                    <?php echo esc_html($title); ?>
+                </a>
+            </h3>
         <?php endif; ?>
 
         <?php if ($price) : ?>
@@ -61,20 +65,13 @@ $is_accessory  = empty($price);
             </div>
         <?php endif; ?>
 
-        <div class="card-product__cta">
-            <?php if ($is_accessory) : ?>
-                <a href="<?php echo esc_url($explore_url); ?>" class="btn btn-sm btn-outline-dark">
-                    <?php esc_html_e('View', 'standard'); ?>
-                </a>
-            <?php else : ?>
-                <a href="<?php echo esc_url($explore_url); ?>" class="btn btn-sm btn-outline-dark">
-                    <?php esc_html_e('Explore', 'standard'); ?>
-                </a>
-                <a href="<?php echo esc_url($build_url); ?>" class="btn btn-sm btn-ghost">
+        <?php if (!$is_accessory) : ?>
+            <div class="card-product__cta">
+                <a href="<?php echo esc_url($build_url); ?>" class="btn btn-sm btn-ghost relative z-10">
                     <?php esc_html_e('Build', 'standard'); ?>
                     <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                 </a>
-            <?php endif; ?>
-        </div>
+            </div>
+        <?php endif; ?>
     </div>
 </article>
