@@ -17,23 +17,27 @@ This is a WordPress classic theme using Vite + Tailwind CSS v4 for modern asset 
 ### Directory Structure
 
 The repository is split into two parts:
+
 - **Root**: Build tooling (`package.json`, `vite.config.js`, `node_modules/`)
-- **`app/`**: WordPress theme files (PHP, assets, templates)
+- `**app/`**: WordPress theme files (PHP, assets, templates)
 
 A symlink `standard-theme` → `standard-press/app` allows WordPress to load the theme.
 
 ### Asset Pipeline
 
 **Entry points:**
+
 - `app/resources/js/_app.js` - Main JS entry, imports CSS and initializes modules
 - `app/resources/css/_app.css` - Main CSS entry, imports Tailwind and theme styles
 
 **Vite integration:**
+
 - Development: Assets served from Vite dev server with HMR
 - Production: Vite manifest (`app/dist/.vite/manifest.json`) maps entry points to hashed output files
 - `app/functions.php` handles both modes via `is_vite_dev()` detection
 
 **CSS architecture (Tailwind v4 CSS-first):**
+
 - `app/resources/css/theme.css` - Design tokens via `@theme` (colors, fonts, spacing)
 - `app/resources/css/base.css` - Base element styles
 - `app/resources/css/components.css` - Reusable component classes
@@ -46,6 +50,7 @@ A symlink `standard-theme` → `standard-press/app` allows WordPress to load the
 All PHP uses `declare(strict_types=1)` and the `Standard` namespace.
 
 **Includes loaded via `app/functions.php`:**
+
 - `app/inc/vite.php` - Vite integration (dev server detection, asset loading)
 - `app/inc/setup.php` - Theme supports, nav menus (primary, mobile, footer)
 - `app/inc/sidebars.php` - Widget areas
@@ -54,18 +59,21 @@ All PHP uses `declare(strict_types=1)` and the `Standard` namespace.
 - `app/inc/walkers/` - Custom nav menu walkers
 
 **Template hierarchy:**
+
 - Standard WordPress templates: `app/header.php`, `app/footer.php`, `app/index.php`, `app/single.php`, `app/page.php`, `app/search.php`, `app/404.php`
 - Template parts in `app/templates/parts/`
 
 ### JavaScript Modules
 
 Located in `app/resources/js/modules/`:
+
 - `MobileMenu.js` - Full-width mobile menu with header state management
 - `ScrollReveal.js` - Scroll-based reveal animations
 
 ### Icons
 
 SVG icons in `app/assets/icons/`. Use the `icon()` helper in templates:
+
 ```php
 <?php icon('arrow--right', ['class' => 'w-5 h-5']); ?>
 ```
