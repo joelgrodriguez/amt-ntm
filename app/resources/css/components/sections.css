@@ -1,8 +1,11 @@
 /**
  * Section Layout
  *
- * Standard responsive section spacing, headers, eyebrows,
- * dividers, titles, and subtitles used across all pages.
+ * Per DESIGN.md §5.4–5.6:
+ * - Eyebrow: mono 500, 11px, uppercase, tracked, red
+ * - Divider: red accent bar
+ * - Section title: mono 500, 28px (heading-sm/heading scale)
+ * - Subtitle/body: sans 400, blue-600
  *
  * @file components/sections.css
  */
@@ -31,36 +34,53 @@
     @apply grid gap-4;
   }
 
-  /* Eyebrow — small uppercase label above title */
+  /* Eyebrow — small uppercase mono label above title (red accent) */
   .section-eyebrow {
-    @apply text-sm font-semibold uppercase tracking-wider text-secondary;
+    @apply font-mono font-medium uppercase tracking-wider text-red;
+    font-size: var(--text-caption);
   }
 
-  /* Divider — accent bar below eyebrow */
+  /* Divider — accent bar below eyebrow (red) */
   .section-divider {
-    @apply w-12 h-1 bg-secondary;
+    @apply w-12 h-1 bg-red;
   }
 
   .section-divider-center {
-    @apply w-12 h-1 bg-secondary mx-auto;
+    @apply w-12 h-1 bg-red mx-auto;
   }
 
-  /* Title — main heading with responsive sizing */
+  /* Title — section heading (mono per spec) */
   .section-title {
-    @apply text-3xl font-bold text-slate-900 font-mono md:text-4xl lg:text-5xl;
+    @apply font-mono font-medium text-blue-700;
+    font-size: var(--text-heading-sm);
   }
 
-  /* Subtitle — intro text */
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: var(--text-heading);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section-title {
+      font-size: var(--text-heading-lg);
+    }
+  }
+
+  /* Subtitle — intro text (sans, body copy color) */
   .section-subtitle {
-    @apply text-lg text-slate-600;
+    @apply font-sans text-blue-600;
+    font-size: var(--text-body);
   }
 
   .section-subtitle-centered {
-    @apply text-lg text-slate-600 max-w-2xl mx-auto;
+    @apply font-sans text-blue-600 max-w-2xl mx-auto;
+    font-size: var(--text-body);
   }
 
   /* Body — paragraph text with bottom margin */
   .section-body {
-    @apply text-lg text-slate-600 mb-8 lg:mb-10;
+    @apply font-sans text-blue-600 mb-8 lg:mb-10;
+    font-size: var(--text-body);
   }
 }

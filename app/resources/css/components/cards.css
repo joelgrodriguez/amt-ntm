@@ -1,7 +1,10 @@
 /**
  * Cards & Small UI Components
  *
- * Generic card, badge, icon button, link animation, and container.
+ * Per DESIGN.md §5.9 + §5.12:
+ * - Cards: white bg, 1px blue-200 border, zero radius, NO shadow.
+ *   Hover = border shifts to blue-500 + 1px translate up.
+ * - Badges: blue-800 bg, white text, mono 500, 11px, uppercase.
  *
  * @file components/cards.css
  */
@@ -10,7 +13,7 @@
   /* Link underline animation */
   .link-animated {
     @apply relative inline-block no-underline;
-    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2;
   }
 
   .link-animated::after {
@@ -23,19 +26,23 @@
     @apply w-full;
   }
 
-  /* Card with subtle hover lift */
+  /* Card — white surface, hairline border, no shadow.
+     Depth comes from border + 1px translate, not drop shadow. */
   .card {
-    @apply bg-white border transition-all duration-200 ease-out;
-    @apply hover:shadow-lg hover:-translate-y-1;
-    @apply focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2;
+    @apply bg-white border border-blue-200 transition-all duration-200 ease-out;
+    @apply focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2;
   }
 
-  /* Icon button with scale effect */
+  .card:hover {
+    @apply border-blue-500 -translate-y-px;
+  }
+
+  /* Icon button with subtle interaction */
   .icon-btn {
     @apply inline-flex items-center justify-center;
     @apply transition-transform duration-150 ease-out;
-    @apply hover:scale-110 active:scale-95;
-    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+    @apply hover:scale-105 active:scale-95;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2;
   }
 
   .container {
@@ -43,10 +50,25 @@
     max-width: var(--layout-wide);
   }
 
-  /* Badge - reusable label component */
+  /* Badge — mono 500, 11px, uppercase, dark bg */
   .badge {
-    @apply inline-block px-3 py-1 text-sm font-medium capitalize;
-    @apply border text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors;
-    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+    @apply inline-block px-2 py-1 font-mono font-medium uppercase;
+    @apply bg-blue-800 text-white;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2;
+    font-size: var(--text-caption);
+    letter-spacing: 0.05em;
+  }
+
+  .badge:hover {
+    @apply bg-blue-900;
+  }
+
+  /* High-emphasis badge — red. Use for "NEW," "FLAGSHIP," etc. */
+  .badge-emphasis {
+    @apply bg-red text-white;
+  }
+
+  .badge-emphasis:hover {
+    background-color: color-mix(in srgb, var(--color-red) 90%, black);
   }
 }

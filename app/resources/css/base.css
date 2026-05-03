@@ -18,7 +18,7 @@
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-border, currentColor);
+    border-color: var(--color-blue-200, currentColor);
   }
 
   /* Smooth scrolling - respects user preference for reduced motion */
@@ -29,7 +29,7 @@
   }
 
   body {
-    @apply font-sans antialiased text-slate-900 bg-white;
+    @apply font-sans antialiased text-blue-700 bg-white;
   }
 
   /* Page transition fade-in (keyframes defined in animations.css) */
@@ -40,7 +40,7 @@
   }
 
   a {
-    @apply text-primary transition-colors duration-150;
+    @apply text-blue-500 transition-colors duration-150;
   }
 
   a:hover {
@@ -58,6 +58,6 @@
 
   /* Focus states for accessibility */
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-primary;
+    @apply outline-2 outline-offset-2 outline-blue-500;
   }
 }
