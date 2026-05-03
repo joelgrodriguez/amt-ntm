@@ -23,7 +23,7 @@ if (empty($faqs)) {
 }
 ?>
 
-<section id="machine-faq" class="section bg-slate-100 pattern-square-grid" aria-labelledby="faq-title">
+<section id="machine-faq" class="section bg-blue-100 pattern-square-grid" aria-labelledby="faq-title">
     <div class="pattern-square-grid__overlay pattern-square-grid__overlay--top-left" aria-hidden="true"></div>
     <div class="pattern-square-grid__overlay pattern-square-grid__overlay--bottom-right" aria-hidden="true"></div>
     <div class="container section-content">
@@ -43,7 +43,7 @@ if (empty($faqs)) {
                             <?php icon('chevron-down', ['class' => 'w-5 h-5']); ?>
                         </span>
                     </summary>
-                    <div class="accordion__body text-base text-slate-600 leading-relaxed">
+                    <div class="accordion__body text-base text-blue-600 leading-relaxed">
                         <?php echo wp_kses_post($faq['answer']); ?>
                     </div>
                 </details>

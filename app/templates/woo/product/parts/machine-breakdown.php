@@ -45,16 +45,16 @@ if (empty($breakdown)) {
                              class="w-full h-full object-cover">
                     </div>
                 <?php else : ?>
-                    <div class="bg-slate-100 aspect-video flex items-center justify-center">
-                        <span class="text-slate-400 text-sm font-mono"><?php echo esc_html($title); ?></span>
+                    <div class="bg-blue-100 aspect-video flex items-center justify-center">
+                        <span class="text-blue-400 text-sm font-mono"><?php echo esc_html($title); ?></span>
                     </div>
                 <?php endif; ?>
                 <div class="grid gap-4">
-                    <p class="text-sm font-semibold uppercase tracking-wider text-secondary"><?php echo esc_html($title); ?></p>
-                    <h3 class="text-2xl font-bold text-slate-900 lg:text-3xl"><?php echo esc_html($headline); ?></h3>
-                    <p class="text-slate-600"><?php echo esc_html($copy); ?></p>
+                    <p class="text-sm font-medium uppercase tracking-wider text-red"><?php echo esc_html($title); ?></p>
+                    <h3 class="text-2xl font-medium text-blue-900 lg:text-3xl"><?php echo esc_html($headline); ?></h3>
+                    <p class="text-blue-600"><?php echo esc_html($copy); ?></p>
                     <?php if (!empty($specs)) : ?>
-                        <ul class="spec-list mt-2 text-slate-700">
+                        <ul class="spec-list mt-2 text-blue-700">
                             <?php foreach ($specs as $spec) : ?>
                                 <li><?php echo esc_html($spec); ?></li>
                             <?php endforeach; ?>

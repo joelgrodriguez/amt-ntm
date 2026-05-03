@@ -57,11 +57,11 @@ $content_ml = $is_right ? ' lg:ml-auto' : '';
     >
 
     <!-- Mobile: solid dark overlay -->
-    <div class="absolute inset-0 bg-slate-950/75 lg:hidden"></div>
+    <div class="absolute inset-0 bg-blue-950/75 lg:hidden"></div>
 
     <!-- Desktop: angled dark wedge overlay -->
     <div
-        class="hidden lg:block absolute inset-0 bg-slate-950/75"
+        class="hidden lg:block absolute inset-0 bg-blue-950/75"
         style="clip-path: <?php echo esc_attr($clip_path); ?>;"
     ></div>
 
@@ -79,17 +79,17 @@ $content_ml = $is_right ? ' lg:ml-auto' : '';
         <div class="max-w-xl lg:max-w-lg xl:max-w-xl grid gap-6<?php echo esc_attr($content_ml); ?>">
 
             <!-- Eyebrow -->
-            <p class="text-sm font-semibold uppercase tracking-wider text-secondary">
+            <p class="text-sm font-medium uppercase tracking-wider text-red">
                 <?php echo esc_html($content['eyebrow']); ?>
             </p>
 
             <!-- Title -->
-            <h1 id="<?php echo esc_attr($section_id); ?>-title" class="text-3xl font-bold font-mono text-white md:text-4xl lg:text-[2.75rem] xl:text-5xl leading-tight">
+            <h1 id="<?php echo esc_attr($section_id); ?>-title" class="text-3xl font-medium font-mono text-white md:text-4xl lg:text-[2.75rem] xl:text-5xl leading-tight">
                 <?php echo esc_html($content['title']); ?>
             </h1>
 
             <!-- Subtitle -->
-            <p class="text-lg text-slate-300 lg:text-xl max-w-lg">
+            <p class="text-lg text-blue-300 lg:text-xl max-w-lg">
                 <?php echo esc_html($content['subtitle']); ?>
             </p>
 
@@ -97,10 +97,10 @@ $content_ml = $is_right ? ' lg:ml-auto' : '';
             <div class="flex gap-6 sm:gap-8 border-t border-white/20 pt-6">
                 <?php foreach ($stats as $stat) : ?>
                     <div class="grid gap-0.5">
-                        <span class="text-2xl font-bold text-white lg:text-3xl">
+                        <span class="text-2xl font-medium text-white lg:text-3xl">
                             <?php echo esc_html($stat['value']); ?>
                         </span>
-                        <span class="text-xs text-slate-400 uppercase tracking-wider">
+                        <span class="text-xs text-blue-400 uppercase tracking-wider">
                             <?php echo esc_html($stat['label']); ?>
                         </span>
                     </div>

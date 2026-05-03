@@ -55,7 +55,7 @@ if (empty($testimonials)) {
 }
 ?>
 
-<section class="social-proof section bg-slate-900" aria-labelledby="social-proof-title">
+<section class="social-proof section bg-blue-900" aria-labelledby="social-proof-title">
     <div class="container">
         <h2 id="social-proof-title" class="sr-only">
             <?php echo esc_html($content['title']); ?>
@@ -68,15 +68,15 @@ if (empty($testimonials)) {
                         class="social-proof__slide grid gap-8 <?php echo $index === 0 ? 'block' : 'hidden'; ?>"
                         data-index="<?php echo esc_attr($index); ?>"
                     >
-                        <?php icon('quote', ['class' => 'w-10 h-10 text-secondary mx-auto md:w-12 md:h-12']); ?>
+                        <?php icon('quote', ['class' => 'w-10 h-10 text-red mx-auto md:w-12 md:h-12']); ?>
 
                         <p class="text-xl text-white font-medium leading-relaxed md:text-2xl lg:text-3xl">
                             "<?php echo esc_html($testimonial['quote']); ?>"
                         </p>
 
-                        <footer class="text-slate-300">
+                        <footer class="text-blue-300">
                             <cite class="not-italic">
-                                <span class="block text-lg font-semibold text-white">
+                                <span class="block text-lg font-medium text-white">
                                     <?php echo esc_html($testimonial['name']); ?>
                                 </span>
                                 <span class="text-sm">
@@ -92,7 +92,7 @@ if (empty($testimonials)) {
                 <?php foreach ($testimonials as $index => $testimonial) : ?>
                     <button
                         type="button"
-                        class="social-proof__dot h-3 rounded-full border-none cursor-pointer transition-all duration-200 hover:bg-slate-400 focus-visible:outline-2 focus-visible:outline-secondary focus-visible:outline-offset-2 <?php echo $index === 0 ? 'bg-secondary w-8' : 'bg-slate-600 w-3'; ?>"
+                        class="social-proof__dot h-3 border-none cursor-pointer transition-all duration-200 hover:bg-blue-400 focus-visible:outline-2 focus-visible:outline-red focus-visible:outline-offset-2 <?php echo $index === 0 ? 'bg-red w-8' : 'bg-blue-600 w-3'; ?>"
                         data-index="<?php echo esc_attr($index); ?>"
                         aria-label="<?php echo esc_attr(sprintf(__('View testimonial %d', 'standard'), $index + 1)); ?>"
                     ></button>

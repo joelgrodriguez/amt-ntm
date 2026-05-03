@@ -31,7 +31,7 @@ if (empty($content)) {
 }
 ?>
 
-<section class="section bg-slate-50" aria-labelledby="<?php echo esc_attr($section_id); ?>">
+<section class="section bg-blue-50" aria-labelledby="<?php echo esc_attr($section_id); ?>">
     <div class="container">
         <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-center">
 
@@ -56,28 +56,28 @@ if (empty($content)) {
                     <div class="section-divider"></div>
                 </div>
 
-                <blockquote class="text-xl font-mono text-slate-800 leading-relaxed lg:text-2xl">
-                    <span class="text-secondary text-3xl leading-none" aria-hidden="true">&ldquo;</span>
+                <blockquote class="text-xl font-mono text-blue-800 leading-relaxed lg:text-2xl">
+                    <span class="text-red text-3xl leading-none" aria-hidden="true">&ldquo;</span>
                     <?php echo esc_html($content['quote']); ?>
-                    <span class="text-secondary text-3xl leading-none" aria-hidden="true">&rdquo;</span>
+                    <span class="text-red text-3xl leading-none" aria-hidden="true">&rdquo;</span>
                 </blockquote>
 
                 <div>
-                    <p class="font-semibold text-slate-900">
+                    <p class="font-medium text-blue-900">
                         <?php echo esc_html($content['name']); ?>
                     </p>
-                    <p class="text-sm text-slate-500">
+                    <p class="text-sm text-blue-500">
                         <?php echo esc_html($content['company']); ?> &middot; <?php echo esc_html($content['machine']); ?>
                     </p>
                 </div>
 
-                <div class="grid grid-cols-3 gap-6 border-t border-slate-200 pt-8">
+                <div class="grid grid-cols-3 gap-6 border-t border-blue-200 pt-8">
                     <?php foreach ($stats as $stat) : ?>
                         <div class="grid gap-1">
-                            <span class="text-2xl font-bold text-slate-900 lg:text-3xl">
+                            <span class="text-2xl font-medium text-blue-900 lg:text-3xl">
                                 <?php echo esc_html($stat['stat']); ?>
                             </span>
-                            <span class="text-xs text-slate-500 uppercase tracking-wider">
+                            <span class="text-xs text-blue-500 uppercase tracking-wider">
                                 <?php echo esc_html($stat['label']); ?>
                             </span>
                         </div>

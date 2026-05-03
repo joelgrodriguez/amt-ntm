@@ -63,21 +63,21 @@ get_header();
                         ? wp_get_attachment_image_url($rel->get_image_id(), 'product-card')
                         : '';
                 ?>
-                    <a href="<?php echo esc_url($rel->get_permalink()); ?>" class="block border border-slate-200 bg-white p-4 grid gap-3 hover:border-slate-400 hover:shadow-md transition-all group">
-                        <div class="bg-slate-50 aspect-square flex items-center justify-center overflow-hidden rounded">
+                    <a href="<?php echo esc_url($rel->get_permalink()); ?>" class="block border border-blue-200 bg-white p-4 grid gap-3 hover:border-blue-400 transition-all group">
+                        <div class="bg-blue-50 aspect-square flex items-center justify-center overflow-hidden">
                             <?php if (!empty($image_url)) : ?>
                                 <img src="<?php echo esc_url($image_url); ?>"
                                      alt="<?php echo esc_attr($rel->get_name()); ?>"
                                      class="w-full h-full object-contain p-3 transition-transform group-hover:scale-105"
                                      loading="lazy">
                             <?php else : ?>
-                                <span class="text-slate-400 text-sm font-mono"><?php echo esc_html($rel->get_name()); ?></span>
+                                <span class="text-blue-400 text-sm font-mono"><?php echo esc_html($rel->get_name()); ?></span>
                             <?php endif; ?>
                         </div>
                         <div class="grid gap-1">
-                            <h3 class="text-sm font-bold text-slate-900 group-hover:text-primary transition-colors leading-tight"><?php echo esc_html($rel->get_name()); ?></h3>
+                            <h3 class="text-sm font-medium text-blue-900 group-hover:text-blue-500 transition-colors leading-tight"><?php echo esc_html($rel->get_name()); ?></h3>
                             <?php if ($rel->get_price_html()) : ?>
-                                <p class="text-xs text-slate-500"><?php echo wp_kses_post($rel->get_price_html()); ?></p>
+                                <p class="text-xs text-blue-500"><?php echo wp_kses_post($rel->get_price_html()); ?></p>
                             <?php endif; ?>
                         </div>
                     </a>
@@ -87,11 +87,11 @@ get_header();
     </section>
     <?php endif; ?>
 
-    <section class="bg-slate-950 text-white py-12 lg:py-16">
+    <section class="bg-blue-950 text-white py-12 lg:py-16">
         <div class="container text-center grid gap-4">
-            <p class="text-sm font-mono uppercase tracking-wider text-slate-400"><?php esc_html_e('Need help choosing the right accessories?', 'standard'); ?></p>
-            <h2 class="text-2xl font-bold font-mono md:text-3xl"><?php esc_html_e('Talk to a Specialist', 'standard'); ?></h2>
-            <p class="text-slate-400 max-w-xl mx-auto"><?php esc_html_e('Our team can help you find the right setup for your machine and jobsite.', 'standard'); ?></p>
+            <p class="text-sm font-mono uppercase tracking-wider text-blue-400"><?php esc_html_e('Need help choosing the right accessories?', 'standard'); ?></p>
+            <h2 class="text-2xl font-medium font-mono md:text-3xl"><?php esc_html_e('Talk to a Specialist', 'standard'); ?></h2>
+            <p class="text-blue-400 max-w-xl mx-auto"><?php esc_html_e('Our team can help you find the right setup for your machine and jobsite.', 'standard'); ?></p>
             <div class="flex justify-center gap-4 mt-2">
                 <a href="/contact/" class="btn btn-primary"><?php esc_html_e('Contact Us', 'standard'); ?></a>
                 <a href="tel:+13032943553" class="btn btn-outline-light">

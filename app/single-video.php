@@ -32,13 +32,13 @@ get_header();
 
             <!-- Video Player Section -->
             <?php if ($video_embed !== '') : ?>
-                <section class="bg-slate-950 text-slate-500">
+                <section class="bg-blue-950 text-blue-500">
                     <!-- Top Bar -->
-                    <div class="border-b border-slate-800">
-                        <div class="border-x border-slate-800 container">
+                    <div class="border-b border-blue-800">
+                        <div class="border-x border-blue-800 container">
                             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
                                 <div class="flex items-center gap-3 pl-3">
-                                    <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                                    <span class="w-2 h-2 bg-red animate-pulse"></span>
                                     <span><?php echo esc_html(get_the_title()); ?></span>
                                 </div>
                                 <div class="flex items-center gap-3 pr-3">
@@ -49,7 +49,7 @@ get_header();
                     </div>
 
                     <!-- Video Embed -->
-                    <div class="border-x border-slate-800 container py-6 lg:py-12">
+                    <div class="border-x border-blue-800 container py-6 lg:py-12">
                         <div class="max-w-5xl mx-auto">
                             <div class="video-responsive">
                                 <?php echo $video_embed; ?>
@@ -58,8 +58,8 @@ get_header();
                     </div>
 
                     <!-- Bottom Bar -->
-                    <div class="border-t border-slate-800">
-                        <div class="border-x border-slate-800 container">
+                    <div class="border-t border-blue-800">
+                        <div class="border-x border-blue-800 container">
                             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
                                 <div class="flex items-center gap-2 pl-3">
                                     <?php icon('calendar', ['class' => 'w-3 h-3 fill-current']); ?>
@@ -68,10 +68,10 @@ get_header();
                                 <div class="flex items-center gap-4 pr-3">
                                     <span><?php echo esc_html($content['company_name']); ?></span>
                                     <div class="flex gap-1">
-                                        <span class="w-1 h-3 bg-slate-700"></span>
-                                        <span class="w-1 h-3 bg-slate-700"></span>
-                                        <span class="w-1 h-3 bg-slate-600"></span>
-                                        <span class="w-1 h-3 bg-slate-500"></span>
+                                        <span class="w-1 h-3 bg-blue-700"></span>
+                                        <span class="w-1 h-3 bg-blue-700"></span>
+                                        <span class="w-1 h-3 bg-blue-600"></span>
+                                        <span class="w-1 h-3 bg-blue-500"></span>
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@ get_header();
                             </div>
                         <?php endif; ?>
 
-                        <?php the_title('<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold font-mono">', '</h1>'); ?>
+                        <?php the_title('<h1 class="text-3xl md:text-4xl lg:text-5xl font-medium font-mono">', '</h1>'); ?>
                     </header>
 
                     <!-- Content -->

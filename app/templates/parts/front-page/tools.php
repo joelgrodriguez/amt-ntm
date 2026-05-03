@@ -44,24 +44,24 @@ $tools = [
 ];
 ?>
 
-<section class="section-compact bg-slate-50" aria-labelledby="tools-title">
+<section class="section-compact bg-blue-50" aria-labelledby="tools-title">
     <div class="container grid gap-8 lg:gap-10">
         <h2 id="tools-title" class="section-title">
             <?php echo esc_html($content['title']); ?>
         </h2>
 
-        <div class="grid grid-cols-2 border border-slate-200 md:grid-cols-4">
+        <div class="grid grid-cols-2 border border-blue-200 md:grid-cols-4">
             <?php foreach ($tools as $index => $tool) : ?>
                 <a
                     href="<?php echo esc_url($tool['url']); ?>"
-                    class="group flex flex-col justify-between p-6 no-underline border-slate-200 transition-colors duration-200 hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-[-2px] <?php echo $index % 2 === 1 ? 'border-l' : ''; ?> <?php echo $index >= 2 ? 'border-t md:border-t-0' : ''; ?> <?php echo $index >= 1 ? 'md:border-l' : ''; ?>"
+                    class="group flex flex-col justify-between p-6 no-underline border-blue-200 transition-colors duration-200 hover:bg-blue-100 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px] <?php echo $index % 2 === 1 ? 'border-l' : ''; ?> <?php echo $index >= 2 ? 'border-t md:border-t-0' : ''; ?> <?php echo $index >= 1 ? 'md:border-l' : ''; ?>"
                 >
-                    <h3 class="text-base font-medium text-slate-900 mb-12 transition-colors duration-200 group-hover:text-primary md:text-lg">
+                    <h3 class="text-base font-medium text-blue-900 mb-12 transition-colors duration-200 group-hover:text-blue-500 md:text-lg">
                         <?php echo esc_html($tool['title']); ?>
                     </h3>
                     <div class="flex items-end justify-between">
-                        <?php icon($tool['icon'], ['class' => 'w-8 h-8 text-slate-700 transition-colors duration-200 group-hover:text-primary md:w-10 md:h-10']); ?>
-                        <?php icon('arrow-right', ['class' => 'w-5 h-5 text-slate-400 transition-colors duration-200 group-hover:text-primary']); ?>
+                        <?php icon($tool['icon'], ['class' => 'w-8 h-8 text-blue-700 transition-colors duration-200 group-hover:text-blue-500 md:w-10 md:h-10']); ?>
+                        <?php icon('arrow-right', ['class' => 'w-5 h-5 text-blue-400 transition-colors duration-200 group-hover:text-blue-500']); ?>
                     </div>
                 </a>
             <?php endforeach; ?>

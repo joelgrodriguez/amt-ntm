@@ -30,15 +30,15 @@ $content = [
 $stats = get_roi_stats();
 ?>
 
-<section class="section bg-slate-900" aria-labelledby="roi-snapshot-title">
+<section class="section bg-blue-900" aria-labelledby="roi-snapshot-title">
     <div class="container section-content">
 
         <div class="section-header">
-            <p class="text-sm font-semibold uppercase tracking-wider text-primary">
+            <p class="text-sm font-medium uppercase tracking-wider text-blue-500">
                 <?php echo esc_html($content['eyebrow']); ?>
             </p>
             <div class="section-divider-center"></div>
-            <h2 id="roi-snapshot-title" class="text-3xl font-bold text-white md:text-4xl">
+            <h2 id="roi-snapshot-title" class="text-3xl font-medium text-white md:text-4xl">
                 <?php echo esc_html($content['title']); ?>
             </h2>
         </div>
@@ -46,10 +46,10 @@ $stats = get_roi_stats();
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto text-center">
             <?php foreach ($stats as $stat) : ?>
                 <div class="grid gap-2">
-                    <span class="text-3xl font-bold text-primary sm:text-4xl lg:text-5xl">
+                    <span class="text-3xl font-medium text-blue-500 sm:text-4xl lg:text-5xl">
                         <?php echo esc_html($stat['stat']); ?>
                     </span>
-                    <span class="text-sm text-slate-400 uppercase tracking-wider">
+                    <span class="text-sm text-blue-400 uppercase tracking-wider">
                         <?php echo esc_html($stat['label']); ?>
                     </span>
                 </div>

@@ -114,20 +114,20 @@ if (empty($case_study)) {
 
                     <!-- Challenge -->
                     <div class="grid gap-3">
-                        <h3 class="text-lg font-bold text-slate-900 uppercase tracking-wider font-mono">
+                        <h3 class="text-lg font-medium text-blue-900 uppercase tracking-wider font-mono">
                             <?php echo esc_html($case_study['challenge']['heading']); ?>
                         </h3>
-                        <p class="text-slate-600 leading-relaxed">
+                        <p class="text-blue-600 leading-relaxed">
                             <?php echo esc_html($case_study['challenge']['text']); ?>
                         </p>
                     </div>
 
                     <!-- Solution -->
                     <div class="grid gap-4">
-                        <h3 class="text-lg font-bold text-slate-900 uppercase tracking-wider font-mono">
+                        <h3 class="text-lg font-medium text-blue-900 uppercase tracking-wider font-mono">
                             <?php echo esc_html($case_study['solution']['heading']); ?>
                         </h3>
-                        <p class="text-slate-600 leading-relaxed">
+                        <p class="text-blue-600 leading-relaxed">
                             <?php echo esc_html($case_study['solution']['text']); ?>
                         </p>
                         <?php if (!empty($case_study['solution']['points'])) : ?>
@@ -135,7 +135,7 @@ if (empty($case_study)) {
                                 <?php foreach ($case_study['solution']['points'] as $point) : ?>
                                     <li class="flex items-start gap-3">
                                         <?php icon('check', ['class' => 'w-5 h-5 text-green-600 shrink-0 mt-0.5']); ?>
-                                        <span class="text-slate-700"><?php echo esc_html($point); ?></span>
+                                        <span class="text-blue-700"><?php echo esc_html($point); ?></span>
                                     </li>
                                 <?php endforeach; ?>
                             </ul>
@@ -149,10 +149,10 @@ if (empty($case_study)) {
             <div class="reveal">
                 <div class="grid gap-8">
                     <div class="text-center">
-                        <h3 class="text-lg font-bold text-slate-900 uppercase tracking-wider font-mono">
+                        <h3 class="text-lg font-medium text-blue-900 uppercase tracking-wider font-mono">
                             <?php echo esc_html($case_study['results']['heading']); ?>
                         </h3>
-                        <p class="text-slate-600 mt-3 max-w-2xl mx-auto">
+                        <p class="text-blue-600 mt-3 max-w-2xl mx-auto">
                             <?php echo esc_html($case_study['results']['text']); ?>
                         </p>
                     </div>
@@ -161,14 +161,14 @@ if (empty($case_study)) {
                     <?php if (!empty($case_study['stats'])) : ?>
                         <div class="grid grid-cols-2 gap-6 md:grid-cols-4 lg:gap-8">
                             <?php foreach ($case_study['stats'] as $stat) : ?>
-                                <div class="text-center grid gap-2 p-6 border border-slate-200 bg-slate-50">
+                                <div class="text-center grid gap-2 p-6 border border-blue-200 bg-blue-50">
                                     <div class="flex justify-center">
-                                        <?php icon($stat['icon'], ['class' => 'w-6 h-6 text-secondary']); ?>
+                                        <?php icon($stat['icon'], ['class' => 'w-6 h-6 text-red']); ?>
                                     </div>
-                                    <span class="text-3xl font-bold text-slate-900 lg:text-4xl">
+                                    <span class="text-3xl font-medium text-blue-900 lg:text-4xl">
                                         <?php echo esc_html($stat['stat']); ?>
                                     </span>
-                                    <span class="text-xs text-slate-500 uppercase tracking-wider">
+                                    <span class="text-xs text-blue-500 uppercase tracking-wider">
                                         <?php echo esc_html($stat['label']); ?>
                                     </span>
                                 </div>
@@ -181,17 +181,17 @@ if (empty($case_study)) {
             <!-- Pull Quote -->
             <?php if (!empty($case_study['quote'])) : ?>
                 <div class="reveal">
-                    <div class="bg-slate-900 p-8 md:p-12 lg:p-16 text-center grid gap-6">
-                        <?php icon('quote', ['class' => 'w-10 h-10 text-secondary mx-auto']); ?>
+                    <div class="bg-blue-900 p-8 md:p-12 lg:p-16 text-center grid gap-6">
+                        <?php icon('quote', ['class' => 'w-10 h-10 text-red mx-auto']); ?>
                         <blockquote class="text-xl text-white font-mono leading-relaxed max-w-3xl mx-auto md:text-2xl">
                             &ldquo;<?php echo esc_html($case_study['quote']['text']); ?>&rdquo;
                         </blockquote>
                         <footer>
                             <cite class="not-italic">
-                                <span class="block text-white font-semibold">
+                                <span class="block text-white font-medium">
                                     <?php echo esc_html($case_study['quote']['name']); ?>
                                 </span>
-                                <span class="text-sm text-slate-400">
+                                <span class="text-sm text-blue-400">
                                     <?php echo esc_html($case_study['quote']['role']); ?>
                                 </span>
                             </cite>

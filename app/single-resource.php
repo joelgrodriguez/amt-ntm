@@ -31,10 +31,10 @@ get_header();
                     <div class="grid gap-6 justify-items-start">
                         <span class="badge inline"><?php echo esc_html($content['badge']); ?></span>
 
-                        <?php the_title('<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold font-mono">', '</h1>'); ?>
+                        <?php the_title('<h1 class="text-3xl md:text-4xl lg:text-5xl font-medium font-mono">', '</h1>'); ?>
 
                         <?php if (get_the_excerpt()) : ?>
-                            <p class="text-slate-600"><?php echo esc_html(get_the_excerpt()); ?></p>
+                            <p class="text-blue-600"><?php echo esc_html(get_the_excerpt()); ?></p>
                         <?php endif; ?>
                     </div>
 
@@ -60,9 +60,9 @@ get_header();
                 </div>
 
                 <!-- Resources Sidebar -->
-                <aside class="hidden lg:block border-l border-slate-200 pl-12">
+                <aside class="hidden lg:block border-l border-blue-200 pl-12">
                     <nav class="sticky top-16">
-                        <p class="text-sm font-semibold text-slate-900 mb-4"><?php echo esc_html($content['sidebar_title']); ?></p>
+                        <p class="text-sm font-medium text-blue-900 mb-4"><?php echo esc_html($content['sidebar_title']); ?></p>
                         <ul class="grid gap-2">
                             <?php
                             $resources = new WP_Query([
@@ -77,7 +77,7 @@ get_header();
                                 while ($resources->have_posts()) : $resources->the_post();
                             ?>
                                 <li>
-                                    <a href="<?php the_permalink(); ?>" class="block text-sm text-primary no-underline hover:underline">
+                                    <a href="<?php the_permalink(); ?>" class="block text-sm text-blue-500 no-underline hover:underline">
                                         <?php the_title(); ?>
                                     </a>
                                 </li>

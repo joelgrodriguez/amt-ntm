@@ -27,7 +27,7 @@ $video      = $content['video'] ?? '';
 $poster     = $content['poster'] ?? '';
 ?>
 
-<section class="relative min-h-[60vh] lg:min-h-[70vh] flex items-center justify-center overflow-hidden bg-slate-800" aria-labelledby="<?php echo esc_attr($section_id); ?>-title">
+<section class="relative min-h-[60vh] lg:min-h-[70vh] flex items-center justify-center overflow-hidden bg-blue-800" aria-labelledby="<?php echo esc_attr($section_id); ?>-title">
 
     <?php if (!empty($video)) : ?>
         <video
@@ -59,18 +59,18 @@ $poster     = $content['poster'] ?? '';
 
         <?php if (!empty($content['eyebrow'])) : ?>
             <p>
-                <span class="inline-block bg-secondary text-white text-xs font-semibold uppercase tracking-wider px-3 py-1">
+                <span class="inline-block bg-red text-white text-xs font-medium uppercase tracking-wider px-3 py-1">
                     <?php echo esc_html($content['eyebrow']); ?>
                 </span>
             </p>
         <?php endif; ?>
 
-        <h1 id="<?php echo esc_attr($section_id); ?>-title" class="text-3xl font-bold font-mono text-white md:text-5xl lg:text-6xl max-w-4xl mx-auto">
+        <h1 id="<?php echo esc_attr($section_id); ?>-title" class="text-3xl font-medium font-mono text-white md:text-5xl lg:text-6xl max-w-4xl mx-auto">
             <?php echo esc_html($content['title']); ?>
         </h1>
 
         <?php if (!empty($content['subtitle'])) : ?>
-            <p class="text-lg text-slate-200 md:text-xl max-w-2xl mx-auto">
+            <p class="text-lg text-blue-200 md:text-xl max-w-2xl mx-auto">
                 <?php echo esc_html($content['subtitle']); ?>
             </p>
         <?php endif; ?>
@@ -79,10 +79,10 @@ $poster     = $content['poster'] ?? '';
             <div class="flex justify-center gap-8 sm:gap-12 border-t border-white/20 pt-6 mt-2 max-w-lg mx-auto">
                 <?php foreach ($stats as $stat) : ?>
                     <div class="grid gap-0.5">
-                        <span class="text-2xl font-bold text-white lg:text-3xl">
+                        <span class="text-2xl font-medium text-white lg:text-3xl">
                             <?php echo esc_html($stat['value']); ?>
                         </span>
-                        <span class="text-xs text-slate-400 uppercase tracking-wider">
+                        <span class="text-xs text-blue-400 uppercase tracking-wider">
                             <?php echo esc_html($stat['label']); ?>
                         </span>
                     </div>

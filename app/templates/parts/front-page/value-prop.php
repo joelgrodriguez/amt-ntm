@@ -55,7 +55,7 @@ $points = [
                     class="w-full h-auto"
                     loading="lazy"
                 >
-                <p class="mt-4 text-center text-sm text-slate-600">
+                <p class="mt-4 text-center text-sm text-blue-600">
                     <?php echo esc_html($content['image_caption']); ?>
                 </p>
             </div>
@@ -81,10 +81,10 @@ $points = [
                                 <?php icon('check', ['class' => 'w-4 h-4 text-green-600']); ?>
                             </span>
                             <div>
-                                <h3 class="text-lg font-semibold text-slate-900 mb-1">
+                                <h3 class="text-lg font-medium text-blue-900 mb-1">
                                     <?php echo esc_html($point['title']); ?>
                                 </h3>
-                                <p class="text-slate-600">
+                                <p class="text-blue-600">
                                     <?php echo esc_html($point['text']); ?>
                                 </p>
                             </div>

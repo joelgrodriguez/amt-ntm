@@ -42,7 +42,7 @@ $machine_tags = get_the_tags();
             <header class="container">
                 <div class="grid gap-4 justify-items-start">
                     <span class="badge inline"><?php echo esc_html($content['badge']); ?></span>
-                    <?php the_title('<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold font-mono">', '</h1>'); ?>
+                    <?php the_title('<h1 class="text-3xl md:text-4xl lg:text-5xl font-medium font-mono">', '</h1>'); ?>
                 </div>
             </header>
 
@@ -50,16 +50,16 @@ $machine_tags = get_the_tags();
             <div class="container lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
 
                 <!-- Filter Sidebar -->
-                <aside class="hidden lg:block border-r border-slate-200 pr-8">
+                <aside class="hidden lg:block border-r border-blue-200 pr-8">
                     <nav class="sticky top-16 grid gap-8">
 
                         <!-- Filter by Category -->
                         <div>
-                            <h3 class="text-sm font-semibold text-slate-900 mb-4 flex items-center gap-2">
+                            <h3 class="text-sm font-medium text-blue-900 mb-4 flex items-center gap-2">
                                 <?php icon('filter', ['class' => 'w-4 h-4']); ?>
                                 <?php echo esc_html($content['filter_type']); ?>
                             </h3>
-                            <ul class="grid gap-1 border-l border-slate-200">
+                            <ul class="grid gap-1 border-l border-blue-200">
                                 <?php
                                 $profile_categories = get_terms([
                                     'taxonomy' => 'category',
@@ -76,9 +76,9 @@ $machine_tags = get_the_tags();
                                         $is_active = $categories && in_array($cat->term_id, wp_list_pluck($categories, 'term_id'));
                                 ?>
                                     <li>
-                                        <a href="<?php echo esc_url(get_term_link($cat)); ?>" class="flex items-center justify-between text-sm py-2 pl-4 border-l-2 -ml-px <?php echo $is_active ? 'border-primary text-primary font-medium' : 'border-transparent text-slate-600 hover:text-slate-900 hover:border-slate-300'; ?>">
+                                        <a href="<?php echo esc_url(get_term_link($cat)); ?>" class="flex items-center justify-between text-sm py-2 pl-4 border-l-2 -ml-px <?php echo $is_active ? 'border-blue-500 text-blue-500 font-medium' : 'border-transparent text-blue-600 hover:text-blue-900 hover:border-blue-300'; ?>">
                                             <span><?php echo esc_html($cat->name); ?></span>
-                                            <span class="text-xs text-slate-400"><?php echo esc_html($cat->count); ?></span>
+                                            <span class="text-xs text-blue-400"><?php echo esc_html($cat->count); ?></span>
                                         </a>
                                     </li>
                                 <?php
@@ -90,11 +90,11 @@ $machine_tags = get_the_tags();
 
                         <!-- Filter by Machine -->
                         <div>
-                            <h3 class="text-sm font-semibold text-slate-900 mb-4 flex items-center gap-2">
+                            <h3 class="text-sm font-medium text-blue-900 mb-4 flex items-center gap-2">
                                 <?php icon('settings', ['class' => 'w-4 h-4']); ?>
                                 <?php echo esc_html($content['filter_machine']); ?>
                             </h3>
-                            <ul class="grid gap-1 border-l border-slate-200">
+                            <ul class="grid gap-1 border-l border-blue-200">
                                 <?php
                                 $machine_terms = get_terms([
                                     'taxonomy' => 'post_tag',
@@ -111,9 +111,9 @@ $machine_tags = get_the_tags();
                                         $is_active = $machine_tags && in_array($machine->term_id, wp_list_pluck($machine_tags, 'term_id'));
                                 ?>
                                     <li>
-                                        <a href="<?php echo esc_url(get_term_link($machine)); ?>" class="flex items-center justify-between text-sm py-2 pl-4 border-l-2 -ml-px <?php echo $is_active ? 'border-primary text-primary font-medium' : 'border-transparent text-slate-600 hover:text-slate-900 hover:border-slate-300'; ?>">
+                                        <a href="<?php echo esc_url(get_term_link($machine)); ?>" class="flex items-center justify-between text-sm py-2 pl-4 border-l-2 -ml-px <?php echo $is_active ? 'border-blue-500 text-blue-500 font-medium' : 'border-transparent text-blue-600 hover:text-blue-900 hover:border-blue-300'; ?>">
                                             <span><?php echo esc_html($machine->name); ?></span>
-                                            <span class="text-xs text-slate-400"><?php echo esc_html($machine->count); ?></span>
+                                            <span class="text-xs text-blue-400"><?php echo esc_html($machine->count); ?></span>
                                         </a>
                                     </li>
                                 <?php
@@ -124,7 +124,7 @@ $machine_tags = get_the_tags();
                         </div>
 
                         <!-- All Profiles Link -->
-                        <a href="<?php echo esc_url(get_post_type_archive_link('profile')); ?>" class="flex items-center gap-2 text-sm font-medium text-primary hover:underline">
+                        <a href="<?php echo esc_url(get_post_type_archive_link('profile')); ?>" class="flex items-center gap-2 text-sm font-medium text-blue-500 hover:underline">
                             <?php icon('arrow-left', ['class' => 'w-4 h-4']); ?>
                             <?php echo esc_html($content['view_all']); ?>
                         </a>
@@ -143,8 +143,8 @@ $machine_tags = get_the_tags();
                     </section>
 
                     <!-- Compatible Machines Section -->
-                    <section class="border-t border-slate-200 pt-8">
-                        <h2 class="text-sm font-semibold text-slate-900 mb-6 flex items-center gap-2">
+                    <section class="border-t border-blue-200 pt-8">
+                        <h2 class="text-sm font-medium text-blue-900 mb-6 flex items-center gap-2">
                             <?php icon('settings', ['class' => 'w-4 h-4']); ?>
                             <?php echo esc_html($content['compatible_machines']); ?>
                         </h2>
@@ -155,16 +155,16 @@ $machine_tags = get_the_tags();
                                     // Find product by matching tag name to product title/SKU
                                     // $product = wc_get_products(['name' => $machine_tag->name, 'limit' => 1]);
                                 ?>
-                                    <a href="<?php echo esc_url(get_tag_link($machine_tag->term_id)); ?>" class="group block border border-slate-200 bg-white hover:border-primary transition-colors">
+                                    <a href="<?php echo esc_url(get_tag_link($machine_tag->term_id)); ?>" class="group block border border-blue-200 bg-white hover:border-blue-500 transition-colors">
                                         <!-- Machine Image Placeholder -->
-                                        <div class="aspect-video bg-slate-50 flex items-center justify-center border-b border-slate-200">
-                                            <?php icon('settings', ['class' => 'w-12 h-12 text-slate-300 group-hover:text-primary transition-colors']); ?>
+                                        <div class="aspect-video bg-blue-50 flex items-center justify-center border-b border-blue-200">
+                                            <?php icon('settings', ['class' => 'w-12 h-12 text-blue-300 group-hover:text-blue-500 transition-colors']); ?>
                                         </div>
                                         <div class="p-4">
-                                            <p class="font-semibold text-slate-900 group-hover:text-primary transition-colors">
+                                            <p class="font-medium text-blue-900 group-hover:text-blue-500 transition-colors">
                                                 <?php echo esc_html($machine_tag->name); ?>
                                             </p>
-                                            <p class="text-xs text-slate-500 mt-1 font-mono">
+                                            <p class="text-xs text-blue-500 mt-1 font-mono">
                                                 <?php
                                                 printf(
                                                     esc_html($content['profiles_available']),
@@ -177,10 +177,10 @@ $machine_tags = get_the_tags();
                                 <?php endforeach; ?>
                             </div>
                         <?php else : ?>
-                            <div class="text-center py-8 border border-slate-200 bg-white">
-                                <?php icon('settings', ['class' => 'w-12 h-12 text-slate-300 mx-auto mb-4']); ?>
-                                <p class="text-slate-500"><?php echo esc_html($content['no_machines']); ?></p>
-                                <p class="text-slate-400 text-xs mt-1"><?php echo esc_html($content['add_tags_hint']); ?></p>
+                            <div class="text-center py-8 border border-blue-200 bg-white">
+                                <?php icon('settings', ['class' => 'w-12 h-12 text-blue-300 mx-auto mb-4']); ?>
+                                <p class="text-blue-500"><?php echo esc_html($content['no_machines']); ?></p>
+                                <p class="text-blue-400 text-xs mt-1"><?php echo esc_html($content['add_tags_hint']); ?></p>
                             </div>
                         <?php endif; ?>
                     </section>

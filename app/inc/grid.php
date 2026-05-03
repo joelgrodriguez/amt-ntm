@@ -32,7 +32,7 @@ function get_card_border_classes(int $idx, int $total, int $cols): string {
     $is_last_sm = ($idx % 2 === 1) || ($idx === $total - 1);
     $is_last_lg = (($idx + 1) % $cols === 0) || ($idx === $total - 1);
 
-    $classes = 'border-b border-slate-200';
+    $classes = 'border-b border-blue-200';
     $classes .= $is_last_sm ? '' : ' sm:border-r';
     $classes .= $is_last_lg ? ' lg:border-r-0' : ' lg:border-r';
 
@@ -49,7 +49,7 @@ function get_card_border_classes(int $idx, int $total, int $cols): string {
 function get_overflow_border_classes(int $idx, int $total): string {
     $is_last = ($idx === $total - 1);
 
-    $classes = 'border-b border-slate-200';
+    $classes = 'border-b border-blue-200';
     $classes .= ($idx % 2 === 0 && !$is_last) ? ' sm:border-r' : '';
     $classes .= $is_last ? '' : ' lg:border-r';
 

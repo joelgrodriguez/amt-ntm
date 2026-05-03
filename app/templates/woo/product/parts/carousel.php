@@ -52,13 +52,13 @@ if (empty($cards)) {
                 data-carousel-prev="<?php echo esc_attr($carousel_id); ?>"
                 class="carousel__nav"
                 aria-label="<?php echo esc_attr($prev_label); ?>">
-            <span class="text-slate-600">&larr;</span>
+            <span class="text-blue-600">&larr;</span>
         </button>
         <button type="button"
                 data-carousel-next="<?php echo esc_attr($carousel_id); ?>"
                 class="carousel__nav"
                 aria-label="<?php echo esc_attr($next_label); ?>">
-            <span class="text-slate-600">&rarr;</span>
+            <span class="text-blue-600">&rarr;</span>
         </button>
     </div>
 </div>
@@ -72,13 +72,13 @@ if (empty($cards)) {
                          alt="<?php echo esc_attr($card['title']); ?>"
                          loading="lazy">
                 <?php else : ?>
-                    <span class="text-slate-400 text-sm font-mono"><?php echo esc_html($card['title']); ?></span>
+                    <span class="text-blue-400 text-sm font-mono"><?php echo esc_html($card['title']); ?></span>
                 <?php endif; ?>
             </div>
             <div class="grid gap-1">
-                <h3 class="text-sm font-bold text-slate-900 group-hover:text-primary transition-colors leading-tight"><?php echo esc_html($card['title']); ?></h3>
+                <h3 class="text-sm font-medium text-blue-900 group-hover:text-blue-500 transition-colors leading-tight"><?php echo esc_html($card['title']); ?></h3>
                 <?php if (!empty($card['subtitle'])) : ?>
-                    <p class="text-xs text-slate-500"><?php echo wp_kses_post($card['subtitle']); ?></p>
+                    <p class="text-xs text-blue-500"><?php echo wp_kses_post($card['subtitle']); ?></p>
                 <?php endif; ?>
             </div>
         </a>

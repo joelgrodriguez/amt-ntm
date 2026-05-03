@@ -50,8 +50,8 @@ $categories = get_categories([
     <!-- Header -->
     <header class="container mb-6 lg:mb-12">
         <div class="grid gap-4 justify-items-start">
-            <span class="text-xs font-mono uppercase tracking-widest text-secondary"><?php echo esc_html($content['eyebrow']); ?></span>
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold font-mono"><?php echo esc_html($content['title']); ?></h1>
+            <span class="text-xs font-mono uppercase tracking-widest text-red"><?php echo esc_html($content['eyebrow']); ?></span>
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-medium font-mono"><?php echo esc_html($content['title']); ?></h1>
         </div>
     </header>
 
@@ -59,22 +59,22 @@ $categories = get_categories([
     <div class="container lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
 
         <!-- Filter Sidebar -->
-        <aside class="hidden lg:block border-r border-slate-200 pr-8">
+        <aside class="hidden lg:block border-r border-blue-200 pr-8">
             <nav class="sticky top-16 grid gap-8">
 
                 <!-- Filter by Category -->
                 <div>
-                    <h3 class="text-sm font-semibold text-slate-900 mb-4 flex items-center gap-2">
+                    <h3 class="text-sm font-medium text-blue-900 mb-4 flex items-center gap-2">
                         <?php icon('filter', ['class' => 'w-4 h-4']); ?>
                         <?php echo esc_html($content['filter_title']); ?>
                     </h3>
-                    <ul class="grid gap-1 border-l border-slate-200">
+                    <ul class="grid gap-1 border-l border-blue-200">
                         <?php if (!empty($categories)) : ?>
                             <?php foreach ($categories as $cat) : ?>
                                 <li>
-                                    <a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>" class="flex items-center justify-between text-sm py-2 pl-4 border-l-2 -ml-px border-transparent text-slate-600 hover:text-slate-900 hover:border-slate-300">
+                                    <a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>" class="flex items-center justify-between text-sm py-2 pl-4 border-l-2 -ml-px border-transparent text-blue-600 hover:text-blue-900 hover:border-blue-300">
                                         <span><?php echo esc_html($cat->name); ?></span>
-                                        <span class="text-xs text-slate-400"><?php echo esc_html($cat->count); ?></span>
+                                        <span class="text-xs text-blue-400"><?php echo esc_html($cat->count); ?></span>
                                     </a>
                                 </li>
                             <?php endforeach; ?>
@@ -83,7 +83,7 @@ $categories = get_categories([
                 </div>
 
                 <!-- Back to Learning Center -->
-                <a href="<?php echo esc_url($content['back_url']); ?>" class="flex items-center gap-2 text-sm font-medium text-primary hover:underline">
+                <a href="<?php echo esc_url($content['back_url']); ?>" class="flex items-center gap-2 text-sm font-medium text-blue-500 hover:underline">
                     <?php icon('arrow-left', ['class' => 'w-4 h-4']); ?>
                     <?php echo esc_html($content['back_link']); ?>
                 </a>

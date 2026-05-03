@@ -44,7 +44,7 @@ $ctas = [
 ];
 ?>
 
-<section id="machine-final-cta" class="section bg-slate-900" aria-labelledby="final-cta-title">
+<section id="machine-final-cta" class="section bg-blue-900" aria-labelledby="final-cta-title">
     <div class="container section-content">
 
         <div class="section-header">
@@ -53,9 +53,9 @@ $ctas = [
 
         <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             <?php foreach ($ctas as $cta) : ?>
-                <div class="border border-slate-700 p-8 grid gap-4 text-center">
-                    <h3 class="text-lg font-bold text-white"><?php echo esc_html($cta['title']); ?></h3>
-                    <p class="text-sm text-slate-400"><?php echo esc_html($cta['text']); ?></p>
+                <div class="border border-blue-700 p-8 grid gap-4 text-center">
+                    <h3 class="text-lg font-medium text-white"><?php echo esc_html($cta['title']); ?></h3>
+                    <p class="text-sm text-blue-400"><?php echo esc_html($cta['text']); ?></p>
                     <a href="<?php echo esc_url($cta['url']); ?>" class="btn btn-outline-light btn-sm mx-auto">
                         <?php echo esc_html($cta['label']); ?>
                     </a>

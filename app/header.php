@@ -25,18 +25,18 @@ if (!defined('ABSPATH')) {
 <body <?php body_class('min-h-screen flex flex-col'); ?>>
 <?php wp_body_open(); ?>
 
-<a href="#primary" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+<a href="#primary" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-blue-500 focus:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
     <?php esc_html_e('Skip to main content', 'standard'); ?>
 </a>
 
-<header id="site-header" class="bg-white border-b border-slate-200 z-50 transition-colors duration-200">
-    <div class="mx-auto lg:container lg:border-x lg:border-slate-200">
+<header id="site-header" class="bg-white border-b border-blue-200 z-50 transition-colors duration-200">
+    <div class="mx-auto lg:container lg:border-x lg:border-blue-200">
         <div class="flex items-center h-12">
             <!-- Mobile menu toggle -->
             <button
                 type="button"
                 id="mobile-menu-toggle"
-                class="flex items-center justify-center w-12 h-12 border-r border-slate-200 text-slate-700 hover:bg-slate-100 transition-colors lg:hidden"
+                class="flex items-center justify-center w-12 h-12 border-r border-blue-200 text-blue-700 hover:bg-blue-100 transition-colors lg:hidden"
                 aria-expanded="false"
                 aria-controls="mobile-menu"
                 aria-label="Toggle menu"
@@ -46,7 +46,7 @@ if (!defined('ABSPATH')) {
             </button>
 
             <!-- Logo + Site Name -->
-            <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-4 h-12 px-4 lg:px-6 lg:border-r border-slate-200 no-underline">
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-4 h-12 px-4 lg:px-6 lg:border-r border-blue-200 no-underline">
                 <?php if (has_custom_logo()) : ?>
                     <?php
                     $custom_logo_id = get_theme_mod('custom_logo');
@@ -54,13 +54,13 @@ if (!defined('ABSPATH')) {
                     ?>
                     <img src="<?php echo esc_url($logo_url); ?>" alt="" class="w-14 object-contain">
                 <?php endif; ?>
-                <span class="text-sm font-mono font-bold text-slate-600 hover:text-primary">
+                <span class="text-sm font-mono font-medium text-blue-600 hover:text-blue-500">
                     <?php echo esc_html(get_bloginfo('name')); ?>
                 </span>
             </a>
 
             <!-- Desktop navigation -->
-            <nav id="desktop-navigation" class="hidden lg:flex items-center h-12 flex-1 border-r border-slate-200">
+            <nav id="desktop-navigation" class="hidden lg:flex items-center h-12 flex-1 border-r border-blue-200">
                 <?php
                 wp_nav_menu([
                     'theme_location' => 'primary',
@@ -77,7 +77,7 @@ if (!defined('ABSPATH')) {
 
             <!-- Right side icons -->
             <div id="header-actions" class="flex items-center h-12 ml-auto px-2 lg:px-0 transition-opacity duration-200">
-                <a href="<?php echo esc_url(home_url('/?s=')); ?>" class="flex items-center justify-center w-12 h-12 text-slate-600 hover:bg-slate-100 transition-colors" aria-label="Search">
+                <a href="<?php echo esc_url(home_url('/?s=')); ?>" class="flex items-center justify-center w-12 h-12 text-blue-600 hover:bg-blue-100 transition-colors" aria-label="Search">
                     <?php icon('search', ['class' => 'w-5 h-5']); ?>
                 </a>
             </div>

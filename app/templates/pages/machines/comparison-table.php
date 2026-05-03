@@ -53,27 +53,27 @@ $rows = [
             <?php foreach ($machines as $machine) :
                 $is_flagship = !empty($machine['badge']);
             ?>
-                <div class="border <?php echo $is_flagship ? 'border-primary border-2' : 'border-slate-200'; ?>">
+                <div class="border <?php echo $is_flagship ? 'border-blue-500 border-2' : 'border-blue-200'; ?>">
                     <!-- Card header -->
-                    <div class="<?php echo $is_flagship ? 'bg-primary' : 'bg-slate-800'; ?> px-4 py-4 text-center">
-                        <a href="<?php echo esc_url($machine['url']); ?>" class="text-lg font-bold text-white no-underline hover:underline">
+                    <div class="<?php echo $is_flagship ? 'bg-blue-500' : 'bg-blue-800'; ?> px-4 py-4 text-center">
+                        <a href="<?php echo esc_url($machine['url']); ?>" class="text-lg font-medium text-white no-underline hover:underline">
                             <?php echo esc_html($machine['short_name'] ?? $machine['name']); ?>
                         </a>
                         <?php if ($is_flagship) : ?>
-                            <span class="block text-xs font-semibold uppercase tracking-wider text-white/70 mt-1">
+                            <span class="block text-xs font-medium uppercase tracking-wider text-white/70 mt-1">
                                 <?php echo esc_html($machine['badge']); ?>
                             </span>
                         <?php endif; ?>
                     </div>
                     <!-- Card rows -->
                     <?php $i = 0; foreach ($rows as $key => $label) : ?>
-                        <div class="flex justify-between px-4 py-3 text-sm border-b border-slate-100 <?php echo ($i % 2 === 0) ? 'bg-white' : 'bg-slate-50'; ?>">
-                            <span class="font-medium text-slate-700"><?php echo esc_html($label); ?></span>
-                            <span class="text-slate-600 text-right"><?php echo esc_html($machine['specs'][$key]); ?></span>
+                        <div class="flex justify-between px-4 py-3 text-sm border-b border-blue-100 <?php echo ($i % 2 === 0) ? 'bg-white' : 'bg-blue-50'; ?>">
+                            <span class="font-medium text-blue-700"><?php echo esc_html($label); ?></span>
+                            <span class="text-blue-600 text-right"><?php echo esc_html($machine['specs'][$key]); ?></span>
                         </div>
                     <?php $i++; endforeach; ?>
                     <!-- Card CTA -->
-                    <div class="px-4 py-4 bg-white border-t border-slate-200">
+                    <div class="px-4 py-4 bg-white border-t border-blue-200">
                         <a href="<?php echo esc_url($machine['url']); ?>" class="btn <?php echo $is_flagship ? 'btn-primary' : 'btn-outline-dark'; ?> btn-sm w-full justify-center">
                             <?php esc_html_e('Explore', 'standard'); ?>
                         </a>
@@ -84,22 +84,22 @@ $rows = [
 
         <!-- Desktop: Full table -->
         <div class="hidden lg:block overflow-x-auto">
-            <table class="w-full text-sm border-collapse border border-slate-200">
+            <table class="w-full text-sm border-collapse border border-blue-200">
                 <!-- Header row: machine names -->
                 <thead>
                     <tr>
-                        <th class="bg-slate-800 text-white py-4 px-5 text-left font-bold text-base border-r border-slate-700">
+                        <th class="bg-blue-800 text-white py-4 px-5 text-left font-medium text-base border-r border-blue-700">
                             <?php esc_html_e('Machine', 'standard'); ?>
                         </th>
                         <?php foreach ($machines as $machine) :
                             $is_flagship = !empty($machine['badge']);
                         ?>
-                            <th class="<?php echo $is_flagship ? 'bg-primary' : 'bg-slate-800'; ?> text-white py-4 px-4 text-center border-r border-slate-700">
-                                <a href="<?php echo esc_url($machine['url']); ?>" class="text-white no-underline hover:underline font-bold text-sm">
+                            <th class="<?php echo $is_flagship ? 'bg-blue-500' : 'bg-blue-800'; ?> text-white py-4 px-4 text-center border-r border-blue-700">
+                                <a href="<?php echo esc_url($machine['url']); ?>" class="text-white no-underline hover:underline font-medium text-sm">
                                     <?php echo esc_html($machine['short_name'] ?? $machine['name']); ?>
                                 </a>
                                 <?php if ($is_flagship) : ?>
-                                    <span class="block text-xs font-semibold uppercase tracking-wider text-white/70 mt-0.5">
+                                    <span class="block text-xs font-medium uppercase tracking-wider text-white/70 mt-0.5">
                                         <?php echo esc_html($machine['badge']); ?>
                                     </span>
                                 <?php endif; ?>
@@ -110,27 +110,27 @@ $rows = [
                 <!-- Data rows -->
                 <tbody>
                     <?php $row_idx = 0; foreach ($rows as $key => $label) : ?>
-                        <tr class="border-b border-slate-200 <?php echo ($row_idx % 2 === 0) ? 'bg-white' : 'bg-slate-50'; ?>">
-                            <td class="py-3 px-5 font-medium text-slate-800 border-r border-slate-200 bg-slate-100">
+                        <tr class="border-b border-blue-200 <?php echo ($row_idx % 2 === 0) ? 'bg-white' : 'bg-blue-50'; ?>">
+                            <td class="py-3 px-5 font-medium text-blue-800 border-r border-blue-200 bg-blue-100">
                                 <?php echo esc_html($label); ?>
                             </td>
                             <?php foreach ($machines as $machine) :
                                 $is_flagship = !empty($machine['badge']);
                                 $value = $machine['specs'][$key] ?? '—';
                             ?>
-                                <td class="py-3 px-4 text-center text-slate-600 border-r border-slate-200 <?php echo $is_flagship ? 'bg-primary/5' : ''; ?>">
+                                <td class="py-3 px-4 text-center text-blue-600 border-r border-blue-200 <?php echo $is_flagship ? 'bg-blue-500/5' : ''; ?>">
                                     <?php echo esc_html($value); ?>
                                 </td>
                             <?php endforeach; ?>
                         </tr>
                     <?php $row_idx++; endforeach; ?>
                     <!-- Explore row -->
-                    <tr class="bg-white border-t border-slate-200">
-                        <td class="py-4 px-5 bg-slate-100 border-r border-slate-200"></td>
+                    <tr class="bg-white border-t border-blue-200">
+                        <td class="py-4 px-5 bg-blue-100 border-r border-blue-200"></td>
                         <?php foreach ($machines as $machine) :
                             $is_flagship = !empty($machine['badge']);
                         ?>
-                            <td class="py-4 px-4 text-center border-r border-slate-200 <?php echo $is_flagship ? 'bg-primary/5' : ''; ?>">
+                            <td class="py-4 px-4 text-center border-r border-blue-200 <?php echo $is_flagship ? 'bg-blue-500/5' : ''; ?>">
                                 <a href="<?php echo esc_url($machine['url']); ?>" class="btn <?php echo $is_flagship ? 'btn-primary' : 'btn-outline-dark'; ?> btn-sm">
                                     <?php esc_html_e('Explore', 'standard'); ?>
                                 </a>
