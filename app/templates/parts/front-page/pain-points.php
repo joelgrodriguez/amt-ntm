@@ -69,13 +69,13 @@ $points = [
                     <?php foreach ($points as $point) : ?>
                         <li class="flex gap-4">
                             <span class="shrink-0 mt-1">
-                                <?php icon('x', ['class' => 'w-4 h-4 text-red-500']); ?>
+                                <?php icon('x', ['class' => 'w-4 h-4 text-red']); ?>
                             </span>
                             <div>
-                                <h3 class="text-lg font-semibold text-slate-900 mb-1">
+                                <h3 class="text-lg font-medium text-blue-900 mb-1">
                                     <?php echo esc_html($point['title']); ?>
                                 </h3>
-                                <p class="text-slate-600">
+                                <p class="text-blue-600">
                                     <?php echo esc_html($point['text']); ?>
                                 </p>
                             </div>
@@ -100,9 +100,9 @@ $points = [
                     class="w-full h-auto"
                     loading="lazy"
                 >
-                <p class="mt-4 text-center text-sm text-slate-600">
+                <p class="mt-4 text-center text-sm text-blue-600">
                     <?php echo esc_html($content['image_caption']); ?>
-                    <a href="<?php echo esc_url($content['cta_primary_url']); ?>" class="text-primary font-medium hover:underline">
+                    <a href="<?php echo esc_url($content['cta_primary_url']); ?>" class="text-blue-500 font-medium hover:underline">
                         <?php echo esc_html($content['image_cta']); ?>
                     </a>
                 </p>

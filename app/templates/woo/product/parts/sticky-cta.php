@@ -29,12 +29,12 @@ if (!$product) {
 $price = $product->get_price_html();
 ?>
 
-<div id="sticky-cta" class="fixed bottom-0 inset-x-0 z-50 bg-slate-900/95 backdrop-blur-sm border-t border-slate-700 translate-y-full transition-transform duration-300" aria-hidden="true">
+<div id="sticky-cta" class="fixed bottom-0 inset-x-0 z-50 bg-blue-900/95 backdrop-blur-sm border-t border-blue-700 translate-y-full transition-transform duration-300" aria-hidden="true">
     <div class="container flex items-center justify-between py-3">
         <div class="flex items-center gap-4">
-            <span class="font-bold text-white"><?php echo esc_html($product->get_name()); ?></span>
+            <span class="font-medium text-white"><?php echo esc_html($product->get_name()); ?></span>
             <?php if ($price) : ?>
-                <span class="text-sm text-slate-400"><?php echo wp_kses_post($price); ?></span>
+                <span class="text-sm text-blue-400"><?php echo wp_kses_post($price); ?></span>
             <?php endif; ?>
         </div>
         <a href="#" class="btn btn-primary btn-sm">

@@ -58,7 +58,7 @@ class Pagination
         $links = self::generate_pagination_links($paged, $max);
 
         echo '<nav aria-label="Page navigation">';
-        echo '<ul class="mt-12 border-t border-slate-200 py-6 flex items-center justify-center gap-1">';
+        echo '<ul class="mt-12 border-t border-blue-200 py-6 flex items-center justify-center gap-1">';
 
         self::render_previous_link($paged);
         self::render_page_links($paged, $max, $links);
@@ -101,13 +101,13 @@ class Pagination
     {
         if ($paged > 1) {
             printf(
-                '<li><a href="%s" class="flex items-center justify-center w-10 h-10  text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition-colors" aria-label="Previous page">%s</a></li>',
+                '<li><a href="%s" class="flex items-center justify-center w-10 h-10 text-blue-500 hover:bg-blue-100 hover:text-blue-900 transition-colors" aria-label="Previous page">%s</a></li>',
                 esc_url(get_pagenum_link($paged - 1)),
                 self::SVG_PREV
             );
         } else {
             printf(
-                '<li><span class="flex items-center justify-center w-10 h-10  text-slate-300 cursor-not-allowed" aria-hidden="true">%s</span></li>',
+                '<li><span class="flex items-center justify-center w-10 h-10 text-blue-300 cursor-not-allowed" aria-hidden="true">%s</span></li>',
                 self::SVG_PREV
             );
         }
@@ -121,19 +121,19 @@ class Pagination
             // Render ellipsis if there's a gap
             if ($prev > 0 && $link - $prev > 1) {
                 printf(
-                    '<li><span class="flex items-center justify-center w-10 h-10 text-slate-400" aria-hidden="true">%s</span></li>',
+                    '<li><span class="flex items-center justify-center w-10 h-10 text-blue-400" aria-hidden="true">%s</span></li>',
                     self::SVG_ELLIPSIS
                 );
             }
 
             if ($paged === $link) {
                 printf(
-                    '<li><span aria-current="page" class="flex items-center justify-center w-10 h-10  bg-primary text-white font-medium">%s</span></li>',
+                    '<li><span aria-current="page" class="flex items-center justify-center w-10 h-10 bg-blue-500 text-white font-medium">%s</span></li>',
                     esc_html($link)
                 );
             } else {
                 printf(
-                    '<li><a href="%s" class="flex items-center justify-center w-10 h-10  text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors">%s</a></li>',
+                    '<li><a href="%s" class="flex items-center justify-center w-10 h-10 text-blue-600 hover:bg-blue-100 hover:text-blue-900 transition-colors">%s</a></li>',
                     esc_url(get_pagenum_link($link)),
                     esc_html($link)
                 );
@@ -147,13 +147,13 @@ class Pagination
     {
         if ($paged < $max) {
             printf(
-                '<li><a href="%s" class="flex items-center justify-center w-10 h-10  text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition-colors" aria-label="Next page">%s</a></li>',
+                '<li><a href="%s" class="flex items-center justify-center w-10 h-10 text-blue-500 hover:bg-blue-100 hover:text-blue-900 transition-colors" aria-label="Next page">%s</a></li>',
                 esc_url(get_pagenum_link($paged + 1)),
                 self::SVG_NEXT
             );
         } else {
             printf(
-                '<li><span class="flex items-center justify-center w-10 h-10  text-slate-300 cursor-not-allowed" aria-hidden="true">%s</span></li>',
+                '<li><span class="flex items-center justify-center w-10 h-10 text-blue-300 cursor-not-allowed" aria-hidden="true">%s</span></li>',
                 self::SVG_NEXT
             );
         }

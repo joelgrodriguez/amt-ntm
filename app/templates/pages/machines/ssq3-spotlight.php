@@ -64,10 +64,10 @@ $features = get_ssq3_features();
                                 <?php icon('check', ['class' => 'w-4 h-4 text-green-600']); ?>
                             </span>
                             <div>
-                                <h3 class="font-semibold text-slate-900 mb-0.5">
+                                <h3 class="font-medium text-blue-900 mb-0.5">
                                     <?php echo esc_html($feature['title']); ?>
                                 </h3>
-                                <p class="text-sm text-slate-600">
+                                <p class="text-sm text-blue-600">
                                     <?php echo esc_html($feature['text']); ?>
                                 </p>
                             </div>

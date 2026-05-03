@@ -19,8 +19,8 @@ if (!$related->have_posts()) {
 }
 ?>
 
-<section class="related-posts pt-6 lg:pt-12 border-t border-slate-200">
-    <h2 class="text-2xl font-bold font-mono mb-8"><?php esc_html_e('Related', 'standard'); ?></h2>
+<section class="related-posts pt-6 lg:pt-12 border-t border-blue-200">
+    <h2 class="text-2xl font-medium font-mono mb-8"><?php esc_html_e('Related', 'standard'); ?></h2>
 
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         <?php while ($related->have_posts()) : $related->the_post(); ?>

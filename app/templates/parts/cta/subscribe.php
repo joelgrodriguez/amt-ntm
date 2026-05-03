@@ -25,24 +25,24 @@ $content = [
 ];
 ?>
 
-<section class="pattern-square-grid border-t border-slate-200 bg-slate-100">
+<section class="pattern-square-grid border-t border-blue-200 bg-blue-100">
     <div class="pattern-square-grid__overlay pattern-square-grid__overlay--top-left"></div>
     <div class="pattern-square-grid__overlay pattern-square-grid__overlay--bottom-right"></div>
     <div class="container py-12">
         <div class="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
             <!-- Content -->
             <div class="grid gap-6">
-                <span class="text-xs font-mono uppercase tracking-widest text-secondary">
+                <span class="text-xs font-mono uppercase tracking-widest text-red">
                     <?php echo esc_html($content['eyebrow']); ?>
                 </span>
-                <h2 class="text-2xl lg:text-3xl font-bold font-mono text-slate-900">
+                <h2 class="text-2xl lg:text-3xl font-medium font-mono text-blue-900">
                     <?php echo esc_html($content['title']); ?>
                 </h2>
-                <p class="text-slate-600 max-w-lg">
+                <p class="text-blue-600 max-w-lg">
                     <?php echo esc_html($content['text']); ?>
                 </p>
                 <div class="flex flex-wrap gap-4 mt-2">
-                    <a href="<?php echo esc_url($content['cta_url']); ?>" class="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white font-medium hover:bg-slate-700 transition-colors">
+                    <a href="<?php echo esc_url($content['cta_url']); ?>" class="inline-flex items-center gap-2 px-6 py-3 bg-red text-white font-medium hover:bg-blue-700 transition-colors">
                         <?php echo esc_html($content['cta_text']); ?>
                         <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                     </a>

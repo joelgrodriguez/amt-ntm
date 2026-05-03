@@ -56,7 +56,7 @@ if (empty($content) || empty($faqs)) {
                                     <?php icon('chevron-down', ['class' => 'w-5 h-5']); ?>
                                 </span>
                             </summary>
-                            <div class="accordion__body text-base text-slate-600 leading-relaxed">
+                            <div class="accordion__body text-base text-blue-600 leading-relaxed">
                                 <p><?php echo esc_html($faq['answer']); ?></p>
                             </div>
                         </details>

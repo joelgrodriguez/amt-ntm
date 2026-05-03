@@ -43,19 +43,19 @@ $machine_cols = count($machine_dims);
 $trailer_cols = count($trailer_dims);
 ?>
 
-<section class="bg-slate-950 section" aria-labelledby="blueprint-title">
+<section class="bg-blue-950 section" aria-labelledby="blueprint-title">
     <div class="container section-content">
 
         <div class="section-header">
-            <p class="section-eyebrow text-emerald-400">Engineering Specs</p>
+            <p class="section-eyebrow text-red">Engineering Specs</p>
             <h2 id="blueprint-title" class="section-title text-white">Machine Footprint</h2>
         </div>
 
-        <div class="border border-slate-700 aspect-[16/7] flex items-center justify-center mx-auto max-w-4xl">
+        <div class="border border-blue-700 aspect-[16/7] flex items-center justify-center mx-auto max-w-4xl">
             <?php if (!empty($svg_name)) : ?>
-                <span class="text-slate-500 text-sm font-mono"><?php echo esc_html($svg_name); ?>.svg</span>
+                <span class="text-blue-500 text-sm font-mono"><?php echo esc_html($svg_name); ?>.svg</span>
             <?php else : ?>
-                <span class="text-slate-500 text-sm font-mono">Blueprint</span>
+                <span class="text-blue-500 text-sm font-mono">Blueprint</span>
             <?php endif; ?>
         </div>
 
@@ -63,21 +63,21 @@ $trailer_cols = count($trailer_dims);
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-<?php echo esc_attr((string) $machine_cols); ?> gap-6 max-w-4xl mx-auto">
                 <?php foreach ($machine_dims as $label => $value) : ?>
                     <div class="text-center">
-                        <span class="block text-lg font-bold text-white font-mono"><?php echo esc_html($value); ?></span>
-                        <span class="block text-xs text-slate-500 uppercase tracking-wider mt-1"><?php echo esc_html($label); ?></span>
+                        <span class="block text-lg font-medium text-white font-mono"><?php echo esc_html($value); ?></span>
+                        <span class="block text-xs text-blue-500 uppercase tracking-wider mt-1"><?php echo esc_html($label); ?></span>
                     </div>
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
 
         <?php if (!empty($trailer_dims)) : ?>
-            <div class="border-t border-slate-800 pt-8">
-                <p class="text-sm font-semibold text-slate-400 uppercase tracking-wider text-center mb-6">On Trailer</p>
+            <div class="border-t border-blue-800 pt-8">
+                <p class="text-sm font-medium text-blue-400 uppercase tracking-wider text-center mb-6">On Trailer</p>
                 <div class="grid grid-cols-2 md:grid-cols-<?php echo esc_attr((string) $trailer_cols); ?> gap-6 max-w-3xl mx-auto">
                     <?php foreach ($trailer_dims as $label => $value) : ?>
                         <div class="text-center">
-                            <span class="block text-lg font-bold text-white font-mono"><?php echo esc_html($value); ?></span>
-                            <span class="block text-xs text-slate-500 uppercase tracking-wider mt-1"><?php echo esc_html($label); ?></span>
+                            <span class="block text-lg font-medium text-white font-mono"><?php echo esc_html($value); ?></span>
+                            <span class="block text-xs text-blue-500 uppercase tracking-wider mt-1"><?php echo esc_html($label); ?></span>
                         </div>
                     <?php endforeach; ?>
                 </div>

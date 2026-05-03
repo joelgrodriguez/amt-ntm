@@ -28,7 +28,7 @@ if (empty($description) && !$has_attributes) {
 }
 ?>
 
-<section class="section bg-slate-50" aria-labelledby="accessory-details-title">
+<section class="section bg-blue-50" aria-labelledby="accessory-details-title">
     <div class="container section-content">
 
         <div class="section-header-left mb-12">
@@ -46,7 +46,7 @@ if (empty($description) && !$has_attributes) {
                             <?php icon('chevron-down', ['class' => 'w-4 h-4']); ?>
                         </span>
                     </summary>
-                    <div class="accordion__body text-sm text-slate-600 leading-relaxed prose prose-sm max-w-none">
+                    <div class="accordion__body text-sm text-blue-600 leading-relaxed prose prose-sm max-w-none">
                         <?php echo wp_kses_post(wpautop($description)); ?>
                     </div>
                 </details>
@@ -60,7 +60,7 @@ if (empty($description) && !$has_attributes) {
                             <?php icon('chevron-down', ['class' => 'w-4 h-4']); ?>
                         </span>
                     </summary>
-                    <div class="accordion__body text-sm text-slate-600">
+                    <div class="accordion__body text-sm text-blue-600">
                         <?php
                         // WooCommerce attribute table
                         do_action('woocommerce_product_additional_information', $product);

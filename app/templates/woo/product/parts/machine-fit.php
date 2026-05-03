@@ -30,7 +30,7 @@ $is_for     = $fit['is_for'] ?? [];
 $is_not_for = $fit['is_not_for'] ?? [];
 ?>
 
-<section id="machine-fit" class="section-compact bg-slate-50" aria-labelledby="machine-fit-title">
+<section id="machine-fit" class="section-compact bg-blue-50" aria-labelledby="machine-fit-title">
     <div class="container section-content">
 
         <div class="section-header">

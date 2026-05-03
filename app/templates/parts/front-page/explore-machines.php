@@ -48,7 +48,7 @@ $first_category = array_key_first($categories);
             <?php echo esc_html($content['title']); ?>
         </h2>
 
-        <div class="explore-machines__tabs flex justify-center flex-wrap border-b border-slate-300" role="tablist" aria-label="<?php echo esc_attr($content['tabs_label']); ?>">
+        <div class="explore-machines__tabs flex justify-center flex-wrap border-b border-blue-300" role="tablist" aria-label="<?php echo esc_attr($content['tabs_label']); ?>">
             <?php foreach ($categories as $slug => $label) : ?>
                 <button
                     type="button"
@@ -85,7 +85,7 @@ $first_category = array_key_first($categories);
                                 aria-label="<?php esc_attr_e('Previous products', 'standard'); ?>"
                                 data-panel="<?php echo esc_attr($slug); ?>"
                             ><?php icon('arrow-left', ['class' => 'w-4 h-4']); ?></button>
-                            <span class="text-sm text-slate-600 min-w-16 text-center">
+                            <span class="text-sm text-blue-600 min-w-16 text-center">
                                 <span class="explore-machines__current">1</span>
                                 <?php esc_html_e('of', 'standard'); ?>
                                 <span class="explore-machines__total"><?php echo count($products); ?></span>

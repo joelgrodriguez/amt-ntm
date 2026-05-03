@@ -32,10 +32,10 @@ $content = [
 
     <div class="container grid gap-8 text-center max-w-3xl mx-auto relative z-10">
         <div class="grid gap-4">
-            <h2 id="which-machine-title" class="text-2xl font-bold text-slate-900 md:text-3xl lg:text-4xl">
+            <h2 id="which-machine-title" class="text-2xl font-medium text-blue-900 md:text-3xl lg:text-4xl">
                 <?php echo esc_html($content['title']); ?>
             </h2>
-            <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+            <p class="text-lg text-blue-600 max-w-2xl mx-auto">
                 <?php echo esc_html($content['text']); ?>
             </p>
         </div>

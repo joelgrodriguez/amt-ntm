@@ -34,9 +34,9 @@ get_header();
                         </div>
                     <?php endif; ?>
 
-                    <?php the_title('<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold font-mono">', '</h1>'); ?>
+                    <?php the_title('<h1 class="text-3xl md:text-4xl lg:text-5xl font-medium font-mono">', '</h1>'); ?>
 
-                    <div class="flex items-center gap-6 text-slate-500 font-mono text-sm">
+                    <div class="flex items-center gap-6 text-blue-500 font-mono text-sm">
                         <span class="flex items-center gap-2">
                             <?php icon('calendar', ['class' => 'w-4 h-4']); ?>
                             <time datetime="<?php echo esc_attr(get_the_date('c')); ?>">

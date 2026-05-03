@@ -43,13 +43,13 @@ if ($embed_html === '') {
 }
 ?>
 
-<section class="bg-slate-950 text-slate-500" aria-labelledby="<?php echo esc_attr($args['section_id'] . '-title'); ?>">
+<section class="bg-blue-950 text-blue-500" aria-labelledby="<?php echo esc_attr($args['section_id'] . '-title'); ?>">
     <!-- Top Bar -->
-    <div class="border-b border-slate-800">
-        <div class="border-x border-slate-800 container">
+    <div class="border-b border-blue-800">
+        <div class="border-x border-blue-800 container">
             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
                 <div class="flex items-center gap-3 pl-3">
-                    <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                    <span class="w-2 h-2 bg-red animate-pulse"></span>
                     <span id="<?php echo esc_attr($args['section_id'] . '-title'); ?>"><?php echo esc_html($args['title']); ?></span>
                 </div>
                 <div class="flex items-center gap-3 pr-3">
@@ -60,7 +60,7 @@ if ($embed_html === '') {
     </div>
 
     <!-- Video Embed -->
-    <div class="border-x border-slate-800 container py-6 lg:py-12">
+    <div class="border-x border-blue-800 container py-6 lg:py-12">
         <div class="max-w-5xl mx-auto">
             <div class="video-responsive">
                 <?php echo $embed_html; ?>
@@ -69,8 +69,8 @@ if ($embed_html === '') {
     </div>
 
     <!-- Bottom Bar -->
-    <div class="border-t border-slate-800">
-        <div class="border-x border-slate-800 container">
+    <div class="border-t border-blue-800">
+        <div class="border-x border-blue-800 container">
             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
                 <div class="flex items-center gap-2 pl-3">
                     <?php icon('play', ['class' => 'w-3 h-3 fill-current']); ?>
@@ -79,10 +79,10 @@ if ($embed_html === '') {
                 <div class="flex items-center gap-4 pr-3">
                     <span><?php echo esc_html($args['company_name']); ?></span>
                     <div class="flex gap-1">
-                        <span class="w-1 h-3 bg-slate-700"></span>
-                        <span class="w-1 h-3 bg-slate-700"></span>
-                        <span class="w-1 h-3 bg-slate-600"></span>
-                        <span class="w-1 h-3 bg-slate-500"></span>
+                        <span class="w-1 h-3 bg-blue-700"></span>
+                        <span class="w-1 h-3 bg-blue-700"></span>
+                        <span class="w-1 h-3 bg-blue-600"></span>
+                        <span class="w-1 h-3 bg-blue-500"></span>
                     </div>
                 </div>
             </div>

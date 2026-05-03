@@ -25,22 +25,22 @@ $content = [
 ];
 ?>
 
-<section class="bg-slate-950 border-t border-slate-800">
+<section class="bg-blue-950 border-t border-blue-800">
     <div class="container py-12">
         <div class="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
             <!-- Content -->
             <div class="grid gap-6">
-                <span class="text-xs font-mono uppercase tracking-widest text-red-500">
+                <span class="text-xs font-mono uppercase tracking-widest text-red">
                     <?php echo esc_html($content['eyebrow']); ?>
                 </span>
-                <h2 class="text-2xl lg:text-3xl font-bold font-mono text-white">
+                <h2 class="text-2xl lg:text-3xl font-medium font-mono text-white">
                     <?php echo esc_html($content['title']); ?>
                 </h2>
-                <p class="text-slate-400 max-w-lg">
+                <p class="text-blue-400 max-w-lg">
                     <?php echo esc_html($content['text']); ?>
                 </p>
                 <div class="flex flex-wrap gap-4 mt-2">
-                    <a href="<?php echo esc_url($content['cta_url']); ?>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-red-600 text-white font-medium hover:bg-red-700 transition-colors">
+                    <a href="<?php echo esc_url($content['cta_url']); ?>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-red text-white font-medium hover:bg-red transition-colors">
                         <?php echo esc_html($content['cta_text']); ?>
                         <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                     </a>

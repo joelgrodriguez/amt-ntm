@@ -31,7 +31,7 @@ $testimonial = $content['testimonial'] ?? [];
 $expect      = $content['expect_items'] ?? [];
 ?>
 
-<section class="section bg-slate-900" aria-labelledby="<?php echo esc_attr($section_id); ?>">
+<section class="section bg-blue-900" aria-labelledby="<?php echo esc_attr($section_id); ?>">
     <div class="container">
         <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-center">
 
@@ -43,7 +43,7 @@ $expect      = $content['expect_items'] ?? [];
                     <h2 id="<?php echo esc_attr($section_id); ?>" class="section-title text-white">
                         <?php echo esc_html($content['title']); ?>
                     </h2>
-                    <p class="section-subtitle text-slate-300 max-w-xl">
+                    <p class="section-subtitle text-blue-300 max-w-xl">
                         <?php echo esc_html($content['text']); ?>
                     </p>
                 </div>
@@ -51,13 +51,13 @@ $expect      = $content['expect_items'] ?? [];
                 <?php if (!empty($expect)) : ?>
                     <!-- What to Expect -->
                     <div class="grid gap-4">
-                        <p class="text-sm font-semibold uppercase tracking-wider text-primary">
+                        <p class="text-sm font-medium uppercase tracking-wider text-blue-500">
                             <?php esc_html_e('What to expect on the call', 'standard'); ?>
                         </p>
                         <ul class="grid gap-3" role="list">
                             <?php foreach ($expect as $item) : ?>
-                                <li class="flex items-start gap-3 text-slate-300">
-                                    <?php icon('check', ['class' => 'w-5 h-5 text-primary shrink-0 mt-0.5']); ?>
+                                <li class="flex items-start gap-3 text-blue-300">
+                                    <?php icon('check', ['class' => 'w-5 h-5 text-blue-500 shrink-0 mt-0.5']); ?>
                                     <span><?php echo esc_html($item); ?></span>
                                 </li>
                             <?php endforeach; ?>
@@ -67,11 +67,11 @@ $expect      = $content['expect_items'] ?? [];
 
                 <?php if (!empty($testimonial)) : ?>
                     <!-- Testimonial -->
-                    <blockquote class="border-l-4 border-primary pl-5">
-                        <p class="text-slate-300 font-mono">
+                    <blockquote class="border-l-4 border-blue-500 pl-5">
+                        <p class="text-blue-300 font-mono">
                             &ldquo;<?php echo esc_html($testimonial['quote']); ?>&rdquo;
                         </p>
-                        <footer class="mt-2 text-sm text-slate-400">
+                        <footer class="mt-2 text-sm text-blue-400">
                             <strong class="text-white"><?php echo esc_html($testimonial['name']); ?></strong>
                             <?php if (!empty($testimonial['company'])) : ?>
                                 <span>&mdash; <?php echo esc_html($testimonial['company']); ?></span>
@@ -91,7 +91,7 @@ $expect      = $content['expect_items'] ?? [];
                             <?php echo esc_html($content['cta_secondary']); ?>
                         </a>
                     </div>
-                    <p class="text-sm text-slate-400">
+                    <p class="text-sm text-blue-400">
                         <?php esc_html_e('Free 30-min call. No obligation.', 'standard'); ?>
                     </p>
                 </div>
@@ -107,7 +107,7 @@ $expect      = $content['expect_items'] ?? [];
                             <img
                                 src="<?php echo esc_url($specialist['image_machine']); ?>"
                                 alt=""
-                                class="absolute top-0 left-0 w-2/5 aspect-square object-contain bg-white p-3 shadow-md"
+                                class="absolute top-0 left-0 w-2/5 aspect-square object-contain bg-white p-3"
                                 loading="lazy"
                             >
                         <?php endif; ?>
@@ -115,26 +115,26 @@ $expect      = $content['expect_items'] ?? [];
                             <img
                                 src="<?php echo esc_url($specialist['image_action']); ?>"
                                 alt=""
-                                class="absolute bottom-0 right-0 w-3/5 h-3/5 object-cover shadow-lg"
+                                class="absolute bottom-0 right-0 w-3/5 h-3/5 object-cover"
                                 loading="lazy"
                             >
                         <?php endif; ?>
                         <!-- Specialist portrait + name card -->
-                        <div class="absolute top-[10%] left-[20%] z-20 w-3/5 h-[85%] flex flex-col shadow-xl">
+                        <div class="absolute top-[10%] left-[20%] z-20 w-3/5 h-[85%] flex flex-col">
                             <img
                                 src="<?php echo esc_url($specialist['image']); ?>"
                                 alt="<?php echo esc_attr($specialist['name']); ?>"
                                 class="w-full flex-1 object-cover"
                                 loading="lazy"
                             >
-                            <div class="bg-slate-800 px-4 py-3">
-                                <p class="text-xs uppercase tracking-wider text-primary font-semibold">
+                            <div class="bg-blue-800 px-4 py-3">
+                                <p class="text-xs uppercase tracking-wider text-blue-500 font-medium">
                                     <?php esc_html_e('Book a call with', 'standard'); ?>
                                 </p>
-                                <p class="text-base font-bold text-white">
+                                <p class="text-base font-medium text-white">
                                     <?php echo esc_html($specialist['name']); ?>
                                 </p>
-                                <p class="text-xs text-slate-400">
+                                <p class="text-xs text-blue-400">
                                     <?php echo esc_html($specialist['role']); ?>
                                     <?php if (!empty($specialist['detail'])) : ?>
                                         &middot; <?php echo esc_html($specialist['detail']); ?>

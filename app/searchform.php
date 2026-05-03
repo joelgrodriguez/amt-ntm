@@ -27,7 +27,7 @@ $content = [
     <input
         type="search"
         id="search-field"
-        class="flex-1 px-4 py-2 border border-slate-300 bg-white font-mono focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+        class="flex-1 px-4 py-2 border border-blue-300 bg-white font-mono focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         placeholder="<?php echo esc_attr($content['placeholder']); ?>"
         value="<?php echo esc_attr(get_search_query()); ?>"
         name="s"

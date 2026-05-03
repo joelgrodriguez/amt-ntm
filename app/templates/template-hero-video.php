@@ -35,7 +35,7 @@ while (have_posts()) :
 <main id="primary">
 
     <?php if ($has_hero) : ?>
-        <section class="bg-slate-900 text-white py-12 lg:py-24 relative">
+        <section class="bg-blue-900 text-white py-12 lg:py-24 relative">
             <div class="hero-overlay__grain"></div>
 
             <div class="container relative z-10">
@@ -44,13 +44,13 @@ while (have_posts()) :
                     <?php if ($hero_title || $hero_description) : ?>
                         <div class="grid gap-6">
                             <?php if ($hero_title) : ?>
-                                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold font-mono">
+                                <h1 class="text-3xl md:text-4xl lg:text-5xl font-medium font-mono">
                                     <?php echo esc_html($hero_title); ?>
                                 </h1>
                             <?php endif; ?>
 
                             <?php if ($hero_description) : ?>
-                                <p class="text-lg text-slate-300">
+                                <p class="text-lg text-blue-300">
                                     <?php echo esc_html($hero_description); ?>
                                 </p>
                             <?php endif; ?>

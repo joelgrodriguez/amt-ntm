@@ -26,8 +26,8 @@ get_header();
 
 <main id="primary" class="container py-8">
     <header class="mb-8">
-        <h1 class="text-3xl font-bold">
-            <?php printf(esc_html($content['title']), '<span class="text-primary">' . esc_html(get_search_query()) . '</span>'); ?>
+        <h1 class="text-3xl font-medium">
+            <?php printf(esc_html($content['title']), '<span class="text-blue-500">' . esc_html(get_search_query()) . '</span>'); ?>
         </h1>
     </header>
 

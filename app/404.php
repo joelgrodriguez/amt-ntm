@@ -71,13 +71,13 @@ $helpful_links = [
 
         <!-- Error Message -->
         <div class="max-w-2xl mx-auto text-center mb-12 lg:mb-16">
-            <p class="font-mono text-lg text-secondary font-bold uppercase tracking-wider mt-1 mb-4">
+            <p class="font-mono text-lg text-red font-medium uppercase tracking-wider mt-1 mb-4">
                 <?php echo esc_html($content['error_code']); ?>
             </p>
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold font-mono text-slate-900 mb-6">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-medium font-mono text-blue-900 mb-6">
                 <?php echo esc_html($content['title']); ?>
             </h1>
-            <p class="text-lg text-slate-600 mb-8">
+            <p class="text-lg text-blue-600 mb-8">
                 <?php echo esc_html($content['text']); ?>
             </p>
 
@@ -89,22 +89,22 @@ $helpful_links = [
 
         <!-- Helpful Links -->
         <div class="max-w-4xl mx-auto">
-            <h2 class="text-sm font-semibold text-slate-900 uppercase tracking-wider text-center mb-8">
+            <h2 class="text-sm font-medium text-blue-900 uppercase tracking-wider text-center mb-8">
                 <?php echo esc_html($content['links_title']); ?>
             </h2>
 
             <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 <?php foreach ($helpful_links as $link) : ?>
-                    <a href="<?php echo esc_url($link['url']); ?>" class="group block p-6 bg-white border border-slate-200 hover:border-primary transition-colors">
+                    <a href="<?php echo esc_url($link['url']); ?>" class="group block p-6 bg-white border border-blue-200 hover:border-blue-500 transition-colors">
                         <div class="flex items-start gap-4">
-                            <span class="shrink-0 text-slate-400 group-hover:text-primary transition-colors">
+                            <span class="shrink-0 text-blue-400 group-hover:text-blue-500 transition-colors">
                                 <?php icon($link['icon'], ['class' => 'w-6 h-6']); ?>
                             </span>
                             <div>
-                                <h3 class="font-semibold text-slate-900 group-hover:text-primary transition-colors">
+                                <h3 class="font-medium text-blue-900 group-hover:text-blue-500 transition-colors">
                                     <?php echo esc_html($link['title']); ?>
                                 </h3>
-                                <p class="text-sm text-slate-500 mt-1">
+                                <p class="text-sm text-blue-500 mt-1">
                                     <?php echo esc_html($link['description']); ?>
                                 </p>
                             </div>
@@ -115,7 +115,7 @@ $helpful_links = [
 
             <!-- Back to Home -->
             <div class="text-center mt-12">
-                <a href="<?php echo esc_url(home_url('/')); ?>" class="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline">
+                <a href="<?php echo esc_url(home_url('/')); ?>" class="inline-flex items-center gap-2 text-sm font-medium text-blue-500 hover:underline">
                     <?php icon('arrow-left', ['class' => 'w-4 h-4']); ?>
                     <?php echo esc_html($content['back_home']); ?>
                 </a>

@@ -32,7 +32,7 @@ if (empty($featured_url)) {
 }
 ?>
 
-<section id="machine-gallery" class="section bg-slate-100 pattern-square-grid" aria-labelledby="gallery-title">
+<section id="machine-gallery" class="section bg-blue-100 pattern-square-grid" aria-labelledby="gallery-title">
     <div class="pattern-square-grid__overlay pattern-square-grid__overlay--top-left" aria-hidden="true"></div>
     <div class="pattern-square-grid__overlay pattern-square-grid__overlay--bottom-right" aria-hidden="true"></div>
     <div class="container section-content">
@@ -59,14 +59,14 @@ if (empty($featured_url)) {
                      class="max-w-full max-h-full object-contain">
             <?php else : ?>
                 <div class="text-center grid gap-3">
-                    <span class="text-slate-300 text-6xl">&#8635;</span>
-                    <span class="text-slate-400 text-sm font-mono"><?php esc_html_e('360° product rotator', 'standard'); ?></span>
-                    <span class="text-slate-400 text-xs"><?php esc_html_e('Interactive view coming soon', 'standard'); ?></span>
+                    <span class="text-blue-300 text-6xl">&#8635;</span>
+                    <span class="text-blue-400 text-sm font-mono"><?php esc_html_e('360° product rotator', 'standard'); ?></span>
+                    <span class="text-blue-400 text-xs"><?php esc_html_e('Interactive view coming soon', 'standard'); ?></span>
                 </div>
             <?php endif; ?>
         </div>
 
-        <p class="text-center text-sm text-slate-400 flex items-center justify-center gap-2">
+        <p class="text-center text-sm text-blue-400 flex items-center justify-center gap-2">
             <span>&larr;</span>
             <?php esc_html_e('Drag to Rotate', 'standard'); ?>
             <span>&rarr;</span>
@@ -76,7 +76,7 @@ if (empty($featured_url)) {
         <?php if (!empty($images)) : ?>
             <div class="flex justify-center gap-3 max-w-5xl mx-auto">
                 <?php foreach (array_slice($images, 0, 6) as $i => $thumb) : ?>
-                    <div class="w-20 h-20 flex items-center justify-center overflow-hidden rounded cursor-pointer hover:opacity-75 transition-opacity">
+                    <div class="w-20 h-20 flex items-center justify-center overflow-hidden cursor-pointer hover:opacity-75 transition-opacity">
                         <img src="<?php echo esc_url($thumb); ?>"
                              alt="<?php echo esc_attr($name . ' — angle ' . ($i + 1)); ?>"
                              class="w-full h-full object-contain">

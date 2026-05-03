@@ -20,13 +20,13 @@ if (empty($stats)) {
 }
 ?>
 
-<section class="bg-slate-900 py-10" aria-label="Key specifications">
+<section class="bg-blue-900 py-10" aria-label="Key specifications">
     <div class="container">
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
             <?php foreach ($stats as $stat) : ?>
                 <div class="grid gap-1">
-                    <span class="text-3xl font-bold text-white lg:text-4xl"><?php echo esc_html($stat['value']); ?></span>
-                    <span class="text-sm text-slate-400 uppercase tracking-wider"><?php echo esc_html($stat['label']); ?></span>
+                    <span class="text-3xl font-medium text-white lg:text-4xl"><?php echo esc_html($stat['value']); ?></span>
+                    <span class="text-sm text-blue-400 uppercase tracking-wider"><?php echo esc_html($stat['label']); ?></span>
                 </div>
             <?php endforeach; ?>
         </div>

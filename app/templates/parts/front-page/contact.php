@@ -34,7 +34,7 @@ $contact_info = [
 $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact_info['address']);
 ?>
 
-<section id="contact" class="section bg-slate-50 overflow-hidden" aria-labelledby="contact-title">
+<section id="contact" class="section bg-blue-50 overflow-hidden" aria-labelledby="contact-title">
     <div class="container section-content">
 
         <!-- Section Header -->
@@ -62,31 +62,31 @@ $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact_info[
                         href="<?php echo esc_url($directions_url); ?>"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="group flex items-center gap-3 text-slate-700 hover:text-secondary transition-colors"
+                        class="group flex items-center gap-3 text-blue-700 hover:text-red transition-colors"
                     >
-                        <?php icon('external-link', ['class' => 'w-5 h-5 text-secondary shrink-0']); ?>
+                        <?php icon('external-link', ['class' => 'w-5 h-5 text-red shrink-0']); ?>
                         <span><?php echo esc_html($contact_info['address']); ?></span>
                     </a>
 
                     <a
                         href="mailto:<?php echo esc_attr($contact_info['email']); ?>"
-                        class="group flex items-center gap-3 text-slate-700 hover:text-secondary transition-colors"
+                        class="group flex items-center gap-3 text-blue-700 hover:text-red transition-colors"
                     >
-                        <?php icon('mail', ['class' => 'w-5 h-5 text-secondary shrink-0']); ?>
+                        <?php icon('mail', ['class' => 'w-5 h-5 text-red shrink-0']); ?>
                         <span><?php echo esc_html($contact_info['email']); ?></span>
                     </a>
 
                     <a
                         href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $contact_info['phone'])); ?>"
-                        class="group flex items-center gap-3 text-slate-700 hover:text-secondary transition-colors"
+                        class="group flex items-center gap-3 text-blue-700 hover:text-red transition-colors"
                     >
-                        <?php icon('phone', ['class' => 'w-5 h-5 text-secondary shrink-0']); ?>
+                        <?php icon('phone', ['class' => 'w-5 h-5 text-red shrink-0']); ?>
                         <span><?php echo esc_html($contact_info['phone']); ?></span>
                     </a>
                 </div>
 
                 <!-- Map -->
-                <div class="relative aspect-video bg-slate-100 border border-slate-200 overflow-hidden">
+                <div class="relative aspect-video bg-blue-100 border border-blue-200 overflow-hidden">
                     <iframe
                         src="<?php echo esc_url($contact_info['map_url']); ?>"
                         width="100%"
@@ -103,11 +103,11 @@ $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact_info[
             </div>
 
             <!-- Right Column: Form -->
-            <div class="bg-slate-50 border border-slate-200 p-8 lg:p-10">
-                <h3 class="text-xl font-bold text-slate-900 mb-2">
+            <div class="bg-blue-50 border border-blue-200 p-8 lg:p-10">
+                <h3 class="text-xl font-medium text-blue-900 mb-2">
                     <?php echo esc_html($content['form_title']); ?>
                 </h3>
-                <p class="text-slate-600 mb-6">
+                <p class="text-blue-600 mb-6">
                     <?php echo esc_html($content['form_text']); ?>
                 </p>
 

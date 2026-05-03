@@ -32,9 +32,9 @@ if (!defined('ABSPATH')) {
     ?>
 </main>
 
-<footer class="py-6 border-t border-slate-200">
+<footer class="py-6 border-t border-blue-200">
     <div class="container text-center">
-        <p class="text-xs text-slate-500">
+        <p class="text-xs text-blue-500">
             &copy; <?php echo esc_html(current_time('Y')); ?> <?php echo esc_html(get_bloginfo('name')); ?>.
             <?php esc_html_e('All rights reserved.', 'standard'); ?>
         </p>

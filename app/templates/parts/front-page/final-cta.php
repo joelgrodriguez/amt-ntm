@@ -26,15 +26,15 @@ $content = [
 ];
 ?>
 
-<section class="section bg-slate-900" aria-labelledby="final-cta-title">
+<section class="section bg-blue-900" aria-labelledby="final-cta-title">
     <div class="container grid gap-8 lg:gap-10 text-center">
 
         <div class="grid gap-4">
-            <h2 id="final-cta-title" class="text-3xl font-bold text-white md:text-4xl lg:text-5xl">
+            <h2 id="final-cta-title" class="text-3xl font-medium text-white md:text-4xl lg:text-5xl">
                 <?php echo esc_html($content['title']); ?>
             </h2>
 
-            <p class="text-lg text-slate-300 max-w-2xl mx-auto">
+            <p class="text-lg text-blue-300 max-w-2xl mx-auto">
                 <?php echo esc_html($content['text']); ?>
             </p>
         </div>

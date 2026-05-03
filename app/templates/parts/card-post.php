@@ -28,8 +28,8 @@ $cta_text = $post_type_config[$post_type]['cta'] ?? __('View', 'standard');
 
 ?>
 
-<article class="border border-slate-300 bg-white h-full grid grid-rows-[auto_1fr_auto]">
-    <a href="<?php the_permalink(); ?>" class="block border-b border-slate-200">
+<article class="border border-blue-300 bg-white h-full grid grid-rows-[auto_1fr_auto]">
+    <a href="<?php the_permalink(); ?>" class="block border-b border-blue-200">
         <?php if (has_post_thumbnail()) : ?>
             <?php the_post_thumbnail('card-thumbnail', [
                 'class' => 'w-full',
@@ -43,18 +43,18 @@ $cta_text = $post_type_config[$post_type]['cta'] ?? __('View', 'standard');
         $categories = get_the_category();
         if (!empty($categories)) :
         ?>
-            <span class="text-xs text-slate-500 font-mono uppercase tracking-wide"><?php echo esc_html($categories[0]->name); ?></span>
+            <span class="text-xs text-blue-500 font-mono uppercase tracking-wide"><?php echo esc_html($categories[0]->name); ?></span>
         <?php endif; ?>
 
-        <?php the_title('<h3 class="text-base font-semibold line-clamp-2 text-slate-900 hover:text-primary">', '</h3>'); ?>
+        <?php the_title('<h3 class="text-base font-medium line-clamp-2 text-blue-900 hover:text-blue-500">', '</h3>'); ?>
     </a>
 
-    <a href="<?php the_permalink(); ?>" class="flex items-center justify-between text-xs text-slate-500 font-mono py-3 px-4 border-t border-slate-200 no-underline hover:bg-slate-50">
+    <a href="<?php the_permalink(); ?>" class="flex items-center justify-between text-xs text-blue-500 font-mono py-3 px-4 border-t border-blue-200 no-underline hover:bg-blue-50">
         <span class="flex items-center gap-1.5">
             <?php icon($icon, ['class' => 'w-4 h-4']); ?>
             <span><?php echo esc_html($cta_text); ?></span>
         </span>
-        <span class="text-slate-400">
+        <span class="text-blue-400">
             <?php icon('arrow-right', ['class' => 'w-3 h-3']); ?>
         </span>
     </a>

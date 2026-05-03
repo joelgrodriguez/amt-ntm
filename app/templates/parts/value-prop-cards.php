@@ -39,14 +39,14 @@ $section_id = $args['section_id'] ?? 'value-prop';
             <?php foreach ($cards as $card) : ?>
                 <div class="grid gap-4 text-center">
                     <div class="flex justify-center">
-                        <div class="w-14 h-14 rounded-full bg-[#e5f0f9] flex items-center justify-center">
-                            <?php icon($card['icon'], ['class' => 'w-6 h-6 text-primary']); ?>
+                        <div class="w-14 h-14 bg-blue-100 flex items-center justify-center">
+                            <?php icon($card['icon'], ['class' => 'w-6 h-6 text-blue-500']); ?>
                         </div>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900">
+                    <h3 class="text-lg font-medium text-blue-900">
                         <?php echo esc_html($card['title']); ?>
                     </h3>
-                    <p class="text-sm text-slate-600 leading-relaxed">
+                    <p class="text-sm text-blue-600 leading-relaxed">
                         <?php echo esc_html($card['text']); ?>
                     </p>
                 </div>
