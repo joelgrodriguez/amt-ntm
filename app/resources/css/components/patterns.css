@@ -24,7 +24,7 @@
   @apply absolute inset-0 pointer-events-none;
   content: '';
   z-index: 0;
-  background-image: radial-gradient(circle, #d3dbe4 1px, transparent 1px);
+  background-image: radial-gradient(circle, var(--color-blue-200) 1px, transparent 1px);
   background-size: 16px 16px;
 }
 
@@ -78,8 +78,8 @@
 .pattern-square-grid__overlay {
   @apply absolute inset-0 pointer-events-none;
   background-image:
-    linear-gradient(to right, #cbd5e1 1px, transparent 1px),
-    linear-gradient(to bottom, #cbd5e1 1px, transparent 1px);
+    linear-gradient(to right, var(--color-blue-200) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-blue-200) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
@@ -100,8 +100,8 @@
 /* Dark variant for dark backgrounds */
 .pattern-square-grid--dark .pattern-square-grid__overlay {
   background-image:
-    linear-gradient(to right, #475569 1px, transparent 1px),
-    linear-gradient(to bottom, #475569 1px, transparent 1px);
+    linear-gradient(to right, var(--color-blue-700) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-blue-700) 1px, transparent 1px);
 }
 
 /* Primary variant for primary color backgrounds */

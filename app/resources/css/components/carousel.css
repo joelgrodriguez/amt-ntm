@@ -20,8 +20,8 @@
   }
 
   .carousel__card {
-    @apply snap-start shrink-0 border border-slate-200 bg-white p-4 grid gap-3;
-    @apply hover:border-slate-400 hover:shadow-md transition-all;
+    @apply snap-start shrink-0 border border-blue-200 bg-white p-4 grid gap-3;
+    @apply hover:border-blue-500 transition-all;
     width: calc(50% - 0.5rem);
   }
 
@@ -38,7 +38,7 @@
   }
 
   .carousel__card-image {
-    @apply bg-slate-50 aspect-square flex items-center justify-center overflow-hidden rounded;
+    @apply bg-blue-50 aspect-square flex items-center justify-center overflow-hidden;
   }
 
   .carousel__card-image img {
@@ -50,7 +50,7 @@
   }
 
   .carousel__nav {
-    @apply w-10 h-10 border border-slate-300 flex items-center justify-center;
-    @apply hover:bg-slate-100 transition-colors;
+    @apply w-10 h-10 border border-blue-200 flex items-center justify-center;
+    @apply hover:bg-blue-100 hover:border-blue-500 transition-colors;
   }
 }

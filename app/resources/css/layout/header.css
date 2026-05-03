@@ -38,12 +38,12 @@ body.header-is-sticky {
 }
 
 #primary-menu > li > a {
-  @apply flex items-center h-full text-sm px-4 text-slate-700 no-underline hover:bg-slate-100 transition-colors;
+  @apply flex items-center h-full font-mono text-body px-4 text-blue-700 no-underline hover:bg-blue-100 transition-colors;
 }
 
 #primary-menu > li.current-menu-item > a,
 #primary-menu > li.current-menu-parent > a {
-  @apply text-slate-900 font-medium;
+  @apply text-blue-500 font-medium;
 }
 
 /* Dropdown caret for items with children */
@@ -65,7 +65,7 @@ body.header-is-sticky {
 }
 
 #primary-menu > li.menu-item-has-children.menu-open > a {
-  @apply bg-slate-100;
+  @apply bg-blue-100;
 }
 
 /* Flip caret when open */
@@ -74,7 +74,7 @@ body.header-is-sticky {
 }
 
 #primary-menu > li > .sub-menu {
-  @apply hidden fixed top-12 left-0 right-0 bg-white border-y border-slate-200 py-8 z-50;
+  @apply hidden fixed top-12 left-0 right-0 bg-white border-y border-blue-200 py-8 z-50;
 }
 
 #primary-menu > li.menu-item-has-children.menu-open > .sub-menu {
@@ -92,7 +92,7 @@ body.header-is-sticky {
 }
 
 #primary-menu > li > .sub-menu li a {
-  @apply text-slate-900 no-underline hover:underline font-normal text-base;
+  @apply text-blue-700 no-underline hover:underline font-normal text-body;
 }
 
 #primary-menu > li > .sub-menu li a > span {

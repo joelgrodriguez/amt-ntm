@@ -83,14 +83,14 @@
 }
 
 .mobile-menu__list--top .mobile-menu__item {
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-blue-200);
 }
 
 /* Push the secondary group to the panel bottom and tint it so it reads
  * as a less-important, supporting region. */
 .mobile-menu__list--bottom {
-    background: var(--color-light);
-    border-top: 1px solid var(--color-border);
+    background: var(--color-blue-50);
+    border-top: 1px solid var(--color-blue-200);
 }
 
 /* ── L1: featured CTA card ────────────────────────────────────────────── */
@@ -105,7 +105,7 @@
     gap: 0;
     min-height: 9rem;
     background: var(--color-white);
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-blue-200);
     text-decoration: none;
     color: inherit;
     transition: background-color 150ms ease;
@@ -113,13 +113,13 @@
 
 .mobile-menu__featured:hover,
 .mobile-menu__featured:focus-visible {
-    background: var(--color-light);
+    background: var(--color-blue-50);
     outline: none;
 }
 
 .mobile-menu__featured-image {
     flex: 0 0 50%;
-    background: var(--color-light);
+    background: var(--color-blue-50);
 }
 
 .mobile-menu__featured-image img {
@@ -141,9 +141,9 @@
 
 .mobile-menu__featured-label {
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 500;
     line-height: 1.2;
-    color: var(--color-dark);
+    color: var(--color-blue-700);
 }
 
 .mobile-menu__featured-subtitle {
@@ -151,13 +151,13 @@
     align-items: center;
     gap: 0.375rem;
     font-family: var(--font-mono);
-    font-size: var(--text-xs);
+    font-size: var(--text-caption);
     font-weight: 500;
-    color: var(--color-secondary);
+    color: var(--color-red);
 }
 
 .mobile-menu__list--bottom .mobile-menu__item + .mobile-menu__item {
-    border-top: 1px solid var(--color-border);
+    border-top: 1px solid var(--color-blue-200);
 }
 
 /* ── L1: Contact banner (between top group and secondary group) ───────── */
@@ -169,18 +169,18 @@
     align-items: center;
     gap: 0.875rem;
     padding: 1.5rem 1.25rem;
-    background: var(--color-primary);
+    background: var(--color-blue-500);
     color: var(--color-white);
+    font-family: var(--font-mono);
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 500;
     text-decoration: none;
     transition: background-color 150ms ease;
 }
 
 .mobile-menu__contact:hover,
 .mobile-menu__contact:focus-visible {
-    /* Slightly darker blue on hover. No semantic token for this; one-off. */
-    background: #005f9c;
+    background: color-mix(in srgb, var(--color-blue-500) 90%, black);
     outline: none;
 }
 
@@ -208,16 +208,16 @@
     border: 0;
     text-align: left;
     text-decoration: none;
-    color: var(--color-dark);
+    color: var(--color-blue-700);
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
     transition: background-color 150ms ease;
 }
 
 .mobile-menu__row:hover,
 .mobile-menu__row:focus-visible {
-    background: var(--color-light);
+    background: var(--color-blue-50);
     outline: none;
 }
 
@@ -226,27 +226,27 @@
     justify-content: flex-start;
     padding: 1rem 1.25rem;
     font-family: var(--font-mono);
-    font-size: var(--text-xs);
+    font-size: var(--text-caption);
     font-weight: 500;
-    color: var(--color-dark-medium);
+    color: var(--color-blue-600);
 }
 
 .mobile-menu__row--secondary:hover,
 .mobile-menu__row--secondary:focus-visible {
     /* Slightly darker tint than the panel bg so the hover still reads. */
-    background: var(--color-slate-100);
+    background: var(--color-blue-100);
 }
 
 .mobile-menu__row-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-medium);
+    color: var(--color-blue-400);
     flex-shrink: 0;
 }
 
 .mobile-menu__row-chevron {
-    color: var(--color-slate-400);
+    color: var(--color-blue-300);
     flex-shrink: 0;
 }
 
@@ -261,15 +261,16 @@
     align-items: center;
     height: 3rem;
     background: var(--color-white);
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-blue-200);
 }
 
 .mobile-menu__panel-title {
     margin: 0;
+    font-family: var(--font-mono);
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 500;
     text-align: center;
-    color: var(--color-dark);
+    color: var(--color-blue-700);
 }
 
 .mobile-menu__back {
@@ -280,14 +281,14 @@
     height: 3rem;
     background: transparent;
     border: 0;
-    color: var(--color-dark-medium);
+    color: var(--color-blue-700);
     cursor: pointer;
     transition: background-color 150ms ease;
 }
 
 .mobile-menu__back:hover,
 .mobile-menu__back:focus-visible {
-    background: var(--color-slate-100);
+    background: var(--color-blue-100);
     outline: none;
 }
 
@@ -303,7 +304,7 @@
  * reads at a glance. The icon inherits via currentColor; only the close
  * span (#menu-icon-close) is targeted, not the open hamburger. */
 #menu-icon-close {
-    color: var(--color-secondary);
+    color: var(--color-red);
 }
 
 /* ── L2: body, cards, view-all ────────────────────────────────────────── */
@@ -340,15 +341,16 @@
     padding: 0.875rem 1rem;
     text-align: center;
     text-decoration: none;
-    font-weight: 600;
-    color: var(--color-dark);
-    border: 1px solid var(--color-light-medium);
+    font-family: var(--font-mono);
+    font-weight: 500;
+    color: var(--color-blue-700);
+    border: 1px solid var(--color-blue-200);
     transition: background-color 150ms ease;
 }
 
 .mobile-menu__view-all:hover,
 .mobile-menu__view-all:focus-visible {
-    background: var(--color-light);
+    background: var(--color-blue-50);
     outline: none;
 }
 

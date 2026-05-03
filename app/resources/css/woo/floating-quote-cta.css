@@ -20,18 +20,17 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
-  background-color: var(--color-primary, #0057A0);
+  background-color: var(--color-blue-500);
   color: white;
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: var(--text-body);
+  font-weight: 500;
   text-decoration: none;
   white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
   transition:
     opacity 300ms ease-out,
     transform 300ms ease-out,
-    background-color 150ms ease-out,
-    box-shadow 150ms ease-out;
+    background-color 150ms ease-out;
 
   /* Hidden by default — JS reveals on scroll */
   opacity: 0;
@@ -46,8 +45,7 @@
 }
 
 .floating-quote-cta:hover {
-  background-color: var(--color-primary-dark, #004080);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.12);
+  background-color: color-mix(in srgb, var(--color-blue-500) 90%, black);
 }
 
 .floating-quote-cta:focus-visible {

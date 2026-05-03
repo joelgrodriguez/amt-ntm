@@ -16,7 +16,7 @@
 /* Editor-specific adjustments */
 .editor-styles-wrapper {
   font-family: var(--font-sans);
-  color: var(--color-dark);
+  color: var(--color-blue-700);
 }
 
 /* Match frontend container width in editor */
