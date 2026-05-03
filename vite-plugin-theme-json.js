@@ -95,8 +95,7 @@ function generateCssFromThemeJson(themeJson) {
   if (settings.typography?.fontSizes) {
     cssVars.push('  /* Font Sizes */');
     settings.typography.fontSizes.forEach(({ slug, size }) => {
-      const cssSlug = slug.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
-      cssVars.push(`  --text-${cssSlug}: ${size};`);
+      cssVars.push(`  --text-${slug}: ${size};`);
     });
     cssVars.push('');
   }

@@ -34,9 +34,9 @@
   /* Font Sizes */
   --text-caption: 11px;
   --text-body: 14px;
-  --text-headingSm: 20px;
+  --text-heading-sm: 20px;
   --text-heading: 28px;
-  --text-headingLg: 40px;
+  --text-heading-lg: 40px;
   --text-display: 48px;
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;

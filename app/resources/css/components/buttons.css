@@ -1,94 +1,101 @@
 /**
  * Buttons
  *
- * Sizes based on IBM Carbon: sm=32px, md=40px, lg=48px (default), xl=64px.
- * Hover effect: background-size sweep from left to right.
+ * Per DESIGN.md §5.1–5.3:
+ * - Mono font, weight 500, no uppercase, no letter-spacing tricks
+ * - Zero border-radius (theme default)
+ * - No shadows
+ * - Hover = 10% darker bg (primary) or invert (ghost)
  *
  * @file components/buttons.css
  */
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center gap-2 font-semibold uppercase tracking-wider;
-    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary;
-    @apply h-12 px-4 min-w-32;
-    background-size: 200% 100%;
-    background-position: 100% 0;
-    transition: background-position 0.25s ease-out, color 0s;
-  }
-
-  .btn:hover {
-    background-position: 0 0;
+    @apply inline-flex items-center justify-center gap-2 font-mono font-medium;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500;
+    @apply h-12 px-6 min-w-32 text-body;
+    transition: background-color 200ms ease-out, color 200ms ease-out, border-color 200ms ease-out;
   }
 
   .btn-sm {
-    @apply h-8 px-3 min-w-24 text-sm;
+    @apply h-8 px-4 min-w-24 text-caption;
   }
 
   .btn-md {
-    @apply h-10 px-3.5 min-w-28;
+    @apply h-10 px-5 min-w-28 text-body;
   }
 
   .btn-xl {
-    @apply h-16 px-5 min-w-40;
+    @apply h-16 px-8 min-w-40 text-body;
   }
 
-  /* Primary - solid brand color, darkens on hover */
+  /* Primary - solid brand blue, darkens on hover */
   .btn-primary {
-    @apply text-white;
-    @apply focus-visible:ring-primary;
-    background-image: linear-gradient(to right, color-mix(in srgb, var(--color-primary) 85%, black) 50%, var(--color-primary) 50%);
+    @apply bg-blue-500 text-white;
   }
 
-  /* Secondary - solid secondary/orange color, darkens on hover */
+  .btn-primary:hover {
+    background-color: color-mix(in srgb, var(--color-blue-500) 90%, black);
+  }
+
+  /* High-emphasis primary - red. Use sparingly, one per page. */
+  .btn-emphasis {
+    @apply bg-red text-white;
+  }
+
+  .btn-emphasis:hover {
+    background-color: color-mix(in srgb, var(--color-red) 90%, black);
+  }
+
+  /* Secondary ghost - transparent with onyx-blue border + text */
   .btn-secondary {
-    @apply text-white;
-    @apply focus-visible:ring-secondary;
-    background-image: linear-gradient(to right, color-mix(in srgb, var(--color-secondary) 85%, black) 50%, var(--color-secondary) 50%);
+    @apply bg-transparent text-blue-700 border border-blue-700;
   }
 
-  /* Light - white background, light gray on hover */
+  .btn-secondary:hover {
+    @apply bg-blue-700 text-white;
+  }
+
+  /* Inverted - solid white on dark backgrounds */
   .btn-light {
-    @apply text-slate-900;
-    @apply focus-visible:ring-slate-400;
-    background-image: linear-gradient(to right, #f1f5f9 50%, white 50%);
+    @apply bg-white text-blue-800;
   }
 
-  /* Outline/Tertiary - transparent with border */
+  .btn-light:hover {
+    @apply bg-blue-100;
+  }
+
+  /* Outline - transparent with current-color border */
   .btn-outline {
     @apply bg-transparent border border-current;
   }
 
-  /* Outline light - for dark backgrounds */
+  /* Outline light - for dark backgrounds, fills white on hover */
   .btn-outline-light {
-    @apply text-white border border-white/60;
-    @apply focus-visible:ring-white focus-visible:ring-offset-slate-900;
-    background-image: linear-gradient(to right, white 50%, transparent 50%);
+    @apply bg-transparent text-white border border-white;
+    @apply focus-visible:ring-white focus-visible:ring-offset-blue-900;
   }
 
   .btn-outline-light:hover {
-    @apply text-slate-900 border-white;
+    @apply bg-white text-blue-800;
   }
 
-  /* Outline dark - dark border, fills dark on hover */
+  /* Outline dark - for light backgrounds, fills dark on hover (alias of secondary) */
   .btn-outline-dark {
-    @apply text-slate-900 border border-slate-900;
-    @apply focus-visible:ring-slate-900;
-    background-image: linear-gradient(to right, #0f172a 50%, transparent 50%);
+    @apply bg-transparent text-blue-700 border border-blue-700;
   }
 
   .btn-outline-dark:hover {
-    @apply text-white;
+    @apply bg-blue-700 text-white;
   }
 
   /* Ghost - no background, no border, subtle bg on hover */
   .btn-ghost {
-    @apply text-slate-700 min-w-0;
-    @apply focus-visible:ring-slate-400;
-    background-image: linear-gradient(to right, #f1f5f9 50%, transparent 50%);
+    @apply text-blue-700 min-w-0;
   }
 
   .btn-ghost:hover {
-    @apply text-slate-900;
+    @apply bg-blue-100 text-blue-800;
   }
 }
