@@ -3,8 +3,8 @@
  * Product Catalog Data
  *
  * WooCommerce product queries for theme templates.
- * Uses WooCommerce as a catalog data source when available,
- * otherwise falls back to sample data for development.
+ * Uses WooCommerce as the catalog source when available and falls back to
+ * machine data for local development without WooCommerce.
  *
  * @package Standard
  */
@@ -17,6 +17,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+const FALLBACK_MACHINE_PRICE = '$87,245';
+
 /**
  * Get product categories for the Explore Machines section.
  *
@@ -24,9 +26,9 @@ if (!defined('ABSPATH')) {
  */
 function get_product_categories(): array {
     return [
-        'all'                         => \__('All', 'standard'),
-        'roof-wall-panel-machines'    => \__('Roof & Wall Panel Machines', 'standard'),
-        'gutter-machines'             => \__('Seamless Gutter Machines', 'standard'),
+        'all'                          => \__('All', 'standard'),
+        'roof-wall-panel-machines'     => \__('Roof & Wall Panel Machines', 'standard'),
+        'gutter-machines'              => \__('Seamless Gutter Machines', 'standard'),
         'accessories-add-on-equipment' => \__('Accessories & Upgrades', 'standard'),
     ];
 }
@@ -34,43 +36,28 @@ function get_product_categories(): array {
 /**
  * Get products by category.
  *
- * Uses WooCommerce if available, otherwise returns sample data.
- *
- * @param string $category_slug The category slug
- * @return array<int, array> Array of product data
+ * @return array<int, array>
  */
 function get_products_by_category(string $category_slug): array {
-    // Check if WooCommerce is active
     if (function_exists('wc_get_products')) {
         return get_woocommerce_products($category_slug);
     }
 
-    // Fallback to sample data
     return get_sample_products($category_slug);
 }
 
 /**
  * Get products from WooCommerce.
  *
- * @param string $category_slug The category slug
- * @return array<int, array> Array of product data
+ * @return array<int, array>
  */
 function get_woocommerce_products(string $category_slug): array {
-    // Handle "all" category - query each category separately to maintain order
     if ($category_slug === 'all') {
-        $all_formatted = [];
-
-        // Get roof & wall panel machines first
-        $all_formatted = array_merge($all_formatted, get_woocommerce_products('roof-wall-panel-machines'));
-
-        // Then gutter machines
-        $all_formatted = array_merge($all_formatted, get_woocommerce_products('gutter-machines'));
-
-        // Then accessories (limit to 7)
-        $accessories = get_woocommerce_products('accessories-add-on-equipment');
-        $all_formatted = array_merge($all_formatted, array_slice($accessories, 0, 7));
-
-        return $all_formatted;
+        return array_merge(
+            get_woocommerce_products('roof-wall-panel-machines'),
+            get_woocommerce_products('gutter-machines'),
+            array_slice(get_woocommerce_products('accessories-add-on-equipment'), 0, 7)
+        );
     }
 
     $is_accessory = $category_slug === 'accessories-add-on-equipment';
@@ -89,9 +76,9 @@ function get_woocommerce_products(string $category_slug): array {
             'id'          => $product->get_id(),
             'title'       => $product->get_name(),
             'tagline'     => $product->get_short_description(),
-            'descriptor'  => $is_accessory ? '' : wp_strip_all_tags($product->get_short_description()),
+            'descriptor'  => $is_accessory ? '' : \wp_strip_all_tags($product->get_short_description()),
             'image'       => \wp_get_attachment_url($product->get_image_id()),
-            'price'       => $is_accessory ? '' : '$87,245',
+            'price'       => $is_accessory ? '' : FALLBACK_MACHINE_PRICE,
             'price_label' => \__('Starting at', 'standard'),
             'explore_url' => $product->get_permalink(),
             'build_url'   => '/build-finance/?machine=' . $product->get_slug(),
@@ -105,209 +92,163 @@ function get_woocommerce_products(string $category_slug): array {
 /**
  * Get sample products for development/fallback.
  *
- * @param string $category_slug The category slug
- * @return array<int, array> Array of product data
+ * @return array<int, array>
  */
 function get_sample_products(string $category_slug): array {
-    $uploads_url = 'https://newtechmachinery.com/wp-content/uploads';
-
-    $products = [
-        'roof-wall-panel-machines' => [
-            [
-                'id'          => 'ssq3-multipro',
-                'title'       => 'SSQ3™ MultiPro',
-                'tagline'     => 'The future of portable roll forming.',
-                'descriptor'  => 'The most advanced portable roll former ever built',
-                'image'       => $uploads_url . '/2026/01/Screenshot-2026-01-07-at-9.37.43-AM.png',
-                'price'       => '$87,245',
-                'price_label' => \__('Starting at', 'standard'),
-                'explore_url' => '/machines/roof-wall-panel-machines/ssq3-multipro/',
-                'build_url'   => '/build-finance/?machine=ssq3-multipro',
-                'badge'       => 'Best Seller',
-            ],
-            [
-                'id'          => 'ssq-ii-multipro',
-                'title'       => 'SSQ II™ MultiPro',
-                'tagline'     => 'Versatility meets precision.',
-                'descriptor'  => 'The proven multi-profile workhorse',
-                'image'       => $uploads_url . '/2025/12/starting-SSQ-on-job-site-1024x576-1.jpg',
-                'price'       => '$87,245',
-                'price_label' => \__('Starting at', 'standard'),
-                'explore_url' => '/machines/roof-wall-panel-machines/ssq-ii-multipro/',
-                'build_url'   => '/build-finance/?machine=ssq-ii-multipro',
-                'badge'       => '',
-            ],
-            [
-                'id'          => 'ssh-multipro',
-                'title'       => 'SSH™ MultiPro',
-                'tagline'     => 'Built for standing seam perfection.',
-                'descriptor'  => 'Residential & light commercial machine',
-                'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
-                'price'       => '$87,245',
-                'price_label' => \__('Starting at', 'standard'),
-                'explore_url' => '/machines/roof-wall-panel-machines/ssh-multipro/',
-                'build_url'   => '/build-finance/?machine=ssh-multipro',
-                'badge'       => '',
-            ],
-            [
-                'id'          => 'ssr-multipro-jr',
-                'title'       => 'SSR™ MultiPro Jr.',
-                'tagline'     => 'Compact power, professional results.',
-                'descriptor'  => 'Affordable entry into portable rollforming',
-                'image'       => $uploads_url . '/2023/05/5V-on-site.jpg',
-                'price'       => '$87,245',
-                'price_label' => \__('Starting at', 'standard'),
-                'explore_url' => '/machines/roof-wall-panel-machines/ssr-multipro-jr/',
-                'build_url'   => '/build-finance/?machine=ssr-multipro-jr',
-                'badge'       => '',
-            ],
-            [
-                'id'          => '5vc-5v-crimp',
-                'title'       => '5VC-5V CRIMP™',
-                'tagline'     => 'Classic profiles, modern efficiency.',
-                'descriptor'  => 'The industry\'s only portable 5V crimp machine',
-                'image'       => $uploads_url . '/2023/05/5V-on-site.jpg',
-                'price'       => '$87,245',
-                'price_label' => \__('Starting at', 'standard'),
-                'explore_url' => '/machines/roof-wall-panel-machines/5vc-5v-crimp/',
-                'build_url'   => '/build-finance/?machine=5vc-5v-crimp',
-                'badge'       => '',
-            ],
-        ],
-        'gutter-machines' => [
-            [
-                'id'          => 'mach-ii-5',
-                'title'       => 'MACH II™ 5"',
-                'tagline'     => 'Speed and precision, job after job.',
-                'descriptor'  => 'The most trusted 5" gutter machine since 1994',
-                'image'       => $uploads_url . '/2024/07/20240612_NTM_CS-Rain-Gutters-Interview_V1.00_03_30_06.Still002.jpg',
-                'price'       => '$87,245',
-                'price_label' => \__('Starting at', 'standard'),
-                'explore_url' => '/machines/gutter-machines/mach-ii-5/',
-                'build_url'   => '/build-finance/?machine=mach-ii-5',
-                'badge'       => 'Popular',
-            ],
-            [
-                'id'          => 'mach-ii-6',
-                'title'       => 'MACH II™ 6"',
-                'tagline'     => 'Larger capacity for bigger jobs.',
-                'descriptor'  => 'Dedicated 6" K-style for larger homes',
-                'image'       => $uploads_url . '/2024/07/20240612_NTM_CS-Rain-Gutters-Interview_V1.00_03_30_06.Still002.jpg',
-                'price'       => '$87,245',
-                'price_label' => \__('Starting at', 'standard'),
-                'explore_url' => '/machines/gutter-machines/mach-ii-6/',
-                'build_url'   => '/build-finance/?machine=mach-ii-6',
-                'badge'       => '',
-            ],
-            [
-                'id'          => 'mach-ii-combo',
-                'title'       => 'MACH II™ 5"/6" Combo',
-                'tagline'     => 'Two sizes, one machine.',
-                'descriptor'  => 'Two gutter sizes, one machine',
-                'image'       => $uploads_url . '/2024/07/20240612_NTM_CS-Rain-Gutters-Interview_V1.00_03_30_06.Still002.jpg',
-                'price'       => '$87,245',
-                'price_label' => \__('Starting at', 'standard'),
-                'explore_url' => '/machines/gutter-machines/mach-ii-combo/',
-                'build_url'   => '/build-finance/?machine=mach-ii-combo',
-                'badge'       => '',
-            ],
-            [
-                'id'          => 'bg7-box-gutter',
-                'title'       => 'BG7™',
-                'tagline'     => 'Commercial-grade, built to last.',
-                'descriptor'  => 'Commercial-grade 7" box gutter machine',
-                'image'       => $uploads_url . '/2023/09/BG7-forming-gutter-scaled.jpg',
-                'price'       => '$87,245',
-                'price_label' => \__('Starting at', 'standard'),
-                'explore_url' => '/machines/gutter-machines/bg7-box-gutter/',
-                'build_url'   => '/build-finance/?machine=bg7-box-gutter',
-                'badge'       => '',
-            ],
-        ],
-        'accessories-add-on-equipment' => [
-            [
-                'id'          => 'coil-reel',
-                'title'       => 'Coil Reel',
-                'tagline'     => 'Smooth, consistent coil feeding.',
-                'descriptor'  => '',
-                'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
-                'price'       => '',
-                'price_label' => '',
-                'explore_url' => '/accessories/coil-reel/',
-                'build_url'   => '/build-finance/?accessory=coil-reel',
-                'badge'       => '',
-            ],
-            [
-                'id'          => 'run-out-stand',
-                'title'       => 'Run-Out Stand',
-                'tagline'     => 'Support for longer panel runs.',
-                'descriptor'  => '',
-                'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
-                'price'       => '',
-                'price_label' => '',
-                'explore_url' => '/accessories/run-out-stand/',
-                'build_url'   => '/build-finance/?accessory=run-out-stand',
-                'badge'       => '',
-            ],
-            [
-                'id'          => 'slitter',
-                'title'       => 'Slitter Attachment',
-                'tagline'     => 'Precision cutting on the job site.',
-                'descriptor'  => '',
-                'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
-                'price'       => '',
-                'price_label' => '',
-                'explore_url' => '/accessories/slitter/',
-                'build_url'   => '/build-finance/?accessory=slitter',
-                'badge'       => 'New',
-            ],
-            [
-                'id'          => 'notcher',
-                'title'       => 'Notcher',
-                'tagline'     => 'Clean notches for seamless seams.',
-                'descriptor'  => '',
-                'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
-                'price'       => '',
-                'price_label' => '',
-                'explore_url' => '/accessories/notcher/',
-                'build_url'   => '/build-finance/?accessory=notcher',
-                'badge'       => '',
-            ],
-            [
-                'id'          => 'hemmer',
-                'title'       => 'Hemmer',
-                'tagline'     => 'Professional edge finishing.',
-                'descriptor'  => '',
-                'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
-                'price'       => '',
-                'price_label' => '',
-                'explore_url' => '/accessories/hemmer/',
-                'build_url'   => '/build-finance/?accessory=hemmer',
-                'badge'       => '',
-            ],
-        ],
-    ];
-
-    // Handle "all" category - combine all products
     if ($category_slug === 'all') {
-        $all_products = [];
-
-        // Add all machines
-        foreach ($products['roof-wall-panel-machines'] as $product) {
-            $all_products[] = $product;
-        }
-        foreach ($products['gutter-machines'] as $product) {
-            $all_products[] = $product;
-        }
-
-        // Add accessories (limit to 7)
-        $accessories = array_slice($products['accessories-add-on-equipment'], 0, 7);
-        foreach ($accessories as $product) {
-            $all_products[] = $product;
-        }
-
-        return $all_products;
+        return array_merge(
+            get_sample_products('roof-wall-panel-machines'),
+            get_sample_products('gutter-machines'),
+            array_slice(get_sample_products('accessories-add-on-equipment'), 0, 7)
+        );
     }
 
-    return $products[$category_slug] ?? [];
+    if ($category_slug === 'roof-wall-panel-machines' || $category_slug === 'gutter-machines') {
+        return get_sample_machine_products($category_slug);
+    }
+
+    if ($category_slug === 'accessories-add-on-equipment') {
+        return get_sample_accessory_products();
+    }
+
+    return [];
+}
+
+/**
+ * @return array<int, array>
+ */
+function get_sample_machine_products(string $category_slug): array {
+    $machines = $category_slug === 'roof-wall-panel-machines'
+        ? \Standard\MachinesData\get_roof_wall_machines()
+        : \Standard\MachinesData\get_gutter_machines();
+
+    return array_map(
+        fn(array $machine): array => format_sample_machine_product($machine, $category_slug),
+        $machines
+    );
+}
+
+/**
+ * @param array<string, mixed> $machine
+ * @return array<string, mixed>
+ */
+function format_sample_machine_product(array $machine, string $category_slug): array {
+    $slug       = (string) ($machine['slug'] ?? '');
+    $public_slug = get_public_machine_slug($slug);
+    $is_gutter  = $category_slug === 'gutter-machines';
+
+    return [
+        'id'          => $public_slug,
+        'title'       => $is_gutter ? ($machine['short_name'] ?? $machine['name'] ?? '') : ($machine['name'] ?? ''),
+        'tagline'     => $machine['descriptor'] ?? '',
+        'descriptor'  => $machine['descriptor'] ?? '',
+        'image'       => $machine['image'] ?? '',
+        'price'       => !empty($machine['price']) ? $machine['price'] : FALLBACK_MACHINE_PRICE,
+        'price_label' => !empty($machine['price_label']) ? $machine['price_label'] : \__('Starting at', 'standard'),
+        'explore_url' => get_sample_machine_url($machine, $category_slug, $public_slug),
+        'build_url'   => '/build-finance/?machine=' . $public_slug,
+        'badge'       => get_sample_machine_badge($slug),
+    ];
+}
+
+/**
+ * Match legacy fallback URLs used before machine data became canonical.
+ */
+function get_public_machine_slug(string $slug): string {
+    return match ($slug) {
+        'mach-ii-5-gutter'     => 'mach-ii-5',
+        'mach-ii-6-gutter'     => 'mach-ii-6',
+        'mach-ii-combo-gutter' => 'mach-ii-combo',
+        default                => $slug,
+    };
+}
+
+/**
+ * @param array<string, mixed> $machine
+ */
+function get_sample_machine_url(array $machine, string $category_slug, string $public_slug): string {
+    $url = (string) ($machine['url'] ?? '');
+    if ($url !== '' && $url !== '#') {
+        return $url;
+    }
+
+    return '/machines/' . $category_slug . '/' . $public_slug . '/';
+}
+
+function get_sample_machine_badge(string $slug): string {
+    return match ($slug) {
+        'ssq3-multipro'    => 'Best Seller',
+        'mach-ii-5-gutter' => 'Popular',
+        default            => '',
+    };
+}
+
+/**
+ * @return array<int, array<string, string>>
+ */
+function get_sample_accessory_products(): array {
+    $uploads_url = 'https://newtechmachinery.com/wp-content/uploads';
+
+    return [
+        [
+            'id'          => 'coil-reel',
+            'title'       => 'Coil Reel',
+            'tagline'     => 'Smooth, consistent coil feeding.',
+            'descriptor'  => '',
+            'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
+            'price'       => '',
+            'price_label' => '',
+            'explore_url' => '/accessories/coil-reel/',
+            'build_url'   => '/build-finance/?accessory=coil-reel',
+            'badge'       => '',
+        ],
+        [
+            'id'          => 'run-out-stand',
+            'title'       => 'Run-Out Stand',
+            'tagline'     => 'Support for longer panel runs.',
+            'descriptor'  => '',
+            'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
+            'price'       => '',
+            'price_label' => '',
+            'explore_url' => '/accessories/run-out-stand/',
+            'build_url'   => '/build-finance/?accessory=run-out-stand',
+            'badge'       => '',
+        ],
+        [
+            'id'          => 'slitter',
+            'title'       => 'Slitter Attachment',
+            'tagline'     => 'Precision cutting on the job site.',
+            'descriptor'  => '',
+            'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
+            'price'       => '',
+            'price_label' => '',
+            'explore_url' => '/accessories/slitter/',
+            'build_url'   => '/build-finance/?accessory=slitter',
+            'badge'       => 'New',
+        ],
+        [
+            'id'          => 'notcher',
+            'title'       => 'Notcher',
+            'tagline'     => 'Clean notches for seamless seams.',
+            'descriptor'  => '',
+            'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
+            'price'       => '',
+            'price_label' => '',
+            'explore_url' => '/accessories/notcher/',
+            'build_url'   => '/build-finance/?accessory=notcher',
+            'badge'       => '',
+        ],
+        [
+            'id'          => 'hemmer',
+            'title'       => 'Hemmer',
+            'tagline'     => 'Professional edge finishing.',
+            'descriptor'  => '',
+            'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
+            'price'       => '',
+            'price_label' => '',
+            'explore_url' => '/accessories/hemmer/',
+            'build_url'   => '/build-finance/?accessory=hemmer',
+            'badge'       => '',
+        ],
+    ];
 }
