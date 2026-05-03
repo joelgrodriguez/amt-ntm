@@ -4,6 +4,19 @@
  */
 @theme {
   /* Colors */
+  --color-blue-50: #F4F8FB;
+  --color-blue-100: #E4ECF3;
+  --color-blue-200: #C8D6E4;
+  --color-blue-300: #9BB1C7;
+  --color-blue-400: #6987A3;
+  --color-blue-500: #0078C2;
+  --color-blue-600: #3F5870;
+  --color-blue-700: #26384B;
+  --color-blue-800: #142235;
+  --color-blue-900: #0A1322;
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-red: #CD1018;
   --color-primary: #0078C2;
   --color-secondary: #cd1018;
   --color-dark: #0f172a;
@@ -11,7 +24,6 @@
   --color-medium: #64748b;
   --color-light-medium: #cbd5e1;
   --color-light: #f8fafc;
-  --color-white: #ffffff;
   --color-border: #e2e8f0;
 
   /* Font Families */
@@ -20,6 +32,12 @@
   --font-mono: "Noto Sans Mono", ui-monospace, monospace;
 
   /* Font Sizes */
+  --text-caption: 11px;
+  --text-body: 14px;
+  --text-headingSm: 20px;
+  --text-heading: 28px;
+  --text-headingLg: 40px;
+  --text-display: 48px;
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1rem;
