@@ -49,14 +49,5 @@
 @import "./pages/toc.css";
 @import "./pages/media.css";
 
-/* ── Front Page ────────────────────────────────────────────────────── */
-@import "./front-page/hero-slider.css";
-@import "./front-page/explore-machines.css";
-
 /* ── WooCommerce ───────────────────────────────────────────────────── */
 @import "./woo/product-card.css";
-@import "./woo/woocommerce.css";
-@import "./woo/accessory-product.css";
-@import "./woo/floating-quote-cta.css";
-@import "./woo/machine-subnav.css";
-@import "./woo/machine-fit.css";

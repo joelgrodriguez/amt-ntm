@@ -1,0 +1,10 @@
+/**
+ * WooCommerce Styles
+ *
+ * Loaded only for WooCommerce catalog/accessory screens.
+ */
+
+@reference "./_app.css";
+
+@import "./woo/woocommerce.css";
+@import "./woo/accessory-product.css";

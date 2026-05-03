@@ -16,13 +16,7 @@ import { initScrollReveal } from './modules/ScrollReveal.js';
 import { initTableOfContents } from './modules/TableOfContents.js';
 import { init as initScrollHeader } from './modules/ScrollHeader.js';
 import { init as initScrollToTop } from './modules/ScrollToTop.js';
-import { initHeroSlider } from './modules/HeroSlider.js';
-import { initExploreMachines } from './modules/ExploreMachines.js';
-import { initSocialProof, cleanup as cleanupSocialProof } from './modules/SocialProof.js';
 import { initAccordion } from './modules/Accordion.js';
-import { initCarouselNav } from './modules/CarouselNav.js';
-import { initFloatingQuoteCta } from './modules/FloatingQuoteCta.js';
-import { initMachineSubnav } from './modules/MachineSubnav.js';
 
 /** @type {Function|null} Cleanup function for mobile menu */
 let mobileMenuCleanup = null;
@@ -39,26 +33,8 @@ let scrollHeaderCleanup = null;
 /** @type {Function|null} Cleanup function for scroll to top */
 let scrollToTopCleanup = null;
 
-/** @type {Function|null} Cleanup function for hero slider */
-let heroSliderCleanup = null;
-
-/** @type {Function|null} Cleanup function for explore machines */
-let exploreMachinesCleanup = null;
-
-/** @type {Function|null} Cleanup function for social proof */
-let socialProofCleanup = null;
-
 /** @type {Function|null} Cleanup function for accordion */
 let accordionCleanup = null;
-
-/** @type {Function|null} Cleanup function for reusable carousel navigation */
-let carouselNavCleanup = null;
-
-/** @type {Function|null} Cleanup function for floating quote CTA */
-let floatingQuoteCtaCleanup = null;
-
-/** @type {Function|null} Cleanup function for machine sub-nav */
-let machineSubnavCleanup = null;
 
 /**
  * Executes callback when DOM is ready.
@@ -86,13 +62,7 @@ const initApp = () => {
   tocCleanup = initTableOfContents();
   scrollHeaderCleanup = initScrollHeader();
   scrollToTopCleanup = initScrollToTop();
-  heroSliderCleanup = initHeroSlider();
-  exploreMachinesCleanup = initExploreMachines();
-  initSocialProof();
   accordionCleanup = initAccordion();
-  carouselNavCleanup = initCarouselNav();
-  floatingQuoteCtaCleanup = initFloatingQuoteCta();
-  machineSubnavCleanup = initMachineSubnav();
 };
 
 // Bootstrap
@@ -117,24 +87,8 @@ if (import.meta.hot) {
     if (scrollToTopCleanup) {
       scrollToTopCleanup();
     }
-    if (heroSliderCleanup) {
-      heroSliderCleanup();
-    }
-    if (exploreMachinesCleanup) {
-      exploreMachinesCleanup();
-    }
-    cleanupSocialProof();
     if (accordionCleanup) {
       accordionCleanup();
-    }
-    if (carouselNavCleanup) {
-      carouselNavCleanup();
-    }
-    if (floatingQuoteCtaCleanup) {
-      floatingQuoteCtaCleanup();
-    }
-    if (machineSubnavCleanup) {
-      machineSubnavCleanup();
     }
     // Reinitialize
     initApp();

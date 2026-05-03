@@ -65,6 +65,9 @@ export default defineConfig(({ command }) => {
       rollupOptions: {
         input: {
           app: resolve(__dirname, 'app/resources/js/_app.js'),
+          frontPage: resolve(__dirname, 'app/resources/js/front-page.js'),
+          machineProduct: resolve(__dirname, 'app/resources/js/machine-product.js'),
+          woocommerce: resolve(__dirname, 'app/resources/css/woo.css'),
           editor: resolve(__dirname, 'app/resources/css/editor.css'),
         },
         output: {
