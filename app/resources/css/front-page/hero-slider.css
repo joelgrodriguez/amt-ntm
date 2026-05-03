@@ -38,7 +38,7 @@
   flex: 0 0 100%;
   width: 100%;
   height: 100%;
-  background-color: var(--color-slate-900, #0f172a);
+  background-color: var(--color-blue-900);
 }
 
 /* Background media (image/video) */
@@ -73,28 +73,31 @@
   color: white;
 }
 
-/* Category label */
+/* Category label (eyebrow per DESIGN.md §5.4) */
 .hero-slider__category {
-  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--color-secondary, #F7951D);
+  color: var(--color-red);
   margin-bottom: 0.5rem;
 }
 
-/* Title */
+/* Title — display headline, sans per DESIGN.md §5.6 */
 .hero-slider__title {
+  font-family: var(--font-sans);
   font-size: 1.75rem;
-  font-weight: 700;
-  line-height: 1.1;
+  font-weight: 500;
+  line-height: 1.17;
   margin-bottom: 0.25rem;
   max-width: 90%;
 }
 
 /* Marketing slogan */
 .hero-slider__slogan {
-  font-size: 1rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
   font-weight: 400;
   color: rgba(255, 255, 255, 0.85);
   margin-bottom: 0.75rem;
@@ -111,6 +114,7 @@
 }
 
 .hero-slider__finance-prefix {
+  font-family: var(--font-mono);
   font-size: 0.6875rem;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.7);
@@ -131,13 +135,15 @@
 }
 
 .hero-slider__finance-value {
+  font-family: var(--font-mono);
   font-size: 2rem;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.2;
 }
 
 .hero-slider__finance-label {
-  font-size: 0.875rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-body);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -236,7 +242,7 @@
   left: 0;
   height: 100%;
   width: 0;
-  background-color: var(--color-secondary, #F7951D);
+  background-color: var(--color-red);
 }
 
 .hero-slider__segment--active .hero-slider__segment-fill {

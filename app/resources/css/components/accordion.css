@@ -25,7 +25,7 @@
 
   /* ── Container ──────────────────────────────────────────────────── */
   .accordion {
-    @apply border border-slate-200 -mt-px bg-white;
+    @apply border border-blue-200 -mt-px bg-white;
   }
 
   .accordion:first-child {
@@ -35,8 +35,8 @@
   /* ── Trigger (summary) ──────────────────────────────────────────── */
   .accordion summary {
     @apply px-6 py-4 cursor-pointer flex items-center justify-between gap-4;
-    @apply bg-white font-semibold text-slate-900;
-    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary;
+    @apply bg-white font-mono font-medium text-blue-700;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500;
     list-style: none;
     transition: background-color var(--duration-fast, 150ms) var(--ease-out, ease-out);
   }
@@ -46,34 +46,35 @@
   }
 
   .accordion summary:hover {
-    @apply bg-slate-50;
+    @apply bg-blue-50;
   }
 
   /* ── Icon ────────────────────────────────────────────────────────── */
   .accordion__icon {
-    @apply shrink-0 text-slate-400;
+    @apply shrink-0 text-blue-400;
     transition: transform var(--duration-base, 200ms) var(--ease-out, ease-out),
                 color var(--duration-base, 200ms) var(--ease-out, ease-out);
   }
 
   .accordion[open] > summary .accordion__icon {
-    @apply rotate-180 text-primary;
+    @apply rotate-180 text-blue-500;
   }
 
   /* ── Content body ───────────────────────────────────────────────── */
   .accordion__body {
-    @apply px-6 py-6 border-t border-slate-200 bg-slate-50;
-    @apply border-l-2 border-l-primary;
+    @apply px-6 py-6 border-t border-blue-200 bg-blue-50;
+    @apply border-l-2 border-l-blue-500;
   }
 
   /* ── Modifier: Large (FAQ) ──────────────────────────────────────── */
   .accordion--lg summary {
-    @apply py-5 text-lg font-bold;
+    @apply py-5 font-medium;
+    font-size: var(--text-heading-sm);
   }
 
   @media (min-width: 768px) {
     .accordion--lg summary {
-      @apply text-xl;
+      font-size: var(--text-heading);
     }
   }
 

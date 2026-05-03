@@ -12,23 +12,26 @@
 
   /* ── Gallery thumbnail active state ────────────────────────────── */
   .accessory-gallery__thumb--active {
-    @apply border-primary;
+    @apply border-blue-500;
   }
 
   /* ── WooCommerce attribute table styling ────────────────────────── */
   .woocommerce-product-attributes {
-    @apply w-full text-sm;
+    @apply w-full font-sans;
+    font-size: var(--text-body);
   }
 
   .woocommerce-product-attributes th {
-    @apply py-2 pr-4 text-left text-xs text-slate-500 uppercase tracking-wider font-mono font-normal align-top;
+    @apply py-2 pr-4 text-left font-mono uppercase tracking-wider font-medium align-top text-blue-400;
+    font-size: var(--text-caption);
   }
 
   .woocommerce-product-attributes td {
-    @apply py-2 text-slate-700;
+    @apply py-2 font-sans text-blue-700;
+    font-size: var(--text-body);
   }
 
   .woocommerce-product-attributes tr + tr {
-    @apply border-t border-slate-200;
+    @apply border-t border-blue-200;
   }
 }

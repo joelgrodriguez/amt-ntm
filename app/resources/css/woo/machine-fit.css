@@ -4,6 +4,10 @@
  * Mobile-first: stacked cards.
  * Desktop (md): side-by-side grid.
  *
+ * Uses brand blue (positive fit) and red (anti-fit) instead of a green/rose
+ * pair to keep the palette discipline (DESIGN.md §2.4 — only two saturated
+ * colors in the system).
+ *
  * @file woo/machine-fit.css
  */
 
@@ -17,27 +21,29 @@
   }
 
   .machine-fit__card--for {
-    @apply border-l-emerald-600 bg-emerald-50/50;
+    @apply border-l-blue-500 bg-blue-50;
   }
 
   .machine-fit__card--not-for {
-    @apply border-l-rose-600 bg-rose-50/50;
+    @apply border-l-red bg-blue-50;
   }
 
   .machine-fit__heading {
-    @apply flex items-center gap-2 text-lg font-bold mb-4;
+    @apply flex items-center gap-2 font-mono font-medium mb-4;
+    font-size: var(--text-heading-sm);
   }
 
   .machine-fit__heading--for {
-    @apply text-emerald-700;
+    @apply text-blue-700;
   }
 
   .machine-fit__heading--not-for {
-    @apply text-rose-700;
+    @apply text-red;
   }
 
   .machine-fit__list {
-    @apply space-y-3 text-base text-slate-700;
+    @apply space-y-3 font-sans text-blue-700;
+    font-size: var(--text-body);
   }
 
   .machine-fit__list li {
@@ -45,11 +51,12 @@
   }
 
   .machine-fit__alt {
-    @apply text-sm text-slate-500;
+    @apply font-sans text-blue-400;
+    font-size: var(--text-caption);
   }
 
   .machine-fit__link {
-    @apply text-primary underline decoration-primary/30 underline-offset-2
-           hover:decoration-primary transition-colors;
+    @apply text-blue-500 underline decoration-blue-500/30 underline-offset-2
+           hover:decoration-blue-500 transition-colors;
   }
 }

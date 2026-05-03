@@ -1,8 +1,9 @@
 /**
  * Spec List
  *
- * Bulleted list with colored dot markers.
- * Default dot is secondary (orange). Use .spec-list--green for emerald dots.
+ * Bulleted list with square dot markers (DESIGN.md: zero radius everywhere).
+ * Default dot is red (accent). Use .spec-list--green (legacy class name)
+ * for the blue-500 variant when red would compete with another accent.
  *
  * @file components/spec-list.css
  */
@@ -13,15 +14,16 @@
   }
 
   .spec-list li {
-    @apply flex items-start gap-2 text-sm;
+    @apply flex items-start gap-2 font-sans;
+    font-size: var(--text-body);
   }
 
   .spec-list li::before {
-    @apply w-1.5 h-1.5 rounded-full bg-secondary shrink-0 mt-1.5;
+    @apply w-1.5 h-1.5 bg-red shrink-0 mt-1.5;
     content: '';
   }
 
   .spec-list--green li::before {
-    @apply bg-emerald-400;
+    @apply bg-blue-500;
   }
 }
