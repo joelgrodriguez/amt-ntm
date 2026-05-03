@@ -85,46 +85,6 @@
           "name": "Red",
           "slug": "red",
           "color": "#CD1018"
-        },
-        {
-          "name": "Primary",
-          "slug": "primary",
-          "color": "#0078C2"
-        },
-        {
-          "name": "Secondary",
-          "slug": "secondary",
-          "color": "#cd1018"
-        },
-        {
-          "name": "Dark",
-          "slug": "dark",
-          "color": "#0f172a"
-        },
-        {
-          "name": "Dark Medium",
-          "slug": "dark-medium",
-          "color": "#334155"
-        },
-        {
-          "name": "Medium",
-          "slug": "medium",
-          "color": "#64748b"
-        },
-        {
-          "name": "Light Medium",
-          "slug": "light-medium",
-          "color": "#cbd5e1"
-        },
-        {
-          "name": "Light",
-          "slug": "light",
-          "color": "#f8fafc"
-        },
-        {
-          "name": "Border",
-          "slug": "border",
-          "color": "#e2e8f0"
         }
       ]
     },
