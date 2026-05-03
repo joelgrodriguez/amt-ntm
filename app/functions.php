@@ -36,9 +36,11 @@ $theme_includes = [
     'inc/woo/setup.php',
     'inc/woo/cache.php',
     'inc/woo/catalog.php',
+    'inc/woo/carousel.php',
     'inc/woo/machine-template.php',
     // Machine content data
     'inc/machines.php',
+    'inc/learning-center.php',
     'inc/machines-data.php',
     'inc/machine-product-data.php',
     'inc/machine-schema.php',

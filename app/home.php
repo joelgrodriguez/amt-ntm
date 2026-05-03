@@ -17,23 +17,19 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use function Standard\LearningCenter\get_content_sections;
+use function Standard\LearningCenter\get_featured_query;
+use function Standard\LearningCenter\get_recent_query;
+use function Standard\LearningCenter\get_section_query;
+use function Standard\LearningCenter\get_type_cta;
+use function Standard\LearningCenter\get_type_icon;
+use function Standard\LearningCenter\get_type_label;
+
 get_header();
 
-// Get featured post (latest from any learning center post type)
-$featured_query = new WP_Query([
-    'post_type'      => ['post', 'video', 'resource', 'download'],
-    'posts_per_page' => 1,
-    'post_status'    => 'publish',
-]);
-
-// Get recent posts for hero sidebar (excluding featured)
+$featured_query = get_featured_query();
 $featured_id = $featured_query->have_posts() ? $featured_query->posts[0]->ID : 0;
-$recent_query = new WP_Query([
-    'post_type'      => ['post', 'video', 'resource', 'download'],
-    'posts_per_page' => 4,
-    'post_status'    => 'publish',
-    'post__not_in'   => $featured_id ? [$featured_id] : [],
-]);
+$recent_query = get_recent_query((int) $featured_id);
 
 // Get categories for filter
 $categories = get_categories([
@@ -51,37 +47,7 @@ $machine_tags = get_tags([
     'number'     => 8,
 ]);
 
-// Content type sections config
-$content_sections = [
-    [
-        'title'     => __('Latest Articles', 'standard'),
-        'post_type' => 'post',
-        'icon'      => 'file-text',
-        'link'      => home_url('/learning-center/articles/'),
-        'link_text' => __('View All Articles', 'standard'),
-    ],
-    [
-        'title'     => __('Latest Videos', 'standard'),
-        'post_type' => 'video',
-        'icon'      => 'play',
-        'link'      => get_post_type_archive_link('video'),
-        'link_text' => __('View All Videos', 'standard'),
-    ],
-    [
-        'title'     => __('Latest Resources', 'standard'),
-        'post_type' => 'resource',
-        'icon'      => 'folder',
-        'link'      => get_post_type_archive_link('resource'),
-        'link_text' => __('View All Resources', 'standard'),
-    ],
-    [
-        'title'     => __('Latest Downloads', 'standard'),
-        'post_type' => 'download',
-        'icon'      => 'download',
-        'link'      => get_post_type_archive_link('download'),
-        'link_text' => __('View All Downloads', 'standard'),
-    ],
-];
+$content_sections = get_content_sections();
 ?>
 
 <main id="primary">
@@ -119,15 +85,7 @@ $content_sections = [
                             <?php endif; ?>
                             <div class="p-6">
                                 <?php
-                                $featured_post_type = get_post_type();
-                                $featured_type_config = [
-                                    'post'     => ['icon' => 'file-text', 'cta' => __('Read Article', 'standard')],
-                                    'video'    => ['icon' => 'play', 'cta' => __('Watch Video', 'standard')],
-                                    'resource' => ['icon' => 'folder', 'cta' => __('View Resource', 'standard')],
-                                    'download' => ['icon' => 'download', 'cta' => __('View Download', 'standard')],
-                                ];
-                                $featured_icon = $featured_type_config[$featured_post_type]['icon'] ?? 'file-text';
-                                $featured_cta = $featured_type_config[$featured_post_type]['cta'] ?? __('Read More', 'standard');
+                                $featured_cta = get_type_cta((string) get_post_type());
                                 ?>
                                 <span class="inline-flex items-center px-3 py-1 bg-blue-500 text-white text-xs font-mono uppercase tracking-wider mb-4">
                                     <?php esc_html_e('Latest', 'standard'); ?>
@@ -160,18 +118,10 @@ $content_sections = [
 
                 <!-- Recent Posts (Stacked) + Subscribe CTA -->
                 <div class="flex flex-col gap-3">
-                    <?php
-                    $type_icons = [
-                        'post'     => 'file-text',
-                        'video'    => 'play',
-                        'resource' => 'folder',
-                        'download' => 'download',
-                    ];
-                    ?>
                     <?php if ($recent_query->have_posts()) : ?>
                         <?php while ($recent_query->have_posts()) : $recent_query->the_post();
                             $recent_post_type = get_post_type();
-                            $recent_icon = $type_icons[$recent_post_type] ?? 'file-text';
+                            $recent_icon = get_type_icon((string) $recent_post_type);
                         ?>
                             <article class="group bg-white border border-blue-200 hover:border-blue-300 transition-colors shrink-0">
                                 <a href="<?php the_permalink(); ?>" class="flex items-center gap-4 p-4 no-underline">
@@ -186,13 +136,7 @@ $content_sections = [
                                         <span class="inline-flex items-center gap-1.5 text-xs text-blue-400 font-mono uppercase tracking-wide mb-1">
                                             <?php icon($recent_icon, ['class' => 'w-3 h-3']); ?>
                                             <?php
-                                            $type_labels = [
-                                                'post'     => __('Article', 'standard'),
-                                                'video'    => __('Video', 'standard'),
-                                                'resource' => __('Resource', 'standard'),
-                                                'download' => __('Download', 'standard'),
-                                            ];
-                                            echo esc_html($type_labels[$recent_post_type] ?? '');
+                                            echo esc_html(get_type_label((string) $recent_post_type));
                                             ?>
                                         </span>
                                         <h3 class="font-medium text-blue-900 group-hover:text-blue-500 transition-colors line-clamp-2 text-base">
@@ -305,11 +249,7 @@ $content_sections = [
 
     <!-- Content Sections by Post Type -->
     <?php foreach ($content_sections as $section) :
-        $section_query = new WP_Query([
-            'post_type'      => $section['post_type'],
-            'posts_per_page' => 4,
-            'post_status'    => 'publish',
-        ]);
+        $section_query = get_section_query($section['post_type']);
 
         if (!$section_query->have_posts()) {
             wp_reset_postdata();

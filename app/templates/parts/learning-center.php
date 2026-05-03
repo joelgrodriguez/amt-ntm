@@ -25,6 +25,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use function Standard\LearningCenter\get_latest_query;
+
 // Default values - can be overridden via $args when using get_template_part
 $defaults = [
     'eyebrow'    => __('Learning Center', 'standard'),
@@ -38,22 +40,7 @@ $defaults = [
 ];
 
 $args = wp_parse_args($args ?? [], $defaults);
-
-// Query latest posts from multiple post types
-$query_args = [
-    'post_type'      => $args['post_type'],
-    'posts_per_page' => $args['post_count'],
-    'post_status'    => 'publish',
-    'orderby'        => 'date',
-    'order'          => 'DESC',
-    'no_found_rows'  => true,
-];
-
-if (!empty($args['category_slug'])) {
-    $query_args['category_name'] = $args['category_slug'];
-}
-
-$query = new WP_Query($query_args);
+$query = get_latest_query((int) $args['post_count'], $args['post_type'], (string) $args['category_slug']);
 
 if (!$query->have_posts()) {
     return;
