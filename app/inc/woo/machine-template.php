@@ -26,25 +26,6 @@ const MACHINE_CATEGORIES = [
 ];
 
 /**
- * Swap the template for machine products.
- *
- * Runs at priority 99 to fire after WooCommerce's own template_include (priority 10).
- */
-add_filter('template_include', function (string $template): string {
-    if (!is_singular('product')) {
-        return $template;
-    }
-
-    if (!has_term(MACHINE_CATEGORIES, 'product_cat')) {
-        return $template;
-    }
-
-    $custom = get_theme_file_path('templates/woo/product/single-machine.php');
-
-    return file_exists($custom) ? $custom : $template;
-}, 99);
-
-/**
  * Accessory product category slugs that get the branded template.
  */
 const ACCESSORY_CATEGORIES = [
@@ -52,18 +33,41 @@ const ACCESSORY_CATEGORIES = [
 ];
 
 /**
- * Swap the template for accessory products.
+ * Resolve the custom single product template for the current product.
+ *
+ * Machine products intentionally win over accessories if a product is
+ * assigned to both category groups. A machine landing page is the richer
+ * sales surface; accessory layout is the fallback product treatment.
+ */
+function get_single_product_template(): ?string {
+    if (!is_singular('product')) {
+        return null;
+    }
+
+    if (has_term(MACHINE_CATEGORIES, 'product_cat')) {
+        return 'templates/woo/product/single-machine.php';
+    }
+
+    if (has_term(ACCESSORY_CATEGORIES, 'product_cat')) {
+        return 'templates/woo/product/single-accessory.php';
+    }
+
+    return null;
+}
+
+/**
+ * Swap WooCommerce single product templates.
+ *
+ * Runs at priority 99 to fire after WooCommerce's own template_include
+ * callback at priority 10.
  */
 add_filter('template_include', function (string $template): string {
-    if (!is_singular('product')) {
+    $relative_template = get_single_product_template();
+
+    if ($relative_template === null) {
         return $template;
     }
 
-    if (!has_term(ACCESSORY_CATEGORIES, 'product_cat')) {
-        return $template;
-    }
-
-    $custom = get_theme_file_path('templates/woo/product/single-accessory.php');
-
+    $custom = get_theme_file_path($relative_template);
     return file_exists($custom) ? $custom : $template;
-}, 98);
+}, 99);
