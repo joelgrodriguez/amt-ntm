@@ -1,409 +1,530 @@
-# UI Design System Specification
+# New Tech Machinery — Style Reference
+> Engineered Showroom. Industrial precision presented with premium restraint — a spec sheet that thinks it's an art book.
 
-This document defines the visual language, design tokens, component patterns, and coding conventions used across NTM digital properties. It is derived from the Standard Theme codebase and draws heavy inspiration from IBM's Carbon Design System. Any new project built for this company must match this aesthetic exactly.
+**Theme:** light
+
+The design treats rollforming machines the way Tesla treats vehicles and Toyota treats the Tundra: full-bleed product imagery, generous negative space, and a minimal interface that gets out of the way. Our buyers are spending truck-and-vehicle money on our equipment, and the site signals that. The visual language is industrial-premium — sharp corners, monospaced labeling, blue-tinted neutrals — never rugged, never dirty. Color is restrained and disciplined: a single brand blue carries the system, a single red ignites action, and every "neutral" carries a low-saturation blue tint so the brand is felt without being announced.
 
 ---
 
 ## 1. Design Philosophy
 
-The visual style is industrial, clean, and confident. Think Carbon Design System adapted for a manufacturing/B2B brand. Key principles:
-
-- **Zero border-radius.** Every element — buttons, cards, badges, inputs, images — uses sharp corners. `border-radius: 0` globally. No rounded anything.
-- **Grid-based precision.** Layouts use CSS Grid with consistent gap values. No freeform floating.
-- **Restrained motion.** Animations are subtle (150–300ms), functional, and always respect `prefers-reduced-motion`.
-- **Typographic hierarchy through weight and size**, not decorative elements. IBM Plex font family throughout.
-- **High contrast, minimal color.** Mostly slate grays with two brand accent colors. Color is used sparingly and intentionally.
-
----
-
-## 2. Design Tokens
-
-### 2.1 Colors
-
-```
-Primary:        #0078C2   (IBM-style blue — links, primary buttons, focus rings)
-Secondary:      #F7951D   (Orange — eyebrows, accent dividers, CTAs, testimonial dots)
-Accent:         #B91C1C   (Red — sparingly, for destructive/warning states)
-
-Dark:           #18181b   (Near-black — dark backgrounds, footer)
-Dark Medium:    #3f3f46   (Dark gray)
-Medium:         #71717a   (Mid gray — secondary text)
-Light Medium:   #d4d4d8   (Light gray — borders, dividers)
-Light:          #fafafa   (Off-white — section backgrounds)
-White:          #ffffff   (Cards, page backgrounds)
-Border:         #e4e4e7   (Default border color for all elements)
-```
-
-The Tailwind `slate` palette is used as the primary neutral scale. Specific usages:
-
-- `slate-900` — primary headings, body text
-- `slate-700` — nav links, secondary text
-- `slate-600` — body copy, descriptions, subtitles
-- `slate-500` — meta text, timestamps, captions
-- `slate-400` — footer links (dark bg), placeholder text
-- `slate-200` — borders, dividers on light bg
-- `slate-100` — hover backgrounds, alternate section bg
-- `slate-50`  — light section backgrounds
-
-### 2.2 Typography
-
-Font stack (loaded via Bunny Fonts CDN):
-
-```
-Sans:   "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif
-Serif:  "IBM Plex Serif", ui-serif, Georgia, serif
-Mono:   "IBM Plex Mono", ui-monospace, monospace
-```
-
-**Usage rules:**
-
-- `font-sans` — all body text, headings, buttons, UI elements
-- `font-mono` — category labels, post type indicators, site name in header, small metadata labels
-- `font-serif` — reserved for editorial/long-form content if needed (not currently used in UI)
-
-**Type scale (rem):**
-
-```
-xs:   0.75rem   (12px)  — badges, fine print
-sm:   0.875rem  (14px)  — nav links, button-sm, accordion triggers, footer
-base: 1rem      (16px)  — body copy
-lg:   1.125rem  (18px)  — subtitles, pain point descriptions
-xl:   1.25rem   (20px)  — card titles (desktop), step titles
-2xl:  1.5rem    (24px)  — testimonial text (mobile)
-3xl:  1.875rem  (30px)  — section titles (mobile)
-4xl:  2.25rem   (36px)  — section titles (tablet)
-5xl:  3rem      (48px)  — section titles (desktop)
-```
-
-**Heading pattern:** Section titles use responsive sizing: `text-3xl md:text-4xl lg:text-5xl`, always `font-bold text-slate-900`.
-
-### 2.3 Spacing & Layout
-
-```
-Content max-width:  720px   (prose, single-column content)
-Wide max-width:     1440px  (page container)
-Border-radius:      0       (global — no rounded corners anywhere)
-```
-
-**Section spacing (responsive vertical padding):**
-
-```
-.section:          py-16 md:py-20 lg:py-24
-.section-compact:  py-12 md:py-16
-```
-
-**Container:** Centered with `mx-auto px-4 lg:px-0`, max-width 1440px. On desktop, the container has side borders (`border-x border-slate-200`) for a contained, structured feel.
-
-### 2.4 Animation Timing
-
-```
-Fast:     150ms   (button hover, link transitions)
-Base:     200ms   (page transitions, mobile menu)
-Slow:     300ms   (scroll reveals, accordion expand/collapse)
-Ease Out: cubic-bezier(0.33, 1, 0.68, 1)
-Ease I/O: cubic-bezier(0.65, 0, 0.35, 1)
-```
+- **Zero border-radius, everywhere.** Buttons, cards, badges, inputs, images — every corner is sharp. This is the Cybertruck instinct, not the Model Y. It is non-negotiable and it is what differentiates us from every other industrial-catalog site in the category.
+- **No shadows.** Depth is established through color contrast, borders, and spacing — never drop shadows. Shadows read as consumer-software; their absence reads as engineered.
+- **Two fonts. Two weights. That's it.** Noto Sans Mono (400, 500) and Noto Sans (400, 500). No 600/700/800 sneaking in. Restriction is the premium signal.
+- **Mono is the editorial voice.** Section titles, eyebrows, labels, badges, button text, model numbers, navigation, metadata — anything that *identifies, labels, or commands* is monospace. Sans is reserved for body copy and large hero/display headlines that are *read*, not scanned.
+- **60 / 30 / 10 color discipline.** 60% light blue-tinted neutrals + white. 30% deep blue-tinted darks + true black for product imagery contrast. 10% saturated color — and that 10% is mostly primary blue, with red used as a pinpoint accent.
+- **Blue-tinted neutrals.** Every "gray" in the system is actually a desaturated blue derived from `#0078C2`. Backgrounds, text, borders, and dark surfaces all carry an unnoticeable but present brand hue. Pure neutrals are forbidden except for `#ffffff` and `#000000` in specific roles.
+- **Restrained motion.** 150–300ms transitions, subtle reveals, `prefers-reduced-motion` respected. Motion supports the product; it never performs.
+- **Imagery is the hero.** Product photography is full-bleed, sharp, cinematic, and color-graded clean. UI exists to support the machine, not compete with it.
 
 ---
 
-## 3. Component Library
+## 2. Tokens — Colors
 
-### 3.1 Buttons
+The brand color is **`#0078C2`**. Every neutral in the system is derived from it — desaturated blues that span near-white to near-black. This creates an unnoticeable but present brand "feeling" across every surface.
 
-Sized per Carbon Design System height tokens:
+### 2.1 Brand-tinted neutral scale
 
-```
-btn-sm:  h-8   (32px)  px-3   min-w-24   text-sm
-btn-md:  h-10  (40px)  px-3.5 min-w-28
-btn-lg:  h-12  (48px)  px-4   min-w-32   (default)
-btn-xl:  h-16  (64px)  px-5   min-w-40
-```
+| Name | Value | Token | Role |
+|------|-------|-------|------|
+| Blue 50 | `#F4F8FB` | `--color-blue-50` | Page backgrounds, alternate section backgrounds. Replaces all uses of slate-50/gray-50. |
+| Blue 100 | `#E4ECF3` | `--color-blue-100` | Subtle hover backgrounds, dividers on light surfaces. |
+| Blue 200 | `#C8D6E4` | `--color-blue-200` | Default borders, dividers on light bg, inactive UI element borders. |
+| Blue 300 | `#9BB1C7` | `--color-blue-300` | Disabled text, placeholder text, tertiary UI details. |
+| Blue 400 | `#6987A3` | `--color-blue-400` | Meta text, captions, timestamps, footer links on dark backgrounds. |
+| Blue 500 | `#0078C2` | `--color-blue-500` | **Primary brand.** Links, primary CTAs, focus rings, active states, key iconography. The 10% accent. |
+| Blue 600 | `#3F5870` | `--color-blue-600` | Body copy on light backgrounds, secondary text, sub-headings. |
+| Blue 700 | `#26384B` | `--color-blue-700` | Primary headings, primary text on light backgrounds. |
+| Blue 800 | `#142235` | `--color-blue-800` | Dark surfaces, footer background, dark section backgrounds. |
+| Blue 900 | `#0A1322` | `--color-blue-900` | Deepest dark backgrounds, hero overlays, full-bleed dark sections. |
 
-All buttons use `inline-flex items-center justify-center gap-2 font-medium`. No border-radius.
+### 2.2 Pure neutrals
 
-**Hover effect:** Background-size sweep from right to left using a two-stop linear-gradient. The gradient goes from the hover-state color (50%) to the resting color (50%), and `background-size: 200% 100%` with `background-position` transition creates a sweep effect.
+| Name | Value | Token | Role |
+|------|-------|-------|------|
+| Pure White | `#FFFFFF` | `--color-white` | Card surfaces, contrast surfaces, text on dark/colored buttons. |
+| Pure Black | `#000000` | `--color-black` | SVG icon fills, image overlays, photographic captions. Reserved — not a UI background color. |
 
-**Variants:**
+### 2.3 Accent
 
-| Class | Resting | Hover | Use Case |
-|---|---|---|---|
-| `btn-primary` | Solid primary blue, white text | Darkens (color-mix 85% with black) | Primary CTAs |
-| `btn-secondary` | Solid orange, white text | Darkens | Secondary CTAs |
-| `btn-light` | White, dark text | Light gray (#f1f5f9) | Light backgrounds |
-| `btn-outline-dark` | Transparent, dark border | Fills dark, text goes white | Cards, secondary actions |
-| `btn-outline-light` | Transparent, white/60 border | Fills white, text goes dark | Dark backgrounds |
-| `btn-ghost` | Transparent, no border | Light gray bg | Tertiary actions, minimal UI |
+| Name | Value | Token | Role |
+|------|-------|-------|------|
+| Red | `#CD1018` | `--color-red` | **Pinpoint accent only.** Section divider bars, eyebrow accent dots, single high-emphasis CTA fills, active/selected indicators on key controls. |
 
-### 3.2 Cards
+### 2.4 The 10% rule
 
-**Base card:** `bg-white border transition-all duration-200 hover:shadow-lg hover:-translate-y-1`. Sharp corners. Subtle lift on hover.
+Saturated color = `--color-blue-500` + `--color-red`. Together they account for ~10% of any given screen. The discipline:
 
-**Post card (content card):** Three-row grid layout: image → content → footer CTA bar.
+- **`--color-blue-500`** carries the system: links, primary CTAs, focus rings, key icons, active states.
+- **`--color-red`** is reserved for moments that need to *ignite* — a single hero CTA fill, an accent divider bar, an eyebrow dot, a "selected" or "configure" emphasis.
+- Never use either color for body copy, large background fills, decorative shapes, or hover states on non-interactive elements.
 
-- Image: full-width, contained in a bordered block
-- Content: padding, category label (`font-mono text-xs uppercase tracking-wide text-slate-500`), title (`font-semibold text-slate-900`)
-- Footer: border-top bar with icon + CTA text (`font-mono text-xs text-slate-500`), arrow icon on right, hover bg-slate-50
+### 2.5 Quick color reference
 
-**Product card:** Horizontal on tablet+, vertical on mobile. Image with `aspect-ratio: 4/3`, `object-contain`, subtle scale on hover. Badge in top-left corner (`text-xs font-semibold uppercase tracking-wide text-white bg-slate-800`).
-
-### 3.3 Section Pattern
-
-Every page section follows this structure:
-
-```
-section.section > div.container > div.section-content
-  └── div.section-header (or .section-header-left)
-        ├── p.section-eyebrow
-        ├── div.section-divider (or .section-divider-center)
-        ├── h2.section-title
-        └── p.section-subtitle (or .section-subtitle-centered)
-  └── [section body content]
-```
-
-**Eyebrow:** `text-sm font-semibold uppercase tracking-wider text-secondary` — always orange.
-
-**Divider:** `w-12 h-1 bg-secondary` — a short horizontal accent bar in orange, placed between eyebrow and title.
-
-**Background alternation:** Sections alternate between `bg-white`, `bg-slate-50`, `bg-slate-100`, and `bg-slate-900` (dark). Use `.section-content` grid with `gap-12 lg:gap-16` to separate header from body.
-
-### 3.4 Navigation
-
-**Header:** Fixed height `h-12` (48px). White background, bottom border. Contains: mobile toggle (left, `w-12 h-12` with border-right), logo + site name, desktop nav, search icon (right).
-
-- Logo text: `font-mono font-bold text-sm text-slate-600`
-- Nav links: `text-sm px-4 text-slate-700 hover:bg-slate-100`
-- Mega menu: Full-width dropdown below header, 4-column grid, white bg, top/bottom borders
-- Menu link arrows: Inline SVG masks on `::after` pseudo-elements (Carbon-style directional arrows)
-
-**Mobile menu:** Slides in from left (`translateX(-100%)` → `translateX(0)`), full viewport below header.
-
-**Scroll behavior:** Header hides on scroll-down (`translateY(-100%)`), shows on scroll-up. Becomes `position: fixed` when sticky.
-
-### 3.5 Accordion (Carbon-Style)
-
-- Items separated by `border-t border-slate-200`, last item gets `border-b`
-- Trigger: full-width button, `text-sm font-semibold text-slate-900`, chevron-down icon on right
-- Trigger hover: `bg-slate-100`
-- Expanded content: `max-h` transition (300ms ease-in-out), left border accent (`border-l-2 border-primary`) on answer text
-- Single-open behavior: only one item expanded at a time
-- Chevron rotates 180° when expanded
-
-### 3.6 Badges
-
-`inline-block px-3 py-1 text-sm font-medium capitalize border text-slate-700 bg-slate-100 hover:bg-slate-200`. No border-radius.
-
-### 3.7 Links
-
-**Animated underline:** `link-animated` class. Uses `::after` pseudo-element: `h-px bg-current`, `w-0` → `w-full` on hover with 200ms transition.
-
-**Standard links:** `text-primary` with `hover:text-blue-700 hover:underline`.
-
-### 3.8 Icon Buttons
-
-`inline-flex items-center justify-center`, `hover:scale-110 active:scale-95`. Focus ring on `:focus-visible`.
-
-### 3.9 Testimonials / Social Proof
-
-Dark section (`bg-slate-900`). Centered layout, max-width constrained. Quote icon in `text-secondary`. Quote text in white, responsive sizing (`text-xl md:text-2xl lg:text-3xl font-medium`). Attribution: name in white, role/company in `text-slate-300 text-sm`. Navigation dots: `h-3` pills, active dot is wider (`w-8`) in `bg-secondary`, inactive is `w-3 bg-slate-600`.
-
-### 3.10 Background Patterns
-
-**Dot grid:** `radial-gradient(circle, slate-200 1px, transparent 1px)` at 16px intervals. Applied via `::before` pseudo-element with `pointer-events-none`.
-
-**Square grid:** Two overlapping linear-gradients (horizontal + vertical lines, `slate-300 1px`) at 32px intervals. Fades from corners using CSS `mask-image` gradients. Variants: default (light), `--dark` (slate-500 lines), `--primary` (white/15 lines for blue bg).
-
-**Fade overlays:** `gradient-fade-bottom` uses `mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%)` to fade patterns at the bottom.
+- **Page background:** `--color-white` or `--color-blue-50`
+- **Dark section background:** `--color-blue-800` or `--color-blue-900`
+- **Heading text (light bg):** `--color-blue-700`
+- **Body text (light bg):** `--color-blue-600`
+- **Heading text (dark bg):** `--color-white`
+- **Body text (dark bg):** `--color-blue-200`
+- **Border (default):** `--color-blue-200`
+- **Primary CTA:** `--color-blue-500` background, `--color-white` text
+- **Secondary CTA:** transparent background, `--color-blue-700` border + text
+- **High-emphasis CTA / accent divider / eyebrow dot:** `--color-red`
 
 ---
 
-## 4. Accessibility
+## 3. Tokens — Typography
 
-- **Focus visible:** `outline-2 outline-offset-2 outline-primary` on all interactive elements
-- **Skip to content:** Screen-reader-only link that becomes visible on focus, positioned top-left with `bg-primary text-white`
-- **Reduced motion:** All animations wrapped in `@media (prefers-reduced-motion: no-preference)` or have `motion-reduce:` overrides. Scroll reveals show immediately. Sliders stop auto-advancing.
-- **ARIA patterns:** Sections use `aria-labelledby` pointing to their `h2` id. Accordion triggers use `aria-expanded`. Mobile menu toggle uses `aria-expanded` and `aria-controls`.
-- **Color contrast:** All text/background combinations must meet WCAG AA. Light text on dark bg uses `text-white` or `text-slate-300` (never lighter than slate-400 on slate-900).
+Two fonts. Two weights. No exceptions.
+
+### 3.1 Noto Sans Mono — Editorial voice · `--font-mono`
+- **Substitute:** `ui-monospace, SFMono-Regular, Menlo, monospace`
+- **Weights:** 400, 500
+- **Role:** Section titles, eyebrows, labels, badges, button text, navigation, model numbers, metadata, captions, technical specs, product identifiers. Anything that *identifies, labels, or commands*. The voice of an engineered machine.
+
+### 3.2 Noto Sans — Reading voice · `--font-sans`
+- **Substitute:** `ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`
+- **Weights:** 400, 500
+- **Role:** Body copy, paragraphs, long-form content, large hero/display headlines that are *read* rather than scanned. The voice of communication.
+
+### 3.3 Type scale
+
+Compact, confident, premium. Sized in pixels for precision.
+
+| Role | Size | Line height | Default font | Token |
+|------|------|-------------|--------------|-------|
+| caption | 11px | 1.2 | Mono | `--text-caption` |
+| body | 14px | 1.43 | Sans | `--text-body` |
+| heading-sm | 20px | 1.4 | Mono | `--text-heading-sm` |
+| heading | 28px | 1.29 | Mono | `--text-heading` |
+| heading-lg | 40px | 1.2 | Sans | `--text-heading-lg` |
+| display | 48px | 1.17 | Sans | `--text-display` |
+
+### 3.4 Font/weight pairing rules
+
+- **Eyebrows** (small text above a heading): Mono 500, uppercase, tracked, `--color-red` or `--color-blue-500`. 11px.
+- **Section titles** (the label of a section): Mono 500. 20–28px.
+- **Hero / display headlines** (the read line): Sans 400 or 500. 40–48px. Tight leading.
+- **Body copy:** Sans 400. 14px. 1.43 leading.
+- **Buttons / nav / labels / badges:** Mono 500. 14px or smaller.
+- **Model numbers, specs, metadata:** Mono 400 or 500. Sized to context.
+
+Never use weights outside 400 / 500. Never italicize. Never decorate.
 
 ---
 
-## 5. Template Coding Conventions
+## 4. Tokens — Spacing & Shape
 
-### 5.1 Data-Driven Templates
+**Base unit:** 4px. **Density:** compact-to-comfortable.
 
-All template content MUST be defined in arrays at the top of the file, then rendered dynamically below. Never hardcode text inline with HTML.
+### 4.1 Spacing scale
 
-**Pattern:**
+| Name | Value | Token |
+|------|-------|-------|
+| 4 | 4px | `--spacing-4` |
+| 8 | 8px | `--spacing-8` |
+| 16 | 16px | `--spacing-16` |
+| 24 | 24px | `--spacing-24` |
+| 32 | 32px | `--spacing-32` |
+| 40 | 40px | `--spacing-40` |
+| 48 | 48px | `--spacing-48` |
+| 64 | 64px | `--spacing-64` |
+| 96 | 96px | `--spacing-96` |
 
-```php
-<?php
-declare(strict_types=1);
+### 4.2 Border radius
 
-// All content in arrays at the top
-$content = [
-    'eyebrow' => __('Section Label', 'textdomain'),
-    'title'   => __('Section Heading', 'textdomain'),
-    'text'    => __('Description text.', 'textdomain'),
-    'cta_text' => __('Call to Action', 'textdomain'),
-    'cta_url'  => '/target-page/',
-];
+**Zero. Everywhere. Always.**
 
-$items = [
-    [
-        'title' => __('Item One', 'textdomain'),
-        'text'  => __('Description.', 'textdomain'),
-    ],
-    [
-        'title' => __('Item Two', 'textdomain'),
-        'text'  => __('Description.', 'textdomain'),
-    ],
-];
-?>
+| Element | Value |
+|---------|-------|
+| buttons | 0 |
+| cards | 0 |
+| inputs | 0 |
+| modals | 0 |
+| images | 0 |
+| badges | 0 |
 
-<!-- HTML rendering below — loops over data, no hardcoded strings -->
-<section class="section" aria-labelledby="unique-id">
-    <div class="container section-content">
-        <div class="section-header">
-            <p class="section-eyebrow"><?php echo esc_html($content['eyebrow']); ?></p>
-            <div class="section-divider-center"></div>
-            <h2 id="unique-id" class="section-title"><?php echo esc_html($content['title']); ?></h2>
-            <p class="section-subtitle-centered"><?php echo esc_html($content['text']); ?></p>
-        </div>
+### 4.3 Shadows
 
-        <div class="grid gap-6 md:grid-cols-3">
-            <?php foreach ($items as $item) : ?>
-                <div class="bg-white border p-8">
-                    <h3 class="text-xl font-semibold text-slate-900"><?php echo esc_html($item['title']); ?></h3>
-                    <p class="text-slate-600"><?php echo esc_html($item['text']); ?></p>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</section>
+**None.** Shadows are forbidden on UI elements. Depth comes from color contrast, borders, and spacing. The only acceptable "depth" effect is a 1px border in `--color-blue-200` or a background color shift.
+
+### 4.4 Layout defaults
+
+- **Card padding:** 24–32px
+- **Section vertical padding:** 64px (md), 80px (lg), 96px (xl)
+- **Element gap:** 8–16px
+- **Container max-width:** Use full-bleed sections; constrain inner content with a max-width container as needed.
+
+---
+
+## 5. Components
+
+### 5.1 Primary CTA Button
+**Role:** Highest-priority single action — "Configure," "Request Quote," "Order Now."
+
+Solid `--color-blue-500` background. `--color-white` text in Mono 500, 14px. Zero border-radius. Padding: 12px top/bottom, 24px left/right. Hover: shift background to a 10% darkened blue. Focus: 2px outline `--color-blue-500` at 2px offset.
+
+For a single moment of maximum emphasis (one per page, ideally), the primary CTA may use `--color-red` as the background fill. Use sparingly.
+
+### 5.2 Secondary Ghost Button
+**Role:** Secondary action — "Learn More," "View Specs."
+
+Transparent background. 1px border `--color-blue-700`. `--color-blue-700` text in Mono 500, 14px. Zero border-radius. Padding: 12px top/bottom, 24px left/right. Hover: background fills `--color-blue-700`, text becomes `--color-white`.
+
+### 5.3 Tertiary / Inverted Button (on dark)
+**Role:** Action sitting on a dark section.
+
+Solid `--color-white` background. `--color-blue-800` text in Mono 500. Zero radius. Same padding as Primary.
+
+### 5.4 Eyebrow
+**Role:** Small label above a heading identifying the section type or model line.
+
+Mono 500, 11px, uppercase, letter-spacing `0.1em`, color `--color-red` or `--color-blue-500`. Optionally preceded by a 4px × 4px square dot in the same color, with 8px gap to text.
+
+### 5.5 Section Title
+**Role:** The label of a content section.
+
+Mono 500, 20–28px, color `--color-blue-700`. Tight leading. No decoration.
+
+### 5.6 Hero / Display Headline
+**Role:** The hero line of a full-bleed product section.
+
+Sans 400 or 500, 40–48px, color `--color-blue-700` (light bg) or `--color-white` (dark bg / over imagery). Tight leading (1.17–1.2). Read this; don't scan it.
+
+### 5.7 Header Navigation Link
+**Role:** Top-level site navigation.
+
+Mono 500, 14px, color `--color-blue-700`. No background, no border. Hover: color shifts to `--color-blue-500`. Active page: `--color-blue-500` with a 2px bottom border in `--color-red` *or* `--color-blue-500`.
+
+### 5.8 Footer Navigation Link
+**Role:** Tertiary footer links.
+
+Mono 400, 12px, color `--color-blue-400`. Hover: `--color-white` on dark footer.
+
+### 5.9 Card
+**Role:** Content surface — machine card, article card, spec card.
+
+Background `--color-white`. 1px border `--color-blue-200`. Zero border-radius. Padding 24px. No shadow. Hover: border shifts to `--color-blue-500`, optional 1px translation upward (-1px transform). Image inside: zero radius, sharp crop.
+
+### 5.10 Product Hero Section
+**Role:** Full-screen container showcasing a single machine.
+
+Full-bleed background image (cinematic product photography). Centered or left-aligned stack: eyebrow (mono red), display headline (sans, white or onyx-blue depending on image), supporting subhead in body text, and a Primary + Secondary CTA pair with 16px gap. No overlays, no gradients unless legibility absolutely requires a subtle bottom-up dark gradient.
+
+### 5.11 Spec Card / Technical Block
+**Role:** Lists model specs, dimensions, capabilities.
+
+`--color-blue-50` or `--color-white` background. 1px border `--color-blue-200`. Zero radius. Mono 500 for labels (11–14px, color `--color-blue-400`). Mono 500 for values (14–20px, color `--color-blue-700`). Grid layout, 2–4 columns. No shadow, no decoration.
+
+### 5.12 Badge
+**Role:** Status, category, or identifier — e.g., "NEW," "FLAGSHIP."
+
+Mono 500, 11px, uppercase. `--color-blue-800` background, `--color-white` text. Zero radius. Padding: 4px 8px. For high-emphasis states, swap background to `--color-red`.
+
+### 5.13 Form Input
+**Role:** Text field, select, textarea.
+
+`--color-white` background. 1px border `--color-blue-200`. Zero radius. Sans 400, 14px, color `--color-blue-700`. Padding 12px 16px. Focus: border `--color-blue-500`, 2px outline `--color-blue-500` at 2px offset. No shadow.
+
+---
+
+## 6. Imagery
+
+The visual language depends on cinematic, high-fidelity machine photography. Every image is a hero shot:
+
+- **Full-bleed** wherever possible. The machine is the subject; the viewport is the frame.
+- **Sharp focus, clean color grading.** Natural and confident — never over-saturated, never warm-and-rugged. Cool, clean, slightly desaturated reads premium.
+- **Real environments, idealized.** A finished machine on a polished shop floor; a panel being formed in clean light. Avoid mud, clutter, overt "industrial" tropes. Industrial-premium, not industrial-gritty.
+- **Consistent crop language.** Either full-bleed environmental shots or perfectly centered/silhouetted product shots. Don't mix in lifestyle photography that breaks the showroom feel.
+- **Motion in stills.** Subjects feel ready to operate — the calm before the run, not the chaos of the run.
+
+---
+
+## 7. Layout
+
+- **Vertical scrolling presentation.** A page is a series of full-screen or near-full-screen blocks. Each block tells one thing.
+- **Full-bleed by default.** Edge-to-edge sections; constrain inner text with a max-width when needed.
+- **Centered or hard-left stacks.** Hero text + CTAs centered over imagery, or hard-left aligned to a grid line. Never freeform.
+- **Thin, minimal header.** Non-imposing, technical, mono-labeled. Preserve maximum screen real estate for product visuals.
+- **No visible page container.** The viewport is the frame.
+- **Section transitions are seamless.** No decorative dividers; rely on color shifts (`--color-white` → `--color-blue-50` → `--color-blue-900`) to delineate sections — *or* a single hairline structural border (see §8).
+
+---
+
+## 8. Structural Borders
+
+Borders are the system's primary depth tool. With shadows banned and radii at zero, hairline borders are how we communicate structure, hierarchy, and precision. Used correctly, they read as **technical drawing / blueprint / spec sheet** — the visual subtext of an engineered showroom.
+
+### 8.1 The single rule
+
+Every structural border is `1px solid var(--color-blue-200)` on light surfaces, or `1px solid var(--color-blue-700)` on dark surfaces (`--color-blue-800` / `--color-blue-900` backgrounds). One weight, one color per context. No exceptions.
+
+### 8.2 Where borders belong
+
+- **Section dividers.** A single full-bleed horizontal hairline marking the boundary between two sections.
+- **Column dividers within a section.** A full-height vertical hairline between major content columns in a multi-column layout.
+- **Card containment.** Cards, spec blocks, form inputs.
+- **Active state indicators.** A 2px bottom border under the active nav item or selected tab — this is the only place a 2px border is permitted, and only in `--color-blue-500` or `--color-red`.
+
+### 8.3 Where borders do not belong
+
+- Around individual buttons (Secondary Ghost is the exception — its border is its identity).
+- Around headings, paragraphs, or text blocks.
+- As decoration — corner brackets, double lines, dashed strokes, gradients on borders.
+- On every card in a grid when the grid itself already has dividers (don't double-fence).
+
+### 8.4 Intersections are intentional
+
+When borders meet, let them meet cleanly. A vertical column divider crossing a horizontal section divider produces a visible 1px × 1px intersection — embrace it. This is the blueprint feel. Do not fade, round, gap, or hide intersections.
+
+### 8.5 The signature pattern
+
+A page may use one or two of these per view, sparingly:
+
+- **Full-bleed horizontal section divider.** `1px solid var(--color-blue-200)` running edge-to-edge of the viewport between sections.
+- **Full-height column divider.** `1px solid var(--color-blue-200)` running the full height of a section, dividing 2 or 3 content columns.
+- **Cross.** A vertical full-height divider intersecting horizontal dividers above and below — clean intersections, no styling.
+
+### 8.6 Asymmetry over symmetry
+
+A border on only one edge of a content block (e.g., a left-edge accent line on a quote, or a bottom-only divider under a section title) reads more confident and more engineered than a fully boxed-in container. Boxing every element = bureaucratic. Selective lines = architectural.
+
+### 8.7 Light and dark contexts
+
+| Context | Border color |
+|---|---|
+| On `--color-white` | `--color-blue-200` |
+| On `--color-blue-50` | `--color-blue-200` |
+| On `--color-blue-800` | `--color-blue-700` |
+| On `--color-blue-900` | `--color-blue-800` |
+
+The principle: borders are exactly one step lighter (on dark) or one step darker (on light) than the surface they sit on. Just visible, never loud.
+
+### 8.8 Hover and active borders
+
+- **Hover on a card or interactive surface:** border shifts from `--color-blue-200` to `--color-blue-500`. The shift is the entire hover affordance — no other change required.
+- **Active nav / selected tab:** 2px bottom border in `--color-blue-500` or `--color-red`. This is the only permitted use of a 2px border.
+- **Focus on an input:** border shifts to `--color-blue-500` plus a 2px outline at 2px offset (already specified in §5.13).
+
+### 8.9 Never combine borders with…
+
+- Drop shadows (banned globally).
+- Border-radius (banned globally).
+- Multiple weights in the same component.
+- Decorative effects (dashes, dots, doubles, gradients).
+
+---
+
+## 9. Motion
+
+- **Timing:** 150ms (fast micro-interactions), 200ms (default), 300ms (reveals).
+- **Easing:** `cubic-bezier(0.4, 0, 0.2, 1)` (standard) or `ease-out` for reveals.
+- **Scroll reveals:** Subtle fade + 8–16px translation. Stagger children at 50ms increments. Never bounce, never spring.
+- **Hover:** Color shift, border shift, or 1px translation only. No scale-on-hover for cards (icon-buttons may use a 1.05 scale sparingly).
+- **`prefers-reduced-motion`:** All non-essential motion is disabled. This is enforced, not optional.
+
+---
+
+## 10. Do's and Don'ts
+
+### Do
+- Lead with full-bleed, high-quality machine photography in every major section.
+- Use Mono for labels, eyebrows, buttons, navigation, specs, model numbers, badges.
+- Use Sans for body copy and large display headlines.
+- Maintain the 60/30/10 color rule. Saturated color is rare and intentional.
+- Use `--color-blue-500` for primary CTAs and links. Reserve `--color-red` for a single high-emphasis moment per page.
+- Use blue-tinted neutrals (`--color-blue-50` through `--color-blue-900`) for every "gray" surface. Pure gray is forbidden.
+- Keep zero border-radius on every element, always.
+- Use 1px hairline structural borders (`--color-blue-200` on light, `--color-blue-700` on dark) to communicate structure and hierarchy.
+- Let borders intersect cleanly — full-bleed horizontals crossing full-height verticals is a signature move.
+- Keep UI chrome minimal so the machine remains the hero.
+
+### Don't
+- Don't use border-radius. Ever. Anywhere.
+- Don't use drop shadows. Use borders or color contrast instead.
+- Don't use border weights other than 1px (2px is allowed only on active-state indicators).
+- Don't use decorative borders — no dashes, dots, doubles, gradients, or corner brackets.
+- Don't box in every element. Asymmetric, selective borders read as engineered; full boxing reads as bureaucratic.
+- Don't use font weights outside 400 and 500.
+- Don't use Mono for body copy paragraphs.
+- Don't use `--color-blue-500` for body text or large background fills.
+- Don't use `--color-red` for body text, headings, or decorative shapes — only for single-moment accents.
+- Don't introduce a third font, a third color family, or a third weight.
+- Don't use pure-neutral grays (`#cccccc`, `slate-*`, `gray-*`). Use the blue-tinted scale.
+- Don't use rugged/industrial photography clichés (mud, sparks, grime, harsh orange light).
+- Don't use uppercase on hero/display headlines. Uppercase belongs to mono labels and eyebrows only.
+- Don't use serif fonts, expressive display fonts, or italics.
+- Don't use gradients on UI. A subtle image-overlay gradient for legibility is the only exception.
+
+---
+
+## 11. Agent Prompt Guide
+
+When generating new components or pages with an LLM, anchor every prompt in these tokens. Pre-tested prompts:
+
+### 11.1 Quick token reference
+- **Heading text:** `--color-blue-700` (or `--color-white` on dark)
+- **Body text:** `--color-blue-600` (or `--color-blue-200` on dark)
+- **Background (light):** `--color-white` or `--color-blue-50`
+- **Background (dark):** `--color-blue-800` or `--color-blue-900`
+- **Primary CTA:** `--color-blue-500` bg, `--color-white` text, Mono 500
+- **Secondary CTA:** transparent bg, `--color-blue-700` border + text, Mono 500
+- **Accent / single-emphasis:** `--color-red`
+- **Border:** `--color-blue-200`
+- **Mono font:** `--font-mono` (Noto Sans Mono, weights 400/500)
+- **Sans font:** `--font-sans` (Noto Sans, weights 400/500)
+- **All radii:** 0
+- **All shadows:** none
+
+### 11.2 Example component prompts
+
+1. **Machine Hero Section.** "Full-bleed hero section with a high-resolution photograph of an SSQ II MultiPro rollformer on a clean shop floor. Overlay a left-aligned stack at 96px from bottom-left edge: a small eyebrow 'MODEL · SSQ II MULTIPRO' in Noto Sans Mono 500, 11px, uppercase, color `--color-red`, preceded by a 4px square red dot. Below it, a display headline 'Precision Rollforming, Built to Order' in Noto Sans 500, 48px, color `--color-white`, line-height 1.17. Below that, a 14px body line in Noto Sans 400, color `--color-blue-200`. Below that, a row of two buttons with 16px gap: a primary CTA 'Configure' with `--color-blue-500` background, `--color-white` text, Noto Sans Mono 500 14px, zero radius, 12px × 24px padding; and a secondary ghost 'View Specs' with transparent background, 1px `--color-white` border, `--color-white` text, same font and padding."
+
+2. **Spec Card.** "Build a spec card with `--color-white` background, 1px `--color-blue-200` border, zero border-radius, no shadow, 32px padding. Inside, a section eyebrow 'SPECIFICATIONS' in Noto Sans Mono 500, 11px, uppercase, color `--color-red`. Below it, a 4-column CSS grid with 24px gap. Each cell contains a label in Noto Sans Mono 500, 11px, uppercase, color `--color-blue-400`, and a value below it in Noto Sans Mono 500, 20px, color `--color-blue-700`."
+
+3. **Primary Button.** "Generate a primary button. `--color-blue-500` background, `--color-white` text. Font: Noto Sans Mono, 500 weight, 14px. Zero border-radius. Padding 12px top/bottom, 24px left/right. Hover state: background darkens 10%. Focus state: 2px `--color-blue-500` outline at 2px offset."
+
+4. **Section with eyebrow and headline.** "Section with `--color-blue-50` background and 96px vertical padding. Centered max-width 960px container. Inside, top to bottom with 16px gaps: an eyebrow 'INNOVATION · ROLLFORMING' in Noto Sans Mono 500, 11px, uppercase, color `--color-red`; a section heading 'Engineered for the Job Site' in Noto Sans Mono 500, 28px, color `--color-blue-700`; a body paragraph in Noto Sans 400, 14px, color `--color-blue-600`, line-height 1.43, max-width 640px."
+
+---
+
+## 12. Similar Brands
+
+- **Tesla** — Single accent color used as ignition, achromatic neutrals (we replace with blue-tinted neutrals), full-bleed product imagery.
+- **Toyota Tundra / Cybertruck** — Industrial-premium, hard angles, sharp corners, technical typography. The reference for our visual posture.
+- **Apple** — Restraint as premium signal, two-weight typography discipline, product-as-hero.
+- **Linear / Stripe / Vercel** — Brand-tinted neutral scales, premium-tech-product feel.
+- **Sonos** — Pristine product shots on clean achromatic-ish backgrounds, minimal functional UI.
+
+---
+
+## 13. Quick Start
+
+### 13.1 CSS custom properties
+
+```css
+:root {
+  /* Brand-tinted neutral scale */
+  --color-blue-50:  #F4F8FB;
+  --color-blue-100: #E4ECF3;
+  --color-blue-200: #C8D6E4;
+  --color-blue-300: #9BB1C7;
+  --color-blue-400: #6987A3;
+  --color-blue-500: #0078C2; /* primary brand */
+  --color-blue-600: #3F5870;
+  --color-blue-700: #26384B;
+  --color-blue-800: #142235;
+  --color-blue-900: #0A1322;
+
+  /* Pure neutrals */
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+
+  /* Accent */
+  --color-red: #CD1018;
+
+  /* Typography — families */
+  --font-sans: 'Noto Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Noto Sans Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Typography — scale */
+  --text-caption:    11px;  --leading-caption:    1.2;
+  --text-body:       14px;  --leading-body:       1.43;
+  --text-heading-sm: 20px;  --leading-heading-sm: 1.4;
+  --text-heading:    28px;  --leading-heading:    1.29;
+  --text-heading-lg: 40px;  --leading-heading-lg: 1.2;
+  --text-display:    48px;  --leading-display:    1.17;
+
+  /* Typography — weights */
+  --font-weight-regular: 400;
+  --font-weight-medium:  500;
+
+  /* Spacing */
+  --spacing-4:  4px;
+  --spacing-8:  8px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --spacing-96: 96px;
+
+  /* Layout */
+  --card-padding: 24px;
+  --section-padding-y: 96px;
+  --element-gap: 16px;
+
+  /* Border radius — all zero */
+  --radius: 0;
+}
 ```
 
-### 5.2 Template Documentation
+### 13.2 Tailwind v4 `@theme`
 
-Every template file MUST have a docblock at the top:
+```css
+@theme {
+  /* Brand-tinted neutral scale */
+  --color-blue-50:  #F4F8FB;
+  --color-blue-100: #E4ECF3;
+  --color-blue-200: #C8D6E4;
+  --color-blue-300: #9BB1C7;
+  --color-blue-400: #6987A3;
+  --color-blue-500: #0078C2;
+  --color-blue-600: #3F5870;
+  --color-blue-700: #26384B;
+  --color-blue-800: #142235;
+  --color-blue-900: #0A1322;
 
-```php
-<?php
-/**
- * [Template Name] — [Brief Description]
- *
- * [Longer description of layout, columns, behavior.]
- *
- * @package [Package]
- *
- * @usage [Parent template] ([filename])
- * @see [related CSS file or JS module]
- */
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-red:   #CD1018;
+
+  /* Typography */
+  --font-sans: 'Noto Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Noto Sans Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --text-caption:    11px;
+  --text-body:       14px;
+  --text-heading-sm: 20px;
+  --text-heading:    28px;
+  --text-heading-lg: 40px;
+  --text-display:    48px;
+
+  --leading-caption:    1.2;
+  --leading-body:       1.43;
+  --leading-heading-sm: 1.4;
+  --leading-heading:    1.29;
+  --leading-heading-lg: 1.2;
+  --leading-display:    1.17;
+
+  /* Spacing */
+  --spacing-4:  4px;
+  --spacing-8:  8px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --spacing-96: 96px;
+
+  /* Border radius — all zero */
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius-3xl: 0;
+  --radius-full: 0;
+
+  /* Shadows — none */
+  --shadow-sm: none;
+  --shadow:    none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-xl: none;
+}
 ```
-
-### 5.3 Config Arrays for Variant Logic
-
-When a component has type-based behavior, define a config map:
-
-```php
-$type_config = [
-    'post'     => ['icon' => 'file-text', 'cta' => __('Read Article', 'textdomain')],
-    'video'    => ['icon' => 'play',      'cta' => __('Watch Video', 'textdomain')],
-    'download' => ['icon' => 'download',  'cta' => __('View Download', 'textdomain')],
-];
-
-$config = $type_config[$current_type] ?? ['icon' => 'link', 'cta' => __('View', 'textdomain')];
-```
-
-### 5.4 CSS Architecture
-
-- Use Tailwind CSS v4 with `@theme` for design tokens
-- Component styles go in `@layer components` — use `@apply` for Tailwind utilities
-- BEM-like naming for multi-part components (e.g., `.card-product`, `.card-product__image`, `.card-product__title`)
-- Every CSS file gets a file-level docblock describing its purpose
-- Responsive breakpoints: `md: 768px`, `lg: 1024px`
-- Prefer CSS Grid (`grid gap-X`) over flexbox for layout. Use flexbox for inline alignment (`flex items-center gap-X`).
-
-### 5.5 JavaScript Conventions
-
-- Vanilla JS only, no frameworks. ES modules with named exports.
-- Each module exports an `init` function and optionally a `cleanup` function for HMR.
-- Use `IntersectionObserver` for scroll-based effects.
-- All DOM queries at module scope, event listeners added in `init()`.
-- Always check `prefers-reduced-motion` before enabling animations.
-- JSDoc on all exported functions.
-
----
-
-## 6. Dark Section Treatment
-
-When a section uses a dark background (`bg-slate-900` or `bg-dark`):
-
-- Text: `text-white` for headings, `text-slate-300` for body, `text-slate-400` for meta
-- Buttons: Use `btn-outline-light` or `btn-secondary`
-- Borders: `border-slate-700`
-- Pattern overlays: Use `--dark` or `--primary` variants
-- Icons: `text-secondary` (orange) for accent, `text-slate-300` for decorative
-
----
-
-## 7. Common Two-Column Layout
-
-Many sections use a two-column split:
-
-```
-grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-center
-```
-
-- **Content side:** Section header (eyebrow → divider → title → subtitle), list of items with icons, CTA buttons
-- **Media side:** Full-width image with optional caption below (`text-center text-sm text-slate-600`)
-- On mobile: stacks vertically with `gap-12`
-- Use `order-1`/`order-2` classes to control visual order vs. DOM order
-
----
-
-## 8. Footer Pattern
-
-- Dark background: `bg-slate-900 text-slate-300 border-t border-slate-700`
-- Multi-column grid on desktop (5 columns), CSS-only accordions on mobile
-- Section titles: `text-white font-semibold text-sm uppercase tracking-wider`
-- Links: `text-sm text-slate-400 hover:text-white`
-- Bottom bar: border-top separator, three-column flex with legal links (left), copyright (center), social icons (right)
-- Social icons: `w-5 h-5 text-slate-400 hover:text-white`
-- "New" badges on footer links: `text-[10px] font-bold uppercase tracking-wider bg-primary text-white px-1.5 py-0.5`
-
----
-
-## 9. Form Styling
-
-Forms follow the industrial aesthetic:
-
-- Inputs: No border-radius, `border border-slate-200`, padding that matches button heights
-- Form containers: `bg-slate-50 border border-slate-200 p-8 lg:p-10`
-- Labels: `text-sm font-semibold text-slate-900`
-- Focus: `outline-2 outline-primary outline-offset-2`
-
----
-
-## 10. Iconography
-
-SVG icons loaded inline. Common icons include: `menu`, `x`, `search`, `chevron-down`, `chevron-up`, `arrow-right`, `external-link`, `mail`, `phone`, `check`, `quote`, `play`, `download`, `file-text`, `user`, `folder`, plus social icons (`facebook`, `twitter`, `linkedin`, `instagram`).
-
-Icons are sized with Tailwind width/height classes (e.g., `w-5 h-5`). Color inherits from parent or set explicitly. Navigation arrows use CSS `mask-image` with inline SVG data URIs for the Carbon-style directional arrow pattern.
-
----
-
-## Summary Checklist for New Projects
-
-When building a new portal or application in this design system, verify:
-
-- [ ] IBM Plex Sans/Mono loaded, applied globally
-- [ ] `border-radius: 0` set globally — no rounded corners on any element
-- [ ] Color palette matches tokens exactly (primary blue, secondary orange, slate neutrals)
-- [ ] Buttons match Carbon height tokens (32/40/48/64px) with sweep hover effect
-- [ ] Section pattern used: eyebrow (orange, uppercase) → divider bar → title → subtitle
-- [ ] All content in data arrays, rendered via loops — no hardcoded strings in HTML
-- [ ] Every template file has a docblock
-- [ ] Cards have sharp corners, subtle hover lift, border styling
-- [ ] Dark sections use correct text/border color mapping
-- [ ] Animations respect `prefers-reduced-motion`
-- [ ] Focus states visible on all interactive elements
-- [ ] Container max-width 1440px with side borders on desktop
