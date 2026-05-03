@@ -40,12 +40,9 @@ $is_accessory  = empty($price);
         <?php endif; ?>
 
         <?php if ($image) : ?>
-            <img
-                src="<?php echo esc_url($image); ?>"
-                alt=""
-                class="card-product__image"
-                loading="lazy"
-            >
+            <?php \Standard\Images\responsive_image($image, '', 'product-card', [
+                'class' => 'card-product__image',
+            ]); ?>
         <?php endif; ?>
     </div>
 

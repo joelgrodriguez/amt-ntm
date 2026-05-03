@@ -44,12 +44,11 @@ $poster     = $content['poster'] ?? '';
     <?php endif; ?>
 
     <?php if (!empty($poster)) : ?>
-        <img
-            src="<?php echo esc_url($poster); ?>"
-            alt=""
-            class="absolute inset-0 w-full h-full object-cover"
-            fetchpriority="high"
-        >
+        <?php \Standard\Images\responsive_image($poster, '', 'full', [
+            'class'         => 'absolute inset-0 w-full h-full object-cover',
+            'loading'       => 'eager',
+            'fetchpriority' => 'high',
+        ]); ?>
     <?php endif; ?>
 
     <div class="hero-overlay"></div>

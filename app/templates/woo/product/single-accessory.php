@@ -58,18 +58,14 @@ get_header();
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <?php foreach ($related as $rel) :
-                    $image_url = $rel->get_image_id()
-                        ? wp_get_attachment_image_url($rel->get_image_id(), 'product-card')
-                        : '';
-                ?>
+                <?php foreach ($related as $rel) : ?>
                     <a href="<?php echo esc_url($rel->get_permalink()); ?>" class="block border border-blue-200 bg-white p-4 grid gap-3 hover:border-blue-400 transition-all group">
                         <div class="bg-blue-50 aspect-square flex items-center justify-center overflow-hidden">
-                            <?php if (!empty($image_url)) : ?>
-                                <img src="<?php echo esc_url($image_url); ?>"
-                                     alt="<?php echo esc_attr($rel->get_name()); ?>"
-                                     class="w-full h-full object-contain p-3 transition-transform group-hover:scale-105"
-                                     loading="lazy">
+                            <?php if ($rel->get_image_id()) : ?>
+                                <?php echo wp_get_attachment_image($rel->get_image_id(), 'product-card', false, [
+                                    'class' => 'w-full h-full object-contain p-3 transition-transform group-hover:scale-105',
+                                    'alt'   => $rel->get_name(),
+                                ]); ?>
                             <?php else : ?>
                                 <span class="text-blue-400 text-sm font-mono"><?php echo esc_html($rel->get_name()); ?></span>
                             <?php endif; ?>

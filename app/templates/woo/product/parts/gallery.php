@@ -46,17 +46,17 @@ if (empty($featured_url)) {
         <!-- Main rotator area -->
         <div class="max-w-md mx-auto">
             <?php if (!empty($rotator)) : ?>
-                <img src="<?php echo esc_url($rotator[0]); ?>"
-                     alt="<?php echo esc_attr($name . ' — 360° view'); ?>"
-                     class="max-w-full max-h-full object-contain">
+                <?php \Standard\Images\responsive_image($rotator[0], $name . ' - 360 view', 'full', [
+                    'class' => 'max-w-full max-h-full object-contain',
+                ]); ?>
             <?php elseif (!empty($featured_url)) : ?>
-                <img src="<?php echo esc_url($featured_url); ?>"
-                     alt="<?php echo esc_attr($name); ?>"
-                     class="max-w-full max-h-full object-contain">
+                <?php \Standard\Images\responsive_image($featured_url, $name, 'large', [
+                    'class' => 'max-w-full max-h-full object-contain',
+                ]); ?>
             <?php elseif (!empty($images[0])) : ?>
-                <img src="<?php echo esc_url($images[0]); ?>"
-                     alt="<?php echo esc_attr($name); ?>"
-                     class="max-w-full max-h-full object-contain">
+                <?php \Standard\Images\responsive_image($images[0], $name, 'large', [
+                    'class' => 'max-w-full max-h-full object-contain',
+                ]); ?>
             <?php else : ?>
                 <div class="text-center grid gap-3">
                     <span class="text-blue-300 text-6xl">&#8635;</span>
@@ -77,9 +77,9 @@ if (empty($featured_url)) {
             <div class="flex justify-center gap-3 max-w-5xl mx-auto">
                 <?php foreach (array_slice($images, 0, 6) as $i => $thumb) : ?>
                     <div class="w-20 h-20 flex items-center justify-center overflow-hidden cursor-pointer hover:opacity-75 transition-opacity">
-                        <img src="<?php echo esc_url($thumb); ?>"
-                             alt="<?php echo esc_attr($name . ' — angle ' . ($i + 1)); ?>"
-                             class="w-full h-full object-contain">
+                        <?php \Standard\Images\responsive_image($thumb, $name . ' - angle ' . ($i + 1), 'thumbnail', [
+                            'class' => 'w-full h-full object-contain',
+                        ]); ?>
                     </div>
                 <?php endforeach; ?>
             </div>

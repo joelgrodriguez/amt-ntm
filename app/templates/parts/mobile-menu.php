@@ -29,7 +29,9 @@ $mobile_nav = \Standard\Nav\get_mobile_nav_tree();
                 <?php if (!empty($mobile_nav['featured'])) : $featured = $mobile_nav['featured']; ?>
                     <a class="mobile-menu__featured" href="<?php echo esc_url($featured['url']); ?>">
                         <span class="mobile-menu__featured-image" aria-hidden="true">
-                            <img src="<?php echo esc_url($featured['image']); ?>" alt="" loading="lazy" />
+                            <?php \Standard\Images\responsive_image($featured['image'], '', 'product-card', [
+                                'loading' => 'lazy',
+                            ]); ?>
                         </span>
                         <span class="mobile-menu__featured-text">
                             <span class="mobile-menu__featured-label"><?php echo esc_html($featured['label']); ?></span>

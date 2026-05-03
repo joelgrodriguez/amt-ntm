@@ -50,15 +50,11 @@ if (empty($machines)) {
 $cards = [];
 foreach ($machines as $machine) {
     /** @var \WC_Product $machine */
-    $image_url = $machine->get_image_id()
-        ? wp_get_attachment_image_url($machine->get_image_id(), 'product-card')
-        : '';
-
     $cards[] = [
-        'url'       => $machine->get_permalink(),
-        'image_url' => $image_url,
-        'title'     => $machine->get_name(),
-        'subtitle'  => $machine->get_price_html() ?: null,
+        'url'      => $machine->get_permalink(),
+        'image_id' => $machine->get_image_id(),
+        'title'    => $machine->get_name(),
+        'subtitle' => $machine->get_price_html() ?: null,
     ];
 }
 
@@ -79,11 +75,11 @@ if (empty($cards)) {
             <?php foreach (array_slice($cards, 0, 4) as $card) : ?>
                 <a href="<?php echo esc_url($card['url']); ?>" class="block border border-blue-200 bg-white p-4 grid gap-3 hover:border-blue-400 transition-all group">
                     <div class="bg-blue-50 aspect-square flex items-center justify-center overflow-hidden">
-                        <?php if (!empty($card['image_url'])) : ?>
-                            <img src="<?php echo esc_url($card['image_url']); ?>"
-                                 alt="<?php echo esc_attr($card['title']); ?>"
-                                 class="w-full h-full object-contain p-3 transition-transform group-hover:scale-105"
-                                 loading="lazy">
+                        <?php if (!empty($card['image_id'])) : ?>
+                            <?php echo wp_get_attachment_image((int) $card['image_id'], 'product-card', false, [
+                                'class' => 'w-full h-full object-contain p-3 transition-transform group-hover:scale-105',
+                                'alt'   => $card['title'],
+                            ]); ?>
                         <?php else : ?>
                             <span class="text-blue-400 text-sm font-mono"><?php echo esc_html($card['title']); ?></span>
                         <?php endif; ?>

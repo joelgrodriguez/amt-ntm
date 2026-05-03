@@ -62,13 +62,11 @@ $is_first         = $index === 0;
     <?php endif; ?>
 
     <?php if ($background_image) : ?>
-        <img
-            class="hero-slider__media hero-slider__image"
-            src="<?php echo esc_url($background_image); ?>"
-            alt="<?php echo esc_attr($title); ?>"
-            loading="<?php echo $is_first ? 'eager' : 'lazy'; ?>"
-            fetchpriority="<?php echo $is_first ? 'high' : 'auto'; ?>"
-        >
+        <?php \Standard\Images\responsive_image($background_image, $title, 'full', [
+            'class'         => 'hero-slider__media hero-slider__image',
+            'loading'       => $is_first ? 'eager' : 'lazy',
+            'fetchpriority' => $is_first ? 'high' : 'auto',
+        ]); ?>
     <?php endif; ?>
 
     <div class="hero-overlay"></div>

@@ -40,9 +40,11 @@ $machine_name     = $product->get_name();
 
 <section id="machine-hero" class="relative flex-1 flex items-end overflow-hidden bg-blue-800" aria-labelledby="machine-hero-title">
     <?php if (!empty($image)) : ?>
-        <img src="<?php echo esc_url($image); ?>"
-             alt="<?php echo esc_attr($headline); ?>"
-             class="absolute inset-0 w-full h-full object-cover">
+        <?php \Standard\Images\responsive_image($image, $headline, 'full', [
+            'class'         => 'absolute inset-0 w-full h-full object-cover',
+            'loading'       => 'eager',
+            'fetchpriority' => 'high',
+        ]); ?>
     <?php endif; ?>
 
     <div class="hero-overlay"></div>

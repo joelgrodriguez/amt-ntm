@@ -49,12 +49,11 @@ $content_ml = $is_right ? ' lg:ml-auto' : '';
     </video>
 
     <!-- Poster fallback -->
-    <img
-        src="<?php echo esc_url($content['poster']); ?>"
-        alt=""
-        class="absolute inset-0 w-full h-full object-cover"
-        fetchpriority="high"
-    >
+    <?php \Standard\Images\responsive_image((string) ($content['poster'] ?? ''), '', 'full', [
+        'class'         => 'absolute inset-0 w-full h-full object-cover',
+        'loading'       => 'eager',
+        'fetchpriority' => 'high',
+    ]); ?>
 
     <!-- Mobile: solid dark overlay -->
     <div class="absolute inset-0 bg-blue-950/75 lg:hidden"></div>

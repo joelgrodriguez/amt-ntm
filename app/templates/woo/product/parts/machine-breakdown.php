@@ -40,9 +40,9 @@ if (empty($breakdown)) {
             <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center <?php echo $is_reversed ? 'lg:[&>*:first-child]:order-2' : ''; ?>">
                 <?php if (!empty($image)) : ?>
                     <div class="aspect-video overflow-hidden">
-                        <img src="<?php echo esc_url($image); ?>"
-                             alt="<?php echo esc_attr($title); ?>"
-                             class="w-full h-full object-cover">
+                        <?php \Standard\Images\responsive_image($image, $title, 'large', [
+                            'class' => 'w-full h-full object-cover',
+                        ]); ?>
                     </div>
                 <?php else : ?>
                     <div class="bg-blue-100 aspect-video flex items-center justify-center">

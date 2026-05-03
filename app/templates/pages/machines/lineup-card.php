@@ -29,12 +29,9 @@ $has_price = !empty($machine['price']);
 <div class="bg-white flex flex-col h-full relative group hover:bg-blue-50 transition-colors duration-150">
     <!-- Product Image -->
     <div class="p-4 sm:p-6 flex items-center justify-center aspect-4/3">
-        <img
-            src="<?php echo esc_url($machine['image']); ?>"
-            alt="<?php echo esc_attr($machine['name']); ?>"
-            class="max-h-full w-auto object-contain"
-            loading="lazy"
-        >
+        <?php \Standard\Images\responsive_image($machine['image'], $machine['name'], 'product-card', [
+            'class' => 'max-h-full w-auto object-contain',
+        ]); ?>
     </div>
 
     <!-- Content -->

@@ -50,9 +50,13 @@ if (!defined('ABSPATH')) {
                 <?php if (has_custom_logo()) : ?>
                     <?php
                     $custom_logo_id = get_theme_mod('custom_logo');
-                    $logo_url = wp_get_attachment_image_url($custom_logo_id, 'full');
                     ?>
-                    <img src="<?php echo esc_url($logo_url); ?>" alt="" class="w-14 object-contain">
+                    <?php echo wp_get_attachment_image((int) $custom_logo_id, 'full', false, [
+                        'class'    => 'w-14 object-contain',
+                        'alt'      => get_bloginfo('name'),
+                        'loading'  => 'eager',
+                        'decoding' => 'async',
+                    ]); ?>
                 <?php endif; ?>
                 <span class="text-sm font-mono font-medium text-blue-600 hover:text-blue-500">
                     <?php echo esc_html(get_bloginfo('name')); ?>

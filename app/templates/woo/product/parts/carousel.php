@@ -68,9 +68,9 @@ if (empty($cards)) {
         <a href="<?php echo esc_url($card['url']); ?>" class="carousel__card group">
             <div class="carousel__card-image">
                 <?php if (!empty($card['image_url'])) : ?>
-                    <img src="<?php echo esc_url($card['image_url']); ?>"
-                         alt="<?php echo esc_attr($card['title']); ?>"
-                         loading="lazy">
+                    <?php \Standard\Images\responsive_image($card['image_url'], $card['title'], 'product-card', [
+                        'class' => 'w-full h-full object-contain',
+                    ]); ?>
                 <?php else : ?>
                     <span class="text-blue-400 text-sm font-mono"><?php echo esc_html($card['title']); ?></span>
                 <?php endif; ?>
