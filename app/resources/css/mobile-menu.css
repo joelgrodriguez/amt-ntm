@@ -387,6 +387,12 @@ body.overflow-hidden.menu-scrim-ready::after {
     color: var(--color-red);
 }
 
+/* Tint the toggle button when the menu is open so the close affordance
+ * reads clearly at a glance — pairs with the dynamic aria-label from JS. */
+#mobile-menu-toggle[aria-expanded="true"] {
+    background: var(--color-blue-100);
+}
+
 /* ── L2: body, cards, view-all ────────────────────────────────────────── */
 
 .mobile-menu__panel-body {
