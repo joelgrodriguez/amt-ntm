@@ -17,6 +17,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use function Standard\ContentTaxonomy\get_terms_for_post_type;
+
 $content = [
     'badge'              => __('Manual', 'standard'),
     'filter_type'        => __('Filter by Type', 'standard'),
@@ -33,15 +35,6 @@ get_header();
 // Get manual categories and machine tags
 $categories = get_the_terms(get_the_ID(), 'category');
 $machine_tags = get_the_tags();
-$manual_filter_post_ids = get_posts([
-    'post_type'              => 'manual',
-    'post_status'            => 'publish',
-    'posts_per_page'         => 500,
-    'fields'                 => 'ids',
-    'no_found_rows'          => true,
-    'update_post_meta_cache' => false,
-    'update_post_term_cache' => false,
-]);
 ?>
 
 <main id="primary" class="pattern-dot-grid gradient-fade-bottom-sm py-6 lg:py-12">
@@ -59,80 +52,26 @@ $manual_filter_post_ids = get_posts([
             <!-- Two-column layout: Filter Sidebar + Content -->
             <div class="container lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
 
-                <!-- Filter Sidebar -->
-                <aside class="hidden lg:block border-r border-blue-200 pr-8">
-                    <nav class="sticky top-16 grid gap-8">
-
-                        <!-- Filter by Category (Machine Type) -->
-                        <div>
-                            <h3 class="text-sm font-medium text-blue-900 mb-4 flex items-center gap-2">
-                                <?php icon('filter', ['class' => 'w-4 h-4']); ?>
-                                <?php echo esc_html($content['filter_type']); ?>
-                            </h3>
-                            <ul class="grid gap-1 border-l border-blue-200">
-                                <?php
-                                $manual_categories = get_terms([
-                                    'taxonomy' => 'category',
-                                    'hide_empty' => true,
-                                    'object_ids' => $manual_filter_post_ids,
-                                ]);
-
-                                if (!empty($manual_categories) && !is_wp_error($manual_categories)) :
-                                    foreach ($manual_categories as $cat) :
-                                        $is_active = $categories && in_array($cat->term_id, wp_list_pluck($categories, 'term_id'));
-                                ?>
-                                    <li>
-                                        <a href="<?php echo esc_url(get_term_link($cat)); ?>" class="flex items-center justify-between text-sm py-2 pl-4 border-l-2 -ml-px <?php echo $is_active ? 'border-blue-500 text-blue-500 font-medium' : 'border-transparent text-blue-600 hover:text-blue-900 hover:border-blue-300'; ?>">
-                                            <span><?php echo esc_html($cat->name); ?></span>
-                                            <span class="text-xs text-blue-400"><?php echo esc_html($cat->count); ?></span>
-                                        </a>
-                                    </li>
-                                <?php
-                                    endforeach;
-                                endif;
-                                ?>
-                            </ul>
-                        </div>
-
-                        <!-- Filter by Machine -->
-                        <div>
-                            <h3 class="text-sm font-medium text-blue-900 mb-4 flex items-center gap-2">
-                                <?php icon('settings', ['class' => 'w-4 h-4']); ?>
-                                <?php echo esc_html($content['filter_machine']); ?>
-                            </h3>
-                            <ul class="grid gap-1 border-l border-blue-200">
-                                <?php
-                                $machine_terms = get_terms([
-                                    'taxonomy' => 'post_tag',
-                                    'hide_empty' => true,
-                                    'object_ids' => $manual_filter_post_ids,
-                                ]);
-
-                                if (!empty($machine_terms) && !is_wp_error($machine_terms)) :
-                                    foreach ($machine_terms as $machine) :
-                                        $is_active = $machine_tags && in_array($machine->term_id, wp_list_pluck($machine_tags, 'term_id'));
-                                ?>
-                                    <li>
-                                        <a href="<?php echo esc_url(get_term_link($machine)); ?>" class="flex items-center justify-between text-sm py-2 pl-4 border-l-2 -ml-px <?php echo $is_active ? 'border-blue-500 text-blue-500 font-medium' : 'border-transparent text-blue-600 hover:text-blue-900 hover:border-blue-300'; ?>">
-                                            <span><?php echo esc_html($machine->name); ?></span>
-                                            <span class="text-xs text-blue-400"><?php echo esc_html($machine->count); ?></span>
-                                        </a>
-                                    </li>
-                                <?php
-                                    endforeach;
-                                endif;
-                                ?>
-                            </ul>
-                        </div>
-
-                        <!-- All Manuals Link -->
-                        <a href="<?php echo esc_url(get_post_type_archive_link('manual')); ?>" class="flex items-center gap-2 text-sm font-medium text-blue-500 hover:underline">
-                            <?php icon('arrow-left', ['class' => 'w-4 h-4']); ?>
-                            <?php echo esc_html($content['view_all']); ?>
-                        </a>
-
-                    </nav>
-                </aside>
+                <?php
+                get_template_part('templates/parts/taxonomy-filter-sidebar', null, [
+                    'sections' => [
+                        [
+                            'title'         => $content['filter_type'],
+                            'icon'          => 'filter',
+                            'terms'         => get_terms_for_post_type('manual', 'category'),
+                            'current_terms' => $categories,
+                        ],
+                        [
+                            'title'         => $content['filter_machine'],
+                            'icon'          => 'settings',
+                            'terms'         => get_terms_for_post_type('manual', 'post_tag'),
+                            'current_terms' => $machine_tags,
+                        ],
+                    ],
+                    'back_url'   => get_post_type_archive_link('manual') ?: '',
+                    'back_label' => $content['view_all'],
+                ]);
+                ?>
 
                 <!-- Main Content -->
                 <div class="grid gap-8">

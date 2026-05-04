@@ -96,7 +96,7 @@ if (!$machine) {
     <!-- Floating Quote CTA -->
     <a
         id="floating-quote-cta"
-        href="<?php echo esc_url('/configurator/' . $product->get_slug() . '/'); ?>"
+        href="<?php echo esc_url(\Standard\Url\internal('/configurator/' . $product->get_slug() . '/')); ?>"
         class="floating-quote-cta"
         aria-label="<?php esc_attr_e('Get a Quote Now', 'standard'); ?>"
     >

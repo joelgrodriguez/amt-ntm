@@ -23,13 +23,13 @@ if (!$resources) {
 
 $cards = [];
 if (!empty($resources['manual'])) {
-    $cards[] = ['url' => $resources['manual'], 'title' => __('Machine Manual', 'standard'), 'desc' => __('Operator manual with setup, maintenance, and troubleshooting guides.', 'standard'), 'cta' => __('View Manual', 'standard')];
+    $cards[] = ['url' => \Standard\Url\internal($resources['manual']), 'title' => __('Machine Manual', 'standard'), 'desc' => __('Operator manual with setup, maintenance, and troubleshooting guides.', 'standard'), 'cta' => __('View Manual', 'standard')];
 }
 if (!empty($resources['brochure'])) {
-    $cards[] = ['url' => $resources['brochure'], 'title' => __('Product Brochure', 'standard'), 'desc' => __('Full specifications, features, and configuration options.', 'standard'), 'cta' => __('View Brochure', 'standard')];
+    $cards[] = ['url' => \Standard\Url\internal($resources['brochure']), 'title' => __('Product Brochure', 'standard'), 'desc' => __('Full specifications, features, and configuration options.', 'standard'), 'cta' => __('View Brochure', 'standard')];
 }
 if (!empty($resources['service_training_url'])) {
-    $cards[] = ['url' => $resources['service_training_url'], 'title' => __('Service & Training', 'standard'), 'desc' => __('Hands-on training, technical support, and replacement parts.', 'standard'), 'cta' => __('Learn More', 'standard')];
+    $cards[] = ['url' => \Standard\Url\internal($resources['service_training_url']), 'title' => __('Service & Training', 'standard'), 'desc' => __('Hands-on training, technical support, and replacement parts.', 'standard'), 'cta' => __('Learn More', 'standard')];
 }
 
 if (empty($cards)) {

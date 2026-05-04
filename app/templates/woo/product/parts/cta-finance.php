@@ -41,6 +41,6 @@ $note = !empty($finance['note'])
             <p class="text-white font-medium text-lg"><?php echo esc_html($label); ?></p>
             <p class="text-white/80 text-sm hidden md:block"><?php echo esc_html($note); ?></p>
         </div>
-        <a href="<?php echo esc_url('/machines/leasing-financing/'); ?>" class="btn btn-sm bg-white text-blue-500 hover:bg-blue-100 shrink-0">Explore Financing</a>
+        <a href="<?php echo esc_url(\Standard\Url\internal('/machines/leasing-financing/')); ?>" class="btn btn-sm bg-white text-blue-500 hover:bg-blue-100 shrink-0">Explore Financing</a>
     </div>
 </div>

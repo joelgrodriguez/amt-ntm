@@ -67,7 +67,7 @@ function get_featured_machines(): array {
             'background_video' => $data['hero']['video'] ?? '',
             'finance_apr'      => $data['finance']['apr'] ?? '',
             'finance_months'   => $data['finance']['months'] ?? '',
-            'finance_url'      => '/build-finance/?machine=' . $slug,
+            'finance_url'      => \Standard\Url\with_query('/build-finance/', ['machine' => $slug]),
             'learn_more_url'   => $permalinks[$slug] ?? '#',
         ];
     }

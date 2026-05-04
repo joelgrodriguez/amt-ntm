@@ -41,11 +41,11 @@ $content = [
         </div>
 
         <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="<?php echo esc_url($content['cta_quiz_url']); ?>" class="btn btn-primary btn-lg">
+            <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_quiz_url'])); ?>" class="btn btn-primary btn-lg">
                 <?php icon('help-circle', ['class' => 'w-5 h-5']); ?>
                 <?php echo esc_html($content['cta_quiz']); ?>
             </a>
-            <a href="<?php echo esc_url($content['cta_talk_url']); ?>" class="btn btn-outline-dark btn-lg">
+            <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_talk_url'])); ?>" class="btn btn-outline-dark btn-lg">
                 <?php echo esc_html($content['cta_talk']); ?>
             </a>
         </div>

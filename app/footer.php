@@ -74,7 +74,7 @@ $legal_links = [
 
             <!-- Logo Column (always visible) -->
             <div class="lg:col-span-1 pb-4 lg:pb-0">
-                <a href="<?php echo esc_url(home_url('/')); ?>" class="block">
+                <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="block">
                     <img
                         src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/ntm-logo-white.png'); ?>"
                         alt="<?php echo esc_attr(get_bloginfo('name')); ?>"
@@ -119,7 +119,7 @@ $legal_links = [
                                     <?php foreach ($section['links'] as $link) : ?>
                                         <li>
                                             <a
-                                                href="<?php echo esc_url(home_url($link[0])); ?>"
+                                                href="<?php echo esc_url(\Standard\Url\internal($link[0])); ?>"
                                                 class="text-sm text-blue-400 hover:text-white transition-colors inline-flex items-center gap-2"
                                             >
                                                 <?php echo esc_html($link[1]); ?>
@@ -150,7 +150,7 @@ $legal_links = [
                 <nav class="flex flex-wrap gap-4 text-xs">
                     <?php foreach ($legal_links as $link) : ?>
                         <a
-                            href="<?php echo esc_url(home_url($link[1])); ?>"
+                            href="<?php echo esc_url(\Standard\Url\internal($link[1])); ?>"
                             class="text-blue-400 hover:text-white transition-colors"
                         >
                             <?php echo esc_html($link[0]); ?>

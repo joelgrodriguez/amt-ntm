@@ -61,7 +61,7 @@ get_header();
             <h2 class="text-2xl font-medium font-mono md:text-3xl"><?php esc_html_e('Talk to a Specialist', 'standard'); ?></h2>
             <p class="text-blue-400 max-w-xl mx-auto"><?php esc_html_e('Our team can help you find the right setup for your machine and jobsite.', 'standard'); ?></p>
             <div class="flex justify-center gap-4 mt-2">
-                <a href="/contact/" class="btn btn-primary"><?php esc_html_e('Contact Us', 'standard'); ?></a>
+                <a href="<?php echo esc_url(\Standard\Url\internal('/contact/')); ?>" class="btn btn-primary"><?php esc_html_e('Contact Us', 'standard'); ?></a>
                 <a href="tel:+13032943553" class="btn btn-outline-light">
                     <?php icon('phone', ['class' => 'w-4 h-4']); ?>
                     <?php esc_html_e('(303) 294-3553', 'standard'); ?>

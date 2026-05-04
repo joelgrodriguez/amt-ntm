@@ -30,7 +30,7 @@ if (!$product) {
 }
 
 $current_name     = $product->get_name();
-$configurator_url = '/configurator/' . $product->get_slug() . '/';
+$configurator_url = \Standard\Url\internal('/configurator/' . $product->get_slug() . '/');
 
 // Anchor links — label => section ID
 $nav_links = [
@@ -77,7 +77,7 @@ $categories = function_exists('Standard\MachinesData\get_machine_categories')
                                 </span>
                                 <?php foreach ($category['machines'] as $m) : ?>
                                     <a
-                                        href="<?php echo esc_url($m['url'] ?? '#'); ?>"
+                                        href="<?php echo esc_url(\Standard\Url\internal($m['url'] ?? '#')); ?>"
                                         class="machine-subnav__dropdown-item <?php echo ($m['slug'] === $product->get_slug()) ? 'is-active' : ''; ?>"
                                     >
                                         <?php echo esc_html($m['short_name'] ?? $m['name']); ?>

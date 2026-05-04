@@ -27,13 +27,13 @@ $ctas = [
         'title' => __('Build & Finance', 'standard'),
         'text'  => __('Configure your machine and explore payment options.', 'standard'),
         'label' => __('Start Building', 'standard'),
-        'url'   => '/build-finance/?machine=' . $product->get_slug(),
+        'url'   => \Standard\Url\with_query('/build-finance/', ['machine' => $product->get_slug()]),
     ],
     [
         'title' => __('Request a Quote', 'standard'),
         'text'  => __('Talk to a specialist about your specific needs.', 'standard'),
         'label' => __('Get a Quote', 'standard'),
-        'url'   => '/contact/',
+        'url'   => \Standard\Url\internal('/contact/'),
     ],
     [
         'title' => __('See It In Action', 'standard'),

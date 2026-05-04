@@ -108,11 +108,11 @@ $content_ml = $is_right ? ' lg:ml-auto' : '';
 
             <!-- CTAs -->
             <div class="flex flex-col sm:flex-row gap-4 pt-2">
-                <a href="<?php echo esc_url($content['cta_primary_url']); ?>" class="btn btn-primary btn-lg">
+                <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="btn btn-primary btn-lg">
                     <?php echo esc_html($content['cta_primary']); ?>
                     <?php icon('arrow-down', ['class' => 'w-5 h-5']); ?>
                 </a>
-                <a href="<?php echo esc_url($content['cta_secondary_url']); ?>" class="btn btn-outline-light btn-lg">
+                <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_secondary_url'])); ?>" class="btn btn-outline-light btn-lg">
                     <?php echo esc_html($content['cta_secondary']); ?>
                 </a>
             </div>

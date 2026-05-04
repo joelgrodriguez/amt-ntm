@@ -17,6 +17,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use function Standard\MachineProductData\get_machine_product_data;
+
 /**
  * Machine product category slugs that get the custom template.
  */
@@ -45,7 +47,7 @@ function get_single_product_template(): ?string {
     }
 
     if (has_term(MACHINE_CATEGORIES, 'product_cat')) {
-        return 'templates/woo/product/single-machine.php';
+        return has_machine_product_data() ? 'templates/woo/product/single-machine.php' : null;
     }
 
     if (has_term(ACCESSORY_CATEGORIES, 'product_cat')) {
@@ -53,6 +55,17 @@ function get_single_product_template(): ?string {
     }
 
     return null;
+}
+
+function has_machine_product_data(): bool {
+    if (!function_exists('wc_get_product')) {
+        return false;
+    }
+
+    $product = \wc_get_product(get_queried_object_id());
+
+    return $product instanceof \WC_Product
+        && get_machine_product_data($product->get_slug()) !== null;
 }
 
 /**

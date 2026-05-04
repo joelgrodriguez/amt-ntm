@@ -83,11 +83,11 @@ $expect      = $content['expect_items'] ?? [];
                 <!-- CTAs -->
                 <div class="grid gap-3">
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="<?php echo esc_url($content['cta_primary_url']); ?>" class="btn btn-primary btn-lg">
+                        <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="btn btn-primary btn-lg">
                             <?php echo esc_html($content['cta_primary']); ?>
                             <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                         </a>
-                        <a href="<?php echo esc_url($content['cta_secondary_url']); ?>" class="btn btn-outline-light btn-lg">
+                        <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_secondary_url'])); ?>" class="btn btn-outline-light btn-lg">
                             <?php echo esc_html($content['cta_secondary']); ?>
                         </a>
                     </div>

@@ -13,6 +13,10 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+$product = $args['product'] ?? null;
+$configurator_url = $product instanceof \WC_Product
+    ? \Standard\Url\internal('/configurator/' . $product->get_slug() . '/')
+    : \Standard\Url\internal('/configurator/');
 ?>
 
 <div class="bg-blue-500 py-6">
@@ -21,6 +25,6 @@ if (!defined('ABSPATH')) {
             <p class="text-white font-medium text-lg">[Build Your Machine]</p>
             <p class="text-white/80 text-sm hidden md:block">[Choose profiles, power, controls & accessories — get an instant quote]</p>
         </div>
-        <a href="#" class="btn btn-sm bg-white text-blue-500 hover:bg-blue-100 shrink-0">[Open Configurator]</a>
+        <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-sm bg-white text-blue-500 hover:bg-blue-100 shrink-0">[Open Configurator]</a>
     </div>
 </div>

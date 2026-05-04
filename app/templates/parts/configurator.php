@@ -97,11 +97,11 @@ $features = [
 
                 <!-- CTA -->
                 <div class="flex flex-wrap items-center gap-4">
-                    <a href="<?php echo esc_url($content['cta_url']); ?>" class="btn btn-primary btn-lg">
+                    <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-primary btn-lg">
                         <?php echo esc_html($content['cta_text']); ?>
                         <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                     </a>
-                    <a href="<?php echo esc_url($content['cta_url']); ?>" class="btn btn-outline-dark btn-lg">
+                    <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-outline-dark btn-lg">
                         <?php echo esc_html($content['cta_note']); ?>
                     </a>
                 </div>

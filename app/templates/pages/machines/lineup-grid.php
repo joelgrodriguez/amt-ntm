@@ -60,7 +60,7 @@ $categories = get_machine_categories();
                         <?php echo esc_html($category['label']); ?>
                     </h3>
                     <?php if (!empty($category['url'])) : ?>
-                        <a href="<?php echo esc_url($category['url']); ?>" class="inline-flex items-center gap-1 text-sm font-medium text-blue-500 hover:text-blue-500/80 transition-colors no-underline">
+                        <a href="<?php echo esc_url(\Standard\Url\internal($category['url'])); ?>" class="inline-flex items-center gap-1 text-sm font-medium text-blue-500 hover:text-blue-500/80 transition-colors no-underline">
                             <?php esc_html_e('View All', 'standard'); ?>
                             <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                         </a>

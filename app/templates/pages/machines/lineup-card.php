@@ -39,7 +39,7 @@ $has_price = !empty($machine['price']);
         <!-- Name -->
         <div>
             <h4 class="text-2xl font-medium font-mono text-blue-900">
-                <a href="<?php echo esc_url($machine['url']); ?>" class="after:absolute after:inset-0 no-underline text-inherit">
+                <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="after:absolute after:inset-0 no-underline text-inherit">
                     <?php echo esc_html($machine['name']); ?>
                 </a>
             </h4>
@@ -67,15 +67,15 @@ $has_price = !empty($machine['price']);
         <!-- CTAs -->
         <?php if ($has_price) : ?>
             <div class="flex gap-3 mt-auto relative z-10">
-                <a href="<?php echo esc_url($machine['url']); ?>" class="btn btn-outline-dark btn-sm">
+                <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="btn btn-outline-dark btn-sm">
                     <?php esc_html_e('Explore', 'standard'); ?>
                 </a>
-                <a href="<?php echo esc_url('/build-finance/?machine=' . $machine['slug']); ?>" class="btn btn-ghost btn-sm">
+                <a href="<?php echo esc_url(\Standard\Url\with_query('/build-finance/', ['machine' => $machine['slug']])); ?>" class="btn btn-ghost btn-sm">
                     <?php esc_html_e('Build', 'standard'); ?>
                 </a>
             </div>
         <?php else : ?>
-            <a href="<?php echo esc_url($machine['url']); ?>" class="inline-flex items-center gap-1 text-sm font-medium text-blue-900 hover:text-blue-500 transition-colors no-underline mt-auto relative z-10">
+            <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="inline-flex items-center gap-1 text-sm font-medium text-blue-900 hover:text-blue-500 transition-colors no-underline mt-auto relative z-10">
                 <?php esc_html_e('Explore More', 'standard'); ?>
                 <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
             </a>

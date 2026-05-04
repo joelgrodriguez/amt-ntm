@@ -34,7 +34,7 @@ if (!empty($finance['price_range'])) {
     $price_display = $product->get_price_html();
 }
 
-$configurator_url = '/configurator/' . $product->get_slug() . '/';
+$configurator_url = \Standard\Url\internal('/configurator/' . $product->get_slug() . '/');
 $machine_name     = $product->get_name();
 ?>
 

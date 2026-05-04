@@ -73,7 +73,7 @@ $is_not_for = $fit['is_not_for'] ?? [];
                                 <?php echo esc_html($text); ?>
                                 <?php if ($link) : ?>
                                     <span class="machine-fit__alt">
-                                        &rarr; <a href="<?php echo esc_url($link['url']); ?>" class="machine-fit__link">
+                                        &rarr; <a href="<?php echo esc_url(\Standard\Url\internal($link['url'])); ?>" class="machine-fit__link">
                                             <?php echo esc_html($link['name']); ?>
                                         </a>
                                     </span>

@@ -93,7 +93,7 @@ $points = [
                 </ul>
 
                 <div class="flex flex-wrap gap-4">
-                    <a href="<?php echo esc_url($content['cta_url']); ?>" class="btn btn-primary">
+                    <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-primary">
                         <?php echo esc_html($content['cta_text']); ?>
                     </a>
                 </div>

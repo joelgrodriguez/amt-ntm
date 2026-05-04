@@ -22,8 +22,10 @@ define('THEME_URI', get_template_directory_uri());
  * Load theme includes.
  */
 $theme_includes = [
+    'inc/urls.php',
     'inc/vite.php',
     'inc/setup.php',
+    'inc/search.php',
     'inc/mobile-nav.php',
     'inc/sidebars.php',
     'inc/fonts.php',
@@ -31,6 +33,7 @@ $theme_includes = [
     'inc/images.php',
     'inc/grid.php',
     'inc/video.php',
+    'inc/content-taxonomy.php',
     'inc/related-posts.php',
     // WooCommerce integration
     'inc/woo/setup.php',
@@ -38,12 +41,12 @@ $theme_includes = [
     'inc/woo/catalog.php',
     'inc/woo/carousel.php',
     'inc/woo/accessories.php',
+    'inc/machine-product-data.php',
     'inc/woo/machine-template.php',
     // Machine content data
     'inc/machines.php',
     'inc/learning-center.php',
     'inc/machines-data.php',
-    'inc/machine-product-data.php',
     'inc/machine-schema.php',
     'inc/walkers/class-pagination.php',
     'inc/walkers/class-primary-nav-walker.php',

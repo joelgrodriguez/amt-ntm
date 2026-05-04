@@ -46,7 +46,7 @@ if (!defined('ABSPATH')) {
             </button>
 
             <!-- Logo + Site Name -->
-            <a href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center gap-4 h-12 px-4 lg:px-6 lg:border-r border-blue-200 no-underline">
+            <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="flex items-center gap-4 h-12 px-4 lg:px-6 lg:border-r border-blue-200 no-underline">
                 <?php if (has_custom_logo()) : ?>
                     <?php
                     $custom_logo_id = get_theme_mod('custom_logo');
@@ -81,7 +81,7 @@ if (!defined('ABSPATH')) {
 
             <!-- Right side icons -->
             <div id="header-actions" class="flex items-center h-12 ml-auto px-2 lg:px-0 transition-opacity duration-200">
-                <a href="<?php echo esc_url(home_url('/?s=')); ?>" class="flex items-center justify-center w-12 h-12 text-blue-600 hover:bg-blue-100 transition-colors" aria-label="Search">
+                <a href="<?php echo esc_url(\Standard\Url\with_query('/', ['s' => ''])); ?>" class="flex items-center justify-center w-12 h-12 text-blue-600 hover:bg-blue-100 transition-colors" aria-label="Search">
                     <?php icon('search', ['class' => 'w-5 h-5']); ?>
                 </a>
             </div>

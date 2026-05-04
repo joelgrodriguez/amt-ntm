@@ -81,7 +81,7 @@ function get_woocommerce_products(string $category_slug): array {
             'price'       => $is_accessory ? '' : FALLBACK_MACHINE_PRICE,
             'price_label' => \__('Starting at', 'standard'),
             'explore_url' => $product->get_permalink(),
-            'build_url'   => '/build-finance/?machine=' . $product->get_slug(),
+            'build_url'   => \Standard\Url\with_query('/build-finance/', ['machine' => $product->get_slug()]),
             'badge'       => '',
         ];
     }
@@ -146,7 +146,7 @@ function format_sample_machine_product(array $machine, string $category_slug): a
         'price'       => !empty($machine['price']) ? $machine['price'] : FALLBACK_MACHINE_PRICE,
         'price_label' => !empty($machine['price_label']) ? $machine['price_label'] : \__('Starting at', 'standard'),
         'explore_url' => get_sample_machine_url($machine, $category_slug, $public_slug),
-        'build_url'   => '/build-finance/?machine=' . $public_slug,
+        'build_url'   => \Standard\Url\with_query('/build-finance/', ['machine' => $public_slug]),
         'badge'       => get_sample_machine_badge($slug),
     ];
 }
@@ -169,10 +169,10 @@ function get_public_machine_slug(string $slug): string {
 function get_sample_machine_url(array $machine, string $category_slug, string $public_slug): string {
     $url = (string) ($machine['url'] ?? '');
     if ($url !== '' && $url !== '#') {
-        return $url;
+        return \Standard\Url\internal($url);
     }
 
-    return '/machines/' . $category_slug . '/' . $public_slug . '/';
+    return \Standard\Url\internal('/machines/' . $category_slug . '/' . $public_slug . '/');
 }
 
 function get_sample_machine_badge(string $slug): string {
@@ -198,8 +198,8 @@ function get_sample_accessory_products(): array {
             'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
             'price'       => '',
             'price_label' => '',
-            'explore_url' => '/accessories/coil-reel/',
-            'build_url'   => '/build-finance/?accessory=coil-reel',
+            'explore_url' => \Standard\Url\internal('/accessories/coil-reel/'),
+            'build_url'   => \Standard\Url\with_query('/build-finance/', ['accessory' => 'coil-reel']),
             'badge'       => '',
         ],
         [
@@ -210,8 +210,8 @@ function get_sample_accessory_products(): array {
             'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
             'price'       => '',
             'price_label' => '',
-            'explore_url' => '/accessories/run-out-stand/',
-            'build_url'   => '/build-finance/?accessory=run-out-stand',
+            'explore_url' => \Standard\Url\internal('/accessories/run-out-stand/'),
+            'build_url'   => \Standard\Url\with_query('/build-finance/', ['accessory' => 'run-out-stand']),
             'badge'       => '',
         ],
         [
@@ -222,8 +222,8 @@ function get_sample_accessory_products(): array {
             'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
             'price'       => '',
             'price_label' => '',
-            'explore_url' => '/accessories/slitter/',
-            'build_url'   => '/build-finance/?accessory=slitter',
+            'explore_url' => \Standard\Url\internal('/accessories/slitter/'),
+            'build_url'   => \Standard\Url\with_query('/build-finance/', ['accessory' => 'slitter']),
             'badge'       => 'New',
         ],
         [
@@ -234,8 +234,8 @@ function get_sample_accessory_products(): array {
             'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
             'price'       => '',
             'price_label' => '',
-            'explore_url' => '/accessories/notcher/',
-            'build_url'   => '/build-finance/?accessory=notcher',
+            'explore_url' => \Standard\Url\internal('/accessories/notcher/'),
+            'build_url'   => \Standard\Url\with_query('/build-finance/', ['accessory' => 'notcher']),
             'badge'       => '',
         ],
         [
@@ -246,8 +246,8 @@ function get_sample_accessory_products(): array {
             'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
             'price'       => '',
             'price_label' => '',
-            'explore_url' => '/accessories/hemmer/',
-            'build_url'   => '/build-finance/?accessory=hemmer',
+            'explore_url' => \Standard\Url\internal('/accessories/hemmer/'),
+            'build_url'   => \Standard\Url\with_query('/build-finance/', ['accessory' => 'hemmer']),
             'badge'       => '',
         ],
     ];

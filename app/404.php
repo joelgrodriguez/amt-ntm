@@ -30,37 +30,37 @@ $helpful_links = [
     [
         'title' => __('Learning Center', 'standard'),
         'description' => __('Articles, videos, and resources', 'standard'),
-        'url' => home_url('/learning-center/'),
+        'url' => \Standard\Url\internal('/learning-center/'),
         'icon' => 'file-text',
     ],
     [
         'title' => __('Profiles', 'standard'),
         'description' => __('Panel and gutter profiles', 'standard'),
-        'url' => get_post_type_archive_link('profile') ?: home_url('/profiles/'),
+        'url' => get_post_type_archive_link('profile') ?: \Standard\Url\internal('/profiles/'),
         'icon' => 'folder',
     ],
     [
         'title' => __('Manuals', 'standard'),
         'description' => __('Machine documentation', 'standard'),
-        'url' => get_post_type_archive_link('manual') ?: home_url('/manuals/'),
+        'url' => get_post_type_archive_link('manual') ?: \Standard\Url\internal('/manuals/'),
         'icon' => 'file-text',
     ],
     [
         'title' => __('Resources', 'standard'),
         'description' => __('Downloads and literature', 'standard'),
-        'url' => get_post_type_archive_link('resource') ?: home_url('/resources/'),
+        'url' => get_post_type_archive_link('resource') ?: \Standard\Url\internal('/resources/'),
         'icon' => 'download',
     ],
     [
         'title' => __('Machines', 'standard'),
         'description' => __('Rollforming equipment', 'standard'),
-        'url' => home_url('/machines/'),
+        'url' => \Standard\Url\internal('/machines/'),
         'icon' => 'settings',
     ],
     [
         'title' => __('Contact Us', 'standard'),
         'description' => __('Get in touch with our team', 'standard'),
-        'url' => home_url('/contact/'),
+        'url' => \Standard\Url\internal('/contact/'),
         'icon' => 'mail',
     ],
 ];
@@ -115,7 +115,7 @@ $helpful_links = [
 
             <!-- Back to Home -->
             <div class="text-center mt-12">
-                <a href="<?php echo esc_url(home_url('/')); ?>" class="inline-flex items-center gap-2 text-sm font-medium text-blue-500 hover:underline">
+                <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="inline-flex items-center gap-2 text-sm font-medium text-blue-500 hover:underline">
                     <?php icon('arrow-left', ['class' => 'w-4 h-4']); ?>
                     <?php echo esc_html($content['back_home']); ?>
                 </a>

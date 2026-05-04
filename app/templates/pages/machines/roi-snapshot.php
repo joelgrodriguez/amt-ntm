@@ -57,11 +57,11 @@ $stats = get_roi_stats();
         </div>
 
         <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="<?php echo esc_url($content['cta_url']); ?>" class="btn btn-primary">
+            <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-primary">
                 <?php echo esc_html($content['cta_text']); ?>
                 <?php icon('dollar-sign', ['class' => 'w-5 h-5']); ?>
             </a>
-            <a href="<?php echo esc_url($content['cta_secondary_url']); ?>" class="btn btn-outline-light">
+            <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_secondary_url'])); ?>" class="btn btn-outline-light">
                 <?php echo esc_html($content['cta_secondary_text']); ?>
             </a>
         </div>

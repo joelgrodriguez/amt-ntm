@@ -20,7 +20,9 @@ $product = $args['product'] ?? null;
 $machine = $args['machine'] ?? [];
 $finance = $machine['finance'] ?? [];
 
-$configurator_url = $product ? '/configurator/' . $product->get_slug() . '/' : '#';
+$configurator_url = $product
+    ? \Standard\Url\internal('/configurator/' . $product->get_slug() . '/')
+    : \Standard\Url\internal('/configurator/');
 
 $has_monthly = !empty($finance['monthly_price']);
 $has_range   = !empty($finance['price_range']);
@@ -77,12 +79,12 @@ $has_range   = !empty($finance['price_range']);
                         <li>No-commitment quote in 24 hrs</li>
                     </ul>
                 </div>
-                <a href="<?php echo esc_url('/machines/leasing-financing/'); ?>" class="btn btn-outline-light w-full">Explore Financing</a>
+                <a href="<?php echo esc_url(\Standard\Url\internal('/machines/leasing-financing/')); ?>" class="btn btn-outline-light w-full">Explore Financing</a>
             </div>
 
         </div>
 
-        <p class="text-center text-sm text-blue-500">Or <a href="<?php echo esc_url('/contact/'); ?>" class="text-white underline">talk to a specialist</a> to discuss your specific needs.</p>
+        <p class="text-center text-sm text-blue-500">Or <a href="<?php echo esc_url(\Standard\Url\internal('/contact/')); ?>" class="text-white underline">talk to a specialist</a> to discuss your specific needs.</p>
 
     </div>
 </section>

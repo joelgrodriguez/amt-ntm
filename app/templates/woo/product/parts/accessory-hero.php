@@ -102,7 +102,7 @@ $slug        = $product->get_slug();
                 <?php endif; ?>
 
                 <div class="flex flex-wrap gap-3 pt-2">
-                    <a href="<?php echo esc_url('/contact/?product=' . urlencode($slug)); ?>" class="btn btn-primary">
+                    <a href="<?php echo esc_url(\Standard\Url\with_query('/contact/', ['product' => $slug])); ?>" class="btn btn-primary">
                         <?php esc_html_e('Request a Quote', 'standard'); ?>
                     </a>
                     <a href="tel:+13032943553" class="btn btn-outline-dark">

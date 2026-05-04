@@ -22,7 +22,7 @@ $content = [
 ];
 ?>
 
-<form role="search" method="get" class="search-form flex gap-2" action="<?php echo esc_url(home_url('/')); ?>">
+<form role="search" method="get" class="search-form flex gap-2" action="<?php echo esc_url(\Standard\Url\internal('/')); ?>">
     <label class="sr-only" for="search-field"><?php echo esc_html($content['label']); ?></label>
     <input
         type="search"

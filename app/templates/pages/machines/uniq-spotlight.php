@@ -63,7 +63,7 @@ $features = get_uniq_features();
                 </div>
 
                 <div class="flex flex-wrap items-center gap-6">
-                    <a href="<?php echo esc_url($content['cta_url']); ?>" class="btn btn-outline-light">
+                    <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-outline-light">
                         <?php echo esc_html($content['cta_text']); ?>
                         <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                     </a>

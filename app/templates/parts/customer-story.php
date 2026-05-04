@@ -85,7 +85,7 @@ if (empty($content)) {
                 </div>
 
                 <div>
-                    <a href="<?php echo esc_url($content['cta_url']); ?>" class="btn btn-outline-dark">
+                    <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-outline-dark">
                         <?php if ($cta_icon === 'play') : ?>
                             <?php icon('play', ['class' => 'w-5 h-5']); ?>
                         <?php endif; ?>

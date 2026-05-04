@@ -56,7 +56,7 @@ $rows = [
                 <div class="border <?php echo $is_flagship ? 'border-blue-500 border-2' : 'border-blue-200'; ?>">
                     <!-- Card header -->
                     <div class="<?php echo $is_flagship ? 'bg-blue-500' : 'bg-blue-800'; ?> px-4 py-4 text-center">
-                        <a href="<?php echo esc_url($machine['url']); ?>" class="text-lg font-medium text-white no-underline hover:underline">
+                        <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="text-lg font-medium text-white no-underline hover:underline">
                             <?php echo esc_html($machine['short_name'] ?? $machine['name']); ?>
                         </a>
                         <?php if ($is_flagship) : ?>
@@ -74,7 +74,7 @@ $rows = [
                     <?php $i++; endforeach; ?>
                     <!-- Card CTA -->
                     <div class="px-4 py-4 bg-white border-t border-blue-200">
-                        <a href="<?php echo esc_url($machine['url']); ?>" class="btn <?php echo $is_flagship ? 'btn-primary' : 'btn-outline-dark'; ?> btn-sm w-full justify-center">
+                        <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="btn <?php echo $is_flagship ? 'btn-primary' : 'btn-outline-dark'; ?> btn-sm w-full justify-center">
                             <?php esc_html_e('Explore', 'standard'); ?>
                         </a>
                     </div>
@@ -95,7 +95,7 @@ $rows = [
                             $is_flagship = !empty($machine['badge']);
                         ?>
                             <th class="<?php echo $is_flagship ? 'bg-blue-500' : 'bg-blue-800'; ?> text-white py-4 px-4 text-center border-r border-blue-700">
-                                <a href="<?php echo esc_url($machine['url']); ?>" class="text-white no-underline hover:underline font-medium text-sm">
+                                <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="text-white no-underline hover:underline font-medium text-sm">
                                     <?php echo esc_html($machine['short_name'] ?? $machine['name']); ?>
                                 </a>
                                 <?php if ($is_flagship) : ?>
@@ -131,7 +131,7 @@ $rows = [
                             $is_flagship = !empty($machine['badge']);
                         ?>
                             <td class="py-4 px-4 text-center border-r border-blue-200 <?php echo $is_flagship ? 'bg-blue-500/5' : ''; ?>">
-                                <a href="<?php echo esc_url($machine['url']); ?>" class="btn <?php echo $is_flagship ? 'btn-primary' : 'btn-outline-dark'; ?> btn-sm">
+                                <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="btn <?php echo $is_flagship ? 'btn-primary' : 'btn-outline-dark'; ?> btn-sm">
                                     <?php esc_html_e('Explore', 'standard'); ?>
                                 </a>
                             </td>

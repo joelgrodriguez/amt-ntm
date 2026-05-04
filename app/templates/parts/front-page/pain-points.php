@@ -84,10 +84,10 @@ $points = [
                 </ul>
 
                 <div class="flex flex-wrap gap-4">
-                    <a href="<?php echo esc_url($content['cta_primary_url']); ?>" class="btn btn-primary">
+                    <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="btn btn-primary">
                         <?php echo esc_html($content['cta_primary']); ?>
                     </a>
-                    <a href="<?php echo esc_url($content['cta_secondary_url']); ?>" class="btn btn-outline-dark">
+                    <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_secondary_url'])); ?>" class="btn btn-outline-dark">
                         <?php echo esc_html($content['cta_secondary']); ?>
                     </a>
                 </div>
@@ -102,7 +102,7 @@ $points = [
                 >
                 <p class="mt-4 text-center text-sm text-blue-600">
                     <?php echo esc_html($content['image_caption']); ?>
-                    <a href="<?php echo esc_url($content['cta_primary_url']); ?>" class="text-blue-500 font-medium hover:underline">
+                    <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="text-blue-500 font-medium hover:underline">
                         <?php echo esc_html($content['image_cta']); ?>
                     </a>
                 </p>

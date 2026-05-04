@@ -77,7 +77,7 @@ $compare_slugs = $comparison['compare_with'];
                     <?php if (!empty($comp_price)) : ?>
                         <span class="text-sm font-medium text-blue-900"><?php echo esc_html($comp_price); ?></span>
                     <?php endif; ?>
-                    <a href="<?php echo esc_url('/machines/' . $slug . '/'); ?>" class="btn btn-sm btn-outline-dark mx-auto">Explore</a>
+                    <a href="<?php echo esc_url(\Standard\Url\internal('/machines/' . $slug . '/')); ?>" class="btn btn-sm btn-outline-dark mx-auto">Explore</a>
                 </div>
             <?php endforeach; ?>
         </div>
