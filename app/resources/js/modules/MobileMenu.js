@@ -51,6 +51,17 @@ export function initMobileMenu() {
     menu.style.bottom = '0';
   };
 
+  const focusFirstItem = () => {
+    const rootPanel = getPanel(ROOT_PANEL);
+    if (!rootPanel) return;
+    const first = rootPanel.querySelector(
+      '.mobile-menu__featured, .mobile-menu__row'
+    );
+    if (first instanceof HTMLElement) {
+      first.focus({ preventScroll: true });
+    }
+  };
+
   const panels = menu.querySelectorAll('.mobile-menu__panel');
   const pageElements = document.querySelectorAll(
     'main, footer, #site-header a, #site-header button:not(#mobile-menu-toggle)'
@@ -141,6 +152,7 @@ export function initMobileMenu() {
     void menu.offsetHeight;
     state.isOpen = true;
     render();
+    requestAnimationFrame(focusFirstItem);
   };
 
   const close = () => {
