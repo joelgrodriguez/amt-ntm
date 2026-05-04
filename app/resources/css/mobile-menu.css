@@ -336,9 +336,9 @@ body.overflow-hidden.menu-scrim-ready::after {
     top: 0;
     z-index: 1;
     display: grid;
-    grid-template-columns: 3rem 1fr 3rem;
+    grid-template-columns: 3.5rem 1fr 3.5rem;
     align-items: center;
-    height: 3rem;
+    height: 3.5rem;
     background: var(--color-white);
     border-bottom: 1px solid var(--color-blue-200);
 }
@@ -346,8 +346,9 @@ body.overflow-hidden.menu-scrim-ready::after {
 .mobile-menu__panel-title {
     margin: 0;
     font-family: var(--font-mono);
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
     text-align: center;
     color: var(--color-blue-700);
 }
@@ -356,13 +357,13 @@ body.overflow-hidden.menu-scrim-ready::after {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 3rem;
-    height: 3rem;
+    width: 3.5rem;
+    height: 3.5rem;
     background: transparent;
     border: 0;
     color: var(--color-blue-700);
     cursor: pointer;
-    transition: background-color 150ms ease;
+    transition: background-color 150ms var(--ease-spring);
 }
 
 .mobile-menu__back:hover,
@@ -375,8 +376,8 @@ body.overflow-hidden.menu-scrim-ready::after {
  * has been removed in favor of the hamburger toggle's close-X. */
 .mobile-menu__panel-spacer {
     display: block;
-    width: 3rem;
-    height: 3rem;
+    width: 3.5rem;
+    height: 3.5rem;
 }
 
 /* Tint the hamburger toggle's close-X red so its "destructive" affordance
