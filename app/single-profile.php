@@ -32,6 +32,15 @@ get_header();
 // Get profile categories and machine tags
 $categories = get_the_terms(get_the_ID(), 'category');
 $machine_tags = get_the_tags();
+$profile_filter_post_ids = get_posts([
+    'post_type'              => 'profile',
+    'post_status'            => 'publish',
+    'posts_per_page'         => 500,
+    'fields'                 => 'ids',
+    'no_found_rows'          => true,
+    'update_post_meta_cache' => false,
+    'update_post_term_cache' => false,
+]);
 ?>
 
 <main id="primary" class="pattern-dot-grid gradient-fade-bottom-sm py-6 lg:py-12">
@@ -64,11 +73,7 @@ $machine_tags = get_the_tags();
                                 $profile_categories = get_terms([
                                     'taxonomy' => 'category',
                                     'hide_empty' => true,
-                                    'object_ids' => get_posts([
-                                        'post_type' => 'profile',
-                                        'posts_per_page' => -1,
-                                        'fields' => 'ids',
-                                    ]),
+                                    'object_ids' => $profile_filter_post_ids,
                                 ]);
 
                                 if (!empty($profile_categories) && !is_wp_error($profile_categories)) :
@@ -99,11 +104,7 @@ $machine_tags = get_the_tags();
                                 $machine_terms = get_terms([
                                     'taxonomy' => 'post_tag',
                                     'hide_empty' => true,
-                                    'object_ids' => get_posts([
-                                        'post_type' => 'profile',
-                                        'posts_per_page' => -1,
-                                        'fields' => 'ids',
-                                    ]),
+                                    'object_ids' => $profile_filter_post_ids,
                                 ]);
 
                                 if (!empty($machine_terms) && !is_wp_error($machine_terms)) :

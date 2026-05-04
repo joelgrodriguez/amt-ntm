@@ -34,7 +34,7 @@ class Pagination
 
     public static function render(?WP_Query $query = null): void
     {
-        if (is_singular()) {
+        if (is_singular() && !$query) {
             return;
         }
 

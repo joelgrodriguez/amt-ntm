@@ -16,12 +16,25 @@ if (!defined('ABSPATH')) {
 function get_vite_dev_server(): ?string {
     static $url = false;
     if ($url === false) {
+        if (!use_vite_dev_server()) {
+            $url = null;
+            return $url;
+        }
+
         $file = THEME_DIR . '/.vite-dev-server';
         $url = file_exists($file)
             ? normalize_vite_dev_server((string) file_get_contents($file))
             : null;
     }
     return $url;
+}
+
+function use_vite_dev_server(): bool {
+    if (defined('WP_ENVIRONMENT_TYPE') && function_exists('wp_get_environment_type')) {
+        return in_array(wp_get_environment_type(), ['local', 'development'], true);
+    }
+
+    return defined('WP_DEBUG') && WP_DEBUG;
 }
 
 function get_vite_manifest(): ?array {

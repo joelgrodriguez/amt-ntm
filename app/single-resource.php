@@ -15,6 +15,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use function Standard\LearningCenter\get_sidebar_items_query;
+
 $content = [
     'badge'         => __('Resource', 'standard'),
     'sidebar_title' => __('All Resources', 'standard'),
@@ -65,13 +67,7 @@ get_header();
                         <p class="text-sm font-medium text-blue-900 mb-4"><?php echo esc_html($content['sidebar_title']); ?></p>
                         <ul class="grid gap-2">
                             <?php
-                            $resources = new WP_Query([
-                                'post_type' => 'resource',
-                                'posts_per_page' => -1,
-                                'orderby' => 'title',
-                                'order' => 'ASC',
-                                'post__not_in' => [get_the_ID()],
-                            ]);
+                            $resources = get_sidebar_items_query('resource', get_the_ID());
 
                             if ($resources->have_posts()) :
                                 while ($resources->have_posts()) : $resources->the_post();

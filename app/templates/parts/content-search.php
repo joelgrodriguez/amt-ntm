@@ -14,6 +14,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+$post_type_object = get_post_type_object(get_post_type());
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class('bg-white border border-blue-200 p-6'); ?>>
@@ -24,8 +25,10 @@ if (!defined('ABSPATH')) {
             <time datetime="<?php echo esc_attr(get_the_date('c')); ?>">
                 <?php echo esc_html(get_the_date()); ?>
             </time>
-            <span class="mx-2">&middot;</span>
-            <span><?php echo esc_html(get_post_type_object(get_post_type())->labels->singular_name); ?></span>
+            <?php if ($post_type_object) : ?>
+                <span class="mx-2">&middot;</span>
+                <span><?php echo esc_html($post_type_object->labels->singular_name); ?></span>
+            <?php endif; ?>
         </div>
     </header>
 

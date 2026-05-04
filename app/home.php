@@ -18,7 +18,10 @@ if (!defined('ABSPATH')) {
 }
 
 use function Standard\LearningCenter\get_content_sections;
+use function Standard\LearningCenter\filter_content_sections;
+use function Standard\LearningCenter\get_active_filters;
 use function Standard\LearningCenter\get_featured_query;
+use function Standard\LearningCenter\get_learning_center_url;
 use function Standard\LearningCenter\get_recent_query;
 use function Standard\LearningCenter\get_section_query;
 use function Standard\LearningCenter\get_type_cta;
@@ -27,9 +30,10 @@ use function Standard\LearningCenter\get_type_label;
 
 get_header();
 
-$featured_query = get_featured_query();
+$filters = get_active_filters();
+$featured_query = get_featured_query($filters);
 $featured_id = $featured_query->have_posts() ? $featured_query->posts[0]->ID : 0;
-$recent_query = get_recent_query((int) $featured_id);
+$recent_query = get_recent_query((int) $featured_id, 4, $filters);
 
 // Get categories for filter
 $categories = get_categories([
@@ -47,7 +51,7 @@ $machine_tags = get_tags([
     'number'     => 8,
 ]);
 
-$content_sections = get_content_sections();
+$content_sections = filter_content_sections(get_content_sections(), $filters);
 ?>
 
 <main id="primary">
@@ -174,7 +178,7 @@ $content_sections = get_content_sections();
     <!-- Quick Filters -->
     <section class="border-b border-blue-200 bg-blue-50 ">
         <div class="container py-6">
-            <form class="flex flex-wrap items-center justify-center gap-8" method="get" action="<?php echo esc_url(home_url('/')); ?>">
+            <form class="flex flex-wrap items-center justify-center gap-8" method="get" action="<?php echo esc_url(get_learning_center_url()); ?>">
                 <span class="text-sm font-medium text-blue-700 flex items-center gap-2">
                     <?php icon('filter', ['class' => 'w-4 h-4']); ?>
                     <?php esc_html_e('Filters:', 'standard'); ?>
@@ -187,10 +191,10 @@ $content_sections = get_content_sections();
                         <?php esc_html_e('Category', 'standard'); ?>
                     </label>
                     <div class="relative">
-                        <select name="category_name" class="appearance-none bg-white border border-blue-200 text-blue-700 text-sm font-mono pl-3 pr-8 py-2 cursor-pointer hover:border-blue-300 focus:border-blue-500 focus:outline-none" onchange="this.form.submit()">
+                        <select name="lc_category" class="appearance-none bg-white border border-blue-200 text-blue-700 text-sm font-mono pl-3 pr-8 py-2 cursor-pointer hover:border-blue-300 focus:border-blue-500 focus:outline-none" onchange="this.form.submit()">
                             <option value=""><?php esc_html_e('All', 'standard'); ?></option>
                             <?php foreach ($categories as $cat) : ?>
-                                <option value="<?php echo esc_attr($cat->slug); ?>">
+                                <option value="<?php echo esc_attr($cat->slug); ?>" <?php selected($filters['category'], $cat->slug); ?>>
                                     <?php echo esc_html($cat->name); ?>
                                 </option>
                             <?php endforeach; ?>
@@ -208,12 +212,12 @@ $content_sections = get_content_sections();
                         <?php esc_html_e('Resource Type', 'standard'); ?>
                     </label>
                     <div class="relative">
-                        <select name="post_type" class="appearance-none bg-white border border-blue-200 text-blue-700 text-sm font-mono pl-3 pr-8 py-2 cursor-pointer hover:border-blue-300 focus:border-blue-500 focus:outline-none" onchange="this.form.submit()">
+                        <select name="lc_type" class="appearance-none bg-white border border-blue-200 text-blue-700 text-sm font-mono pl-3 pr-8 py-2 cursor-pointer hover:border-blue-300 focus:border-blue-500 focus:outline-none" onchange="this.form.submit()">
                             <option value=""><?php esc_html_e('All', 'standard'); ?></option>
-                            <option value="post"><?php esc_html_e('Articles', 'standard'); ?></option>
-                            <option value="video"><?php esc_html_e('Videos', 'standard'); ?></option>
-                            <option value="resource"><?php esc_html_e('Resources', 'standard'); ?></option>
-                            <option value="download"><?php esc_html_e('Downloads', 'standard'); ?></option>
+                            <option value="post" <?php selected($filters['type'], 'post'); ?>><?php esc_html_e('Articles', 'standard'); ?></option>
+                            <option value="video" <?php selected($filters['type'], 'video'); ?>><?php esc_html_e('Videos', 'standard'); ?></option>
+                            <option value="resource" <?php selected($filters['type'], 'resource'); ?>><?php esc_html_e('Resources', 'standard'); ?></option>
+                            <option value="download" <?php selected($filters['type'], 'download'); ?>><?php esc_html_e('Downloads', 'standard'); ?></option>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                             <?php icon('chevron-down', ['class' => 'w-3 h-3 text-blue-400']); ?>
@@ -229,10 +233,10 @@ $content_sections = get_content_sections();
                             <?php esc_html_e('Machine', 'standard'); ?>
                         </label>
                         <div class="relative">
-                            <select name="tag" class="appearance-none bg-white border border-blue-200 text-blue-700 text-sm font-mono pl-3 pr-8 py-2 cursor-pointer hover:border-blue-300 focus:border-blue-500 focus:outline-none" onchange="this.form.submit()">
+                            <select name="lc_machine" class="appearance-none bg-white border border-blue-200 text-blue-700 text-sm font-mono pl-3 pr-8 py-2 cursor-pointer hover:border-blue-300 focus:border-blue-500 focus:outline-none" onchange="this.form.submit()">
                                 <option value=""><?php esc_html_e('All', 'standard'); ?></option>
                                 <?php foreach ($machine_tags as $tag) : ?>
-                                    <option value="<?php echo esc_attr($tag->slug); ?>">
+                                    <option value="<?php echo esc_attr($tag->slug); ?>" <?php selected($filters['machine'], $tag->slug); ?>>
                                         <?php echo esc_html($tag->name); ?>
                                     </option>
                                 <?php endforeach; ?>
@@ -249,7 +253,7 @@ $content_sections = get_content_sections();
 
     <!-- Content Sections by Post Type -->
     <?php foreach ($content_sections as $section) :
-        $section_query = get_section_query($section['post_type']);
+        $section_query = get_section_query($section['post_type'], 4, $filters);
 
         if (!$section_query->have_posts()) {
             wp_reset_postdata();

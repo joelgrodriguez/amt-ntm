@@ -120,8 +120,7 @@ function get_machine_product_data(string $slug): ?array {
         }
     }
 
-    // Fallback: return default skeleton so all machines render the custom template
-    return get_default_machine_data();
+    return null;
 }
 
 /**

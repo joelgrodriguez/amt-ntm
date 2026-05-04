@@ -25,14 +25,15 @@ $content = [
 get_header();
 
 // Get current page for pagination
-$paged = get_query_var('paged') ? get_query_var('paged') : 1;
+$paged = max(1, (int) get_query_var('paged'));
 
 // Query blog posts
 $args = [
-    'post_type'      => 'post',
-    'post_status'    => 'publish',
-    'posts_per_page' => 12,
-    'paged'          => $paged,
+    'post_type'           => 'post',
+    'post_status'         => 'publish',
+    'posts_per_page'      => 12,
+    'paged'               => $paged,
+    'ignore_sticky_posts' => true,
 ];
 
 $articles_query = new WP_Query($args);
@@ -101,9 +102,7 @@ $categories = get_categories([
                 </div>
 
                 <?php
-                // Set up pagination
-                $GLOBALS['wp_query'] = $articles_query;
-                \Standard\Walkers\Pagination::render();
+                \Standard\Walkers\Pagination::render($articles_query);
                 wp_reset_postdata();
                 ?>
             <?php else : ?>

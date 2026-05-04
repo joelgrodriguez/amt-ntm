@@ -21,12 +21,16 @@ const ACCESSORY_CATEGORY_SLUG = 'accessories-add-on-equipment';
  */
 function get_compatible_machine_cards(int $limit = 4): array {
     $machine_posts = \get_posts([
-        'post_type'      => 'product',
-        'post_status'    => 'publish',
-        'posts_per_page' => $limit,
-        'orderby'        => 'menu_order title',
-        'order'          => 'ASC',
-        'tax_query'      => [
+        'post_type'              => 'product',
+        'post_status'            => 'publish',
+        'posts_per_page'         => $limit,
+        'orderby'                => 'menu_order title',
+        'order'                  => 'ASC',
+        'fields'                 => 'ids',
+        'no_found_rows'          => true,
+        'update_post_meta_cache' => false,
+        'update_post_term_cache' => false,
+        'tax_query'              => [
             [
                 'taxonomy' => 'product_cat',
                 'field'    => 'slug',

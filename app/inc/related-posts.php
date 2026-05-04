@@ -42,12 +42,15 @@ function get_related_posts(int $count = 4): \WP_Query
     $post_types = ['post', 'video', 'download', 'resource'];
 
     $args = [
-        'post_type'      => $post_types,
-        'posts_per_page' => $count,
-        'post__not_in'   => [$post_id],
-        'category__in'   => $category_ids,
-        'orderby'        => 'rand',
-        'post_status'    => 'publish',
+        'post_type'           => $post_types,
+        'posts_per_page'      => $count,
+        'post__not_in'        => [$post_id],
+        'category__in'        => $category_ids,
+        'orderby'             => 'date',
+        'order'               => 'DESC',
+        'post_status'         => 'publish',
+        'ignore_sticky_posts' => true,
+        'no_found_rows'       => true,
     ];
 
     return new \WP_Query($args);

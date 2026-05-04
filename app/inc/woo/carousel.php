@@ -66,17 +66,21 @@ function get_post_cards(array $args): array {
     $tag_slugs    = $args['tag_slugs'] ?? [];
     $taxonomy     = (string) ($args['taxonomy'] ?? 'post_tag');
     $subtitle_tax = (string) ($args['subtitle_tax'] ?? 'category');
+    $limit        = max(1, min(48, (int) ($args['limit'] ?? 24)));
 
     if (!is_array($tag_slugs) || empty($tag_slugs)) {
         return [];
     }
 
     $posts = \get_posts([
-        'post_type'      => $post_type,
-        'posts_per_page' => -1,
-        'orderby'        => 'menu_order title',
-        'order'          => 'ASC',
-        'tax_query'      => [
+        'post_type'           => $post_type,
+        'post_status'         => 'publish',
+        'posts_per_page'      => $limit,
+        'orderby'             => 'menu_order title',
+        'order'               => 'ASC',
+        'ignore_sticky_posts' => true,
+        'no_found_rows'       => true,
+        'tax_query'           => [
             [
                 'taxonomy' => $taxonomy,
                 'field'    => 'slug',

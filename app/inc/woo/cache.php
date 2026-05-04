@@ -34,6 +34,14 @@ function get_products(array $args): array {
         return [];
     }
 
+    if (($args['orderby'] ?? '') === 'rand') {
+        $products = \wc_get_products($args);
+
+        return is_array($products)
+            ? array_values(array_filter($products, fn($product): bool => $product instanceof \WC_Product))
+            : [];
+    }
+
     $key = PREFIX . md5(wp_json_encode($args));
     $ids = get_transient($key);
 
