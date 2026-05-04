@@ -43,6 +43,14 @@ export function initMobileMenu() {
 
   let resizeTimeout = null;
 
+  const header = document.getElementById('site-header');
+
+  const syncMenuTop = () => {
+    const offset = header ? header.offsetHeight : 48;
+    menu.style.top = `${offset}px`;
+    menu.style.bottom = '0';
+  };
+
   const panels = menu.querySelectorAll('.mobile-menu__panel');
   const pageElements = document.querySelectorAll(
     'main, footer, #site-header a, #site-header button:not(#mobile-menu-toggle)'
@@ -124,6 +132,7 @@ export function initMobileMenu() {
   };
 
   const open = () => {
+    syncMenuTop();
     state.activePanel = ROOT_PANEL;
     state.lastTrigger = null;
     render();
@@ -218,6 +227,7 @@ export function initMobileMenu() {
   const handleResize = () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
+      syncMenuTop();
       const isOpen = menu.classList.contains('is-open');
       if (window.innerWidth >= DESKTOP_BREAKPOINT && isOpen) {
         close();
