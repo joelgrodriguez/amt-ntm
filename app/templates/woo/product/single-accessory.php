@@ -35,20 +35,9 @@ get_header();
 
     <?php get_template_part('templates/woo/product/parts/compatible-machines', null, compact('product')); ?>
 
-    <?php
-    // Related accessories from the same category.
-    // Note: 'orderby' => 'rand' is intentionally excluded from cache reuse
-    // by including the current product ID in the args fingerprint.
-    $related = \Standard\Woo\Cache\get_products([
-        'category' => ['accessories-add-on-equipment'],
-        'exclude'  => [$product->get_id()],
-        'limit'    => 4,
-        'status'   => 'publish',
-        'orderby'  => 'rand',
-    ]);
+    <?php $related_cards = \Standard\Woo\Accessories\get_related_accessory_cards($product, 4); ?>
 
-    if (!empty($related)) :
-    ?>
+    <?php if ($related_cards !== []) : ?>
     <section class="section" aria-labelledby="related-accessories-title">
         <div class="container section-content">
             <div class="section-header-left mb-10">
@@ -58,25 +47,8 @@ get_header();
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <?php foreach ($related as $rel) : ?>
-                    <a href="<?php echo esc_url($rel->get_permalink()); ?>" class="block border border-blue-200 bg-white p-4 grid gap-3 hover:border-blue-400 transition-all group">
-                        <div class="bg-blue-50 aspect-square flex items-center justify-center overflow-hidden">
-                            <?php if ($rel->get_image_id()) : ?>
-                                <?php echo wp_get_attachment_image($rel->get_image_id(), 'product-card', false, [
-                                    'class' => 'w-full h-full object-contain p-3 transition-transform group-hover:scale-105',
-                                    'alt'   => $rel->get_name(),
-                                ]); ?>
-                            <?php else : ?>
-                                <span class="text-blue-400 text-sm font-mono"><?php echo esc_html($rel->get_name()); ?></span>
-                            <?php endif; ?>
-                        </div>
-                        <div class="grid gap-1">
-                            <h3 class="text-sm font-medium text-blue-900 group-hover:text-blue-500 transition-colors leading-tight"><?php echo esc_html($rel->get_name()); ?></h3>
-                            <?php if ($rel->get_price_html()) : ?>
-                                <p class="text-xs text-blue-500"><?php echo wp_kses_post($rel->get_price_html()); ?></p>
-                            <?php endif; ?>
-                        </div>
-                    </a>
+                <?php foreach ($related_cards as $card) : ?>
+                    <?php get_template_part('templates/woo/product/parts/product-card-link', null, compact('card')); ?>
                 <?php endforeach; ?>
             </div>
         </div>

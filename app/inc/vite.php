@@ -17,7 +17,9 @@ function get_vite_dev_server(): ?string {
     static $url = false;
     if ($url === false) {
         $file = THEME_DIR . '/.vite-dev-server';
-        $url = file_exists($file) ? trim(file_get_contents($file)) : null;
+        $url = file_exists($file)
+            ? normalize_vite_dev_server((string) file_get_contents($file))
+            : null;
     }
     return $url;
 }
@@ -26,9 +28,31 @@ function get_vite_manifest(): ?array {
     static $manifest = false;
     if ($manifest === false) {
         $path = THEME_DIR . '/dist/.vite/manifest.json';
-        $manifest = file_exists($path) ? json_decode(file_get_contents($path), true) : null;
+        $decoded = file_exists($path)
+            ? json_decode((string) file_get_contents($path), true)
+            : null;
+
+        $manifest = is_array($decoded) ? $decoded : null;
     }
     return $manifest;
+}
+
+function normalize_vite_dev_server(string $url): ?string {
+    $url = trim($url);
+
+    if ($url === '') {
+        return null;
+    }
+
+    $parts = wp_parse_url($url);
+    $scheme = $parts['scheme'] ?? '';
+    $host = $parts['host'] ?? '';
+
+    if (!in_array($scheme, ['http', 'https'], true) || $host === '') {
+        return null;
+    }
+
+    return untrailingslashit($url);
 }
 
 function enqueue_vite_dev_client(string $dev_server): void {
@@ -64,6 +88,10 @@ function enqueue_vite_entry(string $handle, string $entry_path): void {
     }
 
     $entry = $manifest[$entry_path];
+    if (!is_array($entry)) {
+        return;
+    }
+
     $file  = $entry['file'] ?? '';
 
     if ($file !== '' && str_ends_with($file, '.css')) {
