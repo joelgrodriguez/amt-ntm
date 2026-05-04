@@ -99,6 +99,7 @@ export function initMobileMenu() {
     menu.setAttribute('aria-hidden', String(!state.isOpen));
     menu.inert = !state.isOpen;
     toggle.setAttribute('aria-expanded', String(state.isOpen));
+    toggle.setAttribute('aria-label', state.isOpen ? 'Close menu' : 'Open menu');
 
     iconOpen?.classList.toggle('hidden', state.isOpen);
     iconClose?.classList.toggle('hidden', !state.isOpen);

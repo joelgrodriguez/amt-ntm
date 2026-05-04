@@ -39,7 +39,7 @@ if (!defined('ABSPATH')) {
                 class="flex items-center justify-center w-12 h-12 border-r border-blue-200 text-blue-700 hover:bg-blue-100 transition-colors lg:hidden"
                 aria-expanded="false"
                 aria-controls="mobile-menu"
-                aria-label="Toggle menu"
+                aria-label="<?php esc_attr_e('Open menu', 'standard'); ?>"
             >
                 <span id="menu-icon-open"><?php icon('menu', ['class' => 'w-5 h-5']); ?></span>
                 <span id="menu-icon-close" class="hidden"><?php icon('x', ['class' => 'w-4 h-4']); ?></span>
