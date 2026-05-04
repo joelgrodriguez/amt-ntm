@@ -281,16 +281,17 @@ body.overflow-hidden.menu-scrim-ready::after {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: 1.5rem 1.25rem;
+    padding: 1.375rem 1.5rem;
     background: transparent;
     border: 0;
     text-align: left;
     text-decoration: none;
     color: var(--color-blue-700);
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
     cursor: pointer;
-    transition: background-color 150ms ease;
+    transition: background-color 150ms var(--ease-spring);
 }
 
 .mobile-menu__row:hover,
@@ -324,7 +325,7 @@ body.overflow-hidden.menu-scrim-ready::after {
 }
 
 .mobile-menu__row-chevron {
-    color: var(--color-blue-300);
+    color: var(--color-blue-400);
     flex-shrink: 0;
 }
 
