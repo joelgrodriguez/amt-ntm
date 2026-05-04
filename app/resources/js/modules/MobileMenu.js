@@ -85,6 +85,13 @@ export function initMobileMenu() {
     iconClose?.classList.toggle('hidden', !state.isOpen);
 
     document.body.classList.toggle('overflow-hidden', state.isOpen);
+    if (state.isOpen) {
+      requestAnimationFrame(() => {
+        document.body.classList.add('menu-scrim-ready');
+      });
+    } else {
+      document.body.classList.remove('menu-scrim-ready');
+    }
     pageElements.forEach((element) => {
       element.inert = state.isOpen;
     });

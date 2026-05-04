@@ -29,6 +29,26 @@
     transform: none;
 }
 
+/* ── Page scrim (dims content behind the open menu) ──────────────────── */
+
+/* A body::after pseudo-element avoids adding a DOM node for the scrim.
+ * pointer-events: none when hidden so it never intercepts clicks. */
+body.overflow-hidden::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 39;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 220ms var(--ease-spring);
+}
+
+body.overflow-hidden.menu-scrim-ready::after {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 /* ── L1 item entry stagger ────────────────────────────────────────────── */
 
 /* Items start invisible and slightly raised. The .is-open class on the
