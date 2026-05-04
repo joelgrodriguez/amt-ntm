@@ -230,7 +230,7 @@ export function initMobileMenu() {
    * @param {KeyboardEvent} e
    */
   const handleKeydown = (e) => {
-    if (e.key === 'Escape' && menu.classList.contains('is-open')) {
+    if (e.key === 'Escape' && state.isOpen) {
       close();
       toggle.focus();
     }
