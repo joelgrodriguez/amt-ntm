@@ -219,8 +219,7 @@ export function initMobileMenu() {
   };
 
   const handleToggleClick = () => {
-    const isOpen = menu.classList.contains('is-open');
-    if (isOpen) {
+    if (state.isOpen) {
       close();
     } else {
       open();
