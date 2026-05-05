@@ -81,9 +81,9 @@ if (!defined('ABSPATH')) {
         </a>
 
         <!-- Mega menu triggers — centered in full header width -->
-        <div class="flex items-center justify-center">
-            <nav id="desktop-navigation" aria-label="<?php esc_attr_e('Primary navigation', 'standard'); ?>">
-                <ul id="primary-menu" class="flex items-stretch h-16 m-0 p-0 list-none">
+        <div class="flex items-stretch justify-center">
+            <nav id="desktop-navigation" class="flex" aria-label="<?php esc_attr_e('Primary navigation', 'standard'); ?>">
+                <ul id="primary-menu" class="flex items-stretch m-0 p-0 list-none">
                     <?php foreach ($desktop_nav['items'] as $item) : ?>
                         <li class="flex h-full">
                             <?php if (($item['kind'] ?? '') === 'mega') : ?>
