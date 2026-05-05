@@ -42,6 +42,9 @@ export function initMobileMenu() {
   };
 
   let resizeTimeout = null;
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchStartScrollTop = 0;
 
   const header = document.getElementById('site-header');
 
@@ -251,11 +254,59 @@ export function initMobileMenu() {
     }, RESIZE_DEBOUNCE_MS);
   };
 
+  /**
+   * @param {TouchEvent} e
+   */
+  const handleTouchStart = (e) => {
+    const touch = e.touches[0];
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+    const activePanel = getPanel(state.activePanel);
+    touchStartScrollTop = activePanel ? activePanel.scrollTop : 0;
+  };
+
+  /**
+   * @param {TouchEvent} e
+   */
+  const handleTouchEnd = (e) => {
+    if (!state.isOpen) return;
+
+    const touch = e.changedTouches[0];
+    const dx = touch.clientX - touchStartX;
+    const dy = touch.clientY - touchStartY;
+    const absDx = Math.abs(dx);
+    const absDy = Math.abs(dy);
+    const THRESHOLD = 60;
+    const RATIO = 2;
+
+    // Swipe down → close (root panel only, panel must be scrolled to top)
+    if (
+        state.activePanel === ROOT_PANEL &&
+        dy > THRESHOLD &&
+        absDy > absDx * RATIO &&
+        touchStartScrollTop === 0
+    ) {
+      close();
+      return;
+    }
+
+    // Swipe right → go back (L2 panels only)
+    if (
+        state.activePanel !== ROOT_PANEL &&
+        dx > THRESHOLD &&
+        absDx > absDy * RATIO
+    ) {
+      goBack();
+    }
+  };
+
   // Wire up
   toggle.addEventListener('click', handleToggleClick);
   menu.addEventListener('click', handleMenuClick);
   document.addEventListener('keydown', handleKeydown);
   window.addEventListener('resize', handleResize);
+  menu.addEventListener('touchstart', handleTouchStart, { passive: true });
+  menu.addEventListener('touchend', handleTouchEnd, { passive: true });
 
   // Initial render so aria-hidden values are correct on load.
   render();
@@ -265,6 +316,8 @@ export function initMobileMenu() {
     menu.removeEventListener('click', handleMenuClick);
     document.removeEventListener('keydown', handleKeydown);
     window.removeEventListener('resize', handleResize);
+    menu.removeEventListener('touchstart', handleTouchStart);
+    menu.removeEventListener('touchend', handleTouchEnd);
     clearTimeout(resizeTimeout);
     resetMenu();
   };
