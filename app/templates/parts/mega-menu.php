@@ -181,7 +181,7 @@ $nav = get_desktop_nav();
             <!-- Tab panels (profiles by category) -->
             <div class="mega-panel__content">
                 <?php foreach ($tabs as $i => $tab) :
-                    // CPT slug: profile, taxonomy: profile_category — verify in WP admin if profiles don't appear
+                    // ASSUMPTION: CPT slug is `profile`, taxonomy is `profile_category` — verify in WP admin if profiles don't appear
                     $profiles = new \WP_Query([
                         'post_type'      => 'profile',
                         'posts_per_page' => 8,
