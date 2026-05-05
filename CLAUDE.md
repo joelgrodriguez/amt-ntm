@@ -159,6 +159,8 @@ CSS architecture:
 - `app/resources/css/animations.css`: animation definitions
 - `app/safelist.txt`: WordPress block classes preserved in production builds
 
+**CSS authoring rule: Tailwind-first.** Use Tailwind utility classes directly in PHP/HTML templates. Only reach for custom CSS when Tailwind cannot express the style — complex selectors (`:nth-child` stagger delays, `.is-open .parent .child`), pseudo-element tricks (`::after` scrims), or JS-toggled state classes (`.is-closing`, `.is-open`). Never write a custom class just to wrap a single utility.
+
 ### PHP Structure
 
 All PHP uses `declare(strict_types=1)` and the `Standard` namespace.

@@ -189,91 +189,9 @@ body.overflow-hidden.menu-scrim-ready::after {
 
 /* ── L1: featured CTA card ────────────────────────────────────────────── */
 
-/* Edge-to-edge banner at the top of the L1 panel. Acts as the hero
- * affordance ("Find your machine") above the chevron rows. No outer
- * margin or border-radius — the card spans the full viewport width and
- * sits flush under the L2 sub-header / page header. */
-.mobile-menu__featured {
-    display: flex;
-    align-items: stretch;
-    gap: 0;
-    min-height: 10rem;
-    background: var(--color-white);
-    border-bottom: 1px solid var(--color-blue-200);
-    text-decoration: none;
-    color: inherit;
-    transition: background-color 150ms ease;
-}
-
-.mobile-menu__featured:hover,
-.mobile-menu__featured:focus-visible {
-    background: var(--color-blue-50);
-    outline: none;
-}
-
-.mobile-menu__featured-image {
-    flex: 0 0 50%;
-    background: var(--color-blue-50);
-}
-
-.mobile-menu__featured-image img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.mobile-menu__featured-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.375rem;
-    padding: 1rem 1.25rem;
-    min-width: 0;
-    flex: 1 1 auto;
-}
-
-.mobile-menu__featured-label {
-    font-size: 1.25rem;
-    font-weight: 600;
-    line-height: 1.2;
-    color: var(--color-blue-700);
-}
-
-.mobile-menu__featured-subtitle {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.375rem;
-    font-family: var(--font-mono);
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: var(--color-red);
-}
-
-/* ── L1: featured card — tablet scale-up ─────────────────────────────── */
-
-@media (min-width: 640px) {
-    .mobile-menu__featured {
-        min-height: 14rem;
-    }
-
-    .mobile-menu__featured-image {
-        flex: 0 0 45%;
-    }
-
-    .mobile-menu__featured-text {
-        gap: 0.625rem;
-        padding: 1.75rem 2rem;
-    }
-
-    .mobile-menu__featured-label {
-        font-size: 1.75rem;
-    }
-
-    .mobile-menu__featured-subtitle {
-        font-size: 0.9375rem;
-    }
-}
+/* Styled via Tailwind utilities in mobile-menu.php.
+ * .mobile-menu__featured is kept as a selector hook for the stagger
+ * animation rules above — the class must remain on the element. */
 
 .mobile-menu__list--bottom .mobile-menu__item + .mobile-menu__item {
     border-top: 1px solid var(--color-blue-200);
