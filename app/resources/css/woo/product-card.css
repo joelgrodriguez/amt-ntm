@@ -51,7 +51,7 @@
 
   .card-product__title {
     @apply font-mono font-medium text-blue-700 mb-1;
-    font-size: var(--text-heading-sm);
+    font-size: var(--text-body);
   }
 
   /* Title anchor is the card's primary link, with its hit area expanded to
@@ -121,7 +121,7 @@
     }
 
     .card-product__title {
-      font-size: var(--text-heading);
+      font-size: var(--text-heading-sm);
     }
   }
 }
