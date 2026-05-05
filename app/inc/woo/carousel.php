@@ -20,11 +20,14 @@ if (!defined('ABSPATH')) {
  * @return array<int, array{url: string, image_url: string, title: string, subtitle: string|null}>
  */
 function get_cards(array $args): array {
-    return match ($args['query_type'] ?? '') {
-        'product' => get_product_cards((string) ($args['product_tag'] ?? ''), (int) ($args['limit'] ?? 12)),
-        'post'    => get_post_cards($args),
-        default   => [],
-    };
+    $type = $args['query_type'] ?? '';
+    if ($type === 'product') {
+        return get_product_cards((string) ($args['product_tag'] ?? ''), (int) ($args['limit'] ?? 12));
+    }
+    if ($type === 'post') {
+        return get_post_cards($args);
+    }
+    return [];
 }
 
 /**

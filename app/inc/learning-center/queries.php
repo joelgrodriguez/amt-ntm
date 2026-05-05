@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
  */
 function get_latest_query(
     int $count = 4,
-    string|array $post_type = [],
+    $post_type = [],
     string $category_slug = '',
     string $machine_slug = ''
 ): \WP_Query {
@@ -95,9 +95,10 @@ function get_section_query(string $post_type, int $count = 4, array $filters = [
 }
 
 /**
+ * @param string|string[] $post_type
  * @return string|string[]
  */
-function normalize_post_type(string|array $post_type): string|array {
+function normalize_post_type($post_type) {
     if (is_string($post_type)) {
         return in_array($post_type, get_post_types(), true) ? $post_type : get_post_types();
     }
@@ -111,7 +112,7 @@ function normalize_post_type(string|array $post_type): string|array {
  * @param array{type?: string} $filters
  * @return string|string[]
  */
-function filtered_post_type(array $filters): string|array {
+function filtered_post_type(array $filters) {
     $type = (string) ($filters['type'] ?? '');
 
     return $type !== '' ? normalize_post_type($type) : get_post_types();

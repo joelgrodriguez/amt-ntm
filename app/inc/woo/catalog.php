@@ -155,12 +155,13 @@ function format_sample_machine_product(array $machine, string $category_slug): a
  * Match legacy fallback URLs used before machine data became canonical.
  */
 function get_public_machine_slug(string $slug): string {
-    return match ($slug) {
+    $map = [
         'mach-ii-5-gutter'     => 'mach-ii-5',
         'mach-ii-6-gutter'     => 'mach-ii-6',
         'mach-ii-combo-gutter' => 'mach-ii-combo',
-        default                => $slug,
-    };
+    ];
+
+    return $map[$slug] ?? $slug;
 }
 
 /**
@@ -176,11 +177,12 @@ function get_sample_machine_url(array $machine, string $category_slug, string $p
 }
 
 function get_sample_machine_badge(string $slug): string {
-    return match ($slug) {
+    $map = [
         'ssq3-multipro'    => 'Best Seller',
         'mach-ii-5-gutter' => 'Popular',
-        default            => '',
-    };
+    ];
+
+    return $map[$slug] ?? '';
 }
 
 /**
