@@ -33,11 +33,10 @@ export const initMegaMenu = () => {
         if (activePanel) {
             const panel = getPanel(activePanel);
             if (panel) {
+                panel.classList.add('is-closing');
                 panel.classList.remove('is-open');
                 panel.setAttribute('aria-hidden', 'true');
-                setTimeout(() => {
-                    if (!panel.classList.contains('is-open')) panel.hidden = true;
-                }, 320);
+                panel.inert = true;
             }
         }
 
@@ -61,13 +60,14 @@ export const initMegaMenu = () => {
         const panel = getPanel(id);
         if (!panel) return;
 
-        // Remove hidden, force a reflow so the browser registers the start state,
-        // then add is-open to trigger the CSS transition.
-        panel.hidden = false;
+        // Remove is-closing so stagger delays fire fresh, force reflow,
+        // then add is-open to trigger the CSS transition — same as mobile menu.
+        panel.classList.remove('is-closing');
         panel.setAttribute('aria-hidden', 'false');
-        // eslint-disable-next-line no-unused-expressions
-        panel.offsetHeight; // reflow
+        panel.inert = false;
+        void panel.offsetHeight; // reflow — commits start state before transition
         panel.classList.add('is-open');
+
         trigger.setAttribute('aria-expanded', 'true');
         overlay?.classList.remove('hidden');
         document.body.classList.add('overflow-hidden');
@@ -204,6 +204,5 @@ export const initMegaMenu = () => {
             btn.removeEventListener('click', handleTabClick);
             btn.removeEventListener('keydown', handleTabKeydown);
         });
-        cancelClose();
     };
 };
