@@ -74,7 +74,7 @@ function get_woocommerce_products(string $category_slug): array {
     foreach ($products as $product) {
         $formatted[] = [
             'id'             => $product->get_id(),
-            'title'          => $product->get_name(),
+            'title'          => get_short_title($product->get_name()),
             'category_label' => get_primary_category_label($product),
             'tagline'        => $product->get_short_description(),
             'descriptor'     => $is_accessory ? '' : \wp_strip_all_tags($product->get_short_description()),
@@ -88,6 +88,31 @@ function get_woocommerce_products(string $category_slug): array {
     }
 
     return $formatted;
+}
+
+/**
+ * Strip known category suffixes from a Woo product name for card display.
+ * Falls open: if no suffix matches, returns the original name unchanged.
+ *
+ * Example: "SSQ II™ MultiPro Roof and Wall Panel Machine" → "SSQ II™ MultiPro"
+ */
+function get_short_title(string $name): string {
+    $suffixes = [
+        ' Roof and Wall Panel Machine',
+        ' Roof Panel Machine',
+        ' Wall Panel Machine',
+        ' Seamless Gutter Machine',
+        ' Gutter Machine',
+    ];
+
+    foreach ($suffixes as $suffix) {
+        $len = \strlen($suffix);
+        if ($len > 0 && \substr($name, -$len) === $suffix) {
+            return \trim(\substr($name, 0, -$len));
+        }
+    }
+
+    return $name;
 }
 
 /**
