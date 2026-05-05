@@ -103,9 +103,15 @@ if (!defined('ABSPATH')) {
             </nav>
         </div>
 
-        <!-- Search flush right -->
-        <div class="flex items-center h-16 px-4">
-            <a href="<?php echo esc_url(\Standard\Url\with_query('/', ['s' => ''])); ?>" class="flex items-center justify-center w-12 h-16 text-blue-600 hover:bg-blue-100 transition-colors" aria-label="<?php esc_attr_e('Search', 'standard'); ?>">
+        <!-- Contact + search flush right -->
+        <div class="flex items-center h-16 gap-3 px-6">
+            <?php $contact = array_values(array_filter($desktop_nav['utility'], fn($i) => !empty($i['highlight'])))[0] ?? null; ?>
+            <?php if ($contact) : ?>
+                <a href="<?php echo esc_url($contact['url']); ?>" class="inline-flex items-center px-3 py-1 font-sans text-sm font-medium text-blue-700 border border-blue-300 hover:bg-blue-50 transition-colors no-underline">
+                    <?php echo esc_html($contact['label']); ?>
+                </a>
+            <?php endif; ?>
+            <a href="<?php echo esc_url(\Standard\Url\with_query('/', ['s' => ''])); ?>" class="flex items-center justify-center w-8 h-16 text-blue-600 hover:text-blue-800 transition-colors" aria-label="<?php esc_attr_e('Search', 'standard'); ?>">
                 <?php icon('search', ['class' => 'w-5 h-5']); ?>
             </a>
         </div>
