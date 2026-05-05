@@ -53,14 +53,19 @@ function get_desktop_nav(): array {
                 'type'           => 'tabbed-profiles',
                 'tabs'           => [
                     [
-                        'id'       => 'engineered',
-                        'label'    => __('Engineered', 'standard'),
-                        'category' => 'engineered',
+                        'id'       => 'roof-wall-panel',
+                        'label'    => __('Roof & Wall Panel', 'standard'),
+                        'category' => 'profiles-metal-roof-wall-panel',
                     ],
                     [
-                        'id'       => 'non-engineered',
-                        'label'    => __('Non-Engineered', 'standard'),
-                        'category' => 'non-engineered',
+                        'id'       => 'gutter',
+                        'label'    => __('Gutter', 'standard'),
+                        'category' => 'profiles-gutter',
+                    ],
+                    [
+                        'id'       => 'clip-relief-rib-rollers',
+                        'label'    => __('Clip Relief / Rib Rollers', 'standard'),
+                        'category' => 'clip-relief-rib-rollers',
                     ],
                 ],
                 'view_all_url'   => \Standard\Url\internal('/profiles/'),

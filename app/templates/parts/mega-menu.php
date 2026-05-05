@@ -220,15 +220,14 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
             <!-- Tab panels (profiles by category) -->
             <div class="mega-panel__content">
                 <?php foreach ($tabs as $i => $tab) :
-                    // ASSUMPTION: CPT slug is `profile`, taxonomy is `profile_category` — verify in WP admin if profiles don't appear
                     $profiles = new \WP_Query([
                         'post_type'      => 'profile',
-                        'posts_per_page' => 8,
+                        'posts_per_page' => -1,
                         'post_status'    => 'publish',
-                        'orderby'        => 'menu_order',
+                        'orderby'        => 'title',
                         'order'          => 'ASC',
                         'tax_query'      => [[
-                            'taxonomy' => 'profile_category',
+                            'taxonomy' => 'category',
                             'field'    => 'slug',
                             'terms'    => $tab['category'],
                         ]],
@@ -243,11 +242,17 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
                         <?php echo $i !== 0 ? 'hidden' : ''; ?>
                     >
                         <?php if ($profiles->have_posts()) : ?>
-                            <div class="mega-profile-grid">
+                            <ul class="mega-content-list">
                                 <?php while ($profiles->have_posts()) : $profiles->the_post(); ?>
-                                    <?php get_template_part('templates/parts/mega-menu-card-profile', null, ['profile' => get_post()]); ?>
+                                    <li>
+                                        <a href="<?php echo esc_url(get_permalink()); ?>" class="mega-content-list__link">
+                                            <?php echo esc_html(get_the_title()); ?>
+                                        </a>
+                                    </li>
                                 <?php endwhile; wp_reset_postdata(); ?>
-                            </div>
+                            </ul>
+                        <?php else : ?>
+                            <p class="text-sm text-blue-400"><?php esc_html_e('No profiles found.', 'standard'); ?></p>
                         <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
