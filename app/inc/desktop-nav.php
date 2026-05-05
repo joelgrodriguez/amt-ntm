@@ -79,7 +79,7 @@ function get_desktop_nav(): array {
             ],
             [
                 'kind'  => 'link',
-                'label' => __('Support', 'standard'),
+                'label' => __('Service & Support', 'standard'),
                 'url'   => \Standard\Url\internal('/support/'),
             ],
         ],
