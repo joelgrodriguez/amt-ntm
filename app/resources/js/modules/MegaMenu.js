@@ -32,7 +32,10 @@ export const initMegaMenu = () => {
     const close = () => {
         if (activePanel) {
             const panel = getPanel(activePanel);
-            if (panel) panel.hidden = true;
+            if (panel) {
+            panel.classList.remove('is-open');
+            panel.setAttribute('aria-hidden', 'true');
+        }
         }
 
         triggers.forEach((t) => t.setAttribute('aria-expanded', 'false'));
@@ -55,7 +58,8 @@ export const initMegaMenu = () => {
         const panel = getPanel(id);
         if (!panel) return;
 
-        panel.hidden = false;
+        panel.classList.add('is-open');
+        panel.setAttribute('aria-hidden', 'false');
         trigger.setAttribute('aria-expanded', 'true');
         overlay?.classList.remove('hidden');
         document.body.classList.add('overflow-hidden');
