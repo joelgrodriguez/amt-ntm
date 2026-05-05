@@ -37,12 +37,7 @@ body.header-is-sticky {
   @apply h-full;
 }
 
-/* Thick bottom indicator on hover/active — sits flush at bottom of header */
-.mega-trigger,
-#primary-menu > li > a {
-  position: relative;
-}
-
+/* Thick bottom indicator — flush at bottom of full-height nav item */
 .mega-trigger::after,
 #primary-menu > li > a::after {
   content: '';

@@ -89,7 +89,7 @@ if (!defined('ABSPATH')) {
                             <?php if (($item['kind'] ?? '') === 'mega') : ?>
                                 <button
                                     type="button"
-                                    class="mega-trigger flex items-center h-full px-5 font-sans font-medium text-body text-blue-700 bg-transparent border-0 cursor-pointer overflow-visible"
+                                    class="mega-trigger relative flex items-center w-full h-full px-5 font-sans font-medium text-body text-blue-700 bg-transparent border-0 cursor-pointer"
                                     style="letter-spacing: 0.01em;"
                                     data-mega-panel="<?php echo esc_attr($item['id']); ?>"
                                     aria-expanded="false"
@@ -100,7 +100,7 @@ if (!defined('ABSPATH')) {
                             <?php else : ?>
                                 <a
                                     href="<?php echo esc_url($item['url']); ?>"
-                                    class="flex items-center h-full px-5 font-sans font-medium text-body text-blue-700 no-underline overflow-visible"
+                                    class="relative flex items-center w-full h-full px-5 font-sans font-medium text-body text-blue-700 no-underline"
                                     style="letter-spacing: 0.01em;"
                                 >
                                     <?php echo esc_html($item['label']); ?>
