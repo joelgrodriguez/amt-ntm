@@ -81,7 +81,7 @@ function get_woocommerce_products(string $category_slug): array {
             'price'       => $is_accessory ? '' : FALLBACK_MACHINE_PRICE,
             'price_label' => \__('Starting at', 'standard'),
             'explore_url' => $product->get_permalink(),
-            'build_url'   => $is_accessory ? '' : \Standard\Url\internal('/configurator/' . $product->get_slug() . '/'),
+            'build_url'   => $is_accessory ? '' : get_configurator_url($product->get_slug()),
             'badge'       => '',
         ];
     }
@@ -150,6 +150,28 @@ function format_sample_machine_product(array $machine, string $category_slug): a
         'build_url'   => $configurator_slug !== '' ? \Standard\Url\internal('/configurator/' . $configurator_slug . '/') : '',
         'badge'       => get_sample_machine_badge($slug),
     ];
+}
+
+/**
+ * Map a WooCommerce product slug to its /configurator/<slug>/ page URL.
+ * Returns '' if the product has no configurator page.
+ */
+function get_configurator_url(string $woo_slug): string {
+    $map = [
+        '5vc-5v-crimp-roof-panel-machine'  => '5vc',
+        'wav-wall-panel-machine'           => 'wav',
+        'ssh-roof-panel-machine'           => 'ssh',
+        'ssr-multipro-jr-roof-panel-machine' => 'ssr',
+        'ssq-roof-panel-machine'           => 'ssqii',
+        'mach-ii-5-gutter-machine'         => 'machii',
+        'mach-ii-6-gutter-machine'         => 'machii',
+        'mach-ii-6-gutter-machine-copy'    => 'machii',
+        'mach-ii-5-6-combo-gutter-machine' => 'machii',
+    ];
+
+    $configurator_slug = $map[$woo_slug] ?? '';
+
+    return $configurator_slug !== '' ? \Standard\Url\internal('/configurator/' . $configurator_slug . '/') : '';
 }
 
 /**
