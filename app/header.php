@@ -67,7 +67,7 @@ if (!defined('ABSPATH')) {
     <div class="hidden lg:grid h-16" style="grid-template-columns: auto 1fr auto;">
 
         <!-- Logo flush left -->
-        <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="flex items-center h-16 px-10 border-r border-blue-200 no-underline">
+        <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="flex items-center h-16 px-10 no-underline">
             <?php if (has_custom_logo()) : ?>
                 <?php echo wp_get_attachment_image((int) get_theme_mod('custom_logo'), 'full', false, [
                     'class'    => 'w-14 object-contain',
@@ -97,7 +97,7 @@ if (!defined('ABSPATH')) {
         </div>
 
         <!-- Actions flush right -->
-        <div id="header-actions" class="flex items-center h-16 border-l border-blue-200 transition-opacity duration-200">
+        <div id="header-actions" class="flex items-center h-16 transition-opacity duration-200">
             <a href="<?php echo esc_url(\Standard\Url\with_query('/', ['s' => ''])); ?>" class="flex items-center justify-center w-20 h-16 text-blue-600 hover:bg-blue-100 transition-colors" aria-label="Search">
                 <?php icon('search', ['class' => 'w-5 h-5']); ?>
             </a>
