@@ -39,6 +39,7 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
         role="region"
         aria-label="<?php echo esc_attr($panel['label']); ?>"
         aria-hidden="true"
+        hidden
     >
         <div class="mega-panel__inner">
 
