@@ -20,14 +20,14 @@
     pointer-events: none;
     opacity: 0;
     transform: translateY(-100%);
-    transition: opacity 0ms 300ms, transform 300ms var(--ease-spring);
+    transition: opacity 0ms 480ms, transform 480ms var(--ease-spring);
 }
 
 .mobile-menu.is-open {
     pointer-events: auto;
     opacity: 1;
     transform: translateY(0);
-    transition: opacity 0ms, transform 300ms var(--ease-spring);
+    transition: opacity 0ms, transform 480ms var(--ease-spring);
 }
 
 /* ── Page scrim (dims content behind the open menu) ──────────────────── */
