@@ -19,7 +19,8 @@ use function Standard\Woo\Catalog\get_products_by_category;
 use function Standard\LearningCenter\get_latest_query;
 use function Standard\LearningCenter\get_content_sections;
 
-$nav = get_desktop_nav();
+$nav    = get_desktop_nav();
+$panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') === 'mega'));
 ?>
 
 <!-- Mega menu overlay -->
@@ -27,7 +28,7 @@ $nav = get_desktop_nav();
 
 <!-- Mega menu panels -->
 <div id="mega-menu-container" class="hidden lg:block">
-<?php foreach ($nav['panels'] as $panel) :
+<?php foreach ($panels as $panel) :
     $panel_id   = $panel['id'];
     $panel_type = $panel['type'];
 ?>

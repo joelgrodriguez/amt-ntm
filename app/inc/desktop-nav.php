@@ -24,8 +24,10 @@ if (!defined('ABSPATH')) {
  */
 function get_desktop_nav(): array {
     return [
-        'panels' => [
+        // Ordered list of nav items — 'mega' items open a panel, 'link' items navigate directly.
+        'items' => [
             [
+                'kind'           => 'mega',
                 'id'             => 'machines',
                 'label'          => __('Machines', 'standard'),
                 'type'           => 'tabbed-products',
@@ -45,10 +47,11 @@ function get_desktop_nav(): array {
                 'view_all_label' => __('See the full lineup', 'standard'),
             ],
             [
-                'id'    => 'profiles',
-                'label' => __('Profiles', 'standard'),
-                'type'  => 'tabbed-profiles',
-                'tabs'  => [
+                'kind'           => 'mega',
+                'id'             => 'profiles',
+                'label'          => __('Profiles', 'standard'),
+                'type'           => 'tabbed-profiles',
+                'tabs'           => [
                     [
                         'id'       => 'engineered',
                         'label'    => __('Engineered', 'standard'),
@@ -64,14 +67,20 @@ function get_desktop_nav(): array {
                 'view_all_label' => __('View all profiles', 'standard'),
             ],
             [
+                'kind'  => 'link',
+                'label' => __('Resources', 'standard'),
+                'url'   => \Standard\Url\internal('/resources/'),
+            ],
+            [
+                'kind'  => 'mega',
                 'id'    => 'learning-center',
                 'label' => __('Learning Center', 'standard'),
                 'type'  => 'learning-center',
             ],
             [
-                'id'    => 'support',
+                'kind'  => 'link',
                 'label' => __('Support', 'standard'),
-                'type'  => 'learning-center',
+                'url'   => \Standard\Url\internal('/support/'),
             ],
         ],
         'utility' => [
