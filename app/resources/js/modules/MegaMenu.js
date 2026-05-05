@@ -35,12 +35,9 @@ export const initMegaMenu = () => {
             if (panel) {
                 panel.classList.remove('is-open');
                 panel.setAttribute('aria-hidden', 'true');
-                // Re-hide after transition completes so it leaves the stacking context
-                const onEnd = () => {
+                setTimeout(() => {
                     if (!panel.classList.contains('is-open')) panel.hidden = true;
-                    panel.removeEventListener('transitionend', onEnd);
-                };
-                panel.addEventListener('transitionend', onEnd);
+                }, 320);
             }
         }
 
@@ -64,12 +61,13 @@ export const initMegaMenu = () => {
         const panel = getPanel(id);
         if (!panel) return;
 
-        // Remove hidden so it's in the render tree, then trigger transition next frame
+        // Remove hidden, force a reflow so the browser registers the start state,
+        // then add is-open to trigger the CSS transition.
         panel.hidden = false;
         panel.setAttribute('aria-hidden', 'false');
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => panel.classList.add('is-open'));
-        });
+        // eslint-disable-next-line no-unused-expressions
+        panel.offsetHeight; // reflow
+        panel.classList.add('is-open');
         trigger.setAttribute('aria-expanded', 'true');
         overlay?.classList.remove('hidden');
         document.body.classList.add('overflow-hidden');
