@@ -115,39 +115,73 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
                 <?php endif; ?>
             </div>
 
-        <?php elseif ($panel_type === 'learning-center') :
-            $sections = get_content_sections();
-            $recent   = get_latest_query(3);
+        <?php elseif ($panel_type === 'tabbed-content') :
+            $tabs = $panel['tabs'];
         ?>
 
-            <!-- Left rail: content type links -->
+            <!-- Tab rail -->
             <div class="mega-panel__sidebar">
-                <p class="mega-sidebar__label"><?php esc_html_e('Learning Center', 'standard'); ?></p>
-                <ul class="mega-lc__type-list">
-                    <?php foreach ($sections as $section) : ?>
-                        <li>
-                            <a href="<?php echo esc_url($section['link'] ?: \Standard\Url\internal('/learning-center/')); ?>" class="mega-lc__type-link">
-                                <?php icon($section['icon'], ['class' => 'w-4 h-4 flex-shrink-0 text-blue-400']); ?>
-                                <span><?php echo esc_html($section['title']); ?></span>
-                            </a>
+                <p class="mega-sidebar__label"><?php echo esc_html($panel['label']); ?></p>
+                <ul class="mega-tab-list" role="tablist" aria-label="<?php echo esc_attr($panel['label']); ?>">
+                    <?php foreach ($tabs as $i => $tab) : ?>
+                        <li role="none">
+                            <button
+                                type="button"
+                                role="tab"
+                                class="mega-tab"
+                                data-tab="<?php echo esc_attr($tab['id']); ?>"
+                                aria-selected="<?php echo $i === 0 ? 'true' : 'false'; ?>"
+                                aria-controls="mega-tabpanel-<?php echo esc_attr($panel_id); ?>-<?php echo esc_attr($tab['id']); ?>"
+                                id="mega-tab-<?php echo esc_attr($panel_id); ?>-<?php echo esc_attr($tab['id']); ?>"
+                            >
+                                <?php echo esc_html($tab['label']); ?>
+                            </button>
                         </li>
                     <?php endforeach; ?>
                 </ul>
-                <a href="<?php echo esc_url(\Standard\Url\internal('/learning-center/')); ?>" class="mega-panel__view-all mt-auto px-5">
-                    <?php esc_html_e('Visit Learning Center', 'standard'); ?>
-                    <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
-                </a>
+
+                <?php if (!empty($panel['view_all_url'])) : ?>
+                    <a href="<?php echo esc_url($panel['view_all_url']); ?>" class="mega-panel__view-all mt-auto px-5">
+                        <?php echo esc_html($panel['view_all_label'] ?? __('View all', 'standard')); ?>
+                        <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                    </a>
+                <?php endif; ?>
             </div>
 
-            <!-- Right: 3 recent posts -->
+            <!-- Tab panels -->
             <div class="mega-panel__content">
-                <?php if ($recent->have_posts()) : ?>
-                    <div class="mega-lc__posts">
-                        <?php while ($recent->have_posts()) : $recent->the_post(); ?>
-                            <?php get_template_part('templates/parts/mega-menu-card-post', null, ['post' => get_post()]); ?>
-                        <?php endwhile; wp_reset_postdata(); ?>
+                <?php foreach ($tabs as $i => $tab) :
+                    $posts = new \WP_Query([
+                        'post_type'      => $tab['post_type'],
+                        'posts_per_page' => 10,
+                        'post_status'    => 'publish',
+                        'orderby'        => 'date',
+                        'order'          => 'DESC',
+                        'no_found_rows'  => true,
+                    ]);
+                ?>
+                    <div
+                        id="mega-tabpanel-<?php echo esc_attr($panel_id); ?>-<?php echo esc_attr($tab['id']); ?>"
+                        role="tabpanel"
+                        aria-labelledby="mega-tab-<?php echo esc_attr($panel_id); ?>-<?php echo esc_attr($tab['id']); ?>"
+                        class="mega-tab-panel"
+                        <?php echo $i !== 0 ? 'hidden' : ''; ?>
+                    >
+                        <?php if ($posts->have_posts()) : ?>
+                            <ul class="mega-content-list">
+                                <?php while ($posts->have_posts()) : $posts->the_post(); ?>
+                                    <li>
+                                        <a href="<?php echo esc_url(get_permalink()); ?>" class="mega-content-list__link">
+                                            <?php echo esc_html(get_the_title()); ?>
+                                        </a>
+                                    </li>
+                                <?php endwhile; wp_reset_postdata(); ?>
+                            </ul>
+                        <?php else : ?>
+                            <p class="text-sm text-blue-400"><?php esc_html_e('No posts found.', 'standard'); ?></p>
+                        <?php endif; ?>
                     </div>
-                <?php endif; ?>
+                <?php endforeach; ?>
             </div>
 
         <?php elseif ($panel_type === 'tabbed-profiles') :

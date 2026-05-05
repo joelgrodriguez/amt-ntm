@@ -72,10 +72,29 @@ function get_desktop_nav(): array {
                 'url'   => \Standard\Url\internal('/resources/'),
             ],
             [
-                'kind'  => 'mega',
-                'id'    => 'learning-center',
-                'label' => __('Learning Center', 'standard'),
-                'type'  => 'learning-center',
+                'kind'           => 'mega',
+                'id'             => 'learning-center',
+                'label'          => __('Learning Center', 'standard'),
+                'type'           => 'tabbed-content',
+                'tabs'           => [
+                    [
+                        'id'        => 'articles',
+                        'label'     => __('Articles', 'standard'),
+                        'post_type' => 'post',
+                    ],
+                    [
+                        'id'        => 'videos',
+                        'label'     => __('Videos', 'standard'),
+                        'post_type' => 'video',
+                    ],
+                    [
+                        'id'        => 'downloads',
+                        'label'     => __('Downloads', 'standard'),
+                        'post_type' => 'download',
+                    ],
+                ],
+                'view_all_url'   => \Standard\Url\internal('/learning-center/'),
+                'view_all_label' => __('Visit Learning Center', 'standard'),
             ],
             [
                 'kind'  => 'link',

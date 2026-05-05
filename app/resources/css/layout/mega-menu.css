@@ -29,7 +29,6 @@
 /* Start: items invisible and slightly raised */
 .mega-panel .mega-panel__sidebar,
 .mega-panel .mega-tab,
-.mega-panel .mega-lc__type-link,
 .mega-panel .mega-post-card,
 .mega-panel .mega-product-grid .card-product,
 .mega-panel .mega-profile-grid .mega-profile-card {
@@ -43,7 +42,6 @@
 /* Open: items animate into place */
 .mega-panel.is-open .mega-panel__sidebar,
 .mega-panel.is-open .mega-tab,
-.mega-panel.is-open .mega-lc__type-link,
 .mega-panel.is-open .mega-post-card,
 .mega-panel.is-open .mega-product-grid .card-product,
 .mega-panel.is-open .mega-profile-grid .mega-profile-card {
@@ -60,13 +58,6 @@
 .mega-panel.is-open .mega-tab:nth-child(3) { transition-delay: 240ms; }
 .mega-panel.is-open .mega-tab:nth-child(4) { transition-delay: 300ms; }
 .mega-panel.is-open .mega-tab:nth-child(5) { transition-delay: 360ms; }
-
-/* Learning Center sidebar links */
-.mega-panel.is-open .mega-lc__type-link:nth-child(1) { transition-delay: 120ms; }
-.mega-panel.is-open .mega-lc__type-link:nth-child(2) { transition-delay: 200ms; }
-.mega-panel.is-open .mega-lc__type-link:nth-child(3) { transition-delay: 240ms; }
-.mega-panel.is-open .mega-lc__type-link:nth-child(4) { transition-delay: 280ms; }
-.mega-panel.is-open .mega-lc__type-link:nth-child(5) { transition-delay: 320ms; }
 
 /* Posts in content area */
 .mega-panel.is-open .mega-post-card:nth-child(1) { transition-delay: 160ms; }
@@ -90,7 +81,6 @@
 /* Closing: snap all children to invisible instantly so stagger fires fresh on next open */
 .mega-panel.is-closing .mega-panel__sidebar,
 .mega-panel.is-closing .mega-tab,
-.mega-panel.is-closing .mega-lc__type-link,
 .mega-panel.is-closing .mega-post-card,
 .mega-panel.is-closing .mega-product-grid .card-product,
 .mega-panel.is-closing .mega-profile-grid .mega-profile-card {
@@ -235,41 +225,7 @@
     color: var(--color-blue-700);
 }
 
-/* ── Learning Center sidebar ──────────────────────────────────────────── */
-
-.mega-lc__type-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-.mega-lc__type-link {
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-    padding: 0.625rem 1.25rem;
-    font-family: var(--font-sans);
-    font-size: var(--text-body);
-    font-weight: 400;
-    color: var(--color-blue-700);
-    text-decoration: none;
-    border-left: 4px solid transparent;
-    transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease;
-}
-
-.mega-lc__type-link:hover {
-    color: var(--color-blue-500);
-}
-
 /* ── Learning Center posts ────────────────────────────────────────────── */
-
-.mega-lc__posts {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-}
 
 .mega-post-card {
     padding-bottom: 1.25rem;
@@ -279,6 +235,36 @@
 .mega-post-card:last-child {
     border-bottom: 0;
     padding-bottom: 0;
+}
+
+/* ── Tabbed content list (Learning Center) ────────────────────────────── */
+
+.mega-content-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    columns: 2;
+    gap: 0;
+}
+
+.mega-content-list__link {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    font-weight: 400;
+    color: var(--color-blue-700);
+    text-decoration: none;
+    border-left: 4px solid transparent;
+    transition: color 150ms ease, border-color 150ms ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mega-content-list__link:hover {
+    color: var(--color-blue-500);
+    border-left-color: var(--color-blue-300);
 }
 
 /* ── Mega trigger caret ───────────────────────────────────────────────── */
@@ -299,7 +285,6 @@
 
     .mega-panel .mega-panel__sidebar,
     .mega-panel .mega-tab,
-    .mega-panel .mega-lc__type-link,
     .mega-panel .mega-post-card,
     .mega-panel .mega-product-grid .card-product,
     .mega-panel .mega-profile-grid .mega-profile-card {
