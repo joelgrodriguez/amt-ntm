@@ -38,7 +38,8 @@ body.header-is-sticky {
 }
 
 #primary-menu > li > a {
-  @apply flex items-center h-full font-mono text-body px-4 text-blue-700 no-underline hover:bg-blue-100 transition-colors;
+  @apply flex items-center h-full font-sans font-medium text-body px-5 text-blue-700 no-underline hover:bg-blue-100 transition-colors;
+  letter-spacing: 0.01em;
 }
 
 #primary-menu > li.current-menu-item > a,
