@@ -177,7 +177,6 @@
 
 .mega-tab:hover {
     color: var(--color-blue-900);
-    background: var(--color-blue-50);
 }
 
 .mega-tab[aria-selected="true"] {
@@ -260,7 +259,6 @@
 }
 
 .mega-lc__type-link:hover {
-    background: var(--color-blue-50);
     color: var(--color-blue-900);
     border-left-color: var(--color-blue-200);
 }
