@@ -110,6 +110,16 @@ body.overflow-hidden.menu-scrim-ready::after {
     transition-delay: 400ms;
 }
 
+/* When closing, snap items to invisible instantly so the stagger always
+ * fires fresh on the next open. No cascading fade-out visible anyway since
+ * the container slides away in 320ms. */
+.mobile-menu.is-closing .mobile-menu__panel[data-panel="root"] .mobile-menu__featured,
+.mobile-menu.is-closing .mobile-menu__panel[data-panel="root"] .mobile-menu__list--top .mobile-menu__item,
+.mobile-menu.is-closing .mobile-menu__panel[data-panel="root"] .mobile-menu__contact,
+.mobile-menu.is-closing .mobile-menu__panel[data-panel="root"] .mobile-menu__list--bottom .mobile-menu__item {
+    transition: none;
+}
+
 /* ── Viewport + track ─────────────────────────────────────────────────── */
 
 /* The viewport is the slide window: full menu width, clips overflow. JS

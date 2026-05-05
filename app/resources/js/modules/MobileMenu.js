@@ -144,6 +144,7 @@ export function initMobileMenu() {
   };
 
   const open = () => {
+    menu.classList.remove('is-closing');
     syncMenuTop();
     state.activePanel = ROOT_PANEL;
     state.lastTrigger = null;
@@ -157,6 +158,7 @@ export function initMobileMenu() {
   };
 
   const close = () => {
+    menu.classList.add('is-closing');
     resetMenu();
   };
 
