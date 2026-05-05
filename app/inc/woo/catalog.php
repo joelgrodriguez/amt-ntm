@@ -79,7 +79,7 @@ function get_woocommerce_products(string $category_slug): array {
             'tagline'        => $product->get_short_description(),
             'descriptor'     => $is_accessory ? '' : \wp_strip_all_tags($product->get_short_description()),
             'image'          => \wp_get_attachment_url($product->get_image_id()),
-            'price'          => $is_accessory ? '' : FALLBACK_MACHINE_PRICE,
+            'price'          => $is_accessory ? '' : get_display_price($product),
             'price_label'    => \__('Starting at', 'standard'),
             'explore_url'    => $product->get_permalink(),
             'build_url'      => $is_accessory ? '' : get_configurator_url($product->get_slug()),
@@ -88,6 +88,18 @@ function get_woocommerce_products(string $category_slug): array {
     }
 
     return $formatted;
+}
+
+/**
+ * Return the Woo product price formatted for display, or the fallback if unset.
+ */
+function get_display_price(\WC_Product $product): string {
+    $price = $product->get_price();
+    if ($price === '' || $price === null) {
+        return FALLBACK_MACHINE_PRICE;
+    }
+
+    return '$' . \number_format((float) $price);
 }
 
 /**
