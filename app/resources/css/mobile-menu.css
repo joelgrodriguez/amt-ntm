@@ -76,39 +76,41 @@ body.overflow-hidden.menu-scrim-ready::after {
 }
 
 /* Stagger delays — featured first, then top items, contact, then bottom.
- * 80ms gap between items so each is well underway before the next starts. */
+ * Primary group: 100ms gaps so each step reads as distinct.
+ * Contact + bottom: tighter 60ms gaps — these are secondary items, they
+ * should follow quickly rather than demand the same stage time. */
 .mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__featured {
     transition-delay: 80ms;
 }
 
 .mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__list--top .mobile-menu__item:nth-child(1) {
-    transition-delay: 160ms;
+    transition-delay: 180ms;
 }
 .mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__list--top .mobile-menu__item:nth-child(2) {
-    transition-delay: 240ms;
+    transition-delay: 280ms;
 }
 .mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__list--top .mobile-menu__item:nth-child(3) {
-    transition-delay: 320ms;
+    transition-delay: 380ms;
 }
 .mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__list--top .mobile-menu__item:nth-child(4) {
-    transition-delay: 400ms;
+    transition-delay: 480ms;
 }
 .mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__list--top .mobile-menu__item:nth-child(5) {
-    transition-delay: 480ms;
+    transition-delay: 580ms;
 }
 
 .mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__contact {
-    transition-delay: 560ms;
+    transition-delay: 640ms;
 }
 
 .mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__list--bottom .mobile-menu__item:nth-child(1) {
-    transition-delay: 640ms;
+    transition-delay: 700ms;
 }
 .mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__list--bottom .mobile-menu__item:nth-child(2) {
-    transition-delay: 720ms;
+    transition-delay: 760ms;
 }
 .mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__list--bottom .mobile-menu__item:nth-child(3) {
-    transition-delay: 800ms;
+    transition-delay: 820ms;
 }
 
 /* When closing, snap items to invisible instantly so the stagger always
