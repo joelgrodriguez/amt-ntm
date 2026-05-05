@@ -151,7 +151,7 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
             <!-- Tab panels -->
             <div class="mega-panel__content">
                 <?php foreach ($tabs as $i => $tab) :
-                    $posts = new \WP_Query([
+                    $content_query = new \WP_Query([
                         'post_type'      => $tab['post_type'],
                         'posts_per_page' => 10,
                         'post_status'    => 'publish',
@@ -167,9 +167,9 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
                         class="mega-tab-panel"
                         <?php echo $i !== 0 ? 'hidden' : ''; ?>
                     >
-                        <?php if ($posts->have_posts()) : ?>
+                        <?php if ($content_query->have_posts()) : ?>
                             <ul class="mega-content-list">
-                                <?php while ($posts->have_posts()) : $posts->the_post(); ?>
+                                <?php while ($content_query->have_posts()) : $content_query->the_post(); ?>
                                     <li>
                                         <a href="<?php echo esc_url(get_permalink()); ?>" class="mega-content-list__link">
                                             <?php echo esc_html(get_the_title()); ?>
