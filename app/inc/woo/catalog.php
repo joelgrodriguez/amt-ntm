@@ -81,7 +81,7 @@ function get_woocommerce_products(string $category_slug): array {
             'price'       => $is_accessory ? '' : FALLBACK_MACHINE_PRICE,
             'price_label' => \__('Starting at', 'standard'),
             'explore_url' => $product->get_permalink(),
-            'build_url'   => \Standard\Url\with_query('/build-finance/', ['machine' => $product->get_slug()]),
+            'build_url'   => $is_accessory ? '' : \Standard\Url\internal('/configurator/' . $product->get_slug() . '/'),
             'badge'       => '',
         ];
     }
@@ -133,9 +133,10 @@ function get_sample_machine_products(string $category_slug): array {
  * @return array<string, mixed>
  */
 function format_sample_machine_product(array $machine, string $category_slug): array {
-    $slug       = (string) ($machine['slug'] ?? '');
-    $public_slug = get_public_machine_slug($slug);
-    $is_gutter  = $category_slug === 'gutter-machines';
+    $slug              = (string) ($machine['slug'] ?? '');
+    $public_slug       = get_public_machine_slug($slug);
+    $configurator_slug = (string) ($machine['configurator_slug'] ?? '');
+    $is_gutter         = $category_slug === 'gutter-machines';
 
     return [
         'id'          => $public_slug,
@@ -146,7 +147,7 @@ function format_sample_machine_product(array $machine, string $category_slug): a
         'price'       => !empty($machine['price']) ? $machine['price'] : FALLBACK_MACHINE_PRICE,
         'price_label' => !empty($machine['price_label']) ? $machine['price_label'] : \__('Starting at', 'standard'),
         'explore_url' => get_sample_machine_url($machine, $category_slug, $public_slug),
-        'build_url'   => \Standard\Url\with_query('/build-finance/', ['machine' => $public_slug]),
+        'build_url'   => $configurator_slug !== '' ? \Standard\Url\internal('/configurator/' . $configurator_slug . '/') : '',
         'badge'       => get_sample_machine_badge($slug),
     ];
 }
@@ -201,7 +202,7 @@ function get_sample_accessory_products(): array {
             'price'       => '',
             'price_label' => '',
             'explore_url' => \Standard\Url\internal('/accessories/coil-reel/'),
-            'build_url'   => \Standard\Url\with_query('/build-finance/', ['accessory' => 'coil-reel']),
+            'build_url'   => '',
             'badge'       => '',
         ],
         [
@@ -213,7 +214,7 @@ function get_sample_accessory_products(): array {
             'price'       => '',
             'price_label' => '',
             'explore_url' => \Standard\Url\internal('/accessories/run-out-stand/'),
-            'build_url'   => \Standard\Url\with_query('/build-finance/', ['accessory' => 'run-out-stand']),
+            'build_url'   => '',
             'badge'       => '',
         ],
         [
@@ -225,7 +226,7 @@ function get_sample_accessory_products(): array {
             'price'       => '',
             'price_label' => '',
             'explore_url' => \Standard\Url\internal('/accessories/slitter/'),
-            'build_url'   => \Standard\Url\with_query('/build-finance/', ['accessory' => 'slitter']),
+            'build_url'   => '',
             'badge'       => 'New',
         ],
         [
@@ -237,7 +238,7 @@ function get_sample_accessory_products(): array {
             'price'       => '',
             'price_label' => '',
             'explore_url' => \Standard\Url\internal('/accessories/notcher/'),
-            'build_url'   => \Standard\Url\with_query('/build-finance/', ['accessory' => 'notcher']),
+            'build_url'   => '',
             'badge'       => '',
         ],
         [
@@ -249,7 +250,7 @@ function get_sample_accessory_products(): array {
             'price'       => '',
             'price_label' => '',
             'explore_url' => \Standard\Url\internal('/accessories/hemmer/'),
-            'build_url'   => \Standard\Url\with_query('/build-finance/', ['accessory' => 'hemmer']),
+            'build_url'   => '',
             'badge'       => '',
         ],
     ];

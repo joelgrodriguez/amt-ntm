@@ -60,8 +60,9 @@ function get_machine_categories(): array {
             'url'   => '/roof-wall-panel-machines/',
             'machines' => [
                 [
-                    'slug'       => 'ssq3-multipro',
-                    'name'       => 'SSQ3™ MultiPro',
+                    'slug'              => 'ssq3-multipro',
+                    'configurator_slug' => 'ssq3-multi-pro',
+                    'name'              => 'SSQ3™ MultiPro',
                     'short_name' => 'SSQ3™',
                     'descriptor' => 'The most advanced portable roll former ever built',
                     'image'      => $base . '2025/10/SSQ3_For-Render_Trailer_Flattened-SQUARE.png',
@@ -81,8 +82,9 @@ function get_machine_categories(): array {
                     ],
                 ],
                 [
-                    'slug'       => 'ssq-ii-multipro',
-                    'name'       => 'SSQ II™ MultiPro',
+                    'slug'              => 'ssq-ii-multipro',
+                    'configurator_slug' => 'ssqii',
+                    'name'              => 'SSQ II™ MultiPro',
                     'short_name' => 'SSQ II™',
                     'descriptor' => 'The proven multi-profile workhorse',
                     'image'      => $base . '2025/09/20250911_NTM_SSQ-II_1000x1000.png',
@@ -102,8 +104,9 @@ function get_machine_categories(): array {
                     ],
                 ],
                 [
-                    'slug'       => 'ssh-multipro',
-                    'name'       => 'SSH™ MultiPro',
+                    'slug'              => 'ssh-multipro',
+                    'configurator_slug' => 'ssh',
+                    'name'              => 'SSH™ MultiPro',
                     'short_name' => 'SSH™',
                     'descriptor' => 'Residential & light commercial machine',
                     'image'      => $base . '2025/09/20250911_NTM_SSQ-II_1000x1000.png', // TODO: replace with SSH product image when available
@@ -123,8 +126,9 @@ function get_machine_categories(): array {
                     ],
                 ],
                 [
-                    'slug'       => 'ssr-multipro-jr',
-                    'name'       => 'SSR™ MultiPro Jr.',
+                    'slug'              => 'ssr-multipro-jr',
+                    'configurator_slug' => 'ssr',
+                    'name'              => 'SSR™ MultiPro Jr.',
                     'short_name' => 'SSR™',
                     'descriptor' => 'Affordable entry into portable rollforming',
                     'image'      => $base . '2025/09/20250911_NTM_SSR_1000x1000.png',
@@ -144,8 +148,9 @@ function get_machine_categories(): array {
                     ],
                 ],
                 [
-                    'slug'       => '5vc-5v-crimp',
-                    'name'       => '5V Crimp',
+                    'slug'              => '5vc-5v-crimp',
+                    'configurator_slug' => '5vc',
+                    'name'              => '5V Crimp',
                     'short_name' => '5V Crimp',
                     'descriptor' => 'The industry\'s only portable 5V crimp machine',
                     'image'      => $base . '2025/09/20250911_NTM_5VC_1000x1000.png',
@@ -165,8 +170,9 @@ function get_machine_categories(): array {
                     ],
                 ],
                 [
-                    'slug'       => 'wav-wall-panel',
-                    'name'       => 'WAV™',
+                    'slug'              => 'wav-wall-panel',
+                    'configurator_slug' => 'wav',
+                    'name'              => 'WAV™',
                     'short_name' => 'WAV™',
                     'descriptor' => 'The industry\'s only portable WAV profile machine',
                     'image'      => $base . '2025/09/20250911_NTM_WAV_1000x1000.png',
@@ -192,8 +198,9 @@ function get_machine_categories(): array {
             'url'   => '/seamless-gutter-machines/',
             'machines' => [
                 [
-                    'slug'       => 'mach-ii-5-gutter',
-                    'name'       => 'MACH II™ 5" Gutter Machine',
+                    'slug'              => 'mach-ii-5-gutter',
+                    'configurator_slug' => 'machii',
+                    'name'              => 'MACH II™ 5" Gutter Machine',
                     'short_name' => 'MACH II™ 5"',
                     'descriptor' => 'The most trusted 5" gutter machine since 1994',
                     'image'      => $base . '2025/09/20250911_NTM_MACH-II-5_1000x1000.png',
@@ -215,8 +222,9 @@ function get_machine_categories(): array {
                     ],
                 ],
                 [
-                    'slug'       => 'mach-ii-6-gutter',
-                    'name'       => 'MACH II™ 6" Gutter Machine',
+                    'slug'              => 'mach-ii-6-gutter',
+                    'configurator_slug' => 'machii',
+                    'name'              => 'MACH II™ 6" Gutter Machine',
                     'short_name' => 'MACH II™ 6"',
                     'descriptor' => 'Dedicated 6" K-style for larger homes',
                     'image'      => $base . '2025/09/20250911_NTM_MACH-II-6_1000x1000.png',
@@ -238,8 +246,9 @@ function get_machine_categories(): array {
                     ],
                 ],
                 [
-                    'slug'       => 'mach-ii-combo-gutter',
-                    'name'       => 'MACH II™ 5"/6" Combo Gutter Machine',
+                    'slug'              => 'mach-ii-combo-gutter',
+                    'configurator_slug' => 'machii',
+                    'name'              => 'MACH II™ 5"/6" Combo Gutter Machine',
                     'short_name' => 'MACH II™ 5"/6"',
                     'descriptor' => 'Two gutter sizes, one machine',
                     'image'      => $base . '2025/09/20250911_NTM_MACH-II-5-6-Combo_1000x1000.png',
