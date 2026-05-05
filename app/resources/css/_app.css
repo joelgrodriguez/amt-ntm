@@ -41,6 +41,7 @@
 
 /* ── Layout ────────────────────────────────────────────────────────── */
 @import "./layout/header.css";
+@import "./layout/mega-menu.css";
 @import "./layout/footer.css";
 @import "./mobile-menu.css";
 

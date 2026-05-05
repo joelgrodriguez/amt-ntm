@@ -1,0 +1,229 @@
+/* ── Mega menu panel container ────────────────────────────────────────── */
+
+.mega-panel {
+    position: fixed;
+    top: 4rem; /* header height */
+    left: 0;
+    right: 0;
+    z-index: 45;
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-blue-200);
+    /* Entry animation — slides down from header */
+    animation: mega-panel-enter 220ms var(--ease-spring) both;
+}
+
+@keyframes mega-panel-enter {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Two-column inner layout: sidebar | content */
+.mega-panel__inner {
+    display: grid;
+    grid-template-columns: 18rem 1fr;
+    min-height: 20rem;
+    max-height: calc(100vh - 5rem);
+    overflow: hidden;
+}
+
+/* Full-width variant (no sidebar) */
+.mega-panel__content--full {
+    grid-column: 1 / -1;
+    padding: 2rem 3rem;
+}
+
+/* ── Sidebar ──────────────────────────────────────────────────────────── */
+
+.mega-panel__sidebar {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+    border-right: 1px solid var(--color-blue-200);
+    background: var(--color-blue-50);
+    gap: 0.25rem;
+    overflow-y: auto;
+}
+
+/* ── Content area ─────────────────────────────────────────────────────── */
+
+.mega-panel__content {
+    padding: 2rem 2.5rem;
+    overflow-y: auto;
+}
+
+/* ── Tab list (shared by machines + profiles) ─────────────────────────── */
+
+.mega-tab-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
+
+.mega-tab {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: transparent;
+    border: 0;
+    text-align: left;
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    font-weight: 500;
+    color: var(--color-blue-600);
+    cursor: pointer;
+    transition: background-color 150ms ease, color 150ms ease;
+}
+
+.mega-tab:hover {
+    background: var(--color-blue-100);
+    color: var(--color-blue-700);
+}
+
+.mega-tab[aria-selected="true"] {
+    background: var(--color-white);
+    color: var(--color-blue-700);
+    font-weight: 600;
+    box-shadow: inset 2px 0 0 0 var(--color-blue-500);
+}
+
+/* ── Tab panels ───────────────────────────────────────────────────────── */
+
+.mega-tab-panel[hidden] {
+    display: none;
+}
+
+/* ── Product grid (machines + upgrades) ───────────────────────────────── */
+
+.mega-product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.25rem;
+}
+
+/* Override card-product sizing inside the mega panel */
+.mega-product-grid .card-product {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+}
+
+/* ── Profile grid ─────────────────────────────────────────────────────── */
+
+.mega-profile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1.25rem;
+}
+
+/* ── View all CTA ─────────────────────────────────────────────────────── */
+
+.mega-panel__view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-body);
+    font-weight: 500;
+    color: var(--color-blue-500);
+    text-decoration: none;
+    transition: color 150ms ease;
+}
+
+.mega-panel__view-all:hover {
+    color: var(--color-blue-700);
+}
+
+/* ── Learning Center sidebar ──────────────────────────────────────────── */
+
+.mega-lc__all-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    font-weight: 600;
+    color: var(--color-blue-700);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-blue-200);
+    transition: color 150ms ease;
+}
+
+.mega-lc__all-link:hover {
+    color: var(--color-blue-500);
+}
+
+.mega-lc__type-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
+
+.mega-lc__type-link {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.625rem 1rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    font-weight: 500;
+    color: var(--color-blue-600);
+    text-decoration: none;
+    transition: background-color 150ms ease, color 150ms ease;
+}
+
+.mega-lc__type-link:hover {
+    background: var(--color-blue-100);
+    color: var(--color-blue-700);
+}
+
+/* ── Learning Center posts ────────────────────────────────────────────── */
+
+.mega-lc__posts {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.mega-post-card {
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--color-blue-100);
+}
+
+.mega-post-card:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* ── Mega trigger caret ───────────────────────────────────────────────── */
+
+/* Rotate caret when panel is open */
+.mega-trigger[aria-expanded="true"] .mega-trigger__caret {
+    transform: rotate(180deg);
+}
+
+.mega-trigger[aria-expanded="true"] {
+    background: var(--color-blue-100);
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+    .mega-panel {
+        animation: none;
+    }
+}
