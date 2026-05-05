@@ -45,19 +45,6 @@ function get_desktop_nav(): array {
                 'view_all_label' => __('See the full lineup', 'standard'),
             ],
             [
-                'id'             => 'upgrades',
-                'label'          => __('Upgrades & Accessories', 'standard'),
-                'type'           => 'product-grid',
-                'category'       => 'accessories-add-on-equipment',
-                'view_all_url'   => \Standard\Url\internal('/product-category/accessories-add-on-equipment/'),
-                'view_all_label' => __('Shop all upgrades', 'standard'),
-            ],
-            [
-                'id'    => 'learning-center',
-                'label' => __('Learning Center', 'standard'),
-                'type'  => 'learning-center',
-            ],
-            [
                 'id'    => 'profiles',
                 'label' => __('Profiles', 'standard'),
                 'type'  => 'tabbed-profiles',
@@ -75,6 +62,16 @@ function get_desktop_nav(): array {
                 ],
                 'view_all_url'   => \Standard\Url\internal('/profiles/'),
                 'view_all_label' => __('View all profiles', 'standard'),
+            ],
+            [
+                'id'    => 'learning-center',
+                'label' => __('Learning Center', 'standard'),
+                'type'  => 'learning-center',
+            ],
+            [
+                'id'    => 'support',
+                'label' => __('Support', 'standard'),
+                'type'  => 'learning-center',
             ],
         ],
         'utility' => [

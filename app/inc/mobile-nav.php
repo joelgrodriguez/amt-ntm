@@ -44,26 +44,24 @@ function get_mobile_nav_tree(): array {
             [
                 'type'         => 'panel',
                 'slug'         => 'roof-wall-panel-machines',
-                'label'        => __('Roof & Wall Panel Machines', 'standard'),
+                'label'        => __('Machines', 'standard'),
                 'category'     => 'roof-wall-panel-machines',
-                'view_all_url' => \Standard\Url\internal('/roof-wall-panel-machines/'),
-            ],
-            [
-                'type'         => 'panel',
-                'slug'         => 'seamless-gutter-machines',
-                'label'        => __('Seamless Gutter Machines', 'standard'),
-                'category'     => 'gutter-machines',
-                'view_all_url' => \Standard\Url\internal('/seamless-gutter-machines/'),
+                'view_all_url' => \Standard\Url\internal('/machines/'),
             ],
             [
                 'type'  => 'link',
-                'label' => __('Parts & Accessories', 'standard'),
-                'url'   => \Standard\Url\internal('/product-category/accessories-add-on-equipment/'),
+                'label' => __('Profiles', 'standard'),
+                'url'   => \Standard\Url\internal('/profiles/'),
             ],
             [
                 'type'  => 'link',
-                'label' => __('Build & Finance', 'standard'),
-                'url'   => \Standard\Url\internal('/build-finance/'),
+                'label' => __('Learning Center', 'standard'),
+                'url'   => \Standard\Url\internal('/learning-center/'),
+            ],
+            [
+                'type'  => 'link',
+                'label' => __('Support', 'standard'),
+                'url'   => \Standard\Url\internal('/service-training/'),
             ],
         ],
         'featured' => [
@@ -88,15 +86,9 @@ function get_mobile_nav_tree(): array {
             ],
             [
                 'type'  => 'link',
-                'label' => __('Learning Center', 'standard'),
-                'url'   => \Standard\Url\internal('/learning-center/'),
-                'icon'  => 'graduation-cap',
-            ],
-            [
-                'type'  => 'link',
-                'label' => __('About', 'standard'),
-                'url'   => \Standard\Url\internal('/about/'),
-                'icon'  => 'help-circle',
+                'label' => __('Resources', 'standard'),
+                'url'   => \Standard\Url\internal('/resources/'),
+                'icon'  => 'folder',
             ],
         ],
     ];

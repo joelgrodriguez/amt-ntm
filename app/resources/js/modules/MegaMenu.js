@@ -108,6 +108,26 @@ export const initMegaMenu = () => {
     };
 
     /** @param {MouseEvent} e */
+    const handleTriggerEnter = (e) => {
+        const trigger = /** @type {HTMLButtonElement} */ (e.currentTarget);
+        open(trigger);
+    };
+
+    // Shared leave handler — close only when pointer has left both triggers and all panels
+    let leaveTimer = /** @type {ReturnType<typeof setTimeout>|null} */ (null);
+
+    const scheduleClose = () => {
+        leaveTimer = setTimeout(close, 100);
+    };
+
+    const cancelClose = () => {
+        if (leaveTimer !== null) {
+            clearTimeout(leaveTimer);
+            leaveTimer = null;
+        }
+    };
+
+    /** @param {MouseEvent} e */
     const handleTabClick = (e) => {
         const btn = /** @type {HTMLButtonElement} */ (e.currentTarget);
         switchTab(btn);
@@ -158,7 +178,18 @@ export const initMegaMenu = () => {
 
     // ── Wire up ─────────────────────────────────────────────────────────
 
-    triggers.forEach((t) => t.addEventListener('click', handleTriggerClick));
+    triggers.forEach((t) => {
+        t.addEventListener('click', handleTriggerClick);
+        t.addEventListener('mouseenter', handleTriggerEnter);
+        t.addEventListener('mouseleave', scheduleClose);
+    });
+
+    // Keep panel open while pointer is inside it; close on leave
+    container.querySelectorAll('.mega-panel').forEach((panel) => {
+        panel.addEventListener('mouseenter', cancelClose);
+        panel.addEventListener('mouseleave', scheduleClose);
+    });
+
     overlay?.addEventListener('click', handleOverlayClick);
     document.addEventListener('keydown', handleKeydown);
     document.addEventListener('click', handleDocClick);
@@ -183,7 +214,15 @@ export const initMegaMenu = () => {
     // ── Cleanup ─────────────────────────────────────────────────────────
 
     return () => {
-        triggers.forEach((t) => t.removeEventListener('click', handleTriggerClick));
+        triggers.forEach((t) => {
+            t.removeEventListener('click', handleTriggerClick);
+            t.removeEventListener('mouseenter', handleTriggerEnter);
+            t.removeEventListener('mouseleave', scheduleClose);
+        });
+        container.querySelectorAll('.mega-panel').forEach((panel) => {
+            panel.removeEventListener('mouseenter', cancelClose);
+            panel.removeEventListener('mouseleave', scheduleClose);
+        });
         overlay?.removeEventListener('click', handleOverlayClick);
         document.removeEventListener('keydown', handleKeydown);
         document.removeEventListener('click', handleDocClick);
@@ -191,5 +230,6 @@ export const initMegaMenu = () => {
             btn.removeEventListener('click', handleTabClick);
             btn.removeEventListener('keydown', handleTabKeydown);
         });
+        cancelClose();
     };
 };
