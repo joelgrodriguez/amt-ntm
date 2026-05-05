@@ -3,7 +3,8 @@
  * Desktop Mega Menu Panels
  *
  * Renders all mega menu panels and the overlay.
- * Hidden by default; JS toggles the `hidden` attribute to reveal the active panel.
+ * Hidden by default via CSS (opacity: 0, translateY(-100%)).
+ * JS adds `.is-open` to reveal and `.is-closing` to animate out.
  *
  * @package Standard
  */
