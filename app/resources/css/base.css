@@ -48,7 +48,7 @@
   }
 
   /* Remove underline default, use animated underline component instead */
-  a:not(.btn):not(.no-underline):hover {
+  a:not(.btn):not(.no-underline):not(#primary-menu a):hover {
     @apply underline;
   }
 

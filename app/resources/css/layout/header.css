@@ -38,8 +38,10 @@ body.header-is-sticky {
 }
 
 /* Thick bottom indicator — flush at bottom of full-height nav item */
+/* border-color reset overrides the global ::after border from base.css */
 .mega-trigger::after,
 #primary-menu > li > a::after {
+  border-color: transparent;
   content: '';
   position: absolute;
   bottom: 0;
