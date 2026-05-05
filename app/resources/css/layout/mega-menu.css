@@ -132,7 +132,7 @@
 
 /* Eyebrow label above tab groups */
 .mega-sidebar__label {
-    padding: 0 1.25rem 0.75rem;
+    padding: 0 1.25rem 0.75rem 1.5rem;
     font-family: var(--font-mono);
     font-size: 0.6875rem;
     font-weight: 600;
