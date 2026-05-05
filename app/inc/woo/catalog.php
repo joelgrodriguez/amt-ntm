@@ -73,20 +73,34 @@ function get_woocommerce_products(string $category_slug): array {
     $formatted = [];
     foreach ($products as $product) {
         $formatted[] = [
-            'id'          => $product->get_id(),
-            'title'       => $product->get_name(),
-            'tagline'     => $product->get_short_description(),
-            'descriptor'  => $is_accessory ? '' : \wp_strip_all_tags($product->get_short_description()),
-            'image'       => \wp_get_attachment_url($product->get_image_id()),
-            'price'       => $is_accessory ? '' : FALLBACK_MACHINE_PRICE,
-            'price_label' => \__('Starting at', 'standard'),
-            'explore_url' => $product->get_permalink(),
-            'build_url'   => $is_accessory ? '' : get_configurator_url($product->get_slug()),
-            'badge'       => '',
+            'id'             => $product->get_id(),
+            'title'          => $product->get_name(),
+            'category_label' => get_primary_category_label($product),
+            'tagline'        => $product->get_short_description(),
+            'descriptor'     => $is_accessory ? '' : \wp_strip_all_tags($product->get_short_description()),
+            'image'          => \wp_get_attachment_url($product->get_image_id()),
+            'price'          => $is_accessory ? '' : FALLBACK_MACHINE_PRICE,
+            'price_label'    => \__('Starting at', 'standard'),
+            'explore_url'    => $product->get_permalink(),
+            'build_url'      => $is_accessory ? '' : get_configurator_url($product->get_slug()),
+            'badge'          => '',
         ];
     }
 
     return $formatted;
+}
+
+/**
+ * Return the first category name for a Woo product, or '' if none.
+ */
+function get_primary_category_label(\WC_Product $product): string {
+    $ids = $product->get_category_ids();
+    if (empty($ids)) {
+        return '';
+    }
+    $term = \get_term((int) $ids[0], 'product_cat');
+
+    return $term instanceof \WP_Term ? $term->name : '';
 }
 
 /**
@@ -139,16 +153,17 @@ function format_sample_machine_product(array $machine, string $category_slug): a
     $is_gutter         = $category_slug === 'gutter-machines';
 
     return [
-        'id'          => $public_slug,
-        'title'       => $is_gutter ? ($machine['short_name'] ?? $machine['name'] ?? '') : ($machine['name'] ?? ''),
-        'tagline'     => $machine['descriptor'] ?? '',
-        'descriptor'  => $machine['descriptor'] ?? '',
-        'image'       => $machine['image'] ?? '',
-        'price'       => !empty($machine['price']) ? $machine['price'] : FALLBACK_MACHINE_PRICE,
-        'price_label' => !empty($machine['price_label']) ? $machine['price_label'] : \__('Starting at', 'standard'),
-        'explore_url' => get_sample_machine_url($machine, $category_slug, $public_slug),
-        'build_url'   => $configurator_slug !== '' ? \Standard\Url\internal('/configurator/' . $configurator_slug . '/') : '',
-        'badge'       => get_sample_machine_badge($slug),
+        'id'             => $public_slug,
+        'title'          => $machine['short_name'] ?? $machine['name'] ?? '',
+        'category_label' => $is_gutter ? \__('Seamless Gutter Machine', 'standard') : \__('Roof & Wall Panel Machine', 'standard'),
+        'tagline'        => $machine['descriptor'] ?? '',
+        'descriptor'     => $machine['descriptor'] ?? '',
+        'image'          => $machine['image'] ?? '',
+        'price'          => !empty($machine['price']) ? $machine['price'] : FALLBACK_MACHINE_PRICE,
+        'price_label'    => !empty($machine['price_label']) ? $machine['price_label'] : \__('Starting at', 'standard'),
+        'explore_url'    => get_sample_machine_url($machine, $category_slug, $public_slug),
+        'build_url'      => $configurator_slug !== '' ? \Standard\Url\internal('/configurator/' . $configurator_slug . '/') : '',
+        'badge'          => get_sample_machine_badge($slug),
     ];
 }
 

@@ -21,16 +21,17 @@ if (!$product) {
     return;
 }
 
-$title         = $product['title'] ?? '';
-$tagline       = $product['tagline'] ?? '';
+$title          = $product['title'] ?? '';
+$category_label = $product['category_label'] ?? '';
+$tagline        = $product['tagline'] ?? '';
 // descriptor field available but not displayed
-$image         = $product['image'] ?? '';
-$price         = $product['price'] ?? '';
-$price_label   = $product['price_label'] ?? __('Starting at', 'standard');
-$explore_url   = $product['explore_url'] ?? '#';
-$build_url     = $product['build_url'] ?? '#';
-$badge         = $product['badge'] ?? '';
-$is_accessory  = empty($price);
+$image          = $product['image'] ?? '';
+$price          = $product['price'] ?? '';
+$price_label    = $product['price_label'] ?? __('Starting at', 'standard');
+$explore_url    = $product['explore_url'] ?? '#';
+$build_url      = $product['build_url'] ?? '#';
+$badge          = $product['badge'] ?? '';
+$is_accessory   = empty($price);
 ?>
 
 <article class="card-product group relative">
@@ -53,6 +54,10 @@ $is_accessory  = empty($price);
                     <?php echo esc_html($title); ?>
                 </a>
             </h3>
+        <?php endif; ?>
+
+        <?php if ($category_label) : ?>
+            <p class="card-product__category"><?php echo esc_html($category_label); ?></p>
         <?php endif; ?>
 
         <?php if ($price) : ?>
