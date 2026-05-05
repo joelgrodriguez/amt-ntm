@@ -103,26 +103,8 @@ if (!defined('ABSPATH')) {
             </nav>
         </div>
 
-        <!-- Utility rail flush right -->
-        <div id="header-actions" class="flex items-center h-16 gap-1 px-4 transition-opacity duration-200">
-            <?php foreach ($desktop_nav['utility'] as $item) : ?>
-                <?php if (!empty($item['highlight'])) : ?>
-                    <a
-                        href="<?php echo esc_url($item['url']); ?>"
-                        class="inline-flex items-center px-4 py-2 font-sans font-medium text-sm text-white bg-blue-500 hover:bg-blue-600 transition-colors no-underline"
-                    >
-                        <?php echo esc_html($item['label']); ?>
-                    </a>
-                <?php else : ?>
-                    <a
-                        href="<?php echo esc_url($item['url']); ?>"
-                        class="flex items-center h-full px-4 font-sans font-medium text-body text-blue-700 no-underline hover:bg-blue-100 transition-colors"
-                        style="letter-spacing: 0.01em;"
-                    >
-                        <?php echo esc_html($item['label']); ?>
-                    </a>
-                <?php endif; ?>
-            <?php endforeach; ?>
+        <!-- Search flush right -->
+        <div class="flex items-center h-16 px-4">
             <a href="<?php echo esc_url(\Standard\Url\with_query('/', ['s' => ''])); ?>" class="flex items-center justify-center w-12 h-16 text-blue-600 hover:bg-blue-100 transition-colors" aria-label="<?php esc_attr_e('Search', 'standard'); ?>">
                 <?php icon('search', ['class' => 'w-5 h-5']); ?>
             </a>
