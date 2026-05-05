@@ -37,17 +37,29 @@ body.header-is-sticky {
   @apply h-full;
 }
 
-/* Thick bottom border on hover/active for nav triggers and links */
+/* Thick bottom indicator on hover/active — sits flush at bottom of header */
 .mega-trigger,
 #primary-menu > li > a {
-  box-shadow: inset 0 -3px 0 0 transparent;
-  transition: box-shadow 150ms ease, background-color 150ms ease;
+  position: relative;
 }
 
-.mega-trigger:hover,
-#primary-menu > li > a:hover,
-.mega-trigger[aria-expanded="true"] {
-  box-shadow: inset 0 -3px 0 0 var(--color-blue-500);
+.mega-trigger::after,
+#primary-menu > li > a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: var(--color-blue-500);
+  transform: scaleX(0);
+  transition: transform 150ms ease;
+}
+
+.mega-trigger:hover::after,
+#primary-menu > li > a:hover::after,
+.mega-trigger[aria-expanded="true"]::after {
+  transform: scaleX(1);
 }
 
 
