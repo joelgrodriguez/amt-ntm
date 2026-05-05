@@ -68,7 +68,7 @@ $is_accessory  = empty($price);
                     <?php esc_html_e('Build', 'standard'); ?>
                 </a>
                 <a href="<?php echo esc_url($explore_url); ?>" class="btn btn-sm btn-outline-dark relative z-10">
-                    <?php esc_html_e('Shop', 'standard'); ?>
+                    <?php esc_html_e('View', 'standard'); ?>
                 </a>
             </div>
         <?php endif; ?>
