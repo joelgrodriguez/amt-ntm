@@ -29,14 +29,14 @@ if (!defined('ABSPATH')) {
     <?php esc_html_e('Skip to main content', 'standard'); ?>
 </a>
 
-<header id="site-header" class="bg-white border-b border-blue-200 z-50 transition-colors duration-200">
+<header id="site-header" class="bg-white z-50">
     <!-- Mobile row: toggle | logo | actions -->
-    <div class="flex items-center h-16 lg:hidden">
+    <div class="flex items-center h-14 lg:hidden">
         <!-- Mobile menu toggle -->
         <button
             type="button"
             id="mobile-menu-toggle"
-            class="flex items-center justify-center w-16 h-16 border-r border-blue-200 text-blue-700 hover:bg-blue-100 transition-colors"
+            class="flex items-center justify-center w-14 h-14 text-neutral-800 hover:text-neutral-600 transition-colors"
             aria-expanded="false"
             aria-controls="mobile-menu"
             aria-label="<?php esc_attr_e('Open menu', 'standard'); ?>"
@@ -45,10 +45,10 @@ if (!defined('ABSPATH')) {
             <span id="menu-icon-close" class="hidden"><?php icon('x', ['class' => 'w-4 h-4']); ?></span>
         </button>
 
-        <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="flex items-center h-16 px-4 no-underline">
+        <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="flex items-center h-14 px-4 no-underline">
             <?php if (has_custom_logo()) : ?>
                 <?php echo wp_get_attachment_image((int) get_theme_mod('custom_logo'), 'full', false, [
-                    'class'    => 'w-14 object-contain',
+                    'class'    => 'w-12 object-contain',
                     'alt'      => get_bloginfo('name'),
                     'loading'  => 'eager',
                     'decoding' => 'async',
@@ -56,8 +56,8 @@ if (!defined('ABSPATH')) {
             <?php endif; ?>
         </a>
 
-        <div class="flex items-center h-16 ml-auto">
-            <a href="<?php echo esc_url(\Standard\Url\with_query('/', ['s' => ''])); ?>" class="flex items-center justify-center w-16 h-16 text-blue-600 hover:bg-blue-100 transition-colors" aria-label="<?php esc_attr_e('Search', 'standard'); ?>">
+        <div class="flex items-center h-14 ml-auto">
+            <a href="<?php echo esc_url(\Standard\Url\with_query('/', ['s' => ''])); ?>" class="flex items-center justify-center w-14 h-14 text-neutral-800 hover:text-neutral-600 transition-colors" aria-label="<?php esc_attr_e('Search', 'standard'); ?>">
                 <?php icon('search', ['class' => 'w-5 h-5']); ?>
             </a>
         </div>
@@ -66,13 +66,13 @@ if (!defined('ABSPATH')) {
     <?php $desktop_nav = \Standard\Nav\get_desktop_nav(); ?>
 
     <!-- Desktop row: logo | [mega triggers centered] | utility rail — full bleed -->
-    <div class="hidden lg:grid h-16" style="grid-template-columns: auto 1fr auto;">
+    <div class="hidden lg:grid h-11" style="grid-template-columns: auto 1fr auto;">
 
         <!-- Logo flush left -->
-        <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="flex items-center h-16 px-10 no-underline">
+        <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="flex items-center h-11 px-8 no-underline">
             <?php if (has_custom_logo()) : ?>
                 <?php echo wp_get_attachment_image((int) get_theme_mod('custom_logo'), 'full', false, [
-                    'class'    => 'w-14 object-contain',
+                    'class'    => 'h-5 w-auto object-contain',
                     'alt'      => get_bloginfo('name'),
                     'loading'  => 'eager',
                     'decoding' => 'async',
@@ -83,19 +83,18 @@ if (!defined('ABSPATH')) {
         <!-- Mega menu triggers — centered in full header width -->
         <div class="flex items-center justify-center">
             <nav id="desktop-navigation" aria-label="<?php esc_attr_e('Primary navigation', 'standard'); ?>">
-                <ul id="primary-menu" class="flex items-center h-16 m-0 p-0 list-none">
+                <ul id="primary-menu" class="flex items-center h-11 m-0 p-0 list-none">
                     <?php foreach ($desktop_nav['panels'] as $panel) : ?>
                         <li class="h-full">
                             <button
                                 type="button"
-                                class="mega-trigger flex items-center h-full px-5 font-sans font-medium text-body text-blue-700 bg-transparent border-0 cursor-pointer hover:bg-blue-100 transition-colors"
-                                style="letter-spacing: 0.01em;"
+                                class="mega-trigger flex items-center h-full px-4 font-sans text-sm font-normal tracking-wide text-neutral-800 bg-transparent border-0 cursor-pointer hover:text-neutral-500 transition-colors"
                                 data-mega-panel="<?php echo esc_attr($panel['id']); ?>"
                                 aria-expanded="false"
                                 aria-controls="mega-panel-<?php echo esc_attr($panel['id']); ?>"
                             >
                                 <?php echo esc_html($panel['label']); ?>
-                                <?php icon('chevron-down', ['class' => 'w-3.5 h-3.5 ml-1.5 mega-trigger__caret transition-transform duration-200']); ?>
+                                <?php icon('chevron-down', ['class' => 'w-3 h-3 ml-1 mega-trigger__caret transition-transform duration-200']); ?>
                             </button>
                         </li>
                     <?php endforeach; ?>
@@ -104,27 +103,26 @@ if (!defined('ABSPATH')) {
         </div>
 
         <!-- Utility rail flush right -->
-        <div id="header-actions" class="flex items-center h-16 gap-1 px-4 transition-opacity duration-200">
+        <div id="header-actions" class="flex items-center h-11 gap-0.5 px-6">
             <?php foreach ($desktop_nav['utility'] as $item) : ?>
                 <?php if (!empty($item['highlight'])) : ?>
                     <a
                         href="<?php echo esc_url($item['url']); ?>"
-                        class="inline-flex items-center px-4 py-2 font-sans font-medium text-sm text-white bg-blue-500 hover:bg-blue-600 transition-colors no-underline"
+                        class="inline-flex items-center px-3.5 py-1 font-sans text-sm font-normal tracking-wide text-neutral-800 border border-neutral-300 hover:bg-neutral-100 transition-colors no-underline"
                     >
                         <?php echo esc_html($item['label']); ?>
                     </a>
                 <?php else : ?>
                     <a
                         href="<?php echo esc_url($item['url']); ?>"
-                        class="flex items-center h-full px-4 font-sans font-medium text-body text-blue-700 no-underline hover:bg-blue-100 transition-colors"
-                        style="letter-spacing: 0.01em;"
+                        class="flex items-center h-full px-3 font-sans text-sm font-normal tracking-wide text-neutral-800 no-underline hover:text-neutral-500 transition-colors"
                     >
                         <?php echo esc_html($item['label']); ?>
                     </a>
                 <?php endif; ?>
             <?php endforeach; ?>
-            <a href="<?php echo esc_url(\Standard\Url\with_query('/', ['s' => ''])); ?>" class="flex items-center justify-center w-12 h-16 text-blue-600 hover:bg-blue-100 transition-colors" aria-label="<?php esc_attr_e('Search', 'standard'); ?>">
-                <?php icon('search', ['class' => 'w-5 h-5']); ?>
+            <a href="<?php echo esc_url(\Standard\Url\with_query('/', ['s' => ''])); ?>" class="flex items-center justify-center w-10 h-11 text-neutral-800 hover:text-neutral-500 transition-colors" aria-label="<?php esc_attr_e('Search', 'standard'); ?>">
+                <?php icon('search', ['class' => 'w-4 h-4']); ?>
             </a>
         </div>
 
