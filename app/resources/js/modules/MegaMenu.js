@@ -85,13 +85,14 @@ export const initMegaMenu = () => {
 
         const targetId = tabBtn.dataset.tab;
 
-        // Update tab button states
+        // Update tab button states and tabindex (tablist pattern: only selected tab is focusable)
         panel.querySelectorAll('[role="tab"]').forEach((btn) => {
             const isTarget = /** @type {HTMLButtonElement} */ (btn).dataset.tab === targetId;
             btn.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+            btn.setAttribute('tabindex', isTarget ? '0' : '-1');
         });
 
-        // Show/hide tab panels
+        // Show/hide tab panels — IDs follow the pattern: mega-tabpanel-{panelId}-{tabId}
         panel.querySelectorAll('[role="tabpanel"]').forEach((pane) => {
             const el = /** @type {HTMLElement} */ (pane);
             el.hidden = !el.id.endsWith(`-${targetId}`);
@@ -110,6 +111,23 @@ export const initMegaMenu = () => {
     const handleTabClick = (e) => {
         const btn = /** @type {HTMLButtonElement} */ (e.currentTarget);
         switchTab(btn);
+    };
+
+    /** Arrow key navigation within a tablist (ARIA APG requirement).
+     * @param {KeyboardEvent} e */
+    const handleTabKeydown = (e) => {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        const tabList = /** @type {HTMLElement|null} */ (/** @type {HTMLElement} */ (e.currentTarget).closest('[role="tablist"]'));
+        if (!tabList) return;
+        const tabs = /** @type {HTMLButtonElement[]} */ (Array.from(tabList.querySelectorAll('[role="tab"]')));
+        const idx  = tabs.indexOf(/** @type {HTMLButtonElement} */ (e.currentTarget));
+        const next = e.key === 'ArrowRight'
+            ? tabs[(idx + 1) % tabs.length]
+            : tabs[(idx - 1 + tabs.length) % tabs.length];
+        if (next) {
+            next.focus();
+            switchTab(next);
+        }
     };
 
     const handleOverlayClick = () => close();
@@ -149,7 +167,18 @@ export const initMegaMenu = () => {
     const tabBtns = /** @type {NodeListOf<HTMLButtonElement>} */ (
         container.querySelectorAll('[role="tab"]')
     );
-    tabBtns.forEach((btn) => btn.addEventListener('click', handleTabClick));
+
+    // Init tabindex per tablist: first tab is 0, siblings are -1 (ARIA roving tabindex)
+    container.querySelectorAll('[role="tablist"]').forEach((tablist) => {
+        tablist.querySelectorAll('[role="tab"]').forEach((btn, i) => {
+            btn.setAttribute('tabindex', i === 0 ? '0' : '-1');
+        });
+    });
+
+    tabBtns.forEach((btn) => {
+        btn.addEventListener('click', handleTabClick);
+        btn.addEventListener('keydown', handleTabKeydown);
+    });
 
     // ── Cleanup ─────────────────────────────────────────────────────────
 
@@ -158,6 +187,9 @@ export const initMegaMenu = () => {
         overlay?.removeEventListener('click', handleOverlayClick);
         document.removeEventListener('keydown', handleKeydown);
         document.removeEventListener('click', handleDocClick);
-        tabBtns.forEach((btn) => btn.removeEventListener('click', handleTabClick));
+        tabBtns.forEach((btn) => {
+            btn.removeEventListener('click', handleTabClick);
+            btn.removeEventListener('keydown', handleTabKeydown);
+        });
     };
 };
