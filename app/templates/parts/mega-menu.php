@@ -49,6 +49,7 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
 
             <!-- Tab rail -->
             <div class="mega-panel__sidebar">
+                <p class="mega-sidebar__label"><?php echo esc_html($panel['label']); ?></p>
                 <ul class="mega-tab-list" role="tablist" aria-label="<?php echo esc_attr($panel['label']); ?>">
                     <?php foreach ($tabs as $i => $tab) : ?>
                         <li role="none">
@@ -68,7 +69,7 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
                 </ul>
 
                 <?php if (!empty($panel['view_all_url'])) : ?>
-                    <a href="<?php echo esc_url($panel['view_all_url']); ?>" class="mega-panel__view-all mt-auto">
+                    <a href="<?php echo esc_url($panel['view_all_url']); ?>" class="mega-panel__view-all mt-auto px-5">
                         <?php echo esc_html($panel['view_all_label'] ?? __('View all', 'standard')); ?>
                         <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                     </a>
@@ -121,6 +122,7 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
 
             <!-- Left rail: content type links -->
             <div class="mega-panel__sidebar">
+                <p class="mega-sidebar__label"><?php esc_html_e('Learning Center', 'standard'); ?></p>
                 <a href="<?php echo esc_url(\Standard\Url\internal('/learning-center/')); ?>" class="mega-lc__all-link">
                     <?php esc_html_e('All Learning Center', 'standard'); ?>
                     <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
@@ -154,6 +156,7 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
 
             <!-- Tab rail -->
             <div class="mega-panel__sidebar">
+                <p class="mega-sidebar__label"><?php echo esc_html($panel['label']); ?></p>
                 <ul class="mega-tab-list" role="tablist" aria-label="<?php echo esc_attr($panel['label']); ?>">
                     <?php foreach ($tabs as $i => $tab) : ?>
                         <li role="none">
@@ -173,7 +176,7 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
                 </ul>
 
                 <?php if (!empty($panel['view_all_url'])) : ?>
-                    <a href="<?php echo esc_url($panel['view_all_url']); ?>" class="mega-panel__view-all mt-auto">
+                    <a href="<?php echo esc_url($panel['view_all_url']); ?>" class="mega-panel__view-all mt-auto px-5">
                         <?php echo esc_html($panel['view_all_label'] ?? __('View all', 'standard')); ?>
                         <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                     </a>
