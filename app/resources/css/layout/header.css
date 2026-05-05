@@ -44,7 +44,8 @@ body.header-is-sticky {
 
 #primary-menu > li.current-menu-item > a,
 #primary-menu > li.current-menu-parent > a {
-  @apply text-blue-500 font-medium;
+  @apply text-blue-700 font-semibold;
+  box-shadow: inset 0 -2px 0 0 var(--color-blue-500);
 }
 
 /* Dropdown caret for items with children */
@@ -75,7 +76,7 @@ body.header-is-sticky {
 }
 
 #primary-menu > li > .sub-menu {
-  @apply hidden fixed top-12 left-0 right-0 bg-white border-y border-blue-200 py-8 z-50;
+  @apply hidden fixed top-16 left-0 right-0 bg-white border-y border-blue-200 py-8 z-50;
 }
 
 #primary-menu > li.menu-item-has-children.menu-open > .sub-menu {
@@ -121,7 +122,3 @@ body.header-is-sticky {
   @apply block;
 }
 
-/* Mobile menu styles */
-#mobile-menu-list {
-  @apply m-0 p-0 list-none;
-}
