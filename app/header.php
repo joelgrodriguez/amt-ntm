@@ -63,7 +63,9 @@ if (!defined('ABSPATH')) {
         </div>
     </div>
 
-    <!-- Desktop row: logo | [nav centered] | actions — full bleed, no container cap -->
+    <?php $desktop_nav = \Standard\Nav\get_desktop_nav(); ?>
+
+    <!-- Desktop row: logo | [mega triggers centered] | utility rail — full bleed -->
     <div class="hidden lg:grid h-16" style="grid-template-columns: auto 1fr auto;">
 
         <!-- Logo flush left -->
@@ -78,27 +80,50 @@ if (!defined('ABSPATH')) {
             <?php endif; ?>
         </a>
 
-        <!-- Nav: absolutely centered within the full header width -->
-        <div class="relative flex items-center justify-center">
-            <nav id="desktop-navigation" class="flex items-center h-16">
-                <?php
-                wp_nav_menu([
-                    'theme_location' => 'primary',
-                    'menu_id'        => 'primary-menu',
-                    'container'      => false,
-                    'menu_class'     => 'flex items-center h-full',
-                    'fallback_cb'    => false,
-                    'link_before'    => '<span class="flex items-center gap-1">',
-                    'link_after'     => '</span>',
-                    'walker'         => new \Standard\Walkers\Primary_Nav_Walker(),
-                ]);
-                ?>
+        <!-- Mega menu triggers — centered in full header width -->
+        <div class="flex items-center justify-center">
+            <nav id="desktop-navigation" aria-label="<?php esc_attr_e('Primary navigation', 'standard'); ?>">
+                <ul id="primary-menu" class="flex items-center h-16 m-0 p-0 list-none">
+                    <?php foreach ($desktop_nav['panels'] as $panel) : ?>
+                        <li class="h-full">
+                            <button
+                                type="button"
+                                class="mega-trigger flex items-center h-full px-5 font-sans font-medium text-body text-blue-700 bg-transparent border-0 cursor-pointer hover:bg-blue-100 transition-colors"
+                                style="letter-spacing: 0.01em;"
+                                data-mega-panel="<?php echo esc_attr($panel['id']); ?>"
+                                aria-expanded="false"
+                                aria-controls="mega-panel-<?php echo esc_attr($panel['id']); ?>"
+                            >
+                                <?php echo esc_html($panel['label']); ?>
+                                <?php icon('chevron-down', ['class' => 'w-3.5 h-3.5 ml-1.5 mega-trigger__caret transition-transform duration-200']); ?>
+                            </button>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
             </nav>
         </div>
 
-        <!-- Actions flush right -->
-        <div id="header-actions" class="flex items-center h-16 transition-opacity duration-200">
-            <a href="<?php echo esc_url(\Standard\Url\with_query('/', ['s' => ''])); ?>" class="flex items-center justify-center w-20 h-16 text-blue-600 hover:bg-blue-100 transition-colors" aria-label="Search">
+        <!-- Utility rail flush right -->
+        <div id="header-actions" class="flex items-center h-16 gap-1 px-4 transition-opacity duration-200">
+            <?php foreach ($desktop_nav['utility'] as $item) : ?>
+                <?php if (!empty($item['highlight'])) : ?>
+                    <a
+                        href="<?php echo esc_url($item['url']); ?>"
+                        class="inline-flex items-center px-4 py-2 font-sans font-medium text-sm text-white bg-blue-500 hover:bg-blue-600 transition-colors no-underline"
+                    >
+                        <?php echo esc_html($item['label']); ?>
+                    </a>
+                <?php else : ?>
+                    <a
+                        href="<?php echo esc_url($item['url']); ?>"
+                        class="flex items-center h-full px-4 font-sans font-medium text-body text-blue-700 no-underline hover:bg-blue-100 transition-colors"
+                        style="letter-spacing: 0.01em;"
+                    >
+                        <?php echo esc_html($item['label']); ?>
+                    </a>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            <a href="<?php echo esc_url(\Standard\Url\with_query('/', ['s' => ''])); ?>" class="flex items-center justify-center w-12 h-16 text-blue-600 hover:bg-blue-100 transition-colors" aria-label="<?php esc_attr_e('Search', 'standard'); ?>">
                 <?php icon('search', ['class' => 'w-5 h-5']); ?>
             </a>
         </div>
@@ -106,8 +131,8 @@ if (!defined('ABSPATH')) {
     </div>
 </header>
 
-<!-- Mega menu overlay -->
-<div id="mega-menu-overlay" aria-hidden="true"></div>
+<!-- Mega menu panels (desktop) -->
+<?php get_template_part('templates/parts/mega-menu'); ?>
 
 <!-- Mobile menu (full width, below header) -->
 <?php get_template_part('templates/parts/mobile-menu'); ?>
