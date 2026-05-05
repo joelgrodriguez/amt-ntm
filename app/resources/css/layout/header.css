@@ -47,7 +47,7 @@ body.header-is-sticky {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 3px;
+  height: 2px;
   background-color: var(--color-blue-500);
   transform: scaleX(0);
   transition: transform 250ms ease;
