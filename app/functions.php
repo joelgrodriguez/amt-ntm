@@ -27,6 +27,7 @@ $theme_includes = [
     'inc/setup.php',
     'inc/search.php',
     'inc/mobile-nav.php',
+    'inc/desktop-nav.php',
     'inc/sidebars.php',
     'inc/fonts.php',
     'inc/icons.php',
