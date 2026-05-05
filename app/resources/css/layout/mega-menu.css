@@ -9,16 +9,94 @@
     z-index: 45;
     background: var(--color-white);
     border-bottom: 1px solid var(--color-blue-200);
-    /* Start position before transition fires */
+    pointer-events: none;
     opacity: 0;
-    transform: translateY(-0.5rem);
-    transition: opacity 200ms ease, transform 300ms cubic-bezier(0.4, 0, 1, 1);
+    transform: translateY(-100%);
+    /* Close: fast ease-in snaps away */
+    transition: opacity 0ms 320ms, transform 320ms cubic-bezier(0.4, 0, 1, 1);
 }
 
 .mega-panel.is-open {
+    pointer-events: auto;
     opacity: 1;
     transform: translateY(0);
-    transition: opacity 150ms ease, transform 380ms var(--ease-spring);
+    /* Open: spring deceleration as it lands */
+    transition: opacity 0ms, transform 480ms var(--ease-spring);
+}
+
+/* ── Child item entry stagger ─────────────────────────────────────────── */
+
+/* Start: items invisible and slightly raised */
+.mega-panel .mega-panel__sidebar,
+.mega-panel .mega-tab,
+.mega-panel .mega-lc__all-link,
+.mega-panel .mega-lc__type-link,
+.mega-panel .mega-post-card,
+.mega-panel .mega-product-grid .card-product,
+.mega-panel .mega-profile-grid .mega-profile-card {
+    opacity: 0;
+    transform: translateY(-12px);
+    transition: opacity 160ms var(--ease-spring), transform 160ms var(--ease-spring);
+}
+
+/* Open: items animate into place */
+.mega-panel.is-open .mega-panel__sidebar,
+.mega-panel.is-open .mega-tab,
+.mega-panel.is-open .mega-lc__all-link,
+.mega-panel.is-open .mega-lc__type-link,
+.mega-panel.is-open .mega-post-card,
+.mega-panel.is-open .mega-product-grid .card-product,
+.mega-panel.is-open .mega-profile-grid .mega-profile-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Sidebar enters as one unit */
+.mega-panel.is-open .mega-panel__sidebar { transition-delay: 80ms; }
+
+/* Tabs within sidebar stagger */
+.mega-panel.is-open .mega-tab:nth-child(1) { transition-delay: 120ms; }
+.mega-panel.is-open .mega-tab:nth-child(2) { transition-delay: 180ms; }
+.mega-panel.is-open .mega-tab:nth-child(3) { transition-delay: 240ms; }
+.mega-panel.is-open .mega-tab:nth-child(4) { transition-delay: 300ms; }
+.mega-panel.is-open .mega-tab:nth-child(5) { transition-delay: 360ms; }
+
+/* Learning Center sidebar links */
+.mega-panel.is-open .mega-lc__all-link    { transition-delay: 120ms; }
+.mega-panel.is-open .mega-lc__type-link:nth-child(1) { transition-delay: 160ms; }
+.mega-panel.is-open .mega-lc__type-link:nth-child(2) { transition-delay: 200ms; }
+.mega-panel.is-open .mega-lc__type-link:nth-child(3) { transition-delay: 240ms; }
+.mega-panel.is-open .mega-lc__type-link:nth-child(4) { transition-delay: 280ms; }
+.mega-panel.is-open .mega-lc__type-link:nth-child(5) { transition-delay: 320ms; }
+
+/* Posts in content area */
+.mega-panel.is-open .mega-post-card:nth-child(1) { transition-delay: 160ms; }
+.mega-panel.is-open .mega-post-card:nth-child(2) { transition-delay: 220ms; }
+.mega-panel.is-open .mega-post-card:nth-child(3) { transition-delay: 280ms; }
+
+/* Product / profile cards */
+.mega-panel.is-open .mega-product-grid .card-product:nth-child(1) { transition-delay: 120ms; }
+.mega-panel.is-open .mega-product-grid .card-product:nth-child(2) { transition-delay: 160ms; }
+.mega-panel.is-open .mega-product-grid .card-product:nth-child(3) { transition-delay: 200ms; }
+.mega-panel.is-open .mega-product-grid .card-product:nth-child(4) { transition-delay: 240ms; }
+.mega-panel.is-open .mega-product-grid .card-product:nth-child(5) { transition-delay: 280ms; }
+.mega-panel.is-open .mega-product-grid .card-product:nth-child(6) { transition-delay: 320ms; }
+.mega-panel.is-open .mega-profile-grid .mega-profile-card:nth-child(1) { transition-delay: 120ms; }
+.mega-panel.is-open .mega-profile-grid .mega-profile-card:nth-child(2) { transition-delay: 160ms; }
+.mega-panel.is-open .mega-profile-grid .mega-profile-card:nth-child(3) { transition-delay: 200ms; }
+.mega-panel.is-open .mega-profile-grid .mega-profile-card:nth-child(4) { transition-delay: 240ms; }
+.mega-panel.is-open .mega-profile-grid .mega-profile-card:nth-child(5) { transition-delay: 280ms; }
+.mega-panel.is-open .mega-profile-grid .mega-profile-card:nth-child(6) { transition-delay: 320ms; }
+
+/* Closing: snap all children to invisible instantly so stagger fires fresh on next open */
+.mega-panel.is-closing .mega-panel__sidebar,
+.mega-panel.is-closing .mega-tab,
+.mega-panel.is-closing .mega-lc__all-link,
+.mega-panel.is-closing .mega-lc__type-link,
+.mega-panel.is-closing .mega-post-card,
+.mega-panel.is-closing .mega-product-grid .card-product,
+.mega-panel.is-closing .mega-profile-grid .mega-profile-card {
+    transition: none;
 }
 
 /* Two-column inner layout: sidebar | content */
@@ -222,6 +300,18 @@
 @media (prefers-reduced-motion: reduce) {
     .mega-panel,
     .mega-panel.is-open {
+        transition: none;
+    }
+
+    .mega-panel .mega-panel__sidebar,
+    .mega-panel .mega-tab,
+    .mega-panel .mega-lc__all-link,
+    .mega-panel .mega-lc__type-link,
+    .mega-panel .mega-post-card,
+    .mega-panel .mega-product-grid .card-product,
+    .mega-panel .mega-profile-grid .mega-profile-card {
+        opacity: 1;
+        transform: none;
         transition: none;
     }
 }
