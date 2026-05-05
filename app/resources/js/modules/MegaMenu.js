@@ -108,29 +108,6 @@ export const initMegaMenu = () => {
     };
 
     /** @param {MouseEvent} e */
-    const handleTriggerEnter = (e) => {
-        cancelClose();
-        const trigger = /** @type {HTMLButtonElement} */ (e.currentTarget);
-        open(trigger);
-    };
-
-    // Close after pointer leaves — cancelled if pointer re-enters header or any panel
-    let leaveTimer = /** @type {ReturnType<typeof setTimeout>|null} */ (null);
-
-    const scheduleClose = () => {
-        leaveTimer = setTimeout(close, 150);
-    };
-
-    const cancelClose = () => {
-        if (leaveTimer !== null) {
-            clearTimeout(leaveTimer);
-            leaveTimer = null;
-        }
-    };
-
-    const header = document.getElementById('site-header');
-
-    /** @param {MouseEvent} e */
     const handleTabClick = (e) => {
         const btn = /** @type {HTMLButtonElement} */ (e.currentTarget);
         switchTab(btn);
@@ -181,16 +158,7 @@ export const initMegaMenu = () => {
 
     // ── Wire up ─────────────────────────────────────────────────────────
 
-    triggers.forEach((t) => {
-        t.addEventListener('click', handleTriggerClick);
-        t.addEventListener('mouseenter', handleTriggerEnter);
-    });
-
-    // Header and panel container form one hover zone — leaving either schedules close
-    header?.addEventListener('mouseleave', scheduleClose);
-    header?.addEventListener('mouseenter', cancelClose);
-    container.addEventListener('mouseleave', scheduleClose);
-    container.addEventListener('mouseenter', cancelClose);
+    triggers.forEach((t) => t.addEventListener('click', handleTriggerClick));
 
     overlay?.addEventListener('click', handleOverlayClick);
     document.addEventListener('keydown', handleKeydown);
@@ -216,14 +184,7 @@ export const initMegaMenu = () => {
     // ── Cleanup ─────────────────────────────────────────────────────────
 
     return () => {
-        triggers.forEach((t) => {
-            t.removeEventListener('click', handleTriggerClick);
-            t.removeEventListener('mouseenter', handleTriggerEnter);
-        });
-        header?.removeEventListener('mouseleave', scheduleClose);
-        header?.removeEventListener('mouseenter', cancelClose);
-        container.removeEventListener('mouseleave', scheduleClose);
-        container.removeEventListener('mouseenter', cancelClose);
+        triggers.forEach((t) => t.removeEventListener('click', handleTriggerClick));
         overlay?.removeEventListener('click', handleOverlayClick);
         document.removeEventListener('keydown', handleKeydown);
         document.removeEventListener('click', handleDocClick);
