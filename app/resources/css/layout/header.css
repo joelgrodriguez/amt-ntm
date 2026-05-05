@@ -44,7 +44,7 @@ body.header-is-sticky {
   height: 3px;
   background-color: var(--color-blue-500);
   transform: scaleX(0);
-  transition: transform 150ms ease;
+  transition: transform 250ms ease;
 }
 
 .mega-trigger:hover::after,
