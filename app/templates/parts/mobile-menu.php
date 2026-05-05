@@ -21,6 +21,13 @@ $mobile_nav = \Standard\Nav\get_mobile_nav_tree();
 ?>
 
 <nav id="mobile-menu" class="mobile-menu lg:hidden" aria-hidden="true" aria-label="<?php esc_attr_e('Mobile navigation', 'standard'); ?>">
+    <div
+        id="mobile-menu-live"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        class="sr-only"
+    ></div>
     <div class="mobile-menu__viewport">
         <div class="mobile-menu__track" data-active-panel="root">
 

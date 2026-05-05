@@ -31,6 +31,7 @@ export function initMobileMenu() {
   const iconClose = document.querySelector('#menu-icon-close');
   const viewport = menu?.querySelector('.mobile-menu__viewport');
   const track = menu?.querySelector('.mobile-menu__track');
+  const liveRegion = menu?.querySelector('#mobile-menu-live');
 
   if (!toggle || !menu || !viewport || !track) return;
 
@@ -162,6 +163,7 @@ export function initMobileMenu() {
 
   const close = () => {
     menu.classList.add('is-closing');
+    if (liveRegion) liveRegion.textContent = '';
     resetMenu();
   };
 
@@ -180,6 +182,11 @@ export function initMobileMenu() {
     state.activePanel = slug;
     render();
 
+    if (liveRegion) {
+        const title = newPanel.querySelector('.mobile-menu__panel-title');
+        liveRegion.textContent = title ? title.textContent.trim() : '';
+    }
+
     // Move focus to the new panel's back button for keyboard/SR users.
     const backBtn = newPanel.querySelector('[data-action="back"]');
     if (backBtn instanceof HTMLElement) backBtn.focus({ preventScroll: true });
@@ -188,6 +195,7 @@ export function initMobileMenu() {
   const goBack = () => {
     state.activePanel = ROOT_PANEL;
     render();
+    if (liveRegion) liveRegion.textContent = '';
     if (state.lastTrigger instanceof HTMLElement) {
       state.lastTrigger.focus({ preventScroll: true });
       state.lastTrigger = null;
