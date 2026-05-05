@@ -2,12 +2,12 @@
 
 .mega-panel {
     position: fixed;
-    top: 2.75rem; /* header height (h-11 = 44px) */
+    top: 4rem; /* header height (h-16 = 64px) */
     left: 0;
     right: 0;
     z-index: 45;
     background: var(--color-white);
-    border-bottom: 1px solid color-mix(in srgb, currentColor 10%, transparent);
+    border-bottom: 1px solid var(--color-blue-200);
     /* Entry animation — slides down from header */
     animation: mega-panel-enter 220ms var(--ease-spring) both;
 }
