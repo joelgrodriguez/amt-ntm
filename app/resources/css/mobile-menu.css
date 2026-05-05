@@ -19,14 +19,15 @@
     overflow: hidden;
     pointer-events: none;
     opacity: 0;
-    transform: translateY(-0.5rem);
-    transition: opacity 220ms var(--ease-spring), transform 220ms var(--ease-spring);
+    transform: translateY(-100%);
+    transition: opacity 0ms 300ms, transform 300ms var(--ease-spring);
 }
 
 .mobile-menu.is-open {
     pointer-events: auto;
     opacity: 1;
-    transform: none;
+    transform: translateY(0);
+    transition: opacity 0ms, transform 300ms var(--ease-spring);
 }
 
 /* ── Page scrim (dims content behind the open menu) ──────────────────── */
@@ -442,11 +443,11 @@ body.overflow-hidden.menu-scrim-ready::after {
 
 /* ── Reduced motion ───────────────────────────────────────────────────── */
 
-/* Kill the slide animation; keep the container fade. WCAG's reduced-motion
- * intent is to suppress motion (translation), not opacity transitions. */
+/* Kill all translation animations for users who prefer reduced motion. */
 @media (prefers-reduced-motion: reduce) {
     .mobile-menu {
-        transition: opacity 240ms ease;
+        transform: none;
+        transition: opacity 0ms;
     }
 
     .mobile-menu__track {
