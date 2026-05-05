@@ -29,7 +29,6 @@
 /* Start: items invisible and slightly raised */
 .mega-panel .mega-panel__sidebar,
 .mega-panel .mega-tab,
-.mega-panel .mega-lc__all-link,
 .mega-panel .mega-lc__type-link,
 .mega-panel .mega-post-card,
 .mega-panel .mega-product-grid .card-product,
@@ -44,7 +43,6 @@
 /* Open: items animate into place */
 .mega-panel.is-open .mega-panel__sidebar,
 .mega-panel.is-open .mega-tab,
-.mega-panel.is-open .mega-lc__all-link,
 .mega-panel.is-open .mega-lc__type-link,
 .mega-panel.is-open .mega-post-card,
 .mega-panel.is-open .mega-product-grid .card-product,
@@ -64,8 +62,7 @@
 .mega-panel.is-open .mega-tab:nth-child(5) { transition-delay: 360ms; }
 
 /* Learning Center sidebar links */
-.mega-panel.is-open .mega-lc__all-link    { transition-delay: 120ms; }
-.mega-panel.is-open .mega-lc__type-link:nth-child(1) { transition-delay: 160ms; }
+.mega-panel.is-open .mega-lc__type-link:nth-child(1) { transition-delay: 120ms; }
 .mega-panel.is-open .mega-lc__type-link:nth-child(2) { transition-delay: 200ms; }
 .mega-panel.is-open .mega-lc__type-link:nth-child(3) { transition-delay: 240ms; }
 .mega-panel.is-open .mega-lc__type-link:nth-child(4) { transition-delay: 280ms; }
@@ -93,7 +90,6 @@
 /* Closing: snap all children to invisible instantly so stagger fires fresh on next open */
 .mega-panel.is-closing .mega-panel__sidebar,
 .mega-panel.is-closing .mega-tab,
-.mega-panel.is-closing .mega-lc__all-link,
 .mega-panel.is-closing .mega-lc__type-link,
 .mega-panel.is-closing .mega-post-card,
 .mega-panel.is-closing .mega-product-grid .card-product,
@@ -241,27 +237,6 @@
 
 /* ── Learning Center sidebar ──────────────────────────────────────────── */
 
-.mega-lc__all-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.625rem 1.25rem;
-    margin-bottom: 0.25rem;
-    font-family: var(--font-sans);
-    font-size: var(--text-body);
-    font-weight: 600;
-    color: var(--color-blue-900);
-    text-decoration: none;
-    border-left: 2px solid transparent;
-    border-bottom: 1px solid var(--color-blue-100);
-    transition: color 150ms ease, border-color 150ms ease;
-}
-
-.mega-lc__all-link:hover {
-    color: var(--color-blue-500);
-    border-left-color: var(--color-blue-200);
-}
-
 .mega-lc__type-list {
     list-style: none;
     margin: 0;
@@ -326,7 +301,6 @@
 
     .mega-panel .mega-panel__sidebar,
     .mega-panel .mega-tab,
-    .mega-panel .mega-lc__all-link,
     .mega-panel .mega-lc__type-link,
     .mega-panel .mega-post-card,
     .mega-panel .mega-product-grid .card-product,

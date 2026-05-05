@@ -123,10 +123,6 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
             <!-- Left rail: content type links -->
             <div class="mega-panel__sidebar">
                 <p class="mega-sidebar__label"><?php esc_html_e('Learning Center', 'standard'); ?></p>
-                <a href="<?php echo esc_url(\Standard\Url\internal('/learning-center/')); ?>" class="mega-lc__all-link">
-                    <?php esc_html_e('All Learning Center', 'standard'); ?>
-                    <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
-                </a>
                 <ul class="mega-lc__type-list">
                     <?php foreach ($sections as $section) : ?>
                         <li>
@@ -137,6 +133,10 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
                         </li>
                     <?php endforeach; ?>
                 </ul>
+                <a href="<?php echo esc_url(\Standard\Url\internal('/learning-center/')); ?>" class="mega-panel__view-all mt-auto px-5">
+                    <?php esc_html_e('Visit Learning Center', 'standard'); ?>
+                    <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                </a>
             </div>
 
             <!-- Right: 3 recent posts -->
