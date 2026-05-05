@@ -10,7 +10,7 @@
 
 .mobile-menu {
     position: fixed;
-    top: var(--header-height, 3rem);
+    top: var(--header-height, 4rem);
     left: 0;
     right: 0;
     bottom: 0;

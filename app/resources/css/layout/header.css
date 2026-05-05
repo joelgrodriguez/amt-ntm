@@ -25,7 +25,7 @@
 
 /* Prevent content jump when header becomes fixed */
 body.header-is-sticky {
-  padding-top: var(--header-height, 3rem);
+  padding-top: var(--header-height, 4rem);
 }
 
 /* Primary navigation */

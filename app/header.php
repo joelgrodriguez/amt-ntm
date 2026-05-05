@@ -31,12 +31,12 @@ if (!defined('ABSPATH')) {
 
 <header id="site-header" class="bg-white border-b border-blue-200 z-50 transition-colors duration-200">
     <div class="mx-auto lg:container lg:border-x lg:border-blue-200">
-        <div class="flex items-center h-12">
+        <div class="flex items-center h-16">
             <!-- Mobile menu toggle -->
             <button
                 type="button"
                 id="mobile-menu-toggle"
-                class="flex items-center justify-center w-12 h-12 border-r border-blue-200 text-blue-700 hover:bg-blue-100 transition-colors lg:hidden"
+                class="flex items-center justify-center w-16 h-16 border-r border-blue-200 text-blue-700 hover:bg-blue-100 transition-colors lg:hidden"
                 aria-expanded="false"
                 aria-controls="mobile-menu"
                 aria-label="<?php esc_attr_e('Open menu', 'standard'); ?>"
@@ -46,7 +46,7 @@ if (!defined('ABSPATH')) {
             </button>
 
             <!-- Logo + Site Name -->
-            <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="flex items-center gap-4 h-12 px-4 lg:px-6 lg:border-r border-blue-200 no-underline">
+            <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="flex items-center gap-4 h-16 px-4 lg:px-6 lg:border-r border-blue-200 no-underline">
                 <?php if (has_custom_logo()) : ?>
                     <?php
                     $custom_logo_id = get_theme_mod('custom_logo');
@@ -58,13 +58,13 @@ if (!defined('ABSPATH')) {
                         'decoding' => 'async',
                     ]); ?>
                 <?php endif; ?>
-                <span class="text-sm font-mono font-medium text-blue-600 hover:text-blue-500">
+                <span class="hidden lg:block text-sm font-mono font-medium text-blue-600 hover:text-blue-500">
                     <?php echo esc_html(get_bloginfo('name')); ?>
                 </span>
             </a>
 
             <!-- Desktop navigation -->
-            <nav id="desktop-navigation" class="hidden lg:flex items-center h-12 flex-1 border-r border-blue-200">
+            <nav id="desktop-navigation" class="hidden lg:flex items-center h-16 flex-1 border-r border-blue-200">
                 <?php
                 wp_nav_menu([
                     'theme_location' => 'primary',
@@ -80,8 +80,8 @@ if (!defined('ABSPATH')) {
             </nav>
 
             <!-- Right side icons -->
-            <div id="header-actions" class="flex items-center h-12 ml-auto px-2 lg:px-0 transition-opacity duration-200">
-                <a href="<?php echo esc_url(\Standard\Url\with_query('/', ['s' => ''])); ?>" class="flex items-center justify-center w-12 h-12 text-blue-600 hover:bg-blue-100 transition-colors" aria-label="Search">
+            <div id="header-actions" class="flex items-center h-16 ml-auto px-2 lg:px-0 transition-opacity duration-200">
+                <a href="<?php echo esc_url(\Standard\Url\with_query('/', ['s' => ''])); ?>" class="flex items-center justify-center w-16 h-16 text-blue-600 hover:bg-blue-100 transition-colors" aria-label="Search">
                     <?php icon('search', ['class' => 'w-5 h-5']); ?>
                 </a>
             </div>
