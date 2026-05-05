@@ -25,6 +25,7 @@
 .mega-panel__inner {
     display: grid;
     grid-template-columns: 18rem 1fr;
+    align-items: stretch;
     height: 100%;
     overflow: hidden;
 }
@@ -45,6 +46,7 @@
     background: var(--color-blue-50);
     gap: 0.25rem;
     overflow-y: auto;
+    align-self: stretch;
 }
 
 /* ── Content area ─────────────────────────────────────────────────────── */
@@ -52,6 +54,7 @@
 .mega-panel__content {
     padding: 2rem 2.5rem;
     overflow-y: auto;
+    align-self: stretch;
 }
 
 /* ── Tab list (shared by machines + profiles) ─────────────────────────── */
