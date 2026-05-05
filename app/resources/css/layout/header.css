@@ -33,6 +33,10 @@ body.header-is-sticky {
   @apply flex;
 }
 
+#primary-menu > li > a {
+  text-decoration: none;
+}
+
 /* Thick bottom indicator — flush at bottom of full-height nav item */
 .mega-trigger::after,
 #primary-menu > li > a::after {
