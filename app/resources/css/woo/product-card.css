@@ -85,9 +85,8 @@
     @apply flex gap-2 mt-auto;
   }
 
-  .card-product__cta .btn-outline-dark,
-  .card-product__cta .btn-ghost {
-    @apply flex-none;
+  .card-product__cta .btn {
+    @apply flex-1 min-w-0;
   }
 
   .card-product__cta .btn-ghost {
