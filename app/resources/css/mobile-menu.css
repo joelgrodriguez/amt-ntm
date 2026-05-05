@@ -250,6 +250,31 @@ body.overflow-hidden.menu-scrim-ready::after {
     color: var(--color-red);
 }
 
+/* ── L1: featured card — tablet scale-up ─────────────────────────────── */
+
+@media (min-width: 640px) {
+    .mobile-menu__featured {
+        min-height: 14rem;
+    }
+
+    .mobile-menu__featured-image {
+        flex: 0 0 45%;
+    }
+
+    .mobile-menu__featured-text {
+        gap: 0.625rem;
+        padding: 1.75rem 2rem;
+    }
+
+    .mobile-menu__featured-label {
+        font-size: 1.75rem;
+    }
+
+    .mobile-menu__featured-subtitle {
+        font-size: 0.9375rem;
+    }
+}
+
 .mobile-menu__list--bottom .mobile-menu__item + .mobile-menu__item {
     border-top: 1px solid var(--color-blue-200);
 }
