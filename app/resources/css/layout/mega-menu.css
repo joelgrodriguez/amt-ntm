@@ -198,6 +198,41 @@
     min-width: 0;
 }
 
+/* ── Learning Center header (title left, view-all link right) ─────────── */
+
+.mega-learning-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-blue-100);
+}
+
+.mega-learning-header__title {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-body);
+    font-weight: 500;
+    color: var(--color-blue-900);
+}
+
+.mega-learning-header__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    font-weight: 500;
+    color: var(--color-blue-500);
+    text-decoration: none;
+    transition: color 150ms ease;
+}
+
+.mega-learning-header__link:hover {
+    color: var(--color-blue-700);
+}
+
 /* ── Learning Center grid (3 cols × up to 2 rows of card-post) ─────────── */
 
 .mega-learning-grid {

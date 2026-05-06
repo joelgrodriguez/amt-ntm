@@ -167,6 +167,23 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
                         class="mega-tab-panel"
                         <?php echo $i !== 0 ? 'hidden' : ''; ?>
                     >
+                        <?php if (!empty($tab['heading']) || !empty($tab['view_all_url'])) : ?>
+                            <div class="mega-learning-header">
+                                <?php if (!empty($tab['heading'])) : ?>
+                                    <h3 class="mega-learning-header__title"><?php echo esc_html($tab['heading']); ?></h3>
+                                <?php endif; ?>
+                                <?php if (!empty($tab['view_all_url'])) : ?>
+                                    <a href="<?php echo esc_url($tab['view_all_url']); ?>" class="mega-learning-header__link">
+                                        <?php
+                                        /* translators: %s: post type label, e.g. Articles */
+                                        printf(esc_html__('View all %s', 'standard'), esc_html($tab['label']));
+                                        ?>
+                                        <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                                    </a>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+
                         <?php if ($content_query->have_posts()) : ?>
                             <ul class="mega-learning-grid">
                                 <?php while ($content_query->have_posts()) : $content_query->the_post(); ?>
