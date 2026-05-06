@@ -245,14 +245,7 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
                             <ul class="mega-profile-grid">
                                 <?php while ($profiles->have_posts()) : $profiles->the_post(); ?>
                                     <li>
-                                        <a href="<?php echo esc_url(get_permalink()); ?>" class="mega-profile-card">
-                                            <span class="mega-profile-card__thumb">
-                                                <?php if (has_post_thumbnail()) : ?>
-                                                    <?php the_post_thumbnail('thumbnail', ['class' => 'mega-profile-card__image', 'alt' => '']); ?>
-                                                <?php endif; ?>
-                                            </span>
-                                            <span class="mega-profile-card__title"><?php echo esc_html(get_the_title()); ?></span>
-                                        </a>
+                                        <?php get_template_part('templates/parts/card-post'); ?>
                                     </li>
                                 <?php endwhile; wp_reset_postdata(); ?>
                             </ul>

@@ -31,7 +31,7 @@
 .mega-panel .mega-tab,
 .mega-panel .mega-post-card,
 .mega-panel .mega-product-grid .card-product,
-.mega-panel .mega-profile-grid .mega-profile-card {
+.mega-panel .mega-profile-grid > li {
     opacity: 0;
     transform: translateY(-12px);
     transition-property: opacity, transform;
@@ -44,7 +44,7 @@
 .mega-panel.is-open .mega-tab,
 .mega-panel.is-open .mega-post-card,
 .mega-panel.is-open .mega-product-grid .card-product,
-.mega-panel.is-open .mega-profile-grid .mega-profile-card {
+.mega-panel.is-open .mega-profile-grid > li {
     opacity: 1;
     transform: translateY(0);
 }
@@ -71,19 +71,19 @@
 .mega-panel.is-open .mega-product-grid .card-product:nth-child(4) { transition-delay: 240ms; }
 .mega-panel.is-open .mega-product-grid .card-product:nth-child(5) { transition-delay: 280ms; }
 .mega-panel.is-open .mega-product-grid .card-product:nth-child(6) { transition-delay: 320ms; }
-.mega-panel.is-open .mega-profile-grid .mega-profile-card:nth-child(1) { transition-delay: 120ms; }
-.mega-panel.is-open .mega-profile-grid .mega-profile-card:nth-child(2) { transition-delay: 160ms; }
-.mega-panel.is-open .mega-profile-grid .mega-profile-card:nth-child(3) { transition-delay: 200ms; }
-.mega-panel.is-open .mega-profile-grid .mega-profile-card:nth-child(4) { transition-delay: 240ms; }
-.mega-panel.is-open .mega-profile-grid .mega-profile-card:nth-child(5) { transition-delay: 280ms; }
-.mega-panel.is-open .mega-profile-grid .mega-profile-card:nth-child(6) { transition-delay: 320ms; }
+.mega-panel.is-open .mega-profile-grid > li:nth-child(1) { transition-delay: 120ms; }
+.mega-panel.is-open .mega-profile-grid > li:nth-child(2) { transition-delay: 160ms; }
+.mega-panel.is-open .mega-profile-grid > li:nth-child(3) { transition-delay: 200ms; }
+.mega-panel.is-open .mega-profile-grid > li:nth-child(4) { transition-delay: 240ms; }
+.mega-panel.is-open .mega-profile-grid > li:nth-child(5) { transition-delay: 280ms; }
+.mega-panel.is-open .mega-profile-grid > li:nth-child(6) { transition-delay: 320ms; }
 
 /* Closing: snap all children to invisible instantly so stagger fires fresh on next open */
 .mega-panel.is-closing .mega-panel__sidebar,
 .mega-panel.is-closing .mega-tab,
 .mega-panel.is-closing .mega-post-card,
 .mega-panel.is-closing .mega-product-grid .card-product,
-.mega-panel.is-closing .mega-profile-grid .mega-profile-card {
+.mega-panel.is-closing .mega-profile-grid > li {
     transition: none;
 }
 
@@ -206,55 +206,46 @@
     padding: 0;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem 1rem;
+    gap: 1rem;
 }
 
-.mega-profile-card {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem 0.75rem;
-    border: 1px solid transparent;
-    text-decoration: none;
-    transition: border-color 150ms ease, background-color 150ms ease;
+/* Reuse card-post visual idiom (border, eyebrow, title, CTA footer)
+ * but flip the layout to horizontal: image on the left, body + CTA stacked
+ * on the right. The card-post template itself stays untouched. */
+.mega-profile-grid > li > article {
+    grid-template-columns: 8rem 1fr;
+    grid-template-rows: 1fr auto;
 }
 
-.mega-profile-card:hover {
-    border-color: var(--color-blue-200);
-    background-color: var(--color-blue-50);
-}
-
-.mega-profile-card__thumb {
-    flex: 0 0 auto;
-    width: 3rem;
-    height: 3rem;
-    background-color: var(--color-blue-50);
-    overflow: hidden;
+/* Image cell spans both rows on the left */
+.mega-profile-grid > li > article > a:nth-child(1) {
+    grid-row: 1 / 3;
+    grid-column: 1;
+    border-bottom: 0;
+    border-right: 1px solid var(--color-blue-200);
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: var(--color-blue-50);
+    overflow: hidden;
 }
 
-.mega-profile-card__image {
+.mega-profile-grid > li > article > a:nth-child(1) img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.mega-profile-card__title {
-    font-family: var(--font-sans);
-    font-size: var(--text-caption);
-    font-weight: 500;
-    color: var(--color-blue-700);
-    line-height: 1.3;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+/* Body sits top-right; CTA sits bottom-right */
+.mega-profile-grid > li > article > a:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
 }
 
-.mega-profile-card:hover .mega-profile-card__title {
-    color: var(--color-blue-500);
+.mega-profile-grid > li > article > a:nth-child(3) {
+    grid-column: 2;
+    grid-row: 2;
 }
 
 /* ── View all CTA ─────────────────────────────────────────────────────── */
@@ -338,7 +329,7 @@
     .mega-panel .mega-tab,
     .mega-panel .mega-post-card,
     .mega-panel .mega-product-grid .card-product,
-    .mega-panel .mega-profile-grid .mega-profile-card {
+    .mega-panel .mega-profile-grid > li {
         opacity: 1;
         transform: none;
         transition: none;
