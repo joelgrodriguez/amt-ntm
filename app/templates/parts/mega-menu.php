@@ -88,6 +88,20 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
                         class="mega-tab-panel"
                         <?php echo $i !== 0 ? 'hidden' : ''; ?>
                     >
+                        <?php if (!empty($tab['heading']) || !empty($tab['view_all_url'])) : ?>
+                            <div class="mega-tab-header">
+                                <?php if (!empty($tab['heading'])) : ?>
+                                    <h3 class="mega-tab-header__title"><?php echo esc_html($tab['heading']); ?></h3>
+                                <?php endif; ?>
+                                <?php if (!empty($tab['view_all_url'])) : ?>
+                                    <a href="<?php echo esc_url($tab['view_all_url']); ?>" class="mega-tab-header__link">
+                                        <?php echo esc_html($tab['view_all_label'] ?? __('View all', 'standard')); ?>
+                                        <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                                    </a>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+
                         <div class="mega-product-grid">
                             <?php foreach ($products as $product) : ?>
                                 <?php get_template_part('templates/parts/card-product', null, ['product' => $product]); ?>
@@ -168,16 +182,13 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
                         <?php echo $i !== 0 ? 'hidden' : ''; ?>
                     >
                         <?php if (!empty($tab['heading']) || !empty($tab['view_all_url'])) : ?>
-                            <div class="mega-learning-header">
+                            <div class="mega-tab-header">
                                 <?php if (!empty($tab['heading'])) : ?>
-                                    <h3 class="mega-learning-header__title"><?php echo esc_html($tab['heading']); ?></h3>
+                                    <h3 class="mega-tab-header__title"><?php echo esc_html($tab['heading']); ?></h3>
                                 <?php endif; ?>
                                 <?php if (!empty($tab['view_all_url'])) : ?>
-                                    <a href="<?php echo esc_url($tab['view_all_url']); ?>" class="mega-learning-header__link">
-                                        <?php
-                                        /* translators: %s: post type label, e.g. Articles */
-                                        printf(esc_html__('View all %s', 'standard'), esc_html($tab['label']));
-                                        ?>
+                                    <a href="<?php echo esc_url($tab['view_all_url']); ?>" class="mega-tab-header__link">
+                                        <?php echo esc_html($tab['view_all_label'] ?? __('View all', 'standard')); ?>
                                         <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                                     </a>
                                 <?php endif; ?>
@@ -256,6 +267,20 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
                         class="mega-tab-panel"
                         <?php echo $i !== 0 ? 'hidden' : ''; ?>
                     >
+                        <?php if (!empty($tab['heading']) || !empty($tab['view_all_url'])) : ?>
+                            <div class="mega-tab-header">
+                                <?php if (!empty($tab['heading'])) : ?>
+                                    <h3 class="mega-tab-header__title"><?php echo esc_html($tab['heading']); ?></h3>
+                                <?php endif; ?>
+                                <?php if (!empty($tab['view_all_url'])) : ?>
+                                    <a href="<?php echo esc_url($tab['view_all_url']); ?>" class="mega-tab-header__link">
+                                        <?php echo esc_html($tab['view_all_label'] ?? __('View all', 'standard')); ?>
+                                        <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                                    </a>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+
                         <?php if ($profiles->have_posts()) : ?>
                             <ul class="mega-profile-grid">
                                 <?php while ($profiles->have_posts()) : $profiles->the_post(); ?>
