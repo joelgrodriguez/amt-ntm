@@ -242,11 +242,16 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
                         <?php echo $i !== 0 ? 'hidden' : ''; ?>
                     >
                         <?php if ($profiles->have_posts()) : ?>
-                            <ul class="mega-content-list">
+                            <ul class="mega-profile-grid">
                                 <?php while ($profiles->have_posts()) : $profiles->the_post(); ?>
                                     <li>
-                                        <a href="<?php echo esc_url(get_permalink()); ?>" class="mega-content-list__link">
-                                            <?php echo esc_html(get_the_title()); ?>
+                                        <a href="<?php echo esc_url(get_permalink()); ?>" class="mega-profile-card">
+                                            <span class="mega-profile-card__thumb">
+                                                <?php if (has_post_thumbnail()) : ?>
+                                                    <?php the_post_thumbnail('thumbnail', ['class' => 'mega-profile-card__image', 'alt' => '']); ?>
+                                                <?php endif; ?>
+                                            </span>
+                                            <span class="mega-profile-card__title"><?php echo esc_html(get_the_title()); ?></span>
                                         </a>
                                     </li>
                                 <?php endwhile; wp_reset_postdata(); ?>
