@@ -198,6 +198,17 @@
     min-width: 0;
 }
 
+/* ── Learning Center grid (3 cols × up to 2 rows of card-post) ─────────── */
+
+.mega-learning-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+}
+
 /* ── Profile grid ─────────────────────────────────────────────────────── */
 
 .mega-profile-grid {
