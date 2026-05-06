@@ -214,7 +214,7 @@
  * the mega panel — the whole card already links to the profile permalink.
  * The card-post template itself stays untouched. */
 .mega-profile-grid > li > article {
-    grid-template-columns: 11rem 1fr;
+    grid-template-columns: 6rem 1fr;
     grid-template-rows: 1fr;
 }
 
@@ -250,7 +250,7 @@
 }
 
 .mega-profile-grid > li > article > a:nth-child(2) h3 {
-    font-size: var(--text-heading-sm);
+    font-size: var(--text-body);
     font-family: var(--font-mono);
     font-weight: 500;
     color: var(--color-blue-700);
