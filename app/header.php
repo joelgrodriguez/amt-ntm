@@ -113,7 +113,7 @@ if (!defined('ABSPATH')) {
         </div>
 
         <!-- Contact + search flush right -->
-        <div class="flex items-center h-16 gap-3 px-6">
+        <div class="flex items-center h-16 gap-3 px-10">
             <?php $contact = array_values(array_filter($desktop_nav['utility'], fn($i) => !empty($i['highlight'])))[0] ?? null; ?>
             <?php if ($contact) : ?>
                 <a href="<?php echo esc_url($contact['url']); ?>" class="inline-flex items-center px-3 py-1 font-sans text-sm font-medium text-blue-700 border border-blue-500 hover:bg-blue-50 transition-colors no-underline">
