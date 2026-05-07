@@ -12,8 +12,8 @@
     pointer-events: none;
     opacity: 0;
     transform: translateY(-100%);
-    /* Close: fast ease-in snaps away */
-    transition: opacity 0ms 320ms, transform 320ms cubic-bezier(0.4, 0, 1, 1);
+    /* Close: visible slide-up so panel-switching reads as "A leaves, then B arrives" */
+    transition: opacity 0ms 420ms, transform 420ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .mega-panel.is-open {
@@ -78,13 +78,17 @@
 .mega-panel.is-open .mega-profile-grid > li:nth-child(5) { transition-delay: 280ms; }
 .mega-panel.is-open .mega-profile-grid > li:nth-child(6) { transition-delay: 320ms; }
 
-/* Closing: snap all children to invisible instantly so stagger fires fresh on next open */
+/* Closing: children fade out together (no stagger) so the panel visibly empties
+   before the container slides up. Faster than the container so they're gone first. */
 .mega-panel.is-closing .mega-panel__sidebar,
 .mega-panel.is-closing .mega-tab,
 .mega-panel.is-closing .mega-post-card,
 .mega-panel.is-closing .mega-product-grid .card-product,
 .mega-panel.is-closing .mega-profile-grid > li {
-    transition: none;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 180ms ease-out, transform 180ms ease-out;
+    transition-delay: 0ms;
 }
 
 /* Two-column inner layout: sidebar | content */
