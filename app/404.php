@@ -74,7 +74,7 @@ $helpful_links = [
             <p class="font-mono text-lg text-red font-medium uppercase tracking-wider mt-1 mb-4">
                 <?php echo esc_html($content['error_code']); ?>
             </p>
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-medium font-mono text-blue-900 mb-6">
+            <h1 class="font-mono font-medium tracking-tight text-4xl md:text-5xl lg:text-6xl text-blue-900 mb-6">
                 <?php echo esc_html($content['title']); ?>
             </h1>
             <p class="text-lg text-blue-600 mb-8">

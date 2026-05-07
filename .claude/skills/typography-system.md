@@ -41,6 +41,43 @@ If the use case isn't on this list, it's sans.
 
 **Hero / display headlines are the only sans headings that *may* opt into mono** — and only when the page is a brand-voice page (front page hero, campaign template). Article titles, section h2s, card titles → sans.
 
+## The Brand-Voice Exception (Vercel / Linear / Resend pattern)
+
+Mono display is allowed on **brand-voice surfaces** only — pages whose primary job is identity, not conversion. This is the move Vercel uses on its marketing hero, Linear uses on landing/about, and Resend uses on its homepage. The trick is that they use mono *only* on the marquee surface, never on product pages, articles, docs, or any decision-making path.
+
+**Brand-voice surfaces (mono display allowed):**
+- Front-page hero (the marquee — first impression of the brand)
+- 404 page (conversational, off-trail — voice surface, not a conversion surface)
+- Campaign / launch templates (one-off branded landings)
+- About page hero (identity statement)
+
+**Decision surfaces (sans only — never mono display):**
+- Product pages (machine product, accessory product, single-machine)
+- Articles, blog posts, learning center
+- Search, archive, listing pages
+- Checkout, cart, account
+- Any documentation or instructional copy
+
+### Why this works
+
+Mono on the marquee says "we're an engineering company; we don't smooth-talk you." Sans everywhere else says "now let's get you the information you need to decide." The system stays coherent because mono display is rare — when it shows up, it's a brand voice signal, not a typographic accident.
+
+### Discipline within the exception
+
+When you do use mono display:
+
+- `font-medium` (500) only. **Never `font-bold` or `font-semibold` mono.** Mono at large sizes already looks heavy; bold turns it into a brick.
+- `tracking-tight` is fine for display sizes (`text-4xl+`). Tighten just enough to keep the line dense.
+- Keep it short — mono display still follows the ≤6 word rule. If your hero headline is a sentence, this exception isn't for you.
+- Don't repeat the trick on the same page. One mono headline per surface, max. The body, supporting headings, eyebrows-as-usual all stay in their normal roles.
+- Do not bleed mono display down into h2s, section titles, or card titles on the same page. The exception is for the *one* hero/identity headline.
+
+### Class combo for mono display
+
+```html
+<h1 class="font-mono font-medium tracking-tight text-4xl lg:text-6xl text-blue-900">
+```
+
 ## Discipline Rules
 
 These are what separate the system from a vibes-driven mess:
@@ -84,7 +121,8 @@ Use the semantic alias in CSS that defines a role (`.section-eyebrow`, `.spec-va
 | Model code | `font-mono text-sm font-medium text-blue-700` |
 | Caption under image | `font-mono text-xs text-blue-400` |
 | "View All →" linkback | `font-mono text-xs font-medium text-blue-500 uppercase tracking-wider` |
-| Hero display headline | `font-sans text-5xl lg:text-6xl font-semibold tracking-tight text-blue-900` |
+| Hero display headline (decision surface) | `font-sans text-5xl lg:text-6xl font-semibold tracking-tight text-blue-900` |
+| Hero display headline (brand-voice surface) | `font-mono text-4xl lg:text-6xl font-medium tracking-tight text-blue-900` |
 | Page H1 | `font-sans text-4xl lg:text-5xl font-semibold tracking-tight` |
 | Section H2 | `font-sans text-2xl lg:text-3xl font-semibold tracking-tight` |
 | Card title | `font-sans text-lg font-medium text-blue-900` |
@@ -123,6 +161,7 @@ Is the text…
 ├─ a model number, SKU, capacity, gauge, speed, dimension, price? → MONO
 ├─ an uppercase tracked eyebrow / tag / breadcrumb / "View All"?  → MONO
 ├─ a caption, footnote, image-overlay meta?                       → MONO
-├─ a hero / display headline on a brand-voice page?               → sans + tracking-tight (mono only if explicitly a brand campaign)
+├─ a hero / display headline on a BRAND-VOICE surface (front-page hero, 404, campaign, About hero)? → MONO `font-medium tracking-tight`
+├─ a hero / display headline on a DECISION surface (product, article, listing, search)?             → sans `font-semibold tracking-tight`
 └─ everything else (body, headings, cards, UI, buttons, nav)      → SANS
 ```

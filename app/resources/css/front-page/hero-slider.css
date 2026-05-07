@@ -84,12 +84,15 @@
   margin-bottom: 0.5rem;
 }
 
-/* Title — display headline, sans per DESIGN.md §5.6 */
+/* Title — display headline, brand-voice surface (mono per typography-system.md
+   "Brand-Voice Exception" — Vercel/Linear/Resend pattern: mono on the marquee,
+   sans on decision surfaces). Front-page hero is the marquee. */
 .hero-slider__title {
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
   font-size: 1.75rem;
   font-weight: 500;
   line-height: 1.17;
+  letter-spacing: -0.01em;
   margin-bottom: 0.25rem;
   max-width: 90%;
 }
