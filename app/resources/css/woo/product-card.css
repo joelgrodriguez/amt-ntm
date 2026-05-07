@@ -50,7 +50,7 @@
   }
 
   .card-product__title {
-    @apply font-mono font-medium text-blue-700 mb-1;
+    @apply font-sans font-medium text-blue-900 mb-1;
     font-size: var(--text-body);
   }
 

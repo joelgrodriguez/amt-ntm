@@ -211,7 +211,7 @@
 
 .mega-tab-header__title {
     margin: 0;
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: var(--text-body);
     font-weight: 500;
     color: var(--color-blue-900);
@@ -297,9 +297,9 @@
 
 .mega-profile-grid > li > article > a:nth-child(2) h3 {
     font-size: var(--text-body);
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-weight: 500;
-    color: var(--color-blue-700);
+    color: var(--color-blue-900);
     margin: 0;
 }
 

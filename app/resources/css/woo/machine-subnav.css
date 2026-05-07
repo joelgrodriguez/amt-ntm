@@ -192,7 +192,7 @@ body:has(.header--sticky:not(.header--hidden)) .machine-subnav.is-sticky {
   align-items: center;
   height: 3rem;
   padding: 0 0.875rem;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--text-body);
   font-weight: 500;
   color: var(--color-blue-600);

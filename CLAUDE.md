@@ -90,6 +90,7 @@ Shared repo skills live in `.claude/skills`.
 Agents that do not know Claude's layout should read `.agents/skills`, which points to the same directory.
 
 - Before touching layout-heavy frontend code, read `.agents/skills/spacing-system.md`.
+- Before writing or editing fonts, type, headings, eyebrows, or any class touching `font-mono`/`font-sans`, read `.agents/skills/typography-system.md`.
 - Before creating worktrees, merging feature work, or releasing, read `.agents/skills/git-worktree-flow.md`.
 
 Global Claude skills are available at `/Users/jrodriguez/.claude/skills`. Use them when the task matches:

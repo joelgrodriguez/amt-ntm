@@ -26,7 +26,7 @@ if (!$prev_post && !$next_post) {
             <a href="<?php echo esc_url(get_permalink($prev_post)); ?>" class="block p-4 border border-blue-300 bg-white no-underline hover:bg-blue-50 transition-colors">
                 <span class="flex items-center gap-2 text-xs text-blue-500 font-mono uppercase tracking-wide mb-2">
                     <?php icon('arrow-left', ['class' => 'w-3 h-3']); ?>
-                    <span class="font-mono"><?php esc_html_e('Previous', 'standard'); ?></span>
+                    <span><?php esc_html_e('Previous', 'standard'); ?></span>
                 </span>
                 <span class="block text-base text-blue-500 line-clamp-2"><?php echo esc_html($prev_post->post_title); ?></span>
             </a>
@@ -37,7 +37,7 @@ if (!$prev_post && !$next_post) {
         <?php if ($next_post) : ?>
             <a href="<?php echo esc_url(get_permalink($next_post)); ?>" class="block p-4 border border-blue-300 bg-white no-underline hover:bg-blue-50 transition-colors text-right">
                 <span class="flex items-center justify-end gap-2 text-xs text-blue-500 font-mono uppercase tracking-wide mb-2">
-                    <span class="font-mono"><?php esc_html_e('Next', 'standard'); ?></span>
+                    <span><?php esc_html_e('Next', 'standard'); ?></span>
                     <?php icon('arrow-right', ['class' => 'w-3 h-3']); ?>
                 </span>
                 <span class="block text-base text-blue-500 line-clamp-2"><?php echo esc_html($next_post->post_title); ?></span>

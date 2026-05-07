@@ -44,7 +44,7 @@ while (have_posts()) :
                     <?php if ($hero_title || $hero_description) : ?>
                         <div class="grid gap-6">
                             <?php if ($hero_title) : ?>
-                                <h1 class="text-3xl md:text-4xl lg:text-5xl font-medium font-mono">
+                                <h1 class="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight">
                                     <?php echo esc_html($hero_title); ?>
                                 </h1>
                             <?php endif; ?>

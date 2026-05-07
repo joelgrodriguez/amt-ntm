@@ -54,7 +54,7 @@ $machine_name     = $product->get_name();
 
     <div class="container relative z-10 pb-16 pt-32">
         <div class="grid gap-6 max-w-xl">
-            <h1 id="machine-hero-title" class="text-3xl font-medium font-mono text-white md:text-4xl lg:text-5xl">
+            <h1 id="machine-hero-title" class="text-3xl font-semibold tracking-tight text-white md:text-4xl lg:text-5xl">
                 <?php echo esc_html($headline); ?>
             </h1>
             <?php if (!empty($subtitle)) : ?>

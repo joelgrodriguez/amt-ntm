@@ -74,13 +74,13 @@ $is_first         = $index === 0;
 
     <div class="hero-slider__content">
         <?php if ($category) : ?>
-            <span class="hero-slider__category font-mono">
+            <span class="hero-slider__category">
                 <?php echo esc_html($category); ?>
             </span>
         <?php endif; ?>
 
         <?php if ($title) : ?>
-            <h2 class="hero-slider__title font-mono">
+            <h2 class="hero-slider__title">
                 <?php echo esc_html($title); ?>
             </h2>
         <?php endif; ?>

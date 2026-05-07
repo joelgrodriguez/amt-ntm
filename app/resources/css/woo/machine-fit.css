@@ -29,7 +29,7 @@
   }
 
   .machine-fit__heading {
-    @apply flex items-center gap-2 font-mono font-medium mb-4;
+    @apply flex items-center gap-2 font-sans font-semibold tracking-tight mb-4;
     font-size: var(--text-heading-sm);
   }
 

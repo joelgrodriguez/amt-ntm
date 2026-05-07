@@ -41,7 +41,7 @@
 
 /* Tab styles */
 .explore-machines__tab {
-  @apply px-4 py-2 font-mono font-medium text-blue-600;
+  @apply px-4 py-2 font-sans font-medium text-blue-600;
   @apply bg-transparent border-b-2 border-transparent -mb-px;
   @apply cursor-pointer whitespace-nowrap;
   @apply transition-colors duration-200;

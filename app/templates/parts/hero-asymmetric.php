@@ -83,7 +83,7 @@ $content_ml = $is_right ? ' lg:ml-auto' : '';
             </p>
 
             <!-- Title -->
-            <h1 id="<?php echo esc_attr($section_id); ?>-title" class="text-3xl font-medium font-mono text-white md:text-4xl lg:text-[2.75rem] xl:text-5xl leading-tight">
+            <h1 id="<?php echo esc_attr($section_id); ?>-title" class="text-3xl font-semibold tracking-tight text-white md:text-4xl lg:text-[2.75rem] xl:text-5xl leading-tight">
                 <?php echo esc_html($content['title']); ?>
             </h1>
 

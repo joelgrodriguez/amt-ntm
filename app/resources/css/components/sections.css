@@ -1,10 +1,10 @@
 /**
  * Section Layout
  *
- * Per DESIGN.md §5.4–5.6:
- * - Eyebrow: mono 500, 11px, uppercase, tracked, red
+ * Typography per .claude/skills/typography-system.md:
+ * - Eyebrow: mono 500, 11px, uppercase, tracked, red (label role)
  * - Divider: red accent bar
- * - Section title: mono 500, 28px (heading-sm/heading scale)
+ * - Section title: sans 600, tracking-tight (display headline)
  * - Subtitle/body: sans 400, blue-600
  *
  * @file components/sections.css
@@ -49,9 +49,9 @@
     @apply w-12 h-1 bg-red mx-auto;
   }
 
-  /* Title — section heading (mono per spec) */
+  /* Title — section heading (sans display, tracking-tight) */
   .section-title {
-    @apply font-mono font-medium text-blue-700;
+    @apply font-sans font-semibold tracking-tight text-blue-900;
     font-size: var(--text-heading-sm);
   }
 

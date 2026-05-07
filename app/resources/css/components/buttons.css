@@ -1,8 +1,8 @@
 /**
  * Buttons
  *
- * Per DESIGN.md §5.1–5.3:
- * - Mono font, weight 500, no uppercase, no letter-spacing tricks
+ * Typography per .claude/skills/typography-system.md:
+ * - Sans font, weight 500 (UI = sans, mono is for labels not buttons)
  * - Zero border-radius (theme default)
  * - No shadows
  * - Hover = 10% darker bg (primary) or invert (ghost)
@@ -12,7 +12,7 @@
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center gap-2 font-mono font-medium;
+    @apply inline-flex items-center justify-center gap-2 font-sans font-medium;
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500;
     @apply h-12 px-6 min-w-32 text-body;
     transition: background-color 200ms ease-out, color 200ms ease-out, border-color 200ms ease-out;
