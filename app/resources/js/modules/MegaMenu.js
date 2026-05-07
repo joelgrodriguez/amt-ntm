@@ -19,6 +19,13 @@ export const initMegaMenu = () => {
     /** @type {string|null} */
     let activePanel = null;
 
+    /** Pending open scheduled to fire after a close transition finishes. */
+    /** @type {{ trigger: HTMLButtonElement, timer: number } | null} */
+    let pendingOpen = null;
+
+    /** Matches the close transform duration in layout/mega-menu.css (320ms). */
+    const CLOSE_DURATION_MS = 320;
+
     /**
      * Returns the panel element for a given id, or null.
      * @param {string} id
@@ -47,15 +54,13 @@ export const initMegaMenu = () => {
     };
 
     /**
-     * Open the panel for the given trigger button.
+     * Open the panel for the given trigger button. Assumes no panel is currently open —
+     * call close() first and wait if switching between panels.
      * @param {HTMLButtonElement} trigger
      */
     const open = (trigger) => {
         const id = trigger.dataset.megaPanel;
         if (!id) return;
-
-        // Close any currently open panel first
-        close();
 
         const panel = getPanel(id);
         if (!panel) return;
@@ -74,17 +79,51 @@ export const initMegaMenu = () => {
         activePanel = id;
     };
 
+    /** Cancel any queued open (e.g. user clicked a third trigger or closed everything). */
+    const cancelPendingOpen = () => {
+        if (pendingOpen) {
+            clearTimeout(pendingOpen.timer);
+            pendingOpen = null;
+        }
+    };
+
     /**
-     * Toggle — clicking the same trigger closes it.
+     * Toggle — clicking the same trigger closes it. When switching between
+     * panels, the current panel fully closes before the next one opens so the
+     * transitions don't overlap.
      * @param {HTMLButtonElement} trigger
      */
     const toggle = (trigger) => {
         const id = trigger.dataset.megaPanel;
-        if (activePanel === id) {
+
+        // Same trigger clicked while it's open (or its open is pending) → close everything.
+        if (activePanel === id || pendingOpen?.trigger === trigger) {
+            cancelPendingOpen();
             close();
-        } else {
-            open(trigger);
+            return;
         }
+
+        // Switching panels: ensure the current/closing panel fully finishes before opening
+        // the new one. If a close is already mid-flight (pendingOpen set), just retarget it.
+        if (activePanel) {
+            close();
+            cancelPendingOpen();
+            const timer = window.setTimeout(() => {
+                const target = pendingOpen?.trigger;
+                pendingOpen = null;
+                if (target) open(target);
+            }, CLOSE_DURATION_MS);
+            pendingOpen = { trigger, timer };
+            return;
+        }
+
+        // A close is already in flight — let it finish and just retarget the queued open.
+        if (pendingOpen) {
+            pendingOpen.trigger = trigger;
+            return;
+        }
+
+        open(trigger);
     };
 
     /**
@@ -142,12 +181,16 @@ export const initMegaMenu = () => {
         }
     };
 
-    const handleOverlayClick = () => close();
+    const handleOverlayClick = () => {
+        cancelPendingOpen();
+        close();
+    };
 
     /** @param {KeyboardEvent} e */
     const handleKeydown = (e) => {
         if (e.key === 'Escape' && activePanel) {
             const closingPanel = activePanel;
+            cancelPendingOpen();
             close();
             // Return focus to the trigger that opened the panel
             const trigger = /** @type {HTMLButtonElement|null} */ (
@@ -165,7 +208,10 @@ export const initMegaMenu = () => {
         const target = /** @type {Node} */ (e.target);
         const insidePanel   = getPanel(activePanel)?.contains(target);
         const insideTrigger = Array.from(triggers).some((t) => t.contains(target));
-        if (!insidePanel && !insideTrigger) close();
+        if (!insidePanel && !insideTrigger) {
+            cancelPendingOpen();
+            close();
+        }
     };
 
     // ── Wire up ─────────────────────────────────────────────────────────
@@ -196,6 +242,7 @@ export const initMegaMenu = () => {
     // ── Cleanup ─────────────────────────────────────────────────────────
 
     return () => {
+        cancelPendingOpen();
         triggers.forEach((t) => t.removeEventListener('click', handleTriggerClick));
         overlay?.removeEventListener('click', handleOverlayClick);
         document.removeEventListener('keydown', handleKeydown);
