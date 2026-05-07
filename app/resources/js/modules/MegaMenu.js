@@ -7,6 +7,14 @@
  * @file MegaMenu.js
  */
 
+/* Timing — kept in sync with .mega-panel close transition in
+ * app/resources/css/layout/mega-menu.css. The 200ms beat is an empty pause
+ * between A's close and B's open so the two animations read as separate
+ * events instead of a shuffle. */
+const CLOSE_TRANSITION_MS = 420;
+const SWITCH_BEAT_MS      = 200;
+const SWITCH_DELAY_MS     = CLOSE_TRANSITION_MS + SWITCH_BEAT_MS;
+
 export const initMegaMenu = () => {
     const triggers  = /** @type {NodeListOf<HTMLButtonElement>} */ (document.querySelectorAll('.mega-trigger'));
     const overlay   = document.getElementById('mega-menu-overlay');
@@ -23,43 +31,36 @@ export const initMegaMenu = () => {
     /** @type {{ trigger: HTMLButtonElement, timer: number } | null} */
     let pendingOpen = null;
 
-    /** Close transform is 420ms in layout/mega-menu.css. We add a 200ms empty
-     *  beat afterwards so the user sees panel A fully gone before B arrives —
-     *  the close and open read as separate events instead of a shuffle. */
-    const CLOSE_DURATION_MS = 620;
-
-    /**
-     * Returns the panel element for a given id, or null.
-     * @param {string} id
-     * @returns {HTMLElement|null}
-     */
+    /** @param {string} id */
     const getPanel = (id) => document.getElementById(`mega-panel-${id}`);
 
-    /**
-     * Close the active panel and reset all triggers.
-     */
-    const close = () => {
-        if (activePanel) {
-            const panel = getPanel(activePanel);
-            if (panel) {
-                panel.classList.add('is-closing');
-                panel.classList.remove('is-open');
-                panel.setAttribute('aria-hidden', 'true');
-                panel.inert = true;
-            }
-        }
+    /** Apply the open or closed visual + a11y state to a single panel. */
+    /** @param {HTMLElement} panel @param {'open'|'closed'} state */
+    const setPanelState = (panel, state) => {
+        const open = state === 'open';
+        panel.classList.toggle('is-open', open);
+        panel.classList.toggle('is-closing', !open);
+        panel.setAttribute('aria-hidden', open ? 'false' : 'true');
+        panel.inert = !open;
+    };
 
+    /** Reset chrome (triggers, overlay, body scroll lock) to the closed state. */
+    const resetChrome = () => {
         triggers.forEach((t) => t.setAttribute('aria-expanded', 'false'));
         overlay?.classList.add('hidden');
         document.body.classList.remove('overflow-hidden');
+    };
+
+    const close = () => {
+        if (activePanel) {
+            const panel = getPanel(activePanel);
+            if (panel) setPanelState(panel, 'closed');
+        }
+        resetChrome();
         activePanel = null;
     };
 
-    /**
-     * Open the panel for the given trigger button. Assumes no panel is currently open —
-     * call close() first and wait if switching between panels.
-     * @param {HTMLButtonElement} trigger
-     */
+    /** @param {HTMLButtonElement} trigger */
     const open = (trigger) => {
         const id = trigger.dataset.megaPanel;
         if (!id) return;
@@ -67,13 +68,11 @@ export const initMegaMenu = () => {
         const panel = getPanel(id);
         if (!panel) return;
 
-        // Remove is-closing so stagger delays fire fresh, force reflow,
-        // then add is-open to trigger the CSS transition — same as mobile menu.
+        // Clear closing state and force reflow so the open transition (and the
+        // staggered child entries) start from a clean slate.
         panel.classList.remove('is-closing');
-        panel.setAttribute('aria-hidden', 'false');
-        panel.inert = false;
-        void panel.offsetHeight; // reflow — commits start state before transition
-        panel.classList.add('is-open');
+        void panel.offsetHeight;
+        setPanelState(panel, 'open');
 
         trigger.setAttribute('aria-expanded', 'true');
         overlay?.classList.remove('hidden');
@@ -81,71 +80,72 @@ export const initMegaMenu = () => {
         activePanel = id;
     };
 
-    /** Cancel any queued open (e.g. user clicked a third trigger or closed everything). */
     const cancelPendingOpen = () => {
-        if (pendingOpen) {
-            clearTimeout(pendingOpen.timer);
-            pendingOpen = null;
-        }
+        if (!pendingOpen) return;
+        clearTimeout(pendingOpen.timer);
+        pendingOpen = null;
     };
 
-    /**
-     * Toggle — clicking the same trigger closes it. When switching between
-     * panels, the current panel fully closes before the next one opens so the
-     * transitions don't overlap.
-     * @param {HTMLButtonElement} trigger
-     */
-    const toggle = (trigger) => {
-        const id = trigger.dataset.megaPanel;
-
-        // Same trigger clicked while it's open (or its open is pending) → close everything.
-        if (activePanel === id || pendingOpen?.trigger === trigger) {
-            cancelPendingOpen();
-            close();
-            return;
-        }
-
-        // Switching panels: ensure the current/closing panel fully finishes before opening
-        // the new one. If a close is already mid-flight (pendingOpen set), just retarget it.
-        if (activePanel) {
-            close();
-            cancelPendingOpen();
-            const timer = window.setTimeout(() => {
-                const target = pendingOpen?.trigger;
-                pendingOpen = null;
-                if (target) open(target);
-            }, CLOSE_DURATION_MS);
-            pendingOpen = { trigger, timer };
-            return;
-        }
-
-        // A close is already in flight — let it finish and just retarget the queued open.
+    /** Close the active panel (if any) and queue an open after the close beat. */
+    /** @param {HTMLButtonElement} trigger */
+    const queueSwitchTo = (trigger) => {
+        // If a switch is already in flight, just retarget it — let the existing
+        // timer ride so we don't extend the wait on rapid clicks.
         if (pendingOpen) {
             pendingOpen.trigger = trigger;
+            return;
+        }
+
+        close();
+        const timer = window.setTimeout(() => {
+            const target = pendingOpen?.trigger;
+            pendingOpen = null;
+            if (target) open(target);
+        }, SWITCH_DELAY_MS);
+        pendingOpen = { trigger, timer };
+    };
+
+    /** Toggle — same trigger closes; different trigger queues a switch. */
+    /** @param {HTMLButtonElement} trigger */
+    const toggle = (trigger) => {
+        const id = trigger.dataset.megaPanel;
+        const sameAsActive  = activePanel === id;
+        const sameAsPending = pendingOpen?.trigger === trigger;
+
+        if (sameAsActive || sameAsPending) {
+            cancelPendingOpen();
+            close();
+            return;
+        }
+
+        if (activePanel || pendingOpen) {
+            queueSwitchTo(trigger);
             return;
         }
 
         open(trigger);
     };
 
-    /**
-     * Switch to the given tab within the currently open panel.
-     * @param {HTMLButtonElement} tabBtn
-     */
+    const dismiss = () => {
+        cancelPendingOpen();
+        close();
+    };
+
+    /** @param {HTMLButtonElement} tabBtn */
     const switchTab = (tabBtn) => {
         const panel = tabBtn.closest('.mega-panel');
         if (!panel) return;
 
         const targetId = tabBtn.dataset.tab;
 
-        // Update tab button states and tabindex (tablist pattern: only selected tab is focusable)
+        // Roving tabindex: only the selected tab is focusable.
         panel.querySelectorAll('[role="tab"]').forEach((btn) => {
             const isTarget = /** @type {HTMLButtonElement} */ (btn).dataset.tab === targetId;
             btn.setAttribute('aria-selected', isTarget ? 'true' : 'false');
             btn.setAttribute('tabindex', isTarget ? '0' : '-1');
         });
 
-        // Show/hide tab panels — IDs follow the pattern: mega-tabpanel-{panelId}-{tabId}
+        // Tabpanel IDs follow the pattern: mega-tabpanel-{panelId}-{tabId}
         panel.querySelectorAll('[role="tabpanel"]').forEach((pane) => {
             const el = /** @type {HTMLElement} */ (pane);
             el.hidden = !el.id.endsWith(`-${targetId}`);
@@ -155,19 +155,13 @@ export const initMegaMenu = () => {
     // ── Event handlers ──────────────────────────────────────────────────
 
     /** @param {MouseEvent} e */
-    const handleTriggerClick = (e) => {
-        const trigger = /** @type {HTMLButtonElement} */ (e.currentTarget);
-        toggle(trigger);
-    };
+    const handleTriggerClick = (e) => toggle(/** @type {HTMLButtonElement} */ (e.currentTarget));
 
     /** @param {MouseEvent} e */
-    const handleTabClick = (e) => {
-        const btn = /** @type {HTMLButtonElement} */ (e.currentTarget);
-        switchTab(btn);
-    };
+    const handleTabClick = (e) => switchTab(/** @type {HTMLButtonElement} */ (e.currentTarget));
 
-    /** Arrow key navigation within a tablist (ARIA APG requirement).
-     * @param {KeyboardEvent} e */
+    /** Arrow key navigation within a tablist (ARIA APG requirement). */
+    /** @param {KeyboardEvent} e */
     const handleTabKeydown = (e) => {
         if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
         const tabList = /** @type {HTMLElement|null} */ (/** @type {HTMLElement} */ (e.currentTarget).closest('[role="tablist"]'));
@@ -183,53 +177,37 @@ export const initMegaMenu = () => {
         }
     };
 
-    const handleOverlayClick = () => {
-        cancelPendingOpen();
-        close();
-    };
-
     /** @param {KeyboardEvent} e */
     const handleKeydown = (e) => {
-        if (e.key === 'Escape' && activePanel) {
-            const closingPanel = activePanel;
-            cancelPendingOpen();
-            close();
-            // Return focus to the trigger that opened the panel
-            const trigger = /** @type {HTMLButtonElement|null} */ (
-                document.querySelector(`.mega-trigger[data-mega-panel="${closingPanel}"]`)
-            );
-            trigger?.focus();
-        }
+        if (e.key !== 'Escape' || !activePanel) return;
+        const triggerSelector = `.mega-trigger[data-mega-panel="${activePanel}"]`;
+        dismiss();
+        /** @type {HTMLButtonElement|null} */
+        (document.querySelector(triggerSelector))?.focus();
     };
 
-    // ── Click outside to close ──────────────────────────────────────────
-
+    /** Click-outside (anywhere outside the active panel and any trigger) closes. */
     /** @param {MouseEvent} e */
     const handleDocClick = (e) => {
         if (!activePanel) return;
         const target = /** @type {Node} */ (e.target);
         const insidePanel   = getPanel(activePanel)?.contains(target);
         const insideTrigger = Array.from(triggers).some((t) => t.contains(target));
-        if (!insidePanel && !insideTrigger) {
-            cancelPendingOpen();
-            close();
-        }
+        if (!insidePanel && !insideTrigger) dismiss();
     };
 
     // ── Wire up ─────────────────────────────────────────────────────────
 
     triggers.forEach((t) => t.addEventListener('click', handleTriggerClick));
-
-    overlay?.addEventListener('click', handleOverlayClick);
+    overlay?.addEventListener('click', dismiss);
     document.addEventListener('keydown', handleKeydown);
     document.addEventListener('click', handleDocClick);
 
-    // Tab buttons inside panels
     const tabBtns = /** @type {NodeListOf<HTMLButtonElement>} */ (
         container.querySelectorAll('[role="tab"]')
     );
 
-    // Init tabindex per tablist: first tab is 0, siblings are -1 (ARIA roving tabindex)
+    // Init roving tabindex per tablist: first tab is 0, siblings -1.
     container.querySelectorAll('[role="tablist"]').forEach((tablist) => {
         tablist.querySelectorAll('[role="tab"]').forEach((btn, i) => {
             btn.setAttribute('tabindex', i === 0 ? '0' : '-1');
@@ -241,12 +219,10 @@ export const initMegaMenu = () => {
         btn.addEventListener('keydown', handleTabKeydown);
     });
 
-    // ── Cleanup ─────────────────────────────────────────────────────────
-
     return () => {
         cancelPendingOpen();
         triggers.forEach((t) => t.removeEventListener('click', handleTriggerClick));
-        overlay?.removeEventListener('click', handleOverlayClick);
+        overlay?.removeEventListener('click', dismiss);
         document.removeEventListener('keydown', handleKeydown);
         document.removeEventListener('click', handleDocClick);
         tabBtns.forEach((btn) => {
