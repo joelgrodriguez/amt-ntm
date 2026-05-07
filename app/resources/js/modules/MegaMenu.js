@@ -23,9 +23,10 @@ export const initMegaMenu = () => {
     /** @type {{ trigger: HTMLButtonElement, timer: number } | null} */
     let pendingOpen = null;
 
-    /** Matches the close transform duration in layout/mega-menu.css (420ms)
-     *  + a small breath so A's slide-up visibly finishes before B starts. */
-    const CLOSE_DURATION_MS = 480;
+    /** Close transform is 420ms in layout/mega-menu.css. We add a 200ms empty
+     *  beat afterwards so the user sees panel A fully gone before B arrives —
+     *  the close and open read as separate events instead of a shuffle. */
+    const CLOSE_DURATION_MS = 620;
 
     /**
      * Returns the panel element for a given id, or null.
