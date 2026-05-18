@@ -89,10 +89,14 @@ $features = [
                     <?php endforeach; ?>
                 </div>
 
-                <?php get_template_part('templates/parts/cta/two-door', null, [
-                    'primary_label' => __('Try the Configurator', 'standard'),
-                    'primary_url'   => '/configurator/',
-                ]); ?>
+                <div class="flex">
+                    <a
+                        href="<?php echo esc_url(\Standard\Url\internal('/configurator/')); ?>"
+                        class="btn btn-primary"
+                    >
+                        <?php esc_html_e('Start Configuring', 'standard'); ?>
+                    </a>
+                </div>
             </div>
 
         </div>

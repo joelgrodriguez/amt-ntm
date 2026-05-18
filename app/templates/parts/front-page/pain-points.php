@@ -78,7 +78,11 @@ $points = [
                     <?php endforeach; ?>
                 </ul>
 
-                <?php get_template_part('templates/parts/cta/two-door'); ?>
+                <?php get_template_part('templates/parts/cta/two-door', null, [
+                    'primary_label'    => __('See What It Costs You', 'standard'),
+                    'primary_url'      => '/learning-center/download/portable-rollforming-profit-calculator/',
+                    'specialist_label' => __('Talk to a Specialist', 'standard'),
+                ]); ?>
             </div>
 
             <div>

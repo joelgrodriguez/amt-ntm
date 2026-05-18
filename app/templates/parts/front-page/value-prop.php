@@ -89,7 +89,10 @@ $points = [
                     <?php endforeach; ?>
                 </ul>
 
-                <?php get_template_part('templates/parts/cta/two-door'); ?>
+                <?php get_template_part('templates/parts/cta/two-door', null, [
+                    'primary_label' => __('Build Your Machine', 'standard'),
+                    'primary_url'   => '/configurator/',
+                ]); ?>
             </div>
 
         </div>
