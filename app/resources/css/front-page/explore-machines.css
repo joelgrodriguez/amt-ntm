@@ -82,6 +82,28 @@
   border-bottom-color: var(--color-red);
 }
 
+/* Section rhythm: header group is tight (title close to tabs); generous
+   beat between header and the card track; track sits tight to its nav row.
+   This breaks the "every gap is the same" reflex. */
+.explore-machines__header {
+  @apply grid gap-3 md:gap-4;
+  margin-bottom: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .explore-machines__header {
+    margin-bottom: 3.5rem;
+  }
+}
+
+.explore-machines__panel {
+  @apply grid gap-5 md:gap-6;
+}
+
+.explore-machines__nav {
+  @apply flex items-center justify-center gap-4;
+}
+
 /* Counter: live region for "1 of 5". Instrument vocabulary: mono,
    uppercase, caption size, blue-700. font-variant-numeric tabular-nums
    pins digit widths so the value doesn't shift as numbers change. */
