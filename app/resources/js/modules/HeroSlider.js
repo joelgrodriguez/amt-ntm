@@ -220,11 +220,18 @@ export function initHeroSlider(options = {}) {
 
   /**
    * Hydrate a single deferred slide's media (image + optional video).
-   * No-op if the slide was already hydrated (data attrs are deleted on
-   * first hydration). Safe to call multiple times.
+   * Media gets injected INSIDE the slide's photo region (which also
+   * holds the overlay + content stack), not into the slide root —
+   * the slide root now contains photo + spec band as siblings.
+   *
+   * No-op if the slide was already hydrated (data attrs are deleted
+   * on first hydration). Safe to call multiple times.
    */
   function hydrateSlide(slide) {
     if (!slide || !slide.dataset.imageUrl) return;
+
+    const photo = slide.querySelector('.hero-slider__photo');
+    if (!photo) return;
 
     const imageUrl = slide.dataset.imageUrl;
     const imageAlt = slide.dataset.imageAlt || '';
@@ -242,7 +249,7 @@ export function initHeroSlider(options = {}) {
       source.src = videoUrl;
       source.type = 'video/mp4';
       video.appendChild(source);
-      slide.insertBefore(video, slide.firstChild);
+      photo.insertBefore(video, photo.firstChild);
     }
 
     if (imageUrl) {
@@ -253,8 +260,8 @@ export function initHeroSlider(options = {}) {
       img.loading = 'lazy';
       img.decoding = 'async';
       // Insert before .hero-overlay so z-index stack stays correct.
-      const overlay = slide.querySelector('.hero-overlay');
-      slide.insertBefore(img, overlay || slide.firstChild);
+      const overlay = photo.querySelector('.hero-overlay');
+      photo.insertBefore(img, overlay || photo.firstChild);
     }
 
     delete slide.dataset.imageUrl;
