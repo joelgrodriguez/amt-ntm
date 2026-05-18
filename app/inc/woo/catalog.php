@@ -76,7 +76,7 @@ function get_woocommerce_products(string $category_slug): array {
             'id'             => $product->get_id(),
             'title'          => get_short_title($product->get_name()),
             'category_label' => get_primary_category_label($product),
-            'tagline'        => $product->get_short_description(),
+            'tagline'        => \wp_strip_all_tags($product->get_short_description()),
             'descriptor'     => $is_accessory ? '' : \wp_strip_all_tags($product->get_short_description()),
             'image'          => \wp_get_attachment_url($product->get_image_id()),
             'price'          => $is_accessory ? '' : get_display_price($product),
