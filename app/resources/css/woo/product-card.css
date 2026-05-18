@@ -78,7 +78,7 @@
 
   .card-product__title {
     @apply font-sans font-medium text-blue-900;
-    font-size: var(--text-body);
+    font-size: var(--text-heading-sm);
     line-height: 1.2;
   }
 
@@ -169,7 +169,7 @@
     }
 
     .card-product--carousel .card-product__title {
-      font-size: var(--text-heading-sm);
+      font-size: var(--text-heading);
     }
   }
 

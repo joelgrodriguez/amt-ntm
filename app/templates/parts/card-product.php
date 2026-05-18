@@ -89,7 +89,7 @@ $root_classes = 'card-product card-product--' . $variant . ' group relative';
         <div class="card-product__cta">
             <?php if (!$is_accessory && $build_url) : ?>
                 <a href="<?php echo esc_url($build_url); ?>" class="btn btn-sm btn-primary card-product__cta-build">
-                    <?php esc_html_e('Build', 'standard'); ?>
+                    <?php esc_html_e('Build & Quote', 'standard'); ?>
                 </a>
             <?php else : ?>
                 <a href="<?php echo esc_url($explore_url); ?>" class="card-product__cta-explore" tabindex="-1" aria-hidden="true">
