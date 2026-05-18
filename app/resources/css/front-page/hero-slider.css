@@ -283,35 +283,40 @@
   height: 1rem;
 }
 
-/* Pagination dots. Traditional carousel indicator: row of small
-   circles centered horizontally, overlaid on the photo above the
-   in-flow spec band on mobile, above the absolute spec strip on lg+. */
-.hero-slider__progress {
+/* Chrome band: pagination dots + pause toggle on one horizontal row,
+   absolute-positioned along the bottom of the photo. The dots center
+   in the row; the pause sits at the right edge. Both share vertical
+   alignment via the flex container, no manual math required. */
+.hero-slider__chrome {
   position: absolute;
-  bottom: calc(var(--hero-spec-band-height) + 1.25rem);
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  bottom: calc(var(--hero-spec-band-height) + 1rem);
   z-index: 10;
   display: flex;
   align-items: center;
-  gap: 0.625rem;
+  justify-content: center;
+  padding: 0 1rem;
+  pointer-events: none;
+}
+
+.hero-slider__chrome > * {
+  pointer-events: auto;
 }
 
 @media (min-width: 1024px) {
-  .hero-slider__progress {
+  .hero-slider__chrome {
     /* No in-flow spec band on lg+; specs overlay the photo bottom
-       at ~93px (1.25rem padding * 2 + heading + label + gap). Sit
-       the dot row well above the overlaid spec strip. */
-    bottom: 7.5rem;
+       at ~94px. Lift the chrome band well above the spec strip. */
+    bottom: 7.25rem;
   }
+}
 
-  /* Pause keeps its vertical-center alignment with the dot row at
-     lg+ too. Dot row vertical center = 7.5rem + 0.25rem = 7.75rem
-     above slider bottom. Pause is 2rem tall, so its bottom offset
-     = 7.75rem - 1rem = 6.75rem to put its center on the same line. */
-  .hero-slider__pause {
-    bottom: 6.75rem;
-  }
+/* Progress dot row. Centered in the chrome band. */
+.hero-slider__progress {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
 }
 
 /* Sharp-cornered "dots" — zero border-radius per DESIGN.md §1.
@@ -342,17 +347,14 @@
   background-color: var(--color-red);
 }
 
-/* Pause / play toggle. Anchored bottom-right of the photo region,
-   vertically centered with the pagination dot row so they read as
-   one horizontal control band. (Math: dot row center sits 1.5rem
-   above the spec band — 1.25rem bottom offset + 0.25rem half-height
-   of the 0.5rem dot. Pause is 2rem tall, so bottom offset = 0.5rem
-   puts its center at 1.5rem too.) */
+/* Pause / play toggle. Sits at the right edge of the chrome band,
+   absolutely positioned within the band so the centered dot row
+   keeps its center alignment regardless of pause presence. */
 .hero-slider__pause {
   position: absolute;
-  right: 1rem;
-  bottom: calc(var(--hero-spec-band-height) + 0.5rem);
-  z-index: 10;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
   justify-content: center;

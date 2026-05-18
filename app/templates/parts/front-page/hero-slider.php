@@ -74,30 +74,31 @@ $first_machine = $machines[0] ?? null;
         <?php icon('arrow-right', ['class' => 'hero-slider__nav-icon']); ?>
     </button>
 
-    <!-- Pagination Dots -->
-    <div class="hero-slider__progress" role="tablist" aria-label="<?php echo esc_attr($content['nav_label']); ?>">
-        <?php for ($i = 0; $i < $total_slides; $i++) : ?>
-            <button
-                type="button"
-                class="hero-slider__segment <?php echo $i === 0 ? 'hero-slider__segment--active' : ''; ?>"
-                aria-label="<?php echo esc_attr(sprintf($content['go_to_slide'], $i + 1)); ?>"
-                aria-selected="<?php echo $i === 0 ? 'true' : 'false'; ?>"
-                role="tab"
-                data-slide="<?php echo esc_attr((string) $i); ?>"
-            ></button>
-        <?php endfor; ?>
-    </div>
+    <!-- Pagination Dots + Pause toggle (one shared control band) -->
+    <div class="hero-slider__chrome">
+        <div class="hero-slider__progress" role="tablist" aria-label="<?php echo esc_attr($content['nav_label']); ?>">
+            <?php for ($i = 0; $i < $total_slides; $i++) : ?>
+                <button
+                    type="button"
+                    class="hero-slider__segment <?php echo $i === 0 ? 'hero-slider__segment--active' : ''; ?>"
+                    aria-label="<?php echo esc_attr(sprintf($content['go_to_slide'], $i + 1)); ?>"
+                    aria-selected="<?php echo $i === 0 ? 'true' : 'false'; ?>"
+                    role="tab"
+                    data-slide="<?php echo esc_attr((string) $i); ?>"
+                ></button>
+            <?php endfor; ?>
+        </div>
 
-    <!-- Pause / Play Toggle -->
-    <button
-        type="button"
-        class="hero-slider__pause"
-        aria-label="<?php echo esc_attr($content['pause_label']); ?>"
-        data-label-pause="<?php echo esc_attr($content['pause_label']); ?>"
-        data-label-play="<?php echo esc_attr($content['play_label']); ?>"
-    >
-        <?php icon('pause', ['class' => 'hero-slider__pause-icon hero-slider__pause-icon--pause']); ?>
-        <?php icon('play', ['class' => 'hero-slider__pause-icon hero-slider__pause-icon--play']); ?>
-    </button>
+        <button
+            type="button"
+            class="hero-slider__pause"
+            aria-label="<?php echo esc_attr($content['pause_label']); ?>"
+            data-label-pause="<?php echo esc_attr($content['pause_label']); ?>"
+            data-label-play="<?php echo esc_attr($content['play_label']); ?>"
+        >
+            <?php icon('pause', ['class' => 'hero-slider__pause-icon hero-slider__pause-icon--pause']); ?>
+            <?php icon('play', ['class' => 'hero-slider__pause-icon hero-slider__pause-icon--play']); ?>
+        </button>
+    </div>
 
 </section>
