@@ -27,7 +27,7 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  background-color: var(--color-blue-900);
+  background-color: var(--color-black);
   --hero-spec-band-height: 140px;
 }
 
@@ -62,15 +62,16 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: var(--color-blue-900);
+  background-color: var(--color-black);
 }
 
 /* Front-page hero overrides the shared .hero-overlay with a flat
-   50% blue-900 wash. Uniform legibility plate across the whole
-   photo; product detail comes through but text always lands on
-   the same dark plate regardless of photo composition. */
+   50% pure-black wash. Pure black is reserved per DESIGN.md §2.2
+   for "image overlays" — this is exactly that use. Reads more
+   premium than blue-tinted dark; product detail comes through
+   with neutral contrast rather than a brand-blue cast. */
 .hero-slider__photo .hero-overlay {
-  background-color: color-mix(in srgb, var(--color-blue-900) 50%, transparent);
+  background-color: color-mix(in srgb, var(--color-black) 50%, transparent);
 }
 
 /* Photo region: holds media + overlay + content stack.
@@ -188,11 +189,12 @@
 }
 
 /* Spec strip — mobile-first: in-flow dark band beneath the photo.
-   Mono uppercase labels + sans values, hairline column dividers.
-   Mirrors the video-section / three-step chrome aesthetic. */
+   Pure-black surface for premium marquee feel (DESIGN.md §2.2
+   sanctions black on photographic / hero contexts). Borders stay
+   blue-tinted so the strip still feels engineered, not generic dark. */
 .hero-slider__specs {
   width: 100%;
-  background-color: var(--color-blue-900);
+  background-color: var(--color-black);
   border-top: 1px solid var(--color-blue-700);
 }
 
@@ -253,7 +255,7 @@
   justify-content: center;
   width: 2.5rem;
   height: 2.5rem;
-  background-color: color-mix(in srgb, var(--color-blue-900) 30%, transparent);
+  background-color: color-mix(in srgb, var(--color-black) 30%, transparent);
   color: var(--color-white);
   border: none;
   cursor: pointer;
@@ -261,7 +263,7 @@
 }
 
 .hero-slider__nav:hover {
-  background-color: color-mix(in srgb, var(--color-blue-900) 60%, transparent);
+  background-color: color-mix(in srgb, var(--color-black) 60%, transparent);
 }
 
 .hero-slider__nav:focus-visible {
@@ -345,7 +347,7 @@
   justify-content: center;
   width: 2rem;
   height: 2rem;
-  background-color: color-mix(in srgb, var(--color-blue-900) 30%, transparent);
+  background-color: color-mix(in srgb, var(--color-black) 30%, transparent);
   color: var(--color-white);
   border: none;
   cursor: pointer;
@@ -353,7 +355,7 @@
 }
 
 .hero-slider__pause:hover {
-  background-color: color-mix(in srgb, var(--color-blue-900) 60%, transparent);
+  background-color: color-mix(in srgb, var(--color-black) 60%, transparent);
 }
 
 .hero-slider__pause:focus-visible {
@@ -452,7 +454,7 @@
     position: absolute;
     inset: auto 0 0 0;
     z-index: 4;
-    background-color: color-mix(in srgb, var(--color-blue-900) 92%, transparent);
+    background-color: color-mix(in srgb, var(--color-black) 92%, transparent);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
   }
