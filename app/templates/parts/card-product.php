@@ -6,8 +6,7 @@
  *
  *   variant: 'carousel' (default)
  *     Vertical on mobile, horizontal image-left / content-right on tablet+.
- *     Used by the front-page Explore strip, where each card is a wide tile
- *     in a horizontal scroller and has room for a tagline.
+ *     Used by the front-page Explore strip.
  *
  *   variant: 'grid'
  *     Vertical always. Image on top, content below.
@@ -43,7 +42,6 @@ $variant = ($args['variant'] ?? 'carousel') === 'grid' ? 'grid' : 'carousel';
 
 $title          = $product['title'] ?? '';
 $category_label = $product['category_label'] ?? '';
-$tagline        = $product['tagline'] ?? '';
 $image          = $product['image'] ?? '';
 $price          = $product['price'] ?? '';
 $price_label    = $product['price_label'] ?? __('Starting at', 'standard');
@@ -79,10 +77,6 @@ $root_classes = 'card-product card-product--' . $variant . ' group relative';
                     <?php echo esc_html($title); ?>
                 </a>
             </h3>
-        <?php endif; ?>
-
-        <?php if ($variant === 'carousel' && $tagline) : ?>
-            <p class="card-product__tagline"><?php echo esc_html($tagline); ?></p>
         <?php endif; ?>
 
         <?php if ($price) : ?>

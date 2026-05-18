@@ -76,7 +76,6 @@ function get_woocommerce_products(string $category_slug): array {
             'id'             => $product->get_id(),
             'title'          => get_short_title($product->get_name()),
             'category_label' => get_primary_category_label($product),
-            'tagline'        => \wp_strip_all_tags($product->get_short_description()),
             'descriptor'     => $is_accessory ? '' : \wp_strip_all_tags($product->get_short_description()),
             'image'          => \wp_get_attachment_url($product->get_image_id()),
             'price'          => $is_accessory ? '' : get_display_price($product),
@@ -193,7 +192,6 @@ function format_sample_machine_product(array $machine, string $category_slug): a
         'id'             => $public_slug,
         'title'          => $machine['short_name'] ?? $machine['name'] ?? '',
         'category_label' => $is_gutter ? \__('Seamless Gutter Machine', 'standard') : \__('Roof & Wall Panel Machine', 'standard'),
-        'tagline'        => $machine['descriptor'] ?? '',
         'descriptor'     => $machine['descriptor'] ?? '',
         'image'          => $machine['image'] ?? '',
         'price'          => !empty($machine['price']) ? $machine['price'] : FALLBACK_MACHINE_PRICE,
@@ -270,7 +268,6 @@ function get_sample_accessory_products(): array {
         [
             'id'          => 'coil-reel',
             'title'       => 'Coil Reel',
-            'tagline'     => 'Smooth, consistent coil feeding.',
             'descriptor'  => '',
             'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
             'price'       => '',
@@ -282,7 +279,6 @@ function get_sample_accessory_products(): array {
         [
             'id'          => 'run-out-stand',
             'title'       => 'Run-Out Stand',
-            'tagline'     => 'Support for longer panel runs.',
             'descriptor'  => '',
             'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
             'price'       => '',
@@ -294,7 +290,6 @@ function get_sample_accessory_products(): array {
         [
             'id'          => 'slitter',
             'title'       => 'Slitter Attachment',
-            'tagline'     => 'Precision cutting on the job site.',
             'descriptor'  => '',
             'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
             'price'       => '',
@@ -306,7 +301,6 @@ function get_sample_accessory_products(): array {
         [
             'id'          => 'notcher',
             'title'       => 'Notcher',
-            'tagline'     => 'Clean notches for seamless seams.',
             'descriptor'  => '',
             'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
             'price'       => '',
@@ -318,7 +312,6 @@ function get_sample_accessory_products(): array {
         [
             'id'          => 'hemmer',
             'title'       => 'Hemmer',
-            'tagline'     => 'Professional edge finishing.',
             'descriptor'  => '',
             'image'       => $uploads_url . '/2025/09/Machine-on-rooftop-scaled.jpg',
             'price'       => '',

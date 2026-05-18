@@ -95,12 +95,6 @@
     @apply text-blue-700;
   }
 
-  .card-product__tagline {
-    @apply font-sans text-blue-700 mt-1;
-    font-size: var(--text-body);
-    line-height: 1.45;
-  }
-
   .card-product__price {
     @apply flex flex-col mt-3;
   }
