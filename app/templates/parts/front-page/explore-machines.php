@@ -73,11 +73,12 @@ $first_category = array_key_first($categories);
                     aria-labelledby="tab-<?php echo esc_attr($slug); ?>"
                     <?php echo $slug !== $first_category ? 'hidden' : ''; ?>
                 >
-                    <div class="explore-machines__track flex gap-4 overflow-x-auto -mx-1.5 md:gap-6">
-                        <?php foreach ($products as $product) : ?>
-                            <?php get_template_part('templates/parts/card-product', null, ['product' => $product]); ?>
-                        <?php endforeach; ?>
-                        <div class="shrink-0 w-1.5" aria-hidden="true"></div>
+                    <div class="explore-machines__track-frame">
+                        <div class="explore-machines__track flex gap-4 overflow-x-auto md:gap-6">
+                            <?php foreach ($products as $product) : ?>
+                                <?php get_template_part('templates/parts/card-product', null, ['product' => $product]); ?>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
 
                     <div class="flex justify-center">

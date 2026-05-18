@@ -12,7 +12,42 @@
  * @see js/modules/ExploreMachines.js - Tab switching and scroll navigation
  */
 
-/* Track - horizontal scroll with hidden scrollbar */
+/* Track frame: positions ::before and ::after gradient overlays at the
+   left and right edges to signal "more content to scroll." JS toggles
+   .is-at-start / .is-at-end classes based on scrollLeft so the matching
+   edge fade hides when the user is parked at that boundary. */
+.explore-machines__track-frame {
+  @apply relative;
+}
+
+.explore-machines__track-frame::before,
+.explore-machines__track-frame::after {
+  content: '';
+  @apply absolute top-0 bottom-0 w-12 md:w-16 pointer-events-none z-10;
+  transition: opacity 200ms ease-out;
+}
+
+.explore-machines__track-frame::before {
+  @apply left-0;
+  background: linear-gradient(to right, var(--color-white), rgb(255 255 255 / 0));
+}
+
+.explore-machines__track-frame::after {
+  @apply right-0;
+  background: linear-gradient(to left, var(--color-white), rgb(255 255 255 / 0));
+}
+
+.explore-machines__track-frame.is-at-start::before {
+  @apply opacity-0;
+}
+
+.explore-machines__track-frame.is-at-end::after {
+  @apply opacity-0;
+}
+
+/* Track: horizontal scroll, no visible scrollbar (the fade-edges replace
+   that affordance for sighted users; the counter and arrow buttons cover
+   the rest). */
 .explore-machines__track {
   @apply py-2;
   scroll-snap-type: x mandatory;

@@ -111,14 +111,21 @@ export function initExploreMachines(options = {}) {
 
     currentEl.textContent = String(visibleIndex + 1);
 
-    // Update arrow states
+    // Update arrow disabled state + fade-edge visibility. The fade edges
+    // and the arrows answer the same question ("can I scroll further this
+    // way?") so they share one source of truth.
     const prevBtn = panel.querySelector('.explore-machines__arrow--prev');
     const nextBtn = panel.querySelector('.explore-machines__arrow--next');
+    const frame = panel.querySelector('.explore-machines__track-frame');
     const isAtStart = track.scrollLeft <= 0;
     const isAtEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 10;
 
     if (prevBtn) prevBtn.disabled = isAtStart;
     if (nextBtn) nextBtn.disabled = isAtEnd;
+    if (frame) {
+      frame.classList.toggle('is-at-start', isAtStart);
+      frame.classList.toggle('is-at-end', isAtEnd);
+    }
   }
 
   /**
