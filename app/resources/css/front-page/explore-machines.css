@@ -55,6 +55,12 @@
   border-bottom-color: var(--color-red);
 }
 
+/* Counter: live region for "1 of 5". Mono + caption vocabulary handled in
+   the typeset pass below. */
+.explore-machines__counter {
+  @apply text-sm text-blue-600 min-w-16 text-center;
+}
+
 /* Arrow navigation buttons */
 .explore-machines__arrow {
   @apply flex items-center justify-center w-8 h-8;
