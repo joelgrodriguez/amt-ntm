@@ -90,12 +90,12 @@ $poster     = $content['poster'] ?? '';
         <?php endif; ?>
 
         <div class="flex flex-col sm:flex-row justify-center gap-4 pt-2">
-            <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="btn btn-primary btn-lg">
+            <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="btn btn-primary">
                 <?php echo esc_html($content['cta_primary']); ?>
                 <?php icon('arrow-down', ['class' => 'w-5 h-5']); ?>
             </a>
             <?php if (!empty($content['cta_secondary'])) : ?>
-                <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_secondary_url'])); ?>" class="btn btn-outline-light btn-lg">
+                <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_secondary_url'])); ?>" class="btn btn-outline-light">
                     <?php echo esc_html($content['cta_secondary']); ?>
                 </a>
             <?php endif; ?>
