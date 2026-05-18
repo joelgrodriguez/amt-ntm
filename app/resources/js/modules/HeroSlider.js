@@ -270,10 +270,37 @@ export function initHeroSlider(options = {}) {
     slides.forEach(hydrateSlide);
   }
 
+  /**
+   * Pause autoplay when the slider scrolls off-screen, resume when it
+   * scrolls back in. Stops 8s setInterval ticks from running (and
+   * hydrating slides via goToSlide) while no one is watching.
+   *
+   * Separate from the user-pause state: viewport invisibility does not
+   * flip userPaused. If the user explicitly paused, startAutoPlay()
+   * already short-circuits, so the observer's call is a no-op there.
+   */
+  function observeViewport() {
+    if (!('IntersectionObserver' in window)) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          startAutoPlay();
+        } else {
+          stopAutoPlay();
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(slider);
+    signal.addEventListener('abort', () => observer.disconnect());
+  }
+
   // Initialize
   setAriaAttributes();
   setupEventListeners();
   startAutoPlay();
+  observeViewport();
 
   // Hydrate non-first slides after the page is idle (post-LCP).
   if ('requestIdleCallback' in window) {
