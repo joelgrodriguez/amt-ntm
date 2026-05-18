@@ -43,7 +43,7 @@ if ($embed_html === '') {
 }
 ?>
 
-<section class="bg-blue-950 text-blue-500" aria-labelledby="<?php echo esc_attr($args['section_id'] . '-title'); ?>">
+<section class="bg-blue-900 text-blue-500" aria-labelledby="<?php echo esc_attr($args['section_id'] . '-title'); ?>">
     <!-- Top Bar -->
     <div class="border-b border-blue-800">
         <div class="border-x border-blue-800 container">

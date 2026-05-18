@@ -3,7 +3,7 @@
  * Process Strip — Front Page
  *
  * Chrome-bar 3-phase process strip. Styled after the video-section's
- * top/bottom chrome bars (bg-blue-950, mono uppercase labels, hairline
+ * top/bottom chrome bars (bg-blue-900, mono uppercase labels, hairline
  * separators) so the page reads as a control panel, not a SaaS landing
  * with numbered step cards.
  *
@@ -49,7 +49,7 @@ $phases = [
 ];
 ?>
 
-<section class="bg-blue-950 text-blue-500" aria-labelledby="process-title">
+<section class="bg-blue-900 text-blue-500" aria-labelledby="process-title">
     <!-- Top chrome bar -->
     <div class="border-b border-blue-800">
         <div class="border-x border-blue-800 container">
