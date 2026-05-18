@@ -163,7 +163,7 @@
    Sized larger than the rest of the page's display scale so the
    marquee earns its name. */
 .hero-slider__title {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--text-display);
   font-weight: 500;
   line-height: 1;
