@@ -19,7 +19,7 @@
   /* ── Shared root ─────────────────────────────────────────────────────── */
 
   .card-product {
-    @apply flex flex-col bg-white border border-blue-300 overflow-hidden;
+    @apply flex flex-col bg-white border border-blue-200 overflow-hidden;
     @apply transition-colors duration-200;
     @apply motion-reduce:transition-none;
   }
