@@ -38,9 +38,11 @@
   }
 
   /* Image well: fixed aspect, blue-50 fill, image centered with padding so
-     product silhouettes that vary in proportion all sit consistently. */
+     product silhouettes that vary in proportion all sit consistently.
+     Hairline divider between image and content sits on the image side. */
   .card-product__image-wrapper {
     @apply relative bg-blue-50 overflow-hidden;
+    @apply border-b border-blue-200;
     aspect-ratio: 4 / 3;
   }
 
@@ -150,6 +152,7 @@
 
     .card-product--row .card-product__image-wrapper {
       @apply w-5/12 shrink-0 h-full;
+      @apply border-b-0 border-r border-blue-200;
       aspect-ratio: auto;
     }
 
