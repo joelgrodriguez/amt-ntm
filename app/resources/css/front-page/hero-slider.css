@@ -449,10 +449,12 @@
 
   /* Content stack lifts to clear the overlaid spec strip + bottom
      progress bar, with extra air so the title sits in the lower
-     third of the photo, not flush against the spec strip. */
+     third of the photo, not flush against the spec strip. Clamped
+     so short desktop viewports (<800px tall laptops, browser windows
+     resized vertically) don't crowd the title into the photo top. */
   .hero-slider__content {
     padding-top: 2rem;
-    padding-bottom: 14rem;
+    padding-bottom: clamp(8rem, 20vh, 14rem);
   }
 
   .hero-slider__title {
