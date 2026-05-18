@@ -71,17 +71,8 @@ export function initHeroSlider(options = {}) {
     // Update segments
     segments.forEach((segment, i) => {
       const isActive = i === currentIndex;
-      const fill = segment.querySelector('.hero-slider__segment-fill');
-
       segment.classList.toggle('hero-slider__segment--active', isActive);
       segment.setAttribute('aria-selected', String(isActive));
-
-      // Reset animation on active segment
-      if (fill) {
-        fill.style.animation = 'none';
-        fill.offsetHeight; // Trigger reflow
-        fill.style.animation = '';
-      }
     });
 
     // Update slide visibility for screen readers

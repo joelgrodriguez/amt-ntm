@@ -74,7 +74,7 @@ $first_machine = $machines[0] ?? null;
         <?php icon('arrow-right', ['class' => 'hero-slider__nav-icon']); ?>
     </button>
 
-    <!-- Segmented Progress Bar -->
+    <!-- Pagination Dots -->
     <div class="hero-slider__progress" role="tablist" aria-label="<?php echo esc_attr($content['nav_label']); ?>">
         <?php for ($i = 0; $i < $total_slides; $i++) : ?>
             <button
@@ -84,9 +84,7 @@ $first_machine = $machines[0] ?? null;
                 aria-selected="<?php echo $i === 0 ? 'true' : 'false'; ?>"
                 role="tab"
                 data-slide="<?php echo esc_attr((string) $i); ?>"
-            >
-                <span class="hero-slider__segment-fill"></span>
-            </button>
+            ></button>
         <?php endfor; ?>
     </div>
 

@@ -282,71 +282,55 @@
   height: 1rem;
 }
 
-/* Segmented progress bar. Anchored to the bottom of the photo region:
-   on mobile, sits above the in-flow spec band with breathing room;
-   on lg+, sits at the slider bottom over the absolute-positioned
-   spec strip. */
+/* Pagination dots. Traditional carousel indicator: row of small
+   circles centered horizontally, overlaid on the photo above the
+   in-flow spec band on mobile, above the absolute spec strip on lg+. */
 .hero-slider__progress {
   position: absolute;
-  bottom: calc(var(--hero-spec-band-height) + 0.75rem);
-  left: 0;
+  bottom: calc(var(--hero-spec-band-height) + 1.25rem);
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 10;
-  width: 100%;
   display: flex;
-  gap: 4px;
-  padding: 0 1rem;
+  align-items: center;
+  gap: 0.625rem;
 }
 
 @media (min-width: 1024px) {
   .hero-slider__progress {
-    /* No spec band underneath on lg+; sit at the slider bottom. */
-    bottom: 0;
-    padding: 0;
+    /* No in-flow spec band on lg+; specs overlay the photo bottom
+       at ~93px (1.25rem padding * 2 + heading + label + gap). Sit
+       the dot row well above the overlaid spec strip. */
+    bottom: 7.5rem;
   }
 }
 
+/* Sharp-cornered "dots" — zero border-radius per DESIGN.md §1.
+   Small white square; active state stretches into a pill, still
+   square-cornered (engineered, not consumer). */
 .hero-slider__segment {
-  flex: 1;
-  height: 4px;
-  background-color: color-mix(in srgb, var(--color-white) 30%, transparent);
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: color-mix(in srgb, var(--color-white) 35%, transparent);
   border: none;
   padding: 0;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: background-color 200ms ease;
+  transition: background-color 200ms ease, width 200ms ease;
 }
 
 .hero-slider__segment:hover {
-  background-color: color-mix(in srgb, var(--color-white) 50%, transparent);
+  background-color: color-mix(in srgb, var(--color-white) 65%, transparent);
 }
 
 .hero-slider__segment:focus-visible {
   outline: 2px solid var(--color-white);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
-.hero-slider__segment-fill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 0;
+/* Active dot: stretches to a small pill in brand red. */
+.hero-slider__segment--active {
+  width: 1.5rem;
   background-color: var(--color-red);
-}
-
-.hero-slider__segment--active .hero-slider__segment-fill {
-  width: 100%;
-}
-
-.hero-slider--playing .hero-slider__segment--active .hero-slider__segment-fill {
-  width: 0;
-  animation: segment-progress 8s linear forwards;
-}
-
-@keyframes segment-progress {
-  from { width: 0; }
-  to { width: 100%; }
 }
 
 /* Pause / play toggle. Anchored to the bottom-right of the photo
