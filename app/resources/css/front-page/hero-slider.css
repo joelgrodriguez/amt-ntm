@@ -132,18 +132,20 @@
   margin-bottom: 0.5rem;
 }
 
-/* Title — display headline (sans per DESIGN.md §3.2: "large hero/display
-   headlines that are read, not scanned"). The category eyebrow above carries
-   the mono voice; this line is read. Sized via design tokens so the marquee
-   stays in sync with the rest of the page's display scale. */
+/* Title — mono brand-voice override (DESIGN.md §3.1: mono is the
+   editorial voice for product identifiers; the front-page hero is
+   the one place where the model name IS the headline, so it reads
+   as a spec-sheet model number at display scale, not body prose).
+   Sized larger than the rest of the page's display scale so the
+   marquee earns its name. */
 .hero-slider__title {
-  font-family: var(--font-sans);
-  font-size: var(--text-heading);
+  font-family: var(--font-mono);
+  font-size: var(--text-heading-lg);
   font-weight: 500;
-  line-height: var(--leading-heading);
-  letter-spacing: -0.01em;
-  margin-bottom: 0.25rem;
-  max-width: 90%;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+  max-width: 14ch;
 }
 
 /* Marketing slogan */
@@ -389,8 +391,8 @@
   }
 
   .hero-slider__title {
-    font-size: var(--text-heading-lg);
-    line-height: var(--leading-heading-lg);
+    font-size: var(--text-6xl);
+    line-height: 0.95;
   }
 
   .hero-slider__slogan {
@@ -462,8 +464,8 @@
   }
 
   .hero-slider__title {
-    font-size: var(--text-display);
-    line-height: var(--leading-display);
+    font-size: var(--text-7xl);
+    line-height: 0.95;
   }
 
   .hero-slider__slogan {
