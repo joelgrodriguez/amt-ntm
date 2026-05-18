@@ -62,8 +62,8 @@ $steps = [
         <div class="grid gap-6 md:grid-cols-3 lg:gap-8">
             <?php foreach ($steps as $step) : ?>
                 <div class="grid gap-3 justify-items-center bg-white border border-blue-200 p-8">
-                    <span class="inline-flex items-center justify-center w-14 h-14 bg-blue-200 text-blue-800 text-2xl font-medium">
-                        <?php echo esc_html($step['number']); ?>
+                    <span class="inline-flex items-center justify-center w-14 h-14 bg-white border border-blue-500 text-blue-500 font-mono font-medium" style="font-size: var(--text-heading-sm);">
+                        <?php echo esc_html((string) $step['number']); ?>
                     </span>
                     <h3 class="text-xl font-medium text-blue-900">
                         <?php echo esc_html($step['title']); ?>

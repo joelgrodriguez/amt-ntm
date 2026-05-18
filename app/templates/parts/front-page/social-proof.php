@@ -68,7 +68,7 @@ if (empty($testimonials)) {
                         class="social-proof__slide grid gap-8 <?php echo $index === 0 ? 'block' : 'hidden'; ?>"
                         data-index="<?php echo esc_attr($index); ?>"
                     >
-                        <?php icon('quote', ['class' => 'w-10 h-10 text-red mx-auto md:w-12 md:h-12']); ?>
+                        <?php icon('quote', ['class' => 'w-10 h-10 text-blue-400 mx-auto md:w-12 md:h-12']); ?>
 
                         <p class="text-xl text-white font-medium leading-relaxed md:text-2xl lg:text-3xl">
                             "<?php echo esc_html($testimonial['quote']); ?>"
