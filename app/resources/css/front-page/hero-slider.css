@@ -103,7 +103,7 @@
   font-family: var(--font-sans);
   font-size: var(--text-body);
   font-weight: 400;
-  color: color-mix(in srgb, var(--color-white) 85%, transparent);
+  color: var(--color-blue-200);
   margin-bottom: 0.75rem;
   max-width: 80%;
 }
@@ -121,7 +121,7 @@
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   font-weight: 400;
-  color: color-mix(in srgb, var(--color-white) 70%, transparent);
+  color: var(--color-blue-300);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -151,13 +151,13 @@
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: color-mix(in srgb, var(--color-white) 70%, transparent);
+  color: var(--color-blue-300);
 }
 
 .hero-slider__finance-divider {
   width: 1px;
   height: 3rem;
-  background-color: color-mix(in srgb, var(--color-white) 40%, transparent);
+  background-color: var(--color-blue-700);
 }
 
 /* CTA buttons container */
