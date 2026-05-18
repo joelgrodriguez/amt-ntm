@@ -17,12 +17,11 @@ if (!defined('ABSPATH')) {
 use function Standard\Machines\get_featured_machines;
 
 $content = [
-    'section_label'    => __('Featured machines', 'standard'),
-    'prev_label'       => __('Previous slide', 'standard'),
-    'next_label'       => __('Next slide', 'standard'),
-    'nav_label'        => __('Slide navigation', 'standard'),
-    'go_to_slide'      => __('Go to slide %d', 'standard'),
-    'keyboard_hint'    => __('Use arrow keys to navigate', 'standard'),
+    'section_label' => __('Featured machines', 'standard'),
+    'prev_label'    => __('Previous slide', 'standard'),
+    'next_label'    => __('Next slide', 'standard'),
+    'nav_label'     => __('Slide navigation', 'standard'),
+    'go_to_slide'   => __('Go to slide %d', 'standard'),
 ];
 
 // Get featured machines
@@ -88,9 +87,6 @@ $first_machine = $machines[0] ?? null;
             <?php endfor; ?>
         </div>
 
-        <p class="hero-slider__keyboard-hint" aria-label="<?php echo esc_attr($content['keyboard_hint']); ?>">
-            <span aria-hidden="true">&larr; &nbsp;/&nbsp; &rarr;</span>
-        </p>
     </div>
 
 </section>

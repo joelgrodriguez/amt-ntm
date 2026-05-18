@@ -322,25 +322,6 @@
   gap: 0.625rem;
 }
 
-/* Keyboard hint. Quiet mono caption beneath the dot row that surfaces
-   the otherwise-invisible arrow-key navigation for sighted users.
-   Hidden on touch primary devices since the affordance doesn't apply. */
-.hero-slider__keyboard-hint {
-  margin: 0;
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  font-weight: 400;
-  color: color-mix(in srgb, var(--color-white) 50%, transparent);
-  letter-spacing: 0.05em;
-  user-select: none;
-}
-
-@media (hover: none) and (pointer: coarse) {
-  .hero-slider__keyboard-hint {
-    display: none;
-  }
-}
-
 /* Sharp-cornered "dots" — zero border-radius per DESIGN.md §1.
    Small white square; active state stretches into a pill, still
    square-cornered (engineered, not consumer). */

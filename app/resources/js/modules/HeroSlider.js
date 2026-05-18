@@ -39,10 +39,27 @@ export function initHeroSlider(options = {}) {
 
   if (!track || slides.length === 0) return;
 
+  const realCount = slides.length;
+
+  // Clone the first slide and append to the end so the autoplay
+  // loop can continue forward (slide N-1 -> visual slide 0 via the
+  // clone, then snap back to the real slide 0 without animation).
+  // Without this, advancing past the last slide rewinds visually
+  // backwards through every prior slide.
+  const firstClone = slides[0].cloneNode(true);
+  firstClone.setAttribute('aria-hidden', 'true');
+  firstClone.dataset.cloneOf = '0';
+  // If the original slide 0 had its image hydrated already, the
+  // clone keeps that <img>. If slide 0 was deferred (it isn't,
+  // since slide 0 always renders eager), this clone would need
+  // hydration. Slide 0 is always eager, so no work needed here.
+  track.appendChild(firstClone);
+
   // State
   let currentIndex = 0;
   let autoPlayTimer = null;
   let isPlaying = false;
+  let isSnapping = false;
   let touchStartX = 0;
 
   // AbortController for clean event listener removal
@@ -54,32 +71,66 @@ export function initHeroSlider(options = {}) {
   ).matches;
 
   /**
-   * Go to a specific slide.
+   * Go to a specific slide. Supports the off-by-one clone position
+   * (index === realCount) which animates to the cloned first slide
+   * then snaps back to the real index 0 after the transition ends,
+   * preserving forward motion direction on loop.
    */
   function goToSlide(index) {
-    // Wrap around
-    currentIndex = ((index % slides.length) + slides.length) % slides.length;
+    // Real index for state (segments, aria, hydration). The clone
+    // position maps back to real index 0.
+    const isCloneTarget = index === realCount;
+    const realIndex = isCloneTarget
+      ? 0
+      : ((index % realCount) + realCount) % realCount;
 
-    // Eager-hydrate the target slide if it's still a deferred placeholder.
-    // requestIdleCallback may not have fired yet on slow devices.
-    hydrateSlide(slides[currentIndex]);
+    currentIndex = isCloneTarget ? realCount : realIndex;
+
+    // Eager-hydrate the real target slide if it's a deferred placeholder.
+    hydrateSlide(slides[realIndex]);
 
     track.style.transform = `translateX(-${currentIndex * 100}%)`;
 
-    // Update segments
+    // Update segments to reflect the REAL slide (not the clone)
     segments.forEach((segment, i) => {
-      const isActive = i === currentIndex;
+      const isActive = i === realIndex;
       segment.classList.toggle('hero-slider__segment--active', isActive);
       segment.setAttribute('aria-selected', String(isActive));
     });
 
     // Update slide visibility for screen readers
     slides.forEach((slide, i) => {
-      slide.setAttribute('aria-hidden', String(i !== currentIndex));
+      slide.setAttribute('aria-hidden', String(i !== realIndex));
+    });
+  }
+
+  /**
+   * After animating to the clone, snap (no transition) back to the
+   * real slide 0 so the next nextSlide() advances forward naturally.
+   */
+  function handleTransitionEnd() {
+    if (currentIndex !== realCount || isSnapping) return;
+
+    isSnapping = true;
+    track.style.transition = 'none';
+    currentIndex = 0;
+    track.style.transform = 'translateX(0%)';
+
+    // Force reflow, then restore transition next frame.
+    void track.offsetHeight;
+    requestAnimationFrame(() => {
+      track.style.transition = '';
+      isSnapping = false;
     });
   }
 
   function nextSlide() {
+    // From the last real slide, advance into the clone position.
+    // The transitionend handler snaps back to 0 without animation.
+    if (currentIndex === realCount - 1) {
+      goToSlide(realCount);
+      return;
+    }
     goToSlide(currentIndex + 1);
   }
 
@@ -148,6 +199,9 @@ export function initHeroSlider(options = {}) {
     // Navigation buttons
     prevBtn?.addEventListener('click', () => handleNavClick('prev'), { signal });
     nextBtn?.addEventListener('click', () => handleNavClick('next'), { signal });
+
+    // Track end-of-transition for the clone-snap on loop
+    track.addEventListener('transitionend', handleTransitionEnd, { signal });
 
     // Segment indicators
     segments.forEach((segment, index) => {
