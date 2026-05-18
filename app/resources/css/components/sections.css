@@ -2,10 +2,13 @@
  * Section Layout
  *
  * Typography per .claude/skills/typography-system.md:
- * - Eyebrow: mono 500, 11px, uppercase, tracked, red (label role)
- * - Divider: red accent bar
+ * - Eyebrow: mono 500, 11px, uppercase, tracked, blue-500 (label role)
+ * - Divider: blue-500 accent bar
  * - Section title: sans 600, tracking-tight (display headline)
  * - Subtitle/body: sans 400, blue-600
+ *
+ * Red is reserved for action (final-cta button, hero active progress
+ * segment), not section chrome. Mono+caps+tracking carries the voice.
  *
  * @file components/sections.css
  */
@@ -34,19 +37,20 @@
     @apply grid gap-4;
   }
 
-  /* Eyebrow — small uppercase mono label above title (red accent) */
+  /* Eyebrow — small uppercase mono label above title. Mono+caps+tracking
+     carries the voice; color is brand blue. Red is reserved for action. */
   .section-eyebrow {
-    @apply font-mono font-medium uppercase tracking-wider text-red;
+    @apply font-mono font-medium uppercase tracking-wider text-blue-500;
     font-size: var(--text-caption);
   }
 
-  /* Divider — accent bar below eyebrow (red) */
+  /* Divider — accent bar below eyebrow */
   .section-divider {
-    @apply w-12 h-1 bg-red;
+    @apply w-12 h-1 bg-blue-500;
   }
 
   .section-divider-center {
-    @apply w-12 h-1 bg-red mx-auto;
+    @apply w-12 h-1 bg-blue-500 mx-auto;
   }
 
   /* Title — section heading (sans display, tracking-tight) */

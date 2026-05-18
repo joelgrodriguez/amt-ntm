@@ -49,7 +49,7 @@ if ($embed_html === '') {
         <div class="border-x border-blue-800 container">
             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
                 <div class="flex items-center gap-3 pl-3">
-                    <span class="w-2 h-2 bg-red animate-pulse"></span>
+                    <span class="w-2 h-2 bg-blue-500 animate-pulse"></span>
                     <span id="<?php echo esc_attr($args['section_id'] . '-title'); ?>"><?php echo esc_html($args['title']); ?></span>
                 </div>
                 <div class="flex items-center gap-3 pr-3">

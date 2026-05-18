@@ -43,16 +43,16 @@ export function initSocialProof() {
     // Hide current slide
     slides[currentIndex].classList.add('hidden');
     slides[currentIndex].classList.remove('block');
-    dots[currentIndex].classList.remove('bg-secondary', 'w-8');
-    dots[currentIndex].classList.add('bg-slate-600', 'w-3');
+    dots[currentIndex].classList.remove('bg-blue-500', 'w-8');
+    dots[currentIndex].classList.add('bg-blue-600', 'w-3');
 
     currentIndex = index;
 
     // Show new slide
     slides[currentIndex].classList.remove('hidden');
     slides[currentIndex].classList.add('block');
-    dots[currentIndex].classList.remove('bg-slate-600', 'w-3');
-    dots[currentIndex].classList.add('bg-secondary', 'w-8');
+    dots[currentIndex].classList.remove('bg-blue-600', 'w-3');
+    dots[currentIndex].classList.add('bg-blue-500', 'w-8');
   }
 
   /**
