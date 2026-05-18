@@ -283,10 +283,10 @@
   height: 1rem;
 }
 
-/* Chrome band: pagination dots + pause toggle on one horizontal row,
-   absolute-positioned along the bottom of the photo. The dots center
-   in the row; the pause sits at the right edge. Both share vertical
-   alignment via the flex container, no manual math required. */
+/* Chrome stack: pagination dots on top, pause toggle beneath, both
+   centered. Absolute-positioned along the bottom of the photo.
+   Vertical layout instead of horizontal; pause is no longer
+   right-edge anchored. */
 .hero-slider__chrome {
   position: absolute;
   left: 0;
@@ -294,9 +294,9 @@
   bottom: calc(var(--hero-spec-band-height) + 1.5rem);
   z-index: 10;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 0 2rem;
+  gap: 0.75rem;
   pointer-events: none;
 }
 
@@ -307,9 +307,8 @@
 @media (min-width: 1024px) {
   .hero-slider__chrome {
     /* No in-flow spec band on lg+; specs overlay the photo bottom
-       at ~94px. Lift the chrome band well above the spec strip. */
-    bottom: 7.75rem;
-    padding: 0 3rem;
+       at ~94px. Lift the chrome stack well above the spec strip. */
+    bottom: 7.25rem;
   }
 }
 
@@ -348,14 +347,9 @@
   background-color: var(--color-red);
 }
 
-/* Pause / play toggle. Sits at the right edge of the chrome band,
-   absolutely positioned within the band so the centered dot row
-   keeps its center alignment regardless of pause presence. */
+/* Pause / play toggle. Sits beneath the dot row inside the chrome
+   column stack. */
 .hero-slider__pause {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
