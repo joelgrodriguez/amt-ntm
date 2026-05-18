@@ -17,11 +17,12 @@ if (!defined('ABSPATH')) {
 use function Standard\Machines\get_featured_machines;
 
 $content = [
-    'section_label' => __('Featured machines', 'standard'),
-    'prev_label'    => __('Previous slide', 'standard'),
-    'next_label'    => __('Next slide', 'standard'),
-    'nav_label'     => __('Slide navigation', 'standard'),
-    'go_to_slide'   => __('Go to slide %d', 'standard'),
+    'section_label'    => __('Featured machines', 'standard'),
+    'prev_label'       => __('Previous slide', 'standard'),
+    'next_label'       => __('Next slide', 'standard'),
+    'nav_label'        => __('Slide navigation', 'standard'),
+    'go_to_slide'      => __('Go to slide %d', 'standard'),
+    'keyboard_hint'    => __('Use arrow keys to navigate', 'standard'),
 ];
 
 // Get featured machines
@@ -72,7 +73,7 @@ $first_machine = $machines[0] ?? null;
         <?php icon('arrow-right', ['class' => 'hero-slider__nav-icon']); ?>
     </button>
 
-    <!-- Pagination Dots -->
+    <!-- Pagination Dots + Keyboard hint -->
     <div class="hero-slider__chrome">
         <div class="hero-slider__progress" role="tablist" aria-label="<?php echo esc_attr($content['nav_label']); ?>">
             <?php for ($i = 0; $i < $total_slides; $i++) : ?>
@@ -86,6 +87,10 @@ $first_machine = $machines[0] ?? null;
                 ></button>
             <?php endfor; ?>
         </div>
+
+        <p class="hero-slider__keyboard-hint" aria-label="<?php echo esc_attr($content['keyboard_hint']); ?>">
+            <span aria-hidden="true">&larr; &nbsp;/&nbsp; &rarr;</span>
+        </p>
     </div>
 
 </section>
