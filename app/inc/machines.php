@@ -27,32 +27,47 @@ use function Standard\MachineProductData\get_machine_product_data;
  * @return array<int, array>
  */
 function get_featured_machines(): array {
-    $slider_slugs = [
-        'ssq3-multipro'    => 'SSQ3™ MultiPro',
-        'ssq-ii-multipro'  => 'SSQ II™ MultiPro',
-        'ssh-multipro'     => 'SSH™ MultiPro',
-        'ssr-multipro-jr'  => 'SSR™ MultiPro Jr.',
-        '5vc-5v-crimp'     => '5VC-5V CRIMP™',
-        'wav-wall-panel'   => 'WAV™',
-        'mach-ii-5-gutter' => 'MACH II™',
-        'bg7-box-gutter'   => 'BG7™',
+    // Hero slider features 3 machines: roof flagship + gutter flagship +
+    // most-shopped roof. The full catalog (8+ machines) lives on /machines/.
+    // Keeps the loop short (24s @ 8s/slide) and the marquee focused.
+    //
+    // Each entry pairs the data-file slug (key, matches data/machines/*.php)
+    // with the title and the WooCommerce product slug used to resolve the
+    // machine page permalink. The two slug namespaces don't match because
+    // the data files are by model line and the WC products are by SKU.
+    $slider_machines = [
+        // NOTE: SSQ II while SSQ3's WooCommerce product is being prepared.
+        // When the SSQ3 product page ships, swap data slug to 'ssq3-multipro'
+        // and wp_slug to the new product permalink.
+        'ssq-ii-multipro' => [
+            'title'   => 'SSQ II™ MultiPro',
+            'wp_slug' => 'ssq-roof-panel-machine',
+        ],
+        'mach-ii-5-gutter' => [
+            'title'   => 'MACH II™',
+            'wp_slug' => 'mach-ii-5-gutter-machine',
+        ],
+        '5vc-5v-crimp' => [
+            'title'   => '5VC-5V CRIMP™',
+            'wp_slug' => '5vc-5v-crimp-roof-panel-machine',
+        ],
     ];
 
-    // Build slug → permalink map from WooCommerce
+    // Build wp_slug → permalink map.
+    // get_page_by_path() does an exact slug match; wc_get_products()'s
+    // 'slug' arg does a LIKE match and can return adjacent products,
+    // so we resolve each slug individually for correctness.
     $permalinks = [];
-    if (function_exists('wc_get_products')) {
-        $products = \Standard\Woo\Cache\get_products([
-            'slug'   => array_keys($slider_slugs),
-            'limit'  => count($slider_slugs),
-            'status' => 'publish',
-        ]);
-        foreach ($products as $product) {
-            $permalinks[$product->get_slug()] = $product->get_permalink();
+    foreach ($slider_machines as $meta) {
+        $wp_slug = $meta['wp_slug'];
+        $post = get_page_by_path($wp_slug, OBJECT, 'product');
+        if ($post && $post->post_status === 'publish') {
+            $permalinks[$wp_slug] = get_permalink($post);
         }
     }
 
     $machines = [];
-    foreach ($slider_slugs as $slug => $title) {
+    foreach ($slider_machines as $slug => $meta) {
         $data = get_machine_product_data($slug);
         if (!$data) {
             continue;
@@ -61,7 +76,7 @@ function get_featured_machines(): array {
         $machines[] = [
             'id'               => $slug,
             'category'         => $data['category'] ?? '',
-            'title'            => $title,
+            'title'            => $meta['title'],
             'slogan'           => $data['slogan'] ?? '',
             'background_image' => $data['hero']['hero_image'] ?? $data['hero']['image'] ?? '',
             'background_video' => $data['hero']['video'] ?? '',
@@ -69,7 +84,7 @@ function get_featured_machines(): array {
             'finance_apr'      => $data['finance']['apr'] ?? '',
             'finance_months'   => $data['finance']['months'] ?? '',
             'finance_url'      => \Standard\Url\with_query('/build-finance/', ['machine' => $slug]),
-            'learn_more_url'   => $permalinks[$slug] ?? '#',
+            'learn_more_url'   => $permalinks[$meta['wp_slug']] ?? '#',
         ];
     }
 

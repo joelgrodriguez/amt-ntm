@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'cta_finance' => __('Configure & Quote', 'standard'),
+    'cta_machine' => __('View Machine', 'standard'),
 ];
 
 $machine = $args['machine'] ?? [];
@@ -38,7 +38,7 @@ $slogan           = $machine['slogan'] ?? '';
 $background_image = $machine['background_image'] ?? '';
 $background_video = $machine['background_video'] ?? '';
 $stats            = $machine['stats'] ?? [];
-$finance_url      = $machine['finance_url'] ?? '#';
+$learn_more_url   = $machine['learn_more_url'] ?? '#';
 $is_first         = $index === 0;
 ?>
 
@@ -102,8 +102,9 @@ $is_first         = $index === 0;
                 <?php endif; ?>
 
                 <div class="hero-slider__cta">
-                    <a href="<?php echo esc_url($finance_url); ?>" class="btn btn-light">
-                        <?php echo esc_html($content['cta_finance']); ?>
+                    <a href="<?php echo esc_url($learn_more_url); ?>" class="btn btn-primary">
+                        <?php echo esc_html($content['cta_machine']); ?>
+                        <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                     </a>
                 </div>
             </div>
