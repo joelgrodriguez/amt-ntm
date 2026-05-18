@@ -367,9 +367,8 @@ body.overflow-hidden.menu-scrim-ready::after {
     gap: 1rem;
 }
 
-/* In-menu card overrides: cards are designed for a horizontal carousel on
- * the home page. Inside the menu they need to be full-width and stack
- * vertically. card-product.php uses .card-product as its top-level class. */
+/* Mobile menu uses card-product--grid (vertical). Force full-width inside
+ * the panel column regardless of variant defaults. */
 .mobile-menu__cards .card-product {
     width: 100%;
     max-width: none;

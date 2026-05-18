@@ -49,34 +49,31 @@
     transform: translateY(0);
 }
 
-/* Sidebar enters as one unit */
-.mega-panel.is-open .mega-panel__sidebar { transition-delay: 80ms; }
+/* Tight stagger: 40-180ms range. Panel arrives fast; items still land. */
+.mega-panel.is-open .mega-panel__sidebar { transition-delay: 40ms; }
 
-/* Tabs within sidebar stagger */
-.mega-panel.is-open .mega-tab:nth-child(1) { transition-delay: 120ms; }
-.mega-panel.is-open .mega-tab:nth-child(2) { transition-delay: 180ms; }
-.mega-panel.is-open .mega-tab:nth-child(3) { transition-delay: 240ms; }
-.mega-panel.is-open .mega-tab:nth-child(4) { transition-delay: 300ms; }
-.mega-panel.is-open .mega-tab:nth-child(5) { transition-delay: 360ms; }
+.mega-panel.is-open .mega-tab:nth-child(1) { transition-delay: 60ms; }
+.mega-panel.is-open .mega-tab:nth-child(2) { transition-delay: 90ms; }
+.mega-panel.is-open .mega-tab:nth-child(3) { transition-delay: 120ms; }
+.mega-panel.is-open .mega-tab:nth-child(4) { transition-delay: 150ms; }
+.mega-panel.is-open .mega-tab:nth-child(5) { transition-delay: 180ms; }
 
-/* Posts in content area */
-.mega-panel.is-open .mega-post-card:nth-child(1) { transition-delay: 160ms; }
-.mega-panel.is-open .mega-post-card:nth-child(2) { transition-delay: 220ms; }
-.mega-panel.is-open .mega-post-card:nth-child(3) { transition-delay: 280ms; }
+.mega-panel.is-open .mega-post-card:nth-child(1) { transition-delay: 80ms; }
+.mega-panel.is-open .mega-post-card:nth-child(2) { transition-delay: 120ms; }
+.mega-panel.is-open .mega-post-card:nth-child(3) { transition-delay: 160ms; }
 
-/* Product / profile cards */
-.mega-panel.is-open .mega-product-grid .card-product:nth-child(1) { transition-delay: 120ms; }
-.mega-panel.is-open .mega-product-grid .card-product:nth-child(2) { transition-delay: 160ms; }
-.mega-panel.is-open .mega-product-grid .card-product:nth-child(3) { transition-delay: 200ms; }
-.mega-panel.is-open .mega-product-grid .card-product:nth-child(4) { transition-delay: 240ms; }
-.mega-panel.is-open .mega-product-grid .card-product:nth-child(5) { transition-delay: 280ms; }
-.mega-panel.is-open .mega-product-grid .card-product:nth-child(6) { transition-delay: 320ms; }
-.mega-panel.is-open .mega-profile-grid > li:nth-child(1) { transition-delay: 120ms; }
-.mega-panel.is-open .mega-profile-grid > li:nth-child(2) { transition-delay: 160ms; }
-.mega-panel.is-open .mega-profile-grid > li:nth-child(3) { transition-delay: 200ms; }
-.mega-panel.is-open .mega-profile-grid > li:nth-child(4) { transition-delay: 240ms; }
-.mega-panel.is-open .mega-profile-grid > li:nth-child(5) { transition-delay: 280ms; }
-.mega-panel.is-open .mega-profile-grid > li:nth-child(6) { transition-delay: 320ms; }
+.mega-panel.is-open .mega-product-grid .card-product:nth-child(1) { transition-delay: 60ms; }
+.mega-panel.is-open .mega-product-grid .card-product:nth-child(2) { transition-delay: 90ms; }
+.mega-panel.is-open .mega-product-grid .card-product:nth-child(3) { transition-delay: 120ms; }
+.mega-panel.is-open .mega-product-grid .card-product:nth-child(4) { transition-delay: 140ms; }
+.mega-panel.is-open .mega-product-grid .card-product:nth-child(5) { transition-delay: 160ms; }
+.mega-panel.is-open .mega-product-grid .card-product:nth-child(6) { transition-delay: 180ms; }
+.mega-panel.is-open .mega-profile-grid > li:nth-child(1) { transition-delay: 60ms; }
+.mega-panel.is-open .mega-profile-grid > li:nth-child(2) { transition-delay: 90ms; }
+.mega-panel.is-open .mega-profile-grid > li:nth-child(3) { transition-delay: 120ms; }
+.mega-panel.is-open .mega-profile-grid > li:nth-child(4) { transition-delay: 140ms; }
+.mega-panel.is-open .mega-profile-grid > li:nth-child(5) { transition-delay: 160ms; }
+.mega-panel.is-open .mega-profile-grid > li:nth-child(6) { transition-delay: 180ms; }
 
 /* Closing: children fade out together (no stagger) so the panel visibly empties
    before the container slides up. Faster than the container so they're gone first. */
@@ -193,17 +190,25 @@
 
 /* ── Product grid (machines + upgrades) ───────────────────────────────── */
 
+/* Vertical card-product--grid variants tile naturally; 2 / 3 / 4 columns
+   based on viewport so narrow laptops don't crush each card to ~230px. */
 .mega-product-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
 }
 
-/* Override card-product sizing inside the mega panel */
-.mega-product-grid .card-product {
-    width: 100%;
-    max-width: none;
-    min-width: 0;
+@media (min-width: 1200px) {
+    .mega-product-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+    }
+}
+
+@media (min-width: 1536px) {
+    .mega-product-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 /* ── Learning Center header (title left, view-all link right) ─────────── */

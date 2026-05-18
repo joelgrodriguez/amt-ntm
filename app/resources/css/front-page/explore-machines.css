@@ -51,7 +51,8 @@
 }
 
 .explore-machines__tab--active {
-  @apply text-blue-700 border-b-red;
+  @apply text-blue-900;
+  border-bottom-color: var(--color-red);
 }
 
 /* Arrow navigation buttons */

@@ -1,11 +1,31 @@
 <?php
 /**
- * Product Card Template Part
+ * Product Card
  *
- * Horizontal card for displaying products/machines.
- * Shows image on left, details on right (title, tagline, price, CTAs).
+ * One template, two layout variants. Same data shape either way.
+ *
+ *   variant: 'carousel' (default)
+ *     Vertical on mobile, horizontal image-left / content-right on tablet+.
+ *     Used by the front-page Explore strip, where each card is a wide tile
+ *     in a horizontal scroller and has room for a tagline.
+ *
+ *   variant: 'grid'
+ *     Vertical always. Image on top, content below.
+ *     Used by the desktop mega menu and the mobile menu panel, where cards
+ *     sit in a fixed multi-column grid and need to stay readable at 240px.
+ *
+ * Link model: the whole card is one link to `explore_url` (expanded hit area
+ * via ::after on the title anchor). Priced machines get a single inline
+ * "Build" CTA that lifts above the card-wide overlay via z-index. Accessories
+ * show a quieter inline arrow link to the same destination so affordance
+ * parity holds across categories.
  *
  * @package Standard
+ *
+ * @param array  $args {
+ *     @type array  $product Product data (title, image, price, urls, ...).
+ *     @type string $variant 'carousel' | 'grid'. Default 'carousel'.
+ * }
  */
 
 declare(strict_types=1);
@@ -14,27 +34,28 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Get product data from args or use WooCommerce product
 $product = $args['product'] ?? null;
-
 if (!$product) {
     return;
 }
 
+$variant = ($args['variant'] ?? 'carousel') === 'grid' ? 'grid' : 'carousel';
+
 $title          = $product['title'] ?? '';
 $category_label = $product['category_label'] ?? '';
 $tagline        = $product['tagline'] ?? '';
-// descriptor field available but not displayed
 $image          = $product['image'] ?? '';
 $price          = $product['price'] ?? '';
 $price_label    = $product['price_label'] ?? __('Starting at', 'standard');
 $explore_url    = $product['explore_url'] ?? '#';
-$build_url      = $product['build_url'] ?? '#';
+$build_url      = $product['build_url'] ?? '';
 $badge          = $product['badge'] ?? '';
 $is_accessory   = empty($price);
+
+$root_classes = 'card-product card-product--' . $variant . ' group relative';
 ?>
 
-<article class="card-product group relative">
+<article class="<?php echo esc_attr($root_classes); ?>">
     <div class="card-product__image-wrapper">
         <?php if ($badge) : ?>
             <span class="card-product__badge"><?php echo esc_html($badge); ?></span>
@@ -48,16 +69,20 @@ $is_accessory   = empty($price);
     </div>
 
     <div class="card-product__content">
+        <?php if ($category_label) : ?>
+            <p class="card-product__category"><?php echo esc_html($category_label); ?></p>
+        <?php endif; ?>
+
         <?php if ($title) : ?>
             <h3 class="card-product__title">
-                <a href="<?php echo esc_url($explore_url); ?>" class="after:content-[''] after:absolute after:inset-0">
+                <a href="<?php echo esc_url($explore_url); ?>" class="card-product__title-link">
                     <?php echo esc_html($title); ?>
                 </a>
             </h3>
         <?php endif; ?>
 
-        <?php if ($category_label) : ?>
-            <p class="card-product__category"><?php echo esc_html($category_label); ?></p>
+        <?php if ($variant === 'carousel' && $tagline) : ?>
+            <p class="card-product__tagline"><?php echo esc_html($tagline); ?></p>
         <?php endif; ?>
 
         <?php if ($price) : ?>
@@ -67,17 +92,17 @@ $is_accessory   = empty($price);
             </div>
         <?php endif; ?>
 
-        <?php if (!$is_accessory) : ?>
-            <div class="card-product__cta">
-                <?php if ($build_url) : ?>
-                    <a href="<?php echo esc_url($build_url); ?>" class="btn btn-sm btn-primary relative z-10">
-                        <?php esc_html_e('Build', 'standard'); ?>
-                    </a>
-                <?php endif; ?>
-                <a href="<?php echo esc_url($explore_url); ?>" class="btn btn-sm btn-outline-dark relative z-10">
-                    <?php esc_html_e('View', 'standard'); ?>
+        <div class="card-product__cta">
+            <?php if (!$is_accessory && $build_url) : ?>
+                <a href="<?php echo esc_url($build_url); ?>" class="btn btn-sm btn-primary card-product__cta-build">
+                    <?php esc_html_e('Build', 'standard'); ?>
                 </a>
-            </div>
-        <?php endif; ?>
+            <?php else : ?>
+                <a href="<?php echo esc_url($explore_url); ?>" class="card-product__cta-explore" tabindex="-1" aria-hidden="true">
+                    <?php esc_html_e('Explore', 'standard'); ?>
+                    <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                </a>
+            <?php endif; ?>
+        </div>
     </div>
 </article>
