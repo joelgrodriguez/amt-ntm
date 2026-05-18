@@ -52,10 +52,12 @@ $first_category = array_key_first($categories);
             <?php foreach ($categories as $slug => $label) : ?>
                 <button
                     type="button"
+                    id="tab-<?php echo esc_attr($slug); ?>"
                     class="explore-machines__tab <?php echo $slug === $first_category ? 'explore-machines__tab--active' : ''; ?>"
                     role="tab"
                     aria-selected="<?php echo $slug === $first_category ? 'true' : 'false'; ?>"
                     aria-controls="panel-<?php echo esc_attr($slug); ?>"
+                    tabindex="<?php echo $slug === $first_category ? '0' : '-1'; ?>"
                     data-category="<?php echo esc_attr($slug); ?>"
                 ><?php echo esc_html($label); ?></button>
             <?php endforeach; ?>

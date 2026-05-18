@@ -62,13 +62,13 @@ export function initExploreMachines(options = {}) {
       const isActive = tab.dataset.category === categorySlug;
       tab.classList.toggle('explore-machines__tab--active', isActive);
       tab.setAttribute('aria-selected', String(isActive));
+      tab.setAttribute('tabindex', isActive ? '0' : '-1');
     });
 
     // Update panels
     panels.forEach((panel) => {
       const isActive = panel.id === `panel-${categorySlug}`;
       panel.classList.toggle('explore-machines__panel--active', isActive);
-      panel.hidden = !isActive;
 
       // Reset scroll position and counter when switching
       if (isActive) {

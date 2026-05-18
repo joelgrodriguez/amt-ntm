@@ -74,9 +74,5 @@ $steps = [
                 </div>
             <?php endforeach; ?>
         </div>
-
-        <div class="flex justify-center">
-            <?php get_template_part('templates/parts/cta/two-door', null, ['align' => 'center']); ?>
-        </div>
     </div>
 </section>
