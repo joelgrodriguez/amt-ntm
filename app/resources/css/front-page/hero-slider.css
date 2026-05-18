@@ -304,6 +304,14 @@
        the dot row well above the overlaid spec strip. */
     bottom: 7.5rem;
   }
+
+  /* Pause keeps its vertical-center alignment with the dot row at
+     lg+ too. Dot row vertical center = 7.5rem + 0.25rem = 7.75rem
+     above slider bottom. Pause is 2rem tall, so its bottom offset
+     = 7.75rem - 1rem = 6.75rem to put its center on the same line. */
+  .hero-slider__pause {
+    bottom: 6.75rem;
+  }
 }
 
 /* Sharp-cornered "dots" — zero border-radius per DESIGN.md §1.
