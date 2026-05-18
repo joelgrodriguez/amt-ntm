@@ -76,13 +76,11 @@ $features = [
                 </div>
 
                 <!-- Feature Grid -->
-                <div class="grid gap-6 sm:grid-cols-3">
+                <div class="grid gap-8 sm:grid-cols-3">
                     <?php foreach ($features as $feature) : ?>
-                        <div class="flex flex-col">
-                            <div class="flex items-center justify-center w-12 h-12 bg-blue-500/10 text-blue-500 mb-4">
-                                <?php icon($feature['icon'], ['class' => 'w-6 h-6']); ?>
-                            </div>
-                            <h3 class="text-base font-medium text-blue-700 mb-1">
+                        <div class="flex flex-col gap-3 border-t border-blue-200 pt-4">
+                            <?php icon($feature['icon'], ['class' => 'w-6 h-6 text-blue-500']); ?>
+                            <h3 class="text-base font-medium text-blue-700">
                                 <?php echo esc_html($feature['title']); ?>
                             </h3>
                             <p class="text-sm text-blue-600">

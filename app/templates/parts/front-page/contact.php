@@ -17,7 +17,6 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'eyebrow'    => __('Get in Touch', 'standard'),
     'title'      => __("Let's Talk", 'standard'),
     'text'       => __('Ready to take control of your business? Contact us today to discuss your equipment needs.', 'standard'),
     'form_title' => __('Send Us a Message', 'standard'),
@@ -39,10 +38,6 @@ $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact_info[
 
         <!-- Section Header -->
         <div class="section-header">
-            <p class="section-eyebrow">
-                <?php echo esc_html($content['eyebrow']); ?>
-            </p>
-            <div class="section-divider-center"></div>
             <h2 id="contact-title" class="section-title">
                 <?php echo esc_html($content['title']); ?>
             </h2>
@@ -57,30 +52,30 @@ $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact_info[
             <div class="space-y-6">
 
                 <!-- Contact Info -->
-                <div class="space-y-4">
+                <div class="grid gap-4">
                     <a
                         href="<?php echo esc_url($directions_url); ?>"
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="group flex items-center gap-3 text-blue-700 hover:text-red transition-colors"
+                        class="group flex items-center gap-3 text-blue-700 hover:text-blue-500 transition-colors"
                     >
-                        <?php icon('external-link', ['class' => 'w-5 h-5 text-red shrink-0']); ?>
+                        <?php icon('external-link', ['class' => 'w-5 h-5 text-blue-500 shrink-0']); ?>
                         <span><?php echo esc_html($contact_info['address']); ?></span>
                     </a>
 
                     <a
                         href="mailto:<?php echo esc_attr($contact_info['email']); ?>"
-                        class="group flex items-center gap-3 text-blue-700 hover:text-red transition-colors"
+                        class="group flex items-center gap-3 text-blue-700 hover:text-blue-500 transition-colors"
                     >
-                        <?php icon('mail', ['class' => 'w-5 h-5 text-red shrink-0']); ?>
+                        <?php icon('mail', ['class' => 'w-5 h-5 text-blue-500 shrink-0']); ?>
                         <span><?php echo esc_html($contact_info['email']); ?></span>
                     </a>
 
                     <a
                         href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $contact_info['phone'])); ?>"
-                        class="group flex items-center gap-3 text-blue-700 hover:text-red transition-colors"
+                        class="group flex items-center gap-3 text-blue-700 hover:text-blue-500 transition-colors"
                     >
-                        <?php icon('phone', ['class' => 'w-5 h-5 text-red shrink-0']); ?>
+                        <?php icon('phone', ['class' => 'w-5 h-5 text-blue-500 shrink-0']); ?>
                         <span><?php echo esc_html($contact_info['phone']); ?></span>
                     </a>
                 </div>

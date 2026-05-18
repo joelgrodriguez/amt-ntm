@@ -83,4 +83,36 @@
     @apply font-sans text-blue-600 mb-8 lg:mb-10;
     font-size: var(--text-body);
   }
+
+  /* Final CTA — display-scale title using design tokens, not ad-hoc utilities */
+  .final-cta__title {
+    font-size: var(--text-heading);
+    line-height: var(--leading-heading);
+  }
+
+  @media (min-width: 768px) {
+    .final-cta__title {
+      font-size: var(--text-heading-lg);
+      line-height: var(--leading-heading-lg);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .final-cta__title {
+      font-size: var(--text-display);
+      line-height: var(--leading-display);
+    }
+  }
+
+  .final-cta__subtitle {
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+  }
+
+  @media (min-width: 768px) {
+    .final-cta__subtitle {
+      font-size: var(--text-heading-sm);
+      line-height: var(--leading-heading-sm);
+    }
+  }
 }

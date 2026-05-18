@@ -29,7 +29,7 @@ use function Standard\LearningCenter\get_latest_query;
 
 // Default values - can be overridden via $args when using get_template_part
 $defaults = [
-    'eyebrow'    => __('Learning Center', 'standard'),
+    'eyebrow'    => '',
     'title'      => __('The Rollforming Learning Center', 'standard'),
     'subtitle'   => __('Expert guides, tips, and resources to help you get the most from your equipment.', 'standard'),
     'post_count' => 4,
@@ -52,10 +52,12 @@ if (!$query->have_posts()) {
 
         <!-- Section Header -->
         <div class="section-header">
-            <p class="section-eyebrow">
-                <?php echo esc_html($args['eyebrow']); ?>
-            </p>
-            <div class="section-divider-center"></div>
+            <?php if (!empty($args['eyebrow'])) : ?>
+                <p class="section-eyebrow">
+                    <?php echo esc_html($args['eyebrow']); ?>
+                </p>
+                <div class="section-divider-center"></div>
+            <?php endif; ?>
             <h2 id="learning-center-title" class="section-title">
                 <?php echo esc_html($args['title']); ?>
             </h2>
