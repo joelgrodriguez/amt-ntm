@@ -28,7 +28,11 @@ get_header();
 
     <?php get_template_part('templates/parts/front-page/who-is-ntm'); ?>
 
-    <?php get_template_part('templates/parts/front-page/ownership-math'); ?>
+    <?php get_template_part('templates/parts/front-page/pain-points'); ?>
+
+    <?php get_template_part('templates/parts/front-page/value-prop'); ?>
+
+    <?php get_template_part('templates/parts/front-page/three-step-plan'); ?>
 
     <?php get_template_part('templates/parts/front-page/social-proof'); ?>
 
