@@ -17,7 +17,6 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'eyebrow'  => __('The 3 Step Plan', 'standard'),
     'title'    => __('Your Path to Better Equipment Financing', 'standard'),
     'text'     => __('Working with NTM is simple, transparent, and designed around your needs.', 'standard'),
 ];
@@ -41,16 +40,9 @@ $steps = [
 ];
 ?>
 
-<section class="section bg-blue-100 pattern-square-grid" aria-labelledby="three-step-title">
-    <div class="pattern-square-grid__overlay pattern-square-grid__overlay--top-left"></div>
-    <div class="pattern-square-grid__overlay pattern-square-grid__overlay--bottom-right"></div>
-
+<section class="section bg-blue-100" aria-labelledby="three-step-title">
     <div class="container section-content text-center">
         <div class="section-header">
-            <p class="section-eyebrow">
-                <?php echo esc_html($content['eyebrow']); ?>
-            </p>
-            <div class="section-divider-center"></div>
             <h2 id="three-step-title" class="section-title">
                 <?php echo esc_html($content['title']); ?>
             </h2>
@@ -62,7 +54,7 @@ $steps = [
         <div class="grid gap-6 md:grid-cols-3 lg:gap-8">
             <?php foreach ($steps as $step) : ?>
                 <div class="grid gap-3 justify-items-center bg-white border border-blue-200 p-8">
-                    <span class="inline-flex items-center justify-center w-14 h-14 bg-white border border-blue-500 text-blue-500 font-mono font-medium" style="font-size: var(--text-heading-sm);">
+                    <span class="inline-flex items-center justify-center w-14 h-14 bg-white border border-blue-500 text-blue-500 text-xl font-mono font-medium">
                         <?php echo esc_html((string) $step['number']); ?>
                     </span>
                     <h3 class="text-xl font-medium text-blue-900">

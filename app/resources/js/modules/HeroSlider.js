@@ -59,6 +59,11 @@ export function initHeroSlider(options = {}) {
   function goToSlide(index) {
     // Wrap around
     currentIndex = ((index % slides.length) + slides.length) % slides.length;
+
+    // Eager-hydrate the target slide if it's still a deferred placeholder.
+    // requestIdleCallback may not have fired yet on slow devices.
+    hydrateSlide(slides[currentIndex]);
+
     track.style.transform = `translateX(-${currentIndex * 100}%)`;
 
     // Update segments
@@ -192,50 +197,55 @@ export function initHeroSlider(options = {}) {
   }
 
   /**
-   * Hydrate deferred slide media (image + optional video).
-   * Slides past the first ship as data-attributes only so initial paint
-   * isn't blocked by 3+ MB of hero photography. Hydrated after LCP.
+   * Hydrate a single deferred slide's media (image + optional video).
+   * No-op if the slide was already hydrated (data attrs are deleted on
+   * first hydration). Safe to call multiple times.
+   */
+  function hydrateSlide(slide) {
+    if (!slide || !slide.dataset.imageUrl) return;
+
+    const imageUrl = slide.dataset.imageUrl;
+    const imageAlt = slide.dataset.imageAlt || '';
+    const videoUrl = slide.dataset.videoUrl;
+
+    if (videoUrl) {
+      const video = document.createElement('video');
+      video.className = 'hero-slider__media hero-slider__video';
+      video.autoplay = true;
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      if (imageUrl) video.poster = imageUrl;
+      const source = document.createElement('source');
+      source.src = videoUrl;
+      source.type = 'video/mp4';
+      video.appendChild(source);
+      slide.insertBefore(video, slide.firstChild);
+    }
+
+    if (imageUrl) {
+      const img = document.createElement('img');
+      img.className = 'hero-slider__media hero-slider__image';
+      img.src = imageUrl;
+      img.alt = imageAlt;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      // Insert before .hero-overlay so z-index stack stays correct.
+      const overlay = slide.querySelector('.hero-overlay');
+      slide.insertBefore(img, overlay || slide.firstChild);
+    }
+
+    delete slide.dataset.imageUrl;
+    delete slide.dataset.imageAlt;
+    delete slide.dataset.videoUrl;
+  }
+
+  /**
+   * Hydrate all remaining deferred slides. Called from requestIdleCallback
+   * as a safety net; goToSlide eager-hydrates on user interaction.
    */
   function hydrateDeferredSlides() {
-    const deferred = slider.querySelectorAll('.hero-slider__slide[data-image-url]');
-    if (deferred.length === 0) return;
-
-    deferred.forEach((slide) => {
-      const imageUrl = slide.dataset.imageUrl;
-      const imageAlt = slide.dataset.imageAlt || '';
-      const videoUrl = slide.dataset.videoUrl;
-
-      if (videoUrl) {
-        const video = document.createElement('video');
-        video.className = 'hero-slider__media hero-slider__video';
-        video.autoplay = true;
-        video.muted = true;
-        video.loop = true;
-        video.playsInline = true;
-        if (imageUrl) video.poster = imageUrl;
-        const source = document.createElement('source');
-        source.src = videoUrl;
-        source.type = 'video/mp4';
-        video.appendChild(source);
-        slide.insertBefore(video, slide.firstChild);
-      }
-
-      if (imageUrl) {
-        const img = document.createElement('img');
-        img.className = 'hero-slider__media hero-slider__image';
-        img.src = imageUrl;
-        img.alt = imageAlt;
-        img.loading = 'lazy';
-        img.decoding = 'async';
-        // Insert before .hero-overlay so z-index stack stays correct.
-        const overlay = slide.querySelector('.hero-overlay');
-        slide.insertBefore(img, overlay || slide.firstChild);
-      }
-
-      delete slide.dataset.imageUrl;
-      delete slide.dataset.imageAlt;
-      delete slide.dataset.videoUrl;
-    });
+    slides.forEach(hydrateSlide);
   }
 
   // Initialize

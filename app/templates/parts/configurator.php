@@ -52,12 +52,11 @@ $features = [
 
             <!-- Image Panel -->
             <div class="order-2 lg:order-1">
-                <img
-                    src="<?php echo esc_url($content['image']); ?>"
-                    alt="<?php echo esc_attr($content['image_alt']); ?>"
-                    class="w-full h-auto"
-                    loading="lazy"
-                >
+                <?php \Standard\Images\responsive_image($content['image'], $content['image_alt'], 'large', [
+                    'class'  => 'w-full h-auto',
+                    'width'  => '2613',
+                    'height' => '1634',
+                ]); ?>
             </div>
 
             <!-- Content Panel -->

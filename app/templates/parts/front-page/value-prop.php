@@ -77,8 +77,8 @@ $points = [
                             <span class="shrink-0 mt-1">
                                 <?php icon('check', ['class' => 'w-4 h-4 text-blue-500']); ?>
                             </span>
-                            <div>
-                                <h3 class="text-lg font-medium text-blue-900 mb-1">
+                            <div class="grid gap-1">
+                                <h3 class="text-lg font-medium text-blue-900">
                                     <?php echo esc_html($point['title']); ?>
                                 </h3>
                                 <p class="text-blue-600">

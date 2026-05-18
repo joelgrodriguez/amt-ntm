@@ -49,7 +49,7 @@ $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact_info[
         <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
 
             <!-- Left Column: Contact Info + Map -->
-            <div class="space-y-6">
+            <div class="grid gap-6 content-start">
 
                 <!-- Contact Info -->
                 <div class="grid gap-4">
