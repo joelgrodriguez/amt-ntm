@@ -2,8 +2,13 @@
 /**
  * Tools Section Template Part
  *
- * Quick-access tools grid for the front page.
- * Links to configurator, quizzes, calculators, and financing info.
+ * Four decision-support destinations grouped by intent.
+ * Spec-shoppers get Compare Models and Manuals & Specs.
+ * Newcomers and ROI-builders get Machine Quiz and Profit Calculator.
+ *
+ * Layout: two-row editorial table. Per-row eyebrow names the intent.
+ * Hairline borders mark the structural grid (DESIGN.md §8.5). No tiles,
+ * no fills, no icon-card grid: this is a directory, not a feature grid.
  *
  * @package Standard
  *
@@ -17,58 +22,97 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'title' => __('Tools to Help You Decide', 'standard'),
+    'eyebrow' => __('Before You Configure', 'standard'),
+    'title'   => __('Decide With Data', 'standard'),
 ];
 
-// Four destinations that DON'T overlap with the hero or the configurator.
-// Compare and Manuals serve the spec-shopper. Quiz serves the
-// owner-operator who's not sure which machine fits. Profit Calculator
-// serves the buyer building the ROI case for their accountant.
-$tools = [
+$rows = [
     [
-        'icon'  => 'settings',
-        'title' => __('Compare Models', 'standard'),
-        'url'   => '/machines/',
+        'eyebrow' => __('For The Spec Shopper', 'standard'),
+        'items'   => [
+            [
+                'index' => '01',
+                'title' => __('Compare Models', 'standard'),
+                'value' => __('Side-by-side specs across every machine.', 'standard'),
+                'url'   => '/machines/',
+            ],
+            [
+                'index' => '02',
+                'title' => __('Manuals & Specs', 'standard'),
+                'value' => __('Operator manuals and full datasheets, English and Spanish.', 'standard'),
+                'url'   => '/manuals/',
+            ],
+        ],
     ],
     [
-        'icon'  => 'help-circle',
-        'title' => __('Machine Quiz', 'standard'),
-        'url'   => '/roof-panel-machine-assessment-quiz/',
-    ],
-    [
-        'icon'  => 'dollar-sign',
-        'title' => __('Profit Calculator', 'standard'),
-        'url'   => '/learning-center/download/portable-rollforming-profit-calculator/',
-    ],
-    [
-        'icon'  => 'trending-up',
-        'title' => __('Manuals & Specs', 'standard'),
-        'url'   => '/manuals/',
+        'eyebrow' => __('For The Buyer Building A Case', 'standard'),
+        'items'   => [
+            [
+                'index' => '03',
+                'title' => __('Machine Quiz', 'standard'),
+                'value' => __("Not sure which machine fits? Three questions, one answer.", 'standard'),
+                'url'   => '/roof-panel-machine-assessment-quiz/',
+            ],
+            [
+                'index' => '04',
+                'title' => __('Profit Calculator', 'standard'),
+                'value' => __('Run the ROI numbers your accountant will want to see.', 'standard'),
+                'url'   => '/learning-center/download/portable-rollforming-profit-calculator/',
+            ],
+        ],
     ],
 ];
 ?>
 
 <section class="section-compact bg-blue-50" aria-labelledby="tools-title">
-    <div class="container grid gap-8 lg:gap-10">
-        <h2 id="tools-title" class="section-title">
-            <?php echo esc_html($content['title']); ?>
-        </h2>
+    <div class="container grid gap-12 lg:gap-16">
 
-        <div class="grid grid-cols-2 gap-px bg-blue-200 border border-blue-200 md:grid-cols-4">
-            <?php foreach ($tools as $tool) : ?>
-                <a
-                    href="<?php echo esc_url(\Standard\Url\internal($tool['url'])); ?>"
-                    class="group flex flex-col justify-between p-6 bg-white no-underline transition-colors duration-200 hover:bg-blue-100 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px]"
-                >
-                    <h3 class="text-base font-medium text-blue-700 mb-12 transition-colors duration-200 group-hover:text-blue-500 md:text-lg">
-                        <?php echo esc_html($tool['title']); ?>
-                    </h3>
-                    <div class="flex items-end justify-between">
-                        <?php icon($tool['icon'], ['class' => 'w-8 h-8 text-blue-700 transition-colors duration-200 group-hover:text-blue-500 md:w-10 md:h-10']); ?>
-                        <?php icon('arrow-right', ['class' => 'w-5 h-5 text-blue-400 transition-colors duration-200 group-hover:text-blue-500']); ?>
-                    </div>
-                </a>
+        <div class="section-header-left">
+            <p class="section-eyebrow">
+                <?php echo esc_html($content['eyebrow']); ?>
+            </p>
+            <div class="section-divider"></div>
+            <h2 id="tools-title" class="section-title">
+                <?php echo esc_html($content['title']); ?>
+            </h2>
+        </div>
+
+        <div class="border-t border-blue-200">
+            <?php foreach ($rows as $row) : ?>
+                <div class="grid border-b border-blue-200 md:grid-cols-[14rem_1fr]">
+
+                    <p class="font-mono font-medium uppercase tracking-wider text-blue-500 text-xs pt-6 pb-2 md:py-8 md:pr-8 md:border-r md:border-blue-200">
+                        <?php echo esc_html($row['eyebrow']); ?>
+                    </p>
+
+                    <ul class="grid md:grid-cols-2">
+                        <?php foreach ($row['items'] as $i => $item) : ?>
+                            <li class="<?php echo $i === 1 ? 'md:border-l md:border-blue-200' : ''; ?>">
+                                <a
+                                    href="<?php echo esc_url(\Standard\Url\internal($item['url'])); ?>"
+                                    class="group grid gap-3 py-6 md:p-8 no-underline transition-colors duration-200 hover:bg-white focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px]"
+                                >
+                                    <span class="font-mono text-xs text-blue-400 tracking-wider">
+                                        <?php echo esc_html($item['index']); ?>
+                                    </span>
+                                    <h3 class="font-sans text-xl font-medium text-blue-700 leading-tight transition-colors duration-200 group-hover:text-blue-500">
+                                        <?php echo esc_html($item['title']); ?>
+                                        <?php icon('arrow-right', [
+                                            'class'       => 'inline-block w-4 h-4 ml-1 -mt-0.5 text-blue-400 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-blue-500',
+                                            'aria-hidden' => 'true',
+                                        ]); ?>
+                                    </h3>
+                                    <p class="font-sans text-sm text-blue-600 leading-relaxed">
+                                        <?php echo esc_html($item['value']); ?>
+                                    </p>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+
+                </div>
             <?php endforeach; ?>
         </div>
+
     </div>
 </section>
