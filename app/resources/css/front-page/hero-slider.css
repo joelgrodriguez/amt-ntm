@@ -28,13 +28,13 @@
   width: 100%;
   overflow: hidden;
   background-color: var(--color-blue-900);
-  --hero-spec-band-height: 120px;
+  --hero-spec-band-height: 140px;
 }
 
 @media (min-width: 768px) {
   .hero-slider {
-    /* md+: spec band is a single row of 4, ~64px tall. */
-    --hero-spec-band-height: 64px;
+    /* md+: spec band is a single row of 4. */
+    --hero-spec-band-height: 76px;
   }
 }
 
@@ -65,15 +65,16 @@
   background-color: var(--color-blue-900);
 }
 
-/* Photo region: holds media + overlay + content stack. Mobile-first
-   sizing — generous portrait-friendly height for the photo. */
+/* Photo region: holds media + overlay + content stack.
+   Slider total height = 100dvh (hero + spec band fills the viewport).
+   Photo takes the remaining height after the in-flow spec band; on
+   lg+ the spec band is absolute-positioned so photo = 100dvh. */
 .hero-slider__photo {
   position: relative;
   width: 100%;
-  height: 60vh;
-  height: 60dvh;
+  height: calc(100vh - var(--hero-spec-band-height));
+  height: calc(100dvh - var(--hero-spec-band-height));
   min-height: 420px;
-  max-height: 640px;
   overflow: hidden;
 }
 
@@ -177,7 +178,9 @@
 .hero-slider__spec {
   display: grid;
   gap: 0.25rem;
-  padding: 0.875rem 1rem;
+  align-content: center;
+  padding: 0.75rem 1rem;
+  min-height: 70px;
   border-right: 1px solid var(--color-blue-700);
   border-bottom: 1px solid var(--color-blue-700);
 }
@@ -252,16 +255,26 @@
 }
 
 /* Segmented progress bar. Anchored to the bottom of the photo region:
-   on mobile, sits above the in-flow spec band; on lg+, sits at the
-   slider bottom over the absolute-positioned spec strip. */
+   on mobile, sits above the in-flow spec band with breathing room;
+   on lg+, sits at the slider bottom over the absolute-positioned
+   spec strip. */
 .hero-slider__progress {
   position: absolute;
-  bottom: var(--hero-spec-band-height);
+  bottom: calc(var(--hero-spec-band-height) + 0.75rem);
   left: 0;
   z-index: 10;
   width: 100%;
   display: flex;
   gap: 4px;
+  padding: 0 1rem;
+}
+
+@media (min-width: 1024px) {
+  .hero-slider__progress {
+    /* No spec band underneath on lg+; sit at the slider bottom. */
+    bottom: 0;
+    padding: 0;
+  }
 }
 
 .hero-slider__segment {
@@ -313,7 +326,7 @@
 .hero-slider__pause {
   position: absolute;
   right: 1rem;
-  bottom: calc(var(--hero-spec-band-height) + 1rem);
+  bottom: calc(var(--hero-spec-band-height) + 1.75rem);
   z-index: 10;
   display: flex;
   align-items: center;
@@ -362,10 +375,7 @@
 /* Responsive adjustments */
 @media (min-width: 768px) {
   .hero-slider__photo {
-    height: 65vh;
-    height: 65dvh;
     min-height: 520px;
-    max-height: 760px;
   }
 
   .hero-slider__content {
@@ -421,13 +431,10 @@
 }
 
 @media (min-width: 1024px) {
-  /* Spec strip overlays the photo at the bottom; photo grows to absorb
-     the band so the slider becomes a single tall composition. */
+  /* Spec strip overlays the photo at the bottom; photo = 100dvh
+     because --hero-spec-band-height is 0 at this breakpoint. */
   .hero-slider__photo {
-    height: 78vh;
-    height: 78dvh;
     min-height: 620px;
-    max-height: 860px;
   }
 
   .hero-slider__specs {
