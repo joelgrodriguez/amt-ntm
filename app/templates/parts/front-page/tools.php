@@ -20,11 +20,15 @@ $content = [
     'title' => __('Tools to Help You Decide', 'standard'),
 ];
 
+// Four destinations that DON'T overlap with the hero or the configurator.
+// Compare and Manuals serve the spec-shopper. Quiz serves the
+// owner-operator who's not sure which machine fits. Profit Calculator
+// serves the buyer building the ROI case for their accountant.
 $tools = [
     [
         'icon'  => 'settings',
-        'title' => __('Build & Finance', 'standard'),
-        'url'   => '/build-finance/',
+        'title' => __('Compare Models', 'standard'),
+        'url'   => '/machines/',
     ],
     [
         'icon'  => 'help-circle',
@@ -38,8 +42,8 @@ $tools = [
     ],
     [
         'icon'  => 'trending-up',
-        'title' => __('Financing Options', 'standard'),
-        'url'   => '/machines/leasing-financing/',
+        'title' => __('Manuals & Specs', 'standard'),
+        'url'   => '/manuals/',
     ],
 ];
 ?>
