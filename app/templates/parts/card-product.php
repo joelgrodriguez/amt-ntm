@@ -4,26 +4,27 @@
  *
  * One template, two layout variants. Same data shape either way.
  *
- *   variant: 'carousel' (default)
- *     Vertical on mobile, horizontal image-left / content-right on tablet+.
- *     Used by the front-page Explore strip.
+ *   variant: 'row' (default)
+ *     Vertical on mobile (image on top, content below).
+ *     Horizontal at tablet+ (image left, content right).
+ *     Used by the front-page Explore strip and the desktop mega menu.
  *
- *   variant: 'grid'
+ *   variant: 'stack'
  *     Vertical always. Image on top, content below.
- *     Used by the desktop mega menu and the mobile menu panel, where cards
- *     sit in a fixed multi-column grid and need to stay readable at 240px.
+ *     Used by the mobile menu panel.
  *
  * Link model: the whole card is one link to `explore_url` (expanded hit area
  * via ::after on the title anchor). Priced machines get a single inline
- * "Build" CTA that lifts above the card-wide overlay via z-index. Accessories
- * show a quieter inline arrow link to the same destination so affordance
- * parity holds across categories.
+ * "Build & Quote" CTA that lifts above the card-wide overlay via z-index.
+ * Accessories show a quieter inline arrow link to the same destination for
+ * affordance parity. That arrow link is tabindex=-1 / aria-hidden since the
+ * whole card already routes there.
  *
  * @package Standard
  *
  * @param array  $args {
  *     @type array  $product Product data (title, image, price, urls, ...).
- *     @type string $variant 'carousel' | 'grid'. Default 'carousel'.
+ *     @type string $variant 'row' | 'stack'. Default 'row'.
  * }
  */
 
@@ -38,7 +39,7 @@ if (!$product) {
     return;
 }
 
-$variant = ($args['variant'] ?? 'carousel') === 'grid' ? 'grid' : 'carousel';
+$variant = ($args['variant'] ?? 'row') === 'stack' ? 'stack' : 'row';
 
 $title          = $product['title'] ?? '';
 $category_label = $product['category_label'] ?? '';

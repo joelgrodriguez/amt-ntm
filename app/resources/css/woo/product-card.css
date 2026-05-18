@@ -2,9 +2,10 @@
  * Product Card
  *
  * Two layout variants on one template:
- *   .card-product--carousel  vertical on mobile, horizontal on tablet+
- *                            (front-page Explore strip)
- *   .card-product--grid       vertical always (mega menu, mobile menu)
+ *   .card-product--row    vertical on mobile, horizontal on tablet+
+ *                         (front-page Explore strip, desktop mega menu)
+ *   .card-product--stack  vertical always
+ *                         (mobile menu panel)
  *
  * Link model: the whole card links to explore_url via ::after on the title
  * anchor (expanded hit area). One inline CTA per card sits above the overlay
@@ -23,31 +24,28 @@
     @apply motion-reduce:transition-none;
   }
 
-  /* Card-wide hover: stronger border so the affordance is visible at rest
-     AND escalates on hover. No filled background swap; the card stays a
-     spec-sheet tile, not a marketing chip. */
   .card-product:hover {
     @apply border-blue-700;
   }
 
-  /* Focus ring lives on the card when the title link inside is focused.
-     :has() is supported in every shipping evergreen browser as of 2024. */
+  /* Focus ring on the card when the title link is keyboard-focused. */
   .card-product:has(.card-product__title-link:focus-visible) {
     outline: 2px solid var(--color-blue-500);
     outline-offset: 2px;
   }
-  /* Hide the link's own focus ring; the parent draws it instead. */
   .card-product__title-link:focus-visible {
     outline: none;
   }
 
+  /* Image well: fixed aspect, blue-50 fill, image centered with padding so
+     product silhouettes that vary in proportion all sit consistently. */
   .card-product__image-wrapper {
     @apply relative bg-blue-50 overflow-hidden;
     aspect-ratio: 4 / 3;
   }
 
   .card-product__image {
-    @apply w-full h-full object-contain p-3;
+    @apply absolute inset-0 w-full h-full object-contain p-4;
     @apply transition-transform duration-300;
     @apply motion-reduce:transition-none;
   }
@@ -57,7 +55,6 @@
     @apply motion-reduce:scale-100;
   }
 
-  /* Quieter badge: outlined blue-700 on transparent, not a filled chip. */
   .card-product__badge {
     @apply absolute top-3 left-3 px-2 py-1;
     @apply font-mono font-medium uppercase;
@@ -82,8 +79,6 @@
     line-height: 1.2;
   }
 
-  /* Title anchor expands its hit area to fill the entire card via ::after,
-     so the whole card surface routes to explore_url. */
   .card-product__title-link {
     @apply text-inherit no-underline;
   }
@@ -114,14 +109,10 @@
     @apply flex items-center mt-auto pt-4;
   }
 
-  /* Build button lifts above the whole-card overlay so it remains clickable. */
   .card-product__cta-build {
     @apply relative z-10;
   }
 
-  /* Accessory cards: inline arrow-link sibling. tabindex=-1 + aria-hidden
-     keeps it out of the tab/screen-reader order since the whole card
-     already targets the same URL. Purely a visual affordance. */
   .card-product__cta-explore {
     @apply inline-flex items-center gap-1 font-mono uppercase text-blue-700;
     @apply transition-colors duration-200;
@@ -132,19 +123,17 @@
     @apply text-blue-900;
   }
 
-  /* ── Grid variant: vertical always ───────────────────────────────────── */
+  /* ── Stack variant: vertical always ──────────────────────────────────── */
 
-  .card-product--grid {
+  .card-product--stack {
     @apply h-full;
   }
 
-  .card-product--grid .card-product__image-wrapper {
-    aspect-ratio: 4 / 3;
-  }
+  /* ── Row variant: vertical on mobile, horizontal at tablet+ ──────────── */
 
-  /* ── Carousel variant: horizontal at tablet+ ─────────────────────────── */
-
-  .card-product--carousel {
+  .card-product--row {
+    /* Default carousel sizing. Overridden when row card lives in a
+       fixed-column grid (see .mega-product-grid override below). */
     min-width: 280px;
     max-width: 320px;
     scroll-snap-align: start;
@@ -152,29 +141,29 @@
   }
 
   @media (min-width: 768px) {
-    .card-product--carousel {
+    .card-product--row {
       @apply flex-row;
       min-width: 440px;
       max-width: 480px;
       height: 220px;
     }
 
-    .card-product--carousel .card-product__image-wrapper {
+    .card-product--row .card-product__image-wrapper {
       @apply w-5/12 shrink-0 h-full;
       aspect-ratio: auto;
     }
 
-    .card-product--carousel .card-product__content {
+    .card-product--row .card-product__content {
       @apply w-7/12 p-5;
     }
 
-    .card-product--carousel .card-product__title {
+    .card-product--row .card-product__title {
       font-size: var(--text-heading);
     }
   }
 
   @media (min-width: 1024px) {
-    .card-product--carousel {
+    .card-product--row {
       min-width: 480px;
       max-width: 520px;
       height: 240px;
