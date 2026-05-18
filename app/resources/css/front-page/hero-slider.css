@@ -65,26 +65,12 @@
   background-color: var(--color-blue-900);
 }
 
-/* Front-page hero overrides the shared .hero-overlay with a stronger
-   directional gradient. The flat overlay (from components/hero-overlay.css)
-   would dim the entire photo uniformly; on a marquee surface the
-   product needs to stay bright in the upper-right while the text
-   region in the lower-left gets lifted. Bottom-left anchored radial
-   plus a bottom linear band reads as cinematic dusk lighting rather
-   than a flat scrim. */
+/* Front-page hero overrides the shared .hero-overlay with a flat
+   50% blue-900 wash. Uniform legibility plate across the whole
+   photo; product detail comes through but text always lands on
+   the same dark plate regardless of photo composition. */
 .hero-slider__photo .hero-overlay {
-  background:
-    radial-gradient(
-      ellipse 80% 70% at 0% 100%,
-      color-mix(in srgb, var(--color-blue-900) 85%, transparent) 0%,
-      color-mix(in srgb, var(--color-blue-900) 55%, transparent) 45%,
-      transparent 75%
-    ),
-    linear-gradient(
-      to top,
-      color-mix(in srgb, var(--color-blue-900) 60%, transparent) 0%,
-      transparent 50%
-    );
+  background-color: color-mix(in srgb, var(--color-blue-900) 50%, transparent);
 }
 
 /* Photo region: holds media + overlay + content stack.
