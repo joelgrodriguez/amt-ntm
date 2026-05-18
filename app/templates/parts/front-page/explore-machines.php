@@ -71,6 +71,7 @@ $first_category = array_key_first($categories);
                     class="explore-machines__panel grid gap-8 lg:gap-10 <?php echo $slug === $first_category ? 'explore-machines__panel--active' : ''; ?>"
                     role="tabpanel"
                     aria-labelledby="tab-<?php echo esc_attr($slug); ?>"
+                    <?php echo $slug !== $first_category ? 'hidden' : ''; ?>
                 >
                     <div class="explore-machines__track flex gap-4 overflow-x-auto -mx-1.5 md:gap-6">
                         <?php foreach ($products as $product) : ?>

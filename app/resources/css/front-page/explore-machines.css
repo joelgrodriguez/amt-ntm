@@ -24,19 +24,11 @@
   @apply hidden;
 }
 
-/* Panel wrapper - contains stacked panels */
-.explore-machines__panels {
-  @apply relative;
-}
-
-/* Panel state - toggled by JS */
-.explore-machines__panel {
-  @apply invisible absolute inset-0 opacity-0;
-  transition: opacity 150ms ease-out, visibility 150ms ease-out;
-}
-
-.explore-machines__panel--active {
-  @apply visible relative opacity-100;
+/* Panel state. The [hidden] attribute on inactive panels gives us
+   display: none, which suppresses image preloading. We don't fade
+   between panels anymore; tab switching is an instant content swap. */
+.explore-machines__panel[hidden] {
+  display: none;
 }
 
 /* Tab styles */

@@ -65,18 +65,24 @@ export function initExploreMachines(options = {}) {
       tab.setAttribute('tabindex', isActive ? '0' : '-1');
     });
 
-    // Update panels
+    // Update panels. Toggle the hidden attribute so browsers don't preload
+    // images inside inactive panels; restore on activation. The first card
+    // image in a newly-shown panel still hits the network here, but that's
+    // a user-driven request (they clicked the tab) rather than a page-load
+    // cost across every panel up front.
     panels.forEach((panel) => {
       const isActive = panel.id === `panel-${categorySlug}`;
       panel.classList.toggle('explore-machines__panel--active', isActive);
 
-      // Reset scroll position and counter when switching
       if (isActive) {
+        panel.removeAttribute('hidden');
         const track = panel.querySelector('.explore-machines__track');
         if (track) {
           track.scrollLeft = 0;
           updateCounter(panel, track);
         }
+      } else {
+        panel.setAttribute('hidden', '');
       }
     });
   }
