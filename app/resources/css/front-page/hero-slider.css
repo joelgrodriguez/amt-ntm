@@ -176,7 +176,7 @@
   font-family: var(--font-sans);
   font-size: var(--text-body);
   font-weight: 400;
-  color: var(--color-blue-200);
+  color: var(--color-blue-100);
   margin-bottom: 1.25rem;
   max-width: 36ch;
 }
@@ -334,12 +334,16 @@
   background-color: var(--color-red);
 }
 
-/* Pause / play toggle. Anchored to the bottom-right of the photo
-   region, just above the progress bar. */
+/* Pause / play toggle. Anchored bottom-right of the photo region,
+   vertically centered with the pagination dot row so they read as
+   one horizontal control band. (Math: dot row center sits 1.5rem
+   above the spec band — 1.25rem bottom offset + 0.25rem half-height
+   of the 0.5rem dot. Pause is 2rem tall, so bottom offset = 0.5rem
+   puts its center at 1.5rem too.) */
 .hero-slider__pause {
   position: absolute;
   right: 1rem;
-  bottom: calc(var(--hero-spec-band-height) + 1.75rem);
+  bottom: calc(var(--hero-spec-band-height) + 0.5rem);
   z-index: 10;
   display: flex;
   align-items: center;
