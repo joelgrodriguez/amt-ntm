@@ -121,7 +121,7 @@
   flex-direction: column;
   justify-content: flex-end;
   padding-top: 1.5rem;
-  padding-bottom: 5rem;
+  padding-bottom: 7rem;
   color: var(--color-white);
 }
 
@@ -347,53 +347,6 @@
   background-color: var(--color-red);
 }
 
-/* Pause / play toggle. Sits beneath the dot row inside the chrome
-   column stack. */
-.hero-slider__pause {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  background-color: color-mix(in srgb, var(--color-black) 30%, transparent);
-  color: var(--color-white);
-  border: none;
-  cursor: pointer;
-  transition: background-color 200ms ease;
-}
-
-.hero-slider__pause:hover {
-  background-color: color-mix(in srgb, var(--color-black) 60%, transparent);
-}
-
-.hero-slider__pause:focus-visible {
-  outline: 2px solid var(--color-white);
-  outline-offset: 2px;
-}
-
-.hero-slider__pause-icon {
-  width: 0.875rem;
-  height: 0.875rem;
-}
-
-.hero-slider__pause-icon--play {
-  display: none;
-}
-
-.hero-slider--paused .hero-slider__pause-icon--pause {
-  display: none;
-}
-
-.hero-slider--paused .hero-slider__pause-icon--play {
-  display: block;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-slider__pause {
-    display: none;
-  }
-}
-
 /* Responsive adjustments */
 @media (min-width: 768px) {
   .hero-slider__photo {
@@ -402,7 +355,7 @@
 
   .hero-slider__content {
     padding-top: 2rem;
-    padding-bottom: 6rem;
+    padding-bottom: 8rem;
   }
 
   .hero-slider__category {
@@ -480,7 +433,7 @@
      third of the photo, not flush against the spec strip. */
   .hero-slider__content {
     padding-top: 2rem;
-    padding-bottom: 11rem;
+    padding-bottom: 14rem;
   }
 
   .hero-slider__title {

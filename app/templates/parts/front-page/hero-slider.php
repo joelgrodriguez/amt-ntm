@@ -22,8 +22,6 @@ $content = [
     'next_label'    => __('Next slide', 'standard'),
     'nav_label'     => __('Slide navigation', 'standard'),
     'go_to_slide'   => __('Go to slide %d', 'standard'),
-    'pause_label'   => __('Pause auto-advance', 'standard'),
-    'play_label'    => __('Resume auto-advance', 'standard'),
 ];
 
 // Get featured machines
@@ -74,7 +72,7 @@ $first_machine = $machines[0] ?? null;
         <?php icon('arrow-right', ['class' => 'hero-slider__nav-icon']); ?>
     </button>
 
-    <!-- Pagination Dots + Pause toggle (one shared control band) -->
+    <!-- Pagination Dots -->
     <div class="hero-slider__chrome">
         <div class="hero-slider__progress" role="tablist" aria-label="<?php echo esc_attr($content['nav_label']); ?>">
             <?php for ($i = 0; $i < $total_slides; $i++) : ?>
@@ -88,17 +86,6 @@ $first_machine = $machines[0] ?? null;
                 ></button>
             <?php endfor; ?>
         </div>
-
-        <button
-            type="button"
-            class="hero-slider__pause"
-            aria-label="<?php echo esc_attr($content['pause_label']); ?>"
-            data-label-pause="<?php echo esc_attr($content['pause_label']); ?>"
-            data-label-play="<?php echo esc_attr($content['play_label']); ?>"
-        >
-            <?php icon('pause', ['class' => 'hero-slider__pause-icon hero-slider__pause-icon--pause']); ?>
-            <?php icon('play', ['class' => 'hero-slider__pause-icon hero-slider__pause-icon--play']); ?>
-        </button>
     </div>
 
 </section>

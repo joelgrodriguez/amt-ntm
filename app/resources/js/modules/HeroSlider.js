@@ -36,7 +36,6 @@ export function initHeroSlider(options = {}) {
   const prevBtn = slider.querySelector('.hero-slider__nav--prev');
   const nextBtn = slider.querySelector('.hero-slider__nav--next');
   const segments = slider.querySelectorAll('.hero-slider__segment');
-  const pauseBtn = slider.querySelector('.hero-slider__pause');
 
   if (!track || slides.length === 0) return;
 
@@ -44,7 +43,6 @@ export function initHeroSlider(options = {}) {
   let currentIndex = 0;
   let autoPlayTimer = null;
   let isPlaying = false;
-  let userPaused = false;
   let touchStartX = 0;
 
   // AbortController for clean event listener removal
@@ -90,28 +88,11 @@ export function initHeroSlider(options = {}) {
   }
 
   function startAutoPlay() {
-    if (prefersReducedMotion || isPlaying || userPaused) return;
+    if (prefersReducedMotion || isPlaying) return;
 
     isPlaying = true;
     slider.classList.add('hero-slider--playing');
     autoPlayTimer = setInterval(nextSlide, config.autoPlayInterval);
-  }
-
-  function togglePause() {
-    userPaused = !userPaused;
-    slider.classList.toggle('hero-slider--paused', userPaused);
-
-    if (userPaused) {
-      stopAutoPlay();
-      if (pauseBtn) {
-        pauseBtn.setAttribute('aria-label', pauseBtn.dataset.labelPlay || 'Resume');
-      }
-    } else {
-      if (pauseBtn) {
-        pauseBtn.setAttribute('aria-label', pauseBtn.dataset.labelPause || 'Pause');
-      }
-      startAutoPlay();
-    }
   }
 
   function stopAutoPlay() {
@@ -167,9 +148,6 @@ export function initHeroSlider(options = {}) {
     // Navigation buttons
     prevBtn?.addEventListener('click', () => handleNavClick('prev'), { signal });
     nextBtn?.addEventListener('click', () => handleNavClick('next'), { signal });
-
-    // Pause / play toggle
-    pauseBtn?.addEventListener('click', togglePause, { signal });
 
     // Segment indicators
     segments.forEach((segment, index) => {
