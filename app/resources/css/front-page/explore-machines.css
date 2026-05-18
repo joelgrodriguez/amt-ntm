@@ -82,10 +82,14 @@
   border-bottom-color: var(--color-red);
 }
 
-/* Counter: live region for "1 of 5". Mono + caption vocabulary handled in
-   the typeset pass below. */
+/* Counter: live region for "1 of 5". Instrument vocabulary: mono,
+   uppercase, caption size, blue-700. font-variant-numeric tabular-nums
+   pins digit widths so the value doesn't shift as numbers change. */
 .explore-machines__counter {
-  @apply text-sm text-blue-600 min-w-16 text-center;
+  @apply font-mono uppercase text-blue-700 min-w-16 text-center;
+  font-size: var(--text-caption);
+  letter-spacing: 0.05em;
+  font-variant-numeric: tabular-nums;
 }
 
 /* Arrow navigation buttons. Same vocabulary as the tabs: text/icon on
