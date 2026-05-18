@@ -123,7 +123,9 @@
    inner content stack to the bottom of the photo region. Horizontal
    max-width + padding come from the .container child so the title's
    left edge lines up with the router section beneath. Vertical
-   padding clears the bottom progress bar / spec strip. */
+   padding clears the bottom progress bar / spec strip and lifts the
+   title block higher into the photo's lower third (premium marquee
+   composition, not anchored flush to the photo edge). */
 .hero-slider__content {
   position: absolute;
   inset: 0;
@@ -132,7 +134,7 @@
   flex-direction: column;
   justify-content: flex-end;
   padding-top: 1.5rem;
-  padding-bottom: 3rem;
+  padding-bottom: 5rem;
   color: var(--color-white);
 }
 
@@ -219,6 +221,8 @@
   align-content: center;
   padding: 0.75rem 1rem;
   min-height: 70px;
+  min-width: 0;
+  overflow: hidden;
   border-right: 1px solid var(--color-blue-700);
   border-bottom: 1px solid var(--color-blue-700);
 }
@@ -418,7 +422,7 @@
 
   .hero-slider__content {
     padding-top: 2rem;
-    padding-bottom: 4rem;
+    padding-bottom: 6rem;
   }
 
   .hero-slider__category {
@@ -492,10 +496,11 @@
   }
 
   /* Content stack lifts to clear the overlaid spec strip + bottom
-     progress bar. */
+     progress bar, with extra air so the title sits in the lower
+     third of the photo, not flush against the spec strip. */
   .hero-slider__content {
     padding-top: 2rem;
-    padding-bottom: 8rem;
+    padding-bottom: 11rem;
   }
 
   .hero-slider__title {
