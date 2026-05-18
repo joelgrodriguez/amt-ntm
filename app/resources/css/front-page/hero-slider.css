@@ -291,12 +291,12 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: calc(var(--hero-spec-band-height) + 1rem);
+  bottom: calc(var(--hero-spec-band-height) + 1.5rem);
   z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 1rem;
+  padding: 0 2rem;
   pointer-events: none;
 }
 
@@ -308,7 +308,8 @@
   .hero-slider__chrome {
     /* No in-flow spec band on lg+; specs overlay the photo bottom
        at ~94px. Lift the chrome band well above the spec strip. */
-    bottom: 7.25rem;
+    bottom: 7.75rem;
+    padding: 0 3rem;
   }
 }
 
