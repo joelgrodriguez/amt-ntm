@@ -24,7 +24,7 @@
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  background-color: rgba(2, 6, 23, 0.45);
+  background-color: color-mix(in srgb, var(--color-blue-900) 45%, transparent);
 }
 
 /* ── SVG grain texture ────────────────────────────────────────────── */
@@ -41,6 +41,11 @@
 
 /* ── Hero text safety net ─────────────────────────────────────────── */
 
+/* Legibility-only text-shadow over photography. Sanctioned exception to
+   DESIGN.md §4.3 shadow ban: the spec forbids decorative depth fakery on
+   UI; this is the typographic equivalent of §5.10's "subtle bottom-up
+   dark gradient for legibility" exception. White text on variable
+   photographic backgrounds needs the safety net. Keep subtle. */
 .hero-overlay ~ [class*="z-10"] h1,
 .hero-overlay ~ [class*="z-10"] h2,
 .hero-overlay ~ [class*="z-10"] p,
@@ -52,5 +57,5 @@
 .hero-overlay__grain ~ [class*="z-10"] h2,
 .hero-overlay__grain ~ [class*="z-10"] p,
 .hero-overlay__grain ~ [class*="z-10"] span {
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 2px color-mix(in srgb, var(--color-blue-900) 20%, transparent);
 }

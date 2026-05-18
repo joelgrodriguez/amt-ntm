@@ -56,7 +56,7 @@ $tools = [
                     href="<?php echo esc_url(\Standard\Url\internal($tool['url'])); ?>"
                     class="group flex flex-col justify-between p-6 no-underline border-blue-200 transition-colors duration-200 hover:bg-blue-100 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px] <?php echo $index % 2 === 1 ? 'border-l' : ''; ?> <?php echo $index >= 2 ? 'border-t md:border-t-0' : ''; ?> <?php echo $index >= 1 ? 'md:border-l' : ''; ?>"
                 >
-                    <h3 class="text-base font-medium text-blue-900 mb-12 transition-colors duration-200 group-hover:text-blue-500 md:text-lg">
+                    <h3 class="text-base font-medium text-blue-700 mb-12 transition-colors duration-200 group-hover:text-blue-500 md:text-lg">
                         <?php echo esc_html($tool['title']); ?>
                     </h3>
                     <div class="flex items-end justify-between">

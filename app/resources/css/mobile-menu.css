@@ -247,7 +247,7 @@ body.overflow-hidden.menu-scrim-ready::after {
     text-decoration: none;
     color: var(--color-blue-700);
     font-size: 1.0625rem;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: -0.01em;
     cursor: pointer;
     transition: background-color 150ms var(--ease-spring);
@@ -306,7 +306,7 @@ body.overflow-hidden.menu-scrim-ready::after {
     margin: 0;
     font-family: var(--font-sans);
     font-size: 1.125rem;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: -0.01em;
     text-align: center;
     color: var(--color-blue-700);

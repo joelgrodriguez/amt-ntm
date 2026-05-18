@@ -82,7 +82,7 @@ $features = [
                             <div class="flex items-center justify-center w-12 h-12 bg-blue-500/10 text-blue-500 mb-4">
                                 <?php icon($feature['icon'], ['class' => 'w-6 h-6']); ?>
                             </div>
-                            <h3 class="text-base font-medium text-blue-900 mb-1">
+                            <h3 class="text-base font-medium text-blue-700 mb-1">
                                 <?php echo esc_html($feature['title']); ?>
                             </h3>
                             <p class="text-sm text-blue-600">

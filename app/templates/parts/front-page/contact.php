@@ -104,7 +104,7 @@ $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact_info[
 
             <!-- Right Column: Form -->
             <div class="bg-blue-50 border border-blue-200 p-8 lg:p-10">
-                <h3 class="text-xl font-medium text-blue-900 mb-2">
+                <h3 class="text-xl font-medium text-blue-700 mb-2">
                     <?php echo esc_html($content['form_title']); ?>
                 </h3>
                 <p class="text-blue-600 mb-6">

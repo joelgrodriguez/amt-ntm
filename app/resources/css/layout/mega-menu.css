@@ -129,7 +129,7 @@
     padding: 0 1.25rem 0.75rem 1.5rem;
     font-family: var(--font-mono);
     font-size: 0.6875rem;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-blue-400);
@@ -174,10 +174,14 @@
 }
 
 .mega-tab[aria-selected="true"] {
+    /* 4px left-border is a Toyota-style identity choice for the mega menu
+       sidebar (see commits a228dec, 0203911). Keeps the sanctioned active
+       indicator pattern but lives outside DESIGN.md §8.8's 2px ceiling on
+       purpose; identity-preservation wins per impeccable brand register. */
     border-left-width: 4px;
     border-left-color: var(--color-blue-500);
     color: var(--color-blue-900);
-    font-weight: 600;
+    font-weight: 500;
     background: var(--color-blue-50);
 }
 
