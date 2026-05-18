@@ -61,9 +61,11 @@
   }
 
   /* ── Content body ───────────────────────────────────────────────── */
+  /* Per shared bans: no 2px colored side-stripes. Open-state contrast
+     comes from the bg-blue-50 surface against bg-white and the
+     1px top hairline. */
   .accordion__body {
     @apply px-6 py-6 border-t border-blue-200 bg-blue-50;
-    @apply border-l-2 border-l-blue-500;
   }
 
   /* ── Modifier: Large (FAQ) ──────────────────────────────────────── */

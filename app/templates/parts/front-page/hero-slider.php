@@ -22,6 +22,8 @@ $content = [
     'next_label'    => __('Next slide', 'standard'),
     'nav_label'     => __('Slide navigation', 'standard'),
     'go_to_slide'   => __('Go to slide %d', 'standard'),
+    'pause_label'   => __('Pause auto-advance', 'standard'),
+    'play_label'    => __('Resume auto-advance', 'standard'),
 ];
 
 // Get featured machines
@@ -87,5 +89,17 @@ $first_machine = $machines[0] ?? null;
             </button>
         <?php endfor; ?>
     </div>
+
+    <!-- Pause / Play Toggle -->
+    <button
+        type="button"
+        class="hero-slider__pause"
+        aria-label="<?php echo esc_attr($content['pause_label']); ?>"
+        data-label-pause="<?php echo esc_attr($content['pause_label']); ?>"
+        data-label-play="<?php echo esc_attr($content['play_label']); ?>"
+    >
+        <?php icon('pause', ['class' => 'hero-slider__pause-icon hero-slider__pause-icon--pause']); ?>
+        <?php icon('play', ['class' => 'hero-slider__pause-icon hero-slider__pause-icon--play']); ?>
+    </button>
 
 </section>
