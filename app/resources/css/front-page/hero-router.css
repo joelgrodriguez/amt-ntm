@@ -11,19 +11,133 @@
  * @template templates/parts/front-page/hero-router.php
  */
 
+.hero-router {
+  background-color: var(--color-blue-50);
+  border-top: 1px solid var(--color-blue-200);
+  border-bottom: 1px solid var(--color-blue-200);
+}
+
+.hero-router__inner {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .hero-router__inner {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+}
+
+.hero-router__form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+/* Header row: eyebrow + title on the left, help link on the right. */
+.hero-router__header {
+  display: grid;
+  gap: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .hero-router__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+}
+
+.hero-router__heading {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.hero-router__eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  color: var(--color-blue-700);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.hero-router__title {
+  font-family: var(--font-sans);
+  font-size: var(--text-heading);
+  font-weight: 500;
+  color: var(--color-blue-900);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.hero-router__help {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  color: var(--color-blue-700);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: color 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  justify-self: start;
+}
+
+@media (min-width: 768px) {
+  .hero-router__help {
+    align-self: flex-end;
+  }
+}
+
+.hero-router__help:hover {
+  color: var(--color-red);
+}
+
+.hero-router__help:focus-visible {
+  outline: 2px solid var(--color-blue-500);
+  outline-offset: 4px;
+}
+
+/* Fields row: hairline grid, blue-200 dividers showing through the gap. */
+.hero-router__grid {
+  display: grid;
+  gap: 1px;
+  background-color: var(--color-blue-200);
+  border: 1px solid var(--color-blue-200);
+}
+
+@media (min-width: 768px) {
+  .hero-router__grid {
+    grid-template-columns: 1fr 1fr 1fr auto;
+  }
+}
+
 .hero-router__field {
   display: grid;
   gap: 0.25rem;
-  padding: 0.875rem 1rem;
+  align-content: center;
+  padding: 0.875rem 1.25rem;
+  min-height: 3.25rem;
+  background-color: var(--color-white);
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .hero-router__field {
+    padding: 1rem 1.25rem;
+    min-height: 4.5rem;
+  }
 }
 
 .hero-router__label {
   font-family: var(--font-mono);
   font-size: var(--text-caption);
   font-weight: 500;
-  color: var(--color-blue-500);
+  color: var(--color-blue-700);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  line-height: 1;
 }
 
 .hero-router__select {
@@ -31,12 +145,14 @@
   font-family: var(--font-sans);
   font-size: var(--text-body);
   font-weight: 400;
-  color: var(--color-blue-700);
+  color: var(--color-blue-900);
   background-color: transparent;
   border: none;
   padding: 0.25rem 0;
   cursor: pointer;
   appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   /* Chevron via inline SVG; brand-blue stroke. */
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%230078C2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
   background-repeat: no-repeat;
@@ -46,10 +162,38 @@
 
 .hero-router__select:focus-visible {
   outline: 2px solid var(--color-blue-500);
-  outline-offset: 2px;
+  outline-offset: 4px;
+}
+
+/* Unselected placeholder reads dimmer than chosen values. */
+.hero-router__select:invalid {
+  color: var(--color-blue-500);
 }
 
 .hero-router__select option {
   font-family: var(--font-sans);
-  color: var(--color-blue-700);
+  color: var(--color-blue-900);
+}
+
+.hero-router__select option[disabled] {
+  color: var(--color-blue-500);
+}
+
+/* Submit cell: button fills the cell edge-to-edge, no white halo. */
+.hero-router__submit-cell {
+  display: flex;
+  background-color: var(--color-white);
+}
+
+.hero-router__submit {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .hero-router__submit {
+    width: auto;
+    height: 100%;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }

@@ -21,10 +21,11 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'eyebrow' => __('Not sure which machine?', 'standard'),
-    'title'   => __('Three answers. One machine.', 'standard'),
-    'submit'  => __('See My Machine', 'standard'),
-    'help'    => __('Or talk to a specialist', 'standard'),
+    'eyebrow'   => __('Not sure which machine?', 'standard'),
+    'title'     => __('Three answers. One machine.', 'standard'),
+    'submit'    => __('See My Machine', 'standard'),
+    'help'      => __('Or talk to a specialist', 'standard'),
+    'form_aria' => __('Find your machine', 'standard'),
 ];
 
 $profiles = [
@@ -44,69 +45,69 @@ $volumes = [
     'medium' => __('5 to 15 jobs / month', 'standard'),
     'large'  => __('15+ jobs / month', 'standard'),
 ];
+
+$fields = [
+    [
+        'name'        => 'profile',
+        'label'       => __('Panel profile', 'standard'),
+        'placeholder' => __('What do you roll?', 'standard'),
+        'options'     => $profiles,
+    ],
+    [
+        'name'        => 'width',
+        'label'       => __('Coil width', 'standard'),
+        'placeholder' => __('What stock do you use?', 'standard'),
+        'options'     => $widths,
+    ],
+    [
+        'name'        => 'volume',
+        'label'       => __('Volume', 'standard'),
+        'placeholder' => __('How busy are you?', 'standard'),
+        'options'     => $volumes,
+    ],
+];
 ?>
 
-<section class="hero-router bg-blue-50 border-y border-blue-200" aria-labelledby="hero-router-title">
-    <div class="container py-8 lg:py-10">
-        <form action="<?php echo esc_url(\Standard\Url\internal('/configurator/')); ?>" method="get" class="grid gap-6">
-
-            <!-- Header row: eyebrow + title -->
-            <div class="grid gap-2 md:flex md:items-baseline md:justify-between md:gap-6">
-                <div class="grid gap-1">
-                    <span class="font-mono uppercase tracking-wider text-blue-500" style="font-size: var(--text-caption);">
+<section class="hero-router" aria-labelledby="hero-router-title">
+    <div class="container hero-router__inner">
+        <form
+            action="<?php echo esc_url(\Standard\Url\internal('/configurator/')); ?>"
+            method="get"
+            class="hero-router__form"
+            aria-label="<?php echo esc_attr($content['form_aria']); ?>"
+        >
+            <div class="hero-router__header">
+                <div class="hero-router__heading">
+                    <span class="hero-router__eyebrow">
                         <?php echo esc_html($content['eyebrow']); ?>
                     </span>
-                    <h2 id="hero-router-title" class="font-sans font-medium text-blue-700" style="font-size: var(--text-heading); line-height: var(--leading-heading);">
+                    <h2 id="hero-router-title" class="hero-router__title">
                         <?php echo esc_html($content['title']); ?>
                     </h2>
                 </div>
-                <a href="#contact" class="hero-router__help font-mono uppercase tracking-wider text-blue-500 hover:text-blue-700 transition-colors self-start md:self-end" style="font-size: var(--text-caption);">
+                <a href="<?php echo esc_url(\Standard\Url\internal('/contact/')); ?>" class="hero-router__help">
                     <?php echo esc_html($content['help']); ?>
                     <span aria-hidden="true">&rarr;</span>
                 </a>
             </div>
 
-            <!-- Fields row -->
-            <div class="grid gap-px bg-blue-200 border border-blue-200 md:grid-cols-[1fr_1fr_1fr_auto]">
+            <div class="hero-router__grid">
+                <?php foreach ($fields as $field) : ?>
+                    <label class="hero-router__field">
+                        <span class="hero-router__label">
+                            <?php echo esc_html($field['label']); ?>
+                        </span>
+                        <select name="<?php echo esc_attr($field['name']); ?>" class="hero-router__select" required>
+                            <option value="" disabled selected><?php echo esc_html($field['placeholder']); ?></option>
+                            <?php foreach ($field['options'] as $v => $l) : ?>
+                                <option value="<?php echo esc_attr($v); ?>"><?php echo esc_html($l); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </label>
+                <?php endforeach; ?>
 
-                <label class="hero-router__field bg-white">
-                    <span class="hero-router__label">
-                        <?php esc_html_e('01 / Panel profile', 'standard'); ?>
-                    </span>
-                    <select name="profile" class="hero-router__select">
-                        <option value=""><?php esc_html_e('What do you roll?', 'standard'); ?></option>
-                        <?php foreach ($profiles as $v => $l) : ?>
-                            <option value="<?php echo esc_attr($v); ?>"><?php echo esc_html($l); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </label>
-
-                <label class="hero-router__field bg-white">
-                    <span class="hero-router__label">
-                        <?php esc_html_e('02 / Coil width', 'standard'); ?>
-                    </span>
-                    <select name="width" class="hero-router__select">
-                        <option value=""><?php esc_html_e('What stock do you use?', 'standard'); ?></option>
-                        <?php foreach ($widths as $v => $l) : ?>
-                            <option value="<?php echo esc_attr($v); ?>"><?php echo esc_html($l); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </label>
-
-                <label class="hero-router__field bg-white">
-                    <span class="hero-router__label">
-                        <?php esc_html_e('03 / Volume', 'standard'); ?>
-                    </span>
-                    <select name="volume" class="hero-router__select">
-                        <option value=""><?php esc_html_e('How busy are you?', 'standard'); ?></option>
-                        <?php foreach ($volumes as $v => $l) : ?>
-                            <option value="<?php echo esc_attr($v); ?>"><?php echo esc_html($l); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </label>
-
-                <div class="bg-white p-1 flex">
-                    <button type="submit" class="btn btn-primary w-full md:w-auto md:h-full">
+                <div class="hero-router__submit-cell">
+                    <button type="submit" class="btn btn-primary hero-router__submit">
                         <?php echo esc_html($content['submit']); ?>
                         <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                     </button>
