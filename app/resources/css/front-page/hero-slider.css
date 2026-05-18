@@ -242,12 +242,14 @@
   line-height: 1.1;
 }
 
-/* Navigation arrows. Anchored to the vertical middle of the photo
-   region — accounts for the in-flow spec band beneath on mobile by
-   shifting up by half the band's height. */
+/* Navigation arrows. Anchored to roughly the photo's upper third so
+   they sit clear of the content stack (eyebrow, title, slogan, CTA)
+   at the bottom and don't brush against the eyebrow on shorter
+   viewports. Accounts for the in-flow spec band beneath on mobile
+   by shifting up by half the band's height. */
 .hero-slider__nav {
   position: absolute;
-  top: calc(50% - var(--hero-spec-band-height) / 2);
+  top: calc(38% - var(--hero-spec-band-height) / 2);
   transform: translateY(-50%);
   z-index: 10;
   display: flex;
