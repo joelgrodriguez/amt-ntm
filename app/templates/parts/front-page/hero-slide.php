@@ -83,31 +83,33 @@ $is_first         = $index === 0;
         <div class="hero-overlay__grain"></div>
 
         <div class="hero-slider__content">
-            <?php if ($category) : ?>
-                <span class="hero-slider__category">
-                    <?php echo esc_html($category); ?>
-                </span>
-            <?php endif; ?>
+            <div class="container hero-slider__content-inner">
+                <?php if ($category) : ?>
+                    <span class="hero-slider__category">
+                        <?php echo esc_html($category); ?>
+                    </span>
+                <?php endif; ?>
 
-            <?php if ($title) : ?>
-                <h2 class="hero-slider__title">
-                    <?php echo esc_html($title); ?>
-                </h2>
-            <?php endif; ?>
+                <?php if ($title) : ?>
+                    <h2 class="hero-slider__title">
+                        <?php echo esc_html($title); ?>
+                    </h2>
+                <?php endif; ?>
 
-            <?php if ($slogan) : ?>
-                <p class="hero-slider__slogan">
-                    <?php echo esc_html($slogan); ?>
-                </p>
-            <?php endif; ?>
+                <?php if ($slogan) : ?>
+                    <p class="hero-slider__slogan">
+                        <?php echo esc_html($slogan); ?>
+                    </p>
+                <?php endif; ?>
 
-            <div class="hero-slider__cta">
-                <a href="<?php echo esc_url($finance_url); ?>" class="btn btn-sm btn-light">
-                    <?php echo esc_html($content['cta_finance']); ?>
-                </a>
-                <a href="<?php echo esc_url($learn_more_url); ?>" class="btn btn-sm btn-outline-light">
-                    <?php echo esc_html($content['cta_learn']); ?>
-                </a>
+                <div class="hero-slider__cta">
+                    <a href="<?php echo esc_url($finance_url); ?>" class="btn btn-sm btn-light">
+                        <?php echo esc_html($content['cta_finance']); ?>
+                    </a>
+                    <a href="<?php echo esc_url($learn_more_url); ?>" class="btn btn-sm btn-outline-light">
+                        <?php echo esc_html($content['cta_learn']); ?>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -115,17 +117,19 @@ $is_first         = $index === 0;
     <!-- Spec strip — in-flow band on mobile, overlaid on lg+ -->
     <?php if (!empty($stats)) : ?>
         <div class="hero-slider__specs" aria-label="<?php echo esc_attr(sprintf(__('%s specifications', 'standard'), $title)); ?>">
-            <div class="hero-slider__specs-inner">
-                <?php foreach ($stats as $stat) : ?>
-                    <div class="hero-slider__spec">
-                        <span class="hero-slider__spec-label">
-                            <?php echo esc_html($stat['label']); ?>
-                        </span>
-                        <span class="hero-slider__spec-value">
-                            <?php echo esc_html($stat['value']); ?>
-                        </span>
-                    </div>
-                <?php endforeach; ?>
+            <div class="container">
+                <div class="hero-slider__specs-inner">
+                    <?php foreach ($stats as $stat) : ?>
+                        <div class="hero-slider__spec">
+                            <span class="hero-slider__spec-label">
+                                <?php echo esc_html($stat['label']); ?>
+                            </span>
+                            <span class="hero-slider__spec-value">
+                                <?php echo esc_html($stat['value']); ?>
+                            </span>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
     <?php endif; ?>

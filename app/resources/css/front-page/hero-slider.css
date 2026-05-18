@@ -95,18 +95,28 @@
   z-index: 0;
 }
 
-/* Content container. Hard-left stack (matches variant B's anchored
-   composition). Padding clears the bottom progress bar. */
+/* Content container. Absolute-positioned overlay that anchors the
+   inner content stack to the bottom of the photo region. Horizontal
+   max-width + padding come from the .container child so the title's
+   left edge lines up with the router section beneath. Vertical
+   padding clears the bottom progress bar / spec strip. */
 .hero-slider__content {
   position: absolute;
   inset: 0;
   z-index: 3;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   justify-content: flex-end;
-  padding: 1.5rem 1.5rem 3rem;
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
   color: var(--color-white);
+}
+
+/* Inner stack inside .container — actual content layout (hard-left). */
+.hero-slider__content-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 /* Category label (eyebrow per DESIGN.md §5.4) */
@@ -359,7 +369,8 @@
   }
 
   .hero-slider__content {
-    padding: 2rem 2.5rem 4rem;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
   }
 
   .hero-slider__category {
@@ -439,7 +450,8 @@
   /* Content stack lifts to clear the overlaid spec strip + bottom
      progress bar. */
   .hero-slider__content {
-    padding: 2rem 3rem 8rem;
+    padding-top: 2rem;
+    padding-bottom: 8rem;
   }
 
   .hero-slider__title {
