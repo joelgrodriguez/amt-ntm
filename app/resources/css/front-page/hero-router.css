@@ -1,0 +1,55 @@
+/**
+ * Hero Router — Mini-Configurator Strip
+ *
+ * Light surface band that sits directly below the hero. Hairline grid
+ * of dropdown fields; mono labels above sans selects. Same spec-sheet
+ * vocabulary as the hero specs band.
+ *
+ * @file front-page/hero-router.css
+ *
+ * @usage Front Page (front-page.php)
+ * @template templates/parts/front-page/hero-router.php
+ */
+
+.hero-router__field {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.875rem 1rem;
+}
+
+.hero-router__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  color: var(--color-blue-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hero-router__select {
+  width: 100%;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 400;
+  color: var(--color-blue-700);
+  background-color: transparent;
+  border: none;
+  padding: 0.25rem 0;
+  cursor: pointer;
+  appearance: none;
+  /* Chevron via inline SVG; brand-blue stroke. */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%230078C2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0 center;
+  padding-right: 1.5rem;
+}
+
+.hero-router__select:focus-visible {
+  outline: 2px solid var(--color-blue-500);
+  outline-offset: 2px;
+}
+
+.hero-router__select option {
+  font-family: var(--font-sans);
+  color: var(--color-blue-700);
+}

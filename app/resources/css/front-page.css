@@ -7,4 +7,5 @@
 @reference "./_app.css";
 
 @import "./front-page/hero-slider.css";
+@import "./front-page/hero-router.css";
 @import "./front-page/explore-machines.css";

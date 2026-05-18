@@ -13,32 +13,68 @@
  * @see inc/machines.php - Machine data configuration
  */
 
-/* Slider container */
+/* Slider container. Mobile-first: height is content-driven (photo +
+   spec band stacked). On lg+, the spec band overlays the photo so the
+   slider returns to a fixed viewport-relative height.
+
+   --hero-spec-band-height is the mobile in-flow spec band's height.
+   The slider chrome (nav arrows, progress bar, pause toggle) uses
+   this to anchor above the in-flow band on mobile, then resets to 0
+   on lg+ where the band is absolutely positioned. Two rows of two
+   specs (~58px each + 1px divider) ≈ 117px; round to 120px. Four
+   rows wouldn't occur because the design ships 4 stats per machine. */
 .hero-slider {
   position: relative;
   width: 100%;
-  height: 70vh;
-  height: 70dvh;
-  min-height: 450px;
-  max-height: 750px;
   overflow: hidden;
+  background-color: var(--color-blue-900);
+  --hero-spec-band-height: 120px;
+}
+
+@media (min-width: 768px) {
+  .hero-slider {
+    /* md+: spec band is a single row of 4, ~64px tall. */
+    --hero-spec-band-height: 64px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-slider {
+    /* lg+: spec band is absolute-positioned on the photo, so slider
+       chrome no longer needs to lift above it. */
+    --hero-spec-band-height: 0px;
+  }
 }
 
 /* Slides track - holds all slides in a row */
 .hero-slider__track {
   display: flex;
-  height: 100%;
   transition: transform 500ms cubic-bezier(0.33, 1, 0.68, 1);
   will-change: transform;
 }
 
-/* Individual slide */
+/* Individual slide. Mobile: column flex (photo over specs). On lg+,
+   the slide becomes the full slider height with specs absolutely
+   positioned over the photo. */
 .hero-slider__slide {
   position: relative;
   flex: 0 0 100%;
   width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
   background-color: var(--color-blue-900);
+}
+
+/* Photo region: holds media + overlay + content stack. Mobile-first
+   sizing — generous portrait-friendly height for the photo. */
+.hero-slider__photo {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  height: 60dvh;
+  min-height: 420px;
+  max-height: 640px;
+  overflow: hidden;
 }
 
 /* Background media (image/video) */
@@ -59,17 +95,17 @@
   z-index: 0;
 }
 
-/* Content container */
+/* Content container. Hard-left stack (matches variant B's anchored
+   composition). Padding clears the bottom progress bar. */
 .hero-slider__content {
   position: absolute;
   inset: 0;
   z-index: 3;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-end;
-  padding-bottom: 4rem;
-  text-align: center;
+  padding: 1.5rem 1.5rem 3rem;
   color: var(--color-white);
 }
 
@@ -104,74 +140,71 @@
   font-size: var(--text-body);
   font-weight: 400;
   color: var(--color-blue-200);
-  margin-bottom: 0.75rem;
-  max-width: 80%;
+  margin-bottom: 1.25rem;
+  max-width: 36ch;
 }
 
-/* Finance info */
-.hero-slider__finance {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.25rem;
-  margin-bottom: 0.5rem;
-}
-
-.hero-slider__finance-prefix {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-weight: 400;
-  color: var(--color-blue-300);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.hero-slider__finance-details {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-}
-
-.hero-slider__finance-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.hero-slider__finance-value {
-  font-family: var(--font-mono);
-  font-size: 2rem;
-  font-weight: 500;
-  line-height: 1.2;
-}
-
-.hero-slider__finance-label {
-  font-family: var(--font-mono);
-  font-size: var(--text-body);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-blue-300);
-}
-
-.hero-slider__finance-divider {
-  width: 1px;
-  height: 3rem;
-  background-color: var(--color-blue-700);
-}
-
-/* CTA buttons container */
+/* CTA buttons */
 .hero-slider__cta {
   display: flex;
   gap: 0.75rem;
-  padding: 0 1rem;
-  margin-top: 1rem;
 }
 
-/* Navigation arrows */
+/* Spec strip — mobile-first: in-flow dark band beneath the photo.
+   Mono uppercase labels + sans values, hairline column dividers.
+   Mirrors the video-section / three-step chrome aesthetic. */
+.hero-slider__specs {
+  width: 100%;
+  background-color: var(--color-blue-900);
+  border-top: 1px solid var(--color-blue-700);
+}
+
+.hero-slider__specs-inner {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.hero-slider__spec {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.875rem 1rem;
+  border-right: 1px solid var(--color-blue-700);
+  border-bottom: 1px solid var(--color-blue-700);
+}
+
+/* Remove right border on every 2nd cell (end of mobile row) */
+.hero-slider__spec:nth-child(2n) {
+  border-right: none;
+}
+
+/* Remove bottom border on the last row */
+.hero-slider__spec:nth-last-child(-n + 2) {
+  border-bottom: none;
+}
+
+.hero-slider__spec-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  color: var(--color-blue-400);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hero-slider__spec-value {
+  font-family: var(--font-sans);
+  font-size: var(--text-heading-sm);
+  font-weight: 500;
+  color: var(--color-white);
+  line-height: 1.1;
+}
+
+/* Navigation arrows. Anchored to the vertical middle of the photo
+   region — accounts for the in-flow spec band beneath on mobile by
+   shifting up by half the band's height. */
 .hero-slider__nav {
   position: absolute;
-  top: 50%;
+  top: calc(50% - var(--hero-spec-band-height) / 2);
   transform: translateY(-50%);
   z-index: 10;
   display: flex;
@@ -208,10 +241,12 @@
   height: 1rem;
 }
 
-/* Segmented progress bar */
+/* Segmented progress bar. Anchored to the bottom of the photo region:
+   on mobile, sits above the in-flow spec band; on lg+, sits at the
+   slider bottom over the absolute-positioned spec strip. */
 .hero-slider__progress {
   position: absolute;
-  bottom: 0;
+  bottom: var(--hero-spec-band-height);
   left: 0;
   z-index: 10;
   width: 100%;
@@ -263,12 +298,12 @@
   to { width: 100%; }
 }
 
-/* Pause / play toggle. Anchored to the bottom-right corner, just above
-   the segmented progress bar. Same chrome vocabulary as the nav arrows. */
+/* Pause / play toggle. Anchored to the bottom-right of the photo
+   region, just above the progress bar. */
 .hero-slider__pause {
   position: absolute;
   right: 1rem;
-  bottom: 1rem;
+  bottom: calc(var(--hero-spec-band-height) + 1rem);
   z-index: 10;
   display: flex;
   align-items: center;
@@ -316,13 +351,15 @@
 
 /* Responsive adjustments */
 @media (min-width: 768px) {
-  .hero-slider {
-    min-height: 550px;
-    max-height: 850px;
+  .hero-slider__photo {
+    height: 65vh;
+    height: 65dvh;
+    min-height: 520px;
+    max-height: 760px;
   }
 
   .hero-slider__content {
-    padding-bottom: 5rem;
+    padding: 2rem 2.5rem 4rem;
   }
 
   .hero-slider__category {
@@ -338,20 +375,24 @@
     font-size: 1.125rem;
   }
 
-  .hero-slider__finance-prefix {
-    font-size: 0.75rem;
+  /* 4 spec columns on md+ */
+  .hero-slider__specs-inner {
+    grid-template-columns: repeat(4, 1fr);
   }
 
-  .hero-slider__finance-value {
-    font-size: 2.5rem;
+  .hero-slider__spec {
+    padding: 1rem 1.25rem;
+    border-bottom: none;
   }
 
-  .hero-slider__finance-label {
-    font-size: 1rem;
+  /* Reset: every spec now in one row, every nth applies different rules */
+  .hero-slider__spec:nth-child(2n) {
+    border-right: 1px solid var(--color-blue-700);
   }
 
-  .hero-slider__finance-divider {
-    height: 3.5rem;
+  /* Remove right border on the last cell only */
+  .hero-slider__spec:last-child {
+    border-right: none;
   }
 
   .hero-slider__nav {
@@ -369,6 +410,38 @@
 }
 
 @media (min-width: 1024px) {
+  /* Spec strip overlays the photo at the bottom; photo grows to absorb
+     the band so the slider becomes a single tall composition. */
+  .hero-slider__photo {
+    height: 78vh;
+    height: 78dvh;
+    min-height: 620px;
+    max-height: 860px;
+  }
+
+  .hero-slider__specs {
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: 4;
+    background-color: color-mix(in srgb, var(--color-blue-900) 92%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .hero-slider__spec {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .hero-slider__spec-value {
+    font-size: var(--text-heading);
+  }
+
+  /* Content stack lifts to clear the overlaid spec strip + bottom
+     progress bar. */
+  .hero-slider__content {
+    padding: 2rem 3rem 8rem;
+  }
+
   .hero-slider__title {
     font-size: var(--text-display);
     line-height: var(--leading-display);
@@ -376,22 +449,6 @@
 
   .hero-slider__slogan {
     font-size: 1.25rem;
-  }
-
-  .hero-slider__finance-prefix {
-    font-size: 0.8125rem;
-  }
-
-  .hero-slider__finance-value {
-    font-size: 3rem;
-  }
-
-  .hero-slider__finance-label {
-    font-size: 1.125rem;
-  }
-
-  .hero-slider__finance-divider {
-    height: 4rem;
   }
 }
 
