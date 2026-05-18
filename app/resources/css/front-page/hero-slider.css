@@ -164,7 +164,7 @@
    marquee earns its name. */
 .hero-slider__title {
   font-family: var(--font-mono);
-  font-size: var(--text-heading-lg);
+  font-size: var(--text-display);
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.02em;
