@@ -215,9 +215,22 @@ export function initHeroSlider(options = {}) {
     // Keyboard navigation
     document.addEventListener('keydown', handleKeydown, { signal });
 
-    // Pause on hover/focus
-    slider.addEventListener('mouseenter', stopAutoPlay, { signal });
-    slider.addEventListener('mouseleave', startAutoPlay, { signal });
+    // Pause on hover — scoped to the readable text region and the
+    // chrome controls only. The slider is full-viewport, so binding
+    // hover-pause to the whole element would never let autoplay run.
+    // Hovering the photo or spec strip is fine; hovering the title /
+    // CTA / dot row pauses (user is reading or about to click).
+    const pauseZones = [
+      ...slider.querySelectorAll('.hero-slider__content-inner'),
+      slider.querySelector('.hero-slider__chrome'),
+    ].filter(Boolean);
+    pauseZones.forEach((zone) => {
+      zone.addEventListener('mouseenter', stopAutoPlay, { signal });
+      zone.addEventListener('mouseleave', startAutoPlay, { signal });
+    });
+
+    // Focus-within still pauses across the entire slider — keyboard
+    // users tabbing through the nav / dots / CTA expect that.
     slider.addEventListener('focusin', stopAutoPlay, { signal });
     slider.addEventListener('focusout', handleFocusOut, { signal });
   }
