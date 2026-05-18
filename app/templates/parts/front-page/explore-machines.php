@@ -27,10 +27,6 @@ $content = [
     'prev_label'      => __('Previous products', 'standard'),
     'next_label'      => __('Next products', 'standard'),
     'of'              => __('of', 'standard'),
-    'cta_explore'     => __('Explore All Machines', 'standard'),
-    'cta_explore_url' => \Standard\Url\internal('/machines/'),
-    'cta_build'       => __('Build & Finance', 'standard'),
-    'cta_build_url'   => \Standard\Url\internal('/build-finance/'),
 ];
 
 $categories = get_product_categories();
@@ -106,14 +102,5 @@ $first_category = array_key_first($categories);
             <?php endforeach; ?>
         </div>
 
-        <div class="flex justify-center gap-4 flex-wrap">
-            <a href="<?php echo esc_url($content['cta_explore_url']); ?>" class="btn btn-outline-dark">
-                <?php echo esc_html($content['cta_explore']); ?>
-            </a>
-            <a href="<?php echo esc_url($content['cta_build_url']); ?>" class="btn btn-ghost">
-                <?php echo esc_html($content['cta_build']); ?>
-                <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
-            </a>
-        </div>
     </div>
 </section>
