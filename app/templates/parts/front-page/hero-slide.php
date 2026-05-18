@@ -86,7 +86,8 @@ $is_first         = $index === 0;
             <div class="container hero-slider__content-inner">
                 <?php if ($category) : ?>
                     <span class="hero-slider__category">
-                        <?php echo esc_html($category); ?>
+                        <span class="hero-slider__category-dot" aria-hidden="true"></span>
+                        <span><?php echo esc_html($category); ?></span>
                     </span>
                 <?php endif; ?>
 
