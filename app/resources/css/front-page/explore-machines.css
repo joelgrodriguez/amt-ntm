@@ -114,14 +114,15 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Arrow navigation buttons. Same vocabulary as the tabs: text/icon on
-   transparent, color shifts on state. Hit area is 40x40 so the buttons
-   stay tappable on touch without needing a visible chip background. */
+/* Arrow navigation buttons. Hairline-bordered square buttons so they
+   read unambiguously as controls against the dot-pattern background.
+   Color escalates on hover; disabled state fades but the border stays
+   so the affordance never disappears. */
 .explore-machines__arrow {
   @apply flex items-center justify-center w-10 h-10;
-  @apply bg-transparent text-blue-700 border-none cursor-pointer;
+  @apply text-blue-900 border border-blue-300 bg-white cursor-pointer;
   @apply transition-colors duration-200;
-  @apply hover:text-blue-900;
-  @apply disabled:text-blue-300 disabled:cursor-not-allowed;
+  @apply hover:bg-blue-900 hover:text-white hover:border-blue-900;
+  @apply disabled:text-blue-300 disabled:border-blue-200 disabled:bg-white disabled:cursor-not-allowed;
   @apply focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2;
 }
