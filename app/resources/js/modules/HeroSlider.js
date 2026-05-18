@@ -191,10 +191,64 @@ export function initHeroSlider(options = {}) {
     });
   }
 
+  /**
+   * Hydrate deferred slide media (image + optional video).
+   * Slides past the first ship as data-attributes only so initial paint
+   * isn't blocked by 3+ MB of hero photography. Hydrated after LCP.
+   */
+  function hydrateDeferredSlides() {
+    const deferred = slider.querySelectorAll('.hero-slider__slide[data-image-url]');
+    if (deferred.length === 0) return;
+
+    deferred.forEach((slide) => {
+      const imageUrl = slide.dataset.imageUrl;
+      const imageAlt = slide.dataset.imageAlt || '';
+      const videoUrl = slide.dataset.videoUrl;
+
+      if (videoUrl) {
+        const video = document.createElement('video');
+        video.className = 'hero-slider__media hero-slider__video';
+        video.autoplay = true;
+        video.muted = true;
+        video.loop = true;
+        video.playsInline = true;
+        if (imageUrl) video.poster = imageUrl;
+        const source = document.createElement('source');
+        source.src = videoUrl;
+        source.type = 'video/mp4';
+        video.appendChild(source);
+        slide.insertBefore(video, slide.firstChild);
+      }
+
+      if (imageUrl) {
+        const img = document.createElement('img');
+        img.className = 'hero-slider__media hero-slider__image';
+        img.src = imageUrl;
+        img.alt = imageAlt;
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        // Insert before .hero-overlay so z-index stack stays correct.
+        const overlay = slide.querySelector('.hero-overlay');
+        slide.insertBefore(img, overlay || slide.firstChild);
+      }
+
+      delete slide.dataset.imageUrl;
+      delete slide.dataset.imageAlt;
+      delete slide.dataset.videoUrl;
+    });
+  }
+
   // Initialize
   setAriaAttributes();
   setupEventListeners();
   startAutoPlay();
+
+  // Hydrate non-first slides after the page is idle (post-LCP).
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(hydrateDeferredSlides, { timeout: 2000 });
+  } else {
+    setTimeout(hydrateDeferredSlides, 1000);
+  }
 
   // Cleanup function for HMR
   return function cleanup() {

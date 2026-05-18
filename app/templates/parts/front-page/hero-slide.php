@@ -47,26 +47,33 @@ $is_first         = $index === 0;
     class="hero-slider__slide"
     data-slide-index="<?php echo esc_attr((string) $index); ?>"
     aria-hidden="<?php echo $is_first ? 'false' : 'true'; ?>"
->
-    <?php if ($background_video) : ?>
-        <video
-            class="hero-slider__media hero-slider__video"
-            autoplay
-            muted
-            loop
-            playsinline
-            poster="<?php echo esc_url($background_image); ?>"
-        >
-            <source src="<?php echo esc_url($background_video); ?>" type="video/mp4">
-        </video>
+    <?php if (!$is_first) : ?>
+        data-image-url="<?php echo esc_url($background_image); ?>"
+        data-image-alt="<?php echo esc_attr($title); ?>"
+        <?php if ($background_video) : ?>data-video-url="<?php echo esc_url($background_video); ?>"<?php endif; ?>
     <?php endif; ?>
+>
+    <?php if ($is_first) : ?>
+        <?php if ($background_video) : ?>
+            <video
+                class="hero-slider__media hero-slider__video"
+                autoplay
+                muted
+                loop
+                playsinline
+                poster="<?php echo esc_url($background_image); ?>"
+            >
+                <source src="<?php echo esc_url($background_video); ?>" type="video/mp4">
+            </video>
+        <?php endif; ?>
 
-    <?php if ($background_image) : ?>
-        <?php \Standard\Images\responsive_image($background_image, $title, 'full', [
-            'class'         => 'hero-slider__media hero-slider__image',
-            'loading'       => $is_first ? 'eager' : 'lazy',
-            'fetchpriority' => $is_first ? 'high' : 'auto',
-        ]); ?>
+        <?php if ($background_image) : ?>
+            <?php \Standard\Images\responsive_image($background_image, $title, 'full', [
+                'class'         => 'hero-slider__media hero-slider__image',
+                'loading'       => 'eager',
+                'fetchpriority' => 'high',
+            ]); ?>
+        <?php endif; ?>
     <?php endif; ?>
 
     <div class="hero-overlay"></div>

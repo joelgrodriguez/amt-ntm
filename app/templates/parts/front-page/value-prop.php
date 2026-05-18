@@ -47,12 +47,11 @@ $points = [
         <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-center">
 
             <div class="order-2 lg:order-1">
-                <img
-                    src="<?php echo esc_url($content['image']); ?>"
-                    alt="<?php echo esc_attr($content['image_alt']); ?>"
-                    class="w-full h-auto"
-                    loading="lazy"
-                >
+                <?php \Standard\Images\responsive_image($content['image'], $content['image_alt'], 'large', [
+                    'class'  => 'w-full h-auto',
+                    'width'  => '1280',
+                    'height' => '853',
+                ]); ?>
                 <p class="mt-4 text-center text-sm text-blue-600">
                     <?php echo esc_html($content['image_caption']); ?>
                 </p>
@@ -72,7 +71,7 @@ $points = [
                     </p>
                 </div>
 
-                <ul class="space-y-6">
+                <ul class="grid gap-6">
                     <?php foreach ($points as $point) : ?>
                         <li class="flex gap-4">
                             <span class="shrink-0 mt-1">
