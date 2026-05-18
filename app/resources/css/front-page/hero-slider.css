@@ -66,15 +66,16 @@
 }
 
 /* Photo region: holds media + overlay + content stack.
-   Slider total height = 100dvh (hero + spec band fills the viewport).
-   Photo takes the remaining height after the in-flow spec band; on
-   lg+ the spec band is absolute-positioned so photo = 100dvh. */
+   Slider total height = viewport - header - spec band, so the hero
+   plus its spec band exactly fits below the site header without
+   pushing the router section below the fold. On lg+ the spec band
+   is absolute-positioned, so the var is 0 there. */
 .hero-slider__photo {
   position: relative;
   width: 100%;
-  height: calc(100vh - var(--hero-spec-band-height));
-  height: calc(100dvh - var(--hero-spec-band-height));
-  min-height: 420px;
+  height: calc(100vh - var(--header-height, 4rem) - var(--hero-spec-band-height));
+  height: calc(100dvh - var(--header-height, 4rem) - var(--hero-spec-band-height));
+  min-height: 360px;
   overflow: hidden;
 }
 
@@ -375,7 +376,7 @@
 /* Responsive adjustments */
 @media (min-width: 768px) {
   .hero-slider__photo {
-    min-height: 520px;
+    min-height: 440px;
   }
 
   .hero-slider__content {
@@ -431,11 +432,10 @@
 }
 
 @media (min-width: 1024px) {
-  /* Spec strip overlays the photo at the bottom; photo = 100dvh
-     because --hero-spec-band-height is 0 at this breakpoint. */
-  .hero-slider__photo {
-    min-height: 620px;
-  }
+  /* Spec strip overlays the photo at the bottom; photo height is
+     100dvh - header (--hero-spec-band-height is 0 at this breakpoint).
+     No min-height override — short desktop viewports just get a
+     proportionally shorter hero rather than overflowing the fold. */
 
   .hero-slider__specs {
     position: absolute;
