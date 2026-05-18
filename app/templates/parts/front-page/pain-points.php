@@ -24,11 +24,6 @@ $content = [
     'image'         => 'https://newtechmachinery.com/wp-content/uploads/2025/04/Nate-training-East-Kentucky-Metal-9-scaled.jpg',
     'image_alt'     => __('NTM training session with customer', 'standard'),
     'image_caption' => __('NTM is the world leader in portable rollforming.', 'standard'),
-    'image_cta'     => __('Talk to our team to get started.', 'standard'),
-    'cta_primary'   => __('Schedule a Call', 'standard'),
-    'cta_primary_url' => '/contact/',
-    'cta_secondary' => __('Explore Machines', 'standard'),
-    'cta_secondary_url' => '/machines/',
 ];
 
 $points = [
@@ -83,14 +78,7 @@ $points = [
                     <?php endforeach; ?>
                 </ul>
 
-                <div class="flex flex-wrap gap-4">
-                    <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="btn btn-primary">
-                        <?php echo esc_html($content['cta_primary']); ?>
-                    </a>
-                    <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_secondary_url'])); ?>" class="btn btn-outline-dark">
-                        <?php echo esc_html($content['cta_secondary']); ?>
-                    </a>
-                </div>
+                <?php get_template_part('templates/parts/cta/two-door'); ?>
             </div>
 
             <div>
@@ -102,9 +90,6 @@ $points = [
                 >
                 <p class="mt-4 text-center text-sm text-blue-600">
                     <?php echo esc_html($content['image_caption']); ?>
-                    <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="text-blue-500 font-medium hover:underline">
-                        <?php echo esc_html($content['image_cta']); ?>
-                    </a>
                 </p>
             </div>
 

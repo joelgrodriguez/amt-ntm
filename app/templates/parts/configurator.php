@@ -19,12 +19,9 @@ if (!defined('ABSPATH')) {
 $defaults = [
     'eyebrow'   => __('Machine Configurator', 'standard'),
     'title'     => __('Configure Your Machine Online', 'standard'),
-    'text'      => __('Design your perfect rollformer, see exactly what it costs, and apply for financing—all from your browser. No phone calls. No waiting.', 'standard'),
+    'text'      => __('Design your perfect rollformer, see exactly what it costs, and apply for financing, all from your browser. No phone calls. No waiting.', 'standard'),
     'image'     => get_theme_file_uri('assets/images/config-mockup.png'),
     'image_alt' => __('NTM Machine Configurator Interface', 'standard'),
-    'cta_text'  => __('Try the Configurator', 'standard'),
-    'cta_url'   => '/configurator/',
-    'cta_note'  => __('Get your machine today', 'standard'),
     'section_id' => 'configurator',
 ];
 
@@ -39,7 +36,7 @@ $features = [
     [
         'icon'  => 'dollar-sign',
         'title' => __('See Real Pricing', 'standard'),
-        'text'  => __('Get transparent pricing instantly—no waiting.', 'standard'),
+        'text'  => __('Get transparent pricing instantly, no waiting.', 'standard'),
     ],
     [
         'icon'  => 'trending-up',
@@ -95,16 +92,10 @@ $features = [
                     <?php endforeach; ?>
                 </div>
 
-                <!-- CTA -->
-                <div class="flex flex-wrap items-center gap-4">
-                    <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-primary btn-lg">
-                        <?php echo esc_html($content['cta_text']); ?>
-                        <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
-                    </a>
-                    <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-outline-dark btn-lg">
-                        <?php echo esc_html($content['cta_note']); ?>
-                    </a>
-                </div>
+                <?php get_template_part('templates/parts/cta/two-door', null, [
+                    'primary_label' => __('Try the Configurator', 'standard'),
+                    'primary_url'   => '/configurator/',
+                ]); ?>
             </div>
 
         </div>

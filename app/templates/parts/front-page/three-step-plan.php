@@ -20,8 +20,6 @@ $content = [
     'eyebrow'  => __('The 3 Step Plan', 'standard'),
     'title'    => __('Your Path to Better Equipment Financing', 'standard'),
     'text'     => __('Working with NTM is simple, transparent, and designed around your needs.', 'standard'),
-    'cta_text' => __('Schedule a Call', 'standard'),
-    'cta_url'  => '/contact/',
 ];
 
 $steps = [
@@ -77,10 +75,8 @@ $steps = [
             <?php endforeach; ?>
         </div>
 
-        <div>
-            <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-primary">
-                <?php echo esc_html($content['cta_text']); ?>
-            </a>
+        <div class="flex justify-center">
+            <?php get_template_part('templates/parts/cta/two-door', null, ['align' => 'center']); ?>
         </div>
     </div>
 </section>

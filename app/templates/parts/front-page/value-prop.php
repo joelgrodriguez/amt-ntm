@@ -20,12 +20,10 @@ if (!defined('ABSPATH')) {
 $content = [
     'eyebrow'   => __('The NTM Advantage', 'standard'),
     'title'     => __('Own Your Machine. Own Your Future.', 'standard'),
-    'text'      => __("When you invest in an NTM rollformer, you're not just buying equipment—you're unlocking a new revenue stream and taking control of your business.", 'standard'),
+    'text'      => __("When you invest in an NTM rollformer, you're not just buying equipment, you're unlocking a new revenue stream and taking control of your business.", 'standard'),
     'image'     => 'https://newtechmachinery.com/wp-content/uploads/2024/10/Ross-in-front-of-SSQ-scaled.jpg',
     'image_alt' => __('NTM customer with SSQ roof panel machine', 'standard'),
     'image_caption' => __("Join thousands of contractors who've taken control of their business.", 'standard'),
-    'cta_text'  => __('Schedule a Call', 'standard'),
-    'cta_url'   => '/contact/',
 ];
 
 $points = [
@@ -92,11 +90,7 @@ $points = [
                     <?php endforeach; ?>
                 </ul>
 
-                <div class="flex flex-wrap gap-4">
-                    <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-primary">
-                        <?php echo esc_html($content['cta_text']); ?>
-                    </a>
-                </div>
+                <?php get_template_part('templates/parts/cta/two-door'); ?>
             </div>
 
         </div>
