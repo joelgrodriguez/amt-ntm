@@ -86,12 +86,13 @@
 
 /* Title — display headline (sans per DESIGN.md §3.2: "large hero/display
    headlines that are read, not scanned"). The category eyebrow above carries
-   the mono voice; this line is read. */
+   the mono voice; this line is read. Sized via design tokens so the marquee
+   stays in sync with the rest of the page's display scale. */
 .hero-slider__title {
   font-family: var(--font-sans);
-  font-size: 1.75rem;
+  font-size: var(--text-heading);
   font-weight: 500;
-  line-height: 1.17;
+  line-height: var(--leading-heading);
   letter-spacing: -0.01em;
   margin-bottom: 0.25rem;
   max-width: 90%;
@@ -329,7 +330,8 @@
   }
 
   .hero-slider__title {
-    font-size: 2.5rem;
+    font-size: var(--text-heading-lg);
+    line-height: var(--leading-heading-lg);
   }
 
   .hero-slider__slogan {
@@ -368,7 +370,8 @@
 
 @media (min-width: 1024px) {
   .hero-slider__title {
-    font-size: 3rem;
+    font-size: var(--text-display);
+    line-height: var(--leading-display);
   }
 
   .hero-slider__slogan {
