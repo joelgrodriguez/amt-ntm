@@ -90,7 +90,7 @@ if (!empty($trailer_raw['weight'])) { $trailer_dims['Weight'] = $trailer_raw['we
                  the dims instead of floating in a void of negative space.
                  Hairline frame in blue-700 so the white image doesn't slam
                  against the dark section. -->
-            <div class="lg:justify-self-end w-full max-w-lg">
+            <div class="lg:justify-self-end w-full max-w-2xl">
                 <?php if (!empty($footprint_url)) : ?>
                     <div class="border border-blue-700 p-4 bg-white">
                         <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'medium_large', [
