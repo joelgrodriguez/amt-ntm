@@ -31,7 +31,9 @@ $compare_slugs = $comparison['compare_with'];
     <div class="container section-content">
 
         <div class="section-header">
-            <h2 id="comparison-title" class="section-title"><?php esc_html_e('Which Machine Is Right for You?', 'standard'); ?></h2>
+            <p class="section-eyebrow">Compare</p>
+            <div class="section-divider-center"></div>
+            <h2 id="comparison-title" class="section-title">Which Machine Is Right for You?</h2>
         </div>
 
         <div class="grid md:grid-cols-<?php echo esc_attr((string) min(count($compare_slugs) + 1, 4)); ?> gap-6 max-w-5xl mx-auto">
