@@ -53,9 +53,9 @@ $trailer_cols = count($trailer_dims);
 
         <div class="border border-blue-700 aspect-[16/7] flex items-center justify-center mx-auto max-w-4xl">
             <?php if (!empty($svg_name)) : ?>
-                <span class="text-blue-500 text-sm font-mono"><?php echo esc_html($svg_name); ?>.svg</span>
+                <span class="text-blue-400 text-sm font-mono"><?php echo esc_html($svg_name); ?>.svg</span>
             <?php else : ?>
-                <span class="text-blue-500 text-sm font-mono">Blueprint</span>
+                <span class="text-blue-400 text-sm font-mono">Blueprint</span>
             <?php endif; ?>
         </div>
 
@@ -64,7 +64,7 @@ $trailer_cols = count($trailer_dims);
                 <?php foreach ($machine_dims as $label => $value) : ?>
                     <div class="text-center">
                         <span class="block text-lg font-medium text-white font-mono"><?php echo esc_html($value); ?></span>
-                        <span class="block text-xs text-blue-500 uppercase tracking-wider mt-1"><?php echo esc_html($label); ?></span>
+                        <span class="block text-xs text-blue-400 uppercase tracking-wider mt-1"><?php echo esc_html($label); ?></span>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -77,7 +77,7 @@ $trailer_cols = count($trailer_dims);
                     <?php foreach ($trailer_dims as $label => $value) : ?>
                         <div class="text-center">
                             <span class="block text-lg font-medium text-white font-mono"><?php echo esc_html($value); ?></span>
-                            <span class="block text-xs text-blue-500 uppercase tracking-wider mt-1"><?php echo esc_html($label); ?></span>
+                            <span class="block text-xs text-blue-400 uppercase tracking-wider mt-1"><?php echo esc_html($label); ?></span>
                         </div>
                     <?php endforeach; ?>
                 </div>
