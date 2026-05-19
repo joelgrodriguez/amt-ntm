@@ -31,20 +31,16 @@
   background-color: var(--color-black);
 }
 
-/* The photo region. Defaults to viewport-minus-header so heroes
-   anchor cleanly to the fold. When the hero is paired with a band
-   (e.g. a stats strip beneath it), set --hero-band on the .hero
-   root and the photo will shrink by that amount so the pair
-   together fills the fold. */
-.hero {
-  --hero-band: 0px;
-}
-
+/* The photo region. Fills viewport-minus-header so heroes anchor
+   cleanly to the fold. The --hero-band fallback (0px) keeps the
+   calc valid even when no parent sets the var; surfaces that pair
+   the hero with a band beneath it (e.g. machine product) override
+   --hero-band on a parent so the photo shrinks to leave room. */
 .hero__photo {
   position: relative;
   width: 100%;
-  height: calc(100vh - var(--header-height, 4rem) - var(--hero-band));
-  height: calc(100dvh - var(--header-height, 4rem) - var(--hero-band));
+  height: calc(100vh - var(--header-height, 4rem) - var(--hero-band, 0px));
+  height: calc(100dvh - var(--header-height, 4rem) - var(--hero-band, 0px));
   min-height: 360px;
   overflow: hidden;
   background-color: var(--color-black);
