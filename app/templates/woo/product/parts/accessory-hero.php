@@ -80,7 +80,7 @@ $slug        = $product->get_slug();
             <div class="grid gap-5 content-start">
                 <div>
                     <p class="section-eyebrow mb-2"><?php esc_html_e('Accessories', 'standard'); ?></p>
-                    <h1 id="accessory-title" class="text-2xl font-semibold tracking-tight text-blue-900 md:text-3xl lg:text-4xl">
+                    <h1 id="accessory-title" class="text-2xl font-medium tracking-tight text-blue-900 md:text-3xl lg:text-4xl">
                         <?php echo esc_html($product->get_name()); ?>
                     </h1>
                 </div>

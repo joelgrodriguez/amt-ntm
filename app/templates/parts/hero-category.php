@@ -64,7 +64,7 @@ $poster     = $content['poster'] ?? '';
             </p>
         <?php endif; ?>
 
-        <h1 id="<?php echo esc_attr($section_id); ?>-title" class="text-3xl font-semibold tracking-tight text-white md:text-5xl lg:text-6xl max-w-4xl mx-auto">
+        <h1 id="<?php echo esc_attr($section_id); ?>-title" class="text-3xl font-medium tracking-tight text-white md:text-5xl lg:text-6xl max-w-4xl mx-auto">
             <?php echo esc_html($content['title']); ?>
         </h1>
 

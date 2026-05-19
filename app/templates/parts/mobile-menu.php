@@ -45,8 +45,8 @@ $mobile_nav = \Standard\Nav\get_mobile_nav_tree();
                             ]); ?>
                         </span>
                         <span class="flex flex-col justify-center gap-1.5 sm:gap-2.5 px-5 py-4 sm:px-8 sm:py-7 min-w-0 flex-1">
-                            <span class="text-xl sm:text-[1.75rem] font-semibold leading-tight text-blue-700"><?php echo esc_html($featured['label']); ?></span>
-                            <span class="inline-flex items-center gap-1.5 font-mono text-[0.8125rem] sm:text-[0.9375rem] font-semibold text-red">
+                            <span class="text-xl sm:text-[1.75rem] font-medium leading-tight text-blue-700"><?php echo esc_html($featured['label']); ?></span>
+                            <span class="inline-flex items-center gap-1.5 font-mono text-[0.8125rem] sm:text-[0.9375rem] font-medium text-red">
                                 <?php echo esc_html($featured['subtitle']); ?>
                                 <?php icon('arrow-right', ['class' => 'w-3.5 h-3.5']); ?>
                             </span>
