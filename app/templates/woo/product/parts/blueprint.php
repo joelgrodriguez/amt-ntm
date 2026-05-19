@@ -77,7 +77,7 @@ if (!empty($trailer_raw['weight'])) { $trailer_dims['Weight'] = $trailer_raw['we
 ?>
 
 <section class="bg-blue-900 section" aria-labelledby="blueprint-title">
-    <div class="max-w-5xl mx-auto px-4 md:px-8 lg:px-12 section-content">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 section-content">
 
         <div class="section-header">
             <p class="section-eyebrow text-red">Engineering Specs</p>
