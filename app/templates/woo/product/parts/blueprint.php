@@ -90,7 +90,7 @@ if (!empty($trailer_raw['weight'])) { $trailer_dims['Weight'] = $trailer_raw['we
             <div>
                 <?php if (!empty($footprint_url)) : ?>
                     <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'large', [
-                        'class' => 'block w-full h-auto',
+                        'class' => 'block w-full h-auto max-h-[60vh] object-contain',
                     ]); ?>
                 <?php else : ?>
                     <div class="border border-blue-700 aspect-[16/7] flex items-center justify-center">
