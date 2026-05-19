@@ -86,17 +86,17 @@ $trailer_cols = count($trailer_dims);
             <h2 id="blueprint-title" class="section-title text-white">Machine Footprint</h2>
         </div>
 
-        <div class="border border-blue-700 aspect-[16/7] flex items-center justify-center mx-auto max-w-4xl overflow-hidden">
-            <?php if (!empty($footprint_url)) : ?>
+        <?php if (!empty($footprint_url)) : ?>
+            <div class="mx-auto max-w-4xl">
                 <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'large', [
-                    'class' => 'w-full h-full object-contain',
+                    'class' => 'block w-full h-auto',
                 ]); ?>
-            <?php elseif (!empty($svg_name)) : ?>
-                <span class="text-blue-400 text-sm font-mono"><?php echo esc_html($svg_name); ?>.svg</span>
-            <?php else : ?>
-                <span class="text-blue-400 text-sm font-mono">Blueprint</span>
-            <?php endif; ?>
-        </div>
+            </div>
+        <?php else : ?>
+            <div class="border border-blue-700 aspect-[16/7] flex items-center justify-center mx-auto max-w-4xl">
+                <span class="text-blue-400 text-sm font-mono"><?php echo esc_html(!empty($svg_name) ? $svg_name . '.svg' : 'Blueprint'); ?></span>
+            </div>
+        <?php endif; ?>
 
         <?php if (!empty($machine_dims)) : ?>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-<?php echo esc_attr((string) $machine_cols); ?> gap-6 max-w-4xl mx-auto">
