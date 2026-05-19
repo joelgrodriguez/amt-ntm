@@ -40,7 +40,7 @@ $content = [
         </div>
 
         <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="btn btn-emphasis">
+            <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="btn btn-primary">
                 <?php echo esc_html($content['cta_primary']); ?>
                 <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
             </a>
