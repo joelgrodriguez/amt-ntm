@@ -24,7 +24,7 @@ if (!defined('ABSPATH')) {
 
 $content = [
     'title'       => __('Why own an NTM rollformer?', 'standard'),
-    'lede'        => __('Buying panels from someone else is profit you give away. Rolling your own is the path to keeping it.', 'standard'),
+    'lede'        => __('Buying panels from someone else is profit you give away. Rolling your own is the path to keeping it. Your first NTM machine pays for itself in the panels you stop buying from a distributor.', 'standard'),
     'image'       => 'https://newtechmachinery.com/wp-content/uploads/2025/04/Nate-training-East-Kentucky-Metal-9-scaled.jpg',
     'image_alt'   => __('NTM trainer working with a customer crew at their shop.', 'standard'),
     'cost_label'  => __('Without your machine', 'standard'),
@@ -67,17 +67,23 @@ $value_points = [
 
         <!-- Header: title + lede on the left, image on the right (lg+) -->
         <div class="grid gap-8 lg:grid-cols-2 lg:gap-16 lg:items-center">
-            <div class="section-header-left max-w-xl">
+            <div class="section-header-left max-w-xl grid gap-6 content-start">
                 <h2 id="why-own-title" class="section-title">
                     <?php echo esc_html($content['title']); ?>
                 </h2>
                 <p class="font-sans text-blue-600 text-base lg:text-lg leading-relaxed">
                     <?php echo esc_html($content['lede']); ?>
                 </p>
+                <?php get_template_part('templates/parts/cta/two-door', null, [
+                    'primary_label'    => __('Configure & Quote', 'standard'),
+                    'primary_url'      => '/configurator/',
+                    'specialist_label' => __('Talk to a Specialist', 'standard'),
+                    'specialist_url'   => '/contact/',
+                ]); ?>
             </div>
-            <div>
+            <div class="aspect-video overflow-hidden">
                 <?php \Standard\Images\responsive_image($content['image'], $content['image_alt'], 'large', [
-                    'class'   => 'w-full h-auto block',
+                    'class'   => 'w-full h-full object-cover block',
                     'loading' => 'lazy',
                 ]); ?>
             </div>
@@ -139,15 +145,6 @@ $value_points = [
                     <?php endforeach; ?>
                 </ul>
             </div>
-        </div>
-
-        <div class="flex justify-center md:justify-start">
-            <?php get_template_part('templates/parts/cta/two-door', null, [
-                'primary_label'    => __('Configure & Quote', 'standard'),
-                'primary_url'      => '/configurator/',
-                'specialist_label' => __('Talk to a Specialist', 'standard'),
-                'specialist_url'   => '/contact/',
-            ]); ?>
         </div>
 
     </div>

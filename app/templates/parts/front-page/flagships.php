@@ -84,13 +84,15 @@ $rendered_count = 0;
         <div class="container">
             <div class="grid gap-10 py-16 lg:grid-cols-2 lg:gap-16 lg:py-24 lg:items-center">
 
-                <!-- Image cell -->
+                <!-- Image cell (16:9 action photo) -->
                 <div class="<?php echo $image_first_on_lg ? 'lg:order-1' : 'lg:order-2'; ?>">
                     <?php if ($hero_image) : ?>
-                        <?php \Standard\Images\responsive_image($hero_image, $data['hero']['headline'] ?? '', 'large', [
-                            'class'   => 'w-full h-auto block',
-                            'loading' => 'lazy',
-                        ]); ?>
+                        <div class="aspect-video overflow-hidden">
+                            <?php \Standard\Images\responsive_image($hero_image, $data['hero']['headline'] ?? '', 'large', [
+                                'class'   => 'w-full h-full object-cover block',
+                                'loading' => 'lazy',
+                            ]); ?>
+                        </div>
                     <?php endif; ?>
                 </div>
 
@@ -143,7 +145,7 @@ $rendered_count = 0;
                             href="<?php echo esc_url($configure_url); ?>"
                             class="btn btn-primary"
                         >
-                            <?php esc_html_e('Configure & quote', 'standard'); ?>
+                            <?php esc_html_e('Configure & Quote', 'standard'); ?>
                             <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                         </a>
                     </div>
