@@ -38,9 +38,10 @@ if (!$machine) {
 
 <main id="primary" class="machine-product">
 
-    <?php get_template_part('templates/woo/product/parts/hero', null, compact('product', 'machine')); ?>
-
-    <?php get_template_part('templates/woo/product/parts/stats-bar', null, compact('machine')); ?>
+    <div class="machine-product__fold">
+        <?php get_template_part('templates/woo/product/parts/hero', null, compact('product', 'machine')); ?>
+        <?php get_template_part('templates/woo/product/parts/stats-bar', null, compact('machine')); ?>
+    </div>
 
     <?php get_template_part('templates/woo/product/parts/subnav', null, compact('product', 'machine')); ?>
 

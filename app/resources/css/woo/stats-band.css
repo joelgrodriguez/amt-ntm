@@ -131,17 +131,22 @@
   }
 }
 
-/* When a stats-band immediately follows the machine hero, tell the
-   hero how tall this band is so its photo can subtract that height
-   and the pair fills the fold exactly. The hero element itself
-   sets --hero-band on its style attribute; this is the runtime
-   value for that token. */
-.machine-product .hero {
-  --hero-band: 7rem;
+/* Fold composition: hero + stats together = 100dvh - header.
+   Parent is a column flex container the height of the fold; hero
+   takes whatever's left after stats has claimed its natural height.
+   The hero's own height: calc gets neutralized by flex:1 here. */
+.machine-product__fold {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - var(--header-height, 4rem));
+  min-height: calc(100dvh - var(--header-height, 4rem));
 }
 
-@media (min-width: 768px) {
-  .machine-product .hero {
-    --hero-band: 7.5rem;
-  }
+.machine-product__fold > .hero {
+  flex: 1;
+  min-height: 0;
+}
+
+.machine-product__fold > .hero .hero__photo {
+  height: 100%;
 }
