@@ -77,9 +77,12 @@
   line-height: 1;
 }
 
+/* Same scale as .section-title (sections.css). Router has its own class
+   because the lockup includes a help link, not because the type sizing
+   should diverge. */
 .router__title {
   font-family: var(--font-sans);
-  font-size: var(--text-heading-sm);
+  font-size: var(--text-heading);
   font-weight: 500;
   color: var(--color-blue-900);
   line-height: 1.15;
@@ -88,13 +91,13 @@
 
 @media (min-width: 768px) {
   .router__title {
-    font-size: var(--text-heading);
+    font-size: var(--text-heading-lg);
   }
 }
 
 @media (min-width: 1024px) {
   .router__title {
-    font-size: var(--text-heading-lg);
+    font-size: var(--text-display);
   }
 }
 
