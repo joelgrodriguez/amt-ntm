@@ -38,8 +38,8 @@ $compare_slugs = $comparison['compare_with'];
 
         <div class="grid md:grid-cols-<?php echo esc_attr((string) min(count($compare_slugs) + 1, 4)); ?> gap-6 max-w-5xl mx-auto">
             <!-- Current machine -->
-            <div class="border-2 border-red bg-white p-6 grid gap-3 text-center relative">
-                <span class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red text-white text-xs font-medium px-3 py-1 uppercase tracking-wider">You're Viewing</span>
+            <div class="border border-blue-500 bg-white p-6 grid gap-3 text-center relative">
+                <span class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red text-white text-xs font-mono font-medium px-3 py-1 uppercase tracking-wider"><?php esc_html_e('You\'re viewing', 'standard'); ?></span>
                 <?php if ($product && $product->get_image_id()) : ?>
                     <div class="aspect-square flex items-center justify-center mt-4 overflow-hidden">
                         <?php echo $product->get_image('woocommerce_thumbnail', ['class' => 'w-full h-full object-contain']); ?>
