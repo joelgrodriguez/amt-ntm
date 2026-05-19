@@ -49,7 +49,9 @@ if (!$machine) {
 
     <?php get_template_part('templates/woo/product/parts/blueprint', null, compact('machine')); ?>
 
-    <?php get_template_part('templates/woo/product/parts/gallery', null, compact('product', 'machine')); ?>
+    <?php // "See Every Angle" gallery — hidden temporarily, redesign pending.
+    // get_template_part('templates/woo/product/parts/gallery', null, compact('product', 'machine'));
+    ?>
 
     <?php
     get_template_part('templates/parts/video-section', null, [
