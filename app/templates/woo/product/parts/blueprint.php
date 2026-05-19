@@ -84,13 +84,13 @@ if (!empty($trailer_raw['weight'])) { $trailer_dims['Weight'] = $trailer_raw['we
             <h2 id="blueprint-title" class="section-title text-white">Machine Footprint</h2>
         </div>
 
-        <div class="grid gap-10 lg:grid-cols-[3fr_2fr] lg:gap-16 lg:items-start">
+        <div class="grid gap-10 lg:grid-cols-2 lg:gap-16 lg:items-start">
 
             <!-- Diagram -->
-            <div>
+            <div class="max-w-md">
                 <?php if (!empty($footprint_url)) : ?>
-                    <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'large', [
-                        'class' => 'block w-full h-auto max-h-[60vh] object-contain',
+                    <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'medium', [
+                        'class' => 'block w-full h-auto',
                     ]); ?>
                 <?php else : ?>
                     <div class="border border-blue-700 aspect-[16/7] flex items-center justify-center">
