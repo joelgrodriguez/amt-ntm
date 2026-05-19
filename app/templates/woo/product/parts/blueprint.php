@@ -16,21 +16,38 @@ $machine    = $args['machine'] ?? [];
 $dimensions = $machine['specs']['dimensions'] ?? [];
 $svg_name   = $machine['blueprint']['svg'] ?? '';
 
-// ACF 'footprint' field on the product page. May return an attachment
-// ID, a URL string, or an array depending on field config — normalize
-// to a URL or empty string.
+// ACF 'footprint' field on the product page. Field is a relationship
+// to a 'footprint' custom post type; resolve the linked post's
+// featured image. Field returns an array of post IDs (or post objects)
+// — use the first.
 $footprint_url = '';
 $footprint_alt = '';
 if (function_exists('get_field')) {
     $footprint = get_field('footprint');
-    if (is_array($footprint)) {
-        $footprint_url = $footprint['url'] ?? '';
-        $footprint_alt = $footprint['alt'] ?? '';
+    $footprint_post_id = 0;
+
+    if (is_array($footprint) && !empty($footprint)) {
+        $first = reset($footprint);
+        if (is_object($first) && isset($first->ID)) {
+            $footprint_post_id = (int) $first->ID;
+        } elseif (is_numeric($first)) {
+            $footprint_post_id = (int) $first;
+        }
+    } elseif (is_object($footprint) && isset($footprint->ID)) {
+        $footprint_post_id = (int) $footprint->ID;
     } elseif (is_numeric($footprint)) {
-        $footprint_url = (string) (wp_get_attachment_image_url((int) $footprint, 'large') ?: '');
-        $footprint_alt = (string) get_post_meta((int) $footprint, '_wp_attachment_image_alt', true);
-    } elseif (is_string($footprint)) {
-        $footprint_url = $footprint;
+        $footprint_post_id = (int) $footprint;
+    }
+
+    if ($footprint_post_id > 0) {
+        $thumb_id = (int) get_post_thumbnail_id($footprint_post_id);
+        if ($thumb_id > 0) {
+            $footprint_url = (string) (wp_get_attachment_image_url($thumb_id, 'large') ?: '');
+            $footprint_alt = (string) get_post_meta($thumb_id, '_wp_attachment_image_alt', true);
+            if ($footprint_alt === '') {
+                $footprint_alt = (string) get_the_title($footprint_post_id);
+            }
+        }
     }
 }
 
