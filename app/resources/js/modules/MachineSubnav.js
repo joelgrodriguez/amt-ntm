@@ -29,6 +29,10 @@ export function initMachineSubnav() {
   const controller = new AbortController();
   const { signal } = controller;
 
+  const prefersReducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  ).matches;
+
   // ── Sticky behavior (sentinel-based) ────────────────────────────
 
   const stickyObserver = new IntersectionObserver(
@@ -106,7 +110,10 @@ export function initMachineSubnav() {
       const offset = headerH + subnavH + 16;
 
       const y = target.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
+      window.scrollTo({
+        top: y,
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      });
 
       setActiveLink(targetId);
     },
@@ -125,6 +132,14 @@ export function initMachineSubnav() {
         const isOpen = switcherBtn.getAttribute('aria-expanded') === 'true';
         switcherBtn.setAttribute('aria-expanded', String(!isOpen));
         dropdown.hidden = isOpen;
+
+        // Focus the first item on open so keyboard users land inside the menu
+        // immediately instead of having to tab past every other interactive
+        // element first.
+        if (!isOpen) {
+          const firstItem = dropdown.querySelector('.machine-subnav__dropdown-item');
+          firstItem?.focus();
+        }
       },
       { signal }
     );
