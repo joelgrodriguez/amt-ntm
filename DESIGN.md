@@ -35,9 +35,9 @@ The brand color is **`#0078C2`**. Every neutral in the system is derived from it
 | Blue 400 | `#6987A3` | `--color-blue-400` | Meta text, captions, timestamps, footer links on dark backgrounds. |
 | Blue 500 | `#0078C2` | `--color-blue-500` | **Primary brand.** Links, primary CTAs, focus rings, active states, key iconography. The 10% accent. |
 | Blue 600 | `#3F5870` | `--color-blue-600` | Body copy on light backgrounds, secondary text, sub-headings. |
-| Blue 700 | `#26384B` | `--color-blue-700` | Primary headings, primary text on light backgrounds. |
+| Blue 700 | `#26384B` | `--color-blue-700` | Secondary headings, technical/spec text on light backgrounds, secondary CTA borders. |
 | Blue 800 | `#142235` | `--color-blue-800` | Dark surfaces, footer background, dark section backgrounds. |
-| Blue 900 | `#0A1322` | `--color-blue-900` | Deepest dark backgrounds, hero overlays, full-bleed dark sections. |
+| Blue 900 | `#0A1322` | `--color-blue-900` | **Primary headings on light backgrounds.** Also: deepest dark backgrounds, hero overlays, full-bleed dark sections. |
 
 ### 2.2 Pure neutrals
 
@@ -64,7 +64,8 @@ Saturated color = `--color-blue-500` + `--color-red`. Together they account for 
 
 - **Page background:** `--color-white` or `--color-blue-50`
 - **Dark section background:** `--color-blue-800` or `--color-blue-900`
-- **Heading text (light bg):** `--color-blue-700`
+- **Heading text (light bg):** `--color-blue-900` (deep navy, premium and grounded)
+- **Secondary heading / technical text (light bg):** `--color-blue-700`
 - **Body text (light bg):** `--color-blue-600`
 - **Heading text (dark bg):** `--color-white`
 - **Body text (dark bg):** `--color-blue-200`
@@ -186,12 +187,12 @@ Mono 500, 11px, uppercase, letter-spacing `0.1em`, color `--color-red` or `--col
 ### 5.5 Section Title
 **Role:** The label of a content section.
 
-Mono 500, 20–28px, color `--color-blue-700`. Tight leading. No decoration.
+Sans 500, tracking-tight, 20px (sm) / 28px (md) / 40px (lg), color `--color-blue-900`. No decoration. (The early spec called for mono 500 in `--color-blue-700`; the as-built ships sans at responsive display sizes and the deeper blue-900 for premium gravity. Mono remains the voice for eyebrows, labels, badges, buttons, navigation, and metadata per §3.)
 
 ### 5.6 Hero / Display Headline
 **Role:** The hero line of a full-bleed product section.
 
-Sans 400 or 500, 40–48px, color `--color-blue-700` (light bg) or `--color-white` (dark bg / over imagery). Tight leading (1.17–1.2). Read this; don't scan it.
+Sans 400 or 500, 40–48px, color `--color-blue-900` (light bg) or `--color-white` (dark bg / over imagery). Tight leading (1.17–1.2). Read this; don't scan it.
 
 ### 5.7 Header Navigation Link
 **Role:** Top-level site navigation.
@@ -365,7 +366,8 @@ The principle: borders are exactly one step lighter (on dark) or one step darker
 When generating new components or pages with an LLM, anchor every prompt in these tokens. Pre-tested prompts:
 
 ### 11.1 Quick token reference
-- **Heading text:** `--color-blue-700` (or `--color-white` on dark)
+- **Heading text:** `--color-blue-900` (or `--color-white` on dark)
+- **Secondary / technical text:** `--color-blue-700`
 - **Body text:** `--color-blue-600` (or `--color-blue-200` on dark)
 - **Background (light):** `--color-white` or `--color-blue-50`
 - **Background (dark):** `--color-blue-800` or `--color-blue-900`
