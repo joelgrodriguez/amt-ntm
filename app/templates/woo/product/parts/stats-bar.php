@@ -1,6 +1,10 @@
 <?php
 /**
- * Machine Product — Stats Bar
+ * Machine Product — Stats Band
+ *
+ * Hairline-divided spec strip below the hero. Pairs with the hero
+ * to fill the fold (100dvh - header). Mono labels read as engineering
+ * spec sheet, not marketing tiles.
  *
  * @package Standard
  * @var array{machine: array} $args
@@ -20,15 +24,19 @@ if (empty($stats)) {
 }
 ?>
 
-<section class="bg-blue-900 py-10" aria-label="Key specifications">
-    <div class="container">
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+<section class="stats-band" aria-label="<?php esc_attr_e('Key specifications', 'standard'); ?>">
+    <div class="container stats-band__inner">
+        <p class="stats-band__eyebrow">
+            <span class="stats-band__eyebrow-dot" aria-hidden="true"></span>
+            <span><?php esc_html_e('Key specifications', 'standard'); ?></span>
+        </p>
+        <dl class="stats-band__grid">
             <?php foreach ($stats as $stat) : ?>
-                <div class="grid gap-1">
-                    <span class="text-3xl font-medium text-white lg:text-4xl"><?php echo esc_html($stat['value']); ?></span>
-                    <span class="text-sm text-blue-400 uppercase tracking-wider"><?php echo esc_html($stat['label']); ?></span>
+                <div class="stats-band__cell">
+                    <dt class="stats-band__label"><?php echo esc_html($stat['label']); ?></dt>
+                    <dd class="stats-band__value"><?php echo esc_html($stat['value']); ?></dd>
                 </div>
             <?php endforeach; ?>
-        </div>
+        </dl>
     </div>
 </section>

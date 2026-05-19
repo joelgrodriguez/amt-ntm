@@ -1,0 +1,147 @@
+/**
+ * Machine Product — Stats Band
+ *
+ * Sits flush below the machine hero. Hairline-divided spec strip
+ * with mono labels and values, reads as a torn-edge engineering
+ * spec sheet. The band exposes --stats-band-height so the hero
+ * above can shrink itself to keep the pair on a single fold.
+ *
+ * @file stats-band.css
+ *
+ * @usage Single Machine Product (single-machine.php)
+ * @template templates/woo/product/parts/stats-bar.php
+ */
+
+.stats-band {
+  --stats-band-height: 7rem;
+  background-color: var(--color-blue-900);
+  border-top: 1px solid var(--color-blue-800);
+  min-height: var(--stats-band-height);
+}
+
+.stats-band__inner {
+  display: grid;
+  gap: 1rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+/* Eyebrow: mono red-dotted label, matches .hero__eyebrow grammar. */
+.stats-band__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-blue-300);
+  margin: 0;
+}
+
+.stats-band__eyebrow-dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: var(--color-red);
+  flex-shrink: 0;
+}
+
+/* Grid: 2 columns mobile, 4 columns from md up. Hairline dividers
+   between cells, not around them — selective borders read as
+   architectural per DESIGN.md §8.6. */
+.stats-band__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .stats-band__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.stats-band__cell {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.75rem 1rem;
+  border-left: 1px solid var(--color-blue-800);
+}
+
+.stats-band__cell:first-child {
+  border-left: none;
+  padding-left: 0;
+}
+
+/* Mobile: the third cell starts a new row, so it has no left
+   neighbour on its row — kill its left border. */
+@media (max-width: 767px) {
+  .stats-band__cell:nth-child(2n + 1) {
+    border-left: none;
+    padding-left: 0;
+  }
+  .stats-band__cell:nth-child(n + 3) {
+    border-top: 1px solid var(--color-blue-800);
+    margin-top: 0.5rem;
+    padding-top: 1.25rem;
+  }
+}
+
+.stats-band__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-blue-400);
+  margin: 0;
+}
+
+.stats-band__value {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--color-white);
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .stats-band {
+    --stats-band-height: 7.5rem;
+  }
+  .stats-band__inner {
+    grid-template-columns: max-content 1fr;
+    align-items: center;
+    column-gap: 3rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  .stats-band__value {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .stats-band__value {
+    font-size: 1.75rem;
+  }
+}
+
+/* When a stats-band immediately follows the machine hero, tell the
+   hero how tall this band is so its photo can subtract that height
+   and the pair fills the fold exactly. The hero element itself
+   sets --hero-band on its style attribute; this is the runtime
+   value for that token. */
+.machine-product .hero {
+  --hero-band: 7rem;
+}
+
+@media (min-width: 768px) {
+  .machine-product .hero {
+    --hero-band: 7.5rem;
+  }
+}
