@@ -77,26 +77,21 @@ if (!empty($trailer_raw['weight'])) { $trailer_dims['Weight'] = $trailer_raw['we
 ?>
 
 <section class="bg-blue-900 section" aria-labelledby="blueprint-title">
-    <div class="container section-content">
+    <div class="max-w-5xl mx-auto px-4 md:px-8 lg:px-12 section-content">
 
         <div class="section-header">
             <p class="section-eyebrow text-red">Engineering Specs</p>
             <h2 id="blueprint-title" class="section-title text-white">Machine Footprint</h2>
         </div>
 
-        <div class="grid gap-10 lg:grid-cols-2 lg:gap-12 lg:items-center max-w-5xl mx-auto">
+        <div class="grid gap-10 lg:grid-cols-2 lg:gap-12 lg:items-center">
 
-            <!-- Diagram: right-aligned on the left column so it sits next to
-                 the dims instead of floating in a void of negative space.
-                 Hairline frame in blue-700 so the white image doesn't slam
-                 against the dark section. -->
-            <div class="lg:justify-self-end w-full max-w-2xl">
+            <!-- Diagram at natural proportions. -->
+            <div class="lg:justify-self-end">
                 <?php if (!empty($footprint_url)) : ?>
-                    <div class="border border-blue-700 p-4 bg-white">
-                        <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'medium_large', [
-                            'class' => 'block w-full h-auto',
-                        ]); ?>
-                    </div>
+                    <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'large', [
+                        'class' => 'block max-w-full h-auto',
+                    ]); ?>
                 <?php else : ?>
                     <div class="border border-blue-700 aspect-[16/7] flex items-center justify-center">
                         <span class="text-blue-400 text-sm font-mono"><?php echo esc_html(!empty($svg_name) ? $svg_name . '.svg' : 'Blueprint'); ?></span>
@@ -105,7 +100,7 @@ if (!empty($trailer_raw['weight'])) { $trailer_dims['Weight'] = $trailer_raw['we
             </div>
 
             <!-- Dimensions: Machine over Trailer, hairline between -->
-            <dl class="grid gap-8 w-full max-w-lg">
+            <dl class="grid gap-8 w-full">
                 <?php if (!empty($machine_dims)) : ?>
                     <div class="grid gap-4">
                         <p class="font-mono text-xs uppercase tracking-wider text-blue-400">
