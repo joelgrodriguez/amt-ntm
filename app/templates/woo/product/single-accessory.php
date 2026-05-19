@@ -55,7 +55,7 @@ get_header();
     </section>
     <?php endif; ?>
 
-    <section class="bg-blue-950 text-white py-12 lg:py-16">
+    <section class="bg-blue-900 text-white py-12 lg:py-16">
         <div class="container text-center grid gap-4">
             <p class="text-sm font-mono uppercase tracking-wider text-blue-400"><?php esc_html_e('Need help choosing the right accessories?', 'standard'); ?></p>
             <h2 class="text-2xl font-medium tracking-tight md:text-3xl"><?php esc_html_e('Talk to a Specialist', 'standard'); ?></h2>

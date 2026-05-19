@@ -25,7 +25,7 @@ $content = [
 ];
 ?>
 
-<section class="bg-blue-950 border-t border-blue-800">
+<section class="bg-blue-900 border-t border-blue-800">
     <div class="container py-12">
         <div class="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
             <!-- Content -->
