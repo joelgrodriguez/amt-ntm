@@ -1,187 +1,52 @@
 /**
- * Hero Slider Styles
+ * Hero Slider — front-page specific layer
  *
- * Full-viewport hero slider for the front page.
- * Uses CSS transforms for performant slide transitions.
+ * Slider-only behaviour: track transform, nav arrows, pagination dots.
+ * The photo/content geometry, title scale, eyebrow, and overlay
+ * treatment all come from components/hero.css and hero-overlay.css.
  *
  * @file hero-slider.css
  *
  * @usage Front Page (front-page.php)
  * @template templates/parts/front-page/hero-slider.php
- * @see templates/parts/front-page/hero-slide.php - Individual slide component
- * @see js/modules/HeroSlider.js - Slider navigation and auto-play
- * @see inc/machines.php - Machine data configuration
+ * @see templates/parts/front-page/hero-slide.php
+ * @see js/modules/HeroSlider.js
  */
 
-/* Slider container. Photo is full-bleed at every breakpoint; specs
-   overlay the photo top-right, so the slider height is always just
-   viewport-minus-header.
+/* ── Slider container ────────────────────────────────────────────── */
 
-   --hero-spec-band-height is kept (at 0) so the photo height calc and
-   nav arrow positioning below don't need to change in lockstep with
-   any future re-introduction of a separate spec band. */
 .hero-slider {
   position: relative;
   width: 100%;
   overflow: hidden;
   background-color: var(--color-black);
-  --hero-spec-band-height: 0px;
 }
 
-/* Slides track - holds all slides in a row */
+/* Slides track holds all slides in a row. */
 .hero-slider__track {
   display: flex;
   transition: transform 500ms cubic-bezier(0.33, 1, 0.68, 1);
   will-change: transform;
 }
 
-/* Individual slide. Full-bleed photo at every viewport; spec stack and
-   content stack overlay it as positioned children. */
+/* Each slide composes the shared .hero photo region. */
 .hero-slider__slide {
   position: relative;
   flex: 0 0 100%;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--color-black);
 }
 
-/* Front-page hero overrides the shared .hero-overlay with a flat
-   50% pure-black wash. Pure black is reserved per DESIGN.md §2.2
-   for "image overlays" — this is exactly that use. Reads more
-   premium than blue-tinted dark; product detail comes through
-   with neutral contrast rather than a brand-blue cast. */
-.hero-slider__photo .hero-overlay {
-  background-color: color-mix(in srgb, var(--color-black) 50%, transparent);
-}
+/* ── Navigation arrows ──────────────────────────────────────────── */
 
-/* Photo region: holds media + overlay + top-right spec stack + content
-   stack. Slider total height = viewport - header, so the hero exactly
-   fits below the site header. */
-.hero-slider__photo {
-  position: relative;
-  width: 100%;
-  height: calc(100vh - var(--header-height, 4rem) - var(--hero-spec-band-height));
-  height: calc(100dvh - var(--header-height, 4rem) - var(--hero-spec-band-height));
-  min-height: 360px;
-  overflow: hidden;
-}
-
-/* Background media (image/video) */
-.hero-slider__media {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-.hero-slider__video {
-  z-index: 1;
-}
-
-.hero-slider__image {
-  z-index: 0;
-}
-
-/* Content container. Absolute-positioned overlay that anchors the
-   inner content stack to the bottom of the photo region. Horizontal
-   max-width + padding come from the .container child so the title's
-   left edge lines up with the router section beneath. Vertical
-   padding clears the bottom progress bar and lifts the title block
-   higher into the photo's lower third (premium marquee composition,
-   not anchored flush to the photo edge). */
-.hero-slider__content {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding-top: 1.5rem;
-  padding-bottom: 7rem;
-  color: var(--color-white);
-}
-
-/* Inner stack inside .container — actual content layout (hard-left). */
-.hero-slider__content-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-/* Category label (eyebrow per DESIGN.md §5.4). On photographic hero
-   surfaces, the dot carries the red moment so the label can stay
-   white and legible against any photo. */
-.hero-slider__category {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--color-white);
-  margin-bottom: 0.75rem;
-}
-
-.hero-slider__category-dot {
-  display: inline-block;
-  width: 0.5rem;
-  height: 0.5rem;
-  background-color: var(--color-red);
-  flex-shrink: 0;
-}
-
-/* Title — mono brand-voice override (DESIGN.md §3.1: mono is the
-   editorial voice for product identifiers; the front-page hero is
-   the one place where the model name IS the headline, so it reads
-   as a spec-sheet model number at display scale, not body prose).
-   Sized larger than the rest of the page's display scale so the
-   marquee earns its name. */
-.hero-slider__title {
-  font-family: var(--font-sans);
-  font-size: var(--text-display);
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.5rem;
-}
-
-/* Marketing slogan */
-.hero-slider__slogan {
-  font-family: var(--font-sans);
-  font-size: var(--text-body);
-  font-weight: 400;
-  line-height: 1.3;
-  color: var(--color-blue-100);
-  margin-bottom: 1.25rem;
-  max-width: 36ch;
-}
-
-/* CTA buttons */
-.hero-slider__cta {
-  display: flex;
-  gap: 0.75rem;
-}
-
-/* Navigation arrows. Anchored to roughly the photo's upper third so
-   they sit clear of the content stack (eyebrow, title, slogan, CTA)
-   at the bottom and don't brush against the eyebrow on shorter
-   viewports. The --hero-spec-band-height var is 0 today; the calc
-   stays so a future re-introduction of an in-flow band doesn't need
-   to re-wire arrow positioning. */
 .hero-slider__nav {
   position: absolute;
-  top: calc(38% - var(--hero-spec-band-height) / 2);
+  top: 38%;
   transform: translateY(-50%);
   z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* WCAG 2.5.5 target size: 44x44 minimum on touch surfaces. */
+  /* WCAG 2.5.5 target size: 44x44 minimum. */
   width: 2.75rem;
   height: 2.75rem;
   background-color: color-mix(in srgb, var(--color-black) 30%, transparent);
@@ -200,28 +65,18 @@
   outline-offset: 2px;
 }
 
-.hero-slider__nav--prev {
-  left: 1rem;
-}
+.hero-slider__nav--prev { left: 1rem; }
+.hero-slider__nav--next { right: 1rem; }
 
-.hero-slider__nav--next {
-  right: 1rem;
-}
+.hero-slider__nav-icon  { width: 1rem; height: 1rem; }
 
-.hero-slider__nav-icon {
-  width: 1rem;
-  height: 1rem;
-}
+/* ── Chrome (pagination) ────────────────────────────────────────── */
 
-/* Chrome stack: pagination dots, centered and absolute-positioned along
-   the bottom of the photo. Previously held a pause toggle below the dots;
-   that affordance was removed. The vertical-stack layout stays in case
-   another secondary chrome element returns. */
 .hero-slider__chrome {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: calc(var(--hero-spec-band-height) + 1.5rem);
+  bottom: 1.5rem;
   z-index: 10;
   display: flex;
   flex-direction: column;
@@ -230,20 +85,15 @@
   pointer-events: none;
 }
 
-.hero-slider__chrome > * {
-  pointer-events: auto;
-}
+.hero-slider__chrome > * { pointer-events: auto; }
 
-/* Progress dot row. Centered in the chrome band. */
 .hero-slider__progress {
   display: flex;
   align-items: center;
   gap: 0.625rem;
 }
 
-/* Sharp-cornered "dots" — zero border-radius per DESIGN.md §1.
-   Small white square; active state stretches into a pill, still
-   square-cornered (engineered, not consumer). */
+/* Sharp-cornered segments. Active stretches into a pill, still square. */
 .hero-slider__segment {
   width: 0.5rem;
   height: 0.5rem;
@@ -263,85 +113,25 @@
   outline-offset: 3px;
 }
 
-/* Active dot: stretches to a small pill in brand red. */
 .hero-slider__segment--active {
   width: 1.5rem;
   background-color: var(--color-red);
 }
 
-/* Responsive adjustments */
+/* ── Responsive nav sizing ──────────────────────────────────────── */
+
 @media (min-width: 768px) {
-  .hero-slider__photo {
-    min-height: 440px;
-  }
-
-  .hero-slider__content {
-    padding-top: 2rem;
-    padding-bottom: 8rem;
-  }
-
-  .hero-slider__category {
-    font-size: 0.875rem;
-  }
-
-  .hero-slider__title {
-    font-size: var(--text-6xl);
-    line-height: 0.95;
-  }
-
-  .hero-slider__slogan {
-    font-size: 1.125rem;
-  }
-
-  .hero-slider__nav {
-    width: 3rem;
-    height: 3rem;
-  }
-
-  .hero-slider__nav--prev {
-    left: 2rem;
-  }
-
-  .hero-slider__nav--next {
-    right: 2rem;
-  }
+  .hero-slider__nav        { width: 3rem; height: 3rem; }
+  .hero-slider__nav--prev  { left: 2rem; }
+  .hero-slider__nav--next  { right: 2rem; }
 }
 
-@media (min-width: 1024px) {
-  /* No min-height override on the photo — short desktop viewports just
-     get a proportionally shorter hero rather than overflowing the fold. */
+/* ── Reduced motion ─────────────────────────────────────────────── */
 
-  /* Content stack sits in the photo's lower third with enough air to
-     clear the bottom progress bar. Clamped so short desktop viewports
-     (<800px tall laptops, browser windows resized vertically) don't
-     crowd the title into the photo top. */
-  .hero-slider__content {
-    padding-top: 2rem;
-    padding-bottom: clamp(6rem, 16vh, 12rem);
-  }
-
-  .hero-slider__title {
-    font-size: var(--text-7xl);
-    line-height: 0.95;
-  }
-
-  .hero-slider__slogan {
-    font-size: 1.25rem;
-  }
-}
-
-/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .hero-slider__track {
-    transition: none;
-  }
-
-  .hero-slider__progress-bar {
-    animation: none;
-  }
-
+  .hero-slider__track,
   .hero-slider__nav,
-  .hero-slider__dot {
+  .hero-slider__segment {
     transition: none;
   }
 }

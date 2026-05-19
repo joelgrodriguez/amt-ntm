@@ -50,12 +50,11 @@ $is_first         = $index === 0;
         <?php if ($background_video) : ?>data-video-url="<?php echo esc_url($background_video); ?>"<?php endif; ?>
     <?php endif; ?>
 >
-    <!-- Photo region -->
-    <div class="hero-slider__photo">
+    <div class="hero__photo">
         <?php if ($is_first) : ?>
             <?php if ($background_video) : ?>
                 <video
-                    class="hero-slider__media hero-slider__video"
+                    class="hero__media hero__media--video"
                     autoplay
                     muted
                     loop
@@ -68,7 +67,7 @@ $is_first         = $index === 0;
 
             <?php if ($background_image) : ?>
                 <?php \Standard\Images\responsive_image($background_image, $title, 'full', [
-                    'class'         => 'hero-slider__media hero-slider__image',
+                    'class'         => 'hero__media',
                     'loading'       => 'eager',
                     'fetchpriority' => 'high',
                 ]); ?>
@@ -78,28 +77,28 @@ $is_first         = $index === 0;
         <div class="hero-overlay"></div>
         <div class="hero-overlay__grain"></div>
 
-        <div class="hero-slider__content">
-            <div class="container hero-slider__content-inner">
+        <div class="hero__content">
+            <div class="container hero__content-inner">
                 <?php if ($category) : ?>
-                    <span class="hero-slider__category">
-                        <span class="hero-slider__category-dot" aria-hidden="true"></span>
+                    <span class="hero__eyebrow">
+                        <span class="hero__eyebrow-dot" aria-hidden="true"></span>
                         <span><?php echo esc_html($category); ?></span>
                     </span>
                 <?php endif; ?>
 
                 <?php if ($title) : ?>
-                    <h2 class="hero-slider__title">
+                    <h2 class="hero__title">
                         <?php echo esc_html($title); ?>
                     </h2>
                 <?php endif; ?>
 
                 <?php if ($slogan) : ?>
-                    <p class="hero-slider__slogan">
+                    <p class="hero__slogan">
                         <?php echo esc_html($slogan); ?>
                     </p>
                 <?php endif; ?>
 
-                <div class="hero-slider__cta">
+                <div class="hero__cta">
                     <a href="<?php echo esc_url($learn_more_url); ?>" class="btn btn-primary">
                         <?php echo esc_html($content['cta_machine']); ?>
                         <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
