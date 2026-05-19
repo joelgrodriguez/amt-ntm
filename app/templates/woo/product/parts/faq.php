@@ -28,10 +28,12 @@ if (empty($faqs)) {
     <div class="pattern-square-grid__overlay pattern-square-grid__overlay--bottom-right" aria-hidden="true"></div>
     <div class="container section-content">
 
-        <div class="section-header">
-            <p class="section-eyebrow"><?php esc_html_e('FAQ', 'standard'); ?></p>
-            <div class="section-divider-center"></div>
-            <h2 id="faq-title" class="section-title"><?php esc_html_e('Frequently Asked Questions', 'standard'); ?></h2>
+        <div class="max-w-4xl mx-auto">
+            <div class="section-header-left mb-12">
+                <p class="section-eyebrow"><?php esc_html_e('FAQ', 'standard'); ?></p>
+                <div class="section-divider"></div>
+                <h2 id="faq-title" class="section-title"><?php esc_html_e('Frequently Asked Questions', 'standard'); ?></h2>
+            </div>
         </div>
 
         <div class="max-w-4xl mx-auto" data-accordion-group>
