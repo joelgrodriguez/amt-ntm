@@ -87,7 +87,7 @@ $first_category = array_key_first($categories);
                                 aria-label="<?php esc_attr_e('Previous products', 'standard'); ?>"
                                 data-panel="<?php echo esc_attr($slug); ?>"
                             ><?php icon('arrow-left', ['class' => 'w-4 h-4']); ?></button>
-                            <span class="text-sm text-blue-600 min-w-16 text-center">
+                            <span class="text-sm text-blue-600 min-w-16 text-center" aria-live="polite" aria-atomic="true">
                                 <span class="explore-machines__current">1</span>
                                 <?php esc_html_e('of', 'standard'); ?>
                                 <span class="explore-machines__total"><?php echo count($products); ?></span>

@@ -170,7 +170,10 @@ export function initExploreMachines(options = {}) {
       }
     });
 
-    // Keyboard navigation for tabs
+    // Manual-activation tab pattern: arrow keys move focus only; Enter or
+    // Space activates the focused tab. Switching a tab resets its panel's
+    // scroll position, so manual activation lets keyboard users compare
+    // tabs without losing their place.
     section.addEventListener(
       'keydown',
       (e) => {
@@ -185,12 +188,25 @@ export function initExploreMachines(options = {}) {
             e.key === 'ArrowRight'
               ? (currentIndex + 1) % tabArray.length
               : (currentIndex - 1 + tabArray.length) % tabArray.length;
+          tabArray[nextIndex].focus();
+          return;
+        }
 
-          const nextTab = tabArray[nextIndex];
-          nextTab.focus();
-          if (nextTab.dataset.category) {
-            switchTab(nextTab.dataset.category);
-          }
+        if (e.key === 'Home') {
+          e.preventDefault();
+          tabArray[0].focus();
+          return;
+        }
+
+        if (e.key === 'End') {
+          e.preventDefault();
+          tabArray[tabArray.length - 1].focus();
+          return;
+        }
+
+        if ((e.key === 'Enter' || e.key === ' ') && e.target.dataset.category) {
+          e.preventDefault();
+          switchTab(e.target.dataset.category);
         }
       },
       { signal }
