@@ -32,7 +32,7 @@ if (!empty($finance['monthly_price'])) {
 
 $note = !empty($finance['note'])
     ? $finance['note']
-    : 'Flexible financing — lease-to-own, seasonal plans, quick approval';
+    : 'Flexible financing: lease-to-own, seasonal plans, quick approval.';
 ?>
 
 <div class="bg-blue-500 py-6">

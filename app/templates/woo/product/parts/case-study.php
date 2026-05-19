@@ -36,7 +36,7 @@ if (empty($case_study)) {
             'heading' => __('The Solution', 'standard'),
             'text'    => __('After investing in an NTM rollformer, the team went from relying on third-party suppliers to producing panels on-site the same day. NTM\'s training program had their crew fully operational within a week.', 'standard'),
             'points'  => [
-                __('On-site panel production — no more waiting on deliveries', 'standard'),
+                __('On-site panel production. No more waiting on deliveries.', 'standard'),
                 __('Full crew training completed in 5 days', 'standard'),
                 __('Portable setup for both shop and jobsite work', 'standard'),
             ],

@@ -25,7 +25,7 @@ $testimonials = $machine['testimonials'] ?? [];
 if (empty($testimonials)) {
     $testimonials = [
         [
-            'quote'    => __('We paid off our machine in eight months. Now every panel we roll is pure profit — I wish we\'d made the switch years ago.', 'standard'),
+            'quote'    => __('We paid off our machine in eight months. Now every panel we roll is pure profit. I wish we\'d made the switch years ago.', 'standard'),
             'name'     => 'Mike Thompson',
             'company'  => 'Thompson Roofing & Sheet Metal',
             'location' => __('Denver, CO', 'standard'),
@@ -37,7 +37,7 @@ if (empty($testimonials)) {
             'location' => __('Austin, TX', 'standard'),
         ],
         [
-            'quote'    => __('The training and support from NTM is what sealed the deal. They didn\'t just sell us a machine — they set us up for success from day one.', 'standard'),
+            'quote'    => __('The training and support from NTM is what sealed the deal. They didn\'t just sell us a machine; they set us up for success from day one.', 'standard'),
             'name'     => 'James Carter',
             'company'  => 'Peak Roofing Solutions',
             'location' => __('Salt Lake City, UT', 'standard'),
