@@ -87,14 +87,16 @@ body:has(.header--sticky:not(.header--hidden)) .machine-subnav.is-sticky {
 
 .machine-subnav__dropdown {
   position: absolute;
-  /* Pull up 1px so the dropdown's top border overlaps the bar's
-     bottom border. Clean intersection per DESIGN.md §8.4 instead of
-     a faint hairline gap between the two. */
-  top: calc(100% - 1px);
+  /* Sit flush against the bar's bottom border. Dropping the dropdown's
+     own top border lets the bar's bottom border read as the dropdown's
+     top edge — single continuous hairline, no L-junction at the
+     trigger button's right edge. */
+  top: 100%;
   left: 0;
   min-width: 260px;
   background: var(--color-white);
   border: 1px solid var(--color-blue-200);
+  border-top: none;
   padding: 0.5rem 0;
   z-index: 50;
 }
