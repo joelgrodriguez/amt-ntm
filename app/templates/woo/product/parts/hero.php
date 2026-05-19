@@ -43,7 +43,7 @@ $machine_name  = $product->get_name();
         <div class="hero-overlay"></div>
         <div class="hero-overlay__grain"></div>
 
-        <p class="hero__watermark hero__watermark--top-left"><?php echo esc_html($machine_name); ?></p>
+        <p class="hero__watermark hero__watermark--top-right"><?php echo esc_html($machine_name); ?></p>
 
         <div class="hero__content">
             <div class="container hero__content-inner">

@@ -221,7 +221,7 @@ export function initHeroSlider(options = {}) {
     // Hovering the photo or spec strip is fine; hovering the title /
     // CTA / dot row pauses (user is reading or about to click).
     const pauseZones = [
-      ...slider.querySelectorAll('.hero-slider__content-inner'),
+      ...slider.querySelectorAll('.hero__content-inner'),
       slider.querySelector('.hero-slider__chrome'),
     ].filter(Boolean);
     pauseZones.forEach((zone) => {
@@ -266,7 +266,7 @@ export function initHeroSlider(options = {}) {
   function hydrateSlide(slide) {
     if (!slide || !slide.dataset.imageUrl) return;
 
-    const photo = slide.querySelector('.hero-slider__photo');
+    const photo = slide.querySelector('.hero__photo');
     if (!photo) return;
 
     const imageUrl = slide.dataset.imageUrl;
@@ -275,7 +275,7 @@ export function initHeroSlider(options = {}) {
 
     if (videoUrl) {
       const video = document.createElement('video');
-      video.className = 'hero-slider__media hero-slider__video';
+      video.className = 'hero__media hero__media--video';
       video.autoplay = true;
       video.muted = true;
       video.loop = true;
@@ -290,7 +290,7 @@ export function initHeroSlider(options = {}) {
 
     if (imageUrl) {
       const img = document.createElement('img');
-      img.className = 'hero-slider__media hero-slider__image';
+      img.className = 'hero__media';
       img.src = imageUrl;
       img.alt = imageAlt;
       img.loading = 'lazy';

@@ -83,6 +83,13 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  max-width: 38rem;
+}
+
+@media (min-width: 1024px) {
+  .hero__content-inner {
+    max-width: 50%;
+  }
 }
 
 /* ── Corner watermark (model name, identifier, location, etc.) ─── */
@@ -101,7 +108,7 @@
 }
 
 .hero__watermark--top-left    { top: 1.5rem; left: 1.5rem; }
-.hero__watermark--top-right   { top: 1.5rem; right: 1.5rem; }
+.hero__watermark--top-right   { top: 1.5rem; right: 1.5rem; text-align: right; }
 .hero__watermark--bottom-left { bottom: 1.5rem; left: 1.5rem; }
 
 /* ── Eyebrow (kicker above title) ────────────────────────────────── */
@@ -161,6 +168,8 @@
 /* ── Meta line (price, location, model number, etc.) ─────────────── */
 
 .hero__meta {
+  display: flex;
+  flex-direction: column;
   font-family: var(--font-mono);
   font-size: var(--text-caption);
   font-weight: 500;
@@ -168,11 +177,28 @@
   letter-spacing: 0.1em;
   color: var(--color-blue-300);
   margin-bottom: 1.5rem;
+  line-height: 1.2;
 }
 
 .hero__meta-value {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 1.5rem;
+  letter-spacing: 0;
   color: var(--color-white);
   font-weight: 500;
+}
+
+@media (min-width: 768px) {
+  .hero__meta-value {
+    font-size: 1.875rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero__meta-value {
+    font-size: 2.25rem;
+  }
 }
 
 /* ── CTA row ─────────────────────────────────────────────────────── */
