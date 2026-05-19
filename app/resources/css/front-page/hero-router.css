@@ -190,9 +190,11 @@
   outline-offset: 4px;
 }
 
-/* Unselected placeholder reads dimmer than chosen values. */
+/* Unselected placeholder reads dimmer than chosen values. DESIGN.md §2.5
+   reserves blue-500 for the primary brand accent; placeholders use the
+   blue-300 placeholder/disabled role instead. */
 .hero-router__select:invalid {
-  color: var(--color-blue-500);
+  color: var(--color-blue-300);
 }
 
 .hero-router__select option {
@@ -201,7 +203,7 @@
 }
 
 .hero-router__select option[disabled] {
-  color: var(--color-blue-500);
+  color: var(--color-blue-300);
 }
 
 /* Submit cell: button fills the cell edge-to-edge, no white halo. */

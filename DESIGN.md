@@ -97,18 +97,21 @@ Compact, confident, premium. Sized in pixels for precision.
 | Role | Size | Line height | Default font | Token |
 |------|------|-------------|--------------|-------|
 | caption | 11px | 1.2 | Mono | `--text-caption` |
-| body | 14px | 1.43 | Sans | `--text-body` |
+| body | 16px | 1.5 | Sans | `--text-body` |
 | heading-sm | 20px | 1.4 | Mono | `--text-heading-sm` |
 | heading | 28px | 1.29 | Mono | `--text-heading` |
 | heading-lg | 40px | 1.2 | Sans | `--text-heading-lg` |
 | display | 48px | 1.17 | Sans | `--text-display` |
+| hero (lg+) | 60–72px | 0.95 | Sans | `--text-6xl` / `--text-7xl` |
+
+The `hero` row documents the front-page slider's responsive sizing, which exceeds the standard display scale at lg+ breakpoints. The slider is the one surface where a marquee scale is permitted; everywhere else, `--text-display` is the ceiling.
 
 ### 3.4 Font/weight pairing rules
 
 - **Eyebrows** (small text above a heading): Mono 500, uppercase, tracked, `--color-red` or `--color-blue-500`. 11px.
 - **Section titles** (the label of a section): Mono 500. 20–28px.
 - **Hero / display headlines** (the read line): Sans 400 or 500. 40–48px. Tight leading.
-- **Body copy:** Sans 400. 14px. 1.43 leading.
+- **Body copy:** Sans 400. 16px. 1.5 leading.
 - **Buttons / nav / labels / badges:** Mono 500. 14px or smaller.
 - **Model numbers, specs, metadata:** Mono 400 or 500. Sized to context.
 

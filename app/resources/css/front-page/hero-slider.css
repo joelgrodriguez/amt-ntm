@@ -287,10 +287,10 @@
   height: 1rem;
 }
 
-/* Chrome stack: pagination dots on top, pause toggle beneath, both
-   centered. Absolute-positioned along the bottom of the photo.
-   Vertical layout instead of horizontal; pause is no longer
-   right-edge anchored. */
+/* Chrome stack: pagination dots, centered and absolute-positioned along
+   the bottom of the photo. Previously held a pause toggle below the dots;
+   that affordance was removed. The vertical-stack layout stays in case
+   another secondary chrome element returns. */
 .hero-slider__chrome {
   position: absolute;
   left: 0;
