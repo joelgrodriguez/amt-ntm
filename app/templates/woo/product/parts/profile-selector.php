@@ -27,7 +27,7 @@ get_template_part('templates/woo/product/parts/carousel-section', null, [
     'tag_slugs'     => $tag_slugs,
     'taxonomy'      => 'post_tag',
     'subtitle_tax'  => 'category',
-    'section_class' => 'bg-blue-50',
+    'section_class' => 'bg-blue-50 border-y border-blue-200',
     'carousel_id'   => 'profiles-carousel',
     'eyebrow'       => __('Panel Profiles', 'standard'),
     'title'         => __('Your Panels, Your Way', 'standard'),
