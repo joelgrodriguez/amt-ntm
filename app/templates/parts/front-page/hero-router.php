@@ -21,8 +21,7 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'eyebrow'   => __('Not sure which machine?', 'standard'),
-    'title'     => __('Three answers. One machine.', 'standard'),
+    'title'     => __('Find the machine that fits your shop.', 'standard'),
     'submit'    => __('See My Machine', 'standard'),
     'help'      => __('Or talk to a specialist', 'standard'),
     'form_aria' => __('Find your machine', 'standard'),
@@ -78,9 +77,6 @@ $fields = [
         >
             <div class="hero-router__header">
                 <div class="hero-router__heading">
-                    <span class="hero-router__eyebrow">
-                        <?php echo esc_html($content['eyebrow']); ?>
-                    </span>
                     <h2 id="hero-router-title" class="hero-router__title">
                         <?php echo esc_html($content['title']); ?>
                     </h2>
