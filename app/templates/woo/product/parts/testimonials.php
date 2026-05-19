@@ -68,7 +68,7 @@ $content = [
         <div class="section-content">
 
             <div class="section-header">
-                <p class="section-eyebrow text-red">
+                <p class="section-eyebrow">
                     <?php esc_html_e('Trusted by Contractors Nationwide', 'standard'); ?>
                 </p>
                 <div class="section-divider-center"></div>
