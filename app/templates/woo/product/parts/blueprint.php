@@ -16,6 +16,24 @@ $machine    = $args['machine'] ?? [];
 $dimensions = $machine['specs']['dimensions'] ?? [];
 $svg_name   = $machine['blueprint']['svg'] ?? '';
 
+// ACF 'footprint' field on the product page. May return an attachment
+// ID, a URL string, or an array depending on field config — normalize
+// to a URL or empty string.
+$footprint_url = '';
+$footprint_alt = '';
+if (function_exists('get_field')) {
+    $footprint = get_field('footprint');
+    if (is_array($footprint)) {
+        $footprint_url = $footprint['url'] ?? '';
+        $footprint_alt = $footprint['alt'] ?? '';
+    } elseif (is_numeric($footprint)) {
+        $footprint_url = (string) (wp_get_attachment_image_url((int) $footprint, 'large') ?: '');
+        $footprint_alt = (string) get_post_meta((int) $footprint, '_wp_attachment_image_alt', true);
+    } elseif (is_string($footprint)) {
+        $footprint_url = $footprint;
+    }
+}
+
 if (empty($dimensions)) {
     return;
 }
@@ -51,8 +69,12 @@ $trailer_cols = count($trailer_dims);
             <h2 id="blueprint-title" class="section-title text-white">Machine Footprint</h2>
         </div>
 
-        <div class="border border-blue-700 aspect-[16/7] flex items-center justify-center mx-auto max-w-4xl">
-            <?php if (!empty($svg_name)) : ?>
+        <div class="border border-blue-700 aspect-[16/7] flex items-center justify-center mx-auto max-w-4xl overflow-hidden">
+            <?php if (!empty($footprint_url)) : ?>
+                <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'large', [
+                    'class' => 'w-full h-full object-contain',
+                ]); ?>
+            <?php elseif (!empty($svg_name)) : ?>
                 <span class="text-blue-400 text-sm font-mono"><?php echo esc_html($svg_name); ?>.svg</span>
             <?php else : ?>
                 <span class="text-blue-400 text-sm font-mono">Blueprint</span>
