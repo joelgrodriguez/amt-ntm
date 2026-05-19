@@ -2,12 +2,15 @@
 /**
  * Hero Slide Template Part
  *
- * Renders a single slide in the hero slider. Mobile-first composition:
- *   - photo region with title + slogan + CTAs anchored bottom-left
- *   - spec band beneath the photo (in-flow on mobile, overlaid on lg+)
+ * Renders a single slide in the hero slider. Composition:
+ *   - photo region (full-bleed)
+ *   - top-right vertical spec stack overlaid on the photo
+ *     (white mono, no chrome — gives the engineered moment
+ *      without competing with the headline for attention)
+ *   - bottom-left content stack: eyebrow, title, slogan, CTA
  *
  * The whole composition is one unit per slide; sliding the track
- * moves photo + specs together (one cinematic block).
+ * moves photo + overlays together (one cinematic block).
  *
  * Expects $args array with machine data including `stats`.
  *
@@ -80,6 +83,22 @@ $is_first         = $index === 0;
         <div class="hero-overlay"></div>
         <div class="hero-overlay__grain"></div>
 
+        <!-- Top-right spec stack — no chrome, white mono on photo -->
+        <?php if (!empty($stats)) : ?>
+            <ul class="hero-slider__topspecs" aria-label="<?php echo esc_attr(sprintf(__('%s specifications', 'standard'), $title)); ?>">
+                <?php foreach ($stats as $stat) : ?>
+                    <li class="hero-slider__topspec">
+                        <span class="hero-slider__topspec-value">
+                            <?php echo esc_html($stat['value']); ?>
+                        </span>
+                        <span class="hero-slider__topspec-label">
+                            <?php echo esc_html($stat['label']); ?>
+                        </span>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+
         <div class="hero-slider__content">
             <div class="container hero-slider__content-inner">
                 <?php if ($category) : ?>
@@ -111,23 +130,4 @@ $is_first         = $index === 0;
         </div>
     </div>
 
-    <!-- Spec strip — in-flow band on mobile, overlaid on lg+ -->
-    <?php if (!empty($stats)) : ?>
-        <div class="hero-slider__specs" aria-label="<?php echo esc_attr(sprintf(__('%s specifications', 'standard'), $title)); ?>">
-            <div class="container">
-                <div class="hero-slider__specs-inner">
-                    <?php foreach ($stats as $stat) : ?>
-                        <div class="hero-slider__spec">
-                            <span class="hero-slider__spec-label">
-                                <?php echo esc_html($stat['label']); ?>
-                            </span>
-                            <span class="hero-slider__spec-value">
-                                <?php echo esc_html($stat['value']); ?>
-                            </span>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </div>
-    <?php endif; ?>
 </div>

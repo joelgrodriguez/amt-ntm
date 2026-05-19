@@ -13,37 +13,19 @@
  * @see inc/machines.php - Machine data configuration
  */
 
-/* Slider container. Mobile-first: height is content-driven (photo +
-   spec band stacked). On lg+, the spec band overlays the photo so the
-   slider returns to a fixed viewport-relative height.
+/* Slider container. Photo is full-bleed at every breakpoint; specs
+   overlay the photo top-right, so the slider height is always just
+   viewport-minus-header.
 
-   --hero-spec-band-height is the mobile in-flow spec band's height.
-   The slider chrome (nav arrows, progress bar, pause toggle) uses
-   this to anchor above the in-flow band on mobile, then resets to 0
-   on lg+ where the band is absolutely positioned. Two rows of two
-   specs (~58px each + 1px divider) ≈ 117px; round to 120px. Four
-   rows wouldn't occur because the design ships 4 stats per machine. */
+   --hero-spec-band-height is kept (at 0) so the photo height calc and
+   nav arrow positioning below don't need to change in lockstep with
+   any future re-introduction of a separate spec band. */
 .hero-slider {
   position: relative;
   width: 100%;
   overflow: hidden;
   background-color: var(--color-black);
-  --hero-spec-band-height: 140px;
-}
-
-@media (min-width: 768px) {
-  .hero-slider {
-    /* md+: spec band is a single row of 4. */
-    --hero-spec-band-height: 76px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .hero-slider {
-    /* lg+: spec band is absolute-positioned on the photo, so slider
-       chrome no longer needs to lift above it. */
-    --hero-spec-band-height: 0px;
-  }
+  --hero-spec-band-height: 0px;
 }
 
 /* Slides track - holds all slides in a row */
@@ -53,9 +35,8 @@
   will-change: transform;
 }
 
-/* Individual slide. Mobile: column flex (photo over specs). On lg+,
-   the slide becomes the full slider height with specs absolutely
-   positioned over the photo. */
+/* Individual slide. Full-bleed photo at every viewport; spec stack and
+   content stack overlay it as positioned children. */
 .hero-slider__slide {
   position: relative;
   flex: 0 0 100%;
@@ -74,11 +55,9 @@
   background-color: color-mix(in srgb, var(--color-black) 50%, transparent);
 }
 
-/* Photo region: holds media + overlay + content stack.
-   Slider total height = viewport - header - spec band, so the hero
-   plus its spec band exactly fits below the site header without
-   pushing the router section below the fold. On lg+ the spec band
-   is absolute-positioned, so the var is 0 there. */
+/* Photo region: holds media + overlay + top-right spec stack + content
+   stack. Slider total height = viewport - header, so the hero exactly
+   fits below the site header. */
 .hero-slider__photo {
   position: relative;
   width: 100%;
@@ -110,9 +89,9 @@
    inner content stack to the bottom of the photo region. Horizontal
    max-width + padding come from the .container child so the title's
    left edge lines up with the router section beneath. Vertical
-   padding clears the bottom progress bar / spec strip and lifts the
-   title block higher into the photo's lower third (premium marquee
-   composition, not anchored flush to the photo edge). */
+   padding clears the bottom progress bar and lifts the title block
+   higher into the photo's lower third (premium marquee composition,
+   not anchored flush to the photo edge). */
 .hero-slider__content {
   position: absolute;
   inset: 0;
@@ -188,65 +167,78 @@
   gap: 0.75rem;
 }
 
-/* Spec strip — mobile-first: in-flow dark band beneath the photo.
-   blue-900 surface (the marquee photo uses pure black, but the
-   strip stays brand-tinted so it reads as a documented dark surface
-   per DESIGN.md §2.5, not a continuation of the cinematic overlay). */
-.hero-slider__specs {
-  width: 100%;
-  background-color: var(--color-blue-900);
-  border-top: 1px solid var(--color-blue-700);
-}
-
-.hero-slider__specs-inner {
+/* Top-right spec stack — overlay, no chrome.
+   Vertical list of value+label pairs in the upper-right corner of the
+   photo. White mono, no background or border so the photography stays
+   the hero. Right-aligned so the values sit flush against the right
+   edge and the eye is drawn from photo -> stats -> back to the photo,
+   not held by a dense band. */
+.hero-slider__topspecs {
+  position: absolute;
+  top: 1.5rem;
+  right: 1rem;
+  z-index: 3;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+  pointer-events: none;
+  max-width: 45%;
 }
 
-.hero-slider__spec {
+@media (min-width: 768px) {
+  .hero-slider__topspecs {
+    top: 2rem;
+    right: 2rem;
+    gap: 1rem;
+    max-width: 40%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-slider__topspecs {
+    top: 2.5rem;
+    right: 3rem;
+  }
+}
+
+.hero-slider__topspec {
   display: grid;
-  gap: 0.25rem;
-  align-content: center;
-  padding: 0.75rem 1rem;
-  min-height: 70px;
-  min-width: 0;
-  overflow: hidden;
-  border-right: 1px solid var(--color-blue-700);
-  border-bottom: 1px solid var(--color-blue-700);
+  gap: 0.125rem;
+  line-height: 1;
 }
 
-/* Remove right border on every 2nd cell (end of mobile row) */
-.hero-slider__spec:nth-child(2n) {
-  border-right: none;
+.hero-slider__topspec-value {
+  font-family: var(--font-mono);
+  font-size: var(--text-heading-sm);
+  font-weight: 500;
+  color: var(--color-white);
+  line-height: 1;
 }
 
-/* Remove bottom border on the last row */
-.hero-slider__spec:nth-last-child(-n + 2) {
-  border-bottom: none;
-}
-
-.hero-slider__spec-label {
+.hero-slider__topspec-label {
   font-family: var(--font-mono);
   font-size: var(--text-caption);
   font-weight: 500;
-  color: var(--color-blue-400);
+  color: var(--color-blue-200);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-.hero-slider__spec-value {
-  font-family: var(--font-sans);
-  font-size: var(--text-heading-sm);
-  font-weight: 500;
-  color: var(--color-white);
-  line-height: 1.1;
+@media (min-width: 1024px) {
+  .hero-slider__topspec-value {
+    font-size: var(--text-heading);
+  }
 }
 
 /* Navigation arrows. Anchored to roughly the photo's upper third so
    they sit clear of the content stack (eyebrow, title, slogan, CTA)
    at the bottom and don't brush against the eyebrow on shorter
-   viewports. Accounts for the in-flow spec band beneath on mobile
-   by shifting up by half the band's height. */
+   viewports. The --hero-spec-band-height var is 0 today; the calc
+   stays so a future re-introduction of an in-flow band doesn't need
+   to re-wire arrow positioning. */
 .hero-slider__nav {
   position: absolute;
   top: calc(38% - var(--hero-spec-band-height) / 2);
@@ -308,14 +300,6 @@
   pointer-events: auto;
 }
 
-@media (min-width: 1024px) {
-  .hero-slider__chrome {
-    /* No in-flow spec band on lg+; specs overlay the photo bottom
-       at ~94px. Lift the chrome stack well above the spec strip. */
-    bottom: 7.25rem;
-  }
-}
-
 /* Progress dot row. Centered in the chrome band. */
 .hero-slider__progress {
   display: flex;
@@ -375,26 +359,6 @@
     font-size: 1.125rem;
   }
 
-  /* 4 spec columns on md+ */
-  .hero-slider__specs-inner {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .hero-slider__spec {
-    padding: 1rem 1.25rem;
-    border-bottom: none;
-  }
-
-  /* Reset: every spec now in one row, every nth applies different rules */
-  .hero-slider__spec:nth-child(2n) {
-    border-right: 1px solid var(--color-blue-700);
-  }
-
-  /* Remove right border on the last cell only */
-  .hero-slider__spec:last-child {
-    border-right: none;
-  }
-
   .hero-slider__nav {
     width: 3rem;
     height: 3rem;
@@ -410,36 +374,16 @@
 }
 
 @media (min-width: 1024px) {
-  /* Spec strip overlays the photo at the bottom; photo height is
-     100dvh - header (--hero-spec-band-height is 0 at this breakpoint).
-     No min-height override — short desktop viewports just get a
-     proportionally shorter hero rather than overflowing the fold. */
+  /* No min-height override on the photo — short desktop viewports just
+     get a proportionally shorter hero rather than overflowing the fold. */
 
-  .hero-slider__specs {
-    position: absolute;
-    inset: auto 0 0 0;
-    z-index: 4;
-    background-color: color-mix(in srgb, var(--color-blue-900) 92%, transparent);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-
-  .hero-slider__spec {
-    padding: 1.25rem 1.5rem;
-  }
-
-  .hero-slider__spec-value {
-    font-size: var(--text-heading);
-  }
-
-  /* Content stack lifts to clear the overlaid spec strip + bottom
-     progress bar, with extra air so the title sits in the lower
-     third of the photo, not flush against the spec strip. Clamped
-     so short desktop viewports (<800px tall laptops, browser windows
-     resized vertically) don't crowd the title into the photo top. */
+  /* Content stack sits in the photo's lower third with enough air to
+     clear the bottom progress bar. Clamped so short desktop viewports
+     (<800px tall laptops, browser windows resized vertically) don't
+     crowd the title into the photo top. */
   .hero-slider__content {
     padding-top: 2rem;
-    padding-bottom: clamp(8rem, 20vh, 14rem);
+    padding-bottom: clamp(6rem, 16vh, 12rem);
   }
 
   .hero-slider__title {
