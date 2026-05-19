@@ -52,7 +52,7 @@ $tools = [
 ];
 ?>
 
-<section class="section bg-white border-b border-blue-200" aria-labelledby="tools-title">
+<section class="section bg-blue-50 border-b border-blue-200" aria-labelledby="tools-title">
     <div class="container grid gap-12 lg:gap-16">
 
         <div class="max-w-2xl">

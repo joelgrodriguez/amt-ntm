@@ -8,16 +8,18 @@
  *   explore       (browse the catalog)
  *   flagships     (curated callouts: SSQ3 + MACH II Combo)
  *   router        (for the unsure: dial in 3 answers)
- *   tools         (research aids)
- *   learning      (educate)
+ *   learning      (educate: recent posts, videos, downloads)
+ *   tools         (research aids: quiz, calc, manuals, compare)
  *   why-own       (the case)
  *   social-proof  (trust)
  *   three-step    (how buying works)
  *   final-cta     (close)
  *
- * Research surfaces (tools, learning) sit BEFORE the case-and-trust
+ * Research cluster (learning + tools) sits BEFORE the case-and-trust
  * surfaces (why-own, social-proof) so the page commits forward in the
- * back half instead of zigzagging buyer → researcher → buyer.
+ * back half instead of zigzagging buyer → researcher → buyer. Tools
+ * sits after learning (not before router) so it doesn't read as a
+ * second 'find your machine' surface right after the router itself.
  *
  * Contact lives at /contact/. Pain-points + value-prop are merged
  * into why-own.
@@ -46,9 +48,9 @@ get_header();
 
     <?php get_template_part('templates/parts/front-page/router'); ?>
 
-    <?php get_template_part('templates/parts/front-page/tools'); ?>
-
     <?php get_template_part('templates/parts/learning-center'); ?>
+
+    <?php get_template_part('templates/parts/front-page/tools'); ?>
 
     <?php get_template_part('templates/parts/front-page/why-own'); ?>
 
