@@ -58,7 +58,7 @@ $tools = [
             <p class="section-eyebrow">
                 <?php echo esc_html($content['eyebrow']); ?>
             </p>
-            <h2 id="tools-title" class="mt-4 font-sans font-medium text-blue-900 leading-[1.05] tracking-tight text-4xl md:text-5xl lg:text-6xl">
+            <h2 id="tools-title" class="section-title mt-4">
                 <?php echo esc_html($content['title']); ?>
             </h2>
             <p class="mt-6 max-w-md font-sans text-blue-600 text-base leading-relaxed lg:text-lg">
