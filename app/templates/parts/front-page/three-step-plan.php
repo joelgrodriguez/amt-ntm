@@ -22,9 +22,13 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'channel' => __('Process / 3 phase', 'standard'),
-    'channel_right' => __('Build & Finance', 'standard'),
-    'title'   => __('How a machine gets built and shipped.', 'standard'),
+    'channel'         => __('How You Buy', 'standard'),
+    'channel_right'   => __('Spec / Build / Deliver', 'standard'),
+    'title'           => __('How a machine gets built and shipped.', 'standard'),
+    'footer_left_k'   => __('Lead time', 'standard'),
+    'footer_left_v'   => __('6 to 10 weeks', 'standard'),
+    'footer_right_k'  => __('Financing', 'standard'),
+    'footer_right_v'  => __('Available', 'standard'),
 ];
 
 $phases = [
@@ -49,13 +53,13 @@ $phases = [
 ];
 ?>
 
-<section class="bg-blue-900 text-blue-500" aria-labelledby="process-title">
+<section class="bg-blue-900 text-blue-400" aria-labelledby="process-title">
     <!-- Top chrome bar -->
     <div class="border-b border-blue-800">
         <div class="border-x border-blue-800 container">
             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
                 <div class="flex items-center gap-3 pl-3">
-                    <span class="w-2 h-2 bg-blue-500 animate-pulse"></span>
+                    <span class="w-2 h-2 bg-red" aria-hidden="true"></span>
                     <span><?php echo esc_html($content['channel']); ?></span>
                 </div>
                 <div class="flex items-center gap-3 pr-3">
@@ -74,15 +78,15 @@ $phases = [
             <div class="grid md:grid-cols-3">
                 <?php foreach ($phases as $i => $phase) : ?>
                     <div class="grid gap-4 p-6 lg:p-8 <?php echo $i > 0 ? 'border-t border-blue-800 md:border-t-0 md:border-l' : ''; ?>">
-                        <div class="flex items-baseline gap-3 font-mono uppercase tracking-wider text-xs text-blue-500">
+                        <div class="flex items-baseline gap-2 font-mono uppercase tracking-wider text-xs text-blue-400">
                             <span><?php echo esc_html($phase['index']); ?></span>
-                            <span class="flex-1 h-px bg-blue-800"></span>
+                            <span class="w-8 h-px bg-blue-700" aria-hidden="true"></span>
                             <span><?php echo esc_html($phase['label']); ?></span>
                         </div>
-                        <h3 class="font-sans font-medium text-white text-xl lg:text-2xl leading-tight">
+                        <h3 class="font-sans font-medium text-white text-lg md:text-xl lg:text-2xl leading-tight">
                             <?php echo esc_html($phase['title']); ?>
                         </h3>
-                        <p class="font-sans text-blue-300 text-sm leading-relaxed">
+                        <p class="font-sans text-blue-200 text-sm leading-relaxed">
                             <?php echo esc_html($phase['text']); ?>
                         </p>
                     </div>
@@ -96,16 +100,17 @@ $phases = [
         <div class="border-x border-blue-800 container">
             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
                 <div class="flex items-center gap-2 pl-3">
-                    <span><?php esc_html_e('Lead time', 'standard'); ?></span>
-                    <span class="text-white"><?php esc_html_e('6 to 10 weeks', 'standard'); ?></span>
+                    <span><?php echo esc_html($content['footer_left_k']); ?></span>
+                    <span class="text-white"><?php echo esc_html($content['footer_left_v']); ?></span>
                 </div>
                 <div class="flex items-center gap-4 pr-3">
-                    <span><?php esc_html_e('Status', 'standard'); ?></span>
+                    <span><?php echo esc_html($content['footer_right_k']); ?></span>
+                    <span class="text-white"><?php echo esc_html($content['footer_right_v']); ?></span>
                     <div class="flex gap-1" aria-hidden="true">
                         <span class="w-1 h-3 bg-blue-700"></span>
                         <span class="w-1 h-3 bg-blue-700"></span>
-                        <span class="w-1 h-3 bg-blue-600"></span>
-                        <span class="w-1 h-3 bg-blue-500"></span>
+                        <span class="w-1 h-3 bg-blue-700"></span>
+                        <span class="w-1 h-3 bg-red"></span>
                     </div>
                 </div>
             </div>
