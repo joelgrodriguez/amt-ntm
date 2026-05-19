@@ -18,10 +18,12 @@ $svg_name   = $machine['blueprint']['svg'] ?? '';
 
 // ACF 'footprint' field on the product page. Field is a relationship
 // to a 'footprint' custom post type; resolve the linked post's
-// featured image. Field returns an array of post IDs (or post objects)
-// — use the first.
-$footprint_url = '';
-$footprint_alt = '';
+// featured image and its PDF attachment (embedded inside a
+// pdfjs-embed block in the post content). Field returns an array of
+// post IDs (or post objects) — use the first.
+$footprint_url     = '';
+$footprint_alt     = '';
+$footprint_pdf_url = '';
 if (function_exists('get_field')) {
     $footprint = get_field('footprint');
     $footprint_post_id = 0;
@@ -46,6 +48,17 @@ if (function_exists('get_field')) {
             $footprint_alt = (string) get_post_meta($thumb_id, '_wp_attachment_image_alt', true);
             if ($footprint_alt === '') {
                 $footprint_alt = (string) get_the_title($footprint_post_id);
+            }
+        }
+
+        // Extract the PDF URL from the pdfjs-embed block in the post content.
+        $footprint_post = get_post($footprint_post_id);
+        if ($footprint_post && function_exists('parse_blocks')) {
+            foreach (parse_blocks($footprint_post->post_content) as $block) {
+                if (($block['blockName'] ?? '') === 'pdfjsblock/pdfjs-embed' && !empty($block['attrs']['imageURL'])) {
+                    $footprint_pdf_url = (string) $block['attrs']['imageURL'];
+                    break;
+                }
             }
         }
     }
@@ -86,12 +99,26 @@ if (!empty($trailer_raw['weight'])) { $trailer_dims['Weight'] = $trailer_raw['we
 
         <div class="grid gap-10 lg:grid-cols-2 lg:gap-12 lg:items-center">
 
-            <!-- Diagram at natural proportions. -->
+            <!-- Diagram at natural proportions. Click opens the PDF in a new tab when available. -->
             <div class="lg:justify-self-end">
                 <?php if (!empty($footprint_url)) : ?>
-                    <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'large', [
-                        'class' => 'block max-w-full h-auto',
-                    ]); ?>
+                    <?php if (!empty($footprint_pdf_url)) : ?>
+                        <a
+                            href="<?php echo esc_url($footprint_pdf_url); ?>"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="<?php echo esc_attr(sprintf(__('Open %s PDF in a new tab', 'standard'), $footprint_alt)); ?>"
+                            class="block transition-opacity hover:opacity-90"
+                        >
+                            <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'large', [
+                                'class' => 'block max-w-full h-auto',
+                            ]); ?>
+                        </a>
+                    <?php else : ?>
+                        <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'large', [
+                            'class' => 'block max-w-full h-auto',
+                        ]); ?>
+                    <?php endif; ?>
                 <?php else : ?>
                     <div class="border border-blue-700 aspect-[16/7] flex items-center justify-center">
                         <span class="text-blue-400 text-sm font-mono"><?php echo esc_html(!empty($svg_name) ? $svg_name . '.svg' : 'Blueprint'); ?></span>
