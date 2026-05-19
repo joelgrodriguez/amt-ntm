@@ -93,13 +93,14 @@ if (empty($testimonials)) {
 
     <div class="container grid gap-8 lg:gap-10">
 
-        <!-- Eyebrow sits directly above the testimonials, centered -->
-        <p class="font-mono uppercase text-xs tracking-wider text-blue-700 text-center">
-            <?php echo esc_html($content['eyebrow']); ?>
-        </p>
-
         <!-- Slider -->
-        <div class="social-proof__slider relative max-w-3xl mx-auto grid gap-10 lg:gap-12">
+        <div class="social-proof__slider relative max-w-3xl mx-auto grid gap-8 lg:gap-10">
+            <div class="grid md:grid-cols-[140px_1fr] md:gap-10">
+                <p class="font-mono uppercase text-xs tracking-wider text-blue-700">
+                    <?php echo esc_html($content['eyebrow']); ?>
+                </p>
+            </div>
+
             <div
                 class="social-proof__track"
                 role="region"

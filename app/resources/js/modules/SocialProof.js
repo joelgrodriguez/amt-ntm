@@ -13,7 +13,7 @@
  * @template templates/woo/product/parts/testimonials.php
  */
 
-const AUTOPLAY_INTERVAL = 4000;
+const AUTOPLAY_INTERVAL = 6500;
 
 let autoplayTimer = null;
 let abortController = null;
