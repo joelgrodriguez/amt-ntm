@@ -4,15 +4,16 @@
  *
  * Custom template for the About page. Composition:
  *
- *   manifesto   (dark chrome-bar hero with metric strip)
- *   video       (reuses the shared video-section, retitled "Who Is NTM?")
- *   origin      (light blueprint frame: narrative + ledger)
- *   timeline    (dark band: 10 firsts, 1991 → 2021)
- *   leadership  (light frame: memberships + closing CTA)
+ *   manifesto   (light editorial: eyebrow + headline + lede + photo + metric strip)
+ *   video       (dark, chrome-bar framed Who Is NTM)
+ *   origin      (light: institutional narrative + spec ledger)
+ *   timeline    (dark, chrome-bar framed: 5 signature firsts)
+ *   leadership  (light: industry standing + MCA/NRCA/CRA memberships)
+ *   closer      (shared dark CTA, reused from the front page)
  *
- * All sections share the chrome-bar / hairline blueprint language used
- * across three-step-plan, case-study, and blueprint. The about page
- * extends the system; it doesn't introduce a new one.
+ * Light dominates; the two dark sections (video, timeline) carry the
+ * chrome-bar grammar where it earns its seat. Calm, paced, leadership-
+ * voiced, not busy.
  *
  * Set this template on the About page from Page > Page Attributes >
  * Template > "About".
@@ -45,6 +46,14 @@ get_header();
     <?php get_template_part('templates/parts/about/timeline'); ?>
 
     <?php get_template_part('templates/parts/about/leadership'); ?>
+
+    <?php get_template_part('templates/parts/cta/closer', null, [
+        'title'           => __('Ready to Take Control of Your Business?', 'standard'),
+        'text'            => __('Join thousands of contractors who stopped waiting on suppliers and started rolling their own profits.', 'standard'),
+        'cta_primary'     => __('Talk to a Specialist', 'standard'),
+        'cta_primary_url' => '/contact/',
+        'section_id'      => 'about-closer-title',
+    ]); ?>
 
 </main>
 

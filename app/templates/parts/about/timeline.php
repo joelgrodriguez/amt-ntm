@@ -2,13 +2,14 @@
 /**
  * About — Product Evolution Timeline
  *
- * Dark band. Horizontal blueprint track of NTM's 10 category firsts,
- * 1991 → 2021. Each entry is a mono cell on a continuous hairline rail.
- * Red dots mark the three category-defining originals (SSP '91,
- * MACH II '94, polyurethane drive roller). Mobile collapses to a vertical
- * list with the same dot grammar.
+ * Dark band. Five signature firsts that defined the portable rollforming
+ * category. Each is a roomy mono cell on a continuous hairline rail.
+ * Chrome bars top and bottom; this is the one section on the page where
+ * the chrome-bar grammar earns its seat (a literal timeline, not a
+ * generic content frame).
  *
- * No card grid, no icon set. The rail and the dot are the design.
+ * Five entries instead of ten: leadership reads through restraint. The
+ * full evolution can live elsewhere; this page is the signature.
  *
  * @package Standard
  * @usage About Page (page-about.php)
@@ -21,26 +22,46 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'channel_left'  => __('Evolution', 'standard'),
-    'channel_right' => __('1991 – 2021 / 10 firsts', 'standard'),
+    'channel_left'  => __('Signature firsts', 'standard'),
+    'channel_right' => __('1991 – 2021 / Five turning points', 'standard'),
     'eyebrow'       => __('Product evolution', 'standard'),
-    'title'         => __('Ten firsts, one industry standard.', 'standard'),
-    'lede'          => __('Every machine on this list shipped before the rest of the category had an answer for it. Most are still imitated.', 'standard'),
+    'title'         => __('The five machines that defined the category.', 'standard'),
+    'lede'          => __('Each one shipped before the rest of the industry had an answer. Most are still imitated.', 'standard'),
     'footer_left'   => __('Track', 'standard'),
-    'footer_right'  => __('Originals, marked in red', 'standard'),
+    'footer_right'  => __('Originals only', 'standard'),
 ];
 
 $milestones = [
-    ['year' => '1991', 'model' => 'SSP',         'name' => __('Roof Panel Machine',         'standard'), 'original' => true],
-    ['year' => '1994', 'model' => 'MACH II',     'name' => __('Seamless Gutter Machine',    'standard'), 'original' => true],
-    ['year' => '2001', 'model' => 'SSR Multi Pro Jr.', 'name' => __('Roof Panel Machine',  'standard'), 'original' => false],
-    ['year' => '2004', 'model' => 'SSH',         'name' => __('Roof Panel Machine',         'standard'), 'original' => false],
-    ['year' => '2005', 'model' => 'BG7',         'name' => __('Box Gutter Machine',         'standard'), 'original' => false],
-    ['year' => '2006', 'model' => '5V Crimp',    'name' => __('Roof Panel Machine',         'standard'), 'original' => false],
-    ['year' => '2008', 'model' => 'SSQ',         'name' => __('Quick Change Roof Panel',    'standard'), 'original' => false],
-    ['year' => '2017', 'model' => 'WPM WAV',     'name' => __('Wall Panel Machine',         'standard'), 'original' => false],
-    ['year' => '2018', 'model' => 'SSQ II',      'name' => __('Roof Panel Machine',         'standard'), 'original' => false],
-    ['year' => '2021', 'model' => 'UNIQ',        'name' => __('Control System',             'standard'), 'original' => true],
+    [
+        'year'  => '1991',
+        'model' => 'SSP',
+        'name'  => __('Roof Panel Machine', 'standard'),
+        'note'  => __('The machine that started the modern portable roof panel category.', 'standard'),
+    ],
+    [
+        'year'  => '1994',
+        'model' => 'MACH II',
+        'name'  => __('Seamless Gutter Machine', 'standard'),
+        'note'  => __('Did for gutters what the SSP did for roof panels.', 'standard'),
+    ],
+    [
+        'year'  => 'Early 90s',
+        'model' => __('Polyurethane Drive Roller', 'standard'),
+        'name'  => __('Industry-First Mechanism', 'standard'),
+        'note'  => __('Separate forming rollers, polyurethane drive. Today almost every portable rollformer uses the approach.', 'standard'),
+    ],
+    [
+        'year'  => '2008',
+        'model' => 'SSQ',
+        'name'  => __('Quick Change Roof Panel Machine', 'standard'),
+        'note'  => __('Profile changeovers in minutes, not hours. The platform that became SSQ II.', 'standard'),
+    ],
+    [
+        'year'  => '2021',
+        'model' => 'UNIQ',
+        'name'  => __('Control System', 'standard'),
+        'note'  => __('NTM\'s digital control platform. The current standard for our machines.', 'standard'),
+    ],
 ];
 ?>
 
@@ -63,16 +84,14 @@ $milestones = [
 
     <!-- Headline -->
     <div class="border-x border-blue-800 container">
-        <div class="px-6 lg:px-10 pt-12 lg:pt-16 pb-8 lg:pb-12 max-w-3xl">
+        <div class="px-6 lg:px-10 pt-14 lg:pt-20 pb-10 lg:pb-14 max-w-3xl">
             <div class="grid gap-5">
 
-                <div class="flex items-baseline gap-2 font-mono uppercase tracking-wider text-xs text-red">
-                    <span>02</span>
-                    <span class="w-8 h-px bg-blue-700" aria-hidden="true"></span>
-                    <span><?php echo esc_html($content['eyebrow']); ?></span>
-                </div>
+                <p class="font-mono uppercase tracking-wider text-xs text-red">
+                    <?php echo esc_html($content['eyebrow']); ?>
+                </p>
 
-                <h2 id="about-timeline-title" class="font-sans font-medium text-white text-2xl md:text-3xl lg:text-4xl leading-tight tracking-tight">
+                <h2 id="about-timeline-title" class="font-sans font-medium text-white text-2xl md:text-3xl lg:text-[2.5rem] leading-tight tracking-tight">
                     <?php echo esc_html($content['title']); ?>
                 </h2>
 
@@ -83,62 +102,34 @@ $milestones = [
             </div>
         </div>
 
-        <!-- The rail: desktop = horizontal scroll track with continuous hairline,
-             mobile = vertical list with continuous hairline. Same grammar both ways. -->
-        <div class="border-t border-blue-800">
-            <!-- Mobile: vertical -->
-            <ol class="lg:hidden">
-                <?php foreach ($milestones as $i => $m) : ?>
-                    <li class="<?php echo $i > 0 ? 'border-t border-blue-800' : ''; ?>">
-                        <div class="flex items-center gap-4 px-6 py-5">
-                            <span class="w-2 h-2 shrink-0 <?php echo $m['original'] ? 'bg-red' : 'bg-blue-500'; ?>" aria-hidden="true"></span>
-                            <span class="font-mono text-sm text-blue-400 w-12 shrink-0"><?php echo esc_html($m['year']); ?></span>
-                            <div class="grid gap-0.5">
-                                <span class="font-mono text-sm text-white"><?php echo esc_html($m['model']); ?></span>
-                                <span class="font-mono uppercase tracking-wider text-[0.625rem] text-blue-400">
-                                    <?php echo esc_html($m['name']); ?>
-                                    <?php if ($m['original']) : ?>
-                                        <span class="text-red"> / Original</span>
-                                    <?php endif; ?>
-                                </span>
-                            </div>
+        <!-- The rail: five roomy cells on a continuous hairline. Desktop = five
+             columns, mobile = vertical stack. Each cell has air to breathe. -->
+        <ol class="border-t border-blue-800 grid grid-cols-1 lg:grid-cols-5">
+            <?php foreach ($milestones as $i => $m) : ?>
+                <li class="relative px-6 lg:px-7 py-10 lg:py-12
+                    <?php echo $i > 0 ? 'border-t lg:border-t-0 lg:border-l border-blue-800' : ''; ?>">
+                    <div class="grid gap-4">
+                        <!-- Year + dot -->
+                        <div class="flex items-center gap-2 font-mono">
+                            <span class="w-2 h-2 bg-red" aria-hidden="true"></span>
+                            <span class="text-sm text-red uppercase tracking-wider"><?php echo esc_html($m['year']); ?></span>
                         </div>
-                    </li>
-                <?php endforeach; ?>
-            </ol>
-
-            <!-- Desktop: horizontal track. Overflow-x for narrower lg viewports;
-                 widens evenly on xl+. -->
-            <div class="hidden lg:block overflow-x-auto">
-                <ol class="grid grid-cols-10 min-w-[1024px]">
-                    <?php foreach ($milestones as $i => $m) : ?>
-                        <li class="relative px-5 py-8 <?php echo $i > 0 ? 'border-l border-blue-800' : ''; ?>">
-                            <div class="grid gap-3">
-                                <!-- Year + dot, aligned together -->
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 <?php echo $m['original'] ? 'bg-red' : 'bg-blue-500'; ?>" aria-hidden="true"></span>
-                                    <span class="font-mono text-sm text-blue-400"><?php echo esc_html($m['year']); ?></span>
-                                </div>
-                                <!-- Model -->
-                                <div class="grid gap-1">
-                                    <span class="font-mono font-medium text-base text-white leading-tight">
-                                        <?php echo esc_html($m['model']); ?>
-                                    </span>
-                                    <span class="font-mono uppercase tracking-wider text-[0.625rem] text-blue-400 leading-snug">
-                                        <?php echo esc_html($m['name']); ?>
-                                    </span>
-                                    <?php if ($m['original']) : ?>
-                                        <span class="font-mono uppercase tracking-wider text-[0.625rem] text-red mt-1">
-                                            <?php esc_html_e('Original', 'standard'); ?>
-                                        </span>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                        </li>
-                    <?php endforeach; ?>
-                </ol>
-            </div>
-        </div>
+                        <!-- Model -->
+                        <h3 class="font-mono font-medium text-white text-lg leading-tight">
+                            <?php echo esc_html($m['model']); ?>
+                        </h3>
+                        <!-- Subtitle in mono caps -->
+                        <p class="font-mono uppercase tracking-wider text-[0.625rem] text-blue-400 leading-snug -mt-2">
+                            <?php echo esc_html($m['name']); ?>
+                        </p>
+                        <!-- Body note in sans for readability -->
+                        <p class="font-sans text-blue-300 text-sm leading-relaxed">
+                            <?php echo esc_html($m['note']); ?>
+                        </p>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ol>
     </div>
 
     <!-- Bottom chrome bar -->

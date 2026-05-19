@@ -1,13 +1,15 @@
 <?php
 /**
- * Final CTA Section Template Part
+ * Final CTA Section — Front Page
  *
- * Closing call-to-action with dual options for different buyer stages.
- * Dark background for visual weight before footer.
+ * Thin data wrapper around the shared closer CTA part. Centralizes the
+ * closing copy used on the front page; the visual template lives at
+ * templates/parts/cta/closer.php.
  *
  * @package Standard
  *
  * @usage Front Page (front-page.php)
+ * @see   templates/parts/cta/closer.php
  */
 
 declare(strict_types=1);
@@ -16,33 +18,10 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$content = [
-    'title'         => __('Ready to Take Control of Your Business?', 'standard'),
-    'text'          => __('Join thousands of contractors who stopped waiting on suppliers and started rolling their own profits.', 'standard'),
-    'cta_primary'   => __('Talk to a Specialist', 'standard'),
+get_template_part('templates/parts/cta/closer', null, [
+    'title'           => __('Ready to Take Control of Your Business?', 'standard'),
+    'text'            => __('Join thousands of contractors who stopped waiting on suppliers and started rolling their own profits.', 'standard'),
+    'cta_primary'     => __('Talk to a Specialist', 'standard'),
     'cta_primary_url' => '/contact/',
-];
-?>
-
-<section class="section bg-blue-900" aria-labelledby="final-cta-title">
-    <div class="container grid gap-8 lg:gap-10 text-center">
-
-        <div class="grid gap-4">
-            <h2 id="final-cta-title" class="final-cta__title font-sans font-medium text-white">
-                <?php echo esc_html($content['title']); ?>
-            </h2>
-
-            <p class="final-cta__subtitle font-sans text-blue-300 max-w-2xl mx-auto">
-                <?php echo esc_html($content['text']); ?>
-            </p>
-        </div>
-
-        <div class="flex justify-center">
-            <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="btn btn-primary">
-                <?php echo esc_html($content['cta_primary']); ?>
-                <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
-            </a>
-        </div>
-
-    </div>
-</section>
+    'section_id'      => 'final-cta-title',
+]);
