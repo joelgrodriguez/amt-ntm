@@ -89,18 +89,54 @@ if (!empty($trailer_raw['weight'])) { $trailer_dims['Weight'] = $trailer_raw['we
 
 ?>
 
-<section class="bg-blue-50 border-y border-blue-200 section" aria-labelledby="blueprint-title">
-    <div class="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 section-content">
+<?php
+// Two-cell composition: machine + trailer. Render only the cells that
+// have data so a missing block doesn't leave an empty column.
+$cells = [];
+if (!empty($machine_dims)) {
+    $cells[] = [
+        'index' => '01',
+        'label' => __('Machine', 'standard'),
+        'dims'  => $machine_dims,
+    ];
+}
+if (!empty($trailer_dims)) {
+    $cells[] = [
+        'index' => sprintf('%02d', count($cells) + 1),
+        'label' => __('On Trailer', 'standard'),
+        'dims'  => $trailer_dims,
+    ];
+}
+$cell_grid_cols = count($cells) >= 2 ? 'md:grid-cols-2' : '';
+?>
 
-        <div class="section-header">
-            <p class="section-eyebrow text-red">Engineering Specs</p>
-            <h2 id="blueprint-title" class="section-title">Machine Footprint</h2>
+<section class="bg-white text-blue-600 border-y border-blue-200" aria-labelledby="blueprint-title">
+
+    <!-- Top chrome bar -->
+    <div class="border-b border-blue-200">
+        <div class="border-x border-blue-200 container">
+            <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
+                <div class="flex items-center gap-3 pl-3">
+                    <span class="w-2 h-2 bg-red" aria-hidden="true"></span>
+                    <span><?php esc_html_e('Engineering Specs', 'standard'); ?></span>
+                </div>
+                <div class="flex items-center gap-3 pr-3">
+                    <span><?php esc_html_e('Machine / On Trailer', 'standard'); ?></span>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <div class="grid gap-10 lg:grid-cols-2 lg:gap-12 lg:items-center">
+    <!-- Diagram + dimensions -->
+    <div class="border-x border-blue-200 container">
 
-            <!-- Diagram at natural proportions. Click opens the PDF in a new tab when available. -->
-            <div class="lg:justify-self-end">
+        <h2 id="blueprint-title" class="sr-only">
+            <?php esc_html_e('Machine Footprint', 'standard'); ?>
+        </h2>
+
+        <!-- Diagram row -->
+        <?php if (!empty($footprint_url) || !empty($svg_name)) : ?>
+            <div class="border-b border-blue-200 p-6 lg:p-8 flex items-center justify-center">
                 <?php if (!empty($footprint_url)) : ?>
                     <?php if (!empty($footprint_pdf_url)) : ?>
                         <a
@@ -108,60 +144,82 @@ if (!empty($trailer_raw['weight'])) { $trailer_dims['Weight'] = $trailer_raw['we
                             target="_blank"
                             rel="noopener"
                             aria-label="<?php echo esc_attr(sprintf(__('Open %s PDF in a new tab', 'standard'), $footprint_alt)); ?>"
-                            class="block transition-opacity hover:opacity-90"
+                            class="block transition-opacity hover:opacity-90 max-w-3xl"
                         >
                             <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'large', [
                                 'class' => 'block max-w-full h-auto',
                             ]); ?>
                         </a>
                     <?php else : ?>
-                        <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'large', [
-                            'class' => 'block max-w-full h-auto',
-                        ]); ?>
+                        <div class="max-w-3xl">
+                            <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'large', [
+                                'class' => 'block max-w-full h-auto',
+                            ]); ?>
+                        </div>
                     <?php endif; ?>
                 <?php else : ?>
-                    <div class="border border-blue-200 aspect-[16/7] flex items-center justify-center">
-                        <span class="text-blue-500 text-sm font-mono"><?php echo esc_html(!empty($svg_name) ? $svg_name . '.svg' : 'Blueprint'); ?></span>
+                    <div class="border border-blue-200 aspect-[16/7] flex items-center justify-center w-full max-w-3xl">
+                        <span class="text-blue-500 text-sm font-mono"><?php echo esc_html($svg_name . '.svg'); ?></span>
                     </div>
                 <?php endif; ?>
             </div>
+        <?php endif; ?>
 
-            <!-- Dimensions: Machine over Trailer, hairline between -->
-            <dl class="grid gap-8 w-full">
-                <?php if (!empty($machine_dims)) : ?>
-                    <div class="grid gap-4">
-                        <p class="font-mono text-xs uppercase tracking-wider text-blue-500">
-                            <?php esc_html_e('Machine', 'standard'); ?>
-                        </p>
-                        <div class="grid grid-cols-2 gap-x-6 gap-y-4">
-                            <?php foreach ($machine_dims as $label => $value) : ?>
+        <!-- Dimension cells -->
+        <?php if (!empty($cells)) : ?>
+            <div class="grid <?php echo esc_attr($cell_grid_cols); ?>">
+                <?php foreach ($cells as $i => $cell) : ?>
+                    <div class="grid gap-4 p-6 lg:p-8 <?php echo $i > 0 ? 'border-t border-blue-200 md:border-t-0 md:border-l' : ''; ?>">
+                        <div class="flex items-baseline gap-2 font-mono uppercase tracking-wider text-xs text-blue-500">
+                            <span><?php echo esc_html($cell['index']); ?></span>
+                            <span class="w-8 h-px bg-blue-300" aria-hidden="true"></span>
+                            <span><?php echo esc_html($cell['label']); ?></span>
+                        </div>
+                        <dl class="grid grid-cols-2 gap-x-6 gap-y-4">
+                            <?php foreach ($cell['dims'] as $label => $value) : ?>
                                 <div>
                                     <dt class="block text-xs text-blue-500 uppercase tracking-wider font-mono"><?php echo esc_html($label); ?></dt>
                                     <dd class="block text-lg font-medium text-blue-900 font-mono mt-1"><?php echo esc_html($value); ?></dd>
                                 </div>
                             <?php endforeach; ?>
-                        </div>
+                        </dl>
                     </div>
-                <?php endif; ?>
-
-                <?php if (!empty($trailer_dims)) : ?>
-                    <div class="grid gap-4 border-t border-blue-200 pt-6">
-                        <p class="font-mono text-xs uppercase tracking-wider text-blue-500">
-                            <?php esc_html_e('On Trailer', 'standard'); ?>
-                        </p>
-                        <div class="grid grid-cols-2 gap-x-6 gap-y-4">
-                            <?php foreach ($trailer_dims as $label => $value) : ?>
-                                <div>
-                                    <dt class="block text-xs text-blue-500 uppercase tracking-wider font-mono"><?php echo esc_html($label); ?></dt>
-                                    <dd class="block text-lg font-medium text-blue-900 font-mono mt-1"><?php echo esc_html($value); ?></dd>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-                <?php endif; ?>
-            </dl>
-
-        </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
 
     </div>
+
+    <!-- Bottom chrome bar -->
+    <div class="border-t border-blue-200">
+        <div class="border-x border-blue-200 container">
+            <div class="flex items-center justify-between py-3 font-mono uppercase tracking-wider text-[0.625rem] md:text-xs">
+                <div class="flex items-center gap-2 pl-3">
+                    <?php icon('file-text', ['class' => 'w-3 h-3 text-red']); ?>
+                    <span class="hidden md:inline"><?php esc_html_e('Footprint', 'standard'); ?></span>
+                    <span class="text-blue-900"><?php esc_html_e('Machine Footprint', 'standard'); ?></span>
+                </div>
+                <div class="flex items-center gap-4 pr-3">
+                    <?php if (!empty($footprint_pdf_url)) : ?>
+                        <span class="hidden md:inline"><?php esc_html_e('Open', 'standard'); ?></span>
+                        <a
+                            href="<?php echo esc_url($footprint_pdf_url); ?>"
+                            target="_blank"
+                            rel="noopener"
+                            class="text-blue-900 hover:text-blue-500"
+                        >
+                            <?php esc_html_e('Full PDF', 'standard'); ?>
+                        </a>
+                    <?php endif; ?>
+                    <div class="hidden md:flex gap-1" aria-hidden="true">
+                        <span class="w-1 h-3 bg-blue-300"></span>
+                        <span class="w-1 h-3 bg-blue-300"></span>
+                        <span class="w-1 h-3 bg-blue-300"></span>
+                        <span class="w-1 h-3 bg-red"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>
