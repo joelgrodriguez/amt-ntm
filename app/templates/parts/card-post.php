@@ -38,7 +38,7 @@ $category  = get_primary_category();
 
 <article class="group relative grid grid-rows-[auto_1fr_auto] h-full bg-white border border-blue-200 transition-colors duration-200 hover:border-blue-500">
 
-    <div class="border-b border-blue-200">
+    <div class="border-b border-blue-200 transition-colors duration-200 group-hover:border-blue-500">
         <?php if (has_post_thumbnail()) : ?>
             <?php the_post_thumbnail('card-thumbnail', [
                 'class'   => 'w-full block',
@@ -67,7 +67,7 @@ $category  = get_primary_category();
         ), '</a></h3>'); ?>
     </div>
 
-    <div class="flex items-center justify-between text-xs text-blue-500 font-mono py-3 px-4 border-t border-blue-200">
+    <div class="flex items-center justify-between text-xs text-blue-500 font-mono py-3 px-4 border-t border-blue-200 transition-colors duration-200 group-hover:border-blue-500">
         <span class="flex items-center gap-1.5">
             <?php icon($config['icon'], ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
             <span><?php echo esc_html($config['cta']); ?></span>
