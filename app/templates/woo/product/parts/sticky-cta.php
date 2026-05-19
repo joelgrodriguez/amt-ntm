@@ -29,7 +29,7 @@ if (!$product) {
 $price = $product->get_price_html();
 ?>
 
-<div id="sticky-cta" class="fixed bottom-0 inset-x-0 z-50 bg-blue-900/95 backdrop-blur-sm border-t border-blue-700 translate-y-full transition-transform duration-300" aria-hidden="true">
+<div id="sticky-cta" class="fixed bottom-0 inset-x-0 z-50 bg-blue-900 border-t border-blue-700 translate-y-full transition-transform duration-300" aria-hidden="true">
     <div class="container flex items-center justify-between py-3">
         <div class="flex items-center gap-4">
             <span class="font-medium text-white"><?php echo esc_html($product->get_name()); ?></span>
