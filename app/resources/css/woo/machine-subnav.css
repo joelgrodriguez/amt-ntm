@@ -17,7 +17,7 @@
 .machine-subnav {
   position: relative;
   z-index: 40;
-  background-color: white;
+  background-color: var(--color-white);
   border-bottom: 1px solid var(--color-blue-200);
 }
 
@@ -90,7 +90,7 @@ body:has(.header--sticky:not(.header--hidden)) .machine-subnav.is-sticky {
   top: calc(100% + 0.5rem);
   left: 0;
   min-width: 260px;
-  background: white;
+  background: var(--color-white);
   border: 1px solid var(--color-blue-200);
   padding: 0.5rem 0;
   z-index: 50;
@@ -149,7 +149,7 @@ body:has(.header--sticky:not(.header--hidden)) .machine-subnav.is-sticky {
   letter-spacing: 0.05em;
   padding: 0.125rem 0.375rem;
   background-color: var(--color-blue-800);
-  color: white;
+  color: var(--color-white);
 }
 
 /* ── Right group: anchors + Build CTA ────────────────────────────── */
@@ -192,7 +192,7 @@ body:has(.header--sticky:not(.header--hidden)) .machine-subnav.is-sticky {
   align-items: center;
   height: 3rem;
   padding: 0 0.875rem;
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
   font-size: var(--text-body);
   font-weight: 500;
   color: var(--color-blue-600);
