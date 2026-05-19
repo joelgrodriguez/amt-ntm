@@ -68,35 +68,33 @@ $first_category = array_key_first($categories);
                     role="tabpanel"
                     aria-labelledby="tab-<?php echo esc_attr($slug); ?>"
                 >
-                    <div class="explore-machines__track-frame">
-                        <div class="explore-machines__track flex gap-4 overflow-x-auto -mx-1.5 md:gap-6">
-                            <?php foreach ($products as $product) : ?>
-                                <?php get_template_part('templates/parts/card-product', null, ['product' => $product]); ?>
-                            <?php endforeach; ?>
-                            <div class="shrink-0 w-1.5" aria-hidden="true"></div>
-                        </div>
-
-                        <button
-                            type="button"
-                            class="explore-machines__arrow explore-machines__arrow--prev"
-                            aria-label="<?php esc_attr_e('Previous products', 'standard'); ?>"
-                            data-panel="<?php echo esc_attr($slug); ?>"
-                        ><?php icon('arrow-left', ['class' => 'w-4 h-4']); ?></button>
-
-                        <button
-                            type="button"
-                            class="explore-machines__arrow explore-machines__arrow--next"
-                            aria-label="<?php esc_attr_e('Next products', 'standard'); ?>"
-                            data-panel="<?php echo esc_attr($slug); ?>"
-                        ><?php icon('arrow-right', ['class' => 'w-4 h-4']); ?></button>
+                    <div class="explore-machines__track flex gap-4 overflow-x-auto -mx-1.5 md:gap-6">
+                        <?php foreach ($products as $product) : ?>
+                            <?php get_template_part('templates/parts/card-product', null, ['product' => $product]); ?>
+                        <?php endforeach; ?>
+                        <div class="shrink-0 w-1.5" aria-hidden="true"></div>
                     </div>
 
                     <div class="flex justify-center">
-                        <span class="text-sm text-blue-600 min-w-16 text-center" aria-live="polite" aria-atomic="true">
-                            <span class="explore-machines__current">1</span>
-                            <?php esc_html_e('of', 'standard'); ?>
-                            <span class="explore-machines__total"><?php echo count($products); ?></span>
-                        </span>
+                        <div class="flex items-center gap-4">
+                            <button
+                                type="button"
+                                class="explore-machines__arrow explore-machines__arrow--prev"
+                                aria-label="<?php esc_attr_e('Previous products', 'standard'); ?>"
+                                data-panel="<?php echo esc_attr($slug); ?>"
+                            ><?php icon('arrow-left', ['class' => 'w-4 h-4']); ?></button>
+                            <span class="text-sm text-blue-600 min-w-16 text-center" aria-live="polite" aria-atomic="true">
+                                <span class="explore-machines__current">1</span>
+                                <?php esc_html_e('of', 'standard'); ?>
+                                <span class="explore-machines__total"><?php echo count($products); ?></span>
+                            </span>
+                            <button
+                                type="button"
+                                class="explore-machines__arrow explore-machines__arrow--next"
+                                aria-label="<?php esc_attr_e('Next products', 'standard'); ?>"
+                                data-panel="<?php echo esc_attr($slug); ?>"
+                            ><?php icon('arrow-right', ['class' => 'w-4 h-4']); ?></button>
+                        </div>
                     </div>
                 </div>
             <?php endforeach; ?>

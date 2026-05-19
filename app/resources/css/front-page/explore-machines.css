@@ -55,35 +55,12 @@
   border-bottom-color: var(--color-red);
 }
 
-/* Track frame: positioning container so the prev/next arrows can flank
-   the card strip horizontally instead of sitting in a pager row below. */
-.explore-machines__track-frame {
-  @apply relative;
-}
-
-/* Arrow navigation buttons.
-   Desktop (md+): absolute-positioned, flanking the track edges, vertically
-   centered against the card row so the affordance lives where the eye
-   already is when scanning the strip.
-   Mobile: hidden. Touch users swipe; the counter below the strip is the
-   only nav UI on small screens. */
+/* Arrow navigation buttons */
 .explore-machines__arrow {
-  @apply hidden md:flex items-center justify-center w-10 h-10;
-  @apply bg-white text-blue-900 border border-blue-300 cursor-pointer;
+  @apply flex items-center justify-center w-8 h-8;
+  @apply bg-blue-100 text-blue-700 border-none cursor-pointer;
   @apply transition-colors duration-200;
-  @apply hover:bg-blue-900 hover:text-white hover:border-blue-900;
-  @apply disabled:bg-white disabled:text-blue-300 disabled:border-blue-200 disabled:cursor-not-allowed;
+  @apply hover:bg-blue-800 hover:text-white;
+  @apply disabled:opacity-40 disabled:cursor-not-allowed;
   @apply focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2;
-  position: absolute;
-  top: 50%;
-  z-index: 20;
-  transform: translateY(-50%);
-}
-
-.explore-machines__arrow--prev {
-  left: 0.5rem;
-}
-
-.explore-machines__arrow--next {
-  right: 0.5rem;
 }
