@@ -197,7 +197,6 @@ if (!empty($trailer_dims)) {
             <div class="flex items-center justify-between py-3 font-mono uppercase tracking-wider text-[0.625rem] md:text-xs">
                 <div class="flex items-center gap-2 pl-3">
                     <?php icon('file-text', ['class' => 'w-3 h-3 text-red']); ?>
-                    <span class="hidden md:inline"><?php esc_html_e('Footprint', 'standard'); ?></span>
                     <span class="text-blue-900"><?php esc_html_e('Machine Footprint', 'standard'); ?></span>
                 </div>
                 <div class="flex items-center gap-4 pr-3">
