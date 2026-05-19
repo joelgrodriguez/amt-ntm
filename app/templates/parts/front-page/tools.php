@@ -7,8 +7,9 @@
  * Newcomers and ROI-builders get Machine Quiz and Profit Calculator.
  *
  * Layout: two-row editorial table. Per-row eyebrow names the intent.
- * Hairline borders mark the structural grid (DESIGN.md §8.5). No tiles,
- * no fills, no icon-card grid: this is a directory, not a feature grid.
+ * Hairline borders mark the structural grid (DESIGN.md §8.5). Each item
+ * uses a leading-glyph column: icon spans the row at left, with index,
+ * title, and value-line stacked beside it. No tiles, no fills.
  *
  * @package Standard
  *
@@ -23,21 +24,23 @@ if (!defined('ABSPATH')) {
 
 $content = [
     'eyebrow' => __('Before You Configure', 'standard'),
-    'title'   => __('Decide With Data', 'standard'),
+    'title'   => __('Decision Tools', 'standard'),
 ];
 
 $rows = [
     [
-        'eyebrow' => __('For The Spec Shopper', 'standard'),
+        'eyebrow' => __('Spec Out Your Rollformer', 'standard'),
         'items'   => [
             [
                 'index' => '01',
+                'icon'  => 'filter',
                 'title' => __('Compare Models', 'standard'),
                 'value' => __('Side-by-side specs across every machine.', 'standard'),
                 'url'   => '/machines/',
             ],
             [
                 'index' => '02',
+                'icon'  => 'file-text',
                 'title' => __('Manuals & Specs', 'standard'),
                 'value' => __('Operator manuals and full datasheets, English and Spanish.', 'standard'),
                 'url'   => '/manuals/',
@@ -45,16 +48,18 @@ $rows = [
         ],
     ],
     [
-        'eyebrow' => __('For The Buyer Building A Case', 'standard'),
+        'eyebrow' => __('Build The Business Case', 'standard'),
         'items'   => [
             [
                 'index' => '03',
+                'icon'  => 'help-circle',
                 'title' => __('Machine Quiz', 'standard'),
                 'value' => __("Not sure which machine fits? Three questions, one answer.", 'standard'),
                 'url'   => '/roof-panel-machine-assessment-quiz/',
             ],
             [
                 'index' => '04',
+                'icon'  => 'trending-up',
                 'title' => __('Profit Calculator', 'standard'),
                 'value' => __('Run the ROI numbers your accountant will want to see.', 'standard'),
                 'url'   => '/learning-center/download/portable-rollforming-profit-calculator/',
@@ -90,8 +95,14 @@ $rows = [
                             <li class="<?php echo $i === 1 ? 'md:border-l md:border-blue-200' : ''; ?>">
                                 <a
                                     href="<?php echo esc_url(\Standard\Url\internal($item['url'])); ?>"
-                                    class="group grid gap-3 py-6 md:p-8 no-underline transition-colors duration-200 hover:bg-white focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px]"
+                                    class="group grid grid-cols-[auto_1fr] gap-x-5 gap-y-2 py-6 md:py-8 md:pl-10 md:pr-8 no-underline transition-colors duration-200 hover:bg-white focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px]"
                                 >
+                                    <span class="row-span-3 flex items-start pt-1">
+                                        <?php icon($item['icon'], [
+                                            'class'       => 'w-8 h-8 text-blue-500 transition-colors duration-200 group-hover:text-blue-700',
+                                            'aria-hidden' => 'true',
+                                        ]); ?>
+                                    </span>
                                     <span class="font-mono text-xs text-blue-400 tracking-wider">
                                         <?php echo esc_html($item['index']); ?>
                                     </span>
