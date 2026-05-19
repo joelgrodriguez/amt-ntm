@@ -38,7 +38,7 @@ if (empty($categories)) {
 $first_category = array_key_first($categories);
 ?>
 
-<section class="explore-machines section pattern-dot-grid gradient-fade-bottom-sm" aria-labelledby="explore-machines-title">
+<section class="explore-machines section pattern-dot-grid gradient-fade-bottom-sm border-b border-blue-200" aria-labelledby="explore-machines-title">
     <div class="container grid gap-8 lg:gap-10">
         <h2 id="explore-machines-title" class="section-title">
             <?php echo esc_html($content['title']); ?>

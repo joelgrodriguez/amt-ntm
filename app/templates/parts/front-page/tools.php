@@ -52,7 +52,7 @@ $tools = [
 ];
 ?>
 
-<section class="section bg-blue-50" aria-labelledby="tools-title">
+<section class="section bg-white" aria-labelledby="tools-title">
     <div class="container grid gap-12 lg:gap-16">
 
         <div class="max-w-2xl">
@@ -69,7 +69,7 @@ $tools = [
             <?php foreach ($tools as $i => $tool) : ?>
                 <a
                     href="<?php echo esc_url(\Standard\Url\internal($tool['url'])); ?>"
-                    class="group flex flex-col justify-between p-6 bg-white no-underline transition-colors duration-200 hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px] <?php
+                    class="group flex flex-col justify-between p-6 bg-blue-50 no-underline transition-colors duration-200 hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px] <?php
                         // Right divider: every tile except the last in its row.
                         // Mobile (2 cols): items 0 and 2 are left column, so right border on them.
                         // Desktop (4 cols): items 0, 1, 2 have a right neighbor.
