@@ -301,7 +301,7 @@ return [
         ],
         [
             'question' => __('What warranty is included?', 'standard'),
-            'answer'   => __('Limited three-year part and NTM in-house labor warranty: the industry\'s best.', 'standard'),
+            'answer'   => __('Limited three-year part and NTM in-house labor warranty — the industry\'s best.', 'standard'),
         ],
     ],
 
