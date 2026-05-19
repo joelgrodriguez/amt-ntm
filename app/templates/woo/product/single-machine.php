@@ -71,8 +71,6 @@ if (!$machine) {
 
     <?php get_template_part('templates/woo/product/parts/case-study', null, compact('machine')); ?>
 
-    <?php get_template_part('templates/woo/product/parts/comparison', null, compact('product', 'machine')); ?>
-
     <?php get_template_part('templates/woo/product/parts/accessories', null, compact('product', 'machine')); ?>
 
     <?php get_template_part('templates/woo/product/parts/specs-accordion', null, compact('product', 'machine')); ?>
