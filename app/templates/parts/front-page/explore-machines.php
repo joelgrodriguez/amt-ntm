@@ -40,11 +40,11 @@ $first_category = array_key_first($categories);
 
 <section class="explore-machines section pattern-dot-grid gradient-fade-bottom-sm" aria-labelledby="explore-machines-title">
     <div class="container grid gap-8 lg:gap-10">
-        <h2 id="explore-machines-title" class="section-title text-center">
+        <h2 id="explore-machines-title" class="section-title">
             <?php echo esc_html($content['title']); ?>
         </h2>
 
-        <div class="explore-machines__tabs flex justify-center flex-wrap border-b border-blue-300" role="tablist" aria-label="<?php echo esc_attr($content['tabs_label']); ?>">
+        <div class="explore-machines__tabs flex flex-wrap border-b border-blue-300" role="tablist" aria-label="<?php echo esc_attr($content['tabs_label']); ?>">
             <?php foreach ($categories as $slug => $label) : ?>
                 <button
                     type="button"
