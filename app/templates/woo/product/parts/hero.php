@@ -28,9 +28,28 @@ $image    = $hero['hero_image'] ?? $hero['image'] ?? '';
 
 $price_display = !empty($finance['price_range']) ? $finance['price_range'] : $product->get_price_html();
 $machine_name  = $product->get_name();
+
+// Short watermark for narrow viewports. Resolves the WC product slug
+// through the machine-product-data alias map (e.g. ssq-roof-panel-machine
+// -> ssq-ii-multipro) and looks the short label up in machines-data.php.
+// Falls back to the full WC name when no short variant exists.
+$machine_short = $machine_name;
+if (
+    function_exists('Standard\\MachinesData\\get_all_machines')
+    && function_exists('Standard\\MachineProductData\\get_slug_aliases')
+) {
+    $aliases   = \Standard\MachineProductData\get_slug_aliases();
+    $data_slug = $aliases[$product->get_slug()] ?? $product->get_slug();
+    foreach (\Standard\MachinesData\get_all_machines() as $m) {
+        if (($m['slug'] ?? '') === $data_slug) {
+            $machine_short = $m['name'] ?? $machine_name;
+            break;
+        }
+    }
+}
 ?>
 
-<section id="machine-hero" class="hero" aria-labelledby="machine-hero-title">
+<section id="machine-hero" class="hero hero--machine-product" aria-labelledby="machine-hero-title">
     <div class="hero__photo">
         <?php if (!empty($image)) : ?>
             <?php \Standard\Images\responsive_image($image, $headline, 'full', [
@@ -43,7 +62,10 @@ $machine_name  = $product->get_name();
         <div class="hero-overlay"></div>
         <div class="hero-overlay__grain"></div>
 
-        <p class="hero__watermark hero__watermark--top-right"><?php echo esc_html($machine_name); ?></p>
+        <p class="hero__watermark hero__watermark--top-right">
+    <span class="md:hidden"><?php echo esc_html($machine_short); ?></span>
+    <span class="hidden md:inline"><?php echo esc_html($machine_name); ?></span>
+</p>
 
         <div class="hero__content">
             <div class="container hero__content-inner">

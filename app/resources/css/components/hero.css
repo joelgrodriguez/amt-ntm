@@ -99,6 +99,13 @@
   }
 }
 
+/* Machine hero pairs with a stats band, so its content stack doesn't
+   need to clear progress dots like the front-page slider does. Lift it
+   higher off the band so the title doesn't crowd the spec strip. */
+.hero--machine-product .hero__content {
+  padding-bottom: clamp(2.5rem, 6vh, 5rem);
+}
+
 /* ── Corner watermark (model name, identifier, location, etc.) ─── */
 
 .hero__watermark {
