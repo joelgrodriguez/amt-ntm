@@ -38,6 +38,13 @@
   pointer-events: none;
 }
 
+/* Mobile-only: desktop already has subnav + sticky-cta covering the door. */
+@media (min-width: 768px) {
+  .floating-quote-cta {
+    display: none;
+  }
+}
+
 .floating-quote-cta.is-visible {
   opacity: 1;
   transform: translateX(0);
