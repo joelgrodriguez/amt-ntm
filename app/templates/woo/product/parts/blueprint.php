@@ -74,8 +74,6 @@ if (!empty($trailer_raw['width']))  { $trailer_dims['Width']  = $trailer_raw['wi
 if (!empty($trailer_raw['height'])) { $trailer_dims['Height'] = $trailer_raw['height']; }
 if (!empty($trailer_raw['weight'])) { $trailer_dims['Weight'] = $trailer_raw['weight']; }
 
-$machine_cols = count($machine_dims);
-$trailer_cols = count($trailer_dims);
 ?>
 
 <section class="bg-blue-900 section" aria-labelledby="blueprint-title">
@@ -86,42 +84,57 @@ $trailer_cols = count($trailer_dims);
             <h2 id="blueprint-title" class="section-title text-white">Machine Footprint</h2>
         </div>
 
-        <?php if (!empty($footprint_url)) : ?>
-            <div class="mx-auto max-w-4xl">
-                <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'large', [
-                    'class' => 'block w-full h-auto',
-                ]); ?>
-            </div>
-        <?php else : ?>
-            <div class="border border-blue-700 aspect-[16/7] flex items-center justify-center mx-auto max-w-4xl">
-                <span class="text-blue-400 text-sm font-mono"><?php echo esc_html(!empty($svg_name) ? $svg_name . '.svg' : 'Blueprint'); ?></span>
-            </div>
-        <?php endif; ?>
+        <div class="grid gap-10 lg:grid-cols-[3fr_2fr] lg:gap-16 lg:items-start">
 
-        <?php if (!empty($machine_dims)) : ?>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-<?php echo esc_attr((string) $machine_cols); ?> gap-6 max-w-4xl mx-auto">
-                <?php foreach ($machine_dims as $label => $value) : ?>
-                    <div class="text-center">
-                        <span class="block text-lg font-medium text-white font-mono"><?php echo esc_html($value); ?></span>
-                        <span class="block text-xs text-blue-400 uppercase tracking-wider mt-1"><?php echo esc_html($label); ?></span>
+            <!-- Diagram -->
+            <div>
+                <?php if (!empty($footprint_url)) : ?>
+                    <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'large', [
+                        'class' => 'block w-full h-auto',
+                    ]); ?>
+                <?php else : ?>
+                    <div class="border border-blue-700 aspect-[16/7] flex items-center justify-center">
+                        <span class="text-blue-400 text-sm font-mono"><?php echo esc_html(!empty($svg_name) ? $svg_name . '.svg' : 'Blueprint'); ?></span>
                     </div>
-                <?php endforeach; ?>
+                <?php endif; ?>
             </div>
-        <?php endif; ?>
 
-        <?php if (!empty($trailer_dims)) : ?>
-            <div class="border-t border-blue-800 pt-8">
-                <p class="text-sm font-medium text-blue-400 uppercase tracking-wider text-center mb-6">On Trailer</p>
-                <div class="grid grid-cols-2 md:grid-cols-<?php echo esc_attr((string) $trailer_cols); ?> gap-6 max-w-3xl mx-auto">
-                    <?php foreach ($trailer_dims as $label => $value) : ?>
-                        <div class="text-center">
-                            <span class="block text-lg font-medium text-white font-mono"><?php echo esc_html($value); ?></span>
-                            <span class="block text-xs text-blue-400 uppercase tracking-wider mt-1"><?php echo esc_html($label); ?></span>
+            <!-- Dimensions: Machine over Trailer, hairline between -->
+            <dl class="grid gap-8">
+                <?php if (!empty($machine_dims)) : ?>
+                    <div class="grid gap-4">
+                        <p class="font-mono text-xs uppercase tracking-wider text-blue-400">
+                            <?php esc_html_e('Machine', 'standard'); ?>
+                        </p>
+                        <div class="grid grid-cols-2 gap-x-6 gap-y-4">
+                            <?php foreach ($machine_dims as $label => $value) : ?>
+                                <div>
+                                    <dt class="block text-xs text-blue-400 uppercase tracking-wider font-mono"><?php echo esc_html($label); ?></dt>
+                                    <dd class="block text-lg font-medium text-white font-mono mt-1"><?php echo esc_html($value); ?></dd>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (!empty($trailer_dims)) : ?>
+                    <div class="grid gap-4 border-t border-blue-800 pt-6">
+                        <p class="font-mono text-xs uppercase tracking-wider text-blue-400">
+                            <?php esc_html_e('On Trailer', 'standard'); ?>
+                        </p>
+                        <div class="grid grid-cols-2 gap-x-6 gap-y-4">
+                            <?php foreach ($trailer_dims as $label => $value) : ?>
+                                <div>
+                                    <dt class="block text-xs text-blue-400 uppercase tracking-wider font-mono"><?php echo esc_html($label); ?></dt>
+                                    <dd class="block text-lg font-medium text-white font-mono mt-1"><?php echo esc_html($value); ?></dd>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </dl>
+
+        </div>
 
     </div>
 </section>
