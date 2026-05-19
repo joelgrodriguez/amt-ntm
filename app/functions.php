@@ -49,6 +49,7 @@ $theme_includes = [
     'inc/learning-center.php',
     'inc/machines-data.php',
     'inc/machine-schema.php',
+    'inc/post-types.php',
     'inc/walkers/class-pagination.php',
     'inc/walkers/class-primary-nav-walker.php',
 ];

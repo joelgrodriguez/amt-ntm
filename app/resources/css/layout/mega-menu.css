@@ -272,15 +272,16 @@
 
 /* Reuse card-post visual idiom (border, eyebrow, title) but flip the layout
  * horizontal: image on the left, body on the right. CTA footer is hidden in
- * the mega panel — the whole card already links to the profile permalink.
- * The card-post template itself stays untouched. */
+ * the mega panel — the title's ::after pseudo expands to cover the whole card.
+ * The card-post template renders three siblings: thumbnail wrapper, content
+ * cell (eyebrow + title), CTA footer. We retarget by position. */
 .mega-profile-grid > li > article {
     grid-template-columns: 6rem 1fr;
     grid-template-rows: 1fr;
 }
 
 /* Image cell on the left — show the full profile drawing, not cropped */
-.mega-profile-grid > li > article > a:nth-child(1) {
+.mega-profile-grid > li > article > *:nth-child(1) {
     grid-row: 1;
     grid-column: 1;
     border-bottom: 0;
@@ -294,14 +295,14 @@
     padding: 0.5rem;
 }
 
-.mega-profile-grid > li > article > a:nth-child(1) img {
+.mega-profile-grid > li > article > *:nth-child(1) img {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
 
 /* Body fills the right column, vertically centered */
-.mega-profile-grid > li > article > a:nth-child(2) {
+.mega-profile-grid > li > article > *:nth-child(2) {
     grid-column: 2;
     grid-row: 1;
     display: flex;
@@ -310,7 +311,7 @@
     align-items: flex-start;
 }
 
-.mega-profile-grid > li > article > a:nth-child(2) h3 {
+.mega-profile-grid > li > article > *:nth-child(2) h3 {
     font-size: var(--text-body);
     font-family: var(--font-sans);
     font-weight: 500;
@@ -319,12 +320,12 @@
 }
 
 /* Hide the category eyebrow in the mega panel */
-.mega-profile-grid > li > article > a:nth-child(2) > span {
+.mega-profile-grid > li > article > *:nth-child(2) > span {
     display: none;
 }
 
 /* Hide the "View Profile →" CTA footer in the mega panel */
-.mega-profile-grid > li > article > a:nth-child(3) {
+.mega-profile-grid > li > article > *:nth-child(3) {
     display: none;
 }
 
