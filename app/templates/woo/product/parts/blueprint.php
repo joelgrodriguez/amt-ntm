@@ -107,7 +107,6 @@ if (!empty($trailer_dims)) {
         'dims'  => $trailer_dims,
     ];
 }
-$cell_grid_cols = count($cells) >= 2 ? 'md:grid-cols-2' : '';
 ?>
 
 <section class="bg-white text-blue-600 border-y border-blue-200" aria-labelledby="blueprint-title">
@@ -127,66 +126,68 @@ $cell_grid_cols = count($cells) >= 2 ? 'md:grid-cols-2' : '';
         </div>
     </div>
 
-    <!-- Diagram + dimensions -->
+    <!-- Diagram + dimensions: image left, spec cells stacked right -->
     <div class="border-x border-blue-200 container">
 
         <h2 id="blueprint-title" class="sr-only">
             <?php esc_html_e('Machine Footprint', 'standard'); ?>
         </h2>
 
-        <!-- Diagram row -->
-        <?php if (!empty($footprint_url) || !empty($svg_name)) : ?>
-            <div class="border-b border-blue-200 p-6 lg:p-8 flex items-center justify-center">
-                <?php if (!empty($footprint_url)) : ?>
-                    <?php if (!empty($footprint_pdf_url)) : ?>
-                        <a
-                            href="<?php echo esc_url($footprint_pdf_url); ?>"
-                            target="_blank"
-                            rel="noopener"
-                            aria-label="<?php echo esc_attr(sprintf(__('Open %s PDF in a new tab', 'standard'), $footprint_alt)); ?>"
-                            class="block transition-opacity hover:opacity-90 max-w-3xl"
-                        >
+        <div class="grid md:grid-cols-2 md:items-stretch">
+
+            <!-- Diagram column -->
+            <?php if (!empty($footprint_url) || !empty($svg_name)) : ?>
+                <div class="border-b border-blue-200 md:border-b-0 md:border-r p-6 lg:p-8 flex items-center justify-center">
+                    <?php if (!empty($footprint_url)) : ?>
+                        <?php if (!empty($footprint_pdf_url)) : ?>
+                            <a
+                                href="<?php echo esc_url($footprint_pdf_url); ?>"
+                                target="_blank"
+                                rel="noopener"
+                                aria-label="<?php echo esc_attr(sprintf(__('Open %s PDF in a new tab', 'standard'), $footprint_alt)); ?>"
+                                class="block transition-opacity hover:opacity-90 w-full"
+                            >
+                                <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'large', [
+                                    'class' => 'block w-full h-auto',
+                                ]); ?>
+                            </a>
+                        <?php else : ?>
                             <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'large', [
-                                'class' => 'block max-w-full h-auto',
+                                'class' => 'block w-full h-auto',
                             ]); ?>
-                        </a>
+                        <?php endif; ?>
                     <?php else : ?>
-                        <div class="max-w-3xl">
-                            <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'large', [
-                                'class' => 'block max-w-full h-auto',
-                            ]); ?>
+                        <div class="border border-blue-200 aspect-[16/7] flex items-center justify-center w-full">
+                            <span class="text-blue-500 text-sm font-mono"><?php echo esc_html($svg_name . '.svg'); ?></span>
                         </div>
                     <?php endif; ?>
-                <?php else : ?>
-                    <div class="border border-blue-200 aspect-[16/7] flex items-center justify-center w-full max-w-3xl">
-                        <span class="text-blue-500 text-sm font-mono"><?php echo esc_html($svg_name . '.svg'); ?></span>
-                    </div>
-                <?php endif; ?>
-            </div>
-        <?php endif; ?>
+                </div>
+            <?php endif; ?>
 
-        <!-- Dimension cells -->
-        <?php if (!empty($cells)) : ?>
-            <div class="grid <?php echo esc_attr($cell_grid_cols); ?>">
-                <?php foreach ($cells as $i => $cell) : ?>
-                    <div class="grid gap-4 p-6 lg:p-8 <?php echo $i > 0 ? 'border-t border-blue-200 md:border-t-0 md:border-l' : ''; ?>">
-                        <div class="flex items-baseline gap-2 font-mono uppercase tracking-wider text-xs text-blue-500">
-                            <span><?php echo esc_html($cell['index']); ?></span>
-                            <span class="w-8 h-px bg-blue-300" aria-hidden="true"></span>
-                            <span><?php echo esc_html($cell['label']); ?></span>
+            <!-- Dimension cells column -->
+            <?php if (!empty($cells)) : ?>
+                <div class="grid">
+                    <?php foreach ($cells as $i => $cell) : ?>
+                        <div class="grid gap-4 p-6 lg:p-8 <?php echo $i > 0 ? 'border-t border-blue-200' : ''; ?>">
+                            <div class="flex items-baseline gap-2 font-mono uppercase tracking-wider text-xs text-blue-500">
+                                <span><?php echo esc_html($cell['index']); ?></span>
+                                <span class="w-8 h-px bg-blue-300" aria-hidden="true"></span>
+                                <span><?php echo esc_html($cell['label']); ?></span>
+                            </div>
+                            <dl class="grid grid-cols-2 gap-x-6 gap-y-4">
+                                <?php foreach ($cell['dims'] as $label => $value) : ?>
+                                    <div>
+                                        <dt class="block text-xs text-blue-500 uppercase tracking-wider font-mono"><?php echo esc_html($label); ?></dt>
+                                        <dd class="block text-lg font-medium text-blue-900 font-mono mt-1"><?php echo esc_html($value); ?></dd>
+                                    </div>
+                                <?php endforeach; ?>
+                            </dl>
                         </div>
-                        <dl class="grid grid-cols-2 gap-x-6 gap-y-4">
-                            <?php foreach ($cell['dims'] as $label => $value) : ?>
-                                <div>
-                                    <dt class="block text-xs text-blue-500 uppercase tracking-wider font-mono"><?php echo esc_html($label); ?></dt>
-                                    <dd class="block text-lg font-medium text-blue-900 font-mono mt-1"><?php echo esc_html($value); ?></dd>
-                                </div>
-                            <?php endforeach; ?>
-                        </dl>
-                    </div>
-                <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+
+        </div>
 
     </div>
 
