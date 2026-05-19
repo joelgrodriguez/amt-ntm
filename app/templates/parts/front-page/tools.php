@@ -4,11 +4,13 @@
  *
  * Four decision-support destinations in a tile strip.
  * 4 columns at md+, 2 columns on mobile. Tiles separated by hairline
- * gaps via gap-px on a blue-200 background. Each tile: title top,
- * icon + arrow bottom row.
+ * dividers. Each tile: title top, icon + arrow bottom row.
  *
- * Editorial heading block sits above the strip with display title,
- * lead copy, and a short red rule (the section's 10% color moment).
+ * Hover state: tile fills brand blue; title, icon, and arrow all
+ * turn white in lockstep so the whole tile reads as one ignited target.
+ *
+ * Editorial heading block sits above the strip with a short red rule
+ * (the section's 10% color moment).
  *
  * @package Standard
  *
@@ -24,7 +26,6 @@ if (!defined('ABSPATH')) {
 $content = [
     'eyebrow' => __('Before You Configure', 'standard'),
     'title'   => __('Decision Tools.', 'standard'),
-    'lead'    => __('Decide before you call.', 'standard'),
 ];
 
 $tools = [
@@ -61,9 +62,6 @@ $tools = [
             <h2 id="tools-title" class="section-title mt-4">
                 <?php echo esc_html($content['title']); ?>
             </h2>
-            <p class="mt-6 max-w-md font-sans text-blue-600 text-base leading-relaxed lg:text-lg">
-                <?php echo esc_html($content['lead']); ?>
-            </p>
             <div class="mt-8 section-divider"></div>
         </div>
 
@@ -71,7 +69,7 @@ $tools = [
             <?php foreach ($tools as $i => $tool) : ?>
                 <a
                     href="<?php echo esc_url(\Standard\Url\internal($tool['url'])); ?>"
-                    class="group flex flex-col justify-between p-6 bg-white no-underline transition-colors duration-200 hover:bg-blue-50 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px] <?php
+                    class="group flex flex-col justify-between p-6 bg-white no-underline transition-colors duration-200 hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px] <?php
                         // Right divider: every tile except the last in its row.
                         // Mobile (2 cols): items 0 and 2 are left column, so right border on them.
                         // Desktop (4 cols): items 0, 1, 2 have a right neighbor.
@@ -82,16 +80,16 @@ $tools = [
                         echo $i < 2 ? 'max-md:border-b max-md:border-blue-200 ' : '';
                     ?>"
                 >
-                    <h3 class="font-mono text-sm font-medium uppercase tracking-wider text-blue-700 mb-12 transition-colors duration-200 group-hover:text-blue-500 md:text-base">
+                    <h3 class="font-mono text-sm font-medium uppercase tracking-wider text-blue-700 mb-12 transition-colors duration-200 group-hover:text-white md:text-base">
                         <?php echo esc_html($tool['title']); ?>
                     </h3>
                     <div class="flex items-end justify-between">
                         <?php icon($tool['icon'], [
-                            'class'       => 'w-8 h-8 text-blue-700 transition-colors duration-200 group-hover:text-blue-500 md:w-10 md:h-10',
+                            'class'       => 'w-8 h-8 text-blue-700 transition-colors duration-200 group-hover:text-white md:w-10 md:h-10',
                             'aria-hidden' => 'true',
                         ]); ?>
                         <?php icon('arrow-right', [
-                            'class'       => 'w-5 h-5 text-blue-400 transition-colors duration-200 group-hover:text-blue-500',
+                            'class'       => 'w-5 h-5 text-blue-400 transition-colors duration-200 group-hover:text-white',
                             'aria-hidden' => 'true',
                         ]); ?>
                     </div>
