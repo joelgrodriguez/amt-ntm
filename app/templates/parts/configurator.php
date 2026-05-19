@@ -1,9 +1,14 @@
 <?php
 /**
- * Configurator CTA Section Template Part
+ * Configurator Section — Front Page
  *
- * IBM Carbon Design-inspired asymmetric layout promoting the machine configurator.
- * Features split layout with image and feature grid.
+ * Chrome-bar process strip in the same vocabulary as three-step-plan and
+ * video-section. The earlier icon-trio template read as the canonical
+ * SaaS landing page; this composition reads as a control panel.
+ *
+ * Three columns: PROFILE / WIDTH / PRICE. Mono numerals and labels,
+ * sans body, hairline dividers. CTA sits beneath the strip and
+ * occupies its own dedicated row so the action isn't buried in the grid.
  *
  * @package Standard
  *
@@ -17,88 +22,114 @@ if (!defined('ABSPATH')) {
 }
 
 $defaults = [
-    'eyebrow'   => __('Machine Configurator', 'standard'),
-    'title'     => __('Configure Your Machine Online', 'standard'),
-    'text'      => __('Design your perfect rollformer, see exactly what it costs, and apply for financing, all from your browser. No phone calls. No waiting.', 'standard'),
-    'image'     => get_theme_file_uri('assets/images/config-mockup.png'),
-    'image_alt' => __('NTM Machine Configurator Interface', 'standard'),
     'section_id' => 'configurator',
 ];
 
 $content = wp_parse_args($args ?? [], $defaults);
 
-$features = [
+$top_left      = __('Configurator', 'standard');
+$top_right     = __('Build / Price / Finance', 'standard');
+$sr_title      = __('Configure your machine online', 'standard');
+$cta_label     = __('Start Configuring', 'standard');
+$footer_left_k = __('Lead time', 'standard');
+$footer_left_v = __('6 to 10 weeks', 'standard');
+$footer_right_k = __('Need a hand', 'standard');
+$footer_right_v = __('Talk to a specialist', 'standard');
+
+$steps = [
     [
-        'icon'  => 'settings',
-        'title' => __('Build Your Machine', 'standard'),
-        'text'  => __('Choose your profile, coil width, and options.', 'standard'),
+        'index' => '01',
+        'label' => __('Profile', 'standard'),
+        'title' => __('Pick your panel.', 'standard'),
+        'text'  => __('Standing seam, snap-lock, mechanical-lock, corrugated, box gutter. We carry the dies.', 'standard'),
     ],
     [
-        'icon'  => 'dollar-sign',
-        'title' => __('See Real Pricing', 'standard'),
-        'text'  => __('Get transparent pricing instantly, no waiting.', 'standard'),
+        'index' => '02',
+        'label' => __('Width', 'standard'),
+        'title' => __('Pick your stock.', 'standard'),
+        'text'  => __('Coil width from 12 inches to 20 inches and wider. Your existing inventory works.', 'standard'),
     ],
     [
-        'icon'  => 'trending-up',
-        'title' => __('Apply for Financing', 'standard'),
-        'text'  => __('Flexible financing options built right in.', 'standard'),
+        'index' => '03',
+        'label' => __('Price', 'standard'),
+        'title' => __('See it instantly.', 'standard'),
+        'text'  => __('Live quote in your browser. Apply for financing in the same flow. No phone calls until you want them.', 'standard'),
     ],
 ];
 ?>
 
-<section class="configurator section" aria-labelledby="<?php echo esc_attr($content['section_id']); ?>-title">
-    <div class="container">
-        <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-center">
-
-            <!-- Image Panel -->
-            <div class="order-2 lg:order-1">
-                <?php \Standard\Images\responsive_image($content['image'], $content['image_alt'], 'large', [
-                    'class'  => 'w-full h-auto',
-                    'width'  => '2613',
-                    'height' => '1634',
-                ]); ?>
-            </div>
-
-            <!-- Content Panel -->
-            <div class="order-1 lg:order-2 grid gap-8 lg:gap-10 content-start">
-                <div class="section-header-left">
-                    <p class="section-eyebrow">
-                        <?php echo esc_html($content['eyebrow']); ?>
-                    </p>
-                    <div class="section-divider"></div>
-                    <h2 id="<?php echo esc_attr($content['section_id']); ?>-title" class="section-title">
-                        <?php echo esc_html($content['title']); ?>
-                    </h2>
-                    <p class="section-subtitle max-w-xl">
-                        <?php echo esc_html($content['text']); ?>
-                    </p>
+<section class="bg-blue-900 text-blue-400" aria-labelledby="<?php echo esc_attr($content['section_id']); ?>-title">
+    <!-- Top chrome bar -->
+    <div class="border-b border-blue-800">
+        <div class="border-x border-blue-800 container">
+            <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
+                <div class="flex items-center gap-3 pl-3">
+                    <span class="w-2 h-2 bg-red" aria-hidden="true"></span>
+                    <span id="<?php echo esc_attr($content['section_id']); ?>-title"><?php echo esc_html($top_left); ?></span>
                 </div>
+                <div class="flex items-center gap-3 pr-3">
+                    <span><?php echo esc_html($top_right); ?></span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                <!-- Feature Grid -->
-                <div class="grid gap-8 sm:grid-cols-3">
-                    <?php foreach ($features as $feature) : ?>
-                        <div class="flex flex-col gap-3 border-t border-blue-200 pt-4">
-                            <?php icon($feature['icon'], ['class' => 'w-6 h-6 text-blue-500']); ?>
-                            <h3 class="text-base font-medium text-blue-700">
-                                <?php echo esc_html($feature['title']); ?>
-                            </h3>
-                            <p class="text-sm text-blue-600">
-                                <?php echo esc_html($feature['text']); ?>
-                            </p>
+    <!-- Process columns -->
+    <div class="border-x border-blue-800 container">
+        <div class="py-12 lg:py-16">
+            <h2 class="sr-only">
+                <?php echo esc_html($sr_title); ?>
+            </h2>
+            <div class="grid md:grid-cols-3">
+                <?php foreach ($steps as $i => $step) : ?>
+                    <div class="grid gap-4 p-6 lg:p-8 <?php echo $i > 0 ? 'border-t border-blue-800 md:border-t-0 md:border-l' : ''; ?>">
+                        <div class="flex items-baseline gap-2 font-mono uppercase tracking-wider text-xs text-blue-400">
+                            <span><?php echo esc_html($step['index']); ?></span>
+                            <span class="w-8 h-px bg-blue-700" aria-hidden="true"></span>
+                            <span><?php echo esc_html($step['label']); ?></span>
                         </div>
-                    <?php endforeach; ?>
-                </div>
-
-                <div class="flex">
-                    <a
-                        href="<?php echo esc_url(\Standard\Url\internal('/configurator/')); ?>"
-                        class="btn btn-primary"
-                    >
-                        <?php esc_html_e('Start Configuring', 'standard'); ?>
-                    </a>
-                </div>
+                        <h3 class="font-sans font-medium text-white text-lg md:text-xl lg:text-2xl leading-tight">
+                            <?php echo esc_html($step['title']); ?>
+                        </h3>
+                        <p class="font-sans text-blue-200 text-sm leading-relaxed">
+                            <?php echo esc_html($step['text']); ?>
+                        </p>
+                    </div>
+                <?php endforeach; ?>
             </div>
 
+            <!-- CTA row, dedicated under the process strip -->
+            <div class="flex justify-center pt-2 pb-8 lg:pb-10">
+                <a
+                    href="<?php echo esc_url(\Standard\Url\internal('/configurator/')); ?>"
+                    class="btn btn-light"
+                >
+                    <?php echo esc_html($cta_label); ?>
+                    <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom chrome bar -->
+    <div class="border-t border-blue-800">
+        <div class="border-x border-blue-800 container">
+            <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
+                <div class="flex items-center gap-2 pl-3">
+                    <span><?php echo esc_html($footer_left_k); ?></span>
+                    <span class="text-white"><?php echo esc_html($footer_left_v); ?></span>
+                </div>
+                <div class="flex items-center gap-4 pr-3">
+                    <span><?php echo esc_html($footer_right_k); ?></span>
+                    <span class="text-white"><?php echo esc_html($footer_right_v); ?></span>
+                    <div class="flex gap-1" aria-hidden="true">
+                        <span class="w-1 h-3 bg-blue-700"></span>
+                        <span class="w-1 h-3 bg-blue-700"></span>
+                        <span class="w-1 h-3 bg-blue-700"></span>
+                        <span class="w-1 h-3 bg-red"></span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
