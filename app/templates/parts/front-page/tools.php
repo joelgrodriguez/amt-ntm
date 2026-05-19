@@ -24,7 +24,7 @@ if (!defined('ABSPATH')) {
 $content = [
     'eyebrow' => __('Before You Configure', 'standard'),
     'title'   => __('Decision Tools.', 'standard'),
-    'lead'    => __('Four ways to size up the buy before you pick up the phone.', 'standard'),
+    'lead'    => __('Decide before you call.', 'standard'),
 ];
 
 $tools = [
@@ -64,7 +64,7 @@ $tools = [
             <p class="mt-6 max-w-md font-sans text-blue-600 text-base leading-relaxed lg:text-lg">
                 <?php echo esc_html($content['lead']); ?>
             </p>
-            <div class="mt-8 w-16 h-0.5 bg-red"></div>
+            <div class="mt-8 section-divider"></div>
         </div>
 
         <div class="grid grid-cols-2 border border-blue-200 md:grid-cols-4">
