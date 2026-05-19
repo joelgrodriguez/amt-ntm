@@ -23,9 +23,12 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'title'         => __('Why own an NTM rollformer?', 'standard'),
-    'cost_label'    => __('Without your machine', 'standard'),
-    'value_label'   => __('With your NTM', 'standard'),
+    'title'       => __('Why own an NTM rollformer?', 'standard'),
+    'lede'        => __('Buying panels from someone else is profit you give away. Rolling your own is the path to keeping it.', 'standard'),
+    'image'       => 'https://newtechmachinery.com/wp-content/uploads/2025/04/Nate-training-East-Kentucky-Metal-9-scaled.jpg',
+    'image_alt'   => __('NTM trainer working with a customer crew at their shop.', 'standard'),
+    'cost_label'  => __('Without your machine', 'standard'),
+    'value_label' => __('With your NTM', 'standard'),
 ];
 
 $cost_points = [
@@ -62,10 +65,22 @@ $value_points = [
 <section class="section bg-white" aria-labelledby="why-own-title">
     <div class="container grid gap-12 lg:gap-16">
 
-        <div class="section-header-left max-w-2xl">
-            <h2 id="why-own-title" class="section-title">
-                <?php echo esc_html($content['title']); ?>
-            </h2>
+        <!-- Header: title + lede on the left, image on the right (lg+) -->
+        <div class="grid gap-8 lg:grid-cols-2 lg:gap-16 lg:items-center">
+            <div class="section-header-left max-w-xl">
+                <h2 id="why-own-title" class="section-title">
+                    <?php echo esc_html($content['title']); ?>
+                </h2>
+                <p class="font-sans text-blue-600 text-base lg:text-lg leading-relaxed">
+                    <?php echo esc_html($content['lede']); ?>
+                </p>
+            </div>
+            <div>
+                <?php \Standard\Images\responsive_image($content['image'], $content['image_alt'], 'large', [
+                    'class'   => 'w-full h-auto block',
+                    'loading' => 'lazy',
+                ]); ?>
+            </div>
         </div>
 
         <!-- Two-column compare with a single full-height hairline divider on md+ -->
