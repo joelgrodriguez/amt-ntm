@@ -1,0 +1,276 @@
+/**
+ * Machine Product — Case Study
+ *
+ * Single-fold magazine spread on lg+. Photo on the left covers the
+ * section's full height; story on the right runs three indexed acts
+ * + a pull-quote inside a constrained text rail; stats strip pinned
+ * to the bottom across both columns.
+ *
+ * Sized so the full narrative fits inside 100dvh - header on
+ * 14–16" laptops without scrolling. Text scale uses clamp() so the
+ * tight viewports (900px tall) still hold without overflow.
+ *
+ * Mobile / tablet stacks naturally: photo, story (no overflow cap),
+ * stats.
+ *
+ * @file case-study.css
+ * @usage Single Machine Product (single-machine.php)
+ * @template templates/woo/product/parts/case-study.php
+ */
+
+.case-study {
+  position: relative;
+}
+
+.case-study__shell {
+  display: grid;
+  gap: 0;
+}
+
+/* ── Photo ────────────────────────────────────────────────────────── */
+
+.case-study__photo {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-blue-100);
+}
+
+.case-study__photo img,
+.case-study__photo picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ── Story column ────────────────────────────────────────────────── */
+
+.case-study__story {
+  display: grid;
+  align-content: start;
+  gap: clamp(1.25rem, 2vh, 2rem);
+  padding: clamp(1.75rem, 3vh, 2.5rem) clamp(1.5rem, 4vw, 3rem);
+}
+
+/* Mono top line: red dot, label, slash separators */
+.case-study__kicker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-blue-500);
+  margin: 0;
+}
+
+.case-study__kicker-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: var(--color-red);
+  flex-shrink: 0;
+}
+
+.case-study__kicker-sep {
+  color: var(--color-blue-300);
+}
+
+/* Title: sans display, hard-left, fluid scale that holds on 14" laptops */
+.case-study__title {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--color-blue-900);
+  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0;
+  max-width: 24ch;
+}
+
+/* ── Narrative acts ───────────────────────────────────────────────── */
+
+.case-study__acts {
+  display: grid;
+  gap: clamp(0.875rem, 1.5vh, 1.25rem);
+  max-width: 56ch;
+}
+
+.case-study__act {
+  display: grid;
+  gap: 0.375rem;
+}
+
+.case-study__act-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-blue-500);
+}
+
+.case-study__act-rule {
+  display: block;
+  width: 2rem;
+  height: 1px;
+  background-color: var(--color-blue-300);
+}
+
+.case-study__act-text {
+  font-family: var(--font-sans);
+  font-size: clamp(0.875rem, 1.05vw, 1rem);
+  line-height: 1.55;
+  color: var(--color-blue-700);
+  margin: 0;
+}
+
+/* ── Pull quote ──────────────────────────────────────────────────── */
+
+.case-study__quote {
+  display: grid;
+  gap: 0.625rem;
+  margin: 0;
+  padding-top: clamp(0.75rem, 1.5vh, 1.25rem);
+  border-top: 1px solid var(--color-blue-200);
+  max-width: 56ch;
+}
+
+.case-study__quote-text {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--color-blue-900);
+  font-size: clamp(1rem, 1.35vw, 1.25rem);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.case-study__quote-mark {
+  color: var(--color-red);
+  font-weight: 500;
+}
+
+.case-study__quote-cite {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-blue-500);
+}
+
+.case-study__quote-cite cite {
+  color: var(--color-blue-900);
+}
+
+/* ── Stats strip (full-width across both columns) ────────────────── */
+
+.case-study__stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 0;
+  border-top: 1px solid var(--color-blue-200);
+  background-color: var(--color-blue-50);
+}
+
+.case-study__stat {
+  display: grid;
+  gap: 0.25rem;
+  padding: clamp(1rem, 2vh, 1.5rem) clamp(1rem, 3vw, 2rem);
+  border-left: 1px solid var(--color-blue-200);
+}
+
+.case-study__stat:first-child {
+  border-left: 0;
+}
+
+/* On mobile (2 cols), the third stat is left-column of row 2 — no
+   left border. Horizontal divider lives on the cell above instead. */
+.case-study__stat:nth-child(3) {
+  border-left: 0;
+  border-top: 1px solid var(--color-blue-200);
+}
+
+.case-study__stat:nth-child(4) {
+  border-top: 1px solid var(--color-blue-200);
+}
+
+.case-study__stat-value {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--color-blue-900);
+  font-size: clamp(1.75rem, 2.5vw, 2.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.case-study__stat-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-blue-500);
+  margin: 0;
+}
+
+/* ── Desktop spread (lg+): single-fold composition ───────────────── */
+
+@media (min-width: 1024px) {
+  .case-study {
+    /* Section fills the viewport minus header. Stats strip sits at the
+       bottom edge as the closer. */
+    min-height: calc(100vh - var(--header-height, 4rem));
+    min-height: calc(100dvh - var(--header-height, 4rem));
+  }
+
+  .case-study__shell {
+    height: calc(100vh - var(--header-height, 4rem));
+    height: calc(100dvh - var(--header-height, 4rem));
+    grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "photo story"
+      "stats stats";
+  }
+
+  .case-study__photo { grid-area: photo; }
+  .case-study__story { grid-area: story; overflow: hidden; }
+  .case-study__stats { grid-area: stats; grid-template-columns: repeat(var(--stats-count, 4), 1fr); }
+
+  .case-study__story {
+    padding: clamp(1.75rem, 3vh, 2.5rem) clamp(2rem, 3.5vw, 3.5rem);
+    gap: clamp(1rem, 1.6vh, 1.75rem);
+    /* Story column never gets taller than the photo; if content
+       genuinely overflows, scroll instead of breaking the fold. */
+  }
+
+  .case-study__stat {
+    border-top: 0;
+  }
+
+  .case-study__stat:nth-child(3) {
+    border-left: 1px solid var(--color-blue-200);
+    border-top: 0;
+  }
+
+  .case-study__stat:nth-child(4) {
+    border-top: 0;
+  }
+}
+
+/* ── XL polish: a little more air on tall, wide screens ──────────── */
+
+@media (min-width: 1280px) {
+  .case-study__shell {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  }
+}
