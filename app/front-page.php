@@ -3,12 +3,14 @@
  * The front page template.
  *
  * Composition order: hero (machine) > router (the unsure) > explore
- * (browse machines) > tools (decision support) > who (the company) >
- * three-step (how it works) > why-own (the case) > social-proof (trust) >
- * configurator (act) > learning-center (educate) > final-cta (close).
+ * (browse machines) > three-step (how it works) > why-own (the case) >
+ * social-proof (trust) > flagships (SSQ3 + MACH II Combo) >
+ * tools (decision support) > learning-center (educate) > final-cta (close).
  *
  * Contact lives at /contact/. Pain-points + value-prop are merged
- * into why-own.
+ * into why-own. The flagships section replaces the configurator promo;
+ * the configurator job is served by hero-router, why-own's two-door,
+ * and final-cta.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
@@ -32,17 +34,15 @@ get_header();
 
     <?php get_template_part('templates/parts/front-page/explore-machines'); ?>
 
-    <?php get_template_part('templates/parts/front-page/tools'); ?>
-
-    <?php get_template_part('templates/parts/front-page/who-is-ntm'); ?>
-
     <?php get_template_part('templates/parts/front-page/three-step-plan'); ?>
 
     <?php get_template_part('templates/parts/front-page/why-own'); ?>
 
     <?php get_template_part('templates/parts/front-page/social-proof'); ?>
 
-    <?php get_template_part('templates/parts/configurator'); ?>
+    <?php get_template_part('templates/parts/front-page/flagships'); ?>
+
+    <?php get_template_part('templates/parts/front-page/tools'); ?>
 
     <?php get_template_part('templates/parts/learning-center'); ?>
 
