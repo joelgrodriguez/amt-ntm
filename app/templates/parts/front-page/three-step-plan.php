@@ -26,10 +26,10 @@ $content = [
     'channel'         => __('How You Buy', 'standard'),
     'channel_right'   => __('Explore / Build / Finance', 'standard'),
     'title'           => __('How a machine gets built and shipped.', 'standard'),
-    'footer_left_k'   => __('Two doors', 'standard'),
-    'footer_left_v'   => __('Configurator or specialist', 'standard'),
-    'footer_right_k'  => __('Training', 'standard'),
-    'footer_right_v'  => __('Included, on-site', 'standard'),
+    'footer_left_k'   => __('Online', 'standard'),
+    'footer_left_v'   => __('Configure & Quote', 'standard'),
+    'footer_right_k'  => __('Or call', 'standard'),
+    'footer_right_v'  => __('Talk to a specialist', 'standard'),
 ];
 
 $phases = [
