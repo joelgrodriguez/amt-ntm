@@ -48,15 +48,15 @@ $category  = get_primary_category();
         <?php endif; ?>
     </div>
 
-    <div class="p-4 grid gap-4 content-start">
+    <div class="p-5 lg:p-6 grid gap-5 content-start">
         <?php if ($category) : ?>
-            <span class="font-mono uppercase tracking-wide text-xs text-blue-500">
+            <span class="inline-flex self-start items-center bg-blue-50 px-2 py-1 font-mono uppercase tracking-wide text-xs text-blue-700">
                 <?php echo esc_html($category->name); ?>
             </span>
         <?php endif; ?>
 
         <?php the_title(sprintf(
-            '<h3 class="font-medium text-lg leading-snug text-blue-900 line-clamp-2 transition-colors duration-200 group-hover:text-blue-500"><a href="%s" class="after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" aria-label="%s">',
+            '<h3 class="font-medium text-lg leading-snug text-blue-900 line-clamp-2"><a href="%s" class="text-blue-900 no-underline hover:no-underline after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" aria-label="%s">',
             esc_url(get_permalink()),
             esc_attr(sprintf(
                 /* translators: %1$s post title, %2$s post-type-specific verb (e.g. "Read full article"). */
