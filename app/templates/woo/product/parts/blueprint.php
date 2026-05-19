@@ -89,12 +89,12 @@ if (!empty($trailer_raw['weight'])) { $trailer_dims['Weight'] = $trailer_raw['we
 
 ?>
 
-<section class="bg-blue-900 section" aria-labelledby="blueprint-title">
+<section class="bg-blue-50 border-y border-blue-200 section" aria-labelledby="blueprint-title">
     <div class="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 section-content">
 
         <div class="section-header">
             <p class="section-eyebrow text-red">Engineering Specs</p>
-            <h2 id="blueprint-title" class="section-title text-white">Machine Footprint</h2>
+            <h2 id="blueprint-title" class="section-title">Machine Footprint</h2>
         </div>
 
         <div class="grid gap-10 lg:grid-cols-2 lg:gap-12 lg:items-center">
@@ -120,8 +120,8 @@ if (!empty($trailer_raw['weight'])) { $trailer_dims['Weight'] = $trailer_raw['we
                         ]); ?>
                     <?php endif; ?>
                 <?php else : ?>
-                    <div class="border border-blue-700 aspect-[16/7] flex items-center justify-center">
-                        <span class="text-blue-400 text-sm font-mono"><?php echo esc_html(!empty($svg_name) ? $svg_name . '.svg' : 'Blueprint'); ?></span>
+                    <div class="border border-blue-200 aspect-[16/7] flex items-center justify-center">
+                        <span class="text-blue-500 text-sm font-mono"><?php echo esc_html(!empty($svg_name) ? $svg_name . '.svg' : 'Blueprint'); ?></span>
                     </div>
                 <?php endif; ?>
             </div>
@@ -130,14 +130,14 @@ if (!empty($trailer_raw['weight'])) { $trailer_dims['Weight'] = $trailer_raw['we
             <dl class="grid gap-8 w-full">
                 <?php if (!empty($machine_dims)) : ?>
                     <div class="grid gap-4">
-                        <p class="font-mono text-xs uppercase tracking-wider text-blue-400">
+                        <p class="font-mono text-xs uppercase tracking-wider text-blue-500">
                             <?php esc_html_e('Machine', 'standard'); ?>
                         </p>
                         <div class="grid grid-cols-2 gap-x-6 gap-y-4">
                             <?php foreach ($machine_dims as $label => $value) : ?>
                                 <div>
-                                    <dt class="block text-xs text-blue-400 uppercase tracking-wider font-mono"><?php echo esc_html($label); ?></dt>
-                                    <dd class="block text-lg font-medium text-white font-mono mt-1"><?php echo esc_html($value); ?></dd>
+                                    <dt class="block text-xs text-blue-500 uppercase tracking-wider font-mono"><?php echo esc_html($label); ?></dt>
+                                    <dd class="block text-lg font-medium text-blue-900 font-mono mt-1"><?php echo esc_html($value); ?></dd>
                                 </div>
                             <?php endforeach; ?>
                         </div>
@@ -145,15 +145,15 @@ if (!empty($trailer_raw['weight'])) { $trailer_dims['Weight'] = $trailer_raw['we
                 <?php endif; ?>
 
                 <?php if (!empty($trailer_dims)) : ?>
-                    <div class="grid gap-4 border-t border-blue-800 pt-6">
-                        <p class="font-mono text-xs uppercase tracking-wider text-blue-400">
+                    <div class="grid gap-4 border-t border-blue-200 pt-6">
+                        <p class="font-mono text-xs uppercase tracking-wider text-blue-500">
                             <?php esc_html_e('On Trailer', 'standard'); ?>
                         </p>
                         <div class="grid grid-cols-2 gap-x-6 gap-y-4">
                             <?php foreach ($trailer_dims as $label => $value) : ?>
                                 <div>
-                                    <dt class="block text-xs text-blue-400 uppercase tracking-wider font-mono"><?php echo esc_html($label); ?></dt>
-                                    <dd class="block text-lg font-medium text-white font-mono mt-1"><?php echo esc_html($value); ?></dd>
+                                    <dt class="block text-xs text-blue-500 uppercase tracking-wider font-mono"><?php echo esc_html($label); ?></dt>
+                                    <dd class="block text-lg font-medium text-blue-900 font-mono mt-1"><?php echo esc_html($value); ?></dd>
                                 </div>
                             <?php endforeach; ?>
                         </div>
