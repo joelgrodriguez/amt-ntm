@@ -53,21 +53,26 @@
     @apply w-12 h-1 bg-blue-500 mx-auto;
   }
 
-  /* Title — section heading (sans display, tracking-tight) */
+  /* Title — section heading (sans display, tracking-tight).
+     Scale promoted one step at every breakpoint so section titles
+     read as section headings, not card titles. Mobile was rendering
+     at 20px (heading-sm), which is the card-title size; bumped to
+     28px (heading) so mobile sections have real presence. Matches
+     .router__title in front-page/router.css. */
   .section-title {
     @apply font-sans font-medium tracking-tight text-blue-900;
-    font-size: var(--text-heading-sm);
+    font-size: var(--text-heading);
   }
 
   @media (min-width: 768px) {
     .section-title {
-      font-size: var(--text-heading);
+      font-size: var(--text-heading-lg);
     }
   }
 
   @media (min-width: 1024px) {
     .section-title {
-      font-size: var(--text-heading-lg);
+      font-size: var(--text-display);
     }
   }
 
