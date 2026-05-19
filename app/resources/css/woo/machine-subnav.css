@@ -87,7 +87,7 @@ body:has(.header--sticky:not(.header--hidden)) .machine-subnav.is-sticky {
 
 .machine-subnav__dropdown {
   position: absolute;
-  top: calc(100% + 5px);
+  top: calc(100% + 6px);
   left: 0;
   min-width: 260px;
   background: var(--color-white);
