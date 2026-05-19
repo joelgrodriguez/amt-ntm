@@ -134,7 +134,7 @@ if (empty($case_study)) {
                             <ul class="grid gap-3 mt-2">
                                 <?php foreach ($case_study['solution']['points'] as $point) : ?>
                                     <li class="flex items-start gap-3">
-                                        <?php icon('check', ['class' => 'w-5 h-5 text-green-600 shrink-0 mt-0.5']); ?>
+                                        <?php icon('check', ['class' => 'w-5 h-5 text-blue-500 shrink-0 mt-0.5']); ?>
                                         <span class="text-blue-700"><?php echo esc_html($point); ?></span>
                                     </li>
                                 <?php endforeach; ?>
