@@ -1,7 +1,11 @@
 /**
  * Social Proof Testimonial Slider
  *
- * Auto-advancing testimonial carousel with dot navigation.
+ * Manual-navigation testimonial carousel. Dots are the only nav.
+ * No autoplay (intentional: no quote length works for both the 18-word
+ * and 40-word slides, and autoplay forces the user to watch instead of
+ * engage). Removes the WCAG 2.2.2 pause-control requirement by removing
+ * the auto-advance entirely.
  *
  * @file SocialProof.js
  *
@@ -11,9 +15,6 @@
  * @template templates/woo/product/parts/testimonials.php
  */
 
-const AUTOPLAY_INTERVAL = 6000;
-
-let autoplayTimer = null;
 let abortController = null;
 
 /**
@@ -30,7 +31,6 @@ export function initSocialProof() {
 
   let currentIndex = 0;
 
-  // Clean up previous instance (HMR support)
   cleanup();
   abortController = new AbortController();
   const { signal } = abortController;
@@ -40,52 +40,21 @@ export function initSocialProof() {
    * @param {number} index
    */
   function goToSlide(index) {
-    // Hide current slide
+    // Hide current
     slides[currentIndex].classList.add('hidden');
-    slides[currentIndex].classList.remove('block');
+    slides[currentIndex].setAttribute('aria-hidden', 'true');
     dots[currentIndex].classList.remove('bg-blue-500', 'w-8');
     dots[currentIndex].classList.add('bg-blue-200', 'w-3');
+    dots[currentIndex].removeAttribute('aria-current');
 
     currentIndex = index;
 
-    // Show new slide
+    // Show new
     slides[currentIndex].classList.remove('hidden');
-    slides[currentIndex].classList.add('block');
+    slides[currentIndex].removeAttribute('aria-hidden');
     dots[currentIndex].classList.remove('bg-blue-200', 'w-3');
     dots[currentIndex].classList.add('bg-blue-500', 'w-8');
-  }
-
-  /**
-   * Advance to next slide.
-   */
-  function nextSlide() {
-    const next = (currentIndex + 1) % slides.length;
-    goToSlide(next);
-  }
-
-  /**
-   * Start autoplay.
-   */
-  function startAutoplay() {
-    stopAutoplay();
-    autoplayTimer = setInterval(nextSlide, AUTOPLAY_INTERVAL);
-  }
-
-  /**
-   * Stop autoplay.
-   */
-  function stopAutoplay() {
-    if (autoplayTimer) {
-      clearInterval(autoplayTimer);
-      autoplayTimer = null;
-    }
-  }
-
-  /**
-   * Reset autoplay timer (called after user interaction).
-   */
-  function resetAutoplay() {
-    startAutoplay();
+    dots[currentIndex].setAttribute('aria-current', 'true');
   }
 
   // Dot click handler (event delegation)
@@ -98,33 +67,6 @@ export function initSocialProof() {
       const index = parseInt(dot.dataset.index, 10);
       if (index !== currentIndex) {
         goToSlide(index);
-        resetAutoplay();
-      }
-    },
-    { signal }
-  );
-
-  // Pause on hover
-  section.addEventListener('mouseenter', stopAutoplay, { signal });
-  section.addEventListener('mouseleave', startAutoplay, { signal });
-
-  // Pause on focus within
-  section.addEventListener('focusin', stopAutoplay, { signal });
-  section.addEventListener('focusout', startAutoplay, { signal });
-
-  // Respect reduced motion
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (!prefersReducedMotion.matches) {
-    startAutoplay();
-  }
-
-  prefersReducedMotion.addEventListener(
-    'change',
-    (e) => {
-      if (e.matches) {
-        stopAutoplay();
-      } else {
-        startAutoplay();
       }
     },
     { signal }
@@ -135,10 +77,6 @@ export function initSocialProof() {
  * Cleanup function for HMR support.
  */
 export function cleanup() {
-  if (autoplayTimer) {
-    clearInterval(autoplayTimer);
-    autoplayTimer = null;
-  }
   if (abortController) {
     abortController.abort();
     abortController = null;

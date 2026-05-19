@@ -3,10 +3,11 @@
  * Social Proof Section Template Part
  *
  * Testimonial slider showcasing real customer quotes.
- * Auto-advances with navigation dots; pauses on hover/focus.
+ * Manual navigation only (no autoplay). Dots are the only nav.
  *
  * Photo URLs point to the production CDN; portraits are public
- * marketing assets and won't move.
+ * marketing assets and won't move. Theme adds a preconnect hint
+ * for that origin in inc/setup.php.
  *
  * @package Standard
  *
@@ -35,42 +36,42 @@ $testimonials = [
         'name'     => 'Danaik Garay',
         'company'  => 'Alsteel Metal Manufacturing',
         'location' => 'Fort Myers, Florida',
-        'photo'    => $cdn . '/Danaik-1.png',
+        'slug'     => 'Danaik-1',
     ],
     [
         'quote'    => __('What attracted me to New Tech Machinery was the quality of the machine and ease of switching out dies. If you do have a problem, there’s a sales team that you can call.', 'standard'),
         'name'     => 'Todd Andrews',
         'company'  => 'Classic Metals Inc.',
         'location' => 'Chester, South Carolina',
-        'photo'    => $cdn . '/Todd.png',
+        'slug'     => 'Todd',
     ],
     [
         'quote'    => __('I chose New Tech Machinery over the competition because of how valued I felt as a customer. They truly valued me and appreciated me as a person, it wasn’t just another sale.', 'standard'),
         'name'     => 'Jim Averill',
         'company'  => 'Gunnison Sheet Metal',
         'location' => 'Gunnison, Colorado',
-        'photo'    => $cdn . '/Jim.png',
+        'slug'     => 'Jim',
     ],
     [
         'quote'    => __('For me, New Tech Machinery has always been the top-of-the-line machine for gutters, so I wanted to have something that I can rely on.', 'standard'),
         'name'     => 'Abel Cisneros',
         'company'  => 'C&S Rain Gutters',
         'location' => 'Greeley, Colorado',
-        'photo'    => $cdn . '/Abel.png',
+        'slug'     => 'Abel',
     ],
     [
         'quote'    => __('The relationship I’ve built with NTM has been fantastic. I call up Tom and tell him what I want, and I think he has me what I need on paper within the day.', 'standard'),
         'name'     => 'Mike Lemke',
         'company'  => 'Lemke Exteriors',
         'location' => 'Moorehead, Minnesota',
-        'photo'    => $cdn . '/Mike.png',
+        'slug'     => 'Mike',
     ],
     [
         'quote'    => __('New Tech overall has been great to work with, and between the panel options and the service, that’s why we keep going back to them.', 'standard'),
         'name'     => 'Keith Ryan',
         'company'  => 'Metal Maniacs',
         'location' => 'Fort Myers, Florida',
-        'photo'    => $cdn . '/Keith.png',
+        'slug'     => 'Keith',
     ],
 ];
 
@@ -86,19 +87,31 @@ if (empty($testimonials)) {
         </h2>
 
         <div class="social-proof__slider relative max-w-3xl mx-auto text-center grid justify-center gap-8 lg:gap-10">
-            <div class="social-proof__track">
+            <div
+                class="social-proof__track"
+                role="region"
+                aria-roledescription="carousel"
+                aria-label="<?php esc_attr_e('Customer testimonials', 'standard'); ?>"
+            >
                 <?php foreach ($testimonials as $index => $testimonial) : ?>
+                    <?php $is_active = $index === 0; ?>
                     <blockquote
-                        class="social-proof__slide grid gap-6 <?php echo $index === 0 ? 'block' : 'hidden'; ?>"
+                        class="social-proof__slide grid gap-6 <?php echo $is_active ? '' : 'hidden'; ?>"
                         data-index="<?php echo esc_attr($index); ?>"
+                        aria-roledescription="<?php esc_attr_e('slide', 'standard'); ?>"
+                        aria-label="<?php echo esc_attr(sprintf(__('%1$d of %2$d', 'standard'), $index + 1, count($testimonials))); ?>"
+                        <?php echo $is_active ? '' : 'aria-hidden="true"'; ?>
                     >
                         <img
-                            src="<?php echo esc_url($testimonial['photo']); ?>"
-                            alt=""
+                            src="<?php echo esc_url($cdn . '/' . $testimonial['slug'] . '-150x150.png'); ?>"
+                            srcset="<?php echo esc_url($cdn . '/' . $testimonial['slug'] . '-150x150.png'); ?> 150w, <?php echo esc_url($cdn . '/' . $testimonial['slug'] . '-300x300.png'); ?> 300w"
+                            sizes="120px"
+                            alt="<?php echo esc_attr($testimonial['name']); ?>"
                             width="120"
                             height="120"
                             class="mx-auto w-24 h-24 lg:w-28 lg:h-28 rounded-full object-cover border border-blue-200"
-                            loading="<?php echo $index === 0 ? 'eager' : 'lazy'; ?>"
+                            loading="<?php echo $is_active ? 'eager' : 'lazy'; ?>"
+                            <?php echo $is_active ? '' : 'fetchpriority="low"'; ?>
                             decoding="async"
                         />
 
@@ -125,18 +138,25 @@ if (empty($testimonials)) {
 
             <nav class="flex justify-center gap-2" aria-label="<?php echo esc_attr($content['nav_label']); ?>">
                 <?php foreach ($testimonials as $index => $testimonial) : ?>
+                    <?php $is_active = $index === 0; ?>
                     <button
                         type="button"
-                        class="social-proof__dot h-3 border-none cursor-pointer transition-all duration-200 hover:bg-blue-400 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2 <?php echo $index === 0 ? 'bg-blue-500 w-8' : 'bg-blue-200 w-3'; ?>"
+                        class="social-proof__dot h-3 border-none cursor-pointer transition-all duration-200 hover:bg-blue-400 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2 <?php echo $is_active ? 'bg-blue-500 w-8' : 'bg-blue-200 w-3'; ?>"
                         data-index="<?php echo esc_attr($index); ?>"
                         aria-label="<?php echo esc_attr(sprintf(__('View testimonial %d', 'standard'), $index + 1)); ?>"
+                        <?php echo $is_active ? 'aria-current="true"' : ''; ?>
                     ></button>
                 <?php endforeach; ?>
             </nav>
         </div>
 
         <div class="flex justify-center">
-            <a href="<?php echo esc_url($content['cta_url']); ?>" class="btn btn-outline-dark">
+            <a
+                href="<?php echo esc_url($content['cta_url']); ?>"
+                class="btn btn-outline-dark"
+                target="_blank"
+                rel="noopener"
+            >
                 <?php echo esc_html($content['cta_label']); ?>
             </a>
         </div>

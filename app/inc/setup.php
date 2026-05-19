@@ -75,6 +75,22 @@ function clean_archive_title(string $title): string {
 add_filter('get_the_archive_title', __NAMESPACE__ . '\\clean_archive_title');
 
 /**
+ * Preconnect to the production CDN where shared marketing assets live
+ * (customer portraits, etc). Front page only, since that's where they're
+ * referenced first; other surfaces that need it can extend the condition.
+ */
+function preconnect_marketing_cdn(array $urls, string $relation_type): array {
+    if ($relation_type === 'preconnect' && is_front_page()) {
+        $urls[] = [
+            'href'        => 'https://newtechmachinery.com',
+            'crossorigin' => 'anonymous',
+        ];
+    }
+    return $urls;
+}
+add_filter('wp_resource_hints', __NAMESPACE__ . '\\preconnect_marketing_cdn', 10, 2);
+
+/**
  * Get editor style URL from Vite manifest or dev server.
  */
 function get_editor_style_url(): string {
