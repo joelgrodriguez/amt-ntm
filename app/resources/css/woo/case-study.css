@@ -170,43 +170,28 @@
   color: var(--color-blue-900);
 }
 
-/* ── Stats strip (full-width across both columns) ────────────────── */
+/* ── Stats: inline two-column mini-grid inside the story column ──── */
 
 .case-study__stats {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  gap: clamp(0.75rem, 1.5vh, 1.25rem) clamp(1rem, 2vw, 2rem);
   margin: 0;
+  padding-top: clamp(0.75rem, 1.5vh, 1.25rem);
   border-top: 1px solid var(--color-blue-200);
-  background-color: var(--color-blue-50);
+  max-width: 56ch;
 }
 
 .case-study__stat {
   display: grid;
   gap: 0.25rem;
-  padding: clamp(1rem, 2vh, 1.5rem) clamp(1rem, 3vw, 2rem);
-  border-left: 1px solid var(--color-blue-200);
-}
-
-.case-study__stat:first-child {
-  border-left: 0;
-}
-
-/* On mobile (2 cols), the third stat is left-column of row 2 — no
-   left border. Horizontal divider lives on the cell above instead. */
-.case-study__stat:nth-child(3) {
-  border-left: 0;
-  border-top: 1px solid var(--color-blue-200);
-}
-
-.case-study__stat:nth-child(4) {
-  border-top: 1px solid var(--color-blue-200);
 }
 
 .case-study__stat-value {
   font-family: var(--font-sans);
   font-weight: 500;
   color: var(--color-blue-900);
-  font-size: clamp(1.75rem, 2.5vw, 2.5rem);
+  font-size: clamp(1.5rem, 2vw, 2rem);
   line-height: 1;
   letter-spacing: -0.02em;
   margin: 0;
@@ -220,6 +205,40 @@
   letter-spacing: 0.1em;
   color: var(--color-blue-500);
   margin: 0;
+}
+
+/* ── CTA: inline mono link with arrow ────────────────────────────── */
+
+.case-study__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: start;
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-blue-900);
+  text-decoration: none;
+  padding-top: clamp(0.25rem, 0.75vh, 0.5rem);
+  transition: color 150ms ease, gap 200ms ease;
+}
+
+.case-study__cta:hover {
+  color: var(--color-blue-500);
+  gap: 0.75rem;
+}
+
+.case-study__cta:focus-visible {
+  outline: 2px solid var(--color-blue-500);
+  outline-offset: 2px;
+}
+
+.case-study__cta-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex-shrink: 0;
 }
 
 /* ── Desktop spread (lg+): single-fold composition ───────────────── */
@@ -236,34 +255,17 @@
     height: calc(100vh - var(--header-height, 4rem));
     height: calc(100dvh - var(--header-height, 4rem));
     grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);
-    grid-template-rows: minmax(0, 1fr) auto;
-    grid-template-areas:
-      "photo story"
-      "stats stats";
+    grid-template-rows: 1fr;
+    grid-template-areas: "photo story";
   }
 
   .case-study__photo { grid-area: photo; }
-  .case-study__story { grid-area: story; overflow: hidden; }
-  .case-study__stats { grid-area: stats; grid-template-columns: repeat(var(--stats-count, 4), 1fr); }
 
   .case-study__story {
+    grid-area: story;
+    overflow: hidden;
     padding: clamp(1.75rem, 3vh, 2.5rem) clamp(2rem, 3.5vw, 3.5rem);
     gap: clamp(1rem, 1.6vh, 1.75rem);
-    /* Story column never gets taller than the photo; if content
-       genuinely overflows, scroll instead of breaking the fold. */
-  }
-
-  .case-study__stat {
-    border-top: 0;
-  }
-
-  .case-study__stat:nth-child(3) {
-    border-left: 1px solid var(--color-blue-200);
-    border-top: 0;
-  }
-
-  .case-study__stat:nth-child(4) {
-    border-top: 0;
   }
 }
 

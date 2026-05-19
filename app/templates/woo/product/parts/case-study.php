@@ -57,8 +57,8 @@ if (empty($case_study)) {
             'name' => 'Brian Kowalski',
             'role' => __('Owner', 'standard'),
         ],
-        'cta_text' => '',
-        'cta_url'  => '',
+        'cta_text' => __('Read the full case study', 'standard'),
+        'cta_url'  => '#',
     ];
 }
 
@@ -142,19 +142,27 @@ $stats_count = !empty($case_study['stats']) ? count($case_study['stats']) : 0;
                 </blockquote>
             <?php endif; ?>
 
-        </div>
+            <!-- Stats: inline two-column mini-grid -->
+            <?php if ($stats_count > 0) : ?>
+                <dl class="case-study__stats">
+                    <?php foreach ($case_study['stats'] as $stat) : ?>
+                        <div class="case-study__stat">
+                            <dd class="case-study__stat-value"><?php echo esc_html($stat['stat']); ?></dd>
+                            <dt class="case-study__stat-label"><?php echo esc_html($stat['label']); ?></dt>
+                        </div>
+                    <?php endforeach; ?>
+                </dl>
+            <?php endif; ?>
 
-        <!-- Stats strip (full-width across both columns at the bottom) -->
-        <?php if ($stats_count > 0) : ?>
-            <dl class="case-study__stats" style="--stats-count: <?php echo (int) min($stats_count, 4); ?>;">
-                <?php foreach ($case_study['stats'] as $stat) : ?>
-                    <div class="case-study__stat">
-                        <dd class="case-study__stat-value"><?php echo esc_html($stat['stat']); ?></dd>
-                        <dt class="case-study__stat-label"><?php echo esc_html($stat['label']); ?></dt>
-                    </div>
-                <?php endforeach; ?>
-            </dl>
-        <?php endif; ?>
+            <!-- CTA -->
+            <?php if (!empty($case_study['cta_url'])) : ?>
+                <a href="<?php echo esc_url($case_study['cta_url']); ?>" class="case-study__cta">
+                    <span><?php echo esc_html($case_study['cta_text'] ?? __('Read the full case study', 'standard')); ?></span>
+                    <?php icon('arrow-right', ['class' => 'case-study__cta-icon']); ?>
+                </a>
+            <?php endif; ?>
+
+        </div>
 
     </div>
 
