@@ -99,15 +99,15 @@ $phases = [
     <!-- Bottom chrome bar -->
     <div class="border-t border-blue-200">
         <div class="border-x border-blue-200 container">
-            <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
+            <div class="flex items-center justify-between py-3 font-mono uppercase tracking-wider text-[0.625rem] md:text-xs">
                 <div class="flex items-center gap-2 pl-3">
-                    <span><?php echo esc_html($content['footer_left_k']); ?></span>
+                    <span class="hidden md:inline"><?php echo esc_html($content['footer_left_k']); ?></span>
                     <span class="text-blue-900"><?php echo esc_html($content['footer_left_v']); ?></span>
                 </div>
                 <div class="flex items-center gap-4 pr-3">
-                    <span><?php echo esc_html($content['footer_right_k']); ?></span>
+                    <span class="hidden md:inline"><?php echo esc_html($content['footer_right_k']); ?></span>
                     <span class="text-blue-900"><?php echo esc_html($content['footer_right_v']); ?></span>
-                    <div class="flex gap-1" aria-hidden="true">
+                    <div class="hidden md:flex gap-1" aria-hidden="true">
                         <span class="w-1 h-3 bg-blue-300"></span>
                         <span class="w-1 h-3 bg-blue-300"></span>
                         <span class="w-1 h-3 bg-blue-300"></span>

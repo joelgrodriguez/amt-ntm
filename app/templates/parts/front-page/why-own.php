@@ -3,13 +3,18 @@
  * Why Own Section — Front Page
  *
  * Single section that replaces the earlier pain-points + value-prop pair.
- * Two-column compare: left "WITHOUT YOUR MACHINE" (red-square markers,
- * the cost side), right "WITH YOUR NTM" (blue-check markers, the value
- * side). One two-door CTA below the table.
  *
- * No image — the typography and the side-by-side comparison are the
- * composition. Columns are separated by a full-height hairline divider
- * on md+ and stack on mobile with a horizontal divider between.
+ * Composition:
+ *   - Header: title + lede + single specialist CTA on the left, action
+ *     image (16:9) on the right, vertically centered on lg+.
+ *   - Compare: two-column "WITHOUT YOUR MACHINE" (red-x markers, the
+ *     cost side) vs "WITH YOUR NTM" (blue-check markers, the value
+ *     side). Columns separated by a full-height hairline divider on md+
+ *     and stack on mobile with a horizontal divider between.
+ *
+ * Only a Talk-to-a-Specialist CTA here. Configure & Quote lives in the
+ * flagships, router, and final-cta sections; repeating it on every
+ * surface dilutes the door choice.
  *
  * @package Standard
  *
@@ -74,12 +79,12 @@ $value_points = [
                 <p class="font-sans text-blue-600 text-base lg:text-lg leading-relaxed">
                     <?php echo esc_html($content['lede']); ?>
                 </p>
-                <?php get_template_part('templates/parts/cta/two-door', null, [
-                    'primary_label'    => __('Configure & Quote', 'standard'),
-                    'primary_url'      => '/configurator/',
-                    'specialist_label' => __('Talk to a Specialist', 'standard'),
-                    'specialist_url'   => '/contact/',
-                ]); ?>
+                <div class="flex">
+                    <a href="<?php echo esc_url(\Standard\Url\internal('/contact/')); ?>" class="btn btn-primary">
+                        <?php esc_html_e('Talk to a Specialist', 'standard'); ?>
+                        <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                    </a>
+                </div>
             </div>
             <div class="aspect-video overflow-hidden">
                 <?php \Standard\Images\responsive_image($content['image'], $content['image_alt'], 'large', [

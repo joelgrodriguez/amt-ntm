@@ -21,8 +21,6 @@ $content = [
     'text'          => __('Join thousands of contractors who stopped waiting on suppliers and started rolling their own profits.', 'standard'),
     'cta_primary'   => __('Talk to a Specialist', 'standard'),
     'cta_primary_url' => '/contact/',
-    'cta_secondary' => __('Configure Your Machine', 'standard'),
-    'cta_secondary_url' => '/configurator/',
 ];
 ?>
 
@@ -39,13 +37,10 @@ $content = [
             </p>
         </div>
 
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <div class="flex justify-center">
             <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="btn btn-primary">
                 <?php echo esc_html($content['cta_primary']); ?>
                 <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
-            </a>
-            <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_secondary_url'])); ?>" class="btn btn-outline-light">
-                <?php echo esc_html($content['cta_secondary']); ?>
             </a>
         </div>
 
