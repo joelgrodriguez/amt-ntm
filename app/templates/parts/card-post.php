@@ -48,9 +48,9 @@ $category  = get_primary_category();
         <?php endif; ?>
     </div>
 
-    <div class="p-5 lg:p-6 grid gap-5 content-start">
+    <div class="p-5 lg:p-6 grid gap-2 content-start">
         <?php if ($category) : ?>
-            <span class="inline-flex justify-self-start items-center bg-blue-50 px-2 py-1 font-mono uppercase tracking-wider text-caption text-blue-700">
+            <span class="font-mono uppercase tracking-wider text-caption text-blue-700">
                 <?php echo esc_html($category->name); ?>
             </span>
         <?php endif; ?>
