@@ -37,16 +37,12 @@ if (empty($breakdown)) {
             $copy        = $sub['copy'] ?? '';
             $specs       = $sub['specs'] ?? [];
         ?>
-            <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center <?php echo $is_reversed ? 'lg:[&>*:first-child]:order-2' : ''; ?>">
+            <div class="grid <?php echo !empty($image) ? 'lg:grid-cols-2' : ''; ?> gap-8 lg:gap-16 items-center <?php echo $is_reversed ? 'lg:[&>*:first-child]:order-2' : ''; ?>">
                 <?php if (!empty($image)) : ?>
                     <div class="aspect-video overflow-hidden">
                         <?php \Standard\Images\responsive_image($image, $title, 'large', [
                             'class' => 'w-full h-full object-cover',
                         ]); ?>
-                    </div>
-                <?php else : ?>
-                    <div class="bg-blue-100 aspect-video flex items-center justify-center">
-                        <span class="text-blue-400 text-sm font-mono"><?php echo esc_html($title); ?></span>
                     </div>
                 <?php endif; ?>
                 <div class="grid gap-4">
