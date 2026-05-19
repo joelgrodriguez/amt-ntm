@@ -87,7 +87,10 @@ body:has(.header--sticky:not(.header--hidden)) .machine-subnav.is-sticky {
 
 .machine-subnav__dropdown {
   position: absolute;
-  top: 100%;
+  /* Pull up 1px so the dropdown's top border overlaps the bar's
+     bottom border. Clean intersection per DESIGN.md §8.4 instead of
+     a faint hairline gap between the two. */
+  top: calc(100% - 1px);
   left: 0;
   min-width: 260px;
   background: var(--color-white);
