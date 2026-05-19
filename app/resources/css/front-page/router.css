@@ -1,60 +1,60 @@
 /**
- * Hero Router — Mini-Configurator Strip
+ * Router — Mini-Configurator Strip
  *
- * Light surface band that sits directly below the hero. Hairline grid
- * of dropdown fields; mono labels above sans selects. Same spec-sheet
- * vocabulary as the hero specs band.
+ * Light surface band; sits after flagships in the front-page flow.
+ * Hairline grid of dropdown fields; mono labels above sans selects.
+ * Same spec-sheet vocabulary as the hero specs band.
  *
- * @file front-page/hero-router.css
+ * @file front-page/router.css
  *
  * @usage Front Page (front-page.php)
- * @template templates/parts/front-page/hero-router.php
+ * @template templates/parts/front-page/router.php
  */
 
-.hero-router {
+.router {
   background-color: var(--color-blue-50);
   border-top: 1px solid var(--color-blue-200);
   border-bottom: 1px solid var(--color-blue-200);
 }
 
-.hero-router__inner {
+.router__inner {
   padding-top: 3.5rem;
   padding-bottom: 3.5rem;
 }
 
 @media (min-width: 768px) {
-  .hero-router__inner {
+  .router__inner {
     padding-top: 4.5rem;
     padding-bottom: 4.5rem;
   }
 }
 
 @media (min-width: 1024px) {
-  .hero-router__inner {
+  .router__inner {
     padding-top: 6rem;
     padding-bottom: 6rem;
   }
 }
 
-.hero-router__form {
+.router__form {
   display: grid;
   gap: 1.5rem;
 }
 
 @media (min-width: 1024px) {
-  .hero-router__form {
+  .router__form {
     gap: 2rem;
   }
 }
 
 /* Header row: eyebrow + title on the left, help link on the right. */
-.hero-router__header {
+.router__header {
   display: grid;
   gap: 0.5rem;
 }
 
 @media (min-width: 768px) {
-  .hero-router__header {
+  .router__header {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
@@ -62,12 +62,12 @@
   }
 }
 
-.hero-router__heading {
+.router__heading {
   display: grid;
   gap: 0.25rem;
 }
 
-.hero-router__eyebrow {
+.router__eyebrow {
   font-family: var(--font-mono);
   font-size: var(--text-caption);
   font-weight: 500;
@@ -77,7 +77,7 @@
   line-height: 1;
 }
 
-.hero-router__title {
+.router__title {
   font-family: var(--font-sans);
   font-size: var(--text-heading-sm);
   font-weight: 500;
@@ -87,18 +87,18 @@
 }
 
 @media (min-width: 768px) {
-  .hero-router__title {
+  .router__title {
     font-size: var(--text-heading);
   }
 }
 
 @media (min-width: 1024px) {
-  .hero-router__title {
+  .router__title {
     font-size: var(--text-heading-lg);
   }
 }
 
-.hero-router__help {
+.router__help {
   font-family: var(--font-mono);
   font-size: var(--text-caption);
   font-weight: 500;
@@ -110,22 +110,22 @@
 }
 
 @media (min-width: 768px) {
-  .hero-router__help {
+  .router__help {
     align-self: flex-end;
   }
 }
 
-.hero-router__help:hover {
+.router__help:hover {
   color: var(--color-red);
 }
 
-.hero-router__help:focus-visible {
+.router__help:focus-visible {
   outline: 2px solid var(--color-blue-500);
   outline-offset: 4px;
 }
 
 /* Fields row: hairline grid, blue-200 dividers showing through the gap. */
-.hero-router__grid {
+.router__grid {
   display: grid;
   gap: 1px;
   background-color: var(--color-blue-200);
@@ -133,12 +133,12 @@
 }
 
 @media (min-width: 768px) {
-  .hero-router__grid {
+  .router__grid {
     grid-template-columns: 1fr 1fr 1fr auto;
   }
 }
 
-.hero-router__field {
+.router__field {
   display: grid;
   gap: 0.25rem;
   align-content: center;
@@ -149,13 +149,13 @@
 }
 
 @media (min-width: 768px) {
-  .hero-router__field {
+  .router__field {
     padding: 1rem 1.25rem;
     min-height: 4.5rem;
   }
 }
 
-.hero-router__label {
+.router__label {
   font-family: var(--font-mono);
   font-size: var(--text-caption);
   font-weight: 500;
@@ -165,7 +165,7 @@
   line-height: 1;
 }
 
-.hero-router__select {
+.router__select {
   width: 100%;
   font-family: var(--font-sans);
   font-size: var(--text-body);
@@ -185,7 +185,7 @@
   padding-right: 1.5rem;
 }
 
-.hero-router__select:focus-visible {
+.router__select:focus-visible {
   outline: 2px solid var(--color-blue-500);
   outline-offset: 4px;
 }
@@ -193,31 +193,31 @@
 /* Unselected placeholder reads dimmer than chosen values. DESIGN.md §2.5
    reserves blue-500 for the primary brand accent; placeholders use the
    blue-300 placeholder/disabled role instead. */
-.hero-router__select:invalid {
+.router__select:invalid {
   color: var(--color-blue-300);
 }
 
-.hero-router__select option {
+.router__select option {
   font-family: var(--font-sans);
   color: var(--color-blue-900);
 }
 
-.hero-router__select option[disabled] {
+.router__select option[disabled] {
   color: var(--color-blue-300);
 }
 
 /* Submit cell: button fills the cell edge-to-edge, no white halo. */
-.hero-router__submit-cell {
+.router__submit-cell {
   display: flex;
   background-color: var(--color-white);
 }
 
-.hero-router__submit {
+.router__submit {
   width: 100%;
 }
 
 @media (min-width: 768px) {
-  .hero-router__submit {
+  .router__submit {
     width: auto;
     height: 100%;
     padding-left: 2rem;

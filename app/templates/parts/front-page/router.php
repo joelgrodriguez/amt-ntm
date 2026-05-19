@@ -1,13 +1,14 @@
 <?php
 /**
- * Hero Router — Mini-Configurator Strip
+ * Router — Mini-Configurator Strip
  *
- * Sits directly below the hero slider. Three dropdowns (profile,
- * coil width, volume) submit GET params to /configurator/.
+ * Three dropdowns (profile, coil width, volume) submit GET params to
+ * /configurator/. On the front page it lands after `flagships`, so a
+ * buyer who has seen the catalog plus the curated callouts but still
+ * isn't sure which machine to pick can dial in three answers.
  *
- * Light surface (bg-blue-50) breaks rhythm cleanly under the dark
- * hero. Hairline-bordered controls, mono labels, no decoration.
- * Reads as a spec-sheet picker, not a marketing widget.
+ * Light surface (bg-blue-50). Hairline-bordered controls, mono labels,
+ * no decoration. Reads as a spec-sheet picker, not a marketing widget.
  *
  * @package Standard
  *
@@ -67,33 +68,33 @@ $fields = [
 ];
 ?>
 
-<section class="hero-router" aria-labelledby="hero-router-title">
-    <div class="container hero-router__inner">
+<section class="router" aria-labelledby="router-title">
+    <div class="container router__inner">
         <form
             action="<?php echo esc_url(\Standard\Url\internal('/configurator/')); ?>"
             method="get"
-            class="hero-router__form"
+            class="router__form"
             aria-label="<?php echo esc_attr($content['form_aria']); ?>"
         >
-            <div class="hero-router__header">
-                <div class="hero-router__heading">
-                    <h2 id="hero-router-title" class="hero-router__title">
+            <div class="router__header">
+                <div class="router__heading">
+                    <h2 id="router-title" class="router__title">
                         <?php echo esc_html($content['title']); ?>
                     </h2>
                 </div>
-                <a href="<?php echo esc_url(\Standard\Url\internal('/contact/')); ?>" class="hero-router__help">
+                <a href="<?php echo esc_url(\Standard\Url\internal('/contact/')); ?>" class="router__help">
                     <?php echo esc_html($content['help']); ?>
                     <span aria-hidden="true">&rarr;</span>
                 </a>
             </div>
 
-            <div class="hero-router__grid">
+            <div class="router__grid">
                 <?php foreach ($fields as $field) : ?>
-                    <label class="hero-router__field">
-                        <span class="hero-router__label">
+                    <label class="router__field">
+                        <span class="router__label">
                             <?php echo esc_html($field['label']); ?>
                         </span>
-                        <select name="<?php echo esc_attr($field['name']); ?>" class="hero-router__select" required>
+                        <select name="<?php echo esc_attr($field['name']); ?>" class="router__select" required>
                             <option value="" disabled selected><?php echo esc_html($field['placeholder']); ?></option>
                             <?php foreach ($field['options'] as $v => $l) : ?>
                                 <option value="<?php echo esc_attr($v); ?>"><?php echo esc_html($l); ?></option>
@@ -102,8 +103,8 @@ $fields = [
                     </label>
                 <?php endforeach; ?>
 
-                <div class="hero-router__submit-cell">
-                    <button type="submit" class="btn btn-primary hero-router__submit">
+                <div class="router__submit-cell">
+                    <button type="submit" class="btn btn-primary router__submit">
                         <?php echo esc_html($content['submit']); ?>
                         <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                     </button>
