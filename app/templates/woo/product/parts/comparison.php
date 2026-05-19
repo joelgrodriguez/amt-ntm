@@ -40,11 +40,13 @@ $compare_slugs = $comparison['compare_with'];
             <!-- Current machine -->
             <div class="border-2 border-red bg-white p-6 grid gap-3 text-center relative">
                 <span class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red text-white text-xs font-medium px-3 py-1 uppercase tracking-wider">You're Viewing</span>
-                <?php if ($product && $product->get_image_id()) : ?>
-                    <div class="aspect-square flex items-center justify-center mt-4 overflow-hidden">
+                <div class="bg-blue-100 aspect-square flex items-center justify-center mt-4 overflow-hidden">
+                    <?php if ($product && $product->get_image_id()) : ?>
                         <?php echo $product->get_image('woocommerce_thumbnail', ['class' => 'w-full h-full object-contain']); ?>
-                    </div>
-                <?php endif; ?>
+                    <?php else : ?>
+                        <span class="text-blue-400 text-xs font-mono">Machine image</span>
+                    <?php endif; ?>
+                </div>
                 <h3 class="text-lg font-medium text-blue-900"><?php echo esc_html($product ? $product->get_name() : ''); ?></h3>
                 <?php if (!empty($best_for)) : ?>
                     <p class="text-sm text-blue-500">Best for: <?php echo esc_html($best_for); ?></p>
@@ -64,17 +66,10 @@ $compare_slugs = $comparison['compare_with'];
                 $comp_price = $comp['finance']['price_range'] ?? '';
                 $comp_best  = $comp['comparison']['best_for'] ?? '';
             ?>
-                <?php
-                $comp_image = $comp['hero']['image'] ?? '';
-                ?>
                 <div class="border border-blue-200 bg-white p-6 grid gap-3 text-center">
-                    <?php if (!empty($comp_image)) : ?>
-                        <div class="aspect-square flex items-center justify-center overflow-hidden">
-                            <?php \Standard\Images\responsive_image($comp_image, $comp_name, 'medium', [
-                                'class' => 'w-full h-full object-contain',
-                            ]); ?>
-                        </div>
-                    <?php endif; ?>
+                    <div class="bg-blue-100 aspect-square flex items-center justify-center">
+                        <span class="text-blue-400 text-xs font-mono">Machine image</span>
+                    </div>
                     <h3 class="text-lg font-medium text-blue-900"><?php echo esc_html($comp_name); ?></h3>
                     <?php if (!empty($comp_best)) : ?>
                         <p class="text-sm text-blue-500">Best for: <?php echo esc_html($comp_best); ?></p>

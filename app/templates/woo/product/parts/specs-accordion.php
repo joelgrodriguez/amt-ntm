@@ -206,17 +206,10 @@ if (empty($sections)) {
 }
 ?>
 
-<?php
-// Optional spec-sidebar image. Pull from machine hero image when available;
-// otherwise the right column collapses and the accordion goes full-width.
-$specs_image = $machine['hero']['image'] ?? '';
-$has_specs_image = !empty($specs_image);
-$layout_class = $has_specs_image ? 'grid lg:grid-cols-2 gap-12 items-stretch' : 'grid';
-?>
 <section id="machine-specs" class="section bg-blue-50" aria-labelledby="specs-title">
     <div class="container section-content">
 
-        <div class="<?php echo esc_attr($layout_class); ?>">
+        <div class="grid lg:grid-cols-2 gap-12 items-stretch">
 
             <!-- Left column: header + accordions -->
             <div>
@@ -247,15 +240,17 @@ $layout_class = $has_specs_image ? 'grid lg:grid-cols-2 gap-12 items-stretch' : 
                 </div>
             </div>
 
-            <?php if ($has_specs_image) : ?>
-                <div class="hidden lg:block">
-                    <div class="overflow-hidden h-full flex items-center justify-center">
-                        <?php \Standard\Images\responsive_image($specs_image, $product ? $product->get_name() : '', 'large', [
-                            'class' => 'w-full h-full object-cover',
-                        ]); ?>
+            <!-- Right column: vertical machine image — fills full height of container -->
+            <div class="hidden lg:block">
+                <div class="bg-blue-100 overflow-hidden h-full flex items-center justify-center">
+                    <div class="text-center grid gap-4">
+                        <svg class="w-16 h-16 text-blue-300 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
+                        </svg>
+                        <span class="text-blue-400 text-sm font-mono"><?php esc_html_e('Machine image', 'standard'); ?></span>
                     </div>
                 </div>
-            <?php endif; ?>
+            </div>
 
         </div>
 
