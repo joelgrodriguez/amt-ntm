@@ -65,24 +65,18 @@ export function initExploreMachines(options = {}) {
       tab.setAttribute('tabindex', isActive ? '0' : '-1');
     });
 
-    // Update panels. Toggle the hidden attribute so browsers don't preload
-    // images inside inactive panels; restore on activation. The first card
-    // image in a newly-shown panel still hits the network here, but that's
-    // a user-driven request (they clicked the tab) rather than a page-load
-    // cost across every panel up front.
+    // Update panels
     panels.forEach((panel) => {
       const isActive = panel.id === `panel-${categorySlug}`;
       panel.classList.toggle('explore-machines__panel--active', isActive);
 
+      // Reset scroll position and counter when switching
       if (isActive) {
-        panel.removeAttribute('hidden');
         const track = panel.querySelector('.explore-machines__track');
         if (track) {
           track.scrollLeft = 0;
           updateCounter(panel, track);
         }
-      } else {
-        panel.setAttribute('hidden', '');
       }
     });
   }
@@ -111,21 +105,14 @@ export function initExploreMachines(options = {}) {
 
     currentEl.textContent = String(visibleIndex + 1);
 
-    // Update arrow disabled state + fade-edge visibility. The fade edges
-    // and the arrows answer the same question ("can I scroll further this
-    // way?") so they share one source of truth.
+    // Update arrow states
     const prevBtn = panel.querySelector('.explore-machines__arrow--prev');
     const nextBtn = panel.querySelector('.explore-machines__arrow--next');
-    const frame = panel.querySelector('.explore-machines__track-frame');
     const isAtStart = track.scrollLeft <= 0;
     const isAtEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 10;
 
     if (prevBtn) prevBtn.disabled = isAtStart;
     if (nextBtn) nextBtn.disabled = isAtEnd;
-    if (frame) {
-      frame.classList.toggle('is-at-start', isAtStart);
-      frame.classList.toggle('is-at-end', isAtEnd);
-    }
   }
 
   /**
@@ -183,10 +170,7 @@ export function initExploreMachines(options = {}) {
       }
     });
 
-    // Manual-activation tab pattern: arrow keys move focus only; Enter or
-    // Space activates the focused tab. This is the WAI-ARIA recommendation
-    // for tabs whose panels reset scroll position on switch, so a user can
-    // arrow back to a tab without losing their current scroll position.
+    // Keyboard navigation for tabs
     section.addEventListener(
       'keydown',
       (e) => {
@@ -201,25 +185,12 @@ export function initExploreMachines(options = {}) {
             e.key === 'ArrowRight'
               ? (currentIndex + 1) % tabArray.length
               : (currentIndex - 1 + tabArray.length) % tabArray.length;
-          tabArray[nextIndex].focus();
-          return;
-        }
 
-        if (e.key === 'Home') {
-          e.preventDefault();
-          tabArray[0].focus();
-          return;
-        }
-
-        if (e.key === 'End') {
-          e.preventDefault();
-          tabArray[tabArray.length - 1].focus();
-          return;
-        }
-
-        if ((e.key === 'Enter' || e.key === ' ') && e.target.dataset.category) {
-          e.preventDefault();
-          switchTab(e.target.dataset.category);
+          const nextTab = tabArray[nextIndex];
+          nextTab.focus();
+          if (nextTab.dataset.category) {
+            switchTab(nextTab.dataset.category);
+          }
         }
       },
       { signal }

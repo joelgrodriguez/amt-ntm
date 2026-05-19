@@ -12,47 +12,7 @@
  * @see js/modules/ExploreMachines.js - Tab switching and scroll navigation
  */
 
-/* Track frame: positions ::before and ::after gradient overlays at the
-   left and right edges to signal "more content to scroll." JS toggles
-   .is-at-start / .is-at-end classes based on scrollLeft so the matching
-   edge fade hides when the user is parked at that boundary. */
-/* Clip only the x-axis so the track doesn't bleed past its container and
-   create page-level horizontal scroll. overflow-y stays visible so card
-   focus rings (drawn outside the card border) aren't cropped. */
-.explore-machines__track-frame {
-  @apply relative;
-  overflow-x: clip;
-  overflow-y: visible;
-}
-
-.explore-machines__track-frame::before,
-.explore-machines__track-frame::after {
-  content: '';
-  @apply absolute top-0 bottom-0 w-12 md:w-16 pointer-events-none z-10;
-  transition: opacity 200ms ease-out;
-}
-
-.explore-machines__track-frame::before {
-  @apply left-0;
-  background: linear-gradient(to right, var(--color-white), rgb(255 255 255 / 0));
-}
-
-.explore-machines__track-frame::after {
-  @apply right-0;
-  background: linear-gradient(to left, var(--color-white), rgb(255 255 255 / 0));
-}
-
-.explore-machines__track-frame.is-at-start::before {
-  @apply opacity-0;
-}
-
-.explore-machines__track-frame.is-at-end::after {
-  @apply opacity-0;
-}
-
-/* Track: horizontal scroll, no visible scrollbar (the fade-edges replace
-   that affordance for sighted users; the counter and arrow buttons cover
-   the rest). */
+/* Track - horizontal scroll with hidden scrollbar */
 .explore-machines__track {
   @apply py-2;
   scroll-snap-type: x mandatory;
@@ -64,11 +24,19 @@
   @apply hidden;
 }
 
-/* Panel state. The [hidden] attribute on inactive panels gives us
-   display: none, which suppresses image preloading. We don't fade
-   between panels anymore; tab switching is an instant content swap. */
-.explore-machines__panel[hidden] {
-  display: none;
+/* Panel wrapper - contains stacked panels */
+.explore-machines__panels {
+  @apply relative;
+}
+
+/* Panel state - toggled by JS */
+.explore-machines__panel {
+  @apply invisible absolute inset-0 opacity-0;
+  transition: opacity 150ms ease-out, visibility 150ms ease-out;
+}
+
+.explore-machines__panel--active {
+  @apply visible relative opacity-100;
 }
 
 /* Tab styles */
@@ -87,47 +55,12 @@
   border-bottom-color: var(--color-red);
 }
 
-/* Section rhythm: header group is tight (title close to tabs); generous
-   beat between header and the card track; track sits tight to its nav row.
-   This breaks the "every gap is the same" reflex. */
-.explore-machines__header {
-  @apply grid gap-3 md:gap-4;
-  margin-bottom: 2.5rem;
-}
-
-@media (min-width: 1024px) {
-  .explore-machines__header {
-    margin-bottom: 3.5rem;
-  }
-}
-
-.explore-machines__panel {
-  @apply grid gap-5 md:gap-6;
-}
-
-.explore-machines__nav {
-  @apply flex items-center justify-center gap-4;
-}
-
-/* Counter: live region for "1 of 5". Instrument vocabulary: mono,
-   uppercase, caption size, blue-700. font-variant-numeric tabular-nums
-   pins digit widths so the value doesn't shift as numbers change. */
-.explore-machines__counter {
-  @apply font-mono uppercase text-blue-700 min-w-16 text-center;
-  font-size: var(--text-caption);
-  letter-spacing: 0.05em;
-  font-variant-numeric: tabular-nums;
-}
-
-/* Arrow navigation buttons. Hairline-bordered square buttons so they
-   read unambiguously as controls against the dot-pattern background.
-   Color escalates on hover; disabled state fades but the border stays
-   so the affordance never disappears. */
+/* Arrow navigation buttons */
 .explore-machines__arrow {
-  @apply flex items-center justify-center w-10 h-10;
-  @apply text-blue-900 border border-blue-300 bg-white cursor-pointer;
+  @apply flex items-center justify-center w-8 h-8;
+  @apply bg-blue-100 text-blue-700 border-none cursor-pointer;
   @apply transition-colors duration-200;
-  @apply hover:bg-blue-900 hover:text-white hover:border-blue-900;
-  @apply disabled:text-blue-300 disabled:border-blue-200 disabled:bg-white disabled:cursor-not-allowed;
+  @apply hover:bg-blue-800 hover:text-white;
+  @apply disabled:opacity-40 disabled:cursor-not-allowed;
   @apply focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2;
 }

@@ -26,6 +26,7 @@ const FALLBACK_MACHINE_PRICE = '$87,245';
  */
 function get_product_categories(): array {
     return [
+        'all'                          => \__('All', 'standard'),
         'roof-wall-panel-machines'     => \__('Roof & Wall Panel Machines', 'standard'),
         'gutter-machines'              => \__('Seamless Gutter Machines', 'standard'),
         'accessories-add-on-equipment' => \__('Accessories & Upgrades', 'standard'),
