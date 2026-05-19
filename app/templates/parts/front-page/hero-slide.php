@@ -4,15 +4,11 @@
  *
  * Renders a single slide in the hero slider. Composition:
  *   - photo region (full-bleed)
- *   - top-right vertical spec stack overlaid on the photo
- *     (white mono, no chrome — gives the engineered moment
- *      without competing with the headline for attention)
  *   - bottom-left content stack: eyebrow, title, slogan, CTA
  *
- * The whole composition is one unit per slide; sliding the track
- * moves photo + overlays together (one cinematic block).
- *
- * Expects $args array with machine data including `stats`.
+ * Stats are intentionally not shown here. The photography and the
+ * headline are the hero; engineered/spec voice lives in the flagships
+ * and three-step sections downstream.
  *
  * @package Standard
  */
@@ -40,7 +36,6 @@ $title            = $machine['title'] ?? '';
 $slogan           = $machine['slogan'] ?? '';
 $background_image = $machine['background_image'] ?? '';
 $background_video = $machine['background_video'] ?? '';
-$stats            = $machine['stats'] ?? [];
 $learn_more_url   = $machine['learn_more_url'] ?? '#';
 $is_first         = $index === 0;
 ?>
@@ -82,22 +77,6 @@ $is_first         = $index === 0;
 
         <div class="hero-overlay"></div>
         <div class="hero-overlay__grain"></div>
-
-        <!-- Top-right spec stack — no chrome, white mono on photo -->
-        <?php if (!empty($stats)) : ?>
-            <ul class="hero-slider__topspecs" aria-label="<?php echo esc_attr(sprintf(__('%s specifications', 'standard'), $title)); ?>">
-                <?php foreach ($stats as $stat) : ?>
-                    <li class="hero-slider__topspec">
-                        <span class="hero-slider__topspec-value">
-                            <?php echo esc_html($stat['value']); ?>
-                        </span>
-                        <span class="hero-slider__topspec-label">
-                            <?php echo esc_html($stat['label']); ?>
-                        </span>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
 
         <div class="hero-slider__content">
             <div class="container hero-slider__content-inner">
