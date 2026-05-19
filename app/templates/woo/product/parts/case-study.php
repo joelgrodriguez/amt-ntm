@@ -36,15 +36,15 @@ if (empty($case_study)) {
         'image_alt' => __('Crew member training on an NTM rollformer at Rocky Mountain Metal Works.', 'standard'),
         'challenge' => [
             'heading' => __('Challenge', 'standard'),
-            'text'    => __('Rocky Mountain Metal Works was losing 30% of their margin to outsourced panel production. Lead times of 2 to 3 weeks meant missed deadlines and jobs going to competitors who could deliver faster.', 'standard'),
+            'text'    => __('Losing 30% of their margin to outsourced panel production. Two to three week lead times meant missed deadlines and jobs going to faster competitors.', 'standard'),
         ],
         'solution' => [
             'heading' => __('Solution', 'standard'),
-            'text'    => __('After investing in an NTM rollformer the team went from third-party suppliers to producing panels on-site the same day. Full crew training inside a week, portable setup for shop and jobsite.', 'standard'),
+            'text'    => __('An NTM rollformer on-site. Same-day panel production, full crew trained inside a week, portable setup for shop or jobsite.', 'standard'),
         ],
         'results' => [
             'heading' => __('Results', 'standard'),
-            'text'    => __('Inside twelve months they had paid off the machine and tripled their project capacity. Margin recovered, schedule controlled, work kept in-house.', 'standard'),
+            'text'    => __('Machine paid off in 12 months, project capacity tripled, margin recovered, schedule controlled, work kept in-house.', 'standard'),
         ],
         'stats' => [
             ['stat' => '30%',    'label' => __('Margin recovered', 'standard')],
