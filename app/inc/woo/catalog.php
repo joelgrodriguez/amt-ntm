@@ -22,13 +22,26 @@ const FALLBACK_MACHINE_PRICE = '$87,245';
 /**
  * Get product categories for the Explore Machines section.
  *
- * @return array<string, string> Category slug => label pairs
+ * Each entry has a full `label` (used for aria, screen readers, and the
+ * full-width tab on md+) and a `short` label (used on mobile where the
+ * full label wraps or overflows).
+ *
+ * @return array<string, array{label: string, short: string}>
  */
 function get_product_categories(): array {
     return [
-        'roof-wall-panel-machines'     => \__('Roof & Wall Panel Machines', 'standard'),
-        'gutter-machines'              => \__('Seamless Gutter Machines', 'standard'),
-        'accessories-add-on-equipment' => \__('Accessories & Upgrades', 'standard'),
+        'roof-wall-panel-machines' => [
+            'label' => \__('Roof & Wall Panel Machines', 'standard'),
+            'short' => \__('Panels', 'standard'),
+        ],
+        'gutter-machines' => [
+            'label' => \__('Seamless Gutter Machines', 'standard'),
+            'short' => \__('Gutters', 'standard'),
+        ],
+        'accessories-add-on-equipment' => [
+            'label' => \__('Accessories & Upgrades', 'standard'),
+            'short' => \__('Accessories', 'standard'),
+        ],
     ];
 }
 

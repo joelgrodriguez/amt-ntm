@@ -45,7 +45,7 @@ $first_category = array_key_first($categories);
         </h2>
 
         <div class="explore-machines__tabs flex flex-wrap border-b border-blue-300" role="tablist" aria-label="<?php echo esc_attr($content['tabs_label']); ?>">
-            <?php foreach ($categories as $slug => $label) : ?>
+            <?php foreach ($categories as $slug => $category) : ?>
                 <button
                     type="button"
                     id="tab-<?php echo esc_attr($slug); ?>"
@@ -53,14 +53,15 @@ $first_category = array_key_first($categories);
                     role="tab"
                     aria-selected="<?php echo $slug === $first_category ? 'true' : 'false'; ?>"
                     aria-controls="panel-<?php echo esc_attr($slug); ?>"
+                    aria-label="<?php echo esc_attr($category['label']); ?>"
                     tabindex="<?php echo $slug === $first_category ? '0' : '-1'; ?>"
                     data-category="<?php echo esc_attr($slug); ?>"
-                ><?php echo esc_html($label); ?></button>
+                ><span class="md:hidden"><?php echo esc_html($category['short']); ?></span><span class="hidden md:inline"><?php echo esc_html($category['label']); ?></span></button>
             <?php endforeach; ?>
         </div>
 
         <div class="explore-machines__panels">
-            <?php foreach ($categories as $slug => $label) : ?>
+            <?php foreach ($categories as $slug => $category) : ?>
                 <?php $products = get_products_by_category($slug); ?>
                 <div
                     id="panel-<?php echo esc_attr($slug); ?>"
