@@ -12,10 +12,9 @@
  * slider — real machines, real specs, equal weight to "two product lines."
  *
  * Each band pulls live data from `data/machines/*.php` via
- * `get_machine_product_data()`. The roof slot points its product page
- * link at the SSQ II permalink for now, matching the same temporary
- * convention used by the hero slider (see `inc/machines.php`); swap to
- * the SSQ3 permalink when the SSQ3 WooCommerce product ships.
+ * `get_machine_product_data()`. Single primary CTA per machine routes
+ * to `/build-finance/?machine={slug}` so the configurator opens with
+ * the machine preselected.
  *
  * @package Standard
  *
@@ -30,20 +29,27 @@ if (!defined('ABSPATH')) {
 
 use function Standard\MachineProductData\get_machine_product_data;
 
+// Per-flagship overrides. `image_key` picks between the data file's
+// `image` (product/action shot) and `hero_image` (alt shot) depending
+// on which is the better action photo for THIS machine. `lede` opens
+// the subtitle paragraph with the full model name so the eyebrow can
+// stay scoped to the category instead of repeating the model.
 $flagships = [
     [
         'data_slug'    => 'ssq3-multipro',
-        'model_label'  => 'SSQ3',
-        'product_slug' => 'ssq-roof-panel-machine', // SSQ II permalink for now; swap to ssq3 when WC product ships.
+        'model_label'  => 'SSQ3 MultiPro',
         'image_align'  => 'left',
-        'cta_specs'    => __('See full specs', 'standard'),
+        'image_key'    => 'image', // 'Machine-on-rooftop' action shot
+        'badge'        => __('Flagship', 'standard'),
+        'lede'         => __('The SSQ3 MultiPro is the most advanced portable roof and wall panel machine we\'ve ever built. Smarter, safer, and more efficient than ever.', 'standard'),
     ],
     [
         'data_slug'    => 'mach-ii-combo-gutter',
         'model_label'  => 'MACH II Combo',
-        'product_slug' => 'mach-ii-5-6-gutter-machine',
         'image_align'  => 'right',
-        'cta_specs'    => __('See full specs', 'standard'),
+        'image_key'    => 'hero_image', // C&S Rain Gutters action shot
+        'badge'        => '',
+        'lede'         => __('The MACH II Combo runs both 5" and 6" K-style seamless gutters from a single machine. Maximum versatility for gutter contractors.', 'standard'),
     ],
 ];
 
@@ -63,14 +69,11 @@ $rendered_count = 0;
 
         $category   = $data['category'] ?? '';
         $slogan     = $data['hero']['headline'] ?? $data['slogan'] ?? '';
-        $subtitle   = $data['hero']['subtitle'] ?? '';
-        $hero_image = $data['hero']['image'] ?? $data['hero']['hero_image'] ?? '';
+        $lede       = $flagship['lede'] ?? $data['hero']['subtitle'] ?? '';
+        $image_key  = $flagship['image_key'] ?? 'image';
+        $hero_image = $data['hero'][$image_key] ?? $data['hero']['image'] ?? $data['hero']['hero_image'] ?? '';
         $stats      = array_slice($data['stats'] ?? [], 0, 3);
 
-        $product_post = get_page_by_path($flagship['product_slug'], OBJECT, 'product');
-        $specs_url    = ($product_post && $product_post->post_status === 'publish')
-            ? get_permalink($product_post)
-            : '#';
         $configure_url = \Standard\Url\with_query('/build-finance/', ['machine' => $flagship['data_slug']]);
 
         $image_first_on_lg = $flagship['image_align'] === 'left';
@@ -94,22 +97,27 @@ $rendered_count = 0;
                 <!-- Content cell -->
                 <div class="grid gap-6 lg:gap-8 content-start <?php echo $image_first_on_lg ? 'lg:order-2' : 'lg:order-1'; ?>">
 
-                    <!-- Eyebrow: red dot + MODEL line, mono uppercase -->
-                    <div class="flex items-center gap-3">
+                    <!-- Eyebrow: red dot + category, with optional FLAGSHIP badge to the right -->
+                    <div class="flex items-center gap-3 flex-wrap">
                         <span class="w-2 h-2 bg-red shrink-0" aria-hidden="true"></span>
                         <p class="font-mono uppercase tracking-wider text-xs text-blue-700">
-                            <?php echo esc_html(sprintf(__('Model · %s', 'standard'), $flagship['model_label'])); ?>
+                            <?php echo esc_html($category); ?>
                         </p>
+                        <?php if (!empty($flagship['badge'])) : ?>
+                            <span class="ml-auto inline-flex items-center px-2 py-1 bg-red text-white font-mono uppercase tracking-wider text-xs font-medium">
+                                <?php echo esc_html($flagship['badge']); ?>
+                            </span>
+                        <?php endif; ?>
                     </div>
 
-                    <!-- Headline -->
+                    <!-- Headline (slogan) -->
                     <h3 class="font-sans font-medium text-blue-900 tracking-tight leading-tight text-3xl md:text-4xl lg:text-5xl">
                         <?php echo esc_html($slogan); ?>
                     </h3>
 
-                    <?php if ($subtitle) : ?>
+                    <?php if ($lede) : ?>
                         <p class="font-sans text-blue-600 text-base lg:text-lg max-w-xl leading-relaxed">
-                            <?php echo esc_html($subtitle); ?>
+                            <?php echo esc_html($lede); ?>
                         </p>
                     <?php endif; ?>
 
@@ -129,20 +137,14 @@ $rendered_count = 0;
                         </dl>
                     <?php endif; ?>
 
-                    <!-- CTA pair -->
-                    <div class="flex flex-wrap items-center gap-4">
-                        <a
-                            href="<?php echo esc_url($specs_url); ?>"
-                            class="btn btn-primary"
-                        >
-                            <?php echo esc_html($flagship['cta_specs']); ?>
-                            <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
-                        </a>
+                    <!-- Single primary CTA: configure & quote -->
+                    <div class="flex">
                         <a
                             href="<?php echo esc_url($configure_url); ?>"
-                            class="btn btn-secondary"
+                            class="btn btn-primary"
                         >
                             <?php esc_html_e('Configure & quote', 'standard'); ?>
+                            <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                         </a>
                     </div>
                 </div>
