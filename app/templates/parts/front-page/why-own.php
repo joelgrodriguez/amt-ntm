@@ -59,7 +59,7 @@ $value_points = [
 ];
 ?>
 
-<section class="section bg-white border-t border-blue-200" aria-labelledby="why-own-title">
+<section class="section bg-white" aria-labelledby="why-own-title">
     <div class="container grid gap-12 lg:gap-16">
 
         <div class="section-header-left max-w-2xl">
