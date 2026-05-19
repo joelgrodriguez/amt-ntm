@@ -13,7 +13,7 @@
 
 const DEFAULTS = {
   selector: '.hero-slider',
-  autoPlayInterval: 8000,
+  autoPlayInterval: 5000,
   swipeThreshold: 50,
 };
 
@@ -315,7 +315,7 @@ export function initHeroSlider(options = {}) {
 
   /**
    * Pause autoplay when the slider scrolls off-screen, resume when it
-   * scrolls back in. Stops 8s setInterval ticks from running (and
+   * scrolls back in. Stops setInterval ticks from running (and
    * hydrating slides via goToSlide) while no one is watching.
    *
    * Separate from the user-pause state: viewport invisibility does not

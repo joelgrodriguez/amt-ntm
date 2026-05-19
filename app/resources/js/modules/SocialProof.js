@@ -1,11 +1,9 @@
 /**
  * Social Proof Testimonial Slider
  *
- * Manual-navigation testimonial carousel. Dots are the only nav.
- * No autoplay (intentional: no quote length works for both the 18-word
- * and 40-word slides, and autoplay forces the user to watch instead of
- * engage). Removes the WCAG 2.2.2 pause-control requirement by removing
- * the auto-advance entirely.
+ * Auto-advancing testimonial carousel with dot navigation.
+ * Autoplay only, no hover/focus pause (intentional per design).
+ * Reduced-motion users get manual nav (autoplay disabled).
  *
  * @file SocialProof.js
  *
@@ -15,6 +13,9 @@
  * @template templates/woo/product/parts/testimonials.php
  */
 
+const AUTOPLAY_INTERVAL = 4000;
+
+let autoplayTimer = null;
 let abortController = null;
 
 /**
@@ -57,7 +58,24 @@ export function initSocialProof() {
     dots[currentIndex].setAttribute('aria-current', 'true');
   }
 
-  // Dot click handler (event delegation)
+  function nextSlide() {
+    goToSlide((currentIndex + 1) % slides.length);
+  }
+
+  function startAutoplay() {
+    stopAutoplay();
+    autoplayTimer = setInterval(nextSlide, AUTOPLAY_INTERVAL);
+  }
+
+  function stopAutoplay() {
+    if (autoplayTimer) {
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+  }
+
+  // Dot click handler (event delegation). Resets the autoplay timer
+  // so the user gets the full interval to read the slide they picked.
   section.addEventListener(
     'click',
     (e) => {
@@ -67,6 +85,25 @@ export function initSocialProof() {
       const index = parseInt(dot.dataset.index, 10);
       if (index !== currentIndex) {
         goToSlide(index);
+        startAutoplay();
+      }
+    },
+    { signal }
+  );
+
+  // Respect reduced motion: no autoplay.
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (!prefersReducedMotion.matches) {
+    startAutoplay();
+  }
+
+  prefersReducedMotion.addEventListener(
+    'change',
+    (e) => {
+      if (e.matches) {
+        stopAutoplay();
+      } else {
+        startAutoplay();
       }
     },
     { signal }
@@ -77,6 +114,10 @@ export function initSocialProof() {
  * Cleanup function for HMR support.
  */
 export function cleanup() {
+  if (autoplayTimer) {
+    clearInterval(autoplayTimer);
+    autoplayTimer = null;
+  }
   if (abortController) {
     abortController.abort();
     abortController = null;

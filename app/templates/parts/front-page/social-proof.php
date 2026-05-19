@@ -28,7 +28,7 @@ if (!defined('ABSPATH')) {
 
 $content = [
     'eyebrow'   => __('From the field', 'standard'),
-    'title'     => __('What Our Customers Are Saying', 'standard'),
+    'sr_title'  => __('Customer testimonials', 'standard'),
     'nav_label' => __('Testimonial navigation', 'standard'),
     'cta_label' => __('See all customer stories', 'standard'),
     'cta_url'   => 'https://newtechmachinery.com/search-results/?_sft_category=testimonials',
@@ -87,17 +87,16 @@ if (empty($testimonials)) {
 ?>
 
 <section class="social-proof section bg-blue-50" aria-labelledby="social-proof-title">
-    <div class="container grid gap-10 lg:gap-14">
+    <h2 id="social-proof-title" class="sr-only">
+        <?php echo esc_html($content['sr_title']); ?>
+    </h2>
 
-        <!-- Header: eyebrow + title, left-aligned with a top rule -->
-        <header class="grid gap-4 border-t border-blue-300 pt-8 lg:pt-10">
-            <p class="font-mono uppercase text-xs tracking-wider text-blue-700">
-                <?php echo esc_html($content['eyebrow']); ?>
-            </p>
-            <h2 id="social-proof-title" class="section-title max-w-2xl">
-                <?php echo esc_html($content['title']); ?>
-            </h2>
-        </header>
+    <div class="container grid gap-8 lg:gap-10">
+
+        <!-- Eyebrow sits directly above the testimonials, centered -->
+        <p class="font-mono uppercase text-xs tracking-wider text-blue-700 text-center">
+            <?php echo esc_html($content['eyebrow']); ?>
+        </p>
 
         <!-- Slider -->
         <div class="social-proof__slider relative max-w-3xl mx-auto grid gap-10 lg:gap-12">
@@ -123,7 +122,7 @@ if (empty($testimonials)) {
                             alt="<?php echo esc_attr($testimonial['name']); ?>"
                             width="140"
                             height="140"
-                            class="w-28 h-28 md:w-[140px] md:h-[140px] object-cover border border-blue-300 mx-auto md:mx-0"
+                            class="w-28 h-28 md:w-[140px] md:h-[140px] object-cover rounded-full mx-auto md:mx-0"
                             loading="<?php echo $is_active ? 'eager' : 'lazy'; ?>"
                             <?php echo $is_active ? '' : 'fetchpriority="low"'; ?>
                             decoding="async"
