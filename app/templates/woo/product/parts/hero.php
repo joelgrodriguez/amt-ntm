@@ -50,10 +50,12 @@ $machine_name     = $product->get_name();
     <div class="hero-overlay"></div>
     <div class="hero-overlay__grain"></div>
 
-    <p class="absolute top-8 right-8 z-10 text-sm font-medium uppercase tracking-widest text-white md:top-10 md:right-12"><?php echo esc_html($machine_name); ?></p>
-
     <div class="container relative z-10 pb-16 pt-32">
         <div class="grid gap-6 max-w-xl">
+            <p class="flex items-center gap-2 font-mono font-medium text-caption uppercase tracking-widest text-red">
+                <span aria-hidden="true" class="inline-block w-1 h-1 bg-red"></span>
+                <span><?php echo esc_html(sprintf('%s · %s', __('Model', 'standard'), $machine_name)); ?></span>
+            </p>
             <h1 id="machine-hero-title" class="text-3xl font-medium tracking-tight text-white md:text-4xl lg:text-5xl">
                 <?php echo esc_html($headline); ?>
             </h1>
