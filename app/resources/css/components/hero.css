@@ -83,11 +83,18 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  max-width: 38rem;
+}
+
+/* Inner stack capped so the title breaks into multiple lines. The
+   .container ancestor handles horizontal centering + left/right
+   padding; this just constrains how wide the text column is allowed
+   to get inside that container. */
+.hero__content-inner > * {
+  max-width: 32rem;
 }
 
 @media (min-width: 1024px) {
-  .hero__content-inner {
+  .hero__content-inner > * {
     max-width: 50%;
   }
 }
