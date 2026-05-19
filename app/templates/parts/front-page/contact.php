@@ -80,28 +80,21 @@ $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact_info[
                     </a>
                 </div>
 
-                <!-- Map (click-to-load: hydrated to an iframe by ContactLazy.js) -->
-                <button
-                    type="button"
-                    data-map-placeholder
-                    data-map-src="<?php echo esc_url($contact_info['map_url']); ?>"
-                    data-map-title="<?php echo esc_attr__('NTM Location Map', 'standard'); ?>"
-                    class="group relative aspect-video w-full bg-blue-100 border border-blue-200 overflow-hidden cursor-pointer focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2"
-                    aria-label="<?php esc_attr_e('Load interactive map of NTM location', 'standard'); ?>"
-                >
-                    <!-- Static map-shaped placeholder. Grid pattern reads as a blueprint. -->
-                    <div
-                        class="absolute inset-0 bg-blue-50 transition-colors duration-200 group-hover:bg-blue-100"
-                        style="background-image: linear-gradient(to right, var(--color-blue-200) 1px, transparent 1px), linear-gradient(to bottom, var(--color-blue-200) 1px, transparent 1px); background-size: 32px 32px;"
-                        aria-hidden="true"
-                    ></div>
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <div class="flex items-center gap-3 bg-white border border-blue-200 px-4 py-3 font-mono uppercase tracking-wider text-xs text-blue-700 group-hover:border-blue-500 group-hover:text-blue-500 transition-colors duration-200">
-                            <?php icon('external-link', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-                            <span><?php esc_html_e('Load map', 'standard'); ?></span>
-                        </div>
-                    </div>
-                </button>
+                <!-- Map. Browser-native lazy iframe; renders below the fold so the
+                     network cost is deferred without our own JS hydration step. -->
+                <div class="relative aspect-video bg-blue-100 border border-blue-200 overflow-hidden">
+                    <iframe
+                        src="<?php echo esc_url($contact_info['map_url']); ?>"
+                        width="100%"
+                        height="100%"
+                        class="absolute inset-0"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="<?php echo esc_attr__('NTM Location Map', 'standard'); ?>"
+                    ></iframe>
+                </div>
 
             </div>
 
