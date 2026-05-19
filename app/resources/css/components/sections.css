@@ -1,10 +1,10 @@
 /**
  * Section Layout
  *
- * Typography per .claude/skills/typography-system.md:
+ * Typography per DESIGN.md (two fonts, two weights: 400/500. No exceptions):
  * - Eyebrow: mono 500, 11px, uppercase, tracked, blue-500 (label role)
  * - Divider: blue-500 accent bar
- * - Section title: sans 600, tracking-tight (display headline)
+ * - Section title: sans 500, tracking-tight (display headline)
  * - Subtitle/body: sans 400, blue-600
  *
  * Red is reserved for action (final-cta button, hero active progress
@@ -55,7 +55,7 @@
 
   /* Title — section heading (sans display, tracking-tight) */
   .section-title {
-    @apply font-sans font-semibold tracking-tight text-blue-900;
+    @apply font-sans font-medium tracking-tight text-blue-900;
     font-size: var(--text-heading-sm);
   }
 

@@ -16,20 +16,19 @@
     @apply grid gap-6 md:grid-cols-2;
   }
 
+  /* Hairline-bordered cards (DESIGN.md §8). The leading icon + colored
+     heading carries the for/not-for signal, not a side stripe. */
   .machine-fit__card {
-    @apply p-6 border-l-4 bg-white;
+    @apply p-6 border border-blue-200 bg-white;
   }
 
-  .machine-fit__card--for {
-    @apply border-l-blue-500 bg-blue-50;
-  }
-
+  .machine-fit__card--for,
   .machine-fit__card--not-for {
-    @apply border-l-red bg-blue-50;
+    @apply bg-blue-50;
   }
 
   .machine-fit__heading {
-    @apply flex items-center gap-2 font-sans font-semibold tracking-tight mb-4;
+    @apply flex items-center gap-2 font-sans font-medium tracking-tight mb-4;
     font-size: var(--text-heading-sm);
   }
 
