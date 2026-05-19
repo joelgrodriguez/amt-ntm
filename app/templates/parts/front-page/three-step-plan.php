@@ -23,32 +23,32 @@ if (!defined('ABSPATH')) {
 
 $content = [
     'channel'         => __('How You Buy', 'standard'),
-    'channel_right'   => __('Spec / Build / Deliver', 'standard'),
+    'channel_right'   => __('Explore / Build / Finance', 'standard'),
     'title'           => __('How a machine gets built and shipped.', 'standard'),
-    'footer_left_k'   => __('Lead time', 'standard'),
-    'footer_left_v'   => __('6 to 10 weeks', 'standard'),
-    'footer_right_k'  => __('Financing', 'standard'),
-    'footer_right_v'  => __('Available', 'standard'),
+    'footer_left_k'   => __('Two doors', 'standard'),
+    'footer_left_v'   => __('Configurator or specialist', 'standard'),
+    'footer_right_k'  => __('Training', 'standard'),
+    'footer_right_v'  => __('Included, on-site', 'standard'),
 ];
 
 $phases = [
     [
         'index' => '01',
-        'label' => __('Spec', 'standard'),
-        'title' => __('Tell us what you roll.', 'standard'),
-        'text'  => __('Panel profiles, coil widths, volume, where you work. We start with the trade, not the brochure.', 'standard'),
+        'label' => __('Explore', 'standard'),
+        'title' => __('Find your machine.', 'standard'),
+        'text'  => __('Browse profiles, compare throughput, read the manuals. Spend ten minutes or two weeks. The machine you pick is the one we build.', 'standard'),
     ],
     [
         'index' => '02',
         'label' => __('Build', 'standard'),
-        'title' => __('We engineer the match.', 'standard'),
-        'text'  => __('A machine configured to your profiles and a finance package configured to your books. One proposal, transparent pricing.', 'standard'),
+        'title' => __('Configure it, or call us.', 'standard'),
+        'text'  => __('Use the configurator for a live quote, or talk to a specialist who will build it with you. Same price, same machine, your choice.', 'standard'),
     ],
     [
         'index' => '03',
-        'label' => __('Deliver', 'standard'),
-        'title' => __('Training included.', 'standard'),
-        'text'  => __("We don't ship and disappear. Your crew runs panels with our team on-site until you're confident. Week one, not month six.", 'standard'),
+        'label' => __('Finance & ship', 'standard'),
+        'title' => __('Finance it. We ship it.', 'standard'),
+        'text'  => __('Apply for financing in the same flow. Lead time is 6 to 10 weeks. Your crew runs panels with our team on-site week one.', 'standard'),
     ],
 ];
 ?>
