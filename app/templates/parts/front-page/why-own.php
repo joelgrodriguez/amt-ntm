@@ -82,7 +82,9 @@ $value_points = [
                 <ul class="grid gap-6">
                     <?php foreach ($cost_points as $point) : ?>
                         <li class="flex gap-4">
-                            <span class="shrink-0 mt-2 w-2 h-2 bg-red" aria-hidden="true"></span>
+                            <span class="shrink-0 mt-1">
+                                <?php icon('x', ['class' => 'w-4 h-4 text-red']); ?>
+                            </span>
                             <div class="grid gap-1">
                                 <h4 class="text-lg font-medium text-blue-900">
                                     <?php echo esc_html($point['title']); ?>
