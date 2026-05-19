@@ -51,7 +51,7 @@ $tools = [
 ];
 ?>
 
-<section class="section bg-white" aria-labelledby="tools-title">
+<section class="section bg-blue-50" aria-labelledby="tools-title">
     <div class="container grid gap-12 lg:gap-16">
 
         <div class="max-w-2xl">
@@ -67,13 +67,21 @@ $tools = [
             <div class="mt-8 w-16 h-0.5 bg-red"></div>
         </div>
 
-        <div class="grid grid-cols-2 gap-px bg-blue-200 border border-blue-200 md:grid-cols-4">
-            <?php foreach ($tools as $tool) : ?>
+        <div class="grid grid-cols-2 border border-blue-200 md:grid-cols-4">
+            <?php foreach ($tools as $i => $tool) : ?>
                 <a
                     href="<?php echo esc_url(\Standard\Url\internal($tool['url'])); ?>"
-                    class="group flex flex-col justify-between p-6 bg-white no-underline transition-colors duration-200 hover:bg-blue-50 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px]"
+                    class="group flex flex-col justify-between p-6 bg-white no-underline transition-colors duration-200 hover:bg-blue-50 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px] <?php
+                        // Right divider on every tile except the last in each row.
+                        // Mobile (2 cols): right border on items 0, 2.
+                        // Desktop (4 cols): right border on items 0, 1, 2.
+                        echo $i % 2 === 0 ? 'border-r border-blue-200 ' : '';
+                        echo $i === 1 ? 'md:border-r md:border-blue-200 ' : '';
+                        // Bottom divider on the first row only (mobile and tablet show row 1 above row 2; desktop is one row so no bottom border anywhere).
+                        echo $i < 2 ? 'border-b border-blue-200 md:border-b-0 ' : '';
+                    ?>"
                 >
-                    <h3 class="text-base font-medium text-blue-700 mb-12 transition-colors duration-200 group-hover:text-blue-500 md:text-lg">
+                    <h3 class="font-mono text-sm font-medium uppercase tracking-wider text-blue-700 mb-12 transition-colors duration-200 group-hover:text-blue-500 md:text-base">
                         <?php echo esc_html($tool['title']); ?>
                     </h3>
                     <div class="flex items-end justify-between">
