@@ -72,13 +72,14 @@ $tools = [
                 <a
                     href="<?php echo esc_url(\Standard\Url\internal($tool['url'])); ?>"
                     class="group flex flex-col justify-between p-6 bg-white no-underline transition-colors duration-200 hover:bg-blue-50 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px] <?php
-                        // Right divider on every tile except the last in each row.
-                        // Mobile (2 cols): right border on items 0, 2.
-                        // Desktop (4 cols): right border on items 0, 1, 2.
+                        // Right divider: every tile except the last in its row.
+                        // Mobile (2 cols): items 0 and 2 are left column, so right border on them.
+                        // Desktop (4 cols): items 0, 1, 2 have a right neighbor.
                         echo $i % 2 === 0 ? 'border-r border-blue-200 ' : '';
                         echo $i === 1 ? 'md:border-r md:border-blue-200 ' : '';
-                        // Bottom divider on the first row only (mobile and tablet show row 1 above row 2; desktop is one row so no bottom border anywhere).
-                        echo $i < 2 ? 'border-b border-blue-200 md:border-b-0 ' : '';
+                        // Bottom divider: only on first-row items, only below md (where grid has 2 rows).
+                        // max-md: ensures the border is never painted at desktop.
+                        echo $i < 2 ? 'max-md:border-b max-md:border-blue-200 ' : '';
                     ?>"
                 >
                     <h3 class="font-mono text-sm font-medium uppercase tracking-wider text-blue-700 mb-12 transition-colors duration-200 group-hover:text-blue-500 md:text-base">
