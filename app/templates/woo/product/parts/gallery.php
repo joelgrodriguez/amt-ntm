@@ -2,8 +2,8 @@
 /**
  * Machine Product — Gallery / Product Rotator
  *
- * 360° rotator section. Renders only when at least one image is available;
- * missing-asset placeholders are not shown.
+ * 360° rotator section. Always renders with placeholder so the
+ * layout spot is visible even before images are provided.
  *
  * @package Standard
  * @var array{product: \WC_Product, machine: array} $args
@@ -22,16 +22,13 @@ $images  = $gallery['images'] ?? [];
 $rotator = $gallery['rotator'] ?? [];
 $name    = $product ? $product->get_name() : '';
 
+// Use WC featured image as primary, fall back to product render from data file
 $featured_url = '';
 if ($product && $product->get_image_id()) {
     $featured_url = wp_get_attachment_image_url($product->get_image_id(), 'full');
 }
 if (empty($featured_url)) {
     $featured_url = $machine['hero']['image'] ?? '';
-}
-
-if (empty($rotator) && empty($featured_url) && empty($images)) {
-    return;
 }
 ?>
 
@@ -60,6 +57,12 @@ if (empty($rotator) && empty($featured_url) && empty($images)) {
                 <?php \Standard\Images\responsive_image($images[0], $name, 'large', [
                     'class' => 'max-w-full max-h-full object-contain',
                 ]); ?>
+            <?php else : ?>
+                <div class="text-center grid gap-3">
+                    <span class="text-blue-300 text-6xl">&#8635;</span>
+                    <span class="text-blue-400 text-sm font-mono"><?php esc_html_e('360° product rotator', 'standard'); ?></span>
+                    <span class="text-blue-400 text-xs"><?php esc_html_e('Interactive view coming soon', 'standard'); ?></span>
+                </div>
             <?php endif; ?>
         </div>
 

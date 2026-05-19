@@ -12,7 +12,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$product   = $args['product'] ?? null;
 $machine   = $args['machine'] ?? [];
 $specs     = $machine['specs'] ?? null;
 $resources = $machine['resources'] ?? [];
@@ -20,8 +19,6 @@ $resources = $machine['resources'] ?? [];
 if (!$specs) {
     return;
 }
-
-$has_product_image = $product instanceof \WC_Product && $product->get_image_id();
 
 // Build sections dynamically — only include sections with data.
 $sections = [];
@@ -212,7 +209,7 @@ if (empty($sections)) {
 <section id="machine-specs" class="section bg-blue-50" aria-labelledby="specs-title">
     <div class="container section-content">
 
-        <div class="grid <?php echo $has_product_image ? 'lg:grid-cols-2' : ''; ?> gap-12 items-stretch">
+        <div class="grid lg:grid-cols-2 gap-12 items-stretch">
 
             <!-- Left column: header + accordions -->
             <div>
@@ -243,11 +240,17 @@ if (empty($sections)) {
                 </div>
             </div>
 
-            <?php if ($has_product_image) : ?>
-                <div class="hidden lg:block bg-blue-100 overflow-hidden">
-                    <?php echo $product->get_image('large', ['class' => 'w-full h-full object-cover']); ?>
+            <!-- Right column: vertical machine image — fills full height of container -->
+            <div class="hidden lg:block">
+                <div class="bg-blue-100 overflow-hidden h-full flex items-center justify-center">
+                    <div class="text-center grid gap-4">
+                        <svg class="w-16 h-16 text-blue-300 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
+                        </svg>
+                        <span class="text-blue-400 text-sm font-mono"><?php esc_html_e('Machine image', 'standard'); ?></span>
+                    </div>
                 </div>
-            <?php endif; ?>
+            </div>
 
         </div>
 

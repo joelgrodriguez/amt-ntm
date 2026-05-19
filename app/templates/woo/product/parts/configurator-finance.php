@@ -41,6 +41,9 @@ $has_range   = !empty($finance['price_range']);
 
             <!-- Configurator -->
             <div class="border border-blue-700 bg-blue-800 p-8 grid gap-6">
+                <div class="bg-blue-700 aspect-video flex items-center justify-center">
+                    <span class="text-blue-400 text-sm font-mono">Configurator preview</span>
+                </div>
                 <div class="grid gap-3">
                     <h3 class="text-xl font-medium text-white">Build Your Machine</h3>
                     <p class="text-sm text-blue-400">Choose your profiles, power pack, control system, and accessories. Get an instant quote or send your build to a specialist.</p>
