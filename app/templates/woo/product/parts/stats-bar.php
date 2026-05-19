@@ -25,8 +25,8 @@ if (empty($stats)) {
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
             <?php foreach ($stats as $stat) : ?>
                 <div class="grid gap-1">
-                    <span class="font-mono font-medium text-white text-2xl lg:text-3xl"><?php echo esc_html($stat['value']); ?></span>
-                    <span class="font-mono text-sm text-blue-400 uppercase tracking-wider"><?php echo esc_html($stat['label']); ?></span>
+                    <span class="text-3xl font-medium text-white lg:text-4xl"><?php echo esc_html($stat['value']); ?></span>
+                    <span class="text-sm text-blue-400 uppercase tracking-wider"><?php echo esc_html($stat['label']); ?></span>
                 </div>
             <?php endforeach; ?>
         </div>
