@@ -56,11 +56,11 @@ $content_ml = $is_right ? ' lg:ml-auto' : '';
     ]); ?>
 
     <!-- Mobile: solid dark overlay -->
-    <div class="absolute inset-0 bg-blue-900/75 lg:hidden"></div>
+    <div class="absolute inset-0 bg-blue-950/75 lg:hidden"></div>
 
     <!-- Desktop: angled dark wedge overlay -->
     <div
-        class="hidden lg:block absolute inset-0 bg-blue-900/75"
+        class="hidden lg:block absolute inset-0 bg-blue-950/75"
         style="clip-path: <?php echo esc_attr($clip_path); ?>;"
     ></div>
 

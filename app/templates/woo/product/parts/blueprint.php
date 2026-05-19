@@ -43,7 +43,7 @@ $machine_cols = count($machine_dims);
 $trailer_cols = count($trailer_dims);
 ?>
 
-<section class="bg-blue-900 section" aria-labelledby="blueprint-title">
+<section class="bg-blue-950 section" aria-labelledby="blueprint-title">
     <div class="container section-content">
 
         <div class="section-header">
