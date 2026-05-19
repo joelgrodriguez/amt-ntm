@@ -46,17 +46,11 @@ function responsive_image(string $url, string $alt = '', string $size = 'large',
         return;
     }
 
-    $defaults = [
+    $attrs = array_merge([
+        'alt'      => $alt,
         'loading'  => 'lazy',
         'decoding' => 'async',
-    ];
-    // Only pass alt explicitly when the caller provided one. Empty caller alt
-    // lets wp_get_attachment_image fall back to the media library's stored
-    // alt; external images get an empty alt (treated as decorative).
-    if ($alt !== '') {
-        $defaults['alt'] = $alt;
-    }
-    $attrs = array_merge($defaults, $attrs);
+    ], $attrs);
 
     $attachment_id = get_attachment_id($url);
     if ($attachment_id > 0) {
@@ -64,14 +58,9 @@ function responsive_image(string $url, string $alt = '', string $size = 'large',
         return;
     }
 
-    // External image: always emit an alt attribute (empty = decorative).
-    if (!array_key_exists('alt', $attrs)) {
-        $attrs['alt'] = '';
-    }
-
     $attributes = '';
     foreach ($attrs as $name => $value) {
-        if ($name !== 'alt' && $value === '') {
+        if ($value === '') {
             continue;
         }
         $attributes .= ' ' . esc_attr((string) $name) . '="' . esc_attr((string) $value) . '"';
