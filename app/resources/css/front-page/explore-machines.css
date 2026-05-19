@@ -16,8 +16,13 @@
    left and right edges to signal "more content to scroll." JS toggles
    .is-at-start / .is-at-end classes based on scrollLeft so the matching
    edge fade hides when the user is parked at that boundary. */
+/* Clip only the x-axis so the track doesn't bleed past its container and
+   create page-level horizontal scroll. overflow-y stays visible so card
+   focus rings (drawn outside the card border) aren't cropped. */
 .explore-machines__track-frame {
   @apply relative;
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 .explore-machines__track-frame::before,
