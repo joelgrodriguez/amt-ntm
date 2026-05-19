@@ -21,7 +21,7 @@
     border-color: var(--color-blue-200, currentColor);
   }
 
-  /* Anchor-jump offset so #contact lands below the sticky header.
+  /* Anchor-jump offset so in-page anchor links land below the sticky header.
      Smooth scroll respects user preference for reduced motion. */
   html {
     scroll-padding-top: var(--header-height, 4rem);

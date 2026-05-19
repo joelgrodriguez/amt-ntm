@@ -20,7 +20,7 @@ $content = [
     'title'         => __('Ready to Take Control of Your Business?', 'standard'),
     'text'          => __('Join thousands of contractors who stopped waiting on suppliers and started rolling their own profits.', 'standard'),
     'cta_primary'   => __('Talk to a Specialist', 'standard'),
-    'cta_primary_url' => '#contact',
+    'cta_primary_url' => '/contact/',
     'cta_secondary' => __('Configure Your Machine', 'standard'),
     'cta_secondary_url' => '/configurator/',
 ];
