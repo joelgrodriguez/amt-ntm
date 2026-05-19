@@ -145,42 +145,36 @@ if (empty($case_study)) {
                 </div>
             </div>
 
-            <!-- Results: one dominant number, the rest as a spec line. No card grid. -->
+            <!-- Results -->
             <div class="reveal">
-                <div class="border-t border-b border-blue-200 py-12 grid gap-8 md:grid-cols-[auto_1fr] md:gap-16 md:items-end">
-                    <?php $primary = $case_study['stats'][0] ?? null; ?>
-                    <?php if ($primary) : ?>
-                        <div class="grid gap-1">
-                            <span class="font-mono text-xs uppercase tracking-wider text-blue-500">
-                                <?php echo esc_html($primary['label']); ?>
-                            </span>
-                            <span class="font-sans font-medium text-blue-900 text-6xl leading-none md:text-7xl lg:text-8xl">
-                                <?php echo esc_html($primary['stat']); ?>
-                            </span>
-                        </div>
-                    <?php endif; ?>
-
-                    <div class="grid gap-4">
-                        <h3 class="font-mono text-sm font-medium text-blue-900 uppercase tracking-wider">
+                <div class="grid gap-8">
+                    <div class="text-center">
+                        <h3 class="text-lg font-medium text-blue-900 uppercase tracking-wider font-mono">
                             <?php echo esc_html($case_study['results']['heading']); ?>
                         </h3>
-                        <p class="text-blue-600 leading-relaxed">
+                        <p class="text-blue-600 mt-3 max-w-2xl mx-auto">
                             <?php echo esc_html($case_study['results']['text']); ?>
                         </p>
-
-                        <?php
-                        $supporting = array_slice($case_study['stats'] ?? [], 1);
-                        if (!empty($supporting)) : ?>
-                            <dl class="flex flex-wrap gap-x-8 gap-y-3 pt-2 font-mono text-sm">
-                                <?php foreach ($supporting as $stat) : ?>
-                                    <div class="flex items-baseline gap-2">
-                                        <dt class="text-blue-500 uppercase tracking-wider text-xs"><?php echo esc_html($stat['label']); ?></dt>
-                                        <dd class="text-blue-900 font-medium"><?php echo esc_html($stat['stat']); ?></dd>
-                                    </div>
-                                <?php endforeach; ?>
-                            </dl>
-                        <?php endif; ?>
                     </div>
+
+                    <!-- Stats Grid -->
+                    <?php if (!empty($case_study['stats'])) : ?>
+                        <div class="grid grid-cols-2 gap-6 md:grid-cols-4 lg:gap-8">
+                            <?php foreach ($case_study['stats'] as $stat) : ?>
+                                <div class="text-center grid gap-2 p-6 border border-blue-200 bg-blue-50">
+                                    <div class="flex justify-center">
+                                        <?php icon($stat['icon'], ['class' => 'w-6 h-6 text-red']); ?>
+                                    </div>
+                                    <span class="text-3xl font-medium text-blue-900 lg:text-4xl">
+                                        <?php echo esc_html($stat['stat']); ?>
+                                    </span>
+                                    <span class="text-xs text-blue-500 uppercase tracking-wider">
+                                        <?php echo esc_html($stat['label']); ?>
+                                    </span>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
 
