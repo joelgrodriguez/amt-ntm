@@ -1,17 +1,13 @@
 /**
- * Contact Section Lazy Loaders
+ * Contact Section Lazy Loader
  *
- * Defers two heavy third-party embeds until the user actually needs them:
+ * Defers the HubSpot form embed until the user is close to seeing it.
+ * Hydrated via IntersectionObserver with a 400px rootMargin so the form
+ * is ready by the time the user reaches the contact section. Saves
+ * ~150–300ms of main-thread work for visitors who never scroll there.
  *
- *   1. HubSpot form script — hydrated via IntersectionObserver when the
- *      contact section is within 400px of the viewport. Saves ~150–300ms
- *      of main-thread work for visitors who never scroll there.
- *
- *   2. Google Maps iframe — replaced server-side by a clickable placeholder.
- *      The placeholder hydrates to the real iframe on click or keyboard
- *      activation. No iframe HTTP traffic until the user opts in.
- *
- * Both behaviors share an AbortController so HMR / cleanup is straightforward.
+ * The Google Maps iframe uses browser-native loading="lazy" in the
+ * template; no JS hydration needed for it.
  *
  * @file ContactLazy.js
  *
@@ -47,32 +43,15 @@ function loadHubspot(target) {
   document.head.appendChild(script);
 }
 
-function hydrateMap(placeholder) {
-  const src = placeholder.dataset.mapSrc;
-  const title = placeholder.dataset.mapTitle || 'Map';
-  if (!src) return;
-
-  const iframe = document.createElement('iframe');
-  iframe.src = src;
-  iframe.title = title;
-  iframe.width = '100%';
-  iframe.height = '100%';
-  iframe.className = 'absolute inset-0';
-  iframe.style.border = '0';
-  iframe.allowFullscreen = true;
-  iframe.loading = 'lazy';
-  iframe.referrerPolicy = 'no-referrer-when-downgrade';
-
-  placeholder.replaceWith(iframe);
-}
-
 export function initContactLazy() {
   cleanup();
   abortController = new AbortController();
   const { signal } = abortController;
 
   const formTarget = document.getElementById('contact-form');
-  if (formTarget && 'IntersectionObserver' in window) {
+  if (!formTarget) return;
+
+  if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(
       (entries, obs) => {
         for (const entry of entries) {
@@ -86,19 +65,8 @@ export function initContactLazy() {
     );
     observer.observe(formTarget);
     signal.addEventListener('abort', () => observer.disconnect());
-  } else if (formTarget) {
+  } else {
     loadHubspot(formTarget);
-  }
-
-  const mapPlaceholders = document.querySelectorAll('[data-map-placeholder]');
-  for (const placeholder of mapPlaceholders) {
-    const onActivate = (e) => {
-      if (e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') return;
-      e.preventDefault();
-      hydrateMap(placeholder);
-    };
-    placeholder.addEventListener('click', onActivate, { signal });
-    placeholder.addEventListener('keydown', onActivate, { signal });
   }
 }
 
