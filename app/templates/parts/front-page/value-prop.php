@@ -18,7 +18,6 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'eyebrow'   => __('The NTM Advantage', 'standard'),
     'title'     => __('Own Your Machine. Own Your Future.', 'standard'),
     'text'      => __("When you invest in an NTM rollformer, you're not just buying equipment, you're unlocking a new revenue stream and taking control of your business.", 'standard'),
     'image'     => 'https://newtechmachinery.com/wp-content/uploads/2024/10/Ross-in-front-of-SSQ-scaled.jpg',
@@ -59,10 +58,6 @@ $points = [
 
             <div class="order-1 lg:order-2 grid gap-8 lg:gap-10 content-start">
                 <div class="section-header-left">
-                    <p class="section-eyebrow">
-                        <?php echo esc_html($content['eyebrow']); ?>
-                    </p>
-                    <div class="section-divider"></div>
                     <h2 id="value-prop-title" class="section-title">
                         <?php echo esc_html($content['title']); ?>
                     </h2>
