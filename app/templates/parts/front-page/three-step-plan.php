@@ -53,7 +53,7 @@ $phases = [
 ];
 ?>
 
-<section class="bg-blue-900 text-blue-400 border-b border-blue-700" aria-labelledby="process-title">
+<section class="bg-blue-900 text-blue-400 border-b border-blue-800" aria-labelledby="process-title">
     <!-- Top chrome bar -->
     <div class="border-b border-blue-800">
         <div class="border-x border-blue-800 container">

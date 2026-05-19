@@ -24,7 +24,7 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'eyebrow' => __('Before You Configure', 'standard'),
+    'eyebrow' => __('Know Before You Buy', 'standard'),
     'title'   => __('Decision Tools.', 'standard'),
 ];
 
@@ -52,7 +52,7 @@ $tools = [
 ];
 ?>
 
-<section class="section bg-white" aria-labelledby="tools-title">
+<section class="section bg-white border-b border-blue-200" aria-labelledby="tools-title">
     <div class="container grid gap-12 lg:gap-16">
 
         <div class="max-w-2xl">
