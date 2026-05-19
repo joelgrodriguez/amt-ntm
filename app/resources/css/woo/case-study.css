@@ -48,7 +48,7 @@
 
 .case-study__story {
   display: grid;
-  align-content: start;
+  align-content: center;
   gap: clamp(1.25rem, 2vh, 2rem);
   padding: clamp(1.75rem, 3vh, 2.5rem) clamp(1.5rem, 4vw, 3rem);
 }
@@ -244,16 +244,21 @@
 /* ── Desktop spread (lg+): single-fold composition ───────────────── */
 
 @media (min-width: 1024px) {
+  /* Section sits a bit under the fold so the photo reads as a
+     proportioned editorial spread, not a marquee. Tall enough for the
+     narrative to read without scrolling, short enough that buyers see
+     what's next on the page underneath. */
+  .case-study,
+  .case-study__shell {
+    --case-study-height: clamp(560px, 78vh, 760px);
+  }
+
   .case-study {
-    /* Section fills the viewport minus header. Stats strip sits at the
-       bottom edge as the closer. */
-    min-height: calc(100vh - var(--header-height, 4rem));
-    min-height: calc(100dvh - var(--header-height, 4rem));
+    min-height: var(--case-study-height);
   }
 
   .case-study__shell {
-    height: calc(100vh - var(--header-height, 4rem));
-    height: calc(100dvh - var(--header-height, 4rem));
+    height: var(--case-study-height);
     grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);
     grid-template-rows: 1fr;
     grid-template-areas: "photo story";
