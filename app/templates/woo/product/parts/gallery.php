@@ -30,6 +30,11 @@ if ($product && $product->get_image_id()) {
 if (empty($featured_url)) {
     $featured_url = $machine['hero']['image'] ?? '';
 }
+
+// Hide the section entirely if there's no imagery to show.
+if (empty($rotator) && empty($featured_url) && empty($images)) {
+    return;
+}
 ?>
 
 <section id="machine-gallery" class="section bg-blue-100 pattern-square-grid" aria-labelledby="gallery-title">
@@ -57,12 +62,6 @@ if (empty($featured_url)) {
                 <?php \Standard\Images\responsive_image($images[0], $name, 'large', [
                     'class' => 'max-w-full max-h-full object-contain',
                 ]); ?>
-            <?php else : ?>
-                <div class="text-center grid gap-3">
-                    <span class="text-blue-300 text-6xl">&#8635;</span>
-                    <span class="text-blue-400 text-sm font-mono"><?php esc_html_e('360° product rotator', 'standard'); ?></span>
-                    <span class="text-blue-400 text-xs"><?php esc_html_e('Interactive view coming soon', 'standard'); ?></span>
-                </div>
             <?php endif; ?>
         </div>
 
