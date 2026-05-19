@@ -215,25 +215,16 @@ body:has(.header--sticky:not(.header--hidden)) .machine-subnav.is-sticky {
 /* ── Responsive ───────────────────────────────────────────────────── */
 
 @media (max-width: 767px) {
-  .machine-subnav__left {
-    display: none;
-  }
-
-  .machine-subnav__right {
-    width: 100%;
-  }
-
-  .machine-subnav__cta {
-    display: none;
-  }
-
+  /* Mobile prioritization (PRODUCT.md: two doors, equally open).
+     Surface the switcher (orientation) and Build CTA (door), hide the
+     section anchor links. Phone users scroll naturally; section nav is
+     low-value on a small viewport. */
   .machine-subnav__links {
-    width: 100%;
+    display: none;
   }
 
-  .machine-subnav__link {
-    font-size: var(--text-caption);
-    padding: 0 0.625rem;
+  .machine-subnav__inner {
+    gap: 0.75rem;
   }
 }
 
