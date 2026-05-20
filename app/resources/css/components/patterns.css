@@ -45,7 +45,7 @@
 
 /* Dark variant for dark backgrounds (blue-800 / blue-900). */
 .pattern-dot-grid--dark {
-  --pattern-dot-color: rgba(255, 255, 255, 0.045);
+  --pattern-dot-color: var(--color-blue-700);
 }
 
 /**

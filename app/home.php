@@ -51,21 +51,21 @@ $filter_action    = get_learning_center_url();
 
 <main id="primary">
 
-    <!-- Hero: editorial split (copy left, featured right) -->
+    <!-- Hero: stacked (heading row, then featured card row) -->
     <section class="pattern-dot-grid border-b border-blue-200">
         <div class="container py-10 lg:py-14">
 
-            <div class="grid lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-16 items-start">
+            <div class="grid gap-10 lg:gap-12">
 
                 <!-- Hero copy -->
-                <header class="grid gap-5 lg:gap-6 lg:pt-2">
+                <header class="grid gap-5 lg:gap-6">
                     <span class="text-caption font-mono uppercase tracking-widest text-blue-500">
                         <?php esc_html_e('Learning Center', 'standard'); ?>
                     </span>
                     <h1 class="font-mono font-medium text-heading-lg lg:text-display text-blue-900 leading-tight tracking-tight">
                         <?php esc_html_e('The Rollforming Learning Center', 'standard'); ?>
                     </h1>
-                    <p class="text-blue-600 text-base lg:text-lg max-w-xl leading-relaxed">
+                    <p class="text-blue-600 text-base lg:text-lg max-w-2xl leading-relaxed">
                         <?php esc_html_e('Articles, videos, and resources to help you get the most out of your portable rollforming equipment.', 'standard'); ?>
                     </p>
                 </header>
@@ -96,10 +96,15 @@ $filter_action    = get_learning_center_url();
                                 <?php esc_html_e('Latest', 'standard'); ?>
                             </span>
                             <?php the_title(sprintf(
-                                '<h2 class="font-mono font-medium text-base lg:text-heading-sm text-blue-900 leading-snug tracking-tight line-clamp-3 group-hover:text-blue-500 transition-colors"><a href="%s" class="text-inherit no-underline hover:no-underline after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" aria-label="%s">',
+                                '<h2 class="font-mono font-medium text-base lg:text-heading-sm text-blue-900 leading-snug tracking-tight line-clamp-2 group-hover:text-blue-500 transition-colors"><a href="%s" class="text-inherit no-underline hover:no-underline after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" aria-label="%s">',
                                 esc_url(get_permalink()),
                                 esc_attr($featured_label)
                             ), '</a></h2>'); ?>
+                            <?php if (has_excerpt() || get_the_excerpt()) : ?>
+                                <p class="text-sm text-blue-600 leading-relaxed line-clamp-2">
+                                    <?php echo esc_html(wp_strip_all_tags(get_the_excerpt())); ?>
+                                </p>
+                            <?php endif; ?>
                             <span class="inline-flex items-center gap-2 text-sm font-mono font-medium text-blue-500 mt-1">
                                 <?php echo esc_html($featured_cta); ?>
                                 <?php icon('arrow-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
@@ -231,7 +236,7 @@ $filter_action    = get_learning_center_url();
             <div class="container">
 
                 <header class="flex items-center justify-between mb-8">
-                    <h2 class="font-mono font-medium text-heading-sm lg:text-heading text-blue-900 leading-tight tracking-tight flex items-center gap-3">
+                    <h2 class="font-sans font-semibold text-heading-sm lg:text-heading text-blue-900 leading-tight tracking-tight flex items-center gap-3">
                         <?php icon($section['icon'], ['class' => 'w-6 h-6 lg:w-7 lg:h-7 text-blue-400', 'aria-hidden' => 'true']); ?>
                         <?php echo esc_html($section['title']); ?>
                     </h2>
