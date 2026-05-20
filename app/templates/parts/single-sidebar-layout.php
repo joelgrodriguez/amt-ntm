@@ -3,8 +3,8 @@
  * Single-post layout: editorial hero + content + right-rail sidebar.
  *
  * Shared by single-download.php and single-resource.php. Renders the
- * shared editorial post-hero (no eyebrow, no meta strip — just title,
- * excerpt, and featured image on bg-blue-50 chrome) followed by a
+ * shared editorial post-hero (post-type eyebrow, title, excerpt, and
+ * featured image on bg-blue-50 chrome — no meta strip) followed by a
  * two-column body: prose + sticky "All <Type>s" rail listing other
  * items of the same post type. Related posts and the subscribe CTA
  * follow.
@@ -31,7 +31,7 @@ $sidebar_title = sprintf(__('All %s', 'standard'), $plural);
 
 <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-6 lg:gap-12'); ?>>
     <?php get_template_part('templates/parts/post-hero', null, [
-        'eyebrow_kind' => 'none',
+        'eyebrow_kind' => 'post-type',
         'meta_items'   => [],
     ]); ?>
 
