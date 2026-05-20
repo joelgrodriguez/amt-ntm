@@ -83,6 +83,45 @@ git push origin master
 - On `master`, slow down. Only release merge and release push work belongs there.
 - Do not edit, delete, or reorganize unrelated files while on `master`.
 
+## Design Principles
+
+### Mobile-first, always
+
+Every UI change starts at the smallest viewport and scales up. No exceptions.
+
+- Author base styles for mobile. Use Tailwind utilities **without** a breakpoint prefix as the mobile baseline.
+- Scale up with `sm:` / `md:` / `lg:` / `xl:` prefixes only. Never use `max-*:` prefixes to scale down from a desktop default.
+- When reviewing a design or screenshot, ask "what does this look like at 375px wide?" before touching code. If you don't know, ask.
+- Test mobile first in the browser. If it works on mobile and breaks on desktop, that's a smaller fix than the reverse.
+- Touch targets ≥ 44×44px. Tap, not hover, is the primary interaction.
+- Prefer single-column layouts at base, grids/multi-column at `md:` and up.
+
+This applies to every spawned worktree doing UI work too.
+
+## Maestro & Worktree Agents
+
+This repo uses a "Maestro" orchestration pattern. The agent running on the `dev` checkout acts as orchestrator and spawns Superset worktree workspaces, each running its own agent on a `feat/*`/`fix/*`/`chore/*` branch off `dev`.
+
+### If you are the Maestro (running on `dev`)
+
+- Do not edit theme code from `dev`. Spawn a worktree for it.
+- Track active worktrees in `.maestro/active.md`, archive finished ones in `.maestro/archive.md`. These are gitignored.
+- Agent routing:
+  - **Claude** — UI, frontend, templates, CSS, anything visual or design-y
+  - **Codex** — backend PHP, REST endpoints, architecture, careful programming
+  - **OpenCode (DeepSeek)** — mechanical work (comments, search/replace, renames)
+- Merge gate: only FF-merge a feature branch into `dev` after the user says "land it". Push `origin/dev` from this checkout only.
+
+### If you are a spawned worktree agent
+
+You're running under `~/.superset/worktrees/<name>/`. You are NOT the Maestro.
+
+- Do your assigned work on your branch. Commit frequently with clear messages.
+- Never merge into `dev` or `master`. Never push `origin/dev` or `origin/master`. Pushing your own feature branch is fine.
+- Do not touch `.maestro/` — that is the orchestrator's scratch space.
+- When your task is done, summarize what you did and stop. The Maestro decides when to merge.
+- If you hit a blocker or ambiguity, stop and surface it rather than guessing.
+
 ## Shared Skills
 
 Shared repo skills live in `.claude/skills`.
