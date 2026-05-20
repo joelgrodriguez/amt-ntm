@@ -3,8 +3,8 @@
  * Template part for Learning Center subscription CTA.
  *
  * Full-bleed drenched section linking to the HubSpot subscription
- * landing page. Designed as the page's one "ignite" moment per
- * DESIGN.md §2.4 — red CTA on a blue-900 surface.
+ * landing page. Designed as the page's closing moment — quiet,
+ * committed, no form noise.
  *
  * @package Standard
  */
@@ -25,22 +25,15 @@ $content = [
 ?>
 
 <section class="relative bg-blue-900 border-t border-blue-800 overflow-hidden">
-    <div
-        class="pointer-events-none absolute inset-0 opacity-[0.07]"
-        aria-hidden="true"
-        style="background-image:
-            linear-gradient(to right, var(--color-white) 1px, transparent 1px),
-            linear-gradient(to bottom, var(--color-white) 1px, transparent 1px);
-            background-size: 48px 48px;"
-    ></div>
+    <div class="pattern-dot-matrix" aria-hidden="true"></div>
 
     <div class="relative container py-24 lg:py-32">
         <div class="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-16 items-end">
             <div class="grid gap-6 max-w-3xl">
-                <span class="text-caption font-mono uppercase tracking-widest text-red">
+                <span class="text-caption font-mono uppercase tracking-widest text-blue-300">
                     <?php echo esc_html($content['eyebrow']); ?>
                 </span>
-                <h2 class="font-sans font-medium text-heading-lg lg:text-display xl:text-6xl text-white leading-tight tracking-tight">
+                <h2 class="font-mono font-medium text-heading lg:text-heading-lg text-white leading-tight tracking-tight">
                     <?php echo esc_html($content['title']); ?>
                 </h2>
                 <p class="font-mono text-blue-300 text-sm uppercase tracking-wider">
@@ -51,7 +44,7 @@ $content = [
             <div class="flex lg:justify-end">
                 <a
                     href="<?php echo esc_url($content['cta_url']); ?>"
-                    class="group inline-flex items-center gap-3 px-8 py-4 min-h-14 bg-red text-white font-mono font-medium text-sm uppercase tracking-widest hover:bg-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-blue-900 transition-colors"
+                    class="group inline-flex items-center gap-3 px-8 py-4 min-h-14 bg-blue-500 text-white font-mono font-medium text-sm uppercase tracking-widest hover:bg-white hover:text-blue-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-blue-900 transition-colors"
                 >
                     <?php echo esc_html($content['cta_text']); ?>
                     <span class="transition-transform duration-200 group-hover:translate-x-1">
