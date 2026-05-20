@@ -23,7 +23,8 @@ if (!defined('ABSPATH')) {
 $content = [
     'eyebrow' => __('Product evolution', 'standard'),
     'title'   => __('The five machines that defined the category.', 'standard'),
-    'lede'    => __('Each one shipped before the rest of the industry had an answer. Most are still imitated.', 'standard'),
+    'lede_a'  => __('Each one shipped before the rest of the industry had an answer.', 'standard'),
+    'lede_b'  => __('Most are still imitated.', 'standard'),
 ];
 
 $milestones = [
@@ -72,7 +73,8 @@ $milestones = [
                 <?php echo esc_html($content['title']); ?>
             </h2>
             <p class="font-sans text-blue-700 text-base lg:text-lg leading-relaxed max-w-2xl">
-                <?php echo esc_html($content['lede']); ?>
+                <?php echo esc_html($content['lede_a']); ?>
+                <span class="block lg:mt-1"><?php echo esc_html($content['lede_b']); ?></span>
             </p>
         </div>
 
