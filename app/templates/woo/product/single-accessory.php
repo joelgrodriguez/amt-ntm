@@ -55,20 +55,9 @@ get_header();
     </section>
     <?php endif; ?>
 
-    <section class="bg-blue-950 text-white py-12 lg:py-16">
-        <div class="container text-center grid gap-4">
-            <p class="text-sm font-mono uppercase tracking-wider text-blue-400"><?php esc_html_e('Need help choosing the right accessories?', 'standard'); ?></p>
-            <h2 class="text-2xl font-semibold tracking-tight md:text-3xl"><?php esc_html_e('Talk to a Specialist', 'standard'); ?></h2>
-            <p class="text-blue-400 max-w-xl mx-auto"><?php esc_html_e('Our team can help you find the right setup for your machine and jobsite.', 'standard'); ?></p>
-            <div class="flex justify-center gap-4 mt-2">
-                <a href="<?php echo esc_url(\Standard\Url\internal('/contact/')); ?>" class="btn btn-primary"><?php esc_html_e('Contact Us', 'standard'); ?></a>
-                <a href="tel:+13032943553" class="btn btn-outline-light">
-                    <?php icon('phone', ['class' => 'w-4 h-4']); ?>
-                    <?php esc_html_e('(303) 294-3553', 'standard'); ?>
-                </a>
-            </div>
-        </div>
-    </section>
+    <?php get_template_part('templates/parts/cta/closer', null, [
+        'section_id' => 'accessory-closer-title',
+    ]); ?>
 
 </main>
 
