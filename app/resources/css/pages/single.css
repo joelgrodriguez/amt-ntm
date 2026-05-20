@@ -52,14 +52,15 @@
   height: auto !important;
 }
 
-/* Featured image - natural aspect ratio, capped height for tall portraits. */
+/* Featured image - hero crop is locked to 16:9 (editorial-landscape).
+   In-post images keep their natural ratio (handled elsewhere). */
 .featured-image {
   @apply w-full overflow-hidden;
+  aspect-ratio: 16 / 9;
 }
 
 .featured-image img,
 .featured-image picture img {
-  @apply w-full h-auto block;
-  max-height: 80vh;
+  @apply w-full h-full block;
   object-fit: cover;
 }
