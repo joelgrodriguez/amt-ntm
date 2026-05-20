@@ -59,6 +59,7 @@
 @import "./pages/single.css";
 @import "./pages/toc.css";
 @import "./pages/media.css";
+@import "./pages/learning-center.css";
 
 /* ── WooCommerce ───────────────────────────────────────────────────── */
 @import "./woo/product-card.css";

@@ -51,76 +51,82 @@ $filter_action    = get_learning_center_url();
 
 <main id="primary">
 
-    <!-- Hero: stacked (heading row, then featured card row) -->
-    <section class="pattern-dot-grid border-b border-blue-200">
-        <div class="container py-10 lg:py-14">
+    <!-- Hero: full fold (100dvh - header). Filter bar peeks below. -->
+    <section class="lc-hero pattern-dot-grid border-b border-blue-200">
+        <div class="container py-10 lg:py-14 lc-hero__inner">
 
-            <div class="grid gap-10 lg:gap-12">
+            <!-- Hero copy -->
+            <header class="grid gap-5 lg:gap-6 self-start">
+                <span class="text-caption font-mono uppercase tracking-widest text-blue-500">
+                    <?php esc_html_e('Learning Center', 'standard'); ?>
+                </span>
+                <h1 class="font-mono font-medium text-heading-lg lg:text-display text-blue-900 leading-tight tracking-tight">
+                    <?php esc_html_e('The Rollforming Learning Center', 'standard'); ?>
+                </h1>
+                <p class="text-blue-600 text-base lg:text-lg max-w-2xl leading-relaxed">
+                    <?php esc_html_e('Articles, videos, and resources to help you get the most out of your portable rollforming equipment.', 'standard'); ?>
+                </p>
+            </header>
 
-                <!-- Hero copy -->
-                <header class="grid gap-5 lg:gap-6">
-                    <span class="text-caption font-mono uppercase tracking-widest text-blue-500">
-                        <?php esc_html_e('Learning Center', 'standard'); ?>
-                    </span>
-                    <h1 class="font-mono font-medium text-heading-lg lg:text-display text-blue-900 leading-tight tracking-tight">
-                        <?php esc_html_e('The Rollforming Learning Center', 'standard'); ?>
-                    </h1>
-                    <p class="text-blue-600 text-base lg:text-lg max-w-2xl leading-relaxed">
-                        <?php esc_html_e('Articles, videos, and resources to help you get the most out of your portable rollforming equipment.', 'standard'); ?>
-                    </p>
-                </header>
-
-                <!-- Featured Post (compact) -->
-                <?php if ($featured_query->have_posts()) : $featured_query->the_post();
-                    $featured_cta   = get_type_cta((string) get_post_type());
-                    $featured_label = sprintf(
-                        /* translators: %1$s post title, %2$s post-type-specific verb. */
-                        __('%1$s. %2$s.', 'standard'),
-                        wp_strip_all_tags(get_the_title()),
-                        $featured_cta
-                    );
-                ?>
-                    <article class="group relative grid grid-cols-[40%_1fr] h-44 sm:h-52 lg:h-60 bg-white border border-blue-200 transition-colors duration-200 hover:border-blue-500">
-                        <?php if (has_post_thumbnail()) : ?>
-                            <div class="h-full overflow-hidden border-r border-blue-200 transition-colors duration-200 group-hover:border-blue-500">
-                                <?php the_post_thumbnail('card-thumbnail', [
-                                    'class'         => 'w-full h-full object-cover',
-                                    'loading'       => 'eager',
-                                    'fetchpriority' => 'high',
-                                    'alt'           => esc_attr(wp_strip_all_tags(get_the_title())),
-                                ]); ?>
-                            </div>
-                        <?php endif; ?>
-                        <div class="p-5 lg:p-6 grid gap-2.5 content-center">
-                            <span class="font-mono uppercase tracking-widest text-caption text-blue-500">
-                                <?php esc_html_e('Latest', 'standard'); ?>
-                            </span>
-                            <?php the_title(sprintf(
-                                '<h2 class="font-mono font-medium text-base lg:text-heading-sm text-blue-900 leading-snug tracking-tight line-clamp-2 group-hover:text-blue-500 transition-colors"><a href="%s" class="text-inherit no-underline hover:no-underline after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" aria-label="%s">',
-                                esc_url(get_permalink()),
-                                esc_attr($featured_label)
-                            ), '</a></h2>'); ?>
-                            <?php if (has_excerpt() || get_the_excerpt()) : ?>
-                                <p class="text-sm text-blue-600 leading-relaxed line-clamp-2">
-                                    <?php echo esc_html(wp_strip_all_tags(get_the_excerpt())); ?>
-                                </p>
-                            <?php endif; ?>
-                            <span class="inline-flex items-center gap-2 text-sm font-mono font-medium text-blue-500 mt-1">
-                                <?php echo esc_html($featured_cta); ?>
-                                <?php icon('arrow-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-                            </span>
+            <!-- Featured Post (fills remaining fold space) -->
+            <?php if ($featured_query->have_posts()) : $featured_query->the_post();
+                $featured_cta   = get_type_cta((string) get_post_type());
+                $featured_label = sprintf(
+                    /* translators: %1$s post title, %2$s post-type-specific verb. */
+                    __('%1$s. %2$s.', 'standard'),
+                    wp_strip_all_tags(get_the_title()),
+                    $featured_cta
+                );
+            ?>
+                <article class="lc-hero__featured group relative bg-white border border-blue-200 transition-colors duration-200 hover:border-blue-500">
+                    <?php if (has_post_thumbnail()) : ?>
+                        <div class="lc-hero__featured-photo border-r border-blue-200 transition-colors duration-200 group-hover:border-blue-500">
+                            <?php the_post_thumbnail('large', [
+                                'class'         => 'w-full h-full object-cover',
+                                'loading'       => 'eager',
+                                'fetchpriority' => 'high',
+                                'alt'           => esc_attr(wp_strip_all_tags(get_the_title())),
+                            ]); ?>
                         </div>
-                    </article>
-                <?php wp_reset_postdata(); endif; ?>
-
-            </div>
+                    <?php endif; ?>
+                    <div class="p-6 lg:p-8 grid gap-3 content-center">
+                        <span class="font-mono uppercase tracking-widest text-caption text-blue-500">
+                            <?php esc_html_e('Latest', 'standard'); ?>
+                        </span>
+                        <?php the_title(sprintf(
+                            '<h2 class="font-sans font-semibold text-heading-sm lg:text-heading text-blue-900 leading-snug tracking-tight line-clamp-3 group-hover:text-blue-500 transition-colors"><a href="%s" class="text-inherit no-underline hover:no-underline after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" aria-label="%s">',
+                            esc_url(get_permalink()),
+                            esc_attr($featured_label)
+                        ), '</a></h2>'); ?>
+                        <?php if (has_excerpt() || get_the_excerpt()) : ?>
+                            <p class="text-blue-600 text-base leading-relaxed line-clamp-3 max-w-prose">
+                                <?php echo esc_html(wp_strip_all_tags(get_the_excerpt())); ?>
+                            </p>
+                        <?php endif; ?>
+                        <span class="inline-flex items-center gap-2 text-sm font-mono font-medium text-blue-500 mt-1">
+                            <?php echo esc_html($featured_cta); ?>
+                            <?php icon('arrow-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+                        </span>
+                    </div>
+                </article>
+            <?php wp_reset_postdata(); endif; ?>
 
         </div>
+
+        <!-- Scroll cue: smooth-scrolls so the filter bar lands at the viewport top -->
+        <button
+            type="button"
+            class="lc-scroll-cue"
+            data-lc-scroll-cue
+            aria-label="<?php esc_attr_e('Scroll to filters', 'standard'); ?>"
+        >
+            <?php icon('chevron-down', ['class' => 'lc-scroll-cue__icon', 'aria-hidden' => 'true']); ?>
+        </button>
     </section>
 
 
     <!-- Quick Filters -->
-    <section class="border-b border-blue-200 bg-blue-50" aria-labelledby="lc-filters-heading">
+    <section id="lc-filters" class="border-b border-blue-200 bg-blue-50" aria-labelledby="lc-filters-heading">
         <div class="container py-6">
             <h2 id="lc-filters-heading" class="sr-only">
                 <?php esc_html_e('Filter Learning Center content', 'standard'); ?>
