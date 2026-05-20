@@ -2,7 +2,10 @@
 /**
  * The template for displaying single resource posts.
  *
- * Simpler layout than articles - no TOC sidebar.
+ * Thin wrapper around templates/parts/single-sidebar-layout.php, which
+ * also powers single-download.php. The only thing that differs between
+ * the two is the current post type, which the shared part reads via
+ * get_post_type() to label the badge and drive the same-type sidebar.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
  *
@@ -15,84 +18,15 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use function Standard\LearningCenter\get_sidebar_items_query;
-
-$content = [
-    'badge'         => __('Resource', 'standard'),
-    'sidebar_title' => __('All Resources', 'standard'),
-];
-
 get_header();
 ?>
 
 <main id="primary" class="pattern-dot-grid gradient-fade-bottom-sm py-6 lg:py-12">
     <?php while (have_posts()) : the_post(); ?>
-        <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-6 lg:gap-12'); ?>>
-            <header class="container">
-                <div class="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
-                    <div class="grid gap-6 justify-items-start">
-                        <span class="badge inline"><?php echo esc_html($content['badge']); ?></span>
-
-                        <?php the_title('<h1 class="text-3xl md:text-4xl lg:text-5xl font-medium font-mono">', '</h1>'); ?>
-
-                        <?php if (get_the_excerpt()) : ?>
-                            <p class="text-blue-600"><?php echo esc_html(get_the_excerpt()); ?></p>
-                        <?php endif; ?>
-                    </div>
-
-                    <?php if (has_post_thumbnail()) : ?>
-                        <figure class="featured-image">
-                            <?php the_post_thumbnail('full', [
-                                'loading' => 'eager',
-                            ]); ?>
-                        </figure>
-                    <?php endif; ?>
-                </div>
-            </header>
-
-            <!-- Two-column layout: Content + Resources Sidebar -->
-            <div class="container lg:grid lg:grid-cols-[1fr_300px] lg:gap-12">
-                <!-- Content -->
-                <div>
-                    <div class="prose prose-lg max-w-full">
-                        <?php the_content(); ?>
-                    </div>
-
-                    <?php get_template_part('templates/parts/disclaimer'); ?>
-                </div>
-
-                <!-- Resources Sidebar -->
-                <aside class="hidden lg:block border-l border-blue-200 pl-12">
-                    <nav class="sticky top-16">
-                        <p class="text-sm font-medium text-blue-900 mb-4"><?php echo esc_html($content['sidebar_title']); ?></p>
-                        <ul class="grid gap-2">
-                            <?php
-                            $resources = get_sidebar_items_query('resource', get_the_ID());
-
-                            if ($resources->have_posts()) :
-                                while ($resources->have_posts()) : $resources->the_post();
-                            ?>
-                                <li>
-                                    <a href="<?php the_permalink(); ?>" class="block text-sm text-blue-500 no-underline hover:underline">
-                                        <?php the_title(); ?>
-                                    </a>
-                                </li>
-                            <?php
-                                endwhile;
-                                wp_reset_postdata();
-                            endif;
-                            ?>
-                        </ul>
-                    </nav>
-                </aside>
-            </div>
-
-            <div class="container">
-                <?php get_template_part('templates/parts/post-navigation'); ?>
-            </div>
-            
-        </article>
+        <?php get_template_part('templates/parts/single-sidebar-layout'); ?>
     <?php endwhile; ?>
 </main>
+
+<?php get_template_part('templates/parts/cta/subscribe'); ?>
 
 <?php get_footer(); ?>
