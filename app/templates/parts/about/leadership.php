@@ -42,7 +42,7 @@ $memberships = [
 ];
 ?>
 
-<section class="bg-blue-50 py-16 lg:py-24 border-t border-blue-200" aria-labelledby="about-leadership-title">
+<section class="bg-white py-16 lg:py-24 border-t border-blue-200" aria-labelledby="about-leadership-title">
     <div class="container">
 
         <!-- Eyebrow + headline + lede -->

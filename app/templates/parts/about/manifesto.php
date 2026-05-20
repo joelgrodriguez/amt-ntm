@@ -23,7 +23,8 @@ if (!defined('ABSPATH')) {
 
 $content = [
     'eyebrow'   => __('About New Tech Machinery', 'standard'),
-    'title'     => __('The world\'s finest portable rollforming machines. Built here since 1991.', 'standard'),
+    'title'     => __('The world\'s finest portable rollforming machines.', 'standard'),
+    'subhead'   => __('Built here since 1991.', 'standard'),
     'lede'      => __('NTM invented the modern portable roof panel machine in 1991 and the modern portable seamless gutter machine three years later. Three decades on, our designs are the ones the industry imitates.', 'standard'),
     'image'     => 'https://newtechmachinery.com/wp-content/uploads/2025/04/Nate-training-East-Kentucky-Metal-9-scaled.jpg',
     'image_alt' => __('NTM rollformer in operation, training a crew at a jobsite.', 'standard'),
@@ -48,9 +49,14 @@ $metrics = [
                     <?php echo esc_html($content['eyebrow']); ?>
                 </p>
 
-                <h1 id="about-manifesto-title" class="font-sans font-medium text-blue-900 text-3xl md:text-4xl lg:text-5xl xl:text-[3.5rem] leading-[1.05] tracking-tight max-w-3xl">
-                    <?php echo esc_html($content['title']); ?>
-                </h1>
+                <div class="grid gap-3 max-w-3xl">
+                    <h1 id="about-manifesto-title" class="font-sans font-medium text-blue-900 text-3xl md:text-4xl lg:text-5xl xl:text-[3.5rem] leading-[1.05] tracking-tight">
+                        <?php echo esc_html($content['title']); ?>
+                    </h1>
+                    <p class="font-mono uppercase tracking-wider text-sm md:text-base text-blue-500">
+                        <?php echo esc_html($content['subhead']); ?>
+                    </p>
+                </div>
 
                 <p class="font-sans text-blue-700 text-lg lg:text-xl leading-relaxed max-w-2xl">
                     <?php echo esc_html($content['lede']); ?>

@@ -23,8 +23,9 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'eyebrow' => __('At the forefront', 'standard'),
-    'title'   => __('Three decades at the forefront. Setting the standard since 1991.', 'standard'),
+    'eyebrow'    => __('At the forefront', 'standard'),
+    'title_a'    => __('Three decades at the forefront.', 'standard'),
+    'title_b'    => __('Setting the standard since 1991.', 'standard'),
     'p1'      => __('The SSP Roof Panel Machine shipped in 1991, and the modern portable roof panel category followed. Three years later, the MACH II Seamless Gutter Machine did the same for gutters. NTM didn\'t join the category. NTM made it.', 'standard'),
     'p2'      => __('NTM was the first portable rollforming company to commercially produce a polyurethane drive roller machine with separate forming rollers. Today almost every portable rollformer on the market uses that approach. The patents have aged out. The lead hasn\'t.', 'standard'),
     'p3'      => __('Headquartered in Aurora, Colorado. A second manufacturing facility opened in Hermosillo, Mexico in 2004. Mazzella Companies acquired NTM in 2015, and the backing has let us hold the lead in the category we built. Same engineering instincts. Same machines, refined.', 'standard'),
@@ -49,7 +50,8 @@ $facts = [
                 <?php echo esc_html($content['eyebrow']); ?>
             </p>
             <h2 id="about-origin-title" class="font-sans font-medium text-blue-900 text-2xl md:text-3xl lg:text-[2.5rem] leading-tight tracking-tight">
-                <?php echo esc_html($content['title']); ?>
+                <?php echo esc_html($content['title_a']); ?>
+                <span class="block lg:mt-1"><?php echo esc_html($content['title_b']); ?></span>
             </h2>
         </div>
 
