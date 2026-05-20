@@ -1,8 +1,7 @@
 /**
  * Single Post Styles
  *
- * Styles specific to single post pages including
- * content images, typography overrides, and decorative elements.
+ * Layout shell + content overrides for single-post templates.
  *
  * @file single.css
  *
@@ -10,6 +9,29 @@
  * @see toc.css - Table of contents sidebar styles
  * @see js/modules/TableOfContents.js - TOC generation and scrollspy
  */
+
+@layer components {
+  /* Editorial shell — 1280 outer cap for long-form reading surfaces. */
+  .article-shell {
+    @apply mx-auto w-full px-4 md:px-8 lg:px-12;
+    max-width: 1280px;
+  }
+
+  /* TOC + content grid. Inner block capped to TOC + content's natural
+     measure (240 + 48 gap + 720 = 1008) and centered inside the shell. */
+  .article-layout {
+    @apply mx-auto;
+    max-width: 1008px;
+  }
+
+  @media (min-width: 1024px) {
+    .article-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 3rem; /* 48px */
+    }
+  }
+}
 
 /* Post content images - full width */
 .prose img,
