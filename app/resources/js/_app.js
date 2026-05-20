@@ -17,7 +17,6 @@ import { initTableOfContents } from './modules/TableOfContents.js';
 import { init as initScrollHeader } from './modules/ScrollHeader.js';
 import { init as initScrollToTop } from './modules/ScrollToTop.js';
 import { initAccordion } from './modules/Accordion.js';
-import { init as initLearningCenterScroll } from './modules/LearningCenterScroll.js';
 
 /** @type {Function|null} Cleanup function for mobile menu */
 let mobileMenuCleanup = null;
@@ -36,9 +35,6 @@ let scrollToTopCleanup = null;
 
 /** @type {Function|null} Cleanup function for accordion */
 let accordionCleanup = null;
-
-/** @type {Function|null} Cleanup function for learning center scroll cue */
-let learningCenterScrollCleanup = null;
 
 /**
  * Executes callback when DOM is ready.
@@ -67,7 +63,6 @@ const initApp = () => {
   scrollHeaderCleanup = initScrollHeader();
   scrollToTopCleanup = initScrollToTop();
   accordionCleanup = initAccordion();
-  learningCenterScrollCleanup = initLearningCenterScroll();
 };
 
 // Bootstrap
@@ -94,9 +89,6 @@ if (import.meta.hot) {
     }
     if (accordionCleanup) {
       accordionCleanup();
-    }
-    if (learningCenterScrollCleanup) {
-      learningCenterScrollCleanup();
     }
     // Reinitialize
     initApp();

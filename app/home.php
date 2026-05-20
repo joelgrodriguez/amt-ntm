@@ -157,15 +157,6 @@ $filter_action    = get_learning_center_url();
 
         </div>
 
-        <!-- Scroll cue: smooth-scrolls so the filter bar lands at the viewport top -->
-        <button
-            type="button"
-            class="lc-scroll-cue"
-            data-lc-scroll-cue
-            aria-label="<?php esc_attr_e('Scroll to filters', 'standard'); ?>"
-        >
-            <?php icon('chevron-down', ['class' => 'lc-scroll-cue__icon', 'aria-hidden' => 'true']); ?>
-        </button>
     </section>
 
 
