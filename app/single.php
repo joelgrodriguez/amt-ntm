@@ -16,11 +16,11 @@ if (!defined('ABSPATH')) {
 get_header();
 ?>
 
-<main id="primary" class="py-6 lg:py-12">
+<main id="primary" class="pb-6 lg:pb-12">
     <?php while (have_posts()) : the_post(); ?>
         <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-6 lg:gap-12'); ?>>
             <header class="pattern-dot-grid gradient-fade-bottom-sm">
-                <div class="container grid gap-6 pb-6 lg:pb-10">
+                <div class="container-narrow grid gap-6 pt-6 lg:pt-10 pb-6 lg:pb-10">
                     <?php if (has_category()) : ?>
                         <div class="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono uppercase tracking-widest text-caption">
                             <?php
@@ -76,7 +76,7 @@ get_header();
             </header>
 
             <!-- Two-column layout: TOC sidebar + Content -->
-            <div class="container lg:grid lg:grid-cols-[240px_minmax(0,72ch)_1fr] lg:gap-12">
+            <div class="container-narrow lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
                 <!-- TOC Sidebar (desktop only) -->
                 <aside id="table-of-contents" class="hidden lg:block" aria-label="<?php esc_attr_e('Table of Contents', 'standard'); ?>">
                     <nav class="toc sticky top-16">
@@ -86,8 +86,8 @@ get_header();
                 </aside>
 
                 <!-- Content -->
-                <div>
-                    <div class="prose prose-lg max-w-full" data-toc-content>
+                <div class="min-w-0">
+                    <div class="prose prose-lg max-w-[72ch]" data-toc-content>
                         <?php the_content(); ?>
                     </div>
 
@@ -95,12 +95,12 @@ get_header();
                 </div>
             </div>
 
-            <div class="container">
+            <div class="container-narrow">
                 <?php get_template_part('templates/parts/post-navigation'); ?>
             </div>
 
             <!-- Related Posts -->
-            <div class="container">
+            <div class="container-narrow">
                 <?php get_template_part('templates/parts/related-posts'); ?>
             </div>
         </article>
