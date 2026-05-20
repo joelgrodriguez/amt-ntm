@@ -19,7 +19,7 @@ get_header();
 <main id="primary" class="pb-6 lg:pb-12">
     <?php while (have_posts()) : the_post(); ?>
         <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-6 lg:gap-12'); ?>>
-            <header class="pattern-dot-grid gradient-fade-bottom-sm">
+            <header class="pattern-dot-grid border-b border-blue-200">
                 <?php
                 $word_count   = str_word_count(wp_strip_all_tags(get_the_content()));
                 $reading_time = max(1, (int) ceil($word_count / 220));
@@ -84,23 +84,27 @@ get_header();
                 </div>
             </header>
 
-            <!-- Two-column layout: TOC sidebar + Content -->
-            <div class="container lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
-                <!-- TOC Sidebar (desktop only) -->
-                <aside id="table-of-contents" class="hidden lg:block" aria-label="<?php esc_attr_e('Table of Contents', 'standard'); ?>">
-                    <nav class="toc sticky top-16">
-                        <p class="toc__title"><?php esc_html_e('On this page', 'standard'); ?></p>
-                        <ol id="toc-list" class="toc__list"></ol>
-                    </nav>
-                </aside>
+            <!-- Two-column layout: TOC sidebar + Content. Inner grid is centered
+                 on screen within the 1440 container by capping its width to the
+                 TOC + content's natural reading measure. -->
+            <div class="container">
+                <div class="mx-auto lg:grid lg:grid-cols-[240px_minmax(0,72ch)] lg:gap-12 lg:w-fit">
+                    <!-- TOC Sidebar (desktop only) -->
+                    <aside id="table-of-contents" class="hidden lg:block" aria-label="<?php esc_attr_e('Table of Contents', 'standard'); ?>">
+                        <nav class="toc sticky top-16">
+                            <p class="toc__title"><?php esc_html_e('On this page', 'standard'); ?></p>
+                            <ol id="toc-list" class="toc__list"></ol>
+                        </nav>
+                    </aside>
 
-                <!-- Content -->
-                <div class="min-w-0">
-                    <div class="prose prose-lg max-w-[72ch]" data-toc-content>
-                        <?php the_content(); ?>
+                    <!-- Content -->
+                    <div class="min-w-0">
+                        <div class="prose prose-lg max-w-[72ch]" data-toc-content>
+                            <?php the_content(); ?>
+                        </div>
+
+                        <?php get_template_part('templates/parts/disclaimer'); ?>
                     </div>
-
-                    <?php get_template_part('templates/parts/disclaimer'); ?>
                 </div>
             </div>
 
