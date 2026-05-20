@@ -80,9 +80,9 @@ $filter_action    = get_learning_center_url();
                         $featured_cta
                     );
                 ?>
-                    <article class="group relative grid grid-cols-[40%_1fr] bg-white border border-blue-200 transition-colors duration-200 hover:border-blue-500">
+                    <article class="group relative grid grid-cols-[40%_1fr] h-44 sm:h-52 lg:h-60 bg-white border border-blue-200 transition-colors duration-200 hover:border-blue-500">
                         <?php if (has_post_thumbnail()) : ?>
-                            <div class="aspect-square overflow-hidden border-r border-blue-200 transition-colors duration-200 group-hover:border-blue-500">
+                            <div class="h-full overflow-hidden border-r border-blue-200 transition-colors duration-200 group-hover:border-blue-500">
                                 <?php the_post_thumbnail('card-thumbnail', [
                                     'class'         => 'w-full h-full object-cover',
                                     'loading'       => 'eager',
