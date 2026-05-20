@@ -26,7 +26,7 @@ get_header();
                 $has_image    = has_post_thumbnail();
                 ?>
                 <div class="container grid gap-8 lg:gap-12 lg:grid-cols-2 lg:items-center pt-6 lg:pt-12 pb-6 lg:pb-12">
-                    <div class="grid gap-5 lg:gap-6 lg:max-w-xl">
+                    <div class="grid gap-5 lg:gap-6">
                         <?php if (has_category()) : ?>
                             <div class="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono uppercase tracking-widest text-caption">
                                 <?php
