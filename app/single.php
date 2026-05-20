@@ -19,7 +19,7 @@ get_header();
 <main id="primary" class="pb-6 lg:pb-12">
     <?php while (have_posts()) : the_post(); ?>
         <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-6 lg:gap-12'); ?>>
-            <header class="pattern-dot-grid border-b border-blue-200">
+            <header class="pattern-dot-grid bg-blue-50 border-b border-blue-200">
                 <?php
                 $word_count   = str_word_count(wp_strip_all_tags(get_the_content()));
                 $reading_time = max(1, (int) ceil($word_count / 220));
