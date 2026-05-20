@@ -33,7 +33,7 @@ get_header();
 $filters = get_active_filters();
 $featured_query = get_featured_query($filters);
 $featured_id = $featured_query->have_posts() ? $featured_query->posts[0]->ID : 0;
-$recent_query = get_recent_query((int) $featured_id, 4, $filters);
+$recent_query = get_recent_query((int) $featured_id, 3, $filters);
 
 $categories = get_categories([
     'hide_empty' => true,
@@ -55,39 +55,39 @@ $filter_action    = get_learning_center_url();
 
 <main id="primary">
 
-    <!-- Hero Section -->
-    <section class="pattern-dot-grid gradient-fade-bottom-sm border-b border-blue-200">
-        <div class="container py-8 lg:py-12">
+    <!-- Hero: editorial split (copy left, featured right) -->
+    <section class="pattern-dot-grid border-b border-blue-200">
+        <div class="container py-10 lg:py-14">
 
-            <header class="mb-8 lg:mb-12">
-                <span class="text-caption font-mono uppercase tracking-widest text-blue-500">
-                    <?php esc_html_e('Learning Center', 'standard'); ?>
-                </span>
-                <h1 class="font-mono font-medium text-heading-lg lg:text-display xl:text-6xl text-blue-900 mt-2 leading-tight tracking-tight">
-                    <?php esc_html_e('The Rollforming Learning Center', 'standard'); ?>
-                </h1>
-                <p class="text-blue-600 text-base mt-6 max-w-2xl leading-relaxed">
-                    <?php esc_html_e('Articles, videos, and resources to help you get the most out of your portable rollforming equipment.', 'standard'); ?>
-                </p>
-            </header>
+            <div class="grid lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-16 items-start">
 
-            <!-- Featured + Recent Grid -->
-            <div class="grid lg:grid-cols-[2fr_1fr] gap-6 items-start">
+                <!-- Hero copy -->
+                <header class="grid gap-5 lg:gap-6 lg:pt-2">
+                    <span class="text-caption font-mono uppercase tracking-widest text-blue-500">
+                        <?php esc_html_e('Learning Center', 'standard'); ?>
+                    </span>
+                    <h1 class="font-mono font-medium text-heading-lg lg:text-display text-blue-900 leading-tight tracking-tight">
+                        <?php esc_html_e('The Rollforming Learning Center', 'standard'); ?>
+                    </h1>
+                    <p class="text-blue-600 text-base lg:text-lg max-w-xl leading-relaxed">
+                        <?php esc_html_e('Articles, videos, and resources to help you get the most out of your portable rollforming equipment.', 'standard'); ?>
+                    </p>
+                </header>
 
-                <!-- Featured Post (Large) -->
+                <!-- Featured Post (compact) -->
                 <?php if ($featured_query->have_posts()) : $featured_query->the_post();
                     $featured_cta   = get_type_cta((string) get_post_type());
                     $featured_label = sprintf(
-                        /* translators: %1$s post title, %2$s post-type-specific verb (e.g. "Read full article"). */
+                        /* translators: %1$s post title, %2$s post-type-specific verb. */
                         __('%1$s. %2$s.', 'standard'),
                         wp_strip_all_tags(get_the_title()),
                         $featured_cta
                     );
                 ?>
-                    <article class="group relative grid grid-rows-[auto_1fr] h-full bg-white border border-blue-200 transition-colors duration-200 hover:border-blue-500">
+                    <article class="group relative grid grid-rows-[auto_auto] bg-white border border-blue-200 transition-colors duration-200 hover:border-blue-500">
                         <?php if (has_post_thumbnail()) : ?>
-                            <div class="aspect-[16/10] overflow-hidden border-b border-blue-200 transition-colors duration-200 group-hover:border-blue-500">
-                                <?php the_post_thumbnail('large', [
+                            <div class="aspect-[16/9] overflow-hidden border-b border-blue-200 transition-colors duration-200 group-hover:border-blue-500">
+                                <?php the_post_thumbnail('card-thumbnail', [
                                     'class'         => 'w-full h-full object-cover',
                                     'loading'       => 'eager',
                                     'fetchpriority' => 'high',
@@ -95,30 +95,16 @@ $filter_action    = get_learning_center_url();
                                 ]); ?>
                             </div>
                         <?php endif; ?>
-                        <div class="p-6 lg:p-8 grid gap-3 content-start">
+                        <div class="p-5 lg:p-6 grid gap-2.5 content-start">
                             <span class="font-mono uppercase tracking-widest text-caption text-blue-500">
                                 <?php esc_html_e('Latest', 'standard'); ?>
                             </span>
                             <?php the_title(sprintf(
-                                '<h2 class="font-mono font-medium text-heading-sm lg:text-heading text-blue-900 leading-snug tracking-tight group-hover:text-blue-500 transition-colors"><a href="%s" class="text-inherit no-underline hover:no-underline after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" aria-label="%s">',
+                                '<h2 class="font-mono font-medium text-heading-sm text-blue-900 leading-snug tracking-tight group-hover:text-blue-500 transition-colors"><a href="%s" class="text-inherit no-underline hover:no-underline after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" aria-label="%s">',
                                 esc_url(get_permalink()),
                                 esc_attr($featured_label)
                             ), '</a></h2>'); ?>
-                            <p class="text-blue-600 text-sm line-clamp-2">
-                                <?php echo esc_html(get_the_excerpt()); ?>
-                            </p>
-                            <div class="flex items-center gap-4 text-caption text-blue-500 font-mono mt-2">
-                                <span class="flex items-center gap-1.5">
-                                    <?php icon('calendar', ['class' => 'w-3 h-3', 'aria-hidden' => 'true']); ?>
-                                    <?php echo esc_html(get_the_date()); ?>
-                                </span>
-                                <span aria-hidden="true">&middot;</span>
-                                <span class="flex items-center gap-1.5">
-                                    <?php icon('user', ['class' => 'w-3 h-3', 'aria-hidden' => 'true']); ?>
-                                    <?php the_author(); ?>
-                                </span>
-                            </div>
-                            <span class="inline-flex items-center gap-2 text-sm font-mono font-medium text-blue-500 mt-2">
+                            <span class="inline-flex items-center gap-2 text-sm font-mono font-medium text-blue-500 mt-1">
                                 <?php echo esc_html($featured_cta); ?>
                                 <?php icon('arrow-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
                             </span>
@@ -126,50 +112,55 @@ $filter_action    = get_learning_center_url();
                     </article>
                 <?php wp_reset_postdata(); endif; ?>
 
-                <!-- Recent Posts (Stacked) -->
-                <div class="grid gap-3 h-full content-start">
-                    <?php if ($recent_query->have_posts()) : ?>
-                        <?php while ($recent_query->have_posts()) : $recent_query->the_post();
-                            $recent_post_type = get_post_type();
-                            $recent_icon      = get_type_icon((string) $recent_post_type);
-                            $recent_label     = sprintf(
-                                /* translators: %s post title. */
-                                __('%s', 'standard'),
-                                wp_strip_all_tags(get_the_title())
-                            );
-                        ?>
-                            <article class="group relative bg-white border border-blue-200 transition-colors duration-200 hover:border-blue-500">
-                                <div class="flex items-center gap-4 p-4">
-                                    <?php if (has_post_thumbnail()) : ?>
-                                        <div class="shrink-0 w-24 h-24 overflow-hidden">
-                                            <?php the_post_thumbnail('thumbnail', [
-                                                'class'   => 'w-full h-full object-cover',
-                                                'loading' => 'lazy',
-                                                'alt'     => '',
-                                            ]); ?>
-                                        </div>
-                                    <?php endif; ?>
-                                    <div class="flex-1 min-w-0 grid gap-1">
-                                        <span class="inline-flex items-center gap-1.5 text-caption text-blue-400 font-mono uppercase tracking-wide">
-                                            <?php icon($recent_icon, ['class' => 'w-3 h-3', 'aria-hidden' => 'true']); ?>
-                                            <?php echo esc_html(get_type_label((string) $recent_post_type)); ?>
-                                        </span>
-                                        <?php the_title(sprintf(
-                                            '<h3 class="font-mono font-medium text-base leading-snug text-blue-900 line-clamp-2 group-hover:text-blue-500 transition-colors"><a href="%s" class="text-inherit no-underline hover:no-underline after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" aria-label="%s">',
-                                            esc_url(get_permalink()),
-                                            esc_attr($recent_label)
-                                        ), '</a></h3>'); ?>
-                                    </div>
-                                </div>
-                            </article>
-                        <?php endwhile; wp_reset_postdata(); ?>
-                    <?php endif; ?>
-                </div>
-
             </div>
 
         </div>
     </section>
+
+    <!-- Recent strip: 3-up horizontal -->
+    <?php if ($recent_query->have_posts()) : ?>
+        <section class="border-b border-blue-200 bg-white" aria-labelledby="lc-recent-heading">
+            <div class="container py-8 lg:py-10">
+                <div class="flex items-baseline justify-between mb-5">
+                    <h2 id="lc-recent-heading" class="font-mono font-medium text-caption uppercase tracking-widest text-blue-400">
+                        <?php esc_html_e('Recently Published', 'standard'); ?>
+                    </h2>
+                </div>
+                <div class="grid gap-4 md:gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    <?php while ($recent_query->have_posts()) : $recent_query->the_post();
+                        $recent_post_type = get_post_type();
+                        $recent_icon      = get_type_icon((string) $recent_post_type);
+                        $recent_label     = wp_strip_all_tags(get_the_title());
+                    ?>
+                        <article class="group relative bg-white border border-blue-200 transition-colors duration-200 hover:border-blue-500">
+                            <div class="flex items-stretch gap-4">
+                                <?php if (has_post_thumbnail()) : ?>
+                                    <div class="shrink-0 w-24 sm:w-28 aspect-square overflow-hidden border-r border-blue-200 transition-colors duration-200 group-hover:border-blue-500">
+                                        <?php the_post_thumbnail('thumbnail', [
+                                            'class'   => 'w-full h-full object-cover',
+                                            'loading' => 'lazy',
+                                            'alt'     => '',
+                                        ]); ?>
+                                    </div>
+                                <?php endif; ?>
+                                <div class="flex-1 min-w-0 grid gap-1.5 content-center py-3 pr-4">
+                                    <span class="inline-flex items-center gap-1.5 text-caption text-blue-400 font-mono uppercase tracking-wide">
+                                        <?php icon($recent_icon, ['class' => 'w-3 h-3', 'aria-hidden' => 'true']); ?>
+                                        <?php echo esc_html(get_type_label((string) $recent_post_type)); ?>
+                                    </span>
+                                    <?php the_title(sprintf(
+                                        '<h3 class="font-mono font-medium text-sm leading-snug text-blue-900 line-clamp-2 group-hover:text-blue-500 transition-colors"><a href="%s" class="text-inherit no-underline hover:no-underline after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" aria-label="%s">',
+                                        esc_url(get_permalink()),
+                                        esc_attr($recent_label)
+                                    ), '</a></h3>'); ?>
+                                </div>
+                            </div>
+                        </article>
+                    <?php endwhile; wp_reset_postdata(); ?>
+                </div>
+            </div>
+        </section>
+    <?php endif; ?>
 
     <!-- Quick Filters -->
     <section class="border-b border-blue-200 bg-blue-50" aria-labelledby="lc-filters-heading">
