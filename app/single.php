@@ -84,10 +84,10 @@ get_header();
                 </div>
             </header>
 
-            <!-- Two-column layout: TOC sidebar + Content. Inner wrapper has a
-                 fixed max-width and mx-auto so the whole TOC+content block sits
-                 centered horizontally inside the 1440 container. -->
-            <div class="container">
+            <!-- Two-column layout: TOC sidebar + Content. Outer 1280 narrow
+                 wrapper; inner block (TOC + content) capped at 1008 and centered
+                 inside it. -->
+            <div class="container-narrow">
                 <div class="mx-auto max-w-[1008px] lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
                     <!-- TOC Sidebar (desktop only) -->
                     <aside id="table-of-contents" class="hidden lg:block" aria-label="<?php esc_attr_e('Table of Contents', 'standard'); ?>">
