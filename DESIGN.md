@@ -197,6 +197,8 @@ Sans 500, tracking-tight, 20px (sm) / 28px (md) / 40px (lg), color `--color-blue
 
 Sans 400 or 500, 40–48px, color `--color-blue-900` (light bg) or `--color-white` (dark bg / over imagery). Tight leading (1.17–1.2). Read this; don't scan it.
 
+**Editorial exception (Learning Center).** Long-form editorial surfaces (`home.php`, `single.php`, and similar blog/article templates) use **Mono 500** for the H1 instead of sans. The mono display ties article surfaces to the same technical voice that runs on labels, navigation, and metadata, and visually separates editorial pages from product hero sections. Same scale (`text-heading` → `text-display`), same `--color-blue-900`, same tight leading. Mono never appears on product-page hero headlines.
+
 ### 5.7 Header Navigation Link
 **Role:** Top-level site navigation.
 
