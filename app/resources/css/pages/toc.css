@@ -41,20 +41,20 @@
 
 /* Link */
 .toc__link {
-  @apply block py-1.5 pl-4 -ml-px font-sans text-blue-600 no-underline;
+  @apply block py-1.5 pl-4 -ml-px font-mono text-blue-600 no-underline;
   @apply border-l-2 border-transparent;
   @apply transition-colors duration-150;
-  font-size: var(--text-body);
+  font-size: var(--text-sm);
 }
 
 .toc__link:hover {
   @apply text-blue-700;
 }
 
-/* Active state - left border indicator (red accent for active) */
+/* Active state - blue-500 indicator (red is reserved for primary CTA per §8.8). */
 .toc__link.is-active {
   @apply text-blue-700 font-medium;
-  @apply border-l-2 border-red;
+  @apply border-l-2 border-blue-500;
 }
 
 /* Focus state for keyboard navigation */

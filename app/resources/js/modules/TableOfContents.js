@@ -73,8 +73,8 @@ export function initTableOfContents(options = {}) {
   const headingSelector = config.headingSelectors.join(', ');
   const headings = content.querySelectorAll(headingSelector);
 
-  if (!headings.length) {
-    // Hide TOC if no headings found
+  // Hide TOC for short posts; a 1- or 2-section TOC is noise, not navigation.
+  if (headings.length < 3) {
     if (tocContainer) tocContainer.hidden = true;
     return;
   }

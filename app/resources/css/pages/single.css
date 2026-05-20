@@ -30,12 +30,14 @@
   height: auto !important;
 }
 
-/* Featured image - 16:9 aspect ratio */
+/* Featured image - natural aspect ratio, capped height for tall portraits. */
 .featured-image {
-  @apply w-full aspect-video overflow-hidden;
+  @apply w-full overflow-hidden;
 }
 
 .featured-image img,
 .featured-image picture img {
-  @apply w-full h-full object-cover;
+  @apply w-full h-auto block;
+  max-height: 80vh;
+  object-fit: cover;
 }
