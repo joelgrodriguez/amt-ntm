@@ -16,12 +16,6 @@ if (!defined('ABSPATH')) {
 }
 
 $video = function_exists('get_field') ? get_field('video', false, false) : null;
-$video_embed = Standard\Video\render_video_embed(is_string($video) ? $video : null);
-
-$content = [
-    'channel'      => __('Portable Rollforming Channel', 'standard'),
-    'company_name' => __('New Tech Machinery', 'standard'),
-];
 
 get_header();
 ?>
@@ -31,73 +25,39 @@ get_header();
         <article id="post-<?php the_ID(); ?>" <?php post_class(''); ?>>
 
             <!-- Video Player Section -->
-            <?php if ($video_embed !== '') : ?>
-                <section class="bg-blue-950 text-blue-500">
-                    <!-- Top Bar -->
-                    <div class="border-b border-blue-800">
-                        <div class="border-x border-blue-800 container">
-                            <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
-                                <div class="flex items-center gap-3 pl-3">
-                                    <span class="w-2 h-2 bg-red animate-pulse"></span>
-                                    <span><?php echo esc_html(get_the_title()); ?></span>
-                                </div>
-                                <div class="flex items-center gap-3 pr-3">
-                                    <span><?php echo esc_html($content['channel']); ?></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Video Embed -->
-                    <div class="border-x border-blue-800 container py-6 lg:py-12">
-                        <div class="max-w-5xl mx-auto">
-                            <div class="video-responsive">
-                                <?php echo $video_embed; ?>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Bottom Bar -->
-                    <div class="border-t border-blue-800">
-                        <div class="border-x border-blue-800 container">
-                            <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
-                                <div class="flex items-center gap-2 pl-3">
-                                    <?php icon('calendar', ['class' => 'w-3 h-3 fill-current']); ?>
-                                    <span><?php echo esc_html(get_the_date('Y.m.d')); ?></span>
-                                </div>
-                                <div class="flex items-center gap-4 pr-3">
-                                    <span><?php echo esc_html($content['company_name']); ?></span>
-                                    <div class="flex gap-1">
-                                        <span class="w-1 h-3 bg-blue-700"></span>
-                                        <span class="w-1 h-3 bg-blue-700"></span>
-                                        <span class="w-1 h-3 bg-blue-600"></span>
-                                        <span class="w-1 h-3 bg-blue-500"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            <?php endif; ?>
+            <?php get_template_part('templates/parts/video-section', null, [
+                'title'            => __('Portable Rollforming Channel', 'standard'),
+                'channel'          => __('New Tech Machinery', 'standard'),
+                'video_url'        => is_string($video) ? $video : '',
+                'video_type'       => get_the_date('j F Y'),
+                'company_name'     => __('Video', 'standard'),
+                'section_id'       => 'video-' . get_the_ID(),
+                'top_left_icon'    => 'live-dot',
+                'bottom_left_icon' => 'calendar',
+                'show_led_strip'   => false,
+            ]); ?>
 
             <!-- Content Section -->
             <section class="pattern-dot-grid gradient-fade-bottom py-6 lg:py-12">
                 <div class="container grid gap-6 lg:gap-12">
                     <header class="max-w-4xl mx-auto grid gap-6">
                         <?php if (has_category()) : ?>
-                            <div class="flex flex-wrap gap-3">
+                            <div class="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono uppercase tracking-widest text-caption">
                                 <?php
                                 $categories = array_slice(get_the_category(), 0, 3);
-                                foreach ($categories as $category) :
-                                ?>
-                                    <a href="<?php echo esc_url(get_category_link($category->term_id)); ?>" class="badge">
+                                foreach ($categories as $i => $category) :
+                                    if ($i > 0) : ?>
+                                        <span class="text-blue-300" aria-hidden="true">/</span>
+                                    <?php endif; ?>
+                                    <a href="<?php echo esc_url(get_category_link($category->term_id)); ?>"
+                                       class="text-blue-700 no-underline hover:text-blue-500 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                                         <?php echo esc_html($category->name); ?>
                                     </a>
                                 <?php endforeach; ?>
                             </div>
                         <?php endif; ?>
 
-                        <?php the_title('<h1 class="text-3xl md:text-4xl lg:text-5xl font-medium font-mono">', '</h1>'); ?>
+                        <?php the_title('<h1 class="font-mono font-medium text-heading lg:text-heading-lg text-blue-900 leading-tight tracking-tight m-0">', '</h1>'); ?>
                     </header>
 
                     <!-- Content -->
