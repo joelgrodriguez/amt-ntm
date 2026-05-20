@@ -95,11 +95,14 @@ $milestones = [
                             <?php echo esc_html($m['model']); ?>
                         </h3>
                         <!-- Subtitle in mono caps -->
-                        <p class="font-mono uppercase tracking-wider text-[0.625rem] text-blue-500 leading-snug -mt-2">
+                        <p class="font-mono uppercase tracking-wider text-xs text-blue-500 leading-snug -mt-2">
                             <?php echo esc_html($m['name']); ?>
                         </p>
-                        <!-- Body note in sans for readability -->
-                        <p class="font-sans text-blue-700 text-sm leading-relaxed">
+                        <!-- Body note in sans for readability. text-base
+                             not text-sm: PRODUCT.md commits to 16px min
+                             body, and contractors read this on phones in
+                             sun. -->
+                        <p class="font-sans text-blue-700 text-base leading-relaxed">
                             <?php echo esc_html($m['note']); ?>
                         </p>
                     </div>

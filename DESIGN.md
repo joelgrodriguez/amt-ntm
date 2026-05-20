@@ -32,7 +32,7 @@ The brand color is **`#0078C2`**. Every neutral in the system is derived from it
 | Blue 100 | `#E4ECF3` | `--color-blue-100` | Subtle hover backgrounds, dividers on light surfaces. |
 | Blue 200 | `#C8D6E4` | `--color-blue-200` | Default borders, dividers on light bg, inactive UI element borders. |
 | Blue 300 | `#9BB1C7` | `--color-blue-300` | Disabled text, placeholder text, tertiary UI details. |
-| Blue 400 | `#6987A3` | `--color-blue-400` | Meta text, captions, timestamps, footer links on dark backgrounds. |
+| Blue 400 | `#5A7691` | `--color-blue-400` | Meta text, captions, timestamps, footer links on dark backgrounds. |
 | Blue 500 | `#0078C2` | `--color-blue-500` | **Primary brand.** Links, primary CTAs, focus rings, active states, key iconography. The 10% accent. |
 | Blue 600 | `#3F5870` | `--color-blue-600` | Body copy on light backgrounds, secondary text, sub-headings. |
 | Blue 700 | `#26384B` | `--color-blue-700` | Secondary headings, technical/spec text on light backgrounds, secondary CTA borders. |
@@ -416,7 +416,7 @@ When generating new components or pages with an LLM, anchor every prompt in thes
   --color-blue-100: #E4ECF3;
   --color-blue-200: #C8D6E4;
   --color-blue-300: #9BB1C7;
-  --color-blue-400: #6987A3;
+  --color-blue-400: #5A7691;
   --color-blue-500: #0078C2; /* primary brand */
   --color-blue-600: #3F5870;
   --color-blue-700: #26384B;
@@ -476,7 +476,7 @@ When generating new components or pages with an LLM, anchor every prompt in thes
   --color-blue-100: #E4ECF3;
   --color-blue-200: #C8D6E4;
   --color-blue-300: #9BB1C7;
-  --color-blue-400: #6987A3;
+  --color-blue-400: #5A7691;
   --color-blue-500: #0078C2;
   --color-blue-600: #3F5870;
   --color-blue-700: #26384B;

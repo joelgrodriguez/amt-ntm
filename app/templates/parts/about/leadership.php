@@ -1,11 +1,15 @@
 <?php
 /**
- * About — Leadership & Industry Standing
+ * About — Industry Standing
  *
- * Quiet light section. No chrome bars. Restates the global reach claim
- * and lists the three industry associations as a hairline-divided mono
- * row. No closing CTA here; that lives in the shared closer that runs
- * after this section.
+ * Posture section, not a second leadership claim. Names the industry
+ * associations NTM participates in and adds a secondary CTA to the
+ * current machine lineup so a reader who came in on the leadership
+ * claim has a fast exit to the current product surface.
+ *
+ * Title was previously a restated leadership boast; it now reads as
+ * an industry-participation header. Body lede is one factual sentence,
+ * no superlatives, no hedge.
  *
  * @package Standard
  * @usage About Page (page-about.php)
@@ -18,26 +22,25 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'eyebrow' => __('Industry standing', 'standard'),
-    'title'   => __('The world\'s leading portable rollforming manufacturer. We don\'t use that line lightly.', 'standard'),
-    'lede'    => __('NTM machines run on six continents. If you need a gutter machine in Ghana or a roof panel machine in Russia, we can get it there. We are a proud member of the three associations that keep the industry honest.', 'standard'),
+    'eyebrow'  => __('Industry standing', 'standard'),
+    'title'    => __('Where we sit in the industry.', 'standard'),
+    'lede'     => __('NTM machines run on six continents. We participate in the three associations that keep the industry honest.', 'standard'),
+    'cta'      => __('See the current lineup', 'standard'),
+    'cta_url'  => '/machines/',
 ];
 
 $memberships = [
     [
         'short' => 'MCA',
         'name'  => __('Metal Construction Association', 'standard'),
-        'meta'  => __('Industry standards body', 'standard'),
     ],
     [
         'short' => 'NRCA',
         'name'  => __('National Roofing Contractors Association', 'standard'),
-        'meta'  => __('National contractor organization', 'standard'),
     ],
     [
         'short' => 'CRA',
         'name'  => __('Colorado Roofing Association', 'standard'),
-        'meta'  => __('Home state association', 'standard'),
     ],
 ];
 ?>
@@ -46,7 +49,7 @@ $memberships = [
     <div class="container">
 
         <!-- Eyebrow + headline + lede -->
-        <div class="max-w-4xl mb-12 lg:mb-16">
+        <div class="max-w-4xl mb-10 lg:mb-12">
             <p class="font-mono uppercase tracking-wider text-xs text-red mb-5">
                 <?php echo esc_html($content['eyebrow']); ?>
             </p>
@@ -58,27 +61,30 @@ $memberships = [
             </p>
         </div>
 
-        <!-- Memberships row: three mono cells on a hairline rail. -->
-        <dl class="grid grid-cols-1 md:grid-cols-3 border-t border-blue-200 [&>div]:border-l [&>div]:border-blue-200 [&>div:first-child]:border-l-0">
-            <?php foreach ($memberships as $i => $m) : ?>
-                <div class="grid gap-2 px-6 py-8 lg:px-8 lg:py-10 <?php echo $i > 0 ? 'border-t md:border-t-0 border-blue-200' : ''; ?>">
-                    <dt class="font-mono uppercase tracking-wider text-[0.625rem] text-blue-400">
-                        <?php esc_html_e('Member', 'standard'); ?>
-                    </dt>
-                    <dd class="grid gap-1">
-                        <span class="font-mono font-medium text-blue-900 text-2xl md:text-3xl leading-none tracking-tight">
-                            <?php echo esc_html($m['short']); ?>
-                        </span>
-                        <span class="font-sans text-blue-700 text-sm md:text-base leading-snug">
-                            <?php echo esc_html($m['name']); ?>
-                        </span>
-                        <span class="font-mono uppercase tracking-wider text-[0.625rem] text-blue-400 mt-1">
-                            <?php echo esc_html($m['meta']); ?>
-                        </span>
-                    </dd>
-                </div>
+        <!-- Memberships: one line, three short + long pairings,
+             hairline above. Posture, not a separate-cell ledger. -->
+        <ul class="border-t border-blue-200 grid gap-x-10 gap-y-4 sm:grid-cols-3 pt-6" role="list">
+            <?php foreach ($memberships as $m) : ?>
+                <li class="grid gap-1">
+                    <span class="font-mono font-medium text-blue-900 text-xl md:text-2xl leading-none tracking-tight">
+                        <?php echo esc_html($m['short']); ?>
+                    </span>
+                    <span class="font-sans text-blue-700 text-sm leading-snug">
+                        <?php echo esc_html($m['name']); ?>
+                    </span>
+                </li>
             <?php endforeach; ?>
-        </dl>
+        </ul>
+
+        <!-- Secondary CTA to the current product lineup. Gives a reader
+             a fast exit from the leadership-claim narrative to the
+             machines that back it up. -->
+        <div class="mt-10 lg:mt-14">
+            <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-secondary">
+                <?php echo esc_html($content['cta']); ?>
+                <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
+            </a>
+        </div>
 
     </div>
 </section>
