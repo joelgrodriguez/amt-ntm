@@ -78,6 +78,12 @@ $filter_action    = get_learning_center_url();
                     $featured_cta
                 );
             ?>
+                <?php
+                $featured_categories = get_the_category();
+                $featured_category   = !empty($featured_categories) ? $featured_categories[0]->name : '';
+                $featured_word_count = str_word_count(wp_strip_all_tags((string) get_the_content()));
+                $featured_minutes    = max(1, (int) ceil($featured_word_count / 200));
+                ?>
                 <article class="lc-hero__featured group relative bg-white border border-blue-200 transition-colors duration-200 hover:border-blue-500">
                     <?php if (has_post_thumbnail()) : ?>
                         <div class="lc-hero__featured-photo border-r border-blue-200 transition-colors duration-200 group-hover:border-blue-500">
@@ -89,24 +95,62 @@ $filter_action    = get_learning_center_url();
                             ]); ?>
                         </div>
                     <?php endif; ?>
-                    <div class="p-6 lg:p-8 grid gap-3 content-center">
-                        <span class="font-mono uppercase tracking-widest text-caption text-blue-500">
-                            <?php esc_html_e('Latest', 'standard'); ?>
-                        </span>
-                        <?php the_title(sprintf(
-                            '<h2 class="font-sans font-semibold text-heading-sm lg:text-heading text-blue-900 leading-snug tracking-tight line-clamp-3 group-hover:text-blue-500 transition-colors"><a href="%s" class="text-inherit no-underline hover:no-underline after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" aria-label="%s">',
-                            esc_url(get_permalink()),
-                            esc_attr($featured_label)
-                        ), '</a></h2>'); ?>
-                        <?php if (has_excerpt() || get_the_excerpt()) : ?>
-                            <p class="text-blue-600 text-base leading-relaxed line-clamp-3 max-w-prose">
-                                <?php echo esc_html(wp_strip_all_tags(get_the_excerpt())); ?>
-                            </p>
-                        <?php endif; ?>
-                        <span class="inline-flex items-center gap-2 text-sm font-mono font-medium text-blue-500 mt-1">
-                            <?php echo esc_html($featured_cta); ?>
-                            <?php icon('arrow-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-                        </span>
+                    <div class="p-6 lg:p-10 grid grid-rows-[auto_1fr_auto] gap-4 lg:gap-6">
+
+                        <!-- Eyebrow + meta strip -->
+                        <div class="grid gap-3">
+                            <span class="font-mono uppercase tracking-widest text-caption text-blue-500 inline-flex items-center gap-2">
+                                <span class="w-2 h-2 bg-red" aria-hidden="true"></span>
+                                <?php esc_html_e('Featured', 'standard'); ?>
+                            </span>
+                            <dl class="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-caption text-blue-500">
+                                <div class="inline-flex items-center gap-1.5">
+                                    <dt class="sr-only"><?php esc_html_e('Published', 'standard'); ?></dt>
+                                    <dd><?php echo esc_html(get_the_date()); ?></dd>
+                                </div>
+                                <span class="text-blue-300" aria-hidden="true">/</span>
+                                <div class="inline-flex items-center gap-1.5">
+                                    <dt class="sr-only"><?php esc_html_e('Reading time', 'standard'); ?></dt>
+                                    <dd>
+                                        <?php echo esc_html(sprintf(
+                                            /* translators: %d minutes to read. */
+                                            _n('%d min read', '%d min read', $featured_minutes, 'standard'),
+                                            $featured_minutes
+                                        )); ?>
+                                    </dd>
+                                </div>
+                                <?php if ($featured_category !== '') : ?>
+                                    <span class="text-blue-300" aria-hidden="true">/</span>
+                                    <div class="inline-flex items-center gap-1.5">
+                                        <dt class="sr-only"><?php esc_html_e('Category', 'standard'); ?></dt>
+                                        <dd class="text-blue-700"><?php echo esc_html($featured_category); ?></dd>
+                                    </div>
+                                <?php endif; ?>
+                            </dl>
+                        </div>
+
+                        <!-- Headline + excerpt -->
+                        <div class="grid gap-3 lg:gap-4 self-center">
+                            <?php the_title(sprintf(
+                                '<h2 class="font-sans font-semibold text-heading lg:text-heading-lg text-blue-900 leading-tight tracking-tight line-clamp-3 group-hover:text-blue-500 transition-colors"><a href="%s" class="text-inherit no-underline hover:no-underline after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" aria-label="%s">',
+                                esc_url(get_permalink()),
+                                esc_attr($featured_label)
+                            ), '</a></h2>'); ?>
+                            <?php if (has_excerpt() || get_the_excerpt()) : ?>
+                                <p class="text-blue-600 text-base lg:text-lg leading-relaxed line-clamp-4 max-w-prose">
+                                    <?php echo esc_html(wp_strip_all_tags(get_the_excerpt())); ?>
+                                </p>
+                            <?php endif; ?>
+                        </div>
+
+                        <!-- CTA -->
+                        <div>
+                            <span class="relative z-[1] inline-flex items-center gap-3 px-6 py-3 min-h-12 border border-blue-900 text-blue-900 font-mono font-medium text-sm uppercase tracking-widest group-hover:bg-blue-900 group-hover:text-white transition-colors">
+                                <?php echo esc_html($featured_cta); ?>
+                                <?php icon('arrow-right', ['class' => 'w-4 h-4 transition-transform duration-200 group-hover:translate-x-1', 'aria-hidden' => 'true']); ?>
+                            </span>
+                        </div>
+
                     </div>
                 </article>
             <?php wp_reset_postdata(); endif; ?>
