@@ -32,19 +32,19 @@ $content = [
         <div class="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
             <!-- Content -->
             <div class="grid gap-6">
-                <span class="text-xs font-mono uppercase tracking-widest text-red">
+                <span class="text-caption font-mono uppercase tracking-widest text-red">
                     <?php echo esc_html($content['eyebrow']); ?>
                 </span>
-                <h2 class="text-2xl lg:text-3xl font-medium tracking-tight text-blue-700">
+                <h2 class="font-sans font-medium text-heading lg:text-heading-lg tracking-tight text-blue-900 leading-tight">
                     <?php echo esc_html($content['title']); ?>
                 </h2>
                 <p class="text-blue-600 max-w-lg">
                     <?php echo esc_html($content['text']); ?>
                 </p>
                 <div class="flex flex-wrap gap-4 mt-2">
-                    <a href="<?php echo esc_url($content['cta_url']); ?>" class="inline-flex items-center gap-2 px-6 py-3 bg-red text-white font-medium hover:bg-blue-700 transition-colors">
+                    <a href="<?php echo esc_url($content['cta_url']); ?>" class="inline-flex items-center gap-2 px-6 py-3 min-h-11 bg-blue-500 text-white font-mono font-medium text-sm hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 transition-colors">
                         <?php echo esc_html($content['cta_text']); ?>
-                        <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                        <?php icon('arrow-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
                     </a>
                 </div>
             </div>
