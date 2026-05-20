@@ -23,7 +23,7 @@ if ($cards === []) {
 
 <section class="section bg-light" aria-labelledby="compatible-machines-title">
     <div class="container section-content">
-        <div class="section-header-left mb-10">
+        <div class="section-header-left mb-12">
             <p class="section-eyebrow"><?php esc_html_e('Compatibility', 'standard'); ?></p>
             <div class="section-divider"></div>
             <h2 id="compatible-machines-title" class="section-title"><?php esc_html_e('Works With These Machines', 'standard'); ?></h2>

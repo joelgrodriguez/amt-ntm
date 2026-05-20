@@ -40,7 +40,7 @@ get_header();
     <?php if ($related_cards !== []) : ?>
     <section class="section" aria-labelledby="related-accessories-title">
         <div class="container section-content">
-            <div class="section-header-left mb-10">
+            <div class="section-header-left mb-12">
                 <p class="section-eyebrow"><?php esc_html_e('Related', 'standard'); ?></p>
                 <div class="section-divider"></div>
                 <h2 id="related-accessories-title" class="section-title"><?php esc_html_e('More Accessories', 'standard'); ?></h2>

@@ -29,7 +29,7 @@ $excerpt     = $product->get_short_description();
 $slug        = $product->get_slug();
 ?>
 
-<section class="section pattern-dot-grid gradient-fade-bottom" aria-labelledby="accessory-title">
+<section class="section border-b border-blue-200" aria-labelledby="accessory-title">
     <div class="container">
         <div class="grid md:grid-cols-2 gap-8 lg:gap-16 items-start">
 
