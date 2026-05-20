@@ -84,11 +84,11 @@ get_header();
                 </div>
             </header>
 
-            <!-- Two-column layout: TOC sidebar + Content. Inner grid is centered
-                 on screen within the 1440 container by capping its width to the
-                 TOC + content's natural reading measure. -->
+            <!-- Two-column layout: TOC sidebar + Content. Inner wrapper has a
+                 fixed max-width and mx-auto so the whole TOC+content block sits
+                 centered horizontally inside the 1440 container. -->
             <div class="container">
-                <div class="mx-auto lg:grid lg:grid-cols-[240px_minmax(0,72ch)] lg:gap-12 lg:w-fit">
+                <div class="mx-auto max-w-[1008px] lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
                     <!-- TOC Sidebar (desktop only) -->
                     <aside id="table-of-contents" class="hidden lg:block" aria-label="<?php esc_attr_e('Table of Contents', 'standard'); ?>">
                         <nav class="toc sticky top-16">
@@ -99,7 +99,7 @@ get_header();
 
                     <!-- Content -->
                     <div class="min-w-0">
-                        <div class="prose prose-lg max-w-[72ch]" data-toc-content>
+                        <div class="prose prose-lg max-w-full" data-toc-content>
                             <?php the_content(); ?>
                         </div>
 
