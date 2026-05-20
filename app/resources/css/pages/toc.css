@@ -39,9 +39,9 @@
   @apply pl-3;
 }
 
-/* Link */
+/* Link — sans body for readability; only the section label stays mono. */
 .toc__link {
-  @apply block py-1.5 pl-4 -ml-px font-mono text-blue-600 no-underline;
+  @apply block py-1.5 pl-4 -ml-px font-sans text-blue-600 no-underline;
   @apply border-l-2 border-transparent;
   @apply transition-colors duration-150;
   font-size: var(--text-sm);
