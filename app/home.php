@@ -63,10 +63,10 @@ $filter_action    = get_learning_center_url();
                 <span class="text-caption font-mono uppercase tracking-widest text-red">
                     <?php esc_html_e('Learning Center', 'standard'); ?>
                 </span>
-                <h1 class="font-sans font-medium text-heading-lg lg:text-display text-blue-900 mt-2 leading-tight">
+                <h1 class="font-mono font-medium text-display lg:text-6xl xl:text-7xl text-blue-900 mt-2 leading-tight tracking-tight">
                     <?php esc_html_e('The Rollforming Learning Center', 'standard'); ?>
                 </h1>
-                <p class="text-blue-600 mt-4 max-w-2xl">
+                <p class="text-blue-600 text-lg mt-6 max-w-2xl leading-relaxed">
                     <?php esc_html_e('Articles, videos, and resources to help you get the most out of your portable rollforming equipment.', 'standard'); ?>
                 </p>
             </header>
@@ -100,11 +100,11 @@ $filter_action    = get_learning_center_url();
                                 <?php esc_html_e('Latest', 'standard'); ?>
                             </span>
                             <?php the_title(sprintf(
-                                '<h2 class="font-sans font-medium text-heading text-blue-900 leading-snug group-hover:text-blue-500 transition-colors"><a href="%s" class="text-inherit no-underline hover:no-underline after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" aria-label="%s">',
+                                '<h2 class="font-mono font-medium text-heading lg:text-heading-lg text-blue-900 leading-snug tracking-tight group-hover:text-blue-500 transition-colors"><a href="%s" class="text-inherit no-underline hover:no-underline after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" aria-label="%s">',
                                 esc_url(get_permalink()),
                                 esc_attr($featured_label)
                             ), '</a></h2>'); ?>
-                            <p class="text-blue-600 text-sm line-clamp-2">
+                            <p class="text-blue-600 text-base line-clamp-2">
                                 <?php echo esc_html(get_the_excerpt()); ?>
                             </p>
                             <div class="flex items-center gap-4 text-caption text-blue-500 font-mono mt-2">
@@ -155,7 +155,7 @@ $filter_action    = get_learning_center_url();
                                             <?php echo esc_html(get_type_label((string) $recent_post_type)); ?>
                                         </span>
                                         <?php the_title(sprintf(
-                                            '<h3 class="font-sans font-medium text-base leading-snug text-blue-900 line-clamp-2 group-hover:text-blue-500 transition-colors"><a href="%s" class="text-inherit no-underline hover:no-underline after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" aria-label="%s">',
+                                            '<h3 class="font-mono font-medium text-lg leading-snug text-blue-900 line-clamp-2 group-hover:text-blue-500 transition-colors"><a href="%s" class="text-inherit no-underline hover:no-underline after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" aria-label="%s">',
                                             esc_url(get_permalink()),
                                             esc_attr($recent_label)
                                         ), '</a></h3>'); ?>
@@ -178,7 +178,7 @@ $filter_action    = get_learning_center_url();
                 <?php esc_html_e('Filter Learning Center content', 'standard'); ?>
             </h2>
             <form
-                class="flex flex-wrap items-center gap-4 md:gap-6"
+                class="flex flex-wrap items-center justify-center gap-4 md:gap-6"
                 method="get"
                 action="<?php echo esc_url($filter_action); ?>"
             >
@@ -288,8 +288,8 @@ $filter_action    = get_learning_center_url();
             <div class="container">
 
                 <header class="flex items-center justify-between mb-8">
-                    <h2 class="font-sans font-medium text-heading-sm lg:text-heading text-blue-900 flex items-center gap-3">
-                        <?php icon($section['icon'], ['class' => 'w-6 h-6 text-blue-400', 'aria-hidden' => 'true']); ?>
+                    <h2 class="font-mono font-medium text-heading lg:text-heading-lg text-blue-900 leading-tight tracking-tight flex items-center gap-3">
+                        <?php icon($section['icon'], ['class' => 'w-7 h-7 lg:w-8 lg:h-8 text-blue-400', 'aria-hidden' => 'true']); ?>
                         <?php echo esc_html($section['title']); ?>
                     </h2>
                     <?php if ($section['link']) : ?>

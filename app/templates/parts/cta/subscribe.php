@@ -2,8 +2,9 @@
 /**
  * Template part for Learning Center subscription CTA.
  *
- * Displays a call-to-action to subscribe to the NTM Learning Center
- * for videos, articles, downloads, and resources.
+ * Full-bleed drenched section linking to the HubSpot subscription
+ * landing page. Designed as the page's one "ignite" moment per
+ * DESIGN.md §2.4 — red CTA on a blue-900 surface.
  *
  * @package Standard
  */
@@ -15,48 +16,48 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'eyebrow'   => __('Stay Informed', 'standard'),
-    'title'     => __('Subscribe to the Learning Center', 'standard'),
-    'text'      => __('Get new videos, articles, downloads, and other valuable resources sent directly to your inbox.', 'standard'),
-    'cta_text'  => __('Subscribe Now', 'standard'),
-    'cta_url'   => '#subscribe',
-    'image'     => 'https://newtechmachinery.com/wp-content/uploads/2023/01/NTM-rollforming-learning-center.png',
-    'image_alt' => __('NTM Learning Center Resources', 'standard'),
+    'eyebrow'  => __('Stay Informed', 'standard'),
+    'title'    => __('The Rollforming Learning Center, in your inbox.', 'standard'),
+    'meta'     => __('Monthly digest. Unsubscribe anytime.', 'standard'),
+    'cta_text' => __('Subscribe', 'standard'),
+    'cta_url'  => 'https://cta-redirect.hubspot.com/cta/redirect/4478417/cc113e10-3511-4ad8-bade-11d3285e9f69',
 ];
 ?>
 
-<section class="pattern-square-grid border-t border-blue-200 bg-blue-100">
-    <div class="pattern-square-grid__overlay pattern-square-grid__overlay--top-left"></div>
-    <div class="pattern-square-grid__overlay pattern-square-grid__overlay--bottom-right"></div>
-    <div class="container py-12">
-        <div class="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
-            <!-- Content -->
-            <div class="grid gap-6">
+<section class="relative bg-blue-900 border-t border-blue-800 overflow-hidden">
+    <div
+        class="pointer-events-none absolute inset-0 opacity-[0.07]"
+        aria-hidden="true"
+        style="background-image:
+            linear-gradient(to right, var(--color-white) 1px, transparent 1px),
+            linear-gradient(to bottom, var(--color-white) 1px, transparent 1px);
+            background-size: 48px 48px;"
+    ></div>
+
+    <div class="relative container py-24 lg:py-32">
+        <div class="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-16 items-end">
+            <div class="grid gap-6 max-w-3xl">
                 <span class="text-caption font-mono uppercase tracking-widest text-red">
                     <?php echo esc_html($content['eyebrow']); ?>
                 </span>
-                <h2 class="font-sans font-medium text-heading lg:text-heading-lg tracking-tight text-blue-900 leading-tight">
+                <h2 class="font-sans font-medium text-heading-lg lg:text-display xl:text-6xl text-white leading-tight tracking-tight">
                     <?php echo esc_html($content['title']); ?>
                 </h2>
-                <p class="text-blue-600 max-w-lg">
-                    <?php echo esc_html($content['text']); ?>
+                <p class="font-mono text-blue-300 text-sm uppercase tracking-wider">
+                    <?php echo esc_html($content['meta']); ?>
                 </p>
-                <div class="flex flex-wrap gap-4 mt-2">
-                    <a href="<?php echo esc_url($content['cta_url']); ?>" class="inline-flex items-center gap-2 px-6 py-3 min-h-11 bg-blue-500 text-white font-mono font-medium text-sm hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 transition-colors">
-                        <?php echo esc_html($content['cta_text']); ?>
-                        <?php icon('arrow-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-                    </a>
-                </div>
             </div>
 
-            <!-- Image -->
-            <div class="hidden lg:block">
-                <img
-                    src="<?php echo esc_url($content['image']); ?>"
-                    alt="<?php echo esc_attr($content['image_alt']); ?>"
-                    class="w-full h-auto"
-                    loading="lazy"
-                />
+            <div class="flex lg:justify-end">
+                <a
+                    href="<?php echo esc_url($content['cta_url']); ?>"
+                    class="group inline-flex items-center gap-3 px-8 py-4 min-h-14 bg-red text-white font-mono font-medium text-sm uppercase tracking-widest hover:bg-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-blue-900 transition-colors"
+                >
+                    <?php echo esc_html($content['cta_text']); ?>
+                    <span class="transition-transform duration-200 group-hover:translate-x-1">
+                        <?php icon('arrow-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+                    </span>
+                </a>
             </div>
         </div>
     </div>
