@@ -5,7 +5,7 @@
  * Thin wrapper around templates/parts/single-sidebar-layout.php, which
  * also powers single-download.php. The only thing that differs between
  * the two is the current post type, which the shared part reads via
- * get_post_type() to label the badge and drive the same-type sidebar.
+ * get_post_type() to drive the same-type sidebar.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
  *
@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
 get_header();
 ?>
 
-<main id="primary" class="pattern-dot-grid gradient-fade-bottom-sm py-6 lg:py-12">
+<main id="primary" class="pb-6 lg:pb-12">
     <?php while (have_posts()) : the_post(); ?>
         <?php get_template_part('templates/parts/single-sidebar-layout'); ?>
     <?php endwhile; ?>
