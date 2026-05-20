@@ -43,10 +43,6 @@ $callouts = [
         'k' => __('Second plant', 'standard'),
         'v' => __('Hermosillo, Mexico (2004)', 'standard'),
     ],
-    [
-        'k' => __('Parent', 'standard'),
-        'v' => __('Mazzella Companies (2015)', 'standard'),
-    ],
 ];
 ?>
 
@@ -67,7 +63,7 @@ $callouts = [
         <div class="grid lg:grid-cols-12 gap-10 lg:gap-16">
 
             <!-- Narrative -->
-            <div class="lg:col-span-7 lg:col-start-2">
+            <div class="lg:col-span-8">
                 <div class="grid gap-6 font-sans text-blue-700 text-base lg:text-lg leading-relaxed max-w-2xl">
                     <p><?php echo esc_html($content['p1']); ?></p>
                     <p><?php echo esc_html($content['p2']); ?></p>
