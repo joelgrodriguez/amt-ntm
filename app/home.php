@@ -63,9 +63,32 @@ $filter_action    = get_learning_center_url();
                 <h1 class="font-mono font-medium text-heading-lg lg:text-display text-blue-900 leading-tight tracking-tight">
                     <?php esc_html_e('The Rollforming Learning Center', 'standard'); ?>
                 </h1>
-                <p class="text-blue-600 text-base lg:text-lg max-w-2xl leading-relaxed">
-                    <?php esc_html_e('Articles, videos, and resources to help you get the most out of your portable rollforming equipment.', 'standard'); ?>
-                </p>
+
+                <!-- Post-type quick-nav: anchor-scrolls to the matching section below. -->
+                <nav class="mt-2 grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4" aria-label="<?php esc_attr_e('Browse by content type', 'standard'); ?>">
+                    <?php
+                    $hero_nav = [
+                        'post'     => ['label' => __('Articles', 'standard'),  'icon' => 'file-text'],
+                        'video'    => ['label' => __('Videos', 'standard'),    'icon' => 'play'],
+                        'resource' => ['label' => __('Resources', 'standard'), 'icon' => 'folder'],
+                        'download' => ['label' => __('Downloads', 'standard'), 'icon' => 'download'],
+                    ];
+                    foreach ($hero_nav as $type => $item) :
+                    ?>
+                        <a href="#lc-section-<?php echo esc_attr($type); ?>"
+                           class="group flex items-center justify-between gap-3 p-4 lg:p-5 bg-white border border-blue-200 no-underline transition-colors duration-200 hover:border-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                            <span class="flex items-center gap-3 min-w-0">
+                                <?php icon($item['icon'], ['class' => 'w-5 h-5 text-blue-500 shrink-0', 'aria-hidden' => 'true']); ?>
+                                <span class="font-mono font-medium uppercase tracking-widest text-caption text-blue-900 group-hover:text-blue-500 transition-colors truncate">
+                                    <?php echo esc_html($item['label']); ?>
+                                </span>
+                            </span>
+                            <span class="text-blue-400 group-hover:text-blue-500 group-hover:translate-x-0.5 transition-all shrink-0" aria-hidden="true">
+                                <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                            </span>
+                        </a>
+                    <?php endforeach; ?>
+                </nav>
             </header>
 
             <!-- Featured Post (fills remaining fold space) -->
@@ -273,7 +296,7 @@ $filter_action    = get_learning_center_url();
             continue;
         }
     ?>
-        <section class="py-12 lg:py-16 border-b border-blue-200">
+        <section id="lc-section-<?php echo esc_attr($section['post_type']); ?>" class="py-12 lg:py-16 border-b border-blue-200" tabindex="-1">
             <div class="container">
 
                 <header class="flex items-center justify-between mb-8">
