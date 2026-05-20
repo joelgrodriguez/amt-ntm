@@ -24,10 +24,8 @@ $content = [
 ];
 ?>
 
-<section class="relative bg-blue-900 border-t border-blue-800 overflow-hidden">
-    <div class="pattern-dot-matrix" aria-hidden="true"></div>
-
-    <div class="relative container py-24 lg:py-32">
+<section class="pattern-dot-grid pattern-dot-grid--dark bg-blue-900 border-t border-blue-800 overflow-hidden">
+    <div class="container py-24 lg:py-32">
         <div class="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-16 items-end">
             <div class="grid gap-6 max-w-3xl">
                 <span class="text-caption font-mono uppercase tracking-widest text-blue-300">

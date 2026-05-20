@@ -10,26 +10,42 @@
 /**
  * Dot Grid Pattern
  *
- * Subtle dot grid background. Can be combined with
+ * Subtle dot grid background. Light variant by default; add
+ * --dark for dark surfaces. Can be combined with
  * gradient-fade-bottom for a fade effect.
  *
- * Usage: <div class="pattern-dot-grid">...</div>
- * With fade: <div class="pattern-dot-grid gradient-fade-bottom">...</div>
+ * Usage:
+ *   <div class="pattern-dot-grid">...</div>
+ *   <div class="pattern-dot-grid pattern-dot-grid--dark">...</div>
+ *   <div class="pattern-dot-grid gradient-fade-bottom">...</div>
+ *
+ * Tunables (override per-instance via inline style):
+ *   --pattern-dot-color  Dot color  (defaults to blue-200 / white@0.10)
+ *   --pattern-dot-size   Dot radius (defaults to 1px)
+ *   --pattern-dot-gap    Grid step  (defaults to 16px)
  */
 .pattern-dot-grid {
   @apply relative;
+  --pattern-dot-color: var(--color-blue-200);
+  --pattern-dot-size: 1px;
+  --pattern-dot-gap: 16px;
 }
 
 .pattern-dot-grid::before {
   @apply absolute inset-0 pointer-events-none;
   content: '';
   z-index: 0;
-  background-image: radial-gradient(circle, var(--color-blue-200) 1px, transparent 1px);
-  background-size: 16px 16px;
+  background-image: radial-gradient(circle, var(--pattern-dot-color) var(--pattern-dot-size), transparent var(--pattern-dot-size));
+  background-size: var(--pattern-dot-gap) var(--pattern-dot-gap);
 }
 
 .pattern-dot-grid > * {
   @apply relative z-[1];
+}
+
+/* Dark variant for dark backgrounds (blue-800 / blue-900). */
+.pattern-dot-grid--dark {
+  --pattern-dot-color: rgba(255, 255, 255, 0.10);
 }
 
 /**
