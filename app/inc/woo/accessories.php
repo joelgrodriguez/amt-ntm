@@ -1,10 +1,6 @@
 <?php
 /**
- * Accessory product hook surgery.
- *
- * Customizes WooCommerce's native single-product hooks for the
- * accessory template: swaps add-to-cart for a quote CTA, tunes
- * related-products count, and tweaks tab content.
+ * Woo accessory product card data.
  *
  * @package Standard
  */
@@ -17,61 +13,71 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+const MACHINE_CATEGORY_SLUGS = ['roof-wall-panel-machines', 'gutter-machines'];
 const ACCESSORY_CATEGORY_SLUG = 'accessories-add-on-equipment';
 
-function is_accessory_product(): bool {
-    return is_singular('product') && has_term(ACCESSORY_CATEGORY_SLUG, 'product_cat');
-}
-
 /**
- * Replace add-to-cart with our quote CTA inside the Woo summary stack.
+ * @return array<int, array{url: string, image_id: int, title: string, subtitle: string|null}>
  */
-add_action('wp', function (): void {
-    if (!is_accessory_product()) {
-        return;
-    }
-
-    remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30);
-
-    add_action('woocommerce_single_product_summary', __NAMESPACE__ . '\\render_quote_cta', 30);
-    add_action('woocommerce_single_product_summary', __NAMESPACE__ . '\\render_eyebrow', 4);
-});
-
-function render_eyebrow(): void {
-    echo '<p class="section-eyebrow mb-2">' . esc_html__('Accessories', 'standard') . '</p>';
-}
-
-function render_quote_cta(): void {
-    global $product;
-    if (!$product instanceof \WC_Product) {
-        return;
-    }
-
-    $slug      = $product->get_slug();
-    $quote_url = \Standard\Url\with_query('/contact/', ['product' => $slug]);
-    ?>
-    <div class="flex flex-wrap gap-3 pt-2">
-        <a href="<?php echo esc_url($quote_url); ?>" class="btn btn-primary">
-            <?php esc_html_e('Request a Quote', 'standard'); ?>
-        </a>
-        <a href="tel:+13032943553" class="btn btn-outline-dark">
-            <?php icon('phone', ['class' => 'w-4 h-4']); ?>
-            <?php esc_html_e('Call Us', 'standard'); ?>
-        </a>
-    </div>
-    <?php
-}
-
-/**
- * Related products: 4 per row, 4 total, only accessories.
- */
-add_filter('woocommerce_output_related_products_args', function (array $args): array {
-    if (!is_accessory_product()) {
-        return $args;
-    }
-
-    return array_merge($args, [
-        'posts_per_page' => 4,
-        'columns'        => 4,
+function get_compatible_machine_cards(int $limit = 4): array {
+    $machine_posts = \get_posts([
+        'post_type'              => 'product',
+        'post_status'            => 'publish',
+        'posts_per_page'         => $limit,
+        'orderby'                => 'menu_order title',
+        'order'                  => 'ASC',
+        'fields'                 => 'ids',
+        'no_found_rows'          => true,
+        'update_post_meta_cache' => false,
+        'update_post_term_cache' => false,
+        'tax_query'              => [
+            [
+                'taxonomy' => 'product_cat',
+                'field'    => 'slug',
+                'terms'    => MACHINE_CATEGORY_SLUGS,
+                'operator' => 'IN',
+            ],
+        ],
     ]);
-});
+
+    return product_cards(array_filter(array_map('\wc_get_product', $machine_posts)));
+}
+
+/**
+ * @return array<int, array{url: string, image_id: int, title: string, subtitle: string|null}>
+ */
+function get_related_accessory_cards(\WC_Product $product, int $limit = 4): array {
+    // Random related products bypass the cache in Standard\Woo\Cache.
+    $products = \Standard\Woo\Cache\get_products([
+        'category' => [ACCESSORY_CATEGORY_SLUG],
+        'exclude'  => [$product->get_id()],
+        'limit'    => $limit,
+        'status'   => 'publish',
+        'orderby'  => 'rand',
+    ]);
+
+    return product_cards($products);
+}
+
+/**
+ * @param \WC_Product[] $products
+ * @return array<int, array{url: string, image_id: int, title: string, subtitle: string|null}>
+ */
+function product_cards(array $products): array {
+    $cards = [];
+
+    foreach ($products as $product) {
+        if (!$product instanceof \WC_Product) {
+            continue;
+        }
+
+        $cards[] = [
+            'url'      => $product->get_permalink(),
+            'image_id' => (int) $product->get_image_id(),
+            'title'    => $product->get_name(),
+            'subtitle' => $product->get_price_html() ?: null,
+        ];
+    }
+
+    return $cards;
+}

@@ -1,128 +1,21 @@
 /**
  * Accessory Product Page
  *
- * Brand styling for WooCommerce's native single-product hooks
- * (title, price, excerpt, meta, gallery, tabs). The PHP template
- * uses Tailwind for layout; this file covers Woo-specific selectors.
+ * Styles for the branded accessory product template.
+ * Most layout uses Tailwind utilities inline — this file
+ * covers gallery interaction and WooCommerce attribute table.
  *
  * @file woo/accessory-product.css
  */
 
-@reference "../_app.css";
-
 @layer components {
 
-  /* ── Title ─────────────────────────────────────────────────────── */
-  .accessory-product__summary .product_title {
-    @apply text-2xl font-semibold tracking-tight text-blue-900 md:text-3xl lg:text-4xl;
-  }
-
-  /* ── Price ─────────────────────────────────────────────────────── */
-  .accessory-product__summary .price {
-    @apply text-xl font-medium text-blue-900;
-  }
-
-  .accessory-product__summary .price del {
-    @apply text-blue-400 mr-2;
-  }
-
-  .accessory-product__summary .price ins {
-    @apply no-underline text-blue-900;
-  }
-
-  /* ── Short description ────────────────────────────────────────── */
-  .accessory-product__summary .woocommerce-product-details__short-description {
-    @apply text-base text-blue-600 leading-relaxed;
-  }
-
-  .accessory-product__summary .woocommerce-product-details__short-description p + p {
-    @apply mt-3;
-  }
-
-  /* ── Meta (SKU / Categories / Tags) ────────────────────────────── */
-  .accessory-product__summary .product_meta {
-    @apply text-xs text-blue-400 uppercase tracking-wider font-mono grid gap-1 pt-2 border-t border-blue-100;
-  }
-
-  .accessory-product__summary .product_meta .sku,
-  .accessory-product__summary .product_meta .posted_in a,
-  .accessory-product__summary .product_meta .tagged_as a {
-    @apply text-blue-600 normal-case tracking-normal;
-    font-family: var(--font-sans);
-  }
-
-  /* ── Gallery (WC core: flexslider + zoom + lightbox) ─────────── */
-  .woocommerce-product-gallery {
-    @apply bg-blue-50 overflow-hidden relative;
-    position: relative;
-  }
-
-  .woocommerce-product-gallery__image img {
-    @apply w-full h-auto object-contain;
-  }
-
-  .woocommerce-product-gallery .flex-control-thumbs {
-    @apply flex gap-2 mt-3 list-none p-0 overflow-x-auto;
-  }
-
-  .woocommerce-product-gallery .flex-control-thumbs li {
-    @apply shrink-0 w-16 h-16 m-0;
-  }
-
-  .woocommerce-product-gallery .flex-control-thumbs li img {
-    @apply w-full h-full object-contain bg-blue-50 border-2 border-blue-200 cursor-pointer transition-colors;
-  }
-
-  .woocommerce-product-gallery .flex-control-thumbs li img:hover {
-    @apply border-blue-400;
-  }
-
-  .woocommerce-product-gallery .flex-control-thumbs li img.flex-active {
+  /* ── Gallery thumbnail active state ────────────────────────────── */
+  .accessory-gallery__thumb--active {
     @apply border-blue-500;
   }
 
-  .woocommerce-product-gallery__trigger {
-    @apply absolute right-3 top-3 z-10 bg-white border border-blue-200 text-blue-700 w-8 h-8 grid place-items-center text-sm no-underline transition-colors;
-  }
-
-  .woocommerce-product-gallery__trigger:hover {
-    @apply border-blue-400 text-blue-900;
-  }
-
-  /* ── Tabs ──────────────────────────────────────────────────────── */
-  .woocommerce-tabs .tabs {
-    @apply flex flex-wrap gap-0 list-none p-0 m-0 border-b border-blue-200;
-  }
-
-  .woocommerce-tabs .tabs li {
-    @apply m-0;
-  }
-
-  .woocommerce-tabs .tabs li a {
-    @apply block px-4 py-3 text-sm font-mono uppercase tracking-wider text-blue-400 no-underline border-b-2 border-transparent -mb-px transition-colors;
-  }
-
-  .woocommerce-tabs .tabs li a:hover {
-    @apply text-blue-700;
-  }
-
-  .woocommerce-tabs .tabs li.active a {
-    @apply text-blue-900 border-blue-500;
-  }
-
-  .woocommerce-tabs .panel {
-    @apply pt-8 text-base text-blue-700 leading-relaxed max-w-4xl;
-  }
-
-  .woocommerce-tabs .panel h2 {
-    @apply text-xl font-semibold tracking-tight text-blue-900 mb-4;
-  }
-
-  .woocommerce-tabs .panel p + p {
-    @apply mt-3;
-  }
-
-  /* ── WooCommerce attribute table ───────────────────────────────── */
+  /* ── WooCommerce attribute table styling ────────────────────────── */
   .woocommerce-product-attributes {
     @apply w-full font-sans;
     font-size: var(--text-body);
@@ -140,52 +33,5 @@
 
   .woocommerce-product-attributes tr + tr {
     @apply border-t border-blue-200;
-  }
-
-  /* ── Related products ──────────────────────────────────────────── */
-  .related.products > h2 {
-    @apply text-xs uppercase tracking-wider font-mono text-blue-400 mb-6;
-  }
-
-  .related.products ul.products {
-    @apply grid grid-cols-2 md:grid-cols-4 gap-4 list-none p-0 m-0;
-  }
-
-  .related.products ul.products li.product {
-    @apply block;
-  }
-
-  .related.products ul.products li.product a {
-    @apply block border border-blue-200 bg-white p-4 grid gap-3 no-underline transition-colors;
-  }
-
-  .related.products ul.products li.product a:hover {
-    @apply border-blue-400;
-  }
-
-  .related.products ul.products li.product img {
-    @apply bg-blue-50 w-full aspect-square object-contain p-3 transition-transform;
-  }
-
-  .related.products ul.products li.product a:hover img {
-    @apply scale-105;
-  }
-
-  .related.products ul.products li.product .woocommerce-loop-product__title {
-    @apply text-sm font-medium text-blue-900 leading-tight m-0 p-0;
-  }
-
-  .related.products ul.products li.product a:hover .woocommerce-loop-product__title {
-    @apply text-blue-500;
-  }
-
-  .related.products ul.products li.product .price {
-    @apply text-xs text-blue-500;
-  }
-
-  /* Hide the loop add-to-cart button on related — accessories quote, not cart. */
-  .related.products ul.products li.product .add_to_cart_button,
-  .related.products ul.products li.product .button {
-    @apply hidden;
   }
 }
