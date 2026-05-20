@@ -87,7 +87,7 @@ get_header();
             <!-- Two-column layout: TOC sidebar + Content. Outer 1280 narrow
                  wrapper; inner block (TOC + content) capped at 1008 and centered
                  inside it. -->
-            <div class="container-narrow">
+            <div class="mx-auto w-full max-w-[1280px] px-4 md:px-8 lg:px-12">
                 <div class="mx-auto max-w-[1008px] lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
                     <!-- TOC Sidebar (desktop only) -->
                     <aside id="table-of-contents" class="hidden lg:block" aria-label="<?php esc_attr_e('Table of Contents', 'standard'); ?>">
