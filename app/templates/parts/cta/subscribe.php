@@ -42,7 +42,7 @@ $content = [
             <div class="flex lg:justify-end">
                 <a
                     href="<?php echo esc_url($content['cta_url']); ?>"
-                    class="group inline-flex items-center gap-3 px-8 py-4 min-h-14 bg-blue-500 text-white font-mono font-medium text-sm uppercase tracking-widest hover:bg-white hover:text-blue-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-blue-900 transition-colors"
+                    class="group inline-flex items-center gap-3 px-8 py-4 min-h-14 bg-transparent border border-blue-200/40 text-white font-mono font-medium text-sm uppercase tracking-widest hover:border-white hover:bg-white hover:text-blue-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-blue-900 transition-colors"
                 >
                     <?php echo esc_html($content['cta_text']); ?>
                     <span class="transition-transform duration-200 group-hover:translate-x-1">

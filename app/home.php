@@ -80,9 +80,9 @@ $filter_action    = get_learning_center_url();
                         $featured_cta
                     );
                 ?>
-                    <article class="group relative grid grid-rows-[auto_auto] bg-white border border-blue-200 transition-colors duration-200 hover:border-blue-500">
+                    <article class="group relative grid grid-cols-[40%_1fr] bg-white border border-blue-200 transition-colors duration-200 hover:border-blue-500">
                         <?php if (has_post_thumbnail()) : ?>
-                            <div class="aspect-[16/9] overflow-hidden border-b border-blue-200 transition-colors duration-200 group-hover:border-blue-500">
+                            <div class="aspect-square overflow-hidden border-r border-blue-200 transition-colors duration-200 group-hover:border-blue-500">
                                 <?php the_post_thumbnail('card-thumbnail', [
                                     'class'         => 'w-full h-full object-cover',
                                     'loading'       => 'eager',
@@ -91,12 +91,12 @@ $filter_action    = get_learning_center_url();
                                 ]); ?>
                             </div>
                         <?php endif; ?>
-                        <div class="p-5 lg:p-6 grid gap-2.5 content-start">
+                        <div class="p-5 lg:p-6 grid gap-2.5 content-center">
                             <span class="font-mono uppercase tracking-widest text-caption text-blue-500">
                                 <?php esc_html_e('Latest', 'standard'); ?>
                             </span>
                             <?php the_title(sprintf(
-                                '<h2 class="font-mono font-medium text-heading-sm text-blue-900 leading-snug tracking-tight group-hover:text-blue-500 transition-colors"><a href="%s" class="text-inherit no-underline hover:no-underline after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" aria-label="%s">',
+                                '<h2 class="font-mono font-medium text-base lg:text-heading-sm text-blue-900 leading-snug tracking-tight line-clamp-3 group-hover:text-blue-500 transition-colors"><a href="%s" class="text-inherit no-underline hover:no-underline after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" aria-label="%s">',
                                 esc_url(get_permalink()),
                                 esc_attr($featured_label)
                             ), '</a></h2>'); ?>
