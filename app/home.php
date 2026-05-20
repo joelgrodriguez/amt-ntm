@@ -22,7 +22,6 @@ use function Standard\LearningCenter\filter_content_sections;
 use function Standard\LearningCenter\get_active_filters;
 use function Standard\LearningCenter\get_featured_query;
 use function Standard\LearningCenter\get_learning_center_url;
-use function Standard\LearningCenter\get_recent_query;
 use function Standard\LearningCenter\get_section_query;
 use function Standard\LearningCenter\get_type_cta;
 use function Standard\LearningCenter\get_type_icon;
@@ -32,9 +31,6 @@ get_header();
 
 $filters = get_active_filters();
 $featured_query = get_featured_query($filters);
-$featured_id = $featured_query->have_posts() ? $featured_query->posts[0]->ID : 0;
-$recent_query = get_recent_query((int) $featured_id, 3, $filters);
-
 $categories = get_categories([
     'hide_empty' => true,
     'orderby'    => 'count',
@@ -117,50 +113,6 @@ $filter_action    = get_learning_center_url();
         </div>
     </section>
 
-    <!-- Recent strip: 3-up horizontal -->
-    <?php if ($recent_query->have_posts()) : ?>
-        <section class="border-b border-blue-200 bg-white" aria-labelledby="lc-recent-heading">
-            <div class="container py-8 lg:py-10">
-                <div class="flex items-baseline justify-between mb-5">
-                    <h2 id="lc-recent-heading" class="font-mono font-medium text-caption uppercase tracking-widest text-blue-400">
-                        <?php esc_html_e('Recently Published', 'standard'); ?>
-                    </h2>
-                </div>
-                <div class="grid gap-4 md:gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                    <?php while ($recent_query->have_posts()) : $recent_query->the_post();
-                        $recent_post_type = get_post_type();
-                        $recent_icon      = get_type_icon((string) $recent_post_type);
-                        $recent_label     = wp_strip_all_tags(get_the_title());
-                    ?>
-                        <article class="group relative bg-white border border-blue-200 transition-colors duration-200 hover:border-blue-500">
-                            <div class="flex items-stretch gap-4">
-                                <?php if (has_post_thumbnail()) : ?>
-                                    <div class="shrink-0 w-24 sm:w-28 aspect-square overflow-hidden border-r border-blue-200 transition-colors duration-200 group-hover:border-blue-500">
-                                        <?php the_post_thumbnail('thumbnail', [
-                                            'class'   => 'w-full h-full object-cover',
-                                            'loading' => 'lazy',
-                                            'alt'     => '',
-                                        ]); ?>
-                                    </div>
-                                <?php endif; ?>
-                                <div class="flex-1 min-w-0 grid gap-1.5 content-center py-3 pr-4">
-                                    <span class="inline-flex items-center gap-1.5 text-caption text-blue-400 font-mono uppercase tracking-wide">
-                                        <?php icon($recent_icon, ['class' => 'w-3 h-3', 'aria-hidden' => 'true']); ?>
-                                        <?php echo esc_html(get_type_label((string) $recent_post_type)); ?>
-                                    </span>
-                                    <?php the_title(sprintf(
-                                        '<h3 class="font-mono font-medium text-sm leading-snug text-blue-900 line-clamp-2 group-hover:text-blue-500 transition-colors"><a href="%s" class="text-inherit no-underline hover:no-underline after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" aria-label="%s">',
-                                        esc_url(get_permalink()),
-                                        esc_attr($recent_label)
-                                    ), '</a></h3>'); ?>
-                                </div>
-                            </div>
-                        </article>
-                    <?php endwhile; wp_reset_postdata(); ?>
-                </div>
-            </div>
-        </section>
-    <?php endif; ?>
 
     <!-- Quick Filters -->
     <section class="border-b border-blue-200 bg-blue-50" aria-labelledby="lc-filters-heading">
