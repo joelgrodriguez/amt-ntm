@@ -100,7 +100,7 @@ get_header();
                                     </a>
                                 <?php endforeach; ?>
                             </div>
-                            <?php if (count($gallery_ids) > 4) : ?>
+                            <?php if (count($gallery_ids) >= 2) : ?>
                                 <div class="machine-default__thumbs-nav">
                                     <button type="button"
                                             data-carousel-prev="<?php echo esc_attr($thumbs_id); ?>"

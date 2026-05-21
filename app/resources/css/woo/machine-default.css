@@ -84,9 +84,15 @@
 
   .machine-default__thumb {
     @apply snap-start shrink-0 block bg-white border border-blue-200 overflow-hidden p-2;
-    width: calc((100% - 0.5rem * 3) / 4);
+    width: 96px;
     aspect-ratio: 1 / 1;
     transition: border-color 150ms var(--ease-out, ease-out);
+  }
+
+  @media (min-width: 1024px) {
+    .machine-default__thumb {
+      width: 112px;
+    }
   }
 
   .machine-default__thumb:hover {
