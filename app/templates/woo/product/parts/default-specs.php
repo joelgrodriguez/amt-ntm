@@ -195,7 +195,7 @@ if (empty($sections)) {
                                 </a>
                             </div>
                             <?php if ($fp['image']) : ?>
-                                <div class="machine-default__blueprint-canvas">
+                                <div class="machine-default__blueprint-canvas pattern-dot-grid">
                                     <img src="<?php echo esc_url($fp['image']); ?>" alt="<?php echo esc_attr(sprintf(__('%s footprint diagram', 'standard'), $product->get_name())); ?>" loading="lazy">
                                 </div>
                             <?php endif; ?>
