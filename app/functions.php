@@ -42,6 +42,7 @@ $theme_includes = [
     'inc/woo/catalog.php',
     'inc/woo/carousel.php',
     'inc/woo/accessories.php',
+    'inc/woo/accessory-tag-map.php',
     'inc/machine-product-data.php',
     'inc/woo/machine-template.php',
     // Machine content data

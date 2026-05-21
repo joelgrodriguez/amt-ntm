@@ -47,7 +47,9 @@ function get_single_product_template(): ?string {
     }
 
     if (has_term(MACHINE_CATEGORIES, 'product_cat')) {
-        return has_machine_product_data() ? 'templates/woo/product/single-machine.php' : null;
+        return has_machine_product_data()
+            ? 'templates/woo/product/single-machine.php'
+            : 'templates/woo/product/single-machine-default.php';
     }
 
     if (has_term(ACCESSORY_CATEGORIES, 'product_cat')) {

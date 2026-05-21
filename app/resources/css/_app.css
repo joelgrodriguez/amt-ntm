@@ -63,3 +63,4 @@
 
 /* ── WooCommerce ───────────────────────────────────────────────────── */
 @import "./woo/product-card.css";
+@import "./woo/machine-default.css";

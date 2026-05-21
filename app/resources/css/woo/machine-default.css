@@ -1,0 +1,79 @@
+/**
+ * Default Machine Template Styles
+ *
+ * Lighter cousin to the flagship single-machine layout. Used for
+ * machine products without a dedicated data file in app/data/machines/.
+ *
+ * @file woo/machine-default.css
+ */
+
+@layer components {
+
+  .machine-default__title {
+    @apply font-sans font-medium text-blue-900 mt-3;
+    font-size: var(--text-heading);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  @media (min-width: 1024px) {
+    .machine-default__title {
+      font-size: var(--text-heading-lg);
+    }
+  }
+
+  .machine-default__excerpt {
+    @apply mt-6 text-blue-700;
+  }
+
+  .machine-default__excerpt p {
+    @apply text-base leading-relaxed;
+  }
+
+  .machine-default__actions {
+    @apply mt-8 flex flex-wrap gap-3;
+  }
+
+  .machine-default__meta {
+    @apply mt-10 pt-6 border-t border-blue-200 grid grid-cols-2 gap-x-8 gap-y-3;
+  }
+
+  .machine-default__meta dt {
+    @apply text-xs font-mono uppercase tracking-wider text-blue-500;
+  }
+
+  .machine-default__meta dd {
+    @apply text-sm font-medium text-blue-900 mt-1;
+  }
+
+  .machine-default__gallery-main {
+    @apply bg-white border border-blue-200 overflow-hidden;
+  }
+
+  .machine-default__gallery-main img {
+    @apply w-full h-auto;
+  }
+
+  .machine-default__gallery-thumbs {
+    @apply mt-3 grid grid-cols-4 gap-2 list-none p-0;
+  }
+
+  .machine-default__gallery-thumbs li {
+    @apply m-0;
+  }
+
+  .machine-default__gallery-thumbs a {
+    @apply block bg-white border border-blue-200 overflow-hidden;
+    transition: border-color 150ms var(--ease-out, ease-out);
+  }
+
+  .machine-default__gallery-thumbs a:hover {
+    @apply border-blue-500;
+  }
+
+  .machine-default__gallery-thumbs img {
+    @apply w-full h-auto block;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+}
