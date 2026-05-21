@@ -3,11 +3,12 @@
  * Default page template.
  *
  * Used for any WordPress page that does not match a more specific
- * template (template-*.php or page-{slug}.php). Ships a title-block
- * hero on bg-blue-50 with dot-grid pattern, a single-column prose body,
- * and a footer seam with the modified date + parent backlink. No
- * featured image hero by design; pages that need an image hero should
- * use a dedicated template.
+ * template (template-*.php or page-{slug}.php). Ships an asymmetric
+ * hero on bg-blue-50 with dot-grid: eyebrow + title + optional excerpt
+ * on the left, featured image on the right at lg+ when present.
+ * Collapses to single-column title block when no featured image is set.
+ * Body content sits in a 1280px container with a footer seam carrying
+ * the modified date and parent backlink.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-page
  *
@@ -25,27 +26,42 @@ get_header();
 
 <?php while (have_posts()) : the_post(); ?>
     <?php
-    $parent_id      = wp_get_post_parent_id(get_the_ID());
-    $parent_title   = $parent_id ? get_the_title($parent_id) : '';
-    $parent_link    = $parent_id ? get_permalink($parent_id) : '';
-    $eyebrow_label  = $parent_title !== '' ? $parent_title : __('Information', 'standard');
-    $has_excerpt    = has_excerpt();
+    $parent_id     = wp_get_post_parent_id(get_the_ID());
+    $parent_title  = $parent_id ? get_the_title($parent_id) : '';
+    $parent_link   = $parent_id ? get_permalink($parent_id) : '';
+    $eyebrow_label = $parent_title !== '' ? $parent_title : __('Information', 'standard');
+    $has_excerpt   = has_excerpt();
+    $has_image     = has_post_thumbnail();
     ?>
 
     <main id="primary">
         <header class="pattern-dot-grid bg-blue-50 border-b border-blue-200">
             <div class="container pt-6 lg:pt-12 pb-6 lg:pb-12">
-                <div class="grid gap-5 lg:gap-6 max-w-3xl">
-                    <div class="font-mono uppercase tracking-widest text-caption text-blue-700">
-                        <?php echo esc_html(sprintf('%s · %s', __('Page', 'standard'), $eyebrow_label)); ?>
+                <div class="grid gap-8 lg:gap-12 <?php echo $has_image ? 'lg:grid-cols-2 lg:items-center' : ''; ?>">
+                    <div class="grid gap-5 lg:gap-6 <?php echo $has_image ? '' : 'max-w-3xl'; ?> order-1">
+                        <div class="font-mono uppercase tracking-widest text-caption text-blue-700">
+                            <?php echo esc_html(sprintf('%s · %s', __('Page', 'standard'), $eyebrow_label)); ?>
+                        </div>
+
+                        <?php the_title('<h1 class="font-mono font-medium text-heading lg:text-heading-lg text-blue-900 leading-tight tracking-tight m-0">', '</h1>'); ?>
+
+                        <?php if ($has_excerpt) : ?>
+                            <p class="text-blue-600 text-base lg:text-lg leading-relaxed m-0 max-w-2xl">
+                                <?php echo esc_html(get_the_excerpt()); ?>
+                            </p>
+                        <?php endif; ?>
                     </div>
 
-                    <?php the_title('<h1 class="font-mono font-medium text-heading lg:text-heading-lg text-blue-900 leading-tight tracking-tight m-0">', '</h1>'); ?>
-
-                    <?php if ($has_excerpt) : ?>
-                        <p class="text-blue-600 text-base lg:text-lg leading-relaxed m-0 max-w-2xl">
-                            <?php echo esc_html(get_the_excerpt()); ?>
-                        </p>
+                    <?php if ($has_image) : ?>
+                        <figure class="featured-image m-0 order-2">
+                            <?php the_post_thumbnail('large', [
+                                'class'         => 'w-full h-auto block',
+                                'loading'       => 'eager',
+                                'fetchpriority' => 'high',
+                                'sizes'         => '(min-width: 1024px) 640px, 100vw',
+                                'alt'           => esc_attr(get_the_title()),
+                            ]); ?>
+                        </figure>
                     <?php endif; ?>
                 </div>
             </div>
@@ -53,7 +69,7 @@ get_header();
 
         <article id="post-<?php the_ID(); ?>" <?php post_class('section'); ?>>
             <div class="container">
-                <div class="prose max-w-3xl mx-auto">
+                <div class="prose max-w-7xl mx-auto">
                     <?php the_content(); ?>
                 </div>
             </div>
