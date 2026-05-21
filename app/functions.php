@@ -34,6 +34,8 @@ $theme_includes = [
     'inc/images.php',
     'inc/grid.php',
     'inc/video.php',
+    'inc/hubspot.php',
+    'inc/page-templates.php',
     'inc/content-taxonomy.php',
     'inc/related-posts.php',
     // WooCommerce integration

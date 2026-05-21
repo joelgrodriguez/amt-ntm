@@ -18,6 +18,7 @@ import { init as initScrollHeader } from './modules/ScrollHeader.js';
 import { init as initScrollToTop } from './modules/ScrollToTop.js';
 import { initAccordion } from './modules/Accordion.js';
 import { initCarouselNav } from './modules/CarouselNav.js';
+import { initHubspotForms } from './modules/HubspotForms.js';
 
 /** @type {Function|null} Cleanup function for mobile menu */
 let mobileMenuCleanup = null;
@@ -39,6 +40,9 @@ let accordionCleanup = null;
 
 /** @type {Function|null} Cleanup function for carousel nav */
 let carouselNavCleanup = null;
+
+/** @type {Function|null} Cleanup function for HubSpot forms */
+let hubspotFormsCleanup = null;
 
 /**
  * Executes callback when DOM is ready.
@@ -68,6 +72,7 @@ const initApp = () => {
   scrollToTopCleanup = initScrollToTop();
   accordionCleanup = initAccordion();
   carouselNavCleanup = initCarouselNav();
+  hubspotFormsCleanup = initHubspotForms();
 };
 
 // Bootstrap
@@ -97,6 +102,9 @@ if (import.meta.hot) {
     }
     if (carouselNavCleanup) {
       carouselNavCleanup();
+    }
+    if (hubspotFormsCleanup) {
+      hubspotFormsCleanup();
     }
     // Reinitialize
     initApp();
