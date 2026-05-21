@@ -107,11 +107,10 @@
   }
 
   .machine-default__blueprint-canvas {
-    @apply p-4;
-    background-color: var(--color-blue-50);
+    @apply p-4 bg-white;
     background-image:
-      linear-gradient(to right, color-mix(in srgb, var(--color-blue-200) 60%, transparent) 1px, transparent 1px),
-      linear-gradient(to bottom, color-mix(in srgb, var(--color-blue-200) 60%, transparent) 1px, transparent 1px);
+      linear-gradient(to right, color-mix(in srgb, var(--color-blue-200) 50%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--color-blue-200) 50%, transparent) 1px, transparent 1px);
     background-size: 24px 24px;
   }
 

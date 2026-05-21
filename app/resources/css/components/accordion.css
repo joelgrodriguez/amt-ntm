@@ -38,7 +38,7 @@
     @apply bg-white font-sans font-medium text-blue-700;
     @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500;
     list-style: none;
-    transition: background-color var(--duration-fast, 150ms) var(--ease-out, ease-out);
+    transition: color var(--duration-fast, 150ms) var(--ease-out, ease-out);
   }
 
   .accordion summary::-webkit-details-marker {
@@ -46,7 +46,11 @@
   }
 
   .accordion summary:hover {
-    @apply bg-blue-50;
+    @apply text-blue-500;
+  }
+
+  .accordion summary:hover .accordion__icon {
+    @apply text-blue-500;
   }
 
   /* ── Icon ────────────────────────────────────────────────────────── */
@@ -61,11 +65,10 @@
   }
 
   /* ── Content body ───────────────────────────────────────────────── */
-  /* Per shared bans: no 2px colored side-stripes. Open-state contrast
-     comes from the bg-blue-50 surface against bg-white and the
-     1px top hairline. */
+  /* Per shared bans: no 2px colored side-stripes. Open vs closed state
+     is carried by the 1px hairline + chevron rotation. */
   .accordion__body {
-    @apply px-6 py-6 border-t border-blue-200 bg-blue-50;
+    @apply px-6 py-6 border-t border-blue-200 bg-white;
   }
 
   /* ── Modifier: Large (FAQ) ──────────────────────────────────────── */
