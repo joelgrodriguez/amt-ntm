@@ -47,18 +47,56 @@ if (empty($cards)) {
 }
 ?>
 
-<section id="machine-profiles" class="section bg-blue-50" aria-labelledby="default-profiles-title">
+<?php
+$carousel_id = 'default-profiles-' . $product->get_id();
+$title_id    = 'default-profiles-title';
+?>
+
+<section id="machine-profiles" class="section bg-blue-50" aria-labelledby="<?php echo esc_attr($title_id); ?>">
     <div class="container section-content">
 
-        <div class="section-header-left mb-12">
-            <p class="section-eyebrow"><?php esc_html_e('Available Profiles', 'standard'); ?></p>
-            <div class="section-divider"></div>
-            <h2 id="default-profiles-title" class="section-title"><?php esc_html_e('What it forms', 'standard'); ?></h2>
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+            <div>
+                <p class="section-eyebrow mb-2"><?php esc_html_e('Available Profiles', 'standard'); ?></p>
+                <h2 id="<?php echo esc_attr($title_id); ?>" class="section-title">
+                    <?php esc_html_e('What it forms', 'standard'); ?>
+                </h2>
+            </div>
+            <div class="flex gap-2 shrink-0">
+                <button type="button"
+                        data-carousel-prev="<?php echo esc_attr($carousel_id); ?>"
+                        class="carousel__nav"
+                        aria-label="<?php esc_attr_e('Previous profiles', 'standard'); ?>">
+                    <?php icon('arrow-left', ['class' => 'w-4 h-4 text-blue-700']); ?>
+                </button>
+                <button type="button"
+                        data-carousel-next="<?php echo esc_attr($carousel_id); ?>"
+                        class="carousel__nav"
+                        aria-label="<?php esc_attr_e('Next profiles', 'standard'); ?>">
+                    <?php icon('arrow-right', ['class' => 'w-4 h-4 text-blue-700']); ?>
+                </button>
+            </div>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div id="<?php echo esc_attr($carousel_id); ?>" class="carousel__track">
             <?php foreach ($cards as $card) : ?>
-                <?php get_template_part('templates/woo/product/parts/product-card-link', null, compact('card')); ?>
+                <a href="<?php echo esc_url($card['url']); ?>" class="carousel__card group">
+                    <div class="carousel__card-image">
+                        <?php if (!empty($card['image_id'])) : ?>
+                            <?php echo wp_get_attachment_image((int) $card['image_id'], 'product-card', false, [
+                                'class' => 'w-full h-full object-contain p-3 transition-transform',
+                                'alt'   => $card['title'],
+                            ]); ?>
+                        <?php else : ?>
+                            <span class="text-blue-400 text-sm font-mono"><?php echo esc_html($card['title']); ?></span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="grid gap-1">
+                        <h3 class="text-sm font-medium text-blue-900 group-hover:text-blue-500 transition-colors leading-tight">
+                            <?php echo esc_html($card['title']); ?>
+                        </h3>
+                    </div>
+                </a>
             <?php endforeach; ?>
         </div>
 

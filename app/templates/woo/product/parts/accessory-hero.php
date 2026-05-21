@@ -28,7 +28,6 @@ $gallery_ids = array_filter(array_map('intval', $product->get_gallery_image_ids(
 $sku         = $product->get_sku();
 $excerpt     = $product->get_short_description();
 $price_html  = $product->get_price_html();
-$tags        = wp_get_post_terms($product->get_id(), 'product_tag', ['fields' => 'names']);
 ?>
 
 <section class="section machine-default__fold" aria-labelledby="accessory-title">
@@ -36,43 +35,43 @@ $tags        = wp_get_post_terms($product->get_id(), 'product_tag', ['fields' =>
         <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
 
             <div class="machine-default__gallery">
-                <?php if ($main_id) : ?>
-                    <figure class="machine-default__gallery-main">
-                        <?php echo wp_get_attachment_image($main_id, 'large', false, [
-                            'class'         => 'w-full h-auto',
-                            'alt'           => $product->get_name(),
-                            'fetchpriority' => 'high',
-                        ]); ?>
-                    </figure>
-                <?php endif; ?>
-                <?php if (!empty($gallery_ids)) :
-                    $thumbs_id = 'accessory-thumbs-' . $product->get_id();
+                <?php
+                $all_ids = [];
+                if ($main_id) {
+                    $all_ids[] = $main_id;
+                }
+                foreach ($gallery_ids as $gid) {
+                    if (!in_array($gid, $all_ids, true)) {
+                        $all_ids[] = $gid;
+                    }
+                }
+                $gallery_carousel_id = 'accessory-gallery-' . $product->get_id();
+                $has_multiple = count($all_ids) >= 2;
                 ?>
-                    <div class="machine-default__thumbs-row">
-                        <div id="<?php echo esc_attr($thumbs_id); ?>" class="machine-default__thumbs carousel__track">
-                            <?php foreach ($gallery_ids as $gid) :
-                                $full = wp_get_attachment_image_url($gid, 'large');
-                                if (!$full) continue;
-                            ?>
-                                <a href="<?php echo esc_url($full); ?>" target="_blank" rel="noopener" class="machine-default__thumb">
-                                    <?php echo wp_get_attachment_image($gid, 'medium', false, [
-                                        'class' => 'w-full h-full object-contain',
-                                        'alt'   => $product->get_name(),
-                                        'loading' => 'lazy',
+                <?php if (!empty($all_ids)) : ?>
+                    <div class="machine-default__gallery-frame">
+                        <div id="<?php echo esc_attr($gallery_carousel_id); ?>" class="machine-default__gallery-track">
+                            <?php foreach ($all_ids as $i => $gid) : ?>
+                                <figure class="machine-default__gallery-slide">
+                                    <?php echo wp_get_attachment_image($gid, 'large', false, [
+                                        'class'   => 'w-full h-full object-contain',
+                                        'alt'     => $product->get_name(),
+                                        'loading' => $i === 0 ? 'eager' : 'lazy',
+                                        'fetchpriority' => $i === 0 ? 'high' : null,
                                     ]); ?>
-                                </a>
+                                </figure>
                             <?php endforeach; ?>
                         </div>
-                        <?php if (count($gallery_ids) >= 2) : ?>
-                            <div class="machine-default__thumbs-nav">
+                        <?php if ($has_multiple) : ?>
+                            <div class="machine-default__gallery-nav">
                                 <button type="button"
-                                        data-carousel-prev="<?php echo esc_attr($thumbs_id); ?>"
+                                        data-carousel-prev="<?php echo esc_attr($gallery_carousel_id); ?>"
                                         class="carousel__nav"
                                         aria-label="<?php esc_attr_e('Previous image', 'standard'); ?>">
                                     <?php icon('arrow-left', ['class' => 'w-4 h-4 text-blue-700']); ?>
                                 </button>
                                 <button type="button"
-                                        data-carousel-next="<?php echo esc_attr($thumbs_id); ?>"
+                                        data-carousel-next="<?php echo esc_attr($gallery_carousel_id); ?>"
                                         class="carousel__nav"
                                         aria-label="<?php esc_attr_e('Next image', 'standard'); ?>">
                                     <?php icon('arrow-right', ['class' => 'w-4 h-4 text-blue-700']); ?>
@@ -112,20 +111,12 @@ $tags        = wp_get_post_terms($product->get_id(), 'product_tag', ['fields' =>
                     </a>
                 </div>
 
-                <?php if ($sku || (is_array($tags) && !empty($tags))) : ?>
+                <?php if ($sku) : ?>
                     <dl class="machine-default__meta">
-                        <?php if ($sku) : ?>
-                            <div>
-                                <dt><?php esc_html_e('SKU', 'standard'); ?></dt>
-                                <dd><?php echo esc_html($sku); ?></dd>
-                            </div>
-                        <?php endif; ?>
-                        <?php if (is_array($tags) && !empty($tags)) : ?>
-                            <div>
-                                <dt><?php esc_html_e('Tags', 'standard'); ?></dt>
-                                <dd><?php echo esc_html(implode(', ', $tags)); ?></dd>
-                            </div>
-                        <?php endif; ?>
+                        <div>
+                            <dt><?php esc_html_e('SKU', 'standard'); ?></dt>
+                            <dd><?php echo esc_html($sku); ?></dd>
+                        </div>
                     </dl>
                 <?php endif; ?>
             </div>

@@ -46,65 +46,53 @@
     @apply text-sm font-medium text-blue-900 mt-1;
   }
 
-  .machine-default__gallery-main {
-    @apply bg-white border border-blue-200 overflow-hidden flex items-center justify-center;
-    aspect-ratio: 4 / 3;
-    padding: 12%;
+  .machine-default__fold {
+    @apply border-b border-blue-200;
   }
 
-  .machine-default__gallery-main img {
-    @apply w-full h-full object-contain;
+  /* Gallery as a snap-scrolling carousel. Each slide is a full-bleed
+     image; thumbs are intentionally absent. Arrows sit pinned to the
+     bottom corners of the frame, inside the border. */
+  .machine-default__gallery-frame {
+    @apply relative bg-white border border-blue-200 overflow-hidden;
+    aspect-ratio: 4 / 3;
   }
 
   @media (min-width: 1024px) {
-    .machine-default__gallery-main {
+    .machine-default__gallery-frame {
       max-height: 60vh;
       aspect-ratio: auto;
       min-height: 360px;
     }
   }
 
-  .machine-default__fold {
-    @apply border-b border-blue-200;
+  .machine-default__gallery-track {
+    @apply flex h-full w-full snap-x snap-mandatory overflow-x-auto scroll-smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
-  .machine-default__thumbs-row {
-    @apply mt-3 flex items-center gap-3;
+  .machine-default__gallery-track::-webkit-scrollbar {
+    @apply hidden;
   }
 
-  .machine-default__thumbs {
-    @apply flex-1 min-w-0;
+  .machine-default__gallery-slide {
+    @apply snap-start shrink-0 m-0 flex items-center justify-center;
+    width: 100%;
+    height: 100%;
+    padding: 12%;
   }
 
-  /* Override carousel__track's defaults so thumbs sit tight against
-     the gallery edges (no negative margin / padding inheritance). */
-  .machine-default__thumbs.carousel__track {
-    @apply gap-2 m-0 p-0 pb-0;
+  .machine-default__gallery-slide img {
+    @apply max-w-full max-h-full;
   }
 
-  .machine-default__thumb {
-    @apply snap-start shrink-0 block bg-white border border-blue-200 overflow-hidden p-2;
-    width: 96px;
-    aspect-ratio: 1 / 1;
-    transition: border-color 150ms var(--ease-out, ease-out);
+  .machine-default__gallery-nav {
+    @apply absolute inset-x-0 bottom-3 px-3 flex items-center justify-between pointer-events-none;
   }
 
-  @media (min-width: 1024px) {
-    .machine-default__thumb {
-      width: 112px;
-    }
-  }
-
-  .machine-default__thumb:hover {
-    @apply border-blue-500;
-  }
-
-  .machine-default__thumb img {
-    @apply w-full h-full block;
-  }
-
-  .machine-default__thumbs-nav {
-    @apply flex gap-2 shrink-0;
+  .machine-default__gallery-nav > * {
+    @apply pointer-events-auto bg-white;
   }
 
   /* Footprint blueprint. Reads as an engineering spec sheet, not a photo:

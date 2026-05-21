@@ -122,11 +122,22 @@ if (empty($sections)) {
             foreach ($footprints as $footprint) {
                 $fp_id = is_object($footprint) ? ($footprint->ID ?? 0) : (int) $footprint;
                 if (!$fp_id) continue;
+
+                // The footprint CPT stores the PDF URL inside a pdfjs block
+                // attribute on the post content (imageURL property). Pull it
+                // out so the link can open the PDF directly instead of
+                // routing through the CPT single template.
+                $pdf_url = '';
+                $fp_post = get_post($fp_id);
+                if ($fp_post && preg_match('/"imageURL":"([^"]+\.pdf)"/i', $fp_post->post_content, $m)) {
+                    $pdf_url = wp_unslash($m[1]);
+                }
+
                 $footprint_items[] = [
                     'id'    => $fp_id,
                     'title' => get_the_title($fp_id),
                     'image' => get_the_post_thumbnail_url($fp_id, 'full') ?: get_the_post_thumbnail_url($fp_id, 'large'),
-                    'url'   => get_permalink($fp_id),
+                    'url'   => $pdf_url ?: get_permalink($fp_id),
                 ];
             }
         }
@@ -178,8 +189,9 @@ if (empty($sections)) {
                         <figure class="machine-default__blueprint-figure<?php echo $i > 0 ? ' mt-4' : ''; ?>">
                             <div class="machine-default__blueprint-caption">
                                 <span><?php esc_html_e('Footprint', 'standard'); ?></span>
-                                <a href="<?php echo esc_url($fp['url']); ?>" target="_blank" rel="noopener">
-                                    <?php esc_html_e('Open full diagram', 'standard'); ?>
+                                <a href="<?php echo esc_url($fp['url']); ?>" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5">
+                                    <span><?php esc_html_e('Open full diagram', 'standard'); ?></span>
+                                    <?php icon('external-link', ['class' => 'w-3.5 h-3.5']); ?>
                                 </a>
                             </div>
                             <?php if ($fp['image']) : ?>
