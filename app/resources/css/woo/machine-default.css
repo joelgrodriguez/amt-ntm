@@ -91,9 +91,8 @@
   }
 
   .machine-default__gallery-slide img {
-    @apply max-w-full max-h-full;
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
   }
 
