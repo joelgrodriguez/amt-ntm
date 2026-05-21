@@ -25,15 +25,15 @@ if (!defined('ABSPATH')) {
 function get_machine_data_keys(): array {
     return [
         'ssq3-multipro',
-        // 'ssq-ii-multipro',
-        // 'ssh-multipro',
-        // 'ssr-multipro-jr',
-        // '5vc-5v-crimp',
-        // 'wav-wall-panel',
-        // 'mach-ii-5-gutter',
-        // 'mach-ii-6-gutter',
+        'ssq-ii-multipro',
+        'ssh-multipro',
+        'ssr-multipro-jr',
+        '5vc-5v-crimp',
+        'wav-wall-panel',
+        'mach-ii-5-gutter',
+        'mach-ii-6-gutter',
         'mach-ii-combo-gutter',
-        // 'bg7-box-gutter',
+        'bg7-box-gutter',
     ];
 }
 
@@ -49,18 +49,18 @@ function get_machine_data_keys(): array {
 function get_slug_aliases(): array {
     return [
         // Roof & wall panel machines
-        // 'ssq-roof-panel-machine'            => 'ssq-ii-multipro',
+        'ssq-roof-panel-machine'            => 'ssq-ii-multipro',
         'ssq3-roof-panel-machine'           => 'ssq3-multipro',
-        // 'ssh-roof-panel-machine'            => 'ssh-multipro',
-        // 'ssr-roof-panel-machine'            => 'ssr-multipro-jr',
-        // '5vc-5v-crimp-roof-panel-machine'   => '5vc-5v-crimp',
-        // 'wav-wall-panel-machine'            => 'wav-wall-panel',
+        'ssh-roof-panel-machine'            => 'ssh-multipro',
+        'ssr-roof-panel-machine'            => 'ssr-multipro-jr',
+        '5vc-5v-crimp-roof-panel-machine'   => '5vc-5v-crimp',
+        'wav-wall-panel-machine'            => 'wav-wall-panel',
         // Gutter machines
-        // 'mach-ii-5-gutter-machine'          => 'mach-ii-5-gutter',
-        // 'mach-ii-6-gutter-machine'          => 'mach-ii-6-gutter',
+        'mach-ii-5-gutter-machine'          => 'mach-ii-5-gutter',
+        'mach-ii-6-gutter-machine'          => 'mach-ii-6-gutter',
         'mach-ii-5-6-combo-gutter-machine'  => 'mach-ii-combo-gutter',
         'mach-ii-combo-gutter-machine'      => 'mach-ii-combo-gutter',
-        // 'bg7-box-gutter-machine'            => 'bg7-box-gutter',
+        'bg7-box-gutter-machine'            => 'bg7-box-gutter',
     ];
 }
 

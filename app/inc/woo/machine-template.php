@@ -18,6 +18,7 @@ if (!defined('ABSPATH')) {
 }
 
 use function Standard\MachineProductData\get_machine_product_data;
+use function Standard\MachineProductData\resolve_machine_key;
 
 /**
  * Machine product category slugs that get the custom template.
@@ -35,6 +36,20 @@ const ACCESSORY_CATEGORIES = [
 ];
 
 /**
+ * Machine data keys that get the rich flagship landing page.
+ *
+ * Every machine with an entry in app/data/machines/ can be referenced
+ * elsewhere (hero slider, schema, related queries) without forcing the
+ * full landing template. Only the keys listed here route to
+ * single-machine.php; everything else falls back to
+ * single-machine-default.php.
+ */
+const FLAGSHIP_DATA_KEYS = [
+    'ssq3-multipro',
+    'mach-ii-combo-gutter',
+];
+
+/**
  * Resolve the custom single product template for the current product.
  *
  * Machine products intentionally win over accessories if a product is
@@ -47,7 +62,7 @@ function get_single_product_template(): ?string {
     }
 
     if (has_term(MACHINE_CATEGORIES, 'product_cat')) {
-        return has_machine_product_data()
+        return is_flagship_machine()
             ? 'templates/woo/product/single-machine.php'
             : 'templates/woo/product/single-machine-default.php';
     }
@@ -59,15 +74,26 @@ function get_single_product_template(): ?string {
     return null;
 }
 
-function has_machine_product_data(): bool {
+/**
+ * Does the current product map to a flagship machine data key?
+ *
+ * Flagship products get the full single-machine.php landing page.
+ * Non-flagship machines fall back to single-machine-default.php even
+ * if they have machine data registered for use elsewhere (hero, schema).
+ */
+function is_flagship_machine(): bool {
     if (!function_exists('wc_get_product')) {
         return false;
     }
 
     $product = \wc_get_product(get_queried_object_id());
+    if (!$product instanceof \WC_Product) {
+        return false;
+    }
 
-    return $product instanceof \WC_Product
-        && get_machine_product_data($product->get_slug()) !== null;
+    $key = resolve_machine_key($product->get_slug());
+
+    return $key !== null && in_array($key, FLAGSHIP_DATA_KEYS, true);
 }
 
 /**
