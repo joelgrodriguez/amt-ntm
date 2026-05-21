@@ -1,8 +1,8 @@
 # Worktrees
 .worktrees/
 
-# Maestro orchestrator state
-.maestro/
+# Maestro orchestrator state — see .maestro/.gitignore for per-file rules
+# (README is tracked; active.md / archive.md stay local)
 
 # Dependencies
 node_modules/
