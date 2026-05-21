@@ -48,6 +48,7 @@
 @import "./components/patterns.css";
 @import "./components/hero-overlay.css";
 @import "./components/hero.css";
+@import "./components/hubspot-form.css";
 
 /* ── Layout ────────────────────────────────────────────────────────── */
 @import "./layout/header.css";

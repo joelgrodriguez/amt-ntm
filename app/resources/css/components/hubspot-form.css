@@ -1,0 +1,81 @@
+/**
+ * HubSpot Form
+ *
+ * Styles generated HubSpot fields so lead-form templates keep the same
+ * sharp, technical NTM surface as the rest of the theme.
+ *
+ * @file components/hubspot-form.css
+ */
+
+@layer components {
+  .hubspot-form {
+    @apply text-blue-700;
+  }
+
+  .hubspot-form__placeholder {
+    @apply flex min-h-[12rem] items-center justify-center border border-blue-200 bg-white px-4 py-6 text-sm text-blue-400;
+  }
+
+  .hubspot-form form,
+  .hubspot-form fieldset {
+    max-width: none !important;
+  }
+
+  .hubspot-form .hs-form-field {
+    @apply mb-4;
+  }
+
+  .hubspot-form label {
+    @apply mb-2 block text-sm font-medium text-blue-700;
+  }
+
+  .hubspot-form .input {
+    @apply mr-0;
+  }
+
+  .hubspot-form input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]),
+  .hubspot-form select,
+  .hubspot-form textarea {
+    @apply w-full border border-blue-200 bg-white px-4 py-3 text-base text-blue-700 outline-none transition-colors duration-150;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .hubspot-form textarea {
+    @apply min-h-32;
+  }
+
+  .hubspot-form input:focus,
+  .hubspot-form select:focus,
+  .hubspot-form textarea:focus {
+    @apply border-blue-500 ring-2 ring-blue-500 ring-offset-2;
+  }
+
+  .hubspot-form input[type="checkbox"],
+  .hubspot-form input[type="radio"] {
+    @apply mr-2 h-4 w-4 border-blue-300 text-blue-500;
+    border-radius: 0 !important;
+  }
+
+  .hubspot-form .hs-error-msgs {
+    @apply mt-2 list-none p-0 text-sm text-red;
+  }
+
+  .hubspot-form .hs_submit,
+  .hubspot-form .actions {
+    @apply mt-6;
+  }
+
+  .hubspot-form input[type="submit"],
+  .hubspot-form .hs-button {
+    @apply inline-flex h-12 cursor-pointer items-center justify-center bg-blue-500 px-6 font-mono text-base font-medium text-white transition-colors duration-200;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .hubspot-form input[type="submit"]:hover,
+  .hubspot-form .hs-button:hover {
+    background-color: color-mix(in srgb, var(--color-blue-500) 90%, black);
+  }
+}
