@@ -24,6 +24,28 @@ if (!$product) {
     return;
 }
 
+// Resolve product video. Current ACF schema groups video fields under
+// 'product_media'; legacy top-level 'product_video' still exists on some
+// products as a fallback. (The top-level 'video' field is a separate
+// CPT-scoped field and does not apply to products.)
+$video_url   = null;
+$video_title = null;
+$video_sub   = null;
+if (function_exists('get_field')) {
+    $media = get_field('product_media', $product->get_id());
+    if (is_array($media)) {
+        $video_url   = $media['product_video'] ?? null;
+        $video_title = $media['product_video_title'] ?? null;
+        $video_sub   = $media['product_video_sub'] ?? null;
+    }
+    if (!is_string($video_url) || $video_url === '') {
+        $legacy = get_field('product_video', $product->get_id());
+        if (is_string($legacy) && $legacy !== '') {
+            $video_url = $legacy;
+        }
+    }
+}
+
 // Demote Add-to-Cart and the surrounding stock summary actions — NTM
 // machine sales are quote / dealer driven, not e-commerce. Keep title,
 // price, excerpt; drop the cart button, sharing, and the default meta
@@ -134,6 +156,15 @@ get_header();
     </section>
 
     <?php get_template_part('templates/woo/product/parts/default-specs', null, compact('product')); ?>
+
+    <?php
+    get_template_part('templates/parts/video-section', null, [
+        'title'      => is_string($video_title) && $video_title !== '' ? $video_title : $product->get_name(),
+        'video_url'  => is_string($video_url) ? $video_url : null,
+        'video_type' => is_string($video_sub) && $video_sub !== '' ? $video_sub : __('Product Video', 'standard'),
+        'section_id' => 'machine-default-video',
+    ]);
+    ?>
 
     <?php get_template_part('templates/woo/product/parts/default-accessories', null, compact('product')); ?>
 
