@@ -1,0 +1,94 @@
+<?php
+/**
+ * Template Name: Profiles
+ *
+ * Catalog landing for the panel and gutter profile library.
+ *
+ * Layout mirrors single-profile.php: a sticky filter sidebar on the
+ * left (Type + Machine), with the catalog stacked into three labelled
+ * sections on the right (Roof & Wall, Gutter, Clip Relief / Rib Rollers).
+ *
+ * Canonical category term IDs were resolved against the live post set:
+ *   599 = Metal roof & wall panel profiles (22 published)
+ *   598 = Gutter profiles                  ( 8 published)
+ *   603 = Clip Relief / Rib Rollers        ( 5 published)
+ * All three are children of parent category 597 ("Profiles").
+ *
+ * @package Standard
+ */
+
+declare(strict_types=1);
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+use function Standard\ContentTaxonomy\get_terms_for_post_type;
+
+$sidebar_copy = [
+    'filter_type'    => __('Filter by Type', 'standard'),
+    'filter_machine' => __('Filter by Machine', 'standard'),
+];
+
+$sections = [
+    [
+        'category_id' => 599,
+        'eyebrow'     => __('Roof & wall panels', 'standard'),
+        'title'       => __('Roof & wall panel profiles', 'standard'),
+        'section_id'  => 'profiles-roof-wall',
+    ],
+    [
+        'category_id' => 598,
+        'eyebrow'     => __('Seamless gutter', 'standard'),
+        'title'       => __('Gutter profiles', 'standard'),
+        'section_id'  => 'profiles-gutter',
+    ],
+    [
+        'category_id' => 603,
+        'eyebrow'     => __('Accessories', 'standard'),
+        'title'       => __('Clip relief & rib rollers', 'standard'),
+        'section_id'  => 'profiles-clip-relief',
+    ],
+];
+
+get_header();
+?>
+
+<main id="primary">
+
+    <?php get_template_part('templates/pages/profiles/hero'); ?>
+
+    <section class="bg-white pt-12 pb-24 lg:pt-16 lg:pb-32">
+        <div class="container lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
+
+            <?php
+            get_template_part('templates/parts/taxonomy-filter-sidebar', null, [
+                'sections' => [
+                    [
+                        'title'         => $sidebar_copy['filter_type'],
+                        'icon'          => 'filter',
+                        'terms'         => get_terms_for_post_type('profile', 'category'),
+                        'current_terms' => [],
+                    ],
+                    [
+                        'title'         => $sidebar_copy['filter_machine'],
+                        'icon'          => 'settings',
+                        'terms'         => get_terms_for_post_type('profile', 'post_tag'),
+                        'current_terms' => [],
+                    ],
+                ],
+            ]);
+            ?>
+
+            <div class="grid gap-16 lg:gap-20">
+                <?php foreach ($sections as $section) : ?>
+                    <?php get_template_part('templates/pages/profiles/catalog-section', null, $section); ?>
+                <?php endforeach; ?>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<?php get_footer(); ?>
