@@ -10,7 +10,7 @@
 @layer components {
 
   .machine-default__title {
-    @apply font-sans font-medium text-blue-900 mt-3;
+    @apply font-sans font-medium text-blue-900;
     font-size: var(--text-heading);
     line-height: 1.1;
     letter-spacing: -0.01em;
@@ -47,11 +47,20 @@
   }
 
   .machine-default__gallery-main {
-    @apply bg-white border border-blue-200 overflow-hidden;
+    @apply bg-white border border-blue-200 overflow-hidden flex items-center justify-center;
+    aspect-ratio: 4 / 3;
   }
 
   .machine-default__gallery-main img {
-    @apply w-full h-auto;
+    @apply w-full h-full object-contain;
+  }
+
+  @media (min-width: 1024px) {
+    .machine-default__gallery-main {
+      max-height: 60vh;
+      aspect-ratio: auto;
+      min-height: 360px;
+    }
   }
 
   .machine-default__gallery-thumbs {
@@ -75,5 +84,43 @@
     @apply w-full h-auto block;
     aspect-ratio: 1 / 1;
     object-fit: cover;
+  }
+
+  /* Footprint blueprint. Reads as an engineering spec sheet, not a photo:
+     monospace caption strip, hairline grid behind the diagram. */
+  .machine-default__blueprint-figure {
+    @apply m-0 border border-blue-200 bg-white;
+  }
+
+  .machine-default__blueprint-caption {
+    @apply flex items-center justify-between px-4 py-2 border-b border-blue-200;
+    @apply font-mono text-xs uppercase tracking-wider text-blue-500;
+  }
+
+  .machine-default__blueprint-caption a {
+    @apply text-blue-700 normal-case tracking-normal;
+    transition: color 150ms var(--ease-out, ease-out);
+  }
+
+  .machine-default__blueprint-caption a:hover {
+    @apply text-blue-500;
+  }
+
+  .machine-default__blueprint-canvas {
+    @apply p-4;
+    background-color: var(--color-blue-50);
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--color-blue-200) 60%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--color-blue-200) 60%, transparent) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .machine-default__blueprint-canvas img {
+    @apply w-full h-auto block;
+    mix-blend-mode: multiply;
+  }
+
+  .machine-default__blueprint-title {
+    @apply px-4 py-3 border-t border-blue-200 text-sm font-medium text-blue-900;
   }
 }

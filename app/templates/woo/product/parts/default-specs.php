@@ -51,33 +51,14 @@ if (!empty($standard_features)) {
     $sections[__('Standard Features', 'standard')] = ob_get_clean();
 }
 
-if (!empty($specs_html) || !empty($footprints)) {
+// Footprint is handled separately as an always-visible blueprint column;
+// only specs_html stays inside the accordion.
+if (!empty($specs_html)) {
     ob_start(); ?>
-    <?php if (!empty($specs_html)) : ?>
-        <div class="prose prose-sm text-blue-700 max-w-none">
-            <?php echo wp_kses_post($specs_html); ?>
-        </div>
-    <?php endif; ?>
-
-    <?php if (is_array($footprints) && !empty($footprints)) : ?>
-        <div class="mt-6 grid gap-4">
-            <?php foreach ($footprints as $footprint) :
-                $fp_id    = is_object($footprint) ? ($footprint->ID ?? 0) : (int) $footprint;
-                if (!$fp_id) continue;
-                $fp_url   = get_permalink($fp_id);
-                $fp_title = get_the_title($fp_id);
-                $fp_image = get_the_post_thumbnail_url($fp_id, 'large');
-            ?>
-                <a href="<?php echo esc_url($fp_url); ?>" class="block border border-blue-200 bg-white hover:border-blue-400 transition-all">
-                    <?php if ($fp_image) : ?>
-                        <img src="<?php echo esc_url($fp_image); ?>" alt="<?php echo esc_attr($fp_title); ?>" class="w-full h-auto" loading="lazy">
-                    <?php endif; ?>
-                    <p class="px-4 py-3 text-sm text-blue-700 font-medium"><?php echo esc_html($fp_title); ?></p>
-                </a>
-            <?php endforeach; ?>
-        </div>
-    <?php endif;
-    $sections[__('Specifications', 'standard')] = ob_get_clean();
+    <div class="prose prose-sm text-blue-700 max-w-none">
+        <?php echo wp_kses_post($specs_html); ?>
+    </div>
+    <?php $sections[__('Specifications', 'standard')] = ob_get_clean();
 }
 
 if (!empty($warranties)) {
@@ -134,12 +115,25 @@ if (empty($sections)) {
     <div class="container section-content">
 
         <?php
-        // Only render the side image column when there's a dedicated specs_img.
-        // Otherwise the featured photo would just repeat what's already in the
-        // fold gallery.
+        // Right column priority: footprint blueprint (engineering diagram)
+        // wins over specs_img. Footprint is the primary always-visible asset.
+        $footprint_items = [];
+        if (is_array($footprints)) {
+            foreach ($footprints as $footprint) {
+                $fp_id = is_object($footprint) ? ($footprint->ID ?? 0) : (int) $footprint;
+                if (!$fp_id) continue;
+                $footprint_items[] = [
+                    'id'    => $fp_id,
+                    'title' => get_the_title($fp_id),
+                    'image' => get_the_post_thumbnail_url($fp_id, 'full') ?: get_the_post_thumbnail_url($fp_id, 'large'),
+                    'url'   => get_permalink($fp_id),
+                ];
+            }
+        }
+
         $side_image_url = '';
         $side_image_alt = $product->get_name();
-        if (!empty($specs_img)) {
+        if (empty($footprint_items) && !empty($specs_img)) {
             $side_image_url = is_array($specs_img)
                 ? ($specs_img['url'] ?? '')
                 : (is_numeric($specs_img) ? wp_get_attachment_image_url((int) $specs_img, 'large') : (string) $specs_img);
@@ -147,9 +141,12 @@ if (empty($sections)) {
                 $side_image_alt = $specs_img['alt'];
             }
         }
-        $grid_class = $side_image_url
+
+        $has_right_column = !empty($footprint_items) || $side_image_url;
+        $grid_class = $has_right_column
             ? 'grid lg:grid-cols-[5fr_4fr] gap-12 items-start'
             : 'max-w-3xl';
+
         ?>
         <div class="<?php echo esc_attr($grid_class); ?>">
 
@@ -161,8 +158,8 @@ if (empty($sections)) {
                 </div>
 
                 <div data-accordion-group>
-                    <?php $first = true; foreach ($sections as $title => $content) : ?>
-                        <details class="accordion"<?php echo $first ? ' open' : ''; ?>>
+                    <?php foreach ($sections as $title => $content) : ?>
+                        <details class="accordion">
                             <summary>
                                 <?php echo esc_html($title); ?>
                                 <span class="accordion__icon"><?php icon('chevron-down', ['class' => 'w-4 h-4']); ?></span>
@@ -171,11 +168,32 @@ if (empty($sections)) {
                                 <?php echo $content; // pre-escaped during build ?>
                             </div>
                         </details>
-                    <?php $first = false; endforeach; ?>
+                    <?php endforeach; ?>
                 </div>
             </div>
 
-            <?php if ($side_image_url) : ?>
+            <?php if (!empty($footprint_items)) : ?>
+                <aside class="machine-default__blueprint lg:sticky lg:top-24" aria-label="<?php esc_attr_e('Footprint specification', 'standard'); ?>">
+                    <?php foreach ($footprint_items as $i => $fp) : ?>
+                        <figure class="machine-default__blueprint-figure<?php echo $i > 0 ? ' mt-4' : ''; ?>">
+                            <div class="machine-default__blueprint-caption">
+                                <span><?php esc_html_e('Footprint', 'standard'); ?></span>
+                                <a href="<?php echo esc_url($fp['url']); ?>" target="_blank" rel="noopener">
+                                    <?php esc_html_e('Open full diagram', 'standard'); ?>
+                                </a>
+                            </div>
+                            <?php if ($fp['image']) : ?>
+                                <div class="machine-default__blueprint-canvas">
+                                    <img src="<?php echo esc_url($fp['image']); ?>" alt="<?php echo esc_attr(sprintf(__('%s footprint diagram', 'standard'), $product->get_name())); ?>" loading="lazy">
+                                </div>
+                            <?php endif; ?>
+                            <figcaption class="machine-default__blueprint-title">
+                                <?php echo esc_html($fp['title']); ?>
+                            </figcaption>
+                        </figure>
+                    <?php endforeach; ?>
+                </aside>
+            <?php elseif ($side_image_url) : ?>
                 <div class="hidden lg:block sticky top-24">
                     <div class="bg-white border border-blue-200 overflow-hidden">
                         <img src="<?php echo esc_url($side_image_url); ?>" alt="<?php echo esc_attr($side_image_alt); ?>" class="w-full h-auto" loading="lazy">

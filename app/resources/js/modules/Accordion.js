@@ -3,7 +3,8 @@
  *
  * Smooth animated open/close for native <details> accordion groups.
  * Add [data-accordion-group] to the parent container.
- * First <details> opens on init; clicking another closes the rest.
+ * All items closed by default; clicking opens (closing any open sibling),
+ * clicking an open item closes it. At most one open at a time.
  *
  * @module Accordion
  */
@@ -87,11 +88,6 @@ export function initAccordion() {
     const items = [...group.querySelectorAll(':scope > details')];
     if (!items.length) return;
 
-    // Ensure first item is open
-    if (!items.some((d) => d.open)) {
-      items[0].open = true;
-    }
-
     items.forEach((detail) => {
       const summary = detail.querySelector('summary');
       if (!summary) return;
@@ -100,18 +96,16 @@ export function initAccordion() {
         e.preventDefault();
 
         if (detail.open) {
-          // Don't close if it's the only open one (always-one-open)
+          animateClose(detail);
           return;
         }
 
-        // Close any open sibling with animation
         items.forEach((other) => {
           if (other !== detail && other.open) {
             animateClose(other);
           }
         });
 
-        // Open the clicked one with animation
         animateOpen(detail);
       }, { signal: controller.signal });
     });

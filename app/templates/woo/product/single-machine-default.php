@@ -41,7 +41,7 @@ get_header();
 
     <section class="section machine-default__fold" aria-labelledby="machine-default-title">
         <div class="container section-content">
-            <div class="grid lg:grid-cols-[3fr_2fr] gap-10 lg:gap-16 items-start">
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
 
                 <div class="machine-default__gallery">
                     <?php
@@ -81,11 +81,10 @@ get_header();
                 </div>
 
                 <div class="machine-default__summary">
-                    <p class="section-eyebrow"><?php
+                    <p class="section-eyebrow mb-2"><?php
                         $categories = wp_get_post_terms($product->get_id(), 'product_cat', ['fields' => 'names']);
                         echo esc_html(is_array($categories) && !empty($categories) ? $categories[0] : __('Machine', 'standard'));
                     ?></p>
-                    <div class="section-divider"></div>
 
                     <h1 id="machine-default-title" class="machine-default__title">
                         <?php echo esc_html($product->get_name()); ?>
@@ -99,12 +98,12 @@ get_header();
                     <?php endif; ?>
 
                     <div class="machine-default__actions">
-                        <a href="<?php echo esc_url(\Standard\Url\internal('/contact/?product=' . $product->get_slug())); ?>" class="btn btn-primary">
-                            <?php esc_html_e('Request a Quote', 'standard'); ?>
+                        <a href="<?php echo esc_url(\Standard\Url\internal('/configurator/' . $product->get_slug() . '/')); ?>" class="btn btn-primary">
+                            <?php esc_html_e('Build & Quote', 'standard'); ?>
                             <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                         </a>
-                        <a href="<?php echo esc_url(\Standard\Url\internal('/dealers/')); ?>" class="btn btn-secondary">
-                            <?php esc_html_e('Find a Dealer', 'standard'); ?>
+                        <a href="<?php echo esc_url(\Standard\Url\internal('/contact/')); ?>" class="btn btn-secondary">
+                            <?php esc_html_e('Talk to a Specialist', 'standard'); ?>
                         </a>
                     </div>
 
@@ -141,10 +140,10 @@ get_header();
     <?php get_template_part('templates/woo/product/parts/default-profiles', null, compact('product')); ?>
 
     <?php get_template_part('templates/parts/cta/closer', null, [
-        'title'           => sprintf(__('Talk to us about the %s', 'standard'), $product->get_name()),
-        'text'            => __('Spec sheets, dealer routing, financing, training. One conversation gets you set up.', 'standard'),
-        'cta_primary'     => __('Request a Quote', 'standard'),
-        'cta_primary_url' => '/contact/?product=' . $product->get_slug(),
+        'title'           => sprintf(__('Configure your %s', 'standard'), $product->get_name()),
+        'text'            => __('Pick a configuration, get pricing, and route a specialist to your build. One flow.', 'standard'),
+        'cta_primary'     => __('Build & Quote', 'standard'),
+        'cta_primary_url' => '/configurator/' . $product->get_slug() . '/',
         'section_id'      => 'machine-default-closer-title',
     ]); ?>
 
