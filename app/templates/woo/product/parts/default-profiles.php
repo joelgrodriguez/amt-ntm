@@ -62,7 +62,7 @@ $title_id    = 'default-profiles-title';
                     <?php esc_html_e('What it forms', 'standard'); ?>
                 </h2>
             </div>
-            <div class="flex gap-2 shrink-0">
+            <div class="flex gap-2 shrink-0 self-end md:self-auto">
                 <button type="button"
                         data-carousel-prev="<?php echo esc_attr($carousel_id); ?>"
                         class="carousel__nav"

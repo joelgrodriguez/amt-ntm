@@ -31,7 +31,7 @@ $carousel_id = 'compatible-machines-' . $product->get_id();
 $title_id    = 'compatible-machines-title';
 ?>
 
-<section class="section bg-light" aria-labelledby="<?php echo esc_attr($title_id); ?>">
+<section class="section bg-blue-50 border-b border-blue-200" aria-labelledby="<?php echo esc_attr($title_id); ?>">
     <div class="container section-content">
 
         <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
@@ -41,7 +41,7 @@ $title_id    = 'compatible-machines-title';
                     <?php esc_html_e('Works with these machines', 'standard'); ?>
                 </h2>
             </div>
-            <div class="flex gap-2 shrink-0">
+            <div class="flex gap-2 shrink-0 self-end md:self-auto">
                 <button type="button"
                         data-carousel-prev="<?php echo esc_attr($carousel_id); ?>"
                         class="carousel__nav"

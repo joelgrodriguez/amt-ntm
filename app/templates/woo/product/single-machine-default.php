@@ -180,11 +180,13 @@ get_header();
     <?php get_template_part('templates/woo/product/parts/default-profiles', null, compact('product')); ?>
 
     <?php get_template_part('templates/parts/cta/closer', null, [
-        'title'           => sprintf(__('Configure your %s', 'standard'), $product->get_name()),
-        'text'            => __('Pick a configuration, get pricing, and route a specialist to your build. One flow.', 'standard'),
-        'cta_primary'     => __('Build & Quote', 'standard'),
-        'cta_primary_url' => '/configurator/' . $product->get_slug() . '/',
-        'section_id'      => 'machine-default-closer-title',
+        'title'             => sprintf(__('Configure your %s', 'standard'), $product->get_name()),
+        'text'              => __('Pick a configuration, get pricing, and route a specialist to your build. One flow.', 'standard'),
+        'cta_primary'       => __('Build & Quote', 'standard'),
+        'cta_primary_url'   => '/configurator/' . $product->get_slug() . '/',
+        'cta_secondary'     => __('Talk to a Specialist', 'standard'),
+        'cta_secondary_url' => '/contact/',
+        'section_id'        => 'machine-default-closer-title',
     ]); ?>
 
 </main>

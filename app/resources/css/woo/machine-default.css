@@ -80,11 +80,33 @@
     @apply snap-start shrink-0 m-0 flex items-center justify-center;
     width: 100%;
     height: 100%;
-    padding: 12%;
+    box-sizing: border-box;
+    padding: 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .machine-default__gallery-slide {
+      padding: 2.5rem;
+    }
   }
 
   .machine-default__gallery-slide img {
     @apply max-w-full max-h-full;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* Leave room for the absolutely-positioned nav arrows at the bottom
+     so a tall image doesn't bottom out under them. */
+  .machine-default__gallery-frame:has(.machine-default__gallery-nav) .machine-default__gallery-slide {
+    padding-bottom: 4.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .machine-default__gallery-frame:has(.machine-default__gallery-nav) .machine-default__gallery-slide {
+      padding-bottom: 5rem;
+    }
   }
 
   .machine-default__gallery-nav {

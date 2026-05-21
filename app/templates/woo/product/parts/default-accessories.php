@@ -78,7 +78,7 @@ $section_title = sprintf(
                     <?php echo esc_html($section_title); ?>
                 </h2>
             </div>
-            <div class="flex gap-2 shrink-0">
+            <div class="flex gap-2 shrink-0 self-end md:self-auto">
                 <button type="button"
                         data-carousel-prev="<?php echo esc_attr($carousel_id); ?>"
                         class="carousel__nav"

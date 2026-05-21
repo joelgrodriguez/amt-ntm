@@ -48,7 +48,7 @@ get_header();
                     <p class="section-eyebrow mb-2"><?php esc_html_e('Related', 'standard'); ?></p>
                     <h2 id="related-accessories-title" class="section-title"><?php esc_html_e('More accessories', 'standard'); ?></h2>
                 </div>
-                <div class="flex gap-2 shrink-0">
+                <div class="flex gap-2 shrink-0 self-end md:self-auto">
                     <button type="button"
                             data-carousel-prev="<?php echo esc_attr($related_carousel_id); ?>"
                             class="carousel__nav"
