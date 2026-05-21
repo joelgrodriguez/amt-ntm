@@ -45,23 +45,41 @@ $tags        = wp_get_post_terms($product->get_id(), 'product_tag', ['fields' =>
                         ]); ?>
                     </figure>
                 <?php endif; ?>
-                <?php if (!empty($gallery_ids)) : ?>
-                    <ul class="machine-default__gallery-thumbs">
-                        <?php foreach ($gallery_ids as $gid) :
-                            $full = wp_get_attachment_image_url($gid, 'large');
-                            if (!$full) continue;
-                        ?>
-                            <li>
-                                <a href="<?php echo esc_url($full); ?>" target="_blank" rel="noopener">
+                <?php if (!empty($gallery_ids)) :
+                    $thumbs_id = 'accessory-thumbs-' . $product->get_id();
+                ?>
+                    <div class="machine-default__thumbs-row">
+                        <div id="<?php echo esc_attr($thumbs_id); ?>" class="machine-default__thumbs carousel__track">
+                            <?php foreach ($gallery_ids as $gid) :
+                                $full = wp_get_attachment_image_url($gid, 'large');
+                                if (!$full) continue;
+                            ?>
+                                <a href="<?php echo esc_url($full); ?>" target="_blank" rel="noopener" class="machine-default__thumb">
                                     <?php echo wp_get_attachment_image($gid, 'medium', false, [
-                                        'class' => 'w-full h-auto',
+                                        'class' => 'w-full h-full object-contain',
                                         'alt'   => $product->get_name(),
                                         'loading' => 'lazy',
                                     ]); ?>
                                 </a>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
+                            <?php endforeach; ?>
+                        </div>
+                        <?php if (count($gallery_ids) > 4) : ?>
+                            <div class="machine-default__thumbs-nav">
+                                <button type="button"
+                                        data-carousel-prev="<?php echo esc_attr($thumbs_id); ?>"
+                                        class="carousel__nav"
+                                        aria-label="<?php esc_attr_e('Previous image', 'standard'); ?>">
+                                    <?php icon('arrow-left', ['class' => 'w-4 h-4 text-blue-700']); ?>
+                                </button>
+                                <button type="button"
+                                        data-carousel-next="<?php echo esc_attr($thumbs_id); ?>"
+                                        class="carousel__nav"
+                                        aria-label="<?php esc_attr_e('Next image', 'standard'); ?>">
+                                    <?php icon('arrow-right', ['class' => 'w-4 h-4 text-blue-700']); ?>
+                                </button>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 <?php endif; ?>
             </div>
 

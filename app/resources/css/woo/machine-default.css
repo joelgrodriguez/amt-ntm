@@ -49,6 +49,7 @@
   .machine-default__gallery-main {
     @apply bg-white border border-blue-200 overflow-hidden flex items-center justify-center;
     aspect-ratio: 4 / 3;
+    padding: 12%;
   }
 
   .machine-default__gallery-main img {
@@ -63,27 +64,41 @@
     }
   }
 
-  .machine-default__gallery-thumbs {
-    @apply mt-3 grid grid-cols-4 gap-2 list-none p-0;
+  .machine-default__fold {
+    @apply border-b border-blue-200;
   }
 
-  .machine-default__gallery-thumbs li {
-    @apply m-0;
+  .machine-default__thumbs-row {
+    @apply mt-3 flex items-center gap-3;
   }
 
-  .machine-default__gallery-thumbs a {
-    @apply block bg-white border border-blue-200 overflow-hidden;
+  .machine-default__thumbs {
+    @apply flex-1 min-w-0;
+  }
+
+  /* Override carousel__track's defaults so thumbs sit tight against
+     the gallery edges (no negative margin / padding inheritance). */
+  .machine-default__thumbs.carousel__track {
+    @apply gap-2 m-0 p-0 pb-0;
+  }
+
+  .machine-default__thumb {
+    @apply snap-start shrink-0 block bg-white border border-blue-200 overflow-hidden p-2;
+    width: calc((100% - 0.5rem * 3) / 4);
+    aspect-ratio: 1 / 1;
     transition: border-color 150ms var(--ease-out, ease-out);
   }
 
-  .machine-default__gallery-thumbs a:hover {
+  .machine-default__thumb:hover {
     @apply border-blue-500;
   }
 
-  .machine-default__gallery-thumbs img {
-    @apply w-full h-auto block;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
+  .machine-default__thumb img {
+    @apply w-full h-full block;
+  }
+
+  .machine-default__thumbs-nav {
+    @apply flex gap-2 shrink-0;
   }
 
   /* Footprint blueprint. Reads as an engineering spec sheet, not a photo:
