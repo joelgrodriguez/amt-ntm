@@ -127,7 +127,7 @@ function get_machine_categories(): array {
                     'name'              => 'SSH™ MultiPro',
                     'short_name' => 'SSH™',
                     'descriptor' => 'Residential & light commercial machine',
-                    'image'      => $base . '2025/09/20250911_NTM_SSQ-II_1000x1000.png', // TODO: replace with SSH product image when available
+                    'image'      => $base . '2025/09/20250911_NTM_SSH_1000x1000.png',
                     'url'        => get_product_url('ssh-multipro'),
                     'badge'      => '',
                     'highlights' => [

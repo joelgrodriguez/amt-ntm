@@ -45,17 +45,24 @@ $has_price = !empty($machine['price']);
             </h4>
         </div>
 
-        <?php if ($has_price) : ?>
-            <!-- Price -->
-            <div>
+        <!-- Price / configured-pricing note -->
+        <div>
+            <?php if ($has_price) : ?>
                 <p class="text-lg font-medium text-blue-900">
                     <?php echo esc_html($machine['price']); ?>
                 </p>
-                <p class="text-xs text-blue-500 uppercase tracking-wide">
+                <p class="font-mono text-xs text-blue-500 uppercase tracking-wider">
                     <?php echo esc_html($machine['price_label']); ?>
                 </p>
-            </div>
-        <?php endif; ?>
+            <?php else : ?>
+                <p class="text-lg font-medium text-blue-900">
+                    <?php esc_html_e('Configured pricing', 'standard'); ?>
+                </p>
+                <p class="font-mono text-xs text-blue-500 uppercase tracking-wider">
+                    <?php esc_html_e('Build to see your number', 'standard'); ?>
+                </p>
+            <?php endif; ?>
+        </div>
 
         <!-- Highlights -->
         <div class="flex flex-col gap-3 text-sm text-blue-700 grow">
@@ -65,20 +72,13 @@ $has_price = !empty($machine['price']);
         </div>
 
         <!-- CTAs -->
-        <?php if ($has_price) : ?>
-            <div class="flex gap-3 mt-auto relative z-10">
-                <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="btn btn-outline-dark btn-sm">
-                    <?php esc_html_e('Explore', 'standard'); ?>
-                </a>
-                <a href="<?php echo esc_url(\Standard\Url\with_query('/build-finance/', ['machine' => $machine['slug']])); ?>" class="btn btn-ghost btn-sm">
-                    <?php esc_html_e('Build', 'standard'); ?>
-                </a>
-            </div>
-        <?php else : ?>
-            <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="inline-flex items-center gap-1 text-sm font-medium text-blue-900 hover:text-blue-500 transition-colors no-underline mt-auto relative z-10">
-                <?php esc_html_e('Explore More', 'standard'); ?>
-                <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+        <div class="flex gap-3 mt-auto relative z-10">
+            <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="btn btn-outline-dark btn-sm">
+                <?php esc_html_e('Explore', 'standard'); ?>
             </a>
-        <?php endif; ?>
+            <a href="<?php echo esc_url(\Standard\Url\with_query('/build-finance/', ['machine' => $machine['slug']])); ?>" class="btn btn-ghost btn-sm">
+                <?php esc_html_e('Build', 'standard'); ?>
+            </a>
+        </div>
     </div>
 </div>
