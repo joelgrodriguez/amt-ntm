@@ -38,7 +38,9 @@ $matrix   = get_fitment_matrix();
                 <?php esc_html_e('What Fits Your Machine', 'standard'); ?>
             </h2>
             <p class="section-subtitle-centered">
-                <?php esc_html_e('Counts show how many accessories can ship with each machine. Click any cell to jump to that group.', 'standard'); ?>
+                <?php esc_html_e('Counts show how many accessories can ship with each machine.', 'standard'); ?>
+                <br class="hidden md:inline">
+                <?php esc_html_e('Click any cell to jump to that group.', 'standard'); ?>
             </p>
         </div>
 
