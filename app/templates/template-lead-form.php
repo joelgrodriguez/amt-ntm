@@ -50,7 +50,7 @@ while (have_posts()) :
 
     <section class="section" aria-labelledby="lead-form-content-title">
         <div class="container">
-            <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(320px,420px)] lg:gap-16 lg:items-start">
+            <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(420px,560px)] lg:gap-16 lg:items-start">
                 <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-8 min-w-0 order-2 lg:order-none lg:col-start-1 lg:row-start-1'); ?>>
                     <?php if (!$has_hero) : ?>
                         <header class="section-header-left max-w-3xl">
@@ -58,7 +58,7 @@ while (have_posts()) :
                             <h1 id="lead-form-content-title" class="font-sans text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-blue-900 leading-none">
                                 <?php
                                 if ($is_contact) {
-                                    esc_html_e('Where NTM lives.', 'standard');
+                                    esc_html_e('Talk to NTM.', 'standard');
                                 } else {
                                     the_title();
                                 }
@@ -117,9 +117,8 @@ while (have_posts()) :
                                     <?php icon('phone', ['class' => 'w-5 h-5 md:w-6 md:h-6 text-blue-500 shrink-0']); ?>
                                     <span>303.294.0538</span>
                                 </a>
-                                <p class="font-mono text-xs uppercase tracking-widest text-blue-700 inline-flex items-center gap-2 m-0">
-                                    <span class="inline-block w-1.5 h-1.5 bg-red shrink-0" aria-hidden="true"></span>
-                                    <?php esc_html_e('Or send the details below. Response within 1 business day.', 'standard'); ?>
+                                <p class="font-mono text-xs uppercase tracking-widest text-blue-700 m-0">
+                                    <?php esc_html_e('Or send the details below.', 'standard'); ?>
                                 </p>
                             </header>
                         <?php else : ?>

@@ -28,13 +28,13 @@ if (empty($faqs)) {
 
 <div data-accordion-group>
     <?php foreach ($faqs as $faq) : ?>
-        <details class="accordion accordion--lg">
+        <details class="accordion">
             <summary>
-                <span class="leading-snug">
+                <span class="text-base leading-snug pr-4">
                     <?php echo esc_html($faq['question']); ?>
                 </span>
                 <span class="accordion__icon">
-                    <?php icon('chevron-down', ['class' => 'w-5 h-5']); ?>
+                    <?php icon('chevron-down', ['class' => 'w-4 h-4']); ?>
                 </span>
             </summary>
             <div class="accordion__body text-base text-blue-600 leading-relaxed">
