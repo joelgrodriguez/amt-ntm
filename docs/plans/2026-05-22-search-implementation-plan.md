@@ -242,5 +242,5 @@ Expected behavior:
 From the WordPress root after this theme is active:
 
 ```bash
-wp eval-file wp-content/themes/amt-ntm/scripts/search-smoke.php --allow-root
+wp eval-file wp-content/themes/amt-ntm/scripts/search-smoke.php --use-include --allow-root
 ```

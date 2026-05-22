@@ -3,7 +3,7 @@
  * WP-CLI smoke checks for the theme search contract.
  *
  * Run from a loaded WordPress install:
- * wp eval-file wp-content/themes/amt-ntm/scripts/search-smoke.php --allow-root
+ * wp eval-file wp-content/themes/amt-ntm/scripts/search-smoke.php --use-include --allow-root
  *
  * @package Standard
  */
