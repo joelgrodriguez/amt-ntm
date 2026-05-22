@@ -26,7 +26,7 @@ $content = [
 ];
 ?>
 
-<section class="section-compact bg-blue-50 border-y border-blue-200" aria-labelledby="which-machine-title">
+<section class="section bg-blue-50 border-y border-blue-200" aria-labelledby="which-machine-title">
     <div class="container grid gap-8 text-center max-w-3xl mx-auto">
         <div class="grid gap-4">
             <h2 id="which-machine-title" class="section-title">

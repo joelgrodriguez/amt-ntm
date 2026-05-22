@@ -46,7 +46,7 @@ $has_iframe_video = $embed !== '';
 $has_mp4_video    = (bool) $is_mp4;
 ?>
 
-<section class="relative overflow-hidden bg-blue-900 text-white" aria-labelledby="<?php echo esc_attr($section_id); ?>-title">
+<section class="relative overflow-hidden bg-blue-900 text-white pattern-dot-grid pattern-dot-grid--dark" aria-labelledby="<?php echo esc_attr($section_id); ?>-title">
     <div class="container py-16 lg:py-20 xl:py-24">
         <div class="grid gap-10 lg:grid-cols-12 lg:gap-12 lg:items-center">
 

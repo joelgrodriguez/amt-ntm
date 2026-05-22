@@ -45,16 +45,20 @@ $price_label = $machine['price_label'] ?? __('Starting at', 'standard');
     <!-- Content -->
     <div class="grid gap-6 p-8 lg:gap-8 lg:p-12 xl:p-16">
 
-        <div class="flex flex-wrap items-center gap-3">
-            <span class="badge badge-emphasis">
-                <?php echo esc_html($machine['badge']); ?>
-            </span>
-            <?php if (!empty($machine['descriptor'])) : ?>
-                <span class="font-mono text-xs uppercase tracking-[0.15em] text-blue-300">
-                    <?php echo esc_html($machine['descriptor']); ?>
-                </span>
-            <?php endif; ?>
-        </div>
+        <?php if (!empty($machine['badge']) || !empty($machine['descriptor'])) : ?>
+            <div class="flex flex-wrap items-center gap-3">
+                <?php if (!empty($machine['badge'])) : ?>
+                    <span class="badge badge-emphasis">
+                        <?php echo esc_html($machine['badge']); ?>
+                    </span>
+                <?php endif; ?>
+                <?php if (!empty($machine['descriptor'])) : ?>
+                    <span class="font-mono text-xs uppercase tracking-[0.15em] text-blue-300">
+                        <?php echo esc_html($machine['descriptor']); ?>
+                    </span>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
 
         <h4 class="text-4xl font-medium tracking-tight text-white lg:text-5xl xl:text-6xl">
             <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="no-underline text-inherit hover:text-blue-200 transition-colors">
