@@ -34,7 +34,7 @@ $hero_nav = [
         <div class="section-header-left max-w-3xl">
             <p class="section-eyebrow"><?php esc_html_e('Manuals', 'standard'); ?></p>
             <div class="section-divider"></div>
-            <h1 class="font-mono font-medium text-heading lg:text-heading-lg text-blue-900 leading-tight tracking-tight">
+            <h1 class="font-mono font-medium text-heading-lg lg:text-display text-blue-900 leading-tight tracking-tight">
                 <?php esc_html_e('Operator and Service Manuals', 'standard'); ?>
             </h1>
         </div>
