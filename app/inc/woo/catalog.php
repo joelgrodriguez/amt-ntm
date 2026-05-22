@@ -92,6 +92,7 @@ function get_woocommerce_products(string $category_slug): array {
             'image'          => \wp_get_attachment_url($product->get_image_id()),
             'price'          => $is_accessory ? '' : get_display_price($product),
             'price_label'    => \__('Starting at', 'standard'),
+            'subtitle'       => $is_accessory ? ($product->get_price_html() ?: null) : null,
             'explore_url'    => $product->get_permalink(),
             'build_url'      => $is_accessory ? '' : get_configurator_url($product->get_slug()),
             'badge'          => '',

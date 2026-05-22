@@ -5,8 +5,8 @@
  * Landing page for the Accessories & Upgrades catalog.
  *
  * Wraps the 60+ product Woo "Accessories & Add-On Equipment" category in
- * a hero, a horizontal jump-nav strip, a UNIQ spotlight, the bucketed
- * catalog, a fits-which-machine matrix, owner resources, and a final CTA.
+ * a hero, a horizontal jump-nav strip, the bucketed catalog grid, a
+ * fits-which-machine matrix, owner resources, and a final CTA.
  *
  * @package Standard
  */
@@ -25,8 +25,6 @@ get_header();
     <?php get_template_part('templates/pages/accessories/hero'); ?>
 
     <?php get_template_part('templates/pages/accessories/catalog-nav'); ?>
-
-    <?php get_template_part('templates/pages/accessories/spotlight-uniq'); ?>
 
     <?php get_template_part('templates/pages/accessories/catalog-grid'); ?>
 

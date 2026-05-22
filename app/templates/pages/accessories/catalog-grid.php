@@ -2,14 +2,8 @@
 /**
  * Accessories Page — Catalog Grid
  *
- * The page's WooCommerce work. Six anchor-targeted bucket groups, each
- * rendering as a responsive card grid using the canonical `card-product`
- * partial and the system gap (gap-8 / lg:gap-10).
- *
- * No bespoke hairline-divider grid: that pattern is reserved for the
- * machine lineup pages where there are ~6 hero products. For 60+ product
- * accessory listings, the canonical pattern is a standard gapped grid
- * (matches front-page Explore strip and Woo catalog elsewhere).
+ * Six anchor-targeted bucket groups, each a responsive card grid using
+ * the canonical `card-accessory` partial and the system gap.
  *
  * @package Standard
  *
@@ -48,10 +42,10 @@ $bucketed = get_bucketed_products();
                 <div id="catalog-<?php echo esc_attr($bucket['id']); ?>" class="grid gap-8 scroll-mt-24">
 
                     <div class="flex items-center justify-between border-b border-blue-200 pb-4">
-                        <h3 class="font-mono text-lg font-medium text-blue-400 uppercase tracking-wider">
+                        <h3 class="font-sans font-medium text-blue-900 text-xl md:text-2xl tracking-tight">
                             <?php echo esc_html($bucket['label']); ?>
                         </h3>
-                        <p class="font-mono text-xs uppercase tracking-wider text-blue-500">
+                        <p class="font-sans text-sm text-blue-500">
                             <?php
                             /* translators: %d: number of products in this bucket */
                             printf(esc_html__('%d items', 'standard'), count($products));
@@ -61,7 +55,7 @@ $bucketed = get_bucketed_products();
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 lg:gap-10">
                         <?php foreach ($products as $product) : ?>
-                            <?php get_template_part('templates/parts/card-product', null, ['product' => $product]); ?>
+                            <?php get_template_part('templates/parts/card-accessory', null, ['card' => $product]); ?>
                         <?php endforeach; ?>
                     </div>
 
