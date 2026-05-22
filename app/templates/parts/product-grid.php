@@ -21,6 +21,7 @@ if (!defined('ABSPATH')) {
 
 use function Standard\Grid\get_card_border_classes;
 use function Standard\Grid\get_overflow_border_classes;
+use function Standard\Grid\get_lg_col_start_class;
 
 $machines   = $args['machines'] ?? [];
 $cols       = $args['cols'] ?? 3;
@@ -62,7 +63,7 @@ $grid_cols_class = $grid_cols_map[$cols] ?? 'sm:grid-cols-2 lg:grid-cols-3';
                 ?>
                 <?php foreach ($bottom_row as $i => $machine) : ?>
                     <?php $col_start = $offset + $i + 1; ?>
-                    <div class="lg:col-start-<?php echo esc_attr((string) $col_start); ?> <?php echo esc_attr(get_overflow_border_classes($i, $overflow_count)); ?>">
+                    <div class="<?php echo esc_attr(get_lg_col_start_class($col_start)); ?> <?php echo esc_attr(get_overflow_border_classes($i, $overflow_count)); ?>">
                         <?php get_template_part('templates/pages/machines/lineup-card', null, ['machine' => $machine]); ?>
                     </div>
                 <?php endforeach; ?>

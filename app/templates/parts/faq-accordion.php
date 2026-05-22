@@ -30,7 +30,7 @@ if (empty($content) || empty($faqs)) {
 }
 ?>
 
-<section class="section bg-light" aria-labelledby="<?php echo esc_attr($section_id); ?>">
+<section class="section bg-blue-50" aria-labelledby="<?php echo esc_attr($section_id); ?>">
     <div class="container">
         <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-start">
 

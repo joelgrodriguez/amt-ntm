@@ -84,7 +84,8 @@ $rows = [
 
         <!-- Desktop: Full table -->
         <div class="hidden lg:block overflow-x-auto">
-            <table class="w-full text-sm border-collapse border border-blue-200">
+            <table class="w-full text-sm border-collapse border border-blue-200" aria-labelledby="comparison-title">
+                <caption class="sr-only"><?php echo esc_html($content['title']); ?></caption>
                 <!-- Header row: machine names -->
                 <thead>
                     <tr>
