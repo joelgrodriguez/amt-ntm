@@ -53,6 +53,7 @@ $theme_includes = [
     'inc/learning-center.php',
     'inc/machines-data.php',
     'inc/contact-data.php',
+    'inc/accessories-data.php',
     'inc/machine-schema.php',
     'inc/post-types.php',
     'inc/walkers/class-pagination.php',
