@@ -29,14 +29,31 @@ if (!defined('ABSPATH')) {
  * @return string        Space-separated Tailwind border classes.
  */
 function get_card_border_classes(int $idx, int $total, int $cols): string {
-    $is_last_sm = ($idx % 2 === 1) || ($idx === $total - 1);
-    $is_last_lg = (($idx + 1) % $cols === 0) || ($idx === $total - 1);
+    // sm: 2-col grid → row index pair-based
+    $sm_cols       = 2;
+    $sm_row        = (int) floor($idx / $sm_cols);
+    $sm_total_rows = (int) ceil($total / $sm_cols);
+    $is_last_sm_row = $sm_row === $sm_total_rows - 1;
+    $is_last_sm_col = ($idx % $sm_cols) === ($sm_cols - 1) || ($idx === $total - 1);
 
-    $classes = 'border-b border-blue-200';
-    $classes .= $is_last_sm ? '' : ' sm:border-r';
-    $classes .= $is_last_lg ? ' lg:border-r-0' : ' lg:border-r';
+    // lg: $cols-col grid
+    $lg_row        = (int) floor($idx / $cols);
+    $lg_total_rows = (int) ceil($total / $cols);
+    $is_last_lg_row = $lg_row === $lg_total_rows - 1;
+    $is_last_lg_col = (($idx + 1) % $cols === 0) || ($idx === $total - 1);
 
-    return $classes;
+    // Mobile (1-col): only bottom divider, never on the last card
+    $classes = $idx === $total - 1 ? '' : 'border-b border-blue-200';
+
+    // sm (2-col): bottom divider unless last row; right divider unless last col
+    $classes .= $is_last_sm_row ? ' sm:border-b-0' : ' sm:border-b';
+    $classes .= $is_last_sm_col ? ' sm:border-r-0' : ' sm:border-r';
+
+    // lg ($cols): bottom divider unless last row; right divider unless last col
+    $classes .= $is_last_lg_row ? ' lg:border-b-0' : ' lg:border-b';
+    $classes .= $is_last_lg_col ? ' lg:border-r-0' : ' lg:border-r';
+
+    return trim($classes);
 }
 
 /**

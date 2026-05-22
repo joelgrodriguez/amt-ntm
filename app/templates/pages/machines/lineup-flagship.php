@@ -18,13 +18,19 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use function Standard\MachinesData\get_product_price;
+
 $machine = $args['machine'] ?? null;
 
 if (!$machine) {
     return;
 }
 
-$has_price = !empty($machine['price']);
+$price = !empty($machine['price'])
+    ? $machine['price']
+    : (!empty($machine['slug']) ? get_product_price($machine['slug']) : null);
+
+$price_label = $machine['price_label'] ?? __('Starting at', 'standard');
 ?>
 
 <div class="grid bg-blue-900 text-white overflow-hidden lg:grid-cols-[5fr_4fr] lg:items-center">
@@ -56,13 +62,13 @@ $has_price = !empty($machine['price']);
             </a>
         </h4>
 
-        <?php if ($has_price) : ?>
+        <?php if ($price) : ?>
             <div class="grid gap-1">
                 <p class="text-2xl font-medium text-white">
-                    <?php echo esc_html($machine['price']); ?>
+                    <?php echo esc_html($price); ?>
                 </p>
                 <p class="font-mono text-xs text-blue-300 uppercase tracking-wider">
-                    <?php echo esc_html($machine['price_label']); ?>
+                    <?php echo esc_html($price_label); ?>
                 </p>
             </div>
         <?php endif; ?>

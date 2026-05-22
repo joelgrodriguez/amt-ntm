@@ -68,7 +68,7 @@ $categories = get_machine_categories();
             <div class="grid gap-10">
 
                 <div class="flex items-baseline justify-between gap-4">
-                    <h3 class="font-mono text-sm font-medium text-blue-700 uppercase tracking-wider">
+                    <h3 class="text-xl font-medium text-blue-900 tracking-tight md:text-2xl">
                         <?php echo esc_html($category['label']); ?>
                     </h3>
                     <?php if (!empty($category['url'])) : ?>
@@ -84,7 +84,7 @@ $categories = get_machine_categories();
                 <?php endif; ?>
 
                 <?php if (!empty($rest)) : ?>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 border border-blue-200">
                         <?php foreach ($rest as $idx => $machine) : ?>
                             <div class="<?php echo esc_attr(get_card_border_classes($idx, $rest_count, $grid_cols)); ?>">
                                 <?php get_template_part('templates/pages/machines/lineup-card', null, ['machine' => $machine]); ?>

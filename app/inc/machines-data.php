@@ -65,6 +65,50 @@ function get_product_url(string $slug): string {
 }
 
 /**
+ * Get a WooCommerce product's starting price for a machine slug.
+ *
+ * Uses the same slug → product lookup (with alias fallback) as
+ * get_product_url(). Returns a formatted dollar string (e.g. "$87,245"),
+ * or null when the product can't be resolved or has no price set.
+ *
+ * @param string $slug Machine slug (data slug or WC slug).
+ */
+function get_product_price(string $slug): ?string {
+    static $prices = null;
+
+    if ($prices === null) {
+        $prices = [];
+        if (function_exists('wc_get_products')) {
+            $products = \Standard\Woo\Cache\get_products([
+                'limit'  => -1,
+                'status' => 'publish',
+                'type'   => 'simple',
+            ]);
+            foreach ($products as $product) {
+                $raw = $product->get_price();
+                if ($raw === '' || $raw === null) {
+                    continue;
+                }
+                $prices[$product->get_slug()] = '$' . \number_format((float) $raw);
+            }
+        }
+    }
+
+    if (isset($prices[$slug])) {
+        return $prices[$slug];
+    }
+
+    if (function_exists('Standard\\MachineProductData\\get_slug_aliases')) {
+        $wc_slug = array_search($slug, \Standard\MachineProductData\get_slug_aliases(), true);
+        if ($wc_slug !== false && isset($prices[$wc_slug])) {
+            return $prices[$wc_slug];
+        }
+    }
+
+    return null;
+}
+
+/**
  * Get all machines organized by category.
  *
  * @return array<string, array{label: string, machines: array}>
@@ -224,8 +268,6 @@ function get_machine_categories(): array {
                     'image'      => $base . '2025/09/20250911_NTM_MACH-II-5_1000x1000.png',
                     'url'        => get_product_url('mach-ii-5-gutter'),
                     'badge'      => '',
-                    'price'      => '$87,245',
-                    'price_label' => 'Starting at',
                     'highlights' => [
                         '5" K-style gutters from raw coil',
                         'Up to 50 feet per minute with polyurethane drive rollers',
@@ -248,8 +290,6 @@ function get_machine_categories(): array {
                     'image'      => $base . '2025/09/20250911_NTM_MACH-II-6_1000x1000.png',
                     'url'        => get_product_url('mach-ii-6-gutter'),
                     'badge'      => '',
-                    'price'      => '$87,245',
-                    'price_label' => 'Starting at',
                     'highlights' => [
                         '6" K-style gutters from raw coil',
                         'Up to 50 feet per minute with polyurethane drive rollers',
@@ -271,9 +311,7 @@ function get_machine_categories(): array {
                     'descriptor' => 'Two gutter sizes, one machine',
                     'image'      => $base . '2025/09/20250911_NTM_MACH-II-5-6-Combo_1000x1000.png',
                     'url'        => get_product_url('mach-ii-combo-gutter'),
-                    'badge'      => '',
-                    'price'      => '$87,245',
-                    'price_label' => 'Starting at',
+                    'badge'      => 'Flagship',
                     'highlights' => [
                         '5"/6" combo K-style gutters from raw coil',
                         'Up to 50 feet per minute with polyurethane drive rollers',
@@ -295,8 +333,6 @@ function get_machine_categories(): array {
                     'image'      => $base . '2025/09/20250911_NTM_BG7_1000x1000.png',
                     'url'        => get_product_url('bg7-box-gutter'),
                     'badge'      => '',
-                    'price'      => '',
-                    'price_label' => '',
                     'highlights' => [
                         'Commercial-grade box gutter machine',
                         'Built for durability on demanding jobsites',

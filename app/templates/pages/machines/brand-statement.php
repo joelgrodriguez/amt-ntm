@@ -21,13 +21,13 @@ $content = [
 ];
 ?>
 
-<section class="section" aria-labelledby="brand-statement-title">
+<section class="section bg-blue-50" aria-labelledby="brand-statement-title">
     <div class="container grid gap-6 max-w-3xl mx-auto text-center">
         <div class="section-divider-center"></div>
         <h2 id="brand-statement-title" class="section-title">
             <?php echo esc_html($content['title']); ?>
         </h2>
-        <p class="section-subtitle">
+        <p class="section-subtitle max-w-2xl mx-auto">
             <?php echo esc_html($content['text']); ?>
         </p>
     </div>

@@ -31,42 +31,44 @@ if (empty($content) || empty($faqs)) {
 ?>
 
 <section class="section bg-blue-50" aria-labelledby="<?php echo esc_attr($section_id); ?>">
-    <div class="container">
+    <div class="container section-content">
+
+        <!-- Section header spans full width; the accordion + image align
+             to each other below so the image tops with the accordion,
+             not with the heading. -->
+        <div class="section-header-left">
+            <p class="section-eyebrow">
+                <?php echo esc_html($content['eyebrow']); ?>
+            </p>
+            <div class="section-divider"></div>
+            <h2 id="<?php echo esc_attr($section_id); ?>" class="section-title">
+                <?php echo esc_html($content['title']); ?>
+            </h2>
+        </div>
+
         <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-start">
 
-            <div class="grid gap-8 content-start">
-                <div class="section-header-left">
-                    <p class="section-eyebrow">
-                        <?php echo esc_html($content['eyebrow']); ?>
-                    </p>
-                    <div class="section-divider"></div>
-                    <h2 id="<?php echo esc_attr($section_id); ?>" class="section-title">
-                        <?php echo esc_html($content['title']); ?>
-                    </h2>
-                </div>
-
-                <div data-accordion-group>
-                    <?php foreach ($faqs as $i => $faq) : ?>
-                        <details class="accordion" <?php echo $i === 0 ? 'open' : ''; ?>>
-                            <summary>
-                                <?php echo esc_html($faq['question']); ?>
-                                <span class="accordion__icon">
-                                    <?php icon('chevron-down', ['class' => 'w-5 h-5']); ?>
-                                </span>
-                            </summary>
-                            <div class="accordion__body text-base text-blue-600 leading-relaxed">
-                                <p><?php echo esc_html($faq['answer']); ?></p>
-                            </div>
-                        </details>
-                    <?php endforeach; ?>
-                </div>
+            <div data-accordion-group>
+                <?php foreach ($faqs as $i => $faq) : ?>
+                    <details class="accordion" <?php echo $i === 0 ? 'open' : ''; ?>>
+                        <summary>
+                            <?php echo esc_html($faq['question']); ?>
+                            <span class="accordion__icon">
+                                <?php icon('chevron-down', ['class' => 'w-5 h-5']); ?>
+                            </span>
+                        </summary>
+                        <div class="accordion__body text-base text-blue-600 leading-relaxed">
+                            <p><?php echo esc_html($faq['answer']); ?></p>
+                        </div>
+                    </details>
+                <?php endforeach; ?>
             </div>
 
             <div class="hidden md:block lg:sticky lg:top-24">
                 <img
                     src="<?php echo esc_url($content['image']); ?>"
                     alt="<?php echo esc_attr($image_alt); ?>"
-                    class="w-full h-[300px] lg:h-[500px] xl:h-[600px] object-cover"
+                    class="w-full aspect-video object-cover"
                     loading="lazy"
                 >
             </div>
