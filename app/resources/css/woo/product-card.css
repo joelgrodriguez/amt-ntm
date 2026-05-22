@@ -35,13 +35,16 @@
     outline: none;
   }
 
-  /* Image well: fixed aspect, blue-50 fill, image centered with padding so
-     product silhouettes that vary in proportion all sit consistently.
-     Hairline divider between image and content sits on the image side. */
+  /* Image well: 16:9 to match post and profile cards, blue-50 fill, image
+     centered with padding so product silhouettes that vary in proportion all
+     sit consistently. Image uses object-contain so nothing gets cropped —
+     accessories/uprights sit centered with extra horizontal padding from the
+     background. Hairline divider between image and content sits on the image
+     side. */
   .card-product__image-wrapper {
     @apply relative bg-blue-50 overflow-hidden;
     @apply border-b border-blue-200;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 9;
   }
 
   .card-product__image {

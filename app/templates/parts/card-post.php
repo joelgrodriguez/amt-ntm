@@ -38,10 +38,10 @@ $category  = get_primary_category();
 
 <article class="group relative grid grid-rows-[auto_1fr_auto] h-full bg-white border border-blue-200 transition-colors duration-200 hover:border-blue-500">
 
-    <div class="border-b border-blue-200 transition-colors duration-200 group-hover:border-blue-500">
+    <div class="aspect-[16/9] overflow-hidden border-b border-blue-200 transition-colors duration-200 group-hover:border-blue-500">
         <?php if (has_post_thumbnail()) : ?>
             <?php the_post_thumbnail('card-thumbnail', [
-                'class'   => 'w-full block',
+                'class'   => 'w-full h-full block object-cover',
                 'loading' => 'lazy',
                 'alt'     => '',
             ]); ?>
