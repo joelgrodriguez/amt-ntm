@@ -534,32 +534,6 @@ function get_faq_items(): array {
 }
 
 /**
- * Get NTM journey milestones for social proof section.
- *
- * @return array<int, array{stat: string, label: string}>
- */
-function get_journey_stats(): array {
-    return [
-        [
-            'stat'  => '1991',
-            'label' => 'Founded in Denver, CO',
-        ],
-        [
-            'stat'  => '40+',
-            'label' => 'Countries worldwide',
-        ],
-        [
-            'stat'  => '7',
-            'label' => 'Continents reached',
-        ],
-        [
-            'stat'  => '30+',
-            'label' => 'Years of innovation',
-        ],
-    ];
-}
-
-/**
  * Get ROI statistics for the ROI snapshot section.
  *
  * @return array<int, array{stat: string, label: string}>
