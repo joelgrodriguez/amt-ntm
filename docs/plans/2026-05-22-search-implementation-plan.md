@@ -45,7 +45,7 @@ Canonical query params:
 - `category`: category slug
 - `tag`: post tag slug
 - `machine`: machine taxonomy slug
-- `department`: department taxonomy slug
+- `department`: department slug, backed by the `content_department` taxonomy
 - `product_cat`: WooCommerce product category slug
 - `product_tag`: WooCommerce product tag slug
 

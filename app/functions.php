@@ -38,6 +38,7 @@ $theme_includes = [
     'inc/page-templates.php',
     'inc/content-taxonomy.php',
     'inc/related-posts.php',
+    'inc/service-hub.php',
     // WooCommerce integration
     'inc/woo/setup.php',
     'inc/woo/cache.php',

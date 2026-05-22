@@ -111,12 +111,12 @@ function get_post_type_filter_keys(): array {
  */
 function get_requested_tax_query(): array {
     $filters = \apply_filters('standard_search_taxonomy_filters', [
-        'category'    => ['category', 'lc_category', '_sft_category'],
-        'post_tag'    => ['tag', 'post_tag', 'lc_machine', '_sft_post_tag'],
-        'machine'     => ['machine'],
-        'department'  => ['department'],
-        'product_cat' => ['product_cat'],
-        'product_tag' => ['product_tag'],
+        'category'           => ['category', 'lc_category', '_sft_category'],
+        'post_tag'           => ['tag', 'post_tag', 'lc_machine', '_sft_post_tag'],
+        'machine'            => ['machine'],
+        'content_department' => ['department', 'content_department'],
+        'product_cat'        => ['product_cat'],
+        'product_tag'        => ['product_tag'],
     ]);
 
     if (!is_array($filters)) {
