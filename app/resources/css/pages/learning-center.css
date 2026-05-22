@@ -23,15 +23,16 @@
   gap: clamp(1.5rem, 3vh, 2.5rem);
 }
 
-/* Featured card stretches inside the fold; image fills its own row. */
+/* Featured card: stacks on mobile (16:9 image), two columns on desktop. */
 .lc-hero__featured {
   display: grid;
-  grid-template-columns: 40% 1fr;
+  grid-template-columns: 1fr;
   min-height: 0;
 }
 
 .lc-hero__featured-photo {
   overflow: hidden;
+  aspect-ratio: 16 / 9;
 }
 
 .lc-hero__featured-photo img {
@@ -39,5 +40,15 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+@media (min-width: 1024px) {
+  .lc-hero__featured {
+    grid-template-columns: 50% 1fr;
+  }
+
+  .lc-hero__featured-photo {
+    aspect-ratio: auto;
+  }
 }
 

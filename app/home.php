@@ -109,7 +109,7 @@ $filter_action    = get_learning_center_url();
                 ?>
                 <article class="lc-hero__featured group relative bg-white border border-blue-200 transition-colors duration-200 hover:border-blue-500">
                     <?php if (has_post_thumbnail()) : ?>
-                        <div class="lc-hero__featured-photo border-r border-blue-200 transition-colors duration-200 group-hover:border-blue-500">
+                        <div class="lc-hero__featured-photo border-b lg:border-b-0 lg:border-r border-blue-200 transition-colors duration-200 group-hover:border-blue-500">
                             <?php the_post_thumbnail('large', [
                                 'class'         => 'w-full h-full object-cover',
                                 'loading'       => 'eager',
