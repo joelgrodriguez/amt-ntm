@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 
 get_template_part('templates/parts/cta/closer', null, [
     'section_id'        => 'gutter-final-cta-title',
-    'title'             => __('Add Gutters Without Adding Crew.', 'standard'),
+    'title'             => __('Pick the Machine. Start Making Money.', 'standard'),
     'text'              => __('Gutter contractors running NTM machines typically break even within the first year. Build a quote in your browser, or get one of our specialists on the phone.', 'standard'),
     'cta_primary'       => __('Build & Price Your Machine', 'standard'),
     'cta_primary_url'   => '/build-finance/',

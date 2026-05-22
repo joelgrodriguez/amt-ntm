@@ -25,6 +25,8 @@ get_header();
 
     <?php get_template_part('templates/pages/gutter/brand-statement'); ?>
 
+    <?php get_template_part('templates/pages/gutter/featured'); ?>
+
     <?php get_template_part('templates/pages/gutter/value-prop'); ?>
 
     <?php get_template_part('templates/pages/gutter/product-grid'); ?>
