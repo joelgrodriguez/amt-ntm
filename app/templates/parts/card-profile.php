@@ -59,7 +59,7 @@ if ($context === 'grid') {
 
 // Carousel context piggybacks .carousel__card on the anchor itself so the
 // card carries snap + responsive width directly inside .carousel__track.
-$root_classes = 'profile-card group grid gap-3 no-underline';
+$root_classes = 'profile-card group grid grid-rows-[auto_1fr] no-underline bg-white border border-blue-200 hover:border-blue-500 transition-colors duration-200';
 if ($context === 'carousel') {
     $root_classes .= ' carousel__card';
 }
@@ -68,7 +68,7 @@ if ($context === 'carousel') {
 <a href="<?php echo esc_url($url); ?>"
    class="<?php echo esc_attr($root_classes); ?>">
 
-    <div class="profile-card__image aspect-[16/9] overflow-hidden border border-blue-200 group-hover:border-blue-500 transition-colors duration-200">
+    <div class="profile-card__image aspect-[16/9] overflow-hidden border-b border-blue-200 group-hover:border-blue-500 transition-colors duration-200">
         <?php if ($thumb) : ?>
             <img src="<?php echo esc_url($thumb); ?>"
                  alt="<?php echo esc_attr($title); ?>"
@@ -82,7 +82,7 @@ if ($context === 'carousel') {
         <?php endif; ?>
     </div>
 
-    <div class="grid gap-1">
+    <div class="grid gap-1 content-start p-4 lg:p-5">
         <h3 class="font-sans font-semibold text-base lg:text-lg leading-snug tracking-tight text-blue-900 group-hover:text-blue-500 transition-colors duration-200">
             <?php echo esc_html($title); ?>
         </h3>

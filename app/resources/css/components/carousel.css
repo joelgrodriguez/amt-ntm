@@ -57,10 +57,10 @@
   }
 
   /* card-profile slots into .carousel__track by carrying .carousel__card on
-     its own anchor. Strip the generic card chassis (border/bg/padding) — the
-     profile card supplies its own image border and gap. */
+     its own anchor. Strip the generic chassis padding/gap; the profile card
+     supplies its own border, padding, and row gap. */
   .carousel__card.profile-card {
-    @apply border-0 bg-transparent p-0;
+    @apply p-0 gap-0;
   }
 
   .carousel__nav {
