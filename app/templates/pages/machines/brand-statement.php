@@ -21,15 +21,12 @@ $content = [
 ];
 ?>
 
-<section class="py-16 md:py-24 lg:py-32 pattern-square-grid" aria-labelledby="brand-statement-title">
-    <div class="pattern-square-grid__overlay pattern-square-grid__overlay--top-left"></div>
-    <div class="pattern-square-grid__overlay pattern-square-grid__overlay--bottom-right"></div>
-    <div class="container grid gap-6 text-center max-w-3xl mx-auto relative z-10">
-        <div class="section-divider-center"></div>
-        <h2 id="brand-statement-title" class="text-3xl font-medium text-blue-900 md:text-4xl lg:text-5xl">
+<section class="py-20 md:py-28 lg:py-36 xl:py-44" aria-labelledby="brand-statement-title">
+    <div class="container grid gap-8 max-w-5xl mx-auto text-center">
+        <h2 id="brand-statement-title" class="text-5xl font-medium tracking-tight text-blue-900 leading-[0.95] md:text-6xl lg:text-7xl xl:text-8xl">
             <?php echo esc_html($content['title']); ?>
         </h2>
-        <p class="text-lg text-blue-600 leading-relaxed lg:text-xl">
+        <p class="text-lg text-blue-600 leading-relaxed max-w-2xl mx-auto lg:text-xl">
             <?php echo esc_html($content['text']); ?>
         </p>
     </div>
