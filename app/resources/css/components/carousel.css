@@ -56,6 +56,13 @@
     @apply scale-105;
   }
 
+  /* card-profile slots into .carousel__track by carrying .carousel__card on
+     its own anchor. Strip the generic card chassis (border/bg/padding) — the
+     profile card supplies its own image border and gap. */
+  .carousel__card.profile-card {
+    @apply border-0 bg-transparent p-0;
+  }
+
   .carousel__nav {
     @apply w-10 h-10 border border-blue-200 flex items-center justify-center;
     @apply hover:bg-blue-100 hover:border-blue-500 transition-colors;
