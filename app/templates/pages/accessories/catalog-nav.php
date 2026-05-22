@@ -2,9 +2,9 @@
 /**
  * Accessories Page — Catalog Jump Nav
  *
- * Horizontal strip of anchor links jumping to catalog sections below.
- * Visual language matches the front-page explore-machines tabs: sans
- * labels, blue underline on hover. Pure anchors, no JS. Scrolls
+ * Mono uppercase anchor strip below the hero. Hairline dividers between
+ * links, no count badges. Visual cadence matches the chrome-bar strips
+ * used elsewhere (red dot + mono labels). Pure anchors, no JS; scrolls
  * horizontally on narrow viewports.
  *
  * @package Standard
@@ -30,13 +30,10 @@ if (empty($buckets)) {
 
 <nav class="border-y border-blue-200 bg-white" aria-label="<?php esc_attr_e('Accessory categories', 'standard'); ?>">
     <div class="container">
-        <div class="flex overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
+        <div class="flex overflow-x-auto -mx-4 md:mx-0 divide-x divide-blue-200">
             <?php foreach ($buckets as $bucket) : ?>
-                <a href="#catalog-<?php echo esc_attr($bucket['id']); ?>" class="whitespace-nowrap px-4 py-4 font-sans font-medium text-blue-600 hover:text-blue-900 border-b-2 border-transparent hover:border-blue-500 transition-colors no-underline">
+                <a href="#catalog-<?php echo esc_attr($bucket['id']); ?>" class="whitespace-nowrap px-4 py-3 font-mono text-xs uppercase tracking-wider text-blue-600 hover:text-blue-900 border-b-2 border-transparent hover:border-blue-500 transition-colors no-underline">
                     <?php echo esc_html($bucket['label']); ?>
-                    <span class="ml-1 text-blue-400 text-sm">
-                        <?php echo esc_html((string) count($bucket['products'])); ?>
-                    </span>
                 </a>
             <?php endforeach; ?>
         </div>
