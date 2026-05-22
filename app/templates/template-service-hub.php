@@ -43,14 +43,17 @@ get_header();
 
 <main id="primary">
 
-    <header class="border-b border-blue-200">
+    <header class="pattern-square-grid border-b border-blue-200">
+        <div class="pattern-square-grid__overlay pattern-square-grid__overlay--top-left"></div>
+        <div class="pattern-square-grid__overlay pattern-square-grid__overlay--bottom-right"></div>
+
         <div class="container section-compact">
             <div class="grid gap-4 max-w-4xl">
                 <span class="section-eyebrow">
                     <?php esc_html_e('Service Hub', 'standard'); ?>
                 </span>
-                <h1 class="font-mono font-medium text-heading lg:text-heading-lg text-blue-900 leading-tight tracking-tight">
-                    <?php esc_html_e('Service and Support Content', 'standard'); ?>
+                <h1 class="font-mono font-medium text-heading-lg lg:text-display text-blue-900 leading-tight tracking-tight">
+                    <?php esc_html_e('Service and Support', 'standard'); ?>
                 </h1>
                 <p class="font-sans text-blue-600 max-w-3xl" style="font-size: var(--text-body); line-height: var(--leading-body);">
                     <?php esc_html_e('Manuals, troubleshooting articles, support videos, downloads, and related service material in one filtered view.', 'standard'); ?>
