@@ -61,7 +61,7 @@ $has_mp4_video    = (bool) $is_mp4;
 
                 <h1
                     id="<?php echo esc_attr($section_id); ?>-title"
-                    class="font-sans font-medium leading-[0.95] tracking-tight text-white text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
+                    class="font-sans font-medium leading-[0.95] tracking-tight text-white text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
                 >
                     <?php echo esc_html($content['title']); ?>
                 </h1>
