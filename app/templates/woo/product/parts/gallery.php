@@ -32,7 +32,7 @@ if (empty($featured_url)) {
 }
 ?>
 
-<section id="machine-gallery" class="section" aria-labelledby="gallery-title">
+<section id="machine-gallery" class="section pattern-dot-grid" aria-labelledby="gallery-title">
     <div class="container section-content">
 
         <div class="section-header">

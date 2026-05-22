@@ -29,7 +29,7 @@ $cards      = $args['cards'] ?? [];
 $section_id = $args['section_id'] ?? 'value-prop';
 ?>
 
-<section class="section" aria-labelledby="<?php echo esc_attr($section_id); ?>-title">
+<section class="section pattern-dot-grid" aria-labelledby="<?php echo esc_attr($section_id); ?>-title">
     <div class="container section-content">
 
         <div class="section-header-left">

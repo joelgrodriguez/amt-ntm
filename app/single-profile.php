@@ -75,7 +75,7 @@ while (have_posts()) :
     }
 ?>
 
-<main id="primary" class="bg-white">
+<main id="primary" class="pattern-dot-grid bg-white">
 
     <header class="border-b border-blue-200 bg-blue-50 pt-6 pb-6 lg:pt-12 lg:pb-12">
         <div class="container">

@@ -94,7 +94,7 @@ get_header();
         ['label' => __('Downloads', 'standard'), 'icon' => 'download',  'href' => get_post_type_archive_link('download') ?: $lc_landing],
     ];
     ?>
-    <section class="border-t border-blue-200 bg-blue-50 py-16 lg:py-24"
+    <section class="pattern-dot-grid pattern-dot-grid--surface border-t border-blue-200 bg-blue-50 py-16 lg:py-24"
              aria-labelledby="resources-learning-center-title">
         <div class="container grid gap-10">
 

@@ -37,7 +37,7 @@ if (empty($cards)) {
 }
 ?>
 
-<section class="section pattern-dot-grid gradient-fade-bottom-sm border-y border-blue-200" aria-labelledby="resources-title">
+<section class="section pattern-dot-grid border-y border-blue-200" aria-labelledby="resources-title">
     <div class="container section-content">
 
         <div class="section-header">

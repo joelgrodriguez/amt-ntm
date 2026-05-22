@@ -56,7 +56,7 @@ if ($args['meta_items'] === null) {
 $has_image = has_post_thumbnail();
 ?>
 
-<header class="pattern-dot-grid bg-blue-50 border-b border-blue-200">
+<header class="pattern-dot-grid pattern-dot-grid--surface bg-blue-50 border-b border-blue-200">
     <div class="container grid gap-8 lg:gap-12 lg:grid-cols-2 lg:items-center pt-6 lg:pt-12 pb-6 lg:pb-12">
         <div class="grid gap-5 lg:gap-6">
             <?php if ($args['eyebrow_kind'] === 'categories' && has_category()) : ?>

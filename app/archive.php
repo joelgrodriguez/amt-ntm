@@ -45,7 +45,7 @@ $categories = get_categories([
 ]);
 ?>
 
-<main id="primary" class="pattern-dot-grid gradient-fade-bottom-sm py-6 lg:py-12">
+<main id="primary" class="pattern-dot-grid py-6 lg:py-12">
 
     <!-- Header -->
     <header class="container mb-6 lg:mb-12">

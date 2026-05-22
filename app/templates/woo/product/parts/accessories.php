@@ -25,7 +25,7 @@ get_template_part('templates/woo/product/parts/carousel-section', null, [
     'query_type'    => 'product',
     'product_tag'   => $product_tag,
     'limit'         => 12,
-    'section_class' => 'pattern-dot-grid gradient-fade-bottom-sm border-y border-blue-200',
+    'section_class' => 'pattern-dot-grid border-y border-blue-200',
     'carousel_id'   => 'accessories-carousel',
     'eyebrow'       => __('Accessories', 'standard'),
     'title'         => __('Complete Your Setup', 'standard'),
