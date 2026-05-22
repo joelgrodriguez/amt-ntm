@@ -404,6 +404,22 @@ function get_roof_wall_faq_items(): array {
             'question' => 'What materials can these machines process?',
             'answer'   => 'NTM roof and wall panel machines handle painted steel, Galvalume, aluminum, copper, zinc, and terne-coated stainless steel. The SSQ3 and SSQ II process up to 24 gauge steel. The WAV is purpose-built for heavy commercial wall panel work with 4 profiles on 25 polyurethane drive rollers.',
         ],
+        [
+            'question' => 'Does New Tech Machinery offer financing?',
+            'answer'   => 'Yes. NTM partners with equipment finance lenders to offer lease-to-own, equipment loans, and seasonal payment plans. Most contractors structure financing so the machine pays for itself within the first year from increased panel revenue. Contact our sales team to build a custom financing package.',
+        ],
+        [
+            'question' => 'How do I purchase an NTM roof panel machine?',
+            'answer'   => 'You can buy directly from NTM through our sales team, or through an authorized dealer in your region. Start by building a quote in the online configurator or by talking with a machine specialist who will walk you through pricing, options, and lead time.',
+        ],
+        [
+            'question' => 'What do I do if I need help with my machine?',
+            'answer'   => 'NTM provides phone, email, and online support, plus a network of service centers across the country. Every purchase includes hands-on operator training, and machines running the UNIQ controller have built-in troubleshooting videos and diagnostics for in-field problem solving.',
+        ],
+        [
+            'question' => 'What panel profiles can NTM machines produce?',
+            'answer'   => 'NTM roof and wall panel machines produce standing seam roof panels, flush wall panels, board and batten siding, trapezoidal profiles, and the 5V crimp exposed-fastener profile. The SSQ3 and SSQ II MultiPro support up to 16 profiles from a single machine.',
+        ],
     ];
 }
 
@@ -443,6 +459,18 @@ function get_gutter_faq_items(): array {
         [
             'question' => 'What kind of support does NTM provide?',
             'answer'   => 'NTM provides phone and email technical support, an online service portal, and access to service centers across the country. Every machine purchase includes hands-on operator training. Replacement parts and consumables are stocked for fast shipping.',
+        ],
+        [
+            'question' => 'Does New Tech Machinery offer financing?',
+            'answer'   => 'Yes. NTM partners with equipment finance lenders to offer lease-to-own, equipment loans, and seasonal payment plans. Most gutter contractors structure financing so the MACH II machine pays for itself within the first year of use. Contact our sales team to build a custom financing package.',
+        ],
+        [
+            'question' => 'How long will it take to get my machine?',
+            'answer'   => 'Most NTM gutter machines ship within 1–2 weeks because the MACH II line is built in volume. Custom configurations and the BG7 box gutter machine may take longer depending on options. Your account specialist will give you an exact lead time at order confirmation.',
+        ],
+        [
+            'question' => 'What do I do if I need help with my gutter machine?',
+            'answer'   => 'NTM provides phone, email, and online portal support, plus a network of service centers and field technicians across the country. Every purchase includes hands-on operator training. Replacement parts and consumables ship fast so your crews stay on the job.',
         ],
     ];
 }
@@ -532,6 +560,14 @@ function get_faq_items(): array {
         [
             'question' => 'How do I finance an NTM machine?',
             'answer'   => 'NTM offers flexible financing options to fit your business. Choose from lease-to-own, equipment loans, or seasonal payment plans. Many contractors pay off their machine within the first year from increased revenue alone. Contact our team to build a custom financing package.',
+        ],
+        [
+            'question' => 'How long will it take to get my machine?',
+            'answer'   => 'Lead times vary by model. Most NTM gutter machines ship within 1–2 weeks; roof and wall panel machines typically ship within 4–8 weeks. The SSQ3 MultiPro and SSQ II MultiPro are our highest-demand roof panel models. Your account specialist will confirm exact lead time at order.',
+        ],
+        [
+            'question' => 'How do I purchase an NTM machine?',
+            'answer'   => 'Purchase directly from NTM through our sales team or through an authorized dealer in your region. Start by building a quote in the online configurator at /build-finance/ or by talking with a machine specialist who will walk you through pricing, configuration, and lead time.',
         ],
     ];
 }
