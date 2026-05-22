@@ -28,7 +28,29 @@ $image_alt  = $args['image_alt'] ?? __('NTM machine being lifted onto a rooftop'
 if (empty($content) || empty($faqs)) {
     return;
 }
+
+// FAQPage JSON-LD for rich-snippet eligibility. The visible <details>
+// markup already gives Google a strong parsing signal; explicit schema
+// makes it unambiguous and surfaces this content as a featured snippet.
+$faq_schema = [
+    '@context'   => 'https://schema.org',
+    '@type'      => 'FAQPage',
+    'mainEntity' => array_map(static function (array $faq): array {
+        return [
+            '@type'          => 'Question',
+            'name'           => $faq['question'] ?? '',
+            'acceptedAnswer' => [
+                '@type' => 'Answer',
+                'text'  => $faq['answer'] ?? '',
+            ],
+        ];
+    }, $faqs),
+];
 ?>
+
+<script type="application/ld+json">
+<?php echo wp_json_encode($faq_schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?>
+</script>
 
 <section class="section bg-blue-50" aria-labelledby="<?php echo esc_attr($section_id); ?>">
     <div class="container section-content">

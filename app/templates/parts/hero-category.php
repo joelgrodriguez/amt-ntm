@@ -47,6 +47,17 @@ $has_mp4_video    = (bool) $is_mp4;
 ?>
 
 <section class="relative overflow-hidden bg-blue-900 text-white pattern-dot-grid pattern-dot-grid--dark" aria-labelledby="<?php echo esc_attr($section_id); ?>-title">
+    <?php
+    // Screen-reader-only H1 carrying the WP page title (e.g. "Roof and
+    // Wall Panel Machines"). Mirrors the old theme's pattern and gives
+    // search engines the direct category keyword as the page's primary
+    // heading; the visible marketing headline below is an H2.
+    $page_title = function_exists('get_the_title') ? get_the_title() : '';
+    if ($page_title !== '') :
+    ?>
+        <h1 class="sr-only"><?php echo esc_html($page_title); ?></h1>
+    <?php endif; ?>
+
     <div class="container py-16 lg:py-20 xl:py-24">
         <div class="grid gap-10 lg:grid-cols-12 lg:gap-12 lg:items-center">
 
@@ -59,12 +70,12 @@ $has_mp4_video    = (bool) $is_mp4;
                     </p>
                 <?php endif; ?>
 
-                <h1
+                <h2
                     id="<?php echo esc_attr($section_id); ?>-title"
                     class="font-sans font-medium leading-[0.95] tracking-tight text-white text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
                 >
                     <?php echo esc_html($content['title']); ?>
-                </h1>
+                </h2>
 
                 <?php if (!empty($content['subtitle'])) : ?>
                     <p class="text-lg text-blue-200 max-w-xl lg:text-xl">

@@ -23,6 +23,8 @@ get_header();
 
     <?php get_template_part('templates/pages/roof-wall/hero'); ?>
 
+    <?php get_template_part('templates/pages/roof-wall/brand-statement'); ?>
+
     <?php get_template_part('templates/pages/roof-wall/value-prop'); ?>
 
     <?php get_template_part('templates/pages/roof-wall/product-grid'); ?>
