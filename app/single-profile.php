@@ -87,7 +87,7 @@ while (have_posts()) :
             <div class="section-header-left max-w-3xl">
                 <p class="section-eyebrow"><?php echo esc_html($eyebrow); ?></p>
                 <div class="section-divider"></div>
-                <h1 class="font-sans font-medium text-heading lg:text-heading-lg text-blue-900 leading-tight tracking-tight">
+                <h1 class="font-sans font-medium text-heading lg:text-heading-lg text-blue-900 leading-tight tracking-tight break-words">
                     <?php echo esc_html($title); ?>
                 </h1>
             </div>
