@@ -79,7 +79,8 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
             <!-- Tab panels -->
             <div class="mega-panel__content">
                 <?php foreach ($tabs as $i => $tab) :
-                    $products = get_products_by_category($tab['category']);
+                    $is_accessories = ($tab['category'] ?? '') === 'accessories-add-on-equipment';
+                    $products       = get_products_by_category($tab['category']);
                 ?>
                     <div
                         id="mega-tabpanel-<?php echo esc_attr($panel_id); ?>-<?php echo esc_attr($tab['id']); ?>"
@@ -103,9 +104,19 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
                         <?php endif; ?>
 
                         <div class="mega-product-grid">
-                            <?php foreach ($products as $product) : ?>
-                                <?php get_template_part('templates/parts/card-product', null, ['product' => $product]); ?>
-                            <?php endforeach; ?>
+                            <?php foreach ($products as $product) :
+                                if ($is_accessories) :
+                                    $card = [
+                                        'url'      => $product['explore_url'] ?? '',
+                                        'image_id' => isset($product['id']) ? (int) get_post_thumbnail_id((int) $product['id']) : 0,
+                                        'title'    => $product['title'] ?? '',
+                                        'subtitle' => $product['subtitle'] ?? null,
+                                    ];
+                                    get_template_part('templates/parts/card-accessory', null, ['card' => $card]);
+                                else :
+                                    get_template_part('templates/parts/card-product', null, ['product' => $product]);
+                                endif;
+                            endforeach; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>

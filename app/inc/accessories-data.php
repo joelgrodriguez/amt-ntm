@@ -313,22 +313,21 @@ function get_fitment_matrix(): array {
 }
 
 /**
- * Format a single Woo product as the shape expected by card-product.php.
+ * Format a single Woo product as the shape expected by card-accessory.php.
  *
- * @return array<string, mixed>
+ * Mirrors Standard\Woo\Accessories\product_cards() so the same partial
+ * renders accessories whether they're sourced from this data layer or
+ * from the machine-page compatible-accessories query.
+ *
+ * @return array{id: int, url: string, image_id: int, title: string, subtitle: string|null}
  */
 function format_card(\WC_Product $product): array {
     return [
-        'id'             => $product->get_id(),
-        'title'          => $product->get_name(),
-        'category_label' => '',
-        'descriptor'     => '',
-        'image'          => wp_get_attachment_url($product->get_image_id()),
-        'price'          => '',
-        'price_label'    => '',
-        'explore_url'    => $product->get_permalink(),
-        'build_url'      => '',
-        'badge'          => $product->is_in_stock() ? '' : __('Backorder', 'standard'),
+        'id'       => $product->get_id(),
+        'url'      => $product->get_permalink(),
+        'image_id' => (int) $product->get_image_id(),
+        'title'    => $product->get_name(),
+        'subtitle' => $product->get_price_html() ?: null,
     ];
 }
 
