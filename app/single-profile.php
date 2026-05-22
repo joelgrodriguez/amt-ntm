@@ -78,12 +78,7 @@ while (have_posts()) :
 <main id="primary" class="bg-white">
 
     <header class="border-b border-blue-200 bg-blue-50 pt-6 pb-6 lg:pt-12 lg:pb-12">
-        <div class="container grid gap-4">
-            <a href="<?php echo esc_url($archive_url); ?>"
-               class="inline-flex items-center gap-1.5 font-sans text-sm text-blue-500 hover:text-blue-900 no-underline w-fit">
-                <?php icon('arrow-left', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-                <?php esc_html_e('Back to all profiles', 'standard'); ?>
-            </a>
+        <div class="container">
             <div class="section-header-left max-w-3xl">
                 <p class="section-eyebrow"><?php echo esc_html($eyebrow); ?></p>
                 <div class="section-divider"></div>
@@ -98,7 +93,7 @@ while (have_posts()) :
 
         <div class="grid gap-10 lg:grid-cols-[360px_1fr] lg:gap-16">
 
-            <aside class="grid gap-4 self-start lg:sticky lg:top-24">
+            <aside class="grid gap-8 self-start">
                 <figure class="bg-blue-50 aspect-square border border-blue-200 flex items-center justify-center overflow-hidden m-0">
                     <?php if ($thumb_url) : ?>
                         <img src="<?php echo esc_url($thumb_url); ?>"
@@ -138,6 +133,57 @@ while (have_posts()) :
                         </a>
                     </div>
                 <?php endif; ?>
+
+                <section aria-labelledby="profile-machines-heading" class="grid gap-4 border-t border-blue-200 pt-8">
+                    <header class="section-header-left">
+                        <p class="section-eyebrow"><?php esc_html_e('Compatibility', 'standard'); ?></p>
+                        <div class="section-divider"></div>
+                        <h2 id="profile-machines-heading"
+                            class="font-sans font-semibold text-heading-sm text-blue-900 leading-tight tracking-tight">
+                            <?php esc_html_e('Rolls On', 'standard'); ?>
+                        </h2>
+                    </header>
+
+                    <?php if (is_array($machine_tags) && !empty($machine_tags)) : ?>
+                        <ul class="grid gap-2 list-none p-0 m-0">
+                            <?php foreach ($machine_tags as $machine_tag) :
+                                /**
+                                 * @todo Resolve machine_tag → WooCommerce product so the
+                                 * tile can show the real machine image and link directly
+                                 * to the product page. Until then we link to the tag
+                                 * archive, which lists every profile this machine rolls.
+                                 */
+                            ?>
+                                <li>
+                                    <a href="<?php echo esc_url(get_tag_link($machine_tag->term_id)); ?>"
+                                       class="group grid gap-1 px-4 py-3 bg-white border border-blue-200 no-underline transition-colors duration-200 hover:border-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                                        <span class="font-sans font-semibold text-blue-900 leading-snug tracking-tight group-hover:text-blue-500 transition-colors">
+                                            <?php echo esc_html($machine_tag->name); ?>
+                                        </span>
+                                        <span class="font-mono uppercase tracking-widest text-caption text-blue-400">
+                                            <?php echo esc_html(sprintf(
+                                                /* translators: %d: number of profiles this machine rolls. */
+                                                _n('%d profile', '%d profiles', (int) $machine_tag->count, 'standard'),
+                                                (int) $machine_tag->count
+                                            )); ?>
+                                        </span>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php else : ?>
+                        <p class="font-sans text-blue-600"
+                           style="font-size: var(--text-body); line-height: 1.6;">
+                            <?php esc_html_e('No machines tagged yet.', 'standard'); ?>
+                        </p>
+                    <?php endif; ?>
+                </section>
+
+                <a href="<?php echo esc_url($archive_url); ?>"
+                   class="inline-flex items-center gap-1.5 font-sans text-sm text-blue-500 hover:text-blue-900 no-underline w-fit">
+                    <?php icon('arrow-left', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+                    <?php esc_html_e('Back to all profiles', 'standard'); ?>
+                </a>
             </aside>
 
             <section aria-labelledby="profile-spec-heading" class="grid gap-4 min-w-0">
@@ -155,51 +201,6 @@ while (have_posts()) :
             </section>
 
         </div>
-
-        <section aria-labelledby="profile-machines-heading" class="grid gap-6 border-t border-blue-200 pt-12 lg:pt-16 mt-12 lg:mt-16">
-            <header class="section-header-left">
-                <p class="section-eyebrow"><?php esc_html_e('Compatibility', 'standard'); ?></p>
-                <div class="section-divider"></div>
-                <h2 id="profile-machines-heading"
-                    class="font-sans font-semibold text-heading-sm lg:text-heading text-blue-900 leading-tight tracking-tight">
-                    <?php esc_html_e('Rolls On', 'standard'); ?>
-                </h2>
-            </header>
-
-            <?php if (is_array($machine_tags) && !empty($machine_tags)) : ?>
-                <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 list-none p-0 m-0">
-                    <?php foreach ($machine_tags as $machine_tag) :
-                        /**
-                         * @todo Resolve machine_tag → WooCommerce product so the
-                         * tile can show the real machine image and link directly
-                         * to the product page. Until then we link to the tag
-                         * archive, which lists every profile this machine rolls.
-                         */
-                    ?>
-                        <li>
-                            <a href="<?php echo esc_url(get_tag_link($machine_tag->term_id)); ?>"
-                               class="group grid gap-1 px-5 py-4 bg-white border border-blue-200 no-underline transition-colors duration-200 hover:border-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 h-full">
-                                <span class="font-sans font-semibold text-blue-900 leading-snug tracking-tight group-hover:text-blue-500 transition-colors">
-                                    <?php echo esc_html($machine_tag->name); ?>
-                                </span>
-                                <span class="font-mono uppercase tracking-widest text-caption text-blue-400">
-                                    <?php echo esc_html(sprintf(
-                                        /* translators: %d: number of profiles this machine rolls. */
-                                        _n('%d profile', '%d profiles', (int) $machine_tag->count, 'standard'),
-                                        (int) $machine_tag->count
-                                    )); ?>
-                                </span>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php else : ?>
-                <p class="font-sans text-blue-600 max-w-prose"
-                   style="font-size: var(--text-body); line-height: 1.6;">
-                    <?php esc_html_e('No machines tagged for this profile yet.', 'standard'); ?>
-                </p>
-            <?php endif; ?>
-        </section>
 
     </article>
 
