@@ -46,11 +46,13 @@ $categories = get_machine_categories();
             <?php
             $machines = $category['machines'];
 
-            // Flagship = first machine with a non-empty badge.
+            // Flagship = first machine flagged as featured (data: 'featured' => true).
+            // Falls back to first machine with a non-empty badge so legacy data
+            // (e.g. SSQ3 set as 'badge' => 'Flagship') still picks up the band.
             $flagship       = null;
             $flagship_index = null;
             foreach ($machines as $i => $machine) {
-                if (!empty($machine['badge'])) {
+                if (!empty($machine['featured']) || !empty($machine['badge'])) {
                     $flagship       = $machine;
                     $flagship_index = $i;
                     break;

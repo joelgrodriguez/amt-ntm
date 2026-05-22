@@ -29,29 +29,38 @@ if (!defined('ABSPATH')) {
  * @return string        Space-separated Tailwind border classes.
  */
 function get_card_border_classes(int $idx, int $total, int $cols): string {
-    // sm: 2-col grid → row index pair-based
+    // Position checks per breakpoint. A card draws a right divider when
+    // it is NOT in the rightmost column. A card draws a bottom divider
+    // when it is NOT in the bottom row. "Last card" (idx === total - 1)
+    // is treated specially for the BOTTOM only — when the last row is
+    // partial, the trailing card still needs a right divider so it has
+    // a visual right edge (the row wrapper's right border sits at the
+    // grid's rightmost column, not at this card's edge).
+    $is_last       = $idx === $total - 1;
+
+    // sm: 2-col grid
     $sm_cols       = 2;
     $sm_row        = (int) floor($idx / $sm_cols);
     $sm_total_rows = (int) ceil($total / $sm_cols);
     $is_last_sm_row = $sm_row === $sm_total_rows - 1;
-    $is_last_sm_col = ($idx % $sm_cols) === ($sm_cols - 1) || ($idx === $total - 1);
+    $is_in_last_sm_col = ($idx % $sm_cols) === ($sm_cols - 1);
 
     // lg: $cols-col grid
     $lg_row        = (int) floor($idx / $cols);
     $lg_total_rows = (int) ceil($total / $cols);
     $is_last_lg_row = $lg_row === $lg_total_rows - 1;
-    $is_last_lg_col = (($idx + 1) % $cols === 0) || ($idx === $total - 1);
+    $is_in_last_lg_col = ($idx % $cols) === ($cols - 1);
 
-    // Mobile (1-col): only bottom divider, never on the last card
-    $classes = $idx === $total - 1 ? '' : 'border-b border-blue-200';
+    // Mobile (1-col): bottom divider unless this is the last card
+    $classes = $is_last ? '' : 'border-b border-blue-200';
 
-    // sm (2-col): bottom divider unless last row; right divider unless last col
+    // sm (2-col): bottom divider unless in last row; right divider unless in rightmost col
     $classes .= $is_last_sm_row ? ' sm:border-b-0' : ' sm:border-b';
-    $classes .= $is_last_sm_col ? ' sm:border-r-0' : ' sm:border-r';
+    $classes .= $is_in_last_sm_col ? ' sm:border-r-0' : ' sm:border-r';
 
-    // lg ($cols): bottom divider unless last row; right divider unless last col
+    // lg ($cols): bottom divider unless in last row; right divider unless in rightmost col
     $classes .= $is_last_lg_row ? ' lg:border-b-0' : ' lg:border-b';
-    $classes .= $is_last_lg_col ? ' lg:border-r-0' : ' lg:border-r';
+    $classes .= $is_in_last_lg_col ? ' lg:border-r-0' : ' lg:border-r';
 
     return trim($classes);
 }

@@ -2,8 +2,10 @@
 /**
  * Shared Template Part — Customer Story
  *
- * Reusable customer case study section with pull quote, stats, and CTA.
- * Supports image on left or right via $args['image_position'].
+ * Two-column case study: image + stats under the image on one side,
+ * pull quote + attribution + CTA on the other. Image is 16:9. Stats
+ * sit directly under the image so the photographic evidence and the
+ * numeric evidence read as one column of proof.
  *
  * @package Standard
  *
@@ -29,23 +31,44 @@ $cta_icon       = $content['cta_icon'] ?? 'arrow-right';
 if (empty($content)) {
     return;
 }
+
+// Image + stats live together in one column; pull out into a closure
+// so the template can drop the same block on either side based on
+// $image_position without duplicating markup.
+$render_media = function () use ($content, $stats) :void {
+    ?>
+    <div class="grid gap-6">
+        <img
+            src="<?php echo esc_url($content['image']); ?>"
+            alt="<?php echo esc_attr($content['name'] . ', ' . $content['company']); ?>"
+            class="w-full aspect-video object-cover"
+            loading="lazy"
+        >
+
+        <?php if (!empty($stats)) : ?>
+            <div class="grid grid-cols-3 gap-6">
+                <?php foreach ($stats as $stat) : ?>
+                    <div class="grid gap-1">
+                        <span class="text-2xl font-medium text-blue-900 lg:text-3xl">
+                            <?php echo esc_html($stat['stat']); ?>
+                        </span>
+                        <span class="text-xs text-blue-500 uppercase tracking-wider">
+                            <?php echo esc_html($stat['label']); ?>
+                        </span>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+    </div>
+    <?php
+};
 ?>
 
 <section class="section bg-blue-50" aria-labelledby="<?php echo esc_attr($section_id); ?>">
     <div class="container">
         <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-center">
 
-            <?php if ($image_position === 'left') : ?>
-                <!-- Image — LEFT -->
-                <div>
-                    <img
-                        src="<?php echo esc_url($content['image']); ?>"
-                        alt="<?php echo esc_attr($content['name'] . ', ' . $content['company']); ?>"
-                        class="w-full h-[300px] md:h-[400px] lg:h-[500px] object-cover"
-                        loading="lazy"
-                    >
-                </div>
-            <?php endif; ?>
+            <?php if ($image_position === 'left') $render_media(); ?>
 
             <!-- Content -->
             <div class="grid gap-8 content-start">
@@ -69,19 +92,6 @@ if (empty($content)) {
                     </p>
                 </div>
 
-                <div class="grid grid-cols-3 gap-6 border-t border-blue-200 pt-8">
-                    <?php foreach ($stats as $stat) : ?>
-                        <div class="grid gap-1">
-                            <span class="text-2xl font-medium text-blue-900 lg:text-3xl">
-                                <?php echo esc_html($stat['stat']); ?>
-                            </span>
-                            <span class="text-xs text-blue-500 uppercase tracking-wider">
-                                <?php echo esc_html($stat['label']); ?>
-                            </span>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-
                 <div>
                     <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-outline-dark">
                         <?php if ($cta_icon === 'play') : ?>
@@ -95,17 +105,7 @@ if (empty($content)) {
                 </div>
             </div>
 
-            <?php if ($image_position === 'right') : ?>
-                <!-- Image — RIGHT -->
-                <div>
-                    <img
-                        src="<?php echo esc_url($content['image']); ?>"
-                        alt="<?php echo esc_attr($content['name'] . ', ' . $content['company']); ?>"
-                        class="w-full h-[300px] md:h-[400px] lg:h-[500px] object-cover"
-                        loading="lazy"
-                    >
-                </div>
-            <?php endif; ?>
+            <?php if ($image_position === 'right') $render_media(); ?>
 
         </div>
     </div>

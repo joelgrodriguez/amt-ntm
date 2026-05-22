@@ -311,7 +311,8 @@ function get_machine_categories(): array {
                     'descriptor' => 'Two gutter sizes, one machine',
                     'image'      => $base . '2025/09/20250911_NTM_MACH-II-5-6-Combo_1000x1000.png',
                     'url'        => get_product_url('mach-ii-combo-gutter'),
-                    'badge'      => 'Flagship',
+                    'badge'      => '',
+                    'featured'   => true,
                     'highlights' => [
                         '5"/6" combo K-style gutters from raw coil',
                         'Up to 50 feet per minute with polyurethane drive rollers',
