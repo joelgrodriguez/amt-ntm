@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
 use function Standard\MachinesData\get_ssq3_features;
 
 $content = [
-    'eyebrow'  => __('New Flagship', 'standard'),
+    'kicker'   => __('03 / FLAGSHIP', 'standard'),
     'title'    => __('SSQ3™ MultiPro Roof Panel Machine', 'standard'),
     'subtitle' => __("NTM's latest and most advanced portable rollformer, building on the proven SSQ II platform. Up to 16 panel profiles with high-speed hydraulic drive and advanced touchscreen controls.", 'standard'),
     'image'    => content_url('/uploads/2025/10/SSQ3_For-Render_Trailer_Flattened-SQUARE.png'),
@@ -44,15 +44,14 @@ $features = get_ssq3_features();
             </div>
 
             <div class="order-1 lg:order-2 grid gap-8 lg:gap-10 content-start">
-                <div class="section-header-left">
-                    <p class="section-eyebrow">
-                        <?php echo esc_html($content['eyebrow']); ?>
+                <div class="grid gap-4">
+                    <p class="font-mono text-xs uppercase tracking-[0.18em] text-blue-500">
+                        <?php echo esc_html($content['kicker']); ?>
                     </p>
-                    <div class="section-divider"></div>
-                    <h2 id="ssq3-spotlight-title" class="section-title">
+                    <h2 id="ssq3-spotlight-title" class="text-3xl font-medium tracking-tight text-blue-900 md:text-4xl lg:text-5xl">
                         <?php echo esc_html($content['title']); ?>
                     </h2>
-                    <p class="section-subtitle">
+                    <p class="text-lg text-blue-600 leading-relaxed">
                         <?php echo esc_html($content['subtitle']); ?>
                     </p>
                 </div>

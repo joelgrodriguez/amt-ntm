@@ -23,12 +23,11 @@ $differentiators = get_differentiators();
 <section class="section" aria-labelledby="differentiators-title">
     <div class="container section-content">
 
-        <div class="section-header">
-            <p class="section-eyebrow">
-                <?php esc_html_e('Why NTM', 'standard'); ?>
+        <div class="grid gap-4 max-w-3xl">
+            <p class="font-mono text-xs uppercase tracking-[0.18em] text-blue-500">
+                <?php esc_html_e('07 / WHY NTM', 'standard'); ?>
             </p>
-            <div class="section-divider-center"></div>
-            <h2 id="differentiators-title" class="section-title">
+            <h2 id="differentiators-title" class="text-4xl font-medium tracking-tight text-blue-900 md:text-5xl">
                 <?php esc_html_e('The NTM Difference', 'standard'); ?>
             </h2>
         </div>

@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
 use function Standard\MachinesData\get_uniq_features;
 
 $content = [
-    'eyebrow'      => __('Technology', 'standard'),
+    'kicker'       => __('05 / TECHNOLOGY', 'standard'),
     'title'        => __('UNIQ® Automatic Control System', 'standard'),
     'subtitle'     => __("NTM's most advanced programmable controller, designed to improve automation, safety, and the operator experience.", 'standard'),
     'availability' => __('Standard on WAV · Optional on SSQ II & SSQ3', 'standard'),
@@ -36,15 +36,14 @@ $features = get_uniq_features();
         <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-center">
 
             <div class="grid gap-8 md:gap-10 content-start">
-                <div class="section-header-left">
-                    <p class="text-sm font-medium uppercase tracking-wider text-red">
-                        <?php echo esc_html($content['eyebrow']); ?>
+                <div class="grid gap-4">
+                    <p class="font-mono text-xs uppercase tracking-[0.18em] text-blue-300">
+                        <?php echo esc_html($content['kicker']); ?>
                     </p>
-                    <div class="section-divider"></div>
-                    <h2 id="uniq-spotlight-title" class="text-3xl font-medium text-white md:text-4xl">
+                    <h2 id="uniq-spotlight-title" class="text-3xl font-medium tracking-tight text-white md:text-4xl lg:text-5xl">
                         <?php echo esc_html($content['title']); ?>
                     </h2>
-                    <p class="text-lg text-blue-400">
+                    <p class="text-lg text-blue-300 leading-relaxed">
                         <?php echo esc_html($content['subtitle']); ?>
                     </p>
                 </div>
