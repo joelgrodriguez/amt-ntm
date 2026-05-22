@@ -136,7 +136,7 @@ function get_desktop_nav(): array {
             [
                 'kind'  => 'link',
                 'label' => __('Service & Support', 'standard'),
-                'url'   => \Standard\Url\internal('/support/'),
+                'url'   => \Standard\Url\internal('/service-hub/'),
             ],
         ],
         'utility' => [

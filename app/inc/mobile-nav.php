@@ -60,8 +60,8 @@ function get_mobile_nav_tree(): array {
             ],
             [
                 'type'  => 'link',
-                'label' => __('Support', 'standard'),
-                'url'   => \Standard\Url\internal('/service-training/'),
+                'label' => __('Service & Support', 'standard'),
+                'url'   => \Standard\Url\internal('/service-hub/'),
             ],
         ],
         'featured' => [
