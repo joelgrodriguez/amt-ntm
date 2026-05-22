@@ -50,9 +50,9 @@ function theme_setup(): void {
         'footer'  => __('Footer Menu', 'standard'),
     ]);
 
-    // Set content width
+    // Set content width — matches --layout-wide token / theme.json wideSize
     if (!isset($GLOBALS['content_width'])) {
-        $GLOBALS['content_width'] = 1200;
+        $GLOBALS['content_width'] = 1440;
     }
 }
 add_action('after_setup_theme', __NAMESPACE__ . '\\theme_setup');

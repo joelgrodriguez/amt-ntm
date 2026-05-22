@@ -22,7 +22,8 @@
   }
 
   .alignwide {
-    @apply max-w-screen-xl mx-auto;
+    @apply mx-auto;
+    max-width: var(--layout-wide);
   }
 
   .alignfull {

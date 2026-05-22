@@ -88,13 +88,17 @@
     transition-delay: 0ms;
 }
 
-/* Two-column inner layout: sidebar | content */
+/* Two-column inner layout: sidebar | content.
+   Capped at --layout-wide so the dropdown aligns with body content and header. */
 .mega-panel__inner {
     display: grid;
     grid-template-columns: 13.5rem 1fr;
     align-items: stretch;
     height: 100%;
     overflow: hidden;
+    max-width: var(--layout-wide);
+    margin-inline: auto;
+    width: 100%;
 }
 
 @media (min-width: 1280px) {

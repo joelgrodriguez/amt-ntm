@@ -51,6 +51,7 @@
 @import "./components/hubspot-form.css";
 
 /* ── Layout ────────────────────────────────────────────────────────── */
+@import "./layout/container.css";
 @import "./layout/header.css";
 @import "./layout/mega-menu.css";
 @import "./layout/footer.css";

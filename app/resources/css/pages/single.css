@@ -11,14 +11,8 @@
  */
 
 @layer components {
-  /* Editorial shell — 1280 outer cap for long-form reading surfaces. */
-  .article-shell {
-    @apply mx-auto w-full px-4 md:px-8 lg:px-12;
-    max-width: 1280px;
-  }
-
-  /* TOC + content grid. Inner block capped to TOC + content's natural
-     measure (240 + 48 gap + 720 = 1008) and centered inside the shell. */
+  /* TOC + content grid. Capped to TOC + content's natural reading measure
+     (240 TOC + 48 gap + 720 content = 1008) and centered inside .container. */
   .article-layout {
     @apply mx-auto;
     max-width: 1008px;
