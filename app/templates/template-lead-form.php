@@ -100,7 +100,7 @@ while (have_posts()) :
                     <?php endif; ?>
                 </article>
 
-                <aside class="border border-blue-200 bg-blue-50 p-6 md:p-8 lg:sticky lg:top-24 order-1 lg:order-none lg:col-start-2 lg:row-start-1" aria-labelledby="lead-form-title">
+                <aside class="border-t-2 border-t-blue-500 border-x-0 border-b-0 bg-blue-50 p-6 md:p-8 lg:sticky lg:top-24 order-1 lg:order-none lg:col-start-2 lg:row-start-1" aria-labelledby="lead-form-title">
                     <div class="grid gap-6">
                         <header class="grid gap-3">
                             <p class="section-eyebrow"><?php echo esc_html($form_eyebrow); ?></p>
@@ -110,13 +110,28 @@ while (have_posts()) :
                             <p class="text-blue-600">
                                 <?php echo esc_html($form_description); ?>
                             </p>
+                            <?php if ($is_contact) : ?>
+                                <p class="font-mono text-xs uppercase tracking-widest text-blue-700 inline-flex items-center gap-2 m-0 mt-2">
+                                    <span class="inline-block w-1.5 h-1.5 bg-red shrink-0" aria-hidden="true"></span>
+                                    <?php esc_html_e('Response within 1 business day', 'standard'); ?>
+                                </p>
+                            <?php endif; ?>
                         </header>
 
                         <?php
-                        echo \Standard\HubSpot\render_form([
+                        $form_args = [
                             'form_id' => $form_id,
                             'target_id' => 'lead-form-' . $post_id,
-                        ]);
+                        ];
+
+                        if ($is_contact) {
+                            $form_args['noscript_html'] = '<p class="text-sm text-blue-600 m-0">'
+                                . esc_html__('Enable JavaScript to load the form, or call NTM Sales at ', 'standard')
+                                . '<a href="tel:+13032940538" class="font-mono text-blue-700 hover:text-blue-500">303.294.0538</a>.'
+                                . '</p>';
+                        }
+
+                        echo \Standard\HubSpot\render_form($form_args);
                         ?>
                     </div>
                 </aside>
