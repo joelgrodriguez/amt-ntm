@@ -37,10 +37,10 @@ if ($title === '' || $text === '') {
     <div class="container grid gap-6 max-w-3xl mx-auto text-center">
         <div class="section-divider-center"></div>
         <h2 id="<?php echo esc_attr($section_id); ?>" class="section-title">
-            <?php echo esc_html($title); ?>
+            <?php echo wp_kses($title, ['br' => ['class' => true]]); ?>
         </h2>
         <p class="section-subtitle max-w-2xl mx-auto">
-            <?php echo esc_html($text); ?>
+            <?php echo wp_kses($text, ['br' => ['class' => true]]); ?>
         </p>
     </div>
 </section>

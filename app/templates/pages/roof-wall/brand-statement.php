@@ -22,9 +22,9 @@ if (!defined('ABSPATH')) {
 
 get_template_part('templates/parts/brand-statement', null, [
     'section_id' => 'roof-wall-brand-statement-title',
-    'title'      => __('Take Your Roof Panel Operation to the Next Level.', 'standard'),
+    'title'      => __('Take Your Roof Panel Operation<br class="hidden md:inline"> to the Next Level.', 'standard'),
     'text'       => __(
-        "From standing seam roofing to flush wall and board and batten siding, NTM portable rollformers fabricate panels on-site, anywhere your jobs take you. New Tech Machinery is the industry leader in portable rollformers: we invented the polyurethane drive rollers now standard across the industry, and our roof and wall panel machines are trusted by contractors on all seven continents, from rugged mountains to scorching deserts.",
+        "From standing seam roofing to flush wall and board and batten siding, New Tech Machinery's portable rollformers fabricate panels on-site, anywhere the job takes you. NTM is the industry leader in portable rollforming: we invented the polyurethane drive rollers now standard across the industry, and our roof and wall panel machines are trusted by contractors on all seven continents, from rugged mountains to scorching deserts.",
         'standard'
     ),
 ]);

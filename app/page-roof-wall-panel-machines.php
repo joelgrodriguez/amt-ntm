@@ -35,6 +35,8 @@ get_header();
 
     <?php get_template_part('templates/pages/machines/roi-snapshot'); ?>
 
+    <?php get_template_part('templates/pages/machines/uniq-spotlight'); ?>
+
     <?php get_template_part('templates/pages/machines/which-machine'); ?>
 
     <?php get_template_part('templates/pages/roof-wall/faq'); ?>

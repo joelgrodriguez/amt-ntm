@@ -21,9 +21,9 @@ if (!defined('ABSPATH')) {
 
 get_template_part('templates/parts/brand-statement', null, [
     'section_id' => 'gutter-brand-statement-title',
-    'title'      => __('Focus on Your Business, Not Your Machine.', 'standard'),
+    'title'      => __('Focus on Your Business,<br class="hidden md:inline"> Not Your Machine.', 'standard'),
     'text'       => __(
-        "NTM portable seamless gutter machines were designed for precision, speed, and reliability on the jobsite. New Tech Machinery invented the polyurethane drive rollers that are now standard across the gutter machine industry, and the MACH II line has been the benchmark for portable seamless gutter machines for over 30 years. Trusted by contractors on all seven continents, our gutter machines run smoothly with little need for adjustment, letting your crews focus on installation.",
+        "New Tech Machinery's portable seamless gutter machines were built for precision, speed, and reliability on the jobsite. NTM invented the polyurethane drive rollers that are now standard across the gutter machine industry, and the MACH II line has been the benchmark for portable seamless gutter machines for over 30 years. Trusted by contractors on all seven continents, our gutter machines run smoothly with little need for adjustment, so your crews can focus on installation.",
         'standard'
     ),
 ]);
