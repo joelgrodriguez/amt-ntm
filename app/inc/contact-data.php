@@ -52,7 +52,8 @@ function get_faq_items(): array
  *     name: string,
  *     address_html: string,
  *     map_query: string,
- *     phones: list<array{label: string, display: string, tel: string, note?: string}>
+ *     provenance?: string,
+ *     phones?: list<array{label: string, display: string, tel: string, note?: string}>
  * }>
  */
 function get_locations(): array
@@ -63,6 +64,7 @@ function get_locations(): array
             'name'         => __('NTM Sales, Service & Manufacturing', 'standard'),
             'address_html' => '16265 E. 33rd Dr. Suite 40<br>Aurora, Colorado 80011',
             'map_query'    => '16265 E. 33rd Dr. Suite 40, Aurora, CO 80011',
+            'provenance'   => __('Headquarters since 1991. Every NTM machine ships from here.', 'standard'),
             'phones'       => [
                 ['label' => __('Sales', 'standard'), 'display' => '303.294.0538', 'tel' => '+13032940538'],
                 [
@@ -78,9 +80,6 @@ function get_locations(): array
             'name'         => __('NTM Mexico Manufacturing Facility', 'standard'),
             'address_html' => 'Latitud Oriente #27,<br>Latitud Industrial Park<br>Hermosillo, Mexico',
             'map_query'    => 'Latitud Oriente 27, Latitud Industrial Park, Hermosillo, Mexico',
-            'phones'       => [
-                ['label' => __('Phone', 'standard'), 'display' => '+52 662.218.41.0', 'tel' => '+5266221841'],
-            ],
         ],
     ];
 }
