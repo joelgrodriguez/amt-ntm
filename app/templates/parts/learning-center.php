@@ -47,7 +47,7 @@ if (!$query->have_posts()) {
 }
 ?>
 
-<section class="section pattern-dot-grid gradient-fade-bottom" aria-labelledby="learning-center-title">
+<section class="section pattern-dot-grid" aria-labelledby="learning-center-title">
     <div class="container section-content">
 
         <!-- Section Header -->

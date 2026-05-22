@@ -4,8 +4,8 @@
  *
  * Asymmetric two-column: H1 on the left, quick-link nav to the catalog
  * sections on the right (mirrors home.php's hero quick-nav). Hairline
- * structural border seals the top; full-bleed pattern-square-grid sits
- * behind the content on bg-blue-50.
+ * structural border seals the top; full-bleed pattern-dot-grid--surface
+ * sits behind the content on bg-blue-50.
  *
  * @package Standard
  */
@@ -32,8 +32,7 @@ $hero_nav = [
 ];
 ?>
 
-<section class="pattern-square-grid border-b border-blue-200 bg-blue-50 pt-6 pb-6 lg:pt-12 lg:pb-12">
-    <div class="pattern-square-grid__overlay" aria-hidden="true"></div>
+<section class="pattern-dot-grid pattern-dot-grid--surface border-b border-blue-200 bg-blue-50 pt-6 pb-6 lg:pt-12 lg:pb-12">
     <div class="container grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
 
         <div class="section-header-left max-w-3xl">

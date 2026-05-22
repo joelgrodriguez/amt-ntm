@@ -1,34 +1,30 @@
 /**
  * Background Patterns
  *
- * Decorative background patterns for visual accents.
- * Apply to elements using the pattern class names.
+ * Single dot-grid system with three variants. No square grid,
+ * no separate fade utility — the white default bakes in its
+ * own bottom fade so seams between sections feel soft.
  *
  * @file patterns.css
- */
-
-/**
- * Dot Grid Pattern
  *
- * Subtle dot grid background. Light variant by default; add
- * --dark for dark surfaces. Can be combined with
- * gradient-fade-bottom for a fade effect.
+ * Variants:
+ *   pattern-dot-grid                            → white sections, fades at bottom
+ *   pattern-dot-grid pattern-dot-grid--surface  → bg-blue-50 surfaces, no fade
+ *   pattern-dot-grid pattern-dot-grid--dark     → bg-blue-900 dark CTAs, no fade
+ *   pattern-dot-grid pattern-dot-grid--solid    → escape hatch: no fade, any bg
  *
- * Usage:
- *   <div class="pattern-dot-grid">...</div>
- *   <div class="pattern-dot-grid pattern-dot-grid--dark">...</div>
- *   <div class="pattern-dot-grid gradient-fade-bottom">...</div>
- *
- * Tunables (override per-instance via inline style):
- *   --pattern-dot-color  Dot color  (defaults to blue-200 / white@0.10)
- *   --pattern-dot-size   Dot radius (defaults to 1px)
- *   --pattern-dot-gap    Grid step  (defaults to 16px)
+ * Tunables (per-instance via inline style):
+ *   --pattern-dot-color   Dot color  (default blue-200; --dark uses blue-700)
+ *   --pattern-dot-size    Dot radius (default 1px)
+ *   --pattern-dot-gap     Grid step  (default 16px)
  */
 .pattern-dot-grid {
   @apply relative;
   --pattern-dot-color: var(--color-blue-200);
   --pattern-dot-size: 1px;
   --pattern-dot-gap: 16px;
+  --pattern-dot-fade-height: 400px;
+  --pattern-dot-fade-stop: 60%;
 }
 
 .pattern-dot-grid::before {
@@ -37,107 +33,42 @@
   z-index: 0;
   background-image: radial-gradient(circle, var(--pattern-dot-color) var(--pattern-dot-size), transparent var(--pattern-dot-size));
   background-size: var(--pattern-dot-gap) var(--pattern-dot-gap);
+  height: var(--pattern-dot-fade-height);
+  mask-image: linear-gradient(to bottom, black 0%, black var(--pattern-dot-fade-stop), transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black var(--pattern-dot-fade-stop), transparent 100%);
 }
 
 .pattern-dot-grid > * {
   @apply relative z-[1];
 }
 
-/* Dark variant for dark backgrounds (blue-800 / blue-900). */
+@media (min-width: 1024px) {
+  .pattern-dot-grid {
+    --pattern-dot-fade-height: 600px;
+  }
+}
+
+/* Surface variant: bg-blue-50, no fade. Heroes and framed surfaces. */
+.pattern-dot-grid--surface::before {
+  height: 100%;
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+/* Dark variant: bg-blue-900, no fade. */
 .pattern-dot-grid--dark {
   --pattern-dot-color: var(--color-blue-700);
 }
 
-/**
- * Gradient Fade Bottom
- *
- * Fades content from visible at top to transparent at bottom.
- * Use with pattern classes or standalone for overlay effects.
- *
- * Usage: <div class="pattern-dot-grid gradient-fade-bottom">...</div>
- */
-.gradient-fade-bottom::before {
-  mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
-  height: 800px;
+.pattern-dot-grid--dark::before {
+  height: 100%;
+  mask-image: none;
+  -webkit-mask-image: none;
 }
 
-.gradient-fade-bottom-sm::before {
-  mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
-  height: 400px;
+/* Solid: escape hatch for full-coverage dots without a fade. */
+.pattern-dot-grid--solid::before {
+  height: 100%;
+  mask-image: none;
+  -webkit-mask-image: none;
 }
-
-@media (min-width: 1024px) {
-  .gradient-fade-bottom-sm::before {
-    height: 600px;
-  }
-}
-
-/**
- * Square Grid Pattern
- *
- * Subtle square grid that fades diagonally from corners.
- * Use on containers that need an industrial/technical accent.
- *
- * Usage:
- * <div class="pattern-square-grid">
- *   <div class="pattern-square-grid__overlay pattern-square-grid__overlay--top-left"></div>
- *   <div class="pattern-square-grid__overlay pattern-square-grid__overlay--bottom-right"></div>
- *   <div class="relative z-10">Content here</div>
- * </div>
- */
-.pattern-square-grid {
-  @apply relative overflow-hidden;
-}
-
-.pattern-square-grid__overlay {
-  @apply absolute inset-0 pointer-events-none;
-  background-image:
-    linear-gradient(to right, var(--color-blue-200) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--color-blue-200) 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-
-.pattern-square-grid__overlay--top-left {
-  mask-image: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, transparent 50%);
-  -webkit-mask-image: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, transparent 50%);
-}
-
-.pattern-square-grid__overlay--bottom-right {
-  mask-image: linear-gradient(315deg, rgba(0,0,0,0.7) 0%, transparent 50%);
-  -webkit-mask-image: linear-gradient(315deg, rgba(0,0,0,0.7) 0%, transparent 50%);
-}
-
-.pattern-square-grid > *:not(.pattern-square-grid__overlay) {
-  @apply relative z-[1];
-}
-
-/* Dark variant for dark backgrounds */
-.pattern-square-grid--dark .pattern-square-grid__overlay {
-  background-image:
-    linear-gradient(to right, var(--color-blue-700) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--color-blue-700) 1px, transparent 1px);
-}
-
-/* Primary variant for primary color backgrounds */
-.pattern-square-grid--primary .pattern-square-grid__overlay {
-  background-image:
-    linear-gradient(to right, rgba(255,255,255,0.15) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255,255,255,0.15) 1px, transparent 1px);
-}
-
-/**
- * Dot Matrix Pattern
- *
- * Halftone-style dot overlay for dark hero sections.
- * Adds subtle texture without overpowering the image.
- *
- * Usage: <div class="pattern-dot-matrix"></div>
- */
-.pattern-dot-matrix {
-  @apply absolute inset-0 pointer-events-none;
-  background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
-  background-size: 4px 4px;
-}
-
