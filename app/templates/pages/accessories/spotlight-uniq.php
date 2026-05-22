@@ -64,7 +64,7 @@ if (function_exists('wc_get_product') && function_exists('get_page_by_path')) {
                     <?php esc_html_e('UNIQ Automatic Control System', 'standard'); ?>
                 </h2>
                 <p class="text-blue-200 text-base md:text-lg max-w-prose">
-                    <?php esc_html_e('Type the length, hit run. The controller drives the shear, counts the panels, and remembers the job. The difference between a machine and a production line.', 'standard'); ?>
+                    <?php esc_html_e('Type the length, hit run. The controller drives the shear, counts the panels, and remembers the next job.', 'standard'); ?>
                 </p>
             </div>
 
