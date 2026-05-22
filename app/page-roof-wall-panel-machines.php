@@ -16,8 +16,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$video_url = function_exists('get_field') ? get_field('video', false, false) : null;
-
 get_header();
 ?>
 
@@ -29,24 +27,13 @@ get_header();
 
     <?php get_template_part('templates/pages/roof-wall/product-grid'); ?>
 
-    <?php
-    get_template_part('templates/parts/video-section', null, [
-        'title'      => __('Roof & Wall Panel Machines', 'standard'),
-        'video_url'  => is_string($video_url) ? $video_url : null,
-        'video_type' => __('Category Overview', 'standard'),
-        'section_id' => 'roof-wall-video',
-    ]);
-    ?>
-
-    <?php get_template_part('templates/pages/roof-wall/configurator'); ?>
+    <?php get_template_part('templates/pages/roof-wall/customer-story'); ?>
 
     <?php get_template_part('templates/pages/machines/roi-snapshot'); ?>
 
     <?php get_template_part('templates/pages/machines/which-machine'); ?>
 
     <?php get_template_part('templates/pages/roof-wall/faq'); ?>
-
-    <?php get_template_part('templates/pages/roof-wall/customer-story'); ?>
 
     <?php get_template_part('templates/pages/roof-wall/learning-center'); ?>
 
