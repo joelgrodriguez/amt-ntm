@@ -31,7 +31,13 @@ if (empty($locations)) {
                 <?php echo esc_html($loc['eyebrow']); ?>
             </p>
             <h3 class="font-sans text-base md:text-lg font-medium tracking-tight text-blue-900 m-0 leading-snug">
-                <?php echo esc_html($loc['name']); ?>
+                <?php
+                if (!empty($loc['name_html'])) {
+                    echo wp_kses($loc['name_html'], ['br' => []]);
+                } else {
+                    echo esc_html($loc['name']);
+                }
+                ?>
             </h3>
 
             <?php if (!empty($loc['provenance'])) : ?>

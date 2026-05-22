@@ -50,6 +50,7 @@ function get_faq_items(): array
  * @return list<array{
  *     eyebrow: string,
  *     name: string,
+ *     name_html?: string,
  *     address_html: string,
  *     map_query: string,
  *     provenance?: string,
@@ -60,18 +61,18 @@ function get_locations(): array
 {
     return [
         [
-            'eyebrow'      => __('Headquarters · Aurora, CO', 'standard'),
+            'eyebrow'      => __('HQ · Assembly · QC', 'standard'),
             'name'         => __('NTM Sales & Manufacturing', 'standard'),
             'address_html' => '16265 E. 33rd Dr. Suite 40<br>Aurora, Colorado 80011',
             'map_query'    => '16265 E. 33rd Dr. Suite 40, Aurora, CO 80011',
-            'provenance'   => __('Headquarters since 1991. Every NTM machine ships from here.', 'standard'),
             'phones'       => [
                 ['label' => __('Sales', 'standard'), 'display' => '303.294.0538', 'tel' => '+13032940538'],
             ],
         ],
         [
-            'eyebrow'      => __('Service · Aurora, CO', 'standard'),
+            'eyebrow'      => __('Service & Support', 'standard'),
             'name'         => __('Service & Engineering Center', 'standard'),
+            'name_html'    => 'Service &amp;<br>Engineering Center',
             'address_html' => '16401 East 33rd Dr., Suite 10<br>Aurora, Colorado 80011',
             'map_query'    => '16401 East 33rd Dr. Suite 10, Aurora, CO 80011',
             'phones'       => [
@@ -79,12 +80,12 @@ function get_locations(): array
                     'label'   => __('Service', 'standard'),
                     'display' => '303.294.0538',
                     'tel'     => '+13032940538',
-                    'note'    => __('Select option 2 after the prompt', 'standard'),
+                    'note'    => __('Option 2 after the prompt', 'standard'),
                 ],
             ],
         ],
         [
-            'eyebrow'      => __('Manufacturing · Hermosillo, MX', 'standard'),
+            'eyebrow'      => __('Manufacturing', 'standard'),
             'name'         => __('NTM Mexico Manufacturing Facility', 'standard'),
             'address_html' => 'Latitud Oriente #27,<br>Latitud Industrial Park<br>Hermosillo, Mexico',
             'map_query'    => 'Latitud Oriente 27, Latitud Industrial Park, Hermosillo, Mexico',
