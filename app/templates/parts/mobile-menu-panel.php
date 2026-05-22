@@ -48,7 +48,7 @@ $products = get_products_by_category($category);
         <?php if (!empty($products)) : ?>
             <div class="mobile-menu__cards">
                 <?php foreach ($products as $product) : ?>
-                    <?php get_template_part('templates/parts/card-product', null, ['product' => $product, 'variant' => 'stack']); ?>
+                    <?php get_template_part('templates/parts/card-product', null, ['product' => $product]); ?>
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>

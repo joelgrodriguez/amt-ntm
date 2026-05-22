@@ -367,15 +367,6 @@ body.overflow-hidden.menu-scrim-ready::after {
     gap: 1rem;
 }
 
-/* Mobile menu uses card-product--grid (vertical). Force full-width inside
- * the panel column regardless of variant defaults. */
-.mobile-menu__cards .card-product {
-    width: 100%;
-    max-width: none;
-    min-width: 0;
-    flex-shrink: 1;
-}
-
 .mobile-menu__view-all {
     display: inline-flex;
     align-items: center;

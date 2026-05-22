@@ -27,7 +27,7 @@
   }
 
   /* Cap at --layout-wide with no gutter. For chrome rows (header, mega panel)
-     whose children manage their own internal padding. */
+     where the children are corner-anchored: logo flush left, actions flush right. */
   .container-flush {
     @apply mx-auto w-full;
     max-width: var(--layout-wide);

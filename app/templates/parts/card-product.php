@@ -2,16 +2,8 @@
 /**
  * Product Card
  *
- * One template, two layout variants. Same data shape either way.
- *
- *   variant: 'row' (default)
- *     Vertical on mobile (image on top, content below).
- *     Horizontal at tablet+ (image left, content right).
- *     Used by the front-page Explore strip and the desktop mega menu.
- *
- *   variant: 'stack'
- *     Vertical always. Image on top, content below.
- *     Used by the mobile menu panel.
+ * Always vertical: image on top, content below. Used by the front-page
+ * Explore strip, the desktop mega menu, and the mobile menu panel.
  *
  * Link model: the whole card is one link to `explore_url` (expanded hit area
  * via ::after on the title anchor). Priced machines get a single inline
@@ -23,8 +15,7 @@
  * @package Standard
  *
  * @param array  $args {
- *     @type array  $product Product data (title, image, price, urls, ...).
- *     @type string $variant 'row' | 'stack'. Default 'row'.
+ *     @type array $product Product data (title, image, price, urls, ...).
  * }
  */
 
@@ -39,8 +30,6 @@ if (!$product) {
     return;
 }
 
-$variant = ($args['variant'] ?? 'row') === 'stack' ? 'stack' : 'row';
-
 $title          = $product['title'] ?? '';
 $category_label = $product['category_label'] ?? '';
 $image          = $product['image'] ?? '';
@@ -51,10 +40,9 @@ $build_url      = $product['build_url'] ?? '';
 $badge          = $product['badge'] ?? '';
 $is_accessory   = empty($price);
 
-$root_classes = 'card-product card-product--' . $variant . ' group relative';
 ?>
 
-<article class="<?php echo esc_attr($root_classes); ?>">
+<article class="card-product group relative">
     <div class="card-product__image-wrapper">
         <?php if ($badge) : ?>
             <span class="card-product__badge"><?php echo esc_html($badge); ?></span>

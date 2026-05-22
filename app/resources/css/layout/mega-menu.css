@@ -194,27 +194,11 @@
 
 /* ── Product grid (machines + upgrades) ───────────────────────────────── */
 
-/* Mega menu always shows 3 row cards across. */
+/* Mega menu always shows 3 stacked cards across. */
 .mega-product-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem;
-}
-
-/* The row card defaults to a 440-520px width range for the front-page
-   carousel. Inside this 3-col grid each cell is ~280-360px, so override
-   the width clamps and reset the fixed height (let content drive it). */
-.mega-product-grid .card-product--row {
-    width: 100%;
-    min-width: 0;
-    max-width: none;
-    height: auto;
-}
-
-/* Image cell holds its 5/12 share; title scales back down since columns
-   are narrower than the front-page carousel. */
-.mega-product-grid .card-product--row .card-product__title {
-    font-size: var(--text-heading-sm);
 }
 
 /* ── Learning Center header (title left, view-all link right) ─────────── */

@@ -66,11 +66,11 @@ if (!defined('ABSPATH')) {
     <?php $desktop_nav = \Standard\Nav\get_desktop_nav(); ?>
 
     <!-- Desktop row: logo | [mega triggers centered] | utility rail — capped at --layout-wide.
-         container-flush: no padding; logo/utility rail provide their own px-10 internal gutter. -->
+         container-flush: no gutter so logo sits flush left and search flush right. -->
     <div class="container-flush hidden lg:grid h-16" style="grid-template-columns: auto 1fr auto;">
 
         <!-- Logo flush left -->
-        <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="flex items-center h-16 px-10 no-underline">
+        <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="flex items-center h-16 no-underline">
             <?php if (has_custom_logo()) : ?>
                 <?php echo wp_get_attachment_image((int) get_theme_mod('custom_logo'), 'full', false, [
                     'class'    => 'w-14 object-contain',
@@ -114,7 +114,7 @@ if (!defined('ABSPATH')) {
         </div>
 
         <!-- Contact + search flush right -->
-        <div class="flex items-center h-16 gap-10 px-10">
+        <div class="flex items-center h-16 gap-10">
             <?php $contact = array_values(array_filter($desktop_nav['utility'], fn($i) => !empty($i['highlight'])))[0] ?? null; ?>
             <?php if ($contact) : ?>
                 <a href="<?php echo esc_url($contact['url']); ?>" class="inline-flex items-center px-3 py-1 font-sans text-sm font-medium text-blue-700 border border-blue-500 hover:bg-blue-50 transition-colors no-underline">

@@ -104,7 +104,7 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
 
                         <div class="mega-product-grid">
                             <?php foreach ($products as $product) : ?>
-                                <?php get_template_part('templates/parts/card-product', null, ['product' => $product, 'variant' => 'row']); ?>
+                                <?php get_template_part('templates/parts/card-product', null, ['product' => $product]); ?>
                             <?php endforeach; ?>
                         </div>
                     </div>
@@ -118,7 +118,7 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
             <div class="mega-panel__content mega-panel__content--full">
                 <div class="mega-product-grid">
                     <?php foreach ($products as $product) : ?>
-                        <?php get_template_part('templates/parts/card-product', null, ['product' => $product, 'variant' => 'row']); ?>
+                        <?php get_template_part('templates/parts/card-product', null, ['product' => $product]); ?>
                     <?php endforeach; ?>
                 </div>
                 <?php if (!empty($panel['view_all_url'])) : ?>
