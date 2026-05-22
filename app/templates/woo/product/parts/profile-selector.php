@@ -21,17 +21,66 @@ if (empty($tag_slugs)) {
     return;
 }
 
-get_template_part('templates/woo/product/parts/carousel-section', null, [
-    'query_type'    => 'post',
-    'post_type'     => 'profile',
-    'tag_slugs'     => $tag_slugs,
-    'taxonomy'      => 'post_tag',
-    'subtitle_tax'  => 'category',
-    'section_class' => 'bg-blue-50 border-y border-blue-200',
-    'carousel_id'   => 'profiles-carousel',
-    'eyebrow'       => __('Panel Profiles', 'standard'),
-    'title'         => __('Your Panels, Your Way', 'standard'),
-    'title_id'      => 'profiles-title',
-    'prev_label'    => __('Previous profiles', 'standard'),
-    'next_label'    => __('Next profiles', 'standard'),
+$profiles = get_posts([
+    'post_type'           => 'profile',
+    'post_status'         => 'publish',
+    'posts_per_page'      => 24,
+    'orderby'             => 'menu_order title',
+    'order'               => 'ASC',
+    'ignore_sticky_posts' => true,
+    'no_found_rows'       => true,
+    'tax_query'           => [
+        [
+            'taxonomy' => 'post_tag',
+            'field'    => 'slug',
+            'terms'    => $tag_slugs,
+        ],
+    ],
 ]);
+
+if (empty($profiles)) {
+    return;
+}
+
+$carousel_id = 'profiles-carousel';
+$title_id    = 'profiles-title';
+?>
+
+<section class="section bg-blue-50 border-y border-blue-200" aria-labelledby="<?php echo esc_attr($title_id); ?>">
+    <div class="container section-content">
+
+        <div class="flex items-end justify-between gap-4 mb-10">
+            <div class="section-header-left mb-0">
+                <p class="section-eyebrow"><?php esc_html_e('Panel Profiles', 'standard'); ?></p>
+                <div class="section-divider"></div>
+                <h2 id="<?php echo esc_attr($title_id); ?>" class="section-title">
+                    <?php esc_html_e('Your Panels, Your Way', 'standard'); ?>
+                </h2>
+            </div>
+            <div class="flex gap-2 shrink-0">
+                <button type="button"
+                        data-carousel-prev="<?php echo esc_attr($carousel_id); ?>"
+                        class="carousel__nav"
+                        aria-label="<?php esc_attr_e('Previous profiles', 'standard'); ?>">
+                    <span class="text-blue-600">&larr;</span>
+                </button>
+                <button type="button"
+                        data-carousel-next="<?php echo esc_attr($carousel_id); ?>"
+                        class="carousel__nav"
+                        aria-label="<?php esc_attr_e('Next profiles', 'standard'); ?>">
+                    <span class="text-blue-600">&rarr;</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="<?php echo esc_attr($carousel_id); ?>" class="carousel__track">
+            <?php foreach ($profiles as $profile) : ?>
+                <?php get_template_part('templates/parts/card-profile', null, [
+                    'profile' => $profile,
+                    'context' => 'carousel',
+                ]); ?>
+            <?php endforeach; ?>
+        </div>
+
+    </div>
+</section>

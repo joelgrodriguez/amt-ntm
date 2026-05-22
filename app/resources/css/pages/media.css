@@ -22,8 +22,9 @@
 .video-responsive iframe,
 .video-responsive video,
 .video-responsive embed,
-.video-responsive object {
-  @apply absolute inset-0 w-full h-full;
+.video-responsive object,
+.video-responsive img {
+  @apply absolute inset-0 w-full h-full object-cover;
 }
 
 /**

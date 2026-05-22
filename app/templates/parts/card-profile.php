@@ -2,18 +2,17 @@
 /**
  * Profile Card
  *
- * Shared card for the panel/gutter profile catalog. Used by the
- * /profiles landing grid and the header mega-menu. Cross-section
- * imagery sits on bg-blue-50 with object-contain inside a 16:9 well
- * because these are technical drawings, not photography; they must
- * not be cropped. Aspect matches card-post and card-product for a
- * consistent card art height across mixed grids.
+ * Canonical profile card. Used everywhere a profile renders: /profiles
+ * landing, mega-menu Profiles tab, and the Woo machine profile carousels
+ * (Available Profiles + Panel Profiles). Image fills a 16:9 well edge-to-
+ * edge — profile renders are already 16:9 so no letterboxing needed.
  *
  * Args:
- *   profile (WP_Post|int): profile post or its ID
- *   context (string): 'grid' (default) or 'mega'
- *     - grid: shows machine-tag subtitle row
- *     - mega: title only, denser
+ *   profile  (WP_Post|int): profile post or its ID
+ *   context  (string): 'grid' (default), 'mega', or 'carousel'
+ *     - grid:     shows machine-tag subtitle row
+ *     - mega:     title only, denser
+ *     - carousel: title only, sized for .carousel__track (snap + responsive widths)
  *
  * @package Standard
  * @var array $args
@@ -53,34 +52,37 @@ if ($context === 'grid') {
         $extra = count($tags) - count($names);
         $subtitle = implode(', ', $names);
         if ($extra > 0) {
-            $subtitle .= sprintf(
-                /* translators: %d: number of additional machine tags. */
-                _n(' +%d more', ' +%d more', $extra, 'standard'),
-                $extra
-            );
+            $subtitle .= sprintf(' +%d', $extra);
         }
     }
+}
+
+// Carousel context piggybacks .carousel__card on the anchor itself so the
+// card carries snap + responsive width directly inside .carousel__track.
+$root_classes = 'profile-card group grid grid-rows-[auto_1fr] no-underline bg-white border border-blue-200 hover:border-blue-500 transition-colors duration-200';
+if ($context === 'carousel') {
+    $root_classes .= ' carousel__card';
 }
 ?>
 
 <a href="<?php echo esc_url($url); ?>"
-   class="profile-card group grid gap-3 no-underline">
+   class="<?php echo esc_attr($root_classes); ?>">
 
-    <div class="profile-card__image bg-blue-50 aspect-[16/9] overflow-hidden flex items-center justify-center border border-blue-200 group-hover:border-blue-500 transition-colors duration-200">
+    <div class="profile-card__image aspect-[16/9] overflow-hidden border-b border-blue-200 group-hover:border-blue-500 transition-colors duration-200">
         <?php if ($thumb) : ?>
             <img src="<?php echo esc_url($thumb); ?>"
                  alt="<?php echo esc_attr($title); ?>"
-                 class="w-full h-full object-contain p-4 transition-transform duration-200 group-hover:scale-105"
+                 class="w-full h-full block object-cover transition-transform duration-200 group-hover:scale-105"
                  loading="lazy"
                  decoding="async">
         <?php else : ?>
-            <span class="font-mono text-blue-400 text-sm px-4 text-center">
+            <span class="flex items-center justify-center w-full h-full font-mono text-blue-400 text-sm px-4 text-center">
                 <?php echo esc_html($title); ?>
             </span>
         <?php endif; ?>
     </div>
 
-    <div class="grid gap-1">
+    <div class="grid gap-1 content-start p-4 lg:p-5">
         <h3 class="font-sans font-semibold text-base lg:text-lg leading-snug tracking-tight text-blue-900 group-hover:text-blue-500 transition-colors duration-200">
             <?php echo esc_html($title); ?>
         </h3>

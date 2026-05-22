@@ -6,7 +6,7 @@
  *
  * Wraps the 60+ product Woo "Accessories & Add-On Equipment" category in
  * a hero, a horizontal jump-nav strip, the bucketed catalog grid, a
- * fits-which-machine matrix, owner resources, and a final CTA.
+ * fits-which-machine matrix, and a final CTA.
  *
  * @package Standard
  */
@@ -29,8 +29,6 @@ get_header();
     <?php get_template_part('templates/pages/accessories/catalog-grid'); ?>
 
     <?php get_template_part('templates/pages/accessories/fit-by-machine'); ?>
-
-    <?php get_template_part('templates/pages/accessories/owner-resources'); ?>
 
     <?php get_template_part('templates/pages/accessories/final-cta'); ?>
 
