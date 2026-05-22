@@ -41,7 +41,7 @@ function legacy_template_map(): array
  */
 function include_legacy_page_template(string $template): string
 {
-    if (!is_page()) {
+    if (!is_page() || is_front_page()) {
         return $template;
     }
 
