@@ -224,6 +224,16 @@ get_header();
             </div>
         <?php endif; ?>
     </section>
+
+    <?php
+    get_template_part('templates/parts/cta/closer', null, [
+        'title'           => __('Still need a hand?', 'standard'),
+        'text'            => __('Our service team has been on the other end of the phone for more than 30 years. If the answer is not in the library, call us.', 'standard'),
+        'cta_primary'     => __('Talk to a service specialist', 'standard'),
+        'cta_primary_url' => '/contact/',
+        'section_id'      => 'service-hub-closer-title',
+    ]);
+    ?>
 </main>
 
 <?php
