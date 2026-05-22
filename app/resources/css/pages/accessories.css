@@ -1,0 +1,26 @@
+/**
+ * Accessories Landing Page
+ *
+ * Page-scoped styles for the bucket-map cards. The hover affordance
+ * mirrors the canonical card-product pattern (DESIGN.md §8.8): the
+ * whole anchor is the trigger, the heading shifts color, no background
+ * fill, no scale. Same transition timing as the rest of the system.
+ *
+ * @file pages/accessories.css
+ */
+
+@layer components {
+  .category-card__title {
+    transition: color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .category-card:hover .category-card__title,
+  .category-card:focus-visible .category-card__title {
+    color: var(--color-blue-500);
+  }
+
+  .category-card:focus-visible {
+    outline: 2px solid var(--color-blue-500);
+    outline-offset: -2px;
+  }
+}

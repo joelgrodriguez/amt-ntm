@@ -50,20 +50,15 @@ $bucketed = get_bucketed_products();
             ?>
                 <div id="catalog-<?php echo esc_attr($bucket['id']); ?>" class="grid gap-8" data-bucket="<?php echo esc_attr($bucket['id']); ?>">
 
-                    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 border-b border-blue-200 pb-4">
-                        <div class="grid gap-1">
-                            <p class="font-mono text-xs uppercase tracking-wider text-blue-500">
-                                <?php
-                                /* translators: %d: number of products in this bucket */
-                                printf(esc_html__('%d items', 'standard'), $count);
-                                ?>
-                            </p>
-                            <h3 class="font-sans font-medium text-blue-900 text-2xl md:text-3xl tracking-tight">
-                                <?php echo esc_html($bucket['label']); ?>
-                            </h3>
-                        </div>
-                        <p class="font-sans text-blue-600 text-sm md:text-base max-w-md">
-                            <?php echo esc_html($bucket['description']); ?>
+                    <div class="flex items-center justify-between border-b border-blue-200 pb-4">
+                        <h3 class="font-mono text-lg font-medium text-blue-400 uppercase tracking-wider">
+                            <?php echo esc_html($bucket['label']); ?>
+                        </h3>
+                        <p class="font-mono text-xs uppercase tracking-wider text-blue-500">
+                            <?php
+                            /* translators: %d: number of products in this bucket */
+                            printf(esc_html__('%d items', 'standard'), $count);
+                            ?>
                         </p>
                     </div>
 

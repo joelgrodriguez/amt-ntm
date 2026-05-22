@@ -2,9 +2,9 @@
 /**
  * Accessories Page — Owner Resources Strip
  *
- * Compact 3-column hairline strip linking to manuals, the riser-kit install
- * video, and the support contact. Reinforces "serious operation" without
- * restating it.
+ * 3-column hairline strip linking to manuals, the riser-kit install
+ * video, and the support contact. Hover affordance matches the bucket
+ * cards above: heading shifts color, no background fill.
  *
  * @package Standard
  *
@@ -26,7 +26,7 @@ $total     = count($resources);
 <section class="bg-blue-50 border-y border-blue-200" aria-labelledby="owner-resources-title">
     <div class="container py-12 md:py-16">
 
-        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 border-b border-blue-200 pb-4 mb-0">
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 border-b border-blue-200 pb-4">
             <h2 id="owner-resources-title" class="font-mono text-xs md:text-sm font-medium uppercase tracking-wider text-blue-500">
                 <?php esc_html_e('Owner Resources', 'standard'); ?>
             </h2>
@@ -41,20 +41,16 @@ $total     = count($resources);
                 $border  = 'border-b border-blue-200';
                 $border .= $is_last ? '' : ' md:border-b-0 md:border-r';
             ?>
-                <a href="<?php echo esc_url(\Standard\Url\internal($resource['url'])); ?>" class="<?php echo esc_attr($border); ?> group py-8 md:py-10 md:px-8 grid gap-3 content-start no-underline hover:bg-white transition-colors duration-200">
+                <a href="<?php echo esc_url(\Standard\Url\internal($resource['url'])); ?>" class="<?php echo esc_attr($border); ?> category-card py-8 md:py-10 md:px-8 grid gap-3 content-start no-underline">
                     <p class="font-mono text-xs uppercase tracking-wider text-blue-500">
                         <?php echo esc_html($resource['eyebrow']); ?>
                     </p>
-                    <h3 class="font-sans font-medium text-blue-900 text-lg md:text-xl tracking-tight">
+                    <h3 class="category-card__title font-sans font-medium text-blue-900 text-lg md:text-xl tracking-tight">
                         <?php echo esc_html($resource['label']); ?>
                     </h3>
                     <p class="font-sans text-blue-600 text-sm max-w-prose">
                         <?php echo esc_html($resource['description']); ?>
                     </p>
-                    <span class="inline-flex items-center gap-1 font-mono text-xs uppercase tracking-wider text-blue-500 mt-1">
-                        <?php esc_html_e('Open', 'standard'); ?>
-                        <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
-                    </span>
                 </a>
             <?php endforeach; ?>
         </div>

@@ -2,9 +2,13 @@
 /**
  * Accessories Page — UNIQ Spotlight
  *
- * Asymmetric two-column: photo on the left, editorial block + spec rows
- * + CTA on the right. The single highest-leverage upgrade, called out
- * separately from the catalog.
+ * Asymmetric two-column dark band. Photo on the left, editorial block +
+ * CTAs on the right. UNIQ is the single highest-leverage upgrade in the
+ * catalog, called out separately from the bucket grid.
+ *
+ * No spec quad: half-invented specs read worse than no specs on a brand
+ * that lives on engineering credibility. The product page is one click
+ * away for the real numbers.
  *
  * @package Standard
  *
@@ -19,7 +23,6 @@ if (!defined('ABSPATH')) {
 
 $uniq_image = '/wp-content/uploads/uniq-control-system.jpg';
 $uniq_url   = '/product/uniq-automatic-control-system/';
-$uniq_id    = function_exists('get_page_by_path') ? null : null;
 
 if (function_exists('wc_get_product') && function_exists('get_page_by_path')) {
     $maybe = get_page_by_path('uniq-automatic-control-system', OBJECT, 'product');
@@ -34,13 +37,6 @@ if (function_exists('wc_get_product') && function_exists('get_page_by_path')) {
         }
     }
 }
-
-$specs = [
-    ['label' => __('Tolerance', 'standard'),    'value' => __('±1/16"', 'standard')],
-    ['label' => __('Memory', 'standard'),       'value' => __('100 jobs', 'standard')],
-    ['label' => __('Interface', 'standard'),    'value' => __('Touch + Remote', 'standard')],
-    ['label' => __('Integration', 'standard'),  'value' => __('Hot-Melt Ready', 'standard')],
-];
 ?>
 
 <section class="bg-blue-900 border-t border-blue-800" aria-labelledby="uniq-spotlight-title">
@@ -60,9 +56,9 @@ $specs = [
         <div class="px-6 py-16 md:px-12 md:py-20 lg:px-16 lg:py-24 grid content-center gap-8 max-w-2xl">
 
             <div class="grid gap-4">
-                <p class="font-mono text-xs uppercase tracking-wider text-red flex items-center gap-2">
-                    <span class="inline-block w-1 h-1 bg-red"></span>
-                    <?php esc_html_e('Spotlight · The Upgrade Everyone Benchmarks', 'standard'); ?>
+                <p class="font-mono text-xs uppercase tracking-wider text-blue-500 flex items-center gap-2">
+                    <span class="inline-block w-1 h-1 bg-blue-500"></span>
+                    <?php esc_html_e('Spotlight', 'standard'); ?>
                 </p>
                 <h2 id="uniq-spotlight-title" class="font-sans font-medium tracking-tight text-white text-3xl md:text-4xl lg:text-5xl leading-tight">
                     <?php esc_html_e('UNIQ Automatic Control System', 'standard'); ?>
@@ -72,20 +68,7 @@ $specs = [
                 </p>
             </div>
 
-            <dl class="grid grid-cols-2 gap-y-6 gap-x-8 border-t border-blue-800 pt-8">
-                <?php foreach ($specs as $spec) : ?>
-                    <div class="grid gap-1">
-                        <dt class="font-mono text-xs uppercase tracking-wider text-blue-400">
-                            <?php echo esc_html($spec['label']); ?>
-                        </dt>
-                        <dd class="font-mono font-medium text-white text-lg md:text-xl">
-                            <?php echo esc_html($spec['value']); ?>
-                        </dd>
-                    </div>
-                <?php endforeach; ?>
-            </dl>
-
-            <div class="flex flex-col sm:flex-row gap-4 pt-2">
+            <div class="flex flex-col sm:flex-row gap-4 pt-4 border-t border-blue-700">
                 <a href="<?php echo esc_url(\Standard\Url\internal($uniq_url)); ?>" class="btn btn-primary">
                     <?php esc_html_e('See the Controller', 'standard'); ?>
                     <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>

@@ -3,11 +3,11 @@
  * Accessories Page — Category Map
  *
  * The page's organizing spine. A hairline grid of bucket cards, each
- * anchor-linked to its matching section in the catalog grid below.
- * Mono label + count + one-line description, no icons.
+ * anchor-linked to its matching catalog section below.
  *
- * Card layout follows the same hairline approach used in the machines
- * lineup grid: dividers between cards, no individual card boxes.
+ * Layout mirrors the lineup-grid pattern: no per-card boxes, dividers
+ * only between cells. Hover affordance follows the card-product
+ * convention: the heading shifts color, the whole card is the link.
  *
  * @package Standard
  *
@@ -28,15 +28,12 @@ $total    = count($buckets);
 $cols     = $total >= 3 ? 3 : $total;
 ?>
 
-<section class="section" aria-labelledby="category-map-title">
+<section class="section" aria-labelledby="category-map-eyebrow">
     <div class="container section-content">
 
         <div class="section-header">
-            <p class="section-eyebrow"><?php esc_html_e('Build Your Setup', 'standard'); ?></p>
+            <p id="category-map-eyebrow" class="section-eyebrow"><?php esc_html_e('Build Your Setup', 'standard'); ?></p>
             <div class="section-divider-center"></div>
-            <h2 id="category-map-title" class="section-title">
-                <?php esc_html_e('Six Ways a Machine Gets Better', 'standard'); ?>
-            </h2>
         </div>
 
         <div class="border-t border-blue-200 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
@@ -50,7 +47,7 @@ $cols     = $total >= 3 ? 3 : $total;
                 $border_classes .= $is_last_col_lg ? ' lg:border-r-0' : ' lg:border-r';
             ?>
                 <?php if ($disabled) : ?>
-                    <div class="<?php echo esc_attr($border_classes); ?> group p-8 md:p-10 grid gap-3 content-start">
+                    <div class="<?php echo esc_attr($border_classes); ?> p-8 md:p-10 grid gap-3 content-start">
                         <p class="font-mono text-xs uppercase tracking-wider text-blue-400">
                             <?php esc_html_e('Coming Soon', 'standard'); ?>
                         </p>
@@ -62,23 +59,19 @@ $cols     = $total >= 3 ? 3 : $total;
                         </p>
                     </div>
                 <?php else : ?>
-                    <a href="#catalog-<?php echo esc_attr($bucket['id']); ?>" class="<?php echo esc_attr($border_classes); ?> group p-8 md:p-10 grid gap-3 content-start no-underline hover:bg-blue-50 transition-colors duration-200">
+                    <a href="#catalog-<?php echo esc_attr($bucket['id']); ?>" class="<?php echo esc_attr($border_classes); ?> category-card p-8 md:p-10 grid gap-3 content-start no-underline">
                         <p class="font-mono text-xs uppercase tracking-wider text-blue-500">
                             <?php
                             /* translators: %d: number of products in this bucket */
                             printf(esc_html__('%d in catalog', 'standard'), $count);
                             ?>
                         </p>
-                        <h3 class="font-sans font-medium text-blue-900 text-xl md:text-2xl tracking-tight">
+                        <h3 class="category-card__title font-sans font-medium text-blue-900 text-xl md:text-2xl tracking-tight">
                             <?php echo esc_html($bucket['label']); ?>
                         </h3>
                         <p class="text-blue-600 text-sm md:text-base max-w-prose">
                             <?php echo esc_html($bucket['description']); ?>
                         </p>
-                        <span class="inline-flex items-center gap-1 text-sm font-mono font-medium text-blue-500 mt-2">
-                            <?php esc_html_e('Jump', 'standard'); ?>
-                            <?php icon('arrow-down', ['class' => 'w-4 h-4']); ?>
-                        </span>
                     </a>
                 <?php endif; ?>
             <?php endforeach; ?>

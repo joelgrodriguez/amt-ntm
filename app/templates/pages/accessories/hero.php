@@ -4,6 +4,9 @@
  *
  * Data wrapper for the shared hero-category part.
  *
+ * No stats strip. The hero-metric template is a shared-laws absolute ban;
+ * the headline carries the hero on its own.
+ *
  * @package Standard
  *
  * @usage Accessories Page (page-accessories.php)
@@ -15,17 +18,12 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use function Standard\AccessoriesData\get_accessory_count;
-
-$count = get_accessory_count();
-$count_label = $count > 0 ? $count . '+' : '60+';
-
 get_template_part('templates/parts/hero-category', null, [
     'section_id' => 'accessories-hero',
     'content'    => [
         'eyebrow'           => __('Accessories · Upgrades', 'standard'),
         'title'             => __('No Machine Ships Finished.', 'standard'),
-        'subtitle'          => __('Reel stands, controllers, runout tables, and roll tooling engineered to fit every machine NTM has built in 34 years.', 'standard'),
+        'subtitle'          => __('Every NTM machine has a setup behind it. Here is what makes it run.', 'standard'),
         'cta_primary'       => __('Browse the Catalog', 'standard'),
         'cta_primary_url'   => '#catalog',
         'cta_secondary'     => __('Talk to a Specialist', 'standard'),
@@ -33,9 +31,5 @@ get_template_part('templates/parts/hero-category', null, [
         'video'             => '',
         'poster'            => 'https://newtechmachinery.com/wp-content/uploads/2025/09/Machine-on-rooftop-scaled.jpg',
     ],
-    'stats' => [
-        ['value' => $count_label,    'label' => __('Accessories', 'standard')],
-        ['value' => '8',             'label' => __('Machine Families', 'standard')],
-        ['value' => '34 yrs',        'label' => __('Of Fit', 'standard')],
-    ],
+    'stats' => [],
 ]);

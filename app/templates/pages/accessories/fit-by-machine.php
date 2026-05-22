@@ -98,7 +98,7 @@ $matrix   = get_fitment_matrix();
                             <?php echo esc_html($machine['label']); ?>
                         </a>
                     </div>
-                    <dl class="divide-y divide-blue-100">
+                    <dl class="divide-y divide-blue-200">
                         <?php foreach ($rows as $row) :
                             $count = $matrix[$row['id']][$machine['slug']] ?? 0;
                             $empty = $count === 0;
