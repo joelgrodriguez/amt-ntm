@@ -21,12 +21,13 @@ $content = [
 ];
 ?>
 
-<section class="py-20 md:py-28 lg:py-36 xl:py-44" aria-labelledby="brand-statement-title">
-    <div class="container grid gap-8 max-w-5xl mx-auto text-center">
-        <h2 id="brand-statement-title" class="text-5xl font-medium tracking-tight text-blue-900 leading-[0.95] md:text-6xl lg:text-7xl xl:text-8xl">
+<section class="section" aria-labelledby="brand-statement-title">
+    <div class="container grid gap-6 max-w-3xl mx-auto text-center">
+        <div class="section-divider-center"></div>
+        <h2 id="brand-statement-title" class="section-title">
             <?php echo esc_html($content['title']); ?>
         </h2>
-        <p class="text-lg text-blue-600 leading-relaxed max-w-2xl mx-auto lg:text-xl">
+        <p class="section-subtitle">
             <?php echo esc_html($content['text']); ?>
         </p>
     </div>

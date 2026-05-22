@@ -26,16 +26,13 @@ $content = [
 ];
 ?>
 
-<section class="section-compact pattern-square-grid" aria-labelledby="which-machine-title">
-    <div class="pattern-square-grid__overlay pattern-square-grid__overlay--top-left"></div>
-    <div class="pattern-square-grid__overlay pattern-square-grid__overlay--bottom-right"></div>
-
-    <div class="container grid gap-8 text-center max-w-3xl mx-auto relative z-10">
+<section class="section-compact border-y border-blue-200" aria-labelledby="which-machine-title">
+    <div class="container grid gap-8 text-center max-w-3xl mx-auto">
         <div class="grid gap-4">
-            <h2 id="which-machine-title" class="text-2xl font-medium text-blue-900 md:text-3xl lg:text-4xl">
+            <h2 id="which-machine-title" class="section-title">
                 <?php echo esc_html($content['title']); ?>
             </h2>
-            <p class="text-lg text-blue-600 max-w-2xl mx-auto">
+            <p class="section-subtitle max-w-2xl mx-auto">
                 <?php echo esc_html($content['text']); ?>
             </p>
         </div>

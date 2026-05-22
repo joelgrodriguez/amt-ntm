@@ -22,8 +22,8 @@ use function Standard\MachinesData\get_machine_categories;
 use function Standard\Grid\get_card_border_classes;
 
 $content = [
-    'kicker' => __('01 / OUR MACHINES', 'standard'),
-    'title'  => __('Machines for Every Project', 'standard'),
+    'eyebrow' => __('Our Machines', 'standard'),
+    'title'   => __('Machines for Every Project', 'standard'),
 ];
 
 $categories = get_machine_categories();
@@ -32,11 +32,12 @@ $categories = get_machine_categories();
 <section id="lineup" class="section" aria-labelledby="lineup-title">
     <div class="container section-content">
 
-        <div class="grid gap-4 max-w-3xl">
-            <p class="font-mono text-xs uppercase tracking-[0.18em] text-blue-500">
-                <?php echo esc_html($content['kicker']); ?>
+        <div class="section-header-left">
+            <p class="section-eyebrow">
+                <?php echo esc_html($content['eyebrow']); ?>
             </p>
-            <h2 id="lineup-title" class="text-4xl font-medium tracking-tight text-blue-900 md:text-5xl lg:text-6xl">
+            <div class="section-divider"></div>
+            <h2 id="lineup-title" class="section-title">
                 <?php echo esc_html($content['title']); ?>
             </h2>
         </div>
@@ -66,7 +67,7 @@ $categories = get_machine_categories();
             ?>
             <div class="grid gap-10">
 
-                <div class="flex items-baseline justify-between gap-4 border-b border-blue-200 pb-4">
+                <div class="flex items-baseline justify-between gap-4">
                     <h3 class="font-mono text-sm font-medium text-blue-700 uppercase tracking-wider">
                         <?php echo esc_html($category['label']); ?>
                     </h3>

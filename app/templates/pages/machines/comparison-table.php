@@ -20,8 +20,8 @@ if (!defined('ABSPATH')) {
 use function Standard\MachinesData\get_all_machines;
 
 $content = [
-    'kicker' => __('02 / COMPARE', 'standard'),
-    'title'  => __('Specs, Side by Side', 'standard'),
+    'eyebrow' => __('Compare', 'standard'),
+    'title'   => __('Specs, Side by Side', 'standard'),
 ];
 
 $machines = get_all_machines();
@@ -38,11 +38,12 @@ $rows = [
 <section class="section" aria-labelledby="comparison-title">
     <div class="container section-content">
 
-        <div class="grid gap-4 max-w-3xl">
-            <p class="font-mono text-xs uppercase tracking-[0.18em] text-blue-500">
-                <?php echo esc_html($content['kicker']); ?>
+        <div class="section-header-left">
+            <p class="section-eyebrow">
+                <?php echo esc_html($content['eyebrow']); ?>
             </p>
-            <h2 id="comparison-title" class="text-4xl font-medium tracking-tight text-blue-900 md:text-5xl">
+            <div class="section-divider"></div>
+            <h2 id="comparison-title" class="section-title">
                 <?php echo esc_html($content['title']); ?>
             </h2>
         </div>
@@ -52,7 +53,7 @@ $rows = [
             <?php foreach ($machines as $machine) :
                 $is_flagship = !empty($machine['badge']);
             ?>
-                <div class="border <?php echo $is_flagship ? 'border-blue-500 border-2' : 'border-blue-200'; ?>">
+                <div class="card <?php echo $is_flagship ? 'border-blue-500' : ''; ?>">
                     <!-- Card header -->
                     <div class="<?php echo $is_flagship ? 'bg-blue-500' : 'bg-blue-800'; ?> px-4 py-4 text-center">
                         <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="text-lg font-medium text-white no-underline hover:underline">
