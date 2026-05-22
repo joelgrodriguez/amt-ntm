@@ -40,6 +40,38 @@ function get_card_border_classes(int $idx, int $total, int $cols): string {
 }
 
 /**
+ * Tailwind class for an lg: grid column count.
+ *
+ * Returns explicit strings so Tailwind v4's source scanner sees every
+ * possible value at build time. Use this instead of interpolating
+ * `lg:grid-cols-{$n}` into a class attribute.
+ *
+ * @param int $cols Column count (1–4).
+ */
+function get_lg_grid_cols_class(int $cols): string {
+    return [
+        1 => 'lg:grid-cols-1',
+        2 => 'lg:grid-cols-2',
+        3 => 'lg:grid-cols-3',
+        4 => 'lg:grid-cols-4',
+    ][$cols] ?? 'lg:grid-cols-1';
+}
+
+/**
+ * Tailwind class for an lg: column start position.
+ *
+ * @param int $col_start 1-based column start (1–4).
+ */
+function get_lg_col_start_class(int $col_start): string {
+    return [
+        1 => 'lg:col-start-1',
+        2 => 'lg:col-start-2',
+        3 => 'lg:col-start-3',
+        4 => 'lg:col-start-4',
+    ][$col_start] ?? 'lg:col-start-1';
+}
+
+/**
  * Get border classes for overflow (centered) row cards.
  *
  * @param int $idx   Zero-based index within the overflow row.

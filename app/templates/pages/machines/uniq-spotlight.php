@@ -21,7 +21,7 @@ use function Standard\MachinesData\get_uniq_features;
 $content = [
     'eyebrow'      => __('Technology', 'standard'),
     'title'        => __('UNIQ® Automatic Control System', 'standard'),
-    'subtitle'     => __("NTM's most advanced programmable controller — designed to improve automation, safety, and the operator experience.", 'standard'),
+    'subtitle'     => __("NTM's most advanced programmable controller, designed to improve automation, safety, and the operator experience.", 'standard'),
     'availability' => __('Standard on WAV · Optional on SSQ II & SSQ3', 'standard'),
     'image'        => content_url('/uploads/2021/10/SSQ-II-Training-General-Overview-Featured-Image-2048x1152.png'),
     'cta_text'     => __('Learn More', 'standard'),

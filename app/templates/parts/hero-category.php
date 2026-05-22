@@ -43,7 +43,7 @@ $poster     = $content['poster'] ?? '';
         </video>
     <?php endif; ?>
 
-    <?php if (!empty($poster)) : ?>
+    <?php if (empty($video) && !empty($poster)) : ?>
         <?php \Standard\Images\responsive_image($poster, '', 'full', [
             'class'         => 'absolute inset-0 w-full h-full object-cover',
             'loading'       => 'eager',
@@ -75,13 +75,13 @@ $poster     = $content['poster'] ?? '';
         <?php endif; ?>
 
         <?php if (!empty($stats)) : ?>
-            <div class="flex justify-center gap-8 sm:gap-12 border-t border-white/20 pt-6 mt-2 max-w-lg mx-auto">
+            <div class="grid grid-cols-3 gap-4 sm:gap-12 border-t border-white/20 pt-6 mt-2 max-w-xl mx-auto">
                 <?php foreach ($stats as $stat) : ?>
-                    <div class="grid gap-0.5">
-                        <span class="text-2xl font-medium text-white lg:text-3xl">
+                    <div class="grid gap-0.5 min-w-0">
+                        <span class="text-xl font-medium text-white sm:text-2xl lg:text-3xl">
                             <?php echo esc_html($stat['value']); ?>
                         </span>
-                        <span class="text-xs text-blue-400 uppercase tracking-wider">
+                        <span class="text-xs text-blue-300 uppercase tracking-wider">
                             <?php echo esc_html($stat['label']); ?>
                         </span>
                     </div>

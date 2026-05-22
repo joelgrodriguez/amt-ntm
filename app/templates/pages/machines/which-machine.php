@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
 
 $content = [
     'title'         => __('Not Sure Which Machine Is Right for You?', 'standard'),
-    'text'          => __("Answer a few questions about your business and project types, and we'll recommend the best machine for your needs — or talk directly with one of our specialists.", 'standard'),
+    'text'          => __("Answer a few questions about your business and project types, and we'll recommend the best machine for your needs, or talk directly with one of our specialists.", 'standard'),
     'cta_quiz'      => __('Take the Machine Quiz', 'standard'),
     'cta_quiz_url'  => '/roof-panel-machine-assessment-quiz/',
     'cta_talk'      => __('Talk to a Specialist', 'standard'),

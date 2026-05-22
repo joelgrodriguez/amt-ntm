@@ -40,7 +40,7 @@ if (empty($content)) {
                 <div>
                     <img
                         src="<?php echo esc_url($content['image']); ?>"
-                        alt="<?php echo esc_attr($content['name'] . ' — ' . $content['company']); ?>"
+                        alt="<?php echo esc_attr($content['name'] . ', ' . $content['company']); ?>"
                         class="w-full h-[300px] md:h-[400px] lg:h-[500px] object-cover"
                         loading="lazy"
                     >
@@ -102,7 +102,7 @@ if (empty($content)) {
                 <div>
                     <img
                         src="<?php echo esc_url($content['image']); ?>"
-                        alt="<?php echo esc_attr($content['name'] . ' — ' . $content['company']); ?>"
+                        alt="<?php echo esc_attr($content['name'] . ', ' . $content['company']); ?>"
                         class="w-full h-[300px] md:h-[400px] lg:h-[500px] object-cover"
                         loading="lazy"
                     >

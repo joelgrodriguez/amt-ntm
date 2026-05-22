@@ -22,7 +22,7 @@ use function Standard\MachinesData\get_journey_stats;
 $content = [
     'eyebrow' => __('Our Story', 'standard'),
     'title'   => __('The Journey Into Portable Rollforming', 'standard'),
-    'text'    => __('What started in 1991 as a mission to bring panel fabrication to the jobsite has grown into the industry standard. Today, NTM machines are trusted by contractors in over 40 countries across all seven continents — from residential roofers to large-scale commercial operations.', 'standard'),
+    'text'    => __('What started in 1991 as a mission to bring panel fabrication to the jobsite has grown into the industry standard. Today, NTM machines are trusted by contractors in over 40 countries across all seven continents, from residential roofers to large-scale commercial operations.', 'standard'),
 ];
 
 $stats = get_journey_stats();

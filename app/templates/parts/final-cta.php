@@ -67,14 +67,14 @@ $expect      = $content['expect_items'] ?? [];
 
                 <?php if (!empty($testimonial)) : ?>
                     <!-- Testimonial -->
-                    <blockquote class="border-l-4 border-blue-500 pl-5">
+                    <blockquote class="grid gap-2 border-t border-blue-800 pt-6">
                         <p class="text-blue-300 font-mono">
                             &ldquo;<?php echo esc_html($testimonial['quote']); ?>&rdquo;
                         </p>
-                        <footer class="mt-2 text-sm text-blue-400">
+                        <footer class="text-sm text-blue-400">
                             <strong class="text-white"><?php echo esc_html($testimonial['name']); ?></strong>
                             <?php if (!empty($testimonial['company'])) : ?>
-                                <span>&mdash; <?php echo esc_html($testimonial['company']); ?></span>
+                                <span>, <?php echo esc_html($testimonial['company']); ?></span>
                             <?php endif; ?>
                         </footer>
                     </blockquote>
@@ -101,13 +101,13 @@ $expect      = $content['expect_items'] ?? [];
             <?php if (!empty($specialist)) : ?>
                 <div class="flex flex-col gap-6">
 
-                    <!-- Image Collage -->
+                    <!-- Image Collage (single portrait at lg, full collage at xl+) -->
                     <div class="relative aspect-[4/3] w-full">
                         <?php if (!empty($specialist['image_machine'])) : ?>
                             <img
                                 src="<?php echo esc_url($specialist['image_machine']); ?>"
                                 alt=""
-                                class="absolute top-0 left-0 w-2/5 aspect-square object-contain bg-white p-3"
+                                class="hidden xl:block absolute top-0 left-0 w-2/5 aspect-square object-contain bg-white p-3"
                                 loading="lazy"
                             >
                         <?php endif; ?>
@@ -115,12 +115,12 @@ $expect      = $content['expect_items'] ?? [];
                             <img
                                 src="<?php echo esc_url($specialist['image_action']); ?>"
                                 alt=""
-                                class="absolute bottom-0 right-0 w-3/5 h-3/5 object-cover"
+                                class="hidden xl:block absolute bottom-0 right-0 w-3/5 h-3/5 object-cover"
                                 loading="lazy"
                             >
                         <?php endif; ?>
                         <!-- Specialist portrait + name card -->
-                        <div class="absolute top-[10%] left-[20%] z-20 w-3/5 h-[85%] flex flex-col">
+                        <div class="absolute inset-0 z-20 flex flex-col xl:top-[10%] xl:left-[20%] xl:inset-auto xl:w-3/5 xl:h-[85%]">
                             <img
                                 src="<?php echo esc_url($specialist['image']); ?>"
                                 alt="<?php echo esc_attr($specialist['name']); ?>"

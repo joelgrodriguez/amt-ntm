@@ -3,7 +3,7 @@
  * Machines Page — Comparison Table
  *
  * Responsive machine specs comparison table.
- * Dark header, alternating rows, highlighted flagship column.
+ * Dark header, hairline rows, highlighted flagship column.
  * Stacks to card layout on mobile, full table on desktop.
  *
  * @package Standard
@@ -66,12 +66,12 @@ $rows = [
                         <?php endif; ?>
                     </div>
                     <!-- Card rows -->
-                    <?php $i = 0; foreach ($rows as $key => $label) : ?>
-                        <div class="flex justify-between px-4 py-3 text-sm border-b border-blue-100 <?php echo ($i % 2 === 0) ? 'bg-white' : 'bg-blue-50'; ?>">
+                    <?php foreach ($rows as $key => $label) : ?>
+                        <div class="flex justify-between gap-4 px-4 py-3 text-sm border-b border-blue-100 bg-white">
                             <span class="font-medium text-blue-700"><?php echo esc_html($label); ?></span>
                             <span class="text-blue-600 text-right"><?php echo esc_html($machine['specs'][$key]); ?></span>
                         </div>
-                    <?php $i++; endforeach; ?>
+                    <?php endforeach; ?>
                     <!-- Card CTA -->
                     <div class="px-4 py-4 bg-white border-t border-blue-200">
                         <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="btn <?php echo $is_flagship ? 'btn-primary' : 'btn-outline-dark'; ?> btn-sm w-full justify-center">
@@ -84,7 +84,8 @@ $rows = [
 
         <!-- Desktop: Full table -->
         <div class="hidden lg:block overflow-x-auto">
-            <table class="w-full text-sm border-collapse border border-blue-200">
+            <table class="w-full text-sm border-collapse border border-blue-200" aria-labelledby="comparison-title">
+                <caption class="sr-only"><?php echo esc_html($content['title']); ?></caption>
                 <!-- Header row: machine names -->
                 <thead>
                     <tr>
@@ -109,24 +110,24 @@ $rows = [
                 </thead>
                 <!-- Data rows -->
                 <tbody>
-                    <?php $row_idx = 0; foreach ($rows as $key => $label) : ?>
-                        <tr class="border-b border-blue-200 <?php echo ($row_idx % 2 === 0) ? 'bg-white' : 'bg-blue-50'; ?>">
-                            <td class="py-3 px-5 font-medium text-blue-800 border-r border-blue-200 bg-blue-100">
+                    <?php foreach ($rows as $key => $label) : ?>
+                        <tr class="border-b border-blue-200">
+                            <td class="py-3 px-5 font-medium text-blue-800 border-r border-blue-200">
                                 <?php echo esc_html($label); ?>
                             </td>
                             <?php foreach ($machines as $machine) :
                                 $is_flagship = !empty($machine['badge']);
-                                $value = $machine['specs'][$key] ?? '—';
+                                $value = $machine['specs'][$key] ?? '';
                             ?>
                                 <td class="py-3 px-4 text-center text-blue-600 border-r border-blue-200 <?php echo $is_flagship ? 'bg-blue-500/5' : ''; ?>">
                                     <?php echo esc_html($value); ?>
                                 </td>
                             <?php endforeach; ?>
                         </tr>
-                    <?php $row_idx++; endforeach; ?>
+                    <?php endforeach; ?>
                     <!-- Explore row -->
-                    <tr class="bg-white border-t border-blue-200">
-                        <td class="py-4 px-5 bg-blue-100 border-r border-blue-200"></td>
+                    <tr>
+                        <td class="py-4 px-5 border-r border-blue-200"></td>
                         <?php foreach ($machines as $machine) :
                             $is_flagship = !empty($machine['badge']);
                         ?>
