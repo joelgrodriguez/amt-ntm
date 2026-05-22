@@ -25,8 +25,9 @@ get_template_part('templates/parts/hero-category', null, [
         'cta_primary_url'   => '#lineup',
         'cta_secondary'     => __('Talk to a Specialist', 'standard'),
         'cta_secondary_url' => '/contact/',
+        // Hero video served from prod; not present in local /uploads/.
         'video'             => 'https://newtechmachinery.com/wp-content/uploads/2025/09/NTM-hero-video.mp4',
-        'poster'            => 'https://newtechmachinery.com/wp-content/uploads/2025/09/Machine-on-rooftop-scaled.jpg',
+        'poster'            => content_url('/uploads/2025/09/Machine-on-rooftop-scaled.jpg'),
     ],
     'stats' => [
         ['value' => '$2.25', 'label' => __('Saved/Sq Ft', 'standard')],

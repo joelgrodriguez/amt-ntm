@@ -34,7 +34,7 @@ $stats = get_roi_stats();
     <div class="container section-content">
 
         <div class="section-header">
-            <p class="text-sm font-medium uppercase tracking-wider text-blue-500">
+            <p class="text-sm font-medium uppercase tracking-wider text-red">
                 <?php echo esc_html($content['eyebrow']); ?>
             </p>
             <div class="section-divider-center"></div>
