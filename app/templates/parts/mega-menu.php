@@ -248,7 +248,7 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
                 <?php foreach ($tabs as $i => $tab) :
                     $profiles = new \WP_Query([
                         'post_type'      => 'profile',
-                        'posts_per_page' => -1,
+                        'posts_per_page' => 8,
                         'post_status'    => 'publish',
                         'orderby'        => 'title',
                         'order'          => 'ASC',
@@ -285,7 +285,10 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
                             <ul class="mega-profile-grid">
                                 <?php while ($profiles->have_posts()) : $profiles->the_post(); ?>
                                     <li>
-                                        <?php get_template_part('templates/parts/card-post'); ?>
+                                        <?php get_template_part('templates/parts/card-profile', null, [
+                                            'profile' => get_post(),
+                                            'context' => 'mega',
+                                        ]); ?>
                                     </li>
                                 <?php endwhile; wp_reset_postdata(); ?>
                             </ul>
