@@ -40,7 +40,7 @@ $hero_nav = [
             <div class="section-divider"></div>
             <h1 class="font-mono font-medium text-blue-900 leading-tight"
                 style="font-size: var(--text-heading); line-height: var(--leading-heading);">
-                <?php esc_html_e('Every panel and gutter profile NTM rolls', 'standard'); ?>
+                <?php esc_html_e('Every Panel and Gutter Profile NTM Rolls', 'standard'); ?>
             </h1>
             <p class="font-sans text-blue-600 max-w-2xl"
                style="font-size: var(--text-body); line-height: 1.6;">
