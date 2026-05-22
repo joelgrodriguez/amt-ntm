@@ -85,7 +85,7 @@ function get_machine_categories(): array {
                     'descriptor' => 'The most advanced portable roll former ever built',
                     'image'      => $base . '2025/10/SSQ3_For-Render_Trailer_Flattened-SQUARE.png',
                     'url'        => get_product_url('ssq3-multipro'),
-                    'badge'      => '',
+                    'badge'      => 'Flagship',
                     'highlights' => [
                         'Up to 16 panel profiles: standing seam, flush wall, and board & batten siding',
                         'High-speed hydraulic drive with advanced touchscreen controller',

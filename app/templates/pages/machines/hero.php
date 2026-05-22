@@ -18,10 +18,10 @@ if (!defined('ABSPATH')) {
 get_template_part('templates/parts/hero-category', null, [
     'section_id' => 'machines-hero',
     'content'    => [
-        'eyebrow'           => __('Portable Rollforming Machines', 'standard'),
+        'kicker'            => __('NTM // PORTABLE ROLLFORMING // SINCE 1991', 'standard'),
         'title'             => __('Make More Money on Every Metal Roof Job', 'standard'),
-        'subtitle'          => __('Save up to $2.25/sq ft by fabricating panels on-site with NTM portable rollformers.', 'standard'),
-        'cta_primary'       => __('Explore the Lineup', 'standard'),
+        'subtitle'          => __('Fabricate panels and gutters on-site with NTM portable rollformers. Up to $2.25 saved on every square foot.', 'standard'),
+        'cta_primary'       => __('See the Lineup', 'standard'),
         'cta_primary_url'   => '#lineup',
         'cta_secondary'     => __('Talk to a Specialist', 'standard'),
         'cta_secondary_url' => '/contact/',
@@ -29,9 +29,9 @@ get_template_part('templates/parts/hero-category', null, [
         'video'             => 'https://newtechmachinery.com/wp-content/uploads/2025/09/NTM-hero-video.mp4',
         'poster'            => content_url('/uploads/2025/09/Machine-on-rooftop-scaled.jpg'),
     ],
-    'stats' => [
-        ['value' => '$2.25', 'label' => __('Saved/Sq Ft', 'standard')],
-        ['value' => '16',    'label' => __('Max Profiles', 'standard')],
-        ['value' => '30+',   'label' => __('Years', 'standard')],
+    'meta' => [
+        ['label' => __('Founded', 'standard'), 'value' => '1991'],
+        ['label' => __('Countries', 'standard'), 'value' => '40+'],
+        ['label' => __('Machines', 'standard'), 'value' => '10'],
     ],
 ]);

@@ -1,13 +1,11 @@
 <?php
 /**
- * Machines Page — Lineup Grid
+ * Machines Page — Lineup
  *
- * Toyota-style product lineup: clean columns with product image,
- * year, bold name, spec highlights, and "Explore More" link.
- * Two categories: Roof & Wall Panel Machines, Seamless Gutter Machines.
- *
- * Roof machines with 6 items use a 4-col grid with the last 2 cards
- * centered via flex wrapper. Gutter machines show price + dual CTAs.
+ * Per category: if the first machine has a flagship badge, render it
+ * as a full-bleed featured band. Render the remaining machines as a
+ * 3-column lineup grid below. No 4+2 overflow centering: the flagship
+ * carries the visual peak, the grid stays even.
  *
  * @package Standard
  *
@@ -22,13 +20,10 @@ if (!defined('ABSPATH')) {
 
 use function Standard\MachinesData\get_machine_categories;
 use function Standard\Grid\get_card_border_classes;
-use function Standard\Grid\get_overflow_border_classes;
-use function Standard\Grid\get_lg_grid_cols_class;
-use function Standard\Grid\get_lg_col_start_class;
 
 $content = [
-    'eyebrow' => __('Our Machines', 'standard'),
-    'title'   => __('Machines for Every Project', 'standard'),
+    'kicker' => __('01 / OUR MACHINES', 'standard'),
+    'title'  => __('Machines for Every Project', 'standard'),
 ];
 
 $categories = get_machine_categories();
@@ -37,12 +32,11 @@ $categories = get_machine_categories();
 <section id="lineup" class="section" aria-labelledby="lineup-title">
     <div class="container section-content">
 
-        <div class="section-header">
-            <p class="section-eyebrow">
-                <?php echo esc_html($content['eyebrow']); ?>
+        <div class="grid gap-4 max-w-3xl">
+            <p class="font-mono text-xs uppercase tracking-[0.18em] text-blue-500">
+                <?php echo esc_html($content['kicker']); ?>
             </p>
-            <div class="section-divider-center"></div>
-            <h2 id="lineup-title" class="section-title">
+            <h2 id="lineup-title" class="text-4xl font-medium tracking-tight text-blue-900 md:text-5xl lg:text-6xl">
                 <?php echo esc_html($content['title']); ?>
             </h2>
         </div>
@@ -50,45 +44,54 @@ $categories = get_machine_categories();
         <?php foreach ($categories as $slug => $category) : ?>
             <?php
             $machines = $category['machines'];
-            $count = count($machines);
-            $cols = $count >= 4 ? 4 : $count;
-            $has_overflow = ($cols === 4 && $count % 4 !== 0);
-            $top_row = $has_overflow ? array_slice($machines, 0, 4) : $machines;
-            $bottom_row = $has_overflow ? array_slice($machines, 4) : [];
+
+            // Flagship = first machine with a non-empty badge.
+            $flagship       = null;
+            $flagship_index = null;
+            foreach ($machines as $i => $machine) {
+                if (!empty($machine['badge'])) {
+                    $flagship       = $machine;
+                    $flagship_index = $i;
+                    break;
+                }
+            }
+
+            $rest = $machines;
+            if ($flagship_index !== null) {
+                array_splice($rest, $flagship_index, 1);
+            }
+
+            $rest_count = count($rest);
+            $grid_cols  = $rest_count >= 3 ? 3 : max(1, $rest_count);
             ?>
-            <div>
-                <div class="flex items-center justify-between border-b border-blue-200 pb-4">
-                    <h3 class="text-lg font-medium text-blue-400 uppercase tracking-wider">
+            <div class="grid gap-10">
+
+                <div class="flex items-baseline justify-between gap-4 border-b border-blue-200 pb-4">
+                    <h3 class="font-mono text-sm font-medium text-blue-700 uppercase tracking-wider">
                         <?php echo esc_html($category['label']); ?>
                     </h3>
                     <?php if (!empty($category['url'])) : ?>
-                        <a href="<?php echo esc_url(\Standard\Url\internal($category['url'])); ?>" class="inline-flex items-center gap-1 text-sm font-medium text-blue-500 hover:text-blue-500/80 transition-colors no-underline">
-                            <?php esc_html_e('View All', 'standard'); ?>
+                        <a href="<?php echo esc_url(\Standard\Url\internal($category['url'])); ?>" class="inline-flex items-center gap-1 text-sm font-medium text-blue-500 hover:text-blue-500/80 transition-colors no-underline shrink-0">
+                            <?php esc_html_e('View all', 'standard'); ?>
                             <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                         </a>
                     <?php endif; ?>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 <?php echo esc_attr(get_lg_grid_cols_class($cols)); ?>">
-                    <?php foreach ($top_row as $idx => $machine) : ?>
-                        <div class="<?php echo esc_attr(get_card_border_classes($idx, count($top_row), $cols)); ?>">
-                            <?php get_template_part('templates/pages/machines/lineup-card', null, ['machine' => $machine]); ?>
-                        </div>
-                    <?php endforeach; ?>
+                <?php if ($flagship) : ?>
+                    <?php get_template_part('templates/pages/machines/lineup-flagship', null, ['machine' => $flagship]); ?>
+                <?php endif; ?>
 
-                    <?php if (!empty($bottom_row)) : ?>
-                        <?php
-                        $overflow_count = count($bottom_row);
-                        $offset = (int) floor(($cols - $overflow_count) / 2);
-                        ?>
-                        <?php foreach ($bottom_row as $i => $machine) : ?>
-                            <?php $col_start = $offset + $i + 1; ?>
-                            <div class="<?php echo esc_attr(get_lg_col_start_class($col_start)); ?> <?php echo esc_attr(get_overflow_border_classes($i, $overflow_count)); ?>">
+                <?php if (!empty($rest)) : ?>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                        <?php foreach ($rest as $idx => $machine) : ?>
+                            <div class="<?php echo esc_attr(get_card_border_classes($idx, $rest_count, $grid_cols)); ?>">
                                 <?php get_template_part('templates/pages/machines/lineup-card', null, ['machine' => $machine]); ?>
                             </div>
                         <?php endforeach; ?>
-                    <?php endif; ?>
-                </div>
+                    </div>
+                <?php endif; ?>
+
             </div>
         <?php endforeach; ?>
 
