@@ -46,12 +46,18 @@ while (have_posts()) :
             'section_id' => 'lead-form-hero',
         ]);
     }
+
+    if ($is_contact) {
+        get_template_part('templates/parts/contact-routing-strip', null, [
+            'form_anchor' => 'lead-form-' . $post_id,
+        ]);
+    }
     ?>
 
     <section class="section" aria-labelledby="lead-form-content-title">
         <div class="container">
             <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(320px,420px)] lg:gap-16 lg:items-start">
-                <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-8 min-w-0'); ?>>
+                <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-8 min-w-0 order-2 lg:order-none lg:col-start-1 lg:row-start-1'); ?>>
                     <?php if (!$has_hero) : ?>
                         <header class="section-header-left max-w-3xl">
                             <p class="section-eyebrow"><?php esc_html_e('New Tech Machinery', 'standard'); ?></p>
@@ -94,7 +100,7 @@ while (have_posts()) :
                     <?php endif; ?>
                 </article>
 
-                <aside class="border border-blue-200 bg-blue-50 p-6 md:p-8 lg:sticky lg:top-24" aria-labelledby="lead-form-title">
+                <aside class="border border-blue-200 bg-blue-50 p-6 md:p-8 lg:sticky lg:top-24 order-1 lg:order-none lg:col-start-2 lg:row-start-1" aria-labelledby="lead-form-title">
                     <div class="grid gap-6">
                         <header class="grid gap-3">
                             <p class="section-eyebrow"><?php echo esc_html($form_eyebrow); ?></p>
@@ -117,6 +123,12 @@ while (have_posts()) :
             </div>
         </div>
     </section>
+
+    <?php
+    if ($is_contact) {
+        get_template_part('templates/parts/contact-locations');
+    }
+    ?>
 </main>
 
 <?php
