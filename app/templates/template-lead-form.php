@@ -70,10 +70,6 @@ while (have_posts()) :
                     <?php endif; ?>
 
                     <?php if ($is_contact) : ?>
-                        <p class="text-lg text-blue-600 leading-relaxed max-w-2xl m-0">
-                            <?php esc_html_e('Talk to the people who invented portable rollforming. Find us by phone, by form, or in person.', 'standard'); ?>
-                        </p>
-
                         <?php get_template_part('templates/parts/contact-locations'); ?>
 
                         <div class="grid gap-4 mt-4">
@@ -83,20 +79,30 @@ while (have_posts()) :
                                 'faqs' => \Standard\ContactData\get_faq_items(),
                             ]);
                             ?>
-                            <p class="text-blue-600 m-0 pt-2">
-                                <?php
-                                printf(
-                                    /* translators: 1: full FAQ page link, 2: support center link. */
-                                    esc_html__('More questions? %1$s. Already own a machine? %2$s.', 'standard'),
-                                    '<a href="' . esc_url(home_url('/faq/')) . '" class="text-blue-500 font-medium hover:text-blue-700">'
-                                        . esc_html__('Visit the full FAQ', 'standard')
-                                        . '</a>',
-                                    '<a href="https://support.newtechmachinery.com/" target="_blank" rel="noreferrer noopener" class="text-blue-500 font-medium hover:text-blue-700">'
-                                        . esc_html__('Visit the Support Center', 'standard')
-                                        . '</a>'
-                                );
-                                ?>
-                            </p>
+                            <div class="grid gap-2 pt-2 text-blue-600">
+                                <p class="m-0">
+                                    <?php
+                                    printf(
+                                        /* translators: %s: link to the full FAQ page. */
+                                        esc_html__('More questions? %s.', 'standard'),
+                                        '<a href="' . esc_url(home_url('/faq/')) . '" class="text-blue-500 font-medium hover:text-blue-700">'
+                                            . esc_html__('Visit the full FAQ', 'standard')
+                                            . '</a>'
+                                    );
+                                    ?>
+                                </p>
+                                <p class="m-0">
+                                    <?php
+                                    printf(
+                                        /* translators: %s: link to the support center. */
+                                        esc_html__('Already own a machine? %s.', 'standard'),
+                                        '<a href="https://support.newtechmachinery.com/" target="_blank" rel="noreferrer noopener" class="text-blue-500 font-medium hover:text-blue-700">'
+                                            . esc_html__('Visit the Support Center', 'standard')
+                                            . '</a>'
+                                    );
+                                    ?>
+                                </p>
+                            </div>
                         </div>
                     <?php else : ?>
                         <div class="prose prose-lg max-w-none prose-headings:font-medium prose-headings:tracking-tight prose-headings:text-blue-900 prose-p:text-blue-600 prose-li:text-blue-600 prose-strong:text-blue-900 prose-a:text-blue-500">
