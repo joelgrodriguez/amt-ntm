@@ -44,12 +44,12 @@ $url   = get_permalink($profile);
 $title = get_the_title($profile);
 $thumb = get_the_post_thumbnail_url($profile, 'product-card');
 
-// Up to three machine tag names, with a "+N" suffix if more exist.
+// Up to two machine tag names, with a "+N" suffix if more exist.
 $subtitle = '';
 if ($context === 'grid') {
     $tags = get_the_terms($profile->ID, 'post_tag');
     if (is_array($tags) && !empty($tags)) {
-        $names = array_map(static fn(\WP_Term $t): string => $t->name, array_slice($tags, 0, 3));
+        $names = array_map(static fn(\WP_Term $t): string => $t->name, array_slice($tags, 0, 2));
         $extra = count($tags) - count($names);
         $subtitle = implode(', ', $names);
         if ($extra > 0) {
