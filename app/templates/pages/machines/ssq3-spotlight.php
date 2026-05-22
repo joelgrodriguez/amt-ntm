@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
 use function Standard\MachinesData\get_ssq3_features;
 
 $content = [
-    'eyebrow'  => __('New — Flagship', 'standard'),
+    'eyebrow'  => __('New Flagship', 'standard'),
     'title'    => __('SSQ3™ MultiPro Roof Panel Machine', 'standard'),
     'subtitle' => __("NTM's latest and most advanced portable rollformer, building on the proven SSQ II platform. Up to 16 panel profiles with high-speed hydraulic drive and advanced touchscreen controls.", 'standard'),
     'image'    => 'https://newtechmachinery.com/wp-content/uploads/2025/10/SSQ3_For-Render_Trailer_Flattened-SQUARE.png',

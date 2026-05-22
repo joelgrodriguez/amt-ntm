@@ -25,19 +25,9 @@ get_template_part('templates/parts/final-cta', null, [
             __('Get matched to the right machine and profile', 'standard'),
             __('Walk through pricing and financing options', 'standard'),
         ],
-        'testimonial'       => [
-            'quote'   => __("I didn't know which machine I needed. They walked me through everything and I was rolling panels within 60 days.", 'standard'),
-            'name'    => __('placeholder', 'standard'),
-            'company' => __('placeholder', 'standard'),
-        ],
-        'specialist'        => [
-            'name'         => __('John Doe', 'standard'),
-            'role'         => __('Account Specialist', 'standard'),
-            'detail'       => __('12 Years · Southwest Region', 'standard'),
-            'image'        => get_theme_file_uri('assets/images/specialist-placeholder.jpg'),
-            'image_machine' => content_url('/uploads/2025/10/SSQ3_For-Render_Trailer_Flattened-SQUARE.png'),
-            'image_action'  => content_url('/uploads/2025/09/Machine-on-rooftop-scaled.jpg'),
-        ],
+        // Testimonial + specialist intentionally omitted until approved copy
+        // and a real specialist portrait are available. The shared template
+        // gracefully skips both panels when not provided.
         'cta_primary'       => __('Talk to a Machine Specialist', 'standard'),
         'cta_primary_url'   => '/contact/',
         'cta_secondary'     => __('Build & Price Your Machine', 'standard'),

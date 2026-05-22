@@ -74,7 +74,7 @@ $expect      = $content['expect_items'] ?? [];
                         <footer class="mt-2 text-sm text-blue-400">
                             <strong class="text-white"><?php echo esc_html($testimonial['name']); ?></strong>
                             <?php if (!empty($testimonial['company'])) : ?>
-                                <span>&mdash; <?php echo esc_html($testimonial['company']); ?></span>
+                                <span>, <?php echo esc_html($testimonial['company']); ?></span>
                             <?php endif; ?>
                         </footer>
                     </blockquote>

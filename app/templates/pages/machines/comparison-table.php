@@ -117,7 +117,7 @@ $rows = [
                             </td>
                             <?php foreach ($machines as $machine) :
                                 $is_flagship = !empty($machine['badge']);
-                                $value = $machine['specs'][$key] ?? '—';
+                                $value = $machine['specs'][$key] ?? '';
                             ?>
                                 <td class="py-3 px-4 text-center text-blue-600 border-r border-blue-200 <?php echo $is_flagship ? 'bg-blue-500/5' : ''; ?>">
                                     <?php echo esc_html($value); ?>
