@@ -79,11 +79,11 @@ if ($context === 'grid') {
     </div>
 
     <div class="grid gap-1">
-        <h3 class="font-mono font-medium text-sm leading-snug text-blue-900 group-hover:text-blue-500 transition-colors duration-200">
+        <h3 class="font-sans font-semibold text-base lg:text-lg leading-snug tracking-tight text-blue-900 group-hover:text-blue-500 transition-colors duration-200">
             <?php echo esc_html($title); ?>
         </h3>
         <?php if ($subtitle) : ?>
-            <p class="font-mono text-xs text-blue-400 leading-tight">
+            <p class="font-mono uppercase tracking-widest text-caption text-blue-400 leading-tight">
                 <?php echo esc_html($subtitle); ?>
             </p>
         <?php endif; ?>
