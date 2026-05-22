@@ -67,11 +67,11 @@ $expect      = $content['expect_items'] ?? [];
 
                 <?php if (!empty($testimonial)) : ?>
                     <!-- Testimonial -->
-                    <blockquote class="border-l-4 border-blue-500 pl-5">
+                    <blockquote class="grid gap-2 border-t border-blue-800 pt-6">
                         <p class="text-blue-300 font-mono">
                             &ldquo;<?php echo esc_html($testimonial['quote']); ?>&rdquo;
                         </p>
-                        <footer class="mt-2 text-sm text-blue-400">
+                        <footer class="text-sm text-blue-400">
                             <strong class="text-white"><?php echo esc_html($testimonial['name']); ?></strong>
                             <?php if (!empty($testimonial['company'])) : ?>
                                 <span>, <?php echo esc_html($testimonial['company']); ?></span>

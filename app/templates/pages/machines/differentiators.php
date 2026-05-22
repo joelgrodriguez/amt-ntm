@@ -20,7 +20,7 @@ use function Standard\MachinesData\get_differentiators;
 $differentiators = get_differentiators();
 ?>
 
-<section class="section bg-blue-50 pattern-dot-grid gradient-fade-bottom-sm" aria-labelledby="differentiators-title">
+<section class="section" aria-labelledby="differentiators-title">
     <div class="container section-content">
 
         <div class="section-header">
@@ -33,21 +33,21 @@ $differentiators = get_differentiators();
             </h2>
         </div>
 
-        <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
-            <?php foreach ($differentiators as $item) : ?>
-                <div class="grid gap-4 content-start text-center p-8 bg-white border border-blue-200">
-                    <div class="flex justify-center">
-                        <?php icon($item['icon'], ['class' => 'w-8 h-8 text-blue-500']); ?>
-                    </div>
-                    <h3 class="text-xl font-medium text-blue-900">
+        <ol class="grid border-t border-blue-200" role="list">
+            <?php foreach ($differentiators as $idx => $item) : ?>
+                <li class="grid gap-4 py-8 border-b border-blue-200 md:grid-cols-[auto_1fr_2fr] md:items-baseline md:gap-10 lg:gap-16">
+                    <span class="font-mono text-sm font-medium text-blue-500 uppercase tracking-wider" aria-hidden="true">
+                        <?php echo esc_html(sprintf('%02d', $idx + 1)); ?>
+                    </span>
+                    <h3 class="text-xl font-medium text-blue-900 md:text-2xl">
                         <?php echo esc_html($item['title']); ?>
                     </h3>
-                    <p class="text-blue-600">
+                    <p class="text-blue-600 max-w-prose">
                         <?php echo esc_html($item['text']); ?>
                     </p>
-                </div>
+                </li>
             <?php endforeach; ?>
-        </div>
+        </ol>
 
     </div>
 </section>
