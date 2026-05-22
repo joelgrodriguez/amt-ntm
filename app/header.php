@@ -66,8 +66,8 @@ if (!defined('ABSPATH')) {
     <?php $desktop_nav = \Standard\Nav\get_desktop_nav(); ?>
 
     <!-- Desktop row: logo | [mega triggers centered] | utility rail — capped at --layout-wide.
-         container-flush: no gutter so logo sits flush left and search flush right. -->
-    <div class="container-flush hidden lg:grid h-16" style="grid-template-columns: auto 1fr auto;">
+         Uses .container so the 16px gutter matches body content alignment below. -->
+    <div class="container hidden lg:grid h-16" style="grid-template-columns: auto 1fr auto;">
 
         <!-- Logo flush left -->
         <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="flex items-center h-16 no-underline">
