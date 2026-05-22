@@ -23,16 +23,11 @@ if (empty($locations)) {
 }
 ?>
 
-<section class="bg-blue-50 border-t border-blue-200" aria-labelledby="contact-locations-title">
+<section class="bg-blue-50 border-t border-blue-200" aria-label="<?php esc_attr_e('NTM facility locations', 'standard'); ?>">
     <div class="container">
-        <header class="section-header-left max-w-3xl pt-12 lg:pt-16">
-            <p class="section-eyebrow"><?php esc_html_e('Locations', 'standard'); ?></p>
-            <h2 id="contact-locations-title" class="font-sans text-3xl md:text-4xl font-medium tracking-tight text-blue-900 m-0">
-                <?php esc_html_e('Where NTM lives.', 'standard'); ?>
-            </h2>
-        </header>
+        <p class="section-eyebrow pt-10 lg:pt-12"><?php esc_html_e('Two locations, one company', 'standard'); ?></p>
 
-        <ul class="grid grid-cols-1 md:grid-cols-3 list-none m-0 p-0 mt-10 lg:mt-12 pb-12 lg:pb-16 md:divide-x md:divide-blue-200 divide-y md:divide-y-0 border-t border-blue-200">
+        <ul class="grid grid-cols-1 md:grid-cols-2 list-none m-0 p-0 mt-6 lg:mt-8 pb-12 lg:pb-16 md:divide-x md:divide-blue-200 divide-y md:divide-y-0 border-t border-blue-200">
             <?php foreach ($locations as $loc) : ?>
                 <li class="m-0 p-0">
                     <div class="grid gap-3 px-6 py-8 md:px-8 md:py-10 h-full">
@@ -70,12 +65,6 @@ if (empty($locations)) {
                                     <?php endif; ?>
                                 </li>
                             <?php endforeach; ?>
-                            <?php if (!empty($loc['fax'])) : ?>
-                                <li class="m-0 p-0 font-mono text-sm">
-                                    <span class="text-blue-400 uppercase tracking-widest text-xs"><?php esc_html_e('Fax', 'standard'); ?></span>
-                                    <span class="ml-1 text-blue-700"><?php echo esc_html($loc['fax']); ?></span>
-                                </li>
-                            <?php endif; ?>
                         </ul>
                     </div>
                 </li>
