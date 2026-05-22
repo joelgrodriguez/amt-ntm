@@ -94,7 +94,7 @@ while (have_posts()) :
         <div class="grid gap-10 lg:grid-cols-[360px_1fr] lg:gap-16">
 
             <aside class="grid gap-8 self-start">
-                <figure class="bg-blue-50 aspect-square border border-blue-200 flex items-center justify-center overflow-hidden m-0">
+                <figure class="border border-blue-200 m-0">
                     <?php if ($thumb_url) : ?>
                         <img src="<?php echo esc_url($thumb_url); ?>"
                              alt="<?php echo esc_attr(sprintf(
@@ -102,11 +102,11 @@ while (have_posts()) :
                                  __('Technical drawing of the %s profile', 'standard'),
                                  $title
                              )); ?>"
-                             class="w-full h-full object-contain p-8"
+                             class="block w-full h-auto"
                              loading="eager"
                              decoding="async">
                     <?php else : ?>
-                        <span class="font-mono text-caption uppercase tracking-widest text-blue-400 px-4 text-center">
+                        <span class="block font-mono text-caption uppercase tracking-widest text-blue-400 px-4 py-8 text-center">
                             <?php esc_html_e('No drawing on file', 'standard'); ?>
                         </span>
                     <?php endif; ?>
