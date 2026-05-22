@@ -36,7 +36,7 @@ $categories = get_the_terms(get_the_ID(), 'category');
 $machine_tags = get_the_tags();
 ?>
 
-<main id="primary" class="pattern-dot-grid gradient-fade-bottom-sm py-6 lg:py-12">
+<main id="primary" class="pattern-dot-grid py-6 lg:py-12">
     <?php while (have_posts()) : the_post(); ?>
         <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-6 lg:gap-12'); ?>>
 

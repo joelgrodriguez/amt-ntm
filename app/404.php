@@ -66,7 +66,7 @@ $helpful_links = [
 ];
 ?>
 
-<main id="primary" class="pattern-dot-grid gradient-fade-bottom-sm py-12 lg:py-24">
+<main id="primary" class="pattern-dot-grid py-12 lg:py-24">
     <div class="container">
 
         <!-- Error Message -->

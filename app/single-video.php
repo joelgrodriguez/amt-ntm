@@ -38,7 +38,7 @@ get_header();
             ]); ?>
 
             <!-- Content Section -->
-            <section class="pattern-dot-grid gradient-fade-bottom py-6 lg:py-12">
+            <section class="pattern-dot-grid py-6 lg:py-12">
                 <div class="container grid gap-6 lg:gap-12">
                     <header class="max-w-4xl mx-auto grid gap-6">
                         <?php if (has_category()) : ?>
