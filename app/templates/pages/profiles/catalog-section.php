@@ -25,6 +25,8 @@ $category_id = (int) ($args['category_id'] ?? 0);
 $eyebrow     = (string) ($args['eyebrow'] ?? '');
 $title       = (string) ($args['title'] ?? '');
 $section_id  = (string) ($args['section_id'] ?? '');
+$is_first    = (bool) ($args['is_first'] ?? false);
+$is_last     = (bool) ($args['is_last'] ?? false);
 
 if ($category_id <= 0 || $title === '' || $section_id === '') {
     return;
@@ -56,7 +58,20 @@ $view_all_label = sprintf(
 );
 ?>
 
-<section aria-labelledby="<?php echo esc_attr($section_id . '-title'); ?>" class="grid gap-8 scroll-mt-24" id="<?php echo esc_attr($section_id); ?>" tabindex="-1">
+<?php
+$wrapper_classes = ['grid', 'gap-8', 'scroll-mt-24'];
+if (!$is_first) {
+    $wrapper_classes[] = 'pt-16';
+    $wrapper_classes[] = 'lg:pt-20';
+}
+if (!$is_last) {
+    $wrapper_classes[] = 'pb-16';
+    $wrapper_classes[] = 'lg:pb-20';
+    $wrapper_classes[] = 'border-b';
+    $wrapper_classes[] = 'border-blue-200';
+}
+?>
+<section aria-labelledby="<?php echo esc_attr($section_id . '-title'); ?>" class="<?php echo esc_attr(implode(' ', $wrapper_classes)); ?>" id="<?php echo esc_attr($section_id); ?>" tabindex="-1">
 
     <header class="flex flex-wrap items-end justify-between gap-4">
         <div class="section-header-left">

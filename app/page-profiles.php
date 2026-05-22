@@ -80,8 +80,13 @@ get_header();
             ]);
             ?>
 
-            <div class="grid gap-16 lg:gap-20">
-                <?php foreach ($sections as $section) : ?>
+            <div>
+                <?php
+                $last_index = count($sections) - 1;
+                foreach ($sections as $index => $section) :
+                    $section['is_first'] = $index === 0;
+                    $section['is_last']  = $index === $last_index;
+                ?>
                     <?php get_template_part('templates/pages/profiles/catalog-section', null, $section); ?>
                 <?php endforeach; ?>
             </div>
