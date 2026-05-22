@@ -33,20 +33,20 @@ $sidebar_copy = [
 $sections = [
     [
         'category_id' => 599,
-        'eyebrow'     => __('Roof & wall panels', 'standard'),
-        'title'       => __('Roof & wall panel profiles', 'standard'),
+        'eyebrow'     => __('Roof & Wall Panels', 'standard'),
+        'title'       => __('Roof & Wall Panel Profiles', 'standard'),
         'section_id'  => 'profiles-roof-wall',
     ],
     [
         'category_id' => 598,
-        'eyebrow'     => __('Seamless gutter', 'standard'),
-        'title'       => __('Gutter profiles', 'standard'),
+        'eyebrow'     => __('Seamless Gutter', 'standard'),
+        'title'       => __('Gutter Profiles', 'standard'),
         'section_id'  => 'profiles-gutter',
     ],
     [
         'category_id' => 603,
         'eyebrow'     => __('Accessories', 'standard'),
-        'title'       => __('Clip relief & rib rollers', 'standard'),
+        'title'       => __('Clip Relief & Rib Rollers', 'standard'),
         'section_id'  => 'profiles-clip-relief',
     ],
 ];
