@@ -52,31 +52,21 @@ function get_faq_items(): array
  *     name: string,
  *     address_html: string,
  *     map_query: string,
- *     phones: list<array{label: string, display: string, tel: string, note?: string}>,
- *     fax?: string
+ *     phones: list<array{label: string, display: string, tel: string, note?: string}>
  * }>
  */
 function get_locations(): array
 {
     return [
         [
-            'eyebrow'      => __('Sales · Aurora, CO', 'standard'),
-            'name'         => __('NTM Sales and Manufacturing Facility', 'standard'),
+            'eyebrow'      => __('Headquarters · Aurora, CO', 'standard'),
+            'name'         => __('NTM Sales, Service & Manufacturing', 'standard'),
             'address_html' => '16265 E. 33rd Dr. Suite 40<br>Aurora, Colorado 80011',
             'map_query'    => '16265 E. 33rd Dr. Suite 40, Aurora, CO 80011',
             'phones'       => [
-                ['label' => __('Phone', 'standard'), 'display' => '303.294.0538', 'tel' => '+13032940538'],
-            ],
-            'fax' => '303.294.9407',
-        ],
-        [
-            'eyebrow'      => __('Service · Aurora, CO', 'standard'),
-            'name'         => __('Service and Engineering Center', 'standard'),
-            'address_html' => '16401 East 33rd Dr., Suite 10<br>Aurora, Colorado 80011',
-            'map_query'    => '16401 East 33rd Dr. Suite 10, Aurora, CO 80011',
-            'phones'       => [
+                ['label' => __('Sales', 'standard'), 'display' => '303.294.0538', 'tel' => '+13032940538'],
                 [
-                    'label'   => __('Phone', 'standard'),
+                    'label'   => __('Service', 'standard'),
                     'display' => '303.294.0538',
                     'tel'     => '+13032940538',
                     'note'    => __('Select option 2 after the prompt', 'standard'),

@@ -46,12 +46,6 @@ while (have_posts()) :
             'section_id' => 'lead-form-hero',
         ]);
     }
-
-    if ($is_contact) {
-        get_template_part('templates/parts/contact-routing-strip', null, [
-            'form_anchor' => 'lead-form-' . $post_id,
-        ]);
-    }
     ?>
 
     <section class="section" aria-labelledby="lead-form-content-title">
@@ -62,7 +56,13 @@ while (have_posts()) :
                         <header class="section-header-left max-w-3xl">
                             <p class="section-eyebrow"><?php esc_html_e('New Tech Machinery', 'standard'); ?></p>
                             <h1 id="lead-form-content-title" class="font-sans text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-blue-900 leading-none">
-                                <?php the_title(); ?>
+                                <?php
+                                if ($is_contact) {
+                                    esc_html_e('Where NTM lives.', 'standard');
+                                } else {
+                                    the_title();
+                                }
+                                ?>
                             </h1>
                         </header>
                     <?php else : ?>
@@ -71,11 +71,11 @@ while (have_posts()) :
 
                     <?php if ($is_contact) : ?>
                         <p class="text-lg text-blue-600 leading-relaxed max-w-2xl m-0">
-                            <?php esc_html_e('Find answers to common questions below, or talk to a rollforming specialist using the form.', 'standard'); ?>
+                            <?php esc_html_e('Talk to the people who invented portable rollforming. Find an answer below, call us, or send the details and a specialist follows up.', 'standard'); ?>
                         </p>
 
                         <div class="grid gap-4">
-                            <p class="section-eyebrow"><?php esc_html_e('Frequently asked', 'standard'); ?></p>
+                            <p class="section-eyebrow"><?php esc_html_e('Common questions', 'standard'); ?></p>
                             <?php
                             get_template_part('templates/parts/contact-faq-list', null, [
                                 'faqs' => \Standard\ContactData\get_faq_items(),
@@ -84,10 +84,13 @@ while (have_posts()) :
                             <p class="text-blue-600 m-0 pt-2">
                                 <?php
                                 printf(
-                                    /* translators: %s: link to the FAQ page. */
-                                    esc_html__('Have another question we didn\'t cover? %s', 'standard'),
+                                    /* translators: 1: full FAQ page link, 2: support center link. */
+                                    esc_html__('More questions? %1$s. Already own a machine? %2$s.', 'standard'),
                                     '<a href="' . esc_url(home_url('/faq/')) . '" class="text-blue-500 font-medium hover:text-blue-700">'
-                                        . esc_html__('Visit our full FAQ page', 'standard')
+                                        . esc_html__('Visit the full FAQ', 'standard')
+                                        . '</a>',
+                                    '<a href="https://support.newtechmachinery.com/" target="_blank" rel="noreferrer noopener" class="text-blue-500 font-medium hover:text-blue-700">'
+                                        . esc_html__('Visit the Support Center', 'standard')
                                         . '</a>'
                                 );
                                 ?>
@@ -100,22 +103,29 @@ while (have_posts()) :
                     <?php endif; ?>
                 </article>
 
-                <aside class="border-t-2 border-t-blue-500 border-x-0 border-b-0 bg-blue-50 p-6 md:p-8 lg:sticky lg:top-24 order-1 lg:order-none lg:col-start-2 lg:row-start-1" aria-labelledby="lead-form-title">
+                <aside class="border-t border-blue-500 border-x-0 border-b-0 bg-blue-50 p-6 md:p-8 lg:sticky lg:top-24 order-1 lg:order-none lg:col-start-2 lg:row-start-1" aria-labelledby="lead-form-title">
                     <div class="grid gap-6">
                         <header class="grid gap-3">
                             <p class="section-eyebrow"><?php echo esc_html($form_eyebrow); ?></p>
-                            <h2 id="lead-form-title" class="font-sans text-2xl md:text-3xl font-medium tracking-tight text-blue-900">
+                            <?php if ($is_contact) : ?>
+                                <a
+                                    href="tel:+13032940538"
+                                    class="font-mono font-medium text-2xl md:text-3xl text-blue-900 hover:text-blue-500 no-underline inline-flex items-center gap-3 m-0 transition-colors duration-200"
+                                >
+                                    <?php icon('phone', ['class' => 'w-5 h-5 md:w-6 md:h-6 text-blue-500 shrink-0']); ?>
+                                    <span>303.294.0538</span>
+                                </a>
+                                <p class="font-mono text-xs uppercase tracking-widest text-blue-700 inline-flex items-center gap-2 m-0">
+                                    <span class="inline-block w-1.5 h-1.5 bg-red shrink-0" aria-hidden="true"></span>
+                                    <?php esc_html_e('Or send the details below. Response within 1 business day.', 'standard'); ?>
+                                </p>
+                            <?php endif; ?>
+                            <h2 id="lead-form-title" class="font-sans text-2xl md:text-3xl font-medium tracking-tight text-blue-900 <?php echo $is_contact ? 'mt-2' : ''; ?>">
                                 <?php echo esc_html($form_title); ?>
                             </h2>
                             <p class="text-blue-600">
                                 <?php echo esc_html($form_description); ?>
                             </p>
-                            <?php if ($is_contact) : ?>
-                                <p class="font-mono text-xs uppercase tracking-widest text-blue-700 inline-flex items-center gap-2 m-0 mt-2">
-                                    <span class="inline-block w-1.5 h-1.5 bg-red shrink-0" aria-hidden="true"></span>
-                                    <?php esc_html_e('Response within 1 business day', 'standard'); ?>
-                                </p>
-                            <?php endif; ?>
                         </header>
 
                         <?php
