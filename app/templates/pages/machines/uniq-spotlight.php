@@ -2,8 +2,7 @@
 /**
  * Machines Page — UNIQ Technology Spotlight
  *
- * Two-column dark section: product image left, features right.
- * Mirrors Toyota's Electrified Power / i-FORCE MAX layout.
+ * Two-column light section: product image left, features right.
  *
  * @package Standard
  *
@@ -19,7 +18,7 @@ if (!defined('ABSPATH')) {
 use function Standard\MachinesData\get_uniq_features;
 
 $content = [
-    'kicker'       => __('05 / TECHNOLOGY', 'standard'),
+    'eyebrow'      => __('Technology', 'standard'),
     'title'        => __('UNIQ® Automatic Control System', 'standard'),
     'subtitle'     => __("NTM's most advanced programmable controller, designed to improve automation, safety, and the operator experience.", 'standard'),
     'availability' => __('Standard on WAV · Optional on SSQ II & SSQ3', 'standard'),
@@ -31,19 +30,20 @@ $content = [
 $features = get_uniq_features();
 ?>
 
-<section class="section bg-blue-900" aria-labelledby="uniq-spotlight-title">
+<section class="section" aria-labelledby="uniq-spotlight-title">
     <div class="container">
         <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-center">
 
             <div class="grid gap-8 md:gap-10 content-start">
-                <div class="grid gap-4">
-                    <p class="font-mono text-xs uppercase tracking-[0.18em] text-blue-300">
-                        <?php echo esc_html($content['kicker']); ?>
+                <div class="section-header-left">
+                    <p class="section-eyebrow">
+                        <?php echo esc_html($content['eyebrow']); ?>
                     </p>
-                    <h2 id="uniq-spotlight-title" class="text-3xl font-medium tracking-tight text-white md:text-4xl lg:text-5xl">
+                    <div class="section-divider"></div>
+                    <h2 id="uniq-spotlight-title" class="section-title">
                         <?php echo esc_html($content['title']); ?>
                     </h2>
-                    <p class="text-lg text-blue-300 leading-relaxed">
+                    <p class="section-subtitle">
                         <?php echo esc_html($content['subtitle']); ?>
                     </p>
                 </div>
@@ -51,10 +51,10 @@ $features = get_uniq_features();
                 <div class="grid gap-6 sm:grid-cols-2">
                     <?php foreach ($features as $feature) : ?>
                         <div class="grid gap-2 content-start">
-                            <h3 class="text-lg font-medium text-white">
+                            <h3 class="text-lg font-medium text-blue-900">
                                 <?php echo esc_html($feature['title']); ?>
                             </h3>
-                            <p class="text-sm text-blue-400">
+                            <p class="text-sm text-blue-600">
                                 <?php echo esc_html($feature['text']); ?>
                             </p>
                         </div>
@@ -62,7 +62,7 @@ $features = get_uniq_features();
                 </div>
 
                 <div class="flex flex-wrap items-center gap-6">
-                    <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-outline-light">
+                    <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-outline-dark">
                         <?php echo esc_html($content['cta_text']); ?>
                         <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                     </a>

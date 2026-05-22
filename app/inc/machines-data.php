@@ -411,40 +411,6 @@ function get_gutter_faq_items(): array {
 }
 
 /**
- * Get SSQ3 feature improvements for the spotlight section.
- *
- * @return array<int, array{title: string, text: string}>
- */
-function get_ssq3_features(): array {
-    return [
-        [
-            'title' => 'Sealed Drive Gear Covers',
-            'text'  => 'Inspection windows protect components against dust and debris.',
-        ],
-        [
-            'title' => 'RFID Cover Sensors',
-            'text'  => 'Controller identifies exactly which cover is open.',
-        ],
-        [
-            'title' => 'Shear Warning Strobe',
-            'text'  => 'Line-of-sight safety cue before and during shear cycles.',
-        ],
-        [
-            'title' => 'Interior LED Lighting',
-            'text'  => '8 strategically placed LEDs that work even when machine is off, LOTO-friendly.',
-        ],
-        [
-            'title' => 'Improved Safety Guarding',
-            'text'  => 'Bottom guarding limits hand access. Slug funnel controls scrap for cleaner floors.',
-        ],
-        [
-            'title' => 'Simplified Maintenance',
-            'text'  => 'Better visibility, faster adjustments, simpler service overall.',
-        ],
-    ];
-}
-
-/**
  * Get UNIQ control system features for the technology spotlight.
  *
  * @return array<int, array{title: string, text: string}>

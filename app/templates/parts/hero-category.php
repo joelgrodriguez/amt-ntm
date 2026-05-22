@@ -50,7 +50,7 @@ $kicker     = $content['kicker'] ?? ($content['eyebrow'] ?? '');
 
                 <h1
                     id="<?php echo esc_attr($section_id); ?>-title"
-                    class="font-medium leading-[0.95] tracking-tight text-white text-5xl sm:text-6xl lg:text-7xl xl:text-8xl"
+                    class="font-sans font-medium leading-[0.95] tracking-tight text-white text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
                 >
                     <?php echo esc_html($content['title']); ?>
                 </h1>

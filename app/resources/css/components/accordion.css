@@ -2,7 +2,8 @@
  * Accordion
  *
  * Carbon UI-inspired collapsible panels using native <details>/<summary>.
- * Base size for specs/technical data; --lg modifier for FAQ sections.
+ * Single size system-wide — no --lg modifier. Standardized after the
+ * FAQ variant was making summary titles inconsistently large.
  * Single-open + always-one-open behavior via Accordion.js.
  *
  * @file components/accordion.css
@@ -71,19 +72,4 @@
     @apply px-6 py-6 border-t border-blue-200 bg-white;
   }
 
-  /* ── Modifier: Large (FAQ) ──────────────────────────────────────── */
-  .accordion--lg summary {
-    @apply py-5 font-medium;
-    font-size: var(--text-heading-sm);
-  }
-
-  @media (min-width: 768px) {
-    .accordion--lg summary {
-      font-size: var(--text-heading);
-    }
-  }
-
-  .accordion--lg .accordion__body {
-    @apply px-8 py-8;
-  }
 }

@@ -3,7 +3,7 @@
  * Shared Template Part — FAQ Accordion
  *
  * Two-column layout: accordion on the left, large image on the right.
- * Uses native <details>/<summary> with .accordion--lg styling.
+ * Uses native <details>/<summary> with the standard .accordion size.
  *
  * @package Standard
  *
@@ -47,11 +47,9 @@ if (empty($content) || empty($faqs)) {
 
                 <div data-accordion-group>
                     <?php foreach ($faqs as $i => $faq) : ?>
-                        <details class="accordion accordion--lg" <?php echo $i === 0 ? 'open' : ''; ?>>
+                        <details class="accordion" <?php echo $i === 0 ? 'open' : ''; ?>>
                             <summary>
-                                <span class="leading-snug">
-                                    <?php echo esc_html($faq['question']); ?>
-                                </span>
+                                <?php echo esc_html($faq['question']); ?>
                                 <span class="accordion__icon">
                                     <?php icon('chevron-down', ['class' => 'w-5 h-5']); ?>
                                 </span>
