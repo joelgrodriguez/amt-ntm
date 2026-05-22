@@ -23,6 +23,7 @@ while (have_posts()) :
     $has_hero = $hero['has_content'] || $hero['has_video'];
     $legacy_slug = get_page_template_slug($post_id);
     $is_meta_form = $legacy_slug === 'page-form-meta.php';
+    $is_contact = is_page('contact');
     $form_id = \Standard\PageTemplates\get_page_form_id($post_id);
     $form_eyebrow = \Standard\PageTemplates\get_label($post_id, ['form_eyebrow'], __('Next Step', 'standard'));
     $form_title = \Standard\PageTemplates\get_label(
@@ -62,9 +63,35 @@ while (have_posts()) :
                         <h2 id="lead-form-content-title" class="sr-only"><?php the_title(); ?></h2>
                     <?php endif; ?>
 
-                    <div class="prose prose-lg max-w-none prose-headings:font-medium prose-headings:tracking-tight prose-headings:text-blue-900 prose-p:text-blue-600 prose-li:text-blue-600 prose-strong:text-blue-900 prose-a:text-blue-500">
-                        <?php the_content(); ?>
-                    </div>
+                    <?php if ($is_contact) : ?>
+                        <p class="text-lg text-blue-600 leading-relaxed max-w-2xl m-0">
+                            <?php esc_html_e('Find answers to common questions below, or talk to a rollforming specialist using the form.', 'standard'); ?>
+                        </p>
+
+                        <div class="grid gap-4">
+                            <p class="section-eyebrow"><?php esc_html_e('Frequently asked', 'standard'); ?></p>
+                            <?php
+                            get_template_part('templates/parts/contact-faq-list', null, [
+                                'faqs' => \Standard\ContactData\get_faq_items(),
+                            ]);
+                            ?>
+                            <p class="text-blue-600 m-0 pt-2">
+                                <?php
+                                printf(
+                                    /* translators: %s: link to the FAQ page. */
+                                    esc_html__('Have another question we didn\'t cover? %s', 'standard'),
+                                    '<a href="' . esc_url(home_url('/faq/')) . '" class="text-blue-500 font-medium hover:text-blue-700">'
+                                        . esc_html__('Visit our full FAQ page', 'standard')
+                                        . '</a>'
+                                );
+                                ?>
+                            </p>
+                        </div>
+                    <?php else : ?>
+                        <div class="prose prose-lg max-w-none prose-headings:font-medium prose-headings:tracking-tight prose-headings:text-blue-900 prose-p:text-blue-600 prose-li:text-blue-600 prose-strong:text-blue-900 prose-a:text-blue-500">
+                            <?php the_content(); ?>
+                        </div>
+                    <?php endif; ?>
                 </article>
 
                 <aside class="border border-blue-200 bg-blue-50 p-6 md:p-8 lg:sticky lg:top-24" aria-labelledby="lead-form-title">
