@@ -61,7 +61,7 @@ $icon_for = static function (string $slug): string {
 <section id="resources-library"
          aria-labelledby="resources-library-title"
          tabindex="-1"
-         class="bg-white pt-16 pb-24 lg:pt-20 lg:pb-32 scroll-mt-24">
+         class="bg-white pt-16 pb-16 lg:pt-20 lg:pb-20 scroll-mt-24">
     <div class="container grid gap-8">
 
         <header class="flex flex-wrap items-end justify-between gap-4">
@@ -81,14 +81,14 @@ $icon_for = static function (string $slug): string {
             </div>
         </header>
 
-        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-blue-200 border border-blue-200 list-none p-0 m-0">
+        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px list-none p-0 m-0">
             <?php while ($query->have_posts()) : $query->the_post();
                 $post  = get_post();
                 $url   = get_permalink($post);
                 $title = get_the_title($post);
                 $icon  = $icon_for((string) $post->post_name);
             ?>
-                <li class="bg-white">
+                <li class="bg-white border border-blue-200">
                     <a href="<?php echo esc_url($url); ?>"
                        class="group relative grid grid-rows-[auto_1fr_auto] gap-4 p-5 h-full min-h-[160px] no-underline transition-colors duration-200 hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-inset">
 

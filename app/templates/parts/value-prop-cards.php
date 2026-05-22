@@ -1,13 +1,20 @@
 <?php
 /**
- * Value Proposition Cards — Shared Template Part
+ * Value Proposition — Shared Template Part
  *
- * Three-card horizontal feature strip highlighting key benefits.
+ * Numbered editorial list highlighting key benefits. Mono numerals,
+ * hairline dividers, three-column md+ grid (numeral / title / body).
+ * Matches the differentiators section on /machines so the pillar
+ * reads with a single voice across parent and child pages.
+ *
+ * The legacy `value-prop-cards` name is preserved to keep call sites
+ * stable; the rendering is no longer a three-card grid.
  *
  * @package Standard
  *
  * @param array  $content    {eyebrow, title}
- * @param array  $cards      Array of {icon, title, text}.
+ * @param array  $cards      Array of {title, text}. Legacy `icon` key
+ *                           is accepted and ignored.
  * @param string $section_id ID used for aria-labelledby.
  */
 
@@ -25,33 +32,31 @@ $section_id = $args['section_id'] ?? 'value-prop';
 <section class="section pattern-dot-grid" aria-labelledby="<?php echo esc_attr($section_id); ?>-title">
     <div class="container section-content">
 
-        <div class="section-header">
+        <div class="section-header-left">
             <p class="section-eyebrow">
                 <?php echo esc_html($content['eyebrow']); ?>
             </p>
-            <div class="section-divider-center"></div>
+            <div class="section-divider"></div>
             <h2 id="<?php echo esc_attr($section_id); ?>-title" class="section-title">
                 <?php echo esc_html($content['title']); ?>
             </h2>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-            <?php foreach ($cards as $card) : ?>
-                <div class="grid gap-4 text-center">
-                    <div class="flex justify-center">
-                        <div class="w-14 h-14 bg-blue-100 flex items-center justify-center">
-                            <?php icon($card['icon'], ['class' => 'w-6 h-6 text-blue-500']); ?>
-                        </div>
-                    </div>
-                    <h3 class="text-lg font-medium text-blue-900">
+        <ol class="grid border-t border-blue-200" role="list">
+            <?php foreach ($cards as $idx => $card) : ?>
+                <li class="grid gap-4 py-8 border-b border-blue-200 md:grid-cols-[auto_1fr_2fr] md:items-baseline md:gap-10 lg:gap-16">
+                    <span class="font-mono text-sm font-medium text-blue-500 uppercase tracking-wider" aria-hidden="true">
+                        <?php echo esc_html(sprintf('%02d', $idx + 1)); ?>
+                    </span>
+                    <h3 class="text-xl font-medium text-blue-900 md:text-2xl">
                         <?php echo esc_html($card['title']); ?>
                     </h3>
-                    <p class="text-sm text-blue-600 leading-relaxed">
+                    <p class="text-blue-600 max-w-prose">
                         <?php echo esc_html($card['text']); ?>
                     </p>
-                </div>
+                </li>
             <?php endforeach; ?>
-        </div>
+        </ol>
 
     </div>
 </section>

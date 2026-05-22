@@ -25,8 +25,10 @@ get_template_part('templates/parts/hero-category', null, [
         'cta_primary_url'   => '#product-grid',
         'cta_secondary'     => __('Talk to a Specialist', 'standard'),
         'cta_secondary_url' => '/contact/',
-        'video'             => 'https://newtechmachinery.com/wp-content/uploads/2025/09/NTM-hero-video.mp4',
+        // Category overview video (Wistia 16:9, plays inline in hero right column).
+        'video'             => 'https://fast.wistia.net/embed/iframe/w1u1r55n9v?seo=false&videoFoam=true',
         'poster'            => content_url('/uploads/2025/09/Machine-on-rooftop-scaled.jpg'),
+        'poster_alt'        => __('NTM seamless gutter machine on a jobsite', 'standard'),
     ],
     'meta' => [
         ['label' => __('Since', 'standard'),    'value' => '1994'],

@@ -24,7 +24,7 @@ if (!defined('ABSPATH')) {
 $content = [
     'eyebrow'   => __('About New Tech Machinery', 'standard'),
     'title'     => __('The world\'s finest portable rollforming machines.', 'standard'),
-    'subhead'   => __('Built here since 1991.', 'standard'),
+    'subhead'   => __('Since 1991', 'standard'),
     'lede'      => __('NTM invented the modern portable roof panel machine in 1991 and the modern portable seamless gutter machine three years later. Three decades on, our designs are the ones the industry imitates.', 'standard'),
     'image'     => 'https://newtechmachinery.com/wp-content/uploads/2025/04/Nate-training-East-Kentucky-Metal-9-scaled.jpg',
     'image_alt' => __('NTM rollformer in operation, training a crew at a jobsite.', 'standard'),
@@ -64,13 +64,15 @@ $metrics = [
 
             </div>
 
-            <!-- Image column -->
+            <!-- Image column: locked to 16:9 across breakpoints -->
             <div class="lg:col-span-5">
-                <?php \Standard\Images\responsive_image($content['image'], $content['image_alt'], 'full', [
-                    'class'         => 'block w-full h-[280px] md:h-[380px] lg:h-[460px] object-cover',
-                    'loading'       => 'eager',
-                    'fetchpriority' => 'high',
-                ]); ?>
+                <div class="aspect-video w-full overflow-hidden">
+                    <?php \Standard\Images\responsive_image($content['image'], $content['image_alt'], 'full', [
+                        'class'         => 'block w-full h-full object-cover',
+                        'loading'       => 'eager',
+                        'fetchpriority' => 'high',
+                    ]); ?>
+                </div>
             </div>
 
         </div>

@@ -49,7 +49,7 @@ $resolve_featured = static function (array $ids): array {
     return is_array($posts) ? $posts : [];
 };
 
-$default_featured = [7800, 1398, 1395];
+$default_featured = [1396, 16648, 5508];
 /**
  * Filter: standard_resources_featured
  * Override the list of pinned resource IDs shown in the featured strip.
@@ -76,6 +76,70 @@ get_header();
     <?php get_template_part('templates/pages/resources/library', null, [
         'exclude' => $featured_ids_resolved,
     ]); ?>
+
+    <?php
+    /**
+     * Learning Center closer. Same four post-type entry points as the
+     * home.php hero, then a trailing link to the LC landing itself.
+     * All five links target real archive URLs — no anchor jumps.
+     */
+    $lc_landing = function_exists('Standard\\LearningCenter\\get_learning_center_url')
+        ? \Standard\LearningCenter\get_learning_center_url()
+        : home_url('/learning-center/');
+
+    $lc_nav = [
+        ['label' => __('Articles', 'standard'),  'icon' => 'file-text', 'href' => $lc_landing],
+        ['label' => __('Videos', 'standard'),    'icon' => 'play',      'href' => get_post_type_archive_link('video') ?: '#'],
+        ['label' => __('Resources', 'standard'), 'icon' => 'folder',    'href' => get_post_type_archive_link('resource') ?: '#'],
+        ['label' => __('Downloads', 'standard'), 'icon' => 'download',  'href' => get_post_type_archive_link('download') ?: '#'],
+    ];
+    ?>
+    <section class="pattern-dot-grid pattern-dot-grid--surface border-t border-blue-200 bg-blue-50 py-16 lg:py-24"
+             aria-labelledby="resources-learning-center-title">
+        <div class="container grid gap-10">
+
+            <header class="section-header-left max-w-3xl">
+                <p class="section-eyebrow">
+                    <?php esc_html_e('Keep Learning', 'standard'); ?>
+                </p>
+                <div class="section-divider"></div>
+                <h2 id="resources-learning-center-title"
+                    class="font-mono font-medium text-heading lg:text-heading-lg text-blue-900 leading-tight tracking-tight">
+                    <?php esc_html_e('The Rollforming Learning Center', 'standard'); ?>
+                </h2>
+                <p class="font-sans text-blue-600 mt-4 max-w-2xl"
+                   style="font-size: var(--text-body); line-height: var(--leading-body);">
+                    <?php esc_html_e('Articles, videos, resources, and downloads on running a portable rollforming business.', 'standard'); ?>
+                </p>
+            </header>
+
+            <nav class="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4" aria-label="<?php esc_attr_e('Browse Learning Center by content type', 'standard'); ?>">
+                <?php foreach ($lc_nav as $item) : ?>
+                    <a href="<?php echo esc_url($item['href']); ?>"
+                       class="group flex items-center justify-between gap-3 p-4 lg:p-5 bg-white border border-blue-200 no-underline transition-colors duration-200 hover:border-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <?php icon($item['icon'], ['class' => 'w-5 h-5 text-blue-500 shrink-0', 'aria-hidden' => 'true']); ?>
+                            <span class="font-mono font-medium uppercase tracking-widest text-caption text-blue-900 group-hover:text-blue-500 transition-colors truncate">
+                                <?php echo esc_html($item['label']); ?>
+                            </span>
+                        </span>
+                        <span class="text-blue-400 group-hover:text-blue-500 group-hover:translate-x-0.5 transition-all shrink-0" aria-hidden="true">
+                            <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                        </span>
+                    </a>
+                <?php endforeach; ?>
+            </nav>
+
+            <p class="font-mono font-medium uppercase tracking-widest text-caption">
+                <a href="<?php echo esc_url($lc_landing); ?>"
+                   class="inline-flex items-center gap-2 text-blue-900 hover:text-blue-500 transition-colors no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                    <?php esc_html_e('Visit the Learning Center', 'standard'); ?>
+                    <span aria-hidden="true">→</span>
+                </a>
+            </p>
+
+        </div>
+    </section>
 
 </main>
 

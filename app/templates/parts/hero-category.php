@@ -2,22 +2,23 @@
 /**
  * Category Hero — Shared Template Part
  *
- * Asymmetric, left-anchored hero for category landing pages
- * (machines, gutter, roof/wall). Distinct from the centered
- * SaaS-default; this commits to product-catalog rhythm with
- * a 60/40 split: left rail of mono metadata + display headline,
- * right panel of video/poster imagery.
+ * Two-column hero for category landing pages (machines, gutter,
+ * roof/wall). Text rail left, 16:9 video panel right. Video can be:
+ * - a Wistia embed iframe URL (preferred for marketing video)
+ * - a Wistia share URL (wistia.com/medias/…)
+ * - an MP4 URL (self-hosted, autoplay/muted/loop)
+ * - just a poster image (no video)
+ *
+ * The right panel always renders at 16:9 because that's the aspect
+ * the marketing videos ship in.
  *
  * @package Standard
  *
  * @param array  $content    {kicker, title, subtitle, cta_primary,
  *                            cta_primary_url, cta_secondary,
- *                            cta_secondary_url, video, poster}
- *                           Note: `kicker` (mono caps) replaces the
- *                           old `eyebrow` (pill).
- * @param array  $meta       Array of {label, value} mono rail items
- *                           rendered in the left rail. Replaces the
- *                           old `stats` array.
+ *                            cta_secondary_url, video, poster,
+ *                            poster_alt}
+ * @param array  $meta       Array of {label, value} mono rail items.
  * @param string $section_id ID used for aria-labelledby.
  */
 
@@ -27,20 +28,41 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use function Standard\Video\render_video_embed;
+use function Standard\Video\is_wistia_url;
+
 $content    = $args['content'] ?? [];
 $meta       = $args['meta'] ?? [];
 $section_id = $args['section_id'] ?? 'hero';
 $video      = $content['video'] ?? '';
 $poster     = $content['poster'] ?? '';
+$poster_alt = $content['poster_alt'] ?? '';
 $kicker     = $content['kicker'] ?? ($content['eyebrow'] ?? '');
+
+// Decide which video pipeline to use.
+$is_mp4   = $video !== '' && preg_match('/\.mp4($|\?)/i', $video);
+$embed    = ($video !== '' && !$is_mp4) ? render_video_embed($video) : '';
+$has_iframe_video = $embed !== '';
+$has_mp4_video    = (bool) $is_mp4;
 ?>
 
-<section class="relative overflow-hidden bg-blue-900 text-white" aria-labelledby="<?php echo esc_attr($section_id); ?>-title">
-    <div class="container py-16 lg:py-24 xl:py-32">
-        <div class="grid gap-10 lg:grid-cols-12 lg:gap-12 lg:items-end">
+<section class="relative overflow-hidden bg-blue-900 text-white pattern-dot-grid pattern-dot-grid--dark" aria-labelledby="<?php echo esc_attr($section_id); ?>-title">
+    <?php
+    // Screen-reader-only H1 carrying the WP page title (e.g. "Roof and
+    // Wall Panel Machines"). Mirrors the old theme's pattern and gives
+    // search engines the direct category keyword as the page's primary
+    // heading; the visible marketing headline below is an H2.
+    $page_title = function_exists('get_the_title') ? get_the_title() : '';
+    if ($page_title !== '') :
+    ?>
+        <h1 class="sr-only"><?php echo esc_html($page_title); ?></h1>
+    <?php endif; ?>
 
-            <!-- Left rail: kicker + display title + subtitle + CTAs + mono meta -->
-            <div class="grid gap-8 lg:col-span-7 lg:gap-10">
+    <div class="container py-16 lg:py-20 xl:py-24">
+        <div class="grid gap-10 lg:grid-cols-12 lg:gap-12 lg:items-center">
+
+            <!-- Left rail: kicker + title + subtitle + CTAs + mono meta -->
+            <div class="grid gap-8 lg:col-span-6 lg:gap-10">
 
                 <?php if (!empty($kicker)) : ?>
                     <p class="font-mono text-xs uppercase tracking-[0.18em] text-blue-300">
@@ -48,12 +70,12 @@ $kicker     = $content['kicker'] ?? ($content['eyebrow'] ?? '');
                     </p>
                 <?php endif; ?>
 
-                <h1
+                <h2
                     id="<?php echo esc_attr($section_id); ?>-title"
-                    class="font-sans font-medium leading-[0.95] tracking-tight text-white text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
+                    class="font-sans font-medium leading-[0.95] tracking-tight text-white text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
                 >
                     <?php echo esc_html($content['title']); ?>
-                </h1>
+                </h2>
 
                 <?php if (!empty($content['subtitle'])) : ?>
                     <p class="text-lg text-blue-200 max-w-xl lg:text-xl">
@@ -90,23 +112,24 @@ $kicker     = $content['kicker'] ?? ($content['eyebrow'] ?? '');
 
             </div>
 
-            <!-- Right panel: video / poster, off-center -->
-            <div class="relative aspect-[4/3] lg:col-span-5 lg:aspect-[3/4] xl:aspect-[4/5] overflow-hidden bg-blue-800">
-                <?php if (!empty($video)) : ?>
+            <!-- Right panel: 16:9 video or poster -->
+            <div class="video-responsive lg:col-span-6 bg-blue-800">
+                <?php if ($has_iframe_video) : ?>
+                    <?php echo $embed; ?>
+                <?php elseif ($has_mp4_video) : ?>
                     <video
-                        class="absolute inset-0 w-full h-full object-cover"
                         autoplay
                         muted
                         loop
                         playsinline
                         preload="metadata"
-                        poster="<?php echo esc_url($poster); ?>"
+                        <?php if ($poster) : ?>poster="<?php echo esc_url($poster); ?>"<?php endif; ?>
                     >
                         <source src="<?php echo esc_url($video); ?>" type="video/mp4">
                     </video>
-                <?php elseif (!empty($poster)) : ?>
-                    <?php \Standard\Images\responsive_image($poster, '', 'full', [
-                        'class'         => 'absolute inset-0 w-full h-full object-cover',
+                <?php elseif ($poster) : ?>
+                    <?php \Standard\Images\responsive_image($poster, $poster_alt, 'full', [
+                        'class'         => 'object-cover',
                         'loading'       => 'eager',
                         'fetchpriority' => 'high',
                     ]); ?>
@@ -116,3 +139,7 @@ $kicker     = $content['kicker'] ?? ($content['eyebrow'] ?? '');
         </div>
     </div>
 </section>
+
+<?php if ($has_iframe_video && is_wistia_url($video)) : ?>
+    <script src="https://fast.wistia.net/assets/external/E-v1.js" async></script>
+<?php endif; ?>

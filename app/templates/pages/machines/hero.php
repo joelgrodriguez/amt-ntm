@@ -25,9 +25,11 @@ get_template_part('templates/parts/hero-category', null, [
         'cta_primary_url'   => '#lineup',
         'cta_secondary'     => __('Talk to a Specialist', 'standard'),
         'cta_secondary_url' => '/contact/',
-        // Hero video served from prod; not present in local /uploads/.
-        'video'             => 'https://newtechmachinery.com/wp-content/uploads/2025/09/NTM-hero-video.mp4',
+        // Who Is NTM brand video — system default. The video panel
+        // renders inline in the hero right column (16:9 Wistia embed).
+        'video'             => 'https://fast.wistia.net/embed/iframe/kdv2kphni1?seo=false&videoFoam=true',
         'poster'            => content_url('/uploads/2025/09/Machine-on-rooftop-scaled.jpg'),
+        'poster_alt'        => __('NTM machine on a rooftop', 'standard'),
     ],
     'meta' => [
         ['label' => __('Founded', 'standard'), 'value' => '1991'],

@@ -2,11 +2,12 @@
 /**
  * Machines Page — Brand Statement
  *
- * Centered brand value proposition text block with square grid pattern.
+ * Data wrapper for the shared brand-statement template part.
  *
  * @package Standard
  *
  * @usage Machines Page (page-machines.php)
+ * @see   templates/parts/brand-statement.php
  */
 
 declare(strict_types=1);
@@ -15,20 +16,11 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$content = [
-    'title' => __('Stop Buying Panels. Start Making Profit.', 'standard'),
-    'text'  => __("Every panel you buy from a supplier is profit you're giving away. NTM portable rollformers let you fabricate standing seam roofing and seamless gutters on-site, cutting material costs in half, winning more bids, and controlling your own schedule. Trusted by contractors in 40+ countries.", 'standard'),
-];
-?>
-
-<section class="section" aria-labelledby="brand-statement-title">
-    <div class="container grid gap-6 max-w-3xl mx-auto text-center">
-        <div class="section-divider-center"></div>
-        <h2 id="brand-statement-title" class="section-title">
-            <?php echo esc_html($content['title']); ?>
-        </h2>
-        <p class="section-subtitle">
-            <?php echo esc_html($content['text']); ?>
-        </p>
-    </div>
-</section>
+get_template_part('templates/parts/brand-statement', null, [
+    'section_id' => 'brand-statement-title',
+    'title'      => __('Stop Buying Panels. Start Making Profit.', 'standard'),
+    'text'       => __(
+        "Every panel you buy from a supplier is profit you're giving away. NTM portable rollformers let you fabricate standing seam roofing and seamless gutters on-site, cutting material costs in half, winning more bids, and controlling your own schedule. New Tech Machinery has been the industry leader in portable rollformers since 1991, trusted by contractors on all seven continents.",
+        'standard'
+    ),
+]);
