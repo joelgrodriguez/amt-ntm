@@ -22,8 +22,8 @@ get_template_part('templates/parts/hero-category', null, [
     'section_id' => 'accessories-hero',
     'content'    => [
         'kicker'            => __('NTM // ACCESSORIES & UPGRADES', 'standard'),
-        'title'             => __('No Machine Ships Finished.', 'standard'),
-        'subtitle'          => __('Every NTM machine has a setup behind it. Here is what makes it run.', 'standard'),
+        'title'             => __('More Out of Every Machine.', 'standard'),
+        'subtitle'          => __('Engineered upgrades that help your crew run faster, cleaner, and on more jobs.', 'standard'),
         'cta_primary'       => __('Browse the Catalog', 'standard'),
         'cta_primary_url'   => '#catalog',
         'cta_secondary'     => __('Talk to a Specialist', 'standard'),

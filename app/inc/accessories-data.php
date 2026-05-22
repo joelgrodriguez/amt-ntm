@@ -204,7 +204,7 @@ function get_bucketed_products(): array {
     }
     $result['more'] = [
         'id'          => 'more',
-        'label'       => __('More & Specialty', 'standard'),
+        'label'       => __('Specialty', 'standard'),
         'description' => __('One-off parts and specialty add-ons that don\'t fit a tidy category.', 'standard'),
         'products'    => [],
     ];
