@@ -27,8 +27,8 @@ get_template_part('templates/parts/final-cta', null, [
         ],
         'testimonial' => [
             'quote'   => __("Bought the SSQ3 in March. Should have bought the dual reel rack and runout table the same week. Don't make my mistake.", 'standard'),
-            'name'    => __('Crew Owner', 'standard'),
-            'company' => __('NTM Customer', 'standard'),
+            'name'    => __('Crew Owner, NTM Customer', 'standard'),
+            'company' => '',
         ],
         'specialist' => [
             'name'          => __('Rollforming Specialist', 'standard'),
