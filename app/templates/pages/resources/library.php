@@ -81,14 +81,14 @@ $icon_for = static function (string $slug): string {
             </div>
         </header>
 
-        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px list-none p-0 m-0">
+        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 list-none p-0 m-0">
             <?php while ($query->have_posts()) : $query->the_post();
                 $post  = get_post();
                 $url   = get_permalink($post);
                 $title = get_the_title($post);
                 $icon  = $icon_for((string) $post->post_name);
             ?>
-                <li class="bg-white border border-blue-200">
+                <li class="bg-white border border-blue-200 -ml-px -mt-px">
                     <a href="<?php echo esc_url($url); ?>"
                        class="group relative grid grid-rows-[auto_1fr_auto] gap-4 p-5 h-full min-h-[160px] no-underline transition-colors duration-200 hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-inset">
 
