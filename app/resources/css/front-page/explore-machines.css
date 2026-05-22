@@ -24,6 +24,15 @@
   @apply hidden;
 }
 
+/* Carousel sizing for direct children. The card itself is stack-only;
+   width clamps + snap behavior live on the carousel, not the card. */
+.explore-machines__track > .card-product {
+  flex-shrink: 0;
+  min-width: 280px;
+  max-width: 320px;
+  scroll-snap-align: start;
+}
+
 /* Panel wrapper - contains stacked panels */
 .explore-machines__panels {
   @apply relative;

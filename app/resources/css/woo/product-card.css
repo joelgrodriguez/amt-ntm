@@ -1,11 +1,9 @@
 /**
  * Product Card
  *
- * Two layout variants on one template:
- *   .card-product--row    vertical on mobile, horizontal on tablet+
- *                         (front-page Explore strip, desktop mega menu)
- *   .card-product--stack  vertical always
- *                         (mobile menu panel)
+ * Single stacked layout: image on top, content below. Used by the front-page
+ * Explore strip, desktop mega menu, and mobile menu panel. Carousel/grid
+ * sizing belongs to the parent context, not the card.
  *
  * Link model: the whole card links to explore_url via ::after on the title
  * anchor (expanded hit area). One inline CTA per card sits above the overlay
@@ -37,13 +35,16 @@
     outline: none;
   }
 
-  /* Image well: fixed aspect, blue-50 fill, image centered with padding so
-     product silhouettes that vary in proportion all sit consistently.
-     Hairline divider between image and content sits on the image side. */
+  /* Image well: 16:9 to match post and profile cards, blue-50 fill, image
+     centered with padding so product silhouettes that vary in proportion all
+     sit consistently. Image uses object-contain so nothing gets cropped —
+     accessories/uprights sit centered with extra horizontal padding from the
+     background. Hairline divider between image and content sits on the image
+     side. */
   .card-product__image-wrapper {
     @apply relative bg-blue-50 overflow-hidden;
     @apply border-b border-blue-200;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 9;
   }
 
   .card-product__image {
@@ -123,53 +124,5 @@
   }
   .card-product:hover .card-product__cta-explore {
     @apply text-blue-900;
-  }
-
-  /* ── Stack variant: vertical always ──────────────────────────────────── */
-
-  .card-product--stack {
-    @apply h-full;
-  }
-
-  /* ── Row variant: vertical on mobile, horizontal at tablet+ ──────────── */
-
-  .card-product--row {
-    /* Default carousel sizing. Overridden when row card lives in a
-       fixed-column grid (see .mega-product-grid override below). */
-    min-width: 280px;
-    max-width: 320px;
-    scroll-snap-align: start;
-    flex-shrink: 0;
-  }
-
-  @media (min-width: 768px) {
-    .card-product--row {
-      @apply flex-row;
-      min-width: 440px;
-      max-width: 480px;
-      height: 220px;
-    }
-
-    .card-product--row .card-product__image-wrapper {
-      @apply w-5/12 shrink-0 h-full;
-      @apply border-b-0 border-r border-blue-200;
-      aspect-ratio: auto;
-    }
-
-    .card-product--row .card-product__content {
-      @apply w-7/12 p-5;
-    }
-
-    .card-product--row .card-product__title {
-      font-size: var(--text-heading);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .card-product--row {
-      min-width: 480px;
-      max-width: 520px;
-      height: 240px;
-    }
   }
 }

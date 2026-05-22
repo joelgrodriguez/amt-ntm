@@ -4,8 +4,10 @@
  *
  * Shared card for the panel/gutter profile catalog. Used by the
  * /profiles landing grid and the header mega-menu. Cross-section
- * imagery sits on bg-blue-50 with object-contain because these are
- * technical drawings, not photography; they must not be cropped.
+ * imagery sits on bg-blue-50 with object-contain inside a 16:9 well
+ * because these are technical drawings, not photography; they must
+ * not be cropped. Aspect matches card-post and card-product for a
+ * consistent card art height across mixed grids.
  *
  * Args:
  *   profile (WP_Post|int): profile post or its ID
@@ -64,7 +66,7 @@ if ($context === 'grid') {
 <a href="<?php echo esc_url($url); ?>"
    class="profile-card group grid gap-3 no-underline">
 
-    <div class="profile-card__image bg-blue-50 aspect-square overflow-hidden flex items-center justify-center border border-blue-200 group-hover:border-blue-500 transition-colors duration-200">
+    <div class="profile-card__image bg-blue-50 aspect-[16/9] overflow-hidden flex items-center justify-center border border-blue-200 group-hover:border-blue-500 transition-colors duration-200">
         <?php if ($thumb) : ?>
             <img src="<?php echo esc_url($thumb); ?>"
                  alt="<?php echo esc_attr($title); ?>"

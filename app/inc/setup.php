@@ -22,9 +22,12 @@ function theme_setup(): void {
     add_theme_support('post-thumbnails');
     add_theme_support('custom-logo');
 
-    // Custom image sizes
-    add_image_size('card-thumbnail', 400, 225, true); // 16:9 aspect ratio, hard crop
-    add_image_size('product-card', 300, 300, true);   // Square, hard crop for carousel cards
+    // Custom image sizes — all 16:9 to unify card art across post, product, profile.
+    // Hard crop applies to photography (card-thumbnail). Product/profile imagery
+    // is `object-contain` in the template, so the upload itself isn't cropped —
+    // these sizes just give the browser a sharp source at typical render widths.
+    add_image_size('card-thumbnail', 640, 360, true);  // 16:9, post thumbnails (cropped)
+    add_image_size('product-card', 640, 360, true);    // 16:9, product/profile letterboxed via object-contain
     add_theme_support('align-wide');
     add_theme_support('wp-block-styles');
     add_theme_support('html5', [
