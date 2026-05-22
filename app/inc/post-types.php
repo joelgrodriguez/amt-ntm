@@ -49,6 +49,31 @@ function get_display_config(string $post_type): array {
             'cta'   => \__('View resource', 'standard'),
             'label' => \__('Open this resource', 'standard'),
         ],
+        'manual'   => [
+            'icon'  => 'file-text',
+            'cta'   => \__('View manual', 'standard'),
+            'label' => \__('Open this manual', 'standard'),
+        ],
+        'literature' => [
+            'icon'  => 'folder',
+            'cta'   => \__('View literature', 'standard'),
+            'label' => \__('Open this literature', 'standard'),
+        ],
+        'footprint' => [
+            'icon'  => 'settings',
+            'cta'   => \__('View footprint', 'standard'),
+            'label' => \__('Open this footprint', 'standard'),
+        ],
+        'cutlist' => [
+            'icon'  => 'file-text',
+            'cta'   => \__('View cutlist', 'standard'),
+            'label' => \__('Open this cutlist', 'standard'),
+        ],
+        'page'     => [
+            'icon'  => 'link',
+            'cta'   => \__('View page', 'standard'),
+            'label' => \__('Open this page', 'standard'),
+        ],
         'product'  => [
             'icon'  => 'shopping-cart',
             'cta'   => \__('View product', 'standard'),
