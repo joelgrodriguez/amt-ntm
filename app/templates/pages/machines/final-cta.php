@@ -2,11 +2,15 @@
 /**
  * Machines Page — Final CTA
  *
- * Data wrapper for the shared final-cta template part.
+ * Closing CTA for /machines. Uses the lean centered closer (no
+ * specialist photo, no bullets) because we don't have an approved
+ * portrait yet and the customer-story section already carries the
+ * page's emotional peak. Two doors: Specialist + Build & Price.
  *
  * @package Standard
  *
  * @usage Machines Page (page-machines.php)
+ * @see   templates/parts/cta/closer.php
  */
 
 declare(strict_types=1);
@@ -15,28 +19,12 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-get_template_part('templates/parts/final-cta', null, [
-    'section_id' => 'machines-final-cta-title',
-    'content'    => [
-        'title'             => __('Not Sure Which Machine Is Right for You?', 'standard'),
-        'text'              => __("That's exactly why our specialists exist. One call, and we'll match you to the right machine for your jobs, your volume, and your budget.", 'standard'),
-        'expect_items'      => [
-            __('Review your current jobs and production goals', 'standard'),
-            __('Get matched to the right machine and profile', 'standard'),
-            __('Walk through pricing and financing options', 'standard'),
-        ],
-        // Peak-end: fold the Jim Averill quote in here so the page closes
-        // on its strongest moment rather than peaking mid-scroll.
-        'testimonial'       => [
-            'quote'   => __("Once I got the SSR, things really excelled. It's basically a printing press: you put coil on top, turn it on, and every foot that comes out, you're making money.", 'standard'),
-            'name'    => 'Jim Averill',
-            'company' => __('Gunnison Sheet Metal · SSR MultiPro Jr.', 'standard'),
-        ],
-        // Specialist portrait + name card intentionally omitted until a
-        // real portrait is approved. Shared template skips the right panel.
-        'cta_primary'       => __('Talk to a Machine Specialist', 'standard'),
-        'cta_primary_url'   => '/contact/',
-        'cta_secondary'     => __('Build & Price Your Machine', 'standard'),
-        'cta_secondary_url' => '/build-finance/',
-    ],
+get_template_part('templates/parts/cta/closer', null, [
+    'section_id'        => 'machines-final-cta-title',
+    'title'             => __('Pick the Machine. Start Making Money.', 'standard'),
+    'text'              => __('Build a quote in your browser, or get one of our specialists on the phone. Free 30-minute call. No obligation.', 'standard'),
+    'cta_primary'       => __('Build & Price Your Machine', 'standard'),
+    'cta_primary_url'   => '/build-finance/',
+    'cta_secondary'     => __('Talk to a Specialist', 'standard'),
+    'cta_secondary_url' => '/contact/',
 ]);
