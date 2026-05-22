@@ -51,6 +51,25 @@ $icon_for = static function (string $slug): string {
 };
 
 /**
+ * Mono kicker per tile. Slug-driven so the strip can mix calculators,
+ * quizzes, and reference docs without lying about what each one is.
+ */
+$kicker_for = static function (string $slug): string {
+    $map = [
+        'portable-rollforming-calculator'    => __('Calculator', 'standard'),
+        'ntm-coil-width-calculator'          => __('Calculator', 'standard'),
+        'cutlist-generator'                  => __('Calculator', 'standard'),
+        'coil-calculator'                    => __('Calculator', 'standard'),
+        'roof-panel-machine-assessment-quiz' => __('Quiz', 'standard'),
+        'machine-training'                   => __('Program', 'standard'),
+        'manuals'                            => __('Library', 'standard'),
+        'downloads'                          => __('Library', 'standard'),
+        'rollforming-learning-center'        => __('Guides', 'standard'),
+    ];
+    return $map[$slug] ?? __('Tool', 'standard');
+};
+
+/**
  * One-line action lede per featured tile. Editor copy when present
  * (post excerpt), otherwise a default per slug. Last fallback: title.
  */
@@ -61,12 +80,13 @@ $lede_for = static function (\WP_Post $post): string {
     }
 
     $defaults = [
-        'portable-rollforming-calculator' => __('Run job cost, output, and ROI against a real spec.', 'standard'),
-        'ntm-coil-width-calculator'       => __('Find the right coil width for any NTM profile.', 'standard'),
-        'cutlist-generator'                => __('Build a panel cut list before the truck leaves the yard.', 'standard'),
-        'machine-training'                 => __('Operator training programs at the Aurora plant.', 'standard'),
-        'machine-footprints'               => __('Setup dimensions for every NTM machine.', 'standard'),
-        'manuals'                          => __('Operator and setup manuals for the entire NTM lineup.', 'standard'),
+        'portable-rollforming-calculator'    => __('Run job cost, output, and ROI against a real spec.', 'standard'),
+        'ntm-coil-width-calculator'          => __('Find the right coil width for any NTM profile.', 'standard'),
+        'cutlist-generator'                  => __('Build a panel cut list before the truck leaves the yard.', 'standard'),
+        'machine-training'                   => __('Operator training programs at the Aurora plant.', 'standard'),
+        'machine-footprints'                 => __('Setup dimensions for every NTM machine.', 'standard'),
+        'manuals'                            => __('Operator and service manuals for the entire NTM lineup.', 'standard'),
+        'roof-panel-machine-assessment-quiz' => __('Five questions to point you at the right roof panel machine.', 'standard'),
     ];
 
     return $defaults[$post->post_name] ?? get_the_title($post);
@@ -96,10 +116,11 @@ $lede_for = static function (\WP_Post $post): string {
 
         <ul class="grid grid-cols-1 md:grid-cols-3 gap-px bg-blue-200 border border-blue-200 list-none p-0 m-0">
             <?php foreach ($featured as $post) :
-                $url   = get_permalink($post);
-                $title = get_the_title($post);
-                $icon  = $icon_for((string) $post->post_name);
-                $lede  = $lede_for($post);
+                $url    = get_permalink($post);
+                $title  = get_the_title($post);
+                $icon   = $icon_for((string) $post->post_name);
+                $lede   = $lede_for($post);
+                $kicker = $kicker_for((string) $post->post_name);
             ?>
                 <li class="bg-white">
                     <a href="<?php echo esc_url($url); ?>"
@@ -110,7 +131,7 @@ $lede_for = static function (\WP_Post $post): string {
                                 <?php icon($icon, ['class' => 'w-5 h-5']); ?>
                             </span>
                             <span class="font-mono font-medium uppercase tracking-widest text-blue-400" style="font-size: 10px;">
-                                <?php esc_html_e('Tool', 'standard'); ?>
+                                <?php echo esc_html($kicker); ?>
                             </span>
                         </div>
 

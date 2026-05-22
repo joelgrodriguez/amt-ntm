@@ -61,7 +61,7 @@ $icon_for = static function (string $slug): string {
 <section id="resources-library"
          aria-labelledby="resources-library-title"
          tabindex="-1"
-         class="bg-white pt-16 pb-24 lg:pt-20 lg:pb-32 scroll-mt-24">
+         class="bg-white pt-16 pb-16 lg:pt-20 lg:pb-20 scroll-mt-24">
     <div class="container grid gap-8">
 
         <header class="flex flex-wrap items-end justify-between gap-4">
