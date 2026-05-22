@@ -7,8 +7,8 @@
  * hero on bg-blue-50 with dot-grid: eyebrow + title + optional excerpt
  * on the left, featured image on the right at lg+ when present.
  * Collapses to single-column title block when no featured image is set.
- * Body content sits in a 1280px container with a footer seam carrying
- * the modified date and parent backlink.
+ * Body content sits in the standard .container (1440px cap) with a footer
+ * seam carrying the modified date and parent backlink.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-page
  *

@@ -1,0 +1,35 @@
+/**
+ * Container System
+ *
+ * Two containers, one job each:
+ *   .container         - page cap at --layout-wide (1440px). Body content,
+ *                        header inner, mega panel inner, .alignwide.
+ *   .container-prose   - reading measure at --layout-content (720px).
+ *
+ * Gutter is a flat 16px (px-4) at every viewport. Above 1440 the max-width
+ * does the work and the gutter is irrelevant.
+ *
+ * @file container.css
+ */
+
+/* In @layer utilities so we override Tailwind v4's default .container utility,
+   which would otherwise cap at 1536px (max-w-screen-2xl) on wide monitors -
+   the source of the "1530" misalignment we hunted. */
+@layer utilities {
+  .container {
+    @apply mx-auto w-full px-4;
+    max-width: var(--layout-wide);
+  }
+
+  .container-prose {
+    @apply mx-auto w-full px-4;
+    max-width: var(--layout-content);
+  }
+
+  /* Cap at --layout-wide with no gutter. For chrome rows (header, mega panel)
+     whose children manage their own internal padding. */
+  .container-flush {
+    @apply mx-auto w-full;
+    max-width: var(--layout-wide);
+  }
+}
