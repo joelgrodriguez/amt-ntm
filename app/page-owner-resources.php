@@ -88,10 +88,10 @@ get_header();
         : home_url('/learning-center/');
 
     $lc_nav = [
-        ['label' => __('Articles', 'standard'),  'icon' => 'file-text', 'href' => $lc_landing],
-        ['label' => __('Videos', 'standard'),    'icon' => 'play',      'href' => get_post_type_archive_link('video') ?: '#'],
-        ['label' => __('Resources', 'standard'), 'icon' => 'folder',    'href' => get_post_type_archive_link('resource') ?: '#'],
-        ['label' => __('Downloads', 'standard'), 'icon' => 'download',  'href' => get_post_type_archive_link('download') ?: '#'],
+        ['label' => __('Articles', 'standard'),  'icon' => 'file-text', 'href' => get_post_type_archive_link('post') ?: $lc_landing],
+        ['label' => __('Videos', 'standard'),    'icon' => 'play',      'href' => get_post_type_archive_link('video') ?: $lc_landing],
+        ['label' => __('Resources', 'standard'), 'icon' => 'folder',    'href' => get_post_type_archive_link('resource') ?: $lc_landing],
+        ['label' => __('Downloads', 'standard'), 'icon' => 'download',  'href' => get_post_type_archive_link('download') ?: $lc_landing],
     ];
     ?>
     <section class="border-t border-blue-200 bg-blue-50 py-16 lg:py-24"
