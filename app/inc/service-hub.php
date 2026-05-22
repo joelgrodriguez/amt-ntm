@@ -129,16 +129,30 @@ function get_service_tax_query(): array {
 }
 
 /**
- * @return array{search: string, type: string, category: string, machine: string}
+ * @return array<string, array{label: string, orderby: string, order: string}>
+ */
+function get_sort_options(): array {
+    return [
+        'newest' => ['label' => \__('Newest first', 'standard'),    'orderby' => 'date',  'order' => 'DESC'],
+        'oldest' => ['label' => \__('Oldest first', 'standard'),    'orderby' => 'date',  'order' => 'ASC'],
+        'az'     => ['label' => \__('Title A to Z', 'standard'),    'orderby' => 'title', 'order' => 'ASC'],
+        'za'     => ['label' => \__('Title Z to A', 'standard'),    'orderby' => 'title', 'order' => 'DESC'],
+    ];
+}
+
+/**
+ * @return array{search: string, type: string, category: string, machine: string, sort: string}
  */
 function get_active_filters(): array {
     $type = get_query_value('service_type');
+    $sort = get_query_value('service_sort');
 
     return [
         'search'   => get_query_value('service_search', 'text'),
         'type'     => \in_array($type, get_post_types(), true) ? $type : '',
         'category' => get_query_value('service_category'),
         'machine'  => get_query_value('service_machine'),
+        'sort'     => \array_key_exists($sort, get_sort_options()) ? $sort : '',
     ];
 }
 
@@ -204,7 +218,14 @@ function get_query_args(array $filters, int $paged = 1, int $per_page = 12): arr
 
     if (!empty($filters['search'])) {
         $args['s'] = (string) $filters['search'];
-    } else {
+    }
+
+    $sort_options = get_sort_options();
+    $sort_key = (string) ($filters['sort'] ?? '');
+    if ($sort_key !== '' && isset($sort_options[$sort_key])) {
+        $args['orderby'] = $sort_options[$sort_key]['orderby'];
+        $args['order'] = $sort_options[$sort_key]['order'];
+    } elseif (empty($filters['search'])) {
         $args['orderby'] = 'date';
         $args['order'] = 'DESC';
     }
