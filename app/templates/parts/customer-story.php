@@ -79,7 +79,7 @@ $render_media = function () use ($content, $stats) :void {
                     <div class="section-divider"></div>
                 </div>
 
-                <blockquote class="text-2xl font-medium text-blue-900 leading-snug tracking-tight md:text-3xl lg:text-4xl">
+                <blockquote class="text-xl font-medium text-blue-900 leading-snug tracking-tight md:text-2xl lg:text-3xl">
                     &ldquo;<?php echo esc_html($content['quote']); ?>&rdquo;
                 </blockquote>
 

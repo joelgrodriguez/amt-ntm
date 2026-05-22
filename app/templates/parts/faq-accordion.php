@@ -71,8 +71,8 @@ $faq_schema = [
         <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-start">
 
             <div data-accordion-group>
-                <?php foreach ($faqs as $i => $faq) : ?>
-                    <details class="accordion" <?php echo $i === 0 ? 'open' : ''; ?>>
+                <?php foreach ($faqs as $faq) : ?>
+                    <details class="accordion">
                         <summary>
                             <?php echo esc_html($faq['question']); ?>
                             <span class="accordion__icon">
@@ -86,7 +86,7 @@ $faq_schema = [
                 <?php endforeach; ?>
             </div>
 
-            <div class="hidden md:block lg:sticky lg:top-24">
+            <div class="hidden md:block">
                 <img
                     src="<?php echo esc_url($content['image']); ?>"
                     alt="<?php echo esc_attr($image_alt); ?>"
