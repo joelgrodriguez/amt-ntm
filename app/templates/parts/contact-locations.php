@@ -2,7 +2,7 @@
 /**
  * Contact Locations Strip
  *
- * Two-column hairline grid of NTM facility locations. Renders just the
+ * Three-column hairline grid of NTM facility locations. Renders just the
  * grid block (no section wrapper). The caller controls placement and
  * surrounding chrome. Each cell carries a mono eyebrow, facility name,
  * optional provenance line, an Apple Maps address link, and any tel:
@@ -24,13 +24,13 @@ if (empty($locations)) {
 }
 ?>
 
-<div class="grid grid-cols-1 md:grid-cols-2 list-none m-0 p-0 border border-blue-200 md:divide-x md:divide-blue-200 divide-y md:divide-y-0">
+<div class="grid grid-cols-1 md:grid-cols-3 list-none m-0 p-0 border border-blue-200 md:divide-x md:divide-blue-200 divide-y md:divide-y-0">
     <?php foreach ($locations as $loc) : ?>
-        <div class="grid gap-3 px-6 py-6 md:px-8 md:py-8 h-full bg-white">
+        <div class="grid gap-3 px-5 py-5 md:px-6 md:py-6 h-full bg-white">
             <p class="section-eyebrow m-0">
                 <?php echo esc_html($loc['eyebrow']); ?>
             </p>
-            <h3 class="font-sans text-lg md:text-xl font-medium tracking-tight text-blue-900 m-0 leading-snug">
+            <h3 class="font-sans text-base md:text-lg font-medium tracking-tight text-blue-900 m-0 leading-snug">
                 <?php echo esc_html($loc['name']); ?>
             </h3>
 
@@ -44,12 +44,12 @@ if (empty($locations)) {
                 href="<?php echo esc_url(\Standard\ContactData\map_url($loc['map_query'])); ?>"
                 target="_blank"
                 rel="noreferrer noopener"
-                class="not-prose inline-flex items-start gap-2 text-blue-700 hover:text-blue-500 no-underline font-sans text-base leading-relaxed group"
+                class="not-prose inline-flex items-start gap-2 text-blue-700 hover:text-blue-500 no-underline font-sans text-sm leading-relaxed group"
             >
                 <span class="block">
                     <?php echo wp_kses($loc['address_html'], ['br' => []]); ?>
                 </span>
-                <?php icon('external-link', ['class' => 'w-3.5 h-3.5 shrink-0 mt-1.5 text-blue-400 group-hover:text-blue-500 transition-colors']); ?>
+                <?php icon('external-link', ['class' => 'w-3.5 h-3.5 shrink-0 mt-1 text-blue-400 group-hover:text-blue-500 transition-colors']); ?>
             </a>
 
             <?php if (!empty($loc['phones'])) : ?>
