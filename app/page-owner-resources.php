@@ -94,9 +94,8 @@ get_header();
         ['label' => __('Downloads', 'standard'), 'icon' => 'download',  'href' => get_post_type_archive_link('download') ?: '#'],
     ];
     ?>
-    <section class="pattern-square-grid border-t border-blue-200 bg-blue-50 py-16 lg:py-24"
+    <section class="border-t border-blue-200 bg-blue-50 py-16 lg:py-24"
              aria-labelledby="resources-learning-center-title">
-        <div class="pattern-square-grid__overlay" aria-hidden="true"></div>
         <div class="container grid gap-10">
 
             <header class="section-header-left max-w-3xl">

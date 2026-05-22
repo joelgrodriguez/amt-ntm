@@ -41,10 +41,7 @@ get_header();
 
 <main id="primary">
 
-    <header class="pattern-square-grid bg-blue-50 border-b border-blue-200">
-        <div class="pattern-square-grid__overlay pattern-square-grid__overlay--top-left"></div>
-        <div class="pattern-square-grid__overlay pattern-square-grid__overlay--bottom-right"></div>
-
+    <header class="bg-blue-50 border-b border-blue-200">
         <div class="container section-compact">
             <div class="grid gap-4 max-w-4xl">
                 <span class="section-eyebrow">
