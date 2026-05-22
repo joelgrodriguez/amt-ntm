@@ -55,8 +55,8 @@ get_header();
                 <h1 class="font-mono font-medium text-heading-lg lg:text-display text-blue-900 leading-tight tracking-tight">
                     <?php esc_html_e('Service and Support', 'standard'); ?>
                 </h1>
-                <p class="font-sans text-blue-600 max-w-3xl" style="font-size: var(--text-body); line-height: var(--leading-body);">
-                    <?php esc_html_e('Manuals, troubleshooting articles, support videos, downloads, and related service material in one filtered view.', 'standard'); ?>
+                <p class="font-sans text-blue-600 max-w-2xl" style="font-size: var(--text-body); line-height: var(--leading-body);">
+                    <?php esc_html_e('Manuals, troubleshooting articles, support videos, parts and footprint downloads. Filter by machine, content type, or topic, or talk to the service team directly.', 'standard'); ?>
                 </p>
             </div>
         </div>
