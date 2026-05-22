@@ -36,7 +36,7 @@ if (empty($faqs)) {
 
         <div class="max-w-4xl mx-auto" data-accordion-group>
             <?php foreach ($faqs as $i => $faq) : ?>
-                <details class="accordion accordion--lg" <?php echo $i === 0 ? 'open' : ''; ?>>
+                <details class="accordion" <?php echo $i === 0 ? 'open' : ''; ?>>
                     <summary>
                         <?php echo esc_html($faq['question']); ?>
                         <span class="accordion__icon">

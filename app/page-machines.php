@@ -29,8 +29,6 @@ get_header();
 
     <?php get_template_part('templates/pages/machines/comparison-table'); ?>
 
-    <?php get_template_part('templates/pages/machines/ssq3-spotlight'); ?>
-
     <?php get_template_part('templates/pages/machines/roi-snapshot'); ?>
 
     <?php get_template_part('templates/pages/machines/uniq-spotlight'); ?>
@@ -40,8 +38,6 @@ get_header();
     <?php get_template_part('templates/pages/machines/differentiators'); ?>
 
     <?php get_template_part('templates/pages/machines/which-machine'); ?>
-
-    <?php get_template_part('templates/pages/machines/configurator'); ?>
 
     <?php get_template_part('templates/pages/machines/learning-center'); ?>
 
