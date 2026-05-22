@@ -63,7 +63,6 @@
 @import "./pages/toc.css";
 @import "./pages/media.css";
 @import "./pages/learning-center.css";
-@import "./pages/accessories.css";
 
 /* ── WooCommerce ───────────────────────────────────────────────────── */
 @import "./woo/product-card.css";
