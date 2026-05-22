@@ -15,6 +15,8 @@ if (!defined('ABSPATH')) {
 
 const TAXONOMY = 'content_department';
 const SERVICE_TERM_SLUG = 'service-repair';
+const CACHE_GROUP = 'standard_service_hub';
+const CACHE_TTL = 15 * MINUTE_IN_SECONDS;
 
 /**
  * @return string[]
@@ -218,6 +220,12 @@ function get_results_query(array $filters, int $paged = 1, int $per_page = 12): 
 }
 
 function get_service_count(string $post_type = ''): int {
+    $cache_key = 'count:' . ($post_type !== '' ? $post_type : '_all');
+    $cached = \wp_cache_get($cache_key, CACHE_GROUP);
+    if ($cached !== false) {
+        return (int) $cached;
+    }
+
     $query = new \WP_Query([
         'post_type'           => $post_type !== '' ? $post_type : get_post_types(),
         'post_status'         => 'publish',
@@ -227,18 +235,27 @@ function get_service_count(string $post_type = ''): int {
         'tax_query'           => get_service_tax_query(),
     ]);
 
-    return (int) $query->found_posts;
+    $count = (int) $query->found_posts;
+    \wp_cache_set($cache_key, $count, CACHE_GROUP, CACHE_TTL);
+
+    return $count;
 }
 
 /**
  * @return array<string, int>
  */
 function get_post_type_counts(): array {
-    $counts = [];
+    $cached = \wp_cache_get('post_type_counts', CACHE_GROUP);
+    if (\is_array($cached)) {
+        return $cached;
+    }
 
+    $counts = [];
     foreach (get_post_types() as $post_type) {
         $counts[$post_type] = get_service_count($post_type);
     }
+
+    \wp_cache_set('post_type_counts', $counts, CACHE_GROUP, CACHE_TTL);
 
     return $counts;
 }
@@ -247,6 +264,12 @@ function get_post_type_counts(): array {
  * @return int[]
  */
 function get_service_post_ids(int $limit = 1000): array {
+    $cache_key = 'post_ids:' . $limit;
+    $cached = \wp_cache_get($cache_key, CACHE_GROUP);
+    if (\is_array($cached)) {
+        return $cached;
+    }
+
     $ids = \get_posts([
         'post_type'              => get_post_types(),
         'post_status'            => 'publish',
@@ -259,7 +282,10 @@ function get_service_post_ids(int $limit = 1000): array {
         'tax_query'              => get_service_tax_query(),
     ]);
 
-    return \array_map('intval', $ids);
+    $ids = \array_map('intval', $ids);
+    \wp_cache_set($cache_key, $ids, CACHE_GROUP, CACHE_TTL);
+
+    return $ids;
 }
 
 /**
@@ -270,8 +296,15 @@ function get_terms_for_service_content(string $taxonomy, int $limit = 30): array
         return [];
     }
 
+    $cache_key = 'terms:' . $taxonomy . ':' . $limit;
+    $cached = \wp_cache_get($cache_key, CACHE_GROUP);
+    if (\is_array($cached)) {
+        return $cached;
+    }
+
     $post_ids = get_service_post_ids();
     if ($post_ids === []) {
+        \wp_cache_set($cache_key, [], CACHE_GROUP, CACHE_TTL);
         return [];
     }
 
@@ -284,8 +317,65 @@ function get_terms_for_service_content(string $taxonomy, int $limit = 30): array
         'number'     => $limit,
     ]);
 
-    return \is_array($terms) ? $terms : [];
+    $terms = \is_array($terms) ? $terms : [];
+    \wp_cache_set($cache_key, $terms, CACHE_GROUP, CACHE_TTL);
+
+    return $terms;
 }
+
+/**
+ * Invalidate every service-hub cache key. Cheap; called rarely.
+ *
+ * Without an explicit key registry, wp_cache_flush_group() is the
+ * surgical move when available, falling back to the brand-blunt
+ * wp_cache_flush() for object caches that don't support group flushes
+ * (the default in-request cache included).
+ */
+function flush_caches(): void {
+    if (\function_exists('wp_cache_flush_group')) {
+        \wp_cache_flush_group(CACHE_GROUP);
+        return;
+    }
+
+    \wp_cache_flush();
+}
+
+function maybe_flush_on_save(int $post_id): void {
+    if (\wp_is_post_revision($post_id) || \wp_is_post_autosave($post_id)) {
+        return;
+    }
+
+    $post = \get_post($post_id);
+    if (!$post instanceof \WP_Post) {
+        return;
+    }
+
+    if (!\in_array($post->post_type, get_post_types(), true)) {
+        return;
+    }
+
+    flush_caches();
+}
+\add_action('save_post', __NAMESPACE__ . '\\maybe_flush_on_save');
+\add_action('deleted_post', __NAMESPACE__ . '\\maybe_flush_on_save');
+
+/**
+ * Flush when department / category / machine assignments shift, which
+ * is what actually invalidates filter counts and term lists.
+ *
+ * @param int      $object_id
+ * @param int[]    $terms
+ * @param int[]    $tt_ids
+ * @param string   $taxonomy
+ */
+function maybe_flush_on_term_change(int $object_id, array $terms, array $tt_ids, string $taxonomy): void {
+    if (!\in_array($taxonomy, [TAXONOMY, 'category', 'post_tag'], true)) {
+        return;
+    }
+
+    flush_caches();
+}
+\add_action('set_object_terms', __NAMESPACE__ . '\\maybe_flush_on_term_change', 10, 4);
 
 /**
  * @return string[]

@@ -1,0 +1,54 @@
+/**
+ * Form Fields
+ *
+ * One input system, one select system. DESIGN.md §3 (mono labels, sans
+ * inputs, 14px), §4.2 (zero radius), §5.13 (input border + focus), §8
+ * (1px hairline borders, no shadows).
+ *
+ * Labels use the mono eyebrow voice: caps, tracked, blue-700 (slightly
+ * more visible than the page-level eyebrow blue-500 so per-field labels
+ * read as data, not as section chrome).
+ *
+ * @file components/forms.css
+ */
+
+@layer components {
+  .field {
+    @apply grid gap-2;
+  }
+
+  .field-label {
+    @apply font-mono font-medium uppercase tracking-wider text-blue-700;
+    font-size: var(--text-caption);
+  }
+
+  .field-input,
+  .field-select {
+    @apply w-full min-h-11 border border-blue-200 bg-white px-3 py-2 text-blue-900;
+    @apply font-sans;
+    font-size: var(--text-body);
+    transition: border-color 200ms ease-out, box-shadow 200ms ease-out;
+  }
+
+  .field-input::placeholder {
+    @apply text-blue-400;
+  }
+
+  .field-input:focus-visible,
+  .field-select:focus-visible {
+    @apply outline-none border-blue-500;
+    box-shadow: 0 0 0 2px var(--color-white), 0 0 0 4px var(--color-blue-500);
+  }
+
+  /* Native select with system caret. appearance:none strips the platform
+     chevron; the caret is drawn as a background-image SVG in blue-700,
+     positioned right-of-content. No JS, no wrapper element required. */
+  .field-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none'><path d='M1 1l5 5 5-5' stroke='%2326384B' stroke-width='1.5' stroke-linecap='square'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px 8px;
+    padding-right: 36px;
+  }
+}

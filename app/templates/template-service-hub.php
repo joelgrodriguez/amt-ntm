@@ -2,7 +2,10 @@
 /**
  * Template Name: Service Hub
  *
- * Service-only landing page with search and filters.
+ * Service-only landing page with search and filters. Listings/utility
+ * surface, not a product hero: no dot-grid wallpaper, no full-boxed
+ * filter chrome. Hairline structural borders (DESIGN.md §8) carry the
+ * blueprint feel; forms.css carries the input system.
  *
  * @package Standard
  */
@@ -38,30 +41,44 @@ $has_filters = $filters['search'] !== ''
 get_header();
 ?>
 
-<main id="primary" class="pattern-dot-grid gradient-fade-bottom-sm py-6 lg:py-12">
-    <header class="container mb-6 lg:mb-10">
-        <div class="grid gap-4 max-w-4xl">
-            <span class="text-caption font-mono uppercase tracking-widest text-blue-500">
-                <?php esc_html_e('Service Hub', 'standard'); ?>
-            </span>
-            <h1 class="font-mono font-medium text-heading lg:text-heading-lg text-blue-900 leading-tight tracking-tight">
-                <?php esc_html_e('Service and Support Content', 'standard'); ?>
-            </h1>
-            <p class="text-blue-600 text-base lg:text-lg leading-relaxed max-w-3xl">
-                <?php esc_html_e('Manuals, troubleshooting articles, support videos, downloads, and related service material in one filtered view.', 'standard'); ?>
-            </p>
+<main id="primary">
+
+    <header class="border-b border-blue-200">
+        <div class="container section-compact">
+            <div class="grid gap-4 max-w-4xl">
+                <span class="section-eyebrow">
+                    <?php esc_html_e('Service Hub', 'standard'); ?>
+                </span>
+                <h1 class="font-mono font-medium text-heading lg:text-heading-lg text-blue-900 leading-tight tracking-tight">
+                    <?php esc_html_e('Service and Support Content', 'standard'); ?>
+                </h1>
+                <p class="font-sans text-blue-600 max-w-3xl" style="font-size: var(--text-body); line-height: var(--leading-body);">
+                    <?php esc_html_e('Manuals, troubleshooting articles, support videos, downloads, and related service material in one filtered view.', 'standard'); ?>
+                </p>
+            </div>
         </div>
     </header>
 
-    <section class="container mb-8 lg:mb-10" aria-labelledby="service-hub-filters-title">
-        <div class="border border-blue-200 bg-white p-4 lg:p-6">
-            <h2 id="service-hub-filters-title" class="sr-only">
-                <?php esc_html_e('Filter service content', 'standard'); ?>
-            </h2>
+    <section class="border-b border-blue-200" aria-labelledby="service-hub-filters-title">
+        <div class="container py-8 lg:py-10">
+            <div class="mb-6 flex items-center justify-between gap-4">
+                <h2 id="service-hub-filters-title" class="font-mono font-medium uppercase tracking-wider text-blue-500" style="font-size: var(--text-caption);">
+                    <?php esc_html_e('Filter Service Content', 'standard'); ?>
+                </h2>
+                <?php if ($has_filters) : ?>
+                    <a href="<?php echo esc_url($form_action); ?>" class="btn btn-sm btn-ghost">
+                        <?php esc_html_e('Reset', 'standard'); ?>
+                    </a>
+                <?php endif; ?>
+            </div>
 
-            <form class="grid gap-4 lg:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))_auto] lg:items-end" method="get" action="<?php echo esc_url($form_action); ?>">
-                <div class="grid gap-2">
-                    <label for="service-search" class="text-sm font-medium text-blue-900">
+            <form
+                class="grid gap-4 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-[1.4fr_repeat(3,1fr)_auto] xl:items-end"
+                method="get"
+                action="<?php echo esc_url($form_action); ?>"
+            >
+                <div class="field md:col-span-2 lg:col-span-4 xl:col-span-1">
+                    <label for="service-search" class="field-label">
                         <?php esc_html_e('Search', 'standard'); ?>
                     </label>
                     <input
@@ -69,16 +86,16 @@ get_header();
                         name="service_search"
                         type="search"
                         value="<?php echo esc_attr($filters['search']); ?>"
-                        class="w-full min-h-11 border border-blue-200 bg-white px-3 py-2 text-blue-900 placeholder:text-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                        placeholder="<?php esc_attr_e('Machine, manual, problem, topic...', 'standard'); ?>"
+                        class="field-input"
+                        placeholder="<?php esc_attr_e('Machine, manual, problem, topic…', 'standard'); ?>"
                     >
                 </div>
 
-                <div class="grid gap-2">
-                    <label for="service-type" class="text-sm font-medium text-blue-900">
+                <div class="field">
+                    <label for="service-type" class="field-label">
                         <?php esc_html_e('Type', 'standard'); ?>
                     </label>
-                    <select id="service-type" name="service_type" class="w-full min-h-11 border border-blue-200 bg-white px-3 py-2 text-blue-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                    <select id="service-type" name="service_type" class="field-select">
                         <option value=""><?php esc_html_e('All types', 'standard'); ?></option>
                         <?php foreach ($post_type_options as $post_type => $option) : ?>
                             <option value="<?php echo esc_attr($post_type); ?>" <?php selected($filters['type'], $post_type); ?>>
@@ -95,11 +112,11 @@ get_header();
                     </select>
                 </div>
 
-                <div class="grid gap-2">
-                    <label for="service-category" class="text-sm font-medium text-blue-900">
+                <div class="field">
+                    <label for="service-category" class="field-label">
                         <?php esc_html_e('Category', 'standard'); ?>
                     </label>
-                    <select id="service-category" name="service_category" class="w-full min-h-11 border border-blue-200 bg-white px-3 py-2 text-blue-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                    <select id="service-category" name="service_category" class="field-select">
                         <option value=""><?php esc_html_e('All categories', 'standard'); ?></option>
                         <?php foreach ($categories as $category) : ?>
                             <option value="<?php echo esc_attr($category->slug); ?>" <?php selected($filters['category'], $category->slug); ?>>
@@ -109,11 +126,11 @@ get_header();
                     </select>
                 </div>
 
-                <div class="grid gap-2">
-                    <label for="service-machine" class="text-sm font-medium text-blue-900">
+                <div class="field">
+                    <label for="service-machine" class="field-label">
                         <?php esc_html_e('Machine', 'standard'); ?>
                     </label>
-                    <select id="service-machine" name="service_machine" class="w-full min-h-11 border border-blue-200 bg-white px-3 py-2 text-blue-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                    <select id="service-machine" name="service_machine" class="field-select">
                         <option value=""><?php esc_html_e('All machines', 'standard'); ?></option>
                         <?php foreach ($machine_tags as $machine_tag) : ?>
                             <option value="<?php echo esc_attr($machine_tag->slug); ?>" <?php selected($filters['machine'], $machine_tag->slug); ?>>
@@ -123,40 +140,30 @@ get_header();
                     </select>
                 </div>
 
-                <div class="flex gap-3">
-                    <button type="submit" class="inline-flex min-h-11 items-center justify-center border border-blue-900 bg-blue-900 px-4 py-2 font-mono text-sm font-medium uppercase tracking-widest text-white hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                <div class="md:col-span-2 lg:col-span-4 xl:col-span-1">
+                    <button type="submit" class="btn btn-primary w-full md:w-auto">
                         <?php esc_html_e('Search', 'standard'); ?>
                     </button>
-                    <?php if ($has_filters) : ?>
-                        <a href="<?php echo esc_url($form_action); ?>" class="inline-flex min-h-11 items-center justify-center border border-blue-200 px-4 py-2 font-mono text-sm font-medium uppercase tracking-widest text-blue-700 no-underline hover:border-blue-500 hover:text-blue-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
-                            <?php esc_html_e('Reset', 'standard'); ?>
-                        </a>
-                    <?php endif; ?>
                 </div>
             </form>
         </div>
     </section>
 
-    <section class="container" aria-labelledby="service-hub-results-title">
-        <div class="mb-6 flex flex-col gap-2 border-b border-blue-200 pb-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-                <h2 id="service-hub-results-title" class="text-xl lg:text-2xl font-semibold text-blue-900">
-                    <?php esc_html_e('Service Content', 'standard'); ?>
-                </h2>
-                <p class="text-sm text-blue-600">
-                    <?php
-                    printf(
-                        /* translators: %1$d visible result count, %2$d total service content count. */
-                        esc_html__('%1$d results from %2$d service items', 'standard'),
-                        (int) $service_query->found_posts,
-                        $total_service_count
-                    );
-                    ?>
-                </p>
-            </div>
+    <section class="container section-compact" aria-labelledby="service-hub-results-title">
+        <div class="mb-8 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+            <p id="service-hub-results-title" class="font-mono font-medium uppercase tracking-wider text-blue-700" style="font-size: var(--text-caption);">
+                <?php
+                printf(
+                    /* translators: %1$d visible result count, %2$d total service content count. */
+                    esc_html__('%1$d of %2$d service items', 'standard'),
+                    (int) $service_query->found_posts,
+                    $total_service_count
+                );
+                ?>
+            </p>
 
             <?php if ($filters['type'] !== '') : ?>
-                <span class="font-mono text-caption uppercase tracking-widest text-blue-500">
+                <span class="font-mono font-medium uppercase tracking-wider text-blue-500" style="font-size: var(--text-caption);">
                     <?php echo esc_html(get_post_type_label($filters['type'])); ?>
                 </span>
             <?php endif; ?>
@@ -174,13 +181,26 @@ get_header();
             \wp_reset_postdata();
             ?>
         <?php else : ?>
-            <div class="border border-blue-200 bg-white p-8 text-center">
-                <h3 class="text-xl font-semibold text-blue-900">
-                    <?php esc_html_e('No service content found', 'standard'); ?>
-                </h3>
-                <p class="mt-2 text-blue-600">
-                    <?php esc_html_e('Try a broader search or remove one filter.', 'standard'); ?>
-                </p>
+            <div class="border-t border-blue-200 pt-12">
+                <div class="grid gap-4 max-w-xl">
+                    <span class="font-mono font-medium uppercase tracking-wider text-red" style="font-size: var(--text-caption);">
+                        <?php esc_html_e('No Matches', 'standard'); ?>
+                    </span>
+                    <h3 class="font-mono font-medium text-blue-900" style="font-size: var(--text-heading-sm);">
+                        <?php esc_html_e('Nothing matches those filters.', 'standard'); ?>
+                    </h3>
+                    <p class="font-sans text-blue-600" style="font-size: var(--text-body); line-height: var(--leading-body);">
+                        <?php esc_html_e('Try a broader search, remove a filter, or talk to the service team directly.', 'standard'); ?>
+                    </p>
+                    <div class="mt-2 flex flex-wrap gap-3">
+                        <a href="<?php echo esc_url($form_action); ?>" class="btn btn-md btn-secondary">
+                            <?php esc_html_e('Clear filters', 'standard'); ?>
+                        </a>
+                        <a href="<?php echo esc_url(\Standard\Url\internal('/contact/')); ?>" class="btn btn-md btn-ghost">
+                            <?php esc_html_e('Contact support', 'standard'); ?>
+                        </a>
+                    </div>
+                </div>
             </div>
         <?php endif; ?>
     </section>
