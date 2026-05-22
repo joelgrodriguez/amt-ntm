@@ -25,9 +25,15 @@ get_template_part('templates/parts/final-cta', null, [
             __('Get matched to the right machine and profile', 'standard'),
             __('Walk through pricing and financing options', 'standard'),
         ],
-        // Testimonial + specialist intentionally omitted until approved copy
-        // and a real specialist portrait are available. The shared template
-        // gracefully skips both panels when not provided.
+        // Peak-end: fold the Jim Averill quote in here so the page closes
+        // on its strongest moment rather than peaking mid-scroll.
+        'testimonial'       => [
+            'quote'   => __("Once I got the SSR, things really excelled. It's basically a printing press: you put coil on top, turn it on, and every foot that comes out, you're making money.", 'standard'),
+            'name'    => 'Jim Averill',
+            'company' => __('Gunnison Sheet Metal · SSR MultiPro Jr.', 'standard'),
+        ],
+        // Specialist portrait + name card intentionally omitted until a
+        // real portrait is approved. Shared template skips the right panel.
         'cta_primary'       => __('Talk to a Machine Specialist', 'standard'),
         'cta_primary_url'   => '/contact/',
         'cta_secondary'     => __('Build & Price Your Machine', 'standard'),

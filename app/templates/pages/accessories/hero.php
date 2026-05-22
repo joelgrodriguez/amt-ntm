@@ -23,7 +23,7 @@ $count_label = $count > 0 ? $count . '+' : '60+';
 get_template_part('templates/parts/hero-category', null, [
     'section_id' => 'accessories-hero',
     'content'    => [
-        'eyebrow'           => __('Accessories · Upgrades', 'standard'),
+        'kicker'            => __('NTM // ACCESSORIES & UPGRADES', 'standard'),
         'title'             => __('No Machine Ships Finished.', 'standard'),
         'subtitle'          => __('Reel stands, controllers, runout tables, and roll tooling engineered to fit every machine NTM has built in 34 years.', 'standard'),
         'cta_primary'       => __('Browse the Catalog', 'standard'),
@@ -31,11 +31,11 @@ get_template_part('templates/parts/hero-category', null, [
         'cta_secondary'     => __('Talk to a Specialist', 'standard'),
         'cta_secondary_url' => '/contact/',
         'video'             => '',
-        'poster'            => 'https://newtechmachinery.com/wp-content/uploads/2025/09/Machine-on-rooftop-scaled.jpg',
+        'poster'            => content_url('/uploads/2025/09/Machine-on-rooftop-scaled.jpg'),
     ],
-    'stats' => [
-        ['value' => $count_label,    'label' => __('Accessories', 'standard')],
-        ['value' => '8',             'label' => __('Machine Families', 'standard')],
-        ['value' => '34 yrs',        'label' => __('Of Fit', 'standard')],
+    'meta' => [
+        ['label' => __('Accessories', 'standard'),      'value' => $count_label],
+        ['label' => __('Machine Families', 'standard'), 'value' => '8'],
+        ['label' => __('Of Fit', 'standard'),           'value' => '34 yrs'],
     ],
 ]);

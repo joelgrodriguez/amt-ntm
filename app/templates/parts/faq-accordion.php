@@ -68,7 +68,7 @@ if (empty($content) || empty($faqs)) {
                 <img
                     src="<?php echo esc_url($content['image']); ?>"
                     alt="<?php echo esc_attr($image_alt); ?>"
-                    class="w-full h-[300px] lg:h-[600px] xl:h-[700px] object-cover"
+                    class="w-full h-[300px] lg:h-[500px] xl:h-[600px] object-cover"
                     loading="lazy"
                 >
             </div>

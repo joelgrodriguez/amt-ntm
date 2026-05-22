@@ -18,5 +18,5 @@ if (!defined('ABSPATH')) {
 get_template_part('templates/parts/configurator', null, [
     'section_id' => 'machines-configurator',
     'title'      => __('Configure Your Machine Online', 'standard'),
-    'text'       => __('Design your perfect rollformer, see exactly what it costs, and apply for financing — all from your browser.', 'standard'),
+    'text'       => __('Design your perfect rollformer, see exactly what it costs, and apply for financing, all from your browser.', 'standard'),
 ]);

@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
 use function Standard\MachinesData\get_roi_stats;
 
 $content = [
-    'eyebrow'  => __('Return on Investment', 'standard'),
+    'kicker'   => __('04 / RETURN ON INVESTMENT', 'standard'),
     'title'    => __('The Numbers Speak for Themselves', 'standard'),
     'cta_text' => __('Calculate Your Profit', 'standard'),
     'cta_url'  => '/learning-center/download/portable-rollforming-profit-calculator/',
@@ -33,12 +33,11 @@ $stats = get_roi_stats();
 <section class="section bg-blue-900" aria-labelledby="roi-snapshot-title">
     <div class="container section-content">
 
-        <div class="section-header">
-            <p class="text-sm font-medium uppercase tracking-wider text-blue-500">
-                <?php echo esc_html($content['eyebrow']); ?>
+        <div class="grid gap-4 max-w-3xl">
+            <p class="font-mono text-xs uppercase tracking-[0.18em] text-blue-300">
+                <?php echo esc_html($content['kicker']); ?>
             </p>
-            <div class="section-divider-center"></div>
-            <h2 id="roi-snapshot-title" class="text-3xl font-medium text-white md:text-4xl">
+            <h2 id="roi-snapshot-title" class="text-4xl font-medium tracking-tight text-white md:text-5xl">
                 <?php echo esc_html($content['title']); ?>
             </h2>
         </div>

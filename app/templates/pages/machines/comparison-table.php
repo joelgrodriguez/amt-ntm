@@ -20,8 +20,8 @@ if (!defined('ABSPATH')) {
 use function Standard\MachinesData\get_all_machines;
 
 $content = [
-    'eyebrow' => __('Compare', 'standard'),
-    'title'   => __('Machine Comparison', 'standard'),
+    'kicker' => __('02 / COMPARE', 'standard'),
+    'title'  => __('Specs, Side by Side', 'standard'),
 ];
 
 $machines = get_all_machines();
@@ -38,12 +38,11 @@ $rows = [
 <section class="section" aria-labelledby="comparison-title">
     <div class="container section-content">
 
-        <div class="section-header">
-            <p class="section-eyebrow">
-                <?php echo esc_html($content['eyebrow']); ?>
+        <div class="grid gap-4 max-w-3xl">
+            <p class="font-mono text-xs uppercase tracking-[0.18em] text-blue-500">
+                <?php echo esc_html($content['kicker']); ?>
             </p>
-            <div class="section-divider-center"></div>
-            <h2 id="comparison-title" class="section-title">
+            <h2 id="comparison-title" class="text-4xl font-medium tracking-tight text-blue-900 md:text-5xl">
                 <?php echo esc_html($content['title']); ?>
             </h2>
         </div>
