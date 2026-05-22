@@ -25,7 +25,7 @@ get_template_part('templates/parts/value-prop-cards', null, [
         [
             'icon'  => 'settings',
             'title' => __('On-Site Fabrication', 'standard'),
-            'text'  => __('Produce seamless gutters anywhere — no pre-fab joints, no shipping, no wasted material. One continuous piece from coil to install.', 'standard'),
+            'text'  => __('Produce seamless gutters anywhere, no pre-fab joints, no shipping, no wasted material. One continuous piece from coil to install.', 'standard'),
         ],
         [
             'icon'  => 'trending-up',

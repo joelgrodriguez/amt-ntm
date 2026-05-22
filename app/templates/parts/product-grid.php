@@ -20,54 +20,50 @@ if (!defined('ABSPATH')) {
 }
 
 use function Standard\Grid\get_card_border_classes;
-use function Standard\Grid\get_overflow_border_classes;
-use function Standard\Grid\get_lg_col_start_class;
+use function Standard\Grid\get_lg_grid_cols_class;
 
 $machines   = $args['machines'] ?? [];
-$cols       = $args['cols'] ?? 3;
 $content    = $args['content'] ?? [];
 $section_id = $args['section_id'] ?? 'product-grid';
 
-$count        = count($machines);
-$has_overflow  = ($count % $cols !== 0);
-$top_row       = $has_overflow ? array_slice($machines, 0, $cols) : $machines;
-$bottom_row    = $has_overflow ? array_slice($machines, $cols) : [];
-$grid_cols_map   = [2 => 'sm:grid-cols-2', 4 => 'sm:grid-cols-2 lg:grid-cols-4'];
-$grid_cols_class = $grid_cols_map[$cols] ?? 'sm:grid-cols-2 lg:grid-cols-3';
+$count = count($machines);
+
+// Pick a column count that divides evenly into the machine count
+// so we never have an awkward overflow row. 6 → 3-col; 4 → 2-col;
+// 3 → 3-col; 2 → 2-col; everything else → fall back to 3-col with
+// whatever overflow lands. Caller can override with $args['cols'].
+$cols = $args['cols'] ?? null;
+if (!$cols) {
+    if ($count % 3 === 0) {
+        $cols = 3;
+    } elseif ($count % 2 === 0) {
+        $cols = 2;
+    } else {
+        $cols = 3;
+    }
+}
+$cols = max(1, min(4, (int) $cols));
 ?>
 
 <section id="<?php echo esc_attr($section_id); ?>" class="section" aria-labelledby="<?php echo esc_attr($section_id); ?>-title">
     <div class="container section-content">
 
-        <div class="section-header">
+        <div class="section-header-left">
             <p class="section-eyebrow">
                 <?php echo esc_html($content['eyebrow']); ?>
             </p>
-            <div class="section-divider-center"></div>
+            <div class="section-divider"></div>
             <h2 id="<?php echo esc_attr($section_id); ?>-title" class="section-title">
                 <?php echo esc_html($content['title']); ?>
             </h2>
         </div>
 
-        <div class="grid grid-cols-1 <?php echo esc_attr($grid_cols_class); ?>">
-            <?php foreach ($top_row as $idx => $machine) : ?>
-                <div class="<?php echo esc_attr(get_card_border_classes($idx, count($top_row), $cols)); ?>">
+        <div class="grid grid-cols-1 sm:grid-cols-2 <?php echo esc_attr(get_lg_grid_cols_class($cols)); ?> border border-blue-200">
+            <?php foreach ($machines as $idx => $machine) : ?>
+                <div class="<?php echo esc_attr(get_card_border_classes($idx, $count, $cols)); ?>">
                     <?php get_template_part('templates/pages/machines/lineup-card', null, ['machine' => $machine]); ?>
                 </div>
             <?php endforeach; ?>
-
-            <?php if (!empty($bottom_row)) : ?>
-                <?php
-                $overflow_count = count($bottom_row);
-                $offset = (int) floor(($cols - $overflow_count) / 2);
-                ?>
-                <?php foreach ($bottom_row as $i => $machine) : ?>
-                    <?php $col_start = $offset + $i + 1; ?>
-                    <div class="<?php echo esc_attr(get_lg_col_start_class($col_start)); ?> <?php echo esc_attr(get_overflow_border_classes($i, $overflow_count)); ?>">
-                        <?php get_template_part('templates/pages/machines/lineup-card', null, ['machine' => $machine]); ?>
-                    </div>
-                <?php endforeach; ?>
-            <?php endif; ?>
         </div>
 
     </div>

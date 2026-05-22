@@ -2,7 +2,10 @@
 /**
  * Machines Page — UNIQ Technology Spotlight
  *
- * Two-column light section: product image left, features right.
+ * Two-column light section: product image left (with availability mono
+ * caption beneath), features-as-accordion right. Accordion items are
+ * all closed by default so the section reads compact and the visitor
+ * opens whatever's relevant to them.
  *
  * @package Standard
  *
@@ -32,8 +35,22 @@ $features = get_uniq_features();
 
 <section class="section" aria-labelledby="uniq-spotlight-title">
     <div class="container">
-        <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-center">
+        <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-start">
 
+            <!-- Image + availability caption -->
+            <div class="grid gap-3">
+                <img
+                    src="<?php echo esc_url($content['image']); ?>"
+                    alt="<?php echo esc_attr__('UNIQ Automatic Control System touchscreen', 'standard'); ?>"
+                    class="w-full h-auto"
+                    loading="lazy"
+                >
+                <p class="text-sm font-mono uppercase tracking-wider text-blue-500">
+                    <?php echo esc_html($content['availability']); ?>
+                </p>
+            </div>
+
+            <!-- Header + accordion + CTA -->
             <div class="grid gap-8 md:gap-10 content-start">
                 <div class="section-header-left">
                     <p class="section-eyebrow">
@@ -48,37 +65,28 @@ $features = get_uniq_features();
                     </p>
                 </div>
 
-                <div class="grid gap-6 sm:grid-cols-2">
+                <div data-accordion-group>
                     <?php foreach ($features as $feature) : ?>
-                        <div class="grid gap-2 content-start">
-                            <h3 class="text-lg font-medium text-blue-900">
+                        <details class="accordion">
+                            <summary>
                                 <?php echo esc_html($feature['title']); ?>
-                            </h3>
-                            <p class="text-sm text-blue-600">
-                                <?php echo esc_html($feature['text']); ?>
-                            </p>
-                        </div>
+                                <span class="accordion__icon">
+                                    <?php icon('chevron-down', ['class' => 'w-5 h-5']); ?>
+                                </span>
+                            </summary>
+                            <div class="accordion__body text-base text-blue-600 leading-relaxed">
+                                <p><?php echo esc_html($feature['text']); ?></p>
+                            </div>
+                        </details>
                     <?php endforeach; ?>
                 </div>
 
-                <div class="flex flex-wrap items-center gap-6">
+                <div>
                     <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-outline-dark">
                         <?php echo esc_html($content['cta_text']); ?>
                         <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                     </a>
-                    <p class="text-sm font-mono uppercase tracking-wider text-blue-500">
-                        <?php echo esc_html($content['availability']); ?>
-                    </p>
                 </div>
-            </div>
-
-            <div>
-                <img
-                    src="<?php echo esc_url($content['image']); ?>"
-                    alt="<?php echo esc_attr__('UNIQ Automatic Control System touchscreen', 'standard'); ?>"
-                    class="w-full h-auto"
-                    loading="lazy"
-                >
             </div>
 
         </div>

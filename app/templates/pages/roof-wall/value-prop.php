@@ -30,7 +30,7 @@ get_template_part('templates/parts/value-prop-cards', null, [
         [
             'icon'  => 'trending-up',
             'title' => __('Multi-Profile Versatility', 'standard'),
-            'text'  => __('Up to 16 profiles from a single machine — standing seam roof, flush wall, and board & batten siding panels on demand.', 'standard'),
+            'text'  => __('Up to 16 profiles from a single machine: standing seam roof, flush wall, and board & batten siding panels on demand.', 'standard'),
         ],
         [
             'icon'  => 'dollar-sign',

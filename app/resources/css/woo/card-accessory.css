@@ -1,0 +1,61 @@
+/**
+ * Accessory Card
+ *
+ * Single canonical accessory card. Used across all accessory listings:
+ * landing-page catalog, single-accessory "Related", default-accessories
+ * carousel on machine pages, and the mega menu's Accessories tab.
+ *
+ * Visual language matches the existing accessory carousel cards: blue-50
+ * square image well, sans heading, mono-style subtitle for price_html.
+ * Hover affordance follows the card-product convention (DESIGN.md §8.8):
+ * the heading shifts color, no background fill.
+ *
+ * @file woo/card-accessory.css
+ *
+ * @see templates/parts/card-accessory.php
+ */
+
+@layer components {
+  .card-accessory {
+    @apply block bg-white border border-blue-200 p-4 grid gap-3 no-underline;
+    @apply transition-colors duration-200;
+    @apply motion-reduce:transition-none;
+  }
+
+  .card-accessory:hover {
+    @apply border-blue-500;
+  }
+
+  .card-accessory:focus-visible {
+    outline: 2px solid var(--color-blue-500);
+    outline-offset: 2px;
+  }
+
+  .card-accessory__image {
+    @apply bg-blue-50 aspect-square flex items-center justify-center overflow-hidden;
+  }
+
+  .card-accessory__placeholder {
+    @apply font-mono text-sm text-blue-400;
+  }
+
+  .card-accessory__body {
+    @apply grid gap-1;
+  }
+
+  .card-accessory__title {
+    @apply font-sans font-medium text-blue-900 leading-tight;
+    font-size: var(--text-body);
+    transition: color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-accessory:hover .card-accessory__title {
+    @apply text-blue-500;
+  }
+
+  .card-accessory__subtitle {
+    @apply font-mono text-blue-500;
+    font-size: var(--text-caption);
+    letter-spacing: 0.05em;
+  }
+}

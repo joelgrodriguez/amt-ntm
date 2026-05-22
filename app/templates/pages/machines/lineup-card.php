@@ -2,13 +2,18 @@
 /**
  * Machines Page — Lineup Card
  *
- * Individual machine card for the lineup grid.
- * Shows product image, descriptor, name, highlights, and CTA.
- * If machine has price data, shows price + Explore/Build dual CTAs.
+ * Individual machine card for the lineup grid. Shows product image,
+ * name, starting price (resolved from WooCommerce by slug), highlights,
+ * and dual CTAs.
+ *
+ * Price falls back gracefully: hardcoded $machine['price'] wins if set,
+ * otherwise we ask WC for the product's price by slug. If WC has no
+ * price either, the card simply omits the price block and shows the
+ * CTAs alone.
  *
  * @package Standard
  *
- * @usage Via get_template_part() from lineup-grid.php
+ * @usage Via get_template_part() from lineup-grid.php / lineup-flagship.php
  */
 
 declare(strict_types=1);
@@ -17,13 +22,19 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use function Standard\MachinesData\get_product_price;
+
 $machine = $args['machine'] ?? null;
 
 if (!$machine) {
     return;
 }
 
-$has_price = !empty($machine['price']);
+$price = !empty($machine['price'])
+    ? $machine['price']
+    : (!empty($machine['slug']) ? get_product_price($machine['slug']) : null);
+
+$price_label = $machine['price_label'] ?? __('Starting at', 'standard');
 ?>
 
 <div class="bg-white flex flex-col h-full relative group hover:bg-blue-50 transition-colors duration-150">
@@ -45,24 +56,17 @@ $has_price = !empty($machine['price']);
             </h4>
         </div>
 
-        <!-- Price / configured-pricing note -->
-        <div>
-            <?php if ($has_price) : ?>
+        <?php if ($price) : ?>
+            <!-- Starting price -->
+            <div>
                 <p class="text-lg font-medium text-blue-900">
-                    <?php echo esc_html($machine['price']); ?>
+                    <?php echo esc_html($price); ?>
                 </p>
                 <p class="font-mono text-xs text-blue-500 uppercase tracking-wider">
-                    <?php echo esc_html($machine['price_label']); ?>
+                    <?php echo esc_html($price_label); ?>
                 </p>
-            <?php else : ?>
-                <p class="text-lg font-medium text-blue-900">
-                    <?php esc_html_e('Configured pricing', 'standard'); ?>
-                </p>
-                <p class="font-mono text-xs text-blue-500 uppercase tracking-wider">
-                    <?php esc_html_e('Build to see your number', 'standard'); ?>
-                </p>
-            <?php endif; ?>
-        </div>
+            </div>
+        <?php endif; ?>
 
         <!-- Highlights -->
         <div class="flex flex-col gap-3 text-sm text-blue-700 grow">

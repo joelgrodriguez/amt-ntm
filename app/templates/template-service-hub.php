@@ -21,7 +21,6 @@ use function Standard\ServiceHub\get_post_type_counts;
 use function Standard\ServiceHub\get_post_type_label;
 use function Standard\ServiceHub\get_post_type_options;
 use function Standard\ServiceHub\get_results_query;
-use function Standard\ServiceHub\get_service_count;
 use function Standard\ServiceHub\get_terms_for_service_content;
 
 $filters = get_active_filters();
@@ -32,7 +31,6 @@ $post_type_counts = get_post_type_counts();
 $categories = get_terms_for_service_content('category', 24);
 $machine_tags = get_terms_for_service_content('post_tag', 36);
 $form_action = get_permalink() ?: \Standard\Url\internal('/service-hub/');
-$total_service_count = get_service_count();
 $has_filters = $filters['search'] !== ''
     || $filters['type'] !== ''
     || $filters['category'] !== ''
@@ -43,10 +41,7 @@ get_header();
 
 <main id="primary">
 
-    <header class="pattern-square-grid bg-blue-50 border-b border-blue-200">
-        <div class="pattern-square-grid__overlay pattern-square-grid__overlay--top-left"></div>
-        <div class="pattern-square-grid__overlay pattern-square-grid__overlay--bottom-right"></div>
-
+    <header class="bg-blue-50 border-b border-blue-200">
         <div class="container section-compact">
             <div class="grid gap-4 max-w-4xl">
                 <span class="section-eyebrow">
@@ -55,8 +50,8 @@ get_header();
                 <h1 class="font-mono font-medium text-heading-lg lg:text-display text-blue-900 leading-tight tracking-tight">
                     <?php esc_html_e('Service and Support', 'standard'); ?>
                 </h1>
-                <p class="font-sans text-blue-600 max-w-3xl" style="font-size: var(--text-body); line-height: var(--leading-body);">
-                    <?php esc_html_e('Manuals, troubleshooting articles, support videos, downloads, and related service material in one filtered view.', 'standard'); ?>
+                <p class="font-sans text-blue-600 max-w-2xl" style="font-size: var(--text-body); line-height: var(--leading-body);">
+                    <?php esc_html_e('Manuals, troubleshooting articles, support videos, machine parts and footprint downloads. Filter by machine, content type, or topic, or talk to the service team directly.', 'standard'); ?>
                 </p>
             </div>
         </div>
@@ -153,23 +148,45 @@ get_header();
     </section>
 
     <section class="container section-compact" aria-labelledby="service-hub-results-title">
-        <div class="mb-8 flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
+        <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <p id="service-hub-results-title" class="font-mono font-medium uppercase tracking-wider text-blue-700" style="font-size: var(--text-caption);">
                 <?php
                 printf(
-                    /* translators: %1$d visible result count, %2$d total service content count. */
-                    esc_html__('%1$d of %2$d service items', 'standard'),
-                    (int) $service_query->found_posts,
-                    $total_service_count
+                    /* translators: %d result count. */
+                    esc_html__('Results: %d', 'standard'),
+                    (int) $service_query->found_posts
                 );
+                if ($filters['type'] !== '') :
                 ?>
+                    <span class="text-blue-500"> &middot; <?php echo esc_html(get_post_type_label($filters['type'])); ?></span>
+                <?php endif; ?>
             </p>
 
-            <?php if ($filters['type'] !== '') : ?>
-                <span class="font-mono font-medium uppercase tracking-wider text-blue-500" style="font-size: var(--text-caption);">
-                    <?php echo esc_html(get_post_type_label($filters['type'])); ?>
-                </span>
-            <?php endif; ?>
+            <?php
+            $sort_options = \Standard\ServiceHub\get_sort_options();
+            $current_sort = $filters['sort'] !== '' ? $filters['sort'] : 'newest';
+            ?>
+            <form method="get" action="<?php echo esc_url($form_action); ?>" class="field flex-row items-center gap-3" style="display: flex;">
+                <?php foreach (['service_search', 'service_type', 'service_category', 'service_machine'] as $passthrough) : ?>
+                    <?php if (!empty($_GET[$passthrough])) : ?>
+                        <input type="hidden" name="<?php echo esc_attr($passthrough); ?>" value="<?php echo esc_attr(\Standard\ServiceHub\get_query_value($passthrough, $passthrough === 'service_search' ? 'text' : 'key')); ?>">
+                    <?php endif; ?>
+                <?php endforeach; ?>
+
+                <label for="service-sort" class="field-label whitespace-nowrap">
+                    <?php esc_html_e('Sort', 'standard'); ?>
+                </label>
+                <select id="service-sort" name="service_sort" class="field-select" onchange="this.form.submit()" style="min-width: 12rem;">
+                    <?php foreach ($sort_options as $key => $option) : ?>
+                        <option value="<?php echo esc_attr($key); ?>" <?php selected($current_sort, $key); ?>>
+                            <?php echo esc_html($option['label']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <noscript>
+                    <button type="submit" class="btn btn-sm btn-secondary"><?php esc_html_e('Apply', 'standard'); ?></button>
+                </noscript>
+            </form>
         </div>
 
         <?php if ($service_query->have_posts()) : ?>

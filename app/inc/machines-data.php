@@ -65,6 +65,50 @@ function get_product_url(string $slug): string {
 }
 
 /**
+ * Get a WooCommerce product's starting price for a machine slug.
+ *
+ * Uses the same slug → product lookup (with alias fallback) as
+ * get_product_url(). Returns a formatted dollar string (e.g. "$87,245"),
+ * or null when the product can't be resolved or has no price set.
+ *
+ * @param string $slug Machine slug (data slug or WC slug).
+ */
+function get_product_price(string $slug): ?string {
+    static $prices = null;
+
+    if ($prices === null) {
+        $prices = [];
+        if (function_exists('wc_get_products')) {
+            $products = \Standard\Woo\Cache\get_products([
+                'limit'  => -1,
+                'status' => 'publish',
+                'type'   => 'simple',
+            ]);
+            foreach ($products as $product) {
+                $raw = $product->get_price();
+                if ($raw === '' || $raw === null) {
+                    continue;
+                }
+                $prices[$product->get_slug()] = '$' . \number_format((float) $raw);
+            }
+        }
+    }
+
+    if (isset($prices[$slug])) {
+        return $prices[$slug];
+    }
+
+    if (function_exists('Standard\\MachineProductData\\get_slug_aliases')) {
+        $wc_slug = array_search($slug, \Standard\MachineProductData\get_slug_aliases(), true);
+        if ($wc_slug !== false && isset($prices[$wc_slug])) {
+            return $prices[$wc_slug];
+        }
+    }
+
+    return null;
+}
+
+/**
  * Get all machines organized by category.
  *
  * @return array<string, array{label: string, machines: array}>
@@ -224,8 +268,6 @@ function get_machine_categories(): array {
                     'image'      => $base . '2025/09/20250911_NTM_MACH-II-5_1000x1000.png',
                     'url'        => get_product_url('mach-ii-5-gutter'),
                     'badge'      => '',
-                    'price'      => '$87,245',
-                    'price_label' => 'Starting at',
                     'highlights' => [
                         '5" K-style gutters from raw coil',
                         'Up to 50 feet per minute with polyurethane drive rollers',
@@ -248,8 +290,6 @@ function get_machine_categories(): array {
                     'image'      => $base . '2025/09/20250911_NTM_MACH-II-6_1000x1000.png',
                     'url'        => get_product_url('mach-ii-6-gutter'),
                     'badge'      => '',
-                    'price'      => '$87,245',
-                    'price_label' => 'Starting at',
                     'highlights' => [
                         '6" K-style gutters from raw coil',
                         'Up to 50 feet per minute with polyurethane drive rollers',
@@ -272,8 +312,7 @@ function get_machine_categories(): array {
                     'image'      => $base . '2025/09/20250911_NTM_MACH-II-5-6-Combo_1000x1000.png',
                     'url'        => get_product_url('mach-ii-combo-gutter'),
                     'badge'      => '',
-                    'price'      => '$87,245',
-                    'price_label' => 'Starting at',
+                    'featured'   => true,
                     'highlights' => [
                         '5"/6" combo K-style gutters from raw coil',
                         'Up to 50 feet per minute with polyurethane drive rollers',
@@ -295,8 +334,6 @@ function get_machine_categories(): array {
                     'image'      => $base . '2025/09/20250911_NTM_BG7_1000x1000.png',
                     'url'        => get_product_url('bg7-box-gutter'),
                     'badge'      => '',
-                    'price'      => '',
-                    'price_label' => '',
                     'highlights' => [
                         'Commercial-grade box gutter machine',
                         'Built for durability on demanding jobsites',
@@ -367,6 +404,22 @@ function get_roof_wall_faq_items(): array {
             'question' => 'What materials can these machines process?',
             'answer'   => 'NTM roof and wall panel machines handle painted steel, Galvalume, aluminum, copper, zinc, and terne-coated stainless steel. The SSQ3 and SSQ II process up to 24 gauge steel. The WAV is purpose-built for heavy commercial wall panel work with 4 profiles on 25 polyurethane drive rollers.',
         ],
+        [
+            'question' => 'Does New Tech Machinery offer financing?',
+            'answer'   => 'Yes. NTM partners with equipment finance lenders to offer lease-to-own, equipment loans, and seasonal payment plans. Most contractors structure financing so the machine pays for itself within the first year from increased panel revenue. Contact our sales team to build a custom financing package.',
+        ],
+        [
+            'question' => 'How do I purchase an NTM roof panel machine?',
+            'answer'   => 'You can buy directly from NTM through our sales team, or through an authorized dealer in your region. Start by building a quote in the online configurator or by talking with a machine specialist who will walk you through pricing, options, and lead time.',
+        ],
+        [
+            'question' => 'What do I do if I need help with my machine?',
+            'answer'   => 'NTM provides phone, email, and online support, plus a network of service centers across the country. Every purchase includes hands-on operator training, and machines running the UNIQ controller have built-in troubleshooting videos and diagnostics for in-field problem solving.',
+        ],
+        [
+            'question' => 'What panel profiles can NTM machines produce?',
+            'answer'   => 'NTM roof and wall panel machines produce standing seam roof panels, flush wall panels, board and batten siding, trapezoidal profiles, and the 5V crimp exposed-fastener profile. The SSQ3 and SSQ II MultiPro support up to 16 profiles from a single machine.',
+        ],
     ];
 }
 
@@ -406,6 +459,18 @@ function get_gutter_faq_items(): array {
         [
             'question' => 'What kind of support does NTM provide?',
             'answer'   => 'NTM provides phone and email technical support, an online service portal, and access to service centers across the country. Every machine purchase includes hands-on operator training. Replacement parts and consumables are stocked for fast shipping.',
+        ],
+        [
+            'question' => 'Does New Tech Machinery offer financing?',
+            'answer'   => 'Yes. NTM partners with equipment finance lenders to offer lease-to-own, equipment loans, and seasonal payment plans. Most gutter contractors structure financing so the MACH II machine pays for itself within the first year of use. Contact our sales team to build a custom financing package.',
+        ],
+        [
+            'question' => 'How long will it take to get my machine?',
+            'answer'   => 'Most NTM gutter machines ship within 1–2 weeks because the MACH II line is built in volume. Custom configurations and the BG7 box gutter machine may take longer depending on options. Your account specialist will give you an exact lead time at order confirmation.',
+        ],
+        [
+            'question' => 'What do I do if I need help with my gutter machine?',
+            'answer'   => 'NTM provides phone, email, and online portal support, plus a network of service centers and field technicians across the country. Every purchase includes hands-on operator training. Replacement parts and consumables ship fast so your crews stay on the job.',
         ],
     ];
 }
@@ -495,6 +560,14 @@ function get_faq_items(): array {
         [
             'question' => 'How do I finance an NTM machine?',
             'answer'   => 'NTM offers flexible financing options to fit your business. Choose from lease-to-own, equipment loans, or seasonal payment plans. Many contractors pay off their machine within the first year from increased revenue alone. Contact our team to build a custom financing package.',
+        ],
+        [
+            'question' => 'How long will it take to get my machine?',
+            'answer'   => 'Lead times vary by model. Most NTM gutter machines ship within 1–2 weeks; roof and wall panel machines typically ship within 4–8 weeks. The SSQ3 MultiPro and SSQ II MultiPro are our highest-demand roof panel models. Your account specialist will confirm exact lead time at order.',
+        ],
+        [
+            'question' => 'How do I purchase an NTM machine?',
+            'answer'   => 'Purchase directly from NTM through our sales team or through an authorized dealer in your region. Start by building a quote in the online configurator at /build-finance/ or by talking with a machine specialist who will walk you through pricing, configuration, and lead time.',
         ],
     ];
 }
