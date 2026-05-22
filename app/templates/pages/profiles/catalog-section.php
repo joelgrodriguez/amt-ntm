@@ -2,7 +2,8 @@
 /**
  * Profiles — Catalog section.
  *
- * Renders one labelled grid of profile cards for a category.
+ * Renders one labelled grid of up to 4 profile cards for a category,
+ * with a "View all" link to the category archive when more exist.
  *
  * Args:
  *   category_id (int):    The category term ID to query.
@@ -29,14 +30,15 @@ if ($category_id <= 0 || $title === '' || $section_id === '') {
     return;
 }
 
+$per_page = 4;
+
 $query = new \WP_Query([
     'post_type'              => 'profile',
     'post_status'            => 'publish',
-    'posts_per_page'         => -1,
+    'posts_per_page'         => $per_page,
     'cat'                    => $category_id,
     'orderby'                => 'title',
     'order'                  => 'ASC',
-    'no_found_rows'          => true,
     'update_post_meta_cache' => false,
 ]);
 
@@ -44,24 +46,41 @@ if (!$query->have_posts()) {
     return;
 }
 
-$count = (int) $query->found_posts ?: (int) $query->post_count;
+$total          = (int) $query->found_posts;
+$has_more       = $total > $per_page;
+$archive_link   = get_category_link($category_id);
+$view_all_label = sprintf(
+    /* translators: %d total profiles in this category. */
+    __('View all %d', 'standard'),
+    $total
+);
 ?>
 
-<section aria-labelledby="<?php echo esc_attr($section_id); ?>" class="grid gap-8">
+<section aria-labelledby="<?php echo esc_attr($section_id . '-title'); ?>" class="grid gap-8 scroll-mt-24" id="<?php echo esc_attr($section_id); ?>" tabindex="-1">
 
-    <header class="section-header-left">
-        <p class="section-eyebrow">
-            <?php echo esc_html($eyebrow); ?>
-            <span class="text-blue-400" aria-hidden="true">
-                · <?php echo esc_html((string) $count); ?>
-            </span>
-        </p>
-        <div class="section-divider"></div>
-        <h2 id="<?php echo esc_attr($section_id); ?>"
-            class="font-mono font-medium text-blue-900 leading-tight"
-            style="font-size: var(--text-heading-sm); line-height: var(--leading-heading-sm);">
-            <?php echo esc_html($title); ?>
-        </h2>
+    <header class="flex flex-wrap items-end justify-between gap-4">
+        <div class="section-header-left">
+            <p class="section-eyebrow">
+                <?php echo esc_html($eyebrow); ?>
+                <span class="text-blue-400" aria-hidden="true">
+                    · <?php echo esc_html((string) $total); ?>
+                </span>
+            </p>
+            <div class="section-divider"></div>
+            <h2 id="<?php echo esc_attr($section_id . '-title'); ?>"
+                class="font-sans font-semibold text-blue-900 leading-tight tracking-tight"
+                style="font-size: var(--text-heading-sm); line-height: var(--leading-heading-sm);">
+                <?php echo esc_html($title); ?>
+            </h2>
+        </div>
+
+        <?php if ($has_more && $archive_link) : ?>
+            <a href="<?php echo esc_url($archive_link); ?>"
+               class="hidden sm:inline-flex items-center gap-2 text-sm font-mono font-medium text-blue-500 hover:underline">
+                <?php echo esc_html($view_all_label); ?>
+                <?php icon('arrow-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+            </a>
+        <?php endif; ?>
     </header>
 
     <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-8 list-none p-0 m-0">
@@ -74,6 +93,16 @@ $count = (int) $query->found_posts ?: (int) $query->post_count;
             </li>
         <?php endwhile; ?>
     </ul>
+
+    <?php if ($has_more && $archive_link) : ?>
+        <div class="sm:hidden">
+            <a href="<?php echo esc_url($archive_link); ?>"
+               class="inline-flex items-center gap-2 text-sm font-mono font-medium text-blue-500 hover:underline">
+                <?php echo esc_html($view_all_label); ?>
+                <?php icon('arrow-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+            </a>
+        </div>
+    <?php endif; ?>
 
 </section>
 
