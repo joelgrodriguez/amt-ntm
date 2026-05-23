@@ -13,9 +13,12 @@
  * Args:
  *   profile  (WP_Post|int): profile post or its ID
  *   context  (string): 'grid' (default), 'mega', or 'carousel'
- *     - grid:     shows machine-tag subtitle row
- *     - mega:     title only, denser
- *     - carousel: title only, sized for .carousel__track (snap + responsive widths)
+ *     - grid:     standard catalog tile
+ *     - mega:     denser, used in the header mega-menu Profiles tab
+ *     - carousel: sized for .carousel__track (snap + responsive widths)
+ *
+ * All three contexts show the same title + machine-tag subtitle so the
+ * card reads identically wherever it appears.
  *
  * @package Standard
  * @var array $args
@@ -48,15 +51,13 @@ $thumb = get_the_post_thumbnail_url($profile, 'product-card');
 
 // Up to two machine tag names, with a "+N" suffix if more exist.
 $subtitle = '';
-if ($context === 'grid') {
-    $tags = get_the_terms($profile->ID, 'post_tag');
-    if (is_array($tags) && !empty($tags)) {
-        $names = array_map(static fn(\WP_Term $t): string => $t->name, array_slice($tags, 0, 2));
-        $extra = count($tags) - count($names);
-        $subtitle = implode(', ', $names);
-        if ($extra > 0) {
-            $subtitle .= sprintf(' +%d', $extra);
-        }
+$tags = get_the_terms($profile->ID, 'post_tag');
+if (is_array($tags) && !empty($tags)) {
+    $names = array_map(static fn(\WP_Term $t): string => $t->name, array_slice($tags, 0, 2));
+    $extra = count($tags) - count($names);
+    $subtitle = implode(', ', $names);
+    if ($extra > 0) {
+        $subtitle .= sprintf(' +%d', $extra);
     }
 }
 
