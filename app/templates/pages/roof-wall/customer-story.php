@@ -25,7 +25,7 @@ get_template_part('templates/parts/customer-story', null, [
         'name'     => 'Riley Hays',
         'company'  => 'Riley Hays Roofing & Construction',
         'machine'  => 'SSQ II MultiPro',
-        'image'    => 'https://newtechmachinery.com/wp-content/uploads/2025/04/Nate-training-East-Kentucky-Metal-9-scaled.jpg',
+        'image'    => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-customer-onsite-002.jpg',
         'cta_text' => __('Watch the Full Story', 'standard'),
         'cta_url'  => '/learning-center/video/how-riley-hays-cut-lead-times-by-75-percent-with-ntm-video/',
         'cta_icon' => 'play',

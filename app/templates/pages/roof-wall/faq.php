@@ -23,7 +23,7 @@ get_template_part('templates/parts/faq-accordion', null, [
     'content'    => [
         'eyebrow' => __('FAQ', 'standard'),
         'title'   => __('Roof & Wall Panel Machine Questions', 'standard'),
-        'image'   => content_url('/uploads/2023/05/Machine-lifted-onto-rooftop-2048x1536.jpg'),
+        'image'   => content_url('/uploads/2026/05/ntm-standing-seam-roof-016.jpg'),
     ],
     'faqs' => get_roof_wall_faq_items(),
 ]);

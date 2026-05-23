@@ -27,7 +27,7 @@ get_template_part('templates/parts/hero-category', null, [
         'cta_secondary_url' => '/contact/',
         // Category overview video (Wistia 16:9, plays inline in hero right column).
         'video'             => 'https://fast.wistia.net/embed/iframe/7wwvl1pwh8?seo=false&videoFoam=true',
-        'poster'            => content_url('/uploads/2025/09/Machine-on-rooftop-scaled.jpg'),
+        'poster'            => content_url('/uploads/2026/05/ntm-standing-seam-roof-007.jpg'),
         'poster_alt'        => __('NTM roof and wall panel machine on a jobsite', 'standard'),
     ],
     'meta' => [
