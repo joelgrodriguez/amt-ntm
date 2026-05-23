@@ -4,8 +4,11 @@
  *
  * Canonical profile card. Used everywhere a profile renders: /profiles
  * landing, mega-menu Profiles tab, and the Woo machine profile carousels
- * (Available Profiles + Panel Profiles). Image fills a 16:9 well edge-to-
- * edge — profile renders are already 16:9 so no letterboxing needed.
+ * (Available Profiles + Panel Profiles). Mirrors card-manual.php in shape
+ * (bordered image well, gap to a sans title + mono machine-tag subtitle
+ * sitting outside the well) so the two catalogs read as siblings. One
+ * delta: 16:9 image well instead of square, since profile renders are
+ * already 16:9 and don't need letterboxing.
  *
  * Args:
  *   profile  (WP_Post|int): profile post or its ID
@@ -59,7 +62,7 @@ if ($context === 'grid') {
 
 // Carousel context piggybacks .carousel__card on the anchor itself so the
 // card carries snap + responsive width directly inside .carousel__track.
-$root_classes = 'profile-card group grid grid-rows-[auto_1fr] no-underline bg-white border border-blue-200 hover:border-blue-500 transition-colors duration-200';
+$root_classes = 'profile-card group grid gap-3 no-underline';
 if ($context === 'carousel') {
     $root_classes .= ' carousel__card';
 }
@@ -68,21 +71,21 @@ if ($context === 'carousel') {
 <a href="<?php echo esc_url($url); ?>"
    class="<?php echo esc_attr($root_classes); ?>">
 
-    <div class="profile-card__image aspect-[16/9] overflow-hidden border-b border-blue-200 group-hover:border-blue-500 transition-colors duration-200">
+    <div class="profile-card__image relative bg-blue-50 aspect-[16/9] overflow-hidden flex items-center justify-center border border-blue-200 group-hover:border-blue-500 transition-colors duration-200">
         <?php if ($thumb) : ?>
             <img src="<?php echo esc_url($thumb); ?>"
                  alt="<?php echo esc_attr($title); ?>"
-                 class="w-full h-full block object-cover transition-transform duration-200 group-hover:scale-105"
+                 class="w-full h-full object-cover transition-transform duration-200 group-hover:scale-105"
                  loading="lazy"
                  decoding="async">
         <?php else : ?>
-            <span class="flex items-center justify-center w-full h-full font-mono text-blue-400 text-sm px-4 text-center">
+            <span class="font-mono text-blue-400 text-sm px-4 text-center">
                 <?php echo esc_html($title); ?>
             </span>
         <?php endif; ?>
     </div>
 
-    <div class="grid gap-1 content-start p-4 lg:p-5">
+    <div class="grid gap-1">
         <h3 class="font-sans font-semibold text-base lg:text-lg leading-snug tracking-tight text-blue-900 group-hover:text-blue-500 transition-colors duration-200">
             <?php echo esc_html($title); ?>
         </h3>
