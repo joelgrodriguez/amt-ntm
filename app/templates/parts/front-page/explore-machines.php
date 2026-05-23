@@ -82,41 +82,46 @@ $landing_urls = [
                     role="tabpanel"
                     aria-labelledby="tab-<?php echo esc_attr($slug); ?>"
                 >
+                    <!-- Browse chrome (top-right): arrows + 'N of N' counter.
+                         Stays per-panel so the JS (one panel, one set of
+                         arrows) keeps working with the existing
+                         data-panel selector. Visually sits flush right
+                         under the tabs row. -->
+                    <div class="flex items-center justify-end gap-4 -mt-2">
+                        <button
+                            type="button"
+                            class="explore-machines__arrow explore-machines__arrow--prev"
+                            aria-label="<?php esc_attr_e('Previous products', 'standard'); ?>"
+                            data-panel="<?php echo esc_attr($slug); ?>"
+                        ><?php icon('arrow-left', ['class' => 'w-4 h-4']); ?></button>
+                        <span class="font-mono text-xs uppercase tracking-wider text-blue-600 min-w-16 text-center" aria-live="polite" aria-atomic="true">
+                            <span class="explore-machines__current">1</span>
+                            <?php esc_html_e('of', 'standard'); ?>
+                            <span class="explore-machines__total"><?php echo (int) $product_count; ?></span>
+                        </span>
+                        <button
+                            type="button"
+                            class="explore-machines__arrow explore-machines__arrow--next"
+                            aria-label="<?php esc_attr_e('Next products', 'standard'); ?>"
+                            data-panel="<?php echo esc_attr($slug); ?>"
+                        ><?php icon('arrow-right', ['class' => 'w-4 h-4']); ?></button>
+                    </div>
+
                     <div class="explore-machines__track flex gap-4 overflow-x-auto md:gap-6">
                         <?php foreach ($products as $product) : ?>
                             <?php get_template_part('templates/parts/card-product', null, ['product' => $product]); ?>
                         <?php endforeach; ?>
                     </div>
 
-                    <!-- Chrome row: pager arrows + landing-page jump. The
-                         landing link is the route-to-category door — it
-                         lets the buyer leave the in-page browse and land
-                         on the full category page in one tap. -->
-                    <div class="flex flex-wrap items-center justify-center gap-6">
-                        <div class="flex items-center gap-4">
-                            <button
-                                type="button"
-                                class="explore-machines__arrow explore-machines__arrow--prev"
-                                aria-label="<?php esc_attr_e('Previous products', 'standard'); ?>"
-                                data-panel="<?php echo esc_attr($slug); ?>"
-                            ><?php icon('arrow-left', ['class' => 'w-4 h-4']); ?></button>
-                            <span class="text-sm text-blue-600 min-w-16 text-center" aria-live="polite" aria-atomic="true">
-                                <span class="explore-machines__current">1</span>
-                                <?php esc_html_e('of', 'standard'); ?>
-                                <span class="explore-machines__total"><?php echo (int) $product_count; ?></span>
-                            </span>
-                            <button
-                                type="button"
-                                class="explore-machines__arrow explore-machines__arrow--next"
-                                aria-label="<?php esc_attr_e('Next products', 'standard'); ?>"
-                                data-panel="<?php echo esc_attr($slug); ?>"
-                            ><?php icon('arrow-right', ['class' => 'w-4 h-4']); ?></button>
-                        </div>
-
-                        <?php if ($landing_url) : ?>
+                    <!-- Row anchor (below cards): centered 'View all' link.
+                         This is the panel's primary outbound action — the
+                         door to the category landing. Lives alone so the
+                         visual weight reads as 'this is what you do next.' -->
+                    <?php if ($landing_url) : ?>
+                        <div class="flex justify-center pt-2">
                             <a
                                 href="<?php echo esc_url(\Standard\Url\internal($landing_url)); ?>"
-                                class="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-blue-700 hover:text-red transition-colors"
+                                class="group inline-flex items-center gap-2 font-mono text-sm uppercase tracking-wider text-blue-700 hover:text-red transition-colors"
                             >
                                 <?php
                                 printf(
@@ -126,10 +131,10 @@ $landing_urls = [
                                     esc_html($category['label'])
                                 );
                                 ?>
-                                <?php icon('arrow-right', ['class' => 'w-3 h-3 transition-transform group-hover:translate-x-1']); ?>
+                                <?php icon('arrow-right', ['class' => 'w-4 h-4 transition-transform group-hover:translate-x-1']); ?>
                             </a>
-                        <?php endif; ?>
-                    </div>
+                        </div>
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
         </div>
