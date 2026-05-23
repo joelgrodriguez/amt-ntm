@@ -22,7 +22,7 @@ get_template_part('templates/parts/faq-accordion', null, [
     'content'    => [
         'eyebrow' => __('FAQ', 'standard'),
         'title'   => __('Learn More About NTM Machines', 'standard'),
-        'image'   => content_url('/uploads/2026/05/ntm-ssq3-quikswap-tooling-001.jpg'),
+        'image'   => content_url('/uploads/2026/05/ntm-ssq3-manual-controller-132.jpg'),
     ],
     'faqs' => get_faq_items(),
 ]);
