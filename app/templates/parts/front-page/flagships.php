@@ -117,7 +117,7 @@ $rendered_count = 0;
 
                     <!-- Eyebrow: red dot + category, with optional FLAGSHIP badge to the right -->
                     <div class="flex items-center gap-3 flex-wrap">
-                        <span class="w-2 h-2 bg-red shrink-0" aria-hidden="true"></span>
+                        <span class="w-2 h-2 bg-blue-700 shrink-0" aria-hidden="true"></span>
                         <p class="font-mono uppercase tracking-wider text-xs text-blue-700">
                             <?php echo esc_html($category); ?>
                         </p>
