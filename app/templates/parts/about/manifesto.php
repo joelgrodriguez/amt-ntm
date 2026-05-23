@@ -26,8 +26,8 @@ $content = [
     'title'     => __('The world\'s finest portable rollforming machines.', 'standard'),
     'subhead'   => __('Since 1991', 'standard'),
     'lede'      => __('NTM invented the modern portable roof panel machine in 1991 and the modern portable seamless gutter machine three years later. Three decades on, our designs are the ones the industry imitates.', 'standard'),
-    'image'     => 'https://newtechmachinery.com/wp-content/uploads/2025/04/Nate-training-East-Kentucky-Metal-9-scaled.jpg',
-    'image_alt' => __('NTM rollformer in operation, training a crew at a jobsite.', 'standard'),
+    'image'     => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-whole-team-outside-001.jpg',
+    'image_alt' => __('The full NTM Denver team in NTM-branded blue shirts in front of the 16265 facility.', 'standard'),
 ];
 
 $metrics = [
