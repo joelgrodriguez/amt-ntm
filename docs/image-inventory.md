@@ -252,6 +252,21 @@ Sometimes-similar-looking surfaces that are NOT covered by this inventory:
 
 ## Decision log
 
-| Date | Surface | From → To | Decided by | PR |
-|---|---|---|---|---|
-| _pending_ | _e.g. SSQ3 hero_ | _Screenshot-2026-01 → ssq3-product-render-001_ | | |
+| Date | Surface | From → To | Commit |
+|---|---|---|---|
+| 2026-05-22 | Front-page hero slider | 3 machines (SSQ II / MACH II 5 / 5VC-5V) → 2 flagships (SSQ3 / MACH II Combo) | `572c49d` |
+| 2026-05-22 | Front-page why-own | `Nate-training` → `ntm-customer-onsite-001` | `b16a10f` |
+| 2026-05-22 | About manifesto | `Nate-training` → `ntm-team-whole-team-outside-001` | `bd8a927` |
+| 2026-05-22 | Machines hub (5 surfaces) | hero/customer-story/uniq-spotlight/image-break/faq → standing-seam-007 / customer-onsite-002 / uniq-controller-001 / ssq2-frame-006 / quikswap-001 | `255d0e8` |
+| 2026-05-22 | Gutter page (3 surfaces) | All three → Abel install series (`mach2-gutter-install-abel-001/002/003`) | `7789790` |
+| 2026-05-22 | Roof-wall page (3 surfaces) | hero/customer-story/faq → standing-seam-007 / customer-onsite-002 / standing-seam-016 | `7ee4749` |
+| 2026-05-22 | Machine data heroes (SSQ3, MACH II Combo/5/6) | Screenshot Jan 2026 + CS-Rain-Gutters Still002 → product-render-001 + Abel install series | `7dc0112` |
+| 2026-05-22 | SSQ3 breakdown cards (4 empty slots) | `''` → quikswap-001 / overhead-drone-001 / electric-power-pack-001 / rfid-sensors-001 | `567b7cf` |
+
+### Out-of-scope follow-ups identified during this session
+
+- Final-CTA specialist portraits (front-page, machines, gutter, roof-wall) — needs `20260123_NTM_IRE-Photos` slugs catalogued first
+- `page-service-hub.php` and `page-accessories.php` image swaps
+- Net-new "Built with NTM" customer gallery using the `standing-seam-roof-*` set
+- Woo catalog 6-tile repetition in `inc/woo/catalog.php` — investigate before swapping
+- Machine data files for SSH, WAV, SSR Jr, BG7, 5VC-5V — held in this session, no clearly better fit in current drop
