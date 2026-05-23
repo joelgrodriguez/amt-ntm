@@ -462,6 +462,43 @@ function get_gutter_machines(bool $include_dormant = false): array {
 }
 
 /**
+ * WooCommerce product slugs that should be hidden from listings.
+ *
+ * Built from the dormant flag in get_machine_categories(true) and the
+ * alias map in machine-product-data.php. WC queries (front page
+ * carousel, etc.) feed through this so dormant machines don't leak
+ * into category listings.
+ *
+ * @return array<int, string>
+ */
+function get_dormant_wc_slugs(): array {
+    $dormant_data_slugs = [];
+    foreach (get_machine_categories(true) as $category) {
+        foreach ($category['machines'] as $machine) {
+            if (!empty($machine['dormant']) && !empty($machine['slug'])) {
+                $dormant_data_slugs[] = (string) $machine['slug'];
+            }
+        }
+    }
+
+    if (empty($dormant_data_slugs)) {
+        return [];
+    }
+
+    $wc_slugs = [];
+    if (function_exists('Standard\\MachineProductData\\get_slug_aliases')) {
+        foreach (\Standard\MachineProductData\get_slug_aliases() as $wc_slug => $data_slug) {
+            if (in_array($data_slug, $dormant_data_slugs, true)) {
+                $wc_slugs[] = $wc_slug;
+            }
+        }
+    }
+
+    // Also catch the case where a WC slug matches a data slug directly.
+    return array_values(array_unique(array_merge($wc_slugs, $dormant_data_slugs)));
+}
+
+/**
  * Get FAQ items specific to the seamless gutter machines category.
  *
  * @return array<int, array{question: string, answer: string}>
