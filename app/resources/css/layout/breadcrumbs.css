@@ -2,9 +2,10 @@
  * Breadcrumbs
  *
  * Thin chrome strip under the site header on deep single templates.
- * The markup is utility-driven; this file owns only what utilities
- * can't express cleanly: separator spacing, the chevron glyph sizing,
- * mobile label ellipsis, and the focus outline grammar.
+ * Sits as a sibling of #site-header so the mega-menu panel can overlap it.
+ * The markup is utility-driven; this file owns only what utilities can't
+ * express cleanly: separator spacing, the chevron glyph sizing, mobile
+ * label ellipsis, and the focus outline grammar.
  *
  * @file breadcrumbs.css
  */

@@ -145,12 +145,14 @@ if (!defined('ABSPATH')) {
         </div>
 
     </div>
-
-    <!-- Breadcrumb trail — renders only on supported deep single templates;
-         lives inside <header> so it travels with the scroll-aware sticky/hide
-         transform applied by ScrollHeader.js. -->
-    <?php get_template_part('templates/parts/breadcrumbs'); ?>
 </header>
+
+<!-- Breadcrumb trail — renders only on supported deep single templates.
+     Sits OUTSIDE <header> so the mega-menu panel (fixed, top: 4rem) cleanly
+     overlaps it when open. The <header>'s own border-bottom acts as the
+     trail's top edge; the trail keeps its own border-bottom as the seam
+     into the page content. Hides with the header on scroll via CSS. -->
+<?php get_template_part('templates/parts/breadcrumbs'); ?>
 
 <!-- Mega menu panels (desktop) -->
 <?php get_template_part('templates/parts/mega-menu'); ?>
