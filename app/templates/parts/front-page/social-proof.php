@@ -86,7 +86,7 @@ if (empty($testimonials)) {
 }
 ?>
 
-<section class="social-proof section bg-blue-50 border-t border-blue-200" aria-labelledby="social-proof-title">
+<section class="social-proof section bg-blue-50" aria-labelledby="social-proof-title">
     <h2 id="social-proof-title" class="sr-only">
         <?php echo esc_html($content['sr_title']); ?>
     </h2>

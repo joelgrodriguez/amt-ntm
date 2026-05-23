@@ -33,7 +33,7 @@ $content = [
 ];
 ?>
 
-<section class="section bg-blue-50 border-y border-blue-200" aria-labelledby="quiz-title">
+<section class="section bg-blue-50" aria-labelledby="quiz-title">
     <div class="container">
         <div class="grid gap-10 lg:grid-cols-2 lg:gap-16 lg:items-center">
 
