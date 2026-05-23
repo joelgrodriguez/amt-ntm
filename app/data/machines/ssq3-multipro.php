@@ -37,7 +37,7 @@ return [
         'headline'   => __('Produce 16 Panel Profiles On-Site. One Machine.', 'standard'),
         'subtitle'   => __('The most advanced portable roof and wall panel machine we\'ve ever built. Smarter, safer, and more efficient than ever.', 'standard'),
         'hero_image' => content_url('/uploads/2026/05/ntm-q3-hero-placeholder.png'),
-        'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/Machine-on-rooftop-scaled.jpg',
+        'image'      => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-ssq3-manual-controller-050.jpg',
         'video'      => null,
     ],
 

@@ -31,17 +31,15 @@ use function Standard\MachineProductData\get_machine_product_data;
 
 // Per-flagship overrides. `image_key` picks between the data file's
 // `image` (product/action shot) and `hero_image` (alt shot) depending
-// on which is the better action photo for THIS machine. `lede` opens
-// the subtitle paragraph with the full model name so the eyebrow can
-// stay scoped to the category instead of repeating the model.
+// on which is the better action photo for THIS machine. The headline
+// and spec strip do the talking; no body copy by design.
 $flagships = [
     [
         'data_slug'    => 'ssq3-multipro',
         'model_label'  => 'SSQ3 MultiPro',
         'image_align'  => 'left',
-        'image_key'    => 'image', // 'Machine-on-rooftop' action shot
+        'image_key'    => 'image', // ntm-ssq3-manual-controller-050 control panel macro
         'badge'        => __('Flagship', 'standard'),
-        'lede'         => __('The SSQ3 MultiPro is the most advanced portable roof and wall panel machine we\'ve ever built. Smarter, safer, and more efficient than ever.', 'standard'),
     ],
     [
         'data_slug'    => 'mach-ii-combo-gutter',
@@ -49,7 +47,6 @@ $flagships = [
         'image_align'  => 'right',
         'image_key'    => 'hero_image', // C&S Rain Gutters action shot
         'badge'        => '',
-        'lede'         => __('The MACH II Combo runs both 5" and 6" K-style seamless gutters from a single machine. Maximum versatility for gutter contractors.', 'standard'),
     ],
 ];
 
@@ -69,7 +66,6 @@ $rendered_count = 0;
 
         $category   = $data['category'] ?? '';
         $slogan     = $data['hero']['headline'] ?? $data['slogan'] ?? '';
-        $lede       = $flagship['lede'] ?? $data['hero']['subtitle'] ?? '';
         $image_key  = $flagship['image_key'] ?? 'image';
         $hero_image = $data['hero'][$image_key] ?? $data['hero']['image'] ?? $data['hero']['hero_image'] ?? '';
         $stats      = array_slice($data['stats'] ?? [], 0, 3);
@@ -84,8 +80,8 @@ $rendered_count = 0;
         <div class="container">
             <div class="grid gap-10 py-16 lg:grid-cols-2 lg:gap-16 lg:py-24 lg:items-center">
 
-                <!-- Image cell (16:9 action photo) -->
-                <div class="<?php echo $image_first_on_lg ? 'lg:order-1' : 'lg:order-2'; ?>">
+                <!-- Image cell (16:9 action photo + spec strip beneath) -->
+                <div class="grid gap-4 <?php echo $image_first_on_lg ? 'lg:order-1' : 'lg:order-2'; ?>">
                     <?php if ($hero_image) : ?>
                         <div class="aspect-video overflow-hidden">
                             <?php \Standard\Images\responsive_image($hero_image, $data['hero']['headline'] ?? '', 'large', [
@@ -93,6 +89,22 @@ $rendered_count = 0;
                                 'loading' => 'lazy',
                             ]); ?>
                         </div>
+                    <?php endif; ?>
+
+                    <!-- Spec strip: 3 mono spec cells under the image, hairline dividers -->
+                    <?php if (!empty($stats)) : ?>
+                        <dl class="grid grid-cols-3 border-y border-blue-200" aria-label="<?php echo esc_attr(sprintf(__('%s key specs', 'standard'), $flagship['model_label'])); ?>">
+                            <?php foreach ($stats as $j => $stat) : ?>
+                                <div class="py-3 px-3 <?php echo $j > 0 ? 'border-l border-blue-200' : ''; ?> <?php echo $j === 0 ? 'pl-0' : ''; ?>">
+                                    <dt class="font-mono uppercase tracking-wider text-[10px] text-blue-400 mb-1">
+                                        <?php echo esc_html($stat['label']); ?>
+                                    </dt>
+                                    <dd class="font-mono font-medium text-blue-900 text-sm lg:text-base">
+                                        <?php echo esc_html($stat['value']); ?>
+                                    </dd>
+                                </div>
+                            <?php endforeach; ?>
+                        </dl>
                     <?php endif; ?>
                 </div>
 
@@ -116,28 +128,6 @@ $rendered_count = 0;
                     <h3 class="font-sans font-medium text-blue-900 tracking-tight leading-tight text-3xl md:text-4xl lg:text-5xl">
                         <?php echo esc_html($slogan); ?>
                     </h3>
-
-                    <?php if ($lede) : ?>
-                        <p class="font-sans text-blue-600 text-base lg:text-lg max-w-xl leading-relaxed">
-                            <?php echo esc_html($lede); ?>
-                        </p>
-                    <?php endif; ?>
-
-                    <!-- Spec strip: 3 mono spec cells, hairline dividers -->
-                    <?php if (!empty($stats)) : ?>
-                        <dl class="grid grid-cols-3 border-y border-blue-200" aria-label="<?php echo esc_attr(sprintf(__('%s key specs', 'standard'), $flagship['model_label'])); ?>">
-                            <?php foreach ($stats as $j => $stat) : ?>
-                                <div class="py-4 px-4 <?php echo $j > 0 ? 'border-l border-blue-200' : ''; ?> <?php echo $j === 0 ? 'pl-0' : ''; ?>">
-                                    <dt class="font-mono uppercase tracking-wider text-xs text-blue-400 mb-1">
-                                        <?php echo esc_html($stat['label']); ?>
-                                    </dt>
-                                    <dd class="font-mono font-medium text-blue-900 text-xl lg:text-2xl">
-                                        <?php echo esc_html($stat['value']); ?>
-                                    </dd>
-                                </div>
-                            <?php endforeach; ?>
-                        </dl>
-                    <?php endif; ?>
 
                     <!-- Single primary CTA: configure & quote -->
                     <div class="flex">
