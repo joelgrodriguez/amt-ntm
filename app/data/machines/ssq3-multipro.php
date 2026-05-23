@@ -70,7 +70,7 @@ return [
                 __('Hydraulically powered shear with hardened tool steel blades', 'standard'),
                 __('Panel recognition safety system', 'standard'),
             ],
-            'image'    => '',
+            'image'    => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-ssq3-quikswap-tooling-001.jpg',
         ],
         [
             'id'       => 'frame',
@@ -82,7 +82,7 @@ return [
                 __('Welded tubular steel frame', 'standard'),
                 __('Powder-coated aluminum covers with windows', 'standard'),
             ],
-            'image'    => '',
+            'image'    => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-ssq3-overhead-drone-001.jpg',
         ],
         [
             'id'       => 'power-pack',
@@ -94,7 +94,7 @@ return [
                 __('5 HP or 7.5 HP electric motor options', 'standard'),
                 __('Up to 75 ft/min production speed', 'standard'),
             ],
-            'image'    => '',
+            'image'    => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-mach2-electric-power-pack-001.jpg',
         ],
         [
             'id'       => 'brain',
@@ -106,7 +106,7 @@ return [
                 __('Push-button RUN/JOG at entry & exit ends', 'standard'),
                 __('RFID cover sensors and on-controller diagnostics', 'standard'),
             ],
-            'image'    => '',
+            'image'    => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-ssq3-rfid-sensors-001.jpg',
         ],
     ],
 
