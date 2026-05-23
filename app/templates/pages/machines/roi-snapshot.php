@@ -49,7 +49,7 @@ $stats = get_roi_stats();
                     <span class="text-3xl font-medium text-blue-500 sm:text-4xl lg:text-5xl">
                         <?php echo esc_html($stat['stat']); ?>
                     </span>
-                    <span class="text-sm text-blue-400 uppercase tracking-wider">
+                    <span class="text-sm text-blue-300 uppercase tracking-wider">
                         <?php echo esc_html($stat['label']); ?>
                     </span>
                 </div>
