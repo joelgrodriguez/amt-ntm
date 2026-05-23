@@ -47,6 +47,9 @@ function get_hero_slides(): array {
             // Slider-only image. Keeps data/machines/ssq3-multipro.php's
             // hero.hero_image free to drive the single-machine page.
             'background_image' => content_url('/uploads/2026/05/ntm-q3-hero-placeholder-2.png'),
+            // Image bias: this shot has the machine sitting low in the
+            // frame, so anchor to the bottom edge when cover-cropped.
+            'focal_point'      => 'center bottom',
         ],
         'mach-ii-combo-gutter' => [
             'title'   => 'MACH II™ Combo',
@@ -83,6 +86,7 @@ function get_hero_slides(): array {
             'background_video' => $data['hero']['video'] ?? '',
             'learn_more_url'   => $permalinks[$meta['wp_slug']] ?? '#',
             'cta_label'        => __('View Machine', 'standard'),
+            'focal_point'      => $meta['focal_point'] ?? '',
         ];
     }
 

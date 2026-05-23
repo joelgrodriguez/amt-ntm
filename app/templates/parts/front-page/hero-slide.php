@@ -34,7 +34,13 @@ $background_image = $machine['background_image'] ?? '';
 $background_video = $machine['background_video'] ?? '';
 $learn_more_url   = $machine['learn_more_url'] ?? '#';
 $cta_label        = $machine['cta_label'] ?? __('View Machine', 'standard');
+$focal_point      = $machine['focal_point'] ?? '';
 $is_first         = $index === 0;
+
+// Photo-region inline style: only emit when a focal point is set,
+// so the default `object-position: center` in components/hero.css
+// still wins for slides without a bias.
+$photo_style = $focal_point !== '' ? sprintf('--hero-pos: %s;', $focal_point) : '';
 ?>
 
 <div
@@ -47,7 +53,7 @@ $is_first         = $index === 0;
         <?php if ($background_video) : ?>data-video-url="<?php echo esc_url($background_video); ?>"<?php endif; ?>
     <?php endif; ?>
 >
-    <div class="hero__photo">
+    <div class="hero__photo"<?php if ($photo_style) : ?> style="<?php echo esc_attr($photo_style); ?>"<?php endif; ?>>
         <?php if ($is_first) : ?>
             <?php if ($background_video) : ?>
                 <video

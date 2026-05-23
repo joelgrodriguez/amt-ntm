@@ -48,14 +48,17 @@
   background-color: var(--color-black);
 }
 
-/* Background media (image or video) fills the photo region. */
+/* Background media (image or video) fills the photo region. Focal
+   point is overridable per slide via --hero-pos on the .hero__photo
+   parent (e.g. `style="--hero-pos: center bottom;"`). Defaults to
+   `center` so unbiased slides behave as before. */
 .hero__media {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: var(--hero-pos, center);
   z-index: 0;
 }
 
