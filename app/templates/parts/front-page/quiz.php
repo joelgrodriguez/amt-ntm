@@ -8,8 +8,8 @@
  * width, volume) they might not have. The quiz is the friendlier
  * funnel: ten questions, one CTA, no spec literacy required.
  *
- * Image-right composition pairs with the Flagships SSQ3 callout
- * directly above (image-left), creating an alternating cadence.
+ * Image-left composition: photo anchors the buyer first, copy
+ * answers the photo's implicit question.
  *
  * @package Standard
  *
@@ -37,8 +37,8 @@ $content = [
     <div class="container">
         <div class="grid gap-10 lg:grid-cols-2 lg:gap-16 lg:items-center">
 
-            <!-- Content column (left) -->
-            <div class="grid gap-6 lg:gap-8 content-start lg:order-1">
+            <!-- Content column (right) -->
+            <div class="grid gap-6 lg:gap-8 content-start lg:order-2">
 
                 <!-- Eyebrow: red dot + mono category -->
                 <div class="flex items-center gap-3">
@@ -70,8 +70,8 @@ $content = [
                 </div>
             </div>
 
-            <!-- Image column (right) -->
-            <div class="lg:order-2">
+            <!-- Image column (left) -->
+            <div class="lg:order-1">
                 <div class="aspect-video overflow-hidden">
                     <img
                         src="<?php echo esc_url($content['image']); ?>"

@@ -69,14 +69,16 @@ $title_id    = 'default-profiles-title';
             </div>
         </div>
 
-        <div id="<?php echo esc_attr($carousel_id); ?>" class="carousel__track">
+        <ul id="<?php echo esc_attr($carousel_id); ?>" class="carousel__track list-none p-0 m-0">
             <?php foreach ($profile_ids as $profile_id) : ?>
-                <?php get_template_part('templates/parts/card-profile', null, [
-                    'profile' => $profile_id,
-                    'context' => 'carousel',
-                ]); ?>
+                <li class="contents">
+                    <?php get_template_part('templates/parts/card-profile', null, [
+                        'profile' => $profile_id,
+                        'context' => 'carousel',
+                    ]); ?>
+                </li>
             <?php endforeach; ?>
-        </div>
+        </ul>
 
     </div>
 </section>

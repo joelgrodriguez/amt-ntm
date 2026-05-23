@@ -1,15 +1,20 @@
 <?php
 /**
- * Process Strip — Front Page
+ * Process Section — Front Page
  *
- * Chrome-bar 3-phase process strip. Borrows the video-section's
- * top/bottom chrome composition (mono uppercase labels, hairline
- * separators, red dot + segmented indicator) but inverts the surface
- * to light (bg-white, blue-200 hairlines) so the back half of the page
- * holds its light register without a sudden dark band.
+ * Image-left, three-step list right. Replaces the earlier chrome-
+ * heavy version (top/bottom mono bars + side hairlines + segmented
+ * indicator) with a quieter composition that lets the photo of a real
+ * NTM owner do the human-scale work and the steps read as a numbered
+ * list.
  *
- * Mono step labels (01 / EXPLORE, 02 / BUILD, 03 / FINANCE & SHIP)
- * carry the engineered voice; sans body text reads.
+ * The image is functional social proof, not decoration: it's the face
+ * of the buyer who's been through the process. Mono caption names the
+ * scene so the photo isn't anonymous.
+ *
+ * Bottom dual-channel info row was removed when the final-cta section
+ * directly below also pushes "Talk to a Specialist" — keeping both
+ * was a redundant close.
  *
  * @package Standard
  *
@@ -23,13 +28,11 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'channel'         => __('How You Buy', 'standard'),
-    'channel_right'   => __('Explore / Build / Finance', 'standard'),
-    'title'           => __('How a machine gets built and shipped.', 'standard'),
-    'footer_left_k'   => __('Online', 'standard'),
-    'footer_left_v'   => __('Configure & Quote', 'standard'),
-    'footer_right_k'  => __('Or call', 'standard'),
-    'footer_right_v'  => __('Talk to a specialist', 'standard'),
+    'eyebrow'   => __('How You Buy', 'standard'),
+    'title'     => __('How a machine gets built and shipped.', 'standard'),
+    'image'     => content_url('/uploads/2026/01/JIm-and-family-with-SSQ-scaled.jpg'),
+    'image_alt' => __('Jim and his family with their NTM SSQ portable rollformer', 'standard'),
+    'caption'   => __('NTM owners on day one of their machine.', 'standard'),
 ];
 
 $phases = [
@@ -54,67 +57,61 @@ $phases = [
 ];
 ?>
 
-<section class="bg-white text-blue-600 border-y border-blue-200" aria-labelledby="process-title">
-    <!-- Top chrome bar -->
-    <div class="border-b border-blue-200">
-        <div class="border-x border-blue-200 container">
-            <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
-                <div class="flex items-center gap-3 pl-3">
-                    <span class="w-2 h-2 bg-red" aria-hidden="true"></span>
-                    <span><?php echo esc_html($content['channel']); ?></span>
-                </div>
-                <div class="flex items-center gap-3 pr-3">
-                    <span><?php echo esc_html($content['channel_right']); ?></span>
-                </div>
-            </div>
-        </div>
-    </div>
+<section class="section bg-white" aria-labelledby="process-title">
+    <div class="container">
+        <div class="grid gap-10 lg:grid-cols-2 lg:gap-16 lg:items-center">
 
-    <!-- Process columns -->
-    <div class="border-x border-blue-200 container">
-        <div class="py-12 lg:py-16">
-            <h2 id="process-title" class="sr-only">
-                <?php echo esc_html($content['title']); ?>
-            </h2>
-            <div class="grid md:grid-cols-3">
-                <?php foreach ($phases as $i => $phase) : ?>
-                    <div class="grid gap-4 p-6 lg:p-8 <?php echo $i > 0 ? 'border-t border-blue-200 md:border-t-0 md:border-l' : ''; ?>">
-                        <div class="flex items-baseline gap-2 font-mono uppercase tracking-wider text-xs text-blue-500">
-                            <span><?php echo esc_html($phase['index']); ?></span>
-                            <span class="w-8 h-px bg-blue-300" aria-hidden="true"></span>
-                            <span><?php echo esc_html($phase['label']); ?></span>
-                        </div>
-                        <h3 class="font-sans font-medium text-blue-900 text-lg md:text-xl lg:text-2xl leading-tight">
-                            <?php echo esc_html($phase['title']); ?>
-                        </h3>
-                        <p class="font-sans text-blue-600 text-sm leading-relaxed">
-                            <?php echo esc_html($phase['text']); ?>
+            <!-- Image column (left). Aspect-video matches Flagships
+                 and Quiz photo dimensions so the page rhythm holds. -->
+            <figure class="grid gap-3 lg:order-1">
+                <div class="aspect-video overflow-hidden">
+                    <img
+                        src="<?php echo esc_url($content['image']); ?>"
+                        alt="<?php echo esc_attr($content['image_alt']); ?>"
+                        loading="lazy"
+                        decoding="async"
+                        class="w-full h-full object-cover block"
+                    >
+                </div>
+                <figcaption class="font-mono text-[11px] uppercase tracking-[0.18em] text-blue-500">
+                    <?php echo esc_html($content['caption']); ?>
+                </figcaption>
+            </figure>
+
+            <!-- Steps column (right) -->
+            <div class="grid gap-8 lg:gap-10 lg:order-2">
+
+                <div class="grid gap-4">
+                    <div class="flex items-center gap-3">
+                        <span class="w-2 h-2 bg-red shrink-0" aria-hidden="true"></span>
+                        <p class="font-mono uppercase tracking-wider text-xs text-blue-700">
+                            <?php echo esc_html($content['eyebrow']); ?>
                         </p>
                     </div>
-                <?php endforeach; ?>
-            </div>
-        </div>
-    </div>
+                    <h2 id="process-title" class="font-sans font-medium text-blue-900 tracking-tight leading-tight text-2xl md:text-3xl lg:text-4xl max-w-md">
+                        <?php echo esc_html($content['title']); ?>
+                    </h2>
+                </div>
 
-    <!-- Bottom chrome bar -->
-    <div class="border-t border-blue-200">
-        <div class="border-x border-blue-200 container">
-            <div class="flex items-center justify-between py-3 font-mono uppercase tracking-wider text-[0.625rem] md:text-xs">
-                <div class="flex items-center gap-2 pl-3">
-                    <span class="hidden md:inline"><?php echo esc_html($content['footer_left_k']); ?></span>
-                    <span class="text-blue-900"><?php echo esc_html($content['footer_left_v']); ?></span>
-                </div>
-                <div class="flex items-center gap-4 pr-3">
-                    <span class="hidden md:inline"><?php echo esc_html($content['footer_right_k']); ?></span>
-                    <span class="text-blue-900"><?php echo esc_html($content['footer_right_v']); ?></span>
-                    <div class="hidden md:flex gap-1" aria-hidden="true">
-                        <span class="w-1 h-3 bg-blue-300"></span>
-                        <span class="w-1 h-3 bg-blue-300"></span>
-                        <span class="w-1 h-3 bg-blue-300"></span>
-                        <span class="w-1 h-3 bg-red"></span>
-                    </div>
-                </div>
+                <ol class="grid gap-6 lg:gap-8" role="list">
+                    <?php foreach ($phases as $phase) : ?>
+                        <li class="grid gap-2">
+                            <div class="flex items-baseline gap-3 font-mono uppercase tracking-wider text-xs text-blue-500">
+                                <span><?php echo esc_html($phase['index']); ?></span>
+                                <span class="w-6 h-px bg-blue-300" aria-hidden="true"></span>
+                                <span><?php echo esc_html($phase['label']); ?></span>
+                            </div>
+                            <h3 class="font-sans font-medium text-blue-900 text-lg lg:text-xl leading-snug">
+                                <?php echo esc_html($phase['title']); ?>
+                            </h3>
+                            <p class="font-sans text-blue-600 text-base leading-relaxed max-w-prose">
+                                <?php echo esc_html($phase['text']); ?>
+                            </p>
+                        </li>
+                    <?php endforeach; ?>
+                </ol>
             </div>
+
         </div>
     </div>
 </section>

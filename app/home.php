@@ -26,6 +26,7 @@ use function Standard\LearningCenter\get_section_query;
 use function Standard\LearningCenter\get_type_cta;
 use function Standard\LearningCenter\get_type_icon;
 use function Standard\LearningCenter\get_type_label;
+use function Standard\MachinesData\get_machine_post_tags;
 
 get_header();
 
@@ -38,12 +39,10 @@ $categories = get_categories([
     'number'     => 8,
 ]);
 
-$machine_tags = get_tags([
-    'hide_empty' => true,
-    'orderby'    => 'count',
-    'order'      => 'DESC',
-    'number'     => 8,
-]);
+// Restrict the Machine filter to the curated NTM machine catalog
+// (SSQ3, SSQ II, SSH, SSR, 5V Crimp, WAV, MACH II, BG7), in that
+// canonical order, instead of every post_tag the editors ever made.
+$machine_tags = get_machine_post_tags();
 
 $content_sections = filter_content_sections(get_content_sections(), $filters);
 $filter_action    = get_learning_center_url();
