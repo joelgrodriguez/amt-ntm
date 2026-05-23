@@ -21,14 +21,14 @@ get_template_part('templates/parts/customer-story', null, [
     'image_position' => 'left',
     'content'        => [
         'eyebrow'  => __('Customer Story', 'standard'),
-        'quote'    => __("We switched to NTM gutter machines three years ago and haven't looked back. The MACH II runs all day without issues, and our install crews love that they can fabricate on-site instead of hauling pre-made sections.", 'standard'),
-        'name'     => 'Gutter Pro Contractor',
-        'company'  => 'Placeholder — Real Story Coming Soon',
-        'machine'  => 'MACH II 5"/6" Combo',
-        'image'    => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-mach2-gutter-install-abel-002.jpg',
-        'cta_text' => __('Read the Full Story', 'standard'),
-        'cta_url'  => '/learning-center/',
-        'cta_icon' => 'arrow-right',
+        'quote'    => __("Going from running someone else's crew to owning my own business — the NTM gutter machine made that possible. I'm fabricating on-site, controlling my schedule, and keeping every dollar I used to hand to a supplier.", 'standard'),
+        'name'     => 'Abel',
+        'company'  => 'Abel Gutter Install',
+        'machine'  => 'MACH II Gutter Machine',
+        'image'    => content_url('/uploads/2026/05/ntm-mach2-gutter-install-abel-002.jpg'),
+        'cta_text' => __('Watch the Full Story', 'standard'),
+        'cta_url'  => '/learning-center/video/from-crew-to-business-owner-how-abel-used-ntm-gutter-machines-to-grow-his-business-video/',
+        'cta_icon' => 'play',
     ],
     'stats' => [
         [

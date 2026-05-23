@@ -25,10 +25,9 @@ $content = [
     'cta_talk_url'  => '/contact/',
 ];
 
-// Page can opt out of the soft-blue background by passing 'bg' => ''.
-// Gutter page does this so the section reads as a quiet rest stop
-// between the gutter ROI band and the FAQ accordion (also blue-50).
-$bg = $args['bg'] ?? 'bg-blue-50';
+// Default: no background, sits on the page surface. Pages can pass a
+// 'bg' arg to override (e.g. bg-blue-50).
+$bg = $args['bg'] ?? '';
 ?>
 
 <section class="section <?php echo esc_attr($bg); ?>" aria-labelledby="which-machine-title">
@@ -44,7 +43,6 @@ $bg = $args['bg'] ?? 'bg-blue-50';
 
         <div class="flex flex-col sm:flex-row justify-center gap-4">
             <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_quiz_url'])); ?>" class="btn btn-primary">
-                <?php icon('help-circle', ['class' => 'w-5 h-5']); ?>
                 <?php echo esc_html($content['cta_quiz']); ?>
             </a>
             <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_talk_url'])); ?>" class="btn btn-outline-dark">

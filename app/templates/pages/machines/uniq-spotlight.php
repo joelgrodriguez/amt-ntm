@@ -25,7 +25,7 @@ $content = [
     'title'        => __('UNIQ® Automatic Control System', 'standard'),
     'subtitle'     => __("NTM's most advanced programmable controller, designed to improve automation, safety, and the operator experience.", 'standard'),
     'availability' => __('Standard on WAV · Optional on SSQ II & SSQ3', 'standard'),
-    'image'        => content_url('/uploads/2026/05/ntm-uniq-controller-shear-warning-001.jpg'),
+    'image'        => content_url('/uploads/2023/09/WAV-with-UNIQ-Controller-scaled.jpg'),
     'cta_text'     => __('Learn More', 'standard'),
     'cta_url'      => '/machines/uniq-control-system/',
 ];
@@ -33,7 +33,7 @@ $content = [
 $features = get_uniq_features();
 ?>
 
-<section class="section" aria-labelledby="uniq-spotlight-title">
+<section class="section bg-blue-50" aria-labelledby="uniq-spotlight-title">
     <div class="container">
         <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-start">
 
