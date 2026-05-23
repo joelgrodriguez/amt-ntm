@@ -16,6 +16,7 @@ if (!defined('ABSPATH')) {
 $sections   = $args['sections'] ?? [];
 $back_url   = $args['back_url'] ?? '';
 $back_label = $args['back_label'] ?? '';
+$post_type  = isset($args['post_type']) ? sanitize_key((string) $args['post_type']) : '';
 ?>
 
 <aside class="hidden lg:block border-r border-blue-200 pr-8">
@@ -47,6 +48,10 @@ $back_label = $args['back_label'] ?? '';
                         $term_link = get_term_link($term);
                         if (is_wp_error($term_link)) {
                             continue;
+                        }
+
+                        if ($post_type !== '') {
+                            $term_link = add_query_arg(['post_type' => $post_type], $term_link);
                         }
 
                         $is_active = in_array((int) $term->term_id, $current_ids, true);

@@ -56,6 +56,7 @@ get_header();
 
             <?php
             get_template_part('templates/parts/taxonomy-filter-sidebar', null, [
+                'post_type' => 'manual',
                 'sections' => [
                     [
                         'title'         => $sidebar_copy['filter_type'],

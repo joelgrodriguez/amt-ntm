@@ -1,38 +1,46 @@
 <?php
 /**
- * Template part for displaying search results.
+ * Template part for displaying mixed result cards.
  *
- * Displays individual search result items with title, date,
- * post type indicator, and excerpt.
+ * Global search and scoped taxonomy archives can return different post
+ * types. Dispatch each result to its native card so products feel like
+ * products, profiles feel like profiles, and editorial content keeps the
+ * standard post-card treatment.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
  * @package Standard
  */
 
+declare(strict_types=1);
+
 if (!defined('ABSPATH')) {
     exit;
 }
 
-$post_type_object = get_post_type_object(get_post_type());
-?>
+$post_type = (string) get_post_type();
 
-<article id="post-<?php the_ID(); ?>" <?php post_class('bg-white border border-blue-200 p-6'); ?>>
-    <header class="mb-4">
-        <?php the_title(sprintf('<h2 class="text-xl font-medium mb-2"><a href="%s" class="text-blue-900 no-underline hover:text-blue-500">', esc_url(get_permalink())), '</a></h2>'); ?>
+if ($post_type === 'product') {
+    get_template_part('templates/parts/card-product', null, [
+        'product' => \Standard\Search\get_product_card_data((int) get_the_ID()),
+    ]);
+    return;
+}
 
-        <div class="text-sm text-blue-500">
-            <time datetime="<?php echo esc_attr(get_the_date('c')); ?>">
-                <?php echo esc_html(get_the_date()); ?>
-            </time>
-            <?php if ($post_type_object) : ?>
-                <span class="mx-2">&middot;</span>
-                <span><?php echo esc_html($post_type_object->labels->singular_name); ?></span>
-            <?php endif; ?>
-        </div>
-    </header>
+if ($post_type === 'profile') {
+    get_template_part('templates/parts/card-profile', null, [
+        'profile' => get_post(),
+        'context' => 'grid',
+    ]);
+    return;
+}
 
-    <div class="text-blue-600">
-        <?php the_excerpt(); ?>
-    </div>
-</article>
+if ($post_type === 'manual') {
+    get_template_part('templates/parts/card-manual', null, [
+        'manual'  => get_post(),
+        'context' => 'grid',
+    ]);
+    return;
+}
+
+get_template_part('templates/parts/card-post');

@@ -107,6 +107,22 @@ function get_post_type_filter_keys(): array {
 }
 
 /**
+ * @return array<string, string>
+ */
+function get_post_type_filter_options(): array {
+    $options = [];
+
+    foreach (get_searchable_post_types() as $post_type) {
+        $post_type_object = \get_post_type_object($post_type);
+        $options[$post_type] = $post_type_object
+            ? (string) $post_type_object->labels->name
+            : $post_type;
+    }
+
+    return $options;
+}
+
+/**
  * @return array<string|int, mixed>
  */
 function get_requested_tax_query(): array {
@@ -253,6 +269,56 @@ function exclude_relevanssi_result_post_types(bool $post_ok, int $post_id): bool
     return is_string($post_type) ? !is_excluded_post_type($post_type) : $post_ok;
 }
 
+/**
+ * @return array<string, mixed>
+ */
+function get_product_card_data(int $post_id): array {
+    $fallback = [
+        'id'             => $post_id,
+        'title'          => \get_the_title($post_id),
+        'category_label' => '',
+        'descriptor'     => '',
+        'image'          => \get_the_post_thumbnail_url($post_id, 'product-card') ?: '',
+        'price'          => '',
+        'price_label'    => \__('Starting at', 'standard'),
+        'explore_url'    => \get_permalink($post_id) ?: '#',
+        'build_url'      => '',
+        'badge'          => '',
+    ];
+
+    if (!\function_exists('wc_get_product')) {
+        return $fallback;
+    }
+
+    $product = \wc_get_product($post_id);
+    if (!$product instanceof \WC_Product) {
+        return $fallback;
+    }
+
+    $price = $product->get_price();
+    $image = \wp_get_attachment_url((int) $product->get_image_id());
+    $build_url = \function_exists('Standard\\Woo\\Catalog\\get_configurator_url')
+        ? \Standard\Woo\Catalog\get_configurator_url($product->get_slug())
+        : '';
+
+    return [
+        'id'             => $product->get_id(),
+        'title'          => \function_exists('Standard\\Woo\\Catalog\\get_short_title')
+            ? \Standard\Woo\Catalog\get_short_title($product->get_name())
+            : $product->get_name(),
+        'category_label' => \function_exists('Standard\\Woo\\Catalog\\get_primary_category_label')
+            ? \Standard\Woo\Catalog\get_primary_category_label($product)
+            : '',
+        'descriptor'     => \wp_strip_all_tags($product->get_short_description()),
+        'image'          => is_string($image) ? $image : '',
+        'price'          => $price !== '' ? '$' . \number_format((float) $price) : '',
+        'price_label'    => \__('Starting at', 'standard'),
+        'explore_url'    => $product->get_permalink(),
+        'build_url'      => $build_url,
+        'badge'          => '',
+    ];
+}
+
 function configure_main_query(\WP_Query $query): void {
     if (\is_admin() || !$query->is_main_query() || !$query->is_search()) {
         return;
@@ -293,6 +359,40 @@ function configure_main_query(\WP_Query $query): void {
     }
 }
 
+function configure_taxonomy_archive_query(\WP_Query $query): void {
+    if (\is_admin() || !$query->is_main_query() || $query->is_search()) {
+        return;
+    }
+
+    if (!($query->is_category() || $query->is_tag() || $query->is_tax())) {
+        return;
+    }
+
+    $requested_post_types = get_request_values(get_post_type_filter_keys(), 'post_type');
+    if ($requested_post_types === []) {
+        return;
+    }
+
+    $post_types = array_values(array_intersect($requested_post_types, get_searchable_post_types()));
+
+    if ($post_types === []) {
+        $query_args = [];
+        force_no_results($query_args);
+
+        foreach ($query_args as $key => $value) {
+            $query->set((string) $key, $value);
+        }
+
+        return;
+    }
+
+    $query->set('post_type', $post_types);
+    $query->set('post_status', 'publish');
+    $query->set('posts_per_page', 12);
+    $query->set('ignore_sticky_posts', true);
+}
+
 \add_action('pre_get_posts', __NAMESPACE__ . '\\configure_main_query');
+\add_action('pre_get_posts', __NAMESPACE__ . '\\configure_taxonomy_archive_query');
 \add_filter('relevanssi_do_not_index', __NAMESPACE__ . '\\exclude_relevanssi_indexed_post_types', 10, 3);
 \add_filter('relevanssi_post_ok', __NAMESPACE__ . '\\exclude_relevanssi_result_post_types', 10, 2);
