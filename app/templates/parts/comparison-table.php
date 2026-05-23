@@ -34,14 +34,20 @@ if (empty($machines) || empty($rows)) {
 <section class="section border-t border-blue-200" aria-labelledby="<?php echo esc_attr($section_id); ?>">
     <div class="container section-content">
 
-        <div class="section-header-left">
-            <p class="section-eyebrow">
-                <?php echo esc_html($content['eyebrow']); ?>
-            </p>
-            <div class="section-divider"></div>
-            <h2 id="<?php echo esc_attr($section_id); ?>" class="section-title">
+        <!-- Lighter opener than the rest of the page: the table is its
+             own self-evident artifact (every column header is already a
+             machine name), so an eyebrow + divider + title stack on top
+             reads as a redundant masthead. One title, one mono kicker
+             at the right edge, no divider line. -->
+        <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+            <h2 id="<?php echo esc_attr($section_id); ?>" class="section-title m-0">
                 <?php echo esc_html($content['title']); ?>
             </h2>
+            <?php if (!empty($content['eyebrow'])) : ?>
+                <p class="font-mono text-xs uppercase tracking-[0.18em] text-blue-500 m-0">
+                    <?php echo esc_html($content['eyebrow']); ?>
+                </p>
+            <?php endif; ?>
         </div>
 
         <!-- md+: table-fixed with equal column widths so every column —
