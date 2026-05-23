@@ -567,6 +567,109 @@ function get_uniq_features(): array {
 }
 
 /**
+ * Detailed UNIQ feature spec for the standalone UNIQ landing page.
+ *
+ * Longer-form copy than get_uniq_features(); used by the four-up
+ * blueprint grid on page-uniq-control-system.php. Each item maps 1:1
+ * to the legacy page's feature blocks, rewritten in the
+ * engineered-showroom voice.
+ *
+ * @return array<int, array{spec: string, title: string, text: string}>
+ */
+function get_uniq_detailed_features(): array {
+    return [
+        [
+            'spec'  => '01 / DISPLAY',
+            'title' => '7″ Touchscreen',
+            'text'  => 'Lockable metal-covered touchscreen with troubleshooting screens, coil calculator, job and part entry, and full machine settings — all in one panel.',
+        ],
+        [
+            'spec'  => '02 / OPERATION',
+            'title' => 'Automatic or Manual',
+            'text'  => 'Run the machine and shear from the touchscreen, or fall back to the manual push-button control panel. The operator chooses.',
+        ],
+        [
+            'spec'  => '03 / NOTCHING',
+            'title' => 'Automatic Notching',
+            'text'  => 'Program notch types once; the machine punches them as material runs, including angled notches for hips and valleys. Requires a notch-equipped SSQ II™ MultiPro.',
+        ],
+        [
+            'spec'  => '04 / DATA',
+            'title' => 'Cutlist Import / Export',
+            'text'  => 'USB port for program updates, 600-panel cutlist import, and export of final project specifications back to the office.',
+        ],
+    ];
+}
+
+/**
+ * Resource library for the UNIQ landing page.
+ *
+ * Two columns: instructional documentation (PDFs / manuals) and video
+ * tutorials. Each entry: label, url, kind (used for the mono affix and
+ * the type label in the resource row).
+ *
+ * @return array{docs: list<array{label: string, url: string, kind: string}>, videos: list<array{label: string, url: string, kind: string}>}
+ */
+function get_uniq_resources(): array {
+    return [
+        'docs' => [
+            [
+                'label' => 'Instructions for Field-Updating UNIQ Software',
+                'url'   => '/wp-content/uploads/2022/09/09012022_Instructions-for-updating-from-Uniq-V1-to-V2.pdf',
+                'kind'  => 'PDF',
+            ],
+            [
+                'label' => 'Copying UNIQ / NTM200 Programs to SD & USB',
+                'url'   => '/wp-content/uploads/2022/01/How-to-copy-the-Uniq-or-NTM200-programs-onto-SD-USB-drives.pdf',
+                'kind'  => 'PDF',
+            ],
+            [
+                'label' => 'UNIQ Automatic Control System Supplement Manual',
+                'url'   => '/learning-center/manual/ssq2-supplement-uniq-v1-1-9/',
+                'kind'  => 'MANUAL',
+            ],
+            [
+                'label' => 'How to Import a Cutlist into UNIQ',
+                'url'   => '/wp-content/uploads/2022/01/Instructions-for-field-updating-the-UNIQ-program-1.pdf',
+                'kind'  => 'PDF',
+            ],
+        ],
+        'videos' => [
+            [
+                'label' => 'New Software Tutorial',
+                'url'   => '/learning-center/video/uniq-control-system-new-software-tutorial-video/',
+                'kind'  => 'VIDEO',
+            ],
+            [
+                'label' => 'Software Update Tutorial',
+                'url'   => '/learning-center/video/uniq-software-update-tutorial-video/',
+                'kind'  => 'VIDEO',
+            ],
+            [
+                'label' => 'Programming Panel Lengths',
+                'url'   => '/learning-center/video/how-to-program-panel-lengths-using-uniq-automatic-control-system-video/',
+                'kind'  => 'VIDEO',
+            ],
+            [
+                'label' => 'Using the Push-Button Panel',
+                'url'   => '/learning-center/video/how-to-use-push-button-panel-on-uniq-automatic-controller/',
+                'kind'  => 'VIDEO',
+            ],
+            [
+                'label' => 'Feeding & Running Material with Notching',
+                'url'   => '/learning-center/video/run-material-ssq-with-notching-video/',
+                'kind'  => 'VIDEO',
+            ],
+            [
+                'label' => 'Upgrading UNIQ Manual to Automatic',
+                'url'   => '/learning-center/video/upgrade-the-ntm-uniq-manual-to-automatic-video/',
+                'kind'  => 'VIDEO',
+            ],
+        ],
+    ];
+}
+
+/**
  * Get key differentiators for the 3-card section.
  *
  * @return array<int, array{icon: string, title: string, text: string}>
