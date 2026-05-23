@@ -1,0 +1,91 @@
+/**
+ * Explore Machines Section Styles
+ *
+ * Styles for tab/panel state, scrollbar hiding, and navigation arrows.
+ * Section layout uses inline Tailwind in the template.
+ *
+ * @file explore-machines.css
+ *
+ * @usage Front Page (front-page.php)
+ * @template templates/parts/front-page/explore-machines.php
+ * @see css/components.css - Card product styles
+ * @see js/modules/ExploreMachines.js - Tab switching and scroll navigation
+ */
+
+/* Track - horizontal scroll with hidden scrollbar.
+   Visible cards per breakpoint is driven by --cards-per-view, and the
+   gap between cards reuses --carousel-gap so card width math stays
+   consistent on every viewport. */
+.explore-machines__track {
+  @apply py-2;
+  --cards-per-view: 1;
+  --carousel-gap: 1rem; /* matches gap-4 baseline */
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+@media (min-width: 768px) {
+  .explore-machines__track {
+    --carousel-gap: 1.5rem; /* matches md:gap-6 */
+  }
+}
+
+@media (min-width: 1024px) {
+  .explore-machines__track {
+    --cards-per-view: 4;
+  }
+}
+
+.explore-machines__track::-webkit-scrollbar {
+  @apply hidden;
+}
+
+/* Each card consumes an exact fraction of the track. The card itself is
+   stack-only; width math + snap behavior live on the carousel, not the
+   card. No peek of the next card — width fills the visible window. */
+.explore-machines__track > .card-product {
+  flex: 0 0 calc((100% - (var(--cards-per-view) - 1) * var(--carousel-gap)) / var(--cards-per-view));
+  scroll-snap-align: start;
+}
+
+/* Panel wrapper - contains stacked panels */
+.explore-machines__panels {
+  @apply relative;
+}
+
+/* Panel state - toggled by JS */
+.explore-machines__panel {
+  @apply invisible absolute inset-0 opacity-0;
+  transition: opacity 150ms ease-out, visibility 150ms ease-out;
+}
+
+.explore-machines__panel--active {
+  @apply visible relative opacity-100;
+}
+
+/* Tab styles */
+.explore-machines__tab {
+  @apply px-4 py-2 font-sans font-medium text-blue-600;
+  @apply bg-transparent border-b-2 border-transparent -mb-px;
+  @apply cursor-pointer whitespace-nowrap;
+  @apply transition-colors duration-200;
+  @apply hover:text-blue-700;
+  @apply focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2;
+  font-size: var(--text-body);
+}
+
+.explore-machines__tab--active {
+  @apply text-blue-900;
+  border-bottom-color: var(--color-red);
+}
+
+/* Arrow navigation buttons. 44x44 minimum per WCAG 2.5.5 target size. */
+.explore-machines__arrow {
+  @apply flex items-center justify-center w-11 h-11;
+  @apply bg-blue-100 text-blue-700 border-none cursor-pointer;
+  @apply transition-colors duration-200;
+  @apply hover:bg-blue-800 hover:text-white;
+  @apply disabled:opacity-40 disabled:cursor-not-allowed;
+  @apply focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2;
+}
