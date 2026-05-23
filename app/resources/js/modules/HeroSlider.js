@@ -236,13 +236,18 @@ export function initHeroSlider(options = {}) {
   }
 
   function setAriaAttributes() {
+    // role=region with a meaningful label is the honest contract for
+    // this widget. aria-roledescription="carousel" was previously set
+    // but signals to AT users "expect play/pause controls" — we have
+    // hover-pause + focus-pause + keyboard arrow nav + tablist
+    // segments, but no AT-visible Play/Pause button. Plain region
+    // matches what's actually exposed. The tablist on the segment
+    // dots already gives AT users full slide navigation.
     slider.setAttribute('role', 'region');
-    slider.setAttribute('aria-roledescription', 'carousel');
     slider.setAttribute('aria-label', 'Featured machines');
 
     slides.forEach((slide, i) => {
       slide.setAttribute('role', 'group');
-      slide.setAttribute('aria-roledescription', 'slide');
       slide.setAttribute('aria-label', `Slide ${i + 1} of ${slides.length}`);
       slide.setAttribute('aria-hidden', String(i !== 0));
     });

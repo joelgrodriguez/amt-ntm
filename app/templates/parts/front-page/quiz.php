@@ -25,7 +25,7 @@ if (!defined('ABSPATH')) {
 $content = [
     'eyebrow'   => __('Not Sure Which Machine?', 'standard'),
     'title'     => __('Which portable roof panel machine is best for you and your business operations?', 'standard'),
-    'body'      => __('Take this 10-question quiz and find out which NTM roof panel machine — the SSR™ MultiPro Jr., SSH™ MultiPro, or SSQ II™ MultiPro — is best suited for your metal roofing projects and how it can help improve your manufacturing.', 'standard'),
+    'body'      => __('Take this 10-question quiz and find out which NTM roof panel machine is best suited for your metal roofing projects: the SSR™ MultiPro Jr., SSH™ MultiPro, or SSQ II™ MultiPro. See how the right machine can improve your manufacturing.', 'standard'),
     'cta'       => __('Take the 10-Question Quiz', 'standard'),
     'cta_url'   => '/roof-panel-machine-assessment-quiz/',
     'image'     => content_url('/uploads/2026/04/training-3-scaled.jpg'),
