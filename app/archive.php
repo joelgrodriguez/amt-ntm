@@ -17,6 +17,8 @@ if (!defined('ABSPATH')) {
 }
 
 use function Standard\ContentTaxonomy\get_terms_for_post_type;
+use function Standard\Filters\build_term_link_group;
+use function Standard\Filters\get_post_type_counts;
 use function Standard\Search\get_post_type_filter_keys;
 use function Standard\Search\get_post_type_filter_options;
 use function Standard\Search\get_request_values;
@@ -49,19 +51,6 @@ get_header();
 
 // Get current query info
 $is_category = is_category();
-
-// Get all public post types (excluding attachments, etc.)
-$post_types = get_post_types([
-    'public' => true,
-    'has_archive' => true,
-], 'objects');
-
-// Get all categories
-$categories = get_categories([
-    'hide_empty' => true,
-    'orderby' => 'name',
-    'order' => 'ASC',
-]);
 ?>
 
 <main id="primary" class="pattern-dot-grid py-6 lg:py-12">
@@ -101,70 +90,79 @@ $categories = get_categories([
             ]);
             ?>
         <?php else : ?>
-            <!-- Filter Sidebar -->
-            <aside class="hidden lg:block border-r border-blue-200 pr-8">
-                <nav class="sticky top-16 grid gap-8">
+            <?php
+            $categories = get_categories([
+                'hide_empty' => true,
+                'orderby'    => 'name',
+                'order'      => 'ASC',
+            ]);
+            $categories = is_array($categories) ? $categories : [];
+            $current_category_id = $is_category && $current_term instanceof WP_Term ? (int) $current_term->term_id : 0;
 
-                    <!-- Filter by Category -->
-                    <div>
-                        <h3 class="text-sm font-medium text-blue-900 mb-4 flex items-center gap-2">
-                            <?php icon('filter', ['class' => 'w-4 h-4']); ?>
-                            <?php echo esc_html($content['filter_category']); ?>
-                        </h3>
-                        <ul class="grid gap-1 border-l border-blue-200">
-                            <?php if (!empty($categories)) : ?>
-                                <?php foreach ($categories as $cat) :
-                                    $is_active = $is_category && $current_term instanceof WP_Term && $current_term->term_id === $cat->term_id;
-                                ?>
-                                    <li>
-                                        <a href="<?php echo esc_url(get_category_link($cat->term_id)); ?>" class="flex items-center justify-between text-sm py-2 pl-4 border-l-2 -ml-px <?php echo $is_active ? 'border-blue-500 text-blue-500 font-medium' : 'border-transparent text-blue-600 hover:text-blue-900 hover:border-blue-300'; ?>">
-                                            <span><?php echo esc_html($cat->name); ?></span>
-                                            <span class="text-xs text-blue-400"><?php echo esc_html((string) $cat->count); ?></span>
-                                        </a>
-                                    </li>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </ul>
-                    </div>
+            $post_type_counts = get_post_type_counts();
+            $blog_url = get_permalink((int) get_option('page_for_posts')) ?: \Standard\Url\internal('/');
+            $type_options = [
+                [
+                    'value'  => 'post',
+                    'label'  => $content['blog_posts'],
+                    'count'  => $post_type_counts['post'] ?? 0,
+                    'active' => is_home() || $current_term instanceof WP_Post,
+                    'url'    => (string) $blog_url,
+                ],
+            ];
 
-                    <!-- Filter by Post Type -->
-                    <div>
-                        <h3 class="text-sm font-medium text-blue-900 mb-4 flex items-center gap-2">
-                            <?php icon('settings', ['class' => 'w-4 h-4']); ?>
-                            <?php echo esc_html($content['filter_type']); ?>
-                        </h3>
-                        <ul class="grid gap-1 border-l border-blue-200">
-                            <!-- All Posts -->
-                            <li>
-                                <a href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>" class="flex items-center justify-between text-sm py-2 pl-4 border-l-2 -ml-px border-transparent text-blue-600 hover:text-blue-900 hover:border-blue-300">
-                                    <span><?php echo esc_html($content['blog_posts']); ?></span>
-                                    <span class="text-xs text-blue-400"><?php echo esc_html((string) wp_count_posts('post')->publish); ?></span>
-                                </a>
-                            </li>
-                            <?php foreach ($post_types as $post_type) :
-                                if ($post_type->name === 'post' || $post_type->name === 'page') continue;
-                                $archive_link = get_post_type_archive_link($post_type->name);
-                                if (!$archive_link) continue;
-                                $count = wp_count_posts($post_type->name)->publish;
-                            ?>
-                                <li>
-                                    <a href="<?php echo esc_url($archive_link); ?>" class="flex items-center justify-between text-sm py-2 pl-4 border-l-2 -ml-px border-transparent text-blue-600 hover:text-blue-900 hover:border-blue-300">
-                                        <span><?php echo esc_html($post_type->labels->name); ?></span>
-                                        <span class="text-xs text-blue-400"><?php echo esc_html((string) $count); ?></span>
-                                    </a>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
+            $public_post_types = get_post_types([
+                'public'      => true,
+                'has_archive' => true,
+            ], 'objects');
+            foreach ($public_post_types as $post_type) {
+                if ($post_type->name === 'post' || $post_type->name === 'page') {
+                    continue;
+                }
+                $archive_link = get_post_type_archive_link($post_type->name);
+                if (!$archive_link) {
+                    continue;
+                }
+                $type_options[] = [
+                    'value'  => $post_type->name,
+                    'label'  => $post_type->labels->name,
+                    'count'  => $post_type_counts[$post_type->name] ?? 0,
+                    'active' => false,
+                    'url'    => (string) $archive_link,
+                ];
+            }
 
-                    <!-- All Posts Link -->
-                    <a href="<?php echo esc_url(get_permalink(get_option('page_for_posts'))); ?>" class="flex items-center gap-2 text-sm font-medium text-blue-500 hover:underline">
-                        <?php icon('arrow-left', ['class' => 'w-4 h-4']); ?>
-                        <?php echo esc_html($content['view_all']); ?>
-                    </a>
+            $groups = [];
 
-                </nav>
-            </aside>
+            if ($categories !== []) {
+                $active_category_ids = $current_category_id > 0 ? [$current_category_id] : [];
+                $groups[] = build_term_link_group(
+                    'category',
+                    $content['filter_category'],
+                    $categories,
+                    $active_category_ids,
+                    'filter'
+                );
+            }
+
+            $groups[] = [
+                'id'      => 'content-type',
+                'title'   => $content['filter_type'],
+                'icon'    => 'settings',
+                'mode'    => 'link',
+                'name'    => null,
+                'options' => $type_options,
+            ];
+
+            get_template_part('templates/parts/filter-sidebar', null, [
+                'groups'       => $groups,
+                'show_actions' => false,
+                'back_url'     => $blog_url,
+                'back_label'   => $content['view_all'],
+                'drawer_label' => __('Filters', 'standard'),
+                'aria_label'   => __('Filters', 'standard'),
+            ]);
+            ?>
         <?php endif; ?>
 
         <!-- Main Content -->
