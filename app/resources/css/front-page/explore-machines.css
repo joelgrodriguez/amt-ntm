@@ -12,24 +12,40 @@
  * @see js/modules/ExploreMachines.js - Tab switching and scroll navigation
  */
 
-/* Track - horizontal scroll with hidden scrollbar */
+/* Track - horizontal scroll with hidden scrollbar.
+   Visible cards per breakpoint is driven by --cards-per-view, and the
+   gap between cards reuses --carousel-gap so card width math stays
+   consistent on every viewport. */
 .explore-machines__track {
   @apply py-2;
+  --cards-per-view: 1;
+  --carousel-gap: 1rem; /* matches gap-4 baseline */
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   -ms-overflow-style: none;
+}
+
+@media (min-width: 768px) {
+  .explore-machines__track {
+    --carousel-gap: 1.5rem; /* matches md:gap-6 */
+  }
+}
+
+@media (min-width: 1024px) {
+  .explore-machines__track {
+    --cards-per-view: 4;
+  }
 }
 
 .explore-machines__track::-webkit-scrollbar {
   @apply hidden;
 }
 
-/* Carousel sizing for direct children. The card itself is stack-only;
-   width clamps + snap behavior live on the carousel, not the card. */
+/* Each card consumes an exact fraction of the track. The card itself is
+   stack-only; width math + snap behavior live on the carousel, not the
+   card. No peek of the next card — width fills the visible window. */
 .explore-machines__track > .card-product {
-  flex-shrink: 0;
-  min-width: 280px;
-  max-width: 320px;
+  flex: 0 0 calc((100% - (var(--cards-per-view) - 1) * var(--carousel-gap)) / var(--cards-per-view));
   scroll-snap-align: start;
 }
 

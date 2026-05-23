@@ -69,11 +69,10 @@ $first_category = array_key_first($categories);
                     role="tabpanel"
                     aria-labelledby="tab-<?php echo esc_attr($slug); ?>"
                 >
-                    <div class="explore-machines__track flex gap-4 overflow-x-auto -mx-1.5 md:gap-6">
+                    <div class="explore-machines__track flex gap-4 overflow-x-auto md:gap-6">
                         <?php foreach ($products as $product) : ?>
                             <?php get_template_part('templates/parts/card-product', null, ['product' => $product]); ?>
                         <?php endforeach; ?>
-                        <div class="shrink-0 w-1.5" aria-hidden="true"></div>
                     </div>
 
                     <div class="flex justify-center">
