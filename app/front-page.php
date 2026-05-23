@@ -7,10 +7,10 @@
  *   hero          (the machine, cinematic intro leading with flagships)
  *   explore       (browse the catalog: tabbed SKU-level scroller)
  *   doors         (two-cell category chooser: roof or gutter)
- *   flagships     (curated callouts: SSQ3 + MACH II Combo)
- *   router        (for the unsure: dial in 3 answers)
+ *   flagships     (curated callout: SSQ3)
+ *   quiz          (for the unsure: 10-question assessment CTA)
  *   learning      (educate: recent posts, videos, downloads)
- *   tools         (research aids: quiz, calc, manuals, compare)
+ *   tools         (research aids: calc, manuals, compare)
  *   why-own       (the case)
  *   social-proof  (trust)
  *   three-step    (how buying works)
@@ -18,9 +18,7 @@
  *
  * Research cluster (learning + tools) sits BEFORE the case-and-trust
  * surfaces (why-own, social-proof) so the page commits forward in the
- * back half instead of zigzagging buyer → researcher → buyer. Tools
- * sits after learning (not before router) so it doesn't read as a
- * second 'find your machine' surface right after the router itself.
+ * back half instead of zigzagging buyer → researcher → buyer.
  *
  * Contact lives at /contact/. Pain-points + value-prop are merged
  * into why-own.
@@ -49,7 +47,7 @@ get_header();
 
     <?php get_template_part('templates/parts/front-page/flagships'); ?>
 
-    <?php get_template_part('templates/parts/front-page/router'); ?>
+    <?php get_template_part('templates/parts/front-page/quiz'); ?>
 
     <?php get_template_part('templates/parts/learning-center'); ?>
 

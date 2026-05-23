@@ -2,19 +2,21 @@
 /**
  * Flagships Section — Front Page
  *
- * Two stacked product bands, alternating image-left / image-right, calling
- * out the roofing flagship (SSQ3) and the gutter flagship (MACH II Combo).
- * Replaces the earlier configurator promo section.
+ * Single product band calling out the roofing flagship (SSQ3). The
+ * gutter flagship (MACH II Combo) was removed from this section — it
+ * lives in the hero slider and on the category landing pages. The
+ * front-page surface this section serves is roof-buyer momentum, not
+ * two-product equal-weight.
  *
  * Why this composition: the rest of the page is largely sections that
  * describe the *funnel* (router, tools, three-step, why-own, social-proof).
  * This is the page's second moment of full product gravity after the hero
- * slider — real machines, real specs, equal weight to "two product lines."
+ * slider — a real machine, real specs, single CTA into the deep product
+ * page.
  *
- * Each band pulls live data from `data/machines/*.php` via
- * `get_machine_product_data()`. Single primary CTA per machine routes
- * to `/build-finance/?machine={slug}` so the configurator opens with
- * the machine preselected.
+ * Headline + CTA are local to this file (overrides the data-file
+ * slogan); `lede` is short and AEO-tuned so the SSQ3 product page
+ * keeps keyword authority for the long copy.
  *
  * @package Standard
  *
@@ -30,10 +32,10 @@ if (!defined('ABSPATH')) {
 use function Standard\MachineProductData\get_machine_product_data;
 
 // Per-flagship overrides. `image_key` picks between the data file's
-// `image` (product/action shot) and `hero_image` (alt shot) depending
-// on which is the better action photo for THIS machine. `lede` is a
-// short body paragraph between the headline and the CTA, written for
-// AEO/SEO (leads with model name + category, states concrete facts).
+// `image` (product/action shot) and `hero_image` (alt shot). `headline`
+// overrides the data file's slogan when the front-page voice needs to
+// differ from the machine page's. `cta_url` points to the deep product
+// page so SEO/AEO weight flows there.
 $flagships = [
     [
         'data_slug'    => 'ssq3-multipro',
@@ -41,15 +43,10 @@ $flagships = [
         'image_align'  => 'left',
         'image_key'    => 'image', // ntm-ssq3-manual-controller-050 control panel macro
         'badge'        => __('Flagship', 'standard'),
-        'lede'         => __('The SSQ3 MultiPro is NTM\'s most advanced portable roof and wall panel machine — 16 panel profiles, gas or electric power, on-board RFID profile recognition, and 25-minute tooling changeovers.', 'standard'),
-    ],
-    [
-        'data_slug'    => 'mach-ii-combo-gutter',
-        'model_label'  => 'MACH II Combo',
-        'image_align'  => 'right',
-        'image_key'    => 'hero_image', // C&S Rain Gutters action shot
-        'badge'        => '',
-        'lede'         => __('The MACH II Combo is a portable seamless gutter machine that produces both 5" and 6" K-style gutters from a single setup — no machine swap, no second trip to the truck.', 'standard'),
+        'headline'     => __('Meet the SSQ3™ MultiPro: The Next Generation of Portable Rollforming', 'standard'),
+        'lede'         => __('The SSQ3 MultiPro is NTM\'s most advanced portable roof and wall panel machine: 16 panel profiles, gas or electric power, on-board RFID profile recognition, and 25-minute tooling changeovers.', 'standard'),
+        'cta_label'    => __('Explore the SSQ3', 'standard'),
+        'cta_url'      => '/machines/roof-wall-panel-machines/ssq3-multipro/',
     ],
 ];
 
@@ -68,13 +65,16 @@ $rendered_count = 0;
         }
 
         $category   = $data['category'] ?? '';
-        $slogan     = $data['hero']['headline'] ?? $data['slogan'] ?? '';
+        // Headline: front-page override beats the data file's slogan.
+        $headline   = $flagship['headline'] ?? $data['hero']['headline'] ?? $data['slogan'] ?? '';
         $lede       = $flagship['lede'] ?? '';
         $image_key  = $flagship['image_key'] ?? 'image';
         $hero_image = $data['hero'][$image_key] ?? $data['hero']['image'] ?? $data['hero']['hero_image'] ?? '';
         $stats      = array_slice($data['stats'] ?? [], 0, 3);
 
-        $configure_url = \Standard\Url\with_query('/build-finance/', ['machine' => $flagship['data_slug']]);
+        $cta_label = $flagship['cta_label'] ?? __('Explore', 'standard');
+        $cta_url   = $flagship['cta_url']
+            ?? \Standard\Url\with_query('/build-finance/', ['machine' => $flagship['data_slug']]);
 
         $image_first_on_lg = $flagship['image_align'] === 'left';
         $rendered_count++;
@@ -84,14 +84,26 @@ $rendered_count = 0;
         <div class="container">
             <div class="grid gap-10 py-16 lg:grid-cols-2 lg:gap-16 lg:py-24 lg:items-center">
 
-                <!-- Image cell (16:9 action photo + spec strip beneath) -->
+                <!-- Image cell (16:9 action photo + optional badge overlay
+                     + spec strip beneath) -->
                 <div class="grid gap-4 <?php echo $image_first_on_lg ? 'lg:order-1' : 'lg:order-2'; ?>">
                     <?php if ($hero_image) : ?>
-                        <div class="aspect-video overflow-hidden">
+                        <div class="relative aspect-video overflow-hidden">
                             <?php \Standard\Images\responsive_image($hero_image, $data['hero']['headline'] ?? '', 'large', [
                                 'class'   => 'w-full h-full object-cover block',
                                 'loading' => 'lazy',
                             ]); ?>
+
+                            <?php if (!empty($flagship['badge'])) : ?>
+                                <!-- Badge: pinned top-left over the photo so
+                                     the content column is free of secondary
+                                     chrome. text-blue-50 (tinted near-white)
+                                     reads as on-image without violating the
+                                     pure-white ban. -->
+                                <span class="absolute top-0 left-0 inline-flex items-center px-3 py-2 bg-red text-blue-50 font-mono uppercase tracking-wider text-xs font-medium">
+                                    <?php echo esc_html($flagship['badge']); ?>
+                                </span>
+                            <?php endif; ?>
                         </div>
                     <?php endif; ?>
 
@@ -115,23 +127,18 @@ $rendered_count = 0;
                 <!-- Content cell -->
                 <div class="grid gap-6 lg:gap-8 content-start <?php echo $image_first_on_lg ? 'lg:order-2' : 'lg:order-1'; ?>">
 
-                    <!-- Eyebrow: red dot + category, with optional FLAGSHIP badge to the right -->
+                    <!-- Eyebrow: red dot + category. (Badge moved onto the image.) -->
                     <div class="flex items-center gap-3 flex-wrap">
                         <span class="w-2 h-2 bg-red shrink-0" aria-hidden="true"></span>
                         <p class="font-mono uppercase tracking-wider text-xs text-blue-700">
                             <?php echo esc_html($category); ?>
                         </p>
-                        <?php if (!empty($flagship['badge'])) : ?>
-                            <span class="ml-auto inline-flex items-center px-2 py-1 bg-red text-blue-50 font-mono uppercase tracking-wider text-xs font-medium">
-                                <?php echo esc_html($flagship['badge']); ?>
-                            </span>
-                        <?php endif; ?>
                     </div>
 
-                    <!-- Headline (slogan). Allow <br> with class attr so the
-                         data layer can insert responsive line breaks. -->
+                    <!-- Headline. Allow <br> with class attr so the data
+                         layer can insert responsive line breaks. -->
                     <h3 class="font-sans font-medium text-blue-900 tracking-tight leading-tight text-3xl md:text-4xl lg:text-5xl">
-                        <?php echo wp_kses($slogan, ['br' => ['class' => []]]); ?>
+                        <?php echo wp_kses($headline, ['br' => ['class' => []]]); ?>
                     </h3>
 
                     <?php if ($lede) : ?>
@@ -140,13 +147,13 @@ $rendered_count = 0;
                         </p>
                     <?php endif; ?>
 
-                    <!-- Single primary CTA: configure & quote -->
+                    <!-- Single primary CTA into the deep product page -->
                     <div class="flex -mt-2 lg:-mt-4">
                         <a
-                            href="<?php echo esc_url($configure_url); ?>"
+                            href="<?php echo esc_url(\Standard\Url\internal($cta_url)); ?>"
                             class="btn btn-primary"
                         >
-                            <?php esc_html_e('Configure & Quote', 'standard'); ?>
+                            <?php echo esc_html($cta_label); ?>
                             <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                         </a>
                     </div>
