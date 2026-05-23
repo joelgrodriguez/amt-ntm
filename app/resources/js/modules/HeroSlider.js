@@ -13,7 +13,7 @@
 
 const DEFAULTS = {
   selector: '.hero-slider',
-  autoPlayInterval: 5000,
+  autoPlayInterval: 7000,
   swipeThreshold: 50,
 };
 
