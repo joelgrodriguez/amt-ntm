@@ -46,13 +46,13 @@ return [
         ['value' => '50 ft/min', 'label' => __('Max Speed', 'standard')],
         ['value' => '1,250 lbs', 'label' => __('Machine Weight', 'standard')],
         ['value' => '30+',       'label' => __('Years Proven', 'standard')],
-        ['value' => '$12,300+',  'label' => __('Starting At', 'standard')],
+        ['value' => '$10,500+',  'label' => __('Starting At', 'standard')],
     ],
 
     // ── Finance ──
     'finance' => [
         'monthly_price' => null,
-        'price_range'   => __('$12,300+', 'standard'),
+        'price_range'   => __('$10,500+', 'standard'),
         'note'          => __('Depending on machine configuration', 'standard'),
         'apr'           => '5.99%',
         'months'        => '60',
@@ -258,7 +258,7 @@ return [
 
     // ── Schema ──
     'schema' => [
-        'low_price'    => '12300',
+        'low_price'    => '10500',
         'high_price'   => null,
         'availability' => 'InStock',
         'brand'        => 'New Tech Machinery',

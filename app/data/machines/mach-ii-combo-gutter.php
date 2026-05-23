@@ -46,13 +46,13 @@ return [
         ['value' => '2',         'label' => __('Gutter Sizes', 'standard')],
         ['value' => '50 ft/min', 'label' => __('Max Speed', 'standard')],
         ['value' => '1,350 lbs', 'label' => __('Machine Weight', 'standard')],
-        ['value' => '$15,500+',  'label' => __('Starting At', 'standard')],
+        ['value' => '$12,300+',  'label' => __('Starting At', 'standard')],
     ],
 
     // ── Finance ──
     'finance' => [
         'monthly_price' => null,
-        'price_range'   => __('$15,500+', 'standard'),
+        'price_range'   => __('$12,300+', 'standard'),
         'note'          => __('Depending on machine configuration', 'standard'),
         'apr'           => '5.99%',
         'months'        => '60',
@@ -258,7 +258,7 @@ return [
 
     // ── Schema ──
     'schema' => [
-        'low_price'    => '15500',
+        'low_price'    => '12300',
         'high_price'   => null,
         'availability' => 'InStock',
         'brand'        => 'New Tech Machinery',

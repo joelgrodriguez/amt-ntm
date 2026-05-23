@@ -46,13 +46,13 @@ return [
         ['value' => '2',          'label' => __('Box Gutter Profiles', 'standard')],
         ['value' => '60 ft/min',  'label' => __('Max Speed', 'standard')],
         ['value' => 'Hydraulic',  'label' => __('Drive & Shear', 'standard')],
-        ['value' => '$69,200+',   'label' => __('Starting At', 'standard')],
+        ['value' => '$71,600+',   'label' => __('Starting At', 'standard')],
     ],
 
     // ── Finance ──
     'finance' => [
         'monthly_price' => null,
-        'price_range'   => __('$69,200+', 'standard'),
+        'price_range'   => __('$71,600+', 'standard'),
         'note'          => __('Depending on machine configuration', 'standard'),
         'apr'           => '4.99%',
         'months'        => '72',
@@ -267,7 +267,7 @@ return [
 
     // ── Schema ──
     'schema' => [
-        'low_price'    => '69200',
+        'low_price'    => '71600',
         'high_price'   => null,
         'availability' => 'InStock',
         'brand'        => 'New Tech Machinery',
