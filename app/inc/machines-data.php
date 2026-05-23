@@ -111,12 +111,17 @@ function get_product_price(string $slug): ?string {
 /**
  * Get all machines organized by category.
  *
+ * Dormant machines (e.g. SSQ II, superseded by SSQ3) are filtered out
+ * by default. Pass true to include them — used by Woo product templates
+ * that still need to resolve the dormant machine's metadata when its
+ * historical product page renders.
+ *
  * @return array<string, array{label: string, machines: array}>
  */
-function get_machine_categories(): array {
+function get_machine_categories(bool $include_dormant = false): array {
     $base = 'https://newtechmachinery.com/wp-content/uploads/';
 
-    return [
+    $categories = [
         'roof-wall' => [
             'label' => 'Roof & Wall Panel Machines',
             'url'   => '/roof-wall-panel-machines/',
@@ -127,7 +132,7 @@ function get_machine_categories(): array {
                     'name'              => 'SSQ3™ MultiPro',
                     'short_name' => 'SSQ3™',
                     'descriptor' => 'The most advanced portable roll former ever built',
-                    'image'      => $base . '2025/10/SSQ3_For-Render_Trailer_Flattened-SQUARE.png',
+                    'image'      => $base . '2026/03/SSQ3_OL_0226-hero.png',
                     'url'        => get_product_url('ssq3-multipro'),
                     'badge'      => 'Flagship',
                     'highlights' => [
@@ -152,6 +157,10 @@ function get_machine_categories(): array {
                     'image'      => $base . '2025/09/20250911_NTM_SSQ-II_1000x1000.png',
                     'url'        => get_product_url('ssq-ii-multipro'),
                     'badge'      => '',
+                    // Superseded by SSQ3. Hidden from /machines and
+                    // /roof-wall-panel-machines listings, but the Woo
+                    // product page stays live for historical reasons.
+                    'dormant'    => true,
                     'highlights' => [
                         'Up to 16 profile options: standing seam roof, wall panels, and board & batten',
                         'Quick-Change Power Pack (QCPP) switches between gas and electric in the field',
@@ -274,11 +283,12 @@ function get_machine_categories(): array {
                         'Industry standard for 30+ years, 1–2 week lead time',
                     ],
                     'specs'      => [
-                        'profiles' => 'K-style gutter',
-                        'speed'    => '~50 FPM',
-                        'power'    => '',
-                        'shear'    => '',
-                        'best_for' => 'Seamless gutter production',
+                        'profiles'  => 'K-style',
+                        'size'      => '5"',
+                        'speed'     => '~50 FPM',
+                        'drive'     => 'Polyurethane rollers',
+                        'lead_time' => '1–2 weeks',
+                        'best_for'  => 'Residential gutter',
                     ],
                 ],
                 [
@@ -296,11 +306,12 @@ function get_machine_categories(): array {
                         'Industry standard for 30+ years, 1–2 week lead time',
                     ],
                     'specs'      => [
-                        'profiles' => 'K-style gutter',
-                        'speed'    => '~50 FPM',
-                        'power'    => '',
-                        'shear'    => '',
-                        'best_for' => 'Seamless gutter production',
+                        'profiles'  => 'K-style',
+                        'size'      => '6"',
+                        'speed'     => '~50 FPM',
+                        'drive'     => 'Polyurethane rollers',
+                        'lead_time' => '1–2 weeks',
+                        'best_for'  => 'Larger homes / light commercial',
                     ],
                 ],
                 [
@@ -319,11 +330,12 @@ function get_machine_categories(): array {
                         'Industry standard for 30+ years, 1–2 week lead time',
                     ],
                     'specs'      => [
-                        'profiles' => 'K-style gutter',
-                        'speed'    => '~50 FPM',
-                        'power'    => '',
-                        'shear'    => '',
-                        'best_for' => 'Seamless gutter production',
+                        'profiles'  => 'K-style',
+                        'size'      => '5" / 6"',
+                        'speed'     => '~50 FPM',
+                        'drive'     => 'Polyurethane rollers',
+                        'lead_time' => '1–2 weeks',
+                        'best_for'  => 'Crews running both sizes',
                     ],
                 ],
                 [
@@ -340,26 +352,42 @@ function get_machine_categories(): array {
                         'Portable design goes where the job takes you',
                     ],
                     'specs'      => [
-                        'profiles' => 'Box gutter',
-                        'speed'    => '',
-                        'power'    => '',
-                        'shear'    => '',
-                        'best_for' => 'Commercial box gutter production',
+                        'profiles'  => 'Box gutter',
+                        'size'      => '7"',
+                        'speed'     => '',
+                        'drive'     => 'Polyurethane rollers',
+                        'lead_time' => 'Configurable',
+                        'best_for'  => 'Commercial box gutter',
                     ],
                 ],
             ],
         ],
     ];
+
+    if ($include_dormant) {
+        return $categories;
+    }
+
+    foreach ($categories as $key => $category) {
+        $categories[$key]['machines'] = array_values(array_filter(
+            $category['machines'],
+            static fn(array $m): bool => empty($m['dormant'])
+        ));
+    }
+
+    return $categories;
 }
 
 /**
  * Get all machines as a flat array.
  *
+ * Dormant machines are excluded by default; pass true to include them.
+ *
  * @return array
  */
-function get_all_machines(): array {
+function get_all_machines(bool $include_dormant = false): array {
     $all = [];
-    foreach (get_machine_categories() as $category) {
+    foreach (get_machine_categories($include_dormant) as $category) {
         foreach ($category['machines'] as $machine) {
             $all[] = $machine;
         }
@@ -372,8 +400,8 @@ function get_all_machines(): array {
  *
  * @return array
  */
-function get_roof_wall_machines(): array {
-    $categories = get_machine_categories();
+function get_roof_wall_machines(bool $include_dormant = false): array {
+    $categories = get_machine_categories($include_dormant);
     return $categories['roof-wall']['machines'] ?? [];
 }
 
@@ -428,8 +456,8 @@ function get_roof_wall_faq_items(): array {
  *
  * @return array
  */
-function get_gutter_machines(): array {
-    $categories = get_machine_categories();
+function get_gutter_machines(bool $include_dormant = false): array {
+    $categories = get_machine_categories($include_dormant);
     return $categories['gutter']['machines'] ?? [];
 }
 

@@ -46,7 +46,7 @@ return [
         ['value' => '7',         'label' => __('Panel Profiles', 'standard')],
         ['value' => '30 ft/min', 'label' => __('Max Speed', 'standard')],
         ['value' => 'Electric',  'label' => __('Power', 'standard')],
-        ['value' => '$43,400+',  'label' => __('Starting At', 'standard')],
+        ['value' => 'Polyurethane', 'label' => __('Drive Rollers', 'standard')],
     ],
 
     // ── Finance ──

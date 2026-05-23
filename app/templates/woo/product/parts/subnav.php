@@ -44,7 +44,7 @@ if (
 ) {
     $aliases   = \Standard\MachineProductData\get_slug_aliases();
     $data_slug = $aliases[$product->get_slug()] ?? $product->get_slug();
-    foreach (\Standard\MachinesData\get_all_machines() as $m) {
+    foreach (\Standard\MachinesData\get_all_machines(true) as $m) {
         if (($m['slug'] ?? '') === $data_slug) {
             $current_short = $m['name'] ?? $current_name;
             break;

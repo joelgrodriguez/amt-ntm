@@ -46,7 +46,7 @@ return [
         ['value' => '3',             'label' => __('WAV Profiles', 'standard')],
         ['value' => '150 ft/min',    'label' => __('Max Speed (Electric)', 'standard')],
         ['value' => 'UNIQ®',         'label' => __('Controller Standard', 'standard')],
-        ['value' => '$232,000+',     'label' => __('Starting At', 'standard')],
+        ['value' => '25',            'label' => __('Drive Rollers', 'standard')],
     ],
 
     // ── Finance ──

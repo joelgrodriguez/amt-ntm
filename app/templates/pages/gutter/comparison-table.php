@@ -26,8 +26,11 @@ get_template_part('templates/parts/comparison-table', null, [
     ],
     'machines'   => get_gutter_machines(),
     'rows'       => [
-        'profiles' => __('Profile', 'standard'),
-        'speed'    => __('Speed', 'standard'),
-        'best_for' => __('Best For', 'standard'),
+        'profiles'  => __('Profile', 'standard'),
+        'size'      => __('Size', 'standard'),
+        'speed'     => __('Speed', 'standard'),
+        'drive'     => __('Drive', 'standard'),
+        'lead_time' => __('Lead Time', 'standard'),
+        'best_for'  => __('Best For', 'standard'),
     ],
 ]);

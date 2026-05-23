@@ -46,7 +46,7 @@ return [
         ['value' => '2',         'label' => __('Gutter Sizes', 'standard')],
         ['value' => '50 ft/min', 'label' => __('Max Speed', 'standard')],
         ['value' => '1,350 lbs', 'label' => __('Machine Weight', 'standard')],
-        ['value' => '$12,300+',  'label' => __('Starting At', 'standard')],
+        ['value' => 'K-style',   'label' => __('Gutter Profile', 'standard')],
     ],
 
     // ── Finance ──
@@ -70,7 +70,7 @@ return [
                 __('Stainless steel forming rollers', 'standard'),
                 __('Forward pulling easy cut shear with extra shear', 'standard'),
             ],
-            'image'    => '',
+            'image'    => content_url('/uploads/2026/05/ntm-mach2-electric-power-pack-005.jpg'),
         ],
         [
             'id'       => 'frame',
@@ -82,7 +82,7 @@ return [
                 __('Welded tubular steel frame', 'standard'),
                 __('Two 360° rotatable reel stands', 'standard'),
             ],
-            'image'    => '',
+            'image'    => content_url('/uploads/2026/05/ntm-mach2-gutter-assembly-drone-002.jpg'),
         ],
         [
             'id'       => 'power',
@@ -94,7 +94,7 @@ return [
                 __('Push-button RUN/JOG at entry & exit ends', 'standard'),
                 __('Power interruption safety circuit', 'standard'),
             ],
-            'image'    => '',
+            'image'    => content_url('/uploads/2026/05/ntm-mach2-electric-power-pack-019.jpg'),
         ],
     ],
 
@@ -160,6 +160,9 @@ return [
         ],
 
         'dimensions' => [
+            // Primary block kept for callers that read dimensions.machine
+            // (the front-page flagships strip, etc.). Reflects the 5"/6"
+            // combo as the headline variant.
             'machine' => [
                 'length'         => "10' (3.0m)",
                 'length_slitter' => null,
@@ -169,6 +172,32 @@ return [
                 'weight'         => '1,350 lbs. (610 kg)',
             ],
             'on_trailer' => [],
+            // Per-size variants: the MACH II combo ships in three
+            // physical footprints. The blueprint section renders one
+            // cell per variant.
+            'variants' => [
+                [
+                    'label'  => __('5" Gutter', 'standard'),
+                    'length' => "8' (2.4m)",
+                    'width'  => "2' (0.6m)",
+                    'height' => "4' (1.2m)",
+                    'weight' => '1,000 lbs. (454 kg)',
+                ],
+                [
+                    'label'  => __('6" Gutter', 'standard'),
+                    'length' => "10' (3.0m)",
+                    'width'  => "2' (0.6m) plus shear handle",
+                    'height' => "4' (1.2m)",
+                    'weight' => '1,250 lbs. (570 kg)',
+                ],
+                [
+                    'label'  => __('5"/6" Combo', 'standard'),
+                    'length' => "10' (3.0m)",
+                    'width'  => "2' (0.6m) plus shear handle and extra shear",
+                    'height' => "4' (1.2m)",
+                    'weight' => '1,350 lbs. (610 kg)',
+                ],
+            ],
         ],
 
         'performance' => [
@@ -209,12 +238,12 @@ return [
         ],
 
         'coil' => [
-            'widths'              => __('11¾" to 15" (300mm to 380mm)', 'standard'),
+            'widths'              => __('5" gutter: 11¾"–12⅜" (300–315mm) · 6" gutter: 15" (380mm)', 'standard'),
             'finished_widths'     => __('5" or 6" K-style gutter', 'standard'),
-            'max_diameter_rack'   => __('30" (762mm)', 'standard'),
+            'max_diameter_rack'   => __('30" (762mm) on reel', 'standard'),
             'max_diameter_decoil' => null,
-            'max_weight_reel'     => __('1,000 lbs (recommended)', 'standard'),
-            'max_weight_cradle'   => __('400 lbs (recommended)', 'standard'),
+            'max_weight_reel'     => __('1,000 lbs. (recommended)', 'standard'),
+            'max_weight_cradle'   => __('400 lbs. (recommended)', 'standard'),
         ],
 
         'power_options' => [

@@ -27,6 +27,7 @@ $stats          = $args['stats'] ?? [];
 $image_position = $args['image_position'] ?? 'right';
 $section_id     = $args['section_id'] ?? 'customer-story-title';
 $cta_icon       = $content['cta_icon'] ?? 'arrow-right';
+$background     = $args['background'] ?? 'bg-blue-50';
 
 if (empty($content)) {
     return;
@@ -64,7 +65,7 @@ $render_media = function () use ($content, $stats) :void {
 };
 ?>
 
-<section class="section bg-blue-50" aria-labelledby="<?php echo esc_attr($section_id); ?>">
+<section class="section <?php echo esc_attr($background); ?>" aria-labelledby="<?php echo esc_attr($section_id); ?>">
     <div class="container">
         <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-center">
 
@@ -93,7 +94,7 @@ $render_media = function () use ($content, $stats) :void {
                 </div>
 
                 <div>
-                    <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-sm btn-outline-dark">
+                    <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-sm btn-ghost px-0">
                         <?php if ($cta_icon === 'play') : ?>
                             <?php icon('play', ['class' => 'w-5 h-5']); ?>
                         <?php endif; ?>

@@ -46,7 +46,7 @@ return [
         ['value' => '50 ft/min', 'label' => __('Max Speed', 'standard')],
         ['value' => '1,250 lbs', 'label' => __('Machine Weight', 'standard')],
         ['value' => '30+',       'label' => __('Years Proven', 'standard')],
-        ['value' => '$10,500+',  'label' => __('Starting At', 'standard')],
+        ['value' => '6" K-style', 'label' => __('Gutter Profile', 'standard')],
     ],
 
     // ── Finance ──

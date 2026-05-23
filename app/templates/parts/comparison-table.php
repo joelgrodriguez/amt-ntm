@@ -44,20 +44,22 @@ if (empty($machines) || empty($rows)) {
             </h2>
         </div>
 
-        <!-- md+: table fits the container naturally; below md, horizontal
-             scroll with sticky spec-label column. -->
+        <!-- md+: table-fixed with equal column widths so every column —
+             including the first "Machine" label column — gets the same
+             share of the container. Below md, horizontal scroll with a
+             sticky spec-label column so the table still reads on mobile. -->
         <div class="overflow-x-auto md:overflow-visible">
             <table class="w-full text-sm border-collapse border border-blue-200 md:table-fixed" aria-labelledby="<?php echo esc_attr($section_id); ?>">
                 <caption class="sr-only"><?php echo esc_html($content['title']); ?></caption>
                 <thead>
                     <tr>
-                        <th class="bg-blue-800 text-white py-4 px-4 text-left font-medium text-base border-r border-blue-700 sticky left-0 z-10 md:static md:w-32">
+                        <th class="bg-blue-800 text-white py-4 px-4 text-left font-medium text-base border-r border-blue-700 sticky left-0 z-10 md:static">
                             <?php esc_html_e('Machine', 'standard'); ?>
                         </th>
                         <?php foreach ($machines as $machine) :
                             $is_flagship = !empty($machine['badge']);
                         ?>
-                            <th class="<?php echo $is_flagship ? 'bg-blue-500' : 'bg-blue-800'; ?> text-white py-4 px-3 text-center border-r border-blue-700 min-w-[130px] md:min-w-0">
+                            <th class="<?php echo $is_flagship ? 'bg-blue-500' : 'bg-blue-800'; ?> text-white py-4 px-3 text-center border-r border-blue-700 min-w-[130px] md:min-w-0 break-words">
                                 <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="text-white no-underline hover:underline font-medium text-sm">
                                     <?php echo esc_html($machine['short_name'] ?? $machine['name']); ?>
                                 </a>

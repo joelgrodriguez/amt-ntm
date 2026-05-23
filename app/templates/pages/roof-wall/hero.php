@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
 get_template_part('templates/parts/hero-category', null, [
     'section_id' => 'roof-wall-hero',
     'content'    => [
-        'kicker'            => __('NTM // ROOF & WALL PANEL MACHINES', 'standard'),
+        'kicker'            => __('ROOF & WALL PANEL MACHINES', 'standard'),
         'title'             => __('Fabricate Panels On-Site. Cut Lead Times by 75%.', 'standard'),
         'subtitle'          => __('Portable rollformers that produce standing seam, flush wall, and board & batten panels right on the jobsite.', 'standard'),
         'cta_primary'       => __('See the Machines', 'standard'),

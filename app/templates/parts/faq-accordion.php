@@ -68,7 +68,7 @@ $faq_schema = [
             </h2>
         </div>
 
-        <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-start">
+        <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-stretch">
 
             <div data-accordion-group>
                 <?php foreach ($faqs as $faq) : ?>
@@ -86,11 +86,15 @@ $faq_schema = [
                 <?php endforeach; ?>
             </div>
 
-            <div class="hidden md:block">
+            <!-- Desktop: image fills the grid cell so its height matches the
+                 accordion column instead of forcing a fixed 16:9 box. Mobile
+                 keeps it hidden because the accordion is the load-bearing
+                 element on small screens. -->
+            <div class="hidden md:block md:h-full">
                 <img
                     src="<?php echo esc_url($content['image']); ?>"
                     alt="<?php echo esc_attr($image_alt); ?>"
-                    class="w-full aspect-video object-cover"
+                    class="w-full h-full object-cover"
                     loading="lazy"
                 >
             </div>

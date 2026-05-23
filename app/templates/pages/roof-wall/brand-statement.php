@@ -27,4 +27,6 @@ get_template_part('templates/parts/brand-statement', null, [
         "From standing seam roofing to flush wall and board and batten siding, New Tech Machinery's portable rollformers fabricate panels on-site, anywhere the job takes you. NTM is the industry leader in portable rollforming: we invented the polyurethane drive rollers now standard across the industry, and our roof and wall panel machines are trusted by contractors on all seven continents, from rugged mountains to scorching deserts.",
         'standard'
     ),
+    'image'      => content_url('/uploads/2024/10/operating-UNIQ-on-SSQ-scaled.jpg'),
+    'image_alt'  => __('Operator running the UNIQ controller on an SSQ MultiPro', 'standard'),
 ]);
