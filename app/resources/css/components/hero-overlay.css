@@ -19,16 +19,17 @@
 
 /* ── Solid dark overlay ──────────────────────────────────────────── */
 
-/* 50% pure-black wash. Pure black is reserved per DESIGN.md §2.2 for
+/* 42% pure-black wash. Pure black is reserved per DESIGN.md §2.2 for
    "image overlays" — this is exactly that use. Reads more premium than
    blue-tinted dark; product detail comes through with neutral contrast
-   rather than a brand-blue cast. */
+   rather than a brand-blue cast. Dialed back from 50% so the photo
+   reads a touch brighter behind the hero copy. */
 .hero-overlay {
   position: absolute;
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  background-color: color-mix(in srgb, var(--color-black) 50%, transparent);
+  background-color: color-mix(in srgb, var(--color-black) 42%, transparent);
 }
 
 /* ── SVG grain texture ────────────────────────────────────────────── */
