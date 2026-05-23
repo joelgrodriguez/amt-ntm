@@ -1,0 +1,142 @@
+/**
+ * Filter Sidebar
+ *
+ * One filter row, one filter sidebar. Drives /search, taxonomy archives,
+ * profile / manual catalog landings, and any future page that needs to
+ * pivot a result set by content type, category, or topic.
+ *
+ * Visual contract:
+ *   - 44px tall row, hairline border, white surface
+ *   - hover    : border-blue-500
+ *   - active   : border-blue-500 + bg-blue-50 interior tint
+ *   - counts   : mono, blue-400, right-aligned via ml-auto
+ *   - no left-stripe accent. ever.
+ *
+ * Modes:
+ *   - checkbox : multi-select, submitted with the form's Apply button
+ *   - radio    : single-select, same shell
+ *   - link     : pure-link archive nav, no form, no Apply button
+ *
+ * @file components/filters.css
+ */
+
+@layer components {
+  .filter-group {
+    @apply grid gap-3;
+  }
+
+  .filter-group-title {
+    @apply flex w-full items-center justify-between gap-3;
+  }
+
+  .filter-group-label {
+    @apply flex items-center gap-2 font-mono font-medium uppercase tracking-wider text-blue-500;
+    font-size: var(--text-caption);
+  }
+
+  .filter-group-meta {
+    @apply font-mono font-normal text-blue-400;
+    font-size: var(--text-caption);
+  }
+
+  .filter-options {
+    @apply grid gap-2 m-0 p-0 list-none;
+  }
+
+  /* The interactive row. Used as <label> for checkbox/radio, <a> for link. */
+  .filter-option {
+    @apply flex min-h-11 items-center gap-3 border border-blue-200 bg-white px-3 py-2 text-sm text-blue-700 no-underline cursor-pointer;
+    transition: border-color 200ms ease-out, background-color 200ms ease-out, color 200ms ease-out;
+  }
+
+  .filter-option:hover {
+    @apply border-blue-500 text-blue-900;
+  }
+
+  .filter-option:focus-visible {
+    @apply outline-none border-blue-500;
+    box-shadow: 0 0 0 2px var(--color-white), 0 0 0 4px var(--color-blue-500);
+  }
+
+  .filter-option[data-active="true"] {
+    @apply border-blue-500 bg-blue-50 text-blue-900;
+  }
+
+  .filter-option-control {
+    @apply h-4 w-4 shrink-0 accent-blue-500;
+  }
+
+  .filter-option-label {
+    @apply min-w-0 flex-1 leading-snug;
+  }
+
+  .filter-option-count {
+    @apply font-mono text-blue-400 ml-auto;
+    font-size: var(--text-caption);
+  }
+
+  .filter-option[data-active="true"] .filter-option-count {
+    @apply text-blue-500;
+  }
+
+  /* Active-filter chip strip rendered above results. */
+  .filter-chips {
+    @apply flex flex-wrap items-center gap-2 m-0 p-0 list-none;
+  }
+
+  .filter-chip {
+    @apply inline-flex min-h-8 items-center gap-2 border border-blue-500 bg-blue-50 pl-3 pr-2 text-blue-900 no-underline;
+    @apply font-mono uppercase tracking-wider;
+    font-size: var(--text-caption);
+    transition: background-color 200ms ease-out, color 200ms ease-out;
+  }
+
+  .filter-chip:hover {
+    @apply bg-blue-500 text-white;
+  }
+
+  .filter-chip-x {
+    @apply flex h-6 w-6 items-center justify-center;
+  }
+
+  /* Sidebar shell. Hairline rail on lg+. Below lg the sidebar lives inside
+     a <details> drawer (handled by .filter-drawer further down). */
+  .filter-sidebar {
+    @apply grid gap-8;
+  }
+
+  .filter-sidebar-footer {
+    @apply grid gap-3 border-t border-blue-200 pt-6;
+  }
+
+  /* Mobile drawer. <details> + <summary> means no JS required. */
+  .filter-drawer {
+    @apply lg:hidden border border-blue-200 bg-white;
+  }
+
+  .filter-drawer > summary {
+    @apply flex min-h-12 cursor-pointer items-center justify-between gap-3 px-4 font-mono font-medium uppercase tracking-wider text-blue-900;
+    font-size: var(--text-caption);
+    list-style: none;
+  }
+
+  .filter-drawer > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .filter-drawer-caret {
+    @apply transition-transform;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .filter-drawer[open] .filter-drawer-caret {
+    transform: rotate(180deg);
+  }
+
+  .filter-drawer-body {
+    @apply grid gap-8 border-t border-blue-200 p-4;
+  }
+}
+</content>
+</invoke>
