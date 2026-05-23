@@ -25,6 +25,8 @@ $finance = $machine['finance'] ?? [];
 $headline = !empty($hero['headline']) ? $hero['headline'] : $product->get_name();
 $subtitle = !empty($hero['subtitle']) ? $hero['subtitle'] : $product->get_short_description();
 $image    = $hero['hero_image'] ?? $hero['image'] ?? '';
+$video    = $hero['video'] ?? '';
+$has_mp4  = $video !== '' && preg_match('/\.mp4($|\?)/i', $video);
 
 $price_display = !empty($finance['price_range']) ? $finance['price_range'] : $product->get_price_html();
 $machine_name  = $product->get_name();
@@ -51,7 +53,19 @@ if (
 
 <section id="machine-hero" class="hero hero--machine-product" aria-labelledby="machine-hero-title">
     <div class="hero__photo">
-        <?php if (!empty($image)) : ?>
+        <?php if ($has_mp4) : ?>
+            <video
+                class="hero__media hero__media--video"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                <?php if (!empty($image)) : ?>poster="<?php echo esc_url($image); ?>"<?php endif; ?>
+            >
+                <source src="<?php echo esc_url($video); ?>" type="video/mp4">
+            </video>
+        <?php elseif (!empty($image)) : ?>
             <?php \Standard\Images\responsive_image($image, $headline, 'full', [
                 'class'         => 'hero__media',
                 'loading'       => 'eager',
