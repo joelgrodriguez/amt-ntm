@@ -70,7 +70,7 @@ return [
                 __('Stainless steel forming rollers', 'standard'),
                 __('Forward pulling easy cut shear with extra shear', 'standard'),
             ],
-            'image'    => '',
+            'image'    => content_url('/uploads/2026/05/ntm-mach2-electric-power-pack-005.jpg'),
         ],
         [
             'id'       => 'frame',
@@ -82,7 +82,7 @@ return [
                 __('Welded tubular steel frame', 'standard'),
                 __('Two 360° rotatable reel stands', 'standard'),
             ],
-            'image'    => '',
+            'image'    => content_url('/uploads/2026/05/ntm-mach2-gutter-assembly-drone-002.jpg'),
         ],
         [
             'id'       => 'power',
@@ -94,7 +94,7 @@ return [
                 __('Push-button RUN/JOG at entry & exit ends', 'standard'),
                 __('Power interruption safety circuit', 'standard'),
             ],
-            'image'    => '',
+            'image'    => content_url('/uploads/2026/05/ntm-mach2-electric-power-pack-019.jpg'),
         ],
     ],
 
