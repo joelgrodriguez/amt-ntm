@@ -29,10 +29,10 @@ if (!defined('ABSPATH')) {
 
 $content = [
     'eyebrow'   => __('How You Buy', 'standard'),
-    'title'     => __('How a machine gets built and shipped.', 'standard'),
+    'title'     => __('Three steps to a portable rollformer of your own.', 'standard'),
     'image'     => content_url('/uploads/2026/01/JIm-and-family-with-SSQ-scaled.jpg'),
     'image_alt' => __('Jim and his family with their NTM SSQ portable rollformer', 'standard'),
-    'caption'   => __('NTM owners on day one of their machine.', 'standard'),
+    'caption'   => __('Thousands of contractors run their business on an NTM.', 'standard'),
 ];
 
 $phases = [
@@ -73,7 +73,10 @@ $phases = [
                         class="w-full h-full object-cover block"
                     >
                 </div>
-                <figcaption class="font-mono text-[11px] uppercase tracking-[0.18em] text-blue-500">
+                <!-- Caption as quiet social proof: sans, medium weight,
+                     blue-900 (full strength). Reads as a statement, not
+                     a footnote. -->
+                <figcaption class="font-sans font-medium text-blue-900 text-base lg:text-lg leading-snug">
                     <?php echo esc_html($content['caption']); ?>
                 </figcaption>
             </figure>

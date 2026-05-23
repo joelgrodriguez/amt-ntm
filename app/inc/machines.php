@@ -63,10 +63,10 @@ function get_hero_slides(): array {
             // frame, so anchor to the bottom edge when cover-cropped.
             'focal_point'      => 'center bottom',
             'cta_url'          => '/machines/roof-wall-panel-machines/',
-            'cta_label'        => __('Explore Roof Machines', 'standard'),
+            'cta_label'        => __('Explore Panel Machines', 'standard'),
         ],
         'mach-ii-combo-gutter' => [
-            'title'     => __('Do More in Less Time', 'standard'),
+            'title'     => __('Do More<br class="hidden lg:inline"> in Less Time', 'standard'),
             'slogan'    => __('Run 5- and 6-inch K-style seamless gutters on every job, single setup, no machine swap. NTM portable gutter machines keep the full ticket in-house.', 'standard'),
             'cta_url'   => '/machines/gutter-machines/',
             'cta_label' => __('Explore Gutter Machines', 'standard'),

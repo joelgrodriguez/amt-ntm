@@ -37,13 +37,20 @@ if (empty($categories)) {
 
 $first_category = array_key_first($categories);
 
-// Per-category landing page URLs. Catalog slugs don't all match
-// the public URL (accessories sits at /machines/ntm-accessories/,
-// not at the catalog slug), so the mapping lives here.
+// Per-category landing page URLs + button labels. Catalog slugs
+// don't all match the public URL (accessories sits at
+// /machines/ntm-accessories/, not at the catalog slug), so the
+// mapping lives here. Button labels stay short and parallel:
+// 'View All {short}'.
 $landing_urls = [
     'roof-wall-panel-machines'      => '/machines/roof-wall-panel-machines/',
     'gutter-machines'               => '/machines/gutter-machines/',
     'accessories-add-on-equipment'  => '/machines/ntm-accessories/',
+];
+$landing_labels = [
+    'roof-wall-panel-machines'      => __('View All Panel Machines', 'standard'),
+    'gutter-machines'               => __('View All Gutter Machines', 'standard'),
+    'accessories-add-on-equipment'  => __('View All Accessories', 'standard'),
 ];
 ?>
 
@@ -72,9 +79,10 @@ $landing_urls = [
         <div class="explore-machines__panels">
             <?php foreach ($categories as $slug => $category) : ?>
                 <?php
-                $products     = get_products_by_category($slug);
-                $landing_url  = $landing_urls[$slug] ?? '';
-                $product_count = count($products);
+                $products       = get_products_by_category($slug);
+                $landing_url    = $landing_urls[$slug] ?? '';
+                $landing_label  = $landing_labels[$slug] ?? __('View All', 'standard');
+                $product_count  = count($products);
                 ?>
                 <div
                     id="panel-<?php echo esc_attr($slug); ?>"
@@ -113,25 +121,18 @@ $landing_urls = [
                         <?php endforeach; ?>
                     </div>
 
-                    <!-- Row anchor (below cards): centered 'View all' link.
-                         This is the panel's primary outbound action — the
-                         door to the category landing. Lives alone so the
-                         visual weight reads as 'this is what you do next.' -->
+                    <!-- Row anchor (below cards): outline button to the
+                         category landing. The panel's primary outbound
+                         action; lives alone so the visual weight reads
+                         as 'this is what you do next.' -->
                     <?php if ($landing_url) : ?>
                         <div class="flex justify-center pt-2">
                             <a
                                 href="<?php echo esc_url(\Standard\Url\internal($landing_url)); ?>"
-                                class="group inline-flex items-center gap-2 font-mono text-sm uppercase tracking-wider text-blue-700 hover:text-red transition-colors"
+                                class="btn btn-outline-dark"
                             >
-                                <?php
-                                printf(
-                                    /* translators: 1: product count, 2: category label */
-                                    esc_html__('View all %1$d %2$s', 'standard'),
-                                    (int) $product_count,
-                                    esc_html($category['label'])
-                                );
-                                ?>
-                                <?php icon('arrow-right', ['class' => 'w-4 h-4 transition-transform group-hover:translate-x-1']); ?>
+                                <?php echo esc_html($landing_label); ?>
+                                <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                             </a>
                         </div>
                     <?php endif; ?>
