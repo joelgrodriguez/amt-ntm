@@ -2,10 +2,10 @@
 /**
  * Machines Page — Lineup Card
  *
- * Individual machine card for the lineup grid. Image, name, single
- * Build & Quote CTA. The product spec page is reachable from the
- * compare table and flagship band; this card's job is to funnel into
- * the configurator.
+ * Individual machine card for the lineup grid. Image + name, whole
+ * card is the tap target for the machine's spec page. No secondary
+ * CTA — the spec page is the single destination so keyboard users get
+ * one stop per card and the hover affordance reads as a real link.
  *
  * @package Standard
  *
@@ -25,7 +25,7 @@ if (!$machine) {
 }
 ?>
 
-<div class="bg-white flex flex-col h-full">
+<div class="bg-white flex flex-col h-full relative group hover:bg-blue-50 transition-colors duration-150">
     <!-- Product Image -->
     <div class="p-4 sm:p-6 flex items-center justify-center aspect-4/3">
         <?php \Standard\Images\responsive_image($machine['image'], $machine['name'], 'product-card', [
@@ -33,19 +33,12 @@ if (!$machine) {
         ]); ?>
     </div>
 
-    <!-- Content. One link per card: Build & Quote. The machine name is
-         the on-page label; the spec page is reachable via the compare
-         table's Explore button and the flagship band, so we don't need
-         a redundant card-wide overlay competing with the CTA. -->
+    <!-- Content. Single card-wide link via the name overlay. -->
     <div class="p-4 sm:p-6 flex flex-col grow gap-4">
-        <h4 class="text-2xl font-medium text-blue-900 tracking-tight">
-            <?php echo esc_html($machine['name']); ?>
-        </h4>
-
-        <div class="mt-auto">
-            <a href="<?php echo esc_url(\Standard\Url\with_query('/build-finance/', ['machine' => $machine['slug']])); ?>" class="btn btn-primary btn-sm">
-                <?php esc_html_e('Build & Quote', 'standard'); ?>
+        <h4 class="text-2xl font-medium text-blue-900 tracking-tight group-hover:text-blue-500 transition-colors duration-150">
+            <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="after:absolute after:inset-0 no-underline text-inherit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                <?php echo esc_html($machine['name']); ?>
             </a>
-        </div>
+        </h4>
     </div>
 </div>
