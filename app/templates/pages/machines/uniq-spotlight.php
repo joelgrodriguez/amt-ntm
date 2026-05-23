@@ -1,15 +1,15 @@
 <?php
 /**
- * Machines Page — UNIQ Technology Spotlight
+ * Roof & Wall Pillar — UNIQ Technology Spotlight
  *
  * Two-column light section: product image left (with availability mono
- * caption beneath), features-as-accordion right. Accordion items are
- * all closed by default so the section reads compact and the visitor
- * opens whatever's relevant to them.
+ * caption beneath), feature bullets right with a CTA into the deeper
+ * technology page. The accordion variant was retired because the four
+ * UNIQ features are short enough to read at a glance.
  *
  * @package Standard
  *
- * @usage Machines Page (page-machines.php)
+ * @usage Roof & Wall Panel Machines (page-roof-wall-panel-machines.php)
  */
 
 declare(strict_types=1);
@@ -27,7 +27,7 @@ $content = [
     'availability' => __('Standard on WAV · Optional on SSQ II & SSQ3', 'standard'),
     'image'        => content_url('/uploads/2021/10/SSQ-II-Training-General-Overview-Featured-Image-2048x1152.png'),
     'cta_text'     => __('Learn More', 'standard'),
-    'cta_url'      => '/technology/uniq/',
+    'cta_url'      => '/machines/uniq-control-system/',
 ];
 
 $features = get_uniq_features();
@@ -65,21 +65,18 @@ $features = get_uniq_features();
                     </p>
                 </div>
 
-                <div data-accordion-group>
+                <ul class="grid gap-5 border-t border-blue-200 pt-6">
                     <?php foreach ($features as $feature) : ?>
-                        <details class="accordion">
-                            <summary>
+                        <li class="grid gap-1">
+                            <h3 class="text-base font-medium text-blue-900">
                                 <?php echo esc_html($feature['title']); ?>
-                                <span class="accordion__icon">
-                                    <?php icon('chevron-down', ['class' => 'w-5 h-5']); ?>
-                                </span>
-                            </summary>
-                            <div class="accordion__body text-base text-blue-600 leading-relaxed">
-                                <p><?php echo esc_html($feature['text']); ?></p>
-                            </div>
-                        </details>
+                            </h3>
+                            <p class="text-base text-blue-600 leading-relaxed">
+                                <?php echo esc_html($feature['text']); ?>
+                            </p>
+                        </li>
                     <?php endforeach; ?>
-                </div>
+                </ul>
 
                 <div>
                     <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-outline-dark">
