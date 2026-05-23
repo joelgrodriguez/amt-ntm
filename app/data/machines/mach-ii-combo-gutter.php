@@ -34,7 +34,7 @@ return [
 
     // ── Hero ──
     'hero' => [
-        'headline'   => __('5" and 6" K-Style in One Machine.', 'standard'),
+        'headline'   => __('5" and 6" K-Style<br class="hidden lg:inline"> in One Machine.', 'standard'),
         'subtitle'   => __('The combo runs both 5" and 6" K-style seamless gutters. Maximum versatility for gutter contractors.', 'standard'),
         'hero_image' => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-mach2-gutter-install-abel-002.jpg',
         'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_MACH-II-5-6-Combo_1000x1000.png',
