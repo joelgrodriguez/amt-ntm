@@ -111,8 +111,35 @@ function get_post_type_filter_keys(): array {
  */
 function get_post_type_filter_options(): array {
     $options = [];
+    $preferred_labels = \apply_filters('standard_search_post_type_filter_labels', [
+        'product'    => \__('Machines', 'standard'),
+        'profile'    => \__('Profiles', 'standard'),
+        'manual'     => \__('Manuals', 'standard'),
+        'post'       => \__('Articles', 'standard'),
+        'video'      => \__('Videos', 'standard'),
+        'resource'   => \__('Resources', 'standard'),
+        'download'   => \__('Downloads', 'standard'),
+        'literature' => \__('Literature', 'standard'),
+        'page'       => \__('Pages', 'standard'),
+        'footprint'  => \__('Footprints', 'standard'),
+    ]);
+    $searchable_post_types = get_searchable_post_types();
 
-    foreach (get_searchable_post_types() as $post_type) {
+    if (is_array($preferred_labels)) {
+        foreach ($preferred_labels as $post_type => $label) {
+            $post_type = \sanitize_key((string) $post_type);
+
+            if (in_array($post_type, $searchable_post_types, true)) {
+                $options[$post_type] = (string) $label;
+            }
+        }
+    }
+
+    foreach ($searchable_post_types as $post_type) {
+        if (isset($options[$post_type])) {
+            continue;
+        }
+
         $post_type_object = \get_post_type_object($post_type);
         $options[$post_type] = $post_type_object
             ? (string) $post_type_object->labels->name
