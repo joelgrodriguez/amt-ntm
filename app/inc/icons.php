@@ -120,6 +120,24 @@ namespace Standard {
 
         $svg = $cache[$name];
 
+        // Default to aria-hidden + focusable=false so decorative icons
+        // don't pollute the screen-reader announcement stream and don't
+        // grab focus in IE/legacy Edge. Callers that need the icon to
+        // be announced pass an explicit aria-label / role / aria-hidden
+        // override, which wins via array_merge ordering below.
+        $defaults = [
+            'aria-hidden' => 'true',
+            'focusable'   => 'false',
+        ];
+
+        // If the caller passed aria-label or role, the icon is semantic
+        // (announced) — drop the aria-hidden default so it isn't hidden.
+        if (isset($attrs['aria-label']) || isset($attrs['role'])) {
+            unset($defaults['aria-hidden']);
+        }
+
+        $attrs = array_merge($defaults, $attrs);
+
         // Inject custom attributes into opening <svg> tag
         if ($attrs) {
             $attr_string = '';

@@ -122,7 +122,7 @@ $rendered_count = 0;
                             <?php echo esc_html($category); ?>
                         </p>
                         <?php if (!empty($flagship['badge'])) : ?>
-                            <span class="ml-auto inline-flex items-center px-2 py-1 bg-red text-white font-mono uppercase tracking-wider text-xs font-medium">
+                            <span class="ml-auto inline-flex items-center px-2 py-1 bg-red text-blue-50 font-mono uppercase tracking-wider text-xs font-medium">
                                 <?php echo esc_html($flagship['badge']); ?>
                             </span>
                         <?php endif; ?>

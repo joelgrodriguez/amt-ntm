@@ -43,6 +43,18 @@ $first_slide = $slides[0] ?? null;
 
 <section class="hero-slider" aria-label="<?php echo esc_attr($content['section_label']); ?>">
 
+    <!-- Visually-hidden page title. The hero slider is the first
+         landmark on the front page; the buyer is already looking at
+         the company name in the header, so the h1 is a screen-reader
+         + SEO anchor, not a visual element. -->
+    <h1 class="sr-only">
+        <?php echo esc_html(sprintf(
+            /* translators: %s = site name */
+            __('%s — Portable Rollforming Machines', 'standard'),
+            get_bloginfo('name')
+        )); ?>
+    </h1>
+
     <!-- Slides Track -->
     <div class="hero-slider__track">
         <?php foreach ($slides as $index => $slide) : ?>
