@@ -36,7 +36,7 @@ return [
     'hero' => [
         'headline'   => __('6" K-Style Gutters. The Industry Standard.', 'standard'),
         'subtitle'   => __('6" seamless gutter machine with the original polyurethane drive system. Over 30 years of proven performance.', 'standard'),
-        'hero_image' => 'https://newtechmachinery.com/wp-content/uploads/2024/07/20240612_NTM_CS-Rain-Gutters-Interview_V1.00_03_30_06.Still002.jpg',
+        'hero_image' => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-mach2-gutter-install-abel-003.jpg',
         'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_MACH-II-6_1000x1000.png',
         'video'      => null,
     ],

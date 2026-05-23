@@ -36,7 +36,7 @@ return [
     'hero' => [
         'headline'   => __('The Original Polyurethane Drive System. Since 1994.', 'standard'),
         'subtitle'   => __('5" K-style seamless gutter machine. The most copied machine in the industry. Over 30 years building successful gutter businesses.', 'standard'),
-        'hero_image' => 'https://newtechmachinery.com/wp-content/uploads/2024/07/20240612_NTM_CS-Rain-Gutters-Interview_V1.00_03_30_06.Still002.jpg',
+        'hero_image' => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-mach2-gutter-install-abel-001.jpg',
         'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_MACH-II-5_1000x1000.png',
         'video'      => null,
     ],
