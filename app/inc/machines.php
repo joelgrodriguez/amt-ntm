@@ -42,8 +42,11 @@ function get_hero_slides(): array {
     // the data files are by model line and the WC products are by SKU.
     $machine_slides = [
         'ssq3-multipro' => [
-            'title'   => 'SSQ3™ MultiPro',
-            'wp_slug' => 'ssq3-multipro',
+            'title'            => 'SSQ3™ MultiPro',
+            'wp_slug'          => 'ssq3-multipro',
+            // Slider-only image. Keeps data/machines/ssq3-multipro.php's
+            // hero.hero_image free to drive the single-machine page.
+            'background_image' => content_url('/uploads/2026/05/ntm-q3-hero-placeholder-2.png'),
         ],
         'mach-ii-combo-gutter' => [
             'title'   => 'MACH II™ Combo',
@@ -76,7 +79,7 @@ function get_hero_slides(): array {
             'category'         => $data['category'] ?? '',
             'title'            => $meta['title'],
             'slogan'           => $data['slogan'] ?? '',
-            'background_image' => $data['hero']['hero_image'] ?? $data['hero']['image'] ?? '',
+            'background_image' => $meta['background_image'] ?? $data['hero']['hero_image'] ?? $data['hero']['image'] ?? '',
             'background_video' => $data['hero']['video'] ?? '',
             'learn_more_url'   => $permalinks[$meta['wp_slug']] ?? '#',
             'cta_label'        => __('View Machine', 'standard'),
