@@ -31,16 +31,18 @@
   background-color: var(--color-black);
 }
 
-/* The photo region. Fills viewport-minus-header so heroes anchor
-   cleanly to the fold. The --hero-band fallback (0px) keeps the
-   calc valid even when no parent sets the var; surfaces that pair
-   the hero with a band beneath it (e.g. machine product) override
-   --hero-band on a parent so the photo shrinks to leave room. */
+/* The photo region. Sized to ~50% of the viewport so the hero acts
+   as a banner rather than a full-fold takeover — content downstream
+   gets to breathe above the fold. The --hero-band fallback (0px)
+   keeps the calc valid even when no parent sets the var; surfaces
+   that pair the hero with a band beneath it (e.g. machine product)
+   override --hero-band on a parent so the photo shrinks to leave
+   room. */
 .hero__photo {
   position: relative;
   width: 100%;
-  height: calc(100vh - var(--header-height, 4rem) - var(--hero-band, 0px));
-  height: calc(100dvh - var(--header-height, 4rem) - var(--hero-band, 0px));
+  height: calc(50vh - var(--hero-band, 0px));
+  height: calc(50dvh - var(--hero-band, 0px));
   min-height: 360px;
   overflow: hidden;
   background-color: var(--color-black);
@@ -246,14 +248,14 @@
   .hero__watermark--top-left    { top: 2.5rem; left: 3rem; }
   .hero__watermark--top-right   { top: 2.5rem; right: 3rem; }
   .hero__watermark--bottom-left { bottom: 2.5rem; left: 3rem; }
-  .hero__content     { padding-top: 2rem; padding-bottom: 8rem; }
+  .hero__content     { padding-top: 2rem; padding-bottom: 3.5rem; }
   .hero__eyebrow     { font-size: 0.875rem; }
   .hero__title       { font-size: var(--text-6xl); line-height: 0.95; }
   .hero__slogan      { font-size: 1.125rem; }
 }
 
 @media (min-width: 1024px) {
-  .hero__content { padding-top: 2rem; padding-bottom: clamp(6rem, 16vh, 12rem); }
+  .hero__content { padding-top: 2rem; padding-bottom: clamp(3rem, 6vh, 5rem); }
   .hero__title   { font-size: var(--text-7xl); line-height: 0.95; }
   .hero__slogan  { font-size: 1.25rem; }
 }

@@ -128,9 +128,10 @@ $rendered_count = 0;
                         <?php endif; ?>
                     </div>
 
-                    <!-- Headline (slogan) -->
+                    <!-- Headline (slogan). Allow <br> with class attr so the
+                         data layer can insert responsive line breaks. -->
                     <h3 class="font-sans font-medium text-blue-900 tracking-tight leading-tight text-3xl md:text-4xl lg:text-5xl">
-                        <?php echo esc_html($slogan); ?>
+                        <?php echo wp_kses($slogan, ['br' => ['class' => []]]); ?>
                     </h3>
 
                     <?php if ($lede) : ?>
