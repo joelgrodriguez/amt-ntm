@@ -91,8 +91,8 @@ function get_hero_slides(): array {
     $slides[] = [
         'id'               => 'ntm-accessories',
         'category'         => __('Accessories & Upgrades', 'standard'),
-        'title'            => __('Built for the Job. Built for Your Machine.', 'standard'),
-        'slogan'           => '',
+        'title'            => __('Built for the Job.', 'standard'),
+        'slogan'           => __('Drive rollers, coil reels, runout tables, covers, and controllers — engineered for your machine.', 'standard'),
         'background_image' => 'https://newtechmachinery.com/wp-content/uploads/2026/04/Jim-adjusting-his-machine-scaled.jpg',
         'background_video' => '',
         'learn_more_url'   => '/machines/ntm-accessories/',
