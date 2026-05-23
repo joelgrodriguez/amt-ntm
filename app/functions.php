@@ -26,6 +26,7 @@ $theme_includes = [
     'inc/vite.php',
     'inc/setup.php',
     'inc/search.php',
+    'inc/filters.php',
     'inc/mobile-nav.php',
     'inc/desktop-nav.php',
     'inc/sidebars.php',

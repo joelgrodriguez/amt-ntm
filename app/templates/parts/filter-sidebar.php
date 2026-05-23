@@ -1,0 +1,193 @@
+<?php
+/**
+ * Filter sidebar.
+ *
+ * One sidebar to rule them all: search, taxonomy archives, profile and
+ * manual catalog landings. Driven by a normalized `groups` schema (see
+ * inc/filters.php) so callers stay terse.
+ *
+ * Args
+ * ----
+ *  groups       : array<int, array{
+ *                   id: string, title: string, icon: string,
+ *                   mode: 'checkbox'|'radio'|'link',
+ *                   name: ?string,
+ *                   options: array<int, array{
+ *                     value: string, label: string,
+ *                     count: ?int, active: bool, url?: string,
+ *                   }>,
+ *                 }>
+ *  form_id      : string  HTML id of the form the inputs belong to (checkbox/radio modes)
+ *  apply_label  : string  label for the Apply button
+ *  reset_url    : string  URL the Clear button points to (empty = hide)
+ *  reset_label  : string
+ *  drawer_label : string  mobile summary text, e.g. "Filters (3)"
+ *  show_actions : bool    render the Apply/Clear footer (false for link-only sidebars)
+ *  back_url     : string  optional "all profiles" / "all manuals" link
+ *  back_label   : string
+ *  aria_label   : string  aside / drawer aria-label
+ *
+ * @package Standard
+ *
+ * @var array $args
+ */
+
+declare(strict_types=1);
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+$groups       = isset($args['groups']) && is_array($args['groups']) ? $args['groups'] : [];
+$form_id      = isset($args['form_id']) ? (string) $args['form_id'] : '';
+$apply_label  = isset($args['apply_label']) ? (string) $args['apply_label'] : __('Apply filters', 'standard');
+$reset_url    = isset($args['reset_url']) ? (string) $args['reset_url'] : '';
+$reset_label  = isset($args['reset_label']) ? (string) $args['reset_label'] : __('Clear filters', 'standard');
+$drawer_label = isset($args['drawer_label']) ? (string) $args['drawer_label'] : __('Filters', 'standard');
+$show_actions = array_key_exists('show_actions', $args) ? (bool) $args['show_actions'] : true;
+$back_url     = isset($args['back_url']) ? (string) $args['back_url'] : '';
+$back_label   = isset($args['back_label']) ? (string) $args['back_label'] : '';
+$aria_label   = isset($args['aria_label']) ? (string) $args['aria_label'] : __('Filters', 'standard');
+
+if ($groups === []) {
+    return;
+}
+
+$render_group = static function (array $group) use ($form_id): void {
+    $title = (string) ($group['title'] ?? '');
+    $icon  = (string) ($group['icon'] ?? '');
+    $mode  = (string) ($group['mode'] ?? 'checkbox');
+    $name  = $mode === 'link' ? null : (string) ($group['name'] ?? '');
+    $options = is_array($group['options'] ?? null) ? $group['options'] : [];
+
+    if ($options === []) {
+        return;
+    }
+
+    $selected_count = 0;
+    foreach ($options as $option) {
+        if (!empty($option['active'])) {
+            $selected_count++;
+        }
+    }
+    ?>
+    <fieldset class="filter-group">
+        <legend class="filter-group-label">
+            <?php if ($icon !== '') : ?>
+                <?php icon($icon, ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+            <?php endif; ?>
+            <?php echo esc_html($title); ?>
+        </legend>
+
+        <?php if ($selected_count > 0 && $mode !== 'link') : ?>
+            <p class="filter-group-meta m-0" aria-live="polite">
+                <?php
+                printf(
+                    /* translators: %d selected filter count. */
+                    esc_html(_n('%d selected', '%d selected', $selected_count, 'standard')),
+                    (int) $selected_count
+                );
+                ?>
+            </p>
+        <?php endif; ?>
+
+        <ul class="filter-options">
+            <?php foreach ($options as $option) :
+                $value  = (string) ($option['value'] ?? '');
+                $label  = (string) ($option['label'] ?? '');
+                $count  = array_key_exists('count', $option) && $option['count'] !== null
+                    ? (int) $option['count']
+                    : null;
+                $active = !empty($option['active']);
+                $url    = isset($option['url']) ? (string) $option['url'] : '';
+
+                if ($label === '' || ($mode === 'link' && $url === '') || ($mode !== 'link' && $value === '')) {
+                    continue;
+                }
+            ?>
+                <li>
+                    <?php if ($mode === 'link') : ?>
+                        <a
+                            class="filter-option"
+                            data-active="<?php echo $active ? 'true' : 'false'; ?>"
+                            <?php echo $active ? 'aria-current="true"' : ''; ?>
+                            href="<?php echo esc_url($url); ?>"
+                        >
+                            <span class="filter-option-label"><?php echo esc_html($label); ?></span>
+                            <?php if ($count !== null) : ?>
+                                <span class="filter-option-count"><?php echo esc_html((string) $count); ?></span>
+                            <?php endif; ?>
+                        </a>
+                    <?php else : ?>
+                        <label class="filter-option" data-active="<?php echo $active ? 'true' : 'false'; ?>">
+                            <input
+                                class="filter-option-control"
+                                type="<?php echo $mode === 'radio' ? 'radio' : 'checkbox'; ?>"
+                                name="<?php echo esc_attr((string) $name); ?>"
+                                value="<?php echo esc_attr($value); ?>"
+                                <?php if ($form_id !== '') : ?>form="<?php echo esc_attr($form_id); ?>"<?php endif; ?>
+                                <?php checked($active); ?>
+                            >
+                            <span class="filter-option-label"><?php echo esc_html($label); ?></span>
+                            <?php if ($count !== null) : ?>
+                                <span class="filter-option-count"><?php echo esc_html((string) $count); ?></span>
+                            <?php endif; ?>
+                        </label>
+                    <?php endif; ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </fieldset>
+    <?php
+};
+
+$render_body = static function () use ($groups, $render_group, $show_actions, $form_id, $apply_label, $reset_url, $reset_label, $back_url, $back_label): void {
+    foreach ($groups as $group) {
+        if (is_array($group)) {
+            $render_group($group);
+        }
+    }
+
+    if ($show_actions) : ?>
+        <div class="filter-sidebar-footer">
+            <button
+                type="submit"
+                <?php if ($form_id !== '') : ?>form="<?php echo esc_attr($form_id); ?>"<?php endif; ?>
+                class="btn btn-primary w-full"
+            >
+                <?php echo esc_html($apply_label); ?>
+            </button>
+            <?php if ($reset_url !== '') : ?>
+                <a href="<?php echo esc_url($reset_url); ?>" class="btn btn-ghost w-full">
+                    <?php echo esc_html($reset_label); ?>
+                </a>
+            <?php endif; ?>
+        </div>
+    <?php endif;
+
+    if ($back_url !== '' && $back_label !== '') : ?>
+        <a href="<?php echo esc_url($back_url); ?>" class="inline-flex items-center gap-2 font-mono uppercase tracking-wider text-blue-500 hover:text-blue-700 no-underline" style="font-size: var(--text-caption);">
+            <?php icon('arrow-left', ['class' => 'w-3 h-3', 'aria-hidden' => 'true']); ?>
+            <?php echo esc_html($back_label); ?>
+        </a>
+    <?php endif;
+};
+?>
+
+<details class="filter-drawer">
+    <summary>
+        <span><?php echo esc_html($drawer_label); ?></span>
+        <span class="filter-drawer-caret" aria-hidden="true">
+            <?php icon('chevron-down', ['class' => 'w-4 h-4']); ?>
+        </span>
+    </summary>
+    <div class="filter-drawer-body" aria-label="<?php echo esc_attr($aria_label); ?>">
+        <?php $render_body(); ?>
+    </div>
+</details>
+
+<aside class="hidden lg:block lg:border-r lg:border-blue-200 lg:pr-8" aria-label="<?php echo esc_attr($aria_label); ?>">
+    <div class="filter-sidebar lg:sticky lg:top-24">
+        <?php $render_body(); ?>
+    </div>
+</aside>

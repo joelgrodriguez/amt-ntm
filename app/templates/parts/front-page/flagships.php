@@ -43,8 +43,14 @@ $flagships = [
         'image_align'  => 'left',
         'image_key'    => 'image', // ntm-ssq3-manual-controller-050 control panel macro
         'badge'        => __('Flagship', 'standard'),
-        'headline'     => __('Meet the SSQ3™ MultiPro: The Next Generation of Portable Rollforming', 'standard'),
-        'lede'         => __('The SSQ3 MultiPro is NTM\'s most advanced portable roof and wall panel machine: 16 panel profiles, gas or electric power, on-board RFID profile recognition, and 25-minute tooling changeovers.', 'standard'),
+        'headline'     => __('The Most Advanced Portable Rollformer Ever Built', 'standard'),
+        'subhead'      => __('SSQ3™ MultiPro is the next generation of portable rollforming.', 'standard'),
+        'bullets'      => [
+            __('16 panel profiles', 'standard'),
+            __('Gas or electric power', 'standard'),
+            __('On-board RFID profile recognition', 'standard'),
+            __('25-minute tooling changeovers', 'standard'),
+        ],
         'cta_label'    => __('Explore the SSQ3', 'standard'),
         'cta_url'      => '/machines/roof-wall-panel-machines/ssq3-multipro/',
     ],
@@ -67,7 +73,9 @@ $rendered_count = 0;
         $category   = $data['category'] ?? '';
         // Headline: front-page override beats the data file's slogan.
         $headline   = $flagship['headline'] ?? $data['hero']['headline'] ?? $data['slogan'] ?? '';
+        $subhead    = $flagship['subhead'] ?? '';
         $lede       = $flagship['lede'] ?? '';
+        $bullets    = $flagship['bullets'] ?? [];
         $image_key  = $flagship['image_key'] ?? 'image';
         $hero_image = $data['hero'][$image_key] ?? $data['hero']['image'] ?? $data['hero']['hero_image'] ?? '';
         $stats      = array_slice($data['stats'] ?? [], 0, 3);
@@ -141,7 +149,28 @@ $rendered_count = 0;
                         <?php echo wp_kses($headline, ['br' => ['class' => []]]); ?>
                     </h3>
 
-                    <?php if ($lede) : ?>
+                    <?php if ($subhead) : ?>
+                        <!-- Subhead: bolded one-liner that names the model
+                             explicitly, so the short marketing headline above
+                             still carries the SSQ3 keyword for crawlers. -->
+                        <p class="font-sans font-medium text-blue-900 text-lg lg:text-xl max-w-xl leading-snug">
+                            <?php echo esc_html($subhead); ?>
+                        </p>
+                    <?php endif; ?>
+
+                    <?php if (!empty($bullets)) : ?>
+                        <!-- Spec bullets: short noun phrases, mono-flavored
+                             via a left chevron. Replaces the lede prose when
+                             the data layer sets `bullets`. -->
+                        <ul class="grid gap-3 max-w-xl" role="list">
+                            <?php foreach ($bullets as $bullet) : ?>
+                                <li class="flex items-start gap-3 font-sans text-blue-600 text-base lg:text-lg leading-relaxed">
+                                    <span class="font-mono text-red shrink-0 leading-relaxed" aria-hidden="true">/</span>
+                                    <span><?php echo esc_html($bullet); ?></span>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php elseif ($lede) : ?>
                         <p class="font-sans text-blue-600 text-base lg:text-lg max-w-xl leading-relaxed">
                             <?php echo esc_html($lede); ?>
                         </p>

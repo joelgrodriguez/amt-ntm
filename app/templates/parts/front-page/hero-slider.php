@@ -50,7 +50,7 @@ $first_slide = $slides[0] ?? null;
     <h1 class="sr-only">
         <?php echo esc_html(sprintf(
             /* translators: %s = site name */
-            __('%s — Portable Rollforming Machines', 'standard'),
+            __('%s: Portable Rollforming Machines', 'standard'),
             get_bloginfo('name')
         )); ?>
     </h1>

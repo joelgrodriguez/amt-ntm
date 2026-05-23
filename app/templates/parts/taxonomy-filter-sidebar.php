@@ -1,6 +1,18 @@
 <?php
 /**
- * Reusable taxonomy filter sidebar.
+ * Taxonomy filter sidebar (thin caller).
+ *
+ * Historical entry point used by archive.php, page-profiles.php,
+ * page-manuals.php, single-manual.php and template-articles.php.
+ * Translates the legacy `sections` shape into the normalized groups
+ * schema accepted by templates/parts/filter-sidebar.php, then delegates.
+ *
+ * Args (legacy)
+ * -------------
+ *  sections   : array<int, array{title:string, icon:string, terms:WP_Term[], current_terms:WP_Term[]}>
+ *  post_type  : string  scope term archives to this post_type via ?post_type=
+ *  back_url   : string
+ *  back_label : string
  *
  * @package Standard
  *
@@ -13,65 +25,57 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$sections   = $args['sections'] ?? [];
-$back_url   = $args['back_url'] ?? '';
-$back_label = $args['back_label'] ?? '';
+use function Standard\Filters\build_term_link_group;
+
+$sections   = isset($args['sections']) && is_array($args['sections']) ? $args['sections'] : [];
 $post_type  = isset($args['post_type']) ? sanitize_key((string) $args['post_type']) : '';
-?>
+$back_url   = isset($args['back_url']) ? (string) $args['back_url'] : '';
+$back_label = isset($args['back_label']) ? (string) $args['back_label'] : '';
 
-<aside class="hidden lg:block border-r border-blue-200 pr-8">
-    <nav class="sticky top-16 grid gap-8">
-        <?php foreach ($sections as $section) : ?>
-            <?php
-            $terms = $section['terms'] ?? [];
-            if (empty($terms)) {
-                continue;
-            }
+if (!function_exists('Standard\\Filters\\build_term_link_group')) {
+    require_once get_template_directory() . '/inc/filters.php';
+}
 
-            $current_terms = $section['current_terms'] ?? [];
-            $current_ids = (!empty($current_terms) && !is_wp_error($current_terms))
-                ? array_map('intval', wp_list_pluck($current_terms, 'term_id'))
-                : [];
-            ?>
-            <div>
-                <h3 class="text-sm font-medium text-blue-900 mb-4 flex items-center gap-2">
-                    <?php icon((string) ($section['icon'] ?? 'filter'), ['class' => 'w-4 h-4']); ?>
-                    <?php echo esc_html((string) ($section['title'] ?? '')); ?>
-                </h3>
-                <ul class="grid gap-1 border-l border-blue-200">
-                    <?php foreach ($terms as $term) : ?>
-                        <?php
-                        if (!$term instanceof WP_Term) {
-                            continue;
-                        }
+$groups = [];
+$index = 0;
 
-                        $term_link = get_term_link($term);
-                        if (is_wp_error($term_link)) {
-                            continue;
-                        }
+foreach ($sections as $section) {
+    if (!is_array($section)) {
+        continue;
+    }
 
-                        if ($post_type !== '') {
-                            $term_link = add_query_arg(['post_type' => $post_type], $term_link);
-                        }
+    $terms = isset($section['terms']) && is_array($section['terms']) ? $section['terms'] : [];
+    if ($terms === []) {
+        continue;
+    }
 
-                        $is_active = in_array((int) $term->term_id, $current_ids, true);
-                        ?>
-                        <li>
-                            <a href="<?php echo esc_url($term_link); ?>" class="flex items-center justify-between text-sm py-2 pl-4 border-l-2 -ml-px <?php echo $is_active ? 'border-blue-500 text-blue-500 font-medium' : 'border-transparent text-blue-600 hover:text-blue-900 hover:border-blue-300'; ?>">
-                                <span><?php echo esc_html($term->name); ?></span>
-                                <span class="text-xs text-blue-400"><?php echo esc_html((string) $term->count); ?></span>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        <?php endforeach; ?>
+    $current = isset($section['current_terms']) && is_array($section['current_terms']) ? $section['current_terms'] : [];
+    $active_ids = [];
+    foreach ($current as $current_term) {
+        if ($current_term instanceof WP_Term) {
+            $active_ids[] = (int) $current_term->term_id;
+        }
+    }
 
-        <?php if ($back_url !== '' && $back_label !== '') : ?>
-            <a href="<?php echo esc_url($back_url); ?>" class="flex items-center gap-2 text-sm font-medium text-blue-500 hover:underline">
-                <?php icon('arrow-left', ['class' => 'w-4 h-4']); ?>
-                <?php echo esc_html($back_label); ?>
-            </a>
-        <?php endif; ?>
-    </nav>
-</aside>
+    $groups[] = build_term_link_group(
+        'tax-' . $index++,
+        (string) ($section['title'] ?? ''),
+        $terms,
+        $active_ids,
+        (string) ($section['icon'] ?? ''),
+        $post_type
+    );
+}
+
+if ($groups === []) {
+    return;
+}
+
+get_template_part('templates/parts/filter-sidebar', null, [
+    'groups'       => $groups,
+    'show_actions' => false,
+    'back_url'     => $back_url,
+    'back_label'   => $back_label,
+    'drawer_label' => __('Filters', 'standard'),
+    'aria_label'   => __('Filters', 'standard'),
+]);
