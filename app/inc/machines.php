@@ -27,29 +27,22 @@ use function Standard\MachineProductData\get_machine_product_data;
  * @return array<int, array>
  */
 function get_featured_machines(): array {
-    // Hero slider features 3 machines: roof flagship + gutter flagship +
-    // most-shopped roof. The full catalog (8+ machines) lives on /machines/.
-    // Keeps the loop short (24s @ 8s/slide) and the marquee focused.
+    // Hero slider features the two flagships: SSQ3 (roof) + MACH II Combo
+    // (gutter). The full catalog (8+ machines) lives on /machines/.
+    // Two-slide loop @ 8s/slide keeps the marquee focused on the flagships.
     //
     // Each entry pairs the data-file slug (key, matches data/machines/*.php)
     // with the title and the WooCommerce product slug used to resolve the
     // machine page permalink. The two slug namespaces don't match because
     // the data files are by model line and the WC products are by SKU.
     $slider_machines = [
-        // NOTE: SSQ II while SSQ3's WooCommerce product is being prepared.
-        // When the SSQ3 product page ships, swap data slug to 'ssq3-multipro'
-        // and wp_slug to the new product permalink.
-        'ssq-ii-multipro' => [
-            'title'   => 'SSQ II™ MultiPro',
-            'wp_slug' => 'ssq-roof-panel-machine',
+        'ssq3-multipro' => [
+            'title'   => 'SSQ3™ MultiPro',
+            'wp_slug' => 'ssq3-multipro',
         ],
-        'mach-ii-5-gutter' => [
-            'title'   => 'MACH II™',
-            'wp_slug' => 'mach-ii-5-gutter-machine',
-        ],
-        '5vc-5v-crimp' => [
-            'title'   => '5VC-5V CRIMP™',
-            'wp_slug' => '5vc-5v-crimp-roof-panel-machine',
+        'mach-ii-combo-gutter' => [
+            'title'   => 'MACH II™ Combo',
+            'wp_slug' => 'mach-ii-5-6-combo-gutter-machine',
         ],
     ];
 
