@@ -23,7 +23,7 @@ get_template_part('templates/parts/faq-accordion', null, [
     'content'    => [
         'eyebrow' => __('FAQ', 'standard'),
         'title'   => __('Seamless Gutter Machine Questions', 'standard'),
-        'image'   => content_url('/uploads/2023/05/Machine-lifted-onto-rooftop-2048x1536.jpg'),
+        'image'   => content_url('/uploads/2026/05/ntm-mach2-gutter-install-abel-003.jpg'),
     ],
     'faqs'      => get_gutter_faq_items(),
     'image_alt' => __('NTM gutter machine on a jobsite', 'standard'),

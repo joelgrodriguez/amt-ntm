@@ -25,7 +25,7 @@ get_template_part('templates/parts/customer-story', null, [
         'name'     => 'Gutter Pro Contractor',
         'company'  => 'Placeholder — Real Story Coming Soon',
         'machine'  => 'MACH II 5"/6" Combo',
-        'image'    => 'https://newtechmachinery.com/wp-content/uploads/2025/04/Nate-training-East-Kentucky-Metal-9-scaled.jpg',
+        'image'    => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-mach2-gutter-install-abel-002.jpg',
         'cta_text' => __('Read the Full Story', 'standard'),
         'cta_url'  => '/learning-center/',
         'cta_icon' => 'arrow-right',
