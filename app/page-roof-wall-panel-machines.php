@@ -31,6 +31,8 @@ get_header();
 
     <?php get_template_part('templates/pages/roof-wall/product-grid'); ?>
 
+    <?php get_template_part('templates/pages/roof-wall/comparison-table'); ?>
+
     <?php get_template_part('templates/pages/roof-wall/customer-story'); ?>
 
     <?php get_template_part('templates/pages/machines/roi-snapshot'); ?>

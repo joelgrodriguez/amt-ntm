@@ -24,9 +24,14 @@ $content = [
     'cta_talk'      => __('Talk to a Specialist', 'standard'),
     'cta_talk_url'  => '/contact/',
 ];
+
+// Page can opt out of the soft-blue background by passing 'bg' => ''.
+// Gutter page does this so the section reads as a quiet rest stop
+// between the gutter ROI band and the FAQ accordion (also blue-50).
+$bg = $args['bg'] ?? 'bg-blue-50';
 ?>
 
-<section class="section bg-blue-50" aria-labelledby="which-machine-title">
+<section class="section <?php echo esc_attr($bg); ?>" aria-labelledby="which-machine-title">
     <div class="container grid gap-8 text-center max-w-3xl mx-auto">
         <div class="grid gap-4">
             <h2 id="which-machine-title" class="section-title">

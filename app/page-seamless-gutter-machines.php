@@ -31,12 +31,14 @@ get_header();
 
     <?php get_template_part('templates/pages/gutter/product-grid'); ?>
 
+    <?php get_template_part('templates/pages/gutter/comparison-table'); ?>
+
     <?php /* gutter/customer-story intentionally omitted until real
             customer copy lands. The file still exists for future use. */ ?>
 
     <?php get_template_part('templates/pages/machines/roi-snapshot'); ?>
 
-    <?php get_template_part('templates/pages/machines/which-machine'); ?>
+    <?php get_template_part('templates/pages/machines/which-machine', null, ['bg' => '']); ?>
 
     <?php get_template_part('templates/pages/gutter/faq'); ?>
 
