@@ -18,6 +18,25 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Build a taxonomy archive URL scoped to one post type.
+ */
+function get_scoped_term_url(string $taxonomy, string $slug, string $post_type): string {
+    $term = \get_term_by('slug', $slug, $taxonomy);
+    if ($term instanceof \WP_Term) {
+        $link = \get_term_link($term);
+        if (!\is_wp_error($link)) {
+            return \add_query_arg(['post_type' => \sanitize_key($post_type)], $link);
+        }
+    }
+
+    $base = $taxonomy === 'post_tag'
+        ? '/tag/' . $slug . '/'
+        : '/category/' . $slug . '/';
+
+    return \add_query_arg(['post_type' => \sanitize_key($post_type)], \Standard\Url\internal($base));
+}
+
+/**
  * Returns the desktop navigation structure.
  *
  * @return array{panels: array<int, array<string, mixed>>, utility: array<int, array<string, mixed>>}
@@ -71,7 +90,7 @@ function get_desktop_nav(): array {
                         'label'          => __('Roof & Wall Panel', 'standard'),
                         'category'       => 'profiles-metal-roof-wall-panel',
                         'heading'        => __('Roof & Wall Panel Profiles', 'standard'),
-                        'view_all_url'   => 'https://newtechmachinery.com/profile-search/?_sft_category=profiles-metal-roof-wall-panel',
+                        'view_all_url'   => get_scoped_term_url('category', 'profiles-metal-roof-wall-panel', 'profile'),
                         'view_all_label' => __('View All', 'standard'),
                     ],
                     [
@@ -79,7 +98,7 @@ function get_desktop_nav(): array {
                         'label'          => __('Gutter', 'standard'),
                         'category'       => 'profiles-gutter',
                         'heading'        => __('Seamless Gutter Profiles', 'standard'),
-                        'view_all_url'   => 'https://newtechmachinery.com/profile-search/?_sft_category=profiles-gutter',
+                        'view_all_url'   => get_scoped_term_url('category', 'profiles-gutter', 'profile'),
                         'view_all_label' => __('View All', 'standard'),
                     ],
                     [
@@ -87,7 +106,7 @@ function get_desktop_nav(): array {
                         'label'          => __('Clip Relief / Rib Rollers', 'standard'),
                         'category'       => 'clip-relief-rib-rollers',
                         'heading'        => __('Clip Relief / Rib Rollers', 'standard'),
-                        'view_all_url'   => 'https://newtechmachinery.com/profile-search/?_sft_category=clip-relief-rib-rollers',
+                        'view_all_url'   => get_scoped_term_url('category', 'clip-relief-rib-rollers', 'profile'),
                         'view_all_label' => __('View All', 'standard'),
                     ],
                 ],

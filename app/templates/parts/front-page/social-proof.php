@@ -31,7 +31,7 @@ $content = [
     'sr_title'  => __('Customer testimonials', 'standard'),
     'nav_label' => __('Testimonial navigation', 'standard'),
     'cta_label' => __('See all customer stories', 'standard'),
-    'cta_url'   => 'https://newtechmachinery.com/search-results/?_sft_category=testimonials',
+    'cta_url'   => \Standard\Url\internal('/category/testimonials/'),
 ];
 
 $cdn = 'https://newtechmachinery.com/wp-content/uploads/2025/06';

@@ -57,7 +57,14 @@ if (!defined('ABSPATH')) {
         </a>
 
         <div class="flex items-center h-16 ml-auto">
-            <a href="<?php echo esc_url(\Standard\Url\with_query('/', ['s' => ''])); ?>" class="flex items-center justify-center w-16 h-16 text-blue-600 hover:bg-blue-100 transition-colors" aria-label="<?php esc_attr_e('Search', 'standard'); ?>">
+            <a
+                href="<?php echo esc_url(\Standard\Url\with_query('/', ['s' => ''])); ?>"
+                class="flex items-center justify-center w-16 h-16 text-blue-600 hover:bg-blue-100 transition-colors"
+                aria-label="<?php esc_attr_e('Search', 'standard'); ?>"
+                aria-haspopup="dialog"
+                aria-controls="site-search-modal"
+                data-search-modal-open
+            >
                 <?php icon('search', ['class' => 'w-5 h-5']); ?>
             </a>
         </div>
@@ -125,7 +132,14 @@ if (!defined('ABSPATH')) {
                     <?php echo esc_html($contact['label']); ?>
                 </a>
             <?php endif; ?>
-            <a href="<?php echo esc_url(\Standard\Url\with_query('/', ['s' => ''])); ?>" class="flex items-center justify-center w-8 h-16 text-blue-600 hover:text-blue-800 transition-colors" aria-label="<?php esc_attr_e('Search', 'standard'); ?>">
+            <a
+                href="<?php echo esc_url(\Standard\Url\with_query('/', ['s' => ''])); ?>"
+                class="flex items-center justify-center w-8 h-16 text-blue-600 hover:text-blue-800 transition-colors"
+                aria-label="<?php esc_attr_e('Search', 'standard'); ?>"
+                aria-haspopup="dialog"
+                aria-controls="site-search-modal"
+                data-search-modal-open
+            >
                 <?php icon('search', ['class' => 'w-5 h-5']); ?>
             </a>
         </div>
@@ -138,3 +152,5 @@ if (!defined('ABSPATH')) {
 
 <!-- Mobile menu (full width, below header) -->
 <?php get_template_part('templates/parts/mobile-menu'); ?>
+
+<?php get_template_part('templates/parts/search-modal'); ?>
