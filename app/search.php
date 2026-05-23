@@ -15,101 +15,212 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use function Standard\Filters\build_choice_group;
+use function Standard\Filters\build_term_choice_group;
+use function Standard\Filters\get_post_type_counts;
 use function Standard\Search\get_post_type_filter_keys;
 use function Standard\Search\get_post_type_filter_options;
 use function Standard\Search\get_request_values;
 
 $content = [
-    'eyebrow'     => __('Search', 'standard'),
-    'title'       => __('Search Results', 'standard'),
-    'title_query' => __('Search results for "%s"', 'standard'),
-    'all_types'   => __('All content', 'standard'),
-    'all_categories' => __('All categories', 'standard'),
-    'filter_type' => __('Content Type', 'standard'),
-    'filter_category' => __('Category', 'standard'),
-    'placeholder' => __('Search machines, manuals, profiles, articles...', 'standard'),
-    'submit'      => __('Search', 'standard'),
-    'reset'       => __('Clear filters', 'standard'),
-    'prev'        => __('Previous', 'standard'),
-    'next'        => __('Next', 'standard'),
+    'eyebrow'         => __('Search', 'standard'),
+    'title'           => __('Search Results', 'standard'),
+    'title_query'     => __('Search results for "%s"', 'standard'),
+    'filter_type'     => __('Content', 'standard'),
+    'filter_category' => __('Categories', 'standard'),
+    'filter_topic'    => __('Topics', 'standard'),
+    'placeholder'     => __('Search machines, manuals, profiles, articles...', 'standard'),
+    'submit'          => __('Search', 'standard'),
+    'apply'           => __('Apply filters', 'standard'),
+    'reset'           => __('Clear filters', 'standard'),
+    'prev'            => __('Previous', 'standard'),
+    'next'            => __('Next', 'standard'),
 ];
 
-$search_query = get_search_query();
-$type_options = get_post_type_filter_options();
-$requested_types = get_request_values(get_post_type_filter_keys(), 'post_type');
-$active_type = count($requested_types) === 1 ? $requested_types[0] : '';
-$active_type_label = $active_type !== '' && isset($type_options[$active_type])
-    ? $type_options[$active_type]
-    : '';
+$search_form_id = 'search-filter-form';
+$search_query   = get_search_query();
+$type_options   = get_post_type_filter_options();
+$type_counts    = get_post_type_counts();
+$requested_types = array_values(array_intersect(
+    get_request_values(get_post_type_filter_keys(), 'post_type'),
+    array_keys($type_options)
+));
+
+// Float selected types to the top of the list so they stay visible.
+if ($requested_types !== []) {
+    $reordered = [];
+    foreach ($requested_types as $post_type) {
+        $reordered[$post_type] = $type_options[$post_type];
+    }
+    $type_options = $reordered + $type_options;
+}
+
 $active_categories = get_request_values(['category', 'lc_category', '_sft_category'], 'term', 'category');
-$active_category = count($active_categories) === 1 ? $active_categories[0] : '';
-$active_category_term = $active_category !== '' ? get_term_by('slug', $active_category, 'category') : null;
-$active_category_label = $active_category_term instanceof WP_Term ? $active_category_term->name : '';
+$active_tags = get_request_values(['post_tag', 'tag', 'lc_machine', '_sft_post_tag'], 'term', 'post_tag');
+
 $category_terms = get_categories([
     'hide_empty' => true,
     'orderby'    => 'count',
     'order'      => 'DESC',
     'number'     => 18,
 ]);
-if ($active_category_term instanceof WP_Term) {
-    $has_active_category_term = false;
+$category_terms = is_array($category_terms) ? $category_terms : [];
 
-    foreach ($category_terms as $category_term) {
-        if ($category_term instanceof WP_Term && (int) $category_term->term_id === (int) $active_category_term->term_id) {
-            $has_active_category_term = true;
-            break;
+$tag_terms = get_terms([
+    'taxonomy'   => 'post_tag',
+    'hide_empty' => true,
+    'orderby'    => 'count',
+    'order'      => 'DESC',
+    'number'     => 24,
+]);
+$tag_terms = is_wp_error($tag_terms) ? [] : $tag_terms;
+
+// Ensure any active term not in the top-N stays visible.
+$prepend_active_terms = static function (array $terms, array $active_slugs, string $taxonomy): array {
+    $known = [];
+    foreach ($terms as $term) {
+        if ($term instanceof WP_Term) {
+            $known[$term->slug] = true;
         }
     }
 
-    if (!$has_active_category_term) {
-        array_unshift($category_terms, $active_category_term);
+    foreach (array_reverse($active_slugs) as $slug) {
+        if (isset($known[$slug])) {
+            continue;
+        }
+
+        $term = get_term_by('slug', $slug, $taxonomy);
+        if ($term instanceof WP_Term) {
+            array_unshift($terms, $term);
+            $known[$slug] = true;
+        }
+    }
+
+    return $terms;
+};
+
+$category_terms = $prepend_active_terms($category_terms, $active_categories, 'category');
+$tag_terms      = $prepend_active_terms($tag_terms, $active_tags, 'post_tag');
+
+// Build the three groups for the shared sidebar.
+$groups = [
+    build_choice_group(
+        'content-type',
+        $content['filter_type'],
+        'post_type[]',
+        $type_options,
+        $requested_types,
+        array_intersect_key($type_counts, $type_options),
+        'filter'
+    ),
+];
+
+if ($category_terms !== []) {
+    $groups[] = build_term_choice_group(
+        'category',
+        $content['filter_category'],
+        'category[]',
+        $category_terms,
+        $active_categories,
+        'folder'
+    );
+}
+
+if ($tag_terms !== []) {
+    $groups[] = build_term_choice_group(
+        'topic',
+        $content['filter_topic'],
+        'post_tag[]',
+        $tag_terms,
+        $active_tags,
+        'link'
+    );
+}
+
+// Header summary suffix + chip strip data.
+$active_type_labels = array_values(array_filter(array_map(
+    static fn(string $post_type): string => $type_options[$post_type] ?? '',
+    $requested_types
+)));
+$active_category_labels = [];
+foreach ($category_terms as $term) {
+    if ($term instanceof WP_Term && in_array($term->slug, $active_categories, true)) {
+        $active_category_labels[$term->slug] = $term->name;
     }
 }
+$active_tag_labels = [];
+foreach ($tag_terms as $term) {
+    if ($term instanceof WP_Term && in_array($term->slug, $active_tags, true)) {
+        $active_tag_labels[$term->slug] = $term->name;
+    }
+}
+
+$build_remove_url = static function (string $param, string $value) use ($search_query, $requested_types, $active_categories, $active_tags): string {
+    $params = [];
+    if ($search_query !== '') {
+        $params['s'] = $search_query;
+    }
+
+    $types = $requested_types;
+    $cats  = $active_categories;
+    $tags  = $active_tags;
+
+    if ($param === 'post_type') {
+        $types = array_values(array_diff($types, [$value]));
+    } elseif ($param === 'category') {
+        $cats = array_values(array_diff($cats, [$value]));
+    } elseif ($param === 'post_tag') {
+        $tags = array_values(array_diff($tags, [$value]));
+    }
+
+    if ($types !== []) {
+        $params['post_type'] = $types;
+    }
+    if ($cats !== []) {
+        $params['category'] = $cats;
+    }
+    if ($tags !== []) {
+        $params['post_tag'] = $tags;
+    }
+
+    return add_query_arg($params, \Standard\Url\internal('/'));
+};
+
+$chips = [];
+foreach ($requested_types as $slug) {
+    $label = $type_options[$slug] ?? '';
+    if ($label !== '') {
+        $chips[] = ['label' => $label, 'remove_url' => $build_remove_url('post_type', $slug)];
+    }
+}
+foreach ($active_category_labels as $slug => $label) {
+    $chips[] = ['label' => $label, 'remove_url' => $build_remove_url('category', $slug)];
+}
+foreach ($active_tag_labels as $slug => $label) {
+    $chips[] = ['label' => $label, 'remove_url' => $build_remove_url('post_tag', $slug)];
+}
+
 $result_count = isset($GLOBALS['wp_query']) && $GLOBALS['wp_query'] instanceof WP_Query
     ? (int) $GLOBALS['wp_query']->found_posts
     : 0;
 $reset_url = $search_query !== ''
     ? add_query_arg(['s' => $search_query], \Standard\Url\internal('/'))
     : \Standard\Url\internal('/');
-$active_filter_labels = array_values(array_filter([$active_type_label, $active_category_label]));
-$active_filter_suffix = $active_filter_labels !== [] ? ' / ' . implode(' / ', $active_filter_labels) : '';
+$has_filters = $chips !== [];
+$selected_total = count($chips);
+$drawer_label = $selected_total > 0
+    ? sprintf(
+        /* translators: %d active filter count. */
+        _n('Filters (%d)', 'Filters (%d)', $selected_total, 'standard'),
+        $selected_total
+    )
+    : __('Filters', 'standard');
+
 $count_label = sprintf(
-    /* translators: %1$d result count, %2$s optional post type label. */
-    _n('%1$d result%2$s', '%1$d results%2$s', $result_count, 'standard'),
-    $result_count,
-    $active_filter_suffix
+    /* translators: %d result count. */
+    _n('%d result', '%d results', $result_count, 'standard'),
+    $result_count
 );
-$has_filters = $active_type !== '' || $active_category !== '';
-$build_filter_url = static function (array $overrides = [], array $remove = []) use ($search_query, $active_type, $active_category): string {
-    $params = [];
-
-    if ($search_query !== '') {
-        $params['s'] = $search_query;
-    }
-
-    if ($active_type !== '') {
-        $params['post_type'] = $active_type;
-    }
-
-    if ($active_category !== '') {
-        $params['category'] = $active_category;
-    }
-
-    foreach ($remove as $key) {
-        unset($params[$key]);
-    }
-
-    foreach ($overrides as $key => $value) {
-        if ($value === '' || $value === null) {
-            unset($params[$key]);
-            continue;
-        }
-
-        $params[$key] = $value;
-    }
-
-    return add_query_arg($params, \Standard\Url\internal('/'));
-};
 
 get_header();
 ?>
@@ -140,14 +251,7 @@ get_header();
                 <?php esc_html_e('Search the site', 'standard'); ?>
             </h2>
 
-            <form class="grid gap-4 md:grid-cols-[minmax(0,1fr)_auto_auto] md:items-end" role="search" method="get" action="<?php echo esc_url(\Standard\Url\internal('/')); ?>">
-                <?php if ($active_type !== '') : ?>
-                    <input type="hidden" name="post_type" value="<?php echo esc_attr($active_type); ?>">
-                <?php endif; ?>
-                <?php if ($active_category !== '') : ?>
-                    <input type="hidden" name="category" value="<?php echo esc_attr($active_category); ?>">
-                <?php endif; ?>
-
+            <form id="<?php echo esc_attr($search_form_id); ?>" class="grid gap-4 md:grid-cols-[minmax(0,1fr)_auto_auto] md:items-end" role="search" method="get" action="<?php echo esc_url(\Standard\Url\internal('/')); ?>">
                 <div class="field">
                     <label for="global-search-field" class="field-label">
                         <?php esc_html_e('Search', 'standard'); ?>
@@ -177,63 +281,28 @@ get_header();
 
     <section class="container section-compact" aria-label="<?php esc_attr_e('Search results', 'standard'); ?>">
         <div class="grid gap-8 lg:grid-cols-[240px_1fr] lg:gap-12">
-            <aside class="border-b border-blue-200 pb-8 lg:border-b-0 lg:border-r lg:pb-0 lg:pr-8" aria-label="<?php esc_attr_e('Search filters', 'standard'); ?>">
-                <nav class="grid gap-8 lg:sticky lg:top-24">
-                    <div>
-                        <h2 class="flex items-center gap-2 text-sm font-medium text-blue-900 mb-4">
-                            <?php icon('filter', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-                            <?php echo esc_html($content['filter_type']); ?>
-                        </h2>
-                        <ul class="grid gap-1 border-l border-blue-200 list-none p-0 m-0">
-                            <li>
-                                <a href="<?php echo esc_url($build_filter_url([], ['post_type'])); ?>"
-                                   class="flex items-center justify-between text-sm py-2 pl-4 border-l-2 -ml-px <?php echo $active_type === '' ? 'border-blue-500 text-blue-500 font-medium' : 'border-transparent text-blue-600 hover:text-blue-900 hover:border-blue-300'; ?>">
-                                    <span><?php echo esc_html($content['all_types']); ?></span>
-                                </a>
-                            </li>
-                            <?php foreach ($type_options as $post_type => $label) : ?>
-                                <?php $count = wp_count_posts($post_type)->publish ?? 0; ?>
-                                <li>
-                                    <a href="<?php echo esc_url($build_filter_url(['post_type' => $post_type])); ?>"
-                                       class="flex items-center justify-between text-sm py-2 pl-4 border-l-2 -ml-px <?php echo $active_type === $post_type ? 'border-blue-500 text-blue-500 font-medium' : 'border-transparent text-blue-600 hover:text-blue-900 hover:border-blue-300'; ?>">
-                                        <span><?php echo esc_html($label); ?></span>
-                                        <span class="text-xs text-blue-400"><?php echo esc_html((string) $count); ?></span>
-                                    </a>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-
-                    <?php if (!empty($category_terms)) : ?>
-                        <div>
-                            <h2 class="flex items-center gap-2 text-sm font-medium text-blue-900 mb-4">
-                                <?php icon('folder', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-                                <?php echo esc_html($content['filter_category']); ?>
-                            </h2>
-                            <ul class="grid gap-1 border-l border-blue-200 list-none p-0 m-0">
-                                <li>
-                                    <a href="<?php echo esc_url($build_filter_url([], ['category'])); ?>"
-                                       class="flex items-center justify-between text-sm py-2 pl-4 border-l-2 -ml-px <?php echo $active_category === '' ? 'border-blue-500 text-blue-500 font-medium' : 'border-transparent text-blue-600 hover:text-blue-900 hover:border-blue-300'; ?>">
-                                        <span><?php echo esc_html($content['all_categories']); ?></span>
-                                    </a>
-                                </li>
-                                <?php foreach ($category_terms as $category_term) : ?>
-                                    <?php if (!$category_term instanceof WP_Term) continue; ?>
-                                    <li>
-                                        <a href="<?php echo esc_url($build_filter_url(['category' => $category_term->slug])); ?>"
-                                           class="flex items-center justify-between text-sm py-2 pl-4 border-l-2 -ml-px <?php echo $active_category === $category_term->slug ? 'border-blue-500 text-blue-500 font-medium' : 'border-transparent text-blue-600 hover:text-blue-900 hover:border-blue-300'; ?>">
-                                            <span><?php echo esc_html($category_term->name); ?></span>
-                                            <span class="text-xs text-blue-400"><?php echo esc_html((string) $category_term->count); ?></span>
-                                        </a>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    <?php endif; ?>
-                </nav>
-            </aside>
+            <?php
+            get_template_part('templates/parts/filter-sidebar', null, [
+                'groups'       => $groups,
+                'form_id'      => $search_form_id,
+                'apply_label'  => $content['apply'],
+                'reset_url'    => $has_filters ? $reset_url : '',
+                'reset_label'  => $content['reset'],
+                'drawer_label' => $drawer_label,
+                'aria_label'   => __('Search filters', 'standard'),
+                'show_actions' => true,
+            ]);
+            ?>
 
             <div class="grid gap-8 content-start">
+                <?php if ($chips !== []) : ?>
+                    <?php get_template_part('templates/parts/filter-chips', null, [
+                        'chips'     => $chips,
+                        'clear_url' => $reset_url,
+                        'label'     => __('Active search filters', 'standard'),
+                    ]); ?>
+                <?php endif; ?>
+
                 <?php if (have_posts()) : ?>
                     <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
                         <?php while (have_posts()) : the_post(); ?>
