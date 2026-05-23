@@ -160,6 +160,9 @@ return [
         ],
 
         'dimensions' => [
+            // Primary block kept for callers that read dimensions.machine
+            // (the front-page flagships strip, etc.). Reflects the 5"/6"
+            // combo as the headline variant.
             'machine' => [
                 'length'         => "10' (3.0m)",
                 'length_slitter' => null,
@@ -169,6 +172,32 @@ return [
                 'weight'         => '1,350 lbs. (610 kg)',
             ],
             'on_trailer' => [],
+            // Per-size variants: the MACH II combo ships in three
+            // physical footprints. The blueprint section renders one
+            // cell per variant.
+            'variants' => [
+                [
+                    'label'  => __('5" Gutter', 'standard'),
+                    'length' => "8' (2.4m)",
+                    'width'  => "2' (0.6m)",
+                    'height' => "4' (1.2m)",
+                    'weight' => '1,000 lbs. (454 kg)',
+                ],
+                [
+                    'label'  => __('6" Gutter', 'standard'),
+                    'length' => "10' (3.0m)",
+                    'width'  => "2' (0.6m) plus shear handle",
+                    'height' => "4' (1.2m)",
+                    'weight' => '1,250 lbs. (570 kg)',
+                ],
+                [
+                    'label'  => __('5"/6" Combo', 'standard'),
+                    'length' => "10' (3.0m)",
+                    'width'  => "2' (0.6m) plus shear handle and extra shear",
+                    'height' => "4' (1.2m)",
+                    'weight' => '1,350 lbs. (610 kg)',
+                ],
+            ],
         ],
 
         'performance' => [
@@ -209,12 +238,12 @@ return [
         ],
 
         'coil' => [
-            'widths'              => __('11¾" to 15" (300mm to 380mm)', 'standard'),
+            'widths'              => __('5" gutter: 11¾"–12⅜" (300–315mm) · 6" gutter: 15" (380mm)', 'standard'),
             'finished_widths'     => __('5" or 6" K-style gutter', 'standard'),
-            'max_diameter_rack'   => __('30" (762mm)', 'standard'),
+            'max_diameter_rack'   => __('30" (762mm) on reel', 'standard'),
             'max_diameter_decoil' => null,
-            'max_weight_reel'     => __('1,000 lbs (recommended)', 'standard'),
-            'max_weight_cradle'   => __('400 lbs (recommended)', 'standard'),
+            'max_weight_reel'     => __('1,000 lbs. (recommended)', 'standard'),
+            'max_weight_cradle'   => __('400 lbs. (recommended)', 'standard'),
         ],
 
         'power_options' => [

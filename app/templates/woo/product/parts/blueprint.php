@@ -68,32 +68,43 @@ if (empty($dimensions)) {
     return;
 }
 
-$machine_raw = $dimensions['machine'] ?? [];
-$trailer_raw = $dimensions['on_trailer'] ?? [];
+$machine_raw  = $dimensions['machine'] ?? [];
+$trailer_raw  = $dimensions['on_trailer'] ?? [];
+$variants_raw = $dimensions['variants'] ?? [];
 
-// Build machine dimensions associative array.
-$machine_dims = [];
-if (!empty($machine_raw['length']))         { $machine_dims['Length']       = $machine_raw['length']; }
-if (!empty($machine_raw['width']))          { $machine_dims['Width']        = $machine_raw['width']; }
-if (!empty($machine_raw['height']))         { $machine_dims['Height']       = $machine_raw['height']; }
-if (!empty($machine_raw['weight']))         { $machine_dims['Weight']       = $machine_raw['weight']; }
-if (!empty($machine_raw['length_slitter'])) { $machine_dims['w/ Slitter']   = $machine_raw['length_slitter']; }
-if (!empty($machine_raw['height_no_rack'])) { $machine_dims['No Rack']      = $machine_raw['height_no_rack']; }
+// Helper: build a label => value array from a dimensions block.
+$build_dims = static function (array $raw): array {
+    $out = [];
+    if (!empty($raw['length']))         { $out['Length']     = $raw['length']; }
+    if (!empty($raw['width']))          { $out['Width']      = $raw['width']; }
+    if (!empty($raw['height']))         { $out['Height']     = $raw['height']; }
+    if (!empty($raw['weight']))         { $out['Weight']     = $raw['weight']; }
+    if (!empty($raw['length_slitter'])) { $out['w/ Slitter'] = $raw['length_slitter']; }
+    if (!empty($raw['height_no_rack'])) { $out['No Rack']    = $raw['height_no_rack']; }
+    return $out;
+};
 
-// Build trailer dimensions associative array.
-$trailer_dims = [];
-if (!empty($trailer_raw['length'])) { $trailer_dims['Length'] = $trailer_raw['length']; }
-if (!empty($trailer_raw['width']))  { $trailer_dims['Width']  = $trailer_raw['width']; }
-if (!empty($trailer_raw['height'])) { $trailer_dims['Height'] = $trailer_raw['height']; }
-if (!empty($trailer_raw['weight'])) { $trailer_dims['Weight'] = $trailer_raw['weight']; }
+$machine_dims = $build_dims($machine_raw);
+$trailer_dims = $build_dims($trailer_raw);
 
-?>
-
-<?php
-// Two-cell composition: machine + trailer. Render only the cells that
-// have data so a missing block doesn't leave an empty column.
+// Two- to four-cell composition. When a machine ships in multiple
+// physical sizes (e.g. the MACH II combo: 5", 6", 5"/6"), each variant
+// gets its own cell so the footprint section reads the full range
+// instead of collapsing into one number. Trailer cell stays in place.
 $cells = [];
-if (!empty($machine_dims)) {
+if (!empty($variants_raw)) {
+    foreach ($variants_raw as $variant) {
+        $vdims = $build_dims($variant);
+        if (empty($vdims)) {
+            continue;
+        }
+        $cells[] = [
+            'index' => sprintf('%02d', count($cells) + 1),
+            'label' => (string) ($variant['label'] ?? __('Machine', 'standard')),
+            'dims'  => $vdims,
+        ];
+    }
+} elseif (!empty($machine_dims)) {
     $cells[] = [
         'index' => '01',
         'label' => __('Machine', 'standard'),
