@@ -5,12 +5,17 @@
  * profile / manual catalog landings, and any future page that needs to
  * pivot a result set by content type, category, or topic.
  *
- * Visual contract (hairline list):
- *   - rows are NOT boxed. one border between rows, none around them
- *   - active row : bg-blue-50 fill across full sidebar width
- *   - hover      : bg-blue-50/60 only, no border movement
+ * Visual contract (mega-menu rail parity):
+ *   - rows are bare. no per-row borders, no between-row dividers
+ *   - active row : 4px blue-500 left edge + bg-blue-50 fill + blue-900 text
+ *   - hover      : 4px blue-200 left edge (preview of the active mark)
  *   - counts     : mono, right-aligned via ml-auto
- *   - checkbox   : hard 18px square, blue-500 accent
+ *   - checkbox   : 16px square, blue-500 accent, tucked at the leading edge
+ *
+ * The 4px left-stripe active indicator intentionally mirrors the mega
+ * menu sidebar (.mega-tab[aria-selected="true"]). It is a sanctioned
+ * brand-identity move site-wide, not the dashboard side-stripe pattern
+ * the impeccable laws ban; the navigation chrome already commits to it.
  *
  * Modes:
  *   - checkbox : multi-select, submitted with the form's Apply button
@@ -26,61 +31,60 @@
   }
 
   .filter-group + .filter-group {
-    @apply border-t border-blue-200 pt-8;
+    @apply border-t border-blue-100 pt-6;
   }
 
   .filter-group-label {
-    @apply flex items-center gap-2 font-mono font-medium uppercase tracking-wider text-blue-500;
+    @apply flex items-center gap-2 font-mono font-medium uppercase tracking-wider text-blue-400 pl-5;
     font-size: var(--text-caption);
   }
 
   .filter-group-meta {
-    @apply font-mono font-normal text-blue-400;
+    @apply font-mono font-normal text-blue-400 pl-5;
     font-size: var(--text-caption);
   }
 
-  /* The list is a single hairline column. Top border opens the group, the
-     between-row dividers come from each option's bottom border. */
+  /* List has no chrome of its own. The rows ARE the list. */
   .filter-options {
-    @apply grid gap-0 m-0 p-0 list-none border-t border-blue-100;
+    @apply flex flex-col m-0 p-0 list-none;
   }
 
-  /* The interactive row. <label> for checkbox/radio, <a> for link.
-     No border around it. No gap between siblings. The bottom border IS
-     the divider; the last one carries no divider (handled below). */
+  /* Row: bare, body-sized text, generous padding so the rail breathes.
+     Mirrors .mega-tab geometry: padding 0.625rem 1.25rem. Adds a left
+     border-box that the active/hover states paint. */
   .filter-option {
-    @apply flex min-h-11 items-center gap-3 border-b border-blue-100 bg-transparent px-2 py-2 text-sm text-blue-700 no-underline cursor-pointer;
-    transition: background-color 200ms ease-out, color 200ms ease-out;
-  }
-
-  .filter-options > li:last-child > .filter-option {
-    @apply border-b-0;
+    @apply flex w-full items-center gap-3 bg-transparent border-l-4 border-transparent py-2.5 pl-4 pr-5 text-base text-blue-700 no-underline cursor-pointer;
+    min-height: 2.75rem;
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
   }
 
   .filter-option:hover {
-    background-color: color-mix(in srgb, var(--color-blue-50) 60%, transparent);
-    @apply text-blue-900;
+    @apply border-blue-200 text-blue-500;
   }
 
   .filter-option:focus-visible {
-    @apply outline-none;
+    @apply outline-none border-blue-500;
     box-shadow: inset 0 0 0 2px var(--color-blue-500);
   }
 
   .filter-option[data-active="true"] {
-    @apply bg-blue-50 text-blue-900 font-medium;
+    @apply border-blue-500 bg-blue-50 text-blue-900 font-medium;
   }
 
-  /* The checkbox is now the anchor. Bigger, harder square, accent-blue.
-     Native input keeps a11y; appearance-none + custom square gives us
-     the zero-radius look. */
+  /* Checkbox tucks at the leading edge as the toggle. Native input keeps
+     a11y; appearance-none + clip-path checkmark gives us the brand's
+     hard-square corner language. */
   .filter-option-control {
-    @apply h-[18px] w-[18px] shrink-0 border border-blue-300 bg-white;
+    @apply h-4 w-4 shrink-0 border border-blue-300 bg-white;
     appearance: none;
     -webkit-appearance: none;
     display: grid;
     place-content: center;
-    transition: border-color 200ms ease-out, background-color 200ms ease-out;
+    transition: border-color 150ms ease, background-color 150ms ease;
+  }
+
+  .filter-option:hover .filter-option-control {
+    @apply border-blue-400;
   }
 
   .filter-option-control:checked {
@@ -89,8 +93,8 @@
 
   .filter-option-control:checked::after {
     content: "";
-    width: 10px;
-    height: 10px;
+    width: 9px;
+    height: 9px;
     background-color: var(--color-white);
     clip-path: polygon(14% 50%, 0 64%, 38% 100%, 100% 22%, 86% 8%, 38% 70%);
   }
@@ -103,10 +107,6 @@
     background-color: var(--color-white);
     clip-path: none;
     border-radius: 9999px;
-  }
-
-  .filter-option:hover .filter-option-control {
-    @apply border-blue-500;
   }
 
   .filter-option-label {
@@ -122,8 +122,8 @@
     @apply text-blue-500;
   }
 
-  /* Active-filter chip strip rendered above results. Chips KEEP their
-     box because they're discrete removable items, not list rows. */
+  /* Active-filter chip strip above results. Chips keep their box: they
+     are discrete removable objects, not list rows. */
   .filter-chips {
     @apply flex flex-wrap items-center gap-2 m-0 p-0 list-none;
   }
@@ -143,14 +143,14 @@
     @apply flex h-6 w-6 items-center justify-center;
   }
 
-  /* Sidebar shell. Hairline rail on lg+. Below lg the sidebar lives inside
-     a <details> drawer. */
+  /* Sidebar shell. Hairline rail on lg+. Below lg the sidebar lives
+     inside a <details> drawer. */
   .filter-sidebar {
     @apply grid gap-8;
   }
 
   .filter-sidebar-footer {
-    @apply grid gap-3 border-t border-blue-200 pt-6;
+    @apply grid gap-3 border-t border-blue-100 pt-6 mx-5;
   }
 
   /* Mobile drawer. <details> + <summary> means no JS required. */
@@ -179,6 +179,6 @@
   }
 
   .filter-drawer-body {
-    @apply grid gap-8 border-t border-blue-200 p-4;
+    @apply grid gap-8 border-t border-blue-200 py-4;
   }
 }

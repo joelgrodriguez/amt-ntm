@@ -91,7 +91,7 @@ $photo_style = $focal_point !== '' ? sprintf('--hero-pos: %s;', $focal_point) : 
 
                 <?php if ($title) : ?>
                     <h2 class="hero__title">
-                        <?php echo esc_html($title); ?>
+                        <?php echo wp_kses($title, ['br' => ['class' => []]]); ?>
                     </h2>
                 <?php endif; ?>
 

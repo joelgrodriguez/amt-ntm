@@ -166,7 +166,7 @@ $render_body = static function () use ($groups, $render_group, $show_actions, $f
     <?php endif;
 
     if ($back_url !== '' && $back_label !== '') : ?>
-        <a href="<?php echo esc_url($back_url); ?>" class="inline-flex items-center gap-2 font-mono uppercase tracking-wider text-blue-500 hover:text-blue-700 no-underline" style="font-size: var(--text-caption);">
+        <a href="<?php echo esc_url($back_url); ?>" class="inline-flex items-center gap-2 mx-5 font-mono uppercase tracking-wider text-blue-500 hover:text-blue-700 no-underline" style="font-size: var(--text-caption);">
             <?php icon('arrow-left', ['class' => 'w-3 h-3', 'aria-hidden' => 'true']); ?>
             <?php echo esc_html($back_label); ?>
         </a>
@@ -186,8 +186,8 @@ $render_body = static function () use ($groups, $render_group, $show_actions, $f
     </div>
 </details>
 
-<aside class="hidden lg:block lg:border-r lg:border-blue-200 lg:pr-8" aria-label="<?php echo esc_attr($aria_label); ?>">
-    <div class="filter-sidebar lg:sticky lg:top-24">
+<aside class="hidden lg:block lg:border-r lg:border-blue-100" aria-label="<?php echo esc_attr($aria_label); ?>">
+    <div class="filter-sidebar lg:sticky lg:top-24 lg:py-2">
         <?php $render_body(); ?>
     </div>
 </aside>
