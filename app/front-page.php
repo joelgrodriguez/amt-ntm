@@ -5,7 +5,7 @@
  * Composition follows the buyer's journey:
  *
  *   hero          (the machine, cinematic intro leading with flagships)
- *   explore       (browse the catalog)
+ *   doors         (two-cell category chooser: roof or gutter)
  *   flagships     (curated callouts: SSQ3 + MACH II Combo)
  *   router        (for the unsure: dial in 3 answers)
  *   learning      (educate: recent posts, videos, downloads)
@@ -42,7 +42,7 @@ get_header();
 
     <?php get_template_part('templates/parts/front-page/hero-slider'); ?>
 
-    <?php get_template_part('templates/parts/front-page/explore-machines'); ?>
+    <?php get_template_part('templates/parts/front-page/category-doors'); ?>
 
     <?php get_template_part('templates/parts/front-page/flagships'); ?>
 

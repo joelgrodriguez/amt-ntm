@@ -260,5 +260,8 @@
 @media (min-width: 1024px) {
   .hero__content { padding-top: 2rem; padding-bottom: clamp(3rem, 6vh, 5rem); }
   .hero__title   { font-size: var(--text-7xl); line-height: 0.95; }
-  .hero__slogan  { font-size: 1.25rem; }
+  /* Cap slogan line length so it doesn't stretch to the parent's
+     50% max-width at very wide viewports. 50ch sits comfortably
+     inside the shared 65-75ch body-copy rule. */
+  .hero__slogan  { font-size: 1.25rem; max-width: 50ch; }
 }

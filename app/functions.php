@@ -37,6 +37,7 @@ $theme_includes = [
     'inc/hubspot.php',
     'inc/page-templates.php',
     'inc/content-taxonomy.php',
+    'inc/breadcrumbs.php',
     'inc/related-posts.php',
     'inc/service-hub.php',
     // WooCommerce integration

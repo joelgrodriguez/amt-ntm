@@ -80,16 +80,16 @@ $tools = [
                         echo $i < 2 ? 'max-md:border-b max-md:border-blue-200 ' : '';
                     ?>"
                 >
-                    <h3 class="font-mono text-sm font-medium uppercase tracking-wider text-blue-700 mb-12 transition-colors duration-200 group-hover:text-white md:text-base">
+                    <h3 class="font-mono text-sm font-medium uppercase tracking-wider text-blue-700 mb-12 transition-colors duration-200 group-hover:text-blue-50 md:text-base">
                         <?php echo esc_html($tool['title']); ?>
                     </h3>
                     <div class="flex items-end justify-between">
                         <?php icon($tool['icon'], [
-                            'class'       => 'w-8 h-8 text-blue-700 transition-colors duration-200 group-hover:text-white md:w-10 md:h-10',
+                            'class'       => 'w-8 h-8 text-blue-700 transition-colors duration-200 group-hover:text-blue-50 md:w-10 md:h-10',
                             'aria-hidden' => 'true',
                         ]); ?>
                         <?php icon('arrow-right', [
-                            'class'       => 'w-5 h-5 text-blue-400 transition-colors duration-200 group-hover:text-white',
+                            'class'       => 'w-5 h-5 text-blue-400 transition-colors duration-200 group-hover:text-blue-50',
                             'aria-hidden' => 'true',
                         ]); ?>
                     </div>
