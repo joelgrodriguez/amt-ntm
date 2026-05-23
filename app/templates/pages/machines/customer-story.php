@@ -19,6 +19,7 @@ if (!defined('ABSPATH')) {
 get_template_part('templates/parts/customer-story', null, [
     'section_id'     => 'customer-story-title',
     'image_position' => 'right',
+    'background'     => '',
     'content'        => [
         'eyebrow'  => __('Customer Story', 'standard'),
         'quote'    => __("Once I got the SSR, things really excelled. It's basically a printing press: you put coil on top, turn it on, and every foot that comes out, you're making money.", 'standard'),
