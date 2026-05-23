@@ -84,7 +84,12 @@ if (
         <div class="hero__content">
             <div class="container hero__content-inner">
                 <h1 id="machine-hero-title" class="hero__title">
-                    <?php echo esc_html($headline); ?>
+                    <?php
+                    // Allow a single safe tag in the headline: <br> with an
+                    // optional class so machine data files can request a
+                    // responsive line break (e.g. desktop-only wrap).
+                    echo wp_kses($headline, ['br' => ['class' => true]]);
+                    ?>
                 </h1>
                 <?php if (!empty($subtitle)) : ?>
                     <p class="hero__slogan"><?php echo wp_kses_post($subtitle); ?></p>
