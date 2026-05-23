@@ -1,0 +1,53 @@
+/**
+ * Breadcrumbs
+ *
+ * Thin chrome strip under the site header on deep single templates.
+ * The markup is utility-driven; this file owns only what utilities
+ * can't express cleanly: separator spacing, the chevron glyph sizing,
+ * mobile label ellipsis, and the focus outline grammar.
+ *
+ * @file breadcrumbs.css
+ */
+
+/* Separator dot inherits color from text-blue-300; spacing kept here so
+   the inline-block list reads as one continuous trail. */
+.breadcrumbs__sep {
+  display: inline-block;
+  margin: 0 8px;
+  line-height: 1;
+}
+
+/* The Unicode chevron renders small at caption size; bump it up a hair
+   so it carries optical weight without breaking the strip height. */
+.breadcrumbs__chevron {
+  font-size: 14px;
+  line-height: 1;
+  margin-right: 6px;
+}
+
+/* Mobile parent link truncates with an ellipsis when titles run long. */
+.breadcrumbs__parent {
+  max-width: 100%;
+}
+
+.breadcrumbs__parent-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Current-page segment opts out of the parent <ol>'s uppercase + tracking,
+   so the post title reads as a title (mixed case, no tracking) rather than
+   as another mono label in the trail. Stays at caption size; the case +
+   tracking change carries the differentiation, not the scale. */
+.breadcrumbs__current {
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* Match the focus grammar set by DESIGN.md §5.13 for inputs and §5.1 for
+   buttons: 2px blue-500 outline at 2px offset. */
+.breadcrumbs__link:focus-visible,
+.breadcrumbs__parent:focus-visible {
+  outline: 2px solid var(--color-blue-500);
+  outline-offset: 2px;
+}

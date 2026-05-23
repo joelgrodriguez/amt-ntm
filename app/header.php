@@ -131,6 +131,11 @@ if (!defined('ABSPATH')) {
         </div>
 
     </div>
+
+    <!-- Breadcrumb trail — renders only on supported deep single templates;
+         lives inside <header> so it travels with the scroll-aware sticky/hide
+         transform applied by ScrollHeader.js. -->
+    <?php get_template_part('templates/parts/breadcrumbs'); ?>
 </header>
 
 <!-- Mega menu panels (desktop) -->
