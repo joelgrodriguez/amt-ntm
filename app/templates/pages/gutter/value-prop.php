@@ -35,7 +35,7 @@ get_template_part('templates/parts/value-prop-cards', null, [
         [
             'icon'  => 'dollar-sign',
             'title' => __('Low Entry Cost', 'standard'),
-            'text'  => __('Starting at $87,245 with flexible financing options. Most gutter contractors pay off their machine within the first year of operation.', 'standard'),
+            'text'  => __('Starting at $9,800 with flexible financing options. Most gutter contractors pay off their machine within the first year of operation.', 'standard'),
         ],
     ],
 ]);

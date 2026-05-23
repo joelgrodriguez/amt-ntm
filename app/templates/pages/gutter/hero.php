@@ -33,6 +33,6 @@ get_template_part('templates/parts/hero-category', null, [
     'meta' => [
         ['label' => __('Since', 'standard'),    'value' => '1994'],
         ['label' => __('Machines', 'standard'), 'value' => '4'],
-        ['label' => __('Starting', 'standard'), 'value' => '$87K'],
+        ['label' => __('Starting', 'standard'), 'value' => '$9.8K'],
     ],
 ]);

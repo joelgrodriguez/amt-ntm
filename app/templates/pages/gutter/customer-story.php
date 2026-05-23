@@ -36,7 +36,7 @@ get_template_part('templates/parts/customer-story', null, [
             'label' => __('Years Industry Standard', 'standard'),
         ],
         [
-            'stat'  => '$87K',
+            'stat'  => '$9.8K',
             'label' => __('Starting Investment', 'standard'),
         ],
         [

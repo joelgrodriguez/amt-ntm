@@ -442,7 +442,7 @@ function get_gutter_faq_items(): array {
     return [
         [
             'question' => 'How much does a seamless gutter machine cost?',
-            'answer'   => 'NTM seamless gutter machines start at $87,245 for the MACH II 5" and 6" models. The 5"/6" combo machine and BG7 box gutter machine are priced based on configuration. Flexible financing options (including lease-to-own and seasonal plans) make it easy to get started.',
+            'answer'   => 'NTM seamless gutter machines start at $9,800 for the MACH II 5" model, $10,500 for the MACH II 6", and $12,300 for the 5"/6" combo. The BG7 box gutter machine starts at $71,600. Flexible financing (including lease-to-own and seasonal plans) makes it easy to get started.',
         ],
         [
             'question' => 'How long does delivery take after ordering?',
