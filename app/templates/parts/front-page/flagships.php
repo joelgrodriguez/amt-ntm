@@ -31,8 +31,9 @@ use function Standard\MachineProductData\get_machine_product_data;
 
 // Per-flagship overrides. `image_key` picks between the data file's
 // `image` (product/action shot) and `hero_image` (alt shot) depending
-// on which is the better action photo for THIS machine. The headline
-// and spec strip do the talking; no body copy by design.
+// on which is the better action photo for THIS machine. `lede` is a
+// short body paragraph between the headline and the CTA, written for
+// AEO/SEO (leads with model name + category, states concrete facts).
 $flagships = [
     [
         'data_slug'    => 'ssq3-multipro',
@@ -40,6 +41,7 @@ $flagships = [
         'image_align'  => 'left',
         'image_key'    => 'image', // ntm-ssq3-manual-controller-050 control panel macro
         'badge'        => __('Flagship', 'standard'),
+        'lede'         => __('The SSQ3 MultiPro is NTM\'s most advanced portable roof and wall panel machine — 16 panel profiles, gas or electric power, on-board RFID profile recognition, and 25-minute tooling changeovers.', 'standard'),
     ],
     [
         'data_slug'    => 'mach-ii-combo-gutter',
@@ -47,6 +49,7 @@ $flagships = [
         'image_align'  => 'right',
         'image_key'    => 'hero_image', // C&S Rain Gutters action shot
         'badge'        => '',
+        'lede'         => __('The MACH II Combo is a portable seamless gutter machine that produces both 5" and 6" K-style gutters from a single setup — no machine swap, no second trip to the truck.', 'standard'),
     ],
 ];
 
@@ -66,6 +69,7 @@ $rendered_count = 0;
 
         $category   = $data['category'] ?? '';
         $slogan     = $data['hero']['headline'] ?? $data['slogan'] ?? '';
+        $lede       = $flagship['lede'] ?? '';
         $image_key  = $flagship['image_key'] ?? 'image';
         $hero_image = $data['hero'][$image_key] ?? $data['hero']['image'] ?? $data['hero']['hero_image'] ?? '';
         $stats      = array_slice($data['stats'] ?? [], 0, 3);
@@ -128,6 +132,12 @@ $rendered_count = 0;
                     <h3 class="font-sans font-medium text-blue-900 tracking-tight leading-tight text-3xl md:text-4xl lg:text-5xl">
                         <?php echo esc_html($slogan); ?>
                     </h3>
+
+                    <?php if ($lede) : ?>
+                        <p class="font-sans text-blue-600 text-base lg:text-lg max-w-xl leading-relaxed">
+                            <?php echo esc_html($lede); ?>
+                        </p>
+                    <?php endif; ?>
 
                     <!-- Single primary CTA: configure & quote -->
                     <div class="flex">
