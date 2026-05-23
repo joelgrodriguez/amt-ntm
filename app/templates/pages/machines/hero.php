@@ -28,7 +28,7 @@ get_template_part('templates/parts/hero-category', null, [
         // Who Is NTM brand video — system default. The video panel
         // renders inline in the hero right column (16:9 Wistia embed).
         'video'             => 'https://fast.wistia.net/embed/iframe/kdv2kphni1?seo=false&videoFoam=true',
-        'poster'            => content_url('/uploads/2025/09/Machine-on-rooftop-scaled.jpg'),
+        'poster'            => content_url('/uploads/2026/05/ntm-standing-seam-roof-007.jpg'),
         'poster_alt'        => __('NTM machine on a rooftop', 'standard'),
     ],
     'meta' => [

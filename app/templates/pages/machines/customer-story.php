@@ -25,7 +25,7 @@ get_template_part('templates/parts/customer-story', null, [
         'name'     => 'Jim Averill',
         'company'  => 'Gunnison Sheet Metal',
         'machine'  => 'SSR MultiPro Jr.',
-        'image'    => content_url('/uploads/2025/04/Nate-training-East-Kentucky-Metal-9-scaled.jpg'),
+        'image'    => content_url('/uploads/2026/05/ntm-customer-onsite-002.jpg'),
         'cta_text' => __('Read the Full Story', 'standard'),
         'cta_url'  => '/learning-center/ntm-customers-roi-behind-portable-standing-seam-panel-production/',
         'cta_icon' => 'arrow-right',

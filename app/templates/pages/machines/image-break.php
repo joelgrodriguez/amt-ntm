@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'image' => content_url('/uploads/2020/03/ssqii-updated.png'),
+    'image' => content_url('/uploads/2026/05/ntm-ssq2-frame-overhead-006.jpg'),
     'alt'   => __('NTM rollforming machine on a jobsite rooftop', 'standard'),
 ];
 ?>
