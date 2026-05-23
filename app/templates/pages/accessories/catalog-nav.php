@@ -58,7 +58,7 @@ if (empty($buckets)) {
                 <?php if ($i > 0) : ?>
                     <span aria-hidden="true" class="w-px bg-blue-200"></span>
                 <?php endif; ?>
-                <a href="#catalog-<?php echo esc_attr($bucket['id']); ?>" class="flex-1 text-center py-4 font-mono text-xs uppercase tracking-wider text-blue-700 hover:text-blue-900 border-b-2 border-transparent hover:border-blue-500 transition-colors no-underline">
+                <a href="#catalog-<?php echo esc_attr($bucket['id']); ?>" class="flex-1 flex items-center justify-center text-center py-4 font-mono text-xs uppercase tracking-wider text-blue-700 hover:text-blue-900 border-b-2 border-transparent hover:border-blue-500 transition-colors no-underline">
                     <?php echo esc_html($bucket['label']); ?>
                 </a>
             <?php endforeach; ?>

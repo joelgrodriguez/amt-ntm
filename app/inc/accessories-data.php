@@ -85,7 +85,7 @@ function get_buckets(): array {
         ],
         [
             'id'          => 'roll-tooling',
-            'label'       => __('Roll Tooling & Profile Add-Ons', 'standard'),
+            'label'       => __('Roll Tooling', 'standard'),
             'description' => __('Profile rollers, bottom beads, back flanges, striations, panel notching, Alcoa hook. Extend what the machine can make.', 'standard'),
             'classify'    => static fn(\WC_Product $p): bool => matches_any($p, [
                 '/\bRR[1-7]/i', '/\bBB[56]\b/i', '/\bBF\d/i',
