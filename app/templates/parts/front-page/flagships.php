@@ -140,7 +140,7 @@ $rendered_count = 0;
                     <?php endif; ?>
 
                     <!-- Single primary CTA: configure & quote -->
-                    <div class="flex">
+                    <div class="flex -mt-2 lg:-mt-4">
                         <a
                             href="<?php echo esc_url($configure_url); ?>"
                             class="btn btn-primary"

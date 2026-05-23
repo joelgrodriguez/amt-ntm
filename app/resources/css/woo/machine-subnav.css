@@ -3,7 +3,7 @@
  *
  * In-flow bar below the hero on machine product pages.
  * Sticks to the top of the viewport when scrolled past.
- * Left: machine switcher dropdown. Right: section anchors + Build CTA.
+ * Left: current machine label. Right: section anchors + Build CTA.
  *
  * @file machine-subnav.css
  *
@@ -42,12 +42,20 @@ body:has(.header--sticky:not(.header--hidden)) .machine-subnav.is-sticky {
   gap: 1rem;
 }
 
-/* ── Left group: switcher dropdown ───────────────────────────────── */
+/* ── Left group: current machine ─────────────────────────────────── */
 
 .machine-subnav__left {
   display: flex;
   align-items: center;
   flex-shrink: 0;
+}
+
+.machine-subnav__current-name {
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 500;
+  color: var(--color-blue-700);
+  white-space: nowrap;
 }
 
 /* ── Machine Switcher ─────────────────────────────────────────────── */

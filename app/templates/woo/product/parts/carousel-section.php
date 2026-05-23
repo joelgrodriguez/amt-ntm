@@ -21,6 +21,7 @@
  *
  *   Section display:
  *     'section_class' => string   Extra classes on <section> (default '')
+ *     'section_id'    => string   Optional section ID for anchor nav
  *     'carousel_id'   => string   Unique carousel ID
  *     'eyebrow'       => string   Section eyebrow text
  *     'title'         => string   Section heading
@@ -39,6 +40,7 @@ if (!defined('ABSPATH')) {
 }
 
 $section_class = $args['section_class'] ?? '';
+$section_id    = $args['section_id'] ?? '';
 $carousel_id   = $args['carousel_id'] ?? 'carousel';
 $eyebrow       = $args['eyebrow'] ?? '';
 $title         = $args['title'] ?? '';
@@ -53,7 +55,7 @@ if (empty($cards)) {
 }
 ?>
 
-<section class="section <?php echo esc_attr($section_class); ?>" aria-labelledby="<?php echo esc_attr($title_id); ?>">
+<section <?php echo $section_id ? 'id="' . esc_attr($section_id) . '"' : ''; ?> class="section <?php echo esc_attr($section_class); ?>" aria-labelledby="<?php echo esc_attr($title_id); ?>">
     <div class="container section-content">
         <?php get_template_part('templates/woo/product/parts/carousel', null, [
             'carousel_id' => $carousel_id,

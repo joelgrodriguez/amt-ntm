@@ -120,7 +120,7 @@ if (!empty($trailer_dims)) {
 }
 ?>
 
-<section class="bg-white text-blue-600 border-y border-blue-200" aria-labelledby="blueprint-title">
+<section id="machine-blueprint" class="bg-white text-blue-600 border-y border-blue-200" aria-labelledby="blueprint-title">
 
     <!-- Top chrome bar -->
     <div class="border-b border-blue-200">
