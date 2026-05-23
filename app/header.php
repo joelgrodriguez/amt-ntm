@@ -65,23 +65,25 @@ if (!defined('ABSPATH')) {
 
     <?php $desktop_nav = \Standard\Nav\get_desktop_nav(); ?>
 
-    <!-- Desktop row: logo | [mega triggers centered] | utility rail — capped at --layout-wide.
+    <!-- Desktop row: logo rail | mega triggers | utility rail — capped at --layout-wide.
          Uses .container so the 16px gutter matches body content alignment below.
-         Symmetric 1fr | auto | 1fr columns so the nav stays centered in the header
-         regardless of logo vs. utility-rail width. -->
-    <div class="container hidden lg:grid h-16" style="grid-template-columns: 1fr auto 1fr;">
+         Logo rail and utility rail both flex-1, so they consume equal leftover space
+         and the middle nav stays mathematically centered in the header. -->
+    <div class="container hidden lg:flex items-stretch h-16">
 
-        <!-- Logo flush left -->
-        <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="flex items-center h-16 no-underline justify-self-start">
-            <?php if (has_custom_logo()) : ?>
-                <?php echo wp_get_attachment_image((int) get_theme_mod('custom_logo'), 'full', false, [
-                    'class'    => 'w-14 object-contain',
-                    'alt'      => get_bloginfo('name'),
-                    'loading'  => 'eager',
-                    'decoding' => 'async',
-                ]); ?>
-            <?php endif; ?>
-        </a>
+        <!-- Logo rail: flush left, equal-flex with utility rail -->
+        <div class="flex items-center flex-1 h-16">
+            <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="flex items-center h-16 no-underline">
+                <?php if (has_custom_logo()) : ?>
+                    <?php echo wp_get_attachment_image((int) get_theme_mod('custom_logo'), 'full', false, [
+                        'class'    => 'w-14 object-contain',
+                        'alt'      => get_bloginfo('name'),
+                        'loading'  => 'eager',
+                        'decoding' => 'async',
+                    ]); ?>
+                <?php endif; ?>
+            </a>
+        </div>
 
         <!-- Mega menu triggers — centered in full header width -->
         <div class="flex items-stretch">
@@ -115,8 +117,8 @@ if (!defined('ABSPATH')) {
             </nav>
         </div>
 
-        <!-- Contact + search flush right -->
-        <div class="flex items-center h-16 gap-10 justify-self-end">
+        <!-- Utility rail: contact + search flush right, equal-flex with logo rail -->
+        <div class="flex items-center justify-end flex-1 h-16 gap-10">
             <?php $contact = array_values(array_filter($desktop_nav['utility'], fn($i) => !empty($i['highlight'])))[0] ?? null; ?>
             <?php if ($contact) : ?>
                 <a href="<?php echo esc_url($contact['url']); ?>" class="inline-flex items-center px-3 py-1 font-sans text-sm font-medium text-blue-700 border border-blue-500 hover:bg-blue-50 transition-colors no-underline">
