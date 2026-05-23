@@ -22,10 +22,14 @@
   background-color: var(--color-black);
 }
 
-/* Slides track holds all slides in a row. */
+/* Slides track holds all slides in a row.
+   Premium feel: long duration + deep ease-out (easeOutQuint) so the
+   slide glides to a stop instead of snapping. Matches the cadence used
+   by Apple/Stripe/Linear hero carousels — full-viewport translates need
+   ~900ms with a soft settle, otherwise they read as a flip. */
 .hero-slider__track {
   display: flex;
-  transition: transform 500ms cubic-bezier(0.33, 1, 0.68, 1);
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
 }
 
