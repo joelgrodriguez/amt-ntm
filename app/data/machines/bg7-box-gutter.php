@@ -46,7 +46,7 @@ return [
         ['value' => '2',          'label' => __('Box Gutter Profiles', 'standard')],
         ['value' => '60 ft/min',  'label' => __('Max Speed', 'standard')],
         ['value' => 'Hydraulic',  'label' => __('Drive & Shear', 'standard')],
-        ['value' => '$69,200+',   'label' => __('Starting At', 'standard')],
+        ['value' => '7"',         'label' => __('Box Gutter Size', 'standard')],
     ],
 
     // ── Finance ──

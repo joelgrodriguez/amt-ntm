@@ -46,7 +46,7 @@ return [
         ['value' => '7',          'label' => __('Panel Profiles', 'standard')],
         ['value' => '60 ft/min',  'label' => __('Max Speed', 'standard')],
         ['value' => 'Hydraulic',  'label' => __('Shear & Drive', 'standard')],
-        ['value' => '$69,200+',   'label' => __('Starting At', 'standard')],
+        ['value' => '24 ga',      'label' => __('Material Capacity', 'standard')],
     ],
 
     // ── Finance ──

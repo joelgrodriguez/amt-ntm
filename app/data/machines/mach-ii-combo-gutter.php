@@ -46,7 +46,7 @@ return [
         ['value' => '2',         'label' => __('Gutter Sizes', 'standard')],
         ['value' => '50 ft/min', 'label' => __('Max Speed', 'standard')],
         ['value' => '1,350 lbs', 'label' => __('Machine Weight', 'standard')],
-        ['value' => '$15,500+',  'label' => __('Starting At', 'standard')],
+        ['value' => 'K-style',   'label' => __('Gutter Profile', 'standard')],
     ],
 
     // ── Finance ──

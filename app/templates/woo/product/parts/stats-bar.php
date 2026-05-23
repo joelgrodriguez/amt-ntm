@@ -26,10 +26,6 @@ if (empty($stats)) {
 
 <section class="stats-band" aria-label="<?php esc_attr_e('Key specifications', 'standard'); ?>">
     <div class="container stats-band__inner">
-        <p class="stats-band__eyebrow">
-            <span class="stats-band__eyebrow-dot" aria-hidden="true"></span>
-            <span><?php esc_html_e('Key specifications', 'standard'); ?></span>
-        </p>
         <dl class="stats-band__grid">
             <?php foreach ($stats as $stat) : ?>
                 <div class="stats-band__cell">

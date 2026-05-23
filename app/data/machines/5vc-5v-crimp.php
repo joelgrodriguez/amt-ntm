@@ -46,7 +46,7 @@ return [
         ['value' => '3',          'label' => __('Panel Profiles', 'standard')],
         ['value' => '60 ft/min',  'label' => __('Max Speed', 'standard')],
         ['value' => 'Hydraulic',  'label' => __('Drive & Shear', 'standard')],
-        ['value' => '$70,800+',   'label' => __('Starting At', 'standard')],
+        ['value' => 'Exposed Fastener', 'label' => __('Roof Style', 'standard')],
     ],
 
     // ── Finance ──

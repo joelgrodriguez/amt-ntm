@@ -46,7 +46,7 @@ return [
         ['value' => '16',          'label' => __('Panel Profiles', 'standard')],
         ['value' => '45 min',      'label' => __('Tooling Changeover', 'standard')],
         ['value' => '75 ft/min',   'label' => __('Max Speed', 'standard')],
-        ['value' => '$115K–$130K', 'label' => __('Starting At', 'standard')],
+        ['value' => '24 ga',       'label' => __('Material Capacity', 'standard')],
     ],
 
     // ── Finance ──
