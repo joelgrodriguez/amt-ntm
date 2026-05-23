@@ -19,10 +19,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$content = [
-    'cta_machine' => __('View Machine', 'standard'),
-];
-
 $machine = $args['machine'] ?? [];
 $index   = $args['index'] ?? 0;
 
@@ -37,6 +33,7 @@ $slogan           = $machine['slogan'] ?? '';
 $background_image = $machine['background_image'] ?? '';
 $background_video = $machine['background_video'] ?? '';
 $learn_more_url   = $machine['learn_more_url'] ?? '#';
+$cta_label        = $machine['cta_label'] ?? __('View Machine', 'standard');
 $is_first         = $index === 0;
 ?>
 
@@ -100,7 +97,7 @@ $is_first         = $index === 0;
 
                 <div class="hero__cta">
                     <a href="<?php echo esc_url($learn_more_url); ?>" class="btn btn-primary">
-                        <?php echo esc_html($content['cta_machine']); ?>
+                        <?php echo esc_html($cta_label); ?>
                         <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                     </a>
                 </div>

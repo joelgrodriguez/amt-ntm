@@ -14,41 +14,41 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use function Standard\Machines\get_featured_machines;
+use function Standard\Machines\get_hero_slides;
 
 $content = [
-    'section_label' => __('Featured machines', 'standard'),
+    'section_label' => __('Featured', 'standard'),
     'prev_label'    => __('Previous slide', 'standard'),
     'next_label'    => __('Next slide', 'standard'),
     'nav_label'     => __('Slide navigation', 'standard'),
     'go_to_slide'   => __('Go to slide %d', 'standard'),
 ];
 
-// Get featured machines
-$machines = get_featured_machines();
+// Get hero slides (mix of machine-derived + arbitrary category slides)
+$slides = get_hero_slides();
 
-if (empty($machines)) {
+if (empty($slides)) {
     return;
 }
 
-$total_slides = count($machines);
+$total_slides = count($slides);
 
 // Preload first slide image for faster LCP
-$first_machine = $machines[0] ?? null;
+$first_slide = $slides[0] ?? null;
 ?>
 
-<?php if ($first_machine && !empty($first_machine['background_image'])) : ?>
-<link rel="preload" as="image" href="<?php echo esc_url($first_machine['background_image']); ?>" fetchpriority="high">
+<?php if ($first_slide && !empty($first_slide['background_image'])) : ?>
+<link rel="preload" as="image" href="<?php echo esc_url($first_slide['background_image']); ?>" fetchpriority="high">
 <?php endif; ?>
 
 <section class="hero-slider" aria-label="<?php echo esc_attr($content['section_label']); ?>">
 
     <!-- Slides Track -->
     <div class="hero-slider__track">
-        <?php foreach ($machines as $index => $machine) : ?>
+        <?php foreach ($slides as $index => $slide) : ?>
             <?php
             get_template_part('templates/parts/front-page/hero-slide', null, [
-                'machine' => $machine,
+                'machine' => $slide,
                 'index'   => $index,
             ]);
             ?>
