@@ -47,14 +47,14 @@ $secondary = array_slice($stats, 1);
                 <?php echo esc_html($content['eyebrow']); ?>
             </p>
             <?php if ($primary) : ?>
-                <p
+                <h2
                     id="roi-snapshot-title"
-                    class="font-sans font-medium leading-[0.95] tracking-tight text-white text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
+                    class="font-sans font-medium leading-[0.95] tracking-tight text-white text-5xl md:text-6xl lg:text-7xl xl:text-8xl m-0"
                 >
-                    <span class="text-blue-200">+</span><?php echo esc_html($primary['stat']); ?>
-                    <span class="block text-2xl md:text-3xl lg:text-4xl text-blue-200 font-normal mt-3 max-w-xl">
-                        <?php echo esc_html($content['lede']); ?>
-                    </span>
+                    <span class="text-blue-200" aria-hidden="true">+</span><?php echo esc_html($primary['stat']); ?>
+                </h2>
+                <p class="text-2xl md:text-3xl lg:text-4xl text-blue-200 font-normal max-w-xl m-0">
+                    <?php echo esc_html($content['lede']); ?>
                 </p>
             <?php endif; ?>
         </div>

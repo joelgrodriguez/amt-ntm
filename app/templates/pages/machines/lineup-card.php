@@ -2,18 +2,14 @@
 /**
  * Machines Page — Lineup Card
  *
- * Individual machine card for the lineup grid. Shows product image,
- * name, starting price (resolved from WooCommerce by slug), highlights,
- * and dual CTAs.
- *
- * Price falls back gracefully: hardcoded $machine['price'] wins if set,
- * otherwise we ask WC for the product's price by slug. If WC has no
- * price either, the card simply omits the price block and shows the
- * CTAs alone.
+ * Individual machine card for the lineup grid. Image, name, single
+ * Build & Quote CTA. The product spec page is reachable from the
+ * compare table and flagship band; this card's job is to funnel into
+ * the configurator.
  *
  * @package Standard
  *
- * @usage Via get_template_part() from lineup-grid.php / lineup-flagship.php
+ * @usage Via get_template_part() from lineup-grid.php
  */
 
 declare(strict_types=1);
