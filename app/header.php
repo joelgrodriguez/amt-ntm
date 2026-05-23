@@ -66,11 +66,13 @@ if (!defined('ABSPATH')) {
     <?php $desktop_nav = \Standard\Nav\get_desktop_nav(); ?>
 
     <!-- Desktop row: logo | [mega triggers centered] | utility rail — capped at --layout-wide.
-         Uses .container so the 16px gutter matches body content alignment below. -->
-    <div class="container hidden lg:grid h-16" style="grid-template-columns: auto 1fr auto;">
+         Uses .container so the 16px gutter matches body content alignment below.
+         Symmetric 1fr | auto | 1fr columns so the nav stays centered in the header
+         regardless of logo vs. utility-rail width. -->
+    <div class="container hidden lg:grid h-16" style="grid-template-columns: 1fr auto 1fr;">
 
         <!-- Logo flush left -->
-        <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="flex items-center h-16 no-underline">
+        <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="flex items-center h-16 no-underline justify-self-start">
             <?php if (has_custom_logo()) : ?>
                 <?php echo wp_get_attachment_image((int) get_theme_mod('custom_logo'), 'full', false, [
                     'class'    => 'w-14 object-contain',
@@ -82,7 +84,7 @@ if (!defined('ABSPATH')) {
         </a>
 
         <!-- Mega menu triggers — centered in full header width -->
-        <div class="flex items-stretch justify-center">
+        <div class="flex items-stretch">
             <nav id="desktop-navigation" class="flex" aria-label="<?php esc_attr_e('Primary navigation', 'standard'); ?>">
                 <ul id="primary-menu" class="flex items-stretch m-0 p-0 list-none">
                     <?php foreach ($desktop_nav['items'] as $item) : ?>
@@ -114,7 +116,7 @@ if (!defined('ABSPATH')) {
         </div>
 
         <!-- Contact + search flush right -->
-        <div class="flex items-center h-16 gap-10">
+        <div class="flex items-center h-16 gap-10 justify-self-end">
             <?php $contact = array_values(array_filter($desktop_nav['utility'], fn($i) => !empty($i['highlight'])))[0] ?? null; ?>
             <?php if ($contact) : ?>
                 <a href="<?php echo esc_url($contact['url']); ?>" class="inline-flex items-center px-3 py-1 font-sans text-sm font-medium text-blue-700 border border-blue-500 hover:bg-blue-50 transition-colors no-underline">
