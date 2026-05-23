@@ -59,7 +59,7 @@ $flagships = [
 $rendered_count = 0;
 ?>
 
-<section class="bg-white" aria-labelledby="flagships-title">
+<section class="bg-white border-t border-blue-200" aria-labelledby="flagships-title">
     <h2 id="flagships-title" class="sr-only">
         <?php esc_html_e('Our flagship machines', 'standard'); ?>
     </h2>
@@ -159,13 +159,14 @@ $rendered_count = 0;
                     <?php endif; ?>
 
                     <?php if (!empty($bullets)) : ?>
-                        <!-- Spec bullets: short noun phrases, mono-flavored
-                             via a left chevron. Replaces the lede prose when
-                             the data layer sets `bullets`. -->
+                        <!-- Spec bullets: short noun phrases with a standard
+                             disc marker in blue-400 (quieter than red, lets
+                             the text carry the meaning). Replaces the lede
+                             prose when the data layer sets `bullets`. -->
                         <ul class="grid gap-3 max-w-xl" role="list">
                             <?php foreach ($bullets as $bullet) : ?>
                                 <li class="flex items-start gap-3 font-sans text-blue-600 text-base lg:text-lg leading-relaxed">
-                                    <span class="font-mono text-red shrink-0 leading-relaxed" aria-hidden="true">/</span>
+                                    <span class="text-blue-400 shrink-0 leading-relaxed" aria-hidden="true">&bull;</span>
                                     <span><?php echo esc_html($bullet); ?></span>
                                 </li>
                             <?php endforeach; ?>
