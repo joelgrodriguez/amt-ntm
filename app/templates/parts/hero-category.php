@@ -40,9 +40,13 @@ $poster_alt = $content['poster_alt'] ?? '';
 $kicker     = $content['kicker'] ?? ($content['eyebrow'] ?? '');
 
 // Decide which video pipeline to use.
-$is_mp4   = $video !== '' && preg_match('/\.mp4($|\?)/i', $video);
-$embed    = ($video !== '' && !$is_mp4) ? render_video_embed($video) : '';
-$has_iframe_video = $embed !== '';
+// Wistia gets the click-to-play treatment: the poster image is the LCP,
+// the iframe + E-v1.js only load when the user actually wants the video.
+// Self-hosted mp4 still autoplays inline (cheap, no third-party).
+$is_mp4           = $video !== '' && preg_match('/\.mp4($|\?)/i', $video);
+$is_wistia        = $video !== '' && !$is_mp4 && is_wistia_url($video);
+$other_embed      = ($video !== '' && !$is_mp4 && !$is_wistia) ? render_video_embed($video) : '';
+$has_other_embed  = $other_embed !== '';
 $has_mp4_video    = (bool) $is_mp4;
 ?>
 
@@ -114,8 +118,27 @@ $has_mp4_video    = (bool) $is_mp4;
 
             <!-- Right panel: 16:9 video or poster -->
             <div class="video-responsive lg:col-span-6 bg-blue-800">
-                <?php if ($has_iframe_video) : ?>
-                    <?php echo $embed; ?>
+                <?php if ($is_wistia) : ?>
+                    <button
+                        type="button"
+                        class="video-facade"
+                        data-video-facade
+                        data-video-url="<?php echo esc_url($video); ?>"
+                        aria-label="<?php echo esc_attr__('Play video', 'standard'); ?>"
+                    >
+                        <?php if ($poster) : ?>
+                            <?php \Standard\Images\responsive_image($poster, $poster_alt, 'full', [
+                                'class'         => 'object-cover',
+                                'loading'       => 'eager',
+                                'fetchpriority' => 'high',
+                            ]); ?>
+                        <?php endif; ?>
+                        <span class="video-facade__play" aria-hidden="true">
+                            <?php icon('play', ['class' => 'w-6 h-6']); ?>
+                        </span>
+                    </button>
+                <?php elseif ($has_other_embed) : ?>
+                    <?php echo $other_embed; ?>
                 <?php elseif ($has_mp4_video) : ?>
                     <video
                         autoplay
@@ -140,6 +163,3 @@ $has_mp4_video    = (bool) $is_mp4;
     </div>
 </section>
 
-<?php if ($has_iframe_video && is_wistia_url($video)) : ?>
-    <script src="https://fast.wistia.net/assets/external/E-v1.js" async></script>
-<?php endif; ?>
