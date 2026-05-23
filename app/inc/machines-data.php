@@ -111,12 +111,17 @@ function get_product_price(string $slug): ?string {
 /**
  * Get all machines organized by category.
  *
+ * Dormant machines (e.g. SSQ II, superseded by SSQ3) are filtered out
+ * by default. Pass true to include them — used by Woo product templates
+ * that still need to resolve the dormant machine's metadata when its
+ * historical product page renders.
+ *
  * @return array<string, array{label: string, machines: array}>
  */
-function get_machine_categories(): array {
+function get_machine_categories(bool $include_dormant = false): array {
     $base = 'https://newtechmachinery.com/wp-content/uploads/';
 
-    return [
+    $categories = [
         'roof-wall' => [
             'label' => 'Roof & Wall Panel Machines',
             'url'   => '/roof-wall-panel-machines/',
@@ -152,6 +157,10 @@ function get_machine_categories(): array {
                     'image'      => $base . '2025/09/20250911_NTM_SSQ-II_1000x1000.png',
                     'url'        => get_product_url('ssq-ii-multipro'),
                     'badge'      => '',
+                    // Superseded by SSQ3. Hidden from /machines and
+                    // /roof-wall-panel-machines listings, but the Woo
+                    // product page stays live for historical reasons.
+                    'dormant'    => true,
                     'highlights' => [
                         'Up to 16 profile options: standing seam roof, wall panels, and board & batten',
                         'Quick-Change Power Pack (QCPP) switches between gas and electric in the field',
@@ -350,16 +359,31 @@ function get_machine_categories(): array {
             ],
         ],
     ];
+
+    if ($include_dormant) {
+        return $categories;
+    }
+
+    foreach ($categories as $key => $category) {
+        $categories[$key]['machines'] = array_values(array_filter(
+            $category['machines'],
+            static fn(array $m): bool => empty($m['dormant'])
+        ));
+    }
+
+    return $categories;
 }
 
 /**
  * Get all machines as a flat array.
  *
+ * Dormant machines are excluded by default; pass true to include them.
+ *
  * @return array
  */
-function get_all_machines(): array {
+function get_all_machines(bool $include_dormant = false): array {
     $all = [];
-    foreach (get_machine_categories() as $category) {
+    foreach (get_machine_categories($include_dormant) as $category) {
         foreach ($category['machines'] as $machine) {
             $all[] = $machine;
         }
@@ -372,8 +396,8 @@ function get_all_machines(): array {
  *
  * @return array
  */
-function get_roof_wall_machines(): array {
-    $categories = get_machine_categories();
+function get_roof_wall_machines(bool $include_dormant = false): array {
+    $categories = get_machine_categories($include_dormant);
     return $categories['roof-wall']['machines'] ?? [];
 }
 
@@ -428,8 +452,8 @@ function get_roof_wall_faq_items(): array {
  *
  * @return array
  */
-function get_gutter_machines(): array {
-    $categories = get_machine_categories();
+function get_gutter_machines(bool $include_dormant = false): array {
+    $categories = get_machine_categories($include_dormant);
     return $categories['gutter']['machines'] ?? [];
 }
 

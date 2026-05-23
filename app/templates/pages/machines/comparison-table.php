@@ -26,7 +26,6 @@ use function Standard\MachinesData\get_all_machines;
 
 $featured_slugs = [
     'ssq3-multipro',         // roof-wall flagship
-    'ssq-ii-multipro',       // roof-wall workhorse
     'ssh-multipro',          // roof-wall residential
     'mach-ii-combo-gutter',  // gutter featured
 ];
