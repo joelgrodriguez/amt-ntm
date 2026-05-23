@@ -40,7 +40,13 @@ $defaults = [
 ];
 
 $args = wp_parse_args($args ?? [], $defaults);
-$query = get_latest_query((int) $args['post_count'], $args['post_type'], (string) $args['category_slug']);
+
+$post_count = (int) $args['post_count'];
+if ($post_count < 1) {
+    return;
+}
+
+$query = get_latest_query($post_count, $args['post_type'], (string) $args['category_slug']);
 
 if (!$query->have_posts()) {
     return;
