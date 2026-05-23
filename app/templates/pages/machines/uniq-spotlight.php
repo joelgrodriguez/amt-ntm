@@ -2,10 +2,12 @@
 /**
  * Roof & Wall Pillar — UNIQ Technology Spotlight
  *
- * Two-column light section: product image left (with availability mono
- * caption beneath), feature bullets right with a CTA into the deeper
- * technology page. The accordion variant was retired because the four
- * UNIQ features are short enough to read at a glance.
+ * Two-row composition:
+ *   1. Image + header (two columns on md+).
+ *   2. Four-feature tile grid (2×2 on md+), full-width below.
+ *      Each tile carries a mono index, title, and short description so
+ *      the section reads as engineering-grade specs rather than a long
+ *      thin right column.
  *
  * @package Standard
  *
@@ -34,10 +36,10 @@ $features = get_uniq_features();
 ?>
 
 <section class="section bg-blue-50" aria-labelledby="uniq-spotlight-title">
-    <div class="container">
-        <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-start">
+    <div class="container grid gap-12 lg:gap-16">
 
-            <!-- Image + availability caption -->
+        <!-- Row 1: image + header -->
+        <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-center">
             <div class="grid gap-3">
                 <img
                     src="<?php echo esc_url($content['image']); ?>"
@@ -50,42 +52,45 @@ $features = get_uniq_features();
                 </p>
             </div>
 
-            <!-- Header + accordion + CTA -->
-            <div class="grid gap-8 md:gap-10 content-start">
-                <div class="section-header-left">
-                    <p class="section-eyebrow">
-                        <?php echo esc_html($content['eyebrow']); ?>
-                    </p>
-                    <div class="section-divider"></div>
-                    <h2 id="uniq-spotlight-title" class="section-title">
-                        <?php echo esc_html($content['title']); ?>
-                    </h2>
-                    <p class="section-subtitle">
-                        <?php echo esc_html($content['subtitle']); ?>
-                    </p>
-                </div>
-
-                <ul class="grid gap-5 border-t border-blue-200 pt-6">
-                    <?php foreach ($features as $feature) : ?>
-                        <li class="grid gap-1">
-                            <h3 class="text-base font-medium text-blue-900">
-                                <?php echo esc_html($feature['title']); ?>
-                            </h3>
-                            <p class="text-base text-blue-600 leading-relaxed">
-                                <?php echo esc_html($feature['text']); ?>
-                            </p>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-
-                <div>
-                    <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-outline-dark">
-                        <?php echo esc_html($content['cta_text']); ?>
-                        <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
-                    </a>
-                </div>
+            <div class="section-header-left">
+                <p class="section-eyebrow">
+                    <?php echo esc_html($content['eyebrow']); ?>
+                </p>
+                <div class="section-divider"></div>
+                <h2 id="uniq-spotlight-title" class="section-title">
+                    <?php echo esc_html($content['title']); ?>
+                </h2>
+                <p class="section-subtitle">
+                    <?php echo esc_html($content['subtitle']); ?>
+                </p>
             </div>
-
         </div>
+
+        <!-- Row 2: feature tiles -->
+        <ol class="grid gap-px bg-blue-200 border border-blue-200 md:grid-cols-2" role="list">
+            <?php foreach ($features as $idx => $feature) : ?>
+                <li class="grid content-start gap-3 bg-white p-6 lg:p-8">
+                    <div class="flex items-center gap-3 font-mono text-xs uppercase tracking-wider text-blue-500">
+                        <span><?php echo esc_html(sprintf('%02d', $idx + 1)); ?></span>
+                        <span class="w-8 h-px bg-blue-300" aria-hidden="true"></span>
+                    </div>
+                    <h3 class="text-lg font-medium text-blue-900 lg:text-xl">
+                        <?php echo esc_html($feature['title']); ?>
+                    </h3>
+                    <p class="text-base text-blue-600 leading-relaxed">
+                        <?php echo esc_html($feature['text']); ?>
+                    </p>
+                </li>
+            <?php endforeach; ?>
+        </ol>
+
+        <!-- CTA -->
+        <div>
+            <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-outline-dark">
+                <?php echo esc_html($content['cta_text']); ?>
+                <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
+            </a>
+        </div>
+
     </div>
 </section>
