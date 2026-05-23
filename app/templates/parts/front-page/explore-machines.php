@@ -36,6 +36,15 @@ if (empty($categories)) {
 }
 
 $first_category = array_key_first($categories);
+
+// Per-category landing page URLs. Catalog slugs don't all match
+// the public URL (accessories sits at /machines/ntm-accessories/,
+// not at the catalog slug), so the mapping lives here.
+$landing_urls = [
+    'roof-wall-panel-machines'      => '/machines/roof-wall-panel-machines/',
+    'gutter-machines'               => '/machines/gutter-machines/',
+    'accessories-add-on-equipment'  => '/machines/ntm-accessories/',
+];
 ?>
 
 <section class="explore-machines section border-b border-blue-200" aria-labelledby="explore-machines-title">
@@ -62,7 +71,11 @@ $first_category = array_key_first($categories);
 
         <div class="explore-machines__panels">
             <?php foreach ($categories as $slug => $category) : ?>
-                <?php $products = get_products_by_category($slug); ?>
+                <?php
+                $products     = get_products_by_category($slug);
+                $landing_url  = $landing_urls[$slug] ?? '';
+                $product_count = count($products);
+                ?>
                 <div
                     id="panel-<?php echo esc_attr($slug); ?>"
                     class="explore-machines__panel grid gap-8 lg:gap-10 <?php echo $slug === $first_category ? 'explore-machines__panel--active' : ''; ?>"
@@ -75,7 +88,11 @@ $first_category = array_key_first($categories);
                         <?php endforeach; ?>
                     </div>
 
-                    <div class="flex justify-center">
+                    <!-- Chrome row: pager arrows + landing-page jump. The
+                         landing link is the route-to-category door — it
+                         lets the buyer leave the in-page browse and land
+                         on the full category page in one tap. -->
+                    <div class="flex flex-wrap items-center justify-center gap-6">
                         <div class="flex items-center gap-4">
                             <button
                                 type="button"
@@ -86,7 +103,7 @@ $first_category = array_key_first($categories);
                             <span class="text-sm text-blue-600 min-w-16 text-center" aria-live="polite" aria-atomic="true">
                                 <span class="explore-machines__current">1</span>
                                 <?php esc_html_e('of', 'standard'); ?>
-                                <span class="explore-machines__total"><?php echo count($products); ?></span>
+                                <span class="explore-machines__total"><?php echo (int) $product_count; ?></span>
                             </span>
                             <button
                                 type="button"
@@ -95,6 +112,23 @@ $first_category = array_key_first($categories);
                                 data-panel="<?php echo esc_attr($slug); ?>"
                             ><?php icon('arrow-right', ['class' => 'w-4 h-4']); ?></button>
                         </div>
+
+                        <?php if ($landing_url) : ?>
+                            <a
+                                href="<?php echo esc_url(\Standard\Url\internal($landing_url)); ?>"
+                                class="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-blue-700 hover:text-red transition-colors"
+                            >
+                                <?php
+                                printf(
+                                    /* translators: 1: product count, 2: category label */
+                                    esc_html__('View all %1$d %2$s', 'standard'),
+                                    (int) $product_count,
+                                    esc_html($category['label'])
+                                );
+                                ?>
+                                <?php icon('arrow-right', ['class' => 'w-3 h-3 transition-transform group-hover:translate-x-1']); ?>
+                            </a>
+                        <?php endif; ?>
                     </div>
                 </div>
             <?php endforeach; ?>
