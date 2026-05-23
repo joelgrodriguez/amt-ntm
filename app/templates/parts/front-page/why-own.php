@@ -30,8 +30,8 @@ if (!defined('ABSPATH')) {
 $content = [
     'title'       => __('Why own an NTM rollformer?', 'standard'),
     'lede'        => __('Buying panels from someone else is profit you give away. Rolling your own is the path to keeping it. Your first NTM machine pays for itself in the panels you stop buying from a distributor.', 'standard'),
-    'image'       => 'https://newtechmachinery.com/wp-content/uploads/2025/04/Nate-training-East-Kentucky-Metal-9-scaled.jpg',
-    'image_alt'   => __('NTM trainer working with a customer crew at their shop.', 'standard'),
+    'image'       => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-customer-onsite-001.jpg',
+    'image_alt'   => __('Overhead drone view of an NTM portable rollformer on its trailer at a customer jobsite.', 'standard'),
     'cost_label'  => __('Without your machine', 'standard'),
     'value_label' => __('With your NTM', 'standard'),
 ];
