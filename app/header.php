@@ -67,12 +67,12 @@ if (!defined('ABSPATH')) {
 
     <!-- Desktop row: logo rail | mega triggers | utility rail — capped at --layout-wide.
          Uses .container so the 16px gutter matches body content alignment below.
-         Logo rail and utility rail both flex-1, so they consume equal leftover space
-         and the middle nav stays mathematically centered in the header. -->
-    <div class="container hidden lg:flex items-stretch h-16">
+         Grid is 1fr | auto | 1fr so the side rails are equal width and the
+         middle nav stays mathematically centered in the header. -->
+    <div class="container hidden lg:grid h-16" style="grid-template-columns: 1fr auto 1fr;">
 
-        <!-- Logo rail: flush left, equal-flex with utility rail -->
-        <div class="flex items-center flex-1 h-16">
+        <!-- Logo rail: flush left, equal-width with utility rail -->
+        <div class="flex items-center w-full h-16">
             <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="flex items-center h-16 no-underline">
                 <?php if (has_custom_logo()) : ?>
                     <?php echo wp_get_attachment_image((int) get_theme_mod('custom_logo'), 'full', false, [
@@ -117,8 +117,8 @@ if (!defined('ABSPATH')) {
             </nav>
         </div>
 
-        <!-- Utility rail: contact + search flush right, equal-flex with logo rail -->
-        <div class="flex items-center justify-end flex-1 h-16 gap-10">
+        <!-- Utility rail: contact + search flush right, equal-width with logo rail -->
+        <div class="flex items-center justify-end w-full h-16 gap-10">
             <?php $contact = array_values(array_filter($desktop_nav['utility'], fn($i) => !empty($i['highlight'])))[0] ?? null; ?>
             <?php if ($contact) : ?>
                 <a href="<?php echo esc_url($contact['url']); ?>" class="inline-flex items-center px-3 py-1 font-sans text-sm font-medium text-blue-700 border border-blue-500 hover:bg-blue-50 transition-colors no-underline">
