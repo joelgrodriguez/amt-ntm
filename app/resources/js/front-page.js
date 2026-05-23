@@ -7,12 +7,10 @@
 import '../css/front-page.css';
 
 import { initHeroSlider } from './modules/HeroSlider.js';
-import { initExploreMachines } from './modules/ExploreMachines.js';
 import { initSocialProof, cleanup as cleanupSocialProof } from './modules/SocialProof.js';
 import { initContactLazy, cleanup as cleanupContactLazy } from './modules/ContactLazy.js';
 
 let heroSliderCleanup = null;
-let exploreMachinesCleanup = null;
 
 const domReady = (callback) => {
   if (document.readyState === 'loading') {
@@ -24,7 +22,6 @@ const domReady = (callback) => {
 
 const initFrontPage = () => {
   heroSliderCleanup = initHeroSlider();
-  exploreMachinesCleanup = initExploreMachines();
   initSocialProof();
   initContactLazy();
 };
@@ -34,7 +31,6 @@ domReady(initFrontPage);
 if (import.meta.hot) {
   import.meta.hot.accept(() => {
     heroSliderCleanup?.();
-    exploreMachinesCleanup?.();
     cleanupSocialProof();
     cleanupContactLazy();
     initFrontPage();
