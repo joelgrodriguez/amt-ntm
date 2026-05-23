@@ -87,15 +87,10 @@ $price_label = $machine['price_label'] ?? __('Starting at', 'standard');
         </ul>
 
         <div class="flex flex-wrap gap-3 pt-2">
-            <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="btn btn-primary">
-                <?php esc_html_e('Explore', 'standard'); ?>
+            <a href="<?php echo esc_url(\Standard\Url\with_query('/build-finance/', ['machine' => $machine['slug']])); ?>" class="btn btn-primary">
+                <?php esc_html_e('Build & Quote', 'standard'); ?>
                 <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
             </a>
-            <?php if (!empty($machine['configurator_slug'])) : ?>
-                <a href="<?php echo esc_url(\Standard\Url\with_query('/build-finance/', ['machine' => $machine['slug']])); ?>" class="btn btn-outline-light">
-                    <?php esc_html_e('Build & Price', 'standard'); ?>
-                </a>
-            <?php endif; ?>
         </div>
 
     </div>
