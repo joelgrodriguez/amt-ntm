@@ -396,6 +396,96 @@ function get_all_machines(bool $include_dormant = false): array {
 }
 
 /**
+ * Resolve the WP post_tag terms that correspond to the curated machine
+ * list. Matches by normalized name first (case- and ™-insensitive), then
+ * by exact slug. Returns terms in the canonical machines-data order, so
+ * filters surface machines in the same order they appear on /machines.
+ *
+ * Empty array when no matches exist, e.g. tags simply haven't been created.
+ *
+ * @return \WP_Term[]
+ */
+function get_machine_post_tags(): array {
+    static $cache = null;
+
+    if ($cache !== null) {
+        return $cache;
+    }
+
+    if (!function_exists('get_terms')) {
+        $cache = [];
+
+        return $cache;
+    }
+
+    $tags = \get_terms([
+        'taxonomy'   => 'post_tag',
+        'hide_empty' => false,
+    ]);
+
+    if (\is_wp_error($tags) || !is_array($tags)) {
+        $cache = [];
+
+        return $cache;
+    }
+
+    $normalize = static function (string $value): string {
+        $value = str_replace(['™', '®'], '', $value);
+        $value = preg_replace('/[^a-z0-9]+/', '', strtolower($value));
+
+        return (string) $value;
+    };
+
+    $by_name = [];
+    $by_slug = [];
+    foreach ($tags as $tag) {
+        if (!$tag instanceof \WP_Term) {
+            continue;
+        }
+        $by_name[$normalize($tag->name)] = $tag;
+        $by_slug[$tag->slug] = $tag;
+    }
+
+    $matched = [];
+    $seen_ids = [];
+
+    foreach (get_all_machines(false) as $machine) {
+        $short = (string) ($machine['short_name'] ?? '');
+        $name  = (string) ($machine['name'] ?? '');
+        $slug  = (string) ($machine['slug'] ?? '');
+
+        $candidates = [];
+        if ($short !== '') {
+            $candidates[] = $normalize($short);
+        }
+        if ($name !== '') {
+            $candidates[] = $normalize($name);
+        }
+
+        $term = null;
+        foreach ($candidates as $key) {
+            if (isset($by_name[$key])) {
+                $term = $by_name[$key];
+                break;
+            }
+        }
+
+        if (!$term && $slug !== '' && isset($by_slug[$slug])) {
+            $term = $by_slug[$slug];
+        }
+
+        if ($term instanceof \WP_Term && !isset($seen_ids[$term->term_id])) {
+            $matched[] = $term;
+            $seen_ids[$term->term_id] = true;
+        }
+    }
+
+    $cache = $matched;
+
+    return $cache;
+}
+
+/**
  * Get roof & wall panel machines as a flat array.
  *
  * @return array
