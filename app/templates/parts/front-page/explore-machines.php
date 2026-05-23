@@ -43,8 +43,8 @@ $first_category = array_key_first($categories);
 // mapping lives here. Button labels stay short and parallel:
 // 'View All {short}'.
 $landing_urls = [
-    'roof-wall-panel-machines'      => '/machines/roof-wall-panel-machines/',
-    'gutter-machines'               => '/machines/gutter-machines/',
+    'roof-wall-panel-machines'      => '/roof-wall-panel-machines/',
+    'gutter-machines'               => '/seamless-gutter-machines/',
     'accessories-add-on-equipment'  => '/machines/ntm-accessories/',
 ];
 $landing_labels = [
