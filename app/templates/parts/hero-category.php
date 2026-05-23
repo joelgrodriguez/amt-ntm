@@ -104,7 +104,7 @@ $has_mp4_video    = (bool) $is_mp4;
                         <?php foreach ($meta as $item) : ?>
                             <div class="grid gap-1">
                                 <dt class="font-mono text-[10px] uppercase tracking-[0.15em] text-blue-300">
-                                    <?php echo esc_html($item['label']); ?>
+                                    <?php echo esc_html($item['label']); ?><span class="sr-only">:</span>
                                 </dt>
                                 <dd class="font-mono text-base text-white sm:text-lg">
                                     <?php echo esc_html($item['value']); ?>
