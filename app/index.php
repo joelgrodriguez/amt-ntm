@@ -25,14 +25,7 @@ get_header();
             <?php endwhile; ?>
         </div>
 
-        <nav class="mt-8">
-            <?php the_posts_pagination([
-                'mid_size'  => 2,
-                'prev_text' => '&larr; ' . esc_html__('Previous', 'standard'),
-                'next_text' => esc_html__('Next', 'standard') . ' &rarr;',
-                'class'     => 'flex items-center justify-center gap-2',
-            ]); ?>
-        </nav>
+        <?php \Standard\Walkers\Pagination::render(); ?>
     <?php else : ?>
         <?php get_template_part('templates/parts/content', 'none'); ?>
     <?php endif; ?>

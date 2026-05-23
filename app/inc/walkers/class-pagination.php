@@ -1,9 +1,12 @@
 <?php
 /**
- * Custom pagination component for archive pages.
+ * Pagination component for archive, search, and templated index views.
  *
- * Renders accessible pagination with previous/next links, page numbers,
- * and ellipsis indicators. Uses SVG icons for navigation arrows.
+ * Three sections: "Page N of M" caption on the left, page-number strip in
+ * the center (collapsed to the orientation label on <lg), and prev/next
+ * controls on the right. Active page wears a 2px red bottom underline —
+ * the DESIGN.md §8.8 "active tab" treatment, applied to pagination because
+ * conceptually it's the same job.
  *
  * @package Standard
  */
@@ -20,18 +23,11 @@ use WP_Query;
 
 class Pagination
 {
-    public const SVG_PREV = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4" aria-hidden="true">
-        <path fill-rule="evenodd" d="M9.78 4.22a.75.75 0 0 1 0 1.06L7.06 8l2.72 2.72a.75.75 0 1 1-1.06 1.06L5.47 8.53a.75.75 0 0 1 0-1.06l3.25-3.25a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
-    </svg>';
-
-    public const SVG_NEXT = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4" aria-hidden="true">
-        <path fill-rule="evenodd" d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8 6.22 5.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-    </svg>';
-
-    public const SVG_ELLIPSIS = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4" aria-hidden="true">
-        <path d="M2 8a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM6.5 8a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM12.5 6.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z" />
-    </svg>';
-
+    /**
+     * Render the pagination strip for the current main query, or for a
+     * supplied secondary WP_Query (used by template-articles.php and
+     * template-service-hub.php which run their own queries).
+     */
     public static function render(?WP_Query $query = null): void
     {
         if (is_singular() && !$query) {
@@ -43,7 +39,7 @@ class Pagination
 
         if ($query) {
             $original_query = $wp_query;
-            $wp_query = $query;
+            $wp_query       = $query;
         }
 
         if ($wp_query->max_num_pages <= 1) {
@@ -53,64 +49,69 @@ class Pagination
             return;
         }
 
-        $paged = max(1, absint($wp_query->get('paged', 1)));
-        $max = (int) $wp_query->max_num_pages;
+        $paged = max(1, (int) $wp_query->get('paged', 1));
+        $max   = (int) $wp_query->max_num_pages;
         $links = self::generate_pagination_links($paged, $max);
 
-        echo '<nav aria-label="Page navigation">';
-        echo '<ul class="mt-12 border-t border-blue-200 py-6 flex items-center justify-center gap-1">';
+        ?>
+        <nav class="pagination mt-12 border-t border-blue-200 pt-6" aria-label="<?php esc_attr_e('Pagination', 'standard'); ?>">
+            <div class="flex items-center justify-between gap-6">
 
-        self::render_previous_link($paged);
-        self::render_page_links($paged, $max, $links);
-        self::render_next_link($paged, $max);
+                <!-- Orientation label -->
+                <p class="pagination__label font-mono font-medium uppercase tracking-widest text-caption text-blue-400 m-0 whitespace-nowrap">
+                    <?php
+                    printf(
+                        /* translators: 1: current page number, 2: total pages. */
+                        esc_html__('Page %1$s of %2$s', 'standard'),
+                        '<span class="text-blue-700">' . esc_html((string) $paged) . '</span>',
+                        esc_html((string) $max)
+                    );
+                    ?>
+                </p>
 
-        echo '</ul></nav>';
+                <!-- Page-number strip — desktop only -->
+                <ol class="pagination__strip hidden lg:flex items-center gap-6 m-0 p-0 list-none">
+                    <?php self::render_page_links($paged, $max, $links); ?>
+                </ol>
+
+                <!-- Prev / Next controls -->
+                <div class="flex items-center gap-2">
+                    <?php self::render_prev($paged); ?>
+                    <?php self::render_next($paged, $max); ?>
+                </div>
+
+            </div>
+        </nav>
+        <?php
 
         if ($original_query) {
             $wp_query = $original_query;
         }
     }
 
+    /**
+     * Build the visible page-number set: always page 1 and max, the
+     * current page, two adjacent on each side. Gaps render as ellipsis.
+     *
+     * @return array<int, int>
+     */
     private static function generate_pagination_links(int $paged, int $max): array
     {
-        $links = [$paged];
+        $links = [1, $max, $paged];
 
-        // Always include first and last pages
-        $links[] = 1;
-        $links[] = $max;
-
-        // Add surrounding pages
-        if ($paged >= 2) {
-            $links[] = $paged - 1;
-        }
-        if ($paged >= 3) {
-            $links[] = $paged - 2;
-        }
-        if ($paged + 1 <= $max) {
-            $links[] = $paged + 1;
-        }
-        if ($paged + 2 <= $max) {
-            $links[] = $paged + 2;
+        for ($i = 1; $i <= 2; $i++) {
+            if ($paged - $i >= 1) {
+                $links[] = $paged - $i;
+            }
+            if ($paged + $i <= $max) {
+                $links[] = $paged + $i;
+            }
         }
 
+        $links = array_unique($links);
         sort($links);
-        return array_unique($links);
-    }
 
-    private static function render_previous_link(int $paged): void
-    {
-        if ($paged > 1) {
-            printf(
-                '<li><a href="%s" class="flex items-center justify-center w-10 h-10 text-blue-500 hover:bg-blue-100 hover:text-blue-900 transition-colors" aria-label="Previous page">%s</a></li>',
-                esc_url(get_pagenum_link($paged - 1)),
-                self::SVG_PREV
-            );
-        } else {
-            printf(
-                '<li><span class="flex items-center justify-center w-10 h-10 text-blue-300 cursor-not-allowed" aria-hidden="true">%s</span></li>',
-                self::SVG_PREV
-            );
-        }
+        return $links;
     }
 
     private static function render_page_links(int $paged, int $max, array $links): void
@@ -118,24 +119,20 @@ class Pagination
         $prev = 0;
 
         foreach ($links as $link) {
-            // Render ellipsis if there's a gap
             if ($prev > 0 && $link - $prev > 1) {
-                printf(
-                    '<li><span class="flex items-center justify-center w-10 h-10 text-blue-400" aria-hidden="true">%s</span></li>',
-                    self::SVG_ELLIPSIS
-                );
+                echo '<li class="pagination__ellipsis font-mono text-blue-300" aria-hidden="true">&middot;&middot;&middot;</li>';
             }
 
             if ($paged === $link) {
                 printf(
-                    '<li><span aria-current="page" class="flex items-center justify-center w-10 h-10 bg-blue-500 text-white font-medium">%s</span></li>',
-                    esc_html($link)
+                    '<li><span aria-current="page" class="pagination__current font-mono font-medium text-blue-900" style="font-size: 14px;">%s</span></li>',
+                    esc_html((string) $link)
                 );
             } else {
                 printf(
-                    '<li><a href="%s" class="flex items-center justify-center w-10 h-10 text-blue-600 hover:bg-blue-100 hover:text-blue-900 transition-colors">%s</a></li>',
+                    '<li><a href="%s" class="pagination__link font-mono font-medium text-blue-400 no-underline transition-colors duration-150 hover:text-blue-700" style="font-size: 14px;">%s</a></li>',
                     esc_url(get_pagenum_link($link)),
-                    esc_html($link)
+                    esc_html((string) $link)
                 );
             }
 
@@ -143,19 +140,51 @@ class Pagination
         }
     }
 
-    private static function render_next_link(int $paged, int $max): void
+    private static function render_prev(int $paged): void
+    {
+        if ($paged > 1) {
+            ?>
+            <a
+                href="<?php echo esc_url(get_pagenum_link($paged - 1)); ?>"
+                class="pagination__nav inline-flex items-center gap-2 px-3 h-11 font-mono font-medium uppercase tracking-widest text-caption text-blue-700 no-underline transition-colors duration-150 hover:text-blue-500"
+                rel="prev"
+                aria-label="<?php esc_attr_e('Previous page', 'standard'); ?>"
+            >
+                <?php icon('chevron-left', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+                <span class="hidden lg:inline"><?php esc_html_e('Previous', 'standard'); ?></span>
+            </a>
+            <?php
+        } else {
+            ?>
+            <span class="pagination__nav pagination__nav--disabled inline-flex items-center gap-2 px-3 h-11 font-mono font-medium uppercase tracking-widest text-caption text-blue-300" aria-disabled="true">
+                <?php icon('chevron-left', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+                <span class="hidden lg:inline"><?php esc_html_e('Previous', 'standard'); ?></span>
+            </span>
+            <?php
+        }
+    }
+
+    private static function render_next(int $paged, int $max): void
     {
         if ($paged < $max) {
-            printf(
-                '<li><a href="%s" class="flex items-center justify-center w-10 h-10 text-blue-500 hover:bg-blue-100 hover:text-blue-900 transition-colors" aria-label="Next page">%s</a></li>',
-                esc_url(get_pagenum_link($paged + 1)),
-                self::SVG_NEXT
-            );
+            ?>
+            <a
+                href="<?php echo esc_url(get_pagenum_link($paged + 1)); ?>"
+                class="pagination__nav inline-flex items-center gap-2 px-3 h-11 font-mono font-medium uppercase tracking-widest text-caption text-blue-700 no-underline transition-colors duration-150 hover:text-blue-500"
+                rel="next"
+                aria-label="<?php esc_attr_e('Next page', 'standard'); ?>"
+            >
+                <span class="hidden lg:inline"><?php esc_html_e('Next', 'standard'); ?></span>
+                <?php icon('chevron-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+            </a>
+            <?php
         } else {
-            printf(
-                '<li><span class="flex items-center justify-center w-10 h-10 text-blue-300 cursor-not-allowed" aria-hidden="true">%s</span></li>',
-                self::SVG_NEXT
-            );
+            ?>
+            <span class="pagination__nav pagination__nav--disabled inline-flex items-center gap-2 px-3 h-11 font-mono font-medium uppercase tracking-widest text-caption text-blue-300" aria-disabled="true">
+                <span class="hidden lg:inline"><?php esc_html_e('Next', 'standard'); ?></span>
+                <?php icon('chevron-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+            </span>
+            <?php
         }
     }
 }

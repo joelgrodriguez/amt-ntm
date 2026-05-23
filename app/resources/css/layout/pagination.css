@@ -1,0 +1,48 @@
+/**
+ * Pagination
+ *
+ * One mono numerals strip with prev/next controls. Active page wears the
+ * 2px red underline grammar from DESIGN.md §8.8 — the "active tab"
+ * treatment, repurposed for the conceptually-equivalent pagination case.
+ *
+ * Markup is utility-driven; this file owns the active-state indicator,
+ * the focus outline, and the ellipsis sizing that utilities can't
+ * express cleanly.
+ *
+ * @file pagination.css
+ */
+
+/* Active page — 2px red underline flush with the strip baseline.
+   Sized to align optically with the inactive number heights. */
+.pagination__current {
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--color-red);
+}
+
+/* Inactive numbers reserve the same vertical space as the active one so
+   the strip doesn't reflow on navigation. */
+.pagination__link {
+  padding-bottom: 6px;
+  border-bottom: 2px solid transparent;
+}
+
+/* Ellipsis dots — three middle-dot glyphs at the same caption color as
+   inactive numbers. Tracked tight so they read as one cluster, not three. */
+.pagination__ellipsis {
+  font-size: 14px;
+  letter-spacing: 1px;
+  line-height: 1;
+  padding-bottom: 6px;
+}
+
+/* Focus outline — matches the breadcrumb / button focus grammar. */
+.pagination__link:focus-visible,
+.pagination__nav:focus-visible {
+  outline: 2px solid var(--color-blue-500);
+  outline-offset: 2px;
+}
+
+/* Disabled prev/next — non-interactive, but keep the layout footprint. */
+.pagination__nav--disabled {
+  cursor: not-allowed;
+}

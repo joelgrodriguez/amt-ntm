@@ -241,13 +241,7 @@ get_header();
                         <?php endwhile; ?>
                     </div>
 
-                    <nav>
-                        <?php the_posts_pagination([
-                            'mid_size'  => 2,
-                            'prev_text' => '&larr; ' . esc_html($content['prev']),
-                            'next_text' => esc_html($content['next']) . ' &rarr;',
-                        ]); ?>
-                    </nav>
+                    <?php \Standard\Walkers\Pagination::render(); ?>
                 <?php else : ?>
                     <div class="border-t border-blue-200 pt-12">
                         <div class="grid gap-4 max-w-xl">
