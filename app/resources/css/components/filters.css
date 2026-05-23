@@ -5,12 +5,12 @@
  * profile / manual catalog landings, and any future page that needs to
  * pivot a result set by content type, category, or topic.
  *
- * Visual contract:
- *   - 44px tall row, hairline border, white surface
- *   - hover    : border-blue-500
- *   - active   : border-blue-500 + bg-blue-50 interior tint
- *   - counts   : mono, blue-400, right-aligned via ml-auto
- *   - no left-stripe accent. ever.
+ * Visual contract (hairline list):
+ *   - rows are NOT boxed. one border between rows, none around them
+ *   - active row : bg-blue-50 fill across full sidebar width
+ *   - hover      : bg-blue-50/60 only, no border movement
+ *   - counts     : mono, right-aligned via ml-auto
+ *   - checkbox   : hard 18px square, blue-500 accent
  *
  * Modes:
  *   - checkbox : multi-select, submitted with the form's Apply button
@@ -25,8 +25,8 @@
     @apply grid gap-3;
   }
 
-  .filter-group-title {
-    @apply flex w-full items-center justify-between gap-3;
+  .filter-group + .filter-group {
+    @apply border-t border-blue-200 pt-8;
   }
 
   .filter-group-label {
@@ -39,31 +39,74 @@
     font-size: var(--text-caption);
   }
 
+  /* The list is a single hairline column. Top border opens the group, the
+     between-row dividers come from each option's bottom border. */
   .filter-options {
-    @apply grid gap-2 m-0 p-0 list-none;
+    @apply grid gap-0 m-0 p-0 list-none border-t border-blue-100;
   }
 
-  /* The interactive row. Used as <label> for checkbox/radio, <a> for link. */
+  /* The interactive row. <label> for checkbox/radio, <a> for link.
+     No border around it. No gap between siblings. The bottom border IS
+     the divider; the last one carries no divider (handled below). */
   .filter-option {
-    @apply flex min-h-11 items-center gap-3 border border-blue-200 bg-white px-3 py-2 text-sm text-blue-700 no-underline cursor-pointer;
-    transition: border-color 200ms ease-out, background-color 200ms ease-out, color 200ms ease-out;
+    @apply flex min-h-11 items-center gap-3 border-b border-blue-100 bg-transparent px-2 py-2 text-sm text-blue-700 no-underline cursor-pointer;
+    transition: background-color 200ms ease-out, color 200ms ease-out;
+  }
+
+  .filter-options > li:last-child > .filter-option {
+    @apply border-b-0;
   }
 
   .filter-option:hover {
-    @apply border-blue-500 text-blue-900;
+    background-color: color-mix(in srgb, var(--color-blue-50) 60%, transparent);
+    @apply text-blue-900;
   }
 
   .filter-option:focus-visible {
-    @apply outline-none border-blue-500;
-    box-shadow: 0 0 0 2px var(--color-white), 0 0 0 4px var(--color-blue-500);
+    @apply outline-none;
+    box-shadow: inset 0 0 0 2px var(--color-blue-500);
   }
 
   .filter-option[data-active="true"] {
-    @apply border-blue-500 bg-blue-50 text-blue-900;
+    @apply bg-blue-50 text-blue-900 font-medium;
   }
 
+  /* The checkbox is now the anchor. Bigger, harder square, accent-blue.
+     Native input keeps a11y; appearance-none + custom square gives us
+     the zero-radius look. */
   .filter-option-control {
-    @apply h-4 w-4 shrink-0 accent-blue-500;
+    @apply h-[18px] w-[18px] shrink-0 border border-blue-300 bg-white;
+    appearance: none;
+    -webkit-appearance: none;
+    display: grid;
+    place-content: center;
+    transition: border-color 200ms ease-out, background-color 200ms ease-out;
+  }
+
+  .filter-option-control:checked {
+    @apply bg-blue-500 border-blue-500;
+  }
+
+  .filter-option-control:checked::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background-color: var(--color-white);
+    clip-path: polygon(14% 50%, 0 64%, 38% 100%, 100% 22%, 86% 8%, 38% 70%);
+  }
+
+  .filter-option-control[type="radio"] {
+    border-radius: 9999px;
+  }
+
+  .filter-option-control[type="radio"]:checked::after {
+    background-color: var(--color-white);
+    clip-path: none;
+    border-radius: 9999px;
+  }
+
+  .filter-option:hover .filter-option-control {
+    @apply border-blue-500;
   }
 
   .filter-option-label {
@@ -71,7 +114,7 @@
   }
 
   .filter-option-count {
-    @apply font-mono text-blue-400 ml-auto;
+    @apply font-mono text-blue-400 ml-auto tabular-nums;
     font-size: var(--text-caption);
   }
 
@@ -79,7 +122,8 @@
     @apply text-blue-500;
   }
 
-  /* Active-filter chip strip rendered above results. */
+  /* Active-filter chip strip rendered above results. Chips KEEP their
+     box because they're discrete removable items, not list rows. */
   .filter-chips {
     @apply flex flex-wrap items-center gap-2 m-0 p-0 list-none;
   }
@@ -100,7 +144,7 @@
   }
 
   /* Sidebar shell. Hairline rail on lg+. Below lg the sidebar lives inside
-     a <details> drawer (handled by .filter-drawer further down). */
+     a <details> drawer. */
   .filter-sidebar {
     @apply grid gap-8;
   }
@@ -138,5 +182,3 @@
     @apply grid gap-8 border-t border-blue-200 p-4;
   }
 }
-</content>
-</invoke>
