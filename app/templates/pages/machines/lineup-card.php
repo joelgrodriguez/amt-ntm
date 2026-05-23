@@ -2,10 +2,15 @@
 /**
  * Machines Page — Lineup Card
  *
- * Individual machine card for the lineup grid. Image + name, whole
- * card is the tap target for the machine's spec page. No secondary
- * CTA — the spec page is the single destination so keyboard users get
- * one stop per card and the hover affordance reads as a real link.
+ * Individual machine card for the lineup grid. Image, name, starting
+ * price, and highlights. The whole card is one tap target for the
+ * machine's spec page via the name-overlay link — no secondary CTA, so
+ * keyboard users get one stop per card and the hover affordance reads
+ * as a real link.
+ *
+ * Price falls back gracefully: hardcoded $machine['price'] wins if
+ * set, otherwise we ask WC for the product's price by slug. If WC has
+ * no price either, the price block is omitted.
  *
  * @package Standard
  *
@@ -18,11 +23,19 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use function Standard\MachinesData\get_product_price;
+
 $machine = $args['machine'] ?? null;
 
 if (!$machine) {
     return;
 }
+
+$price = !empty($machine['price'])
+    ? $machine['price']
+    : (!empty($machine['slug']) ? get_product_price($machine['slug']) : null);
+
+$price_label = $machine['price_label'] ?? __('Starting at', 'standard');
 ?>
 
 <div class="bg-white flex flex-col h-full relative group hover:bg-blue-50 transition-colors duration-150">
@@ -40,5 +53,24 @@ if (!$machine) {
                 <?php echo esc_html($machine['name']); ?>
             </a>
         </h4>
+
+        <?php if ($price) : ?>
+            <div>
+                <p class="text-lg font-medium text-blue-900">
+                    <?php echo esc_html($price); ?>
+                </p>
+                <p class="font-mono text-xs text-blue-500 uppercase tracking-wider">
+                    <?php echo esc_html($price_label); ?>
+                </p>
+            </div>
+        <?php endif; ?>
+
+        <?php if (!empty($machine['highlights'])) : ?>
+            <div class="flex flex-col gap-3 text-sm text-blue-700 grow">
+                <?php foreach ($machine['highlights'] as $highlight) : ?>
+                    <p><?php echo esc_html($highlight); ?></p>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
