@@ -8,12 +8,14 @@ This doc captures **what's in each group** and **where each group plugs in**. Pl
 
 These are the high-leverage swaps. Each one updates multiple surfaces.
 
-| Current URL | Replace with | Surfaces affected |
+| Current URL | Replace with | Surfaces affected (verified by grep) |
 |---|---|---|
-| `2025/04/Nate-training-East-Kentucky-Metal-9-scaled.jpg` (placeholder reused everywhere) | `ntm-customer-onsite-002.jpg` or `ntm-mach2-gutter-install-abel-001.jpg` | front-page why-own, about manifesto, all 3 customer-story sections (roof-wall, gutter, machines) |
-| `2025/09/Machine-on-rooftop-scaled.jpg` (hero poster) | `ntm-standing-seam-roof-007.jpg` (lakefront residential) or `ntm-customer-onsite-001.jpg` (overhead drone of trailer + crew) | hero poster across machines, roof-wall, gutter pages |
-| SSQ3 hero `2026/01/Screenshot-2026-01-07-at-9.37.43-AM.png` | `ntm-ssq3-product-render-001.jpg` (clean white-bg SSQ3) | front-page hero slider + SSQ3 single-machine page |
-| MACH II Combo `2024/07/...CS-Rain-Gutters...Still002.jpg` | `ntm-mach2-gutter-install-abel-002.jpg` (Abel's crew installing gutter) | front-page flagships + MACH II Combo single page |
+| `2025/04/Nate-training-East-Kentucky-Metal-9-scaled.jpg` (placeholder reused everywhere) | `ntm-customer-onsite-002.jpg` or `ntm-mach2-gutter-install-abel-001.jpg` | **6 placements:** `parts/about/manifesto.php`, `parts/front-page/why-own.php`, `woo/product/parts/case-study.php`, `pages/roof-wall/customer-story.php`, `pages/gutter/customer-story.php`, `pages/machines/customer-story.php` |
+| `2025/09/Machine-on-rooftop-scaled.jpg` (hero poster) | `ntm-standing-seam-roof-007.jpg` (lakefront residential) or `ntm-customer-onsite-001.jpg` (overhead drone of trailer + crew) | **12 placements:** poster on `pages/machines/hero.php` + `pages/roof-wall/hero.php` + `pages/gutter/hero.php` + `pages/accessories/hero.php`; `data/machines/ssh-multipro.php` + `wav-wall-panel.php` + `ssq3-multipro.php` (`image` field); `inc/mobile-nav.php`; and **6 Woo catalog tiles** in `inc/woo/catalog.php` (all reusing the same image — see note below) |
+| SSQ3 hero `2026/01/Screenshot-2026-01-07-at-9.37.43-AM.png` | `ntm-ssq3-product-render-001.jpg` (canonical — clean white-bg SSQ3 on blue trailer) | SSQ3 single-machine page (`data/machines/ssq3-multipro.php` → `hero.hero_image`) + front-page flagship card via `flagships.php` |
+| MACH II Combo / 5 / 6 all share `2024/07/...CS-Rain-Gutters...Still002.jpg` | `ntm-mach2-gutter-install-abel-002.jpg` (Abel's crew installing gutter) | **3 data files:** `data/machines/mach-ii-combo-gutter.php`, `mach-ii-5-gutter.php`, `mach-ii-6-gutter.php`. Decide whether all three flip together (consistent gutter story) or Combo gets Abel while 5/6 get something else |
+
+> ⚠️ **Woo catalog repetition:** `inc/woo/catalog.php` references `Machine-on-rooftop` six separate times (lines 285, 296, 307, 318, 329, …). Either every catalog tile is intentionally falling back to one stock image, or six product tiles are sharing one photo by accident. Worth a separate ticket — not a one-line swap.
 
 ---
 
@@ -48,7 +50,7 @@ These are the high-leverage swaps. Each one updates multiple surfaces.
 - **002 or 004 → About page** as a manifesto sidekick or full-bleed break between origin and timeline. "Built here since 1991" needs a "here" — this is "here."
 - Optional full-bleed image-break section anywhere the "we build it ourselves" story matters.
 
-> 📝 Rename suggestion: `ntm-assembly-floor-drone-002.jpg` etc. — current filename misleads.
+> ⚠️ **Do NOT rename post-upload.** The misleading filename is now the WP attachment slug. Renaming means broken CDN URLs everywhere these images get referenced, plus stale `responsive_image()` lookups. Trust the mapping in this doc instead; treat the filename as opaque.
 
 ---
 
@@ -128,8 +130,10 @@ These are the high-leverage swaps. Each one updates multiple surfaces.
 **Where to use:**
 - **001 (controller close-up) → SSQ3 "The Brain" breakdown card** — alt option to the RFID shot.
 - **001 → UNIQ spotlight section on machines page** (`uniq-spotlight.php`'s `image`, currently pointed at a 2021 training-overview PNG).
-- **117 / 009 (full-machine) → SSQ3 hero or alt hero**, or front-page flagship card.
+- **117 / 009 (full-machine)** → SSQ3 gallery sequence. **Not the hero** — `ntm-ssq3-product-render-001` is the canonical SSQ3 hero (see decision log).
 - Several alternates make a strong gallery sequence.
+
+> 📌 **Canonical SSQ3 hero decision:** `ntm-ssq3-product-render-001` wins over the `manual-controller-1XX` full-machine shots. Cleaner background, slightly off-axis read, more flattering proportions. The `1XX` series goes to gallery and the front-page flagship card alt slot.
 
 ---
 
@@ -233,6 +237,21 @@ WordPress has generated standard size variants (100, 150, 250, 300, 400, 600, 64
 
 ## Open questions / followups
 
-- Should we rename `mach2-gutter-assembly-drone-*` to `assembly-floor-drone-*` (or similar) to match what it actually depicts? Filenames are sticky once they're attachment slugs.
+- ~~Rename `mach2-gutter-assembly-drone-*` to match what it depicts?~~ **Resolved: do not rename.** See group note — attachment slugs are sticky.
 - The standing-seam-roof set has enough variety to support a "Built with NTM" customer gallery — worth scoping as a separate feature?
-- Where do the `manual-controller-107…132` full-machine product shots belong relative to `ssq3-product-render-001`? Pick one canonical hero, push the others into a gallery.
+- ~~`manual-controller-107…132` vs `ssq3-product-render-001` for the SSQ3 hero?~~ **Resolved:** `product-render-001` is canonical; controller-1XX → gallery. See group note.
+- `inc/woo/catalog.php` has 6 tiles all pointing at `Machine-on-rooftop-scaled.jpg`. Intentional fallback boilerplate, or six product tiles accidentally sharing one stock image? Investigate before swapping.
+
+## Do NOT swap (yet)
+
+Sometimes-similar-looking surfaces that are NOT covered by this inventory:
+
+- **Testimonial slider images** — confirm whether hand-curated or data-driven before touching. Don't blind-swap.
+- **WordPress block content** (post bodies, page builder blocks) — out of scope for this doc. Those are content-editor concerns, not PHP-template concerns.
+- **Anything on `master`** — see CLAUDE.md. Image swaps land via `dev` like everything else.
+
+## Decision log
+
+| Date | Surface | From → To | Decided by | PR |
+|---|---|---|---|---|
+| _pending_ | _e.g. SSQ3 hero_ | _Screenshot-2026-01 → ssq3-product-render-001_ | | |
