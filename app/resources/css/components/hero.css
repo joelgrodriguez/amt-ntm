@@ -31,18 +31,18 @@
   background-color: var(--color-black);
 }
 
-/* The photo region. Sized to ~50% of the viewport so the hero acts
-   as a banner rather than a full-fold takeover — content downstream
-   gets to breathe above the fold. The --hero-band fallback (0px)
-   keeps the calc valid even when no parent sets the var; surfaces
-   that pair the hero with a band beneath it (e.g. machine product)
-   override --hero-band on a parent so the photo shrinks to leave
-   room. */
+/* The photo region. Sized to ~70% of the viewport so the hero reads
+   as a strong banner without taking the full fold — content
+   downstream gets to breathe above the fold. The --hero-band
+   fallback (0px) keeps the calc valid even when no parent sets the
+   var; surfaces that pair the hero with a band beneath it (e.g.
+   machine product) override --hero-band on a parent so the photo
+   shrinks to leave room. */
 .hero__photo {
   position: relative;
   width: 100%;
-  height: calc(50vh - var(--hero-band, 0px));
-  height: calc(50dvh - var(--hero-band, 0px));
+  height: calc(70vh - var(--hero-band, 0px));
+  height: calc(70dvh - var(--hero-band, 0px));
   min-height: 360px;
   overflow: hidden;
   background-color: var(--color-black);
