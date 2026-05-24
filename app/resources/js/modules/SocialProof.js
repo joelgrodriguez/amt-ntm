@@ -1,12 +1,14 @@
 /**
  * Social Proof Testimonial Slider
  *
- * Manual-only testimonial carousel with chrome-bar dot navigation.
- * No autoplay: skeptical 50+ contractors don't want a carousel
- * advancing under them while they're reading a quote.
+ * Auto-advancing testimonial carousel with chrome-bar dot navigation.
+ * Pauses on hover/focus so users can finish reading. Manual nav (dot
+ * click) resets the autoplay timer so the chosen slide gets the full
+ * interval. Reduced-motion users get manual-only.
  *
- * Slides are stacked absolute-over-relative inside .social-proof__track
- * so we can opacity-fade between them instead of display-toggle.
+ * Slides are grid-stacked (grid-area: 1/1) inside .social-proof__track
+ * and cross-fade via opacity. Track auto-sizes to the tallest slide;
+ * no layout shift between slides.
  *
  * @file SocialProof.js
  *
@@ -16,6 +18,9 @@
  * @template templates/woo/product/parts/testimonials.php
  */
 
+const AUTOPLAY_INTERVAL = 6500;
+
+let autoplayTimer = null;
 let abortController = null;
 
 const DOT_ACTIVE = ['bg-red', 'w-3'];
@@ -41,6 +46,8 @@ export function initSocialProof() {
   cleanup();
   abortController = new AbortController();
   const { signal } = abortController;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   /**
    * Show slide at given index.
@@ -70,6 +77,25 @@ export function initSocialProof() {
     }
   }
 
+  function nextSlide() {
+    goToSlide((currentIndex + 1) % slides.length);
+  }
+
+  function startAutoplay() {
+    stopAutoplay();
+    if (prefersReducedMotion.matches) return;
+    autoplayTimer = setInterval(nextSlide, AUTOPLAY_INTERVAL);
+  }
+
+  function stopAutoplay() {
+    if (autoplayTimer) {
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+  }
+
+  // Manual nav: jump to the chosen slide and reset the timer so the
+  // user gets the full interval to read what they picked.
   section.addEventListener(
     'click',
     (e) => {
@@ -78,15 +104,40 @@ export function initSocialProof() {
 
       const index = parseInt(dot.dataset.index, 10);
       goToSlide(index);
+      startAutoplay();
     },
     { signal }
   );
+
+  // Pause on hover/focus so readers can finish a quote.
+  section.addEventListener('mouseenter', stopAutoplay, { signal });
+  section.addEventListener('mouseleave', startAutoplay, { signal });
+  section.addEventListener('focusin', stopAutoplay, { signal });
+  section.addEventListener('focusout', startAutoplay, { signal });
+
+  prefersReducedMotion.addEventListener(
+    'change',
+    (e) => {
+      if (e.matches) {
+        stopAutoplay();
+      } else {
+        startAutoplay();
+      }
+    },
+    { signal }
+  );
+
+  startAutoplay();
 }
 
 /**
  * Cleanup function for HMR support.
  */
 export function cleanup() {
+  if (autoplayTimer) {
+    clearInterval(autoplayTimer);
+    autoplayTimer = null;
+  }
   if (abortController) {
     abortController.abort();
     abortController = null;

@@ -12,8 +12,9 @@
  * The dateline (CITY, STATE) reads as a spec-sheet timestamp, not a
  * SaaS-testimonial flavor line.
  *
- * Manual navigation only (no autoplay). Dot pagination is a segmented
- * indicator, not a row of round avatars.
+ * Autoplay every 6.5s, pauses on hover/focus so readers can finish
+ * a quote. Dot pagination is a segmented indicator, not a row of
+ * round avatars.
  *
  * Photo URLs point to the production CDN; portraits are public
  * marketing assets and won't move. Theme adds a preconnect hint
