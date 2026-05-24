@@ -89,20 +89,20 @@ body.search-modal-is-open {
 .search-trigger--desktop::after {
   content: attr(data-shortcut);
   position: absolute;
-  top: 100%;
-  right: 0;
-  margin-top: 6px;
-  padding: 6px 10px;
+  top: 50%;
+  right: calc(100% + 8px);
+  padding: 4px 8px;
   background: var(--color-blue-900);
   color: var(--color-white);
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.08em;
+  line-height: 1;
   white-space: nowrap;
   pointer-events: none;
   opacity: 0;
-  transform: translateY(-4px);
+  transform: translateY(-50%) translateX(4px);
   transition: opacity 150ms ease, transform 150ms ease;
   z-index: 60;
 }
@@ -110,7 +110,7 @@ body.search-modal-is-open {
 .search-trigger--desktop:hover::after,
 .search-trigger--desktop:focus-visible::after {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(-50%) translateX(0);
 }
 
 /* Hide the tooltip while the modal is open — keyboard focus returns to the
@@ -118,7 +118,7 @@ body.search-modal-is-open {
    as residue. */
 body.search-modal-is-open .search-trigger--desktop::after {
   opacity: 0;
-  transform: translateY(-4px);
+  transform: translateY(-50%) translateX(4px);
 }
 
 /* Hide until JS has populated [data-shortcut]. The attr() reading would
