@@ -150,7 +150,7 @@
   }
 
   .filter-option-label {
-    @apply min-w-0 flex-1 leading-snug;
+    @apply min-w-0 flex-1 leading-snug capitalize;
   }
 
   .filter-option-count {
