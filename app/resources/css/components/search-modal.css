@@ -275,7 +275,7 @@
   }
 
   .search-modal__results-status {
-    @apply m-0 mb-3 font-mono uppercase tracking-wider text-blue-400;
+    @apply m-0 mb-3 font-mono uppercase tracking-wider text-blue-400 text-right;
     font-size: var(--text-caption);
     min-height: 1rem;
   }
@@ -389,10 +389,10 @@
   }
 
   /* "See all N results" link. Lives below the list when there's more
-     to find. Mono caption + nudging arrow matches the suggestion
-     pattern used elsewhere. */
+     to find. Centered in the column with breathing room above so it
+     reads as a deliberate exit rather than another result row. */
   .search-modal__results-all {
-    @apply inline-flex items-center gap-2 mt-4 font-mono uppercase tracking-wider text-blue-700 no-underline;
+    @apply flex items-center justify-center gap-2 mt-10 font-mono uppercase tracking-wider text-blue-700 no-underline;
     font-size: var(--text-caption);
     transition: color 150ms ease, gap 150ms ease;
   }
