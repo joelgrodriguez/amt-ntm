@@ -53,7 +53,7 @@ if ($groups === []) {
     return;
 }
 
-$render_group = static function (array $group) use ($form_id): void {
+$render_group = static function (array $group, int $index, string $scope) use ($form_id): void {
     $title = (string) ($group['title'] ?? '');
     $icon  = (string) ($group['icon'] ?? '');
     $mode  = (string) ($group['mode'] ?? 'checkbox');
@@ -70,26 +70,38 @@ $render_group = static function (array $group) use ($form_id): void {
             $selected_count++;
         }
     }
-    ?>
-    <fieldset class="filter-group">
-        <legend class="filter-group-label">
-            <?php if ($icon !== '') : ?>
-                <?php icon($icon, ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-            <?php endif; ?>
-            <?php echo esc_html($title); ?>
-        </legend>
 
-        <?php if ($selected_count > 0 && $mode !== 'link') : ?>
-            <p class="filter-group-meta m-0" aria-live="polite">
-                <?php
-                printf(
-                    /* translators: %d selected filter count. */
-                    esc_html(_n('%d selected', '%d selected', $selected_count, 'standard')),
-                    (int) $selected_count
-                );
-                ?>
-            </p>
-        <?php endif; ?>
+    // Open by default if this is the first group, OR if this group has
+    // an active selection (so users land on their own state, not always
+    // on group #1).
+    $is_open = $index === 0 || $selected_count > 0;
+    $group_name = 'filter-groups-' . $scope;
+    ?>
+    <details class="filter-group" name="<?php echo esc_attr($group_name); ?>" <?php echo $is_open ? 'open' : ''; ?>>
+        <summary class="filter-group-summary">
+            <span class="filter-group-label">
+                <?php if ($icon !== '') : ?>
+                    <?php icon($icon, ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+                <?php endif; ?>
+                <?php echo esc_html($title); ?>
+            </span>
+            <span class="filter-group-summary-end">
+                <?php if ($selected_count > 0 && $mode !== 'link') : ?>
+                    <span class="filter-group-meta" aria-live="polite">
+                        <?php
+                        printf(
+                            /* translators: %d selected filter count. */
+                            esc_html(_n('%d selected', '%d selected', $selected_count, 'standard')),
+                            (int) $selected_count
+                        );
+                        ?>
+                    </span>
+                <?php endif; ?>
+                <span class="filter-group-caret" aria-hidden="true">
+                    <?php icon('chevron-down', ['class' => 'w-3 h-3']); ?>
+                </span>
+            </span>
+        </summary>
 
         <ul class="filter-options">
             <?php foreach ($options as $option) :
@@ -101,7 +113,10 @@ $render_group = static function (array $group) use ($form_id): void {
                 $active = !empty($option['active']);
                 $url    = isset($option['url']) ? (string) $option['url'] : '';
 
-                if ($label === '' || ($mode === 'link' && $url === '') || ($mode !== 'link' && $value === '')) {
+                // Allow empty value in radio mode (acts as "All"); checkbox
+                // mode still needs a real value because submit assembles an array.
+                $empty_value_ok = $mode === 'radio';
+                if ($label === '' || ($mode === 'link' && $url === '') || (!$empty_value_ok && $mode !== 'link' && $value === '')) {
                     continue;
                 }
             ?>
@@ -137,14 +152,16 @@ $render_group = static function (array $group) use ($form_id): void {
                 </li>
             <?php endforeach; ?>
         </ul>
-    </fieldset>
+    </details>
     <?php
 };
 
-$render_body = static function () use ($groups, $render_group, $show_actions, $form_id, $apply_label, $reset_url, $reset_label, $back_url, $back_label): void {
+$render_body = static function (string $scope) use ($groups, $render_group, $show_actions, $form_id, $apply_label, $reset_url, $reset_label, $back_url, $back_label): void {
+    $rendered = 0;
     foreach ($groups as $group) {
         if (is_array($group)) {
-            $render_group($group);
+            $render_group($group, $rendered, $scope);
+            $rendered++;
         }
     }
 
@@ -182,12 +199,12 @@ $render_body = static function () use ($groups, $render_group, $show_actions, $f
         </span>
     </summary>
     <div class="filter-drawer-body" aria-label="<?php echo esc_attr($aria_label); ?>">
-        <?php $render_body(); ?>
+        <?php $render_body('drawer'); ?>
     </div>
 </details>
 
 <aside class="hidden lg:block lg:border-r lg:border-blue-100" aria-label="<?php echo esc_attr($aria_label); ?>">
     <div class="filter-sidebar lg:sticky lg:top-24 lg:py-2">
-        <?php $render_body(); ?>
+        <?php $render_body('rail'); ?>
     </div>
 </aside>
