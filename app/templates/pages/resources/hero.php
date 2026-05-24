@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
         <div class="section-header-left max-w-3xl">
             <p class="section-eyebrow"><?php esc_html_e('Resources', 'standard'); ?></p>
             <div class="section-divider"></div>
-            <h1 class="font-mono font-medium text-heading-lg lg:text-display text-blue-900 leading-tight tracking-tight">
+            <h1 class="font-semibold text-heading-lg lg:text-display text-blue-900 leading-tight tracking-tight">
                 <?php esc_html_e('NTM Operator Tools', 'standard'); ?>
             </h1>
         </div>
