@@ -113,7 +113,10 @@ $render_group = static function (array $group, int $index, string $scope) use ($
                 $active = !empty($option['active']);
                 $url    = isset($option['url']) ? (string) $option['url'] : '';
 
-                if ($label === '' || ($mode === 'link' && $url === '') || ($mode !== 'link' && $value === '')) {
+                // Allow empty value in radio mode (acts as "All"); checkbox
+                // mode still needs a real value because submit assembles an array.
+                $empty_value_ok = $mode === 'radio';
+                if ($label === '' || ($mode === 'link' && $url === '') || (!$empty_value_ok && $mode !== 'link' && $value === '')) {
                     continue;
                 }
             ?>

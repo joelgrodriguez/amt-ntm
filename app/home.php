@@ -17,6 +17,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use function Standard\Filters\build_choice_group;
+use function Standard\Filters\build_term_choice_group;
 use function Standard\LearningCenter\get_content_sections;
 use function Standard\LearningCenter\filter_content_sections;
 use function Standard\LearningCenter\get_active_filters;
@@ -36,7 +38,7 @@ $categories = get_categories([
     'hide_empty' => true,
     'orderby'    => 'count',
     'order'      => 'DESC',
-    'number'     => 8,
+    'number'     => 12,
 ]);
 
 // Restrict the Machine filter to the curated NTM machine catalog
@@ -46,6 +48,74 @@ $machine_tags = get_machine_post_tags();
 
 $content_sections = filter_content_sections(get_content_sections(), $filters);
 $filter_action    = get_learning_center_url();
+
+// Build sidebar filter groups. Each is radio mode (single-select) because
+// the query layer (inc/learning-center/queries.php) reads lc_category,
+// lc_type, and lc_machine as scalars. An empty-value "All" row per group
+// lets users clear the choice without leaving the page.
+$lc_form_id = 'lc-filter-form';
+
+$category_options = ['' => __('All categories', 'standard')];
+foreach ($categories as $cat) {
+    if ($cat instanceof WP_Term) {
+        $category_options[$cat->slug] = $cat->name;
+    }
+}
+
+$type_options = [
+    ''         => __('All resources', 'standard'),
+    'post'     => __('Articles', 'standard'),
+    'video'    => __('Videos', 'standard'),
+    'resource' => __('Resources', 'standard'),
+    'download' => __('Downloads', 'standard'),
+];
+
+$lc_groups = [
+    build_choice_group(
+        'lc-category',
+        __('Category', 'standard'),
+        'lc_category',
+        $category_options,
+        [(string) ($filters['category'] ?? '')],
+        [],
+        'folder',
+        'radio'
+    ),
+    build_choice_group(
+        'lc-type',
+        __('Resource Type', 'standard'),
+        'lc_type',
+        $type_options,
+        [(string) ($filters['type'] ?? '')],
+        [],
+        'file-text',
+        'radio'
+    ),
+];
+
+if (!empty($machine_tags)) {
+    $machine_options = ['' => __('All machines', 'standard')];
+    foreach ($machine_tags as $tag) {
+        if ($tag instanceof WP_Term) {
+            $machine_options[$tag->slug] = $tag->name;
+        }
+    }
+
+    $lc_groups[] = build_choice_group(
+        'lc-machine',
+        __('Machine', 'standard'),
+        'lc_machine',
+        $machine_options,
+        [(string) ($filters['machine'] ?? '')],
+        [],
+        'settings',
+        'radio'
+    );
+}
+
+$lc_has_filters = ($filters['category'] ?? '') !== ''
+    || ($filters['type'] ?? '') !== ''
+    || ($filters['machine'] ?? '') !== '';
 ?>
 
 <main id="primary">
@@ -182,177 +252,79 @@ $filter_action    = get_learning_center_url();
     </section>
 
 
-    <!-- Quick Filters -->
-    <section id="lc-filters" class="border-b border-blue-200 bg-blue-50" aria-labelledby="lc-filters-heading">
-        <div class="container py-6">
-            <h2 id="lc-filters-heading" class="sr-only">
-                <?php esc_html_e('Filter Learning Center content', 'standard'); ?>
-            </h2>
-            <form
-                class="flex flex-wrap items-center justify-center gap-4 md:gap-6"
-                method="get"
-                action="<?php echo esc_url($filter_action); ?>"
-            >
-                <span class="text-sm font-medium text-blue-700 flex items-center gap-2" aria-hidden="true">
-                    <?php icon('filter', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-                    <?php esc_html_e('Filters:', 'standard'); ?>
-                </span>
+    <!-- Filter rail + content sections -->
+    <section class="border-b border-blue-200" aria-labelledby="lc-content-heading">
+        <h2 id="lc-content-heading" class="sr-only">
+            <?php esc_html_e('Filter and browse Learning Center content', 'standard'); ?>
+        </h2>
 
-                <!-- Category -->
-                <div class="flex items-center gap-2">
-                    <label for="lc-filter-category" class="flex items-center gap-1.5 text-sm text-blue-600">
-                        <?php icon('folder', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-                        <?php esc_html_e('Category', 'standard'); ?>
-                    </label>
-                    <div class="relative">
-                        <select
-                            id="lc-filter-category"
-                            name="lc_category"
-                            class="appearance-none bg-white border border-blue-200 text-blue-700 text-sm font-mono pl-3 pr-8 py-2.5 min-h-11 cursor-pointer hover:border-blue-300 focus-visible:border-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                            data-lc-filter
-                        >
-                            <option value=""><?php esc_html_e('All', 'standard'); ?></option>
-                            <?php foreach ($categories as $cat) : ?>
-                                <option value="<?php echo esc_attr($cat->slug); ?>" <?php selected($filters['category'], $cat->slug); ?>>
-                                    <?php echo esc_html($cat->name); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                            <?php icon('chevron-down', ['class' => 'w-3 h-3 text-blue-400', 'aria-hidden' => 'true']); ?>
+        <form id="<?php echo esc_attr($lc_form_id); ?>" method="get" action="<?php echo esc_url($filter_action); ?>" class="sr-only" aria-hidden="true"></form>
+
+        <div class="container layout-with-rail py-6 lg:py-10">
+
+            <?php
+            get_template_part('templates/parts/filter-sidebar', null, [
+                'groups'       => $lc_groups,
+                'form_id'      => $lc_form_id,
+                'apply_label'  => __('Apply filters', 'standard'),
+                'reset_url'    => $lc_has_filters ? $filter_action : '',
+                'reset_label'  => __('Clear filters', 'standard'),
+                'drawer_label' => __('Filters', 'standard'),
+                'aria_label'   => __('Learning Center filters', 'standard'),
+                'show_actions' => true,
+            ]);
+            ?>
+
+            <div class="grid gap-12 lg:gap-16">
+                <?php foreach ($content_sections as $section) :
+                    $section_query = get_section_query($section['post_type'], 3, $filters);
+
+                    if (!$section_query->have_posts()) {
+                        wp_reset_postdata();
+                        continue;
+                    }
+                ?>
+                    <section id="lc-section-<?php echo esc_attr($section['post_type']); ?>" tabindex="-1">
+
+                        <header class="flex items-center justify-between mb-6 lg:mb-8">
+                            <h2 class="font-sans font-semibold text-heading-sm lg:text-heading text-blue-900 leading-tight tracking-tight flex items-center gap-3">
+                                <?php icon($section['icon'], ['class' => 'w-6 h-6 lg:w-7 lg:h-7 text-blue-400', 'aria-hidden' => 'true']); ?>
+                                <?php echo esc_html($section['title']); ?>
+                            </h2>
+                            <?php if ($section['link']) : ?>
+                                <a href="<?php echo esc_url($section['link']); ?>" class="hidden sm:inline-flex items-center gap-2 text-sm font-mono font-medium text-blue-500 hover:underline">
+                                    <?php echo esc_html($section['link_text']); ?>
+                                    <?php icon('arrow-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+                                </a>
+                            <?php endif; ?>
+                        </header>
+
+                        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                            <?php while ($section_query->have_posts()) : $section_query->the_post(); ?>
+                                <?php get_template_part('templates/parts/card-post'); ?>
+                            <?php endwhile; ?>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Resource Type -->
-                <div class="flex items-center gap-2">
-                    <label for="lc-filter-type" class="flex items-center gap-1.5 text-sm text-blue-600">
-                        <?php icon('file-text', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-                        <?php esc_html_e('Resource Type', 'standard'); ?>
-                    </label>
-                    <div class="relative">
-                        <select
-                            id="lc-filter-type"
-                            name="lc_type"
-                            class="appearance-none bg-white border border-blue-200 text-blue-700 text-sm font-mono pl-3 pr-8 py-2.5 min-h-11 cursor-pointer hover:border-blue-300 focus-visible:border-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                            data-lc-filter
-                        >
-                            <option value=""><?php esc_html_e('All', 'standard'); ?></option>
-                            <option value="post"     <?php selected($filters['type'], 'post'); ?>><?php esc_html_e('Articles', 'standard'); ?></option>
-                            <option value="video"    <?php selected($filters['type'], 'video'); ?>><?php esc_html_e('Videos', 'standard'); ?></option>
-                            <option value="resource" <?php selected($filters['type'], 'resource'); ?>><?php esc_html_e('Resources', 'standard'); ?></option>
-                            <option value="download" <?php selected($filters['type'], 'download'); ?>><?php esc_html_e('Downloads', 'standard'); ?></option>
-                        </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                            <?php icon('chevron-down', ['class' => 'w-3 h-3 text-blue-400', 'aria-hidden' => 'true']); ?>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Machine -->
-                <?php if (!empty($machine_tags)) : ?>
-                    <div class="flex items-center gap-2">
-                        <label for="lc-filter-machine" class="flex items-center gap-1.5 text-sm text-blue-600">
-                            <?php icon('settings', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-                            <?php esc_html_e('Machine', 'standard'); ?>
-                        </label>
-                        <div class="relative">
-                            <select
-                                id="lc-filter-machine"
-                                name="lc_machine"
-                                class="appearance-none bg-white border border-blue-200 text-blue-700 text-sm font-mono pl-3 pr-8 py-2.5 min-h-11 cursor-pointer hover:border-blue-300 focus-visible:border-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                data-lc-filter
-                            >
-                                <option value=""><?php esc_html_e('All', 'standard'); ?></option>
-                                <?php foreach ($machine_tags as $tag) : ?>
-                                    <option value="<?php echo esc_attr($tag->slug); ?>" <?php selected($filters['machine'], $tag->slug); ?>>
-                                        <?php echo esc_html($tag->name); ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                                <?php icon('chevron-down', ['class' => 'w-3 h-3 text-blue-400', 'aria-hidden' => 'true']); ?>
+                        <?php if ($section['link']) : ?>
+                            <div class="mt-6 sm:hidden">
+                                <a href="<?php echo esc_url($section['link']); ?>" class="inline-flex items-center gap-2 text-sm font-mono font-medium text-blue-500 hover:underline">
+                                    <?php echo esc_html($section['link_text']); ?>
+                                    <?php icon('arrow-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+                                </a>
                             </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
+                        <?php endif; ?>
 
-                <noscript>
-                    <button type="submit" class="inline-flex items-center px-4 py-2.5 min-h-11 bg-blue-500 text-white font-mono text-sm">
-                        <?php esc_html_e('Apply', 'standard'); ?>
-                    </button>
-                </noscript>
-            </form>
+                    </section>
+                <?php wp_reset_postdata(); endforeach; ?>
+            </div>
+
         </div>
     </section>
-
-    <!-- Content Sections by Post Type -->
-    <?php foreach ($content_sections as $section) :
-        $section_query = get_section_query($section['post_type'], 4, $filters);
-
-        if (!$section_query->have_posts()) {
-            wp_reset_postdata();
-            continue;
-        }
-    ?>
-        <section id="lc-section-<?php echo esc_attr($section['post_type']); ?>" class="py-12 lg:py-16 border-b border-blue-200" tabindex="-1">
-            <div class="container">
-
-                <header class="flex items-center justify-between mb-8">
-                    <h2 class="font-sans font-semibold text-heading-sm lg:text-heading text-blue-900 leading-tight tracking-tight flex items-center gap-3">
-                        <?php icon($section['icon'], ['class' => 'w-6 h-6 lg:w-7 lg:h-7 text-blue-400', 'aria-hidden' => 'true']); ?>
-                        <?php echo esc_html($section['title']); ?>
-                    </h2>
-                    <?php if ($section['link']) : ?>
-                        <a href="<?php echo esc_url($section['link']); ?>" class="hidden sm:inline-flex items-center gap-2 text-sm font-mono font-medium text-blue-500 hover:underline">
-                            <?php echo esc_html($section['link_text']); ?>
-                            <?php icon('arrow-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-                        </a>
-                    <?php endif; ?>
-                </header>
-
-                <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                    <?php while ($section_query->have_posts()) : $section_query->the_post(); ?>
-                        <?php get_template_part('templates/parts/card-post'); ?>
-                    <?php endwhile; ?>
-                </div>
-
-                <?php if ($section['link']) : ?>
-                    <div class="mt-6 sm:hidden">
-                        <a href="<?php echo esc_url($section['link']); ?>" class="inline-flex items-center gap-2 text-sm font-mono font-medium text-blue-500 hover:underline">
-                            <?php echo esc_html($section['link_text']); ?>
-                            <?php icon('arrow-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-                        </a>
-                    </div>
-                <?php endif; ?>
-
-            </div>
-        </section>
-    <?php wp_reset_postdata(); endforeach; ?>
 
     <!-- Subscribe CTA -->
     <?php get_template_part('templates/parts/cta/subscribe'); ?>
 
 </main>
-
-<script>
-(function () {
-    var form = document.querySelector('form[action][method="get"] [data-lc-filter]');
-    if (!form) return;
-    var filterForm = form.closest('form');
-    if (!filterForm) return;
-
-    filterForm.querySelectorAll('[data-lc-filter]').forEach(function (select) {
-        select.addEventListener('change', function () {
-            if (typeof filterForm.requestSubmit === 'function') {
-                filterForm.requestSubmit();
-            } else {
-                filterForm.submit();
-            }
-        });
-    });
-})();
-</script>
 
 <?php
 get_footer();
