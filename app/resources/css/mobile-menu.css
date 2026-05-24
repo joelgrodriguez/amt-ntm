@@ -260,15 +260,9 @@ body.overflow-hidden.menu-scrim-ready::after {
     height: 4rem;
 }
 
-/* Tint the hamburger toggle's close-X red so its "destructive" affordance
- * reads at a glance. The icon inherits via currentColor; only the close
- * span (#menu-icon-close) is targeted, not the open hamburger. */
-#menu-icon-close {
-    color: var(--color-red);
-}
-
 /* Tint the toggle button when the menu is open so the close affordance
- * reads clearly at a glance — pairs with the dynamic aria-label from JS. */
+ * reads clearly at a glance — pairs with the dynamic aria-label from JS.
+ * Close-X is tinted red via Tailwind's text-red utility in header.php. */
 #mobile-menu-toggle[aria-expanded="true"] {
     background: var(--color-blue-100);
 }

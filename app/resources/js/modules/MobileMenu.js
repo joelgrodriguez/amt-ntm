@@ -4,7 +4,7 @@
  * Two-level slide-in panel menu. Owns open/close state and L1↔L2 navigation.
  * Markup contract:
  *   - #mobile-menu-toggle              — hamburger button in the site header
- *   - #menu-icon-open / #menu-icon-close — hamburger / X icons swapped via .hidden
+ *   - [data-menu-icon-swap]            — .t-icon-swap wrapper; data-state="a"|"b"
  *   - #mobile-menu                     — root <nav>; .is-open class drives visibility
  *   - #mobile-menu .mobile-menu__viewport — clipped panel viewport
  *   - #mobile-menu .mobile-menu__track — flex container moved by exact panel offset
@@ -27,8 +27,7 @@ const RESIZE_DEBOUNCE_MS = 100;
 export function initMobileMenu() {
   const toggle = document.querySelector('#mobile-menu-toggle');
   const menu = document.querySelector('#mobile-menu');
-  const iconOpen = document.querySelector('#menu-icon-open');
-  const iconClose = document.querySelector('#menu-icon-close');
+  const iconSwap = document.querySelector('[data-menu-icon-swap]');
   const viewport = menu?.querySelector('.mobile-menu__viewport');
   const track = menu?.querySelector('.mobile-menu__track');
   const liveRegion = menu?.querySelector('#mobile-menu-live');
@@ -105,8 +104,7 @@ export function initMobileMenu() {
     toggle.setAttribute('aria-expanded', String(state.isOpen));
     toggle.setAttribute('aria-label', state.isOpen ? 'Close menu' : 'Open menu');
 
-    iconOpen?.classList.toggle('hidden', state.isOpen);
-    iconClose?.classList.toggle('hidden', !state.isOpen);
+    if (iconSwap) iconSwap.dataset.state = state.isOpen ? 'b' : 'a';
 
     document.body.classList.toggle('overflow-hidden', state.isOpen);
     if (state.isOpen) {

@@ -41,8 +41,10 @@ if (!defined('ABSPATH')) {
             aria-controls="mobile-menu"
             aria-label="<?php esc_attr_e('Open menu', 'standard'); ?>"
         >
-            <span id="menu-icon-open"><?php icon('menu', ['class' => 'w-5 h-5']); ?></span>
-            <span id="menu-icon-close" class="hidden"><?php icon('x', ['class' => 'w-4 h-4']); ?></span>
+            <span class="t-icon-swap" data-state="a" data-menu-icon-swap>
+                <span class="t-icon" data-icon="a" id="menu-icon-open"><?php icon('menu', ['class' => 'w-5 h-5']); ?></span>
+                <span class="t-icon" data-icon="b" id="menu-icon-close"><?php icon('x', ['class' => 'w-4 h-4 text-red']); ?></span>
+            </span>
         </button>
 
         <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="flex items-center h-16 px-4 no-underline">
