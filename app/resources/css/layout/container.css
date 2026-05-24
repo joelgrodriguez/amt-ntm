@@ -1,13 +1,16 @@
 /**
  * Container System
  *
- * Two containers, one job each:
+ * Three containers, one job each:
  *   .container         - page cap at --layout-wide (1440px). Body content,
  *                        header inner, mega panel inner, .alignwide.
+ *   .container-mid     - mid cap at --layout-mid (1280px). Reading-scale
+ *                        sections that want breathing room without going
+ *                        full-bleed (testimonials, mid-density content).
  *   .container-prose   - reading measure at --layout-content (720px).
  *
- * Gutter is a flat 16px (px-4) at every viewport. Above 1440 the max-width
- * does the work and the gutter is irrelevant.
+ * Gutter is a flat 16px (px-4) at every viewport. Above the max-width
+ * the cap does the work and the gutter is irrelevant.
  *
  * @file container.css
  */
@@ -19,6 +22,11 @@
   .container {
     @apply mx-auto w-full px-4;
     max-width: var(--layout-wide);
+  }
+
+  .container-mid {
+    @apply mx-auto w-full px-4;
+    max-width: var(--layout-mid);
   }
 
   .container-prose {

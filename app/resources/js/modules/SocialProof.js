@@ -20,8 +20,8 @@ let abortController = null;
 
 const DOT_ACTIVE = ['bg-red', 'w-3'];
 const DOT_INACTIVE = ['bg-blue-300', 'w-1'];
-const SLIDE_ACTIVE = ['relative', 'opacity-100'];
-const SLIDE_INACTIVE = ['absolute', 'inset-0', 'opacity-0', 'pointer-events-none'];
+const SLIDE_ACTIVE = ['opacity-100'];
+const SLIDE_INACTIVE = ['opacity-0', 'pointer-events-none'];
 
 /**
  * Initialize the social proof slider.
