@@ -65,10 +65,33 @@
     height: 100dvh;
     max-height: none;
 
-    /* Per-component override: slide travel. Negative so .t-panel-slide
-       tucks the panel up off the top of the viewport when closed and
-       lets it drop into place when open. */
-    --panel-translate-y: -40px;
+    /* Per-component override: full-viewport slide. The closed state
+       sits one full viewport above; open slides it into place. Slide
+       only, no opacity fade, no blur — the fade/blur read as cheap
+       at this scale. Open/close durations tuned for the longer
+       travel distance — 350/400ms reads as molasses at 100vh. */
+    --panel-translate-y: -100vh;
+    --panel-open-dur: 480ms;
+    --panel-close-dur: 380ms;
+  }
+
+  /* Override .t-panel-slide locally: transition transform only on the
+     search modal. Drops the opacity + filter channels so close is a
+     clean slide-up without the fade-then-snap. pointer-events still
+     toggles so a click during the slide doesn't accidentally hit the
+     dialog while it's leaving. */
+  .search-modal.t-panel-slide {
+    opacity: 1;
+    filter: none;
+    pointer-events: none;
+    transition: transform var(--panel-close-dur) var(--panel-ease);
+  }
+
+  .search-modal.t-panel-slide[data-open="true"] {
+    opacity: 1;
+    filter: none;
+    pointer-events: auto;
+    transition: transform var(--panel-open-dur) var(--panel-ease);
   }
 
   .search-modal::backdrop {
@@ -169,9 +192,17 @@
     box-shadow: inset 0 0 0 2px var(--color-blue-500);
   }
 
+  /* Enter glyph at the trailing edge of the input. Reads as "press
+     Enter for all results" without competing with the live results
+     pane. Hidden on mobile (no visible Enter key on soft keyboards). */
   .search-modal__hint {
-    @apply hidden lg:inline-flex items-center shrink-0 font-mono uppercase tracking-wider text-blue-400;
-    font-size: var(--text-caption);
+    @apply hidden lg:inline-flex items-center justify-center shrink-0;
+    @apply font-mono text-blue-500 bg-blue-50;
+    border: 1px solid var(--color-blue-200);
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.875rem;
+    line-height: 1;
   }
 
   /* Row 3: scope chips. <legend> is visible now ("Narrow to:") so the
@@ -224,5 +255,145 @@
     @apply text-blue-900 bg-blue-50;
     border-color: var(--color-blue-300);
     border-bottom-color: var(--color-blue-500);
+  }
+
+  /* Row 4: quick results. Hidden until JS shows it. The list is a
+     listbox of <a role="option">. Each row is a flex item with type
+     label left + title right; active (keyboard-highlighted) row gets
+     the same blue-50 + 2px stripe vocabulary as chips and filter rows
+     so the three states (chip selected / row hovered / row active) all
+     read with the same language. */
+  .search-modal__results {
+    @apply border-t border-blue-100 py-6;
+    flex: 1;
+  }
+
+  .search-modal__results-status {
+    @apply m-0 mb-3 font-mono uppercase tracking-wider text-blue-400;
+    font-size: var(--text-caption);
+    min-height: 1rem;
+  }
+
+  .search-modal__results[data-state="error"] .search-modal__results-status {
+    @apply text-red;
+  }
+
+  .search-modal__results-list {
+    @apply m-0 p-0 list-none flex flex-col;
+  }
+
+  .search-modal__results-item {
+    @apply flex items-baseline gap-4 py-3 no-underline cursor-pointer;
+    border-bottom: 1px solid var(--color-blue-100);
+    border-left: 2px solid transparent;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    transition: background-color 120ms ease, border-color 120ms ease;
+  }
+
+  .search-modal__results-item:last-child {
+    border-bottom: none;
+  }
+
+  .search-modal__results-item:hover,
+  .search-modal__results-item[data-active="true"],
+  .search-modal__results-item:focus-visible {
+    @apply bg-blue-50 outline-none;
+    border-left-color: var(--color-blue-500);
+  }
+
+  .search-modal__results-type {
+    @apply shrink-0 font-mono uppercase tracking-wider text-blue-400;
+    font-size: 0.6875rem;
+    min-width: 5rem;
+  }
+
+  .search-modal__results-item:hover .search-modal__results-type,
+  .search-modal__results-item[data-active="true"] .search-modal__results-type {
+    @apply text-blue-500;
+  }
+
+  .search-modal__results-title {
+    @apply flex-1 min-w-0 font-sans text-blue-900;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .search-modal__results-item:hover .search-modal__results-title,
+  .search-modal__results-item[data-active="true"] .search-modal__results-title {
+    @apply text-blue-900;
+  }
+
+  /* Loading skeleton: three ghost rows. CSS-only shimmer via a moving
+     gradient on a fixed-width pseudo. Plays under reduced motion as a
+     steady tint instead of an animation. */
+  .search-modal__results-skeleton {
+    @apply flex items-baseline gap-4 py-3;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    border-bottom: 1px solid var(--color-blue-100);
+  }
+
+  .search-modal__results-skeleton:last-child {
+    border-bottom: none;
+  }
+
+  .search-modal__results-skeleton-type,
+  .search-modal__results-skeleton-title {
+    background: var(--color-blue-100);
+    height: 0.875rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .search-modal__results-skeleton-type {
+    width: 4rem;
+    flex-shrink: 0;
+  }
+
+  .search-modal__results-skeleton-title {
+    flex: 1;
+    max-width: 24rem;
+  }
+
+  .search-modal__results-skeleton-type::after,
+  .search-modal__results-skeleton-title::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--color-white) 60%, transparent),
+      transparent
+    );
+    transform: translateX(-100%);
+    animation: search-modal-shimmer 1.2s infinite;
+  }
+
+  @keyframes search-modal-shimmer {
+    to { transform: translateX(100%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .search-modal__results-skeleton-type::after,
+    .search-modal__results-skeleton-title::after {
+      animation: none;
+    }
+  }
+
+  /* "See all N results" link. Lives below the list when there's more
+     to find. Mono caption + nudging arrow matches the suggestion
+     pattern used elsewhere. */
+  .search-modal__results-all {
+    @apply inline-flex items-center gap-2 mt-4 font-mono uppercase tracking-wider text-blue-700 no-underline;
+    font-size: var(--text-caption);
+    transition: color 150ms ease, gap 150ms ease;
+  }
+
+  .search-modal__results-all:hover,
+  .search-modal__results-all:focus-visible {
+    @apply text-blue-900 outline-none;
+    gap: 0.75rem;
   }
 }

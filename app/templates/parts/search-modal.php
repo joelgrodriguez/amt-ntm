@@ -108,9 +108,9 @@ $current_query = (string) \get_search_query();
                 >
                     <?php icon('x', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
                 </button>
-                <span class="search-modal__hint" aria-hidden="true">
-                    <?php esc_html_e('Press Enter to search', 'standard'); ?>
-                </span>
+                <kbd class="search-modal__hint" aria-hidden="true" title="<?php esc_attr_e('Press Enter to see all results', 'standard'); ?>">
+                    <?php echo esc_html('↩'); ?>
+                </kbd>
             </div>
         </div>
 
@@ -157,5 +157,42 @@ $current_query = (string) \get_search_query();
             data-search-modal-post-type
             <?php echo $active_post_type === '' ? 'disabled' : ''; ?>
         >
+
+        <!-- Quick results region. Hidden until the user types. JS owns
+             the inner DOM; PHP only renders the shell so the role,
+             label and live-region attributes exist before scripts run.
+             Capped at 5 results via REST `per_page=5`. -->
+        <section
+            class="search-modal__results"
+            data-search-modal-results
+            data-state="idle"
+            hidden
+        >
+            <div class="container">
+                <div
+                    class="search-modal__results-status"
+                    role="status"
+                    aria-live="polite"
+                    data-search-modal-results-status
+                ></div>
+
+                <ul
+                    class="search-modal__results-list"
+                    role="listbox"
+                    aria-label="<?php esc_attr_e('Quick results', 'standard'); ?>"
+                    data-search-modal-results-list
+                ></ul>
+
+                <a
+                    class="search-modal__results-all"
+                    href="#"
+                    data-search-modal-results-all
+                    hidden
+                >
+                    <span data-search-modal-results-all-label></span>
+                    <?php icon('arrow-right', ['class' => 'w-3 h-3', 'aria-hidden' => 'true']); ?>
+                </a>
+            </div>
+        </section>
     </form>
 </dialog>
