@@ -2,10 +2,10 @@
 /**
  * Machines Page — Lineup
  *
- * Per category: if the first machine has a flagship badge, render it
- * as a full-bleed featured band. Render the remaining machines as a
- * 3-column lineup grid below. No 4+2 overflow centering: the flagship
- * carries the visual peak, the grid stays even.
+ * Per category: a single grid of card-product cards. Every machine renders
+ * through the same canonical card so the page reads as one consolidated
+ * lineup. Flagship machines surface their identity via the `Flagship` badge
+ * on the card itself; no separate spotlight band.
  *
  * @package Standard
  *
@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
 }
 
 use function Standard\MachinesData\get_machine_categories;
-use function Standard\Grid\get_card_border_classes;
+use function Standard\MachinesData\to_card_product;
 
 $content = [
     'eyebrow' => __('Our Machines', 'standard'),
@@ -42,31 +42,7 @@ $categories = get_machine_categories();
             </h2>
         </div>
 
-        <?php foreach ($categories as $slug => $category) : ?>
-            <?php
-            $machines = $category['machines'];
-
-            // Flagship = first machine flagged as featured (data: 'featured' => true).
-            // Falls back to first machine with a non-empty badge so legacy data
-            // (e.g. SSQ3 set as 'badge' => 'Flagship') still picks up the band.
-            $flagship       = null;
-            $flagship_index = null;
-            foreach ($machines as $i => $machine) {
-                if (!empty($machine['featured']) || !empty($machine['badge'])) {
-                    $flagship       = $machine;
-                    $flagship_index = $i;
-                    break;
-                }
-            }
-
-            $rest = $machines;
-            if ($flagship_index !== null) {
-                array_splice($rest, $flagship_index, 1);
-            }
-
-            $rest_count = count($rest);
-            $grid_cols  = $rest_count >= 3 ? 3 : max(1, $rest_count);
-            ?>
+        <?php foreach ($categories as $key => $category) : ?>
             <div class="grid gap-10">
 
                 <div class="flex items-baseline justify-between gap-4">
@@ -81,19 +57,13 @@ $categories = get_machine_categories();
                     <?php endif; ?>
                 </div>
 
-                <?php if ($flagship) : ?>
-                    <?php get_template_part('templates/pages/machines/lineup-flagship', null, ['machine' => $flagship]); ?>
-                <?php endif; ?>
-
-                <?php if (!empty($rest)) : ?>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 border border-blue-200">
-                        <?php foreach ($rest as $idx => $machine) : ?>
-                            <div class="<?php echo esc_attr(get_card_border_classes($idx, $rest_count, $grid_cols)); ?>">
-                                <?php get_template_part('templates/pages/machines/lineup-card', null, ['machine' => $machine]); ?>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <?php foreach ($category['machines'] as $machine) : ?>
+                        <?php get_template_part('templates/parts/card-product', null, [
+                            'product' => to_card_product($machine, $key),
+                        ]); ?>
+                    <?php endforeach; ?>
+                </div>
 
             </div>
         <?php endforeach; ?>

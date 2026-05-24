@@ -18,10 +18,10 @@ if (!defined('ABSPATH')) {
 use function Standard\MachinesData\get_gutter_machines;
 
 get_template_part('templates/parts/product-grid', null, [
-    'section_id' => 'product-grid',
-    'cols'       => 4,
-    'machines'   => get_gutter_machines(),
-    'content'    => [
+    'section_id'   => 'product-grid',
+    'category_key' => 'gutter',
+    'machines'     => get_gutter_machines(),
+    'content'      => [
         'eyebrow' => __('The Lineup', 'standard'),
         'title'   => __('Seamless Gutter Machines', 'standard'),
     ],

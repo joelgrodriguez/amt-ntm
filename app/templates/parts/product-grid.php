@@ -2,15 +2,18 @@
 /**
  * Product Grid — Shared Template Part
  *
- * Responsive grid of machine cards with overflow row centering.
- * Reuses the lineup-card.php template part for each machine.
+ * Responsive grid of machine cards. Renders every machine through the
+ * single canonical card-product partial so /roof-wall-panel-machines,
+ * /seamless-gutter-machines, and any other consumer share one card style.
  *
  * @package Standard
  *
- * @param array  $machines   Array of machine data.
- * @param int    $cols       Number of columns (2 or 3).
- * @param array  $content    {eyebrow, title}
- * @param string $section_id ID used for aria-labelledby and section id.
+ * @param array  $machines    Array of machine data (raw rows from machines-data).
+ * @param array  $content     {eyebrow, title}
+ * @param string $section_id  ID used for aria-labelledby and section id.
+ * @param string $category_key Category key for the to_card_product mapper
+ *                             ('roof-wall' or 'gutter'). Defaults to '' which
+ *                             leaves the category label empty on the card.
  */
 
 declare(strict_types=1);
@@ -19,30 +22,12 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use function Standard\Grid\get_card_border_classes;
-use function Standard\Grid\get_lg_grid_cols_class;
+use function Standard\MachinesData\to_card_product;
 
-$machines   = $args['machines'] ?? [];
-$content    = $args['content'] ?? [];
-$section_id = $args['section_id'] ?? 'product-grid';
-
-$count = count($machines);
-
-// Pick a column count that divides evenly into the machine count
-// so we never have an awkward overflow row. 6 → 3-col; 4 → 2-col;
-// 3 → 3-col; 2 → 2-col; everything else → fall back to 3-col with
-// whatever overflow lands. Caller can override with $args['cols'].
-$cols = $args['cols'] ?? null;
-if (!$cols) {
-    if ($count % 3 === 0) {
-        $cols = 3;
-    } elseif ($count % 2 === 0) {
-        $cols = 2;
-    } else {
-        $cols = 3;
-    }
-}
-$cols = max(1, min(4, (int) $cols));
+$machines     = $args['machines'] ?? [];
+$content      = $args['content'] ?? [];
+$section_id   = $args['section_id'] ?? 'product-grid';
+$category_key = (string) ($args['category_key'] ?? '');
 ?>
 
 <section id="<?php echo esc_attr($section_id); ?>" class="section" aria-labelledby="<?php echo esc_attr($section_id); ?>-title">
@@ -58,11 +43,11 @@ $cols = max(1, min(4, (int) $cols));
             </h2>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 <?php echo esc_attr(get_lg_grid_cols_class($cols)); ?> border border-blue-200">
-            <?php foreach ($machines as $idx => $machine) : ?>
-                <div class="<?php echo esc_attr(get_card_border_classes($idx, $count, $cols)); ?>">
-                    <?php get_template_part('templates/pages/machines/lineup-card', null, ['machine' => $machine]); ?>
-                </div>
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <?php foreach ($machines as $machine) : ?>
+                <?php get_template_part('templates/parts/card-product', null, [
+                    'product' => to_card_product($machine, $category_key),
+                ]); ?>
             <?php endforeach; ?>
         </div>
 

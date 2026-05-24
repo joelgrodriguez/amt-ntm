@@ -132,6 +132,7 @@ function get_machine_categories(bool $include_dormant = false): array {
                     'name'              => 'SSQ3™ MultiPro',
                     'short_name' => 'SSQ3™',
                     'descriptor' => 'The most advanced portable roll former ever built',
+                    'description' => 'Runs 16 panel profiles on a high-speed hydraulic drive — NTM\'s flagship roof and wall panel machine for commercial crews.',
                     'image'      => $base . '2026/03/SSQ3_OL_0226-hero.png',
                     'url'        => get_product_url('ssq3-multipro'),
                     'badge'      => 'Flagship',
@@ -154,6 +155,7 @@ function get_machine_categories(bool $include_dormant = false): array {
                     'name'              => 'SSQ II™ MultiPro',
                     'short_name' => 'SSQ II™',
                     'descriptor' => 'The proven multi-profile workhorse',
+                    'description' => 'Proven 16-profile workhorse with hydraulic drive and shear — gas or electric power for commercial roof and wall panel work.',
                     'image'      => $base . '2025/09/20250911_NTM_SSQ-II_1000x1000.png',
                     'url'        => get_product_url('ssq-ii-multipro'),
                     'badge'      => '',
@@ -180,6 +182,7 @@ function get_machine_categories(bool $include_dormant = false): array {
                     'name'              => 'SSH™ MultiPro',
                     'short_name' => 'SSH™',
                     'descriptor' => 'Residential & light commercial machine',
+                    'description' => 'Runs 7 panel profiles up to ~60 feet per minute — sized and priced for residential and light commercial roof crews.',
                     'image'      => $base . '2025/09/20250911_NTM_SSH_1000x1000.png.webp',
                     'url'        => get_product_url('ssh-multipro'),
                     'badge'      => '',
@@ -202,6 +205,7 @@ function get_machine_categories(bool $include_dormant = false): array {
                     'name'              => 'SSR™ MultiPro Jr.',
                     'short_name' => 'SSR™',
                     'descriptor' => 'Affordable entry into portable rollforming',
+                    'description' => 'The most affordable entry point into portable rollforming — electric-powered with NTM\'s EZE CHANGE quick-swap profile system.',
                     'image'      => $base . '2025/09/20250911_NTM_SSR_1000x1000.png',
                     'url'        => get_product_url('ssr-multipro-jr'),
                     'badge'      => '',
@@ -224,6 +228,7 @@ function get_machine_categories(bool $include_dormant = false): array {
                     'name'              => '5V Crimp',
                     'short_name' => '5V Crimp',
                     'descriptor' => 'The industry\'s only portable 5V crimp machine',
+                    'description' => 'The industry\'s only portable 5V crimp roof panel machine — hydraulic drive and shear, built for exposed-fastener jobs.',
                     'image'      => $base . '2025/09/20250911_NTM_5VC_1000x1000.png',
                     'url'        => get_product_url('5vc-5v-crimp'),
                     'badge'      => '',
@@ -246,6 +251,7 @@ function get_machine_categories(bool $include_dormant = false): array {
                     'name'              => 'WAV™',
                     'short_name' => 'WAV™',
                     'descriptor' => 'The industry\'s only portable WAV profile machine',
+                    'description' => 'Purpose-built for heavy commercial wall panel work — 4 profiles on 25 polyurethane drive rollers with UNIQ® standard.',
                     'image'      => $base . '2025/09/20250911_NTM_WAV_1000x1000.png',
                     'url'        => get_product_url('wav-wall-panel'),
                     'badge'      => '',
@@ -274,6 +280,7 @@ function get_machine_categories(bool $include_dormant = false): array {
                     'name'              => 'MACH II™ 5" Gutter Machine',
                     'short_name' => 'MACH II™ 5"',
                     'descriptor' => 'The most trusted 5" gutter machine since 1994',
+                    'description' => 'Produces 5" K-style seamless gutters from raw coil at up to ~50 feet per minute — the residential gutter industry standard.',
                     'image'      => $base . '2025/09/20250911_NTM_MACH-II-5_1000x1000.png',
                     'url'        => get_product_url('mach-ii-5-gutter'),
                     'badge'      => '',
@@ -297,6 +304,7 @@ function get_machine_categories(bool $include_dormant = false): array {
                     'name'              => 'MACH II™ 6" Gutter Machine',
                     'short_name' => 'MACH II™ 6"',
                     'descriptor' => 'Dedicated 6" K-style for larger homes',
+                    'description' => 'Produces 6" K-style seamless gutters from raw coil at up to ~50 feet per minute — sized for larger homes and light commercial.',
                     'image'      => $base . '2025/09/20250911_NTM_MACH-II-6_1000x1000.png',
                     'url'        => get_product_url('mach-ii-6-gutter'),
                     'badge'      => '',
@@ -320,6 +328,7 @@ function get_machine_categories(bool $include_dormant = false): array {
                     'name'              => 'MACH II™ 5"/6" Combo Gutter Machine',
                     'short_name' => 'MACH II™ 5"/6"',
                     'descriptor' => 'Two gutter sizes, one machine',
+                    'description' => 'Switches between 5" and 6" K-style gutters from a single setup — no machine swap, no second trip to the truck.',
                     'image'      => $base . '2025/09/20250911_NTM_MACH-II-5-6-Combo_1000x1000.png',
                     'url'        => get_product_url('mach-ii-combo-gutter'),
                     'badge'      => '',
@@ -343,6 +352,7 @@ function get_machine_categories(bool $include_dormant = false): array {
                     'name'       => 'BG7™',
                     'short_name' => 'BG7™',
                     'descriptor' => 'Commercial-grade 7" box gutter machine',
+                    'description' => 'Commercial-grade portable 7" box gutter machine — built for durability on demanding jobsites, designed to travel with the crew.',
                     'image'      => $base . '2025/09/20250911_NTM_BG7_1000x1000.png',
                     'url'        => get_product_url('bg7-box-gutter'),
                     'badge'      => '',
@@ -376,6 +386,80 @@ function get_machine_categories(bool $include_dormant = false): array {
     }
 
     return $categories;
+}
+
+/**
+ * Map a raw machine data array (from get_machine_categories()) into the
+ * data shape expected by templates/parts/card-product.php.
+ *
+ * Used by /machines, /roof-wall-panel-machines, and /seamless-gutter-machines
+ * to render every machine through the single canonical card-product partial.
+ *
+ * @param array<string, mixed> $machine     Raw machine data row.
+ * @param string               $category_key 'roof-wall' or 'gutter'.
+ * @return array<string, mixed>
+ */
+function to_card_product(array $machine, string $category_key): array {
+    $is_gutter = $category_key === 'gutter';
+    $slug      = (string) ($machine['slug'] ?? '');
+
+    $configurator_slug = (string) ($machine['configurator_slug'] ?? '');
+    $build_url         = $configurator_slug !== ''
+        ? \Standard\Url\internal('/configurator/' . $configurator_slug . '/')
+        : '';
+
+    $url = (string) ($machine['url'] ?? '');
+
+    return [
+        'id'             => $slug,
+        'title'          => $machine['short_name'] ?? $machine['name'] ?? '',
+        'category_label' => $is_gutter
+            ? \__('Seamless Gutter Machine', 'standard')
+            : \__('Roof & Wall Panel Machine', 'standard'),
+        'description'    => $machine['description'] ?? '',
+        'image'          => $machine['image'] ?? '',
+        'price'          => !empty($machine['price'])
+            ? $machine['price']
+            : (get_product_price($slug) ?? ''),
+        'price_label'    => $machine['price_label'] ?? \__('Starting at', 'standard'),
+        'explore_url'    => $url !== '' && $url !== '#' ? $url : get_product_url($slug),
+        'build_url'      => $build_url,
+        'badge'          => !empty($machine['featured']) && empty($machine['badge'])
+            ? \__('Featured', 'standard')
+            : ($machine['badge'] ?? ''),
+    ];
+}
+
+/**
+ * Get a machine's editorial card description by slug.
+ *
+ * Resolves a WooCommerce product slug to the matching machine in
+ * get_machine_categories() (including dormant) and returns its
+ * `description` field — the canonical one-sentence body copy used by
+ * card-product. Falls back to '' when no match.
+ *
+ * Accepts either a data slug (e.g. ssq3-multipro) or a Woo product slug
+ * (e.g. ssq3-roof-panel-machine), via the alias map in
+ * machine-product-data.php.
+ */
+function get_machine_description(string $slug): string {
+    $data_slug = $slug;
+    if (function_exists('Standard\\MachineProductData\\get_slug_aliases')) {
+        $aliases = \Standard\MachineProductData\get_slug_aliases();
+        if (isset($aliases[$slug])) {
+            $data_slug = $aliases[$slug];
+        }
+    }
+
+    foreach (get_machine_categories(true) as $category) {
+        foreach ($category['machines'] as $machine) {
+            if (($machine['slug'] ?? '') === $data_slug && !empty($machine['description'])) {
+                return (string) $machine['description'];
+            }
+        }
+    }
+
+    return '';
 }
 
 /**

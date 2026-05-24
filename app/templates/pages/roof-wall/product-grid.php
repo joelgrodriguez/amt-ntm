@@ -18,10 +18,10 @@ if (!defined('ABSPATH')) {
 use function Standard\MachinesData\get_roof_wall_machines;
 
 get_template_part('templates/parts/product-grid', null, [
-    'section_id' => 'product-grid',
-    'cols'       => 3,
-    'machines'   => get_roof_wall_machines(),
-    'content'    => [
+    'section_id'   => 'product-grid',
+    'category_key' => 'roof-wall',
+    'machines'     => get_roof_wall_machines(),
+    'content'      => [
         'eyebrow' => __('The Lineup', 'standard'),
         'title'   => __('Roof & Wall Panel Machines', 'standard'),
     ],
