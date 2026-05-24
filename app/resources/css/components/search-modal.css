@@ -94,14 +94,12 @@
     transition: transform var(--panel-open-dur) var(--panel-ease);
   }
 
+  /* Backdrop stays solid for the entire open lifetime, then disappears
+     with the dialog when .close() fires. No opacity transition — the
+     fade was visually competing with the slide and reading as the
+     dialog vanishing before it left. */
   .search-modal::backdrop {
     background: rgb(10 19 34 / 0.32);
-    opacity: 0;
-    transition: opacity var(--panel-open-dur, 400ms) var(--panel-ease, cubic-bezier(0.22, 1, 0.36, 1));
-  }
-
-  .search-modal[open]::backdrop {
-    opacity: 1;
   }
 
   /* Form is the only scrolling region; dialog stays pinned.
