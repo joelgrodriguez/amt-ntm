@@ -15,6 +15,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use function Standard\PostTypes\get_primary_category;
+
 $video = function_exists('get_field') ? get_field('video', false, false) : null;
 
 get_header();
@@ -40,24 +42,18 @@ get_header();
             <!-- Content Section -->
             <section class="pattern-dot-grid py-6 lg:py-12">
                 <div class="container grid gap-6 lg:gap-12">
-                    <header class="max-w-4xl mx-auto grid gap-6">
-                        <?php if (has_category()) : ?>
-                            <div class="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono uppercase tracking-widest text-caption">
-                                <?php
-                                $categories = array_slice(get_the_category(), 0, 3);
-                                foreach ($categories as $i => $category) :
-                                    if ($i > 0) : ?>
-                                        <span class="text-blue-300" aria-hidden="true">/</span>
-                                    <?php endif; ?>
-                                    <a href="<?php echo esc_url(get_category_link($category->term_id)); ?>"
-                                       class="text-blue-700 no-underline hover:text-blue-500 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
-                                        <?php echo esc_html($category->name); ?>
-                                    </a>
-                                <?php endforeach; ?>
+                    <header class="grid gap-6">
+                        <?php $primary_category = get_primary_category((int) get_the_ID()); ?>
+                        <?php if ($primary_category instanceof \WP_Term) : ?>
+                            <div>
+                                <a href="<?php echo esc_url(get_category_link($primary_category->term_id)); ?>"
+                                   class="font-mono uppercase tracking-widest text-caption text-blue-500 no-underline hover:text-blue-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                                    <?php echo esc_html($primary_category->name); ?>
+                                </a>
                             </div>
                         <?php endif; ?>
 
-                        <?php the_title('<h1 class="font-mono font-medium text-heading lg:text-heading-lg text-blue-900 leading-tight tracking-tight m-0">', '</h1>'); ?>
+                        <?php the_title('<h1 class="font-sans font-semibold text-heading lg:text-heading-lg text-blue-900 leading-tight tracking-tight m-0">', '</h1>'); ?>
                     </header>
 
                     <!-- Content -->
