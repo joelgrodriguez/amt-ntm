@@ -63,17 +63,11 @@ export function initTableOfContents(options = {}) {
   const tocContainer = document.querySelector(config.tocContainerSelector);
 
   if (!content || !tocList) return;
-
-  // Check for reduced motion preference
   const prefersReducedMotion = window.matchMedia(
     '(prefers-reduced-motion: reduce)'
   ).matches;
-
-  // Get all headings
   const headingSelector = config.headingSelectors.join(', ');
   const headings = content.querySelectorAll(headingSelector);
-
-  // Hide TOC for short posts; a 1- or 2-section TOC is noise, not navigation.
   if (headings.length < 3) {
     if (tocContainer) tocContainer.hidden = true;
     return;
@@ -96,7 +90,6 @@ export function initTableOfContents(options = {}) {
     let index = 1;
 
     headings.forEach((heading) => {
-      // Generate ID if not present
       if (!heading.id) {
         const baseSlug = slugify(heading.textContent);
         heading.id = baseSlug || `section-${index}`;
@@ -112,8 +105,6 @@ export function initTableOfContents(options = {}) {
       link.href = `#${heading.id}`;
       link.className = 'toc__link';
       link.textContent = heading.textContent;
-
-      // Store reference for scrollspy
       tocLinks.set(heading.id, link);
 
       li.appendChild(link);
@@ -133,14 +124,10 @@ export function initTableOfContents(options = {}) {
   const setActive = (headingId) => {
     const link = tocLinks.get(headingId);
     if (!link || link === activeLink) return;
-
-    // Remove previous active state
     if (activeLink) {
       activeLink.classList.remove(config.activeClass);
       activeLink.removeAttribute('aria-current');
     }
-
-    // Set new active state
     link.classList.add(config.activeClass);
     link.setAttribute('aria-current', 'true');
     activeLink = link;
@@ -152,11 +139,9 @@ export function initTableOfContents(options = {}) {
    * @param {IntersectionObserverEntry[]} entries
    */
   const handleIntersection = (entries) => {
-    // Find the first intersecting heading (topmost in viewport)
     const intersecting = entries.filter((entry) => entry.isIntersecting);
 
     if (intersecting.length > 0) {
-      // Sort by position in document (top to bottom)
       intersecting.sort((a, b) => {
         return a.boundingClientRect.top - b.boundingClientRect.top;
       });
@@ -187,14 +172,8 @@ export function initTableOfContents(options = {}) {
         top: offsetPosition,
         behavior: prefersReducedMotion ? 'auto' : 'smooth',
       });
-
-      // Update URL hash without jumping
       history.pushState(null, '', `#${targetId}`);
-
-      // Update active state immediately on click
       setActive(targetId);
-
-      // Move focus to heading for accessibility
       target.setAttribute('tabindex', '-1');
       target.focus({ preventScroll: true });
     }
@@ -220,17 +199,12 @@ export function initTableOfContents(options = {}) {
     if (hash && tocLinks.has(hash)) {
       setActive(hash);
     } else if (headings.length > 0) {
-      // Default to first heading
       setActive(headings[0].id);
     }
   };
-
-  // Initialize
   buildTOC();
   setupObserver();
   handleInitialHash();
-
-  // Event listeners
   tocList.addEventListener('click', handleClick);
 
   /**

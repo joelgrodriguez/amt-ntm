@@ -103,13 +103,9 @@ namespace Standard {
      */
     function icon(string $name, array $attrs = []): void {
         static $cache = [];
-
-        // Validate: only allow lowercase letters, numbers, and hyphens
         if (!preg_match('/^[a-z0-9-]+$/', $name)) {
             return;
         }
-
-        // Load and cache SVG content
         if (!isset($cache[$name])) {
             $path = THEME_DIR . '/assets/icons/' . $name . '.svg';
             if (!file_exists($path)) {
@@ -119,8 +115,6 @@ namespace Standard {
         }
 
         $svg = $cache[$name];
-
-        // Inject custom attributes into opening <svg> tag
         if ($attrs) {
             $attr_string = '';
             foreach ($attrs as $key => $value) {
@@ -128,8 +122,6 @@ namespace Standard {
             }
             $svg = preg_replace('/<svg\s/', '<svg' . $attr_string . ' ', $svg, 1);
         }
-
-        // Output sanitized SVG
         echo wp_kses($svg, SVG_ALLOWED_HTML);
     }
 }

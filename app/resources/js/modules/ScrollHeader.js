@@ -160,26 +160,19 @@ export function init() {
   function updateHeader() {
     const currentScrollY = window.scrollY;
     const scrollDelta = currentScrollY - lastScrollY;
-
-    // Don't update if menu is open
     if (isMenuOpen()) {
       ticking = false;
       return;
     }
-
-    // At top of page - remove all states
     if (currentScrollY < SCROLL_THRESHOLD) {
       resetHeader();
       lastScrollY = currentScrollY;
       ticking = false;
       return;
     }
-
-    // Scrolling down - hide header
     if (scrollDelta > SCROLL_DELTA) {
       hideHeader();
     }
-    // Scrolling up - show sticky header
     else if (scrollDelta < -SCROLL_DELTA) {
       showStickyHeader();
     }
@@ -211,10 +204,6 @@ export function init() {
   function onFocusIn() {
     focusInsideHeader = true;
     clearAutoHideTimer();
-
-    // Keyboard focus is an explicit user action — reveal the header even
-    // if a sub-nav is sticky, otherwise tab navigation lands in an
-    // invisible region. The two-bar overlap is the lesser evil.
     if (window.scrollY >= SCROLL_THRESHOLD) {
       revealStickyHeader();
     }
@@ -227,15 +216,11 @@ export function init() {
       scheduleAutoHideIfVisible();
     }, 0);
   }
-
-  // Add scroll listener
   window.addEventListener('scroll', onScroll, { passive: true });
   header.addEventListener('pointerenter', onPointerEnter);
   header.addEventListener('pointerleave', onPointerLeave);
   header.addEventListener('focusin', onFocusIn);
   header.addEventListener('focusout', onFocusOut);
-
-  // Return cleanup function
   return () => {
     window.removeEventListener('scroll', onScroll);
     header.removeEventListener('pointerenter', onPointerEnter);

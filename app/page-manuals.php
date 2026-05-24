@@ -4,15 +4,6 @@
  *
  * Catalog landing for the manual library.
  *
- * Layout mirrors page-profiles.php: a sticky filter sidebar on the left
- * (Type + Machine), with the catalog stacked into two labelled sections
- * on the right (Gutter, Roof & Wall).
- *
- * Canonical category term IDs:
- *   600 = Manuals (parent, do not render directly)
- *   601 = Gutter Machine Manuals       ( 9 published)
- *   602 = Roof & Wall Panel Machine Manuals (21 published)
- *
  * @package Standard
  */
 

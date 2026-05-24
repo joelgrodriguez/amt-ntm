@@ -52,8 +52,6 @@ $features = [
 <section class="configurator section" aria-labelledby="<?php echo esc_attr($content['section_id']); ?>-title">
     <div class="container">
         <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-center">
-
-            <!-- Image Panel -->
             <div class="order-2 lg:order-1">
                 <?php \Standard\Images\responsive_image($content['image'], $content['image_alt'], 'large', [
                     'class'  => 'w-full h-auto',
@@ -61,8 +59,6 @@ $features = [
                     'height' => '1634',
                 ]); ?>
             </div>
-
-            <!-- Content Panel -->
             <div class="order-1 lg:order-2 grid gap-8 lg:gap-10 content-start">
                 <div class="section-header-left">
                     <h2 id="<?php echo esc_attr($content['section_id']); ?>-title" class="section-title">
@@ -72,8 +68,6 @@ $features = [
                         <?php echo esc_html($content['text']); ?>
                     </p>
                 </div>
-
-                <!-- Feature spec list (top-bordered, not boxed) -->
                 <div class="grid gap-8 sm:grid-cols-3">
                     <?php foreach ($features as $feature) : ?>
                         <div class="flex flex-col gap-3 border-t border-blue-200 pt-4">

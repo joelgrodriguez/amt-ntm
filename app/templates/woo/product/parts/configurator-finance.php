@@ -38,8 +38,6 @@ $has_range   = !empty($finance['price_range']);
         </div>
 
         <div class="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-
-            <!-- Configurator -->
             <div class="border border-blue-700 bg-blue-800 p-8 grid gap-6">
                 <div class="bg-blue-700 aspect-video flex items-center justify-center">
                     <span class="text-blue-400 text-sm font-mono">Configurator preview</span>
@@ -55,8 +53,6 @@ $has_range   = !empty($finance['price_range']);
                 </div>
                 <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary w-full">Open Configurator</a>
             </div>
-
-            <!-- Financing -->
             <div class="border border-blue-700 bg-blue-800 p-8 grid gap-6">
                 <div class="grid gap-2 text-center py-6">
                     <?php if ($has_monthly) : ?>

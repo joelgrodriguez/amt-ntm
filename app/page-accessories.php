@@ -4,10 +4,6 @@
  *
  * Landing page for the Accessories & Upgrades catalog.
  *
- * Wraps the 60+ product Woo "Accessories & Add-On Equipment" category in
- * a hero, a horizontal jump-nav strip, the bucketed catalog grid, a
- * fits-which-machine matrix, and a final CTA.
- *
  * @package Standard
  */
 

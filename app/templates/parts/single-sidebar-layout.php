@@ -34,10 +34,7 @@ $sidebar_title = sprintf(__('All %s', 'standard'), $plural);
         'eyebrow_kind' => 'post-type',
         'meta_items'   => [],
     ]); ?>
-
-    <!-- Two-column layout: Content + Same-type Sidebar -->
     <div class="container lg:grid lg:grid-cols-[1fr_300px] lg:gap-12">
-        <!-- Content -->
         <div>
             <div class="prose prose-lg max-w-full">
                 <?php the_content(); ?>
@@ -45,8 +42,6 @@ $sidebar_title = sprintf(__('All %s', 'standard'), $plural);
 
             <?php get_template_part('templates/parts/disclaimer'); ?>
         </div>
-
-        <!-- Same-type Sidebar -->
         <aside class="hidden lg:block border-l border-blue-200 pl-10">
             <nav class="sticky top-24" aria-label="<?php echo esc_attr($sidebar_title); ?>">
                 <p class="font-mono font-medium uppercase tracking-widest text-caption text-blue-500 m-0 mb-6">
@@ -94,8 +89,6 @@ $sidebar_title = sprintf(__('All %s', 'standard'), $plural);
     <div class="container">
         <?php get_template_part('templates/parts/post-navigation'); ?>
     </div>
-
-    <!-- Related Posts -->
     <div class="container">
         <?php get_template_part('templates/parts/related-posts'); ?>
     </div>

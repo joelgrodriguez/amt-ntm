@@ -11,28 +11,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// ── Hero ──
-// ── Stats ──
-// ── Finance ──
-// ── Breakdown ──
-// ── Blueprint ──
-// ── Gallery ──
-// ── Profiles ──
-// ── Accessories ──
-// ── Testimonials ──
-// ── Comparison ──
-// ── Specs ──
-// ── Resources ──
-// ── FAQ ──
-// ── Schema ──
-
 return [
-
-    // ── Identity ──
     'category' => __('Roof & Wall Panel Machines', 'standard'),
     'slogan'   => __('The future of portable roll forming.', 'standard'),
-
-    // ── Hero ──
     'hero' => [
         'headline'   => __('16 Panel Profiles.<br class="hidden lg:inline"> One Machine.', 'standard'),
         'subtitle'   => __('The most advanced portable roof and wall panel machine we\'ve ever built. Smarter, safer, and more efficient than ever.', 'standard'),
@@ -40,16 +21,12 @@ return [
         'image'      => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-ssq3-manual-controller-050.jpg',
         'video'      => null,
     ],
-
-    // ── Stats ──
     'stats' => [
         ['value' => '16',          'label' => __('Panel Profiles', 'standard')],
         ['value' => '25 min',      'label' => __('Tooling Changeover', 'standard')],
         ['value' => '75 ft/min',   'label' => __('Max Speed', 'standard')],
         ['value' => '$2.25/sq ft', 'label' => __('Avg. Savings', 'standard')],
     ],
-
-    // ── Finance ──
     'finance' => [
         'monthly_price' => null,
         'price_range'   => __('$121K – $137K', 'standard'),
@@ -57,8 +34,6 @@ return [
         'apr'           => '4.99%',
         'months'        => '84',
     ],
-
-    // ── Breakdown ──
     'breakdown' => [
         [
             'id'       => 'forming-system',
@@ -109,8 +84,6 @@ return [
             'image'    => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-ssq3-rfid-sensors-001.jpg',
         ],
     ],
-
-    // ── Fit ──
     'fit' => [
         'is_for' => [
             __('High-volume commercial and residential roofing contractors', 'standard'),
@@ -126,38 +99,24 @@ return [
             ['text' => __('Shops that only run wall panels without roof profiles', 'standard'), 'machine' => 'wav-wall-panel'],
         ],
     ],
-
-    // ── Blueprint ──
     'blueprint' => [
         'svg' => 'ssq3-machine',
     ],
-
-    // ── Gallery ──
     'gallery' => [
         'images'  => [],
         'rotator' => [],
     ],
-
-    // ── Profiles ──
     'profiles' => [
         'tag_slugs' => ['ssq-ii-multipro-roof-panel-machine'],
     ],
-
-    // ── Accessories ──
     'accessories' => [
         'product_tag' => 'SSQII',
     ],
-
-    // ── Testimonials ──
     'testimonials' => [],
-
-    // ── Comparison ──
     'comparison' => [
         'compare_with' => ['ssq-ii-multipro', 'ssh-multipro'],
         'best_for'     => __('High-volume commercial & residential', 'standard'),
     ],
-
-    // ── Specs ──
     'specs' => [
         'standard_features' => [
             __('16 Polyurethane Drive Rollers', 'standard'),
@@ -279,15 +238,11 @@ return [
             'patents'     => ['U.S. PATENT NO. 6,772,616'],
         ],
     ],
-
-    // ── Resources ──
     'resources' => [
         'manual'              => 'https://newtechmachinery.com/learning-center/manual/ssq3-roof-panel-machine-manual/',
         'brochure'            => 'https://newtechmachinery.com/learning-center/literature/ssq3-multipro-roof-panel-machine-brochure/',
         'service_training_url' => '/service-training',
     ],
-
-    // ── FAQ ──
     'faq' => [
         [
             'question' => __('How long does it take to get an SSQ3 after ordering?', 'standard'),
@@ -310,8 +265,6 @@ return [
             'answer'   => __('The SSQ3 includes a limited three-year part and NTM in-house labor warranty — the industry\'s best.', 'standard'),
         ],
     ],
-
-    // ── Schema ──
     'schema' => [
         'low_price'    => '121000',
         'high_price'   => '137000',

@@ -15,12 +15,6 @@ if (!defined('ABSPATH')) {
 $machine    = $args['machine'] ?? [];
 $dimensions = $machine['specs']['dimensions'] ?? [];
 $svg_name   = $machine['blueprint']['svg'] ?? '';
-
-// ACF 'footprint' field on the product page. Field is a relationship
-// to a 'footprint' custom post type; resolve the linked post's
-// featured image and its PDF attachment (embedded inside a
-// pdfjs-embed block in the post content). Field returns an array of
-// post IDs (or post objects) — use the first.
 $footprint_url     = '';
 $footprint_alt     = '';
 $footprint_pdf_url = '';
@@ -50,8 +44,6 @@ if (function_exists('get_field')) {
                 $footprint_alt = (string) get_the_title($footprint_post_id);
             }
         }
-
-        // Extract the PDF URL from the pdfjs-embed block in the post content.
         $footprint_post = get_post($footprint_post_id);
         if ($footprint_post && function_exists('parse_blocks')) {
             foreach (parse_blocks($footprint_post->post_content) as $block) {
@@ -71,8 +63,6 @@ if (empty($dimensions)) {
 $machine_raw  = $dimensions['machine'] ?? [];
 $trailer_raw  = $dimensions['on_trailer'] ?? [];
 $variants_raw = $dimensions['variants'] ?? [];
-
-// Helper: build a label => value array from a dimensions block.
 $build_dims = static function (array $raw): array {
     $out = [];
     if (!empty($raw['length']))         { $out['Length']     = $raw['length']; }
@@ -86,11 +76,6 @@ $build_dims = static function (array $raw): array {
 
 $machine_dims = $build_dims($machine_raw);
 $trailer_dims = $build_dims($trailer_raw);
-
-// Two- to four-cell composition. When a machine ships in multiple
-// physical sizes (e.g. the MACH II combo: 5", 6", 5"/6"), each variant
-// gets its own cell so the footprint section reads the full range
-// instead of collapsing into one number. Trailer cell stays in place.
 $cells = [];
 if (!empty($variants_raw)) {
     foreach ($variants_raw as $variant) {
@@ -121,8 +106,6 @@ if (!empty($trailer_dims)) {
 ?>
 
 <section id="machine-blueprint" class="bg-white text-blue-600 border-y border-blue-200" aria-labelledby="blueprint-title">
-
-    <!-- Top chrome bar -->
     <div class="border-b border-blue-200">
         <div class="border-x border-blue-200 container">
             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
@@ -136,8 +119,6 @@ if (!empty($trailer_dims)) {
             </div>
         </div>
     </div>
-
-    <!-- Diagram + dimensions: image left, spec cells stacked right -->
     <div class="border-x border-blue-200 container">
 
         <h2 id="blueprint-title" class="sr-only">
@@ -145,8 +126,6 @@ if (!empty($trailer_dims)) {
         </h2>
 
         <div class="grid md:grid-cols-2 md:items-stretch">
-
-            <!-- Diagram column -->
             <?php if (!empty($footprint_url) || !empty($svg_name)) : ?>
                 <div class="border-b border-blue-200 md:border-b-0 md:border-r p-6 lg:p-8 flex items-center justify-center pattern-dot-grid pattern-dot-grid--solid">
                     <?php if (!empty($footprint_url)) : ?>
@@ -174,8 +153,6 @@ if (!empty($trailer_dims)) {
                     <?php endif; ?>
                 </div>
             <?php endif; ?>
-
-            <!-- Dimension cells column -->
             <?php if (!empty($cells)) : ?>
                 <div class="grid">
                     <?php foreach ($cells as $i => $cell) : ?>
@@ -201,8 +178,6 @@ if (!empty($trailer_dims)) {
         </div>
 
     </div>
-
-    <!-- Bottom chrome bar -->
     <div class="border-t border-blue-200">
         <div class="border-x border-blue-200 container">
             <div class="flex items-center justify-between py-3 font-mono uppercase tracking-wider text-[0.625rem] md:text-xs">

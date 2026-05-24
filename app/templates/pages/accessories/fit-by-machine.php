@@ -43,8 +43,6 @@ $matrix   = get_fitment_matrix();
                 <?php esc_html_e('Click any cell to jump to that group.', 'standard'); ?>
             </p>
         </div>
-
-        <!-- Desktop: full matrix -->
         <div class="hidden md:block overflow-x-auto">
             <table class="w-full border-collapse border border-blue-200 font-mono text-sm">
                 <thead>
@@ -90,8 +88,6 @@ $matrix   = get_fitment_matrix();
                 </tbody>
             </table>
         </div>
-
-        <!-- Mobile: per-machine cards -->
         <div class="grid gap-4 md:hidden">
             <?php foreach ($machines as $machine) : ?>
                 <div class="border border-blue-200 bg-white">

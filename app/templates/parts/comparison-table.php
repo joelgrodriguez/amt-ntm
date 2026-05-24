@@ -43,11 +43,6 @@ if (empty($machines) || empty($rows)) {
                 <?php echo esc_html($content['title']); ?>
             </h2>
         </div>
-
-        <!-- md+: table-fixed with equal column widths so every column —
-             including the first "Machine" label column — gets the same
-             share of the container. Below md, horizontal scroll with a
-             sticky spec-label column so the table still reads on mobile. -->
         <div class="overflow-x-auto md:overflow-visible">
             <table class="w-full text-sm border-collapse border border-blue-200 md:table-fixed" aria-labelledby="<?php echo esc_attr($section_id); ?>">
                 <caption class="sr-only"><?php echo esc_html($content['title']); ?></caption>

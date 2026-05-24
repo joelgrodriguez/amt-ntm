@@ -23,11 +23,7 @@ $content = [
 ];
 
 get_header();
-
-// Get current page for pagination
 $paged = max(1, (int) get_query_var('paged'));
-
-// Query blog posts
 $args = [
     'post_type'           => 'post',
     'post_status'         => 'publish',
@@ -41,16 +37,12 @@ $articles_query = new WP_Query($args);
 ?>
 
 <main id="primary" class="pattern-dot-grid py-6 lg:py-12">
-
-    <!-- Header -->
     <header class="container mb-6 lg:mb-12">
         <div class="grid gap-4 justify-items-start">
             <span class="text-xs font-mono uppercase tracking-widest text-red"><?php echo esc_html($content['eyebrow']); ?></span>
             <h1 class="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight"><?php echo esc_html($content['title']); ?></h1>
         </div>
     </header>
-
-    <!-- Two-column layout: Filter Sidebar + Content -->
     <div class="container lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
 
         <?php
@@ -67,8 +59,6 @@ $articles_query = new WP_Query($args);
             'back_label' => $content['back_link'],
         ]);
         ?>
-
-        <!-- Main Content -->
         <div class="grid gap-8">
             <?php if ($articles_query->have_posts()) : ?>
                 <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

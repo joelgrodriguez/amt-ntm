@@ -28,12 +28,6 @@ if (!defined('ABSPATH')) {
 }
 
 use function Standard\MachineProductData\get_machine_product_data;
-
-// Per-flagship overrides. `image_key` picks between the data file's
-// `image` (product/action shot) and `hero_image` (alt shot) depending
-// on which is the better action photo for THIS machine. `lede` is a
-// short body paragraph between the headline and the CTA, written for
-// AEO/SEO (leads with model name + category, states concrete facts).
 $flagships = [
     [
         'data_slug'    => 'ssq3-multipro',
@@ -83,8 +77,6 @@ $rendered_count = 0;
     <div class="<?php echo $is_first ? '' : 'border-t border-blue-200'; ?>">
         <div class="container">
             <div class="grid gap-10 py-16 lg:grid-cols-2 lg:gap-16 lg:py-24 lg:items-center">
-
-                <!-- Image cell (16:9 action photo + spec strip beneath) -->
                 <div class="grid gap-4 <?php echo $image_first_on_lg ? 'lg:order-1' : 'lg:order-2'; ?>">
                     <?php if ($hero_image) : ?>
                         <div class="aspect-video overflow-hidden">
@@ -94,8 +86,6 @@ $rendered_count = 0;
                             ]); ?>
                         </div>
                     <?php endif; ?>
-
-                    <!-- Spec strip: 3 mono spec cells under the image, hairline dividers -->
                     <?php if (!empty($stats)) : ?>
                         <dl class="grid grid-cols-3 border-y border-blue-200" aria-label="<?php echo esc_attr(sprintf(__('%s key specs', 'standard'), $flagship['model_label'])); ?>">
                             <?php foreach ($stats as $j => $stat) : ?>
@@ -111,11 +101,7 @@ $rendered_count = 0;
                         </dl>
                     <?php endif; ?>
                 </div>
-
-                <!-- Content cell -->
                 <div class="grid gap-6 lg:gap-8 content-start <?php echo $image_first_on_lg ? 'lg:order-2' : 'lg:order-1'; ?>">
-
-                    <!-- Eyebrow: red dot + category, with optional FLAGSHIP badge to the right -->
                     <div class="flex items-center gap-3 flex-wrap">
                         <span class="w-2 h-2 bg-red shrink-0" aria-hidden="true"></span>
                         <p class="font-mono uppercase tracking-wider text-xs text-blue-700">
@@ -127,9 +113,6 @@ $rendered_count = 0;
                             </span>
                         <?php endif; ?>
                     </div>
-
-                    <!-- Headline (slogan). Allow <br> with class attr so the
-                         data layer can insert responsive line breaks. -->
                     <h3 class="font-sans font-medium text-blue-900 tracking-tight leading-tight text-3xl md:text-4xl lg:text-5xl">
                         <?php echo wp_kses($slogan, ['br' => ['class' => []]]); ?>
                     </h3>
@@ -139,8 +122,6 @@ $rendered_count = 0;
                             <?php echo esc_html($lede); ?>
                         </p>
                     <?php endif; ?>
-
-                    <!-- Single primary CTA: configure & quote -->
                     <div class="flex -mt-2 lg:-mt-4">
                         <a
                             href="<?php echo esc_url($configure_url); ?>"

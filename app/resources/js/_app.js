@@ -5,11 +5,7 @@
  *
  * @file app.js
  */
-
-// Styles
 import '../css/_app.css';
-
-// Modules
 import { initMobileMenu } from './modules/MobileMenu.js';
 import { initMegaMenu } from './modules/MegaMenu.js';
 import { initScrollReveal } from './modules/ScrollReveal.js';
@@ -74,14 +70,9 @@ const initApp = () => {
   carouselNavCleanup = initCarouselNav();
   hubspotFormsCleanup = initHubspotForms();
 };
-
-// Bootstrap
 domReady(initApp);
-
-// HMR - cleanup and reinitialize on hot reload
 if (import.meta.hot) {
   import.meta.hot.accept(() => {
-    // Cleanup previous module instances
     if (mobileMenuCleanup) {
       mobileMenuCleanup();
     }
@@ -106,7 +97,6 @@ if (import.meta.hot) {
     if (hubspotFormsCleanup) {
       hubspotFormsCleanup();
     }
-    // Reinitialize
     initApp();
   });
 }

@@ -92,8 +92,6 @@ if (empty($testimonials)) {
     </h2>
 
     <div class="container grid gap-8 lg:gap-10">
-
-        <!-- Slider -->
         <div class="social-proof__slider relative max-w-3xl mx-auto grid gap-8 lg:gap-10">
             <div class="grid gap-4 pb-6 border-b border-blue-300 md:grid-cols-[140px_1fr] md:gap-10">
                 <p class="font-mono uppercase text-xs tracking-wider text-blue-700">

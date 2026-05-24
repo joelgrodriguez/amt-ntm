@@ -55,7 +55,6 @@ $phases = [
 ?>
 
 <section class="bg-white text-blue-600 border-y border-blue-200" aria-labelledby="process-title">
-    <!-- Top chrome bar -->
     <div class="border-b border-blue-200">
         <div class="border-x border-blue-200 container">
             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
@@ -69,8 +68,6 @@ $phases = [
             </div>
         </div>
     </div>
-
-    <!-- Process columns -->
     <div class="border-x border-blue-200 container">
         <div class="py-12 lg:py-16">
             <h2 id="process-title" class="sr-only">
@@ -95,8 +92,6 @@ $phases = [
             </div>
         </div>
     </div>
-
-    <!-- Bottom chrome bar -->
     <div class="border-t border-blue-200">
         <div class="border-x border-blue-200 container">
             <div class="flex items-center justify-between py-3 font-mono uppercase tracking-wider text-[0.625rem] md:text-xs">

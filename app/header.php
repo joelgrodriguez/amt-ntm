@@ -30,9 +30,7 @@ if (!defined('ABSPATH')) {
 </a>
 
 <header id="site-header" class="bg-white border-b border-blue-200 z-50 transition-colors duration-200">
-    <!-- Mobile row: toggle | logo | actions -->
     <div class="flex items-center h-16 lg:hidden">
-        <!-- Mobile menu toggle -->
         <button
             type="button"
             id="mobile-menu-toggle"
@@ -64,12 +62,7 @@ if (!defined('ABSPATH')) {
     </div>
 
     <?php $desktop_nav = \Standard\Nav\get_desktop_nav(); ?>
-
-    <!-- Desktop row: logo | [mega triggers centered] | utility rail — capped at --layout-wide.
-         Uses .container so the 16px gutter matches body content alignment below. -->
     <div class="container hidden lg:grid h-16" style="grid-template-columns: auto 1fr auto;">
-
-        <!-- Logo flush left -->
         <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="flex items-center h-16 no-underline">
             <?php if (has_custom_logo()) : ?>
                 <?php echo wp_get_attachment_image((int) get_theme_mod('custom_logo'), 'full', false, [
@@ -80,8 +73,6 @@ if (!defined('ABSPATH')) {
                 ]); ?>
             <?php endif; ?>
         </a>
-
-        <!-- Mega menu triggers — centered in full header width -->
         <div class="flex items-stretch justify-center">
             <nav id="desktop-navigation" class="flex" aria-label="<?php esc_attr_e('Primary navigation', 'standard'); ?>">
                 <ul id="primary-menu" class="flex items-stretch m-0 p-0 list-none">
@@ -112,8 +103,6 @@ if (!defined('ABSPATH')) {
                 </ul>
             </nav>
         </div>
-
-        <!-- Contact + search flush right -->
         <div class="flex items-center h-16 gap-10">
             <?php $contact = array_values(array_filter($desktop_nav['utility'], fn($i) => !empty($i['highlight'])))[0] ?? null; ?>
             <?php if ($contact) : ?>
@@ -128,9 +117,5 @@ if (!defined('ABSPATH')) {
 
     </div>
 </header>
-
-<!-- Mega menu panels (desktop) -->
 <?php get_template_part('templates/parts/mega-menu'); ?>
-
-<!-- Mobile menu (full width, below header) -->
 <?php get_template_part('templates/parts/mobile-menu'); ?>

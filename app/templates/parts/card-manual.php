@@ -42,8 +42,6 @@ if (!$manual instanceof \WP_Post) {
 $url   = get_permalink($manual);
 $title = get_the_title($manual);
 $thumb = get_the_post_thumbnail_url($manual, 'product-card');
-
-// Up to three machine tag names, with a "+N" suffix if more exist.
 $subtitle = '';
 if ($context === 'grid') {
     $tags = get_the_terms($manual->ID, 'post_tag');

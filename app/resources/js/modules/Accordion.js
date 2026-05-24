@@ -23,12 +23,8 @@ function animateOpen(detail) {
     detail.open = true;
     return;
   }
-
-  // Set open so the content renders (needed to measure height)
   detail.open = true;
   const height = body.scrollHeight;
-
-  // Animate from 0 to measured height
   body.style.overflow = 'hidden';
   const anim = body.animate(
     [

@@ -29,12 +29,6 @@ if (!$product) {
 
 $current_name     = $product->get_name();
 $configurator_url = \Standard\Url\internal('/configurator/' . $product->get_slug() . '/');
-
-// Resolve the short machine name from machines-data so the switcher
-// button doesn't render the long WC product name in mono at body size.
-// Resolves the WC slug through the alias map first (e.g.
-// ssq-roof-panel-machine -> ssq-ii-multipro), then looks up the short
-// label. Falls back to the full name when no match is found.
 $current_short = $current_name;
 if (
     function_exists('Standard\\MachinesData\\get_all_machines')
@@ -49,10 +43,6 @@ if (
         }
     }
 }
-
-// Anchor links mirror the sections this template can actually render.
-// A stale sticky nav is worse than no sticky nav; every link below has a
-// matching data gate in its section partial.
 $nav_links = [];
 
 if (!empty($machine['breakdown'])) {
@@ -97,13 +87,9 @@ if (!empty($machine['faq'])) {
 >
     <div class="container">
         <div class="machine-subnav__inner">
-
-            <!-- Left: Current Machine -->
             <div class="machine-subnav__left">
                 <span class="machine-subnav__current-name"><?php echo esc_html($current_short); ?></span>
             </div>
-
-            <!-- Right: Section Anchors + Build CTA -->
             <div class="machine-subnav__right">
                 <ul class="machine-subnav__links">
                     <?php foreach ($nav_links as $label => $section_id) : ?>

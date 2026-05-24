@@ -27,11 +27,6 @@ $content    = $args['content'] ?? [];
 $section_id = $args['section_id'] ?? 'product-grid';
 
 $count = count($machines);
-
-// Pick a column count that divides evenly into the machine count
-// so we never have an awkward overflow row. 6 → 3-col; 4 → 2-col;
-// 3 → 3-col; 2 → 2-col; everything else → fall back to 3-col with
-// whatever overflow lands. Caller can override with $args['cols'].
 $cols = $args['cols'] ?? null;
 if (!$cols) {
     if ($count % 3 === 0) {

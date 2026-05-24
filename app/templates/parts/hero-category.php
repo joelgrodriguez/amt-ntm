@@ -38,8 +38,6 @@ $video      = $content['video'] ?? '';
 $poster     = $content['poster'] ?? '';
 $poster_alt = $content['poster_alt'] ?? '';
 $kicker     = $content['kicker'] ?? ($content['eyebrow'] ?? '');
-
-// Decide which video pipeline to use.
 $is_mp4   = $video !== '' && preg_match('/\.mp4($|\?)/i', $video);
 $embed    = ($video !== '' && !$is_mp4) ? render_video_embed($video) : '';
 $has_iframe_video = $embed !== '';
@@ -48,10 +46,6 @@ $has_mp4_video    = (bool) $is_mp4;
 
 <section class="relative overflow-hidden bg-blue-900 text-white pattern-dot-grid pattern-dot-grid--dark" aria-labelledby="<?php echo esc_attr($section_id); ?>-title">
     <?php
-    // Screen-reader-only H1 carrying the WP page title (e.g. "Roof and
-    // Wall Panel Machines"). Mirrors the old theme's pattern and gives
-    // search engines the direct category keyword as the page's primary
-    // heading; the visible marketing headline below is an H2.
     $page_title = function_exists('get_the_title') ? get_the_title() : '';
     if ($page_title !== '') :
     ?>
@@ -60,8 +54,6 @@ $has_mp4_video    = (bool) $is_mp4;
 
     <div class="container py-16 lg:py-20 xl:py-24">
         <div class="grid gap-10 lg:grid-cols-12 lg:gap-12 lg:items-center">
-
-            <!-- Left rail: kicker + title + subtitle + CTAs + mono meta -->
             <div class="grid gap-8 lg:col-span-6 lg:gap-10">
 
                 <?php if (!empty($kicker)) : ?>
@@ -111,8 +103,6 @@ $has_mp4_video    = (bool) $is_mp4;
                 <?php endif; ?>
 
             </div>
-
-            <!-- Right panel: 16:9 video or poster -->
             <div class="video-responsive lg:col-span-6 bg-blue-800">
                 <?php if ($has_iframe_video) : ?>
                     <?php echo $embed; ?>

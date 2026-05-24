@@ -12,8 +12,6 @@ namespace Standard;
 if (!defined('ABSPATH')) {
     exit;
 }
-
-// Theme version
 define('THEME_VERSION', '1.0.0');
 define('THEME_DIR', get_template_directory());
 define('THEME_URI', get_template_directory_uri());
@@ -39,7 +37,6 @@ $theme_includes = [
     'inc/content-taxonomy.php',
     'inc/related-posts.php',
     'inc/service-hub.php',
-    // WooCommerce integration
     'inc/woo/setup.php',
     'inc/woo/cache.php',
     'inc/woo/catalog.php',
@@ -48,7 +45,6 @@ $theme_includes = [
     'inc/woo/accessory-tag-map.php',
     'inc/machine-product-data.php',
     'inc/woo/machine-template.php',
-    // Machine content data
     'inc/machines.php',
     'inc/learning-center.php',
     'inc/machines-data.php',

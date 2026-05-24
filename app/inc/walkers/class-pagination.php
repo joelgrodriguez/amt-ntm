@@ -74,12 +74,8 @@ class Pagination
     private static function generate_pagination_links(int $paged, int $max): array
     {
         $links = [$paged];
-
-        // Always include first and last pages
         $links[] = 1;
         $links[] = $max;
-
-        // Add surrounding pages
         if ($paged >= 2) {
             $links[] = $paged - 1;
         }
@@ -118,7 +114,6 @@ class Pagination
         $prev = 0;
 
         foreach ($links as $link) {
-            // Render ellipsis if there's a gap
             if ($prev > 0 && $link - $prev > 1) {
                 printf(
                     '<li><span class="flex items-center justify-center w-10 h-10 text-blue-400" aria-hidden="true">%s</span></li>',

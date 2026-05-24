@@ -21,7 +21,6 @@ export function initFloatingQuoteCta() {
 
   const observer = new IntersectionObserver(
     ([entry]) => {
-      // Show when hero is out of view
       if (entry.isIntersecting) {
         cta.classList.remove('is-visible');
       } else {

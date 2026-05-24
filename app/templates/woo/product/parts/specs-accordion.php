@@ -19,11 +19,7 @@ $resources = $machine['resources'] ?? [];
 if (!$specs) {
     return;
 }
-
-// Build sections dynamically — only include sections with data.
 $sections = [];
-
-// 1. Standard Features
 if (!empty($specs['standard_features'])) {
     ob_start(); ?>
     <ul class="spec-list text-blue-700">
@@ -33,8 +29,6 @@ if (!empty($specs['standard_features'])) {
     </ul>
     <?php $sections['Standard Features'] = ob_get_clean();
 }
-
-// 2. Machine Dimensions
 $dim_machine = $specs['dimensions']['machine'] ?? [];
 $dim_trailer = $specs['dimensions']['on_trailer'] ?? [];
 if (!empty($dim_machine) || !empty($dim_trailer)) {
@@ -63,8 +57,6 @@ if (!empty($dim_machine) || !empty($dim_trailer)) {
     <?php endif; ?>
     <?php $sections['Machine Dimensions'] = ob_get_clean();
 }
-
-// 3. Performance Specs
 $perf = $specs['performance'] ?? [];
 if (!empty($perf)) {
     ob_start();
@@ -111,8 +103,6 @@ if (!empty($perf)) {
     <?php endif; ?>
     <?php $sections['Performance Specs'] = ob_get_clean();
 }
-
-// 4. Materials Formed
 $materials = $specs['materials'] ?? [];
 if (!empty($materials)) {
     ob_start(); ?>
@@ -131,8 +121,6 @@ if (!empty($materials)) {
     </div>
     <?php $sections['Materials Formed'] = ob_get_clean();
 }
-
-// 5. Coil Specifications
 $coil = $specs['coil'] ?? [];
 if (!empty($coil)) {
     $coil_items = [];
@@ -156,8 +144,6 @@ if (!empty($coil)) {
         <?php $sections['Coil Specifications'] = ob_get_clean();
     }
 }
-
-// 6. Power Options
 $power = $specs['power_options'] ?? [];
 if (!empty($power)) {
     ob_start(); ?>
@@ -168,8 +154,6 @@ if (!empty($power)) {
     </ul>
     <?php $sections['Power Options'] = ob_get_clean();
 }
-
-// 7. Add-On Weights
 $weights = $specs['add_on_weights'] ?? [];
 if (!empty($weights)) {
     ob_start(); ?>
@@ -183,8 +167,6 @@ if (!empty($weights)) {
     </dl>
     <?php $sections['Add-On Weights'] = ob_get_clean();
 }
-
-// 8. Warranty & Patents
 $warranty = $specs['warranty'] ?? [];
 if (!empty($warranty)) {
     ob_start(); ?>
@@ -210,8 +192,6 @@ if (empty($sections)) {
     <div class="container section-content">
 
         <div class="grid lg:grid-cols-2 gap-12 items-stretch">
-
-            <!-- Left column: header + accordions -->
             <div>
                 <div class="section-header-left mb-12">
                     <p class="section-eyebrow"><?php esc_html_e('Technical Specifications', 'standard'); ?></p>
@@ -239,8 +219,6 @@ if (empty($sections)) {
                     <?php endif; ?>
                 </div>
             </div>
-
-            <!-- Right column: vertical machine image — fills full height of container -->
             <div class="hidden lg:block">
                 <div class="bg-blue-100 overflow-hidden h-full flex items-center justify-center">
                     <div class="text-center grid gap-4">

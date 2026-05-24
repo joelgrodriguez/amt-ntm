@@ -93,16 +93,12 @@ function render_video_embed(?string $video): string
     }
 
     $host = strtolower($host);
-
-    // Direct Wistia embed iframe URL
     if (host_matches($host, 'fast.wistia.net') && str_contains($url, '/embed/iframe/')) {
         return sanitize_video_embed_html(sprintf(
             '<iframe src="%s" allowtransparency="true" frameborder="0" scrolling="no" name="wistia_embed" allow="autoplay; fullscreen" allowfullscreen loading="lazy"></iframe>',
             esc_url($url)
         ));
     }
-
-    // Wistia share URL
     if (host_matches($host, 'wistia.com') && str_contains($url, '/medias/')) {
         if (preg_match('/medias\/([a-zA-Z0-9]+)/', $url, $matches)) {
             return sanitize_video_embed_html(sprintf(

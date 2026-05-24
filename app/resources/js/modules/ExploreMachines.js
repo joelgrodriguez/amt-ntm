@@ -48,8 +48,6 @@ export function initExploreMachines(options = {}) {
   const panels = section.querySelectorAll('.explore-machines__panel');
 
   if (tabs.length === 0 || panels.length === 0) return;
-
-  // AbortController for clean event listener removal
   const controller = new AbortController();
   const { signal } = controller;
 
@@ -57,20 +55,15 @@ export function initExploreMachines(options = {}) {
    * Switch to a specific tab/panel.
    */
   function switchTab(categorySlug) {
-    // Update tabs
     tabs.forEach((tab) => {
       const isActive = tab.dataset.category === categorySlug;
       tab.classList.toggle('explore-machines__tab--active', isActive);
       tab.setAttribute('aria-selected', String(isActive));
       tab.setAttribute('tabindex', isActive ? '0' : '-1');
     });
-
-    // Update panels
     panels.forEach((panel) => {
       const isActive = panel.id === `panel-${categorySlug}`;
       panel.classList.toggle('explore-machines__panel--active', isActive);
-
-      // Reset scroll position and counter when switching
       if (isActive) {
         const track = panel.querySelector('.explore-machines__track');
         if (track) {
@@ -89,8 +82,6 @@ export function initExploreMachines(options = {}) {
     const cards = track.querySelectorAll('.card-product');
 
     if (!currentEl || cards.length === 0) return;
-
-    // Calculate which card is most visible
     const trackRect = track.getBoundingClientRect();
     let visibleIndex = 0;
 
@@ -104,8 +95,6 @@ export function initExploreMachines(options = {}) {
     });
 
     currentEl.textContent = String(visibleIndex + 1);
-
-    // Update arrow states
     const prevBtn = panel.querySelector('.explore-machines__arrow--prev');
     const nextBtn = panel.querySelector('.explore-machines__arrow--next');
     const isAtStart = track.scrollLeft <= 0;
@@ -124,8 +113,6 @@ export function initExploreMachines(options = {}) {
 
     const amount = direction === 'next' ? config.scrollAmount : -config.scrollAmount;
     track.scrollBy({ left: amount, behavior: 'smooth' });
-
-    // Update counter after scroll completes
     setTimeout(() => updateCounter(panel, track), 350);
   }
 
@@ -133,7 +120,6 @@ export function initExploreMachines(options = {}) {
    * Set up event listeners.
    */
   function setupEventListeners() {
-    // Tab clicks
     tabs.forEach((tab) => {
       tab.addEventListener(
         'click',
@@ -144,8 +130,6 @@ export function initExploreMachines(options = {}) {
         { signal }
       );
     });
-
-    // Arrow clicks (using event delegation for efficiency)
     section.addEventListener(
       'click',
       (e) => {
@@ -160,8 +144,6 @@ export function initExploreMachines(options = {}) {
       },
       { signal }
     );
-
-    // Track scroll events for counter updates (debounced for performance)
     panels.forEach((panel) => {
       const track = panel.querySelector('.explore-machines__track');
       if (track) {
@@ -169,11 +151,6 @@ export function initExploreMachines(options = {}) {
         track.addEventListener('scroll', debouncedUpdate, { passive: true, signal });
       }
     });
-
-    // Manual-activation tab pattern: arrow keys move focus only; Enter or
-    // Space activates the focused tab. Switching a tab resets its panel's
-    // scroll position, so manual activation lets keyboard users compare
-    // tabs without losing their place.
     section.addEventListener(
       'keydown',
       (e) => {
@@ -224,12 +201,8 @@ export function initExploreMachines(options = {}) {
       }
     });
   }
-
-  // Initialize
   setupEventListeners();
   initCounters();
-
-  // Cleanup function for HMR
   return function cleanup() {
     controller.abort();
   };

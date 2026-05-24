@@ -33,22 +33,11 @@ use function Standard\MachineProductData\get_machine_product_data;
  * @return array<int, array>
  */
 function get_hero_slides(): array {
-    // Machine slides: SSQ3 (roof) + MACH II Combo (gutter). The full catalog
-    // (8+ machines) lives on /machines/.
-    //
-    // Each entry pairs the data-file slug (key, matches data/machines/*.php)
-    // with the title and the WooCommerce product slug used to resolve the
-    // machine page permalink. The two slug namespaces don't match because
-    // the data files are by model line and the WC products are by SKU.
     $machine_slides = [
         'ssq3-multipro' => [
             'title'            => 'SSQ3™ MultiPro',
             'wp_slug'          => 'ssq3-multipro',
-            // Slider-only image. Keeps data/machines/ssq3-multipro.php's
-            // hero.hero_image free to drive the single-machine page.
             'background_image' => content_url('/uploads/2026/05/ntm-q3-hero-placeholder-2.png'),
-            // Image bias: this shot has the machine sitting low in the
-            // frame, so anchor to the bottom edge when cover-cropped.
             'focal_point'      => 'center bottom',
         ],
         'mach-ii-combo-gutter' => [
@@ -56,11 +45,6 @@ function get_hero_slides(): array {
             'wp_slug' => 'mach-ii-5-6-combo-gutter-machine',
         ],
     ];
-
-    // Build wp_slug → permalink map.
-    // get_page_by_path() does an exact slug match; wc_get_products()'s
-    // 'slug' arg does a LIKE match and can return adjacent products,
-    // so we resolve each slug individually for correctness.
     $permalinks = [];
     foreach ($machine_slides as $meta) {
         $wp_slug = $meta['wp_slug'];
@@ -89,9 +73,6 @@ function get_hero_slides(): array {
             'focal_point'      => $meta['focal_point'] ?? '',
         ];
     }
-
-    // Non-machine slides. Same shape, hand-rolled because there's no
-    // data file behind them.
     $slides[] = [
         'id'               => 'ntm-accessories',
         'category'         => __('Accessories & Upgrades', 'standard'),

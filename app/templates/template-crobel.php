@@ -15,10 +15,6 @@ declare(strict_types=1);
 if (!defined('ABSPATH')) {
     exit;
 }
-
-// Render raw embed markup verbatim. WP's default wpautop wraps anything
-// that looks like a paragraph in <p>, which mangles iframes and breaks
-// fullscreen embeds.
 remove_filter('the_content', 'wpautop');
 remove_filter('the_content', 'wptexturize');
 

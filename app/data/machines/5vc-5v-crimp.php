@@ -11,28 +11,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// ── Hero ──
-// ── Stats ──
-// ── Finance ──
-// ── Breakdown ──
-// ── Blueprint ──
-// ── Gallery ──
-// ── Profiles ──
-// ── Accessories ──
-// ── Testimonials ──
-// ── Comparison ──
-// ── Specs ──
-// ── Resources ──
-// ── FAQ ──
-// ── Schema ──
-
 return [
-
-    // ── Identity ──
     'category' => __('Roof & Wall Panel Machines', 'standard'),
     'slogan'   => __('Classic profiles, modern efficiency.', 'standard'),
-
-    // ── Hero ──
     'hero' => [
         'headline'   => __('The Portable Solution to Your 5V Crimp Needs.', 'standard'),
         'subtitle'   => __('NTM\'s only exposed fastener roof panel machine. Profiles available in 21" and 24" widths.', 'standard'),
@@ -40,16 +21,12 @@ return [
         'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_5VC_1000x1000.png',
         'video'      => null,
     ],
-
-    // ── Stats ──
     'stats' => [
         ['value' => '3',          'label' => __('Panel Profiles', 'standard')],
         ['value' => '60 ft/min',  'label' => __('Max Speed', 'standard')],
         ['value' => 'Hydraulic',  'label' => __('Drive & Shear', 'standard')],
         ['value' => 'Exposed Fastener', 'label' => __('Roof Style', 'standard')],
     ],
-
-    // ── Finance ──
     'finance' => [
         'monthly_price' => null,
         'price_range'   => __('$70,800+', 'standard'),
@@ -57,8 +34,6 @@ return [
         'apr'           => '5.99%',
         'months'        => '60',
     ],
-
-    // ── Breakdown ──
     'breakdown' => [
         [
             'id'       => 'forming-system',
@@ -97,8 +72,6 @@ return [
             'image'    => '',
         ],
     ],
-
-    // ── Fit ──
     'fit' => [
         'is_for' => [
             __('Contractors specializing in exposed-fastener 5V crimp roofing', 'standard'),
@@ -113,38 +86,24 @@ return [
             ['text' => __('Shops focused on wall panel production', 'standard'), 'machine' => 'wav-wall-panel'],
         ],
     ],
-
-    // ── Blueprint ──
     'blueprint' => [
         'svg' => '5vc-machine',
     ],
-
-    // ── Gallery ──
     'gallery' => [
         'images'  => [],
         'rotator' => [],
     ],
-
-    // ── Profiles ──
     'profiles' => [
         'tag_slugs' => ['5vc-5v-crimp-roof-panel-machine'],
     ],
-
-    // ── Accessories ──
     'accessories' => [
         'product_tag' => '5VC',
     ],
-
-    // ── Testimonials ──
     'testimonials' => [],
-
-    // ── Comparison ──
     'comparison' => [
         'compare_with' => ['ssh-multipro', 'ssr-multipro-jr'],
         'best_for'     => __('Exposed fastener roofing', 'standard'),
     ],
-
-    // ── Specs ──
     'specs' => [
         'standard_features' => [
             __('Polyurethane Drive Rollers', 'standard'),
@@ -244,15 +203,11 @@ return [
             'patents'     => ['U.S. PATENT NO. 6,772,616'],
         ],
     ],
-
-    // ── Resources ──
     'resources' => [
         'manual'               => 'https://newtechmachinery.com/learning-center/manual/5vc-5v-roof-panel-machine-with-ams-controller-manual/',
         'brochure'             => 'https://newtechmachinery.com/learning-center/literature/5vc-5v-crimp-roof-panel-machine-brochure/',
         'service_training_url' => '/service-training',
     ],
-
-    // ── FAQ ──
     'faq' => [
         [
             'question' => __('What makes the 5VC different from other NTM machines?', 'standard'),
@@ -267,8 +222,6 @@ return [
             'answer'   => __('Limited three-year part and NTM in-house labor warranty.', 'standard'),
         ],
     ],
-
-    // ── Schema ──
     'schema' => [
         'low_price'    => '70800',
         'high_price'   => null,

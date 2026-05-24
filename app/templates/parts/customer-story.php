@@ -32,10 +32,6 @@ $background     = $args['background'] ?? 'bg-blue-50';
 if (empty($content)) {
     return;
 }
-
-// Image + stats live together in one column; pull out into a closure
-// so the template can drop the same block on either side based on
-// $image_position without duplicating markup.
 $render_media = function () use ($content, $stats) :void {
     ?>
     <div class="grid gap-6">
@@ -70,8 +66,6 @@ $render_media = function () use ($content, $stats) :void {
         <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-center">
 
             <?php if ($image_position === 'left') $render_media(); ?>
-
-            <!-- Content -->
             <div class="grid gap-8 content-start">
                 <div class="section-header-left">
                     <p id="<?php echo esc_attr($section_id); ?>" class="section-eyebrow">

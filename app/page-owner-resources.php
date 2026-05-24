@@ -2,18 +2,7 @@
 /**
  * Template Name: Resources
  *
- * Landing for the `resource` post type. Resources are heterogeneous
- * (calculators, training programs, brand guidelines, reference docs)
- * and don't subdivide into a useful taxonomy, so the layout drops the
- * filter sidebar that powers /profiles and /manuals and replaces it
- * with a curated rhythm: a pinned featured strip on top, then the full
- * library in a denser grid below.
- *
- * Editorial pins resolve in this order:
- *   1. Filter `standard_resources_featured` returning an array of post IDs.
- *   2. Default hard-coded list (Coil Calculator, Cutlist Generator,
- *      Machine Training) ID-resolved at render time; missing IDs are
- *      dropped silently.
+ * Resource archive landing with optional pinned featured content.
  *
  * @package Standard
  */

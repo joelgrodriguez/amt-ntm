@@ -11,28 +11,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// ── Hero ──
-// ── Stats ──
-// ── Finance ──
-// ── Breakdown ──
-// ── Blueprint ──
-// ── Gallery ──
-// ── Profiles ──
-// ── Accessories ──
-// ── Testimonials ──
-// ── Comparison ──
-// ── Specs ──
-// ── Resources ──
-// ── FAQ ──
-// ── Schema ──
-
 return [
-
-    // ── Identity ──
     'category' => __('Roof & Wall Panel Machines', 'standard'),
     'slogan'   => __('Versatility meets precision.', 'standard'),
-
-    // ── Hero ──
     'hero' => [
         'headline'   => __('16 Quick-Change Profiles. One Proven Machine.', 'standard'),
         'subtitle'   => __('The best-selling, most advanced multi-profile machine. Contractors worldwide trust this machine with their business.', 'standard'),
@@ -40,16 +21,12 @@ return [
         'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_SSQ-II_1000x1000.png',
         'video'      => null,
     ],
-
-    // ── Stats ──
     'stats' => [
         ['value' => '16',          'label' => __('Panel Profiles', 'standard')],
         ['value' => '45 min',      'label' => __('Tooling Changeover', 'standard')],
         ['value' => '75 ft/min',   'label' => __('Max Speed', 'standard')],
         ['value' => '24 ga',       'label' => __('Material Capacity', 'standard')],
     ],
-
-    // ── Finance ──
     'finance' => [
         'monthly_price' => null,
         'price_range'   => __('$115K – $130K', 'standard'),
@@ -57,8 +34,6 @@ return [
         'apr'           => '5.49%',
         'months'        => '72',
     ],
-
-    // ── Breakdown ──
     'breakdown' => [
         [
             'id'       => 'forming-system',
@@ -109,8 +84,6 @@ return [
             'image'    => '',
         ],
     ],
-
-    // ── Fit ──
     'fit' => [
         'is_for' => [
             __('High-volume commercial and residential roofing contractors', 'standard'),
@@ -126,38 +99,24 @@ return [
             ['text' => __('Budget-conscious startups looking for entry-level rollforming', 'standard'), 'machine' => 'ssr-multipro-jr'],
         ],
     ],
-
-    // ── Blueprint ──
     'blueprint' => [
         'svg' => 'ssq-ii-machine',
     ],
-
-    // ── Gallery ──
     'gallery' => [
         'images'  => [],
         'rotator' => [],
     ],
-
-    // ── Profiles ──
     'profiles' => [
         'tag_slugs' => ['ssq-ii-multipro-roof-panel-machine'],
     ],
-
-    // ── Accessories ──
     'accessories' => [
         'product_tag' => 'SSQII',
     ],
-
-    // ── Testimonials ──
     'testimonials' => [],
-
-    // ── Comparison ──
     'comparison' => [
         'compare_with' => ['ssq3-multipro', 'ssh-multipro'],
         'best_for'     => __('High-volume commercial & residential', 'standard'),
     ],
-
-    // ── Specs ──
     'specs' => [
         'standard_features' => [
             __('16 Polyurethane Drive Rollers', 'standard'),
@@ -273,15 +232,11 @@ return [
             'patents'     => ['U.S. PATENT NO. 6,772,616'],
         ],
     ],
-
-    // ── Resources ──
     'resources' => [
         'manual'               => 'https://newtechmachinery.com/learning-center/manual/ssq-ii-roof-panel-machine-manual/',
         'brochure'             => 'https://newtechmachinery.com/learning-center/literature/ssq-ii-multipro-roof-panel-machine-brochure/',
         'service_training_url' => '/service-training',
     ],
-
-    // ── FAQ ──
     'faq' => [
         [
             'question' => __('How does the SSQ II compare to the SSQ3?', 'standard'),
@@ -304,8 +259,6 @@ return [
             'answer'   => __('Limited three-year part and NTM in-house labor warranty — the industry\'s best.', 'standard'),
         ],
     ],
-
-    // ── Schema ──
     'schema' => [
         'low_price'    => '115000',
         'high_price'   => '130000',

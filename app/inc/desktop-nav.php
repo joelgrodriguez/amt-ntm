@@ -24,7 +24,6 @@ if (!defined('ABSPATH')) {
  */
 function get_desktop_nav(): array {
     return [
-        // Ordered list of nav items — 'mega' items open a panel, 'link' items navigate directly.
         'items' => [
             [
                 'kind'           => 'mega',

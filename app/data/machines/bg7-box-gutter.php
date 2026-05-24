@@ -11,28 +11,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// ── Hero ──
-// ── Stats ──
-// ── Finance ──
-// ── Breakdown ──
-// ── Blueprint ──
-// ── Gallery ──
-// ── Profiles ──
-// ── Accessories ──
-// ── Testimonials ──
-// ── Comparison ──
-// ── Specs ──
-// ── Resources ──
-// ── FAQ ──
-// ── Schema ──
-
 return [
-
-    // ── Identity ──
     'category' => __('Seamless Gutter Machines', 'standard'),
     'slogan'   => __('Commercial-grade, built to last.', 'standard'),
-
-    // ── Hero ──
     'hero' => [
         'headline'   => __('Two Profiles. One Commercial-Grade Machine.', 'standard'),
         'subtitle'   => __('7" commercial box gutter machine designed for industrial buildings. Two profiles in one machine.', 'standard'),
@@ -40,16 +21,12 @@ return [
         'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_BG7_1000x1000.png',
         'video'      => null,
     ],
-
-    // ── Stats ──
     'stats' => [
         ['value' => '2',          'label' => __('Box Gutter Profiles', 'standard')],
         ['value' => '60 ft/min',  'label' => __('Max Speed', 'standard')],
         ['value' => 'Hydraulic',  'label' => __('Drive & Shear', 'standard')],
         ['value' => '7"',         'label' => __('Box Gutter Size', 'standard')],
     ],
-
-    // ── Finance ──
     'finance' => [
         'monthly_price' => null,
         'price_range'   => __('$71,600+', 'standard'),
@@ -57,8 +34,6 @@ return [
         'apr'           => '4.99%',
         'months'        => '72',
     ],
-
-    // ── Breakdown ──
     'breakdown' => [
         [
             'id'       => 'forming-system',
@@ -97,8 +72,6 @@ return [
             'image'    => '',
         ],
     ],
-
-    // ── Fit ──
     'fit' => [
         'is_for' => [
             __('Commercial and industrial gutter contractors running 7" box gutters', 'standard'),
@@ -113,38 +86,24 @@ return [
             ['text' => __('Copper gutter specialists — BG7 does not process copper', 'standard')],
         ],
     ],
-
-    // ── Blueprint ──
     'blueprint' => [
         'svg' => 'bg7-machine',
     ],
-
-    // ── Gallery ──
     'gallery' => [
         'images'  => [],
         'rotator' => [],
     ],
-
-    // ── Profiles ──
     'profiles' => [
         'tag_slugs' => ['bg7-box-gutter-machine'],
     ],
-
-    // ── Accessories ──
     'accessories' => [
         'product_tag' => 'BG7',
     ],
-
-    // ── Testimonials ──
     'testimonials' => [],
-
-    // ── Comparison ──
     'comparison' => [
         'compare_with' => ['mach-ii-combo-gutter', 'mach-ii-6-gutter'],
         'best_for'     => __('Commercial box gutter production', 'standard'),
     ],
-
-    // ── Specs ──
     'specs' => [
         'standard_features' => [
             __('Capable of running aluminum or steel (option specified prior to purchase)', 'standard'),
@@ -241,15 +200,11 @@ return [
             'patents'     => ['U.S. PATENT NO. 5,394,722'],
         ],
     ],
-
-    // ── Resources ──
     'resources' => [
         'manual'               => 'https://newtechmachinery.com/learning-center/manual/bg7-box-gutter-machine-with-plc-controller-manual/',
         'brochure'             => 'https://newtechmachinery.com/learning-center/literature/bg7-box-gutter-machine-brochure/',
         'service_training_url' => '/service-training',
     ],
-
-    // ── FAQ ──
     'faq' => [
         [
             'question' => __('What profiles does the BG7 produce?', 'standard'),
@@ -264,8 +219,6 @@ return [
             'answer'   => __('Limited three-year part and NTM in-house labor warranty.', 'standard'),
         ],
     ],
-
-    // ── Schema ──
     'schema' => [
         'low_price'    => '71600',
         'high_price'   => null,

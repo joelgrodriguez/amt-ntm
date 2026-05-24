@@ -104,7 +104,6 @@ get_header();
 </main>
 
 <?php
-// Generate WooCommerce structured data (JSON-LD).
 if (method_exists(WC()->structured_data, 'generate_product_data')) {
     WC()->structured_data->generate_product_data();
 }

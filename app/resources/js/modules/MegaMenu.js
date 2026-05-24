@@ -7,10 +7,6 @@
  * @file MegaMenu.js
  */
 
-/* Timing — kept in sync with .mega-panel close transition in
- * app/resources/css/layout/mega-menu.css. The 200ms beat is an empty pause
- * between A's close and B's open so the two animations read as separate
- * events instead of a shuffle. */
 const CLOSE_TRANSITION_MS = 420;
 const SWITCH_BEAT_MS      = 200;
 const SWITCH_DELAY_MS     = CLOSE_TRANSITION_MS + SWITCH_BEAT_MS;
@@ -67,9 +63,6 @@ export const initMegaMenu = () => {
 
         const panel = getPanel(id);
         if (!panel) return;
-
-        // Clear closing state and force reflow so the open transition (and the
-        // staggered child entries) start from a clean slate.
         panel.classList.remove('is-closing');
         void panel.offsetHeight;
         setPanelState(panel, 'open');
@@ -89,8 +82,6 @@ export const initMegaMenu = () => {
     /** Close the active panel (if any) and queue an open after the close beat. */
     /** @param {HTMLButtonElement} trigger */
     const queueSwitchTo = (trigger) => {
-        // If a switch is already in flight, just retarget it — let the existing
-        // timer ride so we don't extend the wait on rapid clicks.
         if (pendingOpen) {
             pendingOpen.trigger = trigger;
             return;
@@ -137,22 +128,16 @@ export const initMegaMenu = () => {
         if (!panel) return;
 
         const targetId = tabBtn.dataset.tab;
-
-        // Roving tabindex: only the selected tab is focusable.
         panel.querySelectorAll('[role="tab"]').forEach((btn) => {
             const isTarget = /** @type {HTMLButtonElement} */ (btn).dataset.tab === targetId;
             btn.setAttribute('aria-selected', isTarget ? 'true' : 'false');
             btn.setAttribute('tabindex', isTarget ? '0' : '-1');
         });
-
-        // Tabpanel IDs follow the pattern: mega-tabpanel-{panelId}-{tabId}
         panel.querySelectorAll('[role="tabpanel"]').forEach((pane) => {
             const el = /** @type {HTMLElement} */ (pane);
             el.hidden = !el.id.endsWith(`-${targetId}`);
         });
     };
-
-    // ── Event handlers ──────────────────────────────────────────────────
 
     /** @param {MouseEvent} e */
     const handleTriggerClick = (e) => toggle(/** @type {HTMLButtonElement} */ (e.currentTarget));
@@ -196,8 +181,6 @@ export const initMegaMenu = () => {
         if (!insidePanel && !insideTrigger) dismiss();
     };
 
-    // ── Wire up ─────────────────────────────────────────────────────────
-
     triggers.forEach((t) => t.addEventListener('click', handleTriggerClick));
     overlay?.addEventListener('click', dismiss);
     document.addEventListener('keydown', handleKeydown);
@@ -206,8 +189,6 @@ export const initMegaMenu = () => {
     const tabBtns = /** @type {NodeListOf<HTMLButtonElement>} */ (
         container.querySelectorAll('[role="tab"]')
     );
-
-    // Init roving tabindex per tablist: first tab is 0, siblings -1.
     container.querySelectorAll('[role="tablist"]').forEach((tablist) => {
         tablist.querySelectorAll('[role="tab"]').forEach((btn, i) => {
             btn.setAttribute('tabindex', i === 0 ? '0' : '-1');

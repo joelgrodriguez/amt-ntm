@@ -30,14 +30,11 @@ if (!$machine) {
 ?>
 
 <div class="bg-white flex flex-col h-full relative group hover:bg-blue-50 transition-colors duration-150">
-    <!-- Product Image -->
     <div class="p-4 sm:p-6 flex items-center justify-center aspect-4/3">
         <?php \Standard\Images\responsive_image($machine['image'], $machine['name'], 'product-card', [
             'class' => 'max-h-full w-auto object-contain',
         ]); ?>
     </div>
-
-    <!-- Content -->
     <div class="p-4 sm:p-6 flex flex-col grow gap-4">
         <h4 class="text-2xl font-medium text-blue-900 tracking-tight">
             <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="after:absolute after:inset-0 no-underline text-inherit">

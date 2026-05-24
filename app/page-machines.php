@@ -2,8 +2,7 @@
 /**
  * Template Name: Machines
  *
- * Landing page showcasing NTM's full product lineup.
- * Inspired by Toyota's trucks landing page layout.
+ * Landing page for all machine categories and sections.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *

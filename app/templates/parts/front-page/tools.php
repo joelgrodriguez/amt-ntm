@@ -1,16 +1,6 @@
 <?php
 /**
- * Tools Section Template Part
- *
- * Four decision-support destinations in a tile strip.
- * 4 columns at md+, 2 columns on mobile. Tiles separated by hairline
- * dividers. Each tile: title top, icon + arrow bottom row.
- *
- * Hover state: tile fills brand blue; title, icon, and arrow all
- * turn white in lockstep so the whole tile reads as one ignited target.
- *
- * Editorial heading block sits above the strip with a short red rule
- * (the section's 10% color moment).
+ * Front-page section: decision-support tile links.
  *
  * @package Standard
  *
@@ -67,16 +57,11 @@ $tools = [
 
         <div class="grid grid-cols-2 border border-blue-200 md:grid-cols-4">
             <?php foreach ($tools as $i => $tool) : ?>
-                <a
-                    href="<?php echo esc_url(\Standard\Url\internal($tool['url'])); ?>"
-                    class="group flex flex-col justify-between p-6 bg-blue-50 no-underline transition-colors duration-200 hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px] <?php
-                        // Right divider: every tile except the last in its row.
-                        // Mobile (2 cols): items 0 and 2 are left column, so right border on them.
-                        // Desktop (4 cols): items 0, 1, 2 have a right neighbor.
+            <a
+                href="<?php echo esc_url(\Standard\Url\internal($tool['url'])); ?>"
+                class="group flex flex-col justify-between p-6 bg-blue-50 no-underline transition-colors duration-200 hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px] <?php
                         echo $i % 2 === 0 ? 'border-r border-blue-200 ' : '';
                         echo $i === 1 ? 'md:border-r md:border-blue-200 ' : '';
-                        // Bottom divider: only on first-row items, only below md (where grid has 2 rows).
-                        // max-md: ensures the border is never painted at desktop.
                         echo $i < 2 ? 'max-md:border-b max-md:border-blue-200 ' : '';
                     ?>"
                 >

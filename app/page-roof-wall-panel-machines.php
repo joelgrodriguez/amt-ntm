@@ -3,7 +3,6 @@
  * Template Name: Roof & Wall Panel Machines
  *
  * Category landing page for roof and wall panel machines.
- * Combines category-specific sections with reused machines page sections.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *

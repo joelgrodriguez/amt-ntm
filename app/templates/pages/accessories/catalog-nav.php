@@ -34,8 +34,6 @@ if (empty($buckets)) {
 
 <nav class="border-y border-blue-200 bg-white" aria-label="<?php esc_attr_e('Accessory categories', 'standard'); ?>">
     <div class="container">
-
-        <!-- Mobile: <details> dropdown -->
         <details class="catalog-nav-dropdown md:hidden group">
             <summary class="flex items-center justify-between py-4 font-mono text-xs uppercase tracking-wider text-blue-900 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
                 <span><?php esc_html_e('Jump to a Category', 'standard'); ?></span>
@@ -51,8 +49,6 @@ if (empty($buckets)) {
                 <?php endforeach; ?>
             </ul>
         </details>
-
-        <!-- Desktop: full-width row with dividers -->
         <div class="hidden md:flex md:items-stretch md:justify-between">
             <?php foreach ($buckets as $i => $bucket) : ?>
                 <?php if ($i > 0) : ?>

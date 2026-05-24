@@ -2,27 +2,8 @@
 /**
  * The front page template.
  *
- * Composition follows the buyer's journey:
- *
- *   hero          (the machine, cinematic intro leading with flagships)
- *   explore       (browse the catalog)
- *   flagships     (curated callouts: SSQ3 + MACH II Combo)
- *   router        (for the unsure: dial in 3 answers)
- *   learning      (educate: recent posts, videos, downloads)
- *   tools         (research aids: quiz, calc, manuals, compare)
- *   why-own       (the case)
- *   social-proof  (trust)
- *   three-step    (how buying works)
- *   final-cta     (close)
- *
- * Research cluster (learning + tools) sits BEFORE the case-and-trust
- * surfaces (why-own, social-proof) so the page commits forward in the
- * back half instead of zigzagging buyer → researcher → buyer. Tools
- * sits after learning (not before router) so it doesn't read as a
- * second 'find your machine' surface right after the router itself.
- *
- * Contact lives at /contact/. Pain-points + value-prop are merged
- * into why-own.
+ * Builds the home page by composing hero, machine showcase, tools,
+ * funnel, and resource/CTA sections.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *

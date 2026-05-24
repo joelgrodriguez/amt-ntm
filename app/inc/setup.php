@@ -17,15 +17,9 @@ if (!defined('ABSPATH')) {
  * Theme setup.
  */
 function theme_setup(): void {
-    // Add theme support
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
     add_theme_support('custom-logo');
-
-    // Custom image sizes — all 16:9 to unify card art across post, product, profile.
-    // Hard crop applies to photography (card-thumbnail). Product/profile imagery
-    // is `object-contain` in the template, so the upload itself isn't cropped —
-    // these sizes just give the browser a sharp source at typical render widths.
     add_image_size('card-thumbnail', 640, 360, true);  // 16:9, post thumbnails (cropped)
     add_image_size('product-card', 640, 360, true);    // 16:9, product/profile letterboxed via object-contain
     add_theme_support('align-wide');
@@ -41,19 +35,12 @@ function theme_setup(): void {
     ]);
     add_theme_support('customize-selective-refresh-widgets');
     add_theme_support('responsive-embeds');
-
-    // Gutenberg editor supports
-    // Note: editor-color-palette and editor-font-sizes are now defined in theme.json
     add_theme_support('editor-styles');
     add_editor_style(get_editor_style_url());
-
-    // Register navigation menus
     register_nav_menus([
         'primary' => __('Primary Menu', 'standard'),
         'footer'  => __('Footer Menu', 'standard'),
     ]);
-
-    // Set content width — matches --layout-wide token / theme.json wideSize
     if (!isset($GLOBALS['content_width'])) {
         $GLOBALS['content_width'] = 1440;
     }
@@ -97,13 +84,10 @@ add_filter('wp_resource_hints', __NAMESPACE__ . '\\preconnect_marketing_cdn', 10
  * Get editor style URL from Vite manifest or dev server.
  */
 function get_editor_style_url(): string {
-    // Development: return dev server URL
     $dev_server = get_vite_dev_server();
     if ($dev_server) {
         return $dev_server . '/app/resources/css/editor.css';
     }
-
-    // Production: get from manifest (uses cached manifest from vite.php)
     $manifest = get_vite_manifest();
     if ($manifest !== null && isset($manifest['app/resources/css/editor.css'])) {
         return THEME_URI . '/dist/' . $manifest['app/resources/css/editor.css']['file'];

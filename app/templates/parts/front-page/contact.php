@@ -35,8 +35,6 @@ $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact_info[
 
 <section id="contact" class="section bg-blue-50 overflow-hidden" aria-labelledby="contact-title">
     <div class="container section-content">
-
-        <!-- Section Header -->
         <div class="section-header">
             <h2 id="contact-title" class="section-title">
                 <?php echo esc_html($content['title']); ?>
@@ -47,11 +45,7 @@ $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact_info[
         </div>
 
         <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
-
-            <!-- Left Column: Contact Info + Map -->
             <div class="grid gap-6 content-start">
-
-                <!-- Contact Info -->
                 <div class="grid gap-4">
                     <a
                         href="<?php echo esc_url($directions_url); ?>"
@@ -79,9 +73,6 @@ $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact_info[
                         <span><?php echo esc_html($contact_info['phone']); ?></span>
                     </a>
                 </div>
-
-                <!-- Map. Browser-native lazy iframe; renders below the fold so the
-                     network cost is deferred without our own JS hydration step. -->
                 <div class="relative aspect-video bg-blue-100 border border-blue-200 overflow-hidden">
                     <iframe
                         src="<?php echo esc_url($contact_info['map_url']); ?>"
@@ -97,8 +88,6 @@ $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact_info[
                 </div>
 
             </div>
-
-            <!-- Right Column: Form -->
             <div class="bg-blue-50 border border-blue-200 p-8 lg:p-10">
                 <h3 class="text-xl font-medium text-blue-700 mb-2">
                     <?php echo esc_html($content['form_title']); ?>
@@ -106,8 +95,6 @@ $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact_info[
                 <p class="text-blue-600 mb-6">
                     <?php echo esc_html($content['form_text']); ?>
                 </p>
-
-                <!-- HubSpot form hydrated by ContactLazy.js when the section is near the viewport. -->
                 <div id="contact-form" class="min-h-[24rem]">
                     <noscript>
                         <p class="font-sans text-blue-600 text-sm">

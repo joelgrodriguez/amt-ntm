@@ -47,8 +47,6 @@ $memberships = [
 
 <section class="bg-white py-16 lg:py-24 border-t border-blue-200" aria-labelledby="about-leadership-title">
     <div class="container">
-
-        <!-- Eyebrow + headline + lede -->
         <div class="max-w-4xl mb-10 lg:mb-12">
             <p class="font-mono uppercase tracking-wider text-xs text-red mb-5">
                 <?php echo esc_html($content['eyebrow']); ?>
@@ -60,9 +58,6 @@ $memberships = [
                 <?php echo esc_html($content['lede']); ?>
             </p>
         </div>
-
-        <!-- Memberships: one line, three short + long pairings,
-             hairline above. Posture, not a separate-cell ledger. -->
         <ul class="border-t border-blue-200 grid gap-x-10 gap-y-4 sm:grid-cols-3 pt-6" role="list">
             <?php foreach ($memberships as $m) : ?>
                 <li class="grid gap-1">
@@ -75,10 +70,6 @@ $memberships = [
                 </li>
             <?php endforeach; ?>
         </ul>
-
-        <!-- Secondary CTA to the current product lineup. Gives a reader
-             a fast exit from the leadership-claim narrative to the
-             machines that back it up. -->
         <div class="mt-10 lg:mt-14">
             <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-secondary">
                 <?php echo esc_html($content['cta']); ?>

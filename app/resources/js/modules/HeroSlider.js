@@ -40,29 +40,15 @@ export function initHeroSlider(options = {}) {
   if (!track || slides.length === 0) return;
 
   const realCount = slides.length;
-
-  // Clone the first slide and append to the end so the autoplay
-  // loop can continue forward (slide N-1 -> visual slide 0 via the
-  // clone, then snap back to the real slide 0 without animation).
-  // Without this, advancing past the last slide rewinds visually
-  // backwards through every prior slide.
   const firstClone = slides[0].cloneNode(true);
   firstClone.setAttribute('aria-hidden', 'true');
   firstClone.dataset.cloneOf = '0';
-  // If the original slide 0 had its image hydrated already, the
-  // clone keeps that <img>. If slide 0 was deferred (it isn't,
-  // since slide 0 always renders eager), this clone would need
-  // hydration. Slide 0 is always eager, so no work needed here.
   track.appendChild(firstClone);
-
-  // State
   let currentIndex = 0;
   let autoPlayTimer = null;
   let isPlaying = false;
   let isSnapping = false;
   let touchStartX = 0;
-
-  // AbortController for clean event listener removal
   const controller = new AbortController();
   const { signal } = controller;
 
@@ -77,28 +63,20 @@ export function initHeroSlider(options = {}) {
    * preserving forward motion direction on loop.
    */
   function goToSlide(index) {
-    // Real index for state (segments, aria, hydration). The clone
-    // position maps back to real index 0.
     const isCloneTarget = index === realCount;
     const realIndex = isCloneTarget
       ? 0
       : ((index % realCount) + realCount) % realCount;
 
     currentIndex = isCloneTarget ? realCount : realIndex;
-
-    // Eager-hydrate the real target slide if it's a deferred placeholder.
     hydrateSlide(slides[realIndex]);
 
     track.style.transform = `translateX(-${currentIndex * 100}%)`;
-
-    // Update segments to reflect the REAL slide (not the clone)
     segments.forEach((segment, i) => {
       const isActive = i === realIndex;
       segment.classList.toggle('hero-slider__segment--active', isActive);
       segment.setAttribute('aria-selected', String(isActive));
     });
-
-    // Update slide visibility for screen readers
     slides.forEach((slide, i) => {
       slide.setAttribute('aria-hidden', String(i !== realIndex));
     });
@@ -115,8 +93,6 @@ export function initHeroSlider(options = {}) {
     track.style.transition = 'none';
     currentIndex = 0;
     track.style.transform = 'translateX(0%)';
-
-    // Force reflow, then restore transition next frame.
     void track.offsetHeight;
     requestAnimationFrame(() => {
       track.style.transition = '';
@@ -125,8 +101,6 @@ export function initHeroSlider(options = {}) {
   }
 
   function nextSlide() {
-    // From the last real slide, advance into the clone position.
-    // The transitionend handler snaps back to 0 without animation.
     if (currentIndex === realCount - 1) {
       goToSlide(realCount);
       return;
@@ -196,30 +170,15 @@ export function initHeroSlider(options = {}) {
   }
 
   function setupEventListeners() {
-    // Navigation buttons
     prevBtn?.addEventListener('click', () => handleNavClick('prev'), { signal });
     nextBtn?.addEventListener('click', () => handleNavClick('next'), { signal });
-
-    // Track end-of-transition for the clone-snap on loop
     track.addEventListener('transitionend', handleTransitionEnd, { signal });
-
-    // Segment indicators
     segments.forEach((segment, index) => {
       segment.addEventListener('click', () => handleSegmentClick(index), { signal });
     });
-
-    // Touch events
     slider.addEventListener('touchstart', handleTouchStart, { passive: true, signal });
     slider.addEventListener('touchend', handleTouchEnd, { passive: true, signal });
-
-    // Keyboard navigation
     document.addEventListener('keydown', handleKeydown, { signal });
-
-    // Pause on hover — scoped to the readable text region and the
-    // chrome controls only. The slider is full-viewport, so binding
-    // hover-pause to the whole element would never let autoplay run.
-    // Hovering the photo or spec strip is fine; hovering the title /
-    // CTA / dot row pauses (user is reading or about to click).
     const pauseZones = [
       ...slider.querySelectorAll('.hero__content-inner'),
       slider.querySelector('.hero-slider__chrome'),
@@ -228,9 +187,6 @@ export function initHeroSlider(options = {}) {
       zone.addEventListener('mouseenter', stopAutoPlay, { signal });
       zone.addEventListener('mouseleave', startAutoPlay, { signal });
     });
-
-    // Focus-within still pauses across the entire slider — keyboard
-    // users tabbing through the nav / dots / CTA expect that.
     slider.addEventListener('focusin', stopAutoPlay, { signal });
     slider.addEventListener('focusout', handleFocusOut, { signal });
   }
@@ -295,7 +251,6 @@ export function initHeroSlider(options = {}) {
       img.alt = imageAlt;
       img.loading = 'lazy';
       img.decoding = 'async';
-      // Insert before .hero-overlay so z-index stack stays correct.
       const overlay = photo.querySelector('.hero-overlay');
       photo.insertBefore(img, overlay || photo.firstChild);
     }
@@ -338,21 +293,15 @@ export function initHeroSlider(options = {}) {
     observer.observe(slider);
     signal.addEventListener('abort', () => observer.disconnect());
   }
-
-  // Initialize
   setAriaAttributes();
   setupEventListeners();
   startAutoPlay();
   observeViewport();
-
-  // Hydrate non-first slides after the page is idle (post-LCP).
   if ('requestIdleCallback' in window) {
     window.requestIdleCallback(hydrateDeferredSlides, { timeout: 2000 });
   } else {
     setTimeout(hydrateDeferredSlides, 1000);
   }
-
-  // Cleanup function for HMR
   return function cleanup() {
     stopAutoPlay();
     controller.abort();

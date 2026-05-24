@@ -41,7 +41,6 @@ export function initSocialProof() {
    * @param {number} index
    */
   function goToSlide(index) {
-    // Hide current
     slides[currentIndex].classList.add('hidden');
     slides[currentIndex].setAttribute('aria-hidden', 'true');
     dots[currentIndex].classList.remove('bg-blue-500', 'w-8');
@@ -49,8 +48,6 @@ export function initSocialProof() {
     dots[currentIndex].removeAttribute('aria-current');
 
     currentIndex = index;
-
-    // Show new
     slides[currentIndex].classList.remove('hidden');
     slides[currentIndex].removeAttribute('aria-hidden');
     dots[currentIndex].classList.remove('bg-blue-200', 'w-3');
@@ -73,9 +70,6 @@ export function initSocialProof() {
       autoplayTimer = null;
     }
   }
-
-  // Dot click handler (event delegation). Resets the autoplay timer
-  // so the user gets the full interval to read the slide they picked.
   section.addEventListener(
     'click',
     (e) => {
@@ -90,8 +84,6 @@ export function initSocialProof() {
     },
     { signal }
   );
-
-  // Respect reduced motion: no autoplay.
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (!prefersReducedMotion.matches) {
     startAutoplay();

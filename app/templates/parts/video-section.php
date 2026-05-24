@@ -60,7 +60,6 @@ if ($embed_html === '') {
 ?>
 
 <section class="bg-blue-900 text-blue-400" aria-labelledby="<?php echo esc_attr($args['section_id'] . '-title'); ?>">
-    <!-- Top Bar -->
     <div class="border-b border-blue-800">
         <div class="border-x border-blue-800 container">
             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
@@ -78,8 +77,6 @@ if ($embed_html === '') {
             </div>
         </div>
     </div>
-
-    <!-- Video Embed -->
     <div class="border-x border-blue-800 container py-6 lg:py-12">
         <div class="max-w-5xl mx-auto">
             <div class="video-responsive">
@@ -87,8 +84,6 @@ if ($embed_html === '') {
             </div>
         </div>
     </div>
-
-    <!-- Bottom Bar -->
     <div class="border-t border-blue-800">
         <div class="border-x border-blue-800 container">
             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">

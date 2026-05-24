@@ -26,8 +26,6 @@ if (!defined('ABSPATH')) {
 }
 
 use function Standard\LearningCenter\get_latest_query;
-
-// Default values - can be overridden via $args when using get_template_part
 $defaults = [
     'eyebrow'    => '',
     'title'      => __('The Rollforming Learning Center', 'standard'),
@@ -49,8 +47,6 @@ if (!$query->have_posts()) {
 
 <section class="section pattern-dot-grid" aria-labelledby="learning-center-title">
     <div class="container section-content">
-
-        <!-- Section Header -->
         <div class="section-header">
             <?php if (!empty($args['eyebrow'])) : ?>
                 <p class="section-eyebrow">
@@ -65,16 +61,12 @@ if (!$query->have_posts()) {
                 <?php echo esc_html($args['subtitle']); ?>
             </p>
         </div>
-
-        <!-- Posts Grid -->
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             <?php while ($query->have_posts()) : $query->the_post(); ?>
                 <?php get_template_part('templates/parts/card', 'post'); ?>
             <?php endwhile; ?>
         </div>
         <?php wp_reset_postdata(); ?>
-
-        <!-- CTA -->
         <?php if ($args['cta_url']) : ?>
             <div class="text-center">
                 <a href="<?php echo esc_url(\Standard\Url\internal($args['cta_url'])); ?>" class="btn btn-primary">

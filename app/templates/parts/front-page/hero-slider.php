@@ -23,8 +23,6 @@ $content = [
     'nav_label'     => __('Slide navigation', 'standard'),
     'go_to_slide'   => __('Go to slide %d', 'standard'),
 ];
-
-// Get hero slides (mix of machine-derived + arbitrary category slides)
 $slides = get_hero_slides();
 
 if (empty($slides)) {
@@ -32,8 +30,6 @@ if (empty($slides)) {
 }
 
 $total_slides = count($slides);
-
-// Preload first slide image for faster LCP
 $first_slide = $slides[0] ?? null;
 ?>
 
@@ -42,8 +38,6 @@ $first_slide = $slides[0] ?? null;
 <?php endif; ?>
 
 <section class="hero-slider" aria-label="<?php echo esc_attr($content['section_label']); ?>">
-
-    <!-- Slides Track -->
     <div class="hero-slider__track">
         <?php foreach ($slides as $index => $slide) : ?>
             <?php
@@ -54,8 +48,6 @@ $first_slide = $slides[0] ?? null;
             ?>
         <?php endforeach; ?>
     </div>
-
-    <!-- Navigation Arrows -->
     <button
         type="button"
         class="hero-slider__nav hero-slider__nav--prev"
@@ -71,8 +63,6 @@ $first_slide = $slides[0] ?? null;
     >
         <?php icon('arrow-right', ['class' => 'hero-slider__nav-icon']); ?>
     </button>
-
-    <!-- Pagination Dots + Keyboard hint -->
     <div class="hero-slider__chrome">
         <div class="hero-slider__progress" role="tablist" aria-label="<?php echo esc_attr($content['nav_label']); ?>">
             <?php for ($i = 0; $i < $total_slides; $i++) : ?>

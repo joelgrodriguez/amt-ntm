@@ -42,8 +42,6 @@ if (!$profile instanceof \WP_Post) {
 $url   = get_permalink($profile);
 $title = get_the_title($profile);
 $thumb = get_the_post_thumbnail_url($profile, 'product-card');
-
-// Up to two machine tag names, with a "+N" suffix if more exist.
 $subtitle = '';
 if ($context === 'grid') {
     $tags = get_the_terms($profile->ID, 'post_tag');
@@ -56,9 +54,6 @@ if ($context === 'grid') {
         }
     }
 }
-
-// Carousel context piggybacks .carousel__card on the anchor itself so the
-// card carries snap + responsive width directly inside .carousel__track.
 $root_classes = 'profile-card group grid grid-rows-[auto_1fr] no-underline bg-white border border-blue-200 hover:border-blue-500 transition-colors duration-200';
 if ($context === 'carousel') {
     $root_classes .= ' carousel__card';

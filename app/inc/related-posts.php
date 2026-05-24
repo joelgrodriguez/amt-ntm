@@ -77,8 +77,6 @@ function get_related_posts(int $count = 4): \WP_Query
             $count * RELATED_POOL_MULTIPLIER
         );
     }
-
-    // Tag fallback: top up if category matching didn't fill the slate.
     if (count($ranked) < $count) {
         $tag_ids = wp_get_post_tags($post_id, ['fields' => 'ids']);
         if (!empty($tag_ids)) {
@@ -90,7 +88,6 @@ function get_related_posts(int $count = 4): \WP_Query
                 array_merge($already_seen, [$post_id]),
                 $needed * RELATED_POOL_MULTIPLIER
             );
-            // Tag matches always rank below category matches.
             $ranked = $ranked + $tag_ranked;
         }
     }
@@ -98,8 +95,6 @@ function get_related_posts(int $count = 4): \WP_Query
     if (empty($ranked)) {
         return new \WP_Query();
     }
-
-    // Sort by score DESC, then by published date DESC as a tiebreaker.
     uasort($ranked, function ($a, $b) {
         if ($a['score'] === $b['score']) {
             return $b['date'] <=> $a['date'];
@@ -208,8 +203,6 @@ function score_tag_candidates(int $post_id, array $tag_ids, array $exclude_ids, 
         if ($shared_count === 0) {
             continue;
         }
-
-        // 0.01–0.99 range, always below any category match (>= 1).
         $scored[(int) $candidate->ID] = [
             'score' => min(0.99, $shared_count * 0.1),
             'date'  => $candidate->post_date,

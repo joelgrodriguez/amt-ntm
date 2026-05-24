@@ -23,11 +23,7 @@ use function Standard\LearningCenter\get_content_sections;
 $nav    = get_desktop_nav();
 $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') === 'mega'));
 ?>
-
-<!-- Mega menu overlay -->
 <div id="mega-menu-overlay" class="fixed inset-0 bg-black/40 z-40 hidden" aria-hidden="true"></div>
-
-<!-- Mega menu panels -->
 <div id="mega-menu-container" class="hidden lg:block">
 <?php foreach ($panels as $panel) :
     $panel_id   = $panel['id'];
@@ -46,8 +42,6 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
         <?php if ($panel_type === 'tabbed-products') : ?>
 
             <?php $tabs = $panel['tabs']; ?>
-
-            <!-- Tab rail -->
             <div class="mega-panel__sidebar">
                 <p class="mega-sidebar__label"><?php echo esc_html($panel['label']); ?></p>
                 <ul class="mega-tab-list" role="tablist" aria-label="<?php echo esc_attr($panel['label']); ?>">
@@ -75,8 +69,6 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
                     </a>
                 <?php endif; ?>
             </div>
-
-            <!-- Tab panels -->
             <div class="mega-panel__content">
                 <?php foreach ($tabs as $i => $tab) :
                     $is_accessories = ($tab['category'] ?? '') === 'accessories-add-on-equipment';
@@ -143,8 +135,6 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
         <?php elseif ($panel_type === 'tabbed-content') :
             $tabs = $panel['tabs'];
         ?>
-
-            <!-- Tab rail -->
             <div class="mega-panel__sidebar">
                 <p class="mega-sidebar__label"><?php echo esc_html($panel['label']); ?></p>
                 <ul class="mega-tab-list" role="tablist" aria-label="<?php echo esc_attr($panel['label']); ?>">
@@ -172,8 +162,6 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
                     </a>
                 <?php endif; ?>
             </div>
-
-            <!-- Tab panels -->
             <div class="mega-panel__content">
                 <?php foreach ($tabs as $i => $tab) :
                     $content_query = new \WP_Query([
@@ -224,8 +212,6 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
         <?php elseif ($panel_type === 'tabbed-profiles') :
             $tabs = $panel['tabs'];
         ?>
-
-            <!-- Tab rail -->
             <div class="mega-panel__sidebar">
                 <p class="mega-sidebar__label"><?php echo esc_html($panel['label']); ?></p>
                 <ul class="mega-tab-list" role="tablist" aria-label="<?php echo esc_attr($panel['label']); ?>">
@@ -253,8 +239,6 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
                     </a>
                 <?php endif; ?>
             </div>
-
-            <!-- Tab panels (profiles by category) -->
             <div class="mega-panel__content">
                 <?php foreach ($tabs as $i => $tab) :
                     $profiles = new \WP_Query([
@@ -312,8 +296,8 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
 
         <?php endif; ?>
 
-        </div><!-- /.mega-panel__inner -->
-    </div><!-- /.mega-panel -->
+        </div>
+    </div>
 
 <?php endforeach; ?>
-</div><!-- /#mega-menu-container -->
+</div>

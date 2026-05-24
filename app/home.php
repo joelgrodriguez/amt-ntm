@@ -50,12 +50,8 @@ $filter_action    = get_learning_center_url();
 ?>
 
 <main id="primary">
-
-    <!-- Hero: full fold (100dvh - header). Filter bar peeks below. -->
     <section class="lc-hero pattern-dot-grid border-b border-blue-200">
         <div class="container py-10 lg:py-14 lc-hero__inner">
-
-            <!-- Hero copy -->
             <header class="grid gap-5 lg:gap-6 self-start">
                 <span class="text-caption font-mono uppercase tracking-widest text-blue-500">
                     <?php esc_html_e('Learning Center', 'standard'); ?>
@@ -63,8 +59,6 @@ $filter_action    = get_learning_center_url();
                 <h1 class="font-mono font-medium text-heading-lg lg:text-display text-blue-900 leading-tight tracking-tight">
                     <?php esc_html_e('The Rollforming Learning Center', 'standard'); ?>
                 </h1>
-
-                <!-- Post-type quick-nav: links to the matching post-type archive. -->
                 <nav class="mt-2 grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4" aria-label="<?php esc_attr_e('Browse by content type', 'standard'); ?>">
                     <?php
                     $hero_nav = [
@@ -90,8 +84,6 @@ $filter_action    = get_learning_center_url();
                     <?php endforeach; ?>
                 </nav>
             </header>
-
-            <!-- Featured Post (fills remaining fold space) -->
             <?php if ($featured_query->have_posts()) : $featured_query->the_post();
                 $featured_cta   = get_type_cta((string) get_post_type());
                 $featured_label = sprintf(
@@ -119,8 +111,6 @@ $filter_action    = get_learning_center_url();
                         </div>
                     <?php endif; ?>
                     <div class="p-6 lg:p-10 grid grid-rows-[auto_1fr_auto] gap-4 lg:gap-6">
-
-                        <!-- Eyebrow + meta strip -->
                         <div class="grid gap-3">
                             <span class="font-mono uppercase tracking-widest text-caption text-blue-500 inline-flex items-center gap-2">
                                 <span class="w-2 h-2 bg-red" aria-hidden="true"></span>
@@ -151,8 +141,6 @@ $filter_action    = get_learning_center_url();
                                 <?php endif; ?>
                             </dl>
                         </div>
-
-                        <!-- Headline + excerpt -->
                         <div class="grid gap-3 lg:gap-4 self-center">
                             <?php the_title(sprintf(
                                 '<h2 class="font-sans font-semibold text-heading lg:text-heading-lg text-blue-900 leading-tight tracking-tight line-clamp-3 group-hover:text-blue-500 transition-colors"><a href="%s" class="text-inherit no-underline hover:no-underline after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" aria-label="%s">',
@@ -165,8 +153,6 @@ $filter_action    = get_learning_center_url();
                                 </p>
                             <?php endif; ?>
                         </div>
-
-                        <!-- CTA -->
                         <div>
                             <span class="relative z-[1] inline-flex items-center gap-3 px-6 py-3 min-h-12 border border-blue-900 text-blue-900 font-mono font-medium text-sm uppercase tracking-widest group-hover:bg-blue-900 group-hover:text-white transition-colors">
                                 <?php echo esc_html($featured_cta); ?>
@@ -181,9 +167,6 @@ $filter_action    = get_learning_center_url();
         </div>
 
     </section>
-
-
-    <!-- Quick Filters -->
     <section id="lc-filters" class="border-b border-blue-200 bg-blue-50" aria-labelledby="lc-filters-heading">
         <div class="container py-6">
             <h2 id="lc-filters-heading" class="sr-only">
@@ -198,8 +181,6 @@ $filter_action    = get_learning_center_url();
                     <?php icon('filter', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
                     <?php esc_html_e('Filters:', 'standard'); ?>
                 </span>
-
-                <!-- Category -->
                 <div class="flex items-center gap-2">
                     <label for="lc-filter-category" class="flex items-center gap-1.5 text-sm text-blue-600">
                         <?php icon('folder', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
@@ -224,8 +205,6 @@ $filter_action    = get_learning_center_url();
                         </div>
                     </div>
                 </div>
-
-                <!-- Resource Type -->
                 <div class="flex items-center gap-2">
                     <label for="lc-filter-type" class="flex items-center gap-1.5 text-sm text-blue-600">
                         <?php icon('file-text', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
@@ -249,8 +228,6 @@ $filter_action    = get_learning_center_url();
                         </div>
                     </div>
                 </div>
-
-                <!-- Machine -->
                 <?php if (!empty($machine_tags)) : ?>
                     <div class="flex items-center gap-2">
                         <label for="lc-filter-machine" class="flex items-center gap-1.5 text-sm text-blue-600">
@@ -286,8 +263,6 @@ $filter_action    = get_learning_center_url();
             </form>
         </div>
     </section>
-
-    <!-- Content Sections by Post Type -->
     <?php foreach ($content_sections as $section) :
         $section_query = get_section_query($section['post_type'], 4, $filters);
 
@@ -330,8 +305,6 @@ $filter_action    = get_learning_center_url();
             </div>
         </section>
     <?php wp_reset_postdata(); endforeach; ?>
-
-    <!-- Subscribe CTA -->
     <?php get_template_part('templates/parts/cta/subscribe'); ?>
 
 </main>

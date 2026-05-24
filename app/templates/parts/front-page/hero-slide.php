@@ -2,13 +2,7 @@
 /**
  * Hero Slide Template Part
  *
- * Renders a single slide in the hero slider. Composition:
- *   - photo region (full-bleed)
- *   - bottom-left content stack: eyebrow, title, slogan, CTA
- *
- * Stats are intentionally not shown here. The photography and the
- * headline are the hero; engineered/spec voice lives in the flagships
- * and three-step sections downstream.
+ * Renders a single front-page hero slide with copy and media.
  *
  * @package Standard
  */
@@ -37,9 +31,6 @@ $cta_label        = $machine['cta_label'] ?? __('View Machine', 'standard');
 $focal_point      = $machine['focal_point'] ?? '';
 $is_first         = $index === 0;
 
-// Photo-region inline style: only emit when a focal point is set,
-// so the default `object-position: center` in components/hero.css
-// still wins for slides without a bias.
 $photo_style = $focal_point !== '' ? sprintf('--hero-pos: %s;', $focal_point) : '';
 ?>
 

@@ -34,8 +34,6 @@ $expect      = $content['expect_items'] ?? [];
 <section class="section bg-blue-900" aria-labelledby="<?php echo esc_attr($section_id); ?>">
     <div class="container">
         <div class="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-center">
-
-            <!-- Copy Panel -->
             <div class="grid gap-8 content-start">
                 <div class="section-header-left">
                     <p class="section-eyebrow"><?php esc_html_e("Let's Talk", 'standard'); ?></p>
@@ -49,7 +47,6 @@ $expect      = $content['expect_items'] ?? [];
                 </div>
 
                 <?php if (!empty($expect)) : ?>
-                    <!-- What to Expect -->
                     <div class="grid gap-4">
                         <p class="text-sm font-medium uppercase tracking-wider text-blue-500">
                             <?php esc_html_e('What to expect on the call', 'standard'); ?>
@@ -66,7 +63,6 @@ $expect      = $content['expect_items'] ?? [];
                 <?php endif; ?>
 
                 <?php if (!empty($testimonial)) : ?>
-                    <!-- Testimonial -->
                     <blockquote class="grid gap-2 border-t border-blue-800 pt-6">
                         <p class="text-blue-300 font-mono">
                             &ldquo;<?php echo esc_html($testimonial['quote']); ?>&rdquo;
@@ -79,8 +75,6 @@ $expect      = $content['expect_items'] ?? [];
                         </footer>
                     </blockquote>
                 <?php endif; ?>
-
-                <!-- CTAs -->
                 <div class="grid gap-3">
                     <div class="flex flex-col sm:flex-row gap-4">
                         <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="btn btn-primary">
@@ -96,12 +90,8 @@ $expect      = $content['expect_items'] ?? [];
                     </p>
                 </div>
             </div>
-
-            <!-- Specialist Panel -->
             <?php if (!empty($specialist)) : ?>
                 <div class="flex flex-col gap-6">
-
-                    <!-- Image Collage (single portrait at lg, full collage at xl+) -->
                     <div class="relative aspect-[4/3] w-full">
                         <?php if (!empty($specialist['image_machine'])) : ?>
                             <img
@@ -119,7 +109,6 @@ $expect      = $content['expect_items'] ?? [];
                                 loading="lazy"
                             >
                         <?php endif; ?>
-                        <!-- Specialist portrait + name card -->
                         <div class="absolute inset-0 z-20 flex flex-col xl:top-[10%] xl:left-[20%] xl:inset-auto xl:w-3/5 xl:h-[85%]">
                             <img
                                 src="<?php echo esc_url($specialist['image']); ?>"

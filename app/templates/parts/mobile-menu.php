@@ -30,8 +30,6 @@ $mobile_nav = \Standard\Nav\get_mobile_nav_tree();
     ></div>
     <div class="mobile-menu__viewport">
         <div class="mobile-menu__track" data-active-panel="root">
-
-            <!-- L1 (root) panel -->
             <section class="mobile-menu__panel" data-panel="root" aria-hidden="false">
                 <?php if (!empty($mobile_nav['featured'])) : $featured = $mobile_nav['featured']; ?>
                     <a
@@ -100,8 +98,6 @@ $mobile_nav = \Standard\Nav\get_mobile_nav_tree();
                     <?php endforeach; ?>
                 </ul>
             </section>
-
-            <!-- L2 panels (one per panel-type top item) -->
             <?php foreach ($mobile_nav['top'] as $item) : ?>
                 <?php if ($item['type'] === 'panel') : ?>
                     <?php get_template_part('templates/parts/mobile-menu-panel', null, [

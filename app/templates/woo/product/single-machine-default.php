@@ -23,11 +23,6 @@ $product = wc_get_product(get_the_ID());
 if (!$product) {
     return;
 }
-
-// Resolve product video. Current ACF schema groups video fields under
-// 'product_media'; legacy top-level 'product_video' still exists on some
-// products as a fallback. (The top-level 'video' field is a separate
-// CPT-scoped field and does not apply to products.)
 $video_url   = null;
 $video_title = null;
 $video_sub   = null;
@@ -45,11 +40,6 @@ if (function_exists('get_field')) {
         }
     }
 }
-
-// Demote Add-to-Cart and the surrounding stock summary actions — NTM
-// machine sales are quote / dealer driven, not e-commerce. Keep title,
-// price, excerpt; drop the cart button, sharing, and the default meta
-// row. Scoped to this render only.
 remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30);
 remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
 remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_sharing', 50);
@@ -67,11 +57,6 @@ get_header();
 
                 <div class="machine-default__gallery">
                     <?php
-                    // Render gallery as a snap-scrolling track of full-bleed
-                    // images. Arrows sit at the bottom edge of the main image
-                    // and cycle through the track via CarouselNav. Woo's
-                    // default gallery action needs a flexslider/zoom stack the
-                    // theme doesn't opt into, so we own the markup here.
                     $main_id = $product->get_image_id();
                     $gallery_ids = array_filter(array_map('intval', $product->get_gallery_image_ids()));
                     $all_ids = [];
