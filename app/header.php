@@ -103,24 +103,29 @@ if (!defined('ABSPATH')) {
                         // still navigates somewhere sensible.
                         $is_active_mega = ($item['kind'] ?? '') === 'mega' && ($item['id'] ?? '') === 'machines';
                         $fallback_url   = $item['url'] ?? ($item['view_all_url'] ?? '#');
+                        $is_current     = \Standard\Nav\is_current_item($item);
+                        $current_class  = $is_current ? ' is-current' : '';
+                        $current_attr   = $is_current ? ' aria-current="page"' : '';
                     ?>
                         <li class="flex h-full">
                             <?php if ($is_active_mega) : ?>
                                 <button
                                     type="button"
-                                    class="mega-trigger relative flex items-center w-full h-full px-5 font-sans font-medium text-body text-blue-700 bg-transparent border-0 cursor-pointer"
+                                    class="mega-trigger relative flex items-center w-full h-full px-5 font-sans font-medium text-body text-blue-700 bg-transparent border-0 cursor-pointer<?php echo $current_class; ?>"
                                     style="letter-spacing: 0.01em;"
                                     data-mega-panel="<?php echo esc_attr($item['id']); ?>"
                                     aria-expanded="false"
                                     aria-controls="mega-panel-<?php echo esc_attr($item['id']); ?>"
+                                    <?php echo $current_attr; ?>
                                 >
                                     <?php echo esc_html($item['label']); ?>
                                 </button>
                             <?php else : ?>
                                 <a
                                     href="<?php echo esc_url($fallback_url); ?>"
-                                    class="relative flex items-center w-full h-full px-5 font-sans font-medium text-body text-blue-700 no-underline"
+                                    class="relative flex items-center w-full h-full px-5 font-sans font-medium text-body text-blue-700 no-underline<?php echo $current_class; ?>"
                                     style="letter-spacing: 0.01em;"
+                                    <?php echo $current_attr; ?>
                                 >
                                     <?php echo esc_html($item['label']); ?>
                                 </a>
