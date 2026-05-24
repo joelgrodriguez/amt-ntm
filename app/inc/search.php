@@ -150,6 +150,46 @@ function get_post_type_filter_options(): array {
 }
 
 /**
+ * Curated suggestions shown beneath the search input. Editorial, not
+ * derived from query logs; reflects what NTM wants users to discover.
+ *
+ * @return array<int, array{label:string, query:string, post_type?:string}>
+ */
+function get_popular_searches(): array {
+    $defaults = [
+        ['label' => 'SSQ II',           'query' => 'SSQ II',           'post_type' => 'product'],
+        ['label' => 'MACH II',          'query' => 'MACH II',          'post_type' => 'product'],
+        ['label' => 'Color visualizer', 'query' => 'color visualizer'],
+        ['label' => 'Service & parts',  'query' => 'service',          'post_type' => 'manual'],
+    ];
+
+    $items = \apply_filters('standard_search_popular_searches', $defaults);
+
+    if (!is_array($items)) {
+        return $defaults;
+    }
+
+    $clean = [];
+    foreach ($items as $item) {
+        if (!is_array($item)) {
+            continue;
+        }
+        $label = isset($item['label']) ? trim((string) $item['label']) : '';
+        $query = isset($item['query']) ? trim((string) $item['query']) : '';
+        if ($label === '' || $query === '') {
+            continue;
+        }
+        $entry = ['label' => $label, 'query' => $query];
+        if (!empty($item['post_type'])) {
+            $entry['post_type'] = \sanitize_key((string) $item['post_type']);
+        }
+        $clean[] = $entry;
+    }
+
+    return $clean;
+}
+
+/**
  * @return array<string|int, mixed>
  */
 function get_requested_tax_query(): array {

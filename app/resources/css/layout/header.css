@@ -32,14 +32,6 @@ body.search-modal-is-open {
   overflow: hidden;
 }
 
-.search-modal {
-  max-height: calc(100dvh - 2rem);
-}
-
-.search-modal::backdrop {
-  background: rgb(10 19 34 / 0.64);
-}
-
 /* Primary navigation — height comes from the grid row, not a fixed value */
 #primary-menu > li {
   @apply flex;
