@@ -203,32 +203,21 @@
     @apply grid gap-0;
   }
 
-  /* Footer block: an imposing slab. The Apply button is the entire bottom
-     of the rail talking back. Eyebrow + dark Apply + ghost Clear, stacked.
-     Lives flush against the rail edges (no mx-5) so the slab visually
-     anchors the rail. */
+  /* Footer block: quiet rail terminator. Apply is a confident button,
+     not a slab; Clear sits below as a ghost link. No eyebrow chrome,
+     no gradient fill, no "REFINE RESULTS" overhead. */
   .filter-sidebar-footer {
-    @apply grid gap-3 border-t border-blue-200 pt-5 px-5 pb-5 mt-4;
-    background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--color-blue-50) 60%, transparent));
+    @apply grid gap-2 border-t border-blue-100 pt-4 px-3 pb-4 mt-2;
   }
 
-  .filter-sidebar-footer-eyebrow {
-    @apply flex items-baseline justify-between gap-3 m-0 font-mono font-medium uppercase tracking-wider text-blue-500;
-    font-size: var(--text-caption);
-  }
-
-  .filter-sidebar-footer-count {
-    @apply font-normal text-blue-400 tabular-nums;
-  }
-
-  /* The Apply button: blue-900 slab. Mono caps, hard square, no radius.
-     The arrow icon nudges right on hover for forward motion. */
+  /* Apply: blue-900 button, body weight, mono caption-sized label.
+     Reads as "click me", not "submit your taxes". */
   .filter-apply {
-    @apply relative flex w-full items-center justify-between gap-3 bg-blue-900 text-white border-0 cursor-pointer overflow-hidden;
-    @apply font-mono font-medium uppercase tracking-wider;
-    @apply px-5;
-    min-height: 3.5rem;
-    font-size: var(--text-body);
+    @apply relative flex w-full items-center justify-between gap-2 bg-blue-900 text-white border-0 cursor-pointer overflow-hidden;
+    @apply font-mono uppercase tracking-wider;
+    @apply px-4;
+    min-height: 2.5rem;
+    font-size: var(--text-caption);
     transition: background-color 200ms cubic-bezier(0.22, 1, 0.36, 1), color 200ms ease, transform 200ms ease;
   }
 
