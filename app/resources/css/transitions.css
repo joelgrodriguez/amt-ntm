@@ -291,3 +291,74 @@
 @media (prefers-reduced-motion: reduce) {
   .t-avatar { transition: none !important; transform: none !important; }
 }
+
+
+/* ── 06 · Modal open / close ───────────────────────────────────────────
+ * Staged for the upcoming "Not sure?" specialist CTA / quote modal /
+ * video lightbox. JS pattern: open = add .is-open; close = remove
+ * .is-open, add .is-closing, setTimeout(--modal-close-dur, remove
+ * .is-closing). The cleanup setTimeout is load-bearing — without it
+ * the next open jumps from the closing scale instead of the resting
+ * pre-open scale. */
+.t-modal {
+  transform-origin: center;
+  transform: scale(var(--modal-scale));
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform var(--modal-open-dur) var(--modal-ease),
+    opacity   var(--modal-open-dur) var(--modal-ease);
+  will-change: transform, opacity;
+}
+.t-modal.is-open {
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+.t-modal.is-closing {
+  transform: scale(var(--modal-scale-close));
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform var(--modal-close-dur) var(--modal-ease),
+    opacity   var(--modal-close-dur) var(--modal-ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-modal { transition: none !important; }
+}
+
+
+/* ── 05 · Menu dropdown ────────────────────────────────────────────────
+ * Staged for the machine-subnav switcher dropdown if it ever moves off
+ * `dropdown.hidden = true|false` to a transitioned open/close. Also
+ * applies to any future origin-anchored menu (user menu, filter menu).
+ * JS pattern mirrors .t-modal: open = .is-open; close = .is-open →
+ * .is-closing → setTimeout cleanup. */
+.t-dropdown {
+  transform-origin: top center;
+  transform: scale(var(--dropdown-pre-scale));
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform var(--dropdown-open-dur) var(--dropdown-ease),
+    opacity   var(--dropdown-open-dur) var(--dropdown-ease);
+  will-change: transform, opacity;
+}
+.t-dropdown.is-open {
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+.t-dropdown.is-closing {
+  transform: scale(var(--dropdown-closing-scale));
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform var(--dropdown-close-dur) var(--dropdown-ease),
+    opacity   var(--dropdown-close-dur) var(--dropdown-ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-dropdown { transition: none !important; }
+}
