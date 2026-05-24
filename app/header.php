@@ -146,7 +146,7 @@ if (!defined('ABSPATH')) {
             <?php endif; ?>
             <a
                 href="<?php echo esc_url(\Standard\Url\with_query('/', ['s' => ''])); ?>"
-                class="flex items-center justify-center w-8 h-16 text-blue-600 hover:text-blue-800 transition-colors"
+                class="search-trigger search-trigger--desktop flex items-center justify-center w-8 h-16 text-blue-600 hover:text-blue-800 transition-colors"
                 aria-label="<?php esc_attr_e('Search', 'standard'); ?>"
                 aria-haspopup="dialog"
                 aria-controls="site-search-modal"
