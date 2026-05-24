@@ -82,7 +82,7 @@ body.search-modal-is-open {
   content: attr(data-shortcut);
   position: absolute;
   top: 50%;
-  right: calc(100% + 8px);
+  left: calc(100% + 2px);
   padding: 4px 8px;
   background: var(--color-blue-900);
   color: var(--color-white);
@@ -94,8 +94,8 @@ body.search-modal-is-open {
   white-space: nowrap;
   pointer-events: none;
   opacity: 0;
-  transform: translateY(-50%) translateX(4px);
-  transition: opacity 150ms ease, transform 150ms ease;
+  transform: translateY(-50%) translateX(-4px);
+  transition: opacity 150ms ease 400ms, transform 150ms ease 400ms;
   z-index: 60;
 }
 
@@ -107,10 +107,11 @@ body.search-modal-is-open {
 
 /* Hide the tooltip while the modal is open — keyboard focus returns to the
    trigger on close, and the tooltip lingering on top of the modal reads
-   as residue. */
+   as residue. No delay on the close-out so it gets out of the way fast. */
 body.search-modal-is-open .search-trigger--desktop::after {
   opacity: 0;
-  transform: translateY(-50%) translateX(4px);
+  transform: translateY(-50%) translateX(-4px);
+  transition: opacity 150ms ease, transform 150ms ease;
 }
 
 /* Hide until JS has populated [data-shortcut]. The attr() reading would
