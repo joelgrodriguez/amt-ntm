@@ -179,3 +179,25 @@
 @media (prefers-reduced-motion: reduce) {
   .t-icon-swap .t-icon { transition: none !important; }
 }
+
+
+/* ── 01 · Card resize ──────────────────────────────────────────────────
+ * Available for any element that tweens width/height between two explicit
+ * values via a state class. Not currently bound to a component:
+ *
+ *   - Accordion uses element.animate() with measured scrollHeight, which
+ *     handles the auto→measured case better than CSS transition: height.
+ *   - MachineSubnav is sticky-only, no resize.
+ *
+ * Kept here so future components (expandable cards, filter panels) get
+ * the tuned timing for free. */
+.t-resize {
+  transition:
+    width  var(--resize-dur) var(--resize-ease),
+    height var(--resize-dur) var(--resize-ease);
+  will-change: width, height;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-resize { transition: none !important; }
+}
