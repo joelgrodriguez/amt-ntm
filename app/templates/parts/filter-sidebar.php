@@ -77,7 +77,6 @@ $render_group = static function (array $group, int $index, string $scope, bool $
     // on group #1).
     $is_open = $index === 0 || $selected_count > 0;
     $group_name = 'filter-groups-' . $scope;
-    $show_meta = $selected_count > 0 && $mode !== 'link';
     ?>
     <?php if ($collapsible) : ?>
     <details class="filter-group" name="<?php echo esc_attr($group_name); ?>" <?php echo $is_open ? 'open' : ''; ?>>
@@ -88,21 +87,8 @@ $render_group = static function (array $group, int $index, string $scope, bool $
                 <?php endif; ?>
                 <?php echo esc_html($title); ?>
             </span>
-            <span class="filter-group-summary-end">
-                <?php if ($show_meta) : ?>
-                    <span class="filter-group-meta" aria-live="polite">
-                        <?php
-                        printf(
-                            /* translators: %d selected filter count. */
-                            esc_html(_n('%d selected', '%d selected', $selected_count, 'standard')),
-                            (int) $selected_count
-                        );
-                        ?>
-                    </span>
-                <?php endif; ?>
-                <span class="filter-group-caret" aria-hidden="true">
-                    <?php icon('chevron-down', ['class' => 'w-3 h-3']); ?>
-                </span>
+            <span class="filter-group-caret" aria-hidden="true">
+                <?php icon('chevron-down', ['class' => 'w-3 h-3']); ?>
             </span>
         </summary>
     <?php else : ?>
@@ -114,19 +100,6 @@ $render_group = static function (array $group, int $index, string $scope, bool $
                 <?php endif; ?>
                 <?php echo esc_html($title); ?>
             </span>
-            <?php if ($show_meta) : ?>
-                <span class="filter-group-summary-end">
-                    <span class="filter-group-meta" aria-live="polite">
-                        <?php
-                        printf(
-                            /* translators: %d selected filter count. */
-                            esc_html(_n('%d selected', '%d selected', $selected_count, 'standard')),
-                            (int) $selected_count
-                        );
-                        ?>
-                    </span>
-                </span>
-            <?php endif; ?>
         </header>
     <?php endif; ?>
 

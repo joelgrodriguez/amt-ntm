@@ -38,7 +38,7 @@
   }
 
   .filter-group-summary {
-    @apply flex w-full items-center justify-between gap-3 pl-5 pr-3 py-4 cursor-pointer select-none;
+    @apply flex w-full items-center justify-between gap-3 pl-3 pr-3 py-4 cursor-pointer select-none;
     list-style: none;
   }
 
@@ -100,7 +100,7 @@
      left border-box that the active/hover states paint. items-start so
      wrapped labels stack cleanly under the checkbox column. */
   .filter-option {
-    @apply flex w-full items-start gap-3 bg-transparent border-l-4 border-transparent py-2 pl-4 pr-5 text-sm text-blue-700 no-underline cursor-pointer;
+    @apply flex w-full items-start gap-3 bg-transparent border-l-4 border-transparent py-2 pl-2 pr-3 text-sm text-blue-700 no-underline cursor-pointer;
     min-height: 2.5rem;
     transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
   }
