@@ -20,6 +20,8 @@ const isMacPlatform = () => {
   return /Mac|iPhone|iPad|iPod/i.test(platform);
 };
 
+const getShortcutLabel = () => (isMacPlatform() ? '⌘ K' : 'Ctrl K');
+
 export const initSearchModal = () => {
   const modal = document.querySelector('#site-search-modal');
   const openButtons = document.querySelectorAll('[data-search-modal-open]');
@@ -57,8 +59,16 @@ export const initSearchModal = () => {
 
   // Hint glyph: Cmd K on mac, Ctrl K everywhere else.
   if (shortcutHint instanceof HTMLElement) {
-    shortcutHint.textContent = isMacPlatform() ? '⌘ K' : 'Ctrl K';
+    shortcutHint.textContent = getShortcutLabel();
   }
+
+  // Surface the platform-correct keyboard shortcut on every search trigger
+  // so the CSS tooltip can render it without baking a glyph into PHP.
+  openButtons.forEach((button) => {
+    if (button instanceof HTMLElement) {
+      button.dataset.shortcut = getShortcutLabel();
+    }
+  });
 
   const syncPostTypeInput = (value) => {
     if (!(postTypeInput instanceof HTMLInputElement)) {

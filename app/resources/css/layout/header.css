@@ -65,3 +65,63 @@ body.search-modal-is-open {
   transform: scaleX(1);
 }
 
+/* ==========================================================================
+   Search trigger tooltip — desktop only
+   ==========================================================================
+   The keyboard shortcut glyph is written into [data-shortcut] by JS so
+   the label tells the truth about the user's platform (⌘ K on macOS,
+   Ctrl K elsewhere). The tooltip itself is CSS-only — on hover or
+   keyboard focus, the pill fades in below the icon.
+*/
+
+.search-trigger--desktop {
+  position: relative;
+}
+
+.search-trigger--desktop::after {
+  content: attr(data-shortcut);
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 6px;
+  padding: 6px 10px;
+  background: var(--color-blue-900);
+  color: var(--color-white);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 150ms ease, transform 150ms ease;
+  z-index: 60;
+}
+
+.search-trigger--desktop:hover::after,
+.search-trigger--desktop:focus-visible::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hide the tooltip while the modal is open — keyboard focus returns to the
+   trigger on close, and the tooltip lingering on top of the modal reads
+   as residue. */
+body.search-modal-is-open .search-trigger--desktop::after {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+/* Hide until JS has populated [data-shortcut]. The attr() reading would
+   render an empty pill otherwise. */
+.search-trigger--desktop:not([data-shortcut])::after {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .search-trigger--desktop::after {
+    transition: opacity 0ms, transform 0ms;
+  }
+}
+
