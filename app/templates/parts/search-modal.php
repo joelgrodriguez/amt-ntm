@@ -63,78 +63,84 @@ $current_query = (string) \get_search_query();
         data-search-modal-form
     >
         <header class="search-modal__bar">
-            <p class="search-modal__eyebrow">
-                <?php esc_html_e('Search', 'standard'); ?>
-                <span class="search-modal__shortcut" data-search-modal-shortcut aria-hidden="true">
-                    <kbd>/</kbd>
-                </span>
-            </p>
+            <div class="search-modal__inner search-modal__bar-inner">
+                <p class="search-modal__eyebrow">
+                    <?php esc_html_e('Search', 'standard'); ?>
+                    <span class="search-modal__shortcut" data-search-modal-shortcut aria-hidden="true">
+                        <kbd>/</kbd>
+                    </span>
+                </p>
 
-            <button
-                type="button"
-                class="search-modal__close"
-                aria-label="<?php esc_attr_e('Close search', 'standard'); ?>"
-                data-search-modal-close
-            >
-                <?php icon('x', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-            </button>
+                <button
+                    type="button"
+                    class="search-modal__close"
+                    aria-label="<?php esc_attr_e('Close search', 'standard'); ?>"
+                    data-search-modal-close
+                >
+                    <?php icon('x', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+                </button>
+            </div>
         </header>
 
         <div class="search-modal__field">
-            <label for="site-search-modal-field" class="sr-only">
-                <?php esc_html_e('Search the site', 'standard'); ?>
-            </label>
-            <span class="search-modal__field-icon" aria-hidden="true">
-                <?php icon('search', ['class' => 'w-5 h-5']); ?>
-            </span>
-            <input
-                id="site-search-modal-field"
-                class="search-modal__input"
-                type="search"
-                name="s"
-                value="<?php echo esc_attr($current_query); ?>"
-                placeholder="<?php esc_attr_e('Machines, manuals, profiles, articles…', 'standard'); ?>"
-                autocomplete="off"
-                autocapitalize="off"
-                spellcheck="false"
-                data-search-modal-input
-            >
-            <button
-                type="button"
-                class="search-modal__clear"
-                aria-label="<?php esc_attr_e('Clear search', 'standard'); ?>"
-                data-search-modal-clear
-                hidden
-            >
-                <?php icon('x', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-            </button>
+            <div class="search-modal__inner search-modal__field-inner">
+                <label for="site-search-modal-field" class="sr-only">
+                    <?php esc_html_e('Search the site', 'standard'); ?>
+                </label>
+                <span class="search-modal__field-icon" aria-hidden="true">
+                    <?php icon('search', ['class' => 'w-5 h-5']); ?>
+                </span>
+                <input
+                    id="site-search-modal-field"
+                    class="search-modal__input"
+                    type="search"
+                    name="s"
+                    value="<?php echo esc_attr($current_query); ?>"
+                    placeholder="<?php esc_attr_e('Machines, manuals, profiles, articles…', 'standard'); ?>"
+                    autocomplete="off"
+                    autocapitalize="off"
+                    spellcheck="false"
+                    data-search-modal-input
+                >
+                <button
+                    type="button"
+                    class="search-modal__clear"
+                    aria-label="<?php esc_attr_e('Clear search', 'standard'); ?>"
+                    data-search-modal-clear
+                    hidden
+                >
+                    <?php icon('x', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+                </button>
+            </div>
         </div>
 
-        <fieldset class="search-modal__chips" data-search-modal-chips>
-            <legend class="sr-only"><?php esc_html_e('Filter by content type', 'standard'); ?></legend>
+        <div class="search-modal__chips-row">
+            <fieldset class="search-modal__inner search-modal__chips" data-search-modal-chips>
+                <legend class="sr-only"><?php esc_html_e('Filter by content type', 'standard'); ?></legend>
 
-            <button
-                type="button"
-                class="search-modal__chip"
-                data-search-modal-chip
-                data-value=""
-                aria-pressed="<?php echo $active_post_type === '' ? 'true' : 'false'; ?>"
-            >
-                <?php esc_html_e('All', 'standard'); ?>
-            </button>
-
-            <?php foreach ($post_type_options as $slug => $label) : ?>
                 <button
                     type="button"
                     class="search-modal__chip"
                     data-search-modal-chip
-                    data-value="<?php echo esc_attr((string) $slug); ?>"
-                    aria-pressed="<?php echo $active_post_type === $slug ? 'true' : 'false'; ?>"
+                    data-value=""
+                    aria-pressed="<?php echo $active_post_type === '' ? 'true' : 'false'; ?>"
                 >
-                    <?php echo esc_html((string) $label); ?>
+                    <?php esc_html_e('All', 'standard'); ?>
                 </button>
-            <?php endforeach; ?>
-        </fieldset>
+
+                <?php foreach ($post_type_options as $slug => $label) : ?>
+                    <button
+                        type="button"
+                        class="search-modal__chip"
+                        data-search-modal-chip
+                        data-value="<?php echo esc_attr((string) $slug); ?>"
+                        aria-pressed="<?php echo $active_post_type === $slug ? 'true' : 'false'; ?>"
+                    >
+                        <?php echo esc_html((string) $label); ?>
+                    </button>
+                <?php endforeach; ?>
+            </fieldset>
+        </div>
 
         <!-- post_type[] is owned by the chip group above. JS keeps a single
              hidden input in sync; submit posts the chosen post_type. -->
@@ -148,45 +154,49 @@ $current_query = (string) \get_search_query();
 
         <?php if ($popular !== []) : ?>
             <section class="search-modal__suggestions" aria-label="<?php esc_attr_e('Popular searches', 'standard'); ?>">
-                <p class="search-modal__suggestions-label">
-                    <span data-search-modal-helper data-helper-default="<?php esc_attr_e('Try', 'standard'); ?>" data-helper-typed="<?php esc_attr_e('Press Enter to search', 'standard'); ?>">
-                        <?php esc_html_e('Try', 'standard'); ?>
-                    </span>
-                </p>
-                <ul class="search-modal__suggestions-list">
-                    <?php foreach ($popular as $item) :
-                        $query_args = ['s' => $item['query']];
-                        if (!empty($item['post_type'])) {
-                            $query_args['post_type'] = $item['post_type'];
-                        }
-                        $href = \add_query_arg(
-                            array_map('rawurlencode', $query_args),
-                            \Standard\Url\internal('/')
-                        );
-                    ?>
-                        <li>
-                            <a
-                                class="search-modal__suggestion"
-                                href="<?php echo esc_url($href); ?>"
-                                data-search-modal-suggestion
-                                data-query="<?php echo esc_attr($item['query']); ?>"
-                                <?php if (!empty($item['post_type'])) : ?>data-post-type="<?php echo esc_attr($item['post_type']); ?>"<?php endif; ?>
-                            >
-                                <?php icon('arrow-right', ['class' => 'w-3 h-3', 'aria-hidden' => 'true']); ?>
-                                <span><?php echo esc_html($item['label']); ?></span>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
+                <div class="search-modal__inner">
+                    <p class="search-modal__suggestions-label">
+                        <span data-search-modal-helper data-helper-default="<?php esc_attr_e('Try', 'standard'); ?>" data-helper-typed="<?php esc_attr_e('Press Enter to search', 'standard'); ?>">
+                            <?php esc_html_e('Try', 'standard'); ?>
+                        </span>
+                    </p>
+                    <ul class="search-modal__suggestions-list">
+                        <?php foreach ($popular as $item) :
+                            $query_args = ['s' => $item['query']];
+                            if (!empty($item['post_type'])) {
+                                $query_args['post_type'] = $item['post_type'];
+                            }
+                            $href = \add_query_arg(
+                                array_map('rawurlencode', $query_args),
+                                \Standard\Url\internal('/')
+                            );
+                        ?>
+                            <li>
+                                <a
+                                    class="search-modal__suggestion"
+                                    href="<?php echo esc_url($href); ?>"
+                                    data-search-modal-suggestion
+                                    data-query="<?php echo esc_attr($item['query']); ?>"
+                                    <?php if (!empty($item['post_type'])) : ?>data-post-type="<?php echo esc_attr($item['post_type']); ?>"<?php endif; ?>
+                                >
+                                    <?php icon('arrow-right', ['class' => 'w-3 h-3', 'aria-hidden' => 'true']); ?>
+                                    <span><?php echo esc_html($item['label']); ?></span>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
             </section>
         <?php endif; ?>
 
         <button type="submit" class="search-modal__submit">
-            <span class="search-modal__submit-label">
-                <?php esc_html_e('Search', 'standard'); ?>
-            </span>
-            <span class="search-modal__submit-icon" aria-hidden="true">
-                <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+            <span class="search-modal__inner search-modal__submit-inner">
+                <span class="search-modal__submit-label">
+                    <?php esc_html_e('Search', 'standard'); ?>
+                </span>
+                <span class="search-modal__submit-icon" aria-hidden="true">
+                    <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                </span>
             </span>
         </button>
     </form>

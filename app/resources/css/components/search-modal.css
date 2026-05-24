@@ -85,22 +85,35 @@
 
   /* Inner form is the only scrolling region; the dialog itself stays
      pinned. overscroll-behavior: contain stops iOS from rubber-banding
-     the page underneath. Centered with a max-width so the input doesn't
-     sit alone on a 1920px display, and clamped to the dialog height so
-     the submit slab can still pin to the bottom on short viewports. */
+     the page underneath. Form is full-bleed; individual rows handle
+     their own internal max-width via .search-modal__inner so the
+     dividing borders run edge-to-edge on a 1920px display while the
+     content sits in a readable column. */
   .search-modal__form {
-    @apply flex flex-col mx-auto w-full;
-    max-width: 56rem;
+    @apply flex flex-col w-full;
     height: 100%;
     overflow-y: auto;
     overscroll-behavior: contain;
+  }
+
+  /* Per-row inner column. 56rem (896px) reads as one comfortable line
+     length at any viewport. The bar, field, chips, suggestions, and
+     submit each get their own .__inner wrapper rather than nesting in
+     a single wrapper so the row borders bleed edge to edge. */
+  .search-modal__inner {
+    @apply w-full mx-auto;
+    max-width: 56rem;
   }
 
 
   /* Eyebrow bar. Mono caption left, close button right. The shortcut
      hint is desktop-only; mobile users get the touch target instead. */
   .search-modal__bar {
-    @apply flex items-center justify-between gap-4 px-5 py-4 border-b border-blue-100;
+    @apply py-4 border-b border-blue-100;
+  }
+
+  .search-modal__bar-inner {
+    @apply flex items-center justify-between gap-4 px-6;
   }
 
   .search-modal__eyebrow {
@@ -136,7 +149,11 @@
      not a hidden utility. Leading magnifier icon, trailing clear button
      that only shows once there's text. */
   .search-modal__field {
-    @apply relative flex items-center gap-3 px-5 py-5 border-b border-blue-100;
+    @apply py-6 border-b border-blue-100;
+  }
+
+  .search-modal__field-inner {
+    @apply relative flex items-center gap-3 px-6;
   }
 
   .search-modal__field-icon {
@@ -179,12 +196,17 @@
     box-shadow: inset 0 0 0 2px var(--color-blue-500);
   }
 
-  /* Chip row. <fieldset> for a11y group semantics, but stripped of its
-     native chrome. Horizontal scroll on narrow viewports so the row
-     doesn't wrap into a card grid; the 4px stripe + scroll-snap keeps
-     the active chip discoverable. */
+  /* Chip row. Outer row owns the full-bleed border + spacing; the
+     fieldset is the centered scroll-container. <fieldset> for a11y
+     group semantics, but stripped of its native chrome. Horizontal
+     scroll on narrow viewports so the row doesn't wrap into a card
+     grid; scroll-snap keeps the active chip discoverable. */
+  .search-modal__chips-row {
+    @apply border-b border-blue-100;
+  }
+
   .search-modal__chips {
-    @apply flex flex-nowrap items-stretch gap-0 m-0 p-0 px-3 border-0 border-b border-blue-100 overflow-x-auto;
+    @apply flex flex-nowrap items-stretch gap-0 m-0 p-0 px-3 border-0 overflow-x-auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
   }
@@ -229,8 +251,12 @@
      in the form's flex column so the submit slab pins to the bottom
      on tall viewports. */
   .search-modal__suggestions {
-    @apply px-5 py-5 border-b border-blue-100;
+    @apply py-6 border-b border-blue-100;
     flex: 1;
+  }
+
+  .search-modal__suggestions > .search-modal__inner {
+    @apply px-6;
   }
 
   .search-modal__suggestions-label {
@@ -276,16 +302,19 @@
   }
 
   /* Submit slab. Mirrors .filter-apply: blue-900, mono caps, blue-500
-     sweep on hover, arrow that nudges right. Lives at the bottom of
-     the form so it's the last thing under the user's thumb. */
+     sweep on hover, arrow that nudges right. Full-bleed background;
+     the inner span centers the label + icon to the 56rem column. */
   .search-modal__submit {
-    @apply relative flex w-full items-center justify-between gap-3 bg-blue-900 text-white border-0 cursor-pointer overflow-hidden;
+    @apply relative flex w-full items-center bg-blue-900 text-white border-0 cursor-pointer overflow-hidden;
     @apply font-mono font-medium uppercase tracking-wider;
-    @apply px-5;
     min-height: 3.75rem;
     padding-bottom: max(0px, env(safe-area-inset-bottom));
     font-size: var(--text-body);
     transition: background-color 200ms cubic-bezier(0.22, 1, 0.36, 1), transform 200ms ease;
+  }
+
+  .search-modal__submit-inner {
+    @apply relative z-10 flex w-full items-center justify-between gap-3 px-6;
   }
 
   .search-modal__submit::before {
