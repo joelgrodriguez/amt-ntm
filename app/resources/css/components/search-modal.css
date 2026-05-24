@@ -51,6 +51,16 @@
   .t-panel-slide { transition: none !important; }
 }
 
+/* Modal-local container cap. The site-wide .container is 1440px (in
+   @layer utilities); inside the modal the surface needs to feel more
+   focused, so we hold the content column at 1280px. Lives in the
+   utilities layer so it can win against the global .container cap. */
+@layer utilities {
+  .search-modal .container {
+    max-width: 1280px;
+  }
+}
+
 @layer components {
   /* Shell. Full-viewport drawer. The native dialog comes with margin
      auto + max-width baggage; strip it. Motion lives in .t-panel-slide
@@ -111,13 +121,6 @@
     overscroll-behavior: contain;
   }
 
-  /* Modal-local container cap. The site-wide .container cap is 1440px;
-     inside the modal the surface needs to feel more focused, so we
-     hold the content column at 1280px without changing the global
-     token. Bar, field, chips and results all inherit. */
-  .search-modal .container {
-    max-width: 1280px;
-  }
 
   /* Row 1: eyebrow bar */
   .search-modal__bar {
