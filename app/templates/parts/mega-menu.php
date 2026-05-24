@@ -293,9 +293,9 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
                         <?php endif; ?>
 
                         <?php if ($profiles->have_posts()) : ?>
-                            <ul class="mega-profile-grid">
+                            <ul class="mega-profile-grid t-avatar-group">
                                 <?php while ($profiles->have_posts()) : $profiles->the_post(); ?>
-                                    <li>
+                                    <li class="t-avatar">
                                         <?php get_template_part('templates/parts/card-profile', null, [
                                             'profile' => get_post(),
                                             'context' => 'mega',

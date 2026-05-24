@@ -273,3 +273,21 @@
 @media (prefers-reduced-motion: reduce) {
   .t-text-swap { transition: none !important; }
 }
+
+
+/* ── 11 · Avatar group hover ───────────────────────────────────────────
+ * Used by .mega-profile-grid in the mega menu. JS sets shift/scale
+ * vars + the timing-function inline so hover-in and mouseleave can use
+ * different easings on the same property. */
+.t-avatar {
+  transform-origin: center;
+  transform:
+    translateY(var(--shift, 0px))
+    scale(var(--scale-active, 1));
+  transition: transform var(--avatar-dur) var(--avatar-ease-in);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-avatar { transition: none !important; transform: none !important; }
+}
