@@ -5,8 +5,9 @@
  * "Field notebook" testimonial slider. Stripped of outer chrome
  * (used by video-section and three-step-plan) so the section reads
  * as a register shift from system to person. Mono eyebrow above a
- * left-aligned section title; square photo frame instead of the
- * SaaS-default round portrait; city is treated as a dateline.
+ * left-aligned section title; square photo frame with softened
+ * corners instead of the SaaS-default round portrait; city is
+ * treated as a dateline.
  *
  * Manual navigation only (no autoplay). Dots are the only nav.
  *
@@ -124,7 +125,7 @@ if (empty($testimonials)) {
                             role="presentation"
                             width="140"
                             height="140"
-                            class="w-28 h-28 md:w-[140px] md:h-[140px] object-cover rounded-full mx-auto md:mx-0"
+                            class="w-28 h-28 md:w-[140px] md:h-[140px] object-cover rounded-2xl mx-auto md:mx-0"
                             loading="<?php echo $is_active ? 'eager' : 'lazy'; ?>"
                             <?php echo $is_active ? '' : 'fetchpriority="low"'; ?>
                             decoding="async"
