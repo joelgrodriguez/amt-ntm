@@ -1,0 +1,341 @@
+/**
+ * Search Modal
+ *
+ * Two viewports, two topologies, one component:
+ *   - <lg : bottom sheet, anchored to the bottom edge, slides up
+ *   - lg+ : top-anchored panel pinned beneath the sticky header
+ *
+ * The dialog is a real native <dialog>, so backdrop + focus trap + Esc
+ * come from the platform. CSS only handles positioning, motion, and the
+ * inner stack (eyebrow / input / chips / suggestions / submit slab).
+ *
+ * Vocabulary parity with components/filters.css:
+ *   - active chip uses 4px blue-500 left stripe + bg-blue-50 + blue-900
+ *     text, identical to .filter-option[data-active="true"]
+ *   - .search-modal__submit reuses the .filter-apply slab language
+ *     (blue-900, mono caps, blue-500 sweep on hover)
+ *
+ * @file components/search-modal.css
+ */
+
+@layer components {
+  /* Shell. The native dialog comes with margin auto + max-width baggage;
+     strip it. We position via `inset` per breakpoint below. */
+  .search-modal {
+    @apply m-0 p-0 border-0 bg-white text-blue-900 max-w-none w-full;
+    max-height: none;
+    color-scheme: light;
+  }
+
+  .search-modal::backdrop {
+    background: rgb(10 19 34 / 0.64);
+    opacity: 0;
+    transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .search-modal[open]::backdrop {
+    opacity: 1;
+  }
+
+  /* MOBILE (bottom sheet). Default. The sheet pins to the bottom edge so
+     the input lands inside the thumb arc, not at the top of the screen
+     where iOS hides the URL bar over it. translateY transitions only,
+     never animating layout. */
+  .search-modal {
+    position: fixed;
+    inset: auto 0 0 0;
+    width: 100%;
+    max-height: 88dvh;
+    border-top: 1px solid var(--color-blue-200);
+    transform: translateY(100%);
+    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .search-modal[open] {
+    transform: translateY(0);
+  }
+
+  /* DESKTOP (top-anchored panel). Drops out from the header rather than
+     floating in the middle of the screen. Bordered on all sides, not
+     just the top — it reads as a discrete object, not a continuation
+     of the header chrome. */
+  @media (min-width: 1024px) {
+    .search-modal {
+      position: fixed;
+      inset: 5.5rem auto auto 50%;
+      width: min(720px, 92vw);
+      max-height: calc(100dvh - 7rem);
+      border: 1px solid var(--color-blue-200);
+      transform: translate(-50%, -12px);
+      opacity: 0;
+      transition:
+        transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 200ms ease-out;
+    }
+
+    .search-modal[open] {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+  }
+
+  /* Inner form is the only scrolling region; the dialog itself stays
+     pinned. overscroll-behavior: contain stops iOS from rubber-banding
+     the page underneath. */
+  .search-modal__form {
+    @apply grid gap-0;
+    max-height: inherit;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  /* Eyebrow bar. Mono caption left, close button right. The shortcut
+     hint is desktop-only; mobile users get the touch target instead. */
+  .search-modal__bar {
+    @apply flex items-center justify-between gap-4 px-5 py-4 border-b border-blue-100;
+  }
+
+  .search-modal__eyebrow {
+    @apply m-0 flex items-center gap-3 font-mono font-medium uppercase tracking-wider text-blue-500;
+    font-size: var(--text-caption);
+  }
+
+  .search-modal__shortcut {
+    @apply hidden lg:inline-flex items-center;
+  }
+
+  .search-modal__shortcut kbd {
+    @apply inline-flex items-center justify-center min-w-6 px-1.5 py-0.5 border border-blue-200 bg-blue-50 font-mono uppercase text-blue-700;
+    font-size: 0.6875rem;
+    line-height: 1;
+  }
+
+  .search-modal__close {
+    @apply flex h-10 w-10 items-center justify-center border border-blue-200 bg-white text-blue-700 cursor-pointer;
+    transition: border-color 150ms ease, color 150ms ease, background-color 150ms ease;
+  }
+
+  .search-modal__close:hover {
+    @apply border-blue-500 text-blue-900 bg-blue-50;
+  }
+
+  .search-modal__close:focus-visible {
+    @apply outline-none border-blue-500;
+    box-shadow: inset 0 0 0 2px var(--color-blue-500);
+  }
+
+  /* The input row. Oversized so it reads as the page's primary action,
+     not a hidden utility. Leading magnifier icon, trailing clear button
+     that only shows once there's text. */
+  .search-modal__field {
+    @apply relative flex items-center gap-3 px-5 py-5 border-b border-blue-100;
+  }
+
+  .search-modal__field-icon {
+    @apply flex shrink-0 items-center justify-center text-blue-400;
+  }
+
+  .search-modal__input {
+    @apply flex-1 min-w-0 bg-transparent border-0 px-0 py-1 font-sans text-blue-900;
+    font-size: 1.25rem;
+    line-height: 1.4;
+  }
+
+  @media (min-width: 1024px) {
+    .search-modal__input {
+      font-size: 1.5rem;
+    }
+  }
+
+  .search-modal__input::placeholder {
+    @apply text-blue-400;
+  }
+
+  .search-modal__input:focus {
+    @apply outline-none;
+  }
+
+  /* clear button: only present when value exists (toggled via [hidden]
+     in JS). Square so it visually matches the close button language. */
+  .search-modal__clear {
+    @apply flex h-8 w-8 shrink-0 items-center justify-center border border-blue-200 bg-white text-blue-500 cursor-pointer;
+    transition: border-color 150ms ease, color 150ms ease, background-color 150ms ease;
+  }
+
+  .search-modal__clear:hover {
+    @apply border-blue-500 text-blue-900 bg-blue-50;
+  }
+
+  .search-modal__clear:focus-visible {
+    @apply outline-none border-blue-500;
+    box-shadow: inset 0 0 0 2px var(--color-blue-500);
+  }
+
+  /* Chip row. <fieldset> for a11y group semantics, but stripped of its
+     native chrome. Horizontal scroll on narrow viewports so the row
+     doesn't wrap into a card grid; the 4px stripe + scroll-snap keeps
+     the active chip discoverable. */
+  .search-modal__chips {
+    @apply flex flex-nowrap items-stretch gap-0 m-0 p-0 px-3 border-0 border-b border-blue-100 overflow-x-auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .search-modal__chips::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Each chip mirrors the filter-sidebar row vocabulary: bare button,
+     4px transparent left stripe, mono caption, blue-500 stripe + blue-50
+     fill when active. Scroll snap aligns the chip to the start so the
+     active one is always fully in view. */
+  .search-modal__chip {
+    @apply inline-flex items-center justify-center shrink-0 bg-transparent text-blue-700 cursor-pointer;
+    @apply font-mono font-medium uppercase tracking-wider;
+    @apply px-4 py-3 border-0;
+    border-bottom: 2px solid transparent;
+    font-size: var(--text-caption);
+    scroll-snap-align: start;
+    transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease;
+    white-space: nowrap;
+  }
+
+  .search-modal__chip:hover {
+    @apply text-blue-900 bg-blue-50;
+    border-bottom-color: var(--color-blue-200);
+  }
+
+  .search-modal__chip:focus-visible {
+    @apply outline-none text-blue-900 bg-blue-50;
+    border-bottom-color: var(--color-blue-500);
+  }
+
+  .search-modal__chip[aria-pressed="true"] {
+    @apply text-blue-900 bg-blue-50;
+    border-bottom-color: var(--color-blue-500);
+  }
+
+  /* Suggestions row. Editorial list, not a card grid. On mobile the
+     items wrap into a 2-column grid so the row stays scannable without
+     a sideways scroll. */
+  .search-modal__suggestions {
+    @apply px-5 py-5 border-b border-blue-100;
+  }
+
+  .search-modal__suggestions-label {
+    @apply m-0 mb-3 font-mono font-medium uppercase tracking-wider text-blue-500;
+    font-size: var(--text-caption);
+  }
+
+  .search-modal__suggestions-list {
+    @apply grid grid-cols-2 gap-x-4 gap-y-2 m-0 p-0 list-none;
+  }
+
+  @media (min-width: 1024px) {
+    .search-modal__suggestions-list {
+      @apply grid-cols-1;
+    }
+  }
+
+  .search-modal__suggestion {
+    @apply inline-flex items-center gap-2 py-1.5 text-blue-700 no-underline;
+    @apply font-sans;
+    font-size: 0.9375rem;
+    transition: color 150ms ease, gap 150ms ease;
+  }
+
+  .search-modal__suggestion svg {
+    @apply text-blue-400;
+    transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1), color 150ms ease;
+  }
+
+  .search-modal__suggestion:hover,
+  .search-modal__suggestion:focus-visible {
+    @apply text-blue-900;
+  }
+
+  .search-modal__suggestion:hover svg,
+  .search-modal__suggestion:focus-visible svg {
+    @apply text-blue-500;
+    transform: translateX(3px);
+  }
+
+  .search-modal__suggestion:focus-visible {
+    @apply outline-none;
+  }
+
+  /* Submit slab. Mirrors .filter-apply: blue-900, mono caps, blue-500
+     sweep on hover, arrow that nudges right. Lives at the bottom of
+     the form so it's the last thing under the user's thumb. */
+  .search-modal__submit {
+    @apply relative flex w-full items-center justify-between gap-3 bg-blue-900 text-white border-0 cursor-pointer overflow-hidden;
+    @apply font-mono font-medium uppercase tracking-wider;
+    @apply px-5;
+    min-height: 3.75rem;
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+    font-size: var(--text-body);
+    transition: background-color 200ms cubic-bezier(0.22, 1, 0.36, 1), transform 200ms ease;
+  }
+
+  .search-modal__submit::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--color-blue-500);
+    transform: translateX(-101%);
+    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 0;
+  }
+
+  .search-modal__submit:hover::before,
+  .search-modal__submit:focus-visible::before {
+    transform: translateX(0);
+  }
+
+  .search-modal__submit-label,
+  .search-modal__submit-icon {
+    @apply relative z-10 flex items-center;
+  }
+
+  .search-modal__submit-icon {
+    transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .search-modal__submit:hover .search-modal__submit-icon,
+  .search-modal__submit:focus-visible .search-modal__submit-icon {
+    transform: translateX(4px);
+  }
+
+  .search-modal__submit:focus-visible {
+    @apply outline-none;
+    box-shadow: inset 0 0 0 2px var(--color-white), inset 0 0 0 4px var(--color-blue-500);
+  }
+
+  .search-modal__submit:active {
+    transform: translateY(1px);
+  }
+
+  /* Reduced motion: kill all transforms and transitions on the dialog,
+     keep the fade so the open/close still has a visible state change. */
+  @media (prefers-reduced-motion: reduce) {
+    .search-modal,
+    .search-modal[open],
+    .search-modal__submit,
+    .search-modal__submit::before,
+    .search-modal__submit-icon,
+    .search-modal__suggestion svg {
+      transform: none;
+      transition: opacity 120ms ease-out;
+    }
+
+    .search-modal__submit:hover::before,
+    .search-modal__submit:focus-visible::before {
+      transform: none;
+      opacity: 1;
+    }
+
+    .search-modal__submit::before {
+      opacity: 0;
+    }
+  }
+}

@@ -25,6 +25,9 @@ if (!defined('ABSPATH')) {
             <h1 class="font-semibold text-heading-lg lg:text-display text-blue-900 leading-tight tracking-tight">
                 <?php esc_html_e('NTM Operator Tools', 'standard'); ?>
             </h1>
+            <p class="font-sans text-blue-600 max-w-2xl" style="font-size: var(--text-body); line-height: var(--leading-body);">
+                <?php esc_html_e('Manuals, troubleshooting, videos, parts diagrams, and footprint downloads — everything operators need to run, tune, and maintain an NTM machine.', 'standard'); ?>
+            </p>
         </div>
     </div>
 </section>
