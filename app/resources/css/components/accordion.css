@@ -55,13 +55,19 @@
   }
 
   /* ── Icon ────────────────────────────────────────────────────────── */
+  /* Chevron rotation rides the same --resize-dur/--resize-ease tokens the
+   * body height tween reads (Accordion.js). Keeps the chevron landing in
+   * sync with the body settle so the open feels like one motion. */
   .accordion__icon {
     @apply shrink-0 text-blue-400;
-    transition: transform var(--duration-base, 200ms) var(--ease-out, ease-out),
-                color var(--duration-base, 200ms) var(--ease-out, ease-out);
+    transition: transform var(--resize-dur, 300ms) var(--resize-ease, cubic-bezier(0.22, 1, 0.36, 1)),
+                color var(--resize-dur, 300ms) var(--resize-ease, cubic-bezier(0.22, 1, 0.36, 1));
   }
 
-  .accordion[open] > summary .accordion__icon {
+  /* Selector matches any open <details> with an .accordion__icon — covers
+   * .accordion (the fully-shelled variant) and any other details that just
+   * wants the chevron+tween (e.g. .catalog-nav-dropdown). */
+  details[open] > summary .accordion__icon {
     @apply rotate-180 text-blue-500;
   }
 

@@ -35,22 +35,29 @@ if (empty($buckets)) {
 <nav class="border-y border-blue-200 bg-white" aria-label="<?php esc_attr_e('Accessory categories', 'standard'); ?>">
     <div class="container">
 
-        <!-- Mobile: <details> dropdown -->
-        <details class="catalog-nav-dropdown md:hidden group">
-            <summary class="flex items-center justify-between py-4 font-mono text-xs uppercase tracking-wider text-blue-900 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
-                <span><?php esc_html_e('Jump to a Category', 'standard'); ?></span>
-                <?php icon('chevron-down', ['class' => 'w-4 h-4 transition-transform group-open:rotate-180']); ?>
-            </summary>
-            <ul class="grid border-t border-blue-200 divide-y divide-blue-200">
-                <?php foreach ($buckets as $bucket) : ?>
-                    <li>
-                        <a href="#catalog-<?php echo esc_attr($bucket['id']); ?>" class="block py-3 font-mono text-xs uppercase tracking-wider text-blue-700 hover:text-blue-900 no-underline">
-                            <?php echo esc_html($bucket['label']); ?>
-                        </a>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        </details>
+        <!-- Mobile: <details> dropdown.
+             data-accordion-group hooks Accordion.js for the smooth body
+             height tween. Uses data-accordion-body (not .accordion__body)
+             so we get the tween without the shell's padding/background. -->
+        <div data-accordion-group class="md:hidden">
+            <details class="catalog-nav-dropdown">
+                <summary class="flex items-center justify-between py-4 font-mono text-xs uppercase tracking-wider text-blue-900 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                    <span><?php esc_html_e('Jump to a Category', 'standard'); ?></span>
+                    <span class="accordion__icon">
+                        <?php icon('chevron-down', ['class' => 'w-4 h-4']); ?>
+                    </span>
+                </summary>
+                <ul data-accordion-body class="grid border-t border-blue-200 divide-y divide-blue-200">
+                    <?php foreach ($buckets as $bucket) : ?>
+                        <li>
+                            <a href="#catalog-<?php echo esc_attr($bucket['id']); ?>" class="block py-3 font-mono text-xs uppercase tracking-wider text-blue-700 hover:text-blue-900 no-underline">
+                                <?php echo esc_html($bucket['label']); ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </details>
+        </div>
 
         <!-- Desktop: full-width row with dividers -->
         <div class="hidden md:flex md:items-stretch md:justify-between">

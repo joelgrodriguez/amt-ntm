@@ -2,23 +2,50 @@
  * Accordion Module
  *
  * Smooth animated open/close for native <details> accordion groups.
- * Add [data-accordion-group] to the parent container.
- * All items closed by default; clicking opens (closing any open sibling),
- * clicking an open item closes it. At most one open at a time.
+ *
+ * Markup contract:
+ *   - [data-accordion-group]            — parent container
+ *   - > details                          — direct children; one open at a time
+ *   - .accordion__body OR
+ *     [data-accordion-body]              — element to tween. Use the class for
+ *                                          full-styled accordions (carries the
+ *                                          px-6 py-6 border bg-white shell).
+ *                                          Use the data attribute when you want
+ *                                          the height tween without the shell
+ *                                          styling (e.g. compact nav dropdowns).
+ *
+ * Timing is read from --resize-dur / --resize-ease in transitions.css so
+ * every accordion in the theme breathes with the same motion tokens.
  *
  * @module Accordion
  */
 
 const GROUP_SELECTOR = '[data-accordion-group]';
-const DURATION = 250; // ms
-const EASING = 'ease-out';
+
+/* Pulls --resize-dur / --resize-ease from transitions.css so the
+ * accordion tween shares the theme's motion vocabulary. Cubic-bezier
+ * (0.22, 1, 0.36, 1) is the expo-out the panel-reveal uses — slower
+ * settle than the keyword `ease-out`, reads as "premium" rather than
+ * "snappy". */
+function readMotionTokens() {
+  if (typeof window === 'undefined') {
+    return { duration: 300, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' };
+  }
+  const cs = getComputedStyle(document.documentElement);
+  const dur = parseFloat(cs.getPropertyValue('--resize-dur'));
+  const ease = cs.getPropertyValue('--resize-ease').trim();
+  return {
+    duration: Number.isFinite(dur) ? dur : 300,
+    easing: ease || 'cubic-bezier(0.22, 1, 0.36, 1)',
+  };
+}
 
 /**
  * Animate a <details> element open.
  * @param {HTMLDetailsElement} detail
  */
 function animateOpen(detail) {
-  const body = detail.querySelector('.accordion__body');
+  const body = detail.querySelector('.accordion__body, [data-accordion-body]');
   if (!body) {
     detail.open = true;
     return;
@@ -27,6 +54,7 @@ function animateOpen(detail) {
   // Set open so the content renders (needed to measure height)
   detail.open = true;
   const height = body.scrollHeight;
+  const { duration, easing } = readMotionTokens();
 
   // Animate from 0 to measured height
   body.style.overflow = 'hidden';
@@ -35,7 +63,7 @@ function animateOpen(detail) {
       { height: '0px', opacity: 0, paddingTop: '0px', paddingBottom: '0px' },
       { height: `${height}px`, opacity: 1 },
     ],
-    { duration: DURATION, easing: EASING }
+    { duration, easing }
   );
 
   anim.onfinish = () => {
@@ -49,13 +77,14 @@ function animateOpen(detail) {
  * @param {HTMLDetailsElement} detail
  */
 function animateClose(detail) {
-  const body = detail.querySelector('.accordion__body');
+  const body = detail.querySelector('.accordion__body, [data-accordion-body]');
   if (!body) {
     detail.open = false;
     return;
   }
 
   const height = body.scrollHeight;
+  const { duration, easing } = readMotionTokens();
 
   body.style.overflow = 'hidden';
   const anim = body.animate(
@@ -63,7 +92,7 @@ function animateClose(detail) {
       { height: `${height}px`, opacity: 1 },
       { height: '0px', opacity: 0, paddingTop: '0px', paddingBottom: '0px' },
     ],
-    { duration: DURATION, easing: EASING }
+    { duration, easing }
   );
 
   anim.onfinish = () => {
