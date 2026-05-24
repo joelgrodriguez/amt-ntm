@@ -2,8 +2,12 @@
 /**
  * Product Card
  *
- * Always vertical: image on top, content below. Used by the front-page
- * Explore strip, the desktop mega menu, and the mobile menu panel.
+ * Canonical machine card. Used on the front-page Explore strip, /machines
+ * lineup grid, accessory Compatibility carousels, the desktop mega menu,
+ * and the mobile menu panel. One card, no variants.
+ *
+ * Body copy is a single short sentence (`description`) — no bullet lists.
+ * Description clamps to 2 lines so varying lengths stay aligned in a grid.
  *
  * Link model: the whole card is one link to `explore_url` (expanded hit area
  * via ::after on the title anchor). Priced machines get a single inline
@@ -32,6 +36,7 @@ if (!$product) {
 
 $title          = $product['title'] ?? '';
 $category_label = $product['category_label'] ?? '';
+$description    = $product['description'] ?? ($product['descriptor'] ?? '');
 $image          = $product['image'] ?? '';
 $price          = $product['price'] ?? '';
 $price_label    = $product['price_label'] ?? __('Starting at', 'standard');
@@ -40,9 +45,18 @@ $build_url      = $product['build_url'] ?? '';
 $badge          = $product['badge'] ?? '';
 $is_accessory   = empty($price);
 
+// Context is a *layout* hint, not a card variant. 'carousel' adds the
+// .carousel__card hook so the card snaps + sizes inside .carousel__track.
+// The card's visual style is identical in every context.
+$context     = $args['context'] ?? '';
+$root_class  = 'card-product group relative';
+if ($context === 'carousel') {
+    $root_class .= ' carousel__card';
+}
+
 ?>
 
-<article class="card-product group relative">
+<article class="<?php echo esc_attr($root_class); ?>">
     <div class="card-product__image-wrapper">
         <?php if ($badge) : ?>
             <!-- Flagship badge: styling lives on .card-product__badge
@@ -69,6 +83,10 @@ $is_accessory   = empty($price);
                     <?php echo esc_html($title); ?>
                 </a>
             </h3>
+        <?php endif; ?>
+
+        <?php if ($description) : ?>
+            <p class="card-product__description"><?php echo esc_html($description); ?></p>
         <?php endif; ?>
 
         <?php if ($price) : ?>

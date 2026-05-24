@@ -2,9 +2,11 @@
 /**
  * Accessory Product — Compatible Machines Carousel
  *
- * Mirrors the default-accessories carousel pattern: section header
- * with eyebrow + title on the left, prev/next arrows on the right,
- * horizontal scrolling card track using carousel__* classes.
+ * Section header with eyebrow + title on the left, prev/next arrows on
+ * the right, horizontal scrolling track of canonical card-product cards.
+ * Cards render through templates/parts/card-product.php in 'carousel'
+ * context so they snap + size inside .carousel__track without forking
+ * a separate card variant.
  *
  * @package Standard
  * @var array $args
@@ -21,7 +23,7 @@ if (!$product instanceof \WC_Product) {
     return;
 }
 
-$cards = \Standard\Woo\Accessories\get_compatible_machine_cards(8);
+$cards = \Standard\Woo\Accessories\get_compatible_machine_product_cards(8);
 
 if ($cards === []) {
     return;
@@ -59,26 +61,10 @@ $title_id    = 'compatible-machines-title';
 
         <div id="<?php echo esc_attr($carousel_id); ?>" class="carousel__track">
             <?php foreach ($cards as $card) : ?>
-                <a href="<?php echo esc_url($card['url']); ?>" class="carousel__card group">
-                    <div class="carousel__card-image">
-                        <?php if (!empty($card['image_id'])) : ?>
-                            <?php echo wp_get_attachment_image((int) $card['image_id'], 'product-card', false, [
-                                'class' => 'w-full h-full object-contain p-3 transition-transform',
-                                'alt'   => $card['title'],
-                            ]); ?>
-                        <?php else : ?>
-                            <span class="text-blue-400 text-sm font-mono"><?php echo esc_html($card['title']); ?></span>
-                        <?php endif; ?>
-                    </div>
-                    <div class="grid gap-1">
-                        <h3 class="text-sm font-medium text-blue-900 group-hover:text-blue-500 transition-colors leading-tight">
-                            <?php echo esc_html($card['title']); ?>
-                        </h3>
-                        <?php if (!empty($card['subtitle'])) : ?>
-                            <p class="text-xs text-blue-500"><?php echo wp_kses_post($card['subtitle']); ?></p>
-                        <?php endif; ?>
-                    </div>
-                </a>
+                <?php get_template_part('templates/parts/card-product', null, [
+                    'product' => $card,
+                    'context' => 'carousel',
+                ]); ?>
             <?php endforeach; ?>
         </div>
 

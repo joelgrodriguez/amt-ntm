@@ -56,12 +56,12 @@
     @apply scale-105;
   }
 
-  /* card-profile slots into .carousel__track by carrying .carousel__card on
-     its own anchor. Strip the generic chassis chrome (border, bg, padding,
-     hover border) — the profile card mirrors card-manual: bordered image
-     well with the title sitting outside it, no outer card chassis. */
-  .carousel__card.profile-card {
-    @apply p-0 bg-transparent border-0 hover:border-0;
+  /* card-profile and card-product slot into .carousel__track by carrying
+     .carousel__card on their own root. Strip the generic chassis padding/gap;
+     each card supplies its own border, padding, and row gap. */
+  .carousel__card.profile-card,
+  .carousel__card.card-product {
+    @apply p-0 gap-0;
   }
 
   .carousel__nav {

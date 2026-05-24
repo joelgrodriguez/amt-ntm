@@ -99,10 +99,16 @@ function get_woocommerce_products(string $category_slug): array {
         $flagship_slugs = ['ssq3-multipro'];
         $is_flagship    = \in_array($product->get_slug(), $flagship_slugs, true);
 
+        $description = '';
+        if (!$is_accessory && function_exists('Standard\\MachinesData\\get_machine_description')) {
+            $description = \Standard\MachinesData\get_machine_description($product->get_slug());
+        }
+
         $formatted[] = [
             'id'             => $product->get_id(),
             'title'          => get_short_title($product->get_name()),
             'category_label' => get_primary_category_label($product),
+            'description'    => $description,
             'descriptor'     => $is_accessory ? '' : \wp_strip_all_tags($product->get_short_description()),
             'image'          => \wp_get_attachment_url($product->get_image_id()),
             'price'          => $is_accessory ? '' : get_display_price($product),
@@ -220,6 +226,7 @@ function format_sample_machine_product(array $machine, string $category_slug): a
         'id'             => $public_slug,
         'title'          => $machine['short_name'] ?? $machine['name'] ?? '',
         'category_label' => $is_gutter ? \__('Seamless Gutter Machine', 'standard') : \__('Roof & Wall Panel Machine', 'standard'),
+        'description'    => $machine['description'] ?? '',
         'descriptor'     => $machine['descriptor'] ?? '',
         'image'          => $machine['image'] ?? '',
         'price'          => !empty($machine['price']) ? $machine['price'] : FALLBACK_MACHINE_PRICE,
