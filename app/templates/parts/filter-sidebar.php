@@ -165,18 +165,50 @@ $render_body = static function (string $scope) use ($groups, $render_group, $sho
         }
     }
 
-    if ($show_actions) : ?>
+    if ($show_actions) :
+        $total_active = 0;
+        foreach ($groups as $group) {
+            if (!is_array($group)) {
+                continue;
+            }
+            foreach (($group['options'] ?? []) as $option) {
+                if (!empty($option['active']) && !empty($option['value'])) {
+                    $total_active++;
+                }
+            }
+        }
+        ?>
         <div class="filter-sidebar-footer">
+            <p class="filter-sidebar-footer-eyebrow">
+                <span><?php esc_html_e('Refine results', 'standard'); ?></span>
+                <?php if ($total_active > 0) : ?>
+                    <span class="filter-sidebar-footer-count">
+                        <?php
+                        printf(
+                            /* translators: %d active filter count. */
+                            esc_html(_n('%d active', '%d active', $total_active, 'standard')),
+                            (int) $total_active
+                        );
+                        ?>
+                    </span>
+                <?php endif; ?>
+            </p>
+
             <button
                 type="submit"
                 <?php if ($form_id !== '') : ?>form="<?php echo esc_attr($form_id); ?>"<?php endif; ?>
-                class="btn btn-primary w-full"
+                class="filter-apply"
             >
-                <?php echo esc_html($apply_label); ?>
+                <span class="filter-apply-label"><?php echo esc_html($apply_label); ?></span>
+                <span class="filter-apply-icon" aria-hidden="true">
+                    <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                </span>
             </button>
+
             <?php if ($reset_url !== '') : ?>
-                <a href="<?php echo esc_url($reset_url); ?>" class="btn btn-ghost w-full">
-                    <?php echo esc_html($reset_label); ?>
+                <a href="<?php echo esc_url($reset_url); ?>" class="filter-clear">
+                    <?php icon('x', ['class' => 'w-3 h-3', 'aria-hidden' => 'true']); ?>
+                    <span><?php echo esc_html($reset_label); ?></span>
                 </a>
             <?php endif; ?>
         </div>
