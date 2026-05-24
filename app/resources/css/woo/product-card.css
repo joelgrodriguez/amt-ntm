@@ -93,6 +93,18 @@
     @apply text-blue-700;
   }
 
+  /* One short sentence under the title. Clamp to 2 lines so cards in a grid
+     line up regardless of copy length. Sits between title and price. */
+  .card-product__description {
+    @apply font-sans text-blue-600 mt-2;
+    font-size: var(--text-sm);
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
   .card-product__price {
     @apply flex flex-col mt-3;
   }
