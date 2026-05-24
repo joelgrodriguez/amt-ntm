@@ -118,7 +118,7 @@ $current_query = (string) \get_search_query();
             <div class="container">
                 <fieldset class="search-modal__chips" data-search-modal-chips>
                     <legend class="search-modal__chips-label">
-                        <?php esc_html_e('Narrow to', 'standard'); ?>
+                        <?php esc_html_e('Narrow', 'standard'); ?>
                     </legend>
 
                     <div class="search-modal__chips-list">
