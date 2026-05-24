@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
 
 get_template_part('templates/parts/brand-statement', null, [
     'section_id' => 'brand-statement-title',
-    'title'      => __('Stop Buying Panels. Start Making Profit.', 'standard'),
+    'title'      => __('Stop Buying Panels.<br class="hidden md:inline"> Start Making Profit.', 'standard'),
     'text'       => __(
         "Every panel you buy from a supplier is profit you're giving away. NTM portable rollformers let you fabricate standing seam roofing and seamless gutters on-site, cutting material costs in half, winning more bids, and controlling your own schedule. New Tech Machinery has been the industry leader in portable rollformers since 1991, trusted by contractors on all seven continents.",
         'standard'
