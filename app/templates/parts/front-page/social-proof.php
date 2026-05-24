@@ -124,7 +124,7 @@ $total = count($testimonials);
     <!-- Slider body -->
     <div class="border-x border-blue-200 container">
         <div
-            class="social-proof__track container-mid grid"
+            class="social-proof__track max-w-[1040px] mx-auto grid"
             role="region"
             aria-roledescription="carousel"
             aria-label="<?php esc_attr_e('Customer testimonials', 'standard'); ?>"
