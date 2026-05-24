@@ -59,7 +59,7 @@ get_header();
     <?php get_template_part('templates/pages/profiles/hero'); ?>
 
     <section class="bg-white pt-12 pb-24 lg:pt-16 lg:pb-32">
-        <div class="container lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
+        <div class="container layout-with-rail">
 
             <?php
             get_template_part('templates/parts/taxonomy-filter-sidebar', null, [

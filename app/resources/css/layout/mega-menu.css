@@ -92,7 +92,7 @@
    Capped at --layout-wide so the dropdown aligns with body content and header. */
 .mega-panel__inner {
     display: grid;
-    grid-template-columns: 13.5rem 1fr;
+    grid-template-columns: var(--rail-width, 13.5rem) 1fr;
     align-items: stretch;
     height: 100%;
     overflow: hidden;
@@ -103,7 +103,7 @@
 
 @media (min-width: 1280px) {
     .mega-panel__inner {
-        grid-template-columns: 17rem 1fr;
+        grid-template-columns: var(--rail-width-xl, 17rem) 1fr;
     }
 }
 

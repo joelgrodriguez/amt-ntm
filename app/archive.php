@@ -65,7 +65,7 @@ $is_category = is_category();
     </header>
 
     <!-- Two-column layout: Filter Sidebar + Content -->
-    <div class="container lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
+    <div class="container layout-with-rail">
 
         <?php if ($is_scoped_catalog) : ?>
             <?php
