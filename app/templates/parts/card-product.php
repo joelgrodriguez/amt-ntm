@@ -43,15 +43,12 @@ $is_accessory   = empty($price);
 ?>
 
 <article class="card-product group relative">
-    <div class="card-product__image-wrapper relative">
+    <div class="card-product__image-wrapper">
         <?php if ($badge) : ?>
-            <!-- Flagship-style badge overlay. Mono uppercase, red
-                 ground, text-blue-50 (the tinted near-white). Pinned
-                 top-left over the image so the content column below
-                 stays free of secondary chrome. -->
-            <span class="card-product__badge absolute top-0 left-0 z-10 inline-flex items-center px-3 py-2 bg-red text-blue-50 font-mono uppercase tracking-wider text-xs font-medium">
-                <?php echo esc_html($badge); ?>
-            </span>
+            <!-- Flagship badge: styling lives on .card-product__badge
+                 in woo/product-card.css. Mono uppercase, bg-red,
+                 text-blue-50, pinned top-left over the image. -->
+            <span class="card-product__badge"><?php echo esc_html($badge); ?></span>
         <?php endif; ?>
 
         <?php if ($image) : ?>
