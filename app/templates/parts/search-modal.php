@@ -51,7 +51,8 @@ $current_query = (string) \get_search_query();
 
 <dialog
     id="site-search-modal"
-    class="search-modal"
+    class="search-modal t-panel-slide"
+    data-open="false"
     aria-label="<?php esc_attr_e('Site search', 'standard'); ?>"
 >
     <form
