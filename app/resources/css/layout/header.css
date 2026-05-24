@@ -59,7 +59,9 @@ body.search-modal-is-open {
 
 .mega-trigger:hover::after,
 #primary-menu > li > a:hover::after,
-.mega-trigger[aria-expanded="true"]::after {
+.mega-trigger[aria-expanded="true"]::after,
+.mega-trigger.is-current::after,
+#primary-menu > li > a.is-current::after {
   transform: scaleX(1);
 }
 
