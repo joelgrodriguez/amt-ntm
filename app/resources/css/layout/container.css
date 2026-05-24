@@ -32,4 +32,25 @@
     @apply mx-auto w-full;
     max-width: var(--layout-wide);
   }
+
+  /* Two-column rail + content layout. Single source of truth for the
+     sidebar-rail width. Matches the mega menu's .mega-panel__inner so
+     the filter sidebar and the mega menu read as the same chrome.
+     216px below xl, 272px from xl up. Stacks on mobile. */
+  .layout-with-rail {
+    @apply grid gap-8;
+  }
+
+  @media (min-width: 1024px) {
+    .layout-with-rail {
+      grid-template-columns: var(--rail-width, 13.5rem) 1fr;
+      gap: 3rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .layout-with-rail {
+      grid-template-columns: var(--rail-width-xl, 17rem) 1fr;
+    }
+  }
 }

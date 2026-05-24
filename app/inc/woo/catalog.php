@@ -93,6 +93,12 @@ function get_woocommerce_products(string $category_slug): array {
         if (!empty($dormant_slugs) && in_array($product->get_slug(), $dormant_slugs, true)) {
             continue;
         }
+        // Flagship badge: hardcoded slug list. Currently SSQ3 only.
+        // Add more slugs here as the flagship lineup grows; for a
+        // larger set, move this to a per-machine data flag.
+        $flagship_slugs = ['ssq3-multipro'];
+        $is_flagship    = \in_array($product->get_slug(), $flagship_slugs, true);
+
         $formatted[] = [
             'id'             => $product->get_id(),
             'title'          => get_short_title($product->get_name()),
@@ -104,7 +110,7 @@ function get_woocommerce_products(string $category_slug): array {
             'subtitle'       => $is_accessory ? ($product->get_price_html() ?: null) : null,
             'explore_url'    => $product->get_permalink(),
             'build_url'      => $is_accessory ? '' : get_configurator_url($product->get_slug()),
-            'badge'          => '',
+            'badge'          => $is_flagship ? \__('Flagship', 'standard') : '',
         ];
     }
 

@@ -51,9 +51,10 @@
 
   /* Row: bare, body-sized text, generous padding so the rail breathes.
      Mirrors .mega-tab geometry: padding 0.625rem 1.25rem. Adds a left
-     border-box that the active/hover states paint. */
+     border-box that the active/hover states paint. Items align-start so
+     wrapped labels stack cleanly under the checkbox column. */
   .filter-option {
-    @apply flex w-full items-center gap-3 bg-transparent border-l-4 border-transparent py-2.5 pl-4 pr-5 text-base text-blue-700 no-underline cursor-pointer;
+    @apply flex w-full items-start gap-3 bg-transparent border-l-4 border-transparent py-2.5 pl-4 pr-5 text-base text-blue-700 no-underline cursor-pointer;
     min-height: 2.75rem;
     transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
   }
@@ -73,9 +74,14 @@
 
   /* Checkbox tucks at the leading edge as the toggle. Native input keeps
      a11y; appearance-none + clip-path checkmark gives us the brand's
-     hard-square corner language. */
+     hard-square corner language. Top-aligned to the cap-height of the
+     first text line; the row uses items-start so wrapped labels stay
+     under the label column rather than indenting under the checkbox. */
   .filter-option-control {
-    @apply h-4 w-4 shrink-0 border border-blue-300 bg-white;
+    @apply shrink-0 border border-blue-300 bg-white;
+    width: 14px;
+    height: 14px;
+    margin-top: 0.3125rem;
     appearance: none;
     -webkit-appearance: none;
     display: grid;
@@ -93,8 +99,8 @@
 
   .filter-option-control:checked::after {
     content: "";
-    width: 9px;
-    height: 9px;
+    width: 8px;
+    height: 8px;
     background-color: var(--color-white);
     clip-path: polygon(14% 50%, 0 64%, 38% 100%, 100% 22%, 86% 8%, 38% 70%);
   }
@@ -114,8 +120,9 @@
   }
 
   .filter-option-count {
-    @apply font-mono text-blue-400 ml-auto tabular-nums;
+    @apply font-mono text-blue-400 ml-auto tabular-nums leading-snug;
     font-size: var(--text-caption);
+    padding-top: 0.25rem;
   }
 
   .filter-option[data-active="true"] .filter-option-count {

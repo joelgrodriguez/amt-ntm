@@ -51,7 +51,7 @@ $articles_query = new WP_Query($args);
     </header>
 
     <!-- Two-column layout: Filter Sidebar + Content -->
-    <div class="container lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
+    <div class="container layout-with-rail">
 
         <?php
         get_template_part('templates/parts/taxonomy-filter-sidebar', null, [

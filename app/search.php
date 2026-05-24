@@ -18,6 +18,7 @@ if (!defined('ABSPATH')) {
 use function Standard\Filters\build_choice_group;
 use function Standard\Filters\build_term_choice_group;
 use function Standard\Filters\get_post_type_counts;
+use function Standard\MachinesData\get_machine_post_tags;
 use function Standard\Search\get_post_type_filter_keys;
 use function Standard\Search\get_post_type_filter_options;
 use function Standard\Search\get_request_values;
@@ -28,7 +29,7 @@ $content = [
     'title_query'     => __('Search results for "%s"', 'standard'),
     'filter_type'     => __('Content', 'standard'),
     'filter_category' => __('Categories', 'standard'),
-    'filter_topic'    => __('Topics', 'standard'),
+    'filter_machine'  => __('Machines', 'standard'),
     'placeholder'     => __('Search machines, manuals, profiles, articles...', 'standard'),
     'submit'          => __('Search', 'standard'),
     'apply'           => __('Apply filters', 'standard'),
@@ -66,14 +67,10 @@ $category_terms = get_categories([
 ]);
 $category_terms = is_array($category_terms) ? $category_terms : [];
 
-$tag_terms = get_terms([
-    'taxonomy'   => 'post_tag',
-    'hide_empty' => true,
-    'orderby'    => 'count',
-    'order'      => 'DESC',
-    'number'     => 24,
-]);
-$tag_terms = is_wp_error($tag_terms) ? [] : $tag_terms;
+// Restrict the machine filter to the curated NTM machine catalog
+// (matches the Learning Center landing dropdown). post_tag is the
+// underlying taxonomy; we just filter the term list to known machines.
+$tag_terms = get_machine_post_tags();
 
 // Ensure any active term not in the top-N stays visible.
 $prepend_active_terms = static function (array $terms, array $active_slugs, string $taxonomy): array {
@@ -100,7 +97,9 @@ $prepend_active_terms = static function (array $terms, array $active_slugs, stri
 };
 
 $category_terms = $prepend_active_terms($category_terms, $active_categories, 'category');
-$tag_terms      = $prepend_active_terms($tag_terms, $active_tags, 'post_tag');
+// Do NOT prepend active tags here. The machine list is intentionally
+// curated; surfacing a stray post_tag from a stale URL would defeat
+// the point.
 
 // Build the three groups for the shared sidebar.
 $groups = [
@@ -128,12 +127,12 @@ if ($category_terms !== []) {
 
 if ($tag_terms !== []) {
     $groups[] = build_term_choice_group(
-        'topic',
-        $content['filter_topic'],
+        'machine',
+        $content['filter_machine'],
         'post_tag[]',
         $tag_terms,
         $active_tags,
-        'link'
+        'settings'
     );
 }
 
@@ -280,7 +279,7 @@ get_header();
     </section>
 
     <section class="container section-compact" aria-label="<?php esc_attr_e('Search results', 'standard'); ?>">
-        <div class="grid gap-8 lg:grid-cols-[240px_1fr] lg:gap-12">
+        <div class="layout-with-rail">
             <?php
             get_template_part('templates/parts/filter-sidebar', null, [
                 'groups'       => $groups,
