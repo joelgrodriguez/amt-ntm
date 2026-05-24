@@ -38,6 +38,22 @@ export const initSearchModal = () => {
   const helperText = modal.querySelector('[data-search-modal-helper]');
   const shortcutHint = modal.querySelector('[data-search-modal-shortcut] kbd');
   let activeTrigger = null;
+  let closeTimer = null;
+
+  // Read the panel close duration from CSS so JS stays in sync with the
+  // transitions.dev token. Defaults match _root.css.
+  const readDurationMs = (varName, fallback) => {
+    const raw = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+    if (raw === '') {
+      return fallback;
+    }
+    const parsed = parseFloat(raw);
+    if (Number.isNaN(parsed)) {
+      return fallback;
+    }
+    return raw.endsWith('ms') ? parsed : parsed * 1000;
+  };
+  const panelCloseMs = readDurationMs('--panel-close-dur', 350);
 
   // Hint glyph: Cmd K on mac, Ctrl K everywhere else.
   if (shortcutHint instanceof HTMLElement) {
@@ -82,12 +98,25 @@ export const initSearchModal = () => {
       activeTrigger = event.currentTarget instanceof HTMLElement ? event.currentTarget : null;
     }
 
+    if (closeTimer !== null) {
+      window.clearTimeout(closeTimer);
+      closeTimer = null;
+    }
+
     if (!modal.open) {
       modal.showModal();
     }
 
     document.body.classList.add('search-modal-is-open');
     updateClearVisibility();
+
+    // dialog opens already at .t-panel-slide's resting state (data-open
+    // = "false"). Flip data-open in the next frame so the browser has
+    // committed the closed style first; that's what gives us the slide
+    // instead of an instant snap.
+    window.requestAnimationFrame(() => {
+      modal.setAttribute('data-open', 'true');
+    });
 
     window.setTimeout(() => {
       if (input instanceof HTMLInputElement) {
@@ -98,13 +127,31 @@ export const initSearchModal = () => {
   };
 
   const closeModal = () => {
-    if (modal.open) {
-      modal.close();
+    if (!modal.open) {
+      return;
     }
+
+    // Start the slide-up + fade first, then call .close() once the
+    // transition has finished. Closing the dialog immediately would
+    // unmount the element before the user saw any motion.
+    modal.setAttribute('data-open', 'false');
+
+    if (closeTimer !== null) {
+      window.clearTimeout(closeTimer);
+    }
+    closeTimer = window.setTimeout(() => {
+      closeTimer = null;
+      if (modal.open) {
+        modal.close();
+      }
+    }, panelCloseMs);
   };
 
   const handleClose = () => {
     document.body.classList.remove('search-modal-is-open');
+    // Belt-and-suspenders: if the dialog closes via Esc / form submit
+    // before our timer fires, make sure data-open is reset for next time.
+    modal.setAttribute('data-open', 'false');
 
     if (activeTrigger instanceof HTMLElement) {
       activeTrigger.focus();
@@ -188,8 +235,16 @@ export const initSearchModal = () => {
   chips.forEach((chip) => chip.addEventListener('click', handleChipClick));
   suggestions.forEach((suggestion) => suggestion.addEventListener('click', handleSuggestionClick));
 
+  // Intercept Esc so we get the slide-up close transition instead of
+  // dialog.close() snapping the element away.
+  const handleCancel = (event) => {
+    event.preventDefault();
+    closeModal();
+  };
+
   modal.addEventListener('click', handleDialogClick);
   modal.addEventListener('close', handleClose);
+  modal.addEventListener('cancel', handleCancel);
 
   if (input instanceof HTMLInputElement) {
     input.addEventListener('input', handleInput);
@@ -212,8 +267,14 @@ export const initSearchModal = () => {
     chips.forEach((chip) => chip.removeEventListener('click', handleChipClick));
     suggestions.forEach((suggestion) => suggestion.removeEventListener('click', handleSuggestionClick));
 
+    if (closeTimer !== null) {
+      window.clearTimeout(closeTimer);
+      closeTimer = null;
+    }
+
     modal.removeEventListener('click', handleDialogClick);
     modal.removeEventListener('close', handleClose);
+    modal.removeEventListener('cancel', handleCancel);
 
     if (input instanceof HTMLInputElement) {
       input.removeEventListener('input', handleInput);
