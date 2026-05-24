@@ -12,14 +12,6 @@ const isFormControl = (element) =>
   element instanceof HTMLSelectElement ||
   (element instanceof HTMLElement && element.isContentEditable);
 
-const isMacPlatform = () => {
-  if (typeof navigator === 'undefined') {
-    return false;
-  }
-  const platform = navigator.userAgentData?.platform ?? navigator.platform ?? '';
-  return /Mac|iPhone|iPad|iPod/i.test(platform);
-};
-
 export const initSearchModal = () => {
   const modal = document.querySelector('#site-search-modal');
   const openButtons = document.querySelectorAll('[data-search-modal-open]');
@@ -34,9 +26,6 @@ export const initSearchModal = () => {
   const chipGroup = modal.querySelector('[data-search-modal-chips]');
   const chips = chipGroup ? Array.from(chipGroup.querySelectorAll('[data-search-modal-chip]')) : [];
   const postTypeInput = modal.querySelector('[data-search-modal-post-type]');
-  const suggestions = modal.querySelectorAll('[data-search-modal-suggestion]');
-  const helperText = modal.querySelector('[data-search-modal-helper]');
-  const shortcutHint = modal.querySelector('[data-search-modal-shortcut] kbd');
   let activeTrigger = null;
   let closeTimer = null;
 
@@ -54,11 +43,6 @@ export const initSearchModal = () => {
     return raw.endsWith('ms') ? parsed : parsed * 1000;
   };
   const panelCloseMs = readDurationMs('--panel-close-dur', 350);
-
-  // Hint glyph: Cmd K on mac, Ctrl K everywhere else.
-  if (shortcutHint instanceof HTMLElement) {
-    shortcutHint.textContent = isMacPlatform() ? '⌘ K' : 'Ctrl K';
-  }
 
   const syncPostTypeInput = (value) => {
     if (!(postTypeInput instanceof HTMLInputElement)) {
@@ -81,15 +65,7 @@ export const initSearchModal = () => {
     if (!(input instanceof HTMLInputElement) || !(clearButton instanceof HTMLElement)) {
       return;
     }
-    const hasText = input.value.trim() !== '';
-    clearButton.hidden = !hasText;
-
-    if (helperText instanceof HTMLElement) {
-      const next = hasText ? helperText.dataset.helperTyped : helperText.dataset.helperDefault;
-      if (typeof next === 'string') {
-        helperText.textContent = next;
-      }
-    }
+    clearButton.hidden = input.value.trim() === '';
   };
 
   const openModal = (event) => {
@@ -191,25 +167,6 @@ export const initSearchModal = () => {
     updateClearVisibility();
   };
 
-  // Suggestion click. Rather than navigating away immediately, we mirror
-  // the suggestion's intent into the form and submit it. Lets the user
-  // see the active chip light up before the page changes; also means
-  // we go through the same submit path as a manual search.
-  const handleSuggestionClick = (event) => {
-    const anchor = event.currentTarget;
-    if (!(anchor instanceof HTMLAnchorElement)) {
-      return;
-    }
-    event.preventDefault();
-
-    if (input instanceof HTMLInputElement) {
-      input.value = anchor.dataset.query ?? '';
-    }
-    setActiveChip(anchor.dataset.postType ?? '');
-    updateClearVisibility();
-    modal.querySelector('form')?.submit();
-  };
-
   // Global shortcuts: `/` to focus the modal, Cmd/Ctrl+K to toggle.
   const handleGlobalKeydown = (event) => {
     const target = event.target;
@@ -233,7 +190,6 @@ export const initSearchModal = () => {
   openButtons.forEach((button) => button.addEventListener('click', openModal));
   closeButtons.forEach((button) => button.addEventListener('click', closeModal));
   chips.forEach((chip) => chip.addEventListener('click', handleChipClick));
-  suggestions.forEach((suggestion) => suggestion.addEventListener('click', handleSuggestionClick));
 
   // Intercept Esc so we get the slide-up close transition instead of
   // dialog.close() snapping the element away.
@@ -265,7 +221,6 @@ export const initSearchModal = () => {
     openButtons.forEach((button) => button.removeEventListener('click', openModal));
     closeButtons.forEach((button) => button.removeEventListener('click', closeModal));
     chips.forEach((chip) => chip.removeEventListener('click', handleChipClick));
-    suggestions.forEach((suggestion) => suggestion.removeEventListener('click', handleSuggestionClick));
 
     if (closeTimer !== null) {
       window.clearTimeout(closeTimer);
