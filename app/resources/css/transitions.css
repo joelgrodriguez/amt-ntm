@@ -362,3 +362,128 @@
 @media (prefers-reduced-motion: reduce) {
   .t-dropdown { transition: none !important; }
 }
+
+
+/* ── 12 · Error state shake ────────────────────────────────────────────
+ * Staged for any form we own end-to-end. HubSpot forms are injected by
+ * a third-party embed (.hs-form-field / .hs-input markup), so wrapping
+ * them in .t-input-wrap post-mount is fragile across HubSpot revs —
+ * skipped intentionally until we own a custom form (quote calculator,
+ * "Not sure?" specialist quiz).
+ *
+ * Three classes: .is-error on .t-input-wrap (drives msg visibility),
+ * .is-error on .t-input (drives border), .is-shaking on .t-input
+ * (orthogonal so the shake can replay without flickering the error
+ * treatment). */
+.t-input {
+  transition: border-color 150ms ease-out;
+  will-change: transform;
+}
+.t-input.is-error {
+  transition: border-color var(--revert-dur, 280ms) ease-out;
+}
+
+.t-error-msg {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity    var(--revert-dur, 280ms) ease-out,
+    visibility 0s linear var(--revert-dur, 280ms);
+}
+.t-input-wrap.is-error .t-error-msg {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity    var(--revert-dur, 280ms) ease-out,
+    visibility 0s linear 0s;
+}
+
+/* Multi-segment keyframe with per-stop easing. %-stops are cumulative
+ * leg durations as a fraction of the total (A,A,B,B = 80,80,60,60ms =
+ * 280ms total = 28.57%, 57.14%, 78.57%, 100%). Recompute if any
+ * segment duration changes. */
+.t-input.is-shaking {
+  animation: t-input-shake calc(
+      var(--shake-dur-a) * 2 + var(--shake-dur-b) * 2
+    ) linear;
+}
+@keyframes t-input-shake {
+  0%      { transform: translateX(0);                                 animation-timing-function: var(--shake-ease); }
+  28.57%  { transform: translateX(var(--shake-distance));             animation-timing-function: var(--shake-ease); }
+  57.14%  { transform: translateX(calc(var(--shake-distance) * -1)); animation-timing-function: var(--shake-ease); }
+  78.57%  { transform: translateX(var(--shake-overshoot));            animation-timing-function: var(--shake-ease); }
+  100%    { transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-input { animation: none !important; transform: none !important; }
+}
+
+
+/* ── 10 · Success check ────────────────────────────────────────────────
+ * Staged for any form we own end-to-end (see notes above on HubSpot).
+ * Cold-load is data-state="out". On show, flip to data-state="in" to
+ * play fade + rotate + blur + Y-bob + path-draw in parallel. */
+.t-success-check {
+  display: inline-block;
+  transform-origin: center;
+  opacity: 0;
+  will-change: transform, opacity, filter;
+}
+.t-success-check svg { display: block; overflow: visible; }
+.t-success-check svg path {
+  /* Replace 20 with Math.ceil(path.getTotalLength()) for your icon —
+   * see the skill's 10-success-check.md for the measurement helper. */
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+}
+
+.t-success-check[data-state="in"] {
+  animation:
+    t-check-fade   var(--check-opacity-dur) var(--check-ease-opacity) forwards,
+    t-check-rotate var(--check-rotate-dur)  var(--check-ease-rotate)  forwards,
+    t-check-blur   var(--check-blur-dur)    var(--check-ease-out)     forwards,
+    t-check-bob    var(--check-bob-dur)     var(--check-ease-bob)     forwards;
+}
+.t-success-check[data-state="in"] svg path {
+  animation: t-check-draw var(--check-path-dur) var(--check-ease-path) var(--check-path-delay, 0ms) forwards;
+}
+
+@keyframes t-check-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes t-check-rotate {
+  from { transform: rotate(var(--check-rotate-from)); }
+  to   { transform: rotate(0deg); }
+}
+@keyframes t-check-blur {
+  from { filter: blur(var(--check-blur-from)); }
+  to   { filter: blur(0); }
+}
+@keyframes t-check-bob {
+  from { translate: 0 var(--check-y-amount); }
+  to   { translate: 0 0; }
+}
+@keyframes t-check-draw { to { stroke-dashoffset: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .t-success-check { animation: none !important; opacity: 1; }
+  .t-success-check svg path { animation: none !important; stroke-dashoffset: 0 !important; }
+}
+
+
+/* ── 02 · Number pop-in ────────────────────────────────────────────────
+ * Staged. The carousel counter in ExploreMachines uses single-digit
+ * values where text-states-swap is the better fit; number-pop-in is
+ * sized for multi-digit financial readouts / live counters / score
+ * displays that don't exist in this theme yet.
+ *
+ * Requires per-digit DOM (one <span> per digit) and JS staggering —
+ * snippet kept for future use without wiring. See
+ * /Users/jrodriguez/.claude/skills/transitions-dev/02-number-pop-in.md
+ * when a multi-digit live counter lands. */
+
+
+/* ── 03 · Notification badge ───────────────────────────────────────────
+ * Staged. No cart count, no inbox, no notification UI in this theme;
+ * nothing to bind. Snippet stays in the skill — see
+ * /Users/jrodriguez/.claude/skills/transitions-dev/03-notification-badge.md
+ * when WooCommerce mini-cart count or any badge UI lands. */
