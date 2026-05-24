@@ -26,36 +26,70 @@
  */
 
 @layer components {
+  /* Each group is a <details> with a chapter divider above. The native
+     `name` attribute on <details> gives single-open behavior with zero
+     JS in modern browsers; older browsers degrade to multi-open. */
   .filter-group {
-    @apply grid gap-3;
+    @apply block border-t border-blue-100;
   }
 
-  .filter-group + .filter-group {
-    @apply border-t border-blue-100 pt-6;
+  .filter-group:first-of-type {
+    @apply border-t-0;
+  }
+
+  .filter-group-summary {
+    @apply flex w-full items-center justify-between gap-3 pl-5 pr-3 py-4 cursor-pointer select-none;
+    list-style: none;
+  }
+
+  .filter-group-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .filter-group-summary:focus-visible {
+    @apply outline-none;
+    box-shadow: inset 0 0 0 2px var(--color-blue-500);
   }
 
   .filter-group-label {
-    @apply flex items-center gap-2 font-mono font-medium uppercase tracking-wider text-blue-400 pl-5;
+    @apply flex items-center gap-2 font-mono font-medium uppercase tracking-wider text-blue-700;
     font-size: var(--text-caption);
   }
 
+  .filter-group-summary-end {
+    @apply flex items-center gap-3 text-blue-400;
+  }
+
   .filter-group-meta {
-    @apply font-mono font-normal text-blue-400 pl-5;
+    @apply font-mono font-normal text-blue-400;
     font-size: var(--text-caption);
+  }
+
+  .filter-group-caret {
+    @apply flex items-center justify-center transition-transform;
+    transition-duration: 200ms;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .filter-group[open] .filter-group-caret {
+    transform: rotate(180deg);
+  }
+
+  .filter-group[open] .filter-group-label {
+    @apply text-blue-900;
   }
 
   /* List has no chrome of its own. The rows ARE the list. */
   .filter-options {
-    @apply flex flex-col m-0 p-0 list-none;
+    @apply flex flex-col m-0 p-0 pb-3 list-none;
   }
 
-  /* Row: bare, body-sized text, generous padding so the rail breathes.
-     Mirrors .mega-tab geometry: padding 0.625rem 1.25rem. Adds a left
-     border-box that the active/hover states paint. Items align-start so
+  /* Row: bare, 14px text, generous padding so the rail breathes. Adds a
+     left border-box that the active/hover states paint. items-start so
      wrapped labels stack cleanly under the checkbox column. */
   .filter-option {
-    @apply flex w-full items-start gap-3 bg-transparent border-l-4 border-transparent py-2.5 pl-4 pr-5 text-base text-blue-700 no-underline cursor-pointer;
-    min-height: 2.75rem;
+    @apply flex w-full items-start gap-3 bg-transparent border-l-4 border-transparent py-2 pl-4 pr-5 text-sm text-blue-700 no-underline cursor-pointer;
+    min-height: 2.5rem;
     transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
   }
 
@@ -81,7 +115,7 @@
     @apply shrink-0 border border-blue-300 bg-white;
     width: 14px;
     height: 14px;
-    margin-top: 0.3125rem;
+    margin-top: 0.1875rem;
     appearance: none;
     -webkit-appearance: none;
     display: grid;
@@ -122,7 +156,7 @@
   .filter-option-count {
     @apply font-mono text-blue-400 ml-auto tabular-nums leading-snug;
     font-size: var(--text-caption);
-    padding-top: 0.25rem;
+    padding-top: 0.1875rem;
   }
 
   .filter-option[data-active="true"] .filter-option-count {
@@ -151,13 +185,14 @@
   }
 
   /* Sidebar shell. Hairline rail on lg+. Below lg the sidebar lives
-     inside a <details> drawer. */
+     inside a <details> drawer. gap-0 because the accordion groups
+     stitch together via border-t. */
   .filter-sidebar {
-    @apply grid gap-8;
+    @apply grid gap-0;
   }
 
   .filter-sidebar-footer {
-    @apply grid gap-3 border-t border-blue-100 pt-6 mx-5;
+    @apply grid gap-3 border-t border-blue-200 pt-6 pb-2 mx-5 mt-2;
   }
 
   /* Mobile drawer. <details> + <summary> means no JS required. */
@@ -186,6 +221,6 @@
   }
 
   .filter-drawer-body {
-    @apply grid gap-8 border-t border-blue-200 py-4;
+    @apply grid gap-0 border-t border-blue-200;
   }
 }
