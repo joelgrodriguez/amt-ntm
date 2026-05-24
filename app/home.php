@@ -62,32 +62,6 @@ $filter_action    = get_learning_center_url();
                 <h1 class="font-mono font-medium text-heading-lg lg:text-display text-blue-900 leading-tight tracking-tight">
                     <?php esc_html_e('The Rollforming Learning Center', 'standard'); ?>
                 </h1>
-
-                <!-- Post-type quick-nav: links to the matching post-type archive. -->
-                <nav class="mt-2 grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4" aria-label="<?php esc_attr_e('Browse by content type', 'standard'); ?>">
-                    <?php
-                    $hero_nav = [
-                        'post'     => ['label' => __('Articles', 'standard'),  'icon' => 'file-text', 'href' => get_learning_center_url()],
-                        'video'    => ['label' => __('Videos', 'standard'),    'icon' => 'play',      'href' => get_post_type_archive_link('video') ?: '#'],
-                        'resource' => ['label' => __('Resources', 'standard'), 'icon' => 'folder',    'href' => get_post_type_archive_link('resource') ?: '#'],
-                        'download' => ['label' => __('Downloads', 'standard'), 'icon' => 'download',  'href' => get_post_type_archive_link('download') ?: '#'],
-                    ];
-                    foreach ($hero_nav as $type => $item) :
-                    ?>
-                        <a href="<?php echo esc_url($item['href']); ?>"
-                           class="group flex items-center justify-between gap-3 p-4 lg:p-5 bg-white border border-blue-200 no-underline transition-colors duration-200 hover:border-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
-                            <span class="flex items-center gap-3 min-w-0">
-                                <?php icon($item['icon'], ['class' => 'w-5 h-5 text-blue-500 shrink-0', 'aria-hidden' => 'true']); ?>
-                                <span class="font-mono font-medium uppercase tracking-widest text-caption text-blue-900 group-hover:text-blue-500 transition-colors truncate">
-                                    <?php echo esc_html($item['label']); ?>
-                                </span>
-                            </span>
-                            <span class="text-blue-400 group-hover:text-blue-500 group-hover:translate-x-0.5 transition-all shrink-0" aria-hidden="true">
-                                <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
-                            </span>
-                        </a>
-                    <?php endforeach; ?>
-                </nav>
             </header>
 
             <!-- Featured Post (fills remaining fold space) -->
@@ -181,6 +155,35 @@ $filter_action    = get_learning_center_url();
 
     </section>
 
+    <!-- Post-type quick-nav strip: links to the matching post-type archive. -->
+    <section class="border-b border-blue-200 bg-blue-50" aria-label="<?php esc_attr_e('Browse by content type', 'standard'); ?>">
+        <div class="container py-6 lg:py-8">
+            <nav class="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
+                <?php
+                $hero_nav = [
+                    'post'     => ['label' => __('Articles', 'standard'),  'icon' => 'file-text', 'href' => get_learning_center_url()],
+                    'video'    => ['label' => __('Videos', 'standard'),    'icon' => 'play',      'href' => get_post_type_archive_link('video') ?: '#'],
+                    'resource' => ['label' => __('Resources', 'standard'), 'icon' => 'folder',    'href' => get_post_type_archive_link('resource') ?: '#'],
+                    'download' => ['label' => __('Downloads', 'standard'), 'icon' => 'download',  'href' => get_post_type_archive_link('download') ?: '#'],
+                ];
+                foreach ($hero_nav as $type => $item) :
+                ?>
+                    <a href="<?php echo esc_url($item['href']); ?>"
+                       class="group flex items-center justify-between gap-3 p-4 lg:p-5 bg-white border border-blue-200 no-underline transition-colors duration-200 hover:border-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                        <span class="flex items-center gap-3 min-w-0">
+                            <?php icon($item['icon'], ['class' => 'w-5 h-5 text-blue-500 shrink-0', 'aria-hidden' => 'true']); ?>
+                            <span class="font-mono font-medium uppercase tracking-widest text-caption text-blue-900 group-hover:text-blue-500 transition-colors truncate">
+                                <?php echo esc_html($item['label']); ?>
+                            </span>
+                        </span>
+                        <span class="text-blue-400 group-hover:text-blue-500 group-hover:translate-x-0.5 transition-all shrink-0" aria-hidden="true">
+                            <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                        </span>
+                    </a>
+                <?php endforeach; ?>
+            </nav>
+        </div>
+    </section>
 
     <!-- Quick Filters -->
     <section id="lc-filters" class="border-b border-blue-200 bg-blue-50" aria-labelledby="lc-filters-heading">
