@@ -54,7 +54,7 @@ $landing_labels = [
 ];
 ?>
 
-<section class="explore-machines section border-b border-blue-200" aria-labelledby="explore-machines-title">
+<section class="explore-machines section" aria-labelledby="explore-machines-title">
     <div class="container grid gap-8 lg:gap-10">
         <h2 id="explore-machines-title" class="section-title">
             <?php echo esc_html($content['title']); ?>

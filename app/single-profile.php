@@ -75,19 +75,12 @@ while (have_posts()) :
     }
 ?>
 
-<main id="primary" class="pattern-dot-grid bg-white">
+<main id="primary" class="bg-white">
 
-    <header class="border-b border-blue-200 bg-blue-50 pt-6 pb-6 lg:pt-12 lg:pb-12">
-        <div class="container">
-            <div class="section-header-left max-w-3xl">
-                <p class="section-eyebrow"><?php echo esc_html($eyebrow); ?></p>
-                <div class="section-divider"></div>
-                <h1 class="font-sans font-medium text-heading lg:text-heading-lg text-blue-900 leading-tight tracking-tight break-words">
-                    <?php echo esc_html($title); ?>
-                </h1>
-            </div>
-        </div>
-    </header>
+    <?php get_template_part('templates/parts/single/profile-style-hero', null, [
+        'eyebrow' => $eyebrow,
+        'title'   => $title,
+    ]); ?>
 
     <article id="post-<?php the_ID(); ?>" <?php post_class('container py-12 lg:py-16'); ?>>
 

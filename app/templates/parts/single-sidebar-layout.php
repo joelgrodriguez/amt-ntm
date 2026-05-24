@@ -27,13 +27,18 @@ $post_type     = (string) get_post_type();
 $plural        = get_post_type_object($post_type)?->labels->name ?? ucfirst($post_type) . 's';
 /* translators: %s post-type plural label, e.g. "Downloads" or "Resources". */
 $sidebar_title = sprintf(__('All %s', 'standard'), $plural);
+
+$args = wp_parse_args($args ?? [], [
+    'hero_part' => 'templates/parts/post-hero',
+    'hero_args' => [
+        'eyebrow_kind' => 'post-type',
+        'meta_items'   => [],
+    ],
+]);
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-6 lg:gap-12'); ?>>
-    <?php get_template_part('templates/parts/post-hero', null, [
-        'eyebrow_kind' => 'post-type',
-        'meta_items'   => [],
-    ]); ?>
+    <?php get_template_part($args['hero_part'], null, $args['hero_args']); ?>
 
     <!-- Two-column layout: Content + Same-type Sidebar -->
     <div class="container lg:grid lg:grid-cols-[1fr_300px] lg:gap-12">

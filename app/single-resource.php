@@ -23,7 +23,10 @@ get_header();
 
 <main id="primary" class="pb-6 lg:pb-12">
     <?php while (have_posts()) : the_post(); ?>
-        <?php get_template_part('templates/parts/single-sidebar-layout'); ?>
+        <?php get_template_part('templates/parts/single-sidebar-layout', null, [
+            'hero_part' => 'templates/parts/single/profile-style-hero',
+            'hero_args' => [],
+        ]); ?>
     <?php endwhile; ?>
 </main>
 

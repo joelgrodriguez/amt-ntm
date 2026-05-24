@@ -37,17 +37,13 @@ $categories = get_the_terms(get_the_ID(), 'category');
 $machine_tags = get_the_tags();
 ?>
 
-<main id="primary" class="pattern-dot-grid py-6 lg:py-12">
+<main id="primary">
     <?php while (have_posts()) : the_post(); ?>
-        <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-6 lg:gap-12'); ?>>
+        <?php get_template_part('templates/parts/single/profile-style-hero', null, [
+            'eyebrow' => $content['badge'],
+        ]); ?>
 
-            <!-- Header -->
-            <header class="container">
-                <div class="grid gap-4 justify-items-start">
-                    <span class="badge inline"><?php echo esc_html($content['badge']); ?></span>
-                    <?php the_title('<h1 class="text-3xl md:text-4xl lg:text-5xl font-medium font-mono">', '</h1>'); ?>
-                </div>
-            </header>
+        <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-6 lg:gap-12 py-6 lg:py-12'); ?>>
 
             <!-- Two-column layout: Filter Sidebar + Content -->
             <div class="container layout-with-rail">
