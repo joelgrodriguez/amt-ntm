@@ -45,6 +45,7 @@ $reset_url    = isset($args['reset_url']) ? (string) $args['reset_url'] : '';
 $reset_label  = isset($args['reset_label']) ? (string) $args['reset_label'] : __('Clear filters', 'standard');
 $drawer_label = isset($args['drawer_label']) ? (string) $args['drawer_label'] : __('Filters', 'standard');
 $show_actions = array_key_exists('show_actions', $args) ? (bool) $args['show_actions'] : true;
+$collapsible  = array_key_exists('collapsible', $args) ? (bool) $args['collapsible'] : true;
 $back_url     = isset($args['back_url']) ? (string) $args['back_url'] : '';
 $back_label   = isset($args['back_label']) ? (string) $args['back_label'] : '';
 $aria_label   = isset($args['aria_label']) ? (string) $args['aria_label'] : __('Filters', 'standard');
@@ -53,7 +54,7 @@ if ($groups === []) {
     return;
 }
 
-$render_group = static function (array $group, int $index, string $scope) use ($form_id): void {
+$render_group = static function (array $group, int $index, string $scope, bool $collapsible) use ($form_id): void {
     $title = (string) ($group['title'] ?? '');
     $icon  = (string) ($group['icon'] ?? '');
     $mode  = (string) ($group['mode'] ?? 'checkbox');
@@ -76,7 +77,9 @@ $render_group = static function (array $group, int $index, string $scope) use ($
     // on group #1).
     $is_open = $index === 0 || $selected_count > 0;
     $group_name = 'filter-groups-' . $scope;
+    $show_meta = $selected_count > 0 && $mode !== 'link';
     ?>
+    <?php if ($collapsible) : ?>
     <details class="filter-group" name="<?php echo esc_attr($group_name); ?>" <?php echo $is_open ? 'open' : ''; ?>>
         <summary class="filter-group-summary">
             <span class="filter-group-label">
@@ -86,7 +89,7 @@ $render_group = static function (array $group, int $index, string $scope) use ($
                 <?php echo esc_html($title); ?>
             </span>
             <span class="filter-group-summary-end">
-                <?php if ($selected_count > 0 && $mode !== 'link') : ?>
+                <?php if ($show_meta) : ?>
                     <span class="filter-group-meta" aria-live="polite">
                         <?php
                         printf(
@@ -102,6 +105,30 @@ $render_group = static function (array $group, int $index, string $scope) use ($
                 </span>
             </span>
         </summary>
+    <?php else : ?>
+    <section class="filter-group filter-group--static">
+        <header class="filter-group-summary filter-group-summary--static">
+            <span class="filter-group-label">
+                <?php if ($icon !== '') : ?>
+                    <?php icon($icon, ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+                <?php endif; ?>
+                <?php echo esc_html($title); ?>
+            </span>
+            <?php if ($show_meta) : ?>
+                <span class="filter-group-summary-end">
+                    <span class="filter-group-meta" aria-live="polite">
+                        <?php
+                        printf(
+                            /* translators: %d selected filter count. */
+                            esc_html(_n('%d selected', '%d selected', $selected_count, 'standard')),
+                            (int) $selected_count
+                        );
+                        ?>
+                    </span>
+                </span>
+            <?php endif; ?>
+        </header>
+    <?php endif; ?>
 
         <ul class="filter-options">
             <?php foreach ($options as $option) :
@@ -152,15 +179,19 @@ $render_group = static function (array $group, int $index, string $scope) use ($
                 </li>
             <?php endforeach; ?>
         </ul>
+    <?php if ($collapsible) : ?>
     </details>
+    <?php else : ?>
+    </section>
+    <?php endif; ?>
     <?php
 };
 
-$render_body = static function (string $scope) use ($groups, $render_group, $show_actions, $form_id, $apply_label, $reset_url, $reset_label, $back_url, $back_label): void {
+$render_body = static function (string $scope) use ($groups, $render_group, $show_actions, $collapsible, $form_id, $apply_label, $reset_url, $reset_label, $back_url, $back_label): void {
     $rendered = 0;
     foreach ($groups as $group) {
         if (is_array($group)) {
-            $render_group($group, $rendered, $scope);
+            $render_group($group, $rendered, $scope, $collapsible);
             $rendered++;
         }
     }

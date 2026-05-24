@@ -27,10 +27,11 @@ if (!defined('ABSPATH')) {
 
 use function Standard\Filters\build_term_link_group;
 
-$sections   = isset($args['sections']) && is_array($args['sections']) ? $args['sections'] : [];
-$post_type  = isset($args['post_type']) ? sanitize_key((string) $args['post_type']) : '';
-$back_url   = isset($args['back_url']) ? (string) $args['back_url'] : '';
-$back_label = isset($args['back_label']) ? (string) $args['back_label'] : '';
+$sections    = isset($args['sections']) && is_array($args['sections']) ? $args['sections'] : [];
+$post_type   = isset($args['post_type']) ? sanitize_key((string) $args['post_type']) : '';
+$back_url    = isset($args['back_url']) ? (string) $args['back_url'] : '';
+$back_label  = isset($args['back_label']) ? (string) $args['back_label'] : '';
+$collapsible = array_key_exists('collapsible', $args) ? (bool) $args['collapsible'] : true;
 
 if (!function_exists('Standard\\Filters\\build_term_link_group')) {
     require_once get_template_directory() . '/inc/filters.php';
@@ -74,6 +75,7 @@ if ($groups === []) {
 get_template_part('templates/parts/filter-sidebar', null, [
     'groups'       => $groups,
     'show_actions' => false,
+    'collapsible'  => $collapsible,
     'back_url'     => $back_url,
     'back_label'   => $back_label,
     'drawer_label' => __('Filters', 'standard'),

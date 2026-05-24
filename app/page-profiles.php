@@ -63,8 +63,9 @@ get_header();
 
             <?php
             get_template_part('templates/parts/taxonomy-filter-sidebar', null, [
-                'post_type' => 'profile',
-                'sections' => [
+                'post_type'   => 'profile',
+                'collapsible' => false,
+                'sections'    => [
                     [
                         'title'         => $sidebar_copy['filter_type'],
                         'icon'          => 'filter',
