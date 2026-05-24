@@ -49,32 +49,32 @@
 }
 
 @layer components {
-  /* Shell. The native dialog comes with margin auto + max-width baggage;
-     strip it. Motion lives in .t-panel-slide (transitions.dev / 07);
-     this block only handles position, geometry, and chrome. */
+  /* Shell. Full-viewport drawer, same treatment everywhere. The native
+     dialog comes with margin auto + max-width baggage; strip it. Motion
+     lives in .t-panel-slide (transitions.dev / 07); this block only
+     handles position, geometry, and chrome. */
   .search-modal {
-    @apply m-0 p-0 border-0 bg-white text-blue-900 max-w-none w-full;
-    max-height: none;
+    @apply m-0 p-0 border-0 bg-white text-blue-900 max-w-none;
     color-scheme: light;
 
-    /* Both viewports slide DOWN from the top, so the travel is negative.
-       MOBILE: full-width top sheet anchored to the top edge.
-       DESKTOP: top-anchored panel 5.5rem below the header.
-       The .t-panel-slide class owns the transform / opacity / blur. */
     position: fixed;
-    inset: 0 0 auto 0;
-    width: 100%;
-    max-height: 88dvh;
-    border-bottom: 1px solid var(--color-blue-200);
+    inset: 0;
+    width: 100vw;
+    height: 100dvh;
+    max-height: none;
 
-    /* Per-component override: distance the panel travels before settling.
-       Negative so .t-panel-slide's translateY pulls UP off the top edge
-       when closed and slides DOWN into place when open. */
-    --panel-translate-y: -24px;
+    /* Per-component override: slide travel. Negative so .t-panel-slide
+       tucks the panel up off the top of the viewport when closed and
+       lets it drop into place when open. -40px buys a clearly visible
+       slide without making the open animation feel sluggish. */
+    --panel-translate-y: -40px;
   }
 
   .search-modal::backdrop {
-    background: rgb(10 19 34 / 0.64);
+    /* Full-bleed dialog already covers the viewport; the backdrop only
+       needs to flash through during the slide. Soft black so the page
+       behind is felt, not seen. */
+    background: rgb(10 19 34 / 0.32);
     opacity: 0;
     transition: opacity var(--panel-open-dur, 400ms) var(--panel-ease, cubic-bezier(0.22, 1, 0.36, 1));
   }
@@ -83,32 +83,19 @@
     opacity: 1;
   }
 
-  @media (min-width: 1024px) {
-    .search-modal {
-      inset: 5.5rem auto auto 50%;
-      width: min(720px, 92vw);
-      max-height: calc(100dvh - 7rem);
-      border: 1px solid var(--color-blue-200);
-
-      /* Desktop sits beneath the header, not flush against the viewport
-         top, so it has room for a bigger pre-open offset. The horizontal
-         center is held by the inset; t-panel-slide only translates Y. */
-      transform-origin: top center;
-      margin-inline: 0;
-      translate: -50% 0;
-      --panel-translate-y: -16px;
-    }
-  }
-
   /* Inner form is the only scrolling region; the dialog itself stays
      pinned. overscroll-behavior: contain stops iOS from rubber-banding
-     the page underneath. */
+     the page underneath. Centered with a max-width so the input doesn't
+     sit alone on a 1920px display, and clamped to the dialog height so
+     the submit slab can still pin to the bottom on short viewports. */
   .search-modal__form {
-    @apply grid gap-0;
-    max-height: inherit;
+    @apply flex flex-col mx-auto w-full;
+    max-width: 56rem;
+    height: 100%;
     overflow-y: auto;
     overscroll-behavior: contain;
   }
+
 
   /* Eyebrow bar. Mono caption left, close button right. The shortcut
      hint is desktop-only; mobile users get the touch target instead. */
@@ -238,9 +225,12 @@
 
   /* Suggestions row. Editorial list, not a card grid. On mobile the
      items wrap into a 2-column grid so the row stays scannable without
-     a sideways scroll. */
+     a sideways scroll. flex: 1 lets this row absorb the vertical slack
+     in the form's flex column so the submit slab pins to the bottom
+     on tall viewports. */
   .search-modal__suggestions {
     @apply px-5 py-5 border-b border-blue-100;
+    flex: 1;
   }
 
   .search-modal__suggestions-label {
