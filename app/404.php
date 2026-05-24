@@ -42,7 +42,7 @@ $helpful_links = [
     [
         'title' => __('Manuals', 'standard'),
         'description' => __('Machine documentation', 'standard'),
-        'url' => get_post_type_archive_link('manual') ?: \Standard\Url\internal('/manuals/'),
+        'url' => get_post_type_archive_link('manual') ?: \Standard\Url\internal('/machines/manuals/'),
         'icon' => 'file-text',
     ],
     [

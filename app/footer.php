@@ -38,7 +38,7 @@ $footer_sections = [
             ['/learning-center', __('Learning Center', 'standard'), false],
             ['/service-training/', __('Rollforming Training', 'standard'), false],
             ['/machines/leasing-financing', __('Financing', 'standard'), false],
-            ['/manuals', __('NTM Machine Manuals', 'standard'), false],
+            ['/machines/manuals/', __('NTM Machine Manuals', 'standard'), false],
         ],
     ],
     [

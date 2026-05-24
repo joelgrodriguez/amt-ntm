@@ -47,7 +47,7 @@ $tools = [
     [
         'icon'  => 'file-text',
         'title' => __('Manuals & Specs', 'standard'),
-        'url'   => '/manuals/',
+        'url'   => '/machines/manuals/',
     ],
 ];
 ?>
