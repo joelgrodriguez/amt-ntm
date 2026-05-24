@@ -2,13 +2,18 @@
 /**
  * Social Proof Section Template Part
  *
- * "Field notebook" testimonial slider. Stripped of outer chrome
- * (used by video-section and three-step-plan) so the section reads
- * as a register shift from system to person. Mono eyebrow above a
- * left-aligned section title; square photo frame instead of the
- * SaaS-default round portrait; city is treated as a dateline.
+ * Chrome-bar testimonial strip. Borrows the composition of
+ * three-step-plan.php (top + bottom mono rails, border-x edge rails,
+ * red 2x2 dot + segmented indicator) so the back half of the front
+ * page reads as one chrome-bar system instead of a chrome -> island
+ * -> chrome zigzag.
  *
- * Manual navigation only (no autoplay). Dots are the only nav.
+ * Square portrait (zero border-radius, sharp crop) per DESIGN.md §4.2.
+ * The dateline (CITY, STATE) reads as a spec-sheet timestamp, not a
+ * SaaS-testimonial flavor line.
+ *
+ * Manual navigation only (no autoplay). Dot pagination is a segmented
+ * indicator, not a row of round avatars.
  *
  * Photo URLs point to the production CDN; portraits are public
  * marketing assets and won't move. Theme adds a preconnect hint
@@ -27,11 +32,13 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'eyebrow'   => __('From the field', 'standard'),
-    'sr_title'  => __('Customer testimonials', 'standard'),
-    'nav_label' => __('Testimonial navigation', 'standard'),
-    'cta_label' => __('See all customer stories', 'standard'),
-    'cta_url'   => \Standard\Url\internal('/category/testimonials/'),
+    'eyebrow'    => __('From the field', 'standard'),
+    'channel'    => __('Customer testimonials', 'standard'),
+    'sr_title'   => __('Customer testimonials', 'standard'),
+    'nav_label'  => __('Testimonial navigation', 'standard'),
+    'cta_label'  => __('All customer stories', 'standard'),
+    'cta_url'    => 'https://newtechmachinery.com/search-results/?_sft_category=testimonials',
+    'count_left' => __('Stories', 'standard'),
 ];
 
 $cdn = 'https://newtechmachinery.com/wp-content/uploads/2025/06';
@@ -84,98 +91,124 @@ $testimonials = [
 if (empty($testimonials)) {
     return;
 }
+
+$total = count($testimonials);
 ?>
 
-<section class="social-proof section bg-blue-50" aria-labelledby="social-proof-title">
+<section class="social-proof bg-blue-50 text-blue-600 border-y border-blue-200" aria-labelledby="social-proof-title">
     <h2 id="social-proof-title" class="sr-only">
         <?php echo esc_html($content['sr_title']); ?>
     </h2>
 
-    <div class="container grid gap-8 lg:gap-10">
-
-        <!-- Slider -->
-        <div class="social-proof__slider relative max-w-3xl mx-auto grid gap-8 lg:gap-10">
-            <div class="grid gap-4 pb-6 border-b border-blue-300 md:grid-cols-[140px_1fr] md:gap-10">
-                <p class="font-mono uppercase text-xs tracking-wider text-blue-700">
-                    <?php echo esc_html($content['eyebrow']); ?>
-                </p>
+    <!-- Top chrome bar -->
+    <div class="border-b border-blue-200">
+        <div class="border-x border-blue-200 container">
+            <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
+                <div class="flex items-center gap-3 pl-3">
+                    <span class="w-2 h-2 bg-red shrink-0" aria-hidden="true"></span>
+                    <span><?php echo esc_html($content['eyebrow']); ?></span>
+                </div>
+                <div class="flex items-center gap-3 pr-3">
+                    <span class="hidden md:inline"><?php echo esc_html($content['channel']); ?></span>
+                    <span class="text-blue-900">
+                        <span class="social-proof__current" data-current>1</span>
+                        <span aria-hidden="true">/</span>
+                        <?php echo esc_html((string) $total); ?>
+                    </span>
+                </div>
             </div>
-
-            <div
-                class="social-proof__track"
-                role="region"
-                aria-roledescription="carousel"
-                aria-label="<?php esc_attr_e('Customer testimonials', 'standard'); ?>"
-            >
-                <?php foreach ($testimonials as $index => $testimonial) : ?>
-                    <?php $is_active = $index === 0; ?>
-                    <blockquote
-                        class="social-proof__slide grid gap-8 md:grid-cols-[140px_1fr] md:gap-10 md:items-start <?php echo $is_active ? '' : 'hidden'; ?>"
-                        data-index="<?php echo esc_attr($index); ?>"
-                        aria-roledescription="<?php esc_attr_e('slide', 'standard'); ?>"
-                        aria-label="<?php echo esc_attr(sprintf(__('%1$d of %2$d', 'standard'), $index + 1, count($testimonials))); ?>"
-                        <?php echo $is_active ? '' : 'aria-hidden="true"'; ?>
-                    >
-                        <img
-                            src="<?php echo esc_url($cdn . '/' . $testimonial['slug'] . '-150x150.png'); ?>"
-                            srcset="<?php echo esc_url($cdn . '/' . $testimonial['slug'] . '-150x150.png'); ?> 150w, <?php echo esc_url($cdn . '/' . $testimonial['slug'] . '-300x300.png'); ?> 300w"
-                            sizes="(min-width: 768px) 140px, 120px"
-                            alt=""
-                            role="presentation"
-                            width="140"
-                            height="140"
-                            class="w-28 h-28 md:w-[140px] md:h-[140px] object-cover rounded-full mx-auto md:mx-0"
-                            loading="<?php echo $is_active ? 'eager' : 'lazy'; ?>"
-                            <?php echo $is_active ? '' : 'fetchpriority="low"'; ?>
-                            decoding="async"
-                        />
-
-                        <div class="grid gap-6 text-center md:text-left">
-                            <p class="text-lg text-blue-900 font-medium leading-relaxed md:text-xl">
-                                &ldquo;<?php echo esc_html($testimonial['quote']); ?>&rdquo;
-                            </p>
-
-                            <footer class="grid gap-1">
-                                <cite class="not-italic grid gap-1">
-                                    <span class="font-mono uppercase text-blue-900 text-sm tracking-wider font-medium">
-                                        <?php echo esc_html($testimonial['name']); ?>
-                                    </span>
-                                    <span class="font-sans text-blue-700 text-sm lg:text-base">
-                                        <?php echo esc_html($testimonial['company']); ?>
-                                    </span>
-                                    <span class="font-mono uppercase text-blue-500 text-xs tracking-wider">
-                                        <?php echo esc_html($testimonial['location']); ?>
-                                    </span>
-                                </cite>
-                            </footer>
-                        </div>
-                    </blockquote>
-                <?php endforeach; ?>
-            </div>
-
-            <nav class="flex justify-center gap-2" aria-label="<?php echo esc_attr($content['nav_label']); ?>">
-                <?php foreach ($testimonials as $index => $testimonial) : ?>
-                    <?php $is_active = $index === 0; ?>
-                    <button
-                        type="button"
-                        class="social-proof__dot h-3 border-none cursor-pointer transition-all duration-200 hover:bg-blue-400 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2 <?php echo $is_active ? 'bg-blue-500 w-8' : 'bg-blue-200 w-3'; ?>"
-                        data-index="<?php echo esc_attr($index); ?>"
-                        aria-label="<?php echo esc_attr(sprintf(__('View testimonial %d', 'standard'), $index + 1)); ?>"
-                        <?php echo $is_active ? 'aria-current="true"' : ''; ?>
-                    ></button>
-                <?php endforeach; ?>
-            </nav>
         </div>
+    </div>
 
-        <div class="flex justify-center">
-            <a
-                href="<?php echo esc_url($content['cta_url']); ?>"
-                class="btn btn-outline-dark"
-                target="_blank"
-                rel="noopener"
-            >
-                <?php echo esc_html($content['cta_label']); ?>
-            </a>
+    <!-- Slider body -->
+    <div class="border-x border-blue-200 container">
+        <div
+            class="social-proof__track relative"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="<?php esc_attr_e('Customer testimonials', 'standard'); ?>"
+        >
+            <?php foreach ($testimonials as $index => $testimonial) : ?>
+                <?php $is_active = $index === 0; ?>
+                <blockquote
+                    class="social-proof__slide grid gap-8 p-6 md:p-10 lg:p-12 md:grid-cols-[140px_1fr] md:gap-12 md:items-start transition-opacity duration-200 ease-out <?php echo $is_active ? 'relative opacity-100' : 'absolute inset-0 opacity-0 pointer-events-none'; ?>"
+                    data-index="<?php echo esc_attr((string) $index); ?>"
+                    aria-roledescription="<?php esc_attr_e('slide', 'standard'); ?>"
+                    aria-label="<?php echo esc_attr(sprintf(__('%1$d of %2$d', 'standard'), $index + 1, $total)); ?>"
+                    <?php echo $is_active ? '' : 'aria-hidden="true"'; ?>
+                >
+                    <img
+                        src="<?php echo esc_url($cdn . '/' . $testimonial['slug'] . '-150x150.png'); ?>"
+                        srcset="<?php echo esc_url($cdn . '/' . $testimonial['slug'] . '-150x150.png'); ?> 150w, <?php echo esc_url($cdn . '/' . $testimonial['slug'] . '-300x300.png'); ?> 300w"
+                        sizes="(min-width: 768px) 140px, 120px"
+                        alt=""
+                        role="presentation"
+                        width="140"
+                        height="140"
+                        class="w-28 h-28 md:w-[140px] md:h-[140px] object-cover mx-auto md:mx-0"
+                        loading="<?php echo $is_active ? 'eager' : 'lazy'; ?>"
+                        <?php echo $is_active ? '' : 'fetchpriority="low"'; ?>
+                        decoding="async"
+                    />
+
+                    <div class="grid gap-6 content-start text-center md:text-left">
+                        <p class="font-sans font-medium text-blue-900 text-xl leading-snug md:text-2xl">
+                            &ldquo;<?php echo esc_html($testimonial['quote']); ?>&rdquo;
+                        </p>
+
+                        <footer>
+                            <cite class="not-italic grid gap-1">
+                                <span class="font-mono uppercase font-medium tracking-wider text-sm text-blue-900">
+                                    <?php echo esc_html($testimonial['name']); ?>
+                                </span>
+                                <span class="font-sans text-base text-blue-600">
+                                    <?php echo esc_html($testimonial['company']); ?>
+                                </span>
+                                <span class="font-mono uppercase tracking-wider text-xs text-blue-500">
+                                    <?php echo esc_html($testimonial['location']); ?>
+                                </span>
+                            </cite>
+                        </footer>
+                    </div>
+                </blockquote>
+            <?php endforeach; ?>
+        </div>
+    </div>
+
+    <!-- Bottom chrome bar -->
+    <div class="border-t border-blue-200">
+        <div class="border-x border-blue-200 container">
+            <div class="flex items-center justify-between py-3 font-mono uppercase tracking-wider text-[0.625rem] md:text-xs">
+                <div class="flex items-center gap-2 pl-3">
+                    <span class="hidden md:inline"><?php echo esc_html((string) $total); ?></span>
+                    <span class="hidden md:inline"><?php echo esc_html($content['count_left']); ?></span>
+                </div>
+
+                <nav class="flex gap-1" aria-label="<?php echo esc_attr($content['nav_label']); ?>">
+                    <?php foreach ($testimonials as $index => $testimonial) : ?>
+                        <?php $is_active = $index === 0; ?>
+                        <button
+                            type="button"
+                            class="social-proof__dot h-3 border-none cursor-pointer transition-colors duration-150 hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2 <?php echo $is_active ? 'bg-red w-3' : 'bg-blue-300 w-1'; ?>"
+                            data-index="<?php echo esc_attr((string) $index); ?>"
+                            aria-label="<?php echo esc_attr(sprintf(__('View testimonial %d', 'standard'), $index + 1)); ?>"
+                            <?php echo $is_active ? 'aria-current="true"' : ''; ?>
+                        ></button>
+                    <?php endforeach; ?>
+                </nav>
+
+                <div class="flex items-center gap-2 pr-3">
+                    <a
+                        href="<?php echo esc_url($content['cta_url']); ?>"
+                        class="text-blue-900 inline-flex items-center gap-2 hover:text-blue-500 transition-colors duration-150"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <span><?php echo esc_html($content['cta_label']); ?></span>
+                        <?php icon('arrow-right', ['class' => 'w-3 h-3']); ?>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </section>

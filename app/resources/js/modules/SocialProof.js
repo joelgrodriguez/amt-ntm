@@ -1,9 +1,12 @@
 /**
  * Social Proof Testimonial Slider
  *
- * Auto-advancing testimonial carousel with dot navigation.
- * Autoplay only, no hover/focus pause (intentional per design).
- * Reduced-motion users get manual nav (autoplay disabled).
+ * Manual-only testimonial carousel with chrome-bar dot navigation.
+ * No autoplay: skeptical 50+ contractors don't want a carousel
+ * advancing under them while they're reading a quote.
+ *
+ * Slides are stacked absolute-over-relative inside .social-proof__track
+ * so we can opacity-fade between them instead of display-toggle.
  *
  * @file SocialProof.js
  *
@@ -13,10 +16,12 @@
  * @template templates/woo/product/parts/testimonials.php
  */
 
-const AUTOPLAY_INTERVAL = 6500;
-
-let autoplayTimer = null;
 let abortController = null;
+
+const DOT_ACTIVE = ['bg-red', 'w-3'];
+const DOT_INACTIVE = ['bg-blue-300', 'w-1'];
+const SLIDE_ACTIVE = ['relative', 'opacity-100'];
+const SLIDE_INACTIVE = ['absolute', 'inset-0', 'opacity-0', 'pointer-events-none'];
 
 /**
  * Initialize the social proof slider.
@@ -27,6 +32,7 @@ export function initSocialProof() {
 
   const slides = section.querySelectorAll('.social-proof__slide');
   const dots = section.querySelectorAll('.social-proof__dot');
+  const currentLabel = section.querySelector('[data-current]');
 
   if (slides.length < 2) return;
 
@@ -41,41 +47,29 @@ export function initSocialProof() {
    * @param {number} index
    */
   function goToSlide(index) {
-    // Hide current
-    slides[currentIndex].classList.add('hidden');
+    if (index === currentIndex) return;
+
+    slides[currentIndex].classList.remove(...SLIDE_ACTIVE);
+    slides[currentIndex].classList.add(...SLIDE_INACTIVE);
     slides[currentIndex].setAttribute('aria-hidden', 'true');
-    dots[currentIndex].classList.remove('bg-blue-500', 'w-8');
-    dots[currentIndex].classList.add('bg-blue-200', 'w-3');
+    dots[currentIndex].classList.remove(...DOT_ACTIVE);
+    dots[currentIndex].classList.add(...DOT_INACTIVE);
     dots[currentIndex].removeAttribute('aria-current');
 
     currentIndex = index;
 
-    // Show new
-    slides[currentIndex].classList.remove('hidden');
+    slides[currentIndex].classList.remove(...SLIDE_INACTIVE);
+    slides[currentIndex].classList.add(...SLIDE_ACTIVE);
     slides[currentIndex].removeAttribute('aria-hidden');
-    dots[currentIndex].classList.remove('bg-blue-200', 'w-3');
-    dots[currentIndex].classList.add('bg-blue-500', 'w-8');
+    dots[currentIndex].classList.remove(...DOT_INACTIVE);
+    dots[currentIndex].classList.add(...DOT_ACTIVE);
     dots[currentIndex].setAttribute('aria-current', 'true');
-  }
 
-  function nextSlide() {
-    goToSlide((currentIndex + 1) % slides.length);
-  }
-
-  function startAutoplay() {
-    stopAutoplay();
-    autoplayTimer = setInterval(nextSlide, AUTOPLAY_INTERVAL);
-  }
-
-  function stopAutoplay() {
-    if (autoplayTimer) {
-      clearInterval(autoplayTimer);
-      autoplayTimer = null;
+    if (currentLabel) {
+      currentLabel.textContent = String(currentIndex + 1);
     }
   }
 
-  // Dot click handler (event delegation). Resets the autoplay timer
-  // so the user gets the full interval to read the slide they picked.
   section.addEventListener(
     'click',
     (e) => {
@@ -83,28 +77,7 @@ export function initSocialProof() {
       if (!dot) return;
 
       const index = parseInt(dot.dataset.index, 10);
-      if (index !== currentIndex) {
-        goToSlide(index);
-        startAutoplay();
-      }
-    },
-    { signal }
-  );
-
-  // Respect reduced motion: no autoplay.
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (!prefersReducedMotion.matches) {
-    startAutoplay();
-  }
-
-  prefersReducedMotion.addEventListener(
-    'change',
-    (e) => {
-      if (e.matches) {
-        stopAutoplay();
-      } else {
-        startAutoplay();
-      }
+      goToSlide(index);
     },
     { signal }
   );
@@ -114,10 +87,6 @@ export function initSocialProof() {
  * Cleanup function for HMR support.
  */
 export function cleanup() {
-  if (autoplayTimer) {
-    clearInterval(autoplayTimer);
-    autoplayTimer = null;
-  }
   if (abortController) {
     abortController.abort();
     abortController = null;

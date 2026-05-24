@@ -3,7 +3,7 @@
  * Seamless Gutter Machines — Customer Story
  *
  * Data wrapper for the shared customer-story template part.
- * Placeholder content — no real gutter customer quote available yet.
+ * Abel Cisneros / C&S Rain Gutters case study.
  *
  * @package Standard
  *
@@ -21,9 +21,9 @@ get_template_part('templates/parts/customer-story', null, [
     'image_position' => 'left',
     'content'        => [
         'eyebrow'  => __('Customer Story', 'standard'),
-        'quote'    => __("Going from running someone else's crew to owning my own business — the NTM gutter machine made that possible. I'm fabricating on-site, controlling my schedule, and keeping every dollar I used to hand to a supplier.", 'standard'),
-        'name'     => 'Abel',
-        'company'  => 'Abel Gutter Install',
+        'quote'    => __("For me, New Tech Machinery has always been the top of the line. Efficiency, technology, consistency — a machine that doesn't break. It keeps going.", 'standard'),
+        'name'     => 'Abel Cisneros',
+        'company'  => 'C&S Rain Gutters',
         'machine'  => 'MACH II Gutter Machine',
         'image'    => content_url('/uploads/2026/05/ntm-mach2-gutter-install-abel-002.jpg'),
         'cta_text' => __('Watch the Full Story', 'standard'),
@@ -32,16 +32,16 @@ get_template_part('templates/parts/customer-story', null, [
     ],
     'stats' => [
         [
-            'stat'  => '30+',
-            'label' => __('Years Industry Standard', 'standard'),
+            'stat'  => '20+',
+            'label' => __('Years in Business', 'standard'),
         ],
         [
-            'stat'  => '$9.8K',
-            'label' => __('Starting Investment', 'standard'),
+            'stat'  => '3',
+            'label' => __('Crews Running', 'standard'),
         ],
         [
-            'stat'  => '1-2 Wk',
-            'label' => __('Lead Time', 'standard'),
+            'stat'  => '15',
+            'label' => __('Employees', 'standard'),
         ],
     ],
 ]);
