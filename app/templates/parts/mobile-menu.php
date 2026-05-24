@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 $mobile_nav = \Standard\Nav\get_mobile_nav_tree();
 ?>
 
-<nav id="mobile-menu" class="mobile-menu lg:hidden" aria-hidden="true" aria-label="<?php esc_attr_e('Mobile navigation', 'standard'); ?>">
+<nav id="mobile-menu" class="mobile-menu t-panel-slide lg:hidden" aria-hidden="true" aria-label="<?php esc_attr_e('Mobile navigation', 'standard'); ?>">
     <div
         id="mobile-menu-live"
         role="status"

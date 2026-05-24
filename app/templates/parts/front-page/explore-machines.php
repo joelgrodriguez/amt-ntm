@@ -103,7 +103,7 @@ $landing_labels = [
                             data-panel="<?php echo esc_attr($slug); ?>"
                         ><?php icon('arrow-left', ['class' => 'w-4 h-4']); ?></button>
                         <span class="font-mono text-xs uppercase tracking-wider text-blue-600 min-w-16 text-center" aria-live="polite" aria-atomic="true">
-                            <span class="explore-machines__current">1</span>
+                            <span class="explore-machines__current t-text-swap">1</span>
                             <?php esc_html_e('of', 'standard'); ?>
                             <span class="explore-machines__total"><?php echo (int) $product_count; ?></span>
                         </span>

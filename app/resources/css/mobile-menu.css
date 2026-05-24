@@ -1,12 +1,13 @@
 /**
  * Mobile Menu
  *
- * Two-level slide-in panel menu. The track holds the L1 panel and one panel
- * per product category, laid out horizontally. JS translates the track by the
- * active panel's measured offset.
+ * Two-level slide-in panel menu. The outer container motion is owned by
+ * .t-panel-slide (transitions.dev). The track holds the L1 panel and one
+ * panel per product category, laid out horizontally; JS translates the
+ * track by the active panel's measured offset.
  */
 
-/* ── Container: closed state ──────────────────────────────────────────── */
+/* ── Container ────────────────────────────────────────────────────────── */
 
 .mobile-menu {
     position: fixed;
@@ -17,19 +18,9 @@
     z-index: 40;
     background: var(--color-white);
     overflow: hidden;
-    pointer-events: none;
-    opacity: 0;
-    transform: translateY(-100%);
-    /* Close: fast ease-in so the panel snaps away */
-    transition: opacity 0ms 320ms, transform 320ms cubic-bezier(0.4, 0, 1, 1);
-}
 
-.mobile-menu.is-open {
-    pointer-events: auto;
-    opacity: 1;
-    transform: translateY(0);
-    /* Open: spring deceleration as it lands */
-    transition: opacity 0ms, transform 480ms var(--ease-spring);
+    /* Drop from above viewport. Same identity choice as .mega-panel. */
+    --panel-translate-y: -100%;
 }
 
 /* ── Page scrim (dims content behind the open menu) ──────────────────── */
@@ -52,82 +43,14 @@ body.overflow-hidden.menu-scrim-ready::after {
     pointer-events: auto;
 }
 
-/* ── L1 item entry stagger ────────────────────────────────────────────── */
-
-/* Items start invisible and slightly raised. The .is-open class on the
- * parent triggers the transition. nth-child delays create the cascade. */
-.mobile-menu__panel[data-panel="root"] .mobile-menu__featured,
-.mobile-menu__panel[data-panel="root"] .mobile-menu__list--top .mobile-menu__item,
-.mobile-menu__panel[data-panel="root"] .mobile-menu__contact,
-.mobile-menu__panel[data-panel="root"] .mobile-menu__list--bottom .mobile-menu__item {
-    opacity: 0;
-    transform: translateY(-16px);
-    transition:
-        opacity 160ms var(--ease-spring),
-        transform 160ms var(--ease-spring);
-}
-
-.mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__featured,
-.mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__list--top .mobile-menu__item,
-.mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__contact,
-.mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__list--bottom .mobile-menu__item {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Stagger delays — featured first, then top items, contact, then bottom.
- * Primary group: 100ms gaps so each step reads as distinct.
- * Contact + bottom: tighter 60ms gaps — these are secondary items, they
- * should follow quickly rather than demand the same stage time. */
-.mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__featured {
-    transition-delay: 80ms;
-}
-
-.mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__list--top .mobile-menu__item:nth-child(1) {
-    transition-delay: 180ms;
-}
-.mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__list--top .mobile-menu__item:nth-child(2) {
-    transition-delay: 280ms;
-}
-.mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__list--top .mobile-menu__item:nth-child(3) {
-    transition-delay: 380ms;
-}
-.mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__list--top .mobile-menu__item:nth-child(4) {
-    transition-delay: 480ms;
-}
-.mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__list--top .mobile-menu__item:nth-child(5) {
-    transition-delay: 580ms;
-}
-
-.mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__contact {
-    transition-delay: 640ms;
-}
-
-.mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__list--bottom .mobile-menu__item:nth-child(1) {
-    transition-delay: 700ms;
-}
-.mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__list--bottom .mobile-menu__item:nth-child(2) {
-    transition-delay: 760ms;
-}
-.mobile-menu.is-open .mobile-menu__panel[data-panel="root"] .mobile-menu__list--bottom .mobile-menu__item:nth-child(3) {
-    transition-delay: 820ms;
-}
-
-/* When closing, snap items to invisible instantly so the stagger always
- * fires fresh on the next open. No cascading fade-out visible anyway since
- * the container slides away in 320ms. */
-.mobile-menu.is-closing .mobile-menu__panel[data-panel="root"] .mobile-menu__featured,
-.mobile-menu.is-closing .mobile-menu__panel[data-panel="root"] .mobile-menu__list--top .mobile-menu__item,
-.mobile-menu.is-closing .mobile-menu__panel[data-panel="root"] .mobile-menu__contact,
-.mobile-menu.is-closing .mobile-menu__panel[data-panel="root"] .mobile-menu__list--bottom .mobile-menu__item {
-    transition: none;
-}
-
 /* ── Viewport + track ─────────────────────────────────────────────────── */
 
 /* The viewport is the slide window: full menu width, clips overflow. JS
  * moves the track by the active panel's exact offset so every level lands
- * flush with the viewport. */
+ * flush with the viewport.
+ *
+ * Track motion (L1↔L2 horizontal slide) is the menu's internal navigation
+ * machinery, not a transitions.dev primitive. Kept here. */
 .mobile-menu__viewport {
     overflow: hidden;
     width: 100%;
@@ -189,9 +112,7 @@ body.overflow-hidden.menu-scrim-ready::after {
 
 /* ── L1: featured CTA card ────────────────────────────────────────────── */
 
-/* Styled via Tailwind utilities in mobile-menu.php.
- * .mobile-menu__featured is kept as a selector hook for the stagger
- * animation rules above — the class must remain on the element. */
+/* Styled via Tailwind utilities in mobile-menu.php. */
 
 .mobile-menu__list--bottom .mobile-menu__item + .mobile-menu__item {
     border-top: 1px solid var(--color-blue-200);
@@ -339,15 +260,9 @@ body.overflow-hidden.menu-scrim-ready::after {
     height: 4rem;
 }
 
-/* Tint the hamburger toggle's close-X red so its "destructive" affordance
- * reads at a glance. The icon inherits via currentColor; only the close
- * span (#menu-icon-close) is targeted, not the open hamburger. */
-#menu-icon-close {
-    color: var(--color-red);
-}
-
 /* Tint the toggle button when the menu is open so the close affordance
- * reads clearly at a glance — pairs with the dynamic aria-label from JS. */
+ * reads clearly at a glance — pairs with the dynamic aria-label from JS.
+ * Close-X is tinted red via Tailwind's text-red utility in header.php. */
 #mobile-menu-toggle[aria-expanded="true"] {
     background: var(--color-blue-100);
 }
@@ -391,23 +306,10 @@ body.overflow-hidden.menu-scrim-ready::after {
 
 /* ── Reduced motion ───────────────────────────────────────────────────── */
 
-/* Kill all translation animations for users who prefer reduced motion. */
+/* Track slide gets killed here; the outer panel motion is killed by
+ * .t-panel-slide's own prefers-reduced-motion rule. */
 @media (prefers-reduced-motion: reduce) {
-    .mobile-menu {
-        transform: none;
-        transition: opacity 0ms;
-    }
-
     .mobile-menu__track {
-        transition: none;
-    }
-
-    .mobile-menu__panel[data-panel="root"] .mobile-menu__featured,
-    .mobile-menu__panel[data-panel="root"] .mobile-menu__list--top .mobile-menu__item,
-    .mobile-menu__panel[data-panel="root"] .mobile-menu__contact,
-    .mobile-menu__panel[data-panel="root"] .mobile-menu__list--bottom .mobile-menu__item {
-        opacity: 1;
-        transform: none;
         transition: none;
     }
 }

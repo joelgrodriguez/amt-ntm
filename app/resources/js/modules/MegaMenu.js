@@ -7,13 +7,16 @@
  * @file MegaMenu.js
  */
 
-/* Timing — kept in sync with .mega-panel close transition in
- * app/resources/css/layout/mega-menu.css. The 200ms beat is an empty pause
- * between A's close and B's open so the two animations read as separate
- * events instead of a shuffle. */
-const CLOSE_TRANSITION_MS = 420;
-const SWITCH_BEAT_MS      = 200;
-const SWITCH_DELAY_MS     = CLOSE_TRANSITION_MS + SWITCH_BEAT_MS;
+/* Motion is owned by .t-panel-slide (transitions.dev / transitions.css).
+ * Switch delay matches --panel-close-dur so panel A finishes leaving before
+ * panel B starts arriving. Read from CSS so the two stay in sync. */
+const SWITCH_DELAY_MS = (() => {
+    if (typeof window === 'undefined') return 350;
+    const root = document.documentElement;
+    const raw  = getComputedStyle(root).getPropertyValue('--panel-close-dur').trim();
+    const num  = parseFloat(raw);
+    return Number.isFinite(num) ? num : 350;
+})();
 
 export const initMegaMenu = () => {
     const triggers  = /** @type {NodeListOf<HTMLButtonElement>} */ (document.querySelectorAll('.mega-trigger'));
