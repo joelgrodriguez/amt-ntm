@@ -31,7 +31,7 @@ $content = [
                 <span class="text-caption font-mono uppercase tracking-widest text-blue-300">
                     <?php echo esc_html($content['eyebrow']); ?>
                 </span>
-                <h2 class="font-mono font-medium text-heading lg:text-heading-lg text-white leading-tight tracking-tight">
+                <h2 class="font-sans font-semibold text-heading lg:text-heading-lg text-white leading-tight tracking-tight">
                     <?php echo esc_html($content['title']); ?>
                 </h2>
                 <p class="font-mono text-blue-300 text-sm uppercase tracking-wider">

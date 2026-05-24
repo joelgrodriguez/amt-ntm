@@ -33,7 +33,7 @@ $archive_url = get_post_type_archive_link($post_type);
 
 <main id="primary" class="pattern-dot-grid pb-6 lg:pb-12">
     <?php while (have_posts()) : the_post(); ?>
-        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+        <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-6 lg:gap-12'); ?>>
 
             <div class="container">
                 <?php get_template_part('templates/parts/single/article-hero'); ?>
