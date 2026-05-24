@@ -14,8 +14,9 @@
 /** @type {number} Header height plus padding for scroll offset */
 const SCROLL_OFFSET = 80;
 
-/** @type {string[]} Heading levels to include in TOC */
-const HEADING_SELECTORS = ['h2', 'h3'];
+/** @type {string[]} Heading levels to include in TOC. H2 only — h3s
+ * make the rail noisy and break the "skim sections" affordance. */
+const HEADING_SELECTORS = ['h2'];
 
 /**
  * Default configuration options.
@@ -102,11 +103,8 @@ export function initTableOfContents(options = {}) {
         heading.id = baseSlug || `section-${index}`;
       }
 
-      const level = parseInt(heading.tagName.charAt(1), 10);
-      const isNested = level === 3;
-
       const li = document.createElement('li');
-      li.className = `toc__item${isNested ? ' toc__item--nested' : ''}`;
+      li.className = 'toc__item';
 
       const link = document.createElement('a');
       link.href = `#${heading.id}`;

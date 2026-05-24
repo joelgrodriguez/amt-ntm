@@ -34,11 +34,6 @@
   @apply relative;
 }
 
-/* Nested items (h3) */
-.toc__item--nested {
-  @apply pl-3;
-}
-
 /* Link — sans body for readability; only the section label stays mono. */
 .toc__link {
   @apply block py-1.5 pl-4 -ml-px text-blue-600 no-underline;
