@@ -98,9 +98,16 @@ if (!defined('ABSPATH')) {
         <div class="flex items-stretch">
             <nav id="desktop-navigation" class="flex" aria-label="<?php esc_attr_e('Primary navigation', 'standard'); ?>">
                 <ul id="primary-menu" class="flex items-stretch m-0 p-0 list-none">
-                    <?php foreach ($desktop_nav['items'] as $item) : ?>
+                    <?php foreach ($desktop_nav['items'] as $item) :
+                        // Temporary: only the Machines mega panel is enabled on
+                        // desktop right now. Other mega items fall through to a
+                        // plain link using their own view_all_url so the nav
+                        // still navigates somewhere sensible.
+                        $is_active_mega = ($item['kind'] ?? '') === 'mega' && ($item['id'] ?? '') === 'machines';
+                        $fallback_url   = $item['url'] ?? ($item['view_all_url'] ?? '#');
+                    ?>
                         <li class="flex h-full">
-                            <?php if (($item['kind'] ?? '') === 'mega') : ?>
+                            <?php if ($is_active_mega) : ?>
                                 <button
                                     type="button"
                                     class="mega-trigger relative flex items-center w-full h-full px-5 font-sans font-medium text-body text-blue-700 bg-transparent border-0 cursor-pointer"
@@ -113,7 +120,7 @@ if (!defined('ABSPATH')) {
                                 </button>
                             <?php else : ?>
                                 <a
-                                    href="<?php echo esc_url($item['url']); ?>"
+                                    href="<?php echo esc_url($fallback_url); ?>"
                                     class="relative flex items-center w-full h-full px-5 font-sans font-medium text-body text-blue-700 no-underline"
                                     style="letter-spacing: 0.01em;"
                                 >

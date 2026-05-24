@@ -33,7 +33,7 @@
 
 @media (min-width: 1024px) {
   .explore-machines__track {
-    --cards-per-view: 4;
+    --cards-per-view: 3;
   }
 }
 

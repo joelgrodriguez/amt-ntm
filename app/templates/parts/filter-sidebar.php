@@ -45,6 +45,7 @@ $reset_url    = isset($args['reset_url']) ? (string) $args['reset_url'] : '';
 $reset_label  = isset($args['reset_label']) ? (string) $args['reset_label'] : __('Clear filters', 'standard');
 $drawer_label = isset($args['drawer_label']) ? (string) $args['drawer_label'] : __('Filters', 'standard');
 $show_actions = array_key_exists('show_actions', $args) ? (bool) $args['show_actions'] : true;
+$collapsible  = array_key_exists('collapsible', $args) ? (bool) $args['collapsible'] : true;
 $back_url     = isset($args['back_url']) ? (string) $args['back_url'] : '';
 $back_label   = isset($args['back_label']) ? (string) $args['back_label'] : '';
 $aria_label   = isset($args['aria_label']) ? (string) $args['aria_label'] : __('Filters', 'standard');
@@ -53,7 +54,7 @@ if ($groups === []) {
     return;
 }
 
-$render_group = static function (array $group, int $index, string $scope) use ($form_id): void {
+$render_group = static function (array $group, int $index, string $scope, bool $collapsible) use ($form_id): void {
     $title = (string) ($group['title'] ?? '');
     $icon  = (string) ($group['icon'] ?? '');
     $mode  = (string) ($group['mode'] ?? 'checkbox');
@@ -77,6 +78,7 @@ $render_group = static function (array $group, int $index, string $scope) use ($
     $is_open = $index === 0 || $selected_count > 0;
     $group_name = 'filter-groups-' . $scope;
     ?>
+    <?php if ($collapsible) : ?>
     <details class="filter-group" name="<?php echo esc_attr($group_name); ?>" <?php echo $is_open ? 'open' : ''; ?>>
         <summary class="filter-group-summary">
             <span class="filter-group-label">
@@ -85,23 +87,21 @@ $render_group = static function (array $group, int $index, string $scope) use ($
                 <?php endif; ?>
                 <?php echo esc_html($title); ?>
             </span>
-            <span class="filter-group-summary-end">
-                <?php if ($selected_count > 0 && $mode !== 'link') : ?>
-                    <span class="filter-group-meta" aria-live="polite">
-                        <?php
-                        printf(
-                            /* translators: %d selected filter count. */
-                            esc_html(_n('%d selected', '%d selected', $selected_count, 'standard')),
-                            (int) $selected_count
-                        );
-                        ?>
-                    </span>
-                <?php endif; ?>
-                <span class="filter-group-caret" aria-hidden="true">
-                    <?php icon('chevron-down', ['class' => 'w-3 h-3']); ?>
-                </span>
+            <span class="filter-group-caret" aria-hidden="true">
+                <?php icon('chevron-down', ['class' => 'w-3 h-3']); ?>
             </span>
         </summary>
+    <?php else : ?>
+    <section class="filter-group filter-group--static">
+        <header class="filter-group-summary filter-group-summary--static">
+            <span class="filter-group-label">
+                <?php if ($icon !== '') : ?>
+                    <?php icon($icon, ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+                <?php endif; ?>
+                <?php echo esc_html($title); ?>
+            </span>
+        </header>
+    <?php endif; ?>
 
         <ul class="filter-options">
             <?php foreach ($options as $option) :
@@ -152,31 +152,67 @@ $render_group = static function (array $group, int $index, string $scope) use ($
                 </li>
             <?php endforeach; ?>
         </ul>
+    <?php if ($collapsible) : ?>
     </details>
+    <?php else : ?>
+    </section>
+    <?php endif; ?>
     <?php
 };
 
-$render_body = static function (string $scope) use ($groups, $render_group, $show_actions, $form_id, $apply_label, $reset_url, $reset_label, $back_url, $back_label): void {
+$render_body = static function (string $scope) use ($groups, $render_group, $show_actions, $collapsible, $form_id, $apply_label, $reset_url, $reset_label, $back_url, $back_label): void {
     $rendered = 0;
     foreach ($groups as $group) {
         if (is_array($group)) {
-            $render_group($group, $rendered, $scope);
+            $render_group($group, $rendered, $scope, $collapsible);
             $rendered++;
         }
     }
 
-    if ($show_actions) : ?>
+    if ($show_actions) :
+        $total_active = 0;
+        foreach ($groups as $group) {
+            if (!is_array($group)) {
+                continue;
+            }
+            foreach (($group['options'] ?? []) as $option) {
+                if (!empty($option['active']) && !empty($option['value'])) {
+                    $total_active++;
+                }
+            }
+        }
+        ?>
         <div class="filter-sidebar-footer">
+            <p class="filter-sidebar-footer-eyebrow">
+                <span><?php esc_html_e('Refine results', 'standard'); ?></span>
+                <?php if ($total_active > 0) : ?>
+                    <span class="filter-sidebar-footer-count">
+                        <?php
+                        printf(
+                            /* translators: %d active filter count. */
+                            esc_html(_n('%d active', '%d active', $total_active, 'standard')),
+                            (int) $total_active
+                        );
+                        ?>
+                    </span>
+                <?php endif; ?>
+            </p>
+
             <button
                 type="submit"
                 <?php if ($form_id !== '') : ?>form="<?php echo esc_attr($form_id); ?>"<?php endif; ?>
-                class="btn btn-primary w-full"
+                class="filter-apply"
             >
-                <?php echo esc_html($apply_label); ?>
+                <span class="filter-apply-label"><?php echo esc_html($apply_label); ?></span>
+                <span class="filter-apply-icon" aria-hidden="true">
+                    <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                </span>
             </button>
+
             <?php if ($reset_url !== '') : ?>
-                <a href="<?php echo esc_url($reset_url); ?>" class="btn btn-ghost w-full">
-                    <?php echo esc_html($reset_label); ?>
+                <a href="<?php echo esc_url($reset_url); ?>" class="filter-clear">
+                    <?php icon('x', ['class' => 'w-3 h-3', 'aria-hidden' => 'true']); ?>
+                    <span><?php echo esc_html($reset_label); ?></span>
                 </a>
             <?php endif; ?>
         </div>

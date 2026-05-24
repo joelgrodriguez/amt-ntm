@@ -37,7 +37,7 @@ $content = [
     'sr_title'   => __('Customer testimonials', 'standard'),
     'nav_label'  => __('Testimonial navigation', 'standard'),
     'cta_label'  => __('All customer stories', 'standard'),
-    'cta_url'    => 'https://newtechmachinery.com/search-results/?_sft_category=testimonials',
+    'cta_url'    => '/learning-center/category/testimonials/',
     'count_left' => __('Stories', 'standard'),
 ];
 
@@ -102,7 +102,7 @@ $total = count($testimonials);
 
     <!-- Top chrome bar -->
     <div class="border-b border-blue-200">
-        <div class="border-x border-blue-200 container">
+        <div class="border-x border-blue-200 container-mid">
             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
                 <div class="flex items-center gap-3 pl-3">
                     <span class="w-2 h-2 bg-red shrink-0" aria-hidden="true"></span>
@@ -121,9 +121,9 @@ $total = count($testimonials);
     </div>
 
     <!-- Slider body -->
-    <div class="border-x border-blue-200 container">
+    <div class="border-x border-blue-200 container-mid">
         <div
-            class="social-proof__track relative"
+            class="social-proof__track grid"
             role="region"
             aria-roledescription="carousel"
             aria-label="<?php esc_attr_e('Customer testimonials', 'standard'); ?>"
@@ -131,7 +131,7 @@ $total = count($testimonials);
             <?php foreach ($testimonials as $index => $testimonial) : ?>
                 <?php $is_active = $index === 0; ?>
                 <blockquote
-                    class="social-proof__slide grid gap-8 p-6 md:p-10 lg:p-12 md:grid-cols-[140px_1fr] md:gap-12 md:items-start transition-opacity duration-200 ease-out <?php echo $is_active ? 'relative opacity-100' : 'absolute inset-0 opacity-0 pointer-events-none'; ?>"
+                    class="social-proof__slide [grid-area:1/1] grid gap-8 p-6 md:p-10 lg:p-12 md:grid-cols-[140px_1fr] md:gap-12 md:items-start transition-opacity duration-200 ease-out <?php echo $is_active ? 'opacity-100' : 'opacity-0 pointer-events-none'; ?>"
                     data-index="<?php echo esc_attr((string) $index); ?>"
                     aria-roledescription="<?php esc_attr_e('slide', 'standard'); ?>"
                     aria-label="<?php echo esc_attr(sprintf(__('%1$d of %2$d', 'standard'), $index + 1, $total)); ?>"
@@ -177,7 +177,7 @@ $total = count($testimonials);
 
     <!-- Bottom chrome bar -->
     <div class="border-t border-blue-200">
-        <div class="border-x border-blue-200 container">
+        <div class="border-x border-blue-200 container-mid">
             <div class="flex items-center justify-between py-3 font-mono uppercase tracking-wider text-[0.625rem] md:text-xs">
                 <div class="flex items-center gap-2 pl-3">
                     <span class="hidden md:inline"><?php echo esc_html((string) $total); ?></span>
@@ -199,10 +199,8 @@ $total = count($testimonials);
 
                 <div class="flex items-center gap-2 pr-3">
                     <a
-                        href="<?php echo esc_url($content['cta_url']); ?>"
+                        href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>"
                         class="text-blue-900 inline-flex items-center gap-2 hover:text-blue-500 transition-colors duration-150"
-                        target="_blank"
-                        rel="noopener"
                     >
                         <span><?php echo esc_html($content['cta_label']); ?></span>
                         <?php icon('arrow-right', ['class' => 'w-3 h-3']); ?>

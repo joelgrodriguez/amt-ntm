@@ -113,7 +113,7 @@ get_header();
                 <span class="section-eyebrow">
                     <?php esc_html_e('Service Hub', 'standard'); ?>
                 </span>
-                <h1 class="font-mono font-medium text-heading-lg lg:text-display text-blue-900 leading-tight tracking-tight">
+                <h1 class="font-semibold text-heading-lg lg:text-display text-blue-900 leading-tight tracking-tight">
                     <?php esc_html_e('Service and Support', 'standard'); ?>
                 </h1>
                 <p class="font-sans text-blue-600 max-w-2xl" style="font-size: var(--text-body); line-height: var(--leading-body);">

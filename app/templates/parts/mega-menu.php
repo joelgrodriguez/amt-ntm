@@ -21,7 +21,13 @@ use function Standard\LearningCenter\get_latest_query;
 use function Standard\LearningCenter\get_content_sections;
 
 $nav    = get_desktop_nav();
-$panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') === 'mega'));
+// Temporary: only the Machines mega panel renders right now. Keep the
+// data intact in get_desktop_nav() so other panels are one filter
+// change away from coming back.
+$panels = array_values(array_filter(
+    $nav['items'],
+    fn($i) => ($i['kind'] ?? '') === 'mega' && ($i['id'] ?? '') === 'machines'
+));
 ?>
 
 <!-- Mega menu overlay -->
