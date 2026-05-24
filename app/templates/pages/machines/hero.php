@@ -23,8 +23,6 @@ get_template_part('templates/parts/hero-category', null, [
         'subtitle'          => __('Fabricate panels and gutters on-site with NTM portable rollformers. Up to $2.25 saved on every square foot.', 'standard'),
         'cta_primary'       => __('See the Lineup', 'standard'),
         'cta_primary_url'   => '#lineup',
-        'cta_secondary'     => __('Talk to a Specialist', 'standard'),
-        'cta_secondary_url' => '/contact/',
         // Who Is NTM brand video — system default. The video panel
         // renders inline in the hero right column (16:9 Wistia embed).
         'video'             => 'https://fast.wistia.net/embed/iframe/kdv2kphni1?seo=false&videoFoam=true',
