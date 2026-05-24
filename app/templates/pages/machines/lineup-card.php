@@ -8,6 +8,10 @@
  * keyboard users get one stop per card and the hover affordance reads
  * as a real link.
  *
+ * Highlights render as a <ul> with disc bullets in blue-400 to match
+ * the bullet treatment on the front-page Flagships callout. Quieter
+ * than the red eyebrow dots; bullet text carries the meaning.
+ *
  * Price falls back gracefully: hardcoded $machine['price'] wins if
  * set, otherwise we ask WC for the product's price by slug. If WC has
  * no price either, the price block is omitted.
@@ -66,11 +70,19 @@ $price_label = $machine['price_label'] ?? __('Starting at', 'standard');
         <?php endif; ?>
 
         <?php if (!empty($machine['highlights'])) : ?>
-            <div class="flex flex-col gap-3 text-sm text-blue-700 grow">
+            <!-- Highlights as a real <ul>. role="list" defends against
+                 Safari's strip-list-semantics-when-list-style-none
+                 bug. The marker span is decorative (aria-hidden) so
+                 screen readers hear clean list items. Standard disc
+                 in blue-400 (quieter than the red eyebrow dots). -->
+            <ul class="flex flex-col gap-2 text-sm text-blue-700 grow" role="list">
                 <?php foreach ($machine['highlights'] as $highlight) : ?>
-                    <p><?php echo esc_html($highlight); ?></p>
+                    <li class="flex items-start gap-2 leading-relaxed">
+                        <span class="text-blue-400 shrink-0 leading-relaxed" aria-hidden="true">&bull;</span>
+                        <span><?php echo esc_html($highlight); ?></span>
+                    </li>
                 <?php endforeach; ?>
-            </div>
+            </ul>
         <?php endif; ?>
 
         <!-- CTA. relative z-10 lifts it above the card-wide name
