@@ -2,11 +2,10 @@
 /**
  * Manual Card
  *
- * Shared card for the manual catalog. Mirrors card-profile.php in shape
- * (square image well, sans title, mono machine-tag subtitle) so the
- * /manuals grid reads as a sibling of /profiles. One delta: a small
- * mono "PDF" chip pinned to the image well's top-left corner so the
- * card identifies as a downloadable manual at a glance.
+ * Canonical manual card. Mirrors card-profile.php exactly so the /manuals
+ * grid reads as a sibling of /profiles. Only delta: a small mono "PDF"
+ * chip pinned to the image well's top-left corner so the card identifies
+ * as a downloadable manual at a glance.
  *
  * Args:
  *   manual (WP_Post|int): manual post or its ID
@@ -43,37 +42,33 @@ $url   = get_permalink($manual);
 $title = get_the_title($manual);
 $thumb = get_the_post_thumbnail_url($manual, 'product-card');
 
-// Up to three machine tag names, with a "+N" suffix if more exist.
+// Up to two machine tag names, with a "+N" suffix if more exist.
 $subtitle = '';
 if ($context === 'grid') {
     $tags = get_the_terms($manual->ID, 'post_tag');
     if (is_array($tags) && !empty($tags)) {
-        $names = array_map(static fn(\WP_Term $t): string => $t->name, array_slice($tags, 0, 3));
+        $names = array_map(static fn(\WP_Term $t): string => $t->name, array_slice($tags, 0, 2));
         $extra = count($tags) - count($names);
         $subtitle = implode(', ', $names);
         if ($extra > 0) {
-            $subtitle .= sprintf(
-                /* translators: %d: number of additional machine tags. */
-                _n(' +%d more', ' +%d more', $extra, 'standard'),
-                $extra
-            );
+            $subtitle .= sprintf(' +%d', $extra);
         }
     }
 }
 ?>
 
 <a href="<?php echo esc_url($url); ?>"
-   class="manual-card group grid gap-3 no-underline">
+   class="manual-card group grid grid-rows-[auto_1fr] no-underline bg-white border border-blue-200 hover:border-blue-500 transition-colors duration-200">
 
-    <div class="manual-card__image relative bg-blue-50 aspect-square overflow-hidden flex items-center justify-center border border-blue-200 group-hover:border-blue-500 transition-colors duration-200">
+    <div class="manual-card__image relative aspect-[16/9] overflow-hidden border-b border-blue-200 group-hover:border-blue-500 transition-colors duration-200">
         <?php if ($thumb) : ?>
             <img src="<?php echo esc_url($thumb); ?>"
                  alt="<?php echo esc_attr($title); ?>"
-                 class="w-full h-full object-cover transition-transform duration-200 group-hover:scale-105"
+                 class="w-full h-full block object-cover transition-transform duration-200 group-hover:scale-105"
                  loading="lazy"
                  decoding="async">
         <?php else : ?>
-            <span class="font-mono text-blue-400 text-sm px-4 text-center">
+            <span class="flex items-center justify-center w-full h-full font-mono text-blue-400 text-sm px-4 text-center">
                 <?php echo esc_html($title); ?>
             </span>
         <?php endif; ?>
@@ -86,7 +81,7 @@ if ($context === 'grid') {
         </span>
     </div>
 
-    <div class="grid gap-1">
+    <div class="grid gap-1 content-start p-4 lg:p-5">
         <h3 class="font-sans font-semibold text-base lg:text-lg leading-snug tracking-tight text-blue-900 group-hover:text-blue-500 transition-colors duration-200">
             <?php echo esc_html($title); ?>
         </h3>
