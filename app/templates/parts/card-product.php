@@ -43,9 +43,15 @@ $is_accessory   = empty($price);
 ?>
 
 <article class="card-product group relative">
-    <div class="card-product__image-wrapper">
+    <div class="card-product__image-wrapper relative">
         <?php if ($badge) : ?>
-            <span class="card-product__badge"><?php echo esc_html($badge); ?></span>
+            <!-- Flagship-style badge overlay. Mono uppercase, red
+                 ground, text-blue-50 (the tinted near-white). Pinned
+                 top-left over the image so the content column below
+                 stays free of secondary chrome. -->
+            <span class="card-product__badge absolute top-0 left-0 z-10 inline-flex items-center px-3 py-2 bg-red text-blue-50 font-mono uppercase tracking-wider text-xs font-medium">
+                <?php echo esc_html($badge); ?>
+            </span>
         <?php endif; ?>
 
         <?php if ($image) : ?>
@@ -81,7 +87,12 @@ $is_accessory   = empty($price);
                     <?php esc_html_e('Build & Quote', 'standard'); ?>
                 </a>
             <?php else : ?>
-                <a href="<?php echo esc_url($explore_url); ?>" class="card-product__cta-explore" tabindex="-1" aria-hidden="true">
+                <!-- Fallback CTA when no configurator exists. Promoted
+                     to a real outline button so the card has the same
+                     visual weight as siblings with Build & Quote. The
+                     relative+z-10 lifts it above the card-wide ::after
+                     overlay so it stays independently clickable. -->
+                <a href="<?php echo esc_url($explore_url); ?>" class="btn btn-sm btn-outline-dark relative z-10">
                     <?php esc_html_e('Explore', 'standard'); ?>
                     <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                 </a>
