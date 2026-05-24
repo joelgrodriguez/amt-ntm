@@ -113,3 +113,35 @@
 
 /* Transition snippets are added below as they're wired into the theme.
  * Order matches the catalog in /Users/jrodriguez/.claude/skills/transitions-dev/SKILL.md. */
+
+
+/* ── 07 · Panel reveal ─────────────────────────────────────────────────
+ * Used by .mega-panel and .mobile-menu. Element-level overrides on
+ * --panel-translate-y / --panel-open-dur live with each component so the
+ * shared snippet stays generic. */
+.t-panel-slide {
+  transform: translateY(var(--panel-translate-y));
+  opacity: 0;
+  filter: blur(var(--panel-blur));
+  pointer-events: none;
+  transition:
+    transform var(--panel-close-dur) var(--panel-ease),
+    opacity   var(--panel-close-dur) var(--panel-ease),
+    filter    var(--panel-close-dur) var(--panel-ease);
+  will-change: transform, opacity, filter;
+}
+.t-panel-slide[data-open="true"],
+.t-panel-slide.is-open {
+  transform: translateY(0);
+  opacity: 1;
+  filter: blur(0);
+  pointer-events: auto;
+  transition:
+    transform var(--panel-open-dur) var(--panel-ease),
+    opacity   var(--panel-open-dur) var(--panel-ease),
+    filter    var(--panel-open-dur) var(--panel-ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-panel-slide { transition: none !important; }
+}

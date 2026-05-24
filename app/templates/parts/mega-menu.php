@@ -36,7 +36,7 @@ $panels = array_values(array_filter($nav['items'], fn($i) => ($i['kind'] ?? '') 
 
     <div
         id="mega-panel-<?php echo esc_attr($panel_id); ?>"
-        class="mega-panel"
+        class="mega-panel t-panel-slide"
         role="region"
         aria-label="<?php echo esc_attr($panel['label']); ?>"
         aria-hidden="true"
