@@ -72,5 +72,13 @@ $price_label = $machine['price_label'] ?? __('Starting at', 'standard');
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
+
+        <!-- CTA. relative z-10 lifts it above the card-wide name
+             overlay so the button stays clickable on its own target. -->
+        <div class="mt-auto relative z-10">
+            <a href="<?php echo esc_url(\Standard\Url\with_query('/build-finance/', ['machine' => $machine['slug']])); ?>" class="btn btn-outline-dark btn-sm">
+                <?php esc_html_e('Build & Configure', 'standard'); ?>
+            </a>
+        </div>
     </div>
 </div>
