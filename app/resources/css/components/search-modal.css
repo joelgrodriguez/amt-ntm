@@ -113,6 +113,14 @@
     overscroll-behavior: contain;
   }
 
+  /* Modal-local container cap. The site-wide .container cap is 1440px;
+     inside the modal the surface needs to feel more focused, so we
+     hold the content column at 1280px without changing the global
+     token. Bar, field, chips and results all inherit. */
+  .search-modal .container {
+    max-width: 1280px;
+  }
+
   /* Row 1: eyebrow bar */
   .search-modal__bar {
     @apply py-4 border-b border-blue-100;
@@ -197,7 +205,7 @@
      pane. Hidden on mobile (no visible Enter key on soft keyboards). */
   .search-modal__hint {
     @apply hidden lg:inline-flex items-center justify-center shrink-0;
-    @apply font-mono text-blue-500 bg-blue-50;
+    @apply font-mono text-blue-500 bg-transparent;
     border: 1px solid var(--color-blue-200);
     width: 2rem;
     height: 2rem;
@@ -214,11 +222,11 @@
   }
 
   .search-modal__chips {
-    @apply m-0 p-0 border-0 flex flex-col gap-3;
+    @apply m-0 p-0 border-0 flex flex-col gap-4;
   }
 
   .search-modal__chips-label {
-    @apply m-0 p-0 font-mono font-medium uppercase tracking-wider text-blue-500;
+    @apply block m-0 mb-3 p-0 font-mono font-medium uppercase tracking-wider text-blue-500;
     font-size: var(--text-caption);
   }
 
@@ -227,15 +235,14 @@
   }
 
   /* Each chip: a small button that toggles the post_type scope.
-     Inactive = ghost outline; active = blue-50 fill + blue-500 stripe
-     (mirrors the filter-sidebar active-row vocabulary). */
+     Inactive = ghost outline; active = blue-50 fill (mirrors the
+     filter-sidebar active-row vocabulary). Border is uniform on all
+     sides so the active state reads as a filled tag, not a tab. */
   .search-modal__chip {
     @apply inline-flex items-center justify-center bg-white text-blue-700 cursor-pointer;
     @apply font-mono font-medium uppercase tracking-wider;
     @apply px-3 py-2;
     border: 1px solid var(--color-blue-200);
-    border-bottom-width: 2px;
-    border-bottom-color: var(--color-blue-200);
     font-size: var(--text-caption);
     transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease;
     white-space: nowrap;
@@ -253,8 +260,7 @@
 
   .search-modal__chip[aria-pressed="true"] {
     @apply text-blue-900 bg-blue-50;
-    border-color: var(--color-blue-300);
-    border-bottom-color: var(--color-blue-500);
+    border-color: var(--color-blue-500);
   }
 
   /* Row 4: quick results. Hidden until JS shows it. The list is a
@@ -269,7 +275,7 @@
   }
 
   .search-modal__results-status {
-    @apply m-0 mb-3 font-mono uppercase tracking-wider text-blue-400;
+    @apply m-0 mb-3 font-mono uppercase tracking-wider text-blue-400 text-right;
     font-size: var(--text-caption);
     min-height: 1rem;
   }
@@ -383,10 +389,10 @@
   }
 
   /* "See all N results" link. Lives below the list when there's more
-     to find. Mono caption + nudging arrow matches the suggestion
-     pattern used elsewhere. */
+     to find. Centered in the column with breathing room above so it
+     reads as a deliberate exit rather than another result row. */
   .search-modal__results-all {
-    @apply inline-flex items-center gap-2 mt-4 font-mono uppercase tracking-wider text-blue-700 no-underline;
+    @apply flex items-center justify-center gap-2 mt-10 font-mono uppercase tracking-wider text-blue-700 no-underline;
     font-size: var(--text-caption);
     transition: color 150ms ease, gap 150ms ease;
   }
