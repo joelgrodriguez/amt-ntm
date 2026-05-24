@@ -85,7 +85,7 @@ $is_category = is_category();
                         'current_terms' => $current_machine_terms,
                     ],
                 ],
-                'back_url'   => \Standard\Url\internal($active_type === 'profile' ? '/profiles/' : '/manuals/'),
+                'back_url'   => \Standard\Url\internal($active_type === 'profile' ? '/profiles/' : '/machines/manuals/'),
                 'back_label' => $active_type === 'profile' ? __('All profiles', 'standard') : __('All manuals', 'standard'),
             ]);
             ?>
