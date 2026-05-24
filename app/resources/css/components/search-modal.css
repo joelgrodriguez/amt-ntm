@@ -61,10 +61,53 @@
   }
 }
 
+/* ── Search-modal-specific motion override ────────────────────────────
+ * UNLAYERED on purpose. The base .t-panel-slide rule above is also
+ * unlayered, and CSS cascade rules mean unlayered styles beat layered
+ * ones regardless of specificity. If this block lived in
+ * @layer components, the layered override would lose to the unlayered
+ * base — which is exactly the "still fades" bug we hit before.
+ *
+ * The modal needs:
+ *   - transform-only transition (the fade/blur of the base panel reveal
+ *     reads as cheap at full-viewport scale)
+ *   - per-direction easing: a touch of overshoot on open (spring-out)
+ *     for "anticipation", an accelerated curve on close so the exit
+ *     feels decisive rather than dragged
+ *   - longer durations than the default panel reveal so the 100vh
+ *     travel doesn't feel rushed */
+.search-modal {
+  --panel-translate-y: -100vh;
+
+  /* Open: 520ms with a back-out-style spring (slight overshoot near the
+   * landing). Close: 360ms with an accelerated in-out so the dialog
+   * pulls back upward with intent. Both pulled OUT of the shared
+   * --panel-ease so this modal can have its own personality without
+   * affecting the mega/mobile menu reveals. */
+  --panel-open-dur:  520ms;
+  --panel-close-dur: 360ms;
+  --search-modal-open-ease:  cubic-bezier(0.16, 1.05, 0.30, 1);
+  --search-modal-close-ease: cubic-bezier(0.55, 0.06, 0.68, 0.19);
+}
+
+.search-modal.t-panel-slide {
+  opacity: 1;
+  filter: none;
+  pointer-events: none;
+  transition: transform var(--panel-close-dur) var(--search-modal-close-ease);
+}
+
+.search-modal.t-panel-slide[data-open="true"] {
+  opacity: 1;
+  filter: none;
+  pointer-events: auto;
+  transition: transform var(--panel-open-dur) var(--search-modal-open-ease);
+}
+
 @layer components {
   /* Shell. Full-viewport drawer. The native dialog comes with margin
-     auto + max-width baggage; strip it. Motion lives in .t-panel-slide
-     (transitions.dev / 07); this block only handles geometry + chrome. */
+     auto + max-width baggage; strip it. Geometry + chrome only; motion
+     lives in the unlayered .search-modal block above. */
   .search-modal {
     @apply m-0 p-0 border-0 bg-white text-blue-900 max-w-none;
     color-scheme: light;
@@ -74,34 +117,6 @@
     width: 100vw;
     height: 100dvh;
     max-height: none;
-
-    /* Per-component override: full-viewport slide. The closed state
-       sits one full viewport above; open slides it into place. Slide
-       only, no opacity fade, no blur — the fade/blur read as cheap
-       at this scale. Open/close durations tuned for the longer
-       travel distance — 350/400ms reads as molasses at 100vh. */
-    --panel-translate-y: -100vh;
-    --panel-open-dur: 480ms;
-    --panel-close-dur: 380ms;
-  }
-
-  /* Override .t-panel-slide locally: transition transform only on the
-     search modal. Drops the opacity + filter channels so close is a
-     clean slide-up without the fade-then-snap. pointer-events still
-     toggles so a click during the slide doesn't accidentally hit the
-     dialog while it's leaving. */
-  .search-modal.t-panel-slide {
-    opacity: 1;
-    filter: none;
-    pointer-events: none;
-    transition: transform var(--panel-close-dur) var(--panel-ease);
-  }
-
-  .search-modal.t-panel-slide[data-open="true"] {
-    opacity: 1;
-    filter: none;
-    pointer-events: auto;
-    transition: transform var(--panel-open-dur) var(--panel-ease);
   }
 
   /* Backdrop stays solid for the entire open lifetime, then disappears

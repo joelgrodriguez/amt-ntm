@@ -401,25 +401,51 @@ export const initSearchModal = () => {
     }, 0);
   };
 
+  // Finalize the close after the slide transition ends. Idempotent
+  // and safe to call from either transitionend or the safety timer.
+  const finalizeClose = () => {
+    if (closeTimer !== null) {
+      window.clearTimeout(closeTimer);
+      closeTimer = null;
+    }
+    modal.removeEventListener('transitionend', handleCloseTransitionEnd);
+    if (modal.open) {
+      modal.close();
+    }
+  };
+
+  // Only react to the transform transition on the modal itself —
+  // child element transitions (chip hovers, input focus rings) bubble
+  // up through this listener and would close the dialog prematurely.
+  function handleCloseTransitionEnd(event) {
+    if (event.target !== modal) return;
+    if (event.propertyName !== 'transform') return;
+    finalizeClose();
+  }
+
   const closeModal = () => {
     if (!modal.open) {
       return;
     }
 
-    // Start the slide-up + fade first, then call .close() once the
-    // transition has finished. Closing the dialog immediately would
-    // unmount the element before the user saw any motion.
+    // Start the slide-up. We finalize on transitionend so the dialog
+    // unmounts exactly when the slide visually completes, not on a
+    // setTimeout that can fire a frame or two early and produce the
+    // "snap at the end" look. The safety timer is a fallback for
+    // browsers/edge cases where transitionend doesn't fire (e.g. the
+    // user hides the tab mid-transition).
     modal.setAttribute('data-open', 'false');
+
+    modal.removeEventListener('transitionend', handleCloseTransitionEnd);
+    modal.addEventListener('transitionend', handleCloseTransitionEnd);
 
     if (closeTimer !== null) {
       window.clearTimeout(closeTimer);
     }
-    closeTimer = window.setTimeout(() => {
-      closeTimer = null;
-      if (modal.open) {
-        modal.close();
-      }
-    }, panelCloseMs);
+    // Buffer the safety timer past the transition duration so it only
+    // fires if transitionend genuinely fails. 80ms covers a couple of
+    // frames at 60Hz; longer would leave the dialog mounted unnecessarily.
+    closeTimer = window.setTimeout(finalizeClose, panelCloseMs + 80);
   };
 
   const handleClose = () => {
@@ -572,6 +598,7 @@ export const initSearchModal = () => {
     modal.removeEventListener('close', handleClose);
     modal.removeEventListener('cancel', handleCancel);
     modal.removeEventListener('keydown', handleModalKeydown);
+    modal.removeEventListener('transitionend', handleCloseTransitionEnd);
 
     if (input instanceof HTMLInputElement) {
       input.removeEventListener('input', handleInput);
