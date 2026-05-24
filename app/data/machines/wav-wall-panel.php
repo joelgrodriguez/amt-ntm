@@ -11,28 +11,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// ── Hero ──
-// ── Stats ──
-// ── Finance ──
-// ── Breakdown ──
-// ── Blueprint ──
-// ── Gallery ──
-// ── Profiles ──
-// ── Accessories ──
-// ── Testimonials ──
-// ── Comparison ──
-// ── Specs ──
-// ── Resources ──
-// ── FAQ ──
-// ── Schema ──
-
 return [
-
-    // ── Identity ──
     'category' => __('Roof & Wall Panel Machines', 'standard'),
     'slogan'   => __('Wave panels, endless possibilities.', 'standard'),
-
-    // ── Hero ──
     'hero' => [
         'headline'   => __('The Industry\'s Only Portable WAV Profile Machine.', 'standard'),
         'subtitle'   => __('Purpose-built for heavy commercial and industrial wall panel work. UNIQ® Automatic Control System comes standard.', 'standard'),
@@ -40,16 +21,12 @@ return [
         'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_WAV_1000x1000.png',
         'video'      => null,
     ],
-
-    // ── Stats ──
     'stats' => [
         ['value' => '3',             'label' => __('WAV Profiles', 'standard')],
         ['value' => '150 ft/min',    'label' => __('Max Speed (Electric)', 'standard')],
         ['value' => 'UNIQ®',         'label' => __('Controller Standard', 'standard')],
         ['value' => '25',            'label' => __('Drive Rollers', 'standard')],
     ],
-
-    // ── Finance ──
     'finance' => [
         'monthly_price' => null,
         'price_range'   => __('$232,000+', 'standard'),
@@ -57,8 +34,6 @@ return [
         'apr'           => '',
         'months'        => '',
     ],
-
-    // ── Breakdown ──
     'breakdown' => [
         [
             'id'       => 'forming-system',
@@ -97,8 +72,6 @@ return [
             'image'    => '',
         ],
     ],
-
-    // ── Fit ──
     'fit' => [
         'is_for' => [
             __('Heavy commercial and industrial wall panel contractors', 'standard'),
@@ -113,38 +86,24 @@ return [
             ['text' => __('Budget-conscious startups — this is the highest-price NTM machine', 'standard')],
         ],
     ],
-
-    // ── Blueprint ──
     'blueprint' => [
         'svg' => 'wav-machine',
     ],
-
-    // ── Gallery ──
     'gallery' => [
         'images'  => [],
         'rotator' => [],
     ],
-
-    // ── Profiles ──
     'profiles' => [
         'tag_slugs' => ['wav-wall-panel-machine'],
     ],
-
-    // ── Accessories ──
     'accessories' => [
         'product_tag' => 'WAV',
     ],
-
-    // ── Testimonials ──
     'testimonials' => [],
-
-    // ── Comparison ──
     'comparison' => [
         'compare_with' => ['ssq3-multipro', 'ssq-ii-multipro'],
         'best_for'     => __('Heavy commercial/industrial walls', 'standard'),
     ],
-
-    // ── Specs ──
     'specs' => [
         'standard_features' => [
             __('Can form 8", 12", and 16" WAV-style profiles with either fastener flange or clip-style attachment', 'standard'),
@@ -228,15 +187,11 @@ return [
             'patents'     => [],
         ],
     ],
-
-    // ── Resources ──
     'resources' => [
         'manual'               => 'https://newtechmachinery.com/learning-center/manual/wav-wall-panel-machine-manual/',
         'brochure'             => 'https://newtechmachinery.com/learning-center/literature/wav-wall-panel-machine-brochure/',
         'service_training_url' => '/service-training',
     ],
-
-    // ── FAQ ──
     'faq' => [
         [
             'question' => __('What profiles does the WAV produce?', 'standard'),
@@ -251,8 +206,6 @@ return [
             'answer'   => __('Yes — free on-site setup and training within the continental U.S. is included with every WAV purchase.', 'standard'),
         ],
     ],
-
-    // ── Schema ──
     'schema' => [
         'low_price'    => '232000',
         'high_price'   => null,

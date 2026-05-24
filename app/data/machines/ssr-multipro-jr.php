@@ -11,28 +11,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// ── Hero ──
-// ── Stats ──
-// ── Finance ──
-// ── Breakdown ──
-// ── Blueprint ──
-// ── Gallery ──
-// ── Profiles ──
-// ── Accessories ──
-// ── Testimonials ──
-// ── Comparison ──
-// ── Specs ──
-// ── Resources ──
-// ── FAQ ──
-// ── Schema ──
-
 return [
-
-    // ── Identity ──
     'category' => __('Roof & Wall Panel Machines', 'standard'),
     'slogan'   => __('Compact power, professional results.', 'standard'),
-
-    // ── Hero ──
     'hero' => [
         'headline'   => __('Affordable Entry Into Portable Rollforming.', 'standard'),
         'subtitle'   => __('The state-of-the-art SSR™ MultiPro Junior produces up to seven different panel profiles.', 'standard'),
@@ -40,16 +21,12 @@ return [
         'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_SSR_1000x1000.png',
         'video'      => null,
     ],
-
-    // ── Stats ──
     'stats' => [
         ['value' => '7',         'label' => __('Panel Profiles', 'standard')],
         ['value' => '30 ft/min', 'label' => __('Max Speed', 'standard')],
         ['value' => 'Electric',  'label' => __('Power', 'standard')],
         ['value' => 'Polyurethane', 'label' => __('Drive Rollers', 'standard')],
     ],
-
-    // ── Finance ──
     'finance' => [
         'monthly_price' => null,
         'price_range'   => __('$43,400+', 'standard'),
@@ -57,8 +34,6 @@ return [
         'apr'           => '',
         'months'        => '',
     ],
-
-    // ── Breakdown ──
     'breakdown' => [
         [
             'id'       => 'forming-system',
@@ -109,8 +84,6 @@ return [
             'image'    => '',
         ],
     ],
-
-    // ── Fit ──
     'fit' => [
         'is_for' => [
             __('Residential roofing contractors entering portable rollforming', 'standard'),
@@ -125,38 +98,24 @@ return [
             ['text' => __('Shops focused on wall panel or WAV profiles', 'standard'), 'machine' => 'wav-wall-panel'],
         ],
     ],
-
-    // ── Blueprint ──
     'blueprint' => [
         'svg' => 'ssr-machine',
     ],
-
-    // ── Gallery ──
     'gallery' => [
         'images'  => [],
         'rotator' => [],
     ],
-
-    // ── Profiles ──
     'profiles' => [
         'tag_slugs' => ['ssr-multipro-roof-panel-machine'],
     ],
-
-    // ── Accessories ──
     'accessories' => [
         'product_tag' => 'SSR',
     ],
-
-    // ── Testimonials ──
     'testimonials' => [],
-
-    // ── Comparison ──
     'comparison' => [
         'compare_with' => ['ssh-multipro', '5vc-5v-crimp'],
         'best_for'     => __('Entry-level / Residential', 'standard'),
     ],
-
-    // ── Specs ──
     'specs' => [
         'standard_features' => [
             __('8 Polyurethane Drive Rollers', 'standard'),
@@ -258,15 +217,11 @@ return [
             'patents'     => ['U.S. PATENT NO. 6,772,616'],
         ],
     ],
-
-    // ── Resources ──
     'resources' => [
         'manual'               => 'https://newtechmachinery.com/learning-center/manual/ssr-roof-panel-machine-manual/',
         'brochure'             => 'https://newtechmachinery.com/learning-center/literature/ssr-multipro-jr-roof-panel-machine-brochure/',
         'service_training_url' => '/service-training',
     ],
-
-    // ── FAQ ──
     'faq' => [
         [
             'question' => __('Is the SSR good for beginners?', 'standard'),
@@ -285,8 +240,6 @@ return [
             'answer'   => __('Limited three-year part and NTM in-house labor warranty.', 'standard'),
         ],
     ],
-
-    // ── Schema ──
     'schema' => [
         'low_price'    => '43400',
         'high_price'   => null,

@@ -11,28 +11,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// ── Hero ──
-// ── Stats ──
-// ── Finance ──
-// ── Breakdown ──
-// ── Blueprint ──
-// ── Gallery ──
-// ── Profiles ──
-// ── Accessories ──
-// ── Testimonials ──
-// ── Comparison ──
-// ── Specs ──
-// ── Resources ──
-// ── FAQ ──
-// ── Schema ──
-
 return [
-
-    // ── Identity ──
     'category' => __('Seamless Gutter Machines', 'standard'),
     'slogan'   => __('Speed and precision, job after job.', 'standard'),
-
-    // ── Hero ──
     'hero' => [
         'headline'   => __('6" K-Style Gutters. The Industry Standard.', 'standard'),
         'subtitle'   => __('6" seamless gutter machine with the original polyurethane drive system. Over 30 years of proven performance.', 'standard'),
@@ -40,16 +21,12 @@ return [
         'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_MACH-II-6_1000x1000.png',
         'video'      => null,
     ],
-
-    // ── Stats ──
     'stats' => [
         ['value' => '50 ft/min', 'label' => __('Max Speed', 'standard')],
         ['value' => '1,250 lbs', 'label' => __('Machine Weight', 'standard')],
         ['value' => '30+',       'label' => __('Years Proven', 'standard')],
         ['value' => '6" K-style', 'label' => __('Gutter Profile', 'standard')],
     ],
-
-    // ── Finance ──
     'finance' => [
         'monthly_price' => null,
         'price_range'   => __('$10,500+', 'standard'),
@@ -57,8 +34,6 @@ return [
         'apr'           => '5.99%',
         'months'        => '60',
     ],
-
-    // ── Breakdown ──
     'breakdown' => [
         [
             'id'       => 'forming-system',
@@ -97,8 +72,6 @@ return [
             'image'    => '',
         ],
     ],
-
-    // ── Fit ──
     'fit' => [
         'is_for' => [
             __('Residential and light commercial gutter contractors running 6" K-style', 'standard'),
@@ -113,38 +86,24 @@ return [
             ['text' => __('High-volume operations needing hydraulic drive', 'standard')],
         ],
     ],
-
-    // ── Blueprint ──
     'blueprint' => [
         'svg' => 'mach-ii-6-machine',
     ],
-
-    // ── Gallery ──
     'gallery' => [
         'images'  => [],
         'rotator' => [],
     ],
-
-    // ── Profiles ──
     'profiles' => [
         'tag_slugs' => ['mach-ii-6-gutter-machine'],
     ],
-
-    // ── Accessories ──
     'accessories' => [
         'product_tag' => 'MACHII',
     ],
-
-    // ── Testimonials ──
     'testimonials' => [],
-
-    // ── Comparison ──
     'comparison' => [
         'compare_with' => ['mach-ii-5-gutter', 'mach-ii-combo-gutter'],
         'best_for'     => __('Residential 6" K-style gutter production', 'standard'),
     ],
-
-    // ── Specs ──
     'specs' => [
         'standard_features' => [
             __('Polyurethane Drive Rollers', 'standard'),
@@ -228,15 +187,11 @@ return [
             'patents'     => ['U.S. PATENT NO. 5,394,722', 'U.S. PATENT NO. 5,740,687'],
         ],
     ],
-
-    // ── Resources ──
     'resources' => [
         'manual'               => 'https://newtechmachinery.com/learning-center/manual/mach-ii-gutter-machines-manual/',
         'brochure'             => 'https://newtechmachinery.com/learning-center/literature/mach-ii-5-6-5-6-gutter-machines-brochure/',
         'service_training_url' => '/service-training',
     ],
-
-    // ── FAQ ──
     'faq' => [
         [
             'question' => __('Why choose the 6" over the 5" model?', 'standard'),
@@ -255,8 +210,6 @@ return [
             'answer'   => __('Limited three-year part and NTM in-house labor warranty.', 'standard'),
         ],
     ],
-
-    // ── Schema ──
     'schema' => [
         'low_price'    => '10500',
         'high_price'   => null,

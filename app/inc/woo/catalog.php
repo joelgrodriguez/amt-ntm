@@ -81,9 +81,6 @@ function get_woocommerce_products(string $category_slug): array {
         'orderby'  => 'menu_order',
         'order'    => 'ASC',
     ]);
-
-    // Strip dormant machines (e.g. SSQ II) so they don't appear in any
-    // front-end listing while their Woo product page remains live.
     $dormant_slugs = function_exists('Standard\\MachinesData\\get_dormant_wc_slugs')
         ? \Standard\MachinesData\get_dormant_wc_slugs()
         : [];

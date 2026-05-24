@@ -44,8 +44,6 @@ get_header();
             <div class="container">
                 <?php get_template_part('templates/parts/post-navigation'); ?>
             </div>
-
-            <!-- Related Posts -->
             <div class="container">
                 <?php get_template_part('templates/parts/related-posts'); ?>
             </div>

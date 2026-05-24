@@ -63,8 +63,6 @@ $milestones = [
 
 <section class="bg-blue-50 py-16 lg:py-24 border-t border-blue-200" aria-labelledby="about-timeline-title">
     <div class="container">
-
-        <!-- Eyebrow + headline + lede -->
         <div class="max-w-3xl mb-12 lg:mb-16">
             <p class="font-mono uppercase tracking-wider text-xs text-red mb-5">
                 <?php echo esc_html($content['eyebrow']); ?>
@@ -77,31 +75,21 @@ $milestones = [
                 <span class="block lg:mt-1"><?php echo esc_html($content['lede_b']); ?></span>
             </p>
         </div>
-
-        <!-- Five roomy cells on a continuous hairline. Desktop = 5 columns,
-             mobile = vertical stack. No chrome bars. -->
         <ol class="border-t border-blue-200 grid grid-cols-1 lg:grid-cols-5">
             <?php foreach ($milestones as $i => $m) : ?>
                 <li class="px-6 lg:px-7 py-10 lg:py-12
                     <?php echo $i > 0 ? 'border-t lg:border-t-0 lg:border-l border-blue-200' : ''; ?>">
                     <div class="grid gap-4">
-                        <!-- Year + dot -->
                         <div class="flex items-center gap-2 font-mono">
                             <span class="w-2 h-2 bg-red" aria-hidden="true"></span>
                             <span class="text-sm text-red uppercase tracking-wider"><?php echo esc_html($m['year']); ?></span>
                         </div>
-                        <!-- Model -->
                         <h3 class="font-mono font-medium text-blue-900 text-lg leading-tight">
                             <?php echo esc_html($m['model']); ?>
                         </h3>
-                        <!-- Subtitle in mono caps -->
                         <p class="font-mono uppercase tracking-wider text-xs text-blue-500 leading-snug -mt-2">
                             <?php echo esc_html($m['name']); ?>
                         </p>
-                        <!-- Body note in sans for readability. text-base
-                             not text-sm: PRODUCT.md commits to 16px min
-                             body, and contractors read this on phones in
-                             sun. -->
                         <p class="font-sans text-blue-700 text-base leading-relaxed">
                             <?php echo esc_html($m['note']); ?>
                         </p>

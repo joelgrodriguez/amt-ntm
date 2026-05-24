@@ -68,8 +68,6 @@ $helpful_links = [
 
 <main id="primary" class="pattern-dot-grid py-12 lg:py-24">
     <div class="container">
-
-        <!-- Error Message -->
         <div class="max-w-2xl mx-auto text-center mb-12 lg:mb-16">
             <p class="font-mono text-lg text-red font-medium uppercase tracking-wider mt-1 mb-4">
                 <?php echo esc_html($content['error_code']); ?>
@@ -80,14 +78,10 @@ $helpful_links = [
             <p class="text-lg text-blue-600 mb-8">
                 <?php echo esc_html($content['text']); ?>
             </p>
-
-            <!-- Search Form -->
             <div class="max-w-md mx-auto">
                 <?php get_search_form(); ?>
             </div>
         </div>
-
-        <!-- Helpful Links -->
         <div class="max-w-4xl mx-auto">
             <h2 class="text-sm font-medium text-blue-900 uppercase tracking-wider text-center mb-8">
                 <?php echo esc_html($content['links_title']); ?>
@@ -112,8 +106,6 @@ $helpful_links = [
                     </a>
                 <?php endforeach; ?>
             </div>
-
-            <!-- Back to Home -->
             <div class="text-center mt-12">
                 <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="inline-flex items-center gap-2 text-sm font-medium text-blue-500 hover:underline">
                     <?php icon('arrow-left', ['class' => 'w-4 h-4']); ?>

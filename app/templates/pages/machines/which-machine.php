@@ -2,8 +2,7 @@
 /**
  * Machines Page — Which Machine Decision Helper
  *
- * Centered CTA section placed after comparison table.
- * Links to existing machine quiz and contact page.
+ * Centered CTA section after the comparison table.
  *
  * @package Standard
  *
@@ -25,8 +24,6 @@ $content = [
     'cta_talk_url'  => '/contact/',
 ];
 
-// Default: no background, sits on the page surface. Pages can pass a
-// 'bg' arg to override (e.g. bg-blue-50).
 $bg = $args['bg'] ?? '';
 ?>
 

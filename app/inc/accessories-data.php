@@ -191,8 +191,6 @@ function get_owner_resources(): array {
  */
 function get_bucketed_products(): array {
     $buckets = get_buckets();
-
-    // Initialize the shape.
     $result = [];
     foreach ($buckets as $b) {
         $result[$b['id']] = [

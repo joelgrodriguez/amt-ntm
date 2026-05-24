@@ -56,15 +56,9 @@ export function init() {
       behavior: 'smooth',
     });
   }
-
-  // Initial state
   updateButton();
-
-  // Add event listeners
   window.addEventListener('scroll', onScroll, { passive: true });
   button.addEventListener('click', scrollToTop);
-
-  // Return cleanup function
   return () => {
     window.removeEventListener('scroll', onScroll);
     button.removeEventListener('click', scrollToTop);

@@ -31,14 +31,11 @@ export function initScrollReveal(options = {}) {
   const elements = document.querySelectorAll(config.selector);
 
   if (!elements.length) return;
-
-  // Check for reduced motion preference
   const prefersReducedMotion = window.matchMedia(
     '(prefers-reduced-motion: reduce)'
   ).matches;
 
   if (prefersReducedMotion) {
-    // Show all elements immediately if user prefers reduced motion
     elements.forEach((el) => el.classList.add('is-visible'));
     return;
   }
@@ -48,7 +45,6 @@ export function initScrollReveal(options = {}) {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
-          // Stop observing once revealed
           observer.unobserve(entry.target);
         }
       });

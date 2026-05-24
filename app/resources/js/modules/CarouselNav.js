@@ -112,8 +112,6 @@ export function initCarouselNav() {
     resizeTimer = window.requestAnimationFrame(() => refreshOverflowVisibility(buttons));
   };
   window.addEventListener('resize', onResize, { signal });
-
-  // Images can change track width after first paint as they load.
   buttons.forEach((button) => {
     const targetId = button.dataset.carouselPrev || button.dataset.carouselNext;
     const track = targetId ? document.getElementById(targetId) : null;

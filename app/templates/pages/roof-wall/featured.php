@@ -21,9 +21,6 @@ if (!defined('ABSPATH')) {
 use function Standard\MachinesData\get_roof_wall_machines;
 
 $machines = get_roof_wall_machines();
-
-// Flagship = first machine flagged featured, falling back to first
-// machine with a non-empty badge string (legacy data shape).
 $featured = null;
 foreach ($machines as $machine) {
     if (!empty($machine['featured']) || !empty($machine['badge'])) {

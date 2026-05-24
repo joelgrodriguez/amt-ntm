@@ -34,15 +34,11 @@ $price_label = $machine['price_label'] ?? __('Starting at', 'standard');
 ?>
 
 <div class="grid bg-blue-900 text-white overflow-hidden lg:grid-cols-[5fr_4fr] lg:items-center">
-
-    <!-- Image -->
     <div class="relative aspect-[4/3] bg-blue-800 lg:aspect-auto lg:h-full lg:min-h-[420px]">
         <?php \Standard\Images\responsive_image($machine['image'], $machine['name'], 'product-card', [
             'class' => 'absolute inset-0 w-full h-full object-contain p-6 lg:p-10',
         ]); ?>
     </div>
-
-    <!-- Content -->
     <div class="grid gap-6 p-8 lg:gap-8 lg:p-12 xl:p-16">
 
         <?php if (!empty($machine['badge']) || !empty($machine['descriptor'])) : ?>

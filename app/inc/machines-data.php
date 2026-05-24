@@ -50,10 +50,6 @@ function get_product_url(string $slug): string {
     if (isset($urls[$slug])) {
         return $urls[$slug];
     }
-
-    // Reverse-lookup the alias map: callers may pass a data-file slug
-    // (e.g. ssq-ii-multipro) while WC stores the product under a
-    // different slug (e.g. ssq-roof-panel-machine).
     if (function_exists('Standard\\MachineProductData\\get_slug_aliases')) {
         $wc_slug = array_search($slug, \Standard\MachineProductData\get_slug_aliases(), true);
         if ($wc_slug !== false && isset($urls[$wc_slug])) {
@@ -159,9 +155,6 @@ function get_machine_categories(bool $include_dormant = false): array {
                     'image'      => $base . '2025/09/20250911_NTM_SSQ-II_1000x1000.png',
                     'url'        => get_product_url('ssq-ii-multipro'),
                     'badge'      => '',
-                    // Superseded by SSQ3. Hidden from /machines and
-                    // /roof-wall-panel-machines listings, but the Woo
-                    // product page stays live for historical reasons.
                     'dormant'    => true,
                     'highlights' => [
                         'Up to 16 profile options: standing seam roof, wall panels, and board & batten',
@@ -667,8 +660,6 @@ function get_dormant_wc_slugs(): array {
             }
         }
     }
-
-    // Also catch the case where a WC slug matches a data slug directly.
     return array_values(array_unique(array_merge($wc_slugs, $dormant_data_slugs)));
 }
 

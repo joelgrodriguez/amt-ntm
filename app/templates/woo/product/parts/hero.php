@@ -30,11 +30,6 @@ $has_mp4  = $video !== '' && preg_match('/\.mp4($|\?)/i', $video);
 
 $price_display = !empty($finance['price_range']) ? $finance['price_range'] : $product->get_price_html();
 $machine_name  = $product->get_name();
-
-// Short watermark for narrow viewports. Resolves the WC product slug
-// through the machine-product-data alias map (e.g. ssq-roof-panel-machine
-// -> ssq-ii-multipro) and looks the short label up in machines-data.php.
-// Falls back to the full WC name when no short variant exists.
 $machine_short = $machine_name;
 if (
     function_exists('Standard\\MachinesData\\get_all_machines')
@@ -85,9 +80,6 @@ if (
             <div class="container hero__content-inner">
                 <h1 id="machine-hero-title" class="hero__title">
                     <?php
-                    // Allow a single safe tag in the headline: <br> with an
-                    // optional class so machine data files can request a
-                    // responsive line break (e.g. desktop-only wrap).
                     echo wp_kses($headline, ['br' => ['class' => true]]);
                     ?>
                 </h1>

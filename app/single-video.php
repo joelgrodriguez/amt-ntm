@@ -25,8 +25,6 @@ get_header();
 <main id="primary" class="">
     <?php while (have_posts()) : the_post(); ?>
         <article id="post-<?php the_ID(); ?>" <?php post_class(''); ?>>
-
-            <!-- Video Player Section -->
             <?php get_template_part('templates/parts/video-section', null, [
                 'title'            => __('Portable Rollforming Channel', 'standard'),
                 'channel'          => __('New Tech Machinery', 'standard'),
@@ -38,8 +36,6 @@ get_header();
                 'bottom_left_icon' => 'calendar',
                 'show_led_strip'   => false,
             ]); ?>
-
-            <!-- Content Section -->
             <section class="pattern-dot-grid py-6 lg:py-12">
                 <div class="container grid gap-6 lg:gap-12">
                     <header class="grid gap-6">
@@ -55,8 +51,6 @@ get_header();
 
                         <?php the_title('<h1 class="font-sans font-semibold text-heading lg:text-heading-lg text-blue-900 leading-tight tracking-tight m-0">', '</h1>'); ?>
                     </header>
-
-                    <!-- Content -->
                     <div class="prose prose-lg max-w-4xl mx-auto">
                         <?php the_content(); ?>
                     </div>
@@ -65,8 +59,6 @@ get_header();
                     </div>
 
                     <?php get_template_part('templates/parts/post-navigation'); ?>
-
-                    <!-- Related Posts -->
                     <?php get_template_part('templates/parts/related-posts'); ?>
                 </div>
             </section>

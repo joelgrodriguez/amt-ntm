@@ -37,8 +37,6 @@ $features = get_uniq_features();
 
 <section class="section bg-blue-50" aria-labelledby="uniq-spotlight-title">
     <div class="container grid gap-12 lg:gap-16">
-
-        <!-- Row 1: image + header -->
         <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-center">
             <div class="grid gap-3">
                 <img
@@ -65,8 +63,6 @@ $features = get_uniq_features();
                 </p>
             </div>
         </div>
-
-        <!-- Row 2: feature tiles -->
         <ol class="grid gap-px bg-blue-200 border border-blue-200 md:grid-cols-2" role="list">
             <?php foreach ($features as $idx => $feature) : ?>
                 <li class="grid content-start gap-3 bg-white p-6 lg:p-8">
@@ -83,8 +79,6 @@ $features = get_uniq_features();
                 </li>
             <?php endforeach; ?>
         </ol>
-
-        <!-- CTA -->
         <div>
             <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-outline-dark">
                 <?php echo esc_html($content['cta_text']); ?>

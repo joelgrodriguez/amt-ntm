@@ -41,8 +41,6 @@ $metrics = [
 <section class="bg-white" aria-labelledby="about-manifesto-title">
     <div class="container">
         <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 pt-16 lg:pt-24 pb-12 lg:pb-16">
-
-            <!-- Copy column -->
             <div class="lg:col-span-7 grid gap-7 content-start">
 
                 <p class="font-mono uppercase tracking-wider text-xs text-red">
@@ -63,8 +61,6 @@ $metrics = [
                 </p>
 
             </div>
-
-            <!-- Image column: locked to 16:9 across breakpoints -->
             <div class="lg:col-span-5">
                 <div class="aspect-video w-full overflow-hidden">
                     <?php \Standard\Images\responsive_image($content['image'], $content['image_alt'], 'full', [
@@ -76,9 +72,6 @@ $metrics = [
             </div>
 
         </div>
-
-        <!-- Metric strip: flat row on a hairline rail, mono labels, sans values.
-             Quiet by default; no chrome bars wrapping it. -->
         <dl class="grid grid-cols-2 md:grid-cols-4 border-t border-blue-200 [&>div]:border-l [&>div]:border-blue-200 [&>div:first-child]:border-l-0 [&>div:nth-child(3)]:border-l-0 md:[&>div:nth-child(3)]:border-l">
             <?php foreach ($metrics as $i => $metric) : ?>
                 <div class="grid gap-1 px-4 py-6 lg:px-6 lg:py-8 <?php echo $i >= 2 ? 'border-t md:border-t-0 border-blue-200' : ''; ?>">

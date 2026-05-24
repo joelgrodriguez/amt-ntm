@@ -69,8 +69,6 @@ $value_points = [
 
 <section class="section bg-white" aria-labelledby="why-own-title">
     <div class="container grid gap-12 lg:gap-16">
-
-        <!-- Header: title + lede on the left, image on the right (lg+) -->
         <div class="grid gap-8 lg:grid-cols-2 lg:gap-16 lg:items-center">
             <div class="section-header-left max-w-xl grid gap-6 content-start">
                 <h2 id="why-own-title" class="section-title">
@@ -93,11 +91,7 @@ $value_points = [
                 ]); ?>
             </div>
         </div>
-
-        <!-- Two-column compare with a single full-height hairline divider on md+ -->
         <div class="grid gap-12 md:grid-cols-2 md:gap-0 md:divide-x md:divide-blue-200">
-
-            <!-- Cost column -->
             <div class="md:pr-10 lg:pr-16">
                 <div class="flex items-center gap-3 pb-6 mb-8 border-b border-blue-200">
                     <span class="w-2 h-2 bg-red shrink-0" aria-hidden="true"></span>
@@ -123,8 +117,6 @@ $value_points = [
                     <?php endforeach; ?>
                 </ul>
             </div>
-
-            <!-- Value column -->
             <div class="md:pl-10 lg:pl-16">
                 <div class="flex items-center gap-3 pb-6 mb-8 border-b border-blue-200">
                     <span class="w-2 h-2 bg-blue-500 shrink-0" aria-hidden="true"></span>

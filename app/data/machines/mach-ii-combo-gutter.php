@@ -11,28 +11,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// ── Hero ──
-// ── Stats ──
-// ── Finance ──
-// ── Breakdown ──
-// ── Blueprint ──
-// ── Gallery ──
-// ── Profiles ──
-// ── Accessories ──
-// ── Testimonials ──
-// ── Comparison ──
-// ── Specs ──
-// ── Resources ──
-// ── FAQ ──
-// ── Schema ──
-
 return [
-
-    // ── Identity ──
     'category' => __('Seamless Gutter Machines', 'standard'),
     'slogan'   => __('Two sizes, one machine, maximum versatility.', 'standard'),
-
-    // ── Hero ──
     'hero' => [
         'headline'   => __('5" and 6" K-Style<br class="hidden lg:inline"> in One Machine.', 'standard'),
         'subtitle'   => __('The combo runs both 5" and 6" K-style seamless gutters. Maximum versatility for gutter contractors.', 'standard'),
@@ -40,16 +21,12 @@ return [
         'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_MACH-II-5-6-Combo_1000x1000.png',
         'video'      => 'https://newtechmachinery.com/wp-content/uploads/2026/05/20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1.mp4',
     ],
-
-    // ── Stats ──
     'stats' => [
         ['value' => '2',         'label' => __('Gutter Sizes', 'standard')],
         ['value' => '50 ft/min', 'label' => __('Max Speed', 'standard')],
         ['value' => '1,350 lbs', 'label' => __('Machine Weight', 'standard')],
         ['value' => 'K-style',   'label' => __('Gutter Profile', 'standard')],
     ],
-
-    // ── Finance ──
     'finance' => [
         'monthly_price' => null,
         'price_range'   => __('$12,300+', 'standard'),
@@ -57,8 +34,6 @@ return [
         'apr'           => '5.99%',
         'months'        => '60',
     ],
-
-    // ── Breakdown ──
     'breakdown' => [
         [
             'id'       => 'forming-system',
@@ -97,8 +72,6 @@ return [
             'image'    => content_url('/uploads/2026/05/ntm-mach2-electric-power-pack-019.jpg'),
         ],
     ],
-
-    // ── Fit ──
     'fit' => [
         'is_for' => [
             __('Gutter contractors who need both 5" and 6" K-style from one machine', 'standard'),
@@ -113,38 +86,24 @@ return [
             ['text' => __('High-volume operations needing hydraulic drive', 'standard')],
         ],
     ],
-
-    // ── Blueprint ──
     'blueprint' => [
         'svg' => 'mach-ii-combo-machine',
     ],
-
-    // ── Gallery ──
     'gallery' => [
         'images'  => [],
         'rotator' => [],
     ],
-
-    // ── Profiles ──
     'profiles' => [
         'tag_slugs' => ['mach-ii-5-gutter-machine', 'mach-ii-5-6-gutter-machine', 'mach-ii-6-gutter-machine'],
     ],
-
-    // ── Accessories ──
     'accessories' => [
         'product_tag' => 'MACHII',
     ],
-
-    // ── Testimonials ──
     'testimonials' => [],
-
-    // ── Comparison ──
     'comparison' => [
         'compare_with' => ['mach-ii-5-gutter', 'mach-ii-6-gutter'],
         'best_for'     => __('5" & 6" K-style gutter production', 'standard'),
     ],
-
-    // ── Specs ──
     'specs' => [
         'standard_features' => [
             __('Polyurethane Drive Rollers', 'standard'),
@@ -160,9 +119,6 @@ return [
         ],
 
         'dimensions' => [
-            // Primary block kept for callers that read dimensions.machine
-            // (the front-page flagships strip, etc.). Reflects the 5"/6"
-            // combo as the headline variant.
             'machine' => [
                 'length'         => "10' (3.0m)",
                 'length_slitter' => null,
@@ -172,9 +128,6 @@ return [
                 'weight'         => '1,350 lbs. (610 kg)',
             ],
             'on_trailer' => [],
-            // Per-size variants: the MACH II combo ships in three
-            // physical footprints. The blueprint section renders one
-            // cell per variant.
             'variants' => [
                 [
                     'label'  => __('5" Gutter', 'standard'),
@@ -257,15 +210,11 @@ return [
             'patents'     => ['U.S. PATENT NO. 5,394,722', 'U.S. PATENT NO. 5,740,687'],
         ],
     ],
-
-    // ── Resources ──
     'resources' => [
         'manual'               => 'https://newtechmachinery.com/learning-center/manual/mach-ii-gutter-machines-manual/',
         'brochure'             => 'https://newtechmachinery.com/learning-center/literature/mach-ii-5-6-5-6-gutter-machines-brochure/',
         'service_training_url' => '/service-training',
     ],
-
-    // ── FAQ ──
     'faq' => [
         [
             'question' => __('Why choose the combo over separate 5" and 6" machines?', 'standard'),
@@ -284,8 +233,6 @@ return [
             'answer'   => __('Limited three-year part and NTM in-house labor warranty.', 'standard'),
         ],
     ],
-
-    // ── Schema ──
     'schema' => [
         'low_price'    => '12300',
         'high_price'   => null,

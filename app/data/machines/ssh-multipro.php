@@ -11,28 +11,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// ── Hero ──
-// ── Stats ──
-// ── Finance ──
-// ── Breakdown ──
-// ── Blueprint ──
-// ── Gallery ──
-// ── Profiles ──
-// ── Accessories ──
-// ── Testimonials ──
-// ── Comparison ──
-// ── Specs ──
-// ── Resources ──
-// ── FAQ ──
-// ── Schema ──
-
 return [
-
-    // ── Identity ──
     'category' => __('Roof & Wall Panel Machines', 'standard'),
     'slogan'   => __('Built for standing seam perfection.', 'standard'),
-
-    // ── Hero ──
     'hero' => [
         'headline'   => __('7 Profiles. Hydraulic Power. Residential Precision.', 'standard'),
         'subtitle'   => __('The high-performance solution to your residential and light commercial needs.', 'standard'),
@@ -40,16 +21,12 @@ return [
         'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_SSH_1000x1000.png',
         'video'      => null,
     ],
-
-    // ── Stats ──
     'stats' => [
         ['value' => '7',          'label' => __('Panel Profiles', 'standard')],
         ['value' => '60 ft/min',  'label' => __('Max Speed', 'standard')],
         ['value' => 'Hydraulic',  'label' => __('Shear & Drive', 'standard')],
         ['value' => '24 ga',      'label' => __('Material Capacity', 'standard')],
     ],
-
-    // ── Finance ──
     'finance' => [
         'monthly_price' => null,
         'price_range'   => __('$69,200+', 'standard'),
@@ -57,8 +34,6 @@ return [
         'apr'           => '5.49%',
         'months'        => '72',
     ],
-
-    // ── Breakdown ──
     'breakdown' => [
         [
             'id'       => 'forming-system',
@@ -109,8 +84,6 @@ return [
             'image'    => '',
         ],
     ],
-
-    // ── Fit ──
     'fit' => [
         'is_for' => [
             __('Residential and light commercial roofing contractors', 'standard'),
@@ -125,38 +98,24 @@ return [
             ['text' => __('Shops focused exclusively on wall panel production', 'standard'), 'machine' => 'wav-wall-panel'],
         ],
     ],
-
-    // ── Blueprint ──
     'blueprint' => [
         'svg' => 'ssh-machine',
     ],
-
-    // ── Gallery ──
     'gallery' => [
         'images'  => [],
         'rotator' => [],
     ],
-
-    // ── Profiles ──
     'profiles' => [
         'tag_slugs' => ['ssh-multipro-roof-panel-machine'],
     ],
-
-    // ── Accessories ──
     'accessories' => [
         'product_tag' => 'SSH',
     ],
-
-    // ── Testimonials ──
     'testimonials' => [],
-
-    // ── Comparison ──
     'comparison' => [
         'compare_with' => ['ssq-ii-multipro', 'ssr-multipro-jr'],
         'best_for'     => __('Residential & light commercial', 'standard'),
     ],
-
-    // ── Specs ──
     'specs' => [
         'standard_features' => [
             __('8 Polyurethane Drive Rollers', 'standard'),
@@ -266,15 +225,11 @@ return [
             'patents'     => ['U.S. PATENT NO. 6,772,616'],
         ],
     ],
-
-    // ── Resources ──
     'resources' => [
         'manual'               => 'https://newtechmachinery.com/learning-center/manual/ssh-roof-panel-machine-with-plc-controller-manual/',
         'brochure'             => 'https://newtechmachinery.com/learning-center/literature/ssh-brochure/',
         'service_training_url' => '/service-training',
     ],
-
-    // ── FAQ ──
     'faq' => [
         [
             'question' => __('What profiles can the SSH produce?', 'standard'),
@@ -293,8 +248,6 @@ return [
             'answer'   => __('Limited three-year part and NTM in-house labor warranty.', 'standard'),
         ],
     ],
-
-    // ── Schema ──
     'schema' => [
         'low_price'    => '69200',
         'high_price'   => null,

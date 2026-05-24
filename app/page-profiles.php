@@ -4,16 +4,6 @@
  *
  * Catalog landing for the panel and gutter profile library.
  *
- * Layout mirrors single-profile.php: a sticky filter sidebar on the
- * left (Type + Machine), with the catalog stacked into three labelled
- * sections on the right (Roof & Wall, Gutter, Clip Relief / Rib Rollers).
- *
- * Canonical category term IDs were resolved against the live post set:
- *   599 = Metal roof & wall panel profiles (22 published)
- *   598 = Gutter profiles                  ( 8 published)
- *   603 = Clip Relief / Rib Rollers        ( 5 published)
- * All three are children of parent category 597 ("Profiles").
- *
  * @package Standard
  */
 

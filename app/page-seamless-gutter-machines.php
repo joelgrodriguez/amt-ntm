@@ -3,7 +3,6 @@
  * Template Name: Seamless Gutter Machines
  *
  * Category landing page for seamless gutter machines.
- * Combines category-specific sections with reused machines page sections.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *

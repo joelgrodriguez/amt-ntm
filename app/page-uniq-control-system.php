@@ -1,11 +1,8 @@
 <?php
 /**
- * Page: UNIQ® Automatic Control System
+ * Template Name: UNIQ® Automatic Control System
  *
- * Custom landing page for /machines/uniq-control-system/ — picked up
- * automatically by WordPress because the slug matches the page name.
- * Replaces the legacy classic-editor content with the engineered-showroom
- * section grammar shared by the rest of /machines/*.
+ * Dedicated landing page for the UNIQ control system machine content.
  *
  * @package Standard
  */

@@ -2,22 +2,7 @@
 /**
  * Template Name: About
  *
- * Custom template for the About page. Composition:
- *
- *   manifesto   (light: eyebrow + headline + lede + photo + metric strip)
- *   video       (dark, chrome-bar framed Who Is NTM)
- *   origin      (light: single-column narrative with right-gutter callouts)
- *   timeline    (light bg-blue-50: 5 signature firsts on a hairline rail)
- *   leadership  (light: industry-standing posture + memberships + lineup CTA)
- *   closer      (shared dark CTA, reused from the front page)
- *
- * Light dominates. The video is the only dark section that still carries
- * chrome-bar grammar; the timeline moved to bg-blue-50 and the origin and
- * leadership sections lost their chrome frames in favor of quieter
- * single-column light blocks. The page reads paced, not framed.
- *
- * Set this template on the About page from Page > Page Attributes >
- * Template > "About".
+ * Renders the About page using reusable section template parts.
  *
  * @package Standard
  */

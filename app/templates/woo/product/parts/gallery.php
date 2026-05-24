@@ -21,8 +21,6 @@ $gallery = $machine['gallery'] ?? [];
 $images  = $gallery['images'] ?? [];
 $rotator = $gallery['rotator'] ?? [];
 $name    = $product ? $product->get_name() : '';
-
-// Use WC featured image as primary, fall back to product render from data file
 $featured_url = '';
 if ($product && $product->get_image_id()) {
     $featured_url = wp_get_attachment_image_url($product->get_image_id(), 'full');
@@ -40,8 +38,6 @@ if (empty($featured_url)) {
             <div class="section-divider-center"></div>
             <h2 id="gallery-title" class="section-title"><?php esc_html_e('See Every Angle', 'standard'); ?></h2>
         </div>
-
-        <!-- Main rotator area -->
         <div class="max-w-md mx-auto">
             <?php if (!empty($rotator)) : ?>
                 <?php \Standard\Images\responsive_image($rotator[0], $name . ' - 360 view', 'full', [
@@ -69,8 +65,6 @@ if (empty($featured_url)) {
             <?php esc_html_e('Drag to Rotate', 'standard'); ?>
             <span>&rarr;</span>
         </p>
-
-        <!-- Thumbnail strip -->
         <?php if (!empty($images)) : ?>
             <div class="flex justify-center gap-3 max-w-5xl mx-auto">
                 <?php foreach (array_slice($images, 0, 6) as $i => $thumb) : ?>

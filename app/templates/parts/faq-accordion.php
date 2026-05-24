@@ -28,10 +28,6 @@ $image_alt  = $args['image_alt'] ?? __('NTM machine being lifted onto a rooftop'
 if (empty($content) || empty($faqs)) {
     return;
 }
-
-// FAQPage JSON-LD for rich-snippet eligibility. The visible <details>
-// markup already gives Google a strong parsing signal; explicit schema
-// makes it unambiguous and surfaces this content as a featured snippet.
 $faq_schema = [
     '@context'   => 'https://schema.org',
     '@type'      => 'FAQPage',
@@ -54,10 +50,6 @@ $faq_schema = [
 
 <section class="section bg-blue-50" aria-labelledby="<?php echo esc_attr($section_id); ?>">
     <div class="container section-content">
-
-        <!-- Section header spans full width; the accordion + image align
-             to each other below so the image tops with the accordion,
-             not with the heading. -->
         <div class="section-header-left">
             <p class="section-eyebrow">
                 <?php echo esc_html($content['eyebrow']); ?>
@@ -85,11 +77,6 @@ $faq_schema = [
                     </details>
                 <?php endforeach; ?>
             </div>
-
-            <!-- Desktop: image fills the grid cell so its height matches the
-                 accordion column instead of forcing a fixed 16:9 box. Mobile
-                 keeps it hidden because the accordion is the load-bearing
-                 element on small screens. -->
             <div class="hidden md:block md:h-full">
                 <img
                     src="<?php echo esc_url($content['image']); ?>"

@@ -132,7 +132,6 @@ function get_compatible_machine_product_cards(int $limit = 8): array {
  * @return array<int, array{url: string, image_id: int, title: string, subtitle: string|null}>
  */
 function get_related_accessory_cards(\WC_Product $product, int $limit = 4): array {
-    // Random related products bypass the cache in Standard\Woo\Cache.
     $products = \Standard\Woo\Cache\get_products([
         'category' => [ACCESSORY_CATEGORY_SLUG],
         'exclude'  => [$product->get_id()],

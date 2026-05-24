@@ -50,9 +50,6 @@ if (!empty($standard_features)) {
     <?php endif;
     $sections[__('Standard Features', 'standard')] = ob_get_clean();
 }
-
-// Footprint is handled separately as an always-visible blueprint column;
-// only specs_html stays inside the accordion.
 if (!empty($specs_html)) {
     ob_start(); ?>
     <div class="prose prose-sm text-blue-700 max-w-none">
@@ -115,18 +112,11 @@ if (empty($sections)) {
     <div class="container section-content">
 
         <?php
-        // Right column priority: footprint blueprint (engineering diagram)
-        // wins over specs_img. Footprint is the primary always-visible asset.
         $footprint_items = [];
         if (is_array($footprints)) {
             foreach ($footprints as $footprint) {
                 $fp_id = is_object($footprint) ? ($footprint->ID ?? 0) : (int) $footprint;
                 if (!$fp_id) continue;
-
-                // The footprint CPT stores the PDF URL inside a pdfjs block
-                // attribute on the post content (imageURL property). Pull it
-                // out so the link can open the PDF directly instead of
-                // routing through the CPT single template.
                 $pdf_url = '';
                 $fp_post = get_post($fp_id);
                 if ($fp_post && preg_match('/"imageURL":"([^"]+\.pdf)"/i', $fp_post->post_content, $m)) {

@@ -88,8 +88,6 @@ export function initMobileMenu() {
    * against the transformed element's own box, not the clipped viewport.
    */
   const positionTrack = () => {
-    // Focus on off-screen panels can change scrollLeft even with overflow hidden.
-    // Keep the clip window fixed; panel movement belongs only to the track.
     viewport.scrollLeft = 0;
     const activePanel = getPanel(state.activePanel);
     const offset = activePanel instanceof HTMLElement ? activePanel.offsetLeft : 0;
@@ -151,8 +149,6 @@ export function initMobileMenu() {
     state.activePanel = ROOT_PANEL;
     state.lastTrigger = null;
     render();
-    // Force the closed/root state to commit before opening, so reopening from
-    // an L2 panel can never animate or flash from the previous panel.
     void menu.offsetHeight;
     state.isOpen = true;
     render();
@@ -170,9 +166,6 @@ export function initMobileMenu() {
    * @param {HTMLElement} trigger
    */
   const goToPanel = (slug, trigger) => {
-    // Guard: if the markup references a slug with no matching panel, do
-    // nothing. Prevents a typo'd data-panel-target from putting the track
-    // into an invisible-broken state (active=bogus, no CSS rule, stuck on L1).
     const newPanel = getPanel(slug);
     if (!newPanel) return;
 
@@ -184,8 +177,6 @@ export function initMobileMenu() {
         const title = newPanel.querySelector('.mobile-menu__panel-title');
         liveRegion.textContent = title ? title.textContent.trim() : '';
     }
-
-    // Move focus to the new panel's back button for keyboard/SR users.
     const backBtn = newPanel.querySelector('[data-action="back"]');
     if (backBtn instanceof HTMLElement) backBtn.focus({ preventScroll: true });
   };
@@ -284,8 +275,6 @@ export function initMobileMenu() {
     const absDy = Math.abs(dy);
     const THRESHOLD = 60;
     const RATIO = 2;
-
-    // Swipe down → close (root panel only, panel must be scrolled to top)
     if (
         state.activePanel === ROOT_PANEL &&
         dy > THRESHOLD &&
@@ -295,8 +284,6 @@ export function initMobileMenu() {
       close();
       return;
     }
-
-    // Swipe right → go back (L2 panels only)
     if (
         state.activePanel !== ROOT_PANEL &&
         dx > THRESHOLD &&
@@ -305,16 +292,12 @@ export function initMobileMenu() {
       goBack();
     }
   };
-
-  // Wire up
   toggle.addEventListener('click', handleToggleClick);
   menu.addEventListener('click', handleMenuClick);
   document.addEventListener('keydown', handleKeydown);
   window.addEventListener('resize', handleResize);
   menu.addEventListener('touchstart', handleTouchStart, { passive: true });
   menu.addEventListener('touchend', handleTouchEnd, { passive: true });
-
-  // Initial render so aria-hidden values are correct on load.
   render();
 
   return () => {

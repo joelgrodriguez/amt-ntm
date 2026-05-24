@@ -135,7 +135,6 @@ function url_to_path(string $url): string {
  */
 function get_desktop_nav(): array {
     return [
-        // Ordered list of nav items — 'mega' items open a panel, 'link' items navigate directly.
         'items' => [
             [
                 'kind'           => 'mega',

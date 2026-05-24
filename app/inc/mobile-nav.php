@@ -68,8 +68,6 @@ function get_mobile_nav_tree(): array {
             'label'    => __('Find your machine', 'standard'),
             'subtitle' => __('See the full lineup', 'standard'),
             'url'      => \Standard\Url\internal('/machines/'),
-            // SSQ3 in-context shot pulled from app/data/machines/ssq3-multipro.php
-            // (hero.image). Hardcoded here rather than reaching across systems.
             'image'    => 'https://newtechmachinery.com/wp-content/uploads/2025/09/Machine-on-rooftop-scaled.jpg',
         ],
         'contact' => [

@@ -20,8 +20,6 @@ if (!defined('ABSPATH')) {
 
 $machine      = $args['machine'] ?? [];
 $testimonials = $machine['testimonials'] ?? [];
-
-// Placeholder testimonials when machine data is empty
 if (empty($testimonials)) {
     $testimonials = [
         [

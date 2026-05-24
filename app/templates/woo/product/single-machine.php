@@ -24,8 +24,6 @@ $machine = $product !== false ? get_machine_product_data($product->get_slug()) :
 $video_url = function_exists('get_field') ? get_field('video', false, false) : null;
 
 get_header();
-
-// Fallback to default WooCommerce if no machine data exists
 if (!$machine) {
     while (have_posts()) {
         the_post();
@@ -49,10 +47,6 @@ if (!$machine) {
 
     <?php get_template_part('templates/woo/product/parts/blueprint', null, compact('machine')); ?>
 
-    <?php // "See Every Angle" gallery — hidden temporarily, redesign pending.
-    // get_template_part('templates/woo/product/parts/gallery', null, compact('product', 'machine'));
-    ?>
-
     <?php
     get_template_part('templates/parts/video-section', null, [
         'title'      => $product->get_name(),
@@ -74,15 +68,11 @@ if (!$machine) {
 
     <?php get_template_part('templates/woo/product/parts/faq', null, compact('machine')); ?>
 
-    <?php // Combined configurator + financing deep section ?>
     <?php get_template_part('templates/woo/product/parts/configurator-finance', null, compact('product', 'machine')); ?>
 
-    <?php // Final CTA: "Talk to us" — catches remaining buyers ?>
     <?php get_template_part('templates/woo/product/parts/final-cta', null, compact('product', 'machine')); ?>
 
     <?php get_template_part('templates/woo/product/parts/sticky-cta', null, compact('product', 'machine')); ?>
-
-    <!-- Floating Quote CTA -->
     <a
         id="floating-quote-cta"
         href="<?php echo esc_url(\Standard\Url\internal('/configurator/' . $product->get_slug() . '/')); ?>"
@@ -96,10 +86,6 @@ if (!$machine) {
 </main>
 
 <?php
-// Generate WooCommerce structured data (JSON-LD for Google rich snippets).
-// The default template fires woocommerce_single_product_summary which triggers
-// WC_Structured_Data::generate_product_data(). Since we skip that action,
-// call generate_product_data() directly so the JSON-LD outputs in wp_footer.
 render_machine_schema($product, $machine);
 do_action('woocommerce_after_single_product');
 

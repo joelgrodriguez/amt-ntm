@@ -110,9 +110,6 @@ function get_primary_category(int $post_id = 0): ?\WP_Term {
     if (empty($categories)) {
         return null;
     }
-
-    // Yoast SEO sets `_yoast_wpseo_primary_category` on the post when
-    // the editor picks a primary category in the meta box.
     $yoast_id = (int) \get_post_meta($post_id, '_yoast_wpseo_primary_category', true);
     if ($yoast_id) {
         $term = \get_term($yoast_id, 'category');
@@ -120,8 +117,6 @@ function get_primary_category(int $post_id = 0): ?\WP_Term {
             return $term;
         }
     }
-
-    // Rank Math uses `rank_math_primary_category`.
     $rm_id = (int) \get_post_meta($post_id, 'rank_math_primary_category', true);
     if ($rm_id) {
         $term = \get_term($rm_id, 'category');

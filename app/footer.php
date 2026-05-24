@@ -67,12 +67,8 @@ $legal_links = [
 ?>
 
 <footer class="mt-auto bg-blue-900 text-blue-300 border-t border-blue-700">
-    <!-- Main Footer Content -->
     <div class="container py-8 lg:py-12">
-        <!-- Desktop: 5 columns | Mobile: Logo + Accordions -->
         <div class="grid gap-0 lg:grid-cols-5 lg:gap-12">
-
-            <!-- Logo Column (always visible) -->
             <div class="lg:col-span-1 pb-4 lg:pb-0">
                 <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="block">
                     <img
@@ -83,11 +79,8 @@ $legal_links = [
                     >
                 </a>
             </div>
-
-            <!-- Footer Sections -->
             <?php foreach ($footer_sections as $index => $section) : ?>
                 <div class="footer-section border-t border-blue-700 lg:border-0">
-                    <!-- Accordion Header (mobile) / Title (desktop) -->
                     <input
                         type="checkbox"
                         id="footer-accordion-<?php echo esc_attr($index); ?>"
@@ -104,8 +97,6 @@ $legal_links = [
                             <?php icon('chevron-down', ['class' => 'w-3 h-3 text-blue-300 transition-transform duration-300']); ?>
                         </span>
                     </label>
-
-                    <!-- Accordion Content -->
                     <div class="footer-accordion-content grid overflow-hidden transition-all duration-300 ease-in-out max-h-0 peer-checked:max-h-96 lg:max-h-none">
                         <div class="pb-4 lg:pb-0">
                             <?php if ($section['description']) : ?>
@@ -140,13 +131,9 @@ $legal_links = [
 
         </div>
     </div>
-
-    <!-- Bottom Bar -->
     <div class="border-t border-blue-700">
         <div class="container py-6">
             <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-
-                <!-- Legal Links (left) -->
                 <nav class="flex flex-wrap gap-4 text-xs">
                     <?php foreach ($legal_links as $link) : ?>
                         <a
@@ -157,14 +144,10 @@ $legal_links = [
                         </a>
                     <?php endforeach; ?>
                 </nav>
-
-                <!-- Copyright (center) -->
                 <p class="text-xs text-blue-500 md:text-center">
                     &copy; <?php echo esc_html(current_time('Y')); ?> <?php echo esc_html(get_bloginfo('name')); ?>.
                     <?php esc_html_e('All rights reserved.', 'standard'); ?>
                 </p>
-
-                <!-- Social Links (right) -->
                 <div class="flex items-center gap-4">
                     <?php foreach ($social_links as $social) : ?>
                         <a
@@ -183,8 +166,6 @@ $legal_links = [
         </div>
     </div>
 </footer>
-
-<!-- Scroll to Top Button -->
 <button
     id="scroll-to-top"
     type="button"
@@ -193,8 +174,6 @@ $legal_links = [
 >
     <?php icon('chevron-up', ['class' => 'w-4 h-4']); ?>
 </button>
-
-<!-- SVG grain filter for hero overlays -->
 <svg style="position:absolute;width:0;height:0" aria-hidden="true">
     <filter id="hero-grain-filter">
         <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>

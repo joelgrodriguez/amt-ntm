@@ -33,8 +33,6 @@ export function initMachineSubnav() {
     '(prefers-reduced-motion: reduce)'
   ).matches;
 
-  // ── Sticky behavior (sentinel-based) ────────────────────────────
-
   const stickyObserver = new IntersectionObserver(
     ([entry]) => {
       const shouldStick = !entry.isIntersecting && entry.boundingClientRect.top < 0;
@@ -43,8 +41,6 @@ export function initMachineSubnav() {
     { threshold: 0 }
   );
   stickyObserver.observe(sentinel);
-
-  // ── Active section tracking ──────────────────────────────────────
 
   const links = subnav.querySelectorAll('.machine-subnav__link');
   const sectionIds = [...links].map((link) => link.dataset.section);
@@ -61,8 +57,6 @@ export function initMachineSubnav() {
       link.classList.toggle('is-active', link.dataset.section === id);
     });
   }
-
-  // Observe each section — the one nearest the top of the viewport wins
   const sectionObserver = new IntersectionObserver(
     (entries) => {
       let topSection = null;
@@ -80,15 +74,12 @@ export function initMachineSubnav() {
       }
     },
     {
-      // Trigger when sections cross the top ~20% of the viewport
       rootMargin: '-10% 0px -80% 0px',
       threshold: 0,
     }
   );
 
   sections.forEach((section) => sectionObserver.observe(section));
-
-  // ── Smooth scroll on anchor click ────────────────────────────────
 
   subnav.addEventListener(
     'click',
@@ -100,8 +91,6 @@ export function initMachineSubnav() {
       const targetId = link.dataset.section;
       const target = document.getElementById(targetId);
       if (!target) return;
-
-      // Account for header + subnav height
       const headerH = parseInt(
         getComputedStyle(document.documentElement).getPropertyValue('--header-height'),
         10
@@ -120,8 +109,6 @@ export function initMachineSubnav() {
     { signal }
   );
 
-  // ── Machine switcher dropdown ────────────────────────────────────
-
   const switcherBtn = subnav.querySelector('.machine-subnav__switcher-btn');
   const dropdown = document.getElementById('machine-subnav-dropdown');
 
@@ -132,10 +119,6 @@ export function initMachineSubnav() {
         const isOpen = switcherBtn.getAttribute('aria-expanded') === 'true';
         switcherBtn.setAttribute('aria-expanded', String(!isOpen));
         dropdown.hidden = isOpen;
-
-        // Focus the first item on open so keyboard users land inside the menu
-        // immediately instead of having to tab past every other interactive
-        // element first.
         if (!isOpen) {
           const firstItem = dropdown.querySelector('.machine-subnav__dropdown-item');
           firstItem?.focus();
@@ -143,8 +126,6 @@ export function initMachineSubnav() {
       },
       { signal }
     );
-
-    // Close on outside click
     document.addEventListener(
       'click',
       (e) => {
@@ -155,8 +136,6 @@ export function initMachineSubnav() {
       },
       { signal }
     );
-
-    // Close on Escape
     document.addEventListener(
       'keydown',
       (e) => {
@@ -169,8 +148,6 @@ export function initMachineSubnav() {
       { signal }
     );
   }
-
-  // ── Cleanup ──────────────────────────────────────────────────────
 
   return () => {
     stickyObserver.disconnect();

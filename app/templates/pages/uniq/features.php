@@ -1,15 +1,6 @@
 <?php
 /**
- * UNIQ Page — Feature Grid
- *
- * Four-column blueprint grid with hairline column dividers between
- * features. Mono spec affix (01 / DISPLAY) sits above each title; sans
- * body underneath. The pattern reads like a spec sheet, not a
- * marketing icon-grid.
- *
- * The hairline dividers use the right-edge convention so the last
- * column doesn't ship an orphan border. On <md the grid collapses to a
- * single column and the dividers become bottom borders.
+ * UNIQ Page feature grid.
  *
  * @package Standard
  *
@@ -50,21 +41,15 @@ $last_idx = count($features) - 1;
             </p>
         </div>
 
-        <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-blue-200 divide-y divide-blue-200 md:divide-y-0">
+            <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-blue-200 divide-y divide-blue-200 md:divide-y-0">
             <?php foreach ($features as $i => $feature) :
-                // Single-col (mobile): rely on .divide-y on the <ul>.
-                // 2-col (md): row 1 (i=0,1) gets bottom border; col 1 (i=0,2) gets right border.
-                // 4-col (lg): no bottom borders; right border on all but the last (i=0,1,2).
                 $cls = '';
-                // md row separator (items 0,1)
                 if ($i < 2) {
                     $cls .= ' md:border-b md:border-blue-200 lg:border-b-0';
                 }
-                // md column separator (items 0,2)
                 if ($i % 2 === 0) {
                     $cls .= ' md:border-r md:border-blue-200';
                 }
-                // lg column separator (items 0,1,2 — everyone but the last)
                 if ($i < $last_idx) {
                     $cls .= ' lg:border-r lg:border-blue-200';
                 }
