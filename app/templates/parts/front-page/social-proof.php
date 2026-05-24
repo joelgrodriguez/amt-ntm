@@ -102,7 +102,7 @@ $total = count($testimonials);
 
     <!-- Top chrome bar -->
     <div class="border-b border-blue-200">
-        <div class="border-x border-blue-200 container-mid">
+        <div class="border-x border-blue-200 container">
             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">
                 <div class="flex items-center gap-3 pl-3">
                     <span class="w-2 h-2 bg-red shrink-0" aria-hidden="true"></span>
@@ -121,9 +121,9 @@ $total = count($testimonials);
     </div>
 
     <!-- Slider body -->
-    <div class="border-x border-blue-200 container-mid">
+    <div class="border-x border-blue-200 container">
         <div
-            class="social-proof__track grid"
+            class="social-proof__track container-mid grid"
             role="region"
             aria-roledescription="carousel"
             aria-label="<?php esc_attr_e('Customer testimonials', 'standard'); ?>"
@@ -177,7 +177,7 @@ $total = count($testimonials);
 
     <!-- Bottom chrome bar -->
     <div class="border-t border-blue-200">
-        <div class="border-x border-blue-200 container-mid">
+        <div class="border-x border-blue-200 container">
             <div class="flex items-center justify-between py-3 font-mono uppercase tracking-wider text-[0.625rem] md:text-xs">
                 <div class="flex items-center gap-2 pl-3">
                     <span class="hidden md:inline"><?php echo esc_html((string) $total); ?></span>
