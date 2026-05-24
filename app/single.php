@@ -16,12 +16,13 @@ if (!defined('ABSPATH')) {
 get_header();
 ?>
 
-<main id="primary" class="pb-6 lg:pb-12">
+<main id="primary" class="pattern-dot-grid pb-6 lg:pb-12">
     <?php while (have_posts()) : the_post(); ?>
         <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-6 lg:gap-12'); ?>>
-            <?php get_template_part('templates/parts/post-hero'); ?>
 
             <div class="container">
+                <?php get_template_part('templates/parts/single/article-hero'); ?>
+
                 <div class="article-layout">
                     <aside id="table-of-contents" class="hidden lg:block" aria-label="<?php esc_attr_e('Table of Contents', 'standard'); ?>">
                         <nav class="toc sticky top-16">

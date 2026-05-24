@@ -11,13 +11,9 @@
  */
 
 @layer components {
-  /* TOC + content grid. Capped to TOC + content's natural reading measure
-     (240 TOC + 48 gap + 720 content = 1008) and centered inside .container. */
-  .article-layout {
-    @apply mx-auto;
-    max-width: 1008px;
-  }
-
+  /* TOC + content grid. Sits full-width inside .container so the article
+     expands to match the resource-style layout: fixed-width sidebar,
+     content uses the remaining 1fr up to the container cap. */
   @media (min-width: 1024px) {
     .article-layout {
       display: grid;
