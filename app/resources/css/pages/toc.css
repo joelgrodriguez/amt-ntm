@@ -11,11 +11,11 @@
  * @see js/modules/TableOfContents.js - TOC generation and scrollspy
  */
 
-/* Container */
+/* Container — sticky pin only, no internal scroll. The page scrolls,
+   the TOC stays pinned; if it overflows the viewport the user keeps
+   scrolling and the lower items come into view naturally. */
 .toc {
   @apply py-8;
-  max-height: calc(100vh - 80px);
-  overflow-y: auto;
 }
 
 /* Title */
@@ -61,23 +61,6 @@
 /* Focus state for keyboard navigation */
 .toc__link:focus-visible {
   @apply outline-none ring-2 ring-blue-500 ring-offset-2;
-}
-
-/* Scrollbar styling for TOC overflow */
-.toc::-webkit-scrollbar {
-  width: 4px;
-}
-
-.toc::-webkit-scrollbar-track {
-  @apply bg-transparent;
-}
-
-.toc::-webkit-scrollbar-thumb {
-  @apply bg-blue-200;
-}
-
-.toc::-webkit-scrollbar-thumb:hover {
-  @apply bg-blue-300;
 }
 
 /* Reduced motion: disable transitions */
