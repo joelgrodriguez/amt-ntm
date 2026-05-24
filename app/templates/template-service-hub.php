@@ -52,7 +52,7 @@ get_header();
                     <?php esc_html_e('Service and Support', 'standard'); ?>
                 </h1>
                 <p class="font-sans text-blue-600 max-w-2xl" style="font-size: var(--text-body); line-height: var(--leading-body);">
-                    <?php esc_html_e('Manuals, troubleshooting articles, support videos, machine parts and footprint downloads. Filter by machine, content type, or topic, or talk to the service team directly.', 'standard'); ?>
+                    <?php esc_html_e('Manuals, troubleshooting articles, support videos, machine parts, and footprint downloads. Filter by machine, type, or topic — or call the service team.', 'standard'); ?>
                 </p>
             </div>
         </div>
