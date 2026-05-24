@@ -17,6 +17,37 @@ const DEFAULTS = {
   debounceDelay: 100,
 };
 
+/* Read --text-swap-dur from CSS so the JS phase timing stays in sync with
+ * the shared token in transitions.css. Falls back to 150ms (the default). */
+const TEXT_SWAP_DUR_MS = (() => {
+  if (typeof window === 'undefined') return 150;
+  const raw = getComputedStyle(document.documentElement)
+    .getPropertyValue('--text-swap-dur').trim();
+  const num = parseFloat(raw);
+  return Number.isFinite(num) ? num : 150;
+})();
+
+/**
+ * Three-phase text swap on a .t-text-swap element. Skips when the new
+ * value matches the current value to avoid pointless animations during
+ * continuous scrolling.
+ *
+ * @param {HTMLElement} el
+ * @param {string} next
+ */
+function swapText(el, next) {
+  if (el.textContent === next) return;
+
+  el.classList.add('is-exit');
+  setTimeout(() => {
+    el.textContent = next;
+    el.classList.remove('is-exit');
+    el.classList.add('is-enter-start');
+    void el.offsetHeight; // force reflow so the next removal transitions
+    el.classList.remove('is-enter-start');
+  }, TEXT_SWAP_DUR_MS);
+}
+
 /**
  * Creates a debounced version of a function.
  *
@@ -103,7 +134,7 @@ export function initExploreMachines(options = {}) {
       }
     });
 
-    currentEl.textContent = String(visibleIndex + 1);
+    swapText(currentEl, String(visibleIndex + 1));
 
     // Update arrow states
     const prevBtn = panel.querySelector('.explore-machines__arrow--prev');
