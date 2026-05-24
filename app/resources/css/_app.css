@@ -38,6 +38,13 @@
 @import "./utilities.css";
 @import "./animations.css";
 
+/* ── Motion system ─────────────────────────────────────────────────── */
+/* transitions.dev — the canonical motion vocabulary for this theme.
+ * Per-component CSS must not redefine transitions for things covered here
+ * (panels, dropdowns, modals, icon/text swaps, card resize, success,
+ * error shake, avatar hover, page slides, badges, number pop). */
+@import "./transitions.css";
+
 /* ── Components ────────────────────────────────────────────────────── */
 @import "./components/buttons.css";
 @import "./components/cards.css";
