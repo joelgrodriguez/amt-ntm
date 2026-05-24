@@ -25,7 +25,7 @@ get_header();
 
                 <div class="article-layout">
                     <aside id="table-of-contents" class="hidden lg:block" aria-label="<?php esc_attr_e('Table of Contents', 'standard'); ?>">
-                        <nav class="toc sticky top-16">
+                        <nav class="toc sticky top-24">
                             <p class="toc__title"><?php esc_html_e('On this page', 'standard'); ?></p>
                             <ol id="toc-list" class="toc__list"></ol>
                         </nav>
