@@ -38,36 +38,17 @@ $content = [
         <div class="grid gap-10 lg:grid-cols-2 lg:gap-16 lg:items-center">
 
             <!-- Content column (right) -->
-            <div class="grid gap-6 lg:gap-8 content-start lg:order-2">
-
-                <!-- Eyebrow: red dot + mono category -->
-                <div class="flex items-center gap-3">
-                    <span class="w-2 h-2 bg-red shrink-0" aria-hidden="true"></span>
-                    <p class="font-mono uppercase tracking-wider text-xs text-blue-700">
-                        <?php echo esc_html($content['eyebrow']); ?>
-                    </p>
-                </div>
-
-                <!-- Headline (the question itself) -->
-                <h2 id="quiz-title" class="font-sans font-medium text-blue-900 tracking-tight leading-tight text-3xl md:text-4xl lg:text-5xl">
-                    <?php echo esc_html($content['title']); ?>
-                </h2>
-
-                <!-- Body (the offer) -->
-                <p class="font-sans text-blue-600 text-base lg:text-lg max-w-xl leading-relaxed">
-                    <?php echo esc_html($content['body']); ?>
-                </p>
-
-                <!-- CTA -->
-                <div class="flex -mt-2 lg:-mt-4">
-                    <a
-                        href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>"
-                        class="btn btn-primary"
-                    >
-                        <?php echo esc_html($content['cta']); ?>
-                        <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
-                    </a>
-                </div>
+            <div class="content-start lg:order-2">
+                <?php get_template_part('templates/parts/section-header', null, [
+                    'id'      => 'quiz-title',
+                    'eyebrow' => $content['eyebrow'],
+                    'title'   => $content['title'],
+                    'lede'    => $content['body'],
+                    'cta'     => [
+                        'label' => $content['cta'],
+                        'url'   => $content['cta_url'],
+                    ],
+                ]); ?>
             </div>
 
             <!-- Image column (left) -->

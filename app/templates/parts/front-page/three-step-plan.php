@@ -84,17 +84,12 @@ $phases = [
             <!-- Steps column (right) -->
             <div class="grid gap-8 lg:gap-10 lg:order-2">
 
-                <div class="grid gap-4">
-                    <div class="flex items-center gap-3">
-                        <span class="w-2 h-2 bg-red shrink-0" aria-hidden="true"></span>
-                        <p class="font-mono uppercase tracking-wider text-xs text-blue-700">
-                            <?php echo esc_html($content['eyebrow']); ?>
-                        </p>
-                    </div>
-                    <h2 id="process-title" class="font-sans font-medium text-blue-900 tracking-tight leading-tight text-2xl md:text-3xl lg:text-4xl max-w-md">
-                        <?php echo esc_html($content['title']); ?>
-                    </h2>
-                </div>
+                <?php get_template_part('templates/parts/section-header', null, [
+                    'id'        => 'process-title',
+                    'eyebrow'   => $content['eyebrow'],
+                    'title'     => $content['title'],
+                    'max_width' => 'max-w-md',
+                ]); ?>
 
                 <ol class="grid gap-6 lg:gap-8" role="list">
                     <?php foreach ($phases as $phase) : ?>

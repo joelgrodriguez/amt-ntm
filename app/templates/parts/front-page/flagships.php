@@ -133,7 +133,7 @@ $rendered_count = 0;
                 </div>
 
                 <!-- Content cell -->
-                <div class="grid gap-6 lg:gap-8 content-start <?php echo $image_first_on_lg ? 'lg:order-2' : 'lg:order-1'; ?>">
+                <div class="grid gap-6 content-start <?php echo $image_first_on_lg ? 'lg:order-2' : 'lg:order-1'; ?>">
 
                     <!-- Eyebrow: red dot + category. (Badge moved onto the image.) -->
                     <div class="flex items-center gap-3 flex-wrap">
@@ -178,7 +178,7 @@ $rendered_count = 0;
                     <?php endif; ?>
 
                     <!-- Single primary CTA into the deep product page -->
-                    <div class="flex -mt-2 lg:-mt-4">
+                    <div class="flex">
                         <a
                             href="<?php echo esc_url(\Standard\Url\internal($cta_url)); ?>"
                             class="btn btn-primary"
