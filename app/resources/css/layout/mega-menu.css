@@ -16,6 +16,10 @@
     /* Drop from above viewport — preserves the panel's identity as a
      * full-bleed shade falling from the header. */
     --panel-translate-y: -100%;
+
+    /* Close mirrors open so the dismiss feels like the reverse of the
+     * reveal, not a faster snap-out. */
+    --panel-close-dur: var(--panel-open-dur);
 }
 
 /* Two-column inner layout: sidebar | content.
@@ -260,8 +264,8 @@
 
 /* ── Overlay (scrim) + close affordance ───────────────────────────────── */
 
-/* The scrim is the primary close affordance. The mono ESC · CLOSE label
-   anchored top-right signals it; the cursor confirms it. */
+/* The scrim is the primary close affordance. Cursor confirms it,
+   and timing/easing match the panel so they enter and exit in lockstep. */
 .mega-overlay {
     position: fixed;
     inset: 0;
@@ -270,7 +274,7 @@
     cursor: pointer;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity var(--panel-open-dur) var(--panel-ease);
 }
 
 .mega-overlay.is-open {
