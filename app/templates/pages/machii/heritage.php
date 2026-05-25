@@ -30,17 +30,12 @@ $receipts = [
     [
         'year'  => '1991',
         'event' => __('SSP', 'standard'),
-        'note'  => __('Invented the modern portable roof panel category.', 'standard'),
+        'note'  => __('Invented the portable rollformed roof panel category.', 'standard'),
     ],
     [
         'year'  => '1994',
         'event' => __('MACH II', 'standard'),
         'note'  => __('Did the same for portable seamless gutter machines.', 'standard'),
-    ],
-    [
-        'year'  => 'Now',
-        'event' => __('Polyurethane Drive', 'standard'),
-        'note'  => __('NTM\'s drive roller, now standard across the industry.', 'standard'),
     ],
 ];
 ?>
@@ -70,7 +65,7 @@ $receipts = [
                 </div>
 
                 <p class="section-subtitle text-blue-600 max-w-xl">
-                    <?php esc_html_e('The SSP Roof Panel Machine shipped in 1991. Three years later the MACH II Seamless Gutter Machine did the same for gutters. Polyurethane drive rollers, easy-cut shears, 5" K-style at 50 feet per minute from raw coil. The MACH II line has been the industry benchmark for portable seamless gutter machines for over 30 years, and the contractors who bought one in the 90s are still running them.', 'standard'); ?>
+                    <?php esc_html_e('The SSP Roof Panel Machine shipped in 1991. Three years later the MACH II Seamless Gutter Machine did the same for gutters: polyurethane drive rollers, easy-cut shears, 5" K-style at 50 feet per minute from raw coil. The MACH II line has been the industry benchmark for portable seamless gutter machines for over 30 years, and the contractors who bought one in the 90s are still running them.', 'standard'); ?>
                 </p>
 
                 <dl class="grid divide-y divide-blue-200 border-t border-blue-200">

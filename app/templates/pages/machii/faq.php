@@ -58,7 +58,7 @@ if (count($picked) < 6) {
 get_template_part('templates/parts/faq-accordion', null, [
     'section_id' => 'machii-faq-title',
     'content'    => [
-        'eyebrow' => __('Common Questions', 'standard'),
+        'eyebrow' => '',
         'title'   => __('What buyers ask before they sign.', 'standard'),
         'image'   => content_url('/uploads/2026/05/ntm-mach2-gutter-install-abel-001.jpg'),
     ],

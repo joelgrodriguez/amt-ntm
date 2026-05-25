@@ -67,12 +67,19 @@ $render_media = function () use ($content, $stats) :void {
 
             <?php if ($image_position === 'left') $render_media(); ?>
             <div class="grid gap-8 content-start">
-                <div class="section-header-left">
-                    <p id="<?php echo esc_attr($section_id); ?>" class="section-eyebrow">
-                        <?php echo esc_html($content['eyebrow']); ?>
-                    </p>
-                    <div class="section-divider"></div>
-                </div>
+                <?php $has_eyebrow = !empty($content['eyebrow']); ?>
+                <?php if ($has_eyebrow) : ?>
+                    <div class="section-header-left">
+                        <p id="<?php echo esc_attr($section_id); ?>" class="section-eyebrow">
+                            <?php echo esc_html($content['eyebrow']); ?>
+                        </p>
+                        <div class="section-divider"></div>
+                    </div>
+                <?php else : ?>
+                    <span id="<?php echo esc_attr($section_id); ?>" class="sr-only">
+                        <?php echo esc_html($content['name'] . ', ' . $content['company']); ?>
+                    </span>
+                <?php endif; ?>
 
                 <blockquote class="text-xl font-medium text-blue-900 leading-snug tracking-tight md:text-2xl lg:text-3xl">
                     &ldquo;<?php echo esc_html($content['quote']); ?>&rdquo;

@@ -4,12 +4,13 @@
  *
  * Light section. Each MACH II variant rendered as a self-contained
  * "spec spread": photograph + descriptor + highlights + mini-spec
- * grid + dual CTAs. A sticky variant nav strip rides above the
- * spreads at md+ so a buyer scrolling specs can hop between models
- * without scrolling back up. The strip is plain anchor links — no JS
- * required to navigate; smooth scrolling comes from a small JS
- * enhancement in machii.js. The Combo variant is the page's one
- * red-CTA moment (per PRODUCT.md's 10% rule, one ignite per page).
+ * grid + dual CTAs. A sticky TOC strip rides above the spreads at
+ * md+ so a buyer scrolling specs can hop between models without
+ * scrolling back up. The strip is plain anchor links, styled as a
+ * jump-to pill row (not as switchable tabs); MachiiMatrix.js
+ * highlights the in-view variant on scroll. All variant primaries
+ * use btn-primary (blue); the page's one red-CTA ignite moment
+ * lives on final-cta.php, per PRODUCT.md's 10% rule.
  *
  * @package Standard
  *
@@ -53,7 +54,7 @@ $nav_items = array_map(static function (array $machine): array {
             </p>
             <div class="section-divider"></div>
             <h2 id="machii-variants-title" class="section-title">
-                <?php esc_html_e('Four ways to run gutter.', 'standard'); ?>
+                <?php esc_html_e('Four MACH II machines. Pick yours.', 'standard'); ?>
             </h2>
             <p class="section-subtitle text-blue-600 max-w-2xl">
                 <?php esc_html_e('Specs, highlights, and price for each machine. Pick the one your crew runs most days, or talk to a specialist if you\'re between configurations.', 'standard'); ?>
@@ -61,7 +62,7 @@ $nav_items = array_map(static function (array $machine): array {
         </div>
 
         <nav
-            class="machii-tabs sticky top-0 z-30 -mx-4 sm:mx-0 bg-blue-50/95 backdrop-blur supports-[backdrop-filter]:bg-blue-50/80 border-y border-blue-200"
+            class="machii-tabs sticky top-0 z-30 -mx-4 sm:mx-0 bg-blue-50 border-y border-blue-200"
             aria-label="<?php esc_attr_e('MACH II variants', 'standard'); ?>"
         >
             <ul class="container flex gap-px overflow-x-auto" role="list">
@@ -69,10 +70,10 @@ $nav_items = array_map(static function (array $machine): array {
                     <li class="shrink-0">
                         <a
                             href="#machii-variant-<?php echo esc_attr($item['slug']); ?>"
-                            class="machii-tabs__link inline-flex items-center gap-2 px-4 py-4 font-mono text-xs uppercase tracking-[0.15em] text-blue-700 hover:text-blue-500 border-b-2 border-transparent transition-colors aria-[current=true]:text-blue-900 aria-[current=true]:border-blue-500"
+                            class="machii-tabs__link inline-flex items-center gap-2 px-4 py-4 font-mono text-xs uppercase tracking-[0.15em] text-blue-600 hover:text-blue-900 transition-colors aria-[current=true]:text-blue-900 aria-[current=true]:bg-white"
                             data-variant-slug="<?php echo esc_attr($item['slug']); ?>"
                         >
-                            <span class="text-blue-400"><?php echo esc_html(sprintf('%02d', $index + 1)); ?></span>
+                            <span class="text-blue-400"><?php echo esc_html(sprintf('%02d /', $index + 1)); ?></span>
                             <span><?php echo esc_html($item['short']); ?></span>
                             <?php if ($item['featured']) : ?>
                                 <span class="inline-block w-1 h-1 bg-red" aria-hidden="true"></span>
@@ -130,8 +131,8 @@ $nav_items = array_map(static function (array $machine): array {
                                 ]); ?>
                             <?php endif; ?>
                             <div class="absolute top-4 left-4 flex flex-wrap items-center gap-2">
-                                <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-blue-400">
-                                    <?php echo esc_html(sprintf('%02d / %s', $index + 1, $is_box ? __('Box Gutter', 'standard') : __('K-Style', 'standard'))); ?>
+                                <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-blue-500">
+                                    <?php echo esc_html(sprintf('%02d / %s', $index + 1, $short)); ?>
                                 </span>
                                 <?php if ($is_featured) : ?>
                                     <span class="badge badge-emphasis">
@@ -173,7 +174,7 @@ $nav_items = array_map(static function (array $machine): array {
                             <dl class="grid grid-cols-2 gap-x-6 gap-y-3 border-t border-blue-200 pt-5 mt-2 sm:grid-cols-3">
                                 <?php if ($price) : ?>
                                     <div class="grid gap-0.5 col-span-2 sm:col-span-1">
-                                        <dt class="font-mono text-[10px] uppercase tracking-[0.15em] text-blue-400">
+                                        <dt class="font-mono text-[10px] uppercase tracking-[0.15em] text-blue-600">
                                             <?php esc_html_e('Starting at', 'standard'); ?>
                                         </dt>
                                         <dd class="font-medium text-blue-900 text-lg">
@@ -183,7 +184,7 @@ $nav_items = array_map(static function (array $machine): array {
                                 <?php endif; ?>
                                 <?php foreach ($spec_rows as $row) : ?>
                                     <div class="grid gap-0.5">
-                                        <dt class="font-mono text-[10px] uppercase tracking-[0.15em] text-blue-400">
+                                        <dt class="font-mono text-[10px] uppercase tracking-[0.15em] text-blue-600">
                                             <?php echo esc_html($row[0]); ?>
                                         </dt>
                                         <dd class="font-mono text-sm text-blue-700">
@@ -196,7 +197,7 @@ $nav_items = array_map(static function (array $machine): array {
 
                         <div class="flex flex-wrap gap-3 pt-2">
                             <a href="<?php echo esc_url($build_url); ?>" class="<?php echo esc_attr($primary_btn_class); ?>">
-                                <?php esc_html_e('Build & Quote', 'standard'); ?>
+                                <?php esc_html_e('Build & Finance', 'standard'); ?>
                                 <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                             </a>
                             <a href="<?php echo esc_url(\Standard\Url\internal($explore_url)); ?>" class="btn btn-outline-dark">

@@ -45,6 +45,9 @@ if (!defined('ABSPATH')) {
             </div>
 
             <div class="grid gap-4 lg:col-span-5 lg:justify-self-end">
+                <p class="font-mono text-xs uppercase tracking-wider text-blue-300">
+                    <?php esc_html_e('Free 30-min call · No obligation', 'standard'); ?>
+                </p>
                 <a href="<?php echo esc_url(\Standard\Url\internal('/build-finance/')); ?>" class="btn btn-emphasis btn-xl">
                     <?php esc_html_e('Build & Finance Your MACH II', 'standard'); ?>
                     <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
@@ -52,9 +55,6 @@ if (!defined('ABSPATH')) {
                 <a href="<?php echo esc_url(\Standard\Url\internal('/contact/')); ?>" class="btn btn-outline-light btn-xl">
                     <?php esc_html_e('Talk to a Specialist', 'standard'); ?>
                 </a>
-                <p class="font-mono text-xs uppercase tracking-wider text-blue-400 mt-2">
-                    <?php esc_html_e('Free 30-min call · No obligation', 'standard'); ?>
-                </p>
             </div>
 
         </div>

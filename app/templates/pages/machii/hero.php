@@ -29,10 +29,10 @@ $poster_alt = __('NTM MACH II seamless gutter machine on a jobsite', 'standard')
 $video      = 'https://fast.wistia.net/embed/iframe/w1u1r55n9v?seo=false&videoFoam=true';
 
 $meta = [
-    ['label' => __('Since',      'standard'), 'value' => '1994'],
-    ['label' => __('Continents', 'standard'), 'value' => '7'],
-    ['label' => __('Models',     'standard'), 'value' => '4'],
-    ['label' => __('Speed',      'standard'), 'value' => '50 ft/min'],
+    ['label' => __('Since',    'standard'), 'value' => '1994'],
+    ['label' => __('Reach',    'standard'), 'value' => '40+ countries'],
+    ['label' => __('Models',   'standard'), 'value' => '4'],
+    ['label' => __('Speed',    'standard'), 'value' => '50 ft/min'],
 ];
 
 $page_title = function_exists('get_the_title') ? get_the_title() : '';
