@@ -19,7 +19,6 @@ if (!defined('ABSPATH')) {
 use function Standard\Filters\build_choice_group;
 use function Standard\MachinesData\get_machine_post_tags;
 use function Standard\ServiceHub\get_active_filters;
-use function Standard\ServiceHub\get_post_type_counts;
 use function Standard\ServiceHub\get_post_type_label;
 use function Standard\ServiceHub\get_post_type_options;
 use function Standard\ServiceHub\get_results_query;
@@ -29,7 +28,6 @@ $filters = get_active_filters();
 $paged = max(1, (int) get_query_var('paged'), (int) get_query_var('page'));
 $service_query = get_results_query($filters, $paged);
 $post_type_options = get_post_type_options();
-$post_type_counts = get_post_type_counts();
 $categories = get_terms_for_service_content('category', 24);
 $machine_tags = get_machine_post_tags();
 $form_action = get_permalink() ?: \Standard\Url\internal('/service-hub/');
@@ -45,11 +43,7 @@ $service_form_id = 'service-hub-form';
 // so users can clear that one axis without leaving the page.
 $type_choice_options = ['' => __('All types', 'standard')];
 foreach ($post_type_options as $post_type => $option) {
-    $count = (int) ($post_type_counts[$post_type] ?? 0);
-    $label = (string) $option['label'];
-    $type_choice_options[$post_type] = $count > 0
-        ? sprintf('%s (%d)', $label, $count)
-        : $label;
+    $type_choice_options[$post_type] = (string) $option['label'];
 }
 
 $category_choice_options = ['' => __('All categories', 'standard')];
