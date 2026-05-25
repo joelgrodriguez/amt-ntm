@@ -111,11 +111,13 @@
   }
 
   /* Footer row: price (stacked) on the left, CTA pinned right via
-     justify-between. mt-auto pushes the whole row to the bottom of
-     the card so cards in a grid align their bottoms regardless of
-     title/description length. */
+     justify-between. items-end so the CTA sits inline with the bottom
+     of the price column — same baseline as the "Starting at" label.
+     mt-auto pushes the whole row to the bottom of the card so cards
+     in a grid align their bottoms regardless of title/description
+     length. */
   .card-product__footer {
-    @apply flex items-center justify-between gap-4 mt-auto pt-4;
+    @apply flex items-end justify-between gap-4 mt-auto pt-4;
   }
 
   .card-product__price {
@@ -128,8 +130,8 @@
   }
 
   .card-product__price-label {
-    @apply font-mono text-blue-500 uppercase;
-    font-size: var(--text-xs);
+    @apply font-mono text-blue-700 uppercase;
+    font-size: var(--text-caption);
     letter-spacing: 0.05em;
   }
 
