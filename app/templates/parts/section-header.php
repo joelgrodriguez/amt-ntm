@@ -42,16 +42,17 @@ if (!defined('ABSPATH')) {
 }
 
 $args = wp_parse_args($args ?? [], [
-    'id'          => '',
-    'align'       => 'left',
-    'eyebrow'     => '',
-    'eyebrow_dot' => true,
-    'title'       => '',
-    'title_tag'   => 'h2',
-    'lede'        => '',
-    'lede_html'   => '',
-    'cta'         => null,
-    'max_width'   => '',
+    'id'             => '',
+    'align'          => 'left',
+    'eyebrow'        => '',
+    'eyebrow_dot'    => true,
+    'title'          => '',
+    'title_tag'      => 'h2',
+    'lede'           => '',
+    'lede_html'      => '',
+    'cta'            => null,
+    'max_width'      => '',
+    'lede_max_width' => '',
 ]);
 
 if ($args['title'] === '') {
@@ -95,12 +96,18 @@ $cta = is_array($args['cta']) && !empty($args['cta']['label']) && !empty($args['
         <?php echo wp_kses($args['title'], ['br' => ['class' => []]]); ?>
     </<?php echo $title_tag; ?>>
 
+    <?php
+    $lede_width = '';
+    if ($align !== 'center') {
+        $lede_width = $args['lede_max_width'] !== '' ? $args['lede_max_width'] : 'max-w-xl';
+    }
+    ?>
     <?php if ($args['lede_html'] !== '') : ?>
-        <div class="font-sans text-blue-600 text-base lg:text-lg leading-relaxed <?php echo $align !== 'center' ? 'max-w-xl' : ''; ?>">
+        <div class="font-sans text-blue-600 text-base lg:text-lg leading-relaxed <?php echo esc_attr($lede_width); ?>">
             <?php echo wp_kses_post($args['lede_html']); ?>
         </div>
     <?php elseif ($args['lede'] !== '') : ?>
-        <p class="font-sans text-blue-600 text-base lg:text-lg leading-relaxed m-0 <?php echo $align !== 'center' ? 'max-w-xl' : ''; ?>">
+        <p class="font-sans text-blue-600 text-base lg:text-lg leading-relaxed m-0 <?php echo esc_attr($lede_width); ?>">
             <?php echo esc_html($args['lede']); ?>
         </p>
     <?php endif; ?>

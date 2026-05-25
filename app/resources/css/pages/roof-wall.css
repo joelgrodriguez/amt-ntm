@@ -1,0 +1,258 @@
+/**
+ * Roof & Wall Panel Machines — Page-Scoped Styles
+ *
+ * Bespoke compositions used only on
+ * page-roof-wall-panel-machines.php. Shared components (.btn, .badge,
+ * .section-title, .section-eyebrow) come from components/*.css.
+ *
+ * Anchored to DESIGN.md tokens: blue-tinted neutrals, mono editorial
+ * labeling, zero radius, no shadows, hairline structural borders.
+ *
+ * @file pages/roof-wall.css
+ */
+
+@layer components {
+
+  /* SSQ3 Marquee — the page's flagship band.
+     Dark surface, image left, content right, blueprint hairline ledger.
+     Replaces the generic lineup-flagship reuse on this page only. */
+  .ssq3-marquee {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ssq3-marquee__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 1024px) {
+    .ssq3-marquee__grid {
+      /* Image gets the larger share so it can read as a hero photo,
+         not a thumbnail. Vertical hairline lives between the cells. */
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      align-items: stretch;
+      min-height: clamp(560px, 70vh, 760px);
+    }
+  }
+
+  /* Image frame — full-width on mobile (4:3 aspect), full-height on lg+.
+     Subtly darker than the section so the machine pops without a shadow. */
+  .ssq3-marquee__image-frame {
+    position: relative;
+    background-color: var(--color-blue-800);
+    aspect-ratio: 4 / 3;
+    padding: clamp(24px, 5vw, 48px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (min-width: 1024px) {
+    .ssq3-marquee__image-frame {
+      aspect-ratio: auto;
+      padding: clamp(40px, 4vw, 80px);
+      /* Hairline column divider between image and content cells.
+         Per DESIGN.md §8.7 — one step lighter than blue-900 surface =
+         blue-800. The image cell sits on blue-800, so the divider
+         color is blue-700 against the content cell. We draw it on
+         the *content* side to keep this rule visible against the
+         darker neighbor. */
+    }
+  }
+
+  .ssq3-marquee__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* No filter, no overlay — DESIGN.md says imagery is the hero. */
+  }
+
+  /* Content column — generous vertical rhythm, hard-left aligned. */
+  .ssq3-marquee__content {
+    position: relative;
+    display: grid;
+    gap: clamp(24px, 3vw, 32px);
+    padding: clamp(40px, 6vw, 64px) clamp(24px, 5vw, 56px);
+  }
+
+  @media (min-width: 1024px) {
+    .ssq3-marquee__content {
+      padding: clamp(48px, 5vw, 80px) clamp(48px, 5vw, 80px);
+      align-content: center;
+      /* Column divider, drawn as the left border of the content cell.
+         Hairline blueprint per DESIGN.md §8.5. */
+      border-left: 1px solid var(--color-blue-700);
+    }
+  }
+
+  /* Chip row — FLAGSHIP / Class of 2026 with a hairline between.
+     Replaces the legacy badge box; reads as engineered metadata. */
+  .ssq3-marquee__chiprow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .ssq3-marquee__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin: 0;
+  }
+
+  .ssq3-marquee__chip--flag {
+    color: var(--color-red);
+  }
+
+  .ssq3-marquee__chip--year {
+    color: var(--color-blue-300);
+  }
+
+  .ssq3-marquee__dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-red);
+    flex-shrink: 0;
+  }
+
+  .ssq3-marquee__chip-rule {
+    width: 16px;
+    height: 1px;
+    background-color: var(--color-blue-700);
+    flex-shrink: 0;
+  }
+
+  /* Title — display-scale, fluid, sans 500. Per DESIGN.md §5.6
+     hero/display headlines are read, not scanned: sans, tight leading,
+     never uppercase. The "MultiPro" subtitle hangs on the next line,
+     same color, smaller weight, smaller scale. */
+  .ssq3-marquee__title {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    color: var(--color-white);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin: 0;
+    font-size: clamp(56px, 10vw, 112px);
+  }
+
+  .ssq3-marquee__title-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color 200ms ease-out;
+    display: inline-block;
+  }
+
+  .ssq3-marquee__title-link:hover,
+  .ssq3-marquee__title-link:focus-visible {
+    color: var(--color-blue-200);
+  }
+
+  .ssq3-marquee__title-link:focus-visible {
+    outline: 2px solid var(--color-blue-500);
+    outline-offset: 6px;
+  }
+
+  .ssq3-marquee__tm {
+    font-size: 0.35em;
+    vertical-align: super;
+    font-weight: 400;
+    margin-left: 0.05em;
+    color: var(--color-blue-300);
+  }
+
+  .ssq3-marquee__sub-title {
+    display: block;
+    font-family: var(--font-sans);
+    font-weight: 400;
+    color: var(--color-blue-200);
+    font-size: clamp(28px, 4vw, 48px);
+    letter-spacing: -0.01em;
+    margin-top: 0.1em;
+  }
+
+  /* Slogan — single line of sans body, blue-200 on the dark surface.
+     Light type on dark gets a touch more leading per brand.md. */
+  .ssq3-marquee__slogan {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    color: var(--color-blue-200);
+    font-size: clamp(16px, 1.4vw, 20px);
+    line-height: 1.55;
+    max-width: 44ch;
+    margin: 0;
+  }
+
+  /* Spec ledger — blueprint hairlines. Label left (mono blue-400),
+     value right (mono white). No box, no fills; structure carries it. */
+  .ssq3-marquee__ledger {
+    display: grid;
+    gap: 0;
+    margin: clamp(8px, 1vw, 16px) 0 0 0;
+    /* Top edge of the ledger is the first hairline. */
+    border-top: 1px solid var(--color-blue-700);
+  }
+
+  .ssq3-marquee__ledger-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--color-blue-700);
+  }
+
+  .ssq3-marquee__ledger-label {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    color: var(--color-blue-400);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0;
+  }
+
+  .ssq3-marquee__ledger-value {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: clamp(18px, 1.6vw, 22px);
+    color: var(--color-white);
+    margin: 0;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Action row — primary red, secondary white ghost.
+     On mobile, both stretch to fill width to honor 44px+ touch
+     targets and the page's mobile-first rule. */
+  .ssq3-marquee__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: clamp(8px, 1vw, 16px);
+  }
+
+  .ssq3-marquee__actions .btn {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .ssq3-marquee__actions .btn {
+      flex: 0 0 auto;
+    }
+  }
+
+  /* Reveal motion: the section uses the existing .reveal class
+     (animations.css) — fades up as a single block when entering view.
+     prefers-reduced-motion is handled there. We add nothing custom
+     so the project's reveal cadence stays consistent with neighbors. */
+}
