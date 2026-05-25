@@ -23,8 +23,9 @@ use function Standard\PostTypes\get_primary_category;
 $primary_category = get_primary_category((int) get_the_ID());
 $has_excerpt      = has_excerpt();
 $has_image        = has_post_thumbnail();
-$word_count       = str_word_count(wp_strip_all_tags(get_the_content()));
-$reading_time     = max(1, (int) ceil($word_count / 220));
+$show_meta        = array_key_exists('show_meta', $args ?? []) ? (bool) $args['show_meta'] : true;
+$word_count       = $show_meta ? str_word_count(wp_strip_all_tags(get_the_content())) : 0;
+$reading_time     = $show_meta ? max(1, (int) ceil($word_count / 220)) : 0;
 ?>
 
 <header class="<?php echo $has_image ? 'grid gap-8 lg:gap-12 lg:grid-cols-2 lg:items-center' : ''; ?> pt-8 lg:pt-12 pb-8 lg:pb-10">
@@ -46,27 +47,29 @@ $reading_time     = max(1, (int) ceil($word_count / 220));
             </p>
         <?php endif; ?>
 
-        <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-blue-600 font-mono text-sm pt-1">
-            <span class="flex items-center gap-2">
-                <?php icon('calendar', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-                <time datetime="<?php echo esc_attr(get_the_date('c')); ?>">
-                    <?php echo esc_html(get_the_date('Y.m.d')); ?>
-                </time>
-            </span>
-            <span class="text-blue-400" aria-hidden="true">/</span>
-            <span class="flex items-center gap-2">
-                <?php icon('user', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-                <span><?php echo esc_html(get_the_author_meta('display_name')); ?></span>
-            </span>
-            <span class="text-blue-400" aria-hidden="true">/</span>
-            <span class="flex items-center gap-2">
-                <?php icon('clock', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-                <span><?php
-                    /* translators: %d minutes of reading time. */
-                    printf(esc_html(_n('%d min read', '%d min read', $reading_time, 'standard')), $reading_time);
-                ?></span>
-            </span>
-        </div>
+        <?php if ($show_meta) : ?>
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-blue-600 font-mono text-sm pt-1">
+                <span class="flex items-center gap-2">
+                    <?php icon('calendar', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+                    <time datetime="<?php echo esc_attr(get_the_date('c')); ?>">
+                        <?php echo esc_html(get_the_date('Y.m.d')); ?>
+                    </time>
+                </span>
+                <span class="text-blue-400" aria-hidden="true">/</span>
+                <span class="flex items-center gap-2">
+                    <?php icon('user', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+                    <span><?php echo esc_html(get_the_author_meta('display_name')); ?></span>
+                </span>
+                <span class="text-blue-400" aria-hidden="true">/</span>
+                <span class="flex items-center gap-2">
+                    <?php icon('clock', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+                    <span><?php
+                        /* translators: %d minutes of reading time. */
+                        printf(esc_html(_n('%d min read', '%d min read', $reading_time, 'standard')), $reading_time);
+                    ?></span>
+                </span>
+            </div>
+        <?php endif; ?>
     </div>
 
     <?php if ($has_image) : ?>
