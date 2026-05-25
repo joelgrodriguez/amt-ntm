@@ -51,33 +51,25 @@ $page_title = function_exists('get_the_title') ? get_the_title() : '';
         <source src="<?php echo esc_url($video); ?>" type="video/mp4">
     </video>
 
-    <!-- Scrim: horizontal gradient from blue-900 to transparent.
-         Keeps the left rail legible without darkening the whole video. -->
-    <div
-        class="absolute inset-0 z-10 bg-gradient-to-r from-blue-900/95 via-blue-900/70 to-blue-900/20 lg:via-blue-900/60 lg:to-transparent"
-        aria-hidden="true"
-    ></div>
+    <!-- Solid overlay + grain, same system as the homepage hero slider.
+         The overlay is a 42% black wash (not a gradient) so the video
+         reads behind it evenly across the whole frame. -->
+    <div class="hero-overlay"></div>
+    <div class="hero-overlay__grain"></div>
 
-    <!-- Bottom-up scrim for mobile, where the gradient above isn't
-         enough on its own. -->
-    <div
-        class="absolute inset-x-0 bottom-0 z-10 h-1/2 bg-gradient-to-t from-blue-900/80 to-transparent lg:hidden"
-        aria-hidden="true"
-    ></div>
-
-    <div class="container relative z-20 py-24 lg:py-32 xl:py-40 min-h-[80vh] lg:min-h-[88vh] flex items-center">
+    <div class="container relative z-10 py-24 lg:py-32 xl:py-40 min-h-[80vh] lg:min-h-[88vh] flex items-center">
         <div class="grid gap-8 max-w-2xl lg:gap-10">
 
-            <p class="font-mono text-xs uppercase tracking-[0.18em] text-red flex items-center gap-2">
-                <span aria-hidden="true" class="inline-block w-1 h-1 bg-red"></span>
-                <?php esc_html_e('MACH II Family · Seamless Gutter Machines', 'standard'); ?>
-            </p>
+            <span class="hero__eyebrow">
+                <span class="hero__eyebrow-dot" aria-hidden="true"></span>
+                <span><?php esc_html_e('MACH II Family · Seamless Gutter Machines', 'standard'); ?></span>
+            </span>
 
             <h2
                 id="machii-hero-title"
                 class="font-sans font-medium leading-[0.95] tracking-tight text-white text-4xl md:text-5xl lg:text-6xl xl:text-7xl"
             >
-                <?php esc_html_e('The gutter machine that made the category.', 'standard'); ?>
+                <?php esc_html_e('The standard in portable gutter machines.', 'standard'); ?>
             </h2>
 
             <p class="text-lg text-blue-100 max-w-xl lg:text-xl">

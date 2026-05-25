@@ -60,7 +60,7 @@ $receipts = [
                     </p>
                     <div class="section-divider"></div>
                     <h2 id="machii-heritage-title" class="section-title">
-                        <?php esc_html_e('NTM didn\'t join the category. NTM made it.', 'standard'); ?>
+                        <?php esc_html_e('First the SSP. Then the MACH II. The category started here.', 'standard'); ?>
                     </h2>
                 </div>
 
