@@ -29,7 +29,8 @@
  *         @type string $price_label    Defaults to "Starting at".
  *         @type string $badge          Optional badge text ("Flagship", "Featured", ...).
  *     }
- *     @type string $context Layout hint. 'carousel' adds .carousel__card.
+ *     @type string $context          Layout hint. 'carousel' adds .carousel__card.
+ *     @type bool   $show_description Default true. Pass false in dense surfaces (mega menu).
  * }
  */
 
@@ -63,6 +64,10 @@ if ($context === 'carousel') {
     $root_class .= ' carousel__card';
 }
 
+// Surface-level toggle. Cards in dense surfaces (mega menu) opt out of
+// the body copy so the title + price + CTA carry the row.
+$show_description = $args['show_description'] ?? true;
+
 ?>
 
 <article class="<?php echo esc_attr($root_class); ?>">
@@ -94,7 +99,7 @@ if ($context === 'carousel') {
             </h3>
         <?php endif; ?>
 
-        <?php if ($description) : ?>
+        <?php if ($description && $show_description) : ?>
             <p class="card-product__description"><?php echo esc_html($description); ?></p>
         <?php endif; ?>
 
