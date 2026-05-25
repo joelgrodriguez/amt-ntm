@@ -95,6 +95,7 @@ superset tasks statuses list
 superset tasks create --title "[AMT Maestro] <slug>: <goal>" --description "<template>" --priority medium --labels amt-ntm,maestro,worktree,agent-claude
 superset tasks update <task-id-or-slug> --status-id <in-review-status-id> --labels amt-ntm,maestro,worktree,agent-claude
 superset tasks list --search "AMT Maestro"
+npm run maestro:sync-tasks
 npm run maestro:review
 npm run maestro:land
 ```
@@ -143,6 +144,7 @@ tasks `Done`.
 Use the project scripts for the actual work:
 
 ```bash
+npm run maestro:sync-tasks # repair missing task cards from active worktrees
 npm run maestro:review  # dry run
 npm run maestro:land    # merge, validate, push, sync, mark Done
 ```

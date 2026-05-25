@@ -143,6 +143,7 @@ superset tasks statuses list
 superset tasks create --title "[AMT Maestro] <slug>: <goal>" --description "<template>" --priority medium --labels amt-ntm,maestro,worktree,agent-claude
 superset tasks update <task-id-or-slug> --status-id <in-review-status-id> --labels amt-ntm,maestro,worktree,agent-claude
 superset tasks list --search "AMT Maestro"
+npm run maestro:sync-tasks
 npm run maestro:review
 npm run maestro:land
 ```
@@ -169,6 +170,7 @@ If review asks for changes, move the same task back to `In Progress` and keep wo
 - After landing, sync `dev` back into every active worktree. Skip dirty worktrees and report them.
 - Mark the task `Done` only after the merge, push, and sync are complete.
 - When the user says "land reviewed work", find AMT Maestro tasks in `In Review`, inspect each branch, summarize what will land, merge approved work, push `origin/dev`, sync worktrees, and mark landed tasks `Done`.
+- If worktrees exist without matching Superset tasks, run `npm run maestro:sync-tasks` to create missing cards from the actual branch/worktree state.
 
 ### If you are a spawned worktree agent
 

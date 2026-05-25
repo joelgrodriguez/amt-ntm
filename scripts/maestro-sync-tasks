@@ -1,0 +1,205 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  cat <<'USAGE'
+Usage: scripts/maestro-sync-tasks [--dry-run]
+
+Create missing AMT Maestro Superset tasks from active git worktrees.
+
+Status choice:
+  - clean branch with unique commits: In Review
+  - dirty worktree: In Progress
+  - clean branch with no unique commits: Todo
+
+Environment:
+  MAESTRO_AGENT_LABEL  Label to use for imported tasks. Default: agent-claude
+  MAESTRO_AGENT_NAME   Agent name in task descriptions. Default: Unknown
+USAGE
+}
+
+dry_run=0
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --dry-run)
+      dry_run=1
+      shift
+      ;;
+    --help|-h)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: $1" >&2
+      usage >&2
+      exit 2
+      ;;
+  esac
+done
+
+require_cmd() {
+  if ! command -v "$1" >/dev/null 2>&1; then
+    echo "Missing required command: $1" >&2
+    exit 1
+  fi
+}
+
+status_id() {
+  local status_name="$1"
+  printf '%s' "$statuses_json" | jq -r --arg name "$status_name" '.[] | select(.name == $name) | .id' | head -n 1
+}
+
+task_branch() {
+  local task_text="$1"
+  printf '%s\n' "$task_text" | awk '
+    /^Branch:/ {
+      value = $0
+      sub(/^Branch:[[:space:]]*/, "", value)
+      gsub(/^[[:space:]]+|[[:space:]]+$/, "", value)
+      if (value != "" && value != "—" && value != "-") {
+        print value
+        exit
+      }
+    }
+  '
+}
+
+task_for_branch() {
+  local branch="$1"
+  local task
+  local text
+  local found_branch
+
+  for task in "${existing_tasks[@]}"; do
+    text="$(superset tasks get "$task")"
+    found_branch="$(task_branch "$text")"
+    if [[ "$found_branch" == "$branch" ]]; then
+      printf '%s' "$task"
+      return 0
+    fi
+  done
+
+  return 1
+}
+
+require_cmd git
+require_cmd jq
+require_cmd superset
+
+current_branch="$(git branch --show-current)"
+if [[ "$current_branch" != "dev" ]]; then
+  echo "Run this from the dev checkout. Current branch: ${current_branch}" >&2
+  exit 1
+fi
+
+agent_label="${MAESTRO_AGENT_LABEL:-agent-claude}"
+agent_name="${MAESTRO_AGENT_NAME:-Unknown}"
+
+statuses_json="$(superset tasks statuses list --json)"
+todo_id="$(status_id "Todo")"
+in_progress_id="$(status_id "In Progress")"
+in_review_id="$(status_id "In Review")"
+
+if [[ -z "$todo_id" || -z "$in_progress_id" || -z "$in_review_id" ]]; then
+  echo "Could not resolve Superset status IDs." >&2
+  exit 1
+fi
+
+mapfile -t existing_tasks < <(
+  superset tasks list --search "AMT Maestro" --limit 100 |
+    awk 'NR > 1 && $1 != "" && $1 != "No" { print $1 }'
+)
+
+created=0
+skipped=0
+
+while IFS=$'\t' read -r worktree branch; do
+  [[ -n "$worktree" && -n "$branch" ]] || continue
+  case "$branch" in
+    dev|master)
+      continue
+      ;;
+  esac
+
+  if task="$(task_for_branch "$branch")"; then
+    echo "Task exists for ${branch}: ${task}"
+    continue
+  fi
+
+  if ! git show-ref --verify --quiet "refs/heads/${branch}"; then
+    echo "Skipping ${branch}: local branch is missing." >&2
+    skipped=1
+    continue
+  fi
+
+  read -r dev_only branch_only < <(git rev-list --left-right --count "dev...${branch}")
+  dirty="$(git -C "$worktree" status --porcelain)"
+
+  status_name="Todo"
+  status="$todo_id"
+  if [[ -n "$dirty" ]]; then
+    status_name="In Progress"
+    status="$in_progress_id"
+  elif [[ "$branch_only" != "0" ]]; then
+    status_name="In Review"
+    status="$in_review_id"
+  fi
+
+  slug="${branch##*/}"
+  commits="None"
+  if [[ "$branch_only" != "0" ]]; then
+    commits="$(git log --oneline "dev..${branch}")"
+  fi
+
+  summary="Imported from active worktree state."
+  if [[ "$branch_only" != "0" ]]; then
+    summary="Branch has ${branch_only} commit(s) ahead of dev."
+  elif [[ -n "$dirty" ]]; then
+    summary="Worktree has uncommitted changes."
+  fi
+
+  description="Branch: ${branch}
+Workspace: ${slug}
+Path: ${worktree}
+Agent: ${agent_name}
+Goal: Imported from active worktree ${branch}; fill in exact goal if needed.
+Status: ${status_name}
+Summary: ${summary}
+Commits:
+${commits}
+Validation: Not run by maestro-sync-tasks.
+Risk: Unknown. Review branch before landing."
+
+  title="[AMT Maestro] ${slug}: imported active worktree"
+
+  echo "Creating task for ${branch} as ${status_name}"
+  if [[ "$dry_run" == "1" ]]; then
+    echo "  ${title}"
+    continue
+  fi
+
+  superset tasks create \
+    --title "$title" \
+    --description "$description" \
+    --priority medium \
+    --status-id "$status" \
+    --labels "amt-ntm,maestro,worktree,${agent_label}"
+  created=$((created + 1))
+done < <(
+  git worktree list --porcelain | awk '
+    /^worktree / { worktree = $2 }
+    /^branch / {
+      branch = $2
+      sub(/^refs\/heads\//, "", branch)
+      print worktree "\t" branch
+    }
+  '
+)
+
+if [[ "$dry_run" == "1" ]]; then
+  echo "Dry run complete."
+else
+  echo "Created ${created} missing task(s)."
+fi
+
+exit "$skipped"

@@ -72,6 +72,7 @@ branches into `dev`, push `origin/dev`, sync active worktrees, and mark tasks
 Prefer the project script:
 
 ```bash
+npm run maestro:sync-tasks # repair missing task cards from active worktrees
 npm run maestro:review  # dry run
 npm run maestro:land    # execute
 ```
