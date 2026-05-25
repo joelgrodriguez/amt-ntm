@@ -75,7 +75,7 @@ $show_description = $args['show_description'] ?? true;
         <?php if ($badge) : ?>
             <!-- Flagship badge: styling lives on .card-product__badge
                  in woo/product-card.css. Mono uppercase, bg-red,
-                 text-blue-50, pinned top-left over the image. -->
+                 text-blue-50, pinned top-right over the image. -->
             <span class="card-product__badge"><?php echo esc_html($badge); ?></span>
         <?php endif; ?>
 
