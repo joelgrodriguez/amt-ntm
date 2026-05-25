@@ -72,19 +72,17 @@ $value_points = [
 
         <!-- Header: title + lede on the left, image on the right (lg+) -->
         <div class="grid gap-8 lg:grid-cols-2 lg:gap-16 lg:items-center">
-            <div class="section-header-left max-w-xl grid gap-6 content-start">
-                <h2 id="why-own-title" class="section-title">
-                    <?php echo esc_html($content['title']); ?>
-                </h2>
-                <p class="font-sans text-blue-600 text-base lg:text-lg leading-relaxed">
-                    <?php echo esc_html($content['lede']); ?>
-                </p>
-                <div class="flex">
-                    <a href="<?php echo esc_url(\Standard\Url\internal('/contact/')); ?>" class="btn btn-primary">
-                        <?php esc_html_e('Talk to a Specialist', 'standard'); ?>
-                        <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
-                    </a>
-                </div>
+            <div class="content-start">
+                <?php get_template_part('templates/parts/section-header', null, [
+                    'id'        => 'why-own-title',
+                    'title'     => $content['title'],
+                    'lede'      => $content['lede'],
+                    'max_width' => 'max-w-xl',
+                    'cta'       => [
+                        'label' => __('Talk to a Specialist', 'standard'),
+                        'url'   => '/contact/',
+                    ],
+                ]); ?>
             </div>
             <div class="aspect-video overflow-hidden">
                 <?php \Standard\Images\responsive_image($content['image'], $content['image_alt'], 'large', [

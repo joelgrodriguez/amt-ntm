@@ -55,15 +55,13 @@ $tools = [
 <section class="section bg-blue-50" aria-labelledby="tools-title">
     <div class="container grid gap-12 lg:gap-16">
 
-        <div class="max-w-2xl">
-            <p class="section-eyebrow">
-                <?php echo esc_html($content['eyebrow']); ?>
-            </p>
-            <h2 id="tools-title" class="section-title mt-4">
-                <?php echo esc_html($content['title']); ?>
-            </h2>
-            <div class="mt-8 section-divider"></div>
-        </div>
+        <?php get_template_part('templates/parts/section-header', null, [
+            'id'          => 'tools-title',
+            'eyebrow'     => $content['eyebrow'],
+            'eyebrow_dot' => false,
+            'title'       => $content['title'],
+            'max_width'   => 'max-w-2xl',
+        ]); ?>
 
         <div class="grid grid-cols-2 border border-blue-200 md:grid-cols-4">
             <?php foreach ($tools as $i => $tool) : ?>

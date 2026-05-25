@@ -57,20 +57,14 @@ if (!$query->have_posts()) {
     <div class="container section-content">
 
         <!-- Section Header -->
-        <div class="section-header">
-            <?php if (!empty($args['eyebrow'])) : ?>
-                <p class="section-eyebrow">
-                    <?php echo esc_html($args['eyebrow']); ?>
-                </p>
-                <div class="section-divider-center"></div>
-            <?php endif; ?>
-            <h2 id="learning-center-title" class="section-title">
-                <?php echo esc_html($args['title']); ?>
-            </h2>
-            <p class="section-subtitle-centered">
-                <?php echo esc_html($args['subtitle']); ?>
-            </p>
-        </div>
+        <?php get_template_part('templates/parts/section-header', null, [
+            'id'          => 'learning-center-title',
+            'align'       => 'center',
+            'eyebrow'     => $args['eyebrow'],
+            'eyebrow_dot' => false,
+            'title'       => $args['title'],
+            'lede'        => $args['subtitle'],
+        ]); ?>
 
         <!-- Posts Grid -->
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
