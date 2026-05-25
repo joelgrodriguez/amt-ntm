@@ -20,13 +20,19 @@ if (!defined('ABSPATH')) {
 
 use function Standard\MachinesData\get_gutter_machines;
 
+// MACH II family only. BG7 belongs to the broader gutter category page.
+$machines = array_values(array_filter(
+    get_gutter_machines(),
+    static fn (array $m): bool => str_starts_with((string) ($m['slug'] ?? ''), 'mach-ii-')
+));
+
 get_template_part('templates/parts/comparison-table', null, [
     'section_id' => 'machii-comparison-title',
     'content'    => [
         'eyebrow' => '',
-        'title'   => __('All four, side by side.', 'standard'),
+        'title'   => __('Three machines, side by side.', 'standard'),
     ],
-    'machines'   => get_gutter_machines(),
+    'machines'   => $machines,
     'rows'       => [
         'profiles'  => __('Profile',  'standard'),
         'size'      => __('Size',     'standard'),

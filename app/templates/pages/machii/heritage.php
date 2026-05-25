@@ -23,8 +23,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$image     = content_url('/uploads/2026/05/ntm-mach2-gutter-assembly-drone-002.jpg');
-$image_alt = __('Aerial view of an NTM MACH II seamless gutter machine on a jobsite', 'standard');
+$image     = content_url('/uploads/2022/08/20220811_NTM_MACH-II-5-6-Specs_Featured-Image.jpg');
+$image_alt = __('NTM MACH II 5"/6" seamless gutter machine, full-machine spec view', 'standard');
 
 $receipts = [
     [

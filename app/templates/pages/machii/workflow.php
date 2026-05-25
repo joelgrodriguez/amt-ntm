@@ -2,15 +2,11 @@
 /**
  * MACH II Family — Workflow
  *
- * Light section. Three numbered steps explaining the on-site
- * fabrication thesis: raw coil rolls in, the MACH II forms it, the
- * crew installs a continuous run with no shipping joints. Each step
- * is its own grid cell with a mono ordinal, a photo, a short
- * headline, and one line of body copy. Hairline borders between
- * cells act as the blueprint structure.
- *
- * Photos sourced from the existing /uploads/ pool (electric power
- * pack, assembly drone, install). No CSS scenery, real imagery only.
+ * Light section. Three steps: Load → Roll → Install. Reel-loading,
+ * polyurethane drive rollers, installed gutter. Each step is a grid
+ * cell with a mono ordinal label, a 16:9 photo, a short headline,
+ * and one line of body copy. Hairline borders between cells act as
+ * the blueprint structure.
  *
  * @package Standard
  *
@@ -26,27 +22,27 @@ if (!defined('ABSPATH')) {
 $steps = [
     [
         'ordinal' => '01',
-        'label'   => __('Coil', 'standard'),
-        'title'   => __('Load the reel.', 'standard'),
+        'label'   => __('Load', 'standard'),
+        'title'   => __('Mount the coil.', 'standard'),
         'text'    => __('Steel, aluminum, or copper coil mounts on the rotatable reel stand. One coil yields hundreds of feet of seamless gutter, no factory order, no shipping wait.', 'standard'),
-        'image'   => content_url('/uploads/2026/05/ntm-mach2-electric-power-pack-005.jpg'),
-        'alt'     => __('NTM MACH II reel stand loaded with coil stock', 'standard'),
+        'image'   => content_url('/uploads/2019/01/mach-ll-gutter-machine-turnstile-and-reel-installation.png'),
+        'alt'     => __('NTM MACH II turnstile and reel installation, coil ready to feed', 'standard'),
     ],
     [
         'ordinal' => '02',
-        'label'   => __('Form', 'standard'),
+        'label'   => __('Roll', 'standard'),
         'title'   => __('Polyurethane drive, stainless forming.', 'standard'),
         'text'    => __('Polyurethane drive rollers (NTM\'s 1994 invention, now industry standard) feed coil through stainless forming rollers at up to 50 feet per minute. Forward-pulling easy-cut shear handles the finish cut.', 'standard'),
-        'image'   => content_url('/uploads/2026/05/ntm-mach2-gutter-assembly-drone-002.jpg'),
-        'alt'     => __('Aerial view of an NTM MACH II forming a seamless gutter run', 'standard'),
+        'image'   => content_url('/uploads/2022/01/clean-drive-rollers.jpg'),
+        'alt'     => __('Clean polyurethane drive rollers inside an NTM MACH II gutter machine', 'standard'),
     ],
     [
         'ordinal' => '03',
         'label'   => __('Install', 'standard'),
         'title'   => __('Continuous run, on-site.', 'standard'),
         'text'    => __('Finished gutter rolls out of the machine ready to install in one continuous piece. No factory seams, no transport damage, no panels to reorder.', 'standard'),
-        'image'   => content_url('/uploads/2026/05/ntm-mach2-gutter-install-abel-002.jpg'),
-        'alt'     => __('Abel Cisneros installing a seamless gutter run from a MACH II machine', 'standard'),
+        'image'   => content_url('/uploads/2026/05/ntm-mach2-gutter-install-abel-003.jpg'),
+        'alt'     => __('Abel Cisneros installing a continuous seamless gutter run from a MACH II machine', 'standard'),
     ],
 ];
 ?>
@@ -59,7 +55,7 @@ $steps = [
             </p>
             <div class="section-divider"></div>
             <h2 id="machii-workflow-title" class="section-title">
-                <?php esc_html_e('Three steps. No factory in the middle.', 'standard'); ?>
+                <?php esc_html_e('Nothing to stop you, nothing to hold you back.', 'standard'); ?>
             </h2>
             <p class="section-subtitle text-blue-600 max-w-2xl">
                 <?php esc_html_e('On-site fabrication is the whole point of a portable rollformer. The MACH II turns a coil of metal into a continuous seamless gutter run, on the truck, on the jobsite, in the time it used to take to wait for a delivery.', 'standard'); ?>
@@ -71,7 +67,7 @@ $steps = [
                 $is_last = $i === count($steps) - 1;
             ?>
                 <li class="grid content-between bg-blue-50 <?php echo $is_last ? '' : 'border-b border-blue-200 lg:border-b-0 lg:border-r'; ?>">
-                    <div class="aspect-[4/3] overflow-hidden bg-blue-100">
+                    <div class="aspect-video overflow-hidden bg-blue-100">
                         <img
                             src="<?php echo esc_url($step['image']); ?>"
                             alt="<?php echo esc_attr($step['alt']); ?>"

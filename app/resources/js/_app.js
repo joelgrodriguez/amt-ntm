@@ -22,7 +22,6 @@ import { initHubspotForms } from './modules/HubspotForms.js';
 import { initSearchModal } from './modules/SearchModal.js';
 import { initVideoFacade } from './modules/VideoFacade.js';
 import { initAvatarGroupHover } from './modules/AvatarGroupHover.js';
-import { initMachiiMatrix } from './modules/MachiiMatrix.js';
 
 /** @type {Function|null} Cleanup function for mobile menu */
 let mobileMenuCleanup = null;
@@ -57,9 +56,6 @@ let videoFacadeCleanup = null;
 /** @type {Function|null} Cleanup function for avatar group hover */
 let avatarGroupHoverCleanup = null;
 
-/** @type {Function|null} Cleanup function for MACH II variant matrix */
-let machiiMatrixCleanup = null;
-
 /**
  * Executes callback when DOM is ready.
  *
@@ -92,7 +88,6 @@ const initApp = () => {
   searchModalCleanup = initSearchModal();
   videoFacadeCleanup = initVideoFacade();
   avatarGroupHoverCleanup = initAvatarGroupHover();
-  machiiMatrixCleanup = initMachiiMatrix();
 };
 
 // Bootstrap
@@ -134,9 +129,6 @@ if (import.meta.hot) {
     }
     if (avatarGroupHoverCleanup) {
       avatarGroupHoverCleanup();
-    }
-    if (machiiMatrixCleanup) {
-      machiiMatrixCleanup();
     }
     // Reinitialize
     initApp();
