@@ -62,12 +62,10 @@ $steps = [
             </p>
         </div>
 
-        <ol class="grid border border-blue-200 lg:grid-cols-3" role="list">
-            <?php foreach ($steps as $i => $step) :
-                $is_last = $i === count($steps) - 1;
-            ?>
-                <li class="grid content-between bg-blue-50 <?php echo $is_last ? '' : 'border-b border-blue-200 lg:border-b-0 lg:border-r'; ?>">
-                    <div class="aspect-video overflow-hidden bg-blue-100">
+        <ol class="grid gap-8 md:gap-10 lg:grid-cols-3 lg:gap-12" role="list">
+            <?php foreach ($steps as $step) : ?>
+                <li class="grid gap-5 content-start">
+                    <div class="aspect-video overflow-hidden border border-blue-200">
                         <img
                             src="<?php echo esc_url($step['image']); ?>"
                             alt="<?php echo esc_attr($step['alt']); ?>"
@@ -75,18 +73,16 @@ $steps = [
                             loading="lazy"
                         >
                     </div>
-                    <div class="grid gap-3 p-6 lg:p-8 content-start">
-                        <p class="font-mono text-xs uppercase tracking-[0.18em] text-blue-500">
-                            <span class="text-blue-400 mr-2"><?php echo esc_html($step['ordinal']); ?></span>
-                            <?php echo esc_html($step['label']); ?>
-                        </p>
-                        <h3 class="font-sans font-medium tracking-tight text-blue-900 text-xl lg:text-2xl">
-                            <?php echo esc_html($step['title']); ?>
-                        </h3>
-                        <p class="text-blue-600">
-                            <?php echo esc_html($step['text']); ?>
-                        </p>
-                    </div>
+                    <p class="font-mono text-xs uppercase tracking-[0.18em] text-blue-500">
+                        <span class="text-blue-400 mr-2"><?php echo esc_html($step['ordinal']); ?></span>
+                        <?php echo esc_html($step['label']); ?>
+                    </p>
+                    <h3 class="font-sans font-medium tracking-tight text-blue-900 text-xl lg:text-2xl">
+                        <?php echo esc_html($step['title']); ?>
+                    </h3>
+                    <p class="text-blue-600">
+                        <?php echo esc_html($step['text']); ?>
+                    </p>
                 </li>
             <?php endforeach; ?>
         </ol>
