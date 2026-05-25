@@ -29,7 +29,18 @@ $panels = array_values(array_filter(
     fn($i) => ($i['kind'] ?? '') === 'mega' && ($i['id'] ?? '') === 'machines'
 ));
 ?>
-<div id="mega-menu-overlay" class="fixed inset-0 bg-black/40 z-40 hidden" aria-hidden="true"></div>
+<div id="mega-menu-overlay" class="mega-overlay" aria-hidden="true"></div>
+<button
+    type="button"
+    id="mega-menu-close"
+    class="mega-overlay__close"
+    aria-label="<?php esc_attr_e('Close menu', 'standard'); ?>"
+>
+    <span class="mega-overlay__close-dot" aria-hidden="true"></span>
+    <span class="mega-overlay__close-key" aria-hidden="true">ESC</span>
+    <span class="mega-overlay__close-sep" aria-hidden="true">·</span>
+    <span class="mega-overlay__close-label">CLOSE</span>
+</button>
 <div id="mega-menu-container" class="hidden lg:block">
 <?php foreach ($panels as $panel) :
     $panel_id   = $panel['id'];

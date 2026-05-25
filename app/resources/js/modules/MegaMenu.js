@@ -19,9 +19,10 @@ const SWITCH_DELAY_MS = (() => {
 })();
 
 export const initMegaMenu = () => {
-    const triggers  = /** @type {NodeListOf<HTMLButtonElement>} */ (document.querySelectorAll('.mega-trigger'));
-    const overlay   = document.getElementById('mega-menu-overlay');
-    const container = document.getElementById('mega-menu-container');
+    const triggers   = /** @type {NodeListOf<HTMLButtonElement>} */ (document.querySelectorAll('.mega-trigger'));
+    const overlay    = document.getElementById('mega-menu-overlay');
+    const closeBtn   = document.getElementById('mega-menu-close');
+    const container  = document.getElementById('mega-menu-container');
 
     if (!triggers.length || !container) {
         return () => {};
@@ -50,8 +51,8 @@ export const initMegaMenu = () => {
     /** Reset chrome (triggers, overlay, body scroll lock) to the closed state. */
     const resetChrome = () => {
         triggers.forEach((t) => t.setAttribute('aria-expanded', 'false'));
-        overlay?.classList.add('hidden');
-        document.body.classList.remove('overflow-hidden');
+        overlay?.classList.remove('is-open');
+        document.body.classList.remove('overflow-hidden', 'mega-open');
     };
 
     const close = () => {
@@ -78,8 +79,8 @@ export const initMegaMenu = () => {
         setPanelState(panel, 'open');
 
         trigger.setAttribute('aria-expanded', 'true');
-        overlay?.classList.remove('hidden');
-        document.body.classList.add('overflow-hidden');
+        overlay?.classList.add('is-open');
+        document.body.classList.add('overflow-hidden', 'mega-open');
         activePanel = id;
     };
 
@@ -203,6 +204,7 @@ export const initMegaMenu = () => {
 
     triggers.forEach((t) => t.addEventListener('click', handleTriggerClick));
     overlay?.addEventListener('click', dismiss);
+    closeBtn?.addEventListener('click', dismiss);
     document.addEventListener('keydown', handleKeydown);
     document.addEventListener('click', handleDocClick);
 
@@ -226,6 +228,7 @@ export const initMegaMenu = () => {
         cancelPendingOpen();
         triggers.forEach((t) => t.removeEventListener('click', handleTriggerClick));
         overlay?.removeEventListener('click', dismiss);
+        closeBtn?.removeEventListener('click', dismiss);
         document.removeEventListener('keydown', handleKeydown);
         document.removeEventListener('click', handleDocClick);
         tabBtns.forEach((btn) => {
