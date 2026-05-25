@@ -15,7 +15,7 @@
    the TOC stays pinned; if it overflows the viewport the user keeps
    scrolling and the lower items come into view naturally. */
 .toc {
-  @apply py-8;
+  @apply py-0;
 }
 
 /* Title */
