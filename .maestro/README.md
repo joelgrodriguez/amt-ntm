@@ -40,6 +40,16 @@ into `.maestro/active.md` and `.maestro/archive.md`.
 7. Maestro: inspects the branch, merges it into `dev`, validates, pushes
    `origin/dev`, syncs active worktrees, and marks the task `Done`
 
+Manual Superset UI flow:
+
+1. You create a worktree in the Superset UI and spawn an agent.
+2. You give the agent a plain task prompt, like "fix the font size in the card."
+3. The spawned agent creates or finds the Superset task, moves it to
+   `In Progress`, does the work, commits, validates, moves it to `In Review`,
+   and stops.
+4. Back on `dev`, you tell Maestro: "land reviewed work."
+5. Maestro finds `In Review` AMT Maestro tasks and lands them.
+
 ## Preview note
 
 DevKinsta serves a single site at one URL, pointed at this `dev` checkout's
@@ -113,6 +123,20 @@ That is the whole point of having an orchestrator.
 If review asks for changes, move the same task back to `In Progress` and keep
 working on the same branch. After a task is `Done`, create a follow-up task for
 new work unless the merge was reverted.
+
+Spawned agents must not require workflow prompts. A plain coding request is
+enough. The agent owns task creation/update inside the worktree.
+
+Maestro command phrase:
+
+```text
+land reviewed work
+```
+
+Meaning: list AMT Maestro tasks in `In Review`, inspect commits and diffs
+against `dev`, summarize what will land, validate, merge approved branches into
+`dev` with merge commits, push `origin/dev`, sync active worktrees, and mark
+tasks `Done`.
 
 ---
 

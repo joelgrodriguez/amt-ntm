@@ -165,17 +165,45 @@ If review asks for changes, move the same task back to `In Progress` and keep wo
 - Land with a merge commit from the `dev` checkout, then push `origin/dev` from this checkout only.
 - After landing, sync `dev` back into every active worktree. Skip dirty worktrees and report them.
 - Mark the task `Done` only after the merge, push, and sync are complete.
+- When the user says "land reviewed work", find AMT Maestro tasks in `In Review`, inspect each branch, summarize what will land, merge approved work, push `origin/dev`, sync worktrees, and mark landed tasks `Done`.
 
 ### If you are a spawned worktree agent
 
 You're running under `~/.superset/worktrees/<name>/`. You are NOT the Maestro.
 
+- A normal coding request is enough. If the user says "fix the card font size", do the task workflow automatically; do not ask them to create a task by hand.
 - Do your assigned work on your branch. Commit frequently with clear messages.
 - Never merge into `dev` or `master`. Never push `origin/dev` or `origin/master`. Pushing your own feature branch is fine.
 - Do not touch `.maestro/` — that is the orchestrator's scratch space.
+- On first code task in a worktree, create or find the Superset task yourself. Use the current branch slug and a short goal from the user's prompt.
 - Keep the Superset task current when possible. If the CLI is unavailable, put the task-ready details in your final response.
-- When you start changing code, move the task to `In Progress`. When your task is done, update the task with summary, commits, validation, and risk; move it to `In Review`; then stop. The Maestro decides when to merge.
+- Before editing code, move the task to `In Progress`.
+- When your task is done, commit the work, update the task with summary, commits, validation, and risk, move it to `In Review`, and stop. The Maestro decides when to merge.
 - If you hit a blocker or ambiguity, stop and surface it rather than guessing.
+
+Spawned worktree task bootstrap:
+
+```bash
+branch="$(git branch --show-current)"
+slug="${branch##*/}"
+superset tasks statuses list
+superset tasks create --title "[AMT Maestro] ${slug}: <goal>" --description "Branch: ${branch}
+Workspace:
+Path: $(pwd)
+Agent: <Claude|Codex|OpenCode>
+Goal: <goal>
+Status: In Progress
+Summary:
+Commits:
+Validation:
+Risk:" --priority medium --status-id <in-progress-status-id> --labels amt-ntm,maestro,worktree,agent-claude
+```
+
+Before stopping:
+
+```bash
+superset tasks update <task-id-or-slug> --description "<completed template>" --status-id <in-review-status-id> --labels amt-ntm,maestro,worktree,agent-claude
+```
 
 ## Shared Skills
 

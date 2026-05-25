@@ -20,6 +20,12 @@ git worktree add .worktrees/feature-name -b feat/feature-name dev
 
 ## Worktree Rules
 
+- A plain coding prompt starts the task workflow. Do not make the user explain
+  Superset mechanics.
+- If no Superset task exists for the current branch, create one before editing
+  code and move it to `In Progress`.
+- When the work is committed and validated, move the task to `In Review` and
+  stop. Maestro lands it.
 - A worktree may push only its own feature branch.
 - A worktree must not push to `origin/dev`.
 - A worktree must not push to `origin/master`.
@@ -57,6 +63,11 @@ After merging:
 
 If the merge conflicts, stop and inspect the branch graph. Do not invent a merge
 strategy while tired.
+
+When the user says "land reviewed work", this means: find AMT Maestro tasks in
+`In Review`, inspect their branch commits/diffs, validate, merge approved
+branches into `dev`, push `origin/dev`, sync active worktrees, and mark tasks
+`Done`.
 
 ## Release To Master
 
