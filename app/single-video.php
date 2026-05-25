@@ -37,7 +37,7 @@ get_header();
                 'show_led_strip'   => false,
             ]); ?>
             <section class="pattern-dot-grid py-6 lg:py-12">
-                <div class="container grid gap-6 lg:gap-12">
+                <div class="container grid gap-6 lg:gap-12 max-w-4xl mx-auto">
                     <header class="grid gap-6">
                         <?php $primary_category = get_primary_category((int) get_the_ID()); ?>
                         <?php if ($primary_category instanceof \WP_Term) : ?>
@@ -51,12 +51,10 @@ get_header();
 
                         <?php the_title('<h1 class="font-sans font-semibold text-heading lg:text-heading-lg text-blue-900 leading-tight tracking-tight m-0">', '</h1>'); ?>
                     </header>
-                    <div class="prose prose-lg max-w-4xl mx-auto">
+                    <div class="prose prose-lg max-w-full">
                         <?php the_content(); ?>
                     </div>
-                    <div class="max-w-4xl mx-auto">
-                        <?php get_template_part('templates/parts/disclaimer'); ?>
-                    </div>
+                    <?php get_template_part('templates/parts/disclaimer'); ?>
 
                     <?php get_template_part('templates/parts/post-navigation'); ?>
                     <?php get_template_part('templates/parts/related-posts'); ?>
