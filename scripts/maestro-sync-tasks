@@ -13,8 +13,10 @@ Status choice:
   - clean branch with no unique commits: Todo
 
 Environment:
-  MAESTRO_AGENT_LABEL  Label to use for imported tasks. Default: agent-claude
-  MAESTRO_AGENT_NAME   Agent name in task descriptions. Default: Unknown
+  MAESTRO_AGENT_LABEL  Agent family for imported tasks. Default: codex
+                       Use "claude", "codex", "opencode", or an agent:* label.
+  MAESTRO_AGENT_NAME   Agent name in task descriptions. Default: Codex
+  MAESTRO_WORK_TYPE    Work type label override. Default: inferred from branch.
 USAGE
 }
 
@@ -82,6 +84,55 @@ task_for_branch() {
   return 1
 }
 
+label_part() {
+  printf '%s' "$1" |
+    tr '[:upper:]' '[:lower:]' |
+    sed -E 's/[^a-z0-9_-]+/-/g; s/^-+//; s/-+$//'
+}
+
+prefixed_label() {
+  local prefix="$1"
+  local value="$2"
+
+  if [[ "$value" == "${prefix}:"* ]]; then
+    printf '%s' "$value"
+    return 0
+  fi
+
+  printf '%s:%s' "$prefix" "$(label_part "$value")"
+}
+
+infer_work_type() {
+  local branch_slug="$1"
+
+  case "$branch_slug" in
+    *search*)
+      printf 'search'
+      ;;
+    *mega-menu*|*menu*|*nav*|*navigation*)
+      printf 'navigation'
+      ;;
+    *card*|*cards*|*ui*|*design*)
+      printf 'ui'
+      ;;
+    *copy*|*hero*|*machii*)
+      printf 'copy'
+      ;;
+    *single*|*template*|*pillar*|*page*|*pages*)
+      printf 'template'
+      ;;
+    *api*|*backend*|*logic*|*data*)
+      printf 'backend'
+      ;;
+    *fix*|*bug*)
+      printf 'bugfix'
+      ;;
+    *)
+      printf 'general'
+      ;;
+  esac
+}
+
 require_cmd git
 require_cmd jq
 require_cmd superset
@@ -92,8 +143,8 @@ if [[ "$current_branch" != "dev" ]]; then
   exit 1
 fi
 
-agent_label="${MAESTRO_AGENT_LABEL:-agent-claude}"
-agent_name="${MAESTRO_AGENT_NAME:-Unknown}"
+agent_label_value="${MAESTRO_AGENT_LABEL:-codex}"
+agent_name="${MAESTRO_AGENT_NAME:-Codex}"
 
 statuses_json="$(superset tasks statuses list --json)"
 todo_id="$(status_id "Todo")"
@@ -146,6 +197,11 @@ while IFS=$'\t' read -r worktree branch; do
   fi
 
   slug="${branch##*/}"
+  branch_label="$(prefixed_label "branch" "$slug")"
+  work_type_value="${MAESTRO_WORK_TYPE:-$(infer_work_type "$slug")}"
+  type_label="$(prefixed_label "type" "$work_type_value")"
+  agent_label="$(prefixed_label "agent" "$agent_label_value")"
+
   commits="None"
   if [[ "$branch_only" != "0" ]]; then
     commits="$(git log --oneline "dev..${branch}")"
@@ -183,7 +239,7 @@ Risk: Unknown. Review branch before landing."
     --description "$description" \
     --priority medium \
     --status-id "$status" \
-    --labels "amt-ntm,maestro,worktree,${agent_label}"
+    --labels "amt-ntm,${branch_label},${type_label},${agent_label}"
   created=$((created + 1))
 done < <(
   git worktree list --porcelain | awk '

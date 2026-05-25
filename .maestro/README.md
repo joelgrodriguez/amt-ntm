@@ -28,8 +28,8 @@ into `.maestro/active.md` and `.maestro/archive.md`.
 ## Lifecycle
 
 1. You: "spin up a worktree for X"
-2. Maestro: creates or updates a Superset task with labels
-   `amt-ntm,maestro,worktree,<agent-label>`
+2. Maestro: creates or updates a Superset task with useful labels:
+   `amt-ntm,branch:<slug>,type:<work-type>,agent:<agent>`
 3. Maestro: picks agent, creates workspace + branch off `dev`, sends initial
    prompt with the Superset task ID
 4. Maestro: updates the task with branch, workspace, path, agent, and goal
@@ -69,8 +69,10 @@ Task statuses:
 
 Labels:
 
-- Required: `amt-ntm`, `maestro`, `worktree`
-- Agent: `agent-claude`, `agent-codex`, or `agent-opencode`
+- Required: `amt-ntm`
+- Branch: `branch:<branch-slug>` such as `branch:cards`, `branch:search`, or `branch:mega-menu`
+- Work type: `type:ui`, `type:copy`, `type:search`, `type:navigation`, `type:template`, `type:backend`, or `type:bugfix`
+- Agent: `agent:codex`, `agent:claude`, or `agent:opencode`. If multiple agents touch the same task, keep each agent label.
 - State: `blocked`
 
 Description template:
@@ -92,8 +94,8 @@ Useful commands:
 
 ```bash
 superset tasks statuses list
-superset tasks create --title "[AMT Maestro] <slug>: <goal>" --description "<template>" --priority medium --labels amt-ntm,maestro,worktree,agent-claude
-superset tasks update <task-id-or-slug> --status-id <in-review-status-id> --labels amt-ntm,maestro,worktree,agent-claude
+superset tasks create --title "[AMT Maestro] <slug>: <goal>" --description "<template>" --priority medium --labels amt-ntm,branch:<slug>,type:<work-type>,agent:<agent>
+superset tasks update <task-id-or-slug> --status-id <in-review-status-id> --labels amt-ntm,branch:<slug>,type:<work-type>,agent:<agent>
 superset tasks list --search "AMT Maestro"
 npm run maestro:sync-tasks
 npm run maestro:review

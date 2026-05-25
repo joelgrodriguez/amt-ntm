@@ -117,8 +117,10 @@ Task statuses:
 
 Task labels:
 
-- Always use `amt-ntm`, `maestro`, and `worktree`.
-- Add one agent label: `agent-claude`, `agent-codex`, or `agent-opencode`.
+- Always use `amt-ntm`.
+- Add the branch label: `branch:<branch-slug>` such as `branch:cards` or `branch:search`.
+- Add one work type label: `type:ui`, `type:copy`, `type:search`, `type:navigation`, `type:template`, `type:backend`, or `type:bugfix`.
+- Add the agent label for the agent doing the task: `agent:codex`, `agent:claude`, or `agent:opencode`. If multiple agents touch the same task, keep each agent label.
 - Add `blocked` when work cannot continue without a decision.
 
 Task description template:
@@ -140,8 +142,8 @@ Useful commands:
 
 ```bash
 superset tasks statuses list
-superset tasks create --title "[AMT Maestro] <slug>: <goal>" --description "<template>" --priority medium --labels amt-ntm,maestro,worktree,agent-claude
-superset tasks update <task-id-or-slug> --status-id <in-review-status-id> --labels amt-ntm,maestro,worktree,agent-claude
+superset tasks create --title "[AMT Maestro] <slug>: <goal>" --description "<template>" --priority medium --labels amt-ntm,branch:<slug>,type:<work-type>,agent:<agent>
+superset tasks update <task-id-or-slug> --status-id <in-review-status-id> --labels amt-ntm,branch:<slug>,type:<work-type>,agent:<agent>
 superset tasks list --search "AMT Maestro"
 npm run maestro:sync-tasks
 npm run maestro:review
@@ -191,6 +193,7 @@ Spawned worktree task bootstrap:
 ```bash
 branch="$(git branch --show-current)"
 slug="${branch##*/}"
+labels="amt-ntm,branch:${slug},type:<ui|copy|search|navigation|template|backend|bugfix>,agent:<codex|claude|opencode>"
 superset tasks statuses list
 superset tasks create --title "[AMT Maestro] ${slug}: <goal>" --description "Branch: ${branch}
 Workspace:
@@ -201,13 +204,13 @@ Status: In Progress
 Summary:
 Commits:
 Validation:
-Risk:" --priority medium --status-id <in-progress-status-id> --labels amt-ntm,maestro,worktree,agent-claude
+Risk:" --priority medium --status-id <in-progress-status-id> --labels "$labels"
 ```
 
 Before stopping:
 
 ```bash
-superset tasks update <task-id-or-slug> --description "<completed template>" --status-id <in-review-status-id> --labels amt-ntm,maestro,worktree,agent-claude
+superset tasks update <task-id-or-slug> --description "<completed template>" --status-id <in-review-status-id> --labels "$labels"
 ```
 
 ## Shared Skills
