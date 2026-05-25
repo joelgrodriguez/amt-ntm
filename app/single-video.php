@@ -38,7 +38,7 @@ get_header();
             ]); ?>
             <section class="pattern-dot-grid py-6 lg:py-12">
                 <div class="container grid gap-6 lg:gap-12">
-                    <header class="grid gap-6">
+                    <header class="grid gap-6 max-w-4xl mx-auto w-full">
                         <?php $primary_category = get_primary_category((int) get_the_ID()); ?>
                         <?php if ($primary_category instanceof \WP_Term) : ?>
                             <div>
