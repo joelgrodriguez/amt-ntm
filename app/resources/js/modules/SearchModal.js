@@ -152,6 +152,11 @@ export const initSearchModal = () => {
   const resultsAll = modal.querySelector('[data-search-modal-results-all]');
   const resultsAllLabel = modal.querySelector('[data-search-modal-results-all-label]');
   const form = modal.querySelector('form');
+  const popularRegion = modal.querySelector('[data-search-modal-popular]');
+  const fallbackRegion = modal.querySelector('[data-search-modal-fallback]');
+  const retryButton = modal.querySelector('[data-search-modal-retry]');
+  const popularItems = Array.from(modal.querySelectorAll('[data-search-modal-popular-item]'));
+  let lastQuery = '';
 
   let debounceTimer = null;
   let abortController = null;
@@ -174,6 +179,22 @@ export const initSearchModal = () => {
       input.setAttribute('aria-expanded', expanded ? 'true' : 'false');
       if (!expanded) {
         input.removeAttribute('aria-activedescendant');
+      }
+    }
+
+    // Popular-searches row owns the cold open (state = idle). Hide it
+    // the moment we have anything else to show; bring it back when
+    // we drop back to idle (clear-x, reopen, scope flip with empty query).
+    if (popularRegion instanceof HTMLElement) {
+      popularRegion.hidden = state !== 'idle';
+    }
+
+    // Fallback subblock inside results: visible on empty + error only.
+    if (fallbackRegion instanceof HTMLElement) {
+      const showFallback = state === 'empty' || state === 'error';
+      fallbackRegion.hidden = !showFallback;
+      if (retryButton instanceof HTMLElement) {
+        retryButton.hidden = state !== 'error';
       }
     }
   };
@@ -380,6 +401,7 @@ export const initSearchModal = () => {
       }
       const activeChip = chips.find((c) => c.getAttribute('aria-pressed') === 'true');
       const scope = activeChip?.dataset.value ?? '';
+      lastQuery = query;
       showLoading();
       fetchResults(query, scope);
     }, DEBOUNCE_MS);
@@ -521,9 +543,50 @@ export const initSearchModal = () => {
       return;
     }
     input.value = '';
+    lastQuery = '';
     updateClearVisibility();
     resetResults();
     input.focus();
+  };
+
+  // Popular-search items: stuff the curated query into the input, set
+  // the scope chip if the entry came with a post_type, kick off a fetch.
+  // Treated as if the user typed and committed.
+  const handlePopularItem = (event) => {
+    const button = event.currentTarget;
+    if (!(button instanceof HTMLElement) || !(input instanceof HTMLInputElement)) {
+      return;
+    }
+    const query = button.dataset.query ?? '';
+    const scope = button.dataset.postType ?? '';
+    if (query === '') {
+      return;
+    }
+    input.value = query;
+    setActiveChip(scope);
+    updateClearVisibility();
+    // Skip the debounce — the user already committed by tapping.
+    if (debounceTimer !== null) {
+      window.clearTimeout(debounceTimer);
+      debounceTimer = null;
+    }
+    lastQuery = query;
+    showLoading();
+    fetchResults(query, scope);
+    input.focus();
+  };
+
+  // Retry the last fetch when the user hits the error-state button.
+  // Uses lastQuery so the input doesn't need to match (the user might
+  // be mid-edit when retry shows up).
+  const handleRetry = () => {
+    if (lastQuery === '') {
+      return;
+    }
+    const activeChip = chips.find((c) => c.getAttribute('aria-pressed') === 'true');
+    const scope = activeChip?.dataset.value ?? '';
+    showLoading();
+    fetchResults(lastQuery, scope);
   };
 
   const handleInput = () => {
@@ -588,6 +651,10 @@ export const initSearchModal = () => {
   openButtons.forEach((button) => button.addEventListener('click', openModal));
   closeButtons.forEach((button) => button.addEventListener('click', closeModal));
   chips.forEach((chip) => chip.addEventListener('click', handleChipClick));
+  popularItems.forEach((item) => item.addEventListener('click', handlePopularItem));
+  if (retryButton instanceof HTMLElement) {
+    retryButton.addEventListener('click', handleRetry);
+  }
 
   // Intercept Esc so we get the slide-up close transition instead of
   // dialog.close() snapping the element away.
@@ -620,6 +687,10 @@ export const initSearchModal = () => {
     openButtons.forEach((button) => button.removeEventListener('click', openModal));
     closeButtons.forEach((button) => button.removeEventListener('click', closeModal));
     chips.forEach((chip) => chip.removeEventListener('click', handleChipClick));
+    popularItems.forEach((item) => item.removeEventListener('click', handlePopularItem));
+    if (retryButton instanceof HTMLElement) {
+      retryButton.removeEventListener('click', handleRetry);
+    }
 
     if (closeTimer !== null) {
       window.clearTimeout(closeTimer);

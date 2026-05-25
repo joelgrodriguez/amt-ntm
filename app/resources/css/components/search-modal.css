@@ -430,4 +430,100 @@
     @apply text-blue-900 outline-none;
     gap: 0.75rem;
   }
+
+  /* Cold-open popular searches. Curated suggestions as one-tap buttons.
+     Lives between chips and results region; JS hides it when results
+     are showing (data-state != idle). Mono label + uppercase chip
+     vocabulary mirrors the scope chip row above. */
+  .search-modal__popular {
+    @apply py-6 border-t border-blue-100;
+  }
+
+  /* Hidden via JS when results region takes over (state != idle). */
+  .search-modal__popular[hidden] {
+    display: none;
+  }
+
+  .search-modal__popular-label {
+    @apply block m-0 mb-3 p-0 font-mono font-medium uppercase tracking-wider text-blue-500;
+    font-size: var(--text-caption);
+  }
+
+  .search-modal__popular-list {
+    @apply m-0 p-0 list-none flex flex-wrap items-stretch gap-2;
+  }
+
+  /* Same chip vocabulary as scope row, but they read as suggestions
+     not filters. Slightly heavier title text (sans, not mono caps) so
+     contractors register them as "things to look for" rather than
+     "filters to apply." */
+  .search-modal__popular-item {
+    @apply inline-flex items-center justify-center bg-white text-blue-700 cursor-pointer;
+    @apply font-sans;
+    @apply px-3 py-2;
+    border: 1px solid var(--color-blue-200);
+    font-size: 0.9375rem;
+    line-height: 1.2;
+    transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease;
+    white-space: nowrap;
+  }
+
+  .search-modal__popular-item:hover {
+    @apply text-blue-900 bg-blue-50;
+    border-color: var(--color-blue-300);
+  }
+
+  .search-modal__popular-item:focus-visible {
+    @apply outline-none text-blue-900 bg-blue-50;
+    border-color: var(--color-blue-500);
+  }
+
+  /* Empty + error fallback inside results region. Same popular row
+     vocabulary as the cold open, plus a specialist CTA and an optional
+     retry button (error state only). */
+  .search-modal__results-fallback {
+    @apply mt-6;
+  }
+
+  .search-modal__results-fallback[hidden] {
+    display: none;
+  }
+
+  .search-modal__results-fallback-prompt {
+    @apply block m-0 mb-3 p-0 font-mono font-medium uppercase tracking-wider text-blue-500;
+    font-size: var(--text-caption);
+  }
+
+  .search-modal__results-fallback-cta {
+    @apply mt-6 m-0 font-sans text-blue-700;
+    font-size: 0.9375rem;
+  }
+
+  .search-modal__results-fallback-cta a {
+    @apply text-blue-700 underline;
+    text-underline-offset: 0.2em;
+    text-decoration-color: var(--color-blue-200);
+    transition: text-decoration-color 150ms ease, color 150ms ease;
+  }
+
+  .search-modal__results-fallback-cta a:hover,
+  .search-modal__results-fallback-cta a:focus-visible {
+    @apply text-blue-900 outline-none;
+    text-decoration-color: var(--color-blue-500);
+  }
+
+  .search-modal__results-fallback-retry {
+    @apply mt-4 inline-flex items-center justify-center bg-white text-blue-700 cursor-pointer;
+    @apply font-mono font-medium uppercase tracking-wider;
+    @apply px-4 py-2;
+    border: 1px solid var(--color-blue-300);
+    font-size: var(--text-caption);
+    transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease;
+  }
+
+  .search-modal__results-fallback-retry:hover,
+  .search-modal__results-fallback-retry:focus-visible {
+    @apply text-blue-900 bg-blue-50 outline-none;
+    border-color: var(--color-blue-500);
+  }
 }
