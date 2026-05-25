@@ -191,7 +191,7 @@ if (empty($sections)) {
 <section id="machine-specs" class="section bg-blue-50" aria-labelledby="specs-title">
     <div class="container section-content">
 
-        <div class="grid lg:grid-cols-2 gap-12 items-stretch">
+        <div class="grid lg:grid-cols-2 gap-12 items-start">
             <div>
                 <div class="section-header-left mb-12">
                     <p class="section-eyebrow"><?php esc_html_e('Technical Specifications', 'standard'); ?></p>
@@ -219,8 +219,8 @@ if (empty($sections)) {
                     <?php endif; ?>
                 </div>
             </div>
-            <div class="hidden lg:block">
-                <div class="bg-blue-100 overflow-hidden h-full flex items-center justify-center">
+            <div class="hidden lg:block lg:sticky lg:top-24">
+                <div class="bg-blue-100 overflow-hidden aspect-[4/5] flex items-center justify-center">
                     <div class="text-center grid gap-4">
                         <svg class="w-16 h-16 text-blue-300 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />

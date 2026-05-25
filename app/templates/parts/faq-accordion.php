@@ -60,7 +60,7 @@ $faq_schema = [
             </h2>
         </div>
 
-        <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-stretch">
+        <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-start">
 
             <div data-accordion-group>
                 <?php foreach ($faqs as $faq) : ?>
@@ -77,11 +77,11 @@ $faq_schema = [
                     </details>
                 <?php endforeach; ?>
             </div>
-            <div class="hidden md:block md:h-full">
+            <div class="hidden md:block md:sticky md:top-24">
                 <img
                     src="<?php echo esc_url($content['image']); ?>"
                     alt="<?php echo esc_attr($image_alt); ?>"
-                    class="w-full h-full object-cover"
+                    class="w-full h-auto object-cover aspect-[4/5]"
                     loading="lazy"
                 >
             </div>

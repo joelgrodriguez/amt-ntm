@@ -26,6 +26,8 @@ get_header();
 
     <?php get_template_part('templates/pages/machines/lineup-grid'); ?>
 
+    <?php get_template_part('templates/pages/machines/machines-flagship'); ?>
+
     <?php get_template_part('templates/pages/machines/comparison-table'); ?>
 
     <?php get_template_part('templates/pages/machines/customer-story'); ?>
