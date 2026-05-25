@@ -109,8 +109,9 @@ Superset tasks are the source of truth for orchestration. `.maestro/active.md` a
 Task statuses:
 
 - `Backlog`: idea only; no worktree yet.
-- `Todo`: approved work; worktree not started.
-- `In Progress`: worktree exists or agent is actively working.
+- `Todo`: approved work. A worktree may exist, but no agent has started changing code yet.
+- `In Progress`: an agent is actively working, or the branch has unlanded changes that are not ready for review.
+- `In Review`: the agent finished, committed, validated, and the branch is ready for Maestro/user review before landing.
 - `Done`: Maestro merged the branch into `dev`, pushed `origin/dev`, and synced active worktrees.
 - `Canceled`: abandoned, duplicated, or reverted.
 
@@ -118,9 +119,7 @@ Task labels:
 
 - Always use `amt-ntm`, `maestro`, and `worktree`.
 - Add one agent label: `agent-claude`, `agent-codex`, or `agent-opencode`.
-- Add `ready-for-land` only when the branch is committed, summarized, and ready for Maestro to merge.
 - Add `blocked` when work cannot continue without a decision.
-- Add `landed` after Maestro merges into `dev`.
 
 Task description template:
 
@@ -142,13 +141,15 @@ Useful commands:
 ```bash
 superset tasks statuses list
 superset tasks create --title "[AMT Maestro] <slug>: <goal>" --description "<template>" --priority medium --labels amt-ntm,maestro,worktree,agent-claude
-superset tasks update <task-id-or-slug> --labels amt-ntm,maestro,worktree,agent-claude,ready-for-land
+superset tasks update <task-id-or-slug> --status-id <in-review-status-id> --labels amt-ntm,maestro,worktree,agent-claude
 superset tasks list --search "AMT Maestro"
 ```
 
 When changing status, run `superset tasks statuses list` first; the CLI wants a status ID, not the status name. When changing labels, pass the full label set you want to keep.
 
-Hard rule: worktree agents do not merge into `dev`. They commit their branch, update the Superset task with summary/commits/validation/risk, add `ready-for-land`, and stop. Maestro lands it.
+Hard rule: worktree agents do not merge into `dev`. They commit their branch, update the Superset task with summary/commits/validation/risk, move it to `In Review`, and stop. Maestro lands it.
+
+If review asks for changes, move the same task back to `In Progress` and keep working on the same branch. After a task is `Done`, create a follow-up task for new changes unless the merge was reverted.
 
 ### If you are the Maestro (running on `dev`)
 
@@ -160,10 +161,10 @@ Hard rule: worktree agents do not merge into `dev`. They commit their branch, up
   - **Claude** — UI, frontend, templates, CSS, anything visual or design-y
   - **Codex** — backend PHP, REST endpoints, architecture, careful programming
   - **OpenCode (DeepSeek)** — mechanical work (comments, search/replace, renames)
-- Merge gate: only land branches marked `ready-for-land`, after the user says "land it" or asks to pull worktree changes.
+- Merge gate: only land branches in `In Review`, after the user says "land it" or asks to pull worktree changes.
 - Land with a merge commit from the `dev` checkout, then push `origin/dev` from this checkout only.
 - After landing, sync `dev` back into every active worktree. Skip dirty worktrees and report them.
-- Mark the task `Done` and add `landed` only after the merge, push, and sync are complete.
+- Mark the task `Done` only after the merge, push, and sync are complete.
 
 ### If you are a spawned worktree agent
 
@@ -173,7 +174,7 @@ You're running under `~/.superset/worktrees/<name>/`. You are NOT the Maestro.
 - Never merge into `dev` or `master`. Never push `origin/dev` or `origin/master`. Pushing your own feature branch is fine.
 - Do not touch `.maestro/` — that is the orchestrator's scratch space.
 - Keep the Superset task current when possible. If the CLI is unavailable, put the task-ready details in your final response.
-- When your task is done, update the task with summary, commits, validation, and risk; add `ready-for-land`; then stop. The Maestro decides when to merge.
+- When you start changing code, move the task to `In Progress`. When your task is done, update the task with summary, commits, validation, and risk; move it to `In Review`; then stop. The Maestro decides when to merge.
 - If you hit a blocker or ambiguity, stop and surface it rather than guessing.
 
 ## Shared Skills

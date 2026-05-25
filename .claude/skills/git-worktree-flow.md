@@ -42,7 +42,7 @@ easy to revert if DevKinsta shows a broken preview.
 
 Before merging:
 
-- Confirm the Superset task has `ready-for-land`.
+- Confirm the Superset task is `In Review`.
 - Use `superset tasks statuses list` before status updates; status changes need IDs.
 - When changing labels, pass the full label set you want to keep.
 - Inspect `git log --oneline dev..branch` and `git diff --stat dev...branch`.
@@ -53,7 +53,7 @@ After merging:
 
 - Push `origin/dev` from the `dev` checkout only.
 - Sync latest `dev` back into active worktrees.
-- Mark the Superset task `Done` and add the `landed` label.
+- Mark the Superset task `Done`.
 
 If the merge conflicts, stop and inspect the branch graph. Do not invent a merge
 strategy while tired.

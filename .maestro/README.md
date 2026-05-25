@@ -33,11 +33,12 @@ into `.maestro/active.md` and `.maestro/archive.md`.
 3. Maestro: picks agent, creates workspace + branch off `dev`, sends initial
    prompt with the Superset task ID
 4. Maestro: updates the task with branch, workspace, path, agent, and goal
+   and leaves it in `Todo`
 5. Worktree agent: works on its branch, commits, updates the task with summary,
-   commits, validation, and risk, adds `ready-for-land`, then stops
+   commits, validation, and risk, moves it to `In Review`, then stops
 6. You: "land it" or "pull worktree changes"
 7. Maestro: inspects the branch, merges it into `dev`, validates, pushes
-   `origin/dev`, syncs active worktrees, marks the task `Done`, and adds `landed`
+   `origin/dev`, syncs active worktrees, and marks the task `Done`
 
 ## Preview note
 
@@ -50,8 +51,9 @@ breaks, revert the merge commit on `dev`.
 Task statuses:
 
 - `Backlog`: idea only; no worktree yet
-- `Todo`: approved work; worktree not started
-- `In Progress`: worktree exists or agent is actively working
+- `Todo`: approved work; a worktree may exist, but no code work has started
+- `In Progress`: an agent is actively working, or the branch has unlanded changes that are not ready for review
+- `In Review`: the agent finished, committed, validated, and the branch is ready for Maestro/user review before landing
 - `Done`: Maestro merged into `dev`, pushed `origin/dev`, and synced worktrees
 - `Canceled`: abandoned, duplicated, or reverted
 
@@ -59,7 +61,7 @@ Labels:
 
 - Required: `amt-ntm`, `maestro`, `worktree`
 - Agent: `agent-claude`, `agent-codex`, or `agent-opencode`
-- State: `ready-for-land`, `blocked`, `landed`
+- State: `blocked`
 
 Description template:
 
@@ -81,7 +83,7 @@ Useful commands:
 ```bash
 superset tasks statuses list
 superset tasks create --title "[AMT Maestro] <slug>: <goal>" --description "<template>" --priority medium --labels amt-ntm,maestro,worktree,agent-claude
-superset tasks update <task-id-or-slug> --labels amt-ntm,maestro,worktree,agent-claude,ready-for-land
+superset tasks update <task-id-or-slug> --status-id <in-review-status-id> --labels amt-ntm,maestro,worktree,agent-claude
 superset tasks list --search "AMT Maestro"
 ```
 
@@ -107,6 +109,10 @@ report them instead of stomping local work.
 
 Hard rule: spawned worktree agents do not merge into `dev`. Maestro lands work.
 That is the whole point of having an orchestrator.
+
+If review asks for changes, move the same task back to `In Progress` and keep
+working on the same branch. After a task is `Done`, create a follow-up task for
+new work unless the merge was reverted.
 
 ---
 
