@@ -54,12 +54,13 @@ if (!$query->have_posts()) {
 <section class="section pattern-dot-grid" aria-labelledby="learning-center-title">
     <div class="container section-content">
         <?php get_template_part('templates/parts/section-header', null, [
-            'id'          => 'learning-center-title',
-            'align'       => 'center',
-            'eyebrow'     => $args['eyebrow'],
-            'eyebrow_dot' => false,
-            'title'       => $args['title'],
-            'lede'        => $args['subtitle'],
+            'id'             => 'learning-center-title',
+            'align'          => 'left',
+            'eyebrow'        => $args['eyebrow'],
+            'eyebrow_dot'    => false,
+            'title'          => $args['title'],
+            'lede'           => $args['subtitle'],
+            'lede_max_width' => 'max-w-2xl',
         ]); ?>
 
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -69,7 +70,7 @@ if (!$query->have_posts()) {
         </div>
         <?php wp_reset_postdata(); ?>
         <?php if ($args['cta_url']) : ?>
-            <div class="text-center">
+            <div>
                 <a href="<?php echo esc_url(\Standard\Url\internal($args['cta_url'])); ?>" class="btn btn-primary">
                     <?php echo esc_html($args['cta_text']); ?>
                     <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
