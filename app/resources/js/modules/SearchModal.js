@@ -164,6 +164,18 @@ export const initSearchModal = () => {
     }
     resultsRegion.dataset.state = state;
     resultsRegion.hidden = state === 'idle';
+
+    // Mirror state on the combobox so AT users hear "expanded" when
+    // there's a result list to step through. Loading counts as expanded
+    // (the listbox is visible with skeletons) so the relationship reads
+    // consistently to screen readers.
+    if (input instanceof HTMLInputElement) {
+      const expanded = state !== 'idle';
+      input.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      if (!expanded) {
+        input.removeAttribute('aria-activedescendant');
+      }
+    }
   };
 
   const setStatus = (text) => {
@@ -185,10 +197,26 @@ export const initSearchModal = () => {
       return;
     }
     const items = resultsList.querySelectorAll('[data-search-modal-result]');
+    let activeId = '';
     items.forEach((item, i) => {
-      item.setAttribute('data-active', i === index ? 'true' : 'false');
+      const isActive = i === index;
+      item.setAttribute('data-active', isActive ? 'true' : 'false');
+      item.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      if (isActive && item instanceof HTMLElement && item.id !== '') {
+        activeId = item.id;
+      }
     });
     activeResultIndex = index;
+
+    // aria-activedescendant points at the highlighted row's id without
+    // moving DOM focus off the input — that's the combobox pattern.
+    if (input instanceof HTMLInputElement) {
+      if (activeId !== '') {
+        input.setAttribute('aria-activedescendant', activeId);
+      } else {
+        input.removeAttribute('aria-activedescendant');
+      }
+    }
   };
 
   const showLoading = () => {
@@ -246,6 +274,10 @@ export const initSearchModal = () => {
       link.dataset.searchModalResult = '';
       link.dataset.index = String(index);
       link.href = item.url;
+      // Stable per-render id so aria-activedescendant on the input has
+      // something to point at. The index is enough — we wipe the list
+      // every render so collisions across renders don't matter.
+      link.id = `site-search-modal-result-${index}`;
       link.setAttribute('role', 'option');
       link.setAttribute('aria-selected', 'false');
 

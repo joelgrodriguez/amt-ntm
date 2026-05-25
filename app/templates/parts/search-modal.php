@@ -97,6 +97,10 @@ $current_query = (string) \get_search_query();
                     autocomplete="off"
                     autocapitalize="off"
                     spellcheck="false"
+                    role="combobox"
+                    aria-controls="site-search-modal-results-list"
+                    aria-autocomplete="list"
+                    aria-expanded="false"
                     data-search-modal-input
                 >
                 <button
@@ -177,6 +181,7 @@ $current_query = (string) \get_search_query();
                 ></div>
 
                 <ul
+                    id="site-search-modal-results-list"
                     class="search-modal__results-list"
                     role="listbox"
                     aria-label="<?php esc_attr_e('Quick results', 'standard'); ?>"
