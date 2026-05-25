@@ -31,6 +31,12 @@ $machines = array_values(array_filter(
     static fn (array $m): bool => str_starts_with((string) ($m['slug'] ?? ''), 'mach-ii-')
 ));
 
+// Featured (Combo) first; stable sort preserves the rest of the
+// machines-data.php order behind it.
+usort($machines, static function (array $a, array $b): int {
+    return ((int) !empty($b['featured'])) <=> ((int) !empty($a['featured']));
+});
+
 if (empty($machines)) {
     return;
 }
@@ -79,7 +85,7 @@ if (empty($machines)) {
                             ]
                         ); ?>
                         <?php if (!empty($machine['featured']) || !empty($machine['badge'])) : ?>
-                            <span class="absolute top-3 left-3 badge badge-emphasis">
+                            <span class="absolute top-3 right-3 badge badge-emphasis">
                                 <?php echo esc_html(!empty($machine['badge']) ? $machine['badge'] : __('Featured', 'standard')); ?>
                             </span>
                         <?php endif; ?>

@@ -58,15 +58,19 @@ if (empty($machines) || empty($rows)) {
                             <?php esc_html_e('Machine', 'standard'); ?>
                         </th>
                         <?php foreach ($machines as $machine) :
-                            $is_flagship = !empty($machine['badge']);
+                            $is_flagship = !empty($machine['badge']) || !empty($machine['featured']);
+                            $badge_text  = $machine['badge'] ?? '';
+                            if ($badge_text === '' && !empty($machine['featured'])) {
+                                $badge_text = __('Featured', 'standard');
+                            }
                         ?>
                             <th class="<?php echo $is_flagship ? 'bg-blue-500' : 'bg-blue-800'; ?> text-white py-4 px-3 text-center border-r border-blue-700 min-w-[130px] md:min-w-0 break-words">
                                 <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="text-white no-underline hover:underline font-medium text-sm">
                                     <?php echo esc_html($machine['short_name'] ?? $machine['name']); ?>
                                 </a>
-                                <?php if ($is_flagship) : ?>
+                                <?php if ($is_flagship && $badge_text !== '') : ?>
                                     <span class="block text-xs font-medium uppercase tracking-wider text-white/70 mt-0.5">
-                                        <?php echo esc_html($machine['badge']); ?>
+                                        <?php echo esc_html($badge_text); ?>
                                     </span>
                                 <?php endif; ?>
                             </th>
@@ -80,7 +84,7 @@ if (empty($machines) || empty($rows)) {
                                 <?php echo esc_html($label); ?>
                             </td>
                             <?php foreach ($machines as $machine) :
-                                $is_flagship = !empty($machine['badge']);
+                                $is_flagship = !empty($machine['badge']) || !empty($machine['featured']);
                                 $value       = $machine['specs'][$key] ?? '';
                             ?>
                                 <td class="py-3 px-3 text-center text-blue-600 border-r border-blue-200 <?php echo $is_flagship ? 'bg-blue-500/5' : ''; ?>">
@@ -92,7 +96,7 @@ if (empty($machines) || empty($rows)) {
                     <tr>
                         <td class="py-4 px-4 border-r border-blue-200 sticky left-0 bg-white z-10 shadow-[6px_0_8px_-6px_rgba(10,19,34,0.12)] md:static md:shadow-none"></td>
                         <?php foreach ($machines as $machine) :
-                            $is_flagship = !empty($machine['badge']);
+                            $is_flagship = !empty($machine['badge']) || !empty($machine['featured']);
                         ?>
                             <td class="py-4 px-3 text-center border-r border-blue-200 <?php echo $is_flagship ? 'bg-blue-500/5' : ''; ?>">
                                 <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="btn <?php echo $is_flagship ? 'btn-primary' : 'btn-outline-dark'; ?> btn-sm">

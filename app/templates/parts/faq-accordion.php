@@ -20,10 +20,14 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$content    = $args['content'] ?? [];
-$faqs       = $args['faqs'] ?? [];
-$section_id = $args['section_id'] ?? 'faq-accordion-title';
-$image_alt  = $args['image_alt'] ?? __('NTM machine being lifted onto a rooftop', 'standard');
+$content      = $args['content'] ?? [];
+$faqs         = $args['faqs'] ?? [];
+$section_id   = $args['section_id'] ?? 'faq-accordion-title';
+$image_alt    = $args['image_alt'] ?? __('NTM machine being lifted onto a rooftop', 'standard');
+// 'fill' (default) makes the image stretch to the accordion column's
+// height (legacy behavior). 'video' wraps the image in a 16:9 box so
+// the photo composition is preserved.
+$image_aspect = $args['image_aspect'] ?? 'fill';
 
 if (empty($content) || empty($faqs)) {
     return;
@@ -83,7 +87,7 @@ $faq_schema = [
                 <img
                     src="<?php echo esc_url($content['image']); ?>"
                     alt="<?php echo esc_attr($image_alt); ?>"
-                    class="w-full h-auto object-cover aspect-[4/5]"
+                    class="w-full h-auto object-cover <?php echo $image_aspect === 'video' ? 'aspect-video' : 'aspect-[4/5]'; ?>"
                     loading="lazy"
                 >
             </div>
