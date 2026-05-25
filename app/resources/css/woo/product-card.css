@@ -133,8 +133,12 @@
     letter-spacing: 0.05em;
   }
 
+  /* ml-auto keeps the CTA pinned right when it's the lone child of the
+     footer (accessory cards have no price). With a price sibling
+     present, justify-between on the footer already does the work and
+     ml-auto is a no-op. */
   .card-product__cta {
-    @apply flex items-center;
+    @apply flex items-center ml-auto;
   }
 
   .card-product__cta-build {
