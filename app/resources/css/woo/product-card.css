@@ -83,7 +83,7 @@
 
   @media (min-width: 1024px) {
     .card-product__title {
-      font-size: 2rem; /* 32px */
+      font-size: 1.75rem; /* 28px */
     }
   }
 
@@ -110,8 +110,16 @@
     overflow: hidden;
   }
 
+  /* Footer row: price (stacked) on the left, CTA pinned right via
+     justify-between. mt-auto pushes the whole row to the bottom of
+     the card so cards in a grid align their bottoms regardless of
+     title/description length. */
+  .card-product__footer {
+    @apply flex items-center justify-between gap-4 mt-auto pt-4;
+  }
+
   .card-product__price {
-    @apply flex flex-col mt-3;
+    @apply flex flex-col;
   }
 
   .card-product__price-value {
@@ -125,8 +133,12 @@
     letter-spacing: 0.05em;
   }
 
+  /* ml-auto keeps the CTA pinned right when it's the lone child of the
+     footer (accessory cards have no price). With a price sibling
+     present, justify-between on the footer already does the work and
+     ml-auto is a no-op. */
   .card-product__cta {
-    @apply flex items-center mt-auto pt-4;
+    @apply flex items-center ml-auto;
   }
 
   .card-product__cta-build {
