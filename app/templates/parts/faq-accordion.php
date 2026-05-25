@@ -51,10 +51,12 @@ $faq_schema = [
 <section class="section bg-blue-50" aria-labelledby="<?php echo esc_attr($section_id); ?>">
     <div class="container section-content">
         <div class="section-header-left">
-            <p class="section-eyebrow">
-                <?php echo esc_html($content['eyebrow']); ?>
-            </p>
-            <div class="section-divider"></div>
+            <?php if (!empty($content['eyebrow'])) : ?>
+                <p class="section-eyebrow">
+                    <?php echo esc_html($content['eyebrow']); ?>
+                </p>
+                <div class="section-divider"></div>
+            <?php endif; ?>
             <h2 id="<?php echo esc_attr($section_id); ?>" class="section-title">
                 <?php echo esc_html($content['title']); ?>
             </h2>

@@ -23,7 +23,7 @@ use function Standard\MachinesData\get_gutter_machines;
 get_template_part('templates/parts/comparison-table', null, [
     'section_id' => 'machii-comparison-title',
     'content'    => [
-        'eyebrow' => __('Compare', 'standard'),
+        'eyebrow' => '',
         'title'   => __('All four, side by side.', 'standard'),
     ],
     'machines'   => get_gutter_machines(),

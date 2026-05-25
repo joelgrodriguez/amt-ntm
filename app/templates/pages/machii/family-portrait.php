@@ -35,7 +35,7 @@ if (empty($machines)) {
 
 <section
     id="machii-family-portrait"
-    class="section bg-blue-900 text-white border-t border-blue-800"
+    class="section bg-blue-900 text-white border-t border-blue-800 scroll-mt-20"
     aria-labelledby="machii-family-title"
 >
     <div class="container section-content">
@@ -46,7 +46,7 @@ if (empty($machines)) {
             </p>
             <div class="section-divider"></div>
             <h2 id="machii-family-title" class="section-title text-white">
-                <?php esc_html_e('Four machines. One discipline.', 'standard'); ?>
+                <?php esc_html_e('Three K-style. One box gutter.', 'standard'); ?>
             </h2>
             <p class="section-subtitle text-blue-200 max-w-2xl">
                 <?php esc_html_e('Three K-style configurations and a commercial box-gutter sibling. Every MACH II runs polyurethane drive rollers, ships in 1 to 2 weeks, and is built for crews who treat their gutter machine like a member of payroll.', 'standard'); ?>
@@ -59,6 +59,7 @@ if (empty($machines)) {
                 $name    = $machine['short_name'] ?? ($machine['name'] ?? '');
                 $is_box  = $slug === 'bg7-box-gutter';
                 $kind    = $is_box ? __('Box Gutter', 'standard') : __('K-Style', 'standard');
+                $ordinal = sprintf('%02d / %s', $index + 1, $name);
             ?>
                 <a
                     href="#machii-variant-<?php echo esc_attr($slug); ?>"
@@ -84,10 +85,10 @@ if (empty($machines)) {
 
                     <div class="grid gap-2 border-t border-blue-700 p-5 lg:p-6">
                         <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-blue-300">
-                            <?php echo esc_html(sprintf('%02d / %s', $index + 1, $kind)); ?>
+                            <?php echo esc_html($ordinal); ?>
                         </p>
-                        <p class="font-medium text-white text-lg lg:text-xl">
-                            <?php echo esc_html($name); ?>
+                        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-blue-500">
+                            <?php echo esc_html($kind); ?>
                         </p>
                         <p class="text-sm text-blue-200 leading-snug">
                             <?php echo esc_html($machine['descriptor'] ?? ''); ?>
