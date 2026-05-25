@@ -203,8 +203,18 @@
   }
 
   .search-modal__clear {
-    @apply flex h-8 w-8 shrink-0 items-center justify-center border border-blue-200 bg-white text-blue-500 cursor-pointer;
+    @apply relative flex h-8 w-8 shrink-0 items-center justify-center border border-blue-200 bg-white text-blue-500 cursor-pointer;
     transition: border-color 150ms ease, color 150ms ease, background-color 150ms ease;
+  }
+
+  /* Visual chrome stays 32x32 to feel balanced next to the input, but
+     the hit area expands to 44x44 (WCAG 2.5.5 AAA + brand standard).
+     The ::after overlay is transparent and absolutely positioned so it
+     doesn't disturb layout but still receives pointer events on touch. */
+  .search-modal__clear::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
   }
 
   .search-modal__clear:hover {
