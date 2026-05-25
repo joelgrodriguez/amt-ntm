@@ -37,10 +37,10 @@ if (!defined('ABSPATH')) {
                     id="machii-final-cta-title"
                     class="font-sans font-medium leading-[1] tracking-tight text-white text-3xl md:text-5xl lg:text-6xl"
                 >
-                    <?php esc_html_e('Pick your MACH II. Pay for it inside a year.', 'standard'); ?>
+                    <?php esc_html_e('Pick your MACH II.', 'standard'); ?>
                 </h2>
                 <p class="text-blue-200 text-lg max-w-xl">
-                    <?php esc_html_e('Most gutter contractors structure financing so the machine clears itself within the first season. Build a quote in the configurator, or get a specialist on the phone in under a day.', 'standard'); ?>
+                    <?php esc_html_e('Build a quote in the configurator, or get a specialist on the phone in under a day. Financing available on every model.', 'standard'); ?>
                 </p>
             </div>
 

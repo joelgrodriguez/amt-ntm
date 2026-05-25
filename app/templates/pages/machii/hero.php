@@ -29,16 +29,16 @@ $poster_alt = __('NTM MACH II seamless gutter machine on a jobsite', 'standard')
 $video      = 'https://fast.wistia.net/embed/iframe/w1u1r55n9v?seo=false&videoFoam=true';
 
 $meta = [
-    ['label' => __('Since',    'standard'), 'value' => '1994'],
-    ['label' => __('Reach',    'standard'), 'value' => '40+ countries'],
-    ['label' => __('Models',   'standard'), 'value' => '4'],
-    ['label' => __('Speed',    'standard'), 'value' => '50 ft/min'],
+    ['label' => __('Since',     'standard'), 'value' => '1994'],
+    ['label' => __('Models',    'standard'), 'value' => '3'],
+    ['label' => __('Lead Time', 'standard'), 'value' => '6–8 wks'],
+    ['label' => __('Patent',    'standard'), 'value' => 'US 5,394,722'],
 ];
 
 $page_title = function_exists('get_the_title') ? get_the_title() : '';
 ?>
 
-<section class="relative overflow-hidden bg-blue-900 text-white" aria-labelledby="machii-hero-title">
+<section class="relative overflow-hidden bg-blue-900 text-white pattern-dot-grid pattern-dot-grid--dark" aria-labelledby="machii-hero-title">
 
     <?php if ($page_title !== '') : ?>
         <h1 class="sr-only"><?php echo esc_html($page_title); ?></h1>
@@ -65,13 +65,10 @@ $page_title = function_exists('get_the_title') ? get_the_title() : '';
                     <?php esc_html_e('NTM built the MACH II in 1994 and didn\'t stop. Three decades later, it\'s still the machine on every reputable gutter truck on seven continents.', 'standard'); ?>
                 </p>
 
-                <div class="flex flex-col sm:flex-row gap-4">
+                <div>
                     <a href="#machii-family-portrait" class="btn btn-primary">
                         <?php esc_html_e('See the Models', 'standard'); ?>
                         <?php icon('arrow-down', ['class' => 'w-5 h-5']); ?>
-                    </a>
-                    <a href="<?php echo esc_url(\Standard\Url\internal('/contact/')); ?>" class="btn btn-outline-light">
-                        <?php esc_html_e('Talk to a Specialist', 'standard'); ?>
                     </a>
                 </div>
 

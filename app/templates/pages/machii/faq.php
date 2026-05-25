@@ -60,8 +60,8 @@ get_template_part('templates/parts/faq-accordion', null, [
     'content'    => [
         'eyebrow' => '',
         'title'   => __('What buyers ask before they sign.', 'standard'),
-        'image'   => content_url('/uploads/2026/05/ntm-mach2-gutter-install-abel-001.jpg'),
+        'image'   => content_url('/uploads/2022/05/Person-shearing-gutter-on-MACH-II-machine.jpg'),
     ],
-    'image_alt'  => __('NTM MACH II machine staged on a residential jobsite', 'standard'),
+    'image_alt'  => __('Operator shearing a finished gutter run on an NTM MACH II machine', 'standard'),
     'faqs'       => $picked,
 ]);

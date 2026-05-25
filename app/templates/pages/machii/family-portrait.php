@@ -2,16 +2,15 @@
 /**
  * MACH II Family — Family Portrait
  *
- * Dark full-bleed section. Four MACH II machines laid out on one
- * "wall" with mono labels underneath. Tapping a tile scrolls down to
- * the variant-matrix section pre-targeted at that machine via the
- * hash. Hover dims the other tiles to focus attention; CSS-only base
- * via :has(.tile:hover) so no JS is required.
+ * Light section. Three MACH II machines (5", 6", 5"/6" Combo) laid
+ * out on a single grid with mono labels under each silhouette.
+ * Tapping a tile scrolls to that machine's spread in variant-matrix
+ * via the hash. Hover gives a subtle border shift, the CSS-only
+ * affordance from DESIGN.md §8.8.
  *
- * The grid is 2 cols on mobile, 4 on lg+. Each tile is a square
- * silhouette panel with the machine name in mono and the descriptor
- * underneath. The page-wide single red moment lives elsewhere; the
- * family portrait stays in blue.
+ * Grid is 1 col mobile, 3 cols lg+ (three machines), with 1px
+ * hairline dividers via gap-px on a blue-200 grid background. The
+ * page-wide single red ignite moment lives on final-cta.php only.
  *
  * @package Standard
  *
@@ -26,7 +25,11 @@ if (!defined('ABSPATH')) {
 
 use function Standard\MachinesData\get_gutter_machines;
 
-$machines = get_gutter_machines();
+// MACH II family only. BG7 lives on /seamless-gutter-machines/.
+$machines = array_values(array_filter(
+    get_gutter_machines(),
+    static fn (array $m): bool => str_starts_with((string) ($m['slug'] ?? ''), 'mach-ii-')
+));
 
 if (empty($machines)) {
     return;
@@ -35,38 +38,37 @@ if (empty($machines)) {
 
 <section
     id="machii-family-portrait"
-    class="section bg-blue-900 text-white border-t border-blue-800 scroll-mt-20"
+    class="section bg-blue-50 border-t border-blue-200 scroll-mt-20"
     aria-labelledby="machii-family-title"
 >
     <div class="container section-content">
         <div class="section-header-left">
-            <p class="section-eyebrow text-red flex items-center gap-2">
-                <span aria-hidden="true" class="inline-block w-1 h-1 bg-red"></span>
+            <p class="section-eyebrow flex items-center gap-2">
+                <span aria-hidden="true" class="inline-block w-1 h-1 bg-blue-500"></span>
                 <?php esc_html_e('The Family', 'standard'); ?>
             </p>
             <div class="section-divider"></div>
-            <h2 id="machii-family-title" class="section-title text-white">
-                <?php esc_html_e('Three K-style. One box gutter.', 'standard'); ?>
+            <h2 id="machii-family-title" class="section-title">
+                <?php esc_html_e('Three K-style configurations.', 'standard'); ?>
             </h2>
-            <p class="section-subtitle text-blue-200 max-w-2xl">
-                <?php esc_html_e('Three K-style configurations and a commercial box-gutter sibling. Every MACH II runs polyurethane drive rollers, ships in 1 to 2 weeks, and is built for crews who treat their gutter machine like a member of payroll.', 'standard'); ?>
+            <p class="section-subtitle text-blue-600 max-w-2xl">
+                <?php esc_html_e('5", 6", and the 5"/6" Combo. Every MACH II runs polyurethane drive rollers, ships in 6 to 8 weeks, and is built for crews who treat their gutter machine like a member of payroll.', 'standard'); ?>
             </p>
         </div>
 
-        <div class="machii-portrait grid grid-cols-2 gap-px bg-blue-700 border border-blue-700 lg:grid-cols-4">
+        <div class="machii-portrait grid grid-cols-1 gap-px bg-blue-200 border border-blue-200 sm:grid-cols-3">
             <?php foreach ($machines as $index => $machine) :
                 $slug    = $machine['slug'] ?? '';
                 $name    = $machine['short_name'] ?? ($machine['name'] ?? '');
-                $is_box  = $slug === 'bg7-box-gutter';
-                $kind    = $is_box ? __('Box Gutter', 'standard') : __('K-Style', 'standard');
+                $kind    = __('K-Style', 'standard');
                 $ordinal = sprintf('%02d / %s', $index + 1, $name);
             ?>
                 <a
                     href="#machii-variant-<?php echo esc_attr($slug); ?>"
-                    class="machii-portrait__tile group relative flex flex-col bg-blue-900 transition-colors duration-200 hover:bg-blue-800 focus-visible:bg-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px]"
+                    class="machii-portrait__tile group relative flex flex-col bg-white transition-colors duration-200 hover:bg-blue-50 focus-visible:bg-blue-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px]"
                     data-machine-slug="<?php echo esc_attr($slug); ?>"
                 >
-                    <div class="relative aspect-square overflow-hidden bg-blue-800">
+                    <div class="relative aspect-square overflow-hidden bg-blue-50">
                         <?php \Standard\Images\responsive_image(
                             $machine['image'] ?? '',
                             $name,
@@ -83,14 +85,14 @@ if (empty($machines)) {
                         <?php endif; ?>
                     </div>
 
-                    <div class="grid gap-2 border-t border-blue-700 p-5 lg:p-6">
-                        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-blue-300">
+                    <div class="grid gap-2 border-t border-blue-200 p-5 lg:p-6">
+                        <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-blue-600">
                             <?php echo esc_html($ordinal); ?>
                         </p>
                         <p class="font-mono text-[10px] uppercase tracking-[0.18em] text-blue-500">
                             <?php echo esc_html($kind); ?>
                         </p>
-                        <p class="text-sm text-blue-200 leading-snug">
+                        <p class="text-sm text-blue-700 leading-snug">
                             <?php echo esc_html($machine['descriptor'] ?? ''); ?>
                         </p>
                         <p class="font-mono text-xs text-blue-500 mt-1 flex items-center gap-1">

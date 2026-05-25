@@ -2,15 +2,14 @@
 /**
  * MACH II Family — Variant Matrix
  *
- * Light section. Each MACH II variant rendered as a self-contained
- * "spec spread": photograph + descriptor + highlights + mini-spec
- * grid + dual CTAs. A sticky TOC strip rides above the spreads at
- * md+ so a buyer scrolling specs can hop between models without
- * scrolling back up. The strip is plain anchor links, styled as a
- * jump-to pill row (not as switchable tabs); MachiiMatrix.js
- * highlights the in-view variant on scroll. All variant primaries
- * use btn-primary (blue); the page's one red-CTA ignite moment
- * lives on final-cta.php, per PRODUCT.md's 10% rule.
+ * White section. Each MACH II variant rendered as a self-contained
+ * spec spread: photograph + descriptor + highlights + mini-spec
+ * grid + dual CTAs. Spreads alternate image-left/image-right for
+ * rhythm. No sticky nav: at three machines, anchor jumping isn't
+ * worth the chrome and the family-portrait tiles above already act
+ * as the picker. All variant primaries use btn-primary (blue); the
+ * page's one red-CTA ignite moment lives on final-cta.php, per
+ * PRODUCT.md's 10% rule.
  *
  * @package Standard
  *
@@ -26,25 +25,20 @@ if (!defined('ABSPATH')) {
 use function Standard\MachinesData\get_gutter_machines;
 use function Standard\MachinesData\get_product_price;
 
-$machines = get_gutter_machines();
+// MACH II family only. BG7 lives on /seamless-gutter-machines/.
+$machines = array_values(array_filter(
+    get_gutter_machines(),
+    static fn (array $m): bool => str_starts_with((string) ($m['slug'] ?? ''), 'mach-ii-')
+));
 
 if (empty($machines)) {
     return;
 }
-
-$nav_items = array_map(static function (array $machine): array {
-    return [
-        'slug'      => $machine['slug'] ?? '',
-        'short'     => $machine['short_name'] ?? ($machine['name'] ?? ''),
-        'featured'  => !empty($machine['featured']),
-    ];
-}, $machines);
 ?>
 
 <section
-    class="section bg-blue-50 border-t border-blue-200"
+    class="section bg-white border-t border-blue-200"
     aria-labelledby="machii-variants-title"
-    data-machii-matrix
 >
     <div class="container section-content">
 
@@ -54,35 +48,12 @@ $nav_items = array_map(static function (array $machine): array {
             </p>
             <div class="section-divider"></div>
             <h2 id="machii-variants-title" class="section-title">
-                <?php esc_html_e('Four MACH II machines. Pick yours.', 'standard'); ?>
+                <?php esc_html_e('Three MACH II machines. Pick yours.', 'standard'); ?>
             </h2>
             <p class="section-subtitle text-blue-600 max-w-2xl">
                 <?php esc_html_e('Specs, highlights, and price for each machine. Pick the one your crew runs most days, or talk to a specialist if you\'re between configurations.', 'standard'); ?>
             </p>
         </div>
-
-        <nav
-            class="machii-tabs sticky top-0 z-30 -mx-4 sm:mx-0 bg-blue-50 border-y border-blue-200"
-            aria-label="<?php esc_attr_e('MACH II variants', 'standard'); ?>"
-        >
-            <ul class="container flex gap-px overflow-x-auto" role="list">
-                <?php foreach ($nav_items as $index => $item) : ?>
-                    <li class="shrink-0">
-                        <a
-                            href="#machii-variant-<?php echo esc_attr($item['slug']); ?>"
-                            class="machii-tabs__link inline-flex items-center gap-2 px-4 py-4 font-mono text-xs uppercase tracking-[0.15em] text-blue-600 hover:text-blue-900 transition-colors aria-[current=true]:text-blue-900 aria-[current=true]:bg-white"
-                            data-variant-slug="<?php echo esc_attr($item['slug']); ?>"
-                        >
-                            <span class="text-blue-400"><?php echo esc_html(sprintf('%02d /', $index + 1)); ?></span>
-                            <span><?php echo esc_html($item['short']); ?></span>
-                            <?php if ($item['featured']) : ?>
-                                <span class="inline-block w-1 h-1 bg-red" aria-hidden="true"></span>
-                            <?php endif; ?>
-                        </a>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        </nav>
 
         <div class="grid gap-16 lg:gap-24">
             <?php foreach ($machines as $index => $machine) :
@@ -95,7 +66,6 @@ $nav_items = array_map(static function (array $machine): array {
                 $highlights  = $machine['highlights'] ?? [];
                 $specs       = $machine['specs'] ?? [];
                 $is_featured = !empty($machine['featured']);
-                $is_box      = $slug === 'bg7-box-gutter';
 
                 $price = !empty($machine['price'])
                     ? $machine['price']
@@ -107,8 +77,6 @@ $nav_items = array_map(static function (array $machine): array {
                     : \Standard\Url\with_query('/build-finance/', ['machine' => $slug]);
                 $explore_url = $machine['url'] ?? '#';
 
-                $primary_btn_class = 'btn btn-primary';
-
                 $spec_rows = [];
                 if (!empty($specs['size']))      { $spec_rows[] = [__('Size',      'standard'), $specs['size']]; }
                 if (!empty($specs['profiles'])) { $spec_rows[] = [__('Profile',   'standard'), $specs['profiles']]; }
@@ -119,11 +87,10 @@ $nav_items = array_map(static function (array $machine): array {
             ?>
                 <article
                     id="machii-variant-<?php echo esc_attr($slug); ?>"
-                    class="machii-variant scroll-mt-32 grid gap-10 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-center"
-                    data-variant-slug="<?php echo esc_attr($slug); ?>"
+                    class="machii-variant scroll-mt-20 grid gap-10 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-center"
                 >
                     <div class="<?php echo $index % 2 === 1 ? 'md:order-2' : ''; ?>">
-                        <div class="relative aspect-square bg-white border border-blue-200">
+                        <div class="relative aspect-square bg-blue-50 border border-blue-200">
                             <?php if ($image) : ?>
                                 <?php \Standard\Images\responsive_image($image, $name, 'product-card', [
                                     'class'   => 'absolute inset-0 w-full h-full object-contain p-8 lg:p-12',
@@ -196,7 +163,7 @@ $nav_items = array_map(static function (array $machine): array {
                         <?php endif; ?>
 
                         <div class="flex flex-wrap gap-3 pt-2">
-                            <a href="<?php echo esc_url($build_url); ?>" class="<?php echo esc_attr($primary_btn_class); ?>">
+                            <a href="<?php echo esc_url($build_url); ?>" class="btn btn-primary">
                                 <?php esc_html_e('Build & Finance', 'standard'); ?>
                                 <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                             </a>
