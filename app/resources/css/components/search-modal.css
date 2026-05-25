@@ -122,9 +122,11 @@
   /* Backdrop stays solid for the entire open lifetime, then disappears
      with the dialog when .close() fires. No opacity transition — the
      fade was visually competing with the slide and reading as the
-     dialog vanishing before it left. */
+     dialog vanishing before it left.
+     0.45 reads as a clear scrim during the slide-in/out window without
+     fighting the opaque white panel itself. */
   .search-modal::backdrop {
-    background: rgb(10 19 34 / 0.32);
+    background: rgb(10 19 34 / 0.45);
   }
 
   /* Form is the only scrolling region; dialog stays pinned.
@@ -203,8 +205,18 @@
   }
 
   .search-modal__clear {
-    @apply flex h-8 w-8 shrink-0 items-center justify-center border border-blue-200 bg-white text-blue-500 cursor-pointer;
+    @apply relative flex h-8 w-8 shrink-0 items-center justify-center border border-blue-200 bg-white text-blue-500 cursor-pointer;
     transition: border-color 150ms ease, color 150ms ease, background-color 150ms ease;
+  }
+
+  /* Visual chrome stays 32x32 to feel balanced next to the input, but
+     the hit area expands to 44x44 (WCAG 2.5.5 AAA + brand standard).
+     The ::after overlay is transparent and absolutely positioned so it
+     doesn't disturb layout but still receives pointer events on touch. */
+  .search-modal__clear::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
   }
 
   .search-modal__clear:hover {
@@ -229,12 +241,44 @@
     line-height: 1;
   }
 
-  /* Row 3: scope chips. <legend> is visible now ("Narrow to:") so the
-     row's purpose is obvious. The chips are wrap, not horizontal scroll,
-     because at 1440px container we have room to lay all 11 out without
-     a sideways scroll. */
+  /* Row 3: scope chips. Hidden on cold open so the contractor's eye
+     stays on the input, revealed when the debounced query fires (JS
+     flips data-revealed). The chips are wrap, not horizontal scroll,
+     because at 1280px container we have room to lay all 11 out without
+     a sideways scroll.
+     Height + opacity transition (not display) so the reveal can be
+     animated and AT users still tab into them when they appear. */
   .search-modal__chips-row {
     @apply py-6;
+    overflow: hidden;
+    max-height: 0;
+    padding-block: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      max-height var(--panel-open-dur) var(--search-modal-open-ease),
+      padding-block var(--panel-open-dur) var(--search-modal-open-ease),
+      opacity var(--panel-open-dur) var(--search-modal-open-ease),
+      visibility 0s linear var(--panel-open-dur);
+  }
+
+  .search-modal__chips-row[data-revealed="true"] {
+    @apply py-6;
+    max-height: 20rem;
+    opacity: 1;
+    visibility: visible;
+    transition:
+      max-height var(--panel-open-dur) var(--search-modal-open-ease),
+      padding-block var(--panel-open-dur) var(--search-modal-open-ease),
+      opacity var(--panel-open-dur) var(--search-modal-open-ease),
+      visibility 0s linear 0s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .search-modal__chips-row,
+    .search-modal__chips-row[data-revealed="true"] {
+      transition: none;
+    }
   }
 
   .search-modal__chips {
@@ -291,7 +335,7 @@
   }
 
   .search-modal__results-status {
-    @apply m-0 mb-3 font-mono uppercase tracking-wider text-blue-400 text-right;
+    @apply m-0 mb-3 font-mono uppercase tracking-wider text-blue-500 text-right;
     font-size: var(--text-caption);
     min-height: 1rem;
   }
@@ -305,7 +349,7 @@
   }
 
   .search-modal__results-item {
-    @apply flex items-baseline gap-4 py-3 no-underline cursor-pointer;
+    @apply flex items-center gap-4 py-3 no-underline cursor-pointer;
     border-bottom: 1px solid var(--color-blue-100);
     border-left: 2px solid transparent;
     padding-left: 0.75rem;
@@ -350,7 +394,7 @@
      gradient on a fixed-width pseudo. Plays under reduced motion as a
      steady tint instead of an animation. */
   .search-modal__results-skeleton {
-    @apply flex items-baseline gap-4 py-3;
+    @apply flex items-center gap-4 py-3;
     padding-left: 0.75rem;
     padding-right: 0.75rem;
     border-bottom: 1px solid var(--color-blue-100);
@@ -417,5 +461,101 @@
   .search-modal__results-all:focus-visible {
     @apply text-blue-900 outline-none;
     gap: 0.75rem;
+  }
+
+  /* Cold-open popular searches. Curated suggestions as one-tap buttons.
+     Lives between chips and results region; JS hides it when results
+     are showing (data-state != idle). Mono label + uppercase chip
+     vocabulary mirrors the scope chip row above. */
+  .search-modal__popular {
+    @apply py-6 border-t border-blue-100;
+  }
+
+  /* Hidden via JS when results region takes over (state != idle). */
+  .search-modal__popular[hidden] {
+    display: none;
+  }
+
+  .search-modal__popular-label {
+    @apply block m-0 mb-3 p-0 font-mono font-medium uppercase tracking-wider text-blue-500;
+    font-size: var(--text-caption);
+  }
+
+  .search-modal__popular-list {
+    @apply m-0 p-0 list-none flex flex-wrap items-stretch gap-2;
+  }
+
+  /* Same chip vocabulary as scope row, but they read as suggestions
+     not filters. Slightly heavier title text (sans, not mono caps) so
+     contractors register them as "things to look for" rather than
+     "filters to apply." */
+  .search-modal__popular-item {
+    @apply inline-flex items-center justify-center bg-white text-blue-700 cursor-pointer;
+    @apply font-sans;
+    @apply px-3 py-2;
+    border: 1px solid var(--color-blue-200);
+    font-size: 0.9375rem;
+    line-height: 1.2;
+    transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease;
+    white-space: nowrap;
+  }
+
+  .search-modal__popular-item:hover {
+    @apply text-blue-900 bg-blue-50;
+    border-color: var(--color-blue-300);
+  }
+
+  .search-modal__popular-item:focus-visible {
+    @apply outline-none text-blue-900 bg-blue-50;
+    border-color: var(--color-blue-500);
+  }
+
+  /* Empty + error fallback inside results region. Same popular row
+     vocabulary as the cold open, plus a specialist CTA and an optional
+     retry button (error state only). */
+  .search-modal__results-fallback {
+    @apply mt-6;
+  }
+
+  .search-modal__results-fallback[hidden] {
+    display: none;
+  }
+
+  .search-modal__results-fallback-prompt {
+    @apply block m-0 mb-3 p-0 font-mono font-medium uppercase tracking-wider text-blue-500;
+    font-size: var(--text-caption);
+  }
+
+  .search-modal__results-fallback-cta {
+    @apply mt-6 m-0 font-sans text-blue-700;
+    font-size: 0.9375rem;
+  }
+
+  .search-modal__results-fallback-cta a {
+    @apply text-blue-700 underline;
+    text-underline-offset: 0.2em;
+    text-decoration-color: var(--color-blue-200);
+    transition: text-decoration-color 150ms ease, color 150ms ease;
+  }
+
+  .search-modal__results-fallback-cta a:hover,
+  .search-modal__results-fallback-cta a:focus-visible {
+    @apply text-blue-900 outline-none;
+    text-decoration-color: var(--color-blue-500);
+  }
+
+  .search-modal__results-fallback-retry {
+    @apply mt-4 inline-flex items-center justify-center bg-white text-blue-700 cursor-pointer;
+    @apply font-mono font-medium uppercase tracking-wider;
+    @apply px-4 py-2;
+    border: 1px solid var(--color-blue-300);
+    font-size: var(--text-caption);
+    transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease;
+  }
+
+  .search-modal__results-fallback-retry:hover,
+  .search-modal__results-fallback-retry:focus-visible {
+    @apply text-blue-900 bg-blue-50 outline-none;
+    border-color: var(--color-blue-500);
   }
 }

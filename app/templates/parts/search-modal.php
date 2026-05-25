@@ -93,10 +93,14 @@ $current_query = (string) \get_search_query();
                     type="search"
                     name="s"
                     value="<?php echo esc_attr($current_query); ?>"
-                    placeholder="<?php esc_attr_e('Machines, manuals, profiles, articles…', 'standard'); ?>"
+                    placeholder="<?php esc_attr_e('What are you looking for?', 'standard'); ?>"
                     autocomplete="off"
                     autocapitalize="off"
                     spellcheck="false"
+                    role="combobox"
+                    aria-controls="site-search-modal-results-list"
+                    aria-autocomplete="list"
+                    aria-expanded="false"
                     data-search-modal-input
                 >
                 <button
@@ -114,11 +118,20 @@ $current_query = (string) \get_search_query();
             </div>
         </div>
 
-        <div class="search-modal__chips-row">
+        <!-- Scope chips. Hidden until the user has committed at least
+             MIN_QUERY_LENGTH characters; JS flips data-revealed when the
+             debounced query fires. Contractors type first, refine second.
+             Pre-revealed if the modal opens onto an existing search-page
+             state ($current_query has content). -->
+        <div
+            class="search-modal__chips-row"
+            data-search-modal-chips-row
+            data-revealed="<?php echo $current_query !== '' ? 'true' : 'false'; ?>"
+        >
             <div class="container">
                 <fieldset class="search-modal__chips" data-search-modal-chips>
                     <legend class="search-modal__chips-label">
-                        <?php esc_html_e('Narrow', 'standard'); ?>
+                        <?php esc_html_e('Filter by', 'standard'); ?>
                     </legend>
 
                     <div class="search-modal__chips-list">
@@ -158,10 +171,49 @@ $current_query = (string) \get_search_query();
             <?php echo $active_post_type === '' ? 'disabled' : ''; ?>
         >
 
+        <?php if ($popular !== []) : ?>
+            <!-- Cold-open on-ramp. Curated suggestions live here as one-tap
+                 buttons; tapping fills the input, sets the scope chip if the
+                 entry carries a post_type, and triggers a fetch. Hidden once
+                 the user types and results arrive. Re-rendered inside the
+                 empty-state block below so a no-match doesn't leave the
+                 user staring at a dead end. -->
+            <section
+                class="search-modal__popular"
+                data-search-modal-popular
+                aria-label="<?php esc_attr_e('Popular searches', 'standard'); ?>"
+            >
+                <div class="container">
+                    <p class="search-modal__popular-label">
+                        <?php esc_html_e('Popular searches', 'standard'); ?>
+                    </p>
+                    <ul class="search-modal__popular-list">
+                        <?php foreach ($popular as $item) : ?>
+                            <li>
+                                <button
+                                    type="button"
+                                    class="search-modal__popular-item"
+                                    data-search-modal-popular-item
+                                    data-query="<?php echo esc_attr($item['query']); ?>"
+                                    <?php if (!empty($item['post_type'])) : ?>
+                                        data-post-type="<?php echo esc_attr($item['post_type']); ?>"
+                                    <?php endif; ?>
+                                >
+                                    <?php echo esc_html($item['label']); ?>
+                                </button>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </section>
+        <?php endif; ?>
+
         <!-- Quick results region. Hidden until the user types. JS owns
              the inner DOM; PHP only renders the shell so the role,
              label and live-region attributes exist before scripts run.
-             Capped at 5 results via REST `per_page=5`. -->
+             Capped at 5 results via REST `per_page=5`.
+             The empty-state subblock surfaces popular searches inline +
+             an "Ask a specialist" CTA so a no-match has a soft exit. -->
         <section
             class="search-modal__results"
             data-search-modal-results
@@ -177,6 +229,7 @@ $current_query = (string) \get_search_query();
                 ></div>
 
                 <ul
+                    id="site-search-modal-results-list"
                     class="search-modal__results-list"
                     role="listbox"
                     aria-label="<?php esc_attr_e('Quick results', 'standard'); ?>"
@@ -192,6 +245,52 @@ $current_query = (string) \get_search_query();
                     <span data-search-modal-results-all-label></span>
                     <?php icon('arrow-right', ['class' => 'w-3 h-3', 'aria-hidden' => 'true']); ?>
                 </a>
+
+                <!-- Empty + error fallback. Hidden by default; JS reveals
+                     it when state = 'empty' or 'error'. Same popular row
+                     vocabulary as the cold open, plus a specialist CTA. -->
+                <div
+                    class="search-modal__results-fallback"
+                    data-search-modal-fallback
+                    hidden
+                >
+                    <p class="search-modal__results-fallback-prompt">
+                        <?php esc_html_e('Try a popular search', 'standard'); ?>
+                    </p>
+                    <?php if ($popular !== []) : ?>
+                        <ul class="search-modal__popular-list">
+                            <?php foreach ($popular as $item) : ?>
+                                <li>
+                                    <button
+                                        type="button"
+                                        class="search-modal__popular-item"
+                                        data-search-modal-popular-item
+                                        data-query="<?php echo esc_attr($item['query']); ?>"
+                                        <?php if (!empty($item['post_type'])) : ?>
+                                            data-post-type="<?php echo esc_attr($item['post_type']); ?>"
+                                        <?php endif; ?>
+                                    >
+                                        <?php echo esc_html($item['label']); ?>
+                                    </button>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
+                    <p class="search-modal__results-fallback-cta">
+                        <?php esc_html_e('Still stuck?', 'standard'); ?>
+                        <a href="<?php echo esc_url(\Standard\Url\internal('/contact/')); ?>">
+                            <?php esc_html_e('Ask a specialist', 'standard'); ?>
+                        </a>
+                    </p>
+                    <button
+                        type="button"
+                        class="search-modal__results-fallback-retry"
+                        data-search-modal-retry
+                        hidden
+                    >
+                        <?php esc_html_e('Try again', 'standard'); ?>
+                    </button>
+                </div>
             </div>
         </section>
     </form>
