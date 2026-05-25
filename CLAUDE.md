@@ -63,7 +63,7 @@ When feature work is done:
 ```bash
 git switch dev
 git pull --ff-only origin dev
-git merge --ff-only feat/feature-name
+git merge --no-ff feat/feature-name -m "Merge feature-name worktree updates into dev"
 git push origin dev
 ```
 
@@ -102,15 +102,68 @@ This applies to every spawned worktree doing UI work too.
 
 This repo uses a "Maestro" orchestration pattern. The agent running on the `dev` checkout acts as orchestrator and spawns Superset worktree workspaces, each running its own agent on a `feat/*`/`fix/*`/`chore/*` branch off `dev`.
 
+Superset tasks are the source of truth for orchestration. `.maestro/active.md` and `.maestro/archive.md` are optional local notes; they do not replace the task queue.
+
+### Superset Task Workflow
+
+Task statuses:
+
+- `Backlog`: idea only; no worktree yet.
+- `Todo`: approved work; worktree not started.
+- `In Progress`: worktree exists or agent is actively working.
+- `Done`: Maestro merged the branch into `dev`, pushed `origin/dev`, and synced active worktrees.
+- `Canceled`: abandoned, duplicated, or reverted.
+
+Task labels:
+
+- Always use `amt-ntm`, `maestro`, and `worktree`.
+- Add one agent label: `agent-claude`, `agent-codex`, or `agent-opencode`.
+- Add `ready-for-land` only when the branch is committed, summarized, and ready for Maestro to merge.
+- Add `blocked` when work cannot continue without a decision.
+- Add `landed` after Maestro merges into `dev`.
+
+Task description template:
+
+```text
+Branch:
+Workspace:
+Path:
+Agent:
+Goal:
+Status:
+Summary:
+Commits:
+Validation:
+Risk:
+```
+
+Useful commands:
+
+```bash
+superset tasks statuses list
+superset tasks create --title "[AMT Maestro] <slug>: <goal>" --description "<template>" --priority medium --labels amt-ntm,maestro,worktree,agent-claude
+superset tasks update <task-id-or-slug> --labels amt-ntm,maestro,worktree,agent-claude,ready-for-land
+superset tasks list --search "AMT Maestro"
+```
+
+When changing status, run `superset tasks statuses list` first; the CLI wants a status ID, not the status name. When changing labels, pass the full label set you want to keep.
+
+Hard rule: worktree agents do not merge into `dev`. They commit their branch, update the Superset task with summary/commits/validation/risk, add `ready-for-land`, and stop. Maestro lands it.
+
 ### If you are the Maestro (running on `dev`)
 
 - Do not edit theme code from `dev`. Spawn a worktree for it.
-- Track active worktrees in `.maestro/active.md`, archive finished ones in `.maestro/archive.md`. These are gitignored.
+- Create or update a Superset task before spawning a worktree.
+- Put the Superset task ID, branch, workspace, path, agent, and goal in the task description.
+- Track extra notes in `.maestro/active.md` and `.maestro/archive.md` only when useful. These files are gitignored.
 - Agent routing:
   - **Claude** — UI, frontend, templates, CSS, anything visual or design-y
   - **Codex** — backend PHP, REST endpoints, architecture, careful programming
   - **OpenCode (DeepSeek)** — mechanical work (comments, search/replace, renames)
-- Merge gate: only FF-merge a feature branch into `dev` after the user says "land it". Push `origin/dev` from this checkout only.
+- Merge gate: only land branches marked `ready-for-land`, after the user says "land it" or asks to pull worktree changes.
+- Land with a merge commit from the `dev` checkout, then push `origin/dev` from this checkout only.
+- After landing, sync `dev` back into every active worktree. Skip dirty worktrees and report them.
+- Mark the task `Done` and add `landed` only after the merge, push, and sync are complete.
 
 ### If you are a spawned worktree agent
 
@@ -119,7 +172,8 @@ You're running under `~/.superset/worktrees/<name>/`. You are NOT the Maestro.
 - Do your assigned work on your branch. Commit frequently with clear messages.
 - Never merge into `dev` or `master`. Never push `origin/dev` or `origin/master`. Pushing your own feature branch is fine.
 - Do not touch `.maestro/` — that is the orchestrator's scratch space.
-- When your task is done, summarize what you did and stop. The Maestro decides when to merge.
+- Keep the Superset task current when possible. If the CLI is unavailable, put the task-ready details in your final response.
+- When your task is done, update the task with summary, commits, validation, and risk; add `ready-for-land`; then stop. The Maestro decides when to merge.
 - If you hit a blocker or ambiguity, stop and surface it rather than guessing.
 
 ## Shared Skills

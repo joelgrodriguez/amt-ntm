@@ -27,16 +27,36 @@ git worktree add .worktrees/feature-name -b feat/feature-name dev
 
 ## Merge Work Into Dev
 
-Only the `dev` checkout pushes remote `dev`:
+Only Maestro merges worktree branches into `dev`, and only from the `dev`
+checkout. A spawned worktree agent never lands its own work.
 
 ```bash
 git switch dev
 git pull --ff-only origin dev
-git merge --ff-only feat/feature-name
+git merge --no-ff feat/feature-name -m "Merge feature-name worktree updates into dev"
 git push origin dev
 ```
 
-If fast-forward fails, stop and inspect the branch graph. Do not invent a merge strategy while tired.
+Use a merge commit for landed worktree branches. It makes the whole worktree
+easy to revert if DevKinsta shows a broken preview.
+
+Before merging:
+
+- Confirm the Superset task has `ready-for-land`.
+- Use `superset tasks statuses list` before status updates; status changes need IDs.
+- When changing labels, pass the full label set you want to keep.
+- Inspect `git log --oneline dev..branch` and `git diff --stat dev...branch`.
+- Refuse messy `wip` work unless the user explicitly accepts it.
+- Run the smallest useful validation for the change.
+
+After merging:
+
+- Push `origin/dev` from the `dev` checkout only.
+- Sync latest `dev` back into active worktrees.
+- Mark the Superset task `Done` and add the `landed` label.
+
+If the merge conflicts, stop and inspect the branch graph. Do not invent a merge
+strategy while tired.
 
 ## Release To Master
 
