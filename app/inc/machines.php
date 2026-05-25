@@ -96,13 +96,13 @@ function get_hero_slides(): array {
     // Non-machine slide. Same shape as above. Accessories doesn't
     // have a data file; everything hand-rolled.
     $slides[] = [
-        'id'               => 'ntm-accessories',
+        'id'               => 'upgrades',
         'category'         => __('Accessories & Upgrades', 'standard'),
         'title'            => __('Expand Your Capabilities', 'standard'),
         'slogan'           => __('Extend what your NTM machine already does. Trailers, decoilers, control upgrades, and tooling that add profiles, capacity, and faster job turnaround.', 'standard'),
         'background_image' => 'https://newtechmachinery.com/wp-content/uploads/2026/04/Jim-adjusting-his-machine-scaled.jpg',
         'background_video' => '',
-        'learn_more_url'   => '/machines/ntm-accessories/',
+        'learn_more_url'   => '/machines/upgrades/',
         'cta_label'        => __('Explore Accessories', 'standard'),
     ];
 
