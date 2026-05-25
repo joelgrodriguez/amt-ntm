@@ -107,6 +107,7 @@ $groups = [
         'post_type[]',
         $type_options,
         $requested_types,
+        [],
         'filter'
     ),
 ];
