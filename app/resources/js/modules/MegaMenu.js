@@ -19,10 +19,9 @@ const SWITCH_DELAY_MS = (() => {
 })();
 
 export const initMegaMenu = () => {
-    const triggers   = /** @type {NodeListOf<HTMLButtonElement>} */ (document.querySelectorAll('.mega-trigger'));
-    const overlay    = document.getElementById('mega-menu-overlay');
-    const closeBtn   = document.getElementById('mega-menu-close');
-    const container  = document.getElementById('mega-menu-container');
+    const triggers  = /** @type {NodeListOf<HTMLButtonElement>} */ (document.querySelectorAll('.mega-trigger'));
+    const overlay   = document.getElementById('mega-menu-overlay');
+    const container = document.getElementById('mega-menu-container');
 
     if (!triggers.length || !container) {
         return () => {};
@@ -190,21 +189,23 @@ export const initMegaMenu = () => {
         (document.querySelector(triggerSelector))?.focus();
     };
 
-    /** Click-outside (anywhere outside the active panel and any trigger) closes. */
+    /** Close on any click that isn't on an interactive piece of content.
+     * Triggers handle themselves (toggle); links/buttons/tabs inside the panel
+     * are real content and don't close. Everything else — panel background,
+     * sidebar gutter, scrim — closes. */
     /** @param {MouseEvent} e */
     const handleDocClick = (e) => {
         if (!activePanel) return;
-        const target = /** @type {Node} */ (e.target);
-        const insidePanel   = getPanel(activePanel)?.contains(target);
-        const insideTrigger = Array.from(triggers).some((t) => t.contains(target));
-        if (!insidePanel && !insideTrigger) dismiss();
+        const target = /** @type {Element} */ (e.target);
+        if (Array.from(triggers).some((t) => t.contains(target))) return;
+        if (target.closest?.('a, button, [role="tab"], input, select, textarea, label')) return;
+        dismiss();
     };
 
     // ── Wire up ─────────────────────────────────────────────────────────
 
     triggers.forEach((t) => t.addEventListener('click', handleTriggerClick));
     overlay?.addEventListener('click', dismiss);
-    closeBtn?.addEventListener('click', dismiss);
     document.addEventListener('keydown', handleKeydown);
     document.addEventListener('click', handleDocClick);
 
@@ -228,7 +229,6 @@ export const initMegaMenu = () => {
         cancelPendingOpen();
         triggers.forEach((t) => t.removeEventListener('click', handleTriggerClick));
         overlay?.removeEventListener('click', dismiss);
-        closeBtn?.removeEventListener('click', dismiss);
         document.removeEventListener('keydown', handleKeydown);
         document.removeEventListener('click', handleDocClick);
         tabBtns.forEach((btn) => {

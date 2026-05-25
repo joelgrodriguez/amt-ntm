@@ -278,69 +278,8 @@
     pointer-events: auto;
 }
 
-/* The close label is pinned top-right and floats above the panel (z-50)
-   so it stays visible while the panel covers most of the scrim. Color
-   tracks the surface underneath: dark text/border on the white panel.
-   Desktop-only — mobile menu has its own close affordance. */
-.mega-overlay__close {
-    display: none;
-    position: fixed;
-    top: calc(4rem + 1rem); /* one row below the header */
-    right: 1.5rem;
-    z-index: 50;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.75rem;
-    font-family: var(--font-mono);
-    font-size: 0.6875rem; /* 11px caption */
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    color: var(--color-blue-700);
-    border: 1px solid var(--color-blue-200);
-    background: var(--color-white);
-    pointer-events: auto;
-    cursor: pointer;
-    transform: translateY(-4px);
-    opacity: 0;
-    transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1) 100ms,
-                transform 250ms cubic-bezier(0.4, 0, 0.2, 1) 100ms,
-                color 150ms cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.mega-overlay__close:hover {
-    color: var(--color-blue-900);
-    border-color: var(--color-blue-500);
-}
-
-@media (min-width: 1024px) {
-    .mega-overlay__close {
-        display: inline-flex;
-    }
-}
-
-body.mega-open .mega-overlay__close {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.mega-overlay__close-dot {
-    width: 4px;
-    height: 4px;
-    background: var(--color-red);
-}
-
-.mega-overlay__close-sep {
-    color: var(--color-blue-300);
-}
-
-.mega-overlay__close-key {
-    color: var(--color-blue-400);
-}
-
 @media (prefers-reduced-motion: reduce) {
-    .mega-overlay,
-    .mega-overlay__close {
+    .mega-overlay {
         transition: none;
     }
 }
