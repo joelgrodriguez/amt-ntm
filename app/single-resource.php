@@ -2,9 +2,9 @@
 /**
  * The template for displaying single resource posts.
  *
- * Mirrors single-manual.php (profile-style hero + two-column body),
- * but the sidebar lists every published resource as a link instead
- * of taxonomy filters. No related-machines block.
+ * Same shell as single-download.php: fading dot-grid page, article hero,
+ * full-width content with a fixed-width left rail that lists every other
+ * resource of the same type via get_sidebar_items_query().
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
  *
@@ -17,78 +17,84 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$content = [
-    'badge'       => __('Resource', 'standard'),
-    'all_label'   => __('All Resources', 'standard'),
-    'view_all'    => __('View All Resources', 'standard'),
-    'aria_label'  => __('Resources', 'standard'),
-];
+use function Standard\LearningCenter\get_sidebar_items_query;
 
 get_header();
 
-$current_id = (int) get_the_ID();
-
-$resource_posts = get_posts([
-    'post_type'      => 'resource',
-    'post_status'    => 'publish',
-    'posts_per_page' => -1,
-    'orderby'        => 'title',
-    'order'          => 'ASC',
-]);
-
-$resource_options = [];
-foreach ($resource_posts as $resource_post) {
-    $resource_options[] = [
-        'value'  => (string) $resource_post->ID,
-        'label'  => get_the_title($resource_post),
-        'url'    => (string) get_permalink($resource_post),
-        'active' => (int) $resource_post->ID === $current_id,
-    ];
-}
-
-$resource_groups = $resource_options === [] ? [] : [
-    [
-        'id'      => 'resources-all',
-        'title'   => $content['all_label'],
-        'icon'    => 'file-text',
-        'mode'    => 'link',
-        'options' => $resource_options,
-    ],
-];
+$post_type   = 'resource';
+$type_object = get_post_type_object($post_type);
+$plural      = $type_object?->labels->name ?? __('Resources', 'standard');
+/* translators: %s post-type plural label, e.g. "Resources". */
+$rail_title  = sprintf(__('All %s', 'standard'), $plural);
+$archive_url = get_post_type_archive_link($post_type);
 ?>
 
-<main id="primary">
+<main id="primary" class="pattern-dot-grid pb-6 lg:pb-12">
     <?php while (have_posts()) : the_post(); ?>
-        <?php get_template_part('templates/parts/single/profile-style-hero', null, [
-            'eyebrow' => $content['badge'],
-        ]); ?>
+        <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-6 lg:gap-12'); ?>>
 
-        <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-6 lg:gap-12 py-6 lg:py-12'); ?>>
+            <div class="container">
+                <?php get_template_part('templates/parts/single/article-hero'); ?>
 
-            <div class="container layout-with-rail">
+                <div class="article-layout">
+                    <aside class="hidden lg:block" aria-label="<?php echo esc_attr($rail_title); ?>">
+                        <nav class="sticky top-24">
+                            <p class="font-mono font-medium uppercase tracking-widest text-caption text-blue-500 m-0 mb-6">
+                                <?php echo esc_html($rail_title); ?>
+                            </p>
+                            <ul class="grid gap-0 m-0 p-0 list-none border-t border-blue-100">
+                                <?php
+                                $items = get_sidebar_items_query($post_type, (int) get_the_ID());
 
-                <?php if ($resource_groups !== []) : ?>
-                    <?php get_template_part('templates/parts/filter-sidebar', null, [
-                        'groups'       => $resource_groups,
-                        'show_actions' => false,
-                        'collapsible'  => false,
-                        'back_url'     => get_post_type_archive_link('resource') ?: '',
-                        'back_label'   => $content['view_all'],
-                        'drawer_label' => $content['aria_label'],
-                        'aria_label'   => $content['aria_label'],
-                    ]); ?>
-                <?php endif; ?>
+                                if ($items->have_posts()) :
+                                    while ($items->have_posts()) : $items->the_post();
+                                ?>
+                                    <li class="border-b border-blue-100">
+                                        <a href="<?php the_permalink(); ?>"
+                                           class="group flex items-start gap-3 py-3 text-sm leading-snug text-blue-900 no-underline hover:text-blue-500 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                                            <span class="mt-1.5 w-1 h-1 shrink-0 bg-blue-300 group-hover:bg-blue-500 transition-colors" aria-hidden="true"></span>
+                                            <span class="min-w-0"><?php the_title(); ?></span>
+                                        </a>
+                                    </li>
+                                <?php
+                                    endwhile;
+                                    wp_reset_postdata();
+                                endif;
+                                ?>
+                            </ul>
 
-                <div class="grid gap-8">
-                    <section>
+                            <?php if ($archive_url) :
+                                /* translators: %s post-type plural label, e.g. "Resources". */
+                                $view_all_label = sprintf(__('View all %s', 'standard'), strtolower($plural));
+                            ?>
+                                <a href="<?php echo esc_url($archive_url); ?>"
+                                   class="group mt-6 inline-flex items-center gap-2 font-mono uppercase tracking-widest text-caption text-blue-500 no-underline hover:text-blue-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                                    <?php echo esc_html($view_all_label); ?>
+                                    <span class="transition-transform duration-200 group-hover:translate-x-1">
+                                        <?php icon('arrow-right', ['class' => 'w-3 h-3', 'aria-hidden' => 'true']); ?>
+                                    </span>
+                                </a>
+                            <?php endif; ?>
+                        </nav>
+                    </aside>
+
+                    <div class="min-w-0">
                         <div class="prose prose-lg max-w-full">
                             <?php the_content(); ?>
                         </div>
-                    </section>
-                </div>
 
+                        <?php get_template_part('templates/parts/disclaimer'); ?>
+                    </div>
+                </div>
             </div>
 
+            <div class="container">
+                <?php get_template_part('templates/parts/post-navigation'); ?>
+            </div>
+
+            <div class="container">
+                <?php get_template_part('templates/parts/related-posts'); ?>
+            </div>
         </article>
     <?php endwhile; ?>
 </main>
