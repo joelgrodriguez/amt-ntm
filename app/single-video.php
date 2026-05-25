@@ -37,7 +37,7 @@ get_header();
                 'show_led_strip'   => false,
             ]); ?>
             <section class="pattern-dot-grid py-6 lg:py-12">
-                <div class="container grid gap-6 lg:gap-12 max-w-4xl mx-auto">
+                <div class="grid gap-6 lg:gap-12 max-w-4xl mx-auto w-full px-4">
                     <header class="grid gap-6">
                         <?php $primary_category = get_primary_category((int) get_the_ID()); ?>
                         <?php if ($primary_category instanceof \WP_Term) : ?>
