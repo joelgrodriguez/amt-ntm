@@ -83,7 +83,7 @@
 
   @media (min-width: 1024px) {
     .card-product__title {
-      font-size: 2rem; /* 32px */
+      font-size: 1.75rem; /* 28px */
     }
   }
 
