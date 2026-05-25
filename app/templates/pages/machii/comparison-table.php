@@ -26,6 +26,12 @@ $machines = array_values(array_filter(
     static fn (array $m): bool => str_starts_with((string) ($m['slug'] ?? ''), 'mach-ii-')
 ));
 
+// Featured (Combo) first; matches the order in family-portrait and
+// variant-matrix so the comparison reads with the lead pick on the left.
+usort($machines, static function (array $a, array $b): int {
+    return ((int) !empty($b['featured'])) <=> ((int) !empty($a['featured']));
+});
+
 get_template_part('templates/parts/comparison-table', null, [
     'section_id' => 'machii-comparison-title',
     'content'    => [

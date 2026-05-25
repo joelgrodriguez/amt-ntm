@@ -51,11 +51,11 @@ $steps = [
     <div class="container section-content">
         <div class="section-header-left">
             <p class="section-eyebrow">
-                <?php esc_html_e('From Coil to Curbside', 'standard'); ?>
+                <?php esc_html_e('How It Works', 'standard'); ?>
             </p>
             <div class="section-divider"></div>
             <h2 id="machii-workflow-title" class="section-title">
-                <?php esc_html_e('Nothing to stop you, nothing to hold you back.', 'standard'); ?>
+                <?php esc_html_e('From coil to install. No bottlenecks.', 'standard'); ?>
             </h2>
             <p class="section-subtitle text-blue-600 max-w-2xl">
                 <?php esc_html_e('On-site fabrication is the whole point of a portable rollformer. The MACH II turns a coil of metal into a continuous seamless gutter run, on the truck, on the jobsite, in the time it used to take to wait for a delivery.', 'standard'); ?>

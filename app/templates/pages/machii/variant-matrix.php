@@ -31,6 +31,11 @@ $machines = array_values(array_filter(
     static fn (array $m): bool => str_starts_with((string) ($m['slug'] ?? ''), 'mach-ii-')
 ));
 
+// Featured (Combo) first; the buyer's most-recommended pick leads.
+usort($machines, static function (array $a, array $b): int {
+    return ((int) !empty($b['featured'])) <=> ((int) !empty($a['featured']));
+});
+
 if (empty($machines)) {
     return;
 }
@@ -97,16 +102,14 @@ if (empty($machines)) {
                                     'loading' => 'lazy',
                                 ]); ?>
                             <?php endif; ?>
-                            <div class="absolute top-4 left-4 flex flex-wrap items-center gap-2">
-                                <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-blue-500">
-                                    <?php echo esc_html(sprintf('%02d / %s', $index + 1, $short)); ?>
+                            <span class="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-[0.18em] text-blue-500">
+                                <?php echo esc_html(sprintf('%02d / %s', $index + 1, $short)); ?>
+                            </span>
+                            <?php if ($is_featured) : ?>
+                                <span class="absolute top-4 right-4 badge badge-emphasis">
+                                    <?php esc_html_e('Featured', 'standard'); ?>
                                 </span>
-                                <?php if ($is_featured) : ?>
-                                    <span class="badge badge-emphasis">
-                                        <?php esc_html_e('Featured', 'standard'); ?>
-                                    </span>
-                                <?php endif; ?>
-                            </div>
+                            <?php endif; ?>
                         </div>
                     </div>
 
