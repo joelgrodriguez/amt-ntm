@@ -45,7 +45,10 @@ if (!$product) {
     return;
 }
 
-$title          = $product['title'] ?? '';
+// Strip trademark glyphs (™ ®) from card titles. The marks belong on
+// product pages and legal copy, not in every card across the site —
+// they add visual noise and break the title's clean alignment.
+$title          = str_replace(["\u{2122}", "\u{00AE}"], '', $product['title'] ?? '');
 $category_label = $product['category_label'] ?? '';
 $description    = $product['description'] ?? ($product['descriptor'] ?? '');
 $image          = $product['image'] ?? '';
