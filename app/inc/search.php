@@ -119,7 +119,7 @@ function get_search_priority_post_types(array $query_post_types): array {
  * the existing search/order relevance chain.
  */
 function prioritize_search_post_types(string $orderby, \WP_Query $query): string {
-    if (\is_admin() || !$query->is_main_query() || !$query->is_search()) {
+    if (\is_admin() || !$query->is_search()) {
         return $orderby;
     }
 
@@ -156,6 +156,79 @@ function prioritize_search_post_types(string $orderby, \WP_Query $query): string
     }
 
     return $case_expr . ' ASC, ' . $existing_order;
+}
+
+function get_search_hit_post_type($hit): string {
+    if ($hit instanceof \WP_Post) {
+        return \sanitize_key($hit->post_type);
+    }
+
+    if (is_object($hit) && isset($hit->post_type)) {
+        return \sanitize_key((string) $hit->post_type);
+    }
+
+    if (is_numeric($hit)) {
+        $post_type = \get_post_type((int) $hit);
+
+        return is_string($post_type) ? \sanitize_key($post_type) : '';
+    }
+
+    return '';
+}
+
+/**
+ * Relevanssi sorts by score after WordPress builds SQL, so mirror the same
+ * product-first contract at the hit-array level.
+ *
+ * @param array{0?: array<int, mixed>, 1?: string} $filter_data
+ * @return array{0?: array<int, mixed>, 1?: string}
+ */
+function prioritize_relevanssi_search_post_types(array $filter_data, \WP_Query $query): array {
+    if (!$query->is_search() || empty($filter_data[0]) || !is_array($filter_data[0])) {
+        return $filter_data;
+    }
+
+    $priority_types = $query->get('standard_search_priority_post_types');
+    if (!is_array($priority_types) || $priority_types === []) {
+        return $filter_data;
+    }
+
+    $priority_map = [];
+    foreach ($priority_types as $position => $post_type) {
+        $post_type = \sanitize_key((string) $post_type);
+        if ($post_type !== '') {
+            $priority_map[$post_type] = $position;
+        }
+    }
+
+    if ($priority_map === []) {
+        return $filter_data;
+    }
+
+    $fallback_priority = count($priority_map);
+    $ranked_hits = [];
+    $position = 0;
+
+    foreach ($filter_data[0] as $hit) {
+        $post_type = get_search_hit_post_type($hit);
+        $ranked_hits[] = [
+            'hit'      => $hit,
+            'priority' => $priority_map[$post_type] ?? $fallback_priority,
+            'position' => $position++,
+        ];
+    }
+
+    usort($ranked_hits, static function (array $a, array $b): int {
+        return $a['priority'] <=> $b['priority']
+            ?: $a['position'] <=> $b['position'];
+    });
+
+    $filter_data[0] = array_map(
+        static fn(array $ranked_hit) => $ranked_hit['hit'],
+        $ranked_hits
+    );
+
+    return $filter_data;
 }
 
 /**
@@ -502,6 +575,39 @@ function configure_main_query(\WP_Query $query): void {
     }
 }
 
+/**
+ * @param array<string, mixed> $query_args
+ * @return array<string, mixed>
+ */
+function configure_rest_post_search_query(array $query_args, \WP_REST_Request $request): array {
+    if (empty($query_args['s'])) {
+        return $query_args;
+    }
+
+    $requested_post_types = isset($query_args['post_type']) ? (array) $query_args['post_type'] : [];
+    $post_types = array_values(array_filter(
+        array_map(static fn($post_type): string => \sanitize_key((string) $post_type), $requested_post_types)
+    ));
+
+    if ($post_types === [] || in_array('any', $post_types, true)) {
+        $post_types = get_searchable_post_types();
+    } else {
+        $post_types = array_values(array_intersect($post_types, get_searchable_post_types()));
+    }
+
+    if ($post_types === []) {
+        force_no_results($query_args);
+    } else {
+        $query_args['post_type'] = $post_types;
+    }
+
+    $query_args['post_status'] = 'publish';
+    $query_args['suppress_filters'] = false;
+    $query_args['standard_search_priority_post_types'] = get_search_priority_post_types($post_types);
+
+    return $query_args;
+}
+
 function configure_taxonomy_archive_query(\WP_Query $query): void {
     if (\is_admin() || !$query->is_main_query() || $query->is_search()) {
         return;
@@ -537,6 +643,8 @@ function configure_taxonomy_archive_query(\WP_Query $query): void {
 
 \add_action('pre_get_posts', __NAMESPACE__ . '\\configure_main_query');
 \add_action('pre_get_posts', __NAMESPACE__ . '\\configure_taxonomy_archive_query');
-\add_filter('posts_orderby', __NAMESPACE__ . '\\prioritize_search_post_types', 10, 2);
+\add_filter('posts_orderby', __NAMESPACE__ . '\\prioritize_search_post_types', 999, 2);
+\add_filter('relevanssi_hits_filter', __NAMESPACE__ . '\\prioritize_relevanssi_search_post_types', 90, 2);
+\add_filter('rest_post_search_query', __NAMESPACE__ . '\\configure_rest_post_search_query', 10, 2);
 \add_filter('relevanssi_do_not_index', __NAMESPACE__ . '\\exclude_relevanssi_indexed_post_types', 10, 3);
 \add_filter('relevanssi_post_ok', __NAMESPACE__ . '\\exclude_relevanssi_result_post_types', 10, 2);
