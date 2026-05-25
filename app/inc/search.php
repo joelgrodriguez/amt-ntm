@@ -85,153 +85,6 @@ function get_searchable_post_types(): array {
 }
 
 /**
- * Post types that should rank first for global search when they are present.
- *
- * @return string[]
- */
-function get_search_priority_post_types(array $query_post_types): array {
-    $priorities = \apply_filters('standard_search_priority_post_types', [
-        'product',
-    ]);
-
-    if (!is_array($priorities)) {
-        $priorities = ['product'];
-    }
-
-    $query_types = array_values(array_unique(array_map(
-        static fn(string $post_type): string => \sanitize_key($post_type),
-        array_map('strval', (array) $query_post_types)
-    )));
-
-    $prioritized = [];
-    foreach ($priorities as $post_type) {
-        $normalized = \sanitize_key((string) $post_type);
-        if ($normalized !== '' && in_array($normalized, $query_types, true)) {
-            $prioritized[] = $normalized;
-        }
-    }
-
-    return $prioritized;
-}
-
-/**
- * Give priority to selected post types in search ordering without replacing
- * the existing search/order relevance chain.
- */
-function prioritize_search_post_types(string $orderby, \WP_Query $query): string {
-    if (\is_admin() || !$query->is_search()) {
-        return $orderby;
-    }
-
-    $priority_types = $query->get('standard_search_priority_post_types');
-    if (!is_array($priority_types) || $priority_types === []) {
-        return $orderby;
-    }
-
-    global $wpdb;
-
-    $case_parts = [];
-    foreach ($priority_types as $position => $post_type) {
-        $post_type = \sanitize_key((string) $post_type);
-        if ($post_type === '') {
-            continue;
-        }
-
-        $case_parts[] = $wpdb->prepare(
-            'WHEN ' . $wpdb->posts . '.post_type = %s THEN %d',
-            $post_type,
-            $position
-        );
-    }
-
-    if ($case_parts === []) {
-        return $orderby;
-    }
-
-    $case_expr = '(CASE ' . implode(' ', $case_parts) . ' ELSE ' . count($case_parts) . ' END)';
-    $existing_order = trim((string) $orderby);
-
-    if ($existing_order === '') {
-        $existing_order = $wpdb->posts . '.post_date DESC';
-    }
-
-    return $case_expr . ' ASC, ' . $existing_order;
-}
-
-function get_search_hit_post_type($hit): string {
-    if ($hit instanceof \WP_Post) {
-        return \sanitize_key($hit->post_type);
-    }
-
-    if (is_object($hit) && isset($hit->post_type)) {
-        return \sanitize_key((string) $hit->post_type);
-    }
-
-    if (is_numeric($hit)) {
-        $post_type = \get_post_type((int) $hit);
-
-        return is_string($post_type) ? \sanitize_key($post_type) : '';
-    }
-
-    return '';
-}
-
-/**
- * Relevanssi sorts by score after WordPress builds SQL, so mirror the same
- * product-first contract at the hit-array level.
- *
- * @param array{0?: array<int, mixed>, 1?: string} $filter_data
- * @return array{0?: array<int, mixed>, 1?: string}
- */
-function prioritize_relevanssi_search_post_types(array $filter_data, \WP_Query $query): array {
-    if (!$query->is_search() || empty($filter_data[0]) || !is_array($filter_data[0])) {
-        return $filter_data;
-    }
-
-    $priority_types = $query->get('standard_search_priority_post_types');
-    if (!is_array($priority_types) || $priority_types === []) {
-        return $filter_data;
-    }
-
-    $priority_map = [];
-    foreach ($priority_types as $position => $post_type) {
-        $post_type = \sanitize_key((string) $post_type);
-        if ($post_type !== '') {
-            $priority_map[$post_type] = $position;
-        }
-    }
-
-    if ($priority_map === []) {
-        return $filter_data;
-    }
-
-    $fallback_priority = count($priority_map);
-    $ranked_hits = [];
-    $position = 0;
-
-    foreach ($filter_data[0] as $hit) {
-        $post_type = get_search_hit_post_type($hit);
-        $ranked_hits[] = [
-            'hit'      => $hit,
-            'priority' => $priority_map[$post_type] ?? $fallback_priority,
-            'position' => $position++,
-        ];
-    }
-
-    usort($ranked_hits, static function (array $a, array $b): int {
-        return $a['priority'] <=> $b['priority']
-            ?: $a['position'] <=> $b['position'];
-    });
-
-    $filter_data[0] = array_map(
-        static fn(array $ranked_hit) => $ranked_hit['hit'],
-        $ranked_hits
-    );
-
-    return $filter_data;
-}
-
-/**
  * @return string[]
  */
 function get_requested_post_types(): array {
@@ -484,6 +337,52 @@ function exclude_relevanssi_result_post_types(bool $post_ok, int $post_id): bool
 }
 
 /**
+ * These weights make commercial objects win product-name searches without
+ * burying manuals and downloads when those are the better match.
+ *
+ * @param mixed $weights
+ * @return array<string, int>
+ */
+function tune_relevanssi_post_type_weights($weights): array {
+    $weights = is_array($weights) ? $weights : [];
+    $overrides = \apply_filters('standard_search_relevanssi_post_type_weights', [
+        'product'    => 20,
+        'manual'     => 4,
+        'page'       => 2,
+        'profile'    => 2,
+        'literature' => 2,
+        'resource'   => 2,
+        'download'   => 2,
+        'footprint'  => 2,
+        'post'       => 1,
+        'video'      => 1,
+    ]);
+
+    if (!is_array($overrides)) {
+        return $weights;
+    }
+
+    foreach ($overrides as $post_type => $weight) {
+        $post_type = \sanitize_key((string) $post_type);
+        $weight = (int) $weight;
+
+        if ($post_type !== '' && $weight > 0) {
+            $weights[$post_type] = $weight;
+        }
+    }
+
+    return $weights;
+}
+
+function tune_relevanssi_title_boost($boost): int {
+    return (int) \apply_filters('standard_search_relevanssi_title_boost', 40, $boost);
+}
+
+function tune_relevanssi_content_boost($boost): int {
+    return (int) \apply_filters('standard_search_relevanssi_content_boost', 5, $boost);
+}
+
+/**
  * @return array<string, mixed>
  */
 function get_product_card_data(int $post_id): array {
@@ -568,8 +467,6 @@ function configure_main_query(\WP_Query $query): void {
         force_no_results($query_args);
     }
 
-    $query_args['standard_search_priority_post_types'] = get_search_priority_post_types((array) $query_args['post_type']);
-
     foreach ($query_args as $key => $value) {
         $query->set((string) $key, $value);
     }
@@ -603,8 +500,6 @@ function configure_rest_post_search_query(array $query_args, \WP_REST_Request $r
 
     $query_args['post_status'] = 'publish';
     $query_args['suppress_filters'] = false;
-    $query_args['standard_search_priority_post_types'] = get_search_priority_post_types($post_types);
-
     return $query_args;
 }
 
@@ -643,8 +538,9 @@ function configure_taxonomy_archive_query(\WP_Query $query): void {
 
 \add_action('pre_get_posts', __NAMESPACE__ . '\\configure_main_query');
 \add_action('pre_get_posts', __NAMESPACE__ . '\\configure_taxonomy_archive_query');
-\add_filter('posts_orderby', __NAMESPACE__ . '\\prioritize_search_post_types', 999, 2);
-\add_filter('relevanssi_hits_filter', __NAMESPACE__ . '\\prioritize_relevanssi_search_post_types', 90, 2);
 \add_filter('rest_post_search_query', __NAMESPACE__ . '\\configure_rest_post_search_query', 10, 2);
+\add_filter('option_relevanssi_post_type_weights', __NAMESPACE__ . '\\tune_relevanssi_post_type_weights');
+\add_filter('option_relevanssi_title_boost', __NAMESPACE__ . '\\tune_relevanssi_title_boost');
+\add_filter('option_relevanssi_content_boost', __NAMESPACE__ . '\\tune_relevanssi_content_boost');
 \add_filter('relevanssi_do_not_index', __NAMESPACE__ . '\\exclude_relevanssi_indexed_post_types', 10, 3);
 \add_filter('relevanssi_post_ok', __NAMESPACE__ . '\\exclude_relevanssi_result_post_types', 10, 2);
