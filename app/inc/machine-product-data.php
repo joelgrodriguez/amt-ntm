@@ -52,6 +52,7 @@ function get_slug_aliases(): array {
         'ssq3-roof-panel-machine'           => 'ssq3-multipro',
         'ssh-roof-panel-machine'            => 'ssh-multipro',
         'ssr-roof-panel-machine'            => 'ssr-multipro-jr',
+        'ssr-multipro-jr-roof-panel-machine' => 'ssr-multipro-jr',
         '5vc-5v-crimp-roof-panel-machine'   => '5vc-5v-crimp',
         'wav-wall-panel-machine'            => 'wav-wall-panel',
         'mach-ii-5-gutter-machine'          => 'mach-ii-5-gutter',

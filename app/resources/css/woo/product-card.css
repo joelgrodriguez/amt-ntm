@@ -48,7 +48,7 @@
   }
 
   .card-product__image {
-    @apply absolute inset-0 w-full h-full object-contain p-4;
+    @apply absolute inset-0 w-full h-full object-contain p-6;
     @apply transition-transform duration-300;
     @apply motion-reduce:transition-none;
   }
@@ -71,13 +71,13 @@
 
   .card-product__category {
     @apply font-mono uppercase text-blue-500;
-    font-size: var(--text-caption);
+    font-size: var(--text-xs);
     letter-spacing: 0.05em;
   }
 
   .card-product__title {
     @apply font-sans font-medium text-blue-900;
-    font-size: var(--text-heading-sm);
+    font-size: var(--text-xl);
     line-height: 1.2;
   }
 
@@ -96,7 +96,7 @@
      line up regardless of copy length. Sits between title and price. */
   .card-product__description {
     @apply font-sans text-blue-600 mt-2;
-    font-size: var(--text-sm);
+    font-size: var(--text-base);
     line-height: 1.45;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -110,12 +110,12 @@
 
   .card-product__price-value {
     @apply font-mono font-medium text-blue-900;
-    font-size: var(--text-body);
+    font-size: var(--text-lg);
   }
 
   .card-product__price-label {
     @apply font-mono text-blue-500 uppercase;
-    font-size: var(--text-caption);
+    font-size: var(--text-xs);
     letter-spacing: 0.05em;
   }
 
@@ -130,7 +130,7 @@
   .card-product__cta-explore {
     @apply inline-flex items-center gap-1 font-mono uppercase text-blue-700;
     @apply transition-colors duration-200;
-    font-size: var(--text-caption);
+    font-size: var(--text-xs);
     letter-spacing: 0.05em;
   }
   .card-product:hover .card-product__cta-explore {
