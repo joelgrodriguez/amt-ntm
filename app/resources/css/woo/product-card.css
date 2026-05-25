@@ -77,8 +77,14 @@
 
   .card-product__title {
     @apply font-sans font-medium text-blue-900;
-    font-size: var(--text-xl);
+    font-size: var(--text-2xl);
     line-height: 1.2;
+  }
+
+  @media (min-width: 1024px) {
+    .card-product__title {
+      font-size: 2rem; /* 32px */
+    }
   }
 
   .card-product__title-link {

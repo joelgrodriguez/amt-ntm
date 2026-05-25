@@ -114,6 +114,7 @@ function get_woocommerce_products(string $category_slug): array {
             'explore_url'    => $product->get_permalink(),
             'build_url'      => $is_accessory ? '' : get_configurator_url($product->get_slug()),
             'badge'          => $is_flagship ? \__('Flagship', 'standard') : '',
+            'is_accessory'   => $is_accessory,
         ];
     }
 
