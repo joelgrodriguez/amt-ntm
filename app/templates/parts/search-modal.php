@@ -93,7 +93,7 @@ $current_query = (string) \get_search_query();
                     type="search"
                     name="s"
                     value="<?php echo esc_attr($current_query); ?>"
-                    placeholder="<?php esc_attr_e('Machines, manuals, profiles, articles…', 'standard'); ?>"
+                    placeholder="<?php esc_attr_e('What are you looking for?', 'standard'); ?>"
                     autocomplete="off"
                     autocapitalize="off"
                     spellcheck="false"
@@ -131,7 +131,7 @@ $current_query = (string) \get_search_query();
             <div class="container">
                 <fieldset class="search-modal__chips" data-search-modal-chips>
                     <legend class="search-modal__chips-label">
-                        <?php esc_html_e('Narrow', 'standard'); ?>
+                        <?php esc_html_e('Filter by', 'standard'); ?>
                     </legend>
 
                     <div class="search-modal__chips-list">
