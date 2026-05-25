@@ -2,10 +2,9 @@
 /**
  * The template for displaying single resource posts.
  *
- * Mirrors single-manual.php: profile-style hero, then a two-column
- * body with a taxonomy filter sidebar on the left and the resource
- * content on the right. Related-machines block follows the same
- * pattern as manuals so the two post types feel like siblings.
+ * Mirrors single-manual.php (profile-style hero + two-column body),
+ * but the sidebar lists every published resource as a link instead
+ * of taxonomy filters. No related-machines block.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
  *
@@ -18,23 +17,44 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use function Standard\ContentTaxonomy\get_terms_for_post_type;
-
 $content = [
-    'badge'              => __('Resource', 'standard'),
-    'filter_type'        => __('Filter by Type', 'standard'),
-    'filter_machine'     => __('Filter by Machine', 'standard'),
-    'view_all'           => __('View All Resources', 'standard'),
-    'related_machines'   => __('Related NTM Machines', 'standard'),
-    'items_available'    => __('%d items available', 'standard'),
-    'no_machines'        => __('No machines tagged for this resource.', 'standard'),
-    'add_tags_hint'      => __('Add machine tags to display related equipment.', 'standard'),
+    'badge'       => __('Resource', 'standard'),
+    'all_label'   => __('All Resources', 'standard'),
+    'view_all'    => __('View All Resources', 'standard'),
+    'aria_label'  => __('Resources', 'standard'),
 ];
 
 get_header();
 
-$categories   = get_the_terms(get_the_ID(), 'category');
-$machine_tags = get_the_tags();
+$current_id = (int) get_the_ID();
+
+$resource_posts = get_posts([
+    'post_type'      => 'resource',
+    'post_status'    => 'publish',
+    'posts_per_page' => -1,
+    'orderby'        => 'title',
+    'order'          => 'ASC',
+]);
+
+$resource_options = [];
+foreach ($resource_posts as $resource_post) {
+    $resource_options[] = [
+        'value'  => (string) $resource_post->ID,
+        'label'  => get_the_title($resource_post),
+        'url'    => (string) get_permalink($resource_post),
+        'active' => (int) $resource_post->ID === $current_id,
+    ];
+}
+
+$resource_groups = $resource_options === [] ? [] : [
+    [
+        'id'      => 'resources-all',
+        'title'   => $content['all_label'],
+        'icon'    => 'file-text',
+        'mode'    => 'link',
+        'options' => $resource_options,
+    ],
+];
 ?>
 
 <main id="primary">
@@ -45,77 +65,26 @@ $machine_tags = get_the_tags();
 
         <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-6 lg:gap-12 py-6 lg:py-12'); ?>>
 
-            <!-- Two-column layout: Filter Sidebar + Content -->
-            <div class="container lg:grid lg:grid-cols-[240px_1fr] lg:gap-12">
+            <div class="container layout-with-rail">
 
-                <?php
-                get_template_part('templates/parts/taxonomy-filter-sidebar', null, [
-                    'sections' => [
-                        [
-                            'title'         => $content['filter_type'],
-                            'icon'          => 'filter',
-                            'terms'         => get_terms_for_post_type('resource', 'category'),
-                            'current_terms' => $categories,
-                        ],
-                        [
-                            'title'         => $content['filter_machine'],
-                            'icon'          => 'settings',
-                            'terms'         => get_terms_for_post_type('resource', 'post_tag'),
-                            'current_terms' => $machine_tags,
-                        ],
-                    ],
-                    'back_url'   => get_post_type_archive_link('resource') ?: '',
-                    'back_label' => $content['view_all'],
-                ]);
-                ?>
+                <?php if ($resource_groups !== []) : ?>
+                    <?php get_template_part('templates/parts/filter-sidebar', null, [
+                        'groups'       => $resource_groups,
+                        'show_actions' => false,
+                        'collapsible'  => false,
+                        'back_url'     => get_post_type_archive_link('resource') ?: '',
+                        'back_label'   => $content['view_all'],
+                        'drawer_label' => $content['aria_label'],
+                        'aria_label'   => $content['aria_label'],
+                    ]); ?>
+                <?php endif; ?>
 
-                <!-- Main Content -->
                 <div class="grid gap-8">
-
                     <section>
                         <div class="prose prose-lg max-w-full">
                             <?php the_content(); ?>
                         </div>
                     </section>
-
-                    <!-- Related Machine Section -->
-                    <section class="border-t border-blue-200 pt-8">
-                        <h2 class="text-sm font-medium text-blue-900 mb-6 flex items-center gap-2">
-                            <?php icon('settings', ['class' => 'w-4 h-4']); ?>
-                            <?php echo esc_html($content['related_machines']); ?>
-                        </h2>
-                        <?php if ($machine_tags && !empty($machine_tags)) : ?>
-                            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                                <?php foreach ($machine_tags as $machine_tag) : ?>
-                                    <a href="<?php echo esc_url(get_tag_link($machine_tag->term_id)); ?>" class="group block border border-blue-200 bg-white hover:border-blue-500 transition-colors">
-                                        <div class="aspect-video bg-blue-50 flex items-center justify-center border-b border-blue-200">
-                                            <?php icon('settings', ['class' => 'w-12 h-12 text-blue-300 group-hover:text-blue-500 transition-colors']); ?>
-                                        </div>
-                                        <div class="p-4">
-                                            <p class="font-medium text-blue-900 group-hover:text-blue-500 transition-colors">
-                                                <?php echo esc_html($machine_tag->name); ?>
-                                            </p>
-                                            <p class="text-xs text-blue-500 mt-1 font-mono">
-                                                <?php
-                                                printf(
-                                                    esc_html($content['items_available']),
-                                                    $machine_tag->count
-                                                );
-                                                ?>
-                                            </p>
-                                        </div>
-                                    </a>
-                                <?php endforeach; ?>
-                            </div>
-                        <?php else : ?>
-                            <div class="text-center py-8 border border-blue-200 bg-white">
-                                <?php icon('settings', ['class' => 'w-12 h-12 text-blue-300 mx-auto mb-4']); ?>
-                                <p class="text-blue-500"><?php echo esc_html($content['no_machines']); ?></p>
-                                <p class="text-blue-400 text-xs mt-1"><?php echo esc_html($content['add_tags_hint']); ?></p>
-                            </div>
-                        <?php endif; ?>
-                    </section>
-
                 </div>
 
             </div>
