@@ -107,9 +107,6 @@ $render_group = static function (array $group, int $index, string $scope, bool $
             <?php foreach ($options as $option) :
                 $value  = (string) ($option['value'] ?? '');
                 $label  = (string) ($option['label'] ?? '');
-                $count  = array_key_exists('count', $option) && $option['count'] !== null
-                    ? (int) $option['count']
-                    : null;
                 $active = !empty($option['active']);
                 $url    = isset($option['url']) ? (string) $option['url'] : '';
 
@@ -129,9 +126,6 @@ $render_group = static function (array $group, int $index, string $scope, bool $
                             href="<?php echo esc_url($url); ?>"
                         >
                             <span class="filter-option-label"><?php echo esc_html($label); ?></span>
-                            <?php if ($count !== null) : ?>
-                                <span class="filter-option-count"><?php echo esc_html((string) $count); ?></span>
-                            <?php endif; ?>
                         </a>
                     <?php else : ?>
                         <label class="filter-option" data-active="<?php echo $active ? 'true' : 'false'; ?>">
@@ -144,9 +138,6 @@ $render_group = static function (array $group, int $index, string $scope, bool $
                                 <?php checked($active); ?>
                             >
                             <span class="filter-option-label"><?php echo esc_html($label); ?></span>
-                            <?php if ($count !== null) : ?>
-                                <span class="filter-option-count"><?php echo esc_html((string) $count); ?></span>
-                            <?php endif; ?>
                         </label>
                     <?php endif; ?>
                 </li>

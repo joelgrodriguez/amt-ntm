@@ -17,7 +17,6 @@ if (!defined('ABSPATH')) {
 
 use function Standard\Filters\build_choice_group;
 use function Standard\Filters\build_term_choice_group;
-use function Standard\Filters\get_post_type_counts;
 use function Standard\MachinesData\get_machine_post_tags;
 use function Standard\Search\get_post_type_filter_keys;
 use function Standard\Search\get_post_type_filter_options;
@@ -41,7 +40,6 @@ $content = [
 $search_form_id = 'search-filter-form';
 $search_query   = get_search_query();
 $type_options   = get_post_type_filter_options();
-$type_counts    = get_post_type_counts();
 $requested_types = array_values(array_intersect(
     get_request_values(get_post_type_filter_keys(), 'post_type'),
     array_keys($type_options)
@@ -109,7 +107,6 @@ $groups = [
         'post_type[]',
         $type_options,
         $requested_types,
-        array_intersect_key($type_counts, $type_options),
         'filter'
     ),
 ];

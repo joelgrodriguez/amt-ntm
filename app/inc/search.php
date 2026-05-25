@@ -85,6 +85,80 @@ function get_searchable_post_types(): array {
 }
 
 /**
+ * Post types that should rank first for global search when they are present.
+ *
+ * @return string[]
+ */
+function get_search_priority_post_types(array $query_post_types): array {
+    $priorities = \apply_filters('standard_search_priority_post_types', [
+        'product',
+    ]);
+
+    if (!is_array($priorities)) {
+        $priorities = ['product'];
+    }
+
+    $query_types = array_values(array_unique(array_map(
+        static fn(string $post_type): string => \sanitize_key($post_type),
+        array_map('strval', (array) $query_post_types)
+    )));
+
+    $prioritized = [];
+    foreach ($priorities as $post_type) {
+        $normalized = \sanitize_key((string) $post_type);
+        if ($normalized !== '' && in_array($normalized, $query_types, true)) {
+            $prioritized[] = $normalized;
+        }
+    }
+
+    return $prioritized;
+}
+
+/**
+ * Give priority to selected post types in search ordering without replacing
+ * the existing search/order relevance chain.
+ */
+function prioritize_search_post_types(string $orderby, \WP_Query $query): string {
+    if (\is_admin() || !$query->is_main_query() || !$query->is_search()) {
+        return $orderby;
+    }
+
+    $priority_types = $query->get('standard_search_priority_post_types');
+    if (!is_array($priority_types) || $priority_types === []) {
+        return $orderby;
+    }
+
+    global $wpdb;
+
+    $case_parts = [];
+    foreach ($priority_types as $position => $post_type) {
+        $post_type = \sanitize_key((string) $post_type);
+        if ($post_type === '') {
+            continue;
+        }
+
+        $case_parts[] = $wpdb->prepare(
+            'WHEN ' . $wpdb->posts . '.post_type = %s THEN %d',
+            $post_type,
+            $position
+        );
+    }
+
+    if ($case_parts === []) {
+        return $orderby;
+    }
+
+    $case_expr = '(CASE ' . implode(' ', $case_parts) . ' ELSE ' . count($case_parts) . ' END)';
+    $existing_order = trim((string) $orderby);
+
+    if ($existing_order === '') {
+        $existing_order = $wpdb->posts . '.post_date DESC';
+    }
+
+    return $case_expr . ' ASC, ' . $existing_order;
+}
+
+/**
  * @return string[]
  */
 function get_requested_post_types(): array {
@@ -421,6 +495,8 @@ function configure_main_query(\WP_Query $query): void {
         force_no_results($query_args);
     }
 
+    $query_args['standard_search_priority_post_types'] = get_search_priority_post_types((array) $query_args['post_type']);
+
     foreach ($query_args as $key => $value) {
         $query->set((string) $key, $value);
     }
@@ -461,5 +537,6 @@ function configure_taxonomy_archive_query(\WP_Query $query): void {
 
 \add_action('pre_get_posts', __NAMESPACE__ . '\\configure_main_query');
 \add_action('pre_get_posts', __NAMESPACE__ . '\\configure_taxonomy_archive_query');
+\add_filter('posts_orderby', __NAMESPACE__ . '\\prioritize_search_post_types', 10, 2);
 \add_filter('relevanssi_do_not_index', __NAMESPACE__ . '\\exclude_relevanssi_indexed_post_types', 10, 3);
 \add_filter('relevanssi_post_ok', __NAMESPACE__ . '\\exclude_relevanssi_result_post_types', 10, 2);
