@@ -120,7 +120,7 @@ $show_description = $args['show_description'] ?? true;
 
             <div class="card-product__cta">
                 <?php if (!$is_accessory) : ?>
-                    <a href="<?php echo esc_url($explore_url); ?>" class="btn btn-sm btn-primary card-product__cta-build">
+                    <a href="<?php echo esc_url($explore_url); ?>" class="btn btn-sm btn-outline-dark card-product__cta-build relative z-10">
                         <?php esc_html_e('Build & Quote', 'standard'); ?>
                     </a>
                 <?php else : ?>
