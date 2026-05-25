@@ -118,7 +118,16 @@ $current_query = (string) \get_search_query();
             </div>
         </div>
 
-        <div class="search-modal__chips-row">
+        <!-- Scope chips. Hidden until the user has committed at least
+             MIN_QUERY_LENGTH characters; JS flips data-revealed when the
+             debounced query fires. Contractors type first, refine second.
+             Pre-revealed if the modal opens onto an existing search-page
+             state ($current_query has content). -->
+        <div
+            class="search-modal__chips-row"
+            data-search-modal-chips-row
+            data-revealed="<?php echo $current_query !== '' ? 'true' : 'false'; ?>"
+        >
             <div class="container">
                 <fieldset class="search-modal__chips" data-search-modal-chips>
                     <legend class="search-modal__chips-label">

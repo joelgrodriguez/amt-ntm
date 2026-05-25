@@ -85,6 +85,7 @@ export const initSearchModal = () => {
   const input = modal.querySelector('[data-search-modal-input]');
   const clearButton = modal.querySelector('[data-search-modal-clear]');
   const chipGroup = modal.querySelector('[data-search-modal-chips]');
+  const chipsRow = modal.querySelector('[data-search-modal-chips-row]');
   const chips = chipGroup ? Array.from(chipGroup.querySelectorAll('[data-search-modal-chip]')) : [];
   const postTypeInput = modal.querySelector('[data-search-modal-post-type]');
   const shortcutHint = modal.querySelector('[data-search-modal-shortcut] kbd');
@@ -140,6 +141,16 @@ export const initSearchModal = () => {
       return;
     }
     clearButton.hidden = input.value.trim() === '';
+  };
+
+  // Chips are post-typing refinement, not pre-typing scope. Reveal them
+  // when the user has committed at least MIN_QUERY_LENGTH characters;
+  // hide them when the query drops back below that. Pre-revealed at
+  // page load if PHP saw an existing $current_query.
+  const setChipsRevealed = (revealed) => {
+    if (chipsRow instanceof HTMLElement) {
+      chipsRow.setAttribute('data-revealed', revealed ? 'true' : 'false');
+    }
   };
 
   /* ──────────────────────────────────────────────────────────────────
@@ -397,8 +408,10 @@ export const initSearchModal = () => {
         clearResultsList();
         setStatus('');
         setResultsState('idle');
+        setChipsRevealed(false);
         return;
       }
+      setChipsRevealed(true);
       const activeChip = chips.find((c) => c.getAttribute('aria-pressed') === 'true');
       const scope = activeChip?.dataset.value ?? '';
       lastQuery = query;
@@ -419,6 +432,7 @@ export const initSearchModal = () => {
     clearResultsList();
     setStatus('');
     setResultsState('idle');
+    setChipsRevealed(false);
   };
 
   const openModal = (event) => {
@@ -565,6 +579,7 @@ export const initSearchModal = () => {
     input.value = query;
     setActiveChip(scope);
     updateClearVisibility();
+    setChipsRevealed(true);
     // Skip the debounce — the user already committed by tapping.
     if (debounceTimer !== null) {
       window.clearTimeout(debounceTimer);

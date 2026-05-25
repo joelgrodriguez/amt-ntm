@@ -241,12 +241,44 @@
     line-height: 1;
   }
 
-  /* Row 3: scope chips. <legend> is visible now ("Narrow to:") so the
-     row's purpose is obvious. The chips are wrap, not horizontal scroll,
-     because at 1440px container we have room to lay all 11 out without
-     a sideways scroll. */
+  /* Row 3: scope chips. Hidden on cold open so the contractor's eye
+     stays on the input, revealed when the debounced query fires (JS
+     flips data-revealed). The chips are wrap, not horizontal scroll,
+     because at 1280px container we have room to lay all 11 out without
+     a sideways scroll.
+     Height + opacity transition (not display) so the reveal can be
+     animated and AT users still tab into them when they appear. */
   .search-modal__chips-row {
     @apply py-6;
+    overflow: hidden;
+    max-height: 0;
+    padding-block: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      max-height var(--panel-open-dur) var(--search-modal-open-ease),
+      padding-block var(--panel-open-dur) var(--search-modal-open-ease),
+      opacity var(--panel-open-dur) var(--search-modal-open-ease),
+      visibility 0s linear var(--panel-open-dur);
+  }
+
+  .search-modal__chips-row[data-revealed="true"] {
+    @apply py-6;
+    max-height: 20rem;
+    opacity: 1;
+    visibility: visible;
+    transition:
+      max-height var(--panel-open-dur) var(--search-modal-open-ease),
+      padding-block var(--panel-open-dur) var(--search-modal-open-ease),
+      opacity var(--panel-open-dur) var(--search-modal-open-ease),
+      visibility 0s linear 0s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .search-modal__chips-row,
+    .search-modal__chips-row[data-revealed="true"] {
+      transition: none;
+    }
   }
 
   .search-modal__chips {
