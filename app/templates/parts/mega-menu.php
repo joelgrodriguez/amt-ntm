@@ -79,6 +79,9 @@ $panels = array_values(array_filter(
                 <?php foreach ($tabs as $i => $tab) :
                     $is_accessories = ($tab['category'] ?? '') === 'accessories-add-on-equipment';
                     $products       = get_products_by_category($tab['category']);
+                    if ($is_accessories) {
+                        $products = array_slice($products, 0, 6);
+                    }
                 ?>
                     <div
                         id="mega-tabpanel-<?php echo esc_attr($panel_id); ?>-<?php echo esc_attr($tab['id']); ?>"
