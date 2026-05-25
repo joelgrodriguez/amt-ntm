@@ -39,13 +39,13 @@ $first_category = array_key_first($categories);
 
 // Per-category landing page URLs + button labels. Catalog slugs
 // don't all match the public URL (accessories sits at
-// /machines/ntm-accessories/, not at the catalog slug), so the
+// /machines/upgrades/, not at the catalog slug), so the
 // mapping lives here. Button labels stay short and parallel:
 // 'View All {short}'.
 $landing_urls = [
     'roof-wall-panel-machines'      => '/roof-wall-panel-machines/',
     'gutter-machines'               => '/seamless-gutter-machines/',
-    'accessories-add-on-equipment'  => '/machines/ntm-accessories/',
+    'accessories-add-on-equipment'  => '/machines/upgrades/',
 ];
 $landing_labels = [
     'roof-wall-panel-machines'      => __('View All Panel Machines', 'standard'),
