@@ -135,6 +135,7 @@ function get_machine_categories(bool $include_dormant = false): array {
                     'description' => 'Runs 16 panel profiles on a high-speed hydraulic drive. NTM\'s flagship roof and wall panel machine for commercial crews.',
                     'image'      => $base . '2026/03/SSQ3_OL_0226-hero.png',
                     'url'        => get_product_url('ssq3-multipro'),
+                    'price'      => '$71,100',
                     'badge'      => 'Flagship',
                     'highlights' => [
                         'Up to 16 panel profiles: standing seam, flush wall, and board & batten siding',
@@ -158,6 +159,7 @@ function get_machine_categories(bool $include_dormant = false): array {
                     'description' => 'Proven 16-profile workhorse with hydraulic drive and shear, gas or electric power for commercial roof and wall panel work.',
                     'image'      => $base . '2025/09/20250911_NTM_SSQ-II_1000x1000.png',
                     'url'        => get_product_url('ssq-ii-multipro'),
+                    'price'      => '$68,800',
                     'badge'      => '',
                     // Superseded by SSQ3. Hidden from /machines and
                     // /roof-wall-panel-machines listings, but the Woo
@@ -185,6 +187,7 @@ function get_machine_categories(bool $include_dormant = false): array {
                     'description' => 'Runs 7 panel profiles up to ~60 feet per minute, sized and priced for residential and light commercial roof crews.',
                     'image'      => $base . '2025/09/20250911_NTM_SSH_1000x1000.png.webp',
                     'url'        => get_product_url('ssh-multipro'),
+                    'price'      => '$71,600',
                     'badge'      => '',
                     'highlights' => [
                         '7 panel profiles for residential and light commercial roofing',
@@ -208,6 +211,7 @@ function get_machine_categories(bool $include_dormant = false): array {
                     'description' => 'The most affordable entry point into portable rollforming. Electric powered with NTM\'s EZE CHANGE quick swap profile system.',
                     'image'      => $base . '2025/09/20250911_NTM_SSR_1000x1000.png',
                     'url'        => get_product_url('ssr-multipro-jr'),
+                    'price'      => '$44,900',
                     'badge'      => '',
                     'highlights' => [
                         'Most affordable entry point into portable rollforming',
@@ -231,6 +235,7 @@ function get_machine_categories(bool $include_dormant = false): array {
                     'description' => 'The industry\'s only portable 5V crimp roof panel machine, with hydraulic drive and shear, built for exposed fastener jobs.',
                     'image'      => $base . '2025/09/20250911_NTM_5VC_1000x1000.png',
                     'url'        => get_product_url('5vc-5v-crimp'),
+                    'price'      => '$73,300',
                     'badge'      => '',
                     'highlights' => [
                         'NTM\'s only exposed fastener roof panel machine',
