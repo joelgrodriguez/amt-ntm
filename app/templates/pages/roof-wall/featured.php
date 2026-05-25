@@ -47,7 +47,6 @@ if (!$lineup) {
 }
 
 $product_url  = \Standard\Url\internal($lineup['url']);
-$quote_url    = \Standard\Url\with_query('/build-finance/', ['machine' => 'ssq3-multipro']);
 $image_url    = $detail['hero']['image'] ?? $lineup['image'] ?? '';
 $slogan       = $detail['slogan'] ?? '';
 $stats        = $detail['stats'] ?? [];
@@ -114,12 +113,9 @@ $name         = $lineup['name'] ?? 'SSQ3 MultiPro';
             <?php endif; ?>
 
             <div class="ssq3-marquee__actions">
-                <a href="<?php echo esc_url($quote_url); ?>" class="btn btn-emphasis">
-                    <?php esc_html_e('Build & Quote', 'standard'); ?>
+                <a href="<?php echo esc_url($product_url); ?>" class="btn btn-emphasis">
+                    <?php esc_html_e('Build & Configure', 'standard'); ?>
                     <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
-                </a>
-                <a href="<?php echo esc_url($product_url); ?>" class="btn btn-outline-light">
-                    <?php esc_html_e('Explore the SSQ3', 'standard'); ?>
                 </a>
             </div>
 
