@@ -35,6 +35,20 @@ $content = [
     'caption'   => __('Thousands of contractors run their business on an NTM.', 'standard'),
 ];
 
+// Secondary photos sit in a 2-up row below the hero photo, filling the
+// vertical space the steps column would otherwise leave empty. They are
+// social proof, not decoration: machine on the road, machine with coils.
+$secondary_images = [
+    [
+        'src' => content_url('/uploads/2025/10/SSQ-on-dirt-road.jpg'),
+        'alt' => __('NTM SSQ rollformer being towed down a dirt road to a job site', 'standard'),
+    ],
+    [
+        'src' => content_url('/uploads/2025/09/SSQ-II-with-4-coils.jpg'),
+        'alt' => __('NTM SSQ II loaded with four coils of metal ready to run panels', 'standard'),
+    ],
+];
+
 $phases = [
     [
         'index' => '01',
@@ -59,11 +73,13 @@ $phases = [
 
 <section class="section bg-white" aria-labelledby="process-title">
     <div class="container">
-        <div class="grid gap-10 lg:grid-cols-2 lg:gap-16 lg:items-center">
+        <div class="grid gap-10 lg:grid-cols-2 lg:gap-16 lg:items-start">
 
-            <!-- Image column (left). Aspect-video matches Flagships
-                 and Quiz photo dimensions so the page rhythm holds. -->
-            <figure class="grid gap-3 lg:order-1">
+            <!-- Image column (left). Hero photo on top (aspect-video to
+                 match Flagships/Quiz rhythm), then a 2-up row of secondary
+                 shots so the column matches the steps column's height
+                 instead of floating in the middle with dead space. -->
+            <figure class="grid gap-4 lg:order-1">
                 <div class="aspect-video overflow-hidden">
                     <img
                         src="<?php echo esc_url($content['image']); ?>"
@@ -72,6 +88,19 @@ $phases = [
                         decoding="async"
                         class="w-full h-full object-cover block"
                     >
+                </div>
+                <div class="grid gap-4 sm:grid-cols-2">
+                    <?php foreach ($secondary_images as $img) : ?>
+                        <div class="aspect-[4/3] overflow-hidden">
+                            <img
+                                src="<?php echo esc_url($img['src']); ?>"
+                                alt="<?php echo esc_attr($img['alt']); ?>"
+                                loading="lazy"
+                                decoding="async"
+                                class="w-full h-full object-cover block"
+                            >
+                        </div>
+                    <?php endforeach; ?>
                 </div>
                 <!-- Caption as quiet social proof: sans, medium weight,
                      blue-900 (full strength). Reads as a statement, not
