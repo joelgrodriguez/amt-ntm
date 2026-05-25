@@ -56,7 +56,11 @@ $price          = $product['price'] ?? '';
 $price_label    = $product['price_label'] ?? __('Starting at', 'standard');
 $explore_url    = $product['explore_url'] ?? '#';
 $badge          = $product['badge'] ?? '';
-$is_accessory   = empty($price);
+// Accessory vs machine determines CTA style (outline Explore vs filled
+// Build & Quote). Honor an explicit flag if the producer set one; fall
+// back to "no price === accessory" for legacy callers. A machine without
+// a price is still a machine — explicit beats inferred.
+$is_accessory   = $product['is_accessory'] ?? empty($price);
 
 // Context is a *layout* hint, not a card variant. 'carousel' adds the
 // .carousel__card hook so the card snaps + sizes inside .carousel__track.

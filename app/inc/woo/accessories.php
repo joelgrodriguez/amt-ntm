@@ -118,6 +118,7 @@ function get_compatible_machine_product_cards(int $limit = 8): array {
             'explore_url'    => $product->get_permalink(),
             'build_url'      => \Standard\Woo\Catalog\get_configurator_url($woo_slug),
             'badge'          => '',
+            'is_accessory'   => false,
         ];
 
         if (count($cards) >= $limit) {

@@ -425,6 +425,7 @@ function to_card_product(array $machine, string $category_key): array {
         'badge'          => !empty($machine['featured']) && empty($machine['badge'])
             ? \__('Featured', 'standard')
             : ($machine['badge'] ?? ''),
+        'is_accessory'   => false,
     ];
 }
 
