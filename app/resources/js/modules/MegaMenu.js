@@ -9,14 +9,16 @@
 
 /* Motion is owned by .t-panel-slide (transitions.dev / transitions.css).
  * Switch delay matches --panel-close-dur so panel A finishes leaving before
- * panel B starts arriving. Read from CSS so the two stay in sync. */
-const SWITCH_DELAY_MS = (() => {
-    if (typeof window === 'undefined') return 350;
-    const root = document.documentElement;
-    const raw  = getComputedStyle(root).getPropertyValue('--panel-close-dur').trim();
-    const num  = parseFloat(raw);
-    return Number.isFinite(num) ? num : 350;
-})();
+ * panel B starts arriving. Read from a .mega-panel element (not :root) so
+ * the mega-panel's local override of --panel-close-dur is honored. */
+const readSwitchDelayMs = () => {
+    if (typeof window === 'undefined') return 400;
+    const panel = document.querySelector('.mega-panel');
+    if (!panel) return 400;
+    const raw = getComputedStyle(panel).getPropertyValue('--panel-close-dur').trim();
+    const num = parseFloat(raw);
+    return Number.isFinite(num) ? num : 400;
+};
 
 export const initMegaMenu = () => {
     const triggers  = /** @type {NodeListOf<HTMLButtonElement>} */ (document.querySelectorAll('.mega-trigger'));
@@ -26,6 +28,8 @@ export const initMegaMenu = () => {
     if (!triggers.length || !container) {
         return () => {};
     }
+
+    const SWITCH_DELAY_MS = readSwitchDelayMs();
 
     /** @type {string|null} */
     let activePanel = null;
