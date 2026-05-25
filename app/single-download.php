@@ -36,7 +36,9 @@ $archive_url = get_post_type_archive_link($post_type);
         <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-6 lg:gap-12'); ?>>
 
             <div class="container">
-                <?php get_template_part('templates/parts/single/article-hero'); ?>
+                <?php get_template_part('templates/parts/single/article-hero', null, [
+                    'show_meta' => false,
+                ]); ?>
 
                 <div class="article-layout">
                     <aside class="hidden lg:block" aria-label="<?php echo esc_attr($rail_title); ?>">
