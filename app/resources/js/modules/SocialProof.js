@@ -15,12 +15,11 @@
  * @usage Front Page (front-page.php)
  * @usage Single Machine Product (single-machine.php)
  * @template templates/parts/front-page/social-proof.php
- * @template templates/woo/product/parts/testimonials.php
+ * @template templates/woo/product/parts/case-study.php
  */
 
 const AUTOPLAY_INTERVAL = 6500;
 
-let autoplayTimer = null;
 let abortController = null;
 
 const DOT_ACTIVE = ['bg-red', 'w-3'];
@@ -32,9 +31,25 @@ const SLIDE_INACTIVE = ['opacity-0', 'pointer-events-none'];
  * Initialize the social proof slider.
  */
 export function initSocialProof() {
-  const section = document.querySelector('.social-proof');
-  if (!section) return;
+  const sections = document.querySelectorAll('.social-proof');
+  if (sections.length === 0) return;
 
+  cleanup();
+  abortController = new AbortController();
+  const { signal } = abortController;
+
+  sections.forEach((section) => initSection(section, signal));
+}
+
+/**
+ * Wire up a single .social-proof section. Each section runs its own
+ * autoplay timer and pause-on-interaction handlers so the home page
+ * strip and the product-page strip don't fight each other.
+ *
+ * @param {HTMLElement} section
+ * @param {AbortSignal} signal
+ */
+function initSection(section, signal) {
   const slides = section.querySelectorAll('.social-proof__slide');
   const dots = section.querySelectorAll('.social-proof__dot');
   const currentLabel = section.querySelector('[data-current]');
@@ -42,10 +57,7 @@ export function initSocialProof() {
   if (slides.length < 2) return;
 
   let currentIndex = 0;
-
-  cleanup();
-  abortController = new AbortController();
-  const { signal } = abortController;
+  let autoplayTimer = null;
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -127,6 +139,10 @@ export function initSocialProof() {
     { signal }
   );
 
+  // HMR teardown: when initSocialProof() runs again the controller aborts,
+  // which fires this listener and kills this section's autoplay timer.
+  signal.addEventListener('abort', stopAutoplay, { once: true });
+
   startAutoplay();
 }
 
@@ -134,10 +150,6 @@ export function initSocialProof() {
  * Cleanup function for HMR support.
  */
 export function cleanup() {
-  if (autoplayTimer) {
-    clearInterval(autoplayTimer);
-    autoplayTimer = null;
-  }
   if (abortController) {
     abortController.abort();
     abortController = null;
