@@ -95,6 +95,8 @@ superset tasks statuses list
 superset tasks create --title "[AMT Maestro] <slug>: <goal>" --description "<template>" --priority medium --labels amt-ntm,maestro,worktree,agent-claude
 superset tasks update <task-id-or-slug> --status-id <in-review-status-id> --labels amt-ntm,maestro,worktree,agent-claude
 superset tasks list --search "AMT Maestro"
+npm run maestro:review
+npm run maestro:land
 ```
 
 When changing status, run `superset tasks statuses list` first; the CLI wants a
@@ -137,6 +139,13 @@ Meaning: list AMT Maestro tasks in `In Review`, inspect commits and diffs
 against `dev`, summarize what will land, validate, merge approved branches into
 `dev` with merge commits, push `origin/dev`, sync active worktrees, and mark
 tasks `Done`.
+
+Use the project scripts for the actual work:
+
+```bash
+npm run maestro:review  # dry run
+npm run maestro:land    # merge, validate, push, sync, mark Done
+```
 
 ---
 

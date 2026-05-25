@@ -69,6 +69,13 @@ When the user says "land reviewed work", this means: find AMT Maestro tasks in
 branches into `dev`, push `origin/dev`, sync active worktrees, and mark tasks
 `Done`.
 
+Prefer the project script:
+
+```bash
+npm run maestro:review  # dry run
+npm run maestro:land    # execute
+```
+
 ## Release To Master
 
 Only the `master` checkout pushes remote `master`:

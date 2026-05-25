@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "maestro:land": "scripts/maestro-land-reviewed",
+    "maestro:review": "scripts/maestro-land-reviewed --dry-run",
     "preview": "vite preview"
   },
   "devDependencies": {

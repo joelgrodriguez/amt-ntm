@@ -143,6 +143,8 @@ superset tasks statuses list
 superset tasks create --title "[AMT Maestro] <slug>: <goal>" --description "<template>" --priority medium --labels amt-ntm,maestro,worktree,agent-claude
 superset tasks update <task-id-or-slug> --status-id <in-review-status-id> --labels amt-ntm,maestro,worktree,agent-claude
 superset tasks list --search "AMT Maestro"
+npm run maestro:review
+npm run maestro:land
 ```
 
 When changing status, run `superset tasks statuses list` first; the CLI wants a status ID, not the status name. When changing labels, pass the full label set you want to keep.
@@ -162,6 +164,7 @@ If review asks for changes, move the same task back to `In Progress` and keep wo
   - **Codex** — backend PHP, REST endpoints, architecture, careful programming
   - **OpenCode (DeepSeek)** — mechanical work (comments, search/replace, renames)
 - Merge gate: only land branches in `In Review`, after the user says "land it" or asks to pull worktree changes.
+- Preferred landing command: `npm run maestro:land`. Use `npm run maestro:review` first when you want a dry run.
 - Land with a merge commit from the `dev` checkout, then push `origin/dev` from this checkout only.
 - After landing, sync `dev` back into every active worktree. Skip dirty worktrees and report them.
 - Mark the task `Done` only after the merge, push, and sync are complete.
