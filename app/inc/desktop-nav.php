@@ -163,7 +163,7 @@ function get_desktop_nav(): array {
                         'label'            => __('Accessories', 'standard'),
                         'category'         => 'accessories-add-on-equipment',
                         'heading'          => __('Accessories & Upgrades', 'standard'),
-                        'view_all_url'     => \Standard\Url\internal('/machines/ntm-accessories/'),
+                        'view_all_url'     => \Standard\Url\internal('/machines/upgrades/'),
                         'view_all_label'   => __('View All', 'standard'),
                     ],
                 ],
