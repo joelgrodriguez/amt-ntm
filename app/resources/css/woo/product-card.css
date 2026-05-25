@@ -59,7 +59,7 @@
   }
 
   .card-product__badge {
-    @apply absolute top-0 left-0 z-10 px-3 py-2;
+    @apply absolute top-0 right-0 z-10 px-3 py-2;
     @apply font-mono font-medium uppercase tracking-wider;
     @apply bg-red text-blue-50;
     font-size: var(--text-caption);
