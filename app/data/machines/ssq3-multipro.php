@@ -45,7 +45,7 @@ return [
                 __('Hydraulically powered shear with hardened tool steel blades', 'standard'),
                 __('Panel recognition safety system', 'standard'),
             ],
-            'image'    => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-ssq3-quikswap-tooling-001.jpg',
+            'image'    => content_url('/uploads/2026/05/ntm-ssq3-manual-controller-121.jpg'),
         ],
         [
             'id'       => 'frame',
@@ -239,8 +239,8 @@ return [
         ],
     ],
     'resources' => [
-        'manual'              => 'https://newtechmachinery.com/learning-center/manual/ssq3-roof-panel-machine-manual/',
-        'brochure'            => 'https://newtechmachinery.com/learning-center/literature/ssq3-multipro-roof-panel-machine-brochure/',
+        'manual'              => '/learning-center/manual/ssq3-roof-panel-machine-manual/',
+        'brochure'            => '/learning-center/literature/ssq3-multipro-roof-panel-machine-brochure/',
         'service_training_url' => '/service-training',
     ],
     'faq' => [

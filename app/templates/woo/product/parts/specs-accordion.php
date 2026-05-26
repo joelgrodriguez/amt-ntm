@@ -16,7 +16,7 @@ $product    = $args['product'] ?? null;
 $machine    = $args['machine'] ?? [];
 $specs      = $machine['specs'] ?? null;
 $resources  = $machine['resources'] ?? [];
-$spec_image = $machine['hero']['image'] ?? $machine['hero']['hero_image'] ?? '';
+$spec_image = $machine['specs']['image'] ?? $machine['hero']['image'] ?? $machine['hero']['hero_image'] ?? '';
 $image_alt  = $product instanceof \WC_Product ? $product->get_name() : '';
 
 if (!$specs) {
@@ -217,14 +217,14 @@ if (empty($sections)) {
 
                     <?php if (!empty($resources['brochure'])) : ?>
                         <div class="mt-6">
-                            <a href="<?php echo esc_url($resources['brochure']); ?>" class="btn btn-sm btn-outline-dark" target="_blank" rel="noopener"><?php esc_html_e('Download Full Spec Sheet', 'standard'); ?></a>
+                            <a href="<?php echo esc_url(\Standard\Url\internal($resources['brochure'])); ?>" class="btn btn-sm btn-outline-dark" target="_blank" rel="noopener"><?php esc_html_e('Download Full Spec Sheet', 'standard'); ?></a>
                         </div>
                     <?php endif; ?>
                 </div>
             </div>
             <?php if (!empty($spec_image)) : ?>
                 <div class="hidden lg:block lg:sticky lg:top-24">
-                    <figure class="bg-white border border-blue-200 overflow-hidden aspect-[4/5]">
+                    <figure class="bg-white border border-blue-200 overflow-hidden aspect-video">
                         <?php \Standard\Images\responsive_image($spec_image, $image_alt, 'large', [
                             'class' => 'w-full h-full object-cover',
                             'loading' => 'lazy',

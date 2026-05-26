@@ -49,25 +49,21 @@ if (!empty($machine['breakdown'])) {
     $nav_links[__('Overview', 'standard')] = 'machine-breakdown';
 }
 
-if (!empty($machine['specs']['dimensions'])) {
-    $nav_links[__('Footprint', 'standard')] = 'machine-blueprint';
+$fit = $machine['fit'] ?? null;
+if (!empty($fit['is_for']) || !empty($fit['is_not_for'])) {
+    $nav_links[__('Fit', 'standard')] = 'machine-fit';
 }
 
 if (!empty($machine['profiles']['tag_slugs'])) {
     $nav_links[__('Profiles', 'standard')] = 'machine-profiles';
 }
 
-if (!empty($machine['case_study'])) {
-    $nav_links[__('Case Study', 'standard')] = 'machine-case-study';
-}
-
-$fit = $machine['fit'] ?? null;
-if (!empty($fit['is_for']) || !empty($fit['is_not_for'])) {
-    $nav_links[__('Fit', 'standard')] = 'machine-fit';
-}
-
 if (!empty($machine['accessories']['product_tag'])) {
     $nav_links[__('Accessories', 'standard')] = 'machine-accessories';
+}
+
+if (!empty($machine['specs']['dimensions'])) {
+    $nav_links[__('Footprint', 'standard')] = 'machine-blueprint';
 }
 
 if (!empty($machine['specs'])) {
@@ -81,6 +77,10 @@ if (!empty($resources['manual']) || !empty($resources['brochure']) || !empty($re
 
 if (!empty($machine['faq'])) {
     $nav_links[__('FAQ', 'standard')] = 'machine-faq';
+}
+
+if (!empty($machine['case_study'])) {
+    $nav_links[__('Case Study', 'standard')] = 'machine-case-study';
 }
 ?>
 

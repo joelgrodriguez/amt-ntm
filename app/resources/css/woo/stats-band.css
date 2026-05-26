@@ -107,30 +107,11 @@
   }
 }
 
-/* Fold composition: hero + stats pack into 100dvh - header.
-   Flex column with the stats band taking its natural height and
-   the hero photo stretching to absorb whatever's left. Overrides
-   .hero__photo's own viewport calc so we don't have to guess the
-   band's height per breakpoint. */
+/* Fold composition: hero sits at its native 70dvh, stats band sits
+   below at its natural height. The pair will overflow the first
+   viewport slightly on smaller laptops, which is intentional: peeking
+   the band below the fold invites the scroll, and keeps the hero from
+   feeling squeezed by the band's reserved height. */
 .machine-product__fold {
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - var(--header-height, 4rem));
-  height: calc(100dvh - var(--header-height, 4rem));
-}
-
-.machine-product__fold > .hero {
-  flex: 1 1 0;
-  min-height: 0;
-  display: flex;
-}
-
-.machine-product__fold > .hero > .hero__photo {
-  flex: 1;
-  height: auto;
-  min-height: 0;
-}
-
-.machine-product__fold > .stats-band {
-  flex: 0 0 auto;
+  display: block;
 }
