@@ -2,7 +2,13 @@
 /**
  * Machine Product — Final CTA
  *
- * Three-card bottom CTA: Build & Finance, Request a Quote, See It In Action.
+ * Single committed action panel. One primary CTA (Build), one alt link
+ * (talk to a specialist). The page already carries the floating CTA,
+ * the subnav Build, the hero CTA, and the full configurator-cta
+ * section; stacking a 3-card grid on top reads as conversion fatigue.
+ *
+ * Vocabulary borrowed from configurator-cta and machine-fit: hairline
+ * rules, mono editorial label, single red kicker dot.
  *
  * @package Standard
  *
@@ -22,45 +28,42 @@ if (!$product) {
     return;
 }
 
-$ctas = [
-    [
-        'title' => __('Build & Finance', 'standard'),
-        'text'  => __('Configure your machine and explore payment options.', 'standard'),
-        'label' => __('Start Building', 'standard'),
-        'url'   => \Standard\Url\with_query('/build-finance/', ['machine' => $product->get_slug()]),
-    ],
-    [
-        'title' => __('Request a Quote', 'standard'),
-        'text'  => __('Talk to a specialist about your specific needs.', 'standard'),
-        'label' => __('Get a Quote', 'standard'),
-        'url'   => \Standard\Url\internal('/contact/'),
-    ],
-    [
-        'title' => __('See It In Action', 'standard'),
-        'text'  => __('Schedule a demo or watch the machine run.', 'standard'),
-        'label' => __('Watch Video', 'standard'),
-        'url'   => '#',
-    ],
-];
+$configurator_url = \Standard\Url\internal('/configurator/' . $product->get_slug() . '/');
+$contact_url      = \Standard\Url\internal('/contact/');
+$product_name     = $product->get_name();
 ?>
 
-<section id="machine-final-cta" class="section bg-blue-900" aria-labelledby="final-cta-title">
+<section id="machine-final-cta" class="final-cta bg-blue-900 text-white" aria-labelledby="final-cta-title">
     <div class="container section-content">
 
-        <div class="section-header">
-            <h2 id="final-cta-title" class="section-title text-white"><?php esc_html_e('Ready to Get Started?', 'standard'); ?></h2>
+        <div class="final-cta__header">
+            <p class="final-cta__eyebrow">
+                <span aria-hidden="true" class="final-cta__eyebrow-dot"></span>
+                <?php esc_html_e('Next step', 'standard'); ?>
+            </p>
+            <h2 id="final-cta-title" class="final-cta__title">
+                <?php
+                printf(
+                    /* translators: %s: product name */
+                    esc_html__('Build your %s.', 'standard'),
+                    esc_html($product_name)
+                );
+                ?>
+            </h2>
+            <p class="final-cta__lede">
+                <?php esc_html_e('Configure, price, and finance the machine in one flow. No phone call required to see real numbers.', 'standard'); ?>
+            </p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <?php foreach ($ctas as $cta) : ?>
-                <div class="border border-blue-700 p-8 grid gap-4 text-center">
-                    <h3 class="text-lg font-medium text-white"><?php echo esc_html($cta['title']); ?></h3>
-                    <p class="text-sm text-blue-400"><?php echo esc_html($cta['text']); ?></p>
-                    <a href="<?php echo esc_url($cta['url']); ?>" class="btn btn-outline-light btn-sm mx-auto">
-                        <?php echo esc_html($cta['label']); ?>
-                    </a>
-                </div>
-            <?php endforeach; ?>
+        <div class="final-cta__actions">
+            <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary">
+                <?php esc_html_e('Open Configurator', 'standard'); ?>
+                <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
+            </a>
+            <a href="<?php echo esc_url($contact_url); ?>" class="final-cta__alt-link">
+                <?php esc_html_e('Or talk to a specialist', 'standard'); ?>
+                <span aria-hidden="true">&rarr;</span>
+            </a>
         </div>
 
     </div>
