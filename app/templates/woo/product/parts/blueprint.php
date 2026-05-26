@@ -127,27 +127,29 @@ if (!empty($trailer_dims)) {
 
         <div class="grid md:grid-cols-2 md:items-stretch">
             <?php if (!empty($footprint_url) || !empty($svg_name)) : ?>
-                <div class="border-b border-blue-200 md:border-b-0 md:border-r p-6 lg:p-8 flex items-center justify-center">
+                <div class="border-b border-blue-200 md:border-b-0 md:border-r flex items-center justify-center">
                     <?php if (!empty($footprint_url)) : ?>
-                        <?php if (!empty($footprint_pdf_url)) : ?>
-                            <a
-                                href="<?php echo esc_url($footprint_pdf_url); ?>"
-                                target="_blank"
-                                rel="noopener"
-                                aria-label="<?php echo esc_attr(sprintf(__('Open %s PDF in a new tab', 'standard'), $footprint_alt)); ?>"
-                                class="block transition-opacity hover:opacity-90 w-full"
-                            >
+                        <div class="pattern-dot-grid pattern-dot-grid--solid w-full p-6 lg:p-8 flex items-center justify-center">
+                            <?php if (!empty($footprint_pdf_url)) : ?>
+                                <a
+                                    href="<?php echo esc_url($footprint_pdf_url); ?>"
+                                    target="_blank"
+                                    rel="noopener"
+                                    aria-label="<?php echo esc_attr(sprintf(__('Open %s PDF in a new tab', 'standard'), $footprint_alt)); ?>"
+                                    class="block transition-opacity hover:opacity-90 w-full"
+                                >
+                                    <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'large', [
+                                        'class' => 'block w-full h-auto',
+                                    ]); ?>
+                                </a>
+                            <?php else : ?>
                                 <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'large', [
                                     'class' => 'block w-full h-auto',
                                 ]); ?>
-                            </a>
-                        <?php else : ?>
-                            <?php \Standard\Images\responsive_image($footprint_url, $footprint_alt, 'large', [
-                                'class' => 'block w-full h-auto',
-                            ]); ?>
-                        <?php endif; ?>
+                            <?php endif; ?>
+                        </div>
                     <?php else : ?>
-                        <div class="border border-blue-200 aspect-[16/7] flex items-center justify-center w-full">
+                        <div class="pattern-dot-grid pattern-dot-grid--solid border border-blue-200 aspect-[16/7] flex items-center justify-center w-full m-6 lg:m-8">
                             <span class="text-blue-500 text-sm font-mono"><?php echo esc_html($svg_name . '.svg'); ?></span>
                         </div>
                     <?php endif; ?>
