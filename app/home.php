@@ -249,7 +249,7 @@ $lc_has_filters = ($filters['category'] ?? '') !== ''
             <nav class="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
                 <?php
                 $hero_nav = [
-                    'post'     => ['label' => __('Articles', 'standard'),  'icon' => 'file-text', 'href' => get_learning_center_url()],
+                    'post'     => ['label' => __('Articles', 'standard'),  'icon' => 'file-text', 'href' => get_post_type_archive_link('post') ?: get_learning_center_url()],
                     'video'    => ['label' => __('Videos', 'standard'),    'icon' => 'play',      'href' => get_post_type_archive_link('video') ?: '#'],
                     'resource' => ['label' => __('Resources', 'standard'), 'icon' => 'folder',    'href' => get_post_type_archive_link('resource') ?: '#'],
                     'download' => ['label' => __('Downloads', 'standard'), 'icon' => 'download',  'href' => get_post_type_archive_link('download') ?: '#'],

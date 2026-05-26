@@ -54,6 +54,7 @@ $theme_includes = [
     'inc/accessories-data.php',
     'inc/machine-schema.php',
     'inc/post-types.php',
+    'inc/post-archive.php',
     'inc/walkers/class-pagination.php',
     'inc/walkers/class-primary-nav-walker.php',
 ];
