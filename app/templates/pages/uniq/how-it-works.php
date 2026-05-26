@@ -24,7 +24,7 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'eyebrow'        => __('How It Works', 'standard'),
+    'eyebrow'        => __('Operation', 'standard'),
     'title'          => __('Brain of the Machine', 'standard'),
     'lede'           => __('UNIQ tracks the exact length and quantity of every panel coming through the machine. It drops the shear at the right moment, runs the drive, and handles notching, so the operator runs the job, not the math.', 'standard'),
     'body'           => __('Build a cutlist on the touchscreen, or write it on a computer and upload via USB. The controller stores up to 600 panel lengths and exports the finished spec back to the office for your records.', 'standard'),
@@ -60,7 +60,7 @@ $loop = [
 
             <div class="grid gap-8 lg:col-span-6">
                 <div class="grid gap-4">
-                    <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-blue-300">
+                    <p class="font-mono text-[11px] uppercase tracking-mono-label text-blue-300">
                         <?php echo esc_html($content['eyebrow']); ?>
                     </p>
                     <div class="w-12 h-1 bg-blue-500"></div>
@@ -81,10 +81,10 @@ $loop = [
                 <ol class="grid grid-cols-2 sm:grid-cols-4 border-t border-blue-700 pt-6 gap-y-4" aria-label="<?php esc_attr_e('UNIQ control loop', 'standard'); ?>">
                     <?php foreach ($loop as $item) : ?>
                         <li class="grid gap-1 pr-4">
-                            <span class="font-mono text-[11px] tracking-[0.18em] text-blue-400" aria-hidden="true">
+                            <span class="font-mono text-[11px] tracking-mono-label text-blue-400" aria-hidden="true">
                                 <?php echo esc_html($item['step']); ?>
                             </span>
-                            <span class="font-mono text-[11px] uppercase tracking-[0.15em] text-blue-300">
+                            <span class="font-mono text-[11px] uppercase tracking-mono-meta text-blue-300">
                                 <?php echo esc_html($item['label']); ?><span class="sr-only">:</span>
                             </span>
                             <span class="font-mono text-sm text-white">
@@ -103,7 +103,7 @@ $loop = [
                     </div>
                     <a
                         href="<?php echo esc_url(\Standard\Url\internal($content['cta_link_url'])); ?>"
-                        class="font-mono text-[11px] uppercase tracking-[0.15em] text-blue-300 hover:text-white transition-colors duration-150 inline-flex items-center gap-2 self-start"
+                        class="font-mono text-[11px] uppercase tracking-mono-meta text-blue-300 hover:text-white transition-colors duration-150 inline-flex items-center gap-2 self-start"
                     >
                         <?php echo esc_html($content['cta_link_text']); ?>
                         <?php icon('arrow-right', ['class' => 'w-3 h-3']); ?>

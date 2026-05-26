@@ -58,7 +58,7 @@ $count    = count($features);
                 }
             ?>
                 <li class="grid gap-4 content-start p-8 md:p-10 lg:p-12<?php echo esc_attr($cls); ?>">
-                    <span class="font-mono font-medium text-[11px] uppercase tracking-[0.18em] text-blue-500">
+                    <span class="font-mono font-medium text-[11px] uppercase tracking-mono-label text-blue-500">
                         <?php echo esc_html($feature['spec']); ?>
                     </span>
                     <h3 class="font-sans font-medium text-xl md:text-2xl text-blue-900 leading-tight">

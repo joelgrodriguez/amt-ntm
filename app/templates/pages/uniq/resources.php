@@ -53,7 +53,7 @@ $videos    = $resources['videos'];
         <div class="grid grid-cols-1 md:grid-cols-2 bg-white border border-blue-200">
 
             <div class="border-b border-blue-200 md:border-b-0 md:border-r">
-                <h3 class="font-mono font-medium text-[11px] uppercase tracking-[0.18em] text-blue-500 p-6 lg:p-8 border-b border-blue-200">
+                <h3 class="font-mono font-medium text-[11px] uppercase tracking-mono-label text-blue-500 p-6 lg:p-8 border-b border-blue-200">
                     <?php echo esc_html($content['col_docs']); ?>
                 </h3>
                 <ul>
@@ -65,7 +65,7 @@ $videos    = $resources['videos'];
                                 href="<?php echo esc_url(\Standard\Url\internal($doc['url'])); ?>"
                                 class="group flex items-start gap-4 px-6 py-5 lg:px-8 lg:py-6 transition-colors duration-150 hover:bg-blue-50"
                             >
-                                <span class="font-mono text-[10px] uppercase tracking-[0.15em] text-blue-400 shrink-0 min-w-16 pt-1">
+                                <span class="font-mono text-[10px] uppercase tracking-mono-meta text-blue-400 shrink-0 min-w-16 pt-1">
                                     <?php echo esc_html($doc['kind']); ?>
                                 </span>
                                 <span class="flex-1 font-sans text-base text-blue-700 group-hover:text-blue-500 transition-colors">
@@ -79,7 +79,7 @@ $videos    = $resources['videos'];
             </div>
 
             <div>
-                <h3 class="font-mono font-medium text-[11px] uppercase tracking-[0.18em] text-blue-500 p-6 lg:p-8 border-b border-blue-200">
+                <h3 class="font-mono font-medium text-[11px] uppercase tracking-mono-label text-blue-500 p-6 lg:p-8 border-b border-blue-200">
                     <?php echo esc_html($content['col_videos']); ?>
                 </h3>
                 <ul>
@@ -91,7 +91,7 @@ $videos    = $resources['videos'];
                                 href="<?php echo esc_url(\Standard\Url\internal($video['url'])); ?>"
                                 class="group flex items-start gap-4 px-6 py-5 lg:px-8 lg:py-6 transition-colors duration-150 hover:bg-blue-50"
                             >
-                                <span class="font-mono text-[10px] uppercase tracking-[0.15em] text-blue-400 shrink-0 min-w-16 pt-1">
+                                <span class="font-mono text-[10px] uppercase tracking-mono-meta text-blue-400 shrink-0 min-w-16 pt-1">
                                     <?php echo esc_html($video['kind']); ?>
                                 </span>
                                 <span class="flex-1 font-sans text-base text-blue-700 group-hover:text-blue-500 transition-colors">

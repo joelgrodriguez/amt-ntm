@@ -89,14 +89,14 @@ if ($pattern) {
             <div class="grid gap-8 lg:col-span-6 lg:gap-10">
 
                 <?php if (!empty($kicker)) : ?>
-                    <p class="font-mono text-xs uppercase tracking-[0.18em] text-blue-300">
+                    <p class="font-mono text-xs uppercase tracking-mono-label text-blue-300">
                         <?php echo esc_html($kicker); ?>
                     </p>
                 <?php endif; ?>
 
                 <h2
                     id="<?php echo esc_attr($section_id); ?>-title"
-                    class="font-sans font-medium leading-[0.95] tracking-tight text-white text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
+                    class="font-sans font-medium leading-[0.95] tracking-tight text-white text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl"
                 >
                     <?php echo esc_html($content['title']); ?>
                 </h2>
@@ -136,7 +136,7 @@ if ($pattern) {
                     <dl class="grid <?php echo esc_attr($meta_cols); ?> gap-x-6 gap-y-4 border-t border-white/15 pt-6 mt-2 max-w-md">
                         <?php foreach ($meta as $item) : ?>
                             <div class="grid gap-1 min-w-0">
-                                <dt class="font-mono text-[10px] uppercase tracking-[0.15em] text-blue-300">
+                                <dt class="font-mono text-[10px] uppercase tracking-mono-meta text-blue-300">
                                     <?php echo esc_html($item['label']); ?><span class="sr-only">:</span>
                                 </dt>
                                 <dd class="font-mono text-sm text-white sm:text-base lg:text-lg break-words">

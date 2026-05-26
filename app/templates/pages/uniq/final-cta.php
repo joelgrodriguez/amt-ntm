@@ -71,7 +71,7 @@ $resources = [
             </div>
 
             <div class="lg:col-span-5 lg:pt-2">
-                <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-blue-500 mb-6">
+                <p class="font-mono text-[11px] uppercase tracking-mono-label text-blue-500 mb-6">
                     <?php esc_html_e('More from NTM', 'standard'); ?>
                 </p>
                 <ul role="list" class="grid gap-3">
