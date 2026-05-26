@@ -18,6 +18,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use function Standard\MachineProductData\get_machine_product_link;
+
 /**
  * Pull the first PDF attachment referenced by the post's pdfjs-embed
  * block. Returns null if the post body doesn't carry one.
@@ -140,25 +142,14 @@ while (have_posts()) :
                     <?php if (is_array($machine_tags) && !empty($machine_tags)) : ?>
                         <ul class="grid gap-2 list-none p-0 m-0">
                             <?php foreach ($machine_tags as $machine_tag) :
-                                /**
-                                 * @todo Resolve machine_tag → WooCommerce product so the
-                                 * tile can show the real machine image and link directly
-                                 * to the product page. Until then we link to the tag
-                                 * archive, which lists every profile this machine rolls.
-                                 */
+                                $product_link = get_machine_product_link($machine_tag->slug);
+                                $href = $product_link['url'] ?? get_tag_link($machine_tag->term_id);
                             ?>
                                 <li>
-                                    <a href="<?php echo esc_url(get_tag_link($machine_tag->term_id)); ?>"
+                                    <a href="<?php echo esc_url($href); ?>"
                                        class="group grid gap-1 px-4 py-3 bg-white border border-blue-200 no-underline transition-colors duration-200 hover:border-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                                         <span class="font-sans font-semibold text-blue-900 leading-snug tracking-tight group-hover:text-blue-500 transition-colors">
                                             <?php echo esc_html($machine_tag->name); ?>
-                                        </span>
-                                        <span class="font-mono uppercase tracking-widest text-caption text-blue-400">
-                                            <?php echo esc_html(sprintf(
-                                                /* translators: %d: number of profiles this machine rolls. */
-                                                _n('%d profile', '%d profiles', (int) $machine_tag->count, 'standard'),
-                                                (int) $machine_tag->count
-                                            )); ?>
                                         </span>
                                     </a>
                                 </li>
