@@ -25,6 +25,11 @@
      Smooth scroll respects user preference for reduced motion. */
   html {
     scroll-padding-top: var(--header-height, 4rem);
+    overflow-x: hidden;
+  }
+
+  body {
+    overflow-x: clip;
   }
 
   @media (prefers-reduced-motion: no-preference) {
