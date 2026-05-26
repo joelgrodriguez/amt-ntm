@@ -115,6 +115,10 @@
       align-items: baseline;
       gap: 24px;
     }
+
+    .machine-fit__ledger-row--solo {
+      grid-template-columns: 1fr;
+    }
   }
 
   .machine-fit__ledger-text {
