@@ -18,19 +18,27 @@ if (!defined('ABSPATH')) {
 
 use function Standard\ContentTaxonomy\get_terms_for_post_type;
 use function Standard\Filters\build_term_link_group;
-use function Standard\Filters\get_post_type_counts;
 use function Standard\LearningCenter\get_allowed_categories;
+use function Standard\LearningCenter\get_type_filter_options;
+use function Standard\MachinesData\get_machine_post_tags;
 use function Standard\Search\get_post_type_filter_keys;
 use function Standard\Search\get_post_type_filter_options;
 use function Standard\Search\get_request_values;
 
 $requested_types = get_request_values(get_post_type_filter_keys(), 'post_type');
-$active_type = count($requested_types) === 1 ? $requested_types[0] : '';
+$archive_type = '';
+if (is_post_type_archive()) {
+    $archive_query_type = get_query_var('post_type') ?: 'post';
+    $archive_type = is_array($archive_query_type)
+        ? sanitize_key((string) reset($archive_query_type))
+        : sanitize_key((string) $archive_query_type);
+}
+$active_type = count($requested_types) === 1 ? $requested_types[0] : $archive_type;
 $type_options = get_post_type_filter_options();
 $active_type_label = $active_type !== '' && isset($type_options[$active_type])
     ? $type_options[$active_type]
     : '';
-$is_scoped_catalog = in_array($active_type, ['profile', 'manual'], true);
+$is_scoped_catalog = count($requested_types) === 1 && in_array($active_type, ['profile', 'manual'], true);
 $current_term = get_queried_object();
 $current_category_terms = $current_term instanceof WP_Term && $current_term->taxonomy === 'category'
     ? [$current_term]
@@ -93,42 +101,10 @@ $is_category = is_category();
         <?php else : ?>
             <?php
             // Curated allowlist (see inc/learning-center/config.php) keeps
-            // the blog category rail in sync with the LC landing + search.
+            // every Learning Center archive in sync with the LC landing + search.
             $categories = get_allowed_categories();
             $current_category_id = $is_category && $current_term instanceof WP_Term ? (int) $current_term->term_id : 0;
-
-            $post_type_counts = get_post_type_counts();
             $blog_url = get_permalink((int) get_option('page_for_posts')) ?: \Standard\Url\internal('/');
-            $type_options = [
-                [
-                    'value'  => 'post',
-                    'label'  => $content['blog_posts'],
-                    'count'  => $post_type_counts['post'] ?? 0,
-                    'active' => is_home() || $current_term instanceof WP_Post,
-                    'url'    => (string) $blog_url,
-                ],
-            ];
-
-            $public_post_types = get_post_types([
-                'public'      => true,
-                'has_archive' => true,
-            ], 'objects');
-            foreach ($public_post_types as $post_type) {
-                if ($post_type->name === 'post' || $post_type->name === 'page') {
-                    continue;
-                }
-                $archive_link = get_post_type_archive_link($post_type->name);
-                if (!$archive_link) {
-                    continue;
-                }
-                $type_options[] = [
-                    'value'  => $post_type->name,
-                    'label'  => $post_type->labels->name,
-                    'count'  => $post_type_counts[$post_type->name] ?? 0,
-                    'active' => false,
-                    'url'    => (string) $archive_link,
-                ];
-            }
 
             $groups = [];
 
@@ -139,39 +115,61 @@ $is_category = is_category();
                     $content['filter_category'],
                     $categories,
                     $active_category_ids,
-                    'filter'
+                    'folder',
+                    $active_type
                 );
             }
 
-            // Add the machine filter (post_tag) when on a CPT archive
-            // or the built-in post archive — type is already implied by
-            // the URL so we drop "Filter by Type" entirely.
-            $machine_post_type = is_post_type_archive()
-                ? (string) (\get_query_var('post_type') ?: 'post')
-                : '';
-
-            if ($machine_post_type !== '') {
-                $machine_terms = get_terms_for_post_type($machine_post_type, 'post_tag');
-                if ($machine_terms !== []) {
-                    $groups[] = build_term_link_group(
-                        'post_tag',
-                        $content['filter_machine'],
-                        $machine_terms,
-                        [],
-                        'settings'
-                    );
+            $type_link_options = [];
+            foreach (get_type_filter_options(false) as $post_type => $label) {
+                $url = '';
+                if ($current_term instanceof WP_Term && in_array($current_term->taxonomy, ['category', 'post_tag'], true)) {
+                    $term_link = get_term_link($current_term);
+                    if (!is_wp_error($term_link)) {
+                        $url = add_query_arg(['post_type' => $post_type], (string) $term_link);
+                    }
+                } else {
+                    $archive_link = get_post_type_archive_link($post_type);
+                    $url = is_string($archive_link) ? $archive_link : '';
                 }
-            } else {
-                // No active post-type archive — fall back to the original
-                // type rail (category archives, search-like browsing).
+
+                if ($url === '') {
+                    continue;
+                }
+
+                $type_link_options[] = [
+                    'value'  => $post_type,
+                    'label'  => $label,
+                    'count'  => null,
+                    'active' => $active_type === $post_type,
+                    'url'    => $url,
+                ];
+            }
+
+            if ($type_link_options !== []) {
                 $groups[] = [
                     'id'      => 'content-type',
-                    'title'   => $content['filter_type'],
-                    'icon'    => 'settings',
+                    'title'   => __('Resource Type', 'standard'),
+                    'icon'    => 'file-text',
                     'mode'    => 'link',
                     'name'    => null,
-                    'options' => $type_options,
+                    'options' => $type_link_options,
                 ];
+            }
+
+            $machine_terms = get_machine_post_tags();
+            if ($machine_terms !== []) {
+                $active_machine_ids = $current_term instanceof WP_Term && $current_term->taxonomy === 'post_tag'
+                    ? [(int) $current_term->term_id]
+                    : [];
+                $groups[] = build_term_link_group(
+                    'post_tag',
+                    $content['filter_machine'],
+                    $machine_terms,
+                    $active_machine_ids,
+                    'settings',
+                    $active_type
+                );
             }
 
             get_template_part('templates/parts/filter-sidebar', null, [

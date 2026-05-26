@@ -15,13 +15,11 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use function Standard\Filters\build_choice_group;
-use function Standard\Filters\build_term_choice_group;
-use function Standard\LearningCenter\get_allowed_categories;
-use function Standard\MachinesData\get_machine_post_tags;
-use function Standard\Search\get_post_type_filter_keys;
-use function Standard\Search\get_post_type_filter_options;
-use function Standard\Search\get_request_values;
+use function Standard\LearningCenter\get_active_filters as get_learning_center_filters;
+use function Standard\LearningCenter\get_category_filter_options;
+use function Standard\LearningCenter\get_filter_groups;
+use function Standard\LearningCenter\get_machine_filter_options;
+use function Standard\LearningCenter\get_type_filter_options;
 
 $content = [
     'eyebrow'         => __('Search', 'standard'),
@@ -40,159 +38,49 @@ $content = [
 
 $search_form_id = 'search-filter-form';
 $search_query   = get_search_query();
-$type_options   = get_post_type_filter_options();
-$requested_types = array_values(array_intersect(
-    get_request_values(get_post_type_filter_keys(), 'post_type'),
-    array_keys($type_options)
-));
+$filters = get_learning_center_filters();
+$groups = get_filter_groups($filters, [
+    'all_type_label' => __('All results', 'standard'),
+]);
 
-// Float selected types to the top of the list so they stay visible.
-if ($requested_types !== []) {
-    $reordered = [];
-    foreach ($requested_types as $post_type) {
-        $reordered[$post_type] = $type_options[$post_type];
-    }
-    $type_options = $reordered + $type_options;
-}
+$type_options = get_type_filter_options(false);
+$category_options = get_category_filter_options(false);
+$machine_options = get_machine_filter_options(false);
 
-$active_categories = get_request_values(['category', 'lc_category', '_sft_category'], 'term', 'category');
-$active_tags = get_request_values(['post_tag', 'tag', 'lc_machine', '_sft_post_tag'], 'term', 'post_tag');
-
-// Curated allowlist (see inc/learning-center/config.php). The search
-// sidebar mirrors the Learning Center / blog category rail rather than
-// surfacing every term WordPress knows about.
-$category_terms = get_allowed_categories();
-
-// Restrict the machine filter to the curated NTM machine catalog
-// (matches the Learning Center landing dropdown). post_tag is the
-// underlying taxonomy; we just filter the term list to known machines.
-$tag_terms = get_machine_post_tags();
-
-// Ensure any active term not in the top-N stays visible.
-$prepend_active_terms = static function (array $terms, array $active_slugs, string $taxonomy): array {
-    $known = [];
-    foreach ($terms as $term) {
-        if ($term instanceof WP_Term) {
-            $known[$term->slug] = true;
-        }
-    }
-
-    foreach (array_reverse($active_slugs) as $slug) {
-        if (isset($known[$slug])) {
-            continue;
-        }
-
-        $term = get_term_by('slug', $slug, $taxonomy);
-        if ($term instanceof WP_Term) {
-            array_unshift($terms, $term);
-            $known[$slug] = true;
-        }
-    }
-
-    return $terms;
-};
-
-$category_terms = $prepend_active_terms($category_terms, $active_categories, 'category');
-// Do NOT prepend active tags here. The machine list is intentionally
-// curated; surfacing a stray post_tag from a stale URL would defeat
-// the point.
-
-// Build the three groups for the shared sidebar.
-$groups = [
-    build_choice_group(
-        'content-type',
-        $content['filter_type'],
-        'post_type[]',
-        $type_options,
-        $requested_types,
-        [],
-        'filter'
-    ),
-];
-
-if ($category_terms !== []) {
-    $groups[] = build_term_choice_group(
-        'category',
-        $content['filter_category'],
-        'category[]',
-        $category_terms,
-        $active_categories,
-        'folder'
-    );
-}
-
-if ($tag_terms !== []) {
-    $groups[] = build_term_choice_group(
-        'machine',
-        $content['filter_machine'],
-        'post_tag[]',
-        $tag_terms,
-        $active_tags,
-        'settings'
-    );
-}
-
-// Header summary suffix + chip strip data.
-$active_type_labels = array_values(array_filter(array_map(
-    static fn(string $post_type): string => $type_options[$post_type] ?? '',
-    $requested_types
-)));
-$active_category_labels = [];
-foreach ($category_terms as $term) {
-    if ($term instanceof WP_Term && in_array($term->slug, $active_categories, true)) {
-        $active_category_labels[$term->slug] = $term->name;
-    }
-}
-$active_tag_labels = [];
-foreach ($tag_terms as $term) {
-    if ($term instanceof WP_Term && in_array($term->slug, $active_tags, true)) {
-        $active_tag_labels[$term->slug] = $term->name;
-    }
-}
-
-$build_remove_url = static function (string $param, string $value) use ($search_query, $requested_types, $active_categories, $active_tags): string {
+$build_remove_url = static function (string $param) use ($search_query, $filters): string {
     $params = [];
     if ($search_query !== '') {
         $params['s'] = $search_query;
     }
 
-    $types = $requested_types;
-    $cats  = $active_categories;
-    $tags  = $active_tags;
+    $next = $filters;
+    $next[$param] = '';
 
-    if ($param === 'post_type') {
-        $types = array_values(array_diff($types, [$value]));
-    } elseif ($param === 'category') {
-        $cats = array_values(array_diff($cats, [$value]));
-    } elseif ($param === 'post_tag') {
-        $tags = array_values(array_diff($tags, [$value]));
+    if (($next['category'] ?? '') !== '') {
+        $params['lc_category'] = $next['category'];
     }
-
-    if ($types !== []) {
-        $params['post_type'] = $types;
+    if (($next['type'] ?? '') !== '') {
+        $params['lc_type'] = $next['type'];
     }
-    if ($cats !== []) {
-        $params['category'] = $cats;
-    }
-    if ($tags !== []) {
-        $params['post_tag'] = $tags;
+    if (($next['machine'] ?? '') !== '') {
+        $params['lc_machine'] = $next['machine'];
     }
 
     return add_query_arg($params, \Standard\Url\internal('/'));
 };
 
 $chips = [];
-foreach ($requested_types as $slug) {
-    $label = $type_options[$slug] ?? '';
-    if ($label !== '') {
-        $chips[] = ['label' => $label, 'remove_url' => $build_remove_url('post_type', $slug)];
-    }
+$active_type = (string) ($filters['type'] ?? '');
+if ($active_type !== '' && isset($type_options[$active_type])) {
+    $chips[] = ['label' => $type_options[$active_type], 'remove_url' => $build_remove_url('type')];
 }
-foreach ($active_category_labels as $slug => $label) {
-    $chips[] = ['label' => $label, 'remove_url' => $build_remove_url('category', $slug)];
+$active_category = (string) ($filters['category'] ?? '');
+if ($active_category !== '' && isset($category_options[$active_category])) {
+    $chips[] = ['label' => $category_options[$active_category], 'remove_url' => $build_remove_url('category')];
 }
-foreach ($active_tag_labels as $slug => $label) {
-    $chips[] = ['label' => $label, 'remove_url' => $build_remove_url('post_tag', $slug)];
+$active_machine = (string) ($filters['machine'] ?? '');
+if ($active_machine !== '' && isset($machine_options[$active_machine])) {
+    $chips[] = ['label' => $machine_options[$active_machine], 'remove_url' => $build_remove_url('machine')];
 }
 
 $result_count = isset($GLOBALS['wp_query']) && $GLOBALS['wp_query'] instanceof WP_Query

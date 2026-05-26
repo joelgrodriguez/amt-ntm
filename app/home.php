@@ -17,102 +17,28 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use function Standard\Filters\build_choice_group;
-use function Standard\Filters\build_term_choice_group;
 use function Standard\LearningCenter\get_content_sections;
 use function Standard\LearningCenter\filter_content_sections;
 use function Standard\LearningCenter\get_active_filters;
 use function Standard\LearningCenter\get_featured_query;
+use function Standard\LearningCenter\get_filter_groups;
 use function Standard\LearningCenter\get_learning_center_url;
 use function Standard\LearningCenter\get_section_query;
 use function Standard\LearningCenter\get_type_cta;
 use function Standard\LearningCenter\get_type_icon;
 use function Standard\LearningCenter\get_type_label;
-use function Standard\MachinesData\get_machine_post_tags;
 
 get_header();
 
 $filters = get_active_filters();
 $featured_query = get_featured_query($filters);
-
-// Curated Learning Center category allowlist. Editors create many
-// categories that don't belong on the LC rail (product taxonomies like
-// Profiles / Manuals, internal tags like Resources). The curated slug
-// list lives in inc/learning-center/config.php so the search sidebar
-// and blog archive render the same shortlist.
-$categories = \Standard\LearningCenter\get_allowed_categories();
-
-// Restrict the Machine filter to the curated NTM machine catalog
-// (SSQ3, SSQ II, SSH, SSR, 5V Crimp, WAV, MACH II, BG7), in that
-// canonical order, instead of every post_tag the editors ever made.
-$machine_tags = get_machine_post_tags();
-
 $content_sections = filter_content_sections(get_content_sections(), $filters);
 $filter_action    = get_learning_center_url();
 
-// Build sidebar filter groups. Each is radio mode (single-select) because
-// the query layer (inc/learning-center/queries.php) reads lc_category,
-// lc_type, and lc_machine as scalars. An empty-value "All" row per group
-// lets users clear the choice without leaving the page.
+// Build the canonical Learning Center sidebar. The query layer reads these
+// as scalar GET params, so each group is intentionally single-select.
 $lc_form_id = 'lc-filter-form';
-
-$category_options = ['' => __('All categories', 'standard')];
-foreach ($categories as $cat) {
-    if ($cat instanceof WP_Term) {
-        $category_options[$cat->slug] = $cat->name;
-    }
-}
-
-$type_options = [
-    ''         => __('All resources', 'standard'),
-    'post'     => __('Articles', 'standard'),
-    'video'    => __('Videos', 'standard'),
-    'resource' => __('Resources', 'standard'),
-    'download' => __('Downloads', 'standard'),
-];
-
-$lc_groups = [
-    build_choice_group(
-        'lc-category',
-        __('Category', 'standard'),
-        'lc_category',
-        $category_options,
-        [(string) ($filters['category'] ?? '')],
-        [],
-        'folder',
-        'radio'
-    ),
-    build_choice_group(
-        'lc-type',
-        __('Resource Type', 'standard'),
-        'lc_type',
-        $type_options,
-        [(string) ($filters['type'] ?? '')],
-        [],
-        'file-text',
-        'radio'
-    ),
-];
-
-if (!empty($machine_tags)) {
-    $machine_options = ['' => __('All machines', 'standard')];
-    foreach ($machine_tags as $tag) {
-        if ($tag instanceof WP_Term) {
-            $machine_options[$tag->slug] = $tag->name;
-        }
-    }
-
-    $lc_groups[] = build_choice_group(
-        'lc-machine',
-        __('Machine', 'standard'),
-        'lc_machine',
-        $machine_options,
-        [(string) ($filters['machine'] ?? '')],
-        [],
-        'settings',
-        'radio'
-    );
-}
+$lc_groups = get_filter_groups($filters);
 
 $lc_has_filters = ($filters['category'] ?? '') !== ''
     || ($filters['type'] ?? '') !== ''

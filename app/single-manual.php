@@ -21,7 +21,6 @@ use function Standard\ContentTaxonomy\get_terms_for_post_type;
 
 $content = [
     'badge'              => __('Manual', 'standard'),
-    'filter_type'        => __('Filter by Type', 'standard'),
     'filter_machine'     => __('Filter by Machine', 'standard'),
     'view_all'           => __('View All Manuals', 'standard'),
     'related_machines'   => __('Related NTM Machines', 'standard'),
@@ -32,8 +31,6 @@ $content = [
 
 get_header();
 
-// Get manual categories and machine tags
-$categories = get_the_terms(get_the_ID(), 'category');
 $machine_tags = get_the_tags();
 ?>
 
@@ -52,18 +49,13 @@ $machine_tags = get_the_tags();
                 get_template_part('templates/parts/taxonomy-filter-sidebar', null, [
                     'sections' => [
                         [
-                            'title'         => $content['filter_type'],
-                            'icon'          => 'filter',
-                            'terms'         => get_terms_for_post_type('manual', 'category'),
-                            'current_terms' => $categories,
-                        ],
-                        [
                             'title'         => $content['filter_machine'],
                             'icon'          => 'settings',
                             'terms'         => get_terms_for_post_type('manual', 'post_tag'),
                             'current_terms' => $machine_tags,
                         ],
                     ],
+                    'post_type'  => 'manual',
                     'back_url'   => get_post_type_archive_link('manual') ?: '',
                     'back_label' => $content['view_all'],
                 ]);
@@ -92,7 +84,8 @@ $machine_tags = get_the_tags();
                                     // Find product by matching tag name to product title/SKU
                                     // $product = wc_get_products(['name' => $machine_tag->name, 'limit' => 1]);
                                 ?>
-                                    <a href="<?php echo esc_url(get_tag_link($machine_tag->term_id)); ?>" class="group block border border-blue-200 bg-white hover:border-blue-500 transition-colors">
+                                    <?php $manual_tag_url = add_query_arg(['post_type' => 'manual'], get_tag_link($machine_tag->term_id)); ?>
+                                    <a href="<?php echo esc_url($manual_tag_url); ?>" class="group block border border-blue-200 bg-white hover:border-blue-500 transition-colors">
                                         <!-- Machine Image Placeholder -->
                                         <div class="aspect-video bg-blue-50 flex items-center justify-center border-b border-blue-200">
                                             <?php icon('settings', ['class' => 'w-12 h-12 text-blue-300 group-hover:text-blue-500 transition-colors']); ?>

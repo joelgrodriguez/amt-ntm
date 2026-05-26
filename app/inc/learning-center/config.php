@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
  * @return string[]
  */
 function get_post_types(): array {
-    return ['post', 'video', 'resource', 'download'];
+    return ['post', 'video', 'resource', 'download', 'literature'];
 }
 
 /**
@@ -53,6 +53,13 @@ function get_content_sections(): array {
             'link'      => \get_post_type_archive_link('download'),
             'link_text' => \__('View All Downloads', 'standard'),
         ],
+        [
+            'title'     => \__('Latest Literature', 'standard'),
+            'post_type' => 'literature',
+            'icon'      => 'folder',
+            'link'      => \get_post_type_archive_link('literature'),
+            'link_text' => \__('View All Literature', 'standard'),
+        ],
     ];
 }
 
@@ -65,6 +72,7 @@ function get_type_config(): array {
         'video'    => ['icon' => 'play', 'label' => \__('Video', 'standard'), 'cta' => \__('Watch Video', 'standard')],
         'resource' => ['icon' => 'folder', 'label' => \__('Resource', 'standard'), 'cta' => \__('View Resource', 'standard')],
         'download' => ['icon' => 'download', 'label' => \__('Download', 'standard'), 'cta' => \__('View Download', 'standard')],
+        'literature' => ['icon' => 'folder', 'label' => \__('Literature', 'standard'), 'cta' => \__('View Literature', 'standard')],
     ];
 }
 
