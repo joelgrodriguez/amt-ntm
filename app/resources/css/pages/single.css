@@ -75,6 +75,36 @@
   max-width: 100%;
 }
 
+/* HubSpot CTA embeds ship with inline width: 1500-1800px on the <img>
+   and an inline width:1200px on the wrapper <div class="hs-cta-embed">.
+   They sit inside .prose but not always inside a <p>, and the inline
+   styles win against utility classes. Force containment. */
+.prose .hs-cta-wrapper,
+.prose .hs-cta-embed,
+.prose .hs-cta-wrapper img,
+.prose .hs-cta-embed img {
+  display: block;
+  max-width: 100% !important;
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* Gutenberg wraps wide tables in <figure class="wp-block-table">. The
+   figure itself has no overflow handling — the table inside spills.
+   Make the figure the scroll container instead of the table so the
+   table can keep its own layout (has-fixed-layout, column widths). */
+.prose .wp-block-table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.prose .wp-block-table table {
+  display: table;
+  overflow-x: visible;
+  min-width: 100%;
+}
+
 /* Featured image - hero crop is locked to 16:9 (editorial-landscape).
    In-post images keep their natural ratio (handled elsewhere). */
 .featured-image {
