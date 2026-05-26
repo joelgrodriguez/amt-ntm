@@ -92,7 +92,7 @@ if (
                     </p>
                 <?php endif; ?>
                 <div class="hero__cta">
-                    <a href="<?php echo esc_url(\Standard\Url\internal('/configurator/' . $product->get_slug() . '/')); ?>" class="btn btn-primary">
+                    <a href="<?php echo esc_url(\Standard\Woo\Catalog\get_configurator_url($product->get_slug()) ?: \Standard\Url\internal('/contact/')); ?>" class="btn btn-primary">
                         <?php esc_html_e('Build & Quote', 'standard'); ?>
                         <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                     </a>

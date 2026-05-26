@@ -71,9 +71,19 @@ if (!$machine) {
 
     <?php get_template_part('templates/woo/product/parts/faq', null, compact('machine')); ?>
 
-    <?php get_template_part('templates/woo/product/parts/case-study', null, compact('machine')); ?>
-
-    <?php get_template_part('templates/parts/configurator-cta', null, compact('product', 'machine')); ?>
+    <?php
+    $case_study = $machine['case_study'] ?? null;
+    if (is_array($case_study) && !empty($case_study['content'])) {
+        get_template_part('templates/parts/customer-story', null, [
+            'anchor'         => 'machine-case-study',
+            'section_id'     => 'machine-case-study-title',
+            'image_position' => $case_study['image_position'] ?? 'right',
+            'background'     => $case_study['background'] ?? 'bg-blue-50',
+            'content'        => $case_study['content'],
+            'stats'          => $case_study['stats'] ?? [],
+        ]);
+    }
+    ?>
 
     <?php get_template_part('templates/woo/product/parts/final-cta', null, compact('product', 'machine')); ?>
 

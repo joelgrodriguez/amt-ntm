@@ -100,6 +100,22 @@ return [
         'product_tag' => 'MACHII',
     ],
     'testimonials' => [],
+    'case_study' => [
+        'image_position' => 'right',
+        'background'     => 'bg-blue-50',
+        'content' => [
+            'eyebrow'  => __('Customer Story', 'standard'),
+            'quote'    => __('The flexibility to do both under one machine. It opens a lot of doors. With New Tech, we don\'t mess around. It\'s just more time we\'re able to work and install.', 'standard'),
+            'name'     => 'Matt Petrie',
+            'company'  => 'ZTK Enterprises',
+            'machine'  => 'MACH II 5"/6" Combo',
+            'image'    => content_url('/uploads/2026/05/ntm-customer-onsite-002.jpg'),
+            'cta_text' => __('Watch the Full Story', 'standard'),
+            'cta_url'  => '/learning-center/video/get-more-jobs-with-an-ntm-gutter-machine-video/',
+            'cta_icon' => 'play',
+        ],
+        'stats' => [],
+    ],
     'comparison' => [
         'compare_with' => ['mach-ii-5-gutter', 'mach-ii-6-gutter'],
         'best_for'     => __('5" & 6" K-style gutter production', 'standard'),

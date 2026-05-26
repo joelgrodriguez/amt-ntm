@@ -28,7 +28,7 @@ if (!$product) {
     return;
 }
 
-$configurator_url = \Standard\Url\internal('/configurator/' . $product->get_slug() . '/');
+$configurator_url = \Standard\Woo\Catalog\get_configurator_url($product->get_slug());
 $contact_url      = \Standard\Url\internal('/contact/');
 $product_name     = $product->get_name();
 ?>
@@ -56,13 +56,22 @@ $product_name     = $product->get_name();
         </div>
 
         <div class="final-cta__actions">
-            <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary">
-                <?php esc_html_e('Open Configurator', 'standard'); ?>
-                <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
-            </a>
-            <a href="<?php echo esc_url($contact_url); ?>" class="final-cta__alt-link">
-                <?php esc_html_e('Or talk to a specialist', 'standard'); ?>
-                <span aria-hidden="true">&rarr;</span>
+            <?php if ($configurator_url !== '') : ?>
+                <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary">
+                    <?php esc_html_e('Open Configurator', 'standard'); ?>
+                    <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
+                </a>
+            <?php endif; ?>
+            <a href="<?php echo esc_url($contact_url); ?>" class="<?php echo $configurator_url !== '' ? 'final-cta__alt-link' : 'btn btn-primary'; ?>">
+                <?php
+                if ($configurator_url !== '') {
+                    esc_html_e('Or talk to a specialist', 'standard');
+                    ?><span aria-hidden="true">&rarr;</span><?php
+                } else {
+                    esc_html_e('Talk to a Specialist', 'standard');
+                    icon('arrow-right', ['class' => 'w-5 h-5']);
+                }
+                ?>
             </a>
         </div>
 

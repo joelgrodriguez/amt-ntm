@@ -164,8 +164,6 @@ get_header();
 
     <?php get_template_part('templates/woo/product/parts/default-profiles', null, compact('product')); ?>
 
-    <?php get_template_part('templates/parts/configurator-cta', null, compact('product')); ?>
-
     <?php get_template_part('templates/parts/cta/closer', null, [
         'title'           => __('Built for contractors. Backed by NTM.', 'standard'),
         'text'            => __('Limited three-year part and in-house labor warranty. Service and training out of Aurora, Colorado. Machines shipped to 40+ countries since 1991.', 'standard'),
