@@ -24,7 +24,7 @@ return [
     'stats' => [
         ['value' => '2',         'label' => __('Gutter Sizes', 'standard')],
         ['value' => '50 ft/min', 'label' => __('Max Speed', 'standard')],
-        ['value' => '1,350 lbs', 'label' => __('Machine Weight', 'standard')],
+        ['value' => '1',         'label' => __('Machine Replaces 2', 'standard')],
         ['value' => '$12,300+',  'label' => __('Starting Price', 'standard')],
     ],
     'finance' => [

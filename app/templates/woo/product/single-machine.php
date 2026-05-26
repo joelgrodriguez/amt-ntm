@@ -46,10 +46,6 @@ if (!$machine) {
 
     <?php get_template_part('templates/woo/product/parts/subnav', null, compact('product', 'machine')); ?>
 
-    <?php get_template_part('templates/woo/product/parts/machine-breakdown', null, compact('machine')); ?>
-
-    <?php get_template_part('templates/woo/product/parts/blueprint', null, compact('machine')); ?>
-
     <?php
     get_template_part('templates/parts/video-section', null, [
         'title'      => $product->get_name(),
@@ -59,19 +55,23 @@ if (!$machine) {
     ]);
     ?>
 
-    <?php get_template_part('templates/woo/product/parts/profile-selector', null, compact('product', 'machine')); ?>
-
-    <?php get_template_part('templates/woo/product/parts/case-study', null, compact('machine')); ?>
+    <?php get_template_part('templates/woo/product/parts/machine-breakdown', null, compact('machine')); ?>
 
     <?php get_template_part('templates/woo/product/parts/machine-fit', null, compact('machine')); ?>
 
+    <?php get_template_part('templates/woo/product/parts/profile-selector', null, compact('product', 'machine')); ?>
+
     <?php get_template_part('templates/woo/product/parts/accessories', null, compact('product', 'machine')); ?>
+
+    <?php get_template_part('templates/woo/product/parts/blueprint', null, compact('machine')); ?>
 
     <?php get_template_part('templates/woo/product/parts/specs-accordion', null, compact('product', 'machine')); ?>
 
     <?php get_template_part('templates/woo/product/parts/resources', null, compact('machine')); ?>
 
     <?php get_template_part('templates/woo/product/parts/faq', null, compact('machine')); ?>
+
+    <?php get_template_part('templates/woo/product/parts/case-study', null, compact('machine')); ?>
 
     <?php get_template_part('templates/parts/configurator-cta', null, compact('product', 'machine')); ?>
 
