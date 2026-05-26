@@ -36,7 +36,7 @@ get_header();
         'section_id' => 'about-who-is-ntm',
     ]); ?>
 
-    <div class="bg-white border-b border-blue-200" aria-hidden="true"></div>
+    <div class="bg-white border-b border-blue-800" aria-hidden="true"></div>
 
     <?php get_template_part('templates/parts/about/capabilities'); ?>
 
