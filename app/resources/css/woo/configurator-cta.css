@@ -96,7 +96,7 @@
     font-family: var(--font-mono);
     font-weight: 500;
     font-size: var(--text-caption);
-    color: var(--color-blue-400);
+    color: var(--color-blue-300);
     letter-spacing: 0.1em;
     font-variant-numeric: tabular-nums;
   }
@@ -130,7 +130,7 @@
   .configurator-cta__step-copy {
     font-family: var(--font-sans);
     font-weight: 400;
-    color: var(--color-blue-300);
+    color: var(--color-blue-200);
     line-height: 1.55;
     font-size: var(--text-body);
     margin: 0;
@@ -171,7 +171,7 @@
     font-size: var(--text-caption);
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--color-blue-400);
+    color: var(--color-blue-300);
     margin: 0;
     align-self: end;
   }
@@ -210,7 +210,7 @@
     letter-spacing: 0;
     font-family: var(--font-sans);
     font-weight: 400;
-    color: var(--color-blue-400);
+    color: var(--color-blue-200);
     font-size: var(--text-caption);
   }
 
