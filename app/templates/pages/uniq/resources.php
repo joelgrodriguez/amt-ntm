@@ -65,7 +65,7 @@ $videos    = $resources['videos'];
                                 href="<?php echo esc_url(\Standard\Url\internal($doc['url'])); ?>"
                                 class="group flex items-start gap-4 px-6 py-5 lg:px-8 lg:py-6 transition-colors duration-150 hover:bg-blue-50"
                             >
-                                <span class="font-mono text-[10px] uppercase tracking-[0.15em] text-blue-400 shrink-0 w-16 pt-1">
+                                <span class="font-mono text-[10px] uppercase tracking-[0.15em] text-blue-400 shrink-0 min-w-16 pt-1">
                                     <?php echo esc_html($doc['kind']); ?>
                                 </span>
                                 <span class="flex-1 font-sans text-base text-blue-700 group-hover:text-blue-500 transition-colors">
@@ -91,7 +91,7 @@ $videos    = $resources['videos'];
                                 href="<?php echo esc_url(\Standard\Url\internal($video['url'])); ?>"
                                 class="group flex items-start gap-4 px-6 py-5 lg:px-8 lg:py-6 transition-colors duration-150 hover:bg-blue-50"
                             >
-                                <span class="font-mono text-[10px] uppercase tracking-[0.15em] text-blue-400 shrink-0 w-16 pt-1">
+                                <span class="font-mono text-[10px] uppercase tracking-[0.15em] text-blue-400 shrink-0 min-w-16 pt-1">
                                     <?php echo esc_html($video['kind']); ?>
                                 </span>
                                 <span class="flex-1 font-sans text-base text-blue-700 group-hover:text-blue-500 transition-colors">

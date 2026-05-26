@@ -2,14 +2,15 @@
 /**
  * UNIQ Page — Final CTA
  *
- * Two-column closer. Left rail: support promise + primary contact CTA.
- * Right rail: four owner-resource jumps (Learning Center, Manuals,
- * Service & Training, Owner Resources) preserved from the legacy page,
- * but presented as a mono-labeled link grid rather than four blue
- * buttons stacked next to each other.
+ * Two-column closer with a 7/5 split favoring the contact column.
+ * Left rail (lg:col-span-7): support promise + primary contact CTA;
+ * this is the section's primary action. Right rail (lg:col-span-5):
+ * four owner-resource jumps as a tight mono-link stack, no surrounding
+ * border so it sits beside the contact block as a quiet secondary
+ * affordance rather than a competing bordered grid.
  *
- * Light section so it doesn't compete with the dark "How It Works" two
- * blocks earlier; the page ends quiet, not loud.
+ * Light section so it doesn't compete with the dark "How It Works"
+ * two blocks earlier; the page ends quiet, not loud.
  *
  * @package Standard
  *
@@ -33,10 +34,10 @@ $content = [
 ];
 
 $resources = [
-    ['label' => __('Learning Center', 'standard'),     'href' => '/learning-center/',                    'kind' => 'HUB'],
-    ['label' => __('Manuals', 'standard'),             'href' => '/learning-center/resource/manuals/',   'kind' => 'DOCS'],
-    ['label' => __('Service & Training', 'standard'),  'href' => '/service-training/',                   'kind' => 'TEAM'],
-    ['label' => __('Owner Resources', 'standard'),     'href' => '/owner-resources/',                    'kind' => 'PORTAL'],
+    ['label' => __('Learning Center', 'standard'),    'href' => '/learning-center/'],
+    ['label' => __('Manuals', 'standard'),            'href' => '/learning-center/resource/manuals/'],
+    ['label' => __('Service & Training', 'standard'), 'href' => '/service-training/'],
+    ['label' => __('Owner Resources', 'standard'),    'href' => '/owner-resources/'],
 ];
 ?>
 
@@ -44,7 +45,7 @@ $resources = [
     <div class="container">
         <div class="grid gap-12 lg:grid-cols-12 lg:gap-16 lg:items-start">
 
-            <div class="lg:col-span-6 grid gap-8">
+            <div class="lg:col-span-7 grid gap-8">
                 <div class="section-header-left">
                     <p class="section-eyebrow">
                         <?php echo esc_html($content['eyebrow']); ?>
@@ -69,26 +70,19 @@ $resources = [
                 </div>
             </div>
 
-            <div class="lg:col-span-6">
-                <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-blue-500 mb-4">
+            <div class="lg:col-span-5 lg:pt-2">
+                <p class="font-mono text-[11px] uppercase tracking-[0.18em] text-blue-500 mb-6">
                     <?php esc_html_e('More from NTM', 'standard'); ?>
                 </p>
-                <ul class="grid border border-blue-200">
-                    <?php foreach ($resources as $i => $resource) :
-                        $is_last = ($i === count($resources) - 1);
-                    ?>
-                        <li class="<?php echo $is_last ? '' : 'border-b border-blue-200'; ?>">
+                <ul role="list" class="grid gap-3">
+                    <?php foreach ($resources as $resource) : ?>
+                        <li>
                             <a
                                 href="<?php echo esc_url(\Standard\Url\internal($resource['href'])); ?>"
-                                class="group flex items-center gap-4 px-6 py-5 lg:px-8 transition-colors duration-150 hover:bg-blue-50"
+                                class="group inline-flex items-center gap-3 font-sans text-base text-blue-700 hover:text-blue-500 transition-colors duration-150"
                             >
-                                <span class="font-mono text-[10px] uppercase tracking-[0.15em] text-blue-400 w-16 shrink-0">
-                                    <?php echo esc_html($resource['kind']); ?>
-                                </span>
-                                <span class="flex-1 font-sans font-medium text-base text-blue-900 group-hover:text-blue-500 transition-colors">
-                                    <?php echo esc_html($resource['label']); ?>
-                                </span>
-                                <?php icon('arrow-right', ['class' => 'w-4 h-4 text-blue-400 shrink-0 transition-transform duration-150 group-hover:translate-x-1 group-hover:text-blue-500']); ?>
+                                <?php echo esc_html($resource['label']); ?>
+                                <?php icon('arrow-right', ['class' => 'w-3 h-3 text-blue-400 transition-transform duration-150 group-hover:translate-x-1 group-hover:text-blue-500']); ?>
                             </a>
                         </li>
                     <?php endforeach; ?>
