@@ -19,6 +19,7 @@ if (!defined('ABSPATH')) {
 use function Standard\ContentTaxonomy\get_terms_for_post_type;
 use function Standard\Filters\build_term_link_group;
 use function Standard\Filters\get_post_type_counts;
+use function Standard\LearningCenter\get_allowed_categories;
 use function Standard\Search\get_post_type_filter_keys;
 use function Standard\Search\get_post_type_filter_options;
 use function Standard\Search\get_request_values;
@@ -91,12 +92,9 @@ $is_category = is_category();
             ?>
         <?php else : ?>
             <?php
-            $categories = get_categories([
-                'hide_empty' => true,
-                'orderby'    => 'name',
-                'order'      => 'ASC',
-            ]);
-            $categories = is_array($categories) ? $categories : [];
+            // Curated allowlist (see inc/learning-center/config.php) keeps
+            // the blog category rail in sync with the LC landing + search.
+            $categories = get_allowed_categories();
             $current_category_id = $is_category && $current_term instanceof WP_Term ? (int) $current_term->term_id : 0;
 
             $post_type_counts = get_post_type_counts();

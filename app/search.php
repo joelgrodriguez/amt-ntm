@@ -17,6 +17,7 @@ if (!defined('ABSPATH')) {
 
 use function Standard\Filters\build_choice_group;
 use function Standard\Filters\build_term_choice_group;
+use function Standard\LearningCenter\get_allowed_categories;
 use function Standard\MachinesData\get_machine_post_tags;
 use function Standard\Search\get_post_type_filter_keys;
 use function Standard\Search\get_post_type_filter_options;
@@ -57,13 +58,10 @@ if ($requested_types !== []) {
 $active_categories = get_request_values(['category', 'lc_category', '_sft_category'], 'term', 'category');
 $active_tags = get_request_values(['post_tag', 'tag', 'lc_machine', '_sft_post_tag'], 'term', 'post_tag');
 
-$category_terms = get_categories([
-    'hide_empty' => true,
-    'orderby'    => 'count',
-    'order'      => 'DESC',
-    'number'     => 18,
-]);
-$category_terms = is_array($category_terms) ? $category_terms : [];
+// Curated allowlist (see inc/learning-center/config.php). The search
+// sidebar mirrors the Learning Center / blog category rail rather than
+// surfacing every term WordPress knows about.
+$category_terms = get_allowed_categories();
 
 // Restrict the machine filter to the curated NTM machine catalog
 // (matches the Learning Center landing dropdown). post_tag is the
