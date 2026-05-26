@@ -22,9 +22,9 @@ return [
         'video'      => 'https://newtechmachinery.com/wp-content/uploads/2026/05/20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1.mp4',
     ],
     'stats' => [
-        ['value' => '2',         'label' => __('Gutter Sizes', 'standard')],
+        ['value' => '5" & 6"',   'label' => __('K-Style Sizes', 'standard')],
         ['value' => '50 ft/min', 'label' => __('Max Speed', 'standard')],
-        ['value' => '1',         'label' => __('Machine Replaces 2', 'standard')],
+        ['value' => '110V',      'label' => __('Standard Outlet', 'standard')],
         ['value' => '$12,300+',  'label' => __('Starting Price', 'standard')],
     ],
     'finance' => [
@@ -105,6 +105,7 @@ return [
         'best_for'     => __('5" & 6" K-style gutter production', 'standard'),
     ],
     'specs' => [
+        'image' => 'https://newtech.local/wp-content/uploads/2024/07/Mach-II-in-trailer-1-scaled.jpg',
         'standard_features' => [
             __('Polyurethane Drive Rollers', 'standard'),
             __('Two 360° Rotatable Reel Stands for Easy Coil Loading', 'standard'),
@@ -211,8 +212,8 @@ return [
         ],
     ],
     'resources' => [
-        'manual'               => 'https://newtechmachinery.com/learning-center/manual/mach-ii-gutter-machines-manual/',
-        'brochure'             => 'https://newtechmachinery.com/learning-center/literature/mach-ii-5-6-5-6-gutter-machines-brochure/',
+        'manual'               => '/learning-center/manual/mach-ii-gutter-machines-manual/',
+        'brochure'             => '/learning-center/literature/mach-ii-5-6-5-6-gutter-machines-brochure/',
         'service_training_url' => '/service-training',
     ],
     'faq' => [
