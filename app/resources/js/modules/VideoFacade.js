@@ -69,13 +69,17 @@ const activate = (button) => {
 };
 
 /**
- * Initialize all video facades on the page.
+ * Initialize all video facades on the page. Also wires remote triggers
+ * ([data-video-trigger="#selector"]) so a separate CTA (eg. a hero
+ * "Watch the Tutorial" link) can activate a facade elsewhere on the page
+ * without duplicating the poster + iframe logic here.
  *
  * @returns {() => void} cleanup function
  */
 export const initVideoFacade = () => {
   const buttons = document.querySelectorAll('[data-video-facade]');
-  if (buttons.length === 0) {
+  const triggers = document.querySelectorAll('[data-video-trigger]');
+  if (buttons.length === 0 && triggers.length === 0) {
     return () => {};
   }
 
@@ -87,12 +91,32 @@ export const initVideoFacade = () => {
     }
     const handler = () => activate(button);
     button.addEventListener('click', handler, { once: true });
-    handlers.push({ button, handler });
+    handlers.push({ element: button, handler });
+  });
+
+  triggers.forEach((trigger) => {
+    if (!(trigger instanceof HTMLElement)) {
+      return;
+    }
+    const selector = trigger.dataset.videoTrigger;
+    if (!selector) {
+      return;
+    }
+    const handler = (event) => {
+      const target = document.querySelector(selector);
+      if (target instanceof HTMLElement) {
+        event.preventDefault();
+        target.click();
+        target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    };
+    trigger.addEventListener('click', handler);
+    handlers.push({ element: trigger, handler });
   });
 
   return () => {
-    handlers.forEach(({ button, handler }) => {
-      button.removeEventListener('click', handler);
+    handlers.forEach(({ element, handler }) => {
+      element.removeEventListener('click', handler);
     });
   };
 };

@@ -23,16 +23,19 @@ if (!defined('ABSPATH')) {
 
 get_template_part('templates/parts/hero-category', null, [
     'section_id' => 'uniq-hero',
+    'pattern'    => false,
     'content'    => [
-        'kicker'            => __('NTM // CONTROL SYSTEM', 'standard'),
-        'title'             => __('UNIQ® Automatic Control System', 'standard'),
-        'subtitle'          => __('A redesigned 7" touchscreen brain for your SSQ II™, SSQ3, and WAV rollformers — automatic drive, shear, and notching from one panel.', 'standard'),
-        'cta_primary'       => __('Download Software Update', 'standard'),
-        'cta_primary_url'   => '/machines/uniq-control-system-update/',
-        'cta_secondary'     => __('Watch the Tutorial', 'standard'),
-        'cta_secondary_url' => 'https://fast.wistia.net/embed/iframe/vf198bnz3w',
-        'video'             => 'https://fast.wistia.net/embed/iframe/vf198bnz3w',
-        'poster'            => '',
+        'kicker'                => __('NTM // CONTROL SYSTEM', 'standard'),
+        'title'                 => __('UNIQ® Automatic Control System', 'standard'),
+        'subtitle'              => __('A redesigned 7" touchscreen brain for your SSQ II™, SSQ3, and WAV rollformers. Automatic drive, shear, and notching from one panel.', 'standard'),
+        'cta_primary'           => __('Download Software Update', 'standard'),
+        'cta_primary_url'       => '/machines/uniq-control-system-update/',
+        'cta_primary_icon'      => 'arrow-right',
+        'cta_secondary'         => __('Watch the Tutorial', 'standard'),
+        'cta_secondary_url'     => 'https://fast.wistia.net/embed/iframe/vf198bnz3w',
+        'cta_secondary_trigger' => true,
+        'video'                 => 'https://fast.wistia.net/embed/iframe/vf198bnz3w',
+        'poster'                => '',
     ],
     'meta' => [
         ['label' => __('Standard On', 'standard'), 'value' => 'WAV'],

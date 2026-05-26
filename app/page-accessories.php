@@ -20,9 +20,17 @@ get_header();
 
     <?php get_template_part('templates/pages/accessories/hero'); ?>
 
-    <?php get_template_part('templates/pages/accessories/catalog-nav'); ?>
+    <section class="section bg-white" aria-labelledby="catalog-title">
+        <div class="container layout-with-rail">
 
-    <?php get_template_part('templates/pages/accessories/catalog-grid'); ?>
+            <?php get_template_part('templates/pages/accessories/catalog-nav'); ?>
+
+            <div class="min-w-0">
+                <?php get_template_part('templates/pages/accessories/catalog-grid'); ?>
+            </div>
+
+        </div>
+    </section>
 
     <?php get_template_part('templates/pages/accessories/fit-by-machine'); ?>
 

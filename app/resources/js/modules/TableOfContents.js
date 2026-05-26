@@ -59,19 +59,43 @@ function slugify(text) {
 export function initTableOfContents(options = {}) {
   const config = { ...defaults, ...options };
 
-  const content = document.querySelector(config.contentSelector);
   const tocList = document.querySelector(config.tocListSelector);
   const tocContainer = document.querySelector(config.tocContainerSelector);
 
-  if (!content || !tocList) return;
+  if (!tocList) return;
+
+  // Manual mode: links already rendered server-side. Skip heading
+  // discovery; pull observe targets from each link's href hash.
+  // Auto mode: discover headings inside contentSelector and build the
+  // list. Used by the blog single template.
+  const manualLinks = tocList.querySelectorAll('a[href^="#"]');
+  const manualMode = manualLinks.length > 0;
+
+  const content = document.querySelector(config.contentSelector);
+  if (!manualMode && !content) return;
+
   const prefersReducedMotion = window.matchMedia(
     '(prefers-reduced-motion: reduce)'
   ).matches;
-  const headingSelector = config.headingSelectors.join(', ');
-  const headings = content.querySelectorAll(headingSelector);
-  if (headings.length < 3) {
-    if (tocContainer) tocContainer.hidden = true;
-    return;
+
+  /** @type {NodeListOf<HTMLElement>|HTMLElement[]} */
+  let headings = [];
+
+  if (manualMode) {
+    const targets = [];
+    manualLinks.forEach((link) => {
+      const id = link.getAttribute('href')?.slice(1);
+      const el = id ? document.getElementById(id) : null;
+      if (el) targets.push(el);
+    });
+    headings = targets;
+  } else {
+    const headingSelector = config.headingSelectors.join(', ');
+    headings = content.querySelectorAll(headingSelector);
+    if (headings.length < 3) {
+      if (tocContainer) tocContainer.hidden = true;
+      return;
+    }
   }
 
   /** @type {Map<string, HTMLElement>} Maps heading IDs to TOC link elements */
@@ -200,7 +224,14 @@ export function initTableOfContents(options = {}) {
       setActive(headings[0].id);
     }
   };
-  buildTOC();
+  if (manualMode) {
+    manualLinks.forEach((link) => {
+      const id = link.getAttribute('href')?.slice(1);
+      if (id) tocLinks.set(id, link);
+    });
+  } else {
+    buildTOC();
+  }
   setupObserver();
   handleInitialHash();
   tocList.addEventListener('click', handleClick);
@@ -215,7 +246,10 @@ export function initTableOfContents(options = {}) {
       observer.disconnect();
     }
     tocList.removeEventListener('click', handleClick);
-    tocList.innerHTML = '';
+    // Auto mode owns the list contents; manual mode does not.
+    if (!manualMode) {
+      tocList.replaceChildren();
+    }
     tocLinks.clear();
   };
 }

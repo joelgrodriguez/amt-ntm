@@ -32,6 +32,9 @@ let megaMenuCleanup = null;
 /** @type {Function|null} Cleanup function for table of contents */
 let tocCleanup = null;
 
+/** @type {Function|null} Cleanup function for accessories catalog nav */
+let catalogNavCleanup = null;
+
 /** @type {Function|null} Cleanup function for scroll header */
 let scrollHeaderCleanup = null;
 
@@ -80,6 +83,11 @@ const initApp = () => {
   megaMenuCleanup = initMegaMenu();
   initScrollReveal();
   tocCleanup = initTableOfContents();
+  // Accessories catalog jump-nav uses the same scrollspy in manual mode.
+  catalogNavCleanup = initTableOfContents({
+    tocListSelector: '#catalog-nav-list',
+    tocContainerSelector: '#catalog-nav',
+  });
   scrollHeaderCleanup = initScrollHeader();
   scrollToTopCleanup = initScrollToTop();
   accordionCleanup = initAccordion();
@@ -105,6 +113,9 @@ if (import.meta.hot) {
     }
     if (tocCleanup) {
       tocCleanup();
+    }
+    if (catalogNavCleanup) {
+      catalogNavCleanup();
     }
     if (scrollHeaderCleanup) {
       scrollHeaderCleanup();

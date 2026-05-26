@@ -24,10 +24,14 @@ $content      = $args['content'] ?? [];
 $faqs         = $args['faqs'] ?? [];
 $section_id   = $args['section_id'] ?? 'faq-accordion-title';
 $image_alt    = $args['image_alt'] ?? __('NTM machine being lifted onto a rooftop', 'standard');
-// 'fill' (default) makes the image stretch to the accordion column's
-// height (legacy behavior). 'video' wraps the image in a 16:9 box so
-// the photo composition is preserved.
-$image_aspect = $args['image_aspect'] ?? 'fill';
+// 'video' (default): image keeps a 16:9 composition and sits sticky
+// alongside the accordions. Stable framing as accordions open/close.
+// 'fill': image stretches to match the accordion column's height via
+// object-cover. Caused image to reflow on accordion toggle, so it's no
+// longer the default — keep it available for any future caller that
+// explicitly opts in.
+$image_aspect = $args['image_aspect'] ?? 'video';
+$is_fill      = $image_aspect === 'fill';
 
 if (empty($content) || empty($faqs)) {
     return;
@@ -66,7 +70,7 @@ $faq_schema = [
             </h2>
         </div>
 
-        <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-start">
+        <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 <?php echo $is_fill ? 'md:items-stretch' : 'md:items-start'; ?>">
 
             <div data-accordion-group>
                 <?php foreach ($faqs as $faq) : ?>
@@ -83,14 +87,25 @@ $faq_schema = [
                     </details>
                 <?php endforeach; ?>
             </div>
-            <div class="hidden md:block md:sticky md:top-24">
-                <img
-                    src="<?php echo esc_url($content['image']); ?>"
-                    alt="<?php echo esc_attr($image_alt); ?>"
-                    class="w-full h-auto object-cover <?php echo $image_aspect === 'video' ? 'aspect-video' : 'aspect-[4/5]'; ?>"
-                    loading="lazy"
-                >
-            </div>
+            <?php if ($is_fill) : ?>
+                <div class="hidden md:block md:h-full md:min-h-0 md:overflow-hidden">
+                    <img
+                        src="<?php echo esc_url($content['image']); ?>"
+                        alt="<?php echo esc_attr($image_alt); ?>"
+                        class="w-full h-full object-cover"
+                        loading="lazy"
+                    >
+                </div>
+            <?php else : ?>
+                <div class="hidden md:block md:sticky md:top-24">
+                    <img
+                        src="<?php echo esc_url($content['image']); ?>"
+                        alt="<?php echo esc_attr($image_alt); ?>"
+                        class="w-full h-auto object-cover aspect-video"
+                        loading="lazy"
+                    >
+                </div>
+            <?php endif; ?>
 
         </div>
     </div>

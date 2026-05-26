@@ -21,7 +21,7 @@ use function Standard\MachinesData\get_roof_wall_machines;
 get_template_part('templates/parts/comparison-table', null, [
     'section_id' => 'roof-wall-comparison-title',
     'content'    => [
-        'eyebrow' => __('Compare', 'standard'),
+        'eyebrow' => __('Specs at a glance', 'standard'),
         'title'   => __('Roof & Wall Machines, Side by Side', 'standard'),
     ],
     'machines'   => get_roof_wall_machines(),

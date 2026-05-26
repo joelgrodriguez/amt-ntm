@@ -34,4 +34,19 @@
   .screen-reader-text {
     @apply sr-only;
   }
+
+  /* Mono-label tracking. Two canonical values used across mono labels
+     and eyebrows (see DESIGN.md §3.4). Promotes arbitrary tracking-[*]
+     values into named tokens so the voice stays consistent.
+     - tracking-mono-label: 0.18em. Section eyebrow-adjacent labels,
+       spec affixes, "MORE FROM NTM" style headings.
+     - tracking-mono-meta:  0.15em. Smaller meta labels inside dl/ol
+       rails (control loop, hero meta rail), resource kind affixes. */
+  .tracking-mono-label {
+    letter-spacing: 0.18em;
+  }
+
+  .tracking-mono-meta {
+    letter-spacing: 0.15em;
+  }
 }

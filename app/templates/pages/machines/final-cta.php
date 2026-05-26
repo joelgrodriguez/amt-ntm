@@ -24,7 +24,7 @@ get_template_part('templates/parts/cta/closer', null, [
     'title'             => __('Pick the Machine. Start Making Money.', 'standard'),
     'text'              => __('Build a quote in your browser, or get one of our specialists on the phone. Free 30-minute call. No obligation.', 'standard'),
     'cta_primary'       => __('Build & Price Your Machine', 'standard'),
-    'cta_primary_url'   => '/build-finance/',
+    'cta_primary_url'   => '/configurator/',
     'cta_secondary'     => __('Talk to a Specialist', 'standard'),
     'cta_secondary_url' => '/contact/',
 ]);

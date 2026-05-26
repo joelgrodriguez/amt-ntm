@@ -2,14 +2,15 @@
 /**
  * Accessories Page — Catalog Jump Nav
  *
- * Below-hero anchor strip. Mono uppercase links to each bucket section.
+ * In-page navigation for the bucketed catalog. Mirrors the blog single-post
+ * TOC (sticky aside on lg+) and the filter-sidebar drawer pattern on mobile.
  *
- * Mobile: collapsed <details> dropdown. The summary shows the section
- * title; tapping reveals a vertical list of links. Pure HTML/CSS, no JS.
+ * Two trees, like .filter-drawer + <aside class="hidden lg:block">:
+ *   - Mobile: <details> drawer using .filter-drawer-* styles for chrome.
+ *   - Desktop (lg+): sticky <aside> using .toc / .toc__* styles for the rail.
  *
- * Desktop (md+): full-width horizontal row, justify-between so links
- * span the container with even spacing, with vertical hairline dividers
- * between items.
+ * The scrollspy module targets #catalog-nav-list (desktop) for active-state
+ * highlighting; the mobile drawer is for jumping, not for tracking position.
  *
  * @package Standard
  *
@@ -30,46 +31,41 @@ $buckets  = array_values(array_filter($bucketed, static fn(array $b): bool => co
 if (empty($buckets)) {
     return;
 }
+
+$render_items = static function () use ($buckets): void {
+    foreach ($buckets as $bucket) : ?>
+        <li class="toc__item">
+            <a href="#catalog-<?php echo esc_attr($bucket['id']); ?>" class="toc__link">
+                <?php echo esc_html($bucket['label']); ?>
+            </a>
+        </li>
+    <?php endforeach;
+};
 ?>
 
-<nav class="border-y border-blue-200 bg-white" aria-label="<?php esc_attr_e('Accessory categories', 'standard'); ?>">
-    <div class="container">
-
-        <!-- Mobile: <details> dropdown.
-             data-accordion-group hooks Accordion.js for the smooth body
-             height tween. Uses data-accordion-body (not .accordion__body)
-             so we get the tween without the shell's padding/background. -->
-        <div data-accordion-group class="md:hidden">
-            <details class="catalog-nav-dropdown">
-                <summary class="flex items-center justify-between py-4 font-mono text-xs uppercase tracking-wider text-blue-900 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
-                    <span><?php esc_html_e('Jump to a Category', 'standard'); ?></span>
-                    <span class="accordion__icon">
-                        <?php icon('chevron-down', ['class' => 'w-4 h-4']); ?>
-                    </span>
-                </summary>
-                <ul data-accordion-body class="grid border-t border-blue-200 divide-y divide-blue-200">
-                    <?php foreach ($buckets as $bucket) : ?>
-                        <li>
-                            <a href="#catalog-<?php echo esc_attr($bucket['id']); ?>" class="block py-3 font-mono text-xs uppercase tracking-wider text-blue-700 hover:text-blue-900 no-underline">
-                                <?php echo esc_html($bucket['label']); ?>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </details>
-        </div>
-
-        <!-- Desktop: full-width row with dividers -->
-        <div class="hidden md:flex md:items-stretch md:justify-between">
-            <?php foreach ($buckets as $i => $bucket) : ?>
-                <?php if ($i > 0) : ?>
-                    <span aria-hidden="true" class="w-px bg-blue-200"></span>
-                <?php endif; ?>
-                <a href="#catalog-<?php echo esc_attr($bucket['id']); ?>" class="flex-1 flex items-center justify-center text-center py-4 font-mono text-xs uppercase tracking-wider text-blue-700 hover:text-blue-900 border-b-2 border-transparent hover:border-blue-500 transition-colors no-underline">
-                    <?php echo esc_html($bucket['label']); ?>
-                </a>
-            <?php endforeach; ?>
-        </div>
-
+<!-- Mobile drawer. Hidden on lg+; the sticky aside takes over. -->
+<details class="filter-drawer lg:hidden" data-accordion-group aria-label="<?php esc_attr_e('Accessory categories', 'standard'); ?>">
+    <summary>
+        <span><?php esc_html_e('Jump to a category', 'standard'); ?></span>
+        <span class="filter-drawer-caret accordion__icon" aria-hidden="true">
+            <?php icon('chevron-down', ['class' => 'w-4 h-4']); ?>
+        </span>
+    </summary>
+    <div class="filter-drawer-body px-4 py-4" data-accordion-body>
+        <nav class="toc" aria-label="<?php esc_attr_e('Accessory categories', 'standard'); ?>">
+            <ol class="toc__list">
+                <?php $render_items(); ?>
+            </ol>
+        </nav>
     </div>
-</nav>
+</details>
+
+<!-- Desktop rail. Mirrors the single-post TOC. -->
+<aside id="catalog-nav" class="hidden lg:block" aria-label="<?php esc_attr_e('Accessory categories', 'standard'); ?>">
+    <nav class="toc sticky top-24">
+        <p class="toc__title"><?php esc_html_e('On this page', 'standard'); ?></p>
+        <ol id="catalog-nav-list" class="toc__list">
+            <?php $render_items(); ?>
+        </ol>
+    </nav>
+</aside>

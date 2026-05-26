@@ -38,22 +38,22 @@ $secondary = array_slice($stats, 1);
 ?>
 
 <section class="section bg-blue-900" aria-labelledby="roi-snapshot-title">
-    <div class="container grid gap-12 lg:gap-16 lg:grid-cols-12 lg:items-end">
+    <div class="container grid gap-12 lg:gap-12 lg:grid-cols-2 lg:items-end">
 
         <!-- Lead: the one stat. Display type, white, no decoration.
              The eyebrow is a side note, not a section masthead. -->
-        <div class="grid gap-6 lg:col-span-7">
+        <div class="grid gap-6">
             <p class="font-mono text-xs uppercase tracking-[0.18em] text-blue-300">
                 <?php echo esc_html($content['eyebrow']); ?>
             </p>
             <?php if ($primary) : ?>
                 <h2
                     id="roi-snapshot-title"
-                    class="font-sans font-medium leading-[0.95] tracking-tight text-white text-5xl md:text-6xl lg:text-7xl xl:text-8xl m-0"
+                    class="font-sans font-medium leading-[0.95] tracking-tight text-white text-5xl md:text-6xl lg:text-6xl xl:text-7xl m-0"
                 >
                     <span class="text-blue-200" aria-hidden="true">+</span><?php echo esc_html($primary['stat']); ?>
                 </h2>
-                <p class="text-2xl md:text-3xl lg:text-4xl text-blue-200 font-normal max-w-xl m-0">
+                <p class="text-xl md:text-2xl lg:text-2xl text-blue-200 font-normal max-w-xl m-0">
                     <?php echo esc_html($content['lede']); ?>
                 </p>
             <?php endif; ?>
@@ -63,7 +63,7 @@ $secondary = array_slice($stats, 1);
              like co-equal hero numbers. Each stat is one line, separated
              by hairline rules. Reads as evidence behind the headline,
              not as a competing claim. -->
-        <div class="grid gap-6 lg:col-span-5">
+        <div class="grid gap-6">
             <?php if (!empty($secondary)) : ?>
                 <dl class="grid divide-y divide-white/10 border-y border-white/10">
                     <?php foreach ($secondary as $stat) : ?>
