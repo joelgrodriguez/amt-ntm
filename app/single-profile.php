@@ -38,17 +38,15 @@ while (have_posts()) :
 <main id="primary" class="bg-white">
 
     <?php get_template_part('templates/parts/single/spec-sheet-layout', null, [
-        'pdf_url'            => url_from_post(get_post()),
-        'eyebrow'            => $eyebrow,
-        'alt_template'       => __('Technical drawing of the %s profile', 'standard'),
-        'compat_eyebrow'     => __('Compatibility', 'standard'),
-        'compat_heading'     => __('Rolls On', 'standard'),
-        'compat_empty'       => __('No machines tagged yet.', 'standard'),
-        'tag_count_singular' => __('%d profile', 'standard'),
-        'tag_count_plural'   => __('%d profiles', 'standard'),
-        'archive_url'        => $archive_url,
-        'back_label'         => __('Back to all profiles', 'standard'),
-        'spec_heading'       => __('Spec Sheet', 'standard'),
+        'pdf_url'        => url_from_post(get_post()),
+        'eyebrow'        => $eyebrow,
+        'alt_template'   => __('Technical drawing of the %s profile', 'standard'),
+        'compat_eyebrow' => __('Compatibility', 'standard'),
+        'compat_heading' => __('Rolls On', 'standard'),
+        'compat_empty'   => __('No machines tagged yet.', 'standard'),
+        'archive_url'    => $archive_url,
+        'back_label'     => __('Back to all profiles', 'standard'),
+        'spec_heading'   => __('Spec Sheet', 'standard'),
     ]); ?>
 
 </main>

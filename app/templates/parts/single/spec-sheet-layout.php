@@ -18,7 +18,6 @@
  *   compat_eyebrow   string       Section eyebrow for the compatibility block. Default "Compatibility".
  *   compat_heading   string       Section H2. Default "Compatible Machines".
  *   compat_empty     string       Empty-state copy. Default "No machines tagged yet.".
- *   tag_count_label  string       _n() pair for "%d <thing>". Default profiles.
  *   archive_url      string       URL for the back-link. Required.
  *   back_label       string       Back-link text. Required.
  *   spec_heading     string       Right-column section eyebrow. Default "Spec Sheet".
@@ -33,6 +32,8 @@ declare(strict_types=1);
 if (!defined('ABSPATH')) {
     exit;
 }
+
+use function Standard\MachineProductData\get_machine_product_link;
 
 $post_id      = (int) get_the_ID();
 $title        = get_the_title();
@@ -51,8 +52,6 @@ $defaults = [
     'compat_eyebrow'   => __('Compatibility', 'standard'),
     'compat_heading'   => __('Compatible Machines', 'standard'),
     'compat_empty'     => __('No machines tagged yet.', 'standard'),
-    'tag_count_singular' => __('%d item', 'standard'),
-    'tag_count_plural'   => __('%d items', 'standard'),
     'archive_url'      => '',
     'back_label'       => __('Back', 'standard'),
     'spec_heading'     => __('Spec Sheet', 'standard'),
@@ -124,23 +123,15 @@ $archive_url = (string) $args['archive_url'];
 
                 <?php if (is_array($machine_tags) && !empty($machine_tags)) : ?>
                     <ul class="grid gap-2 list-none p-0 m-0">
-                        <?php foreach ($machine_tags as $machine_tag) : ?>
+                        <?php foreach ($machine_tags as $machine_tag) :
+                            $product_link = get_machine_product_link($machine_tag->slug);
+                            $href = $product_link['url'] ?? get_tag_link($machine_tag->term_id);
+                        ?>
                             <li>
-                                <a href="<?php echo esc_url(get_tag_link($machine_tag->term_id)); ?>"
+                                <a href="<?php echo esc_url($href); ?>"
                                    class="group grid gap-1 px-4 py-3 bg-white border border-blue-200 no-underline transition-colors duration-200 hover:border-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                                     <span class="font-sans font-semibold text-blue-900 leading-snug tracking-tight group-hover:text-blue-500 transition-colors">
                                         <?php echo esc_html($machine_tag->name); ?>
-                                    </span>
-                                    <span class="font-mono uppercase tracking-widest text-caption text-blue-400">
-                                        <?php echo esc_html(sprintf(
-                                            _n(
-                                                (string) $args['tag_count_singular'],
-                                                (string) $args['tag_count_plural'],
-                                                (int) $machine_tag->count,
-                                                'standard'
-                                            ),
-                                            (int) $machine_tag->count
-                                        )); ?>
                                     </span>
                                 </a>
                             </li>
