@@ -1,6 +1,9 @@
 # Worktrees
 .worktrees/
 
+# Content inventory scratch space (generated workbook + extractor)
+docs/content-inventory/
+
 # Maestro orchestrator state — see .maestro/.gitignore for per-file rules
 # (README is tracked; active.md / archive.md stay local)
 
