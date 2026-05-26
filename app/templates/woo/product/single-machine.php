@@ -73,7 +73,7 @@ if (!$machine) {
 
     <?php get_template_part('templates/woo/product/parts/faq', null, compact('machine')); ?>
 
-    <?php get_template_part('templates/woo/product/parts/configurator-finance', null, compact('product', 'machine')); ?>
+    <?php get_template_part('templates/parts/configurator-cta', null, compact('product', 'machine')); ?>
 
     <?php get_template_part('templates/woo/product/parts/final-cta', null, compact('product', 'machine')); ?>
 
