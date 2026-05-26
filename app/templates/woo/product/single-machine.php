@@ -77,15 +77,7 @@ if (!$machine) {
 
     <?php get_template_part('templates/woo/product/parts/final-cta', null, compact('product', 'machine')); ?>
 
-    <a
-        id="floating-quote-cta"
-        href="<?php echo esc_url(\Standard\Url\internal('/configurator/' . $product->get_slug() . '/')); ?>"
-        class="floating-quote-cta"
-        aria-label="<?php esc_attr_e('Get a Quote Now', 'standard'); ?>"
-    >
-        <?php icon('settings', ['class' => 'w-5 h-5']); ?>
-        <span class="floating-quote-cta__label"><?php esc_html_e('Get a Quote', 'standard'); ?></span>
-    </a>
+    <?php get_template_part('templates/woo/product/parts/floating-quote-cta', null, compact('product')); ?>
 
 </main>
 

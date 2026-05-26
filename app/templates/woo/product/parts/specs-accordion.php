@@ -194,36 +194,35 @@ if (empty($sections)) {
 <section id="machine-specs" class="section bg-blue-50" aria-labelledby="specs-title">
     <div class="container section-content">
 
+        <div class="section-header-left mb-12">
+            <p class="section-eyebrow"><?php esc_html_e('Technical Specifications', 'standard'); ?></p>
+            <div class="section-divider"></div>
+            <h2 id="specs-title" class="section-title"><?php esc_html_e('Full Details', 'standard'); ?></h2>
+        </div>
+
         <div class="grid lg:grid-cols-2 gap-12 items-start">
-            <div>
-                <div class="section-header-left mb-12">
-                    <p class="section-eyebrow"><?php esc_html_e('Technical Specifications', 'standard'); ?></p>
-                    <div class="section-divider"></div>
-                    <h2 id="specs-title" class="section-title"><?php esc_html_e('Full Details', 'standard'); ?></h2>
-                </div>
-
-                <div data-accordion-group>
-                    <?php foreach ($sections as $title => $content) : ?>
-                        <details class="accordion">
-                            <summary>
-                                <?php echo esc_html($title); ?>
-                                <span class="accordion__icon"><?php icon('chevron-down', ['class' => 'w-4 h-4']); ?></span>
-                            </summary>
-                            <div class="accordion__body text-sm text-blue-600">
-                                <?php echo $content; // Already escaped during build. ?>
-                            </div>
-                        </details>
-                    <?php endforeach; ?>
-
-                    <?php if (!empty($resources['brochure'])) : ?>
-                        <div class="mt-6">
-                            <a href="<?php echo esc_url(\Standard\Url\internal($resources['brochure'])); ?>" class="btn btn-sm btn-outline-dark" target="_blank" rel="noopener"><?php esc_html_e('Download Full Spec Sheet', 'standard'); ?></a>
+            <div data-accordion-group>
+                <?php foreach ($sections as $title => $content) : ?>
+                    <details class="accordion">
+                        <summary>
+                            <?php echo esc_html($title); ?>
+                            <span class="accordion__icon"><?php icon('chevron-down', ['class' => 'w-4 h-4']); ?></span>
+                        </summary>
+                        <div class="accordion__body text-sm text-blue-600">
+                            <?php echo $content; // Already escaped during build. ?>
                         </div>
-                    <?php endif; ?>
-                </div>
+                    </details>
+                <?php endforeach; ?>
+
+                <?php if (!empty($resources['brochure'])) : ?>
+                    <div class="mt-6">
+                        <a href="<?php echo esc_url(\Standard\Url\internal($resources['brochure'])); ?>" class="btn btn-sm btn-outline-dark" target="_blank" rel="noopener"><?php esc_html_e('Download Full Spec Sheet', 'standard'); ?></a>
+                    </div>
+                <?php endif; ?>
             </div>
+
             <?php if (!empty($spec_image)) : ?>
-                <div class="hidden lg:block lg:sticky lg:top-24">
+                <div class="hidden lg:block lg:sticky lg:top-24 lg:order-last">
                     <figure class="bg-white border border-blue-200 overflow-hidden aspect-video">
                         <?php \Standard\Images\responsive_image($spec_image, $image_alt, 'large', [
                             'class' => 'w-full h-full object-cover',

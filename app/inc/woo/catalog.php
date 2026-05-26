@@ -246,6 +246,7 @@ function get_configurator_url(string $woo_slug): string {
         'ssh-roof-panel-machine'           => 'ssh',
         'ssr-multipro-jr-roof-panel-machine' => 'ssr',
         'ssq-roof-panel-machine'           => 'ssqii',
+        'ssq3-multipro'                    => 'ssq3-multi-pro',
         'mach-ii-5-gutter-machine'         => 'machii',
         'mach-ii-6-gutter-machine'         => 'machii',
         'mach-ii-6-gutter-machine-copy'    => 'machii',
