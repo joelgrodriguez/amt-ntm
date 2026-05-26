@@ -23,7 +23,7 @@ get_template_part('templates/parts/cta/closer', null, [
     'title'             => __('Stop Paying Supplier Markups.', 'standard'),
     'text'              => __('Most contractors recoup their machine investment within 12 to 18 months. Build a quote in your browser, or get one of our specialists on the phone.', 'standard'),
     'cta_primary'       => __('Build & Price Your Machine', 'standard'),
-    'cta_primary_url'   => '/build-finance/',
+    'cta_primary_url'   => '/configurator/',
     'cta_secondary'     => __('Talk to a Specialist', 'standard'),
     'cta_secondary_url' => '/contact/',
 ]);
