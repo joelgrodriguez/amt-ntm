@@ -1,0 +1,248 @@
+/**
+ * Configurator CTA — Build · Quote · Finance section.
+ *
+ * Three numbered steps in a 2-col grid at md+ (with the trailing odd
+ * item alone in column 1), pricing chip + dual CTA at the foot.
+ * Vocabulary borrowed from .machine-fit__qualifier and
+ * .ssq3-marquee__ledger — blueprint hairlines on a blue-900 surface,
+ * mono editorial labels, single red accent.
+ *
+ * @file woo/configurator-cta.css
+ */
+
+@layer components {
+
+  .configurator-cta__header {
+    display: grid;
+    gap: clamp(12px, 1.5vw, 20px);
+    max-width: 64rem;
+    margin-bottom: clamp(40px, 5vw, 64px);
+  }
+
+  .configurator-cta__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-blue-300);
+  }
+
+  .configurator-cta__eyebrow-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-red);
+    flex-shrink: 0;
+  }
+
+  .configurator-cta__title {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    color: var(--color-white);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0;
+    font-size: clamp(32px, 5vw, 56px);
+    max-width: 24ch;
+  }
+
+  .configurator-cta__lede {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    color: var(--color-blue-200);
+    line-height: 1.55;
+    margin: 0;
+    font-size: clamp(16px, 1.4vw, 20px);
+    max-width: 56ch;
+  }
+
+  /* Three-step grid — same hairline ledger vocabulary as machine-fit. */
+  .configurator-cta__steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    border-top: 1px solid var(--color-blue-800);
+  }
+
+  @media (min-width: 768px) {
+    .configurator-cta__steps {
+      grid-template-columns: 1fr 1fr;
+      column-gap: clamp(32px, 4vw, 64px);
+    }
+  }
+
+  .configurator-cta__step {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    align-items: baseline;
+    gap: clamp(16px, 2vw, 24px);
+    padding: clamp(20px, 2.4vw, 28px) 0;
+    border-bottom: 1px solid var(--color-blue-800);
+  }
+
+  @media (min-width: 768px) {
+    .configurator-cta__step {
+      grid-template-columns: 64px 1fr;
+    }
+  }
+
+  .configurator-cta__step-index {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    color: var(--color-blue-400);
+    letter-spacing: 0.1em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .configurator-cta__step-body {
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .configurator-cta__step-kicker {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-red);
+    margin: 0;
+  }
+
+  .configurator-cta__step-title {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    color: var(--color-white);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    font-size: clamp(20px, 2vw, 26px);
+    margin: 0;
+  }
+
+  .configurator-cta__step-copy {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    color: var(--color-blue-300);
+    line-height: 1.55;
+    font-size: var(--text-body);
+    margin: 0;
+    max-width: 44ch;
+  }
+
+  /* Footer — pricing chip on the left, dual CTAs on the right.
+     Stacks on mobile, splits left/right at lg+. */
+  .configurator-cta__footer {
+    display: grid;
+    gap: clamp(24px, 3vw, 40px);
+    margin-top: clamp(40px, 5vw, 64px);
+    align-items: end;
+  }
+
+  @media (min-width: 1024px) {
+    .configurator-cta__footer {
+      grid-template-columns: 1fr auto;
+      gap: clamp(32px, 4vw, 64px);
+    }
+  }
+
+  /* Pricing readout — hairline-ruled, mono values. */
+  .configurator-cta__price {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: baseline;
+    gap: 0 16px;
+    margin: 0;
+    padding-top: clamp(16px, 2vw, 24px);
+    border-top: 1px solid var(--color-blue-800);
+    max-width: 28rem;
+  }
+
+  .configurator-cta__price-label {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-blue-400);
+    margin: 0;
+    align-self: end;
+  }
+
+  .configurator-cta__price-value {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    color: var(--color-white);
+    font-size: clamp(28px, 3.4vw, 40px);
+    line-height: 1;
+    margin: 0;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .configurator-cta__price-unit {
+    font-size: 0.55em;
+    color: var(--color-blue-300);
+    margin-left: 0.15em;
+  }
+
+  .configurator-cta__price-terms,
+  .configurator-cta__price-note {
+    grid-column: 1 / -1;
+    margin: 8px 0 0 0;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-blue-300);
+  }
+
+  .configurator-cta__price-note {
+    text-transform: none;
+    letter-spacing: 0;
+    font-family: var(--font-sans);
+    font-weight: 400;
+    color: var(--color-blue-400);
+    font-size: var(--text-caption);
+  }
+
+  /* Actions — primary red CTA, mono link alt. */
+  .configurator-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: clamp(16px, 2vw, 24px);
+  }
+
+  .configurator-cta__alt-link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-blue-200);
+    text-decoration: none;
+    transition: color 200ms ease-out;
+  }
+
+  .configurator-cta__alt-link:hover,
+  .configurator-cta__alt-link:focus-visible {
+    color: var(--color-red);
+  }
+
+  .configurator-cta__alt-link:focus-visible {
+    outline: 2px solid var(--color-blue-500);
+    outline-offset: 4px;
+  }
+}
