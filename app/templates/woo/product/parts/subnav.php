@@ -28,7 +28,7 @@ if (!$product) {
 }
 
 $current_name     = $product->get_name();
-$configurator_url = \Standard\Url\internal('/configurator/' . $product->get_slug() . '/');
+$configurator_url = \Standard\Woo\Catalog\get_configurator_url($product->get_slug());
 $current_short = $current_name;
 if (
     function_exists('Standard\\MachinesData\\get_all_machines')
@@ -110,11 +110,13 @@ if (!empty($machine['case_study'])) {
                     <?php endforeach; ?>
                 </ul>
 
-                <div class="machine-subnav__cta">
-                    <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary btn-sm">
-                        <?php esc_html_e('Build', 'standard'); ?>
-                    </a>
-                </div>
+                <?php if ($configurator_url !== '') : ?>
+                    <div class="machine-subnav__cta">
+                        <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary btn-sm">
+                            <?php esc_html_e('Build', 'standard'); ?>
+                        </a>
+                    </div>
+                <?php endif; ?>
             </div>
 
         </div>

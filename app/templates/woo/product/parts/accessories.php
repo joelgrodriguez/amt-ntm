@@ -25,7 +25,7 @@ get_template_part('templates/woo/product/parts/carousel-section', null, [
     'query_type'    => 'product',
     'product_tag'   => $product_tag,
     'limit'         => 12,
-    'section_class' => 'bg-blue-50 border-y border-blue-200',
+    'section_class' => 'bg-blue-50',
     'section_id'    => 'machine-accessories',
     'carousel_id'   => 'accessories-carousel',
     'eyebrow'       => __('Accessories', 'standard'),

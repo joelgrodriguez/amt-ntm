@@ -46,7 +46,7 @@ $carousel_id = 'profiles-carousel';
 $title_id    = 'profiles-title';
 ?>
 
-<section id="machine-profiles" class="section bg-blue-50 border-y border-blue-200" aria-labelledby="<?php echo esc_attr($title_id); ?>">
+<section id="machine-profiles" class="section" aria-labelledby="<?php echo esc_attr($title_id); ?>">
     <div class="container section-content">
 
         <div class="flex items-end justify-between gap-4 mb-10">

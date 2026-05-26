@@ -113,6 +113,22 @@ return [
         'product_tag' => 'SSQII',
     ],
     'testimonials' => [],
+    'case_study' => [
+        'image_position' => 'right',
+        'background'     => 'bg-blue-50',
+        'content' => [
+            'eyebrow'  => __('Customer Story', 'standard'),
+            'quote'    => __('All you gotta do is come run one more panel out. You\'re not bound to what\'s in a crate. If you\'re the roofing contractor, you completely control your own destiny.', 'standard'),
+            'name'     => 'Joe Keene',
+            'company'  => 'Integrity Metals',
+            'machine'  => 'SSQ3 MultiPro',
+            'image'    => content_url('/uploads/2026/05/ntm-customer-onsite-002.jpg'),
+            'cta_text' => __('Watch the Full Story', 'standard'),
+            'cta_url'  => '/learning-center/video/is-ntm-good-for-contractors-and-manufacturers-video/',
+            'cta_icon' => 'play',
+        ],
+        'stats' => [],
+    ],
     'comparison' => [
         'compare_with' => ['ssq-ii-multipro', 'ssh-multipro'],
         'best_for'     => __('High-volume commercial & residential', 'standard'),

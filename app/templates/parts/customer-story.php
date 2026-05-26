@@ -26,6 +26,7 @@ $content        = $args['content'] ?? [];
 $stats          = $args['stats'] ?? [];
 $image_position = $args['image_position'] ?? 'right';
 $section_id     = $args['section_id'] ?? 'customer-story-title';
+$anchor         = $args['anchor'] ?? '';
 $cta_icon       = $content['cta_icon'] ?? 'arrow-right';
 $background     = $args['background'] ?? 'bg-blue-50';
 
@@ -61,7 +62,7 @@ $render_media = function () use ($content, $stats) :void {
 };
 ?>
 
-<section class="section <?php echo esc_attr($background); ?>" aria-labelledby="<?php echo esc_attr($section_id); ?>">
+<section <?php if ($anchor !== '') : ?>id="<?php echo esc_attr($anchor); ?>" <?php endif; ?>class="section <?php echo esc_attr($background); ?>" aria-labelledby="<?php echo esc_attr($section_id); ?>">
     <div class="container">
         <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-center">
 
