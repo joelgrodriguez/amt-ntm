@@ -174,6 +174,8 @@ get_header();
         'section_id'      => 'machine-default-closer-title',
     ]); ?>
 
+    <?php get_template_part('templates/woo/product/parts/floating-quote-cta', null, compact('product')); ?>
+
 </main>
 
 <?php

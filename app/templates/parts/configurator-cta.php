@@ -39,7 +39,7 @@ if (!$product instanceof \WC_Product) {
 
 $slug             = $product->get_slug();
 $product_name     = $product->get_name();
-$configurator_url = \Standard\Url\internal('/configurator/' . $slug . '/');
+$configurator_url = \Standard\Woo\Catalog\get_configurator_url($slug);
 $contact_url      = \Standard\Url\internal('/contact/');
 $finance          = is_array($machine) ? ($machine['finance'] ?? []) : [];
 $price_range      = $finance['price_range'] ?? '';
@@ -47,6 +47,29 @@ $monthly_price    = $finance['monthly_price'] ?? '';
 $finance_note     = $finance['note'] ?? '';
 $apr              = $finance['apr'] ?? '';
 $months           = $finance['months'] ?? '';
+
+if ($configurator_url === '') {
+    return;
+}
+
+$machine_short = $product_name;
+if (
+    function_exists('Standard\\MachinesData\\get_all_machines')
+    && function_exists('Standard\\MachineProductData\\get_slug_aliases')
+) {
+    $aliases   = \Standard\MachineProductData\get_slug_aliases();
+    $data_slug = $aliases[$slug] ?? $slug;
+    foreach (\Standard\MachinesData\get_all_machines(true) as $m) {
+        if (($m['slug'] ?? '') === $data_slug) {
+            $machine_short = $m['name'] ?? $product_name;
+            break;
+        }
+    }
+}
+
+$quote_doc_id = strtoupper('Q-' . substr($slug, 0, 4) . '-' . str_pad((string) ($product->get_id() % 10000), 4, '0', STR_PAD_LEFT));
+$quote_total  = $price_range !== '' ? $price_range : ($monthly_price !== '' ? $monthly_price . '/mo' : '');
+$quote_lines  = is_array($machine) ? array_slice($machine['specs']['standard_features'] ?? [], 0, 3) : [];
 
 $steps = [
     [
@@ -82,37 +105,83 @@ $steps = [
             <h2 id="<?php echo esc_attr($section_id); ?>-title" class="configurator-cta__title">
                 <?php
                 printf(
-                    /* translators: %s: product name, e.g. "MACH II 5/6 Combo" */
+                    /* translators: %s: short product name, e.g. "MACH II Combo" */
                     esc_html__('Configure your %s online.', 'standard'),
-                    esc_html($product_name)
+                    esc_html($machine_short)
                 );
                 ?>
             </h2>
             <p class="configurator-cta__lede">
-                <?php esc_html_e('Build a machine to spec, get a real quote, and apply for financing without picking up the phone. The whole path lives in the configurator.', 'standard'); ?>
+                <?php esc_html_e('No phone call. No sales gatekeeper. The whole path runs in the browser.', 'standard'); ?>
             </p>
         </div>
 
-        <ol class="configurator-cta__steps" role="list">
-            <?php foreach ($steps as $index => $step) : ?>
-                <li class="configurator-cta__step">
-                    <span class="configurator-cta__step-index" aria-hidden="true">
-                        <?php echo esc_html(str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT)); ?>
-                    </span>
-                    <div class="configurator-cta__step-body">
-                        <p class="configurator-cta__step-kicker">
-                            <?php echo esc_html($step['kicker']); ?>
+        <div class="configurator-cta__body">
+            <ol class="configurator-cta__steps" role="list">
+                <?php foreach ($steps as $index => $step) : ?>
+                    <li class="configurator-cta__step">
+                        <span class="configurator-cta__step-index" aria-hidden="true">
+                            <?php echo esc_html(str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT)); ?>
+                        </span>
+                        <div class="configurator-cta__step-body">
+                            <p class="configurator-cta__step-kicker">
+                                <?php echo esc_html($step['kicker']); ?>
+                            </p>
+                            <h3 class="configurator-cta__step-title">
+                                <?php echo esc_html($step['title']); ?>
+                            </h3>
+                            <p class="configurator-cta__step-copy">
+                                <?php echo esc_html($step['copy']); ?>
+                            </p>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ol>
+
+            <?php if ($quote_total !== '' || !empty($quote_lines)) : ?>
+                <aside class="configurator-cta__quote" aria-label="<?php esc_attr_e('Sample quote preview', 'standard'); ?>">
+                    <header class="configurator-cta__quote-header">
+                        <p class="configurator-cta__quote-meta">
+                            <span><?php esc_html_e('Quote', 'standard'); ?></span>
+                            <span class="configurator-cta__quote-doc"><?php echo esc_html($quote_doc_id); ?></span>
                         </p>
-                        <h3 class="configurator-cta__step-title">
-                            <?php echo esc_html($step['title']); ?>
-                        </h3>
-                        <p class="configurator-cta__step-copy">
-                            <?php echo esc_html($step['copy']); ?>
+                        <p class="configurator-cta__quote-title">
+                            <?php echo esc_html($machine_short); ?>
                         </p>
-                    </div>
-                </li>
-            <?php endforeach; ?>
-        </ol>
+                    </header>
+
+                    <?php if (!empty($quote_lines)) : ?>
+                        <dl class="configurator-cta__quote-lines">
+                            <?php foreach ($quote_lines as $line) : ?>
+                                <div class="configurator-cta__quote-line">
+                                    <dt><?php echo esc_html($line); ?></dt>
+                                    <dd aria-hidden="true">&mdash;</dd>
+                                </div>
+                            <?php endforeach; ?>
+                            <div class="configurator-cta__quote-line configurator-cta__quote-line--more">
+                                <dt><?php esc_html_e('Configured options + accessories', 'standard'); ?></dt>
+                                <dd aria-hidden="true">&mdash;</dd>
+                            </div>
+                        </dl>
+                    <?php endif; ?>
+
+                    <?php if ($quote_total !== '') : ?>
+                        <footer class="configurator-cta__quote-total">
+                            <span class="configurator-cta__quote-total-label">
+                                <?php esc_html_e('Your build', 'standard'); ?>
+                            </span>
+                            <span class="configurator-cta__quote-total-value">
+                                <?php echo esc_html($quote_total); ?>
+                            </span>
+                        </footer>
+                    <?php endif; ?>
+
+                    <p class="configurator-cta__quote-stamp" aria-hidden="true">
+                        <?php esc_html_e('Sample. Your real quote runs in the configurator.', 'standard'); ?>
+                    </p>
+                </aside>
+            <?php endif; ?>
+        </div>
 
         <div class="configurator-cta__footer">
             <?php if ($monthly_price || $price_range) : ?>
