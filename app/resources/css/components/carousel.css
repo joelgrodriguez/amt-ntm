@@ -57,11 +57,24 @@
   }
 
   /* card-profile and card-product slot into .carousel__track by carrying
-     .carousel__card on their own root. Strip the generic chassis padding/gap;
-     each card supplies its own border, padding, and row gap. */
+     .carousel__card on their own root. .carousel__card is a layout
+     contract (snap + responsive widths), not a visual identity — strip
+     every chassis style so the card looks identical to its grid-context
+     render. Without this, profile cards get a double-border (outer
+     chassis + inner image well) and product cards get an extra wrapper
+     no other surface shows. */
   .carousel__card.profile-card,
   .carousel__card.card-product {
-    @apply p-0 gap-0;
+    @apply p-0 border-0 bg-transparent;
+    @apply hover:border-0;
+  }
+
+  /* card-product manages its own internal flex column with content
+     children that supply their own gaps. The chassis gap-3 was only
+     ever for the carousel's default markup, so zero it here. profile-card
+     keeps its gap-3 between image well and title. */
+  .carousel__card.card-product {
+    @apply gap-0;
   }
 
   .carousel__nav {
