@@ -127,7 +127,7 @@ if (!empty($trailer_dims)) {
 
         <div class="grid md:grid-cols-2 md:items-stretch">
             <?php if (!empty($footprint_url) || !empty($svg_name)) : ?>
-                <div class="border-b border-blue-200 md:border-b-0 md:border-r p-6 lg:p-8 flex items-center justify-center pattern-dot-grid pattern-dot-grid--solid">
+                <div class="border-b border-blue-200 md:border-b-0 md:border-r p-6 lg:p-8 flex items-center justify-center">
                     <?php if (!empty($footprint_url)) : ?>
                         <?php if (!empty($footprint_pdf_url)) : ?>
                             <a

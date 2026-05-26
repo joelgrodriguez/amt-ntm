@@ -23,7 +23,7 @@ if (empty($faqs)) {
 }
 ?>
 
-<section id="machine-faq" class="section bg-blue-50 pattern-dot-grid pattern-dot-grid--surface" aria-labelledby="faq-title">
+<section id="machine-faq" class="section bg-blue-50" aria-labelledby="faq-title">
     <div class="container section-content">
 
         <div class="section-header">
