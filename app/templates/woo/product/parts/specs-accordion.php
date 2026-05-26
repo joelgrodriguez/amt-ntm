@@ -12,9 +12,12 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$machine   = $args['machine'] ?? [];
-$specs     = $machine['specs'] ?? null;
-$resources = $machine['resources'] ?? [];
+$product    = $args['product'] ?? null;
+$machine    = $args['machine'] ?? [];
+$specs      = $machine['specs'] ?? null;
+$resources  = $machine['resources'] ?? [];
+$spec_image = $machine['hero']['image'] ?? $machine['hero']['hero_image'] ?? '';
+$image_alt  = $product instanceof \WC_Product ? $product->get_name() : '';
 
 if (!$specs) {
     return;
@@ -114,7 +117,7 @@ if (!empty($materials)) {
                     <p class="text-sm text-blue-600"><?php echo esc_html($mat['gauge']); ?></p>
                 <?php endif; ?>
                 <?php if (!empty($mat['note'])) : ?>
-                    <p class="text-xs text-blue-500 italic mt-1"><?php echo esc_html($mat['note']); ?></p>
+                    <p class="text-xs text-blue-500 mt-1"><?php echo esc_html($mat['note']); ?></p>
                 <?php endif; ?>
             </div>
         <?php endforeach; ?>
@@ -219,16 +222,16 @@ if (empty($sections)) {
                     <?php endif; ?>
                 </div>
             </div>
-            <div class="hidden lg:block lg:sticky lg:top-24">
-                <div class="bg-blue-100 overflow-hidden aspect-[4/5] flex items-center justify-center">
-                    <div class="text-center grid gap-4">
-                        <svg class="w-16 h-16 text-blue-300 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z" />
-                        </svg>
-                        <span class="text-blue-400 text-sm font-mono"><?php esc_html_e('Machine image', 'standard'); ?></span>
-                    </div>
+            <?php if (!empty($spec_image)) : ?>
+                <div class="hidden lg:block lg:sticky lg:top-24">
+                    <figure class="bg-white border border-blue-200 overflow-hidden aspect-[4/5]">
+                        <?php \Standard\Images\responsive_image($spec_image, $image_alt, 'large', [
+                            'class' => 'w-full h-full object-cover',
+                            'loading' => 'lazy',
+                        ]); ?>
+                    </figure>
                 </div>
-            </div>
+            <?php endif; ?>
 
         </div>
 

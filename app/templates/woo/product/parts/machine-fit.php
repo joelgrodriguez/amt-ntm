@@ -76,8 +76,9 @@ $is_not_for = $fit['is_not_for'] ?? [];
                             $text        = is_array($item) ? ($item['text'] ?? '') : $item;
                             $machine_key = is_array($item) ? ($item['machine'] ?? null) : null;
                             $link        = $machine_key ? get_machine_product_link($machine_key) : null;
+                            $row_class   = 'machine-fit__ledger-row' . ($link ? '' : ' machine-fit__ledger-row--solo');
                         ?>
-                            <div class="machine-fit__ledger-row">
+                            <div class="<?php echo esc_attr($row_class); ?>">
                                 <dt class="machine-fit__ledger-text"><?php echo esc_html($text); ?></dt>
                                 <?php if ($link) : ?>
                                     <dd class="machine-fit__ledger-alt">
@@ -86,8 +87,6 @@ $is_not_for = $fit['is_not_for'] ?? [];
                                             <span aria-hidden="true" class="machine-fit__ledger-arrow">&rarr;</span>
                                         </a>
                                     </dd>
-                                <?php else : ?>
-                                    <dd class="machine-fit__ledger-alt machine-fit__ledger-alt--empty" aria-hidden="true"></dd>
                                 <?php endif; ?>
                             </div>
                         <?php endforeach; ?>
