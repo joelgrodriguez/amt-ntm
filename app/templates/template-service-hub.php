@@ -145,12 +145,12 @@ get_header();
                     >
                 </div>
 
-                <button type="submit" class="btn btn-primary w-full md:w-auto">
+                <button type="submit" class="btn btn-primary w-full md:w-auto h-11!">
                     <?php esc_html_e('Search', 'standard'); ?>
                 </button>
 
                 <?php if ($has_filters) : ?>
-                    <a href="<?php echo esc_url($form_action); ?>" class="btn btn-ghost w-full md:w-auto">
+                    <a href="<?php echo esc_url($form_action); ?>" class="btn btn-ghost w-full md:w-auto h-11!">
                         <?php esc_html_e('Reset', 'standard'); ?>
                     </a>
                 <?php endif; ?>

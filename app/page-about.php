@@ -4,6 +4,15 @@
  *
  * Renders the About page using reusable section template parts.
  *
+ * Flow:
+ *  1. Manifesto       — partnership headline, single engineer portrait, metric strip
+ *  2. Video           — "Who is NTM?" company overview
+ *  3. Capabilities    — design, engineer, manufacture, ship, train & service
+ *  4. People          — four portraits across the disciplines that touch every customer
+ *  5. Origin          — "Built it. Still building it." (merged origin + 5-machine timeline)
+ *  6. Support         — Aurora + Hermosillo, parts, training, financing, memberships
+ *  7. Closer CTA      — partnership-aligned close
+ *
  * @package Standard
  */
 
@@ -27,15 +36,17 @@ get_header();
         'section_id' => 'about-who-is-ntm',
     ]); ?>
 
+    <?php get_template_part('templates/parts/about/capabilities'); ?>
+
+    <?php get_template_part('templates/parts/about/people'); ?>
+
     <?php get_template_part('templates/parts/about/origin'); ?>
 
-    <?php get_template_part('templates/parts/about/timeline'); ?>
-
-    <?php get_template_part('templates/parts/about/leadership'); ?>
+    <?php get_template_part('templates/parts/about/support'); ?>
 
     <?php get_template_part('templates/parts/cta/closer', null, [
-        'title'           => __('Ready to Take Control of Your Business?', 'standard'),
-        'text'            => __('Join thousands of contractors who stopped waiting on suppliers and started rolling their own profits.', 'standard'),
+        'title'           => __('Talk to the team that builds the machine and answers the phone.', 'standard'),
+        'text'            => __('Sales, service, and support are all in Aurora. The same people, for as long as you own the machine.', 'standard'),
         'cta_primary'     => __('Talk to a Specialist', 'standard'),
         'cta_primary_url' => '/contact/',
         'section_id'      => 'about-closer-title',
