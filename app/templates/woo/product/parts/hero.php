@@ -51,15 +51,14 @@ if (
         <?php if ($has_mp4) : ?>
             <video
                 class="hero__media hero__media--video"
-                autoplay
                 muted
                 loop
                 playsinline
-                preload="metadata"
+                preload="none"
+                data-hero-video-src="<?php echo esc_url($video); ?>"
+                data-hero-video-type="video/mp4"
                 <?php if (!empty($image)) : ?>poster="<?php echo esc_url($image); ?>"<?php endif; ?>
-            >
-                <source src="<?php echo esc_url($video); ?>" type="video/mp4">
-            </video>
+            ></video>
         <?php elseif (!empty($image)) : ?>
             <?php \Standard\Images\responsive_image($image, $headline, 'full', [
                 'class'         => 'hero__media',
