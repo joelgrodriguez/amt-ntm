@@ -10,9 +10,11 @@ import '../css/machine-product.css';
 import { initFloatingQuoteCta } from './modules/FloatingQuoteCta.js';
 import { initMachineSubnav } from './modules/MachineSubnav.js';
 import { initSocialProof, cleanup as cleanupSocialProof } from './modules/SocialProof.js';
+import { initHeroVideo } from './modules/HeroVideo.js';
 
 let floatingQuoteCtaCleanup = null;
 let machineSubnavCleanup = null;
+let heroVideoCleanup = null;
 
 const domReady = (callback) => {
   if (document.readyState === 'loading') {
@@ -25,6 +27,7 @@ const domReady = (callback) => {
 const initMachineProduct = () => {
   floatingQuoteCtaCleanup = initFloatingQuoteCta();
   machineSubnavCleanup = initMachineSubnav();
+  heroVideoCleanup = initHeroVideo();
   initSocialProof();
 };
 
@@ -34,6 +37,7 @@ if (import.meta.hot) {
   import.meta.hot.accept(() => {
     floatingQuoteCtaCleanup?.();
     machineSubnavCleanup?.();
+    heroVideoCleanup?.();
     cleanupSocialProof();
     initMachineProduct();
   });
