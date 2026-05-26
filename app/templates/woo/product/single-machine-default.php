@@ -164,13 +164,28 @@ get_header();
 
     <?php get_template_part('templates/woo/product/parts/default-profiles', null, compact('product')); ?>
 
-    <?php get_template_part('templates/parts/cta/closer', null, [
-        'title'           => __('Built for contractors. Backed by NTM.', 'standard'),
-        'text'            => __('Limited three-year part and in-house labor warranty. Service and training out of Aurora, Colorado. Machines shipped to 40+ countries since 1991.', 'standard'),
-        'cta_primary'     => __('Talk to a Specialist', 'standard'),
-        'cta_primary_url' => '/contact/',
-        'section_id'      => 'machine-default-closer-title',
-    ]); ?>
+    <?php
+    $default_closer_url = \Standard\Woo\Catalog\get_configurator_url($product->get_slug());
+    if ($default_closer_url !== '') {
+        get_template_part('templates/parts/cta/closer', null, [
+            'section_id'        => 'machine-default-closer-title',
+            'title'             => sprintf(__('Build your %s.', 'standard'), $product->get_name()),
+            'text'              => __('Configure and price your machine in your browser, or get one of our specialists on the phone.', 'standard'),
+            'cta_primary'       => __('Build & Price', 'standard'),
+            'cta_primary_url'   => $default_closer_url,
+            'cta_secondary'     => __('Talk to a Specialist', 'standard'),
+            'cta_secondary_url' => '/contact/',
+        ]);
+    } else {
+        get_template_part('templates/parts/cta/closer', null, [
+            'section_id'      => 'machine-default-closer-title',
+            'title'           => __('Built for contractors. Backed by NTM.', 'standard'),
+            'text'            => __('Limited three-year part and in-house labor warranty. Service and training out of Aurora, Colorado. Machines shipped to 40+ countries since 1991.', 'standard'),
+            'cta_primary'     => __('Talk to a Specialist', 'standard'),
+            'cta_primary_url' => '/contact/',
+        ]);
+    }
+    ?>
 
     <?php get_template_part('templates/woo/product/parts/floating-quote-cta', null, compact('product')); ?>
 

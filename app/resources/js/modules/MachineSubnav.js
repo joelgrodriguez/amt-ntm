@@ -18,13 +18,20 @@
 
 /**
  * Initialize machine sub-navigation.
+ *
+ * Subnav is always fixed to the viewport top and hidden by default
+ * (translated above its own height). It only becomes visible once the
+ * hero scrolls out of view, sliding down gracefully. When the hero
+ * re-enters view (scroll back up), it slides out again so the regular
+ * header can do its scroll-up reveal without two bars competing.
+ *
  * @returns {Function} Cleanup function.
  */
 export function initMachineSubnav() {
   const subnav = document.getElementById('machine-subnav');
-  const sentinel = document.getElementById('machine-subnav-sentinel');
+  const hero = document.getElementById('machine-hero');
 
-  if (!subnav || !sentinel) return () => {};
+  if (!subnav || !hero) return () => {};
 
   const controller = new AbortController();
   const { signal } = controller;
@@ -33,14 +40,17 @@ export function initMachineSubnav() {
     '(prefers-reduced-motion: reduce)'
   ).matches;
 
-  const stickyObserver = new IntersectionObserver(
+  const visibilityObserver = new IntersectionObserver(
     ([entry]) => {
-      const shouldStick = !entry.isIntersecting && entry.boundingClientRect.top < 0;
-      subnav.classList.toggle('is-sticky', shouldStick);
+      // Hero in view → hide subnav. Hero out of view → show subnav.
+      // is-sticky is the same class name ScrollHeader checks to
+      // suppress its scroll-up reveal, so the two bars never stack.
+      const shouldShow = !entry.isIntersecting;
+      subnav.classList.toggle('is-sticky', shouldShow);
     },
     { threshold: 0 }
   );
-  stickyObserver.observe(sentinel);
+  visibilityObserver.observe(hero);
 
   const links = subnav.querySelectorAll('.machine-subnav__link');
   const sectionIds = [...links].map((link) => link.dataset.section);
@@ -150,7 +160,7 @@ export function initMachineSubnav() {
   }
 
   return () => {
-    stickyObserver.disconnect();
+    visibilityObserver.disconnect();
     sectionObserver.disconnect();
     controller.abort();
   };

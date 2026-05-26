@@ -26,6 +26,22 @@ if (empty($video_url) && is_array($machine)) {
     $video_url = $machine['hero']['video'] ?? null;
 }
 
+$machine_short = $product instanceof \WC_Product ? $product->get_name() : '';
+if (
+    $product instanceof \WC_Product
+    && function_exists('Standard\\MachinesData\\get_all_machines')
+    && function_exists('Standard\\MachineProductData\\get_slug_aliases')
+) {
+    $aliases   = \Standard\MachineProductData\get_slug_aliases();
+    $data_slug = $aliases[$product->get_slug()] ?? $product->get_slug();
+    foreach (\Standard\MachinesData\get_all_machines(true) as $m) {
+        if (($m['slug'] ?? '') === $data_slug) {
+            $machine_short = $m['name'] ?? $machine_short;
+            break;
+        }
+    }
+}
+
 get_header();
 if (!$machine) {
     while (have_posts()) {
@@ -69,8 +85,6 @@ if (!$machine) {
 
     <?php get_template_part('templates/woo/product/parts/resources', null, compact('machine')); ?>
 
-    <?php get_template_part('templates/woo/product/parts/faq', null, compact('machine')); ?>
-
     <?php
     $case_study = $machine['case_study'] ?? null;
     if (is_array($case_study) && !empty($case_study['content'])) {
@@ -85,7 +99,30 @@ if (!$machine) {
     }
     ?>
 
-    <?php get_template_part('templates/woo/product/parts/final-cta', null, compact('product', 'machine')); ?>
+    <?php get_template_part('templates/woo/product/parts/faq', null, compact('machine')); ?>
+
+    <?php
+    $closer_configurator_url = \Standard\Woo\Catalog\get_configurator_url($product->get_slug());
+    if ($closer_configurator_url !== '') {
+        get_template_part('templates/parts/cta/closer', null, [
+            'section_id'        => 'machine-closer-title',
+            'title'             => sprintf(__('Build your %s.', 'standard'), $machine_short),
+            'text'              => __('Configure and price your machine in your browser, or get one of our specialists on the phone.', 'standard'),
+            'cta_primary'       => __('Build & Price', 'standard'),
+            'cta_primary_url'   => $closer_configurator_url,
+            'cta_secondary'     => __('Talk to a Specialist', 'standard'),
+            'cta_secondary_url' => '/contact/',
+        ]);
+    } else {
+        get_template_part('templates/parts/cta/closer', null, [
+            'section_id'      => 'machine-closer-title',
+            'title'           => sprintf(__('Talk to us about the %s.', 'standard'), $machine_short),
+            'text'            => __('Our specialists can walk you through configuration, pricing, and financing options.', 'standard'),
+            'cta_primary'     => __('Talk to a Specialist', 'standard'),
+            'cta_primary_url' => '/contact/',
+        ]);
+    }
+    ?>
 
     <?php get_template_part('templates/woo/product/parts/floating-quote-cta', null, compact('product')); ?>
 
