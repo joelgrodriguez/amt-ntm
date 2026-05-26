@@ -98,7 +98,7 @@ if ($pattern) {
                     id="<?php echo esc_attr($section_id); ?>-title"
                     class="font-sans font-medium leading-[0.95] tracking-tight text-white text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl"
                 >
-                    <?php echo esc_html($content['title']); ?>
+                    <?php echo wp_kses($content['title'], ['br' => ['class' => []]]); ?>
                 </h2>
 
                 <?php if (!empty($content['subtitle'])) : ?>
