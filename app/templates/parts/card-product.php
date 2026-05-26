@@ -90,6 +90,8 @@ $show_description = $args['show_description'] ?? true;
             <?php \Standard\Images\responsive_image($image, '', 'product-card', [
                 'class' => 'card-product__image',
             ]); ?>
+        <?php else : ?>
+            <?php \Standard\Images\fallback_image(['class' => 'card-product__image']); ?>
         <?php endif; ?>
     </div>
 
