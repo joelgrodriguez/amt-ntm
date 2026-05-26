@@ -42,6 +42,39 @@
   height: auto !important;
 }
 
+/* Containment guard for the single-post body.
+   In-content media (images with explicit width attrs, embedded iframes,
+   wide tables, long unbroken code) is the usual side-scroll culprit.
+   Cap every media child to the container and let blocks that genuinely
+   need to scroll (tables, pre) do so inside their own box. */
+.prose img,
+.prose picture,
+.prose video,
+.prose iframe,
+.prose embed,
+.prose object,
+.prose svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.prose iframe,
+.prose embed,
+.prose object {
+  display: block;
+}
+
+.prose pre,
+.prose table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.prose figure {
+  max-width: 100%;
+}
+
 /* Featured image - hero crop is locked to 16:9 (editorial-landscape).
    In-post images keep their natural ratio (handled elsewhere). */
 .featured-image {
