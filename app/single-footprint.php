@@ -37,8 +37,6 @@ while (have_posts()) :
         'compat_eyebrow'     => __('Compatibility', 'standard'),
         'compat_heading'     => __('Fits These Machines', 'standard'),
         'compat_empty'       => __('No machines tagged yet.', 'standard'),
-        'tag_count_singular' => __('%d footprint', 'standard'),
-        'tag_count_plural'   => __('%d footprints', 'standard'),
         'archive_url'        => $archive_url,
         'back_label'         => __('Back to all footprints', 'standard'),
         'spec_heading'       => __('Footprint Drawing', 'standard'),
