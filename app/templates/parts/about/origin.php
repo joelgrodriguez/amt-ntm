@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
 
 $content = [
     'eyebrow' => __('Built it. Still building it.', 'standard'),
-    'title'   => __('Larry Coben shipped the SSP in 1991 and started a category. We\'re still the ones defining it.', 'standard'),
+    'title'   => __('NTM shipped the SSP in 1991 and started a category. We\'re still the ones defining it.', 'standard'),
     'p1'      => __('NTM was the first to commercially produce a polyurethane drive-roller machine with separate forming rollers. Today almost every portable rollformer on the market uses that approach. The patents have aged out. The lead hasn\'t.', 'standard'),
     'p2'      => __('Since 2015, NTM has been part of Mazzella Companies, a third-generation, family-owned American manufacturer. The backing means the capital to keep engineering, keep manufacturing in-house, and keep investing in the next category-defining machine.', 'standard'),
 ];
@@ -75,7 +75,7 @@ $milestones = [
     <div class="container">
 
         <div class="max-w-4xl mb-12 lg:mb-16">
-            <p class="font-mono uppercase tracking-wider text-xs text-red mb-5">
+            <p class="font-mono uppercase tracking-wider text-xs text-blue-500 mb-5">
                 <?php echo esc_html($content['eyebrow']); ?>
             </p>
             <h2 id="about-origin-title" class="font-sans font-medium text-blue-900 text-2xl md:text-3xl lg:text-[2.5rem] leading-tight tracking-tight">
