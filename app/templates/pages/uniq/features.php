@@ -22,7 +22,7 @@ $content = [
 ];
 
 $features = get_uniq_detailed_features();
-$last_idx = count($features) - 1;
+$count    = count($features);
 ?>
 
 <section class="section bg-white border-y border-blue-200" aria-labelledby="uniq-features-title">
@@ -41,27 +41,30 @@ $last_idx = count($features) - 1;
             </p>
         </div>
 
-            <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-blue-200 divide-y divide-blue-200 md:divide-y-0">
+        <ul role="list" class="grid grid-cols-1 md:grid-cols-2 divide-y divide-blue-200 md:divide-y-0">
             <?php foreach ($features as $i => $feature) :
+                // 2x2 pair grid. Row 1 = items 0,1. Row 2 = items 2,3.
+                // Borders:
+                //   - md+: items in row 1 (i<2) get a bottom border
+                //          to separate from row 2.
+                //   - md+: items in column 1 (even i) get a right
+                //          border to separate from column 2.
                 $cls = '';
-                if ($i < 2) {
-                    $cls .= ' md:border-b md:border-blue-200 lg:border-b-0';
+                if ($i < $count - 2) {
+                    $cls .= ' md:border-b md:border-blue-200';
                 }
                 if ($i % 2 === 0) {
                     $cls .= ' md:border-r md:border-blue-200';
                 }
-                if ($i < $last_idx) {
-                    $cls .= ' lg:border-r lg:border-blue-200';
-                }
             ?>
-                <li class="grid gap-4 content-start p-6 lg:p-8<?php echo esc_attr($cls); ?>">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.18em] text-blue-500">
+                <li class="grid gap-4 content-start p-8 md:p-10 lg:p-12<?php echo esc_attr($cls); ?>">
+                    <span class="font-mono font-medium text-[11px] uppercase tracking-[0.18em] text-blue-500">
                         <?php echo esc_html($feature['spec']); ?>
                     </span>
-                    <h3 class="font-sans font-medium text-xl text-blue-900 leading-tight">
+                    <h3 class="font-sans font-medium text-xl md:text-2xl text-blue-900 leading-tight">
                         <?php echo esc_html($feature['title']); ?>
                     </h3>
-                    <p class="font-sans text-base text-blue-600 leading-relaxed">
+                    <p class="font-sans text-base text-blue-600 leading-relaxed max-w-prose">
                         <?php echo esc_html($feature['text']); ?>
                     </p>
                 </li>
