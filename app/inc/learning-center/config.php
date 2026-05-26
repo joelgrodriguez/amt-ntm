@@ -85,3 +85,46 @@ function get_type_cta(string $post_type): string {
 
     return $config[$post_type]['cta'] ?? \__('Read More', 'standard');
 }
+
+/**
+ * Curated category slugs surfaced anywhere we render a category filter
+ * (Learning Center landing, blog/category archives, search sidebar).
+ * Hard-coded so editorial cleanup or stray uncategorized terms never
+ * leak into the rail.
+ *
+ * @return string[]
+ */
+function get_category_allowlist(): array {
+    return [
+        'buying-a-portable-rollforming-machine',
+        'testimonials',                                // Customer Stories
+        'industry-news-information',
+        'machine-accessories-add-ons',
+        'machine-service-troubleshooting',
+        'metal-materials-types',
+        'rollforming-faq',
+        'metal-roof-wall-panel-rollforming-machines',  // Roof & wall panel rollforming machines
+        'seamless-gutter-rollforming-machines',
+        'training',
+    ];
+}
+
+/**
+ * Fetch the curated category WP_Term list, sorted A→Z by display name.
+ *
+ * @return \WP_Term[]
+ */
+function get_allowed_categories(): array {
+    $terms = \get_categories([
+        'hide_empty' => false,
+        'slug'       => get_category_allowlist(),
+    ]);
+
+    if (!is_array($terms)) {
+        return [];
+    }
+
+    \usort($terms, static fn(\WP_Term $a, \WP_Term $b): int => \strcasecmp($a->name, $b->name));
+
+    return $terms;
+}

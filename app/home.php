@@ -37,27 +37,10 @@ $featured_query = get_featured_query($filters);
 
 // Curated Learning Center category allowlist. Editors create many
 // categories that don't belong on the LC rail (product taxonomies like
-// Profiles / Manuals, internal tags like Resources). Hard-code the
-// slugs we want, then sort alphabetically by display name so the rail
-// reads as a stable, scannable directory.
-$lc_category_allowlist = [
-    'buying-a-portable-rollforming-machine',
-    'testimonials',                                // Customer Stories
-    'industry-news-information',
-    'machine-accessories-add-ons',
-    'machine-service-troubleshooting',
-    'metal-materials-types',
-    'rollforming-faq',
-    'metal-roof-wall-panel-rollforming-machines',  // Roof & wall panel rollforming machines
-    'seamless-gutter-rollforming-machines',
-    'training',
-];
-$categories = get_categories([
-    'hide_empty' => false,
-    'slug'       => $lc_category_allowlist,
-]);
-$categories = is_array($categories) ? $categories : [];
-usort($categories, static fn(WP_Term $a, WP_Term $b): int => strcasecmp($a->name, $b->name));
+// Profiles / Manuals, internal tags like Resources). The curated slug
+// list lives in inc/learning-center/config.php so the search sidebar
+// and blog archive render the same shortlist.
+$categories = \Standard\LearningCenter\get_allowed_categories();
 
 // Restrict the Machine filter to the curated NTM machine catalog
 // (SSQ3, SSQ II, SSH, SSR, 5V Crimp, WAV, MACH II, BG7), in that

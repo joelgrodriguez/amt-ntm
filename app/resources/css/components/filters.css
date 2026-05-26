@@ -151,14 +151,14 @@
     clip-path: polygon(14% 50%, 0 64%, 38% 100%, 100% 22%, 86% 8%, 38% 70%);
   }
 
-  .filter-option-control[type="radio"] {
-    border-radius: 9999px;
-  }
-
+  /* Radios share the square box vocabulary with checkboxes. The brand
+     reads as hard corners; the dot vs. checkmark glyph is enough to
+     telegraph single-select vs. multi-select. */
   .filter-option-control[type="radio"]:checked::after {
     background-color: var(--color-white);
     clip-path: none;
-    border-radius: 9999px;
+    width: 6px;
+    height: 6px;
   }
 
   .filter-option-label {
