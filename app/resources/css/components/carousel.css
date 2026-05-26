@@ -4,7 +4,10 @@
  * Horizontal card scroller with snap and nav buttons.
  * Cards show 2 → 3 → 4 per viewport at sm → md → lg.
  *
- * @see templates/woo/product/parts/carousel.php
+ * Cards inside .carousel__track use canonical card partials
+ * (card-accessory, card-product, card-profile) with context => 'carousel',
+ * which adds .carousel__card so the card snaps and sizes inside the track.
+ *
  * @file components/carousel.css
  */
 
@@ -42,18 +45,6 @@
     .carousel__card {
       width: calc(25% - 0.75rem);
     }
-  }
-
-  .carousel__card-image {
-    @apply bg-blue-50 aspect-square flex items-center justify-center overflow-hidden;
-  }
-
-  .carousel__card-image img {
-    @apply w-full h-full object-contain p-3 transition-transform;
-  }
-
-  .carousel__card:hover .carousel__card-image img {
-    @apply scale-105;
   }
 
   /* card-profile, card-product, and card-accessory slot into .carousel__track
