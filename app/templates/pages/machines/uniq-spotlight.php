@@ -24,7 +24,7 @@ use function Standard\MachinesData\get_uniq_features;
 
 $content = [
     'eyebrow'      => __('Technology', 'standard'),
-    'title'        => __('UNIQ® Automatic Control System', 'standard'),
+    'title'        => __('UNIQ® Automatic<br class="hidden lg:inline"> Control System', 'standard'),
     'subtitle'     => __("NTM's most advanced programmable controller, designed to improve automation, safety, and the operator experience.", 'standard'),
     'availability' => __('Standard on WAV · Optional on SSQ II & SSQ3', 'standard'),
     'image'        => content_url('/uploads/2023/09/WAV-with-UNIQ-Controller-scaled.jpg'),
@@ -56,11 +56,17 @@ $features = get_uniq_features();
                 </p>
                 <div class="section-divider"></div>
                 <h2 id="uniq-spotlight-title" class="section-title">
-                    <?php echo esc_html($content['title']); ?>
+                    <?php echo wp_kses($content['title'], ['br' => ['class' => []]]); ?>
                 </h2>
                 <p class="section-subtitle">
                     <?php echo esc_html($content['subtitle']); ?>
                 </p>
+                <div class="mt-6">
+                    <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-outline-dark">
+                        <?php echo esc_html($content['cta_text']); ?>
+                        <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
+                    </a>
+                </div>
             </div>
         </div>
         <ol class="grid gap-px bg-blue-200 border border-blue-200 md:grid-cols-2" role="list">
@@ -79,12 +85,6 @@ $features = get_uniq_features();
                 </li>
             <?php endforeach; ?>
         </ol>
-        <div>
-            <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_url'])); ?>" class="btn btn-outline-dark">
-                <?php echo esc_html($content['cta_text']); ?>
-                <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
-            </a>
-        </div>
 
     </div>
 </section>
