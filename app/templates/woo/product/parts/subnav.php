@@ -61,6 +61,11 @@ if (!empty($machine['case_study'])) {
     $nav_links[__('Case Study', 'standard')] = 'machine-case-study';
 }
 
+$fit = $machine['fit'] ?? null;
+if (!empty($fit['is_for']) || !empty($fit['is_not_for'])) {
+    $nav_links[__('Fit', 'standard')] = 'machine-fit';
+}
+
 if (!empty($machine['accessories']['product_tag'])) {
     $nav_links[__('Accessories', 'standard')] = 'machine-accessories';
 }
