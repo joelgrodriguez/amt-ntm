@@ -5,8 +5,8 @@
  * landing-page catalog, single-accessory "Related", default-accessories
  * carousel on machine pages, and the mega menu's Accessories tab.
  *
- * Visual language matches the existing accessory carousel cards: blue-50
- * square image well, sans heading, mono-style subtitle for price_html.
+ * Visual language matches card-product: blue-50 16:9 image well, sans
+ * heading, mono-style subtitle for price_html.
  * Hover affordance follows the card-product convention (DESIGN.md §8.8):
  * the heading shifts color, no background fill.
  *
@@ -32,7 +32,7 @@
   }
 
   .card-accessory__image {
-    @apply bg-blue-50 aspect-square flex items-center justify-center overflow-hidden;
+    @apply bg-blue-50 aspect-video flex items-center justify-center overflow-hidden;
   }
 
   .card-accessory__placeholder {

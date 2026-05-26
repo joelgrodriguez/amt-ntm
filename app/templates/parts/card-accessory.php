@@ -7,7 +7,7 @@
  * default-accessories carousel, "Related" strip on single-accessory,
  * and the mega menu's Accessories tab.
  *
- * Square image well on blue-50, mono-less heading, price_html as subtitle.
+ * 16:9 image well on blue-50, mono-less heading, price_html as subtitle.
  * Hover shifts the heading color (same affordance as `card-product`).
  *
  * @package Standard
