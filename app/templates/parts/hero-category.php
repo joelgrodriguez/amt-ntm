@@ -15,11 +15,21 @@
  * @package Standard
  *
  * @param array  $content    {kicker, title, subtitle, cta_primary,
- *                            cta_primary_url, cta_secondary,
- *                            cta_secondary_url, video, poster,
+ *                            cta_primary_url, cta_primary_icon,
+ *                            cta_secondary, cta_secondary_url,
+ *                            cta_secondary_trigger, video, poster,
  *                            poster_alt}
+ *                           cta_primary_icon defaults to 'arrow-down'.
+ *                           Pass 'arrow-right' for navigation CTAs.
+ *                           cta_secondary_trigger, when truthy, makes
+ *                           the secondary CTA a remote facade trigger
+ *                           (the panel's own Wistia facade activates),
+ *                           instead of a navigation link.
  * @param array  $meta       Array of {label, value} mono rail items.
  * @param string $section_id ID used for aria-labelledby.
+ * @param bool   $pattern    Render the dot-grid backdrop. Default true
+ *                           for category landing pages; product detail
+ *                           pages should pass false.
  */
 
 declare(strict_types=1);
@@ -31,13 +41,17 @@ if (!defined('ABSPATH')) {
 use function Standard\Video\render_video_embed;
 use function Standard\Video\is_wistia_url;
 
-$content    = $args['content'] ?? [];
-$meta       = $args['meta'] ?? [];
-$section_id = $args['section_id'] ?? 'hero';
-$video      = $content['video'] ?? '';
-$poster     = $content['poster'] ?? '';
-$poster_alt = $content['poster_alt'] ?? '';
-$kicker     = $content['kicker'] ?? ($content['eyebrow'] ?? '');
+$content              = $args['content'] ?? [];
+$meta                 = $args['meta'] ?? [];
+$section_id           = $args['section_id'] ?? 'hero';
+$pattern              = $args['pattern'] ?? true;
+$video                = $content['video'] ?? '';
+$poster               = $content['poster'] ?? '';
+$poster_alt           = $content['poster_alt'] ?? '';
+$kicker               = $content['kicker'] ?? ($content['eyebrow'] ?? '');
+$cta_primary_icon     = $content['cta_primary_icon'] ?? 'arrow-down';
+$cta_secondary_remote = !empty($content['cta_secondary_trigger']);
+$facade_id            = $section_id . '-facade';
 
 // Decide which video pipeline to use.
 // Wistia gets the click-to-play treatment: the poster image is the LCP,
@@ -50,7 +64,13 @@ $has_other_embed  = $other_embed !== '';
 $has_mp4_video    = (bool) $is_mp4;
 ?>
 
-<section class="relative overflow-hidden bg-blue-900 text-white pattern-dot-grid pattern-dot-grid--dark" aria-labelledby="<?php echo esc_attr($section_id); ?>-title">
+<?php
+$section_classes = 'relative overflow-hidden bg-blue-900 text-white';
+if ($pattern) {
+    $section_classes .= ' pattern-dot-grid pattern-dot-grid--dark';
+}
+?>
+<section class="<?php echo esc_attr($section_classes); ?>" aria-labelledby="<?php echo esc_attr($section_id); ?>-title">
     <?php
     // Screen-reader-only H1 carrying the WP page title (e.g. "Roof and
     // Wall Panel Machines"). Mirrors the old theme's pattern and gives
@@ -90,23 +110,36 @@ $has_mp4_video    = (bool) $is_mp4;
                 <div class="flex flex-col sm:flex-row gap-4">
                     <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="btn btn-primary">
                         <?php echo esc_html($content['cta_primary']); ?>
-                        <?php icon('arrow-down', ['class' => 'w-5 h-5']); ?>
+                        <?php icon($cta_primary_icon, ['class' => 'w-5 h-5']); ?>
                     </a>
                     <?php if (!empty($content['cta_secondary'])) : ?>
-                        <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_secondary_url'])); ?>" class="btn btn-outline-light">
-                            <?php echo esc_html($content['cta_secondary']); ?>
-                        </a>
+                        <?php if ($cta_secondary_remote && $is_wistia) : ?>
+                            <button
+                                type="button"
+                                class="btn btn-outline-light"
+                                data-video-trigger="#<?php echo esc_attr($facade_id); ?>"
+                            >
+                                <?php echo esc_html($content['cta_secondary']); ?>
+                                <?php icon('play', ['class' => 'w-4 h-4']); ?>
+                            </button>
+                        <?php else : ?>
+                            <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_secondary_url'])); ?>" class="btn btn-outline-light">
+                                <?php echo esc_html($content['cta_secondary']); ?>
+                            </a>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
 
-                <?php if (!empty($meta)) : ?>
-                    <dl class="grid grid-cols-2 gap-x-8 gap-y-4 border-t border-white/15 pt-6 mt-2 max-w-md sm:grid-cols-3">
+                <?php if (!empty($meta)) :
+                    $meta_cols = count($meta) === 3 ? 'grid-cols-3' : 'grid-cols-2 sm:grid-cols-3';
+                ?>
+                    <dl class="grid <?php echo esc_attr($meta_cols); ?> gap-x-6 gap-y-4 border-t border-white/15 pt-6 mt-2 max-w-md">
                         <?php foreach ($meta as $item) : ?>
-                            <div class="grid gap-1">
+                            <div class="grid gap-1 min-w-0">
                                 <dt class="font-mono text-[10px] uppercase tracking-[0.15em] text-blue-300">
                                     <?php echo esc_html($item['label']); ?><span class="sr-only">:</span>
                                 </dt>
-                                <dd class="font-mono text-base text-white sm:text-lg">
+                                <dd class="font-mono text-sm text-white sm:text-base lg:text-lg break-words">
                                     <?php echo esc_html($item['value']); ?>
                                 </dd>
                             </div>
@@ -122,6 +155,7 @@ $has_mp4_video    = (bool) $is_mp4;
                     <button
                         type="button"
                         class="video-facade"
+                        id="<?php echo esc_attr($facade_id); ?>"
                         data-video-facade
                         data-video-url="<?php echo esc_url($video); ?>"
                         aria-label="<?php echo esc_attr__('Play video', 'standard'); ?>"
