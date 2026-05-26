@@ -16,20 +16,16 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use function Standard\Filters\build_choice_group;
-use function Standard\MachinesData\get_machine_post_tags;
+use function Standard\LearningCenter\get_filter_groups;
 use function Standard\ServiceHub\get_active_filters;
 use function Standard\ServiceHub\get_post_type_label;
 use function Standard\ServiceHub\get_post_type_options;
 use function Standard\ServiceHub\get_results_query;
-use function Standard\ServiceHub\get_terms_for_service_content;
 
 $filters = get_active_filters();
 $paged = max(1, (int) get_query_var('paged'), (int) get_query_var('page'));
 $service_query = get_results_query($filters, $paged);
 $post_type_options = get_post_type_options();
-$categories = get_terms_for_service_content('category', 24);
-$machine_tags = get_machine_post_tags();
 $form_action = get_permalink() ?: \Standard\Url\internal('/service-hub/');
 $has_filters = $filters['search'] !== ''
     || $filters['type'] !== ''
@@ -38,63 +34,25 @@ $has_filters = $filters['search'] !== ''
 
 $service_form_id = 'service-hub-form';
 
-// Build sidebar filter groups (radio mode; the query layer reads each
-// param as a scalar). Each group leads with an empty-value "All" row
-// so users can clear that one axis without leaving the page.
+// Same Learning Center category/machine rail, service-specific type choices.
+// The query itself stays service-only via content_department=service-repair.
 $type_choice_options = ['' => __('All types', 'standard')];
 foreach ($post_type_options as $post_type => $option) {
     $type_choice_options[$post_type] = (string) $option['label'];
 }
 
-$category_choice_options = ['' => __('All categories', 'standard')];
-foreach ($categories as $category) {
-    if ($category instanceof WP_Term) {
-        $category_choice_options[$category->slug] = $category->name;
-    }
-}
-
-$service_groups = [
-    build_choice_group(
-        'service-type',
-        __('Type', 'standard'),
-        'service_type',
-        $type_choice_options,
-        [(string) $filters['type']],
-        [],
-        'file-text',
-        'radio'
-    ),
-    build_choice_group(
-        'service-category',
-        __('Category', 'standard'),
-        'service_category',
-        $category_choice_options,
-        [(string) $filters['category']],
-        [],
-        'folder',
-        'radio'
-    ),
-];
-
-if (!empty($machine_tags)) {
-    $machine_choice_options = ['' => __('All machines', 'standard')];
-    foreach ($machine_tags as $machine_tag) {
-        if ($machine_tag instanceof WP_Term) {
-            $machine_choice_options[$machine_tag->slug] = $machine_tag->name;
-        }
-    }
-
-    $service_groups[] = build_choice_group(
-        'service-machine',
-        __('Machine', 'standard'),
-        'service_machine',
-        $machine_choice_options,
-        [(string) $filters['machine']],
-        [],
-        'settings',
-        'radio'
-    );
-}
+$service_groups = get_filter_groups([
+    'category' => $filters['category'],
+    'type'     => $filters['type'],
+    'machine'  => $filters['machine'],
+], [
+    'names' => [
+        'category' => 'service_category',
+        'type'     => 'service_type',
+        'machine'  => 'service_machine',
+    ],
+    'type_options' => $type_choice_options,
+]);
 
 get_header();
 ?>

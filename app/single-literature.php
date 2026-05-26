@@ -2,9 +2,7 @@
 /**
  * The template for displaying single literature posts.
  *
- * Same shell as single-manual.php: profile-style hero, two-column body
- * with a taxonomy filter sidebar (category + machine tag) on the left
- * and the literature content on the right.
+ * Literature content with the shared Learning Center filter rail.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
  *
@@ -17,19 +15,14 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use function Standard\ContentTaxonomy\get_terms_for_post_type;
+use function Standard\LearningCenter\get_filter_link_groups;
 
 $content = [
-    'badge'          => __('Literature', 'standard'),
-    'filter_type'    => __('Filter by Type', 'standard'),
-    'filter_machine' => __('Filter by Machine', 'standard'),
-    'view_all'       => __('View All Literature', 'standard'),
+    'badge'    => __('Literature', 'standard'),
+    'view_all' => __('View All Literature', 'standard'),
 ];
 
 get_header();
-
-$categories   = get_the_terms(get_the_ID(), 'category');
-$machine_tags = get_the_tags();
 ?>
 
 <main id="primary">
@@ -43,23 +36,16 @@ $machine_tags = get_the_tags();
             <div class="container layout-with-rail">
 
                 <?php
-                get_template_part('templates/parts/taxonomy-filter-sidebar', null, [
-                    'sections' => [
-                        [
-                            'title'         => $content['filter_type'],
-                            'icon'          => 'filter',
-                            'terms'         => get_terms_for_post_type('literature', 'category'),
-                            'current_terms' => $categories,
-                        ],
-                        [
-                            'title'         => $content['filter_machine'],
-                            'icon'          => 'settings',
-                            'terms'         => get_terms_for_post_type('literature', 'post_tag'),
-                            'current_terms' => $machine_tags,
-                        ],
-                    ],
-                    'back_url'   => get_post_type_archive_link('literature') ?: '',
-                    'back_label' => $content['view_all'],
+                get_template_part('templates/parts/filter-sidebar', null, [
+                    'groups'       => get_filter_link_groups(
+                        ['type' => 'literature'],
+                        ['type' => 'literature']
+                    ),
+                    'show_actions' => false,
+                    'back_url'     => get_post_type_archive_link('literature') ?: '',
+                    'back_label'   => $content['view_all'],
+                    'drawer_label' => __('Filters', 'standard'),
+                    'aria_label'   => __('Learning Center filters', 'standard'),
                 ]);
                 ?>
 

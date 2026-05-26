@@ -2,11 +2,7 @@
 /**
  * The template for displaying single download posts.
  *
- * Shares the same shell as single.php (articles): fading dot-grid page,
- * no hero chrome, one container for hero + body, full-width content
- * with a fixed-width left rail. The rail here lists other downloads of
- * the same type (the same-type sidebar that used to live in
- * single-sidebar-layout.php).
+ * Shares the article shell and uses the shared Learning Center filter rail.
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
  *
@@ -19,16 +15,11 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use function Standard\LearningCenter\get_sidebar_items_query;
+use function Standard\LearningCenter\get_filter_link_groups;
 
 get_header();
 
-$post_type   = 'download';
-$type_object = get_post_type_object($post_type);
-$plural      = $type_object?->labels->name ?? __('Downloads', 'standard');
-/* translators: %s post-type plural label, e.g. "Downloads". */
-$rail_title  = sprintf(__('All %s', 'standard'), $plural);
-$archive_url = get_post_type_archive_link($post_type);
+$archive_url = get_post_type_archive_link('download');
 ?>
 
 <main id="primary" class="pattern-dot-grid pb-6 lg:pb-12">
@@ -41,46 +32,19 @@ $archive_url = get_post_type_archive_link($post_type);
                 ]); ?>
 
                 <div class="article-layout">
-                    <aside class="hidden lg:block" aria-label="<?php echo esc_attr($rail_title); ?>">
-                        <nav class="sticky top-24">
-                            <p class="font-mono font-medium uppercase tracking-widest text-caption text-blue-500 m-0 mb-6">
-                                <?php echo esc_html($rail_title); ?>
-                            </p>
-                            <ul class="grid gap-0 m-0 p-0 list-none border-t border-blue-100">
-                                <?php
-                                $items = get_sidebar_items_query($post_type, (int) get_the_ID());
-
-                                if ($items->have_posts()) :
-                                    while ($items->have_posts()) : $items->the_post();
-                                ?>
-                                    <li class="border-b border-blue-100">
-                                        <a href="<?php the_permalink(); ?>"
-                                           class="group flex items-start gap-3 py-3 text-sm leading-snug text-blue-900 no-underline hover:text-blue-500 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
-                                            <span class="mt-1.5 w-1 h-1 shrink-0 bg-blue-300 group-hover:bg-blue-500 transition-colors" aria-hidden="true"></span>
-                                            <span class="min-w-0"><?php the_title(); ?></span>
-                                        </a>
-                                    </li>
-                                <?php
-                                    endwhile;
-                                    wp_reset_postdata();
-                                endif;
-                                ?>
-                            </ul>
-
-                            <?php if ($archive_url) :
-                                /* translators: %s post-type plural label, e.g. "Downloads". */
-                                $view_all_label = sprintf(__('View all %s', 'standard'), strtolower($plural));
-                            ?>
-                                <a href="<?php echo esc_url($archive_url); ?>"
-                                   class="group mt-6 inline-flex items-center gap-2 font-mono uppercase tracking-widest text-caption text-blue-500 no-underline hover:text-blue-700 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
-                                    <?php echo esc_html($view_all_label); ?>
-                                    <span class="transition-transform duration-200 group-hover:translate-x-1">
-                                        <?php icon('arrow-right', ['class' => 'w-3 h-3', 'aria-hidden' => 'true']); ?>
-                                    </span>
-                                </a>
-                            <?php endif; ?>
-                        </nav>
-                    </aside>
+                    <?php
+                    get_template_part('templates/parts/filter-sidebar', null, [
+                        'groups'       => get_filter_link_groups(
+                            ['type' => 'download'],
+                            ['type' => 'download']
+                        ),
+                        'show_actions' => false,
+                        'back_url'     => is_string($archive_url) ? $archive_url : '',
+                        'back_label'   => __('View All Downloads', 'standard'),
+                        'drawer_label' => __('Filters', 'standard'),
+                        'aria_label'   => __('Learning Center filters', 'standard'),
+                    ]);
+                    ?>
 
                     <div class="min-w-0">
                         <div class="prose prose-lg max-w-full">
