@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
 }
 
 get_template_part('templates/parts/learning-center', null, [
-    'title'         => __('Roof & Wall Panel Resources', 'standard'),
+    'title'         => __('Roof & Wall Panel Learning Center', 'standard'),
     'subtitle'      => __('Guides, videos, and tips to help you get the most from your roof and wall panel machines.', 'standard'),
     'category_slug' => 'metal-roof-wall-panel-rollforming-machines',
     'post_count'    => 4,
