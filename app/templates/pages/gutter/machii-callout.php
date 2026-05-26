@@ -30,19 +30,19 @@ $image_alt = __('NTM MACH II seamless gutter machine on a jobsite', 'standard');
 
             <div class="grid gap-6 order-2 lg:order-1">
                 <div class="section-header-left">
-                    <p class="section-eyebrow"><?php esc_html_e('MACH II Family', 'standard'); ?></p>
+                    <p class="section-eyebrow"><?php esc_html_e('MACH II 5"/6" Combo', 'standard'); ?></p>
                     <div class="section-divider"></div>
                     <h2 id="machii-callout-title" class="section-title">
-                        <?php esc_html_e('Take a closer look at the MACH II.', 'standard'); ?>
+                        <?php esc_html_e('Take a closer look at the MACH II Combo.', 'standard'); ?>
                     </h2>
                     <p class="section-subtitle max-w-xl">
-                        <?php esc_html_e('Specs, variants, workflow, customer story, FAQ — everything MACH II in one place. The deep dive on the gutter machine NTM has been building since 1994.', 'standard'); ?>
+                        <?php esc_html_e('Specs, options, workflow, customer story, FAQ — everything you need on the 5"/6" Combo gutter machine NTM has been refining since 1994.', 'standard'); ?>
                     </p>
                 </div>
 
                 <div>
-                    <a href="<?php echo esc_url(\Standard\Url\internal('/machines/machii/')); ?>" class="btn btn-primary">
-                        <?php esc_html_e('Explore the MACH II Family', 'standard'); ?>
+                    <a href="<?php echo esc_url(\Standard\Url\internal('/machines/gutter-machines/mach-ii-5-6-combo-gutter-machine/')); ?>" class="btn btn-primary">
+                        <?php esc_html_e('Explore the MACH II Combo', 'standard'); ?>
                         <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                     </a>
                 </div>
