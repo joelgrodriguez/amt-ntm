@@ -105,6 +105,24 @@
   min-width: 100%;
 }
 
+/* Final containment net. Custom raw-HTML blocks pasted into posts
+   (e.g. .ntm-profile-table-wrap with its own min-width: 480px table,
+   ad embeds, third-party widgets) can ship inline styles that escape
+   the .prose rules above. Cap every direct child of .prose to the
+   column width. Children that need to be wider can scroll inside
+   themselves (the wrappers above already handle that). */
+.prose > * {
+  max-width: 100%;
+}
+
+/* Catch raw-HTML table wrappers authors paste in (any div whose
+   direct child is a wide table). overflow-x: auto on the wrapper,
+   not the table, so the table keeps its layout. */
+.prose div:has(> table) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
 /* Featured image - hero crop is locked to 16:9 (editorial-landscape).
    In-post images keep their natural ratio (handled elsewhere). */
 .featured-image {
