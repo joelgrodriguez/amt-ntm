@@ -56,7 +56,7 @@ $capabilities = [
     <div class="container">
         <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 mb-12 lg:mb-16">
             <div class="lg:col-span-7 grid gap-6 content-start">
-                <p class="font-mono uppercase tracking-wider text-xs text-red-300">
+                <p class="font-mono uppercase tracking-wider text-xs text-blue-300">
                     <?php echo esc_html($content['eyebrow']); ?>
                 </p>
                 <h2 id="about-capabilities-title" class="font-sans font-medium text-white text-2xl md:text-3xl lg:text-[2.5rem] leading-tight tracking-tight">

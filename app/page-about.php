@@ -36,6 +36,8 @@ get_header();
         'section_id' => 'about-who-is-ntm',
     ]); ?>
 
+    <div class="bg-white border-b border-blue-200" aria-hidden="true"></div>
+
     <?php get_template_part('templates/parts/about/capabilities'); ?>
 
     <?php get_template_part('templates/parts/about/people'); ?>
@@ -45,8 +47,8 @@ get_header();
     <?php get_template_part('templates/parts/about/support'); ?>
 
     <?php get_template_part('templates/parts/cta/closer', null, [
-        'title'           => __('Talk to the team that builds the machine and answers the phone.', 'standard'),
-        'text'            => __('Sales, service, and support are all in Aurora. The same people, for as long as you own the machine.', 'standard'),
+        'title'           => __('Talk to a team committed to your success.', 'standard'),
+        'text'            => __('Sales, engineering, service, and support, all in Aurora. The same people, for as long as you own the machine.', 'standard'),
         'cta_primary'     => __('Talk to a Specialist', 'standard'),
         'cta_primary_url' => '/contact/',
         'section_id'      => 'about-closer-title',
