@@ -84,7 +84,6 @@ if (!empty($machine['case_study'])) {
 }
 ?>
 
-<div id="machine-subnav-sentinel"></div>
 <nav
     id="machine-subnav"
     class="machine-subnav"
