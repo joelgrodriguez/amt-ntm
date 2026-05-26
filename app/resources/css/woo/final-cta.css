@@ -1,0 +1,88 @@
+/**
+ * Machine Product — Final CTA
+ *
+ * Single committed action panel on the dark surface that closes the
+ * machine page. Shares the configurator-cta vocabulary: mono editorial
+ * eyebrow with a single red dot, left-aligned hairline composition,
+ * one primary button + one mono alt link. No card grid, no boxed-in
+ * tiles, no third "Watch Video" placeholder.
+ *
+ * The existing .final-cta__title / .final-cta__subtitle font scale
+ * lives in components/sections.css and is still used by
+ * templates/parts/cta/closer.php.
+ *
+ * @file woo/final-cta.css
+ */
+
+@layer components {
+
+  .final-cta__header {
+    display: grid;
+    gap: clamp(12px, 1.5vw, 20px);
+    max-width: 64rem;
+    margin-bottom: clamp(40px, 5vw, 64px);
+  }
+
+  .final-cta__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-blue-200);
+  }
+
+  .final-cta__eyebrow-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-red);
+    flex-shrink: 0;
+  }
+
+  .final-cta__lede {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    color: var(--color-blue-200);
+    line-height: 1.55;
+    margin: 0;
+    font-size: clamp(16px, 1.4vw, 20px);
+    max-width: 56ch;
+  }
+
+  .final-cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: clamp(16px, 2vw, 24px);
+    padding-top: clamp(24px, 3vw, 40px);
+    border-top: 1px solid var(--color-blue-800);
+  }
+
+  .final-cta__alt-link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-blue-200);
+    text-decoration: none;
+    transition: color 200ms ease-out;
+  }
+
+  .final-cta__alt-link:hover,
+  .final-cta__alt-link:focus-visible {
+    color: var(--color-red);
+  }
+
+  .final-cta__alt-link:focus-visible {
+    outline: 2px solid var(--color-blue-500);
+    outline-offset: 4px;
+  }
+}

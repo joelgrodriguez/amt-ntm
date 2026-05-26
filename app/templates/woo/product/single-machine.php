@@ -77,7 +77,6 @@ if (!$machine) {
 
     <?php get_template_part('templates/woo/product/parts/final-cta', null, compact('product', 'machine')); ?>
 
-    <?php get_template_part('templates/woo/product/parts/sticky-cta', null, compact('product', 'machine')); ?>
     <a
         id="floating-quote-cta"
         href="<?php echo esc_url(\Standard\Url\internal('/configurator/' . $product->get_slug() . '/')); ?>"
