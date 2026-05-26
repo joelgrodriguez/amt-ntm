@@ -65,6 +65,40 @@ function include_legacy_page_template(string $template): string
 add_filter('template_include', __NAMESPACE__ . '\\include_legacy_page_template', 20);
 
 /**
+ * Detect the /configurator/ page tree.
+ *
+ * Child pages do not inherit page-configurator.php in WordPress; routing by
+ * page URI covers /configurator/ and /configurator/* consistently.
+ */
+function is_configurator_page_tree(int $post_id): bool
+{
+    $page_uri = trim(get_page_uri($post_id), '/');
+
+    return $page_uri === 'configurator' || strpos($page_uri, 'configurator/') === 0;
+}
+
+/**
+ * Render configurator pages with only wp_head(), content, and wp_footer().
+ */
+function include_configurator_empty_shell(string $template): string
+{
+    if (!is_page() || is_front_page()) {
+        return $template;
+    }
+
+    $post_id = get_queried_object_id();
+
+    if ($post_id <= 0 || !is_configurator_page_tree($post_id)) {
+        return $template;
+    }
+
+    $empty_shell = get_theme_file_path('templates/template-empty-shell.php');
+
+    return file_exists($empty_shell) ? $empty_shell : $template;
+}
+add_filter('template_include', __NAMESPACE__ . '\\include_configurator_empty_shell', 30);
+
+/**
  * Read the first non-empty ACF/custom-field value from a page.
  *
  * @param list<string> $keys
