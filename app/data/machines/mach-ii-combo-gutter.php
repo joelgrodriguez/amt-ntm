@@ -25,7 +25,7 @@ return [
         ['value' => '2',         'label' => __('Gutter Sizes', 'standard')],
         ['value' => '50 ft/min', 'label' => __('Max Speed', 'standard')],
         ['value' => '1,350 lbs', 'label' => __('Machine Weight', 'standard')],
-        ['value' => 'K-style',   'label' => __('Gutter Profile', 'standard')],
+        ['value' => '$12,300+',  'label' => __('Starting Price', 'standard')],
     ],
     'finance' => [
         'monthly_price' => null,
