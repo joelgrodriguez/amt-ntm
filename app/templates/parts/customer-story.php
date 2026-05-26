@@ -14,6 +14,10 @@
  *   - stats: array of {stat, label}
  *   - image_position: 'left' or 'right' (default: 'right')
  *   - section_id: string for aria-labelledby
+ *
+ * The image is resolved from the featured image of the post at cta_url
+ * (via url_to_postid). The 'image' arg is a fallback used when the URL
+ * doesn't resolve to a post or that post has no featured image.
  */
 
 declare(strict_types=1);
@@ -33,15 +37,31 @@ $background     = $args['background'] ?? 'bg-blue-50';
 if (empty($content)) {
     return;
 }
-$render_media = function () use ($content, $stats) :void {
+
+$story_post_id = 0;
+if (!empty($content['cta_url'])) {
+    $story_post_id = url_to_postid(home_url($content['cta_url']));
+}
+$featured_image_id = $story_post_id ? (int) get_post_thumbnail_id($story_post_id) : 0;
+
+$render_media = function () use ($content, $stats, $featured_image_id) :void {
+    $alt = $content['name'] . ', ' . $content['company'];
     ?>
     <div class="grid gap-6">
-        <img
-            src="<?php echo esc_url($content['image']); ?>"
-            alt="<?php echo esc_attr($content['name'] . ', ' . $content['company']); ?>"
-            class="w-full aspect-video object-cover"
-            loading="lazy"
-        >
+        <?php if ($featured_image_id) : ?>
+            <?php echo wp_get_attachment_image($featured_image_id, 'large', false, [
+                'class'   => 'w-full aspect-video object-cover',
+                'alt'     => $alt,
+                'loading' => 'lazy',
+            ]); ?>
+        <?php elseif (!empty($content['image'])) : ?>
+            <img
+                src="<?php echo esc_url($content['image']); ?>"
+                alt="<?php echo esc_attr($alt); ?>"
+                class="w-full aspect-video object-cover"
+                loading="lazy"
+            >
+        <?php endif; ?>
 
         <?php if (!empty($stats)) : ?>
             <div class="grid grid-cols-3 gap-6">
