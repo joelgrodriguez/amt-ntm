@@ -23,7 +23,6 @@ if (!defined('ABSPATH')) {
 
 get_template_part('templates/parts/hero-category', null, [
     'section_id' => 'uniq-hero',
-    'pattern'    => false,
     'content'    => [
         'kicker'                => __('NTM // CONTROL SYSTEM', 'standard'),
         'title'                 => __('UNIQ® Automatic Control System', 'standard'),
