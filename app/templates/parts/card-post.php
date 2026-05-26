@@ -45,6 +45,8 @@ $category  = get_primary_category();
                 'loading' => 'lazy',
                 'alt'     => '',
             ]); ?>
+        <?php else : ?>
+            <?php \Standard\Images\fallback_image(); ?>
         <?php endif; ?>
     </div>
 
