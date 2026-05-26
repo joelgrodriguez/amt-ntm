@@ -24,13 +24,13 @@ $content      = $args['content'] ?? [];
 $faqs         = $args['faqs'] ?? [];
 $section_id   = $args['section_id'] ?? 'faq-accordion-title';
 $image_alt    = $args['image_alt'] ?? __('NTM machine being lifted onto a rooftop', 'standard');
-// 'fill' (default): image matches the accordion column's height,
-// expanding/collapsing with it via object-cover. No taller than the
-// accordions, ever.
-// 'video': image keeps a 16:9 composition and sits sticky alongside
-// the accordions. Preserves photo intent at the cost of letting the
-// image be shorter than the column.
-$image_aspect = $args['image_aspect'] ?? 'fill';
+// 'video' (default): image keeps a 16:9 composition and sits sticky
+// alongside the accordions. Stable framing as accordions open/close.
+// 'fill': image stretches to match the accordion column's height via
+// object-cover. Caused image to reflow on accordion toggle, so it's no
+// longer the default — keep it available for any future caller that
+// explicitly opts in.
+$image_aspect = $args['image_aspect'] ?? 'video';
 $is_fill      = $image_aspect === 'fill';
 
 if (empty($content) || empty($faqs)) {
