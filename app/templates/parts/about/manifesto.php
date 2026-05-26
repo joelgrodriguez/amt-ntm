@@ -23,9 +23,9 @@ if (!defined('ABSPATH')) {
 
 $content = [
     'eyebrow'   => __('About New Tech Machinery', 'standard'),
-    'title'     => __('We design, build, ship, and stand behind every machine we sell.', 'standard'),
+    'title'     => __('We design, engineer, manufacture, and support every NTM machine.', 'standard'),
     'subhead'   => __('Since 1991', 'standard'),
-    'lede'      => __('NTM invented the modern portable rollforming category and has spent thirty-four years refusing to be the company that disappears after the sale. The engineers, builders, service techs, and support reps are all in the same building. That\'s the whole point.', 'standard'),
+    'lede'      => __('Engineers, builders, service techs, and support staff, all in and committed to your success.', 'standard'),
     'image'     => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-engineer-001.jpg',
     'image_alt' => __('An NTM engineer at a workstation in the Aurora facility, reviewing a rollformer assembly.', 'standard'),
 ];
@@ -43,7 +43,7 @@ $metrics = [
         <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 pt-16 lg:pt-24 pb-12 lg:pb-16">
             <div class="lg:col-span-7 grid gap-7 content-start">
 
-                <p class="font-mono uppercase tracking-wider text-xs text-red">
+                <p class="font-mono uppercase tracking-wider text-xs text-blue-500">
                     <?php echo esc_html($content['eyebrow']); ?>
                 </p>
 
