@@ -22,6 +22,9 @@ use function Standard\MachineSchema\render_machine_schema;
 $product = wc_get_product(get_the_ID());
 $machine = $product !== false ? get_machine_product_data($product->get_slug()) : null;
 $video_url = function_exists('get_field') ? get_field('video', false, false) : null;
+if (empty($video_url) && is_array($machine)) {
+    $video_url = $machine['hero']['video'] ?? null;
+}
 
 get_header();
 if (!$machine) {
@@ -59,6 +62,8 @@ if (!$machine) {
     <?php get_template_part('templates/woo/product/parts/profile-selector', null, compact('product', 'machine')); ?>
 
     <?php get_template_part('templates/woo/product/parts/case-study', null, compact('machine')); ?>
+
+    <?php get_template_part('templates/woo/product/parts/machine-fit', null, compact('machine')); ?>
 
     <?php get_template_part('templates/woo/product/parts/accessories', null, compact('product', 'machine')); ?>
 

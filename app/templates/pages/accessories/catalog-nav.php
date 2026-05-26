@@ -43,15 +43,18 @@ $render_items = static function () use ($buckets): void {
 };
 ?>
 
-<!-- Mobile drawer. Hidden on lg+; the sticky aside takes over. -->
-<details class="filter-drawer lg:hidden" data-accordion-group aria-label="<?php esc_attr_e('Accessory categories', 'standard'); ?>">
+<!-- Mobile drawer. Hidden on lg+; the sticky aside takes over.
+     No data-accordion-group: that attribute forces display:block outside
+     the cascade layer and would override lg:hidden / .filter-drawer's own
+     lg:hidden. -->
+<details class="filter-drawer" aria-label="<?php esc_attr_e('Accessory categories', 'standard'); ?>">
     <summary>
         <span><?php esc_html_e('Jump to a category', 'standard'); ?></span>
-        <span class="filter-drawer-caret accordion__icon" aria-hidden="true">
+        <span class="filter-drawer-caret" aria-hidden="true">
             <?php icon('chevron-down', ['class' => 'w-4 h-4']); ?>
         </span>
     </summary>
-    <div class="filter-drawer-body px-4 py-4" data-accordion-body>
+    <div class="filter-drawer-body px-4 py-4">
         <nav class="toc" aria-label="<?php esc_attr_e('Accessory categories', 'standard'); ?>">
             <ol class="toc__list">
                 <?php $render_items(); ?>
