@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
 }
 
 get_template_part('templates/parts/learning-center', null, [
-    'title'      => __('Rollforming Resources', 'standard'),
+    'title'      => __('Rollforming Learning Center', 'standard'),
     'subtitle'   => __('Expert guides, tips, and resources to help you get the most from your equipment.', 'standard'),
     'post_count' => 4,
     'cta_url'    => '/learning-center/',
