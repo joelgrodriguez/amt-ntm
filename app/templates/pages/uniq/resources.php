@@ -37,15 +37,15 @@ $videos    = $resources['videos'];
 <section class="section bg-blue-50 border-b border-blue-200" aria-labelledby="uniq-resources-title">
     <div class="container section-content">
 
-        <div class="section-header max-w-3xl mx-auto">
+        <div class="section-header-left max-w-3xl">
             <p class="section-eyebrow">
                 <?php echo esc_html($content['eyebrow']); ?>
             </p>
-            <div class="section-divider-center"></div>
+            <div class="section-divider"></div>
             <h2 id="uniq-resources-title" class="section-title">
                 <?php echo esc_html($content['title']); ?>
             </h2>
-            <p class="section-subtitle max-w-2xl mx-auto">
+            <p class="section-subtitle max-w-2xl">
                 <?php echo esc_html($content['subtitle']); ?>
             </p>
         </div>
