@@ -23,11 +23,11 @@ if (!defined('ABSPATH')) {
 
 $content = [
     'eyebrow'   => __('About New Tech Machinery', 'standard'),
-    'title'     => __('The world\'s finest portable rollforming machines.', 'standard'),
+    'title'     => __('We design, build, ship, and stand behind every machine we sell.', 'standard'),
     'subhead'   => __('Since 1991', 'standard'),
-    'lede'      => __('NTM invented the modern portable roof panel machine in 1991 and the modern portable seamless gutter machine three years later. Three decades on, our designs are the ones the industry imitates.', 'standard'),
-    'image'     => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-whole-team-outside-001.jpg',
-    'image_alt' => __('The full NTM Denver team in NTM-branded blue shirts in front of the 16265 facility.', 'standard'),
+    'lede'      => __('NTM invented the modern portable rollforming category and has spent thirty-four years refusing to be the company that disappears after the sale. The engineers, builders, service techs, and support reps are all in the same building. That\'s the whole point.', 'standard'),
+    'image'     => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-engineer-001.jpg',
+    'image_alt' => __('An NTM engineer at a workstation in the Aurora facility, reviewing a rollformer assembly.', 'standard'),
 ];
 
 $metrics = [
