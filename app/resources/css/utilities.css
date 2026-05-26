@@ -26,8 +26,15 @@
     max-width: var(--layout-wide);
   }
 
+  /* Edge-to-edge alignment without triggering horizontal scroll.
+     100vw includes the vertical scrollbar; using it for both width and
+     negative margin reliably overflows the body by ~15px. Anchor to the
+     nearest positioned ancestor instead so the scrollbar can't bite. */
   .alignfull {
-    @apply w-screen relative left-1/2 right-1/2 -mx-[50vw];
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   /* Screen reader text */
