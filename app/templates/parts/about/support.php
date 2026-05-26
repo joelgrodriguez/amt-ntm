@@ -28,16 +28,31 @@ $content = [
 
 $facilities = [
     [
-        'label'    => __('Headquarters', 'standard'),
-        'city'     => 'Aurora, Colorado',
-        'meta'     => __('Engineering, manufacturing, training, support', 'standard'),
-        'year'     => __('Since 1991', 'standard'),
+        'label'   => __('HQ · Sales · Manufacturing', 'standard'),
+        'city'    => __('Aurora, Colorado', 'standard'),
+        'address' => __('16265 E. 33rd Dr., Suite 40', 'standard'),
+        'meta'    => __('Headquarters, engineering, assembly, QC', 'standard'),
+        'year'    => __('Since 1991', 'standard'),
+        'image'   => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-production-001.jpg',
+        'alt'     => __('NTM production technician inspecting a rollforming machine on the Aurora shop floor.', 'standard'),
     ],
     [
-        'label'    => __('Second facility', 'standard'),
-        'city'     => 'Hermosillo, Mexico',
-        'meta'     => __('Manufacturing, regional support for Latin America', 'standard'),
-        'year'     => __('Since 2004', 'standard'),
+        'label'   => __('Service · Support · Training', 'standard'),
+        'city'    => __('Aurora, Colorado', 'standard'),
+        'address' => __('16401 E. 33rd Dr., Suite 10', 'standard'),
+        'meta'    => __('Service & engineering center, operator training', 'standard'),
+        'year'    => __('Across the street', 'standard'),
+        'image'   => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-service-001.jpg',
+        'alt'     => __('NTM service technician working on a rollforming machine at the Aurora Service & Engineering Center.', 'standard'),
+    ],
+    [
+        'label'   => __('Manufacturing', 'standard'),
+        'city'    => __('Hermosillo, Mexico', 'standard'),
+        'address' => __('Latitud Industrial Park', 'standard'),
+        'meta'    => __('Second manufacturing facility, regional support for Latin America', 'standard'),
+        'year'    => __('Since 2004', 'standard'),
+        'image'   => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-production-007.jpg',
+        'alt'     => __('NTM production floor showing rollforming machine assembly.', 'standard'),
     ],
 ];
 
@@ -71,7 +86,7 @@ $memberships = [
     <div class="container">
 
         <div class="max-w-4xl mb-12 lg:mb-16">
-            <p class="font-mono uppercase tracking-wider text-xs text-red mb-5">
+            <p class="font-mono uppercase tracking-wider text-xs text-blue-500 mb-5">
                 <?php echo esc_html($content['eyebrow']); ?>
             </p>
             <h2 id="about-support-title" class="font-sans font-medium text-blue-900 text-2xl md:text-3xl lg:text-[2.5rem] leading-tight tracking-tight mb-6">
@@ -82,29 +97,42 @@ $memberships = [
             </p>
         </div>
 
-        <div class="grid gap-px bg-blue-200 border border-blue-200 mb-12 lg:mb-16 md:grid-cols-2">
+        <ul class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-16 lg:mb-20" role="list">
             <?php foreach ($facilities as $facility) : ?>
-                <div class="bg-blue-50 p-8 lg:p-10 grid gap-3 content-start">
-                    <span class="font-mono uppercase tracking-wider text-xs text-blue-500">
-                        <?php echo esc_html($facility['label']); ?>
-                    </span>
-                    <p class="font-sans font-medium text-blue-900 text-2xl md:text-3xl leading-tight tracking-tight">
-                        <?php echo esc_html($facility['city']); ?>
-                    </p>
-                    <p class="font-sans text-blue-700 text-base leading-snug">
-                        <?php echo esc_html($facility['meta']); ?>
-                    </p>
-                    <p class="font-mono uppercase tracking-wider text-xs text-red mt-2">
-                        <?php echo esc_html($facility['year']); ?>
-                    </p>
-                </div>
+                <li class="grid gap-5 content-start">
+                    <figure class="grid gap-5">
+                        <div class="aspect-[4/5] w-full overflow-hidden bg-blue-100">
+                            <?php \Standard\Images\responsive_image($facility['image'], $facility['alt'], 'large', [
+                                'class'   => 'block w-full h-full object-cover',
+                                'loading' => 'lazy',
+                            ]); ?>
+                        </div>
+                        <figcaption class="grid gap-2">
+                            <span class="font-mono uppercase tracking-wider text-xs text-blue-500">
+                                <?php echo esc_html($facility['label']); ?>
+                            </span>
+                            <p class="font-sans font-medium text-blue-900 text-xl md:text-2xl leading-tight tracking-tight">
+                                <?php echo esc_html($facility['city']); ?>
+                            </p>
+                            <p class="font-mono text-sm text-blue-700 leading-snug">
+                                <?php echo esc_html($facility['address']); ?>
+                            </p>
+                            <p class="font-sans text-blue-700 text-sm leading-snug mt-1">
+                                <?php echo esc_html($facility['meta']); ?>
+                            </p>
+                            <p class="font-mono uppercase tracking-wider text-xs text-blue-500 mt-2">
+                                <?php echo esc_html($facility['year']); ?>
+                            </p>
+                        </figcaption>
+                    </figure>
+                </li>
             <?php endforeach; ?>
-        </div>
+        </ul>
 
         <dl class="border-t border-blue-200 grid gap-y-10 gap-x-10 md:grid-cols-2 lg:grid-cols-4 pt-10 lg:pt-12">
             <?php foreach ($pillars as $pillar) : ?>
                 <div class="grid gap-3 content-start">
-                    <dt class="font-mono uppercase tracking-wider text-xs text-red">
+                    <dt class="font-mono uppercase tracking-wider text-xs text-blue-500">
                         <?php echo esc_html($pillar['label']); ?>
                     </dt>
                     <dd class="font-sans text-blue-700 text-base leading-relaxed">
