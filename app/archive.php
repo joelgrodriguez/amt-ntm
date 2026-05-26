@@ -59,7 +59,7 @@ $is_category = is_category();
     <!-- Header -->
     <header class="container mb-6 lg:mb-12">
         <div class="grid gap-4 justify-items-start">
-            <span class="text-xs font-mono uppercase tracking-widest text-red"><?php echo esc_html($content['eyebrow']); ?></span>
+            <span class="text-xs font-mono uppercase tracking-widest text-blue-500"><?php echo esc_html($content['eyebrow']); ?></span>
             <?php the_archive_title('<h1 class="font-sans text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-blue-900">', '</h1>'); ?>
             <?php the_archive_description('<p class="text-blue-600 max-w-2xl">', '</p>'); ?>
         </div>
@@ -143,14 +143,36 @@ $is_category = is_category();
                 );
             }
 
-            $groups[] = [
-                'id'      => 'content-type',
-                'title'   => $content['filter_type'],
-                'icon'    => 'settings',
-                'mode'    => 'link',
-                'name'    => null,
-                'options' => $type_options,
-            ];
+            // Add the machine filter (post_tag) when on a CPT archive
+            // or the built-in post archive — type is already implied by
+            // the URL so we drop "Filter by Type" entirely.
+            $machine_post_type = is_post_type_archive()
+                ? (string) (\get_query_var('post_type') ?: 'post')
+                : '';
+
+            if ($machine_post_type !== '') {
+                $machine_terms = get_terms_for_post_type($machine_post_type, 'post_tag');
+                if ($machine_terms !== []) {
+                    $groups[] = build_term_link_group(
+                        'post_tag',
+                        $content['filter_machine'],
+                        $machine_terms,
+                        [],
+                        'settings'
+                    );
+                }
+            } else {
+                // No active post-type archive — fall back to the original
+                // type rail (category archives, search-like browsing).
+                $groups[] = [
+                    'id'      => 'content-type',
+                    'title'   => $content['filter_type'],
+                    'icon'    => 'settings',
+                    'mode'    => 'link',
+                    'name'    => null,
+                    'options' => $type_options,
+                ];
+            }
 
             get_template_part('templates/parts/filter-sidebar', null, [
                 'groups'       => $groups,

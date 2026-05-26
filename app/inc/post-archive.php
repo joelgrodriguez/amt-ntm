@@ -19,8 +19,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-const ARCHIVE_SLUG    = 'articles';
-const REWRITE_VERSION = '1';
+const ARCHIVE_SLUG    = 'learning-center/articles';
+const REWRITE_VERSION = '2';
 const VERSION_OPTION  = 'standard_post_archive_rewrite_version';
 
 /**
@@ -64,7 +64,11 @@ function register_query_vars(array $vars): array {
  * Other call sites (home.php hero nav, archive.php filter sidebar) can
  * then use the same helper everything else uses.
  */
-function filter_archive_link(string|false $link, string $post_type): string|false {
+/**
+ * @param string|false $link
+ * @return string|false
+ */
+function filter_archive_link($link, string $post_type) {
     if ($post_type !== 'post') {
         return $link;
     }
@@ -87,6 +91,55 @@ function filter_archive_title(string $title): string {
     return $title;
 }
 \add_filter('get_the_archive_title', __NAMESPACE__ . '\\filter_archive_title');
+
+/**
+ * Force archive.php (not home.php) when the post archive endpoint is hit.
+ *
+ * WP's template hierarchy for a built-in post archive falls back to
+ * home.php because `post` has no has_archive registration. We override
+ * specifically when our rewrite fired (is_post_type_archive query var
+ * set + post_type=post) so the CPT-style archive surface renders.
+ */
+function force_archive_template(string $template): string {
+    if (!\get_query_var('is_post_type_archive')) {
+        return $template;
+    }
+
+    if (\get_query_var('post_type') !== 'post') {
+        return $template;
+    }
+
+    $candidate = \get_theme_file_path('archive.php');
+    return file_exists($candidate) ? $candidate : $template;
+}
+\add_filter('template_include', __NAMESPACE__ . '\\force_archive_template', 99);
+
+/**
+ * Make conditional tags agree we're on a post archive.
+ *
+ * Without this, is_post_type_archive('post') returns false because WP
+ * only sets that flag for types registered with has_archive. archive.php
+ * uses the flag to pick filter rails, so we have to backfill it.
+ */
+function mark_as_post_type_archive(\WP_Query $query): void {
+    if (\is_admin() || !$query->is_main_query()) {
+        return;
+    }
+
+    if (!$query->get('is_post_type_archive')) {
+        return;
+    }
+
+    if ($query->get('post_type') !== 'post') {
+        return;
+    }
+
+    $query->is_post_type_archive = true;
+    $query->is_archive           = true;
+    $query->is_home              = false;
+    $query->is_singular          = false;
+}
+\add_action('parse_query', __NAMESPACE__ . '\\mark_as_post_type_archive');
 
 /**
  * Flush rewrite rules once when this file ships a new REWRITE_VERSION.

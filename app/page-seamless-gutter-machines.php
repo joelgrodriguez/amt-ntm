@@ -34,7 +34,7 @@ get_header();
 
     <?php get_template_part('templates/pages/gutter/customer-story'); ?>
 
-    <?php get_template_part('templates/pages/machines/roi-snapshot'); ?>
+    <?php get_template_part('templates/pages/gutter/machii-callout'); ?>
 
     <?php get_template_part('templates/pages/machines/which-machine', null, ['bg' => '']); ?>
 

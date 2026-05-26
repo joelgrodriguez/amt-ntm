@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
 }
 
 get_template_part('templates/parts/learning-center', null, [
-    'title'         => __('Seamless Gutter Resources', 'standard'),
+    'title'         => __('Seamless Gutter Learning Center', 'standard'),
     'subtitle'      => __('Guides, videos, and tips to help you get the most from your gutter machines.', 'standard'),
     'category_slug' => 'seamless-gutter-rollforming-machines',
     'post_count'    => 4,
