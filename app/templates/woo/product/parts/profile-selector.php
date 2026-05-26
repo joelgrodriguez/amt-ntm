@@ -2,7 +2,7 @@
 /**
  * Machine Product — Profile Carousel
  *
- * Thin wrapper that passes machine config to the generic carousel-section.
+ * Renders panel profile cards in a horizontal carousel for flagship machines.
  *
  * @package Standard
  * @var array{product: \WC_Product, machine: array} $args
