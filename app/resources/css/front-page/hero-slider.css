@@ -42,12 +42,15 @@
 
 /* ── Navigation arrows ──────────────────────────────────────────── */
 
+/* Hidden on mobile — arrows overlap the slide copy at 375px, and swipe
+   (HeroSlider.js) plus the dot pagination cover navigation. Restored at
+   md: where there's room beside the content. */
 .hero-slider__nav {
+  display: none;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   z-index: 10;
-  display: flex;
   align-items: center;
   justify-content: center;
   /* WCAG 2.5.5 target size: 44x44 minimum. */
@@ -141,7 +144,7 @@
 /* ── Responsive nav sizing ──────────────────────────────────────── */
 
 @media (min-width: 768px) {
-  .hero-slider__nav        { width: 3rem; height: 3rem; }
+  .hero-slider__nav        { display: flex; width: 3rem; height: 3rem; }
   .hero-slider__nav--prev  { left: 2rem; }
   .hero-slider__nav--next  { right: 2rem; }
 }
