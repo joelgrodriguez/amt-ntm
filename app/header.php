@@ -99,18 +99,14 @@ if (!defined('ABSPATH')) {
             <nav id="desktop-navigation" class="flex" aria-label="<?php esc_attr_e('Primary navigation', 'standard'); ?>">
                 <ul id="primary-menu" class="flex items-stretch m-0 p-0 list-none">
                     <?php foreach ($desktop_nav['items'] as $item) :
-                        // Temporary: only the Machines mega panel is enabled on
-                        // desktop right now. Other mega items fall through to a
-                        // plain link using their own view_all_url so the nav
-                        // still navigates somewhere sensible.
-                        $is_active_mega = ($item['kind'] ?? '') === 'mega' && ($item['id'] ?? '') === 'machines';
-                        $fallback_url   = $item['url'] ?? ($item['view_all_url'] ?? '#');
-                        $is_current     = \Standard\Nav\is_current_item($item);
-                        $current_class  = $is_current ? ' is-current' : '';
-                        $current_attr   = $is_current ? ' aria-current="page"' : '';
+                        $is_mega       = ($item['kind'] ?? '') === 'mega';
+                        $fallback_url  = $item['url'] ?? ($item['view_all_url'] ?? '#');
+                        $is_current    = \Standard\Nav\is_current_item($item);
+                        $current_class = $is_current ? ' is-current' : '';
+                        $current_attr  = $is_current ? ' aria-current="page"' : '';
                     ?>
                         <li class="flex h-full">
-                            <?php if ($is_active_mega) : ?>
+                            <?php if ($is_mega) : ?>
                                 <button
                                     type="button"
                                     class="mega-trigger relative flex items-center w-full h-full px-5 font-sans font-medium text-body text-blue-700 bg-transparent border-0 cursor-pointer<?php echo $current_class; ?>"

@@ -131,165 +131,391 @@ function url_to_path(string $url): string {
 /**
  * Returns the desktop navigation structure.
  *
- * @return array{panels: array<int, array<string, mixed>>, utility: array<int, array<string, mixed>>}
+ * IA = four action-driven labels. Each opens a flyout-groups panel: an intro
+ * column on the left + three groups of links. The first item in each group is
+ * the "anchor" — visually emphasized. Spec: docs/handoff/03-mega-menu-spec.md.
+ *
+ * @return array{items: array<int, array<string, mixed>>, utility: array<int, array<string, mixed>>}
  */
 function get_desktop_nav(): array {
     return [
         'items' => [
+
+            // ── 1. Get started ────────────────────────────────────────────
             [
-                'kind'           => 'mega',
-                'id'             => 'machines',
-                'label'          => __('Machines', 'standard'),
-                'type'           => 'tabbed-products',
-                'tabs'           => [
+                'kind'          => 'mega',
+                'id'            => 'get-started',
+                'label'         => __('Get started', 'standard'),
+                'type'          => 'flyout-groups',
+                'intro'         => [
+                    'title'           => __('Get started', 'standard'),
+                    'body'            => __('New to portable rollforming? Learn what NTM does, decide if it fits your business, and pick a direction.', 'standard'),
+                    'secondary_label' => __('First-time buyer playlist', 'standard'),
+                    'secondary_url'   => \Standard\Url\internal('/first-time-buyer-playlist/'),
+                ],
+                'groups'        => [
                     [
-                        'id'               => 'roof-wall',
-                        'label'            => __('Roof & Wall Panel Machines', 'standard'),
-                        'category'         => 'roof-wall-panel-machines',
-                        'heading'          => __('Roof & Wall Panel Machines', 'standard'),
-                        'view_all_url'     => \Standard\Url\internal('/roof-wall-panel-machines/'),
-                        'view_all_label'   => __('View All', 'standard'),
+                        'label' => __('Start here', 'standard'),
+                        'items' => [
+                            [
+                                'label'  => __('What is an NTM machine?', 'standard'),
+                                'url'    => \Standard\Url\internal('/learning-center/portable-rollforming-machine-equipment-types-uses/'),
+                                'anchor' => true,
+                            ],
+                            [
+                                'label' => __('Roof panel vs gutter machines', 'standard'),
+                                'url'   => \Standard\Url\internal('/roof-panel-vs-gutter/'),
+                            ],
+                            [
+                                'label' => __('Top 5 misconceptions', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/portable-rollforming-misconceptions/'),
+                            ],
+                        ],
                     ],
                     [
-                        'id'               => 'gutter',
-                        'label'            => __('Seamless Gutter Machines', 'standard'),
-                        'category'         => 'gutter-machines',
-                        'heading'          => __('Seamless Gutter Machines', 'standard'),
-                        'view_all_url'     => \Standard\Url\internal('/seamless-gutter-machines/'),
-                        'view_all_label'   => __('View All', 'standard'),
+                        'label' => __('See if it fits', 'standard'),
+                        'items' => [
+                            [
+                                'label'  => __('Are you ready to manufacture? (Quiz)', 'standard'),
+                                'url'    => \Standard\Url\internal('/portable-rollforming-machine-readiness-assessment/'),
+                                'anchor' => true,
+                            ],
+                            [
+                                'label' => __('Profit calculator', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/download/portable-rollforming-profit-calculator/'),
+                            ],
+                            [
+                                'label' => __('Portable vs factory panel suppliers', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/portable-rollforming-vs-factory-panel-suppliers/'),
+                            ],
+                        ],
                     ],
                     [
-                        'id'               => 'accessories',
-                        'label'            => __('Accessories', 'standard'),
-                        'category'         => 'accessories-add-on-equipment',
-                        'heading'          => __('Accessories & Upgrades', 'standard'),
-                        'view_all_url'     => \Standard\Url\internal('/machines/upgrades/'),
-                        'view_all_label'   => __('View All', 'standard'),
+                        'label' => __('Explore', 'standard'),
+                        'items' => [
+                            [
+                                'label'  => __('Start Here landing', 'standard'),
+                                'url'    => \Standard\Url\internal('/start-here/'),
+                                'anchor' => true,
+                            ],
+                            [
+                                'label' => __('First-time buyer playlist', 'standard'),
+                                'url'   => \Standard\Url\internal('/first-time-buyer-playlist/'),
+                            ],
+                            [
+                                'label' => __('Learning Center', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/'),
+                            ],
+                        ],
                     ],
                 ],
-                'view_all_url'   => \Standard\Url\internal('/machines/'),
-                'view_all_label' => __('See the full lineup', 'standard'),
-                // URL roots this item "owns" for current-state detection.
-                'current_paths'  => [
+                'current_paths' => [
+                    '/start-here/',
+                    '/first-time-buyer-playlist/',
+                    '/learning-center/',
+                    '/portable-rollforming-machine-readiness-assessment/',
+                    '/roof-panel-vs-gutter/',
+                ],
+            ],
+
+            // ── 2. Choose your machine ─────────────────────────────────────
+            [
+                'kind'          => 'mega',
+                'id'            => 'choose-machine',
+                'label'         => __('Choose your machine', 'standard'),
+                'type'          => 'flyout-groups',
+                'intro'         => [
+                    'title'           => __('Choose your machine', 'standard'),
+                    'body'            => __('Browse the catalog directly, or take a short quiz if you\'re not sure where to start. Both lanes live here.', 'standard'),
+                    'secondary_label' => __('See all machines', 'standard'),
+                    'secondary_url'   => \Standard\Url\internal('/machines/'),
+                ],
+                'groups'        => [
+                    [
+                        'label' => __('See all machines', 'standard'),
+                        'items' => [
+                            [
+                                'label'  => __('All NTM machines', 'standard'),
+                                'url'    => \Standard\Url\internal('/machines/'),
+                                'anchor' => true,
+                            ],
+                            [
+                                'label' => __('Roof & wall panel machines', 'standard'),
+                                'url'   => \Standard\Url\internal('/roof-wall-panel-machines/'),
+                            ],
+                            [
+                                'label' => __('Seamless gutter machines', 'standard'),
+                                'url'   => \Standard\Url\internal('/seamless-gutter-machines/'),
+                            ],
+                            [
+                                'label' => __('Profiles archive', 'standard'),
+                                'url'   => \Standard\Url\internal('/profiles/'),
+                            ],
+                            [
+                                'label' => __('Accessories & upgrades', 'standard'),
+                                'url'   => \Standard\Url\internal('/machines/upgrades/'),
+                            ],
+                        ],
+                    ],
+                    [
+                        'label' => __('Help me choose', 'standard'),
+                        'items' => [
+                            [
+                                'label'  => __('Which roof panel machine? (Quiz)', 'standard'),
+                                'url'    => \Standard\Url\internal('/roof-panel-machine-assessment-quiz/'),
+                                'anchor' => true,
+                            ],
+                            [
+                                'label' => __('Portable gutter machine selection guide', 'standard'),
+                                'url'   => \Standard\Url\internal('/portable-gutter-machine-selection-guide/'),
+                            ],
+                            [
+                                'label' => __('What coil width should you use?', 'standard'),
+                                'url'   => \Standard\Url\internal('/what-coil-width-should-you-use/'),
+                            ],
+                            [
+                                'label' => __('Machine chooser landing', 'standard'),
+                                'url'   => \Standard\Url\internal('/choose-your-machine/'),
+                            ],
+                        ],
+                    ],
+                    [
+                        'label' => __('Compare', 'standard'),
+                        'items' => [
+                            [
+                                'label'  => __('SSQ3 / SSQII / SSR / SSH unified table', 'standard'),
+                                'url'    => \Standard\Url\internal('/compare-roof-panel-machines/'),
+                                'anchor' => true,
+                            ],
+                            [
+                                'label' => __('SSQII vs SSR', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/portable-roof-panel-machines-ssq-ii-vs-ssr/'),
+                            ],
+                            [
+                                'label' => __('SSR / SSH / SSQII', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/comparison-ntms-ssr-ssh-and-ssq-ii-portable-rollformers/'),
+                            ],
+                            [
+                                'label' => __('SSQ3 MultiPro', 'standard'),
+                                'url'   => \Standard\Url\internal('/configurator/ssq3-multi-pro/'),
+                            ],
+                        ],
+                    ],
+                ],
+                'current_paths' => [
                     '/machines/',
                     '/roof-wall-panel-machines/',
                     '/seamless-gutter-machines/',
+                    '/profiles/',
+                    '/profile/',
                     '/uniq-control-system/',
                     '/machine/',
                     '/product/',
+                    '/choose-your-machine/',
+                    '/compare-roof-panel-machines/',
+                    '/configurator/ssq3-multi-pro/',
+                    '/configurator/ssh/',
+                    '/configurator/ssr/',
+                    '/configurator/ssqii/',
+                    '/configurator/wav/',
+                    '/configurator/machii/',
+                    '/configurator/5vc/',
+                    '/roof-panel-machine-assessment-quiz/',
+                    '/portable-gutter-machine-selection-guide/',
+                    '/what-coil-width-should-you-use/',
                 ],
             ],
+
+            // ── 3. How to buy ──────────────────────────────────────────────
             [
-                'kind'           => 'mega',
-                'id'             => 'profiles',
-                'label'          => __('Profiles', 'standard'),
-                'type'           => 'tabbed-profiles',
-                'tabs'           => [
+                'kind'          => 'mega',
+                'id'            => 'how-to-buy',
+                'label'         => __('How to buy', 'standard'),
+                'type'          => 'flyout-groups',
+                'intro'         => [
+                    'title'           => __('How to buy', 'standard'),
+                    'body'            => __('Price, financing, quote, sales contact. Configurator stays — as the expert shortcut at the end, not the front door.', 'standard'),
+                    'secondary_label' => __('Request a quote', 'standard'),
+                    'secondary_url'   => \Standard\Url\with_query('/contact/', ['form' => 'quote']),
+                ],
+                'groups'        => [
                     [
-                        'id'             => 'roof-wall-panel',
-                        'label'          => __('Roof & Wall Panel', 'standard'),
-                        'category'       => 'profiles-metal-roof-wall-panel',
-                        'heading'        => __('Roof & Wall Panel Profiles', 'standard'),
-                        'view_all_url'   => get_scoped_term_url('category', 'profiles-metal-roof-wall-panel', 'profile'),
-                        'view_all_label' => __('View All', 'standard'),
+                        'label' => __('Get a quote', 'standard'),
+                        'items' => [
+                            [
+                                'label'  => __('Request a quote', 'standard'),
+                                'url'    => \Standard\Url\with_query('/contact/', ['form' => 'quote']),
+                                'anchor' => true,
+                            ],
+                            [
+                                'label' => __('What to know before quoting', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/getting-a-portable-rollforming-machine-quote/'),
+                            ],
+                            [
+                                'label' => __('How to get a quote on an NTM machine', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/how-to-get-a-quote-for-an-ntm-rollforming-machine/'),
+                            ],
+                            [
+                                'label' => __('NTM machine quote checklist', 'standard'),
+                                'url'   => \Standard\Url\internal('/ntm-machine-quote-checklist-thank-you/'),
+                            ],
+                        ],
                     ],
                     [
-                        'id'             => 'gutter',
-                        'label'          => __('Gutter', 'standard'),
-                        'category'       => 'profiles-gutter',
-                        'heading'        => __('Seamless Gutter Profiles', 'standard'),
-                        'view_all_url'   => get_scoped_term_url('category', 'profiles-gutter', 'profile'),
-                        'view_all_label' => __('View All', 'standard'),
+                        'label' => __('Understand the deal', 'standard'),
+                        'items' => [
+                            [
+                                'label'  => __('Panel machine cost (2026)', 'standard'),
+                                'url'    => \Standard\Url\internal('/learning-center/portable-roof-panel-rollforming-machine-cost/'),
+                                'anchor' => true,
+                            ],
+                            [
+                                'label' => __('Gutter machine cost (2026)', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/gutter-machine-cost-what-to-look-for/'),
+                            ],
+                            [
+                                'label' => __('Financing & leasing', 'standard'),
+                                'url'   => \Standard\Url\internal('/machines/leasing-financing/'),
+                            ],
+                            [
+                                'label' => __('Build & finance walkthrough', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/how-to-build-and-finance-your-ntm-rollformer-all-on-one-site/'),
+                            ],
+                        ],
                     ],
                     [
-                        'id'             => 'clip-relief-rib-rollers',
-                        'label'          => __('Clip Relief / Rib Rollers', 'standard'),
-                        'category'       => 'clip-relief-rib-rollers',
-                        'heading'        => __('Clip Relief / Rib Rollers', 'standard'),
-                        'view_all_url'   => get_scoped_term_url('category', 'clip-relief-rib-rollers', 'profile'),
-                        'view_all_label' => __('View All', 'standard'),
+                        'label' => __('Talk or configure', 'standard'),
+                        'items' => [
+                            [
+                                'label'  => __('Talk to a specialist', 'standard'),
+                                'url'    => \Standard\Url\internal('/contact/'),
+                                'anchor' => true,
+                            ],
+                            [
+                                'label' => __('Configure your machine (Expert shortcut)', 'standard'),
+                                'url'   => \Standard\Url\internal('/configurator/'),
+                            ],
+                            [
+                                'label' => __('How buying from NTM works', 'standard'),
+                                'url'   => \Standard\Url\internal('/how-buying-works/'),
+                            ],
+                        ],
                     ],
                 ],
-                'view_all_url'   => \Standard\Url\internal('/profiles/'),
-                'view_all_label' => __('View all profiles', 'standard'),
-                'current_paths'  => [
-                    '/profiles/',
-                    '/profile/',
-                ],
-            ],
-            [
-                'kind'          => 'link',
-                'label'         => __('Resources', 'standard'),
-                'url'           => \Standard\Url\internal('/resources/'),
                 'current_paths' => [
-                    '/resources/',
-                    '/resource/',
-                    '/manuals/',
-                    '/manual/',
-                    '/downloads/',
-                    '/download/',
+                    '/contact/',
+                    '/configurator/',
+                    '/machines/leasing-financing/',
+                    '/how-buying-works/',
+                    '/ntm-machine-quote-checklist-thank-you/',
                 ],
             ],
+
+            // ── 4. Get owner support ───────────────────────────────────────
             [
-                'kind'           => 'mega',
-                'id'             => 'learning-center',
-                'label'          => __('Learning Center', 'standard'),
-                'type'           => 'tabbed-content',
-                'tabs'           => [
+                'kind'          => 'mega',
+                'id'            => 'owner-support',
+                'label'         => __('Get owner support', 'standard'),
+                'type'          => 'flyout-groups',
+                'intro'         => [
+                    'title'           => __('Get owner support', 'standard'),
+                    'body'            => __('One front door for owners: open a service request, find a manual, register warranty, request parts, or buy another machine.', 'standard'),
+                    'secondary_label' => __('Open a service request', 'standard'),
+                    'secondary_url'   => \Standard\Url\internal('/service-hub/'),
+                ],
+                'groups'        => [
                     [
-                        'id'             => 'articles',
-                        'label'          => __('Articles', 'standard'),
-                        'post_type'      => 'post',
-                        'heading'        => __('Latest Articles', 'standard'),
-                        'view_all_url'   => \Standard\Url\internal('/learning-center/articles/'),
-                        'view_all_label' => __('View all Articles', 'standard'),
+                        'label' => __('Get support now', 'standard'),
+                        'items' => [
+                            [
+                                'label'  => __('Open a service request', 'standard'),
+                                'url'    => \Standard\Url\internal('/service-hub/'),
+                                'anchor' => true,
+                            ],
+                            [
+                                'label' => __('Service Hub', 'standard'),
+                                'url'   => \Standard\Url\internal('/service-hub/'),
+                            ],
+                            [
+                                'label' => __('NTM Knowledge Base', 'standard'),
+                                'url'   => \Standard\Url\internal('/ntm-knowledge-base/'),
+                            ],
+                            [
+                                'label' => __('Owner support landing', 'standard'),
+                                'url'   => \Standard\Url\internal('/owner-support/'),
+                            ],
+                        ],
                     ],
                     [
-                        'id'             => 'videos',
-                        'label'          => __('Videos', 'standard'),
-                        'post_type'      => 'video',
-                        'heading'        => __('Latest Videos', 'standard'),
-                        'view_all_url'   => \Standard\Url\internal('/learning-center/videos/'),
-                        'view_all_label' => __('View all Videos', 'standard'),
+                        'label' => __('Operate', 'standard'),
+                        'items' => [
+                            [
+                                'label'  => __('Machine manuals', 'standard'),
+                                'url'    => \Standard\Url\internal('/machines/manuals/'),
+                                'anchor' => true,
+                            ],
+                            [
+                                'label' => __('Request training', 'standard'),
+                                'url'   => \Standard\Url\internal('/service-training/'),
+                            ],
+                            [
+                                'label' => __('What to expect in training', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/what-to-expect-portable-rollforming-machine-training-session/'),
+                            ],
+                            [
+                                'label' => __('Warranty registration', 'standard'),
+                                'url'   => \Standard\Url\internal('/machines/warranty-registration/'),
+                            ],
+                            [
+                                'label' => __('Parts request', 'standard'),
+                                'url'   => \Standard\Url\internal('/request-parts/'),
+                            ],
+                        ],
                     ],
                     [
-                        'id'             => 'downloads',
-                        'label'          => __('Downloads', 'standard'),
-                        'post_type'      => 'download',
-                        'heading'        => __('Latest Downloads', 'standard'),
-                        'view_all_url'   => \Standard\Url\internal('/learning-center/downloads/'),
-                        'view_all_label' => __('View all Downloads', 'standard'),
+                        'label' => __('Troubleshoot & buy again', 'standard'),
+                        'items' => [
+                            [
+                                'label'  => __('Common problems & fixes', 'standard'),
+                                'url'    => \Standard\Url\internal('/learning-center/common-problems-with-ntm-portable-rollforming-machines-and-how-to-solve-them/'),
+                                'anchor' => true,
+                            ],
+                            [
+                                'label' => __('Top 5 service questions', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/the-top-five-questions-the-ntm-service-department-receives/'),
+                            ],
+                            [
+                                'label' => __('Prevent voiding your warranty', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/ways-to-prevent-voiding-machine-warranty/'),
+                            ],
+                            [
+                                'label' => __('Add a machine', 'standard'),
+                                'url'   => \Standard\Url\internal('/add-a-machine/'),
+                            ],
+                        ],
                     ],
                 ],
-                'view_all_url'   => \Standard\Url\internal('/learning-center/'),
-                'view_all_label' => __('Visit Learning Center', 'standard'),
-                'current_paths'  => [
-                    '/learning-center/',
-                    '/video/',
-                    '/category/',
-                ],
-            ],
-            [
-                'kind'          => 'link',
-                'label'         => __('Service & Support', 'standard'),
-                'url'           => \Standard\Url\internal('/service-hub/'),
                 'current_paths' => [
                     '/service-hub/',
                     '/service-training/',
+                    '/owner-support/',
+                    '/owner-resources/',
+                    '/ntm-knowledge-base/',
+                    '/machines/manuals/',
+                    '/machines/warranty-registration/',
+                    '/manual/',
+                    '/request-parts/',
+                    '/add-a-machine/',
+                    '/resources/',
+                    '/resource/',
+                    '/downloads/',
+                    '/download/',
                 ],
             ],
         ],
         'utility' => [
             [
-                'label' => __('Service & Repair', 'standard'),
-                'url'   => \Standard\Url\internal('/service-training/'),
-            ],
-            [
-                'label' => __('Build & Finance', 'standard'),
-                'url'   => \Standard\Url\internal('/build-finance/'),
-            ],
-            [
-                'label'     => __('Contact', 'standard'),
+                'label'     => __('Talk to a specialist', 'standard'),
                 'url'       => \Standard\Url\internal('/contact/'),
                 'highlight' => true,
             ],
