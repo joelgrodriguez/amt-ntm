@@ -10,7 +10,7 @@ What you ARE shipping in this pass:
 
 1. **The new mega menu** (desktop + mobile) wired to the new four-action structure
 2. **A scaffolded PHP page template** for each new landing page — file exists, registered, basic structure, but body content is a clear placeholder ("Coming soon" / "WIP")
-3. **The homepage hero CTA swap** to point at the four action paths
+3. **The homepage stays untouched.** Hero slider routes each slide to its category landing page (current behavior, correct). Do not edit `app/front-page.php`, `app/inc/machines.php`, or `app/templates/parts/front-page/*`.
 4. **Active-state highlighting** working across the new structure
 
 What you are NOT shipping in this pass:
@@ -33,8 +33,9 @@ The point of this pass is: the nav works, every link goes somewhere real, and th
 > 1. New four-action mega menu (desktop + mobile) renders and every link goes somewhere real
 > 2. Each new page exists in WordPress with a clear `🚧 In development — [Page name]` placeholder
 > 3. Each new page uses a custom PHP template file (e.g. `app/page-start-here.php`), NOT Gutenberg blocks
-> 4. Homepage hero CTAs point at the four action paths
-> 5. Active-state highlighting works for the new structure
+> 4. Active-state highlighting works for the new structure
+>
+> **The homepage is OUT OF SCOPE this pass.** Do not touch `app/front-page.php`, `app/inc/machines.php` (`get_hero_slides()`), or any `app/templates/parts/front-page/` files. The hero slider currently routes each slide to a **category landing page** (`/roof-wall-panel-machines/`, `/seamless-gutter-machines/`, `/machines/upgrades/`) and that is correct behavior for now. A homepage revamp is a separate pass.
 >
 > **What "done" does NOT mean for this pass:**
 > - Writing hero copy, value-prop card text, FAQ entries, or any production content on the new pages
@@ -49,7 +50,7 @@ The point of this pass is: the nav works, every link goes somewhere real, and th
 > - Introducing any new visual component, CSS file, or design token
 > - Changing any URL of an existing published page (slug changes break SEO)
 > - Deleting any existing PHP page template
-> - Touching the homepage hero design (the configurator demotion is a logic change, not a redesign)
+> - **Touching anything in `app/front-page.php`, `app/inc/machines.php`, or `app/templates/parts/front-page/`** — the homepage is out of scope this pass
 > - Renaming or moving an existing post type or taxonomy
 > - Writing more than placeholder content on a new page
 >
@@ -66,8 +67,7 @@ The point of this pass is: the nav works, every link goes somewhere real, and th
 > 1. **Mega menu rebuild** (Phase 1 in `04-pages-to-build.md`) — desktop + mobile
 > 2. **Placeholder templates** for the 9 new pages — create the PHP files, register `Template Name:`, create the WP pages, assign the templates
 > 3. **Wire mega menu links** to the new placeholder pages
-> 4. **Homepage hero CTA swap**
-> 5. **Active-state verification** across representative URLs
+> 4. **Active-state verification** across representative URLs
 >
 > When all of that works end-to-end and every mega-menu link lands on either an existing page or a placeholder, you're done.
 

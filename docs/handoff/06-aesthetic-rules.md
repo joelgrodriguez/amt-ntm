@@ -16,7 +16,7 @@ If you find yourself reaching for `hero-asymmetric.php`, `value-prop-cards.php`,
 ✅ Editing `app/templates/parts/mega-menu.php` to handle a new `type` (e.g. `flyout-groups`)
 ✅ Creating new PHP page templates with the **placeholder body** described in `04-pages-to-build.md` — header, page title, "🚧 In development" marker, footer. Nothing more.
 ✅ Creating the matching WordPress pages via WP-CLI and assigning the templates
-✅ Swapping the four CTAs on the homepage hero (logic, not layout)
+⛔ Homepage hero is out of scope this pass — do not touch `app/front-page.php`, `app/inc/machines.php`, or `app/templates/parts/front-page/*`. Current hero behavior (slide → category landing) is correct.
 ✅ Adding `current_paths` arrays in `desktop-nav.php` so active-state highlighting works for the new structure
 ✅ Using minimal Tailwind utility classes in the placeholder templates
 
@@ -33,7 +33,7 @@ If you find yourself reaching for `hero-asymmetric.php`, `value-prop-cards.php`,
 ❌ New icons (use existing `icon()` helper with existing SVGs in `app/assets/icons/`)
 ❌ New animation systems or motion patterns
 ❌ Redesigning any existing template part
-❌ Redesigning the homepage hero layout (CTA swap = logic, layout change = design)
+❌ Touching the homepage hero at all — slider, slide data, or CTAs. Out of scope this pass.
 ❌ Adding any third-party UI library
 ❌ Adding new fonts via `app/inc/fonts.php`
 
@@ -71,7 +71,7 @@ Ask the user. The cost of asking is 5 minutes. The cost of designing something t
 | Changing what URL a link points to | **Yes** ✅ |
 | Creating a new PHP page template with a placeholder body | **Yes** ✅ |
 | Creating a WP page and assigning a template via WP-CLI | **Yes** ✅ |
-| Swapping which CTA the homepage hero shows | **Yes** ✅ |
+| Touching the homepage hero, slider, or any front-page template part | **No** ❌ — out of scope this pass |
 | Updating `current_paths` for active-state highlighting | **Yes** ✅ |
 | Writing real content for `/start-here/` (or any new page) | **No** ❌ — next pass |
 | Building hero / value-prop / FAQ blocks on a new page | **No** ❌ — next pass |

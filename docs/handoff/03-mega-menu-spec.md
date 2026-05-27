@@ -2,6 +2,18 @@
 
 This is the authoritative structure for the new mega menu. Every link below either points to an **existing URL** (do not change the slug) or a **new URL** marked `NEW`. New URLs are suggested — confirm with the user before creating slugs that differ from these.
 
+## Configurator placement rule (read this first)
+
+The configurator is a **bottom-of-funnel** destination. Visitors should only arrive there after they already know which machine they want. In this mega menu:
+
+- The configurator appears **once**, inside the *How to buy → Talk or configure* group, labeled "Configure your machine (Expert shortcut)"
+- It is NOT an anchor item in any group
+- It is NOT a primary CTA anywhere in the nav
+- It is NOT linked from any *Choose your machine* group (browsing and configuring are different jobs)
+- The persistent header CTA is "Talk to a specialist" (→ `/contact/`), not "Configure your machine"
+
+If you find yourself adding a configurator link to a second location, stop and re-read this section.
+
 ## Header layout (left → right)
 
 | Slot | Content | Notes |
@@ -167,4 +179,4 @@ The existing `is_current_item()` logic in `desktop-nav.php` should still work. M
 - Do not change the visual design of the mega-menu container, fonts, padding, or animation. Use what's there.
 - Do not add new CSS files. Add minimal class names if needed and reuse existing utilities.
 - Do not change URLs of any existing page.
-- Do not delete the configurator. It stays as the "Talk or configure" group anchor in How to buy.
+- Do not delete the configurator. It stays as a secondary link inside the *How to buy → Talk or configure* group (the group's anchor is "Talk to a specialist", not the configurator). See the "Configurator placement rule" at the top of this file.
