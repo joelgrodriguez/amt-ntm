@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NewTech Machinery Navigation Flow</title>
+  <style>
+    :root {
+      --ink: #10243f;
+      --muted: #64748b;
+      --line: #d7dee8;
+      --paper: #f8fafc;
+      --panel: #ffffff;
+      --blue: #1d4ed8;
+      --green: #166534;
+      --orange: #ea580c;
+      --aqua: #0891b2;
+      --red: #b91c1c;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .slide {
+      width: min(1440px, 100vw);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 22px 38px 24px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 14px;
+    }
+
+    .header {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 34px;
+      align-items: start;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 12px;
+    }
+
+    .eyebrow {
+      margin: 0 0 6px;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 280px;
+      font-size: clamp(22px, 2vw, 28px);
+      line-height: 1.05;
+      letter-spacing: -.03em;
+    }
+
+    .principle {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 12px 14px;
+    }
+
+    .principle strong {
+      display: block;
+      margin-bottom: 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .principle-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .principle-grid p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .principle-grid b {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--ink);
+      font-size: 12px;
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1.02fr .98fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .badge {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 9px;
+      color: var(--muted);
+      background: var(--panel);
+      font-size: 10px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .bucket {
+      min-height: 238px;
+      border: 1px solid var(--line);
+      border-top: 3px solid var(--ink);
+      background: var(--panel);
+      padding: 16px;
+    }
+
+    .bucket h2 {
+      margin: 0 0 6px;
+      font-size: 23px;
+      line-height: 1;
+      letter-spacing: -.035em;
+    }
+
+    .bucket .job {
+      min-height: 38px;
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.3;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 7px;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 9px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    li::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: .5;
+      flex: 0 0 auto;
+    }
+
+    .machines { border-top-color: var(--blue); }
+    .learning { border-top-color: var(--green); }
+    .resources { border-top-color: var(--orange); }
+    .support { border-top-color: var(--aqua); }
+
+    .machines li::before { background: var(--blue); }
+    .learning li::before { background: var(--green); }
+    .resources li::before { background: var(--orange); }
+    .support li::before { background: var(--aqua); }
+
+    .journey {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 16px;
+      display: grid;
+      align-content: start;
+      gap: 10px;
+    }
+
+    .journey-intro {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .flow {
+      display: grid;
+      gap: 9px;
+      align-content: start;
+    }
+
+    .stage {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .stage-label {
+      border: 1px solid var(--line);
+      padding: 12px;
+      display: grid;
+      align-content: center;
+      background: var(--paper);
+    }
+
+    .stage-label b {
+      display: block;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .stage-label span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.25;
+    }
+
+    .route {
+      border: 1px solid var(--line);
+      padding: 12px 14px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: center;
+      background: #fff;
+    }
+
+    .dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-weight: 900;
+      font-size: 12px;
+    }
+
+    .route strong {
+      display: block;
+      font-size: 15px;
+    }
+
+    .route small {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.3;
+    }
+
+    .persona-paths {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .persona-card {
+      border: 1px solid var(--line);
+      background: var(--paper);
+      padding: 10px 11px;
+      font-size: 12px;
+      line-height: 1.3;
+    }
+
+    .persona-card b {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--ink);
+      font-size: 12px;
+    }
+
+    .governance {
+      margin: 6px 0 0;
+      border-left: 3px solid var(--red);
+      background: var(--paper);
+      padding: 11px 13px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .governance b {
+      color: var(--ink);
+    }
+
+    .blue { background: var(--blue); }
+    .green { background: var(--green); }
+    .orange { background: var(--orange); }
+    .aqua { background: var(--aqua); }
+
+    @media print {
+      body { background: white; }
+      .slide { min-height: auto; }
+    }
+
+    @media (max-width: 980px) {
+      .slide { padding: 24px; }
+      .header, .content { grid-template-columns: 1fr; }
+      .principle-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .nav-grid { grid-template-columns: 1fr; }
+      .stage { grid-template-columns: 180px 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="slide" aria-label="Navigation simplification presentation slide">
+    <header class="header">
+      <div>
+        <p class="eyebrow">NTM Information Architecture / Navigation Flow</p>
+        <h1>Clear paths for buyers and owners</h1>
+      </div>
+      <aside class="principle">
+        <strong>Navigation rule</strong>
+        <div class="principle-grid">
+          <p><b>Learning Center</b> Explains concepts, comparisons, FAQs, and buyer education.</p>
+          <p><b>Machines</b> Organizes machine families, specs, profiles, footprints, manuals, and accessories.</p>
+          <p><b>Resources</b> Gives users files, tools, financing, gated assets, and next-step links.</p>
+          <p><b>Support</b> Helps owners get service, training, repair, parts, Service Hub answers, and human help.</p>
+        </div>
+      </aside>
+    </header>
+
+    <section class="content">
+      <div>
+        <div class="section-title">
+          <span>Proposed primary navigation</span>
+          <span class="badge">same model on mobile + desktop</span>
+        </div>
+
+        <div class="nav-grid">
+          <article class="bucket machines">
+            <h2>Machines</h2>
+            <p class="job">Machine families, specs, and assets tied to specific machines.</p>
+            <ul>
+              <li>Roof & Wall Panel Machines</li>
+              <li>Seamless Gutter Machines</li>
+              <li>Accessories & Upgrades</li>
+              <li>Profiles</li>
+              <li>Footprints</li>
+              <li>Manuals</li>
+              <li>UNIQ Control System</li>
+            </ul>
+          </article>
+
+          <article class="bucket learning">
+            <h2>Learning Center</h2>
+            <p class="job">Educational content that helps users understand and compare.</p>
+            <ul>
+              <li>Articles</li>
+              <li>Videos</li>
+              <li>Buying Guides</li>
+              <li>FAQs</li>
+            </ul>
+          </article>
+
+          <article class="bucket resources">
+            <h2>Resources</h2>
+            <p class="job">Utility library for files, tools, gated links, and next steps.</p>
+            <ul>
+              <li>Downloads</li>
+              <li>Financing / Build & Finance</li>
+              <li>Literature</li>
+              <li>Helpful Tools</li>
+              <li>Gated HubSpot Links</li>
+            </ul>
+          </article>
+
+          <article class="bucket support">
+            <h2>Service & Support</h2>
+            <p class="job">Owner-facing help after purchase, plus training and repair paths.</p>
+            <ul>
+              <li>Service Hub</li>
+              <li>Service & Repair</li>
+              <li>Training</li>
+              <li>Contact Support</li>
+              <li>Parts / Owner Help</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <aside class="journey">
+        <div class="section-title">
+          <span>How the nav supports the buyer journey</span>
+        </div>
+        <p class="journey-intro">This is not another menu. It routes three real audiences: new business starters, buyers choosing an NTM machine, and owners who need another machine, training, parts, repair, or support.</p>
+
+        <div class="flow">
+          <div class="stage">
+            <div class="stage-label">
+              <b>1. Learn</b>
+              <span>“What is this?”</span>
+            </div>
+            <div class="route">
+              <span class="dot green">1</span>
+              <div>
+                <strong>Learning Center</strong>
+                <small>Articles, videos, guides, and FAQs build understanding.</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="stage">
+            <div class="stage-label">
+              <b>2. Compare options</b>
+              <span>“Which machine type?”</span>
+            </div>
+            <div class="route">
+              <span class="dot blue">2</span>
+              <div>
+                <strong>Machines</strong>
+                <small>Compare roof/wall, gutter, accessories, profiles, and capabilities.</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="stage">
+            <div class="stage-label">
+              <b>3. Decide / convert</b>
+              <span>“How do I move forward?”</span>
+            </div>
+            <div class="route">
+              <span class="dot orange">3</span>
+              <div>
+                <strong>Machine page + Resources</strong>
+                <small>Configure, quote, finance, download literature, or submit a lead form.</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="stage">
+            <div class="stage-label">
+              <b>4. Own / grow</b>
+              <span>“How do I get support or expand?”</span>
+            </div>
+            <div class="route">
+              <span class="dot aqua">4</span>
+              <div>
+                <strong>Service Hub + Support</strong>
+                <small>Owner answers, service booking, training, repair, parts, and repeat-purchase paths.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="persona-paths">
+          <div class="persona-card"><b>Prospective owners</b> Learn → compare machines → configure → quote / financing.</div>
+          <div class="persona-card"><b>Existing owners</b> Find Service Hub answers → book service → buy parts → request training.</div>
+          <div class="persona-card"><b>Repeat buyers</b> Jump to machines, specs, financing, and quote paths faster.</div>
+          <div class="persona-card"><b>Business starters</b> Learn the NTM opportunity, then talk to sales or configure a machine.</div>
+        </div>
+
+        <p class="governance"><b>Rule of thumb:</b> if content teaches, it goes in Learning Center. If it helps someone choose a machine, it stays with Machines. If it moves them toward quote, financing, or lead capture, it goes in Resources. If they already own a machine and need answers, service, repair, training, or parts, it goes in Service & Support / Service Hub.</p>
+      </aside>
+    </section>
+
+  </main>
+</body>
+</html>
