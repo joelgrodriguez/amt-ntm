@@ -121,7 +121,7 @@ Summary:
   - Replaced get_desktop_nav() items with 4 action-driven labels
   - Added new mega-menu type 'flyout-groups' rendering in mega-menu.php
   - Updated mobile-nav.php to mirror the same structure
-  - Swapped homepage hero CTAs to the 4 action paths
+  - Homepage left untouched (out of scope this pass — current hero behavior is correct)
   - Scaffolded 9 placeholder PHP page templates (no production content yet)
   - Created 9 WP pages with templates assigned and 🚧 placeholder bodies
   - All existing URLs verified intact
@@ -142,7 +142,7 @@ Risk:
 - You're tempted to pull in `hero-asymmetric.php`, `value-prop-cards.php`, or any content-building template part on a new page
 - You're tempted to build Gutenberg blocks for any new page
 - An existing page slug looks awkward in the new IA (e.g. `/ntm-machine-quote-checklist-thank-you/` doesn't feel like a "quote checklist" link)
-- The homepage hero component can't cleanly fit four CTAs
+- You think the homepage needs any change to support the new IA (it doesn't, this pass)
 - A "NEW" URL in the spec conflicts with an existing slug
 - A mobile-menu redesign feels necessary
 - You think a new CSS file, design token, or color is required

@@ -21,12 +21,9 @@ use function Standard\LearningCenter\get_latest_query;
 use function Standard\LearningCenter\get_content_sections;
 
 $nav    = get_desktop_nav();
-// Temporary: only the Machines mega panel renders right now. Keep the
-// data intact in get_desktop_nav() so other panels are one filter
-// change away from coming back.
 $panels = array_values(array_filter(
     $nav['items'],
-    fn($i) => ($i['kind'] ?? '') === 'mega' && ($i['id'] ?? '') === 'machines'
+    fn($i) => ($i['kind'] ?? '') === 'mega'
 ));
 ?>
 <div id="mega-menu-overlay" class="mega-overlay" aria-hidden="true"></div>
@@ -307,6 +304,54 @@ $panels = array_values(array_filter(
                         <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
+            </div>
+
+        <?php elseif ($panel_type === 'flyout-groups') :
+            $intro  = $panel['intro']  ?? [];
+            $groups = $panel['groups'] ?? [];
+        ?>
+            <div class="mega-panel__sidebar">
+                <p class="mega-sidebar__label"><?php echo esc_html($panel['label']); ?></p>
+                <?php if (!empty($intro['title'])) : ?>
+                    <h2 class="px-5 mb-3 font-sans font-semibold text-heading-sm text-blue-900"><?php echo esc_html($intro['title']); ?></h2>
+                <?php endif; ?>
+                <?php if (!empty($intro['body'])) : ?>
+                    <p class="px-5 mb-6 font-sans text-sm leading-relaxed text-blue-600"><?php echo esc_html($intro['body']); ?></p>
+                <?php endif; ?>
+                <?php if (!empty($intro['secondary_url'])) : ?>
+                    <a href="<?php echo esc_url($intro['secondary_url']); ?>" class="mega-panel__view-all mt-auto px-5">
+                        <?php echo esc_html($intro['secondary_label'] ?? __('Learn more', 'standard')); ?>
+                        <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                    </a>
+                <?php endif; ?>
+            </div>
+            <div class="mega-panel__content">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <?php foreach ($groups as $group) : ?>
+                        <div>
+                            <?php if (!empty($group['label'])) : ?>
+                                <p class="mb-3 pb-2 font-mono text-caption font-medium uppercase tracking-widest text-blue-400 border-b border-blue-100">
+                                    <?php echo esc_html($group['label']); ?>
+                                </p>
+                            <?php endif; ?>
+                            <ul class="list-none m-0 p-0 space-y-2">
+                                <?php foreach (($group['items'] ?? []) as $item) :
+                                    $is_anchor = !empty($item['anchor']);
+                                    $base = 'block py-1 font-sans no-underline transition-colors duration-150 ease-linear hover:text-blue-500';
+                                    $emphasis = $is_anchor
+                                        ? ' text-blue-900 font-semibold text-lg'
+                                        : ' text-blue-700 text-body';
+                                ?>
+                                    <li>
+                                        <a href="<?php echo esc_url($item['url'] ?? '#'); ?>" class="<?php echo esc_attr($base . $emphasis); ?>">
+                                            <?php echo esc_html($item['label'] ?? ''); ?>
+                                        </a>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
 
         <?php endif; ?>

@@ -2,8 +2,9 @@
 /**
  * Mobile navigation tree.
  *
- * Hardcoded data source for the mobile menu. Returns the L1 + L2 structure
- * consumed by app/header.php and app/templates/parts/mobile-menu-panel.php.
+ * Mirrors the 4-action mega menu IA for mobile. Each top-level section opens
+ * an L2 panel that renders the same intro + 3-group structure as the desktop
+ * flyout, just stacked. See app/inc/desktop-nav.php for the spec.
  *
  * @package Standard
  */
@@ -20,73 +21,56 @@ if (!defined('ABSPATH')) {
  * Returns the mobile navigation tree.
  *
  * Shape:
- *   - top: array of items rendered above the divider on L1
- *       - panel items open an L2 panel; require slug, label, category, view_all_url
- *           - slug is the panel identifier used by data attributes / aria hooks
- *           - category is the WooCommerce product category slug used to query L2 cards
- *           - the two may match (e.g. roof-wall-panel-machines) or differ
- *             (e.g. slug=seamless-gutter-machines, category=gutter-machines)
- *       - link items navigate directly; require label, url
- *   - featured: optional card-style CTA rendered above the top group on
- *     the L1 panel; requires label, subtitle, url, image
- *   - contact: optional brand-red CTA banner rendered between the top
- *     group and the secondary group on the L1 panel; requires label,
- *     url; may include an optional icon
- *   - bottom: array of secondary link items rendered at the panel bottom
- *       - each requires label, url; may include an optional `icon` (icon
- *         name from app/assets/icons/ rendered to the left of the label)
+ *   - top: array of L1 rows.
+ *       - panel rows: slug, label, intro, groups (mirrors desktop flyout)
+ *       - link rows:  label, url
+ *   - contact: optional CTA banner; label, url, optional icon
+ *   - bottom: array of secondary link items; each: label, url, optional icon
  *
- * @return array{top: array<int, array<string, mixed>>, bottom: array<int, array<string, mixed>>}
+ * @return array{
+ *   top: array<int, array<string, mixed>>,
+ *   contact?: array<string, mixed>,
+ *   bottom: array<int, array<string, mixed>>
+ * }
  */
 function get_mobile_nav_tree(): array {
+    $desktop = get_desktop_nav();
+
+    // Reshape the 4 desktop mega items into mobile L1 panel rows. The mobile
+    // L2 template reads intro + groups from each row and stacks them.
+    $top = [];
+    foreach ($desktop['items'] as $item) {
+        if (($item['kind'] ?? '') !== 'mega') {
+            continue;
+        }
+        $top[] = [
+            'type'   => 'panel',
+            'slug'   => $item['id'],
+            'label'  => $item['label'],
+            'intro'  => $item['intro']  ?? [],
+            'groups' => $item['groups'] ?? [],
+        ];
+    }
+
     return [
-        'top' => [
-            [
-                'type'         => 'panel',
-                'slug'         => 'roof-wall-panel-machines',
-                'label'        => __('Machines', 'standard'),
-                'category'     => 'roof-wall-panel-machines',
-                'view_all_url' => \Standard\Url\internal('/machines/'),
-            ],
-            [
-                'type'  => 'link',
-                'label' => __('Profiles', 'standard'),
-                'url'   => \Standard\Url\internal('/profiles/'),
-            ],
+        'top'     => $top,
+        'contact' => [
+            'label' => __('Talk to a specialist', 'standard'),
+            'url'   => \Standard\Url\internal('/contact/'),
+            'icon'  => 'mail',
+        ],
+        'bottom'  => [
             [
                 'type'  => 'link',
                 'label' => __('Learning Center', 'standard'),
                 'url'   => \Standard\Url\internal('/learning-center/'),
-            ],
-            [
-                'type'  => 'link',
-                'label' => __('Service & Support', 'standard'),
-                'url'   => \Standard\Url\internal('/service-hub/'),
-            ],
-        ],
-        'featured' => [
-            'label'    => __('Find your machine', 'standard'),
-            'subtitle' => __('See the full lineup', 'standard'),
-            'url'      => \Standard\Url\internal('/machines/'),
-            'image'    => 'https://newtechmachinery.com/wp-content/uploads/2025/09/Machine-on-rooftop-scaled.jpg',
-        ],
-        'contact' => [
-            'label' => __('Contact us', 'standard'),
-            'url'   => \Standard\Url\internal('/contact/'),
-            'icon'  => 'mail',
-        ],
-        'bottom' => [
-            [
-                'type'  => 'link',
-                'label' => __('Service & Repair', 'standard'),
-                'url'   => \Standard\Url\internal('/service-training/'),
-                'icon'  => 'life-buoy',
-            ],
-            [
-                'type'  => 'link',
-                'label' => __('Resources', 'standard'),
-                'url'   => \Standard\Url\internal('/resources/'),
                 'icon'  => 'folder',
+            ],
+            [
+                'type'  => 'link',
+                'label' => __('Service Hub', 'standard'),
+                'url'   => \Standard\Url\internal('/service-hub/'),
+                'icon'  => 'life-buoy',
             ],
         ],
     ];

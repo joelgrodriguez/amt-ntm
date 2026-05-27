@@ -59,8 +59,16 @@ Plus a utility rail: "Service & Repair", "Build & Finance", "Contact".
 
 The exact tree, link by link, is in **`03-mega-menu-spec.md`**.
 
-## Homepage hero (logic-only change)
+## Homepage — OUT OF SCOPE this pass
 
-The current homepage routes into the configurator from the hero. The new homepage should route into the four action paths. **This is a logic change, not a design change** — use the existing hero component, just swap the four CTAs to the four action labels and demote the configurator to a secondary CTA further down the page.
+Do not touch the homepage. Specifically, do not edit:
 
-If the hero component doesn't support four CTAs cleanly, stop and ask before changing its layout.
+- `app/front-page.php`
+- `app/inc/machines.php` (the `get_hero_slides()` function)
+- Anything in `app/templates/parts/front-page/`
+
+The current homepage hero slider works correctly: each slide CTA routes to the appropriate **category landing page** (`/roof-wall-panel-machines/`, `/seamless-gutter-machines/`, `/machines/upgrades/`). That's the right behavior for now — the hero does the "category door" job, the buyer hits a category landing, and the rest of the homepage flow (explore → quiz → sell → educate → close) takes them deeper.
+
+A homepage revamp is a separate pass. Possible future direction: each slide may eventually route to that machine's individual learn-more page so the buyer learns about the machine before being asked to configure. **That is not this pass.** If you find yourself touching homepage files, you've gone outside scope.
+
+> **Configurator placement principle (for the mega menu, not the homepage):** the configurator is a bottom-of-funnel destination. Visitors should only arrive there after they already know which machine they want. In the new mega menu, the configurator lives as an **expert shortcut** inside the *How to buy* flyout — never as a primary CTA, never on the homepage.

@@ -2,13 +2,14 @@
 /**
  * Mobile Menu L2 Panel Template Part
  *
- * Renders one slide-in panel with sub-header, machine cards, and a view-all link.
+ * Renders one slide-in panel for the 4-action IA: a section sub-header,
+ * the intro block, and the section's three groups stacked.
  *
  * Args (passed via get_template_part(..., null, [...])):
- *   - slug         (string) panel slug, used in data-panel and aria-* hooks
- *   - label        (string) panel title shown in the sub-header
- *   - category     (string) catalog slug passed to get_products_by_category()
- *   - view_all_url (string) URL for the bottom "View all <Label>" link
+ *   - slug   (string)               panel slug, used in data-panel and aria-* hooks
+ *   - label  (string)               panel title shown in the sub-header
+ *   - intro  (array<string, mixed>) title, body, secondary_label, secondary_url
+ *   - groups (array<int, array>)    each: label, items[] where items have label, url, optional anchor
  *
  * @package Standard
  */
@@ -19,18 +20,14 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use function Standard\Woo\Catalog\get_products_by_category;
+$slug   = $args['slug']   ?? '';
+$label  = $args['label']  ?? '';
+$intro  = $args['intro']  ?? [];
+$groups = $args['groups'] ?? [];
 
-$slug         = $args['slug']         ?? '';
-$label        = $args['label']        ?? '';
-$category     = $args['category']     ?? '';
-$view_all_url = $args['view_all_url'] ?? '#';
-
-if ($slug === '' || $category === '') {
+if ($slug === '' || $groups === []) {
     return;
 }
-
-$products = get_products_by_category($category);
 ?>
 
 <section class="mobile-menu__panel" data-panel="<?php echo esc_attr($slug); ?>" aria-hidden="true" aria-labelledby="mobile-menu-title-<?php echo esc_attr($slug); ?>">
@@ -45,20 +42,40 @@ $products = get_products_by_category($category);
     </header>
 
     <div class="mobile-menu__panel-body">
-        <?php if (!empty($products)) : ?>
-            <div class="mobile-menu__cards">
-                <?php foreach ($products as $product) : ?>
-                    <?php get_template_part('templates/parts/card-product', null, ['product' => $product]); ?>
-                <?php endforeach; ?>
-            </div>
+        <?php if (!empty($intro['body'])) : ?>
+            <p class="px-5 py-4 font-sans text-base leading-relaxed text-blue-600 border-b border-blue-100">
+                <?php echo esc_html($intro['body']); ?>
+            </p>
         <?php endif; ?>
 
-        <a class="mobile-menu__view-all" href="<?php echo esc_url($view_all_url); ?>">
-            <?php
-            /* translators: %s: category label, e.g. "Roof & Wall Panel Machines" */
-            printf(esc_html__('View all %s', 'standard'), esc_html($label));
-            ?>
-            <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
-        </a>
+        <?php foreach ($groups as $group) : ?>
+            <div class="px-5 pt-6 pb-2">
+                <?php if (!empty($group['label'])) : ?>
+                    <p class="mb-3 font-mono text-caption font-medium uppercase tracking-widest text-blue-400">
+                        <?php echo esc_html($group['label']); ?>
+                    </p>
+                <?php endif; ?>
+                <ul class="list-none m-0 p-0 divide-y divide-blue-100 border-y border-blue-100">
+                    <?php foreach (($group['items'] ?? []) as $item) :
+                        $is_anchor = !empty($item['anchor']);
+                        $size      = $is_anchor ? ' text-lg font-semibold text-blue-900' : ' text-body text-blue-700';
+                    ?>
+                        <li>
+                            <a class="flex items-center justify-between min-h-12 py-3 font-sans no-underline transition-colors duration-150 ease-linear hover:bg-blue-50<?php echo esc_attr($size); ?>" href="<?php echo esc_url($item['url'] ?? '#'); ?>">
+                                <span><?php echo esc_html($item['label'] ?? ''); ?></span>
+                                <?php icon('arrow-right', ['class' => 'w-4 h-4 flex-none text-blue-400']); ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endforeach; ?>
+
+        <?php if (!empty($intro['secondary_url'])) : ?>
+            <a class="mobile-menu__view-all" href="<?php echo esc_url($intro['secondary_url']); ?>">
+                <?php echo esc_html($intro['secondary_label'] ?? __('Learn more', 'standard')); ?>
+                <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+            </a>
+        <?php endif; ?>
     </div>
 </section>

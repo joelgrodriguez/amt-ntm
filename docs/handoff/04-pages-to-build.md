@@ -86,6 +86,8 @@ For each, create the PHP template file AND the WordPress page (use WP-CLI in the
 
 When this phase ships, mega-menu links pointing at `NEW` URLs should use temporary `#` placeholders. Phase 2 replaces them with real URLs as pages get scaffolded.
 
+> **Homepage is out of scope.** Do not edit `app/front-page.php`, `app/inc/machines.php` (`get_hero_slides()`), or any `app/templates/parts/front-page/*` file. The hero slider currently routes each slide to a category landing page (`/roof-wall-panel-machines/`, `/seamless-gutter-machines/`, `/machines/upgrades/`) and that behavior is correct for this pass. A homepage revamp is a separate pass — don't preempt it.
+
 ### Phase 2 — Anchor page scaffolds
 
 These four are the most important. The new mega menu's anchor items point at these URLs.
@@ -155,7 +157,7 @@ These are all explicitly out of scope for this pass. They get scoped and assigne
 ## What this pass DOES include (the definition of done)
 
 ✅ Mega menu (desktop + mobile) rebuilt per `03-mega-menu-spec.md`
-✅ Homepage hero CTAs swapped to point at the four action paths
+✅ Homepage (front-page.php, hero slider, get_hero_slides) left untouched — current behavior is correct
 ✅ 9 PHP page template files exist in `app/`
 ✅ 9 WordPress pages exist with the correct slugs and templates assigned
 ✅ Every link in the new mega menu lands on either an existing page (200 OK) or a clearly-marked placeholder
