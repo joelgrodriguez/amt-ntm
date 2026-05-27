@@ -54,7 +54,7 @@ $page_title = function_exists('get_the_title') ? get_the_title() : '';
     <!-- Solid overlay + grain, same system as the homepage hero slider.
          The overlay is a 42% black wash (not a gradient) so the video
          reads behind it evenly across the whole frame. -->
-    <div class="hero-overlay"></div>
+    <div class="hero-overlay hero-overlay--machii"></div>
     <div class="hero-overlay__grain"></div>
 
     <div class="container relative z-10 py-24 lg:py-32 xl:py-40 min-h-[80vh] lg:min-h-[88vh] flex items-center">

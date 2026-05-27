@@ -32,6 +32,15 @@
   background-color: color-mix(in srgb, var(--color-black) 42%, transparent);
 }
 
+/* MACH II hero modifier: video background is busier on small screens
+   (gutter rig + sky horizon), so the copy needs a touch more contrast.
+   Mobile only — desktop reads fine at the 42% baseline. */
+@media (max-width: 767px) {
+  .hero-overlay.hero-overlay--machii {
+    background-color: color-mix(in srgb, var(--color-black) 52%, transparent);
+  }
+}
+
 /* ── SVG grain texture ────────────────────────────────────────────── */
 
 .hero-overlay__grain {
