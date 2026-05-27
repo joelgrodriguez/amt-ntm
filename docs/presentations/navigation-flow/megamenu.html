@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>09 Mega menu mockup — NTM IA Proposal</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* mockup-specific styles */
+    .mock-frame {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0,0,0,.04);
+    }
+
+    .mock-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 22px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .mock-logo {
+      font-family: var(--mono);
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: .06em;
+      color: var(--ink);
+    }
+
+    .mock-nav {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .mock-nav-item {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -.005em;
+      color: var(--ink);
+      padding: 6px 2px;
+      border-bottom: 2px solid transparent;
+      cursor: default;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mock-nav-item.active {
+      border-bottom-color: currentColor;
+    }
+    .mock-nav-item.active.green { color: var(--green); }
+    .mock-nav-item.active.blue { color: var(--blue); }
+    .mock-nav-item.active.orange { color: var(--orange); }
+    .mock-nav-item.active.aqua { color: var(--aqua); }
+
+    .mock-nav-item .caret {
+      width: 0; height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 4px solid currentColor;
+      display: inline-block;
+      margin-top: 2px;
+    }
+
+    .mock-cta {
+      padding: 8px 14px;
+      background: var(--ink);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 999px;
+      letter-spacing: -.005em;
+    }
+
+    .mock-flyout {
+      background: #fff;
+      border-top: 1px solid var(--line);
+      padding: 28px 22px 26px;
+      display: grid;
+      grid-template-columns: 240px 1fr 1fr 1fr;
+      gap: 32px;
+    }
+
+    .mock-flyout .intro h4 {
+      margin: 0 0 6px;
+      font-size: 19px;
+      letter-spacing: -.02em;
+      font-weight: 800;
+    }
+
+    .mock-flyout .intro p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .mock-flyout .intro .secondary {
+      margin-top: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 2px;
+    }
+
+    .mock-group h5 {
+      margin: 0 0 10px;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .mock-anchor {
+      display: block;
+      padding: 8px 0 10px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 8px;
+    }
+
+    .mock-anchor .label {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -.01em;
+      line-height: 1.25;
+      color: var(--ink);
+    }
+    .mock-flyout.green .mock-anchor .label { color: var(--green); }
+    .mock-flyout.blue .mock-anchor .label { color: var(--blue); }
+    .mock-flyout.orange .mock-anchor .label { color: var(--orange); }
+    .mock-flyout.aqua .mock-anchor .label { color: var(--aqua); }
+
+    .mock-anchor .url {
+      display: block;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 2px;
+      letter-spacing: 0;
+    }
+
+    .mock-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 6px;
+    }
+
+    .mock-links li {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-2);
+      line-height: 1.3;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mock-links .url {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .mock-pill {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .mock-pill.quiz { background: #dbeafe; color: var(--blue); }
+    .mock-pill.new { background: #f3e8ff; color: var(--gap); }
+    .mock-pill.expert { background: #ffedd5; color: var(--orange); }
+
+    .mock-callout {
+      margin-top: 14px;
+      padding: 10px 12px;
+      background: var(--paper);
+      border-radius: 6px;
+      font-size: 12px;
+      line-height: 1.4;
+      color: var(--ink-2);
+    }
+
+    .mock-callout b { color: var(--ink); }
+
+    .mockup-stack { display: grid; gap: 24px; }
+
+    .mock-label-strip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .mock-label-strip .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+    }
+    .mock-label-strip.green .dot { background: var(--green); }
+    .mock-label-strip.blue .dot { background: var(--blue); }
+    .mock-label-strip.orange .dot { background: var(--orange); }
+    .mock-label-strip.aqua .dot { background: var(--aqua); }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div>
+        <div class="brand">AMT · NTM</div>
+        <h1 class="deck-title">Navigation &amp; IA Proposal</h1>
+        <nav class="nav-group" aria-label="Deck navigation">
+          <a class="nav-item" href="index.html"><span class="num">01</span><span>Overview</span></a>
+          <a class="nav-item" href="sitemap-flow.html"><span class="num">02</span><span>Sitemap — flow</span></a>
+          <a class="nav-item" href="sitemap.html"><span class="num">03</span><span>Sitemap — detailed</span></a>
+          <div class="nav-section">Action paths</div>
+          <a class="nav-item" href="get-started.html"><span class="num">04</span><span>Get started</span></a>
+          <a class="nav-item" href="choose-machine.html"><span class="num">05</span><span>Choose your machine</span></a>
+          <a class="nav-item" href="how-to-buy.html"><span class="num">06</span><span>How to buy</span></a>
+          <a class="nav-item" href="owner-support.html"><span class="num">07</span><span>Get owner support</span></a>
+          <div class="nav-section">Outcome</div>
+          <a class="nav-item" href="decisions.html"><span class="num">08</span><span>Decisions &amp; next steps</span></a>
+          <a class="nav-item active" href="megamenu.html"><span class="num">09</span><span>Mega menu mockup</span></a>
+          <a class="nav-item" href="content-gap.html"><span class="num">10</span><span>Content inventory &amp; gaps</span></a>
+        </nav>
+      </div>
+      <div></div>
+      <div class="foot"><div>NTM IA · v0.4</div><div>Stakeholder review draft</div></div>
+    </aside>
+
+    <main class="canvas">
+      <div class="topbar">
+        <div class="crumbs">09 · Mega menu mockup</div>
+        <div class="pager"><a href="decisions.html">← Prev</a><a href="index.html">Back to start ↺</a></div>
+      </div>
+
+      <div class="page">
+        <header class="page-header">
+          <p class="eyebrow">Rendered preview</p>
+          <h1 class="page-title">How the top nav actually opens.</h1>
+          <p class="page-lede">Four mockups — one per top-level label — showing what drops down when a user hovers. <b>Labels are not clickable</b>; only the items inside the flyout link to pages. Anchor items sit at the top of each group, sized larger and color-tinted. <code>/machines/</code> and the category landings stay loud and visible.</p>
+        </header>
+
+        <section>
+          <div class="section-title"><h2>Conventions</h2></div>
+          <div class="kv">
+            <div><b>Top-level label</b><p>Pure label, not a link. Hovering opens the flyout. Active state = colored underline.</p></div>
+            <div><b>Group header</b><p>Small mono caps. Names the user’s sub-job (See all machines, Help me choose, Compare).</p></div>
+            <div><b>Anchor item</b><p>Bigger, color-tinted, with the destination URL. The primary action in the group.</p></div>
+            <div><b>List items</b><p>Smaller, semibold. Each one is a real link to a real page; URL printed beside the name.</p></div>
+          </div>
+        </section>
+
+        <!-- ========== GET STARTED ========== -->
+        <section class="mockup-stack">
+          <div class="mock-label-strip green"><span class="dot"></span>01 · Get started (hover)</div>
+          <div class="mock-frame">
+            <div class="mock-topbar">
+              <div class="mock-logo">NTM</div>
+              <div class="mock-nav">
+                <span class="mock-nav-item active green">Get started <span class="caret"></span></span>
+                <span class="mock-nav-item">Choose your machine <span class="caret"></span></span>
+                <span class="mock-nav-item">How to buy <span class="caret"></span></span>
+                <span class="mock-nav-item">Get owner support <span class="caret"></span></span>
+              </div>
+              <span class="mock-cta">Talk to a specialist</span>
+            </div>
+            <div class="mock-flyout green">
+              <div class="intro">
+                <h4>Get started</h4>
+                <p>New to portable rollforming? Learn what NTM does, decide if it fits your business, and pick a direction.</p>
+                <a class="secondary" href="#">First-time buyer playlist →</a>
+              </div>
+              <div class="mock-group">
+                <h5>Start here</h5>
+                <a class="mock-anchor"><span class="label">What is an NTM machine?</span><span class="url">/learning-center/what-is-portable-rollforming/</span></a>
+                <ul class="mock-links">
+                  <li>How portable rollforming works <span class="url">/portable-rollforming-machine-equipment-types-uses/</span></li>
+                  <li>Roof panel vs gutter machines <span class="mock-pill new">New</span></li>
+                  <li>Top 5 misconceptions <span class="url">/portable-rollforming-misconceptions/</span></li>
+                </ul>
+              </div>
+              <div class="mock-group">
+                <h5>See if it fits</h5>
+                <a class="mock-anchor"><span class="label">Are you ready to manufacture? <span class="mock-pill quiz">Quiz</span></span><span class="url">/portable-rollforming-machine-readiness-assessment/</span></a>
+                <ul class="mock-links">
+                  <li>Profit calculator <span class="url">/portable-rollforming-profit-calculator/</span></li>
+                  <li>Portable vs factory panel suppliers <span class="url">/portable-rollforming-vs-factory-panel-suppliers/</span></li>
+                </ul>
+              </div>
+              <div class="mock-group">
+                <h5>Explore</h5>
+                <a class="mock-anchor"><span class="label">Buy your first panel machine</span><span class="url">Track · curated playlist</span></a>
+                <ul class="mock-links">
+                  <li>Start or grow a roofing business <span class="mock-pill new">Track</span></li>
+                  <li>Learning Center → <span class="url">/learning-center/</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="mock-callout"><b>Notes:</b> Learning Center is reached <i>from inside</i> this flyout, not from a top-level label. The readiness quiz is the anchor of its group — promoted, not buried.</div>
+        </section>
+
+        <!-- ========== CHOOSE ========== -->
+        <section class="mockup-stack">
+          <div class="mock-label-strip blue"><span class="dot"></span>02 · Choose your machine (hover)</div>
+          <div class="mock-frame">
+            <div class="mock-topbar">
+              <div class="mock-logo">NTM</div>
+              <div class="mock-nav">
+                <span class="mock-nav-item">Get started <span class="caret"></span></span>
+                <span class="mock-nav-item active blue">Choose your machine <span class="caret"></span></span>
+                <span class="mock-nav-item">How to buy <span class="caret"></span></span>
+                <span class="mock-nav-item">Get owner support <span class="caret"></span></span>
+              </div>
+              <span class="mock-cta">Talk to a specialist</span>
+            </div>
+            <div class="mock-flyout blue">
+              <div class="intro">
+                <h4>Choose your machine</h4>
+                <p>Browse the catalog directly, or take a short quiz if you’re not sure where to start. Both lanes live here.</p>
+                <a class="secondary" href="#">See all machines →</a>
+              </div>
+              <div class="mock-group">
+                <h5>See all machines</h5>
+                <a class="mock-anchor"><span class="label">All NTM machines</span><span class="url">/machines/ — existing hub, stays put</span></a>
+                <ul class="mock-links">
+                  <li>Roof &amp; wall panel machines <span class="url">/roof-wall-panel-machines/</span></li>
+                  <li>Seamless gutter machines <span class="url">/seamless-gutter-machines/</span></li>
+                  <li>Profiles archive <span class="url">/profiles/</span></li>
+                  <li>Accessories &amp; upgrades</li>
+                </ul>
+              </div>
+              <div class="mock-group">
+                <h5>Help me choose</h5>
+                <a class="mock-anchor"><span class="label">Which roof panel machine? <span class="mock-pill quiz">Quiz</span></span><span class="url">/roof-panel-machine-assessment-quiz/</span></a>
+                <ul class="mock-links">
+                  <li>Gutter selection guide <span class="mock-pill quiz">Quiz</span></li>
+                  <li>What coil width should you use? <span class="mock-pill quiz">Quiz</span></li>
+                  <li>Machine chooser landing <span class="mock-pill new">New</span></li>
+                </ul>
+              </div>
+              <div class="mock-group">
+                <h5>Compare</h5>
+                <a class="mock-anchor"><span class="label">SSQ3 / SSQ II / SSR / SSH</span><span class="url">Unified comparison table · New</span></a>
+                <ul class="mock-links">
+                  <li>SSQ II vs SSR <span class="url">/portable-roof-panel-machines-ssq-ii-vs-ssr/</span></li>
+                  <li>SSR / SSH / SSQ II <span class="url">/comparison-ntms-ssr-ssh-and-ssq-ii-portable-rollformers/</span></li>
+                  <li>SSQ3 MultiPro <span class="url">/ssq3-multi-pro/</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="mock-callout"><b>Critical:</b> <code>/machines/</code> is the loudest item in the flyout. Browse lane sits left of the quiz lane and gets the anchor styling. Nothing is hidden from people who know what they want.</div>
+        </section>
+
+        <!-- ========== HOW TO BUY ========== -->
+        <section class="mockup-stack">
+          <div class="mock-label-strip orange"><span class="dot"></span>03 · How to buy (hover)</div>
+          <div class="mock-frame">
+            <div class="mock-topbar">
+              <div class="mock-logo">NTM</div>
+              <div class="mock-nav">
+                <span class="mock-nav-item">Get started <span class="caret"></span></span>
+                <span class="mock-nav-item">Choose your machine <span class="caret"></span></span>
+                <span class="mock-nav-item active orange">How to buy <span class="caret"></span></span>
+                <span class="mock-nav-item">Get owner support <span class="caret"></span></span>
+              </div>
+              <span class="mock-cta">Talk to a specialist</span>
+            </div>
+            <div class="mock-flyout orange">
+              <div class="intro">
+                <h4>How to buy</h4>
+                <p>Price, financing, quote, sales contact. Configurator stays — as the expert shortcut at the end, not the front door.</p>
+                <a class="secondary" href="#">Request a quote →</a>
+              </div>
+              <div class="mock-group">
+                <h5>Get a quote</h5>
+                <a class="mock-anchor"><span class="label">Request a quote</span><span class="url">/contact/?form=quote</span></a>
+                <ul class="mock-links">
+                  <li>What to know before quoting <span class="url">/getting-a-portable-rollforming-machine-quote/</span></li>
+                  <li>How to get a quote on an NTM machine <span class="url">/how-to-get-a-quote-for-an-ntm-rollforming-machine/</span></li>
+                  <li>Quote checklist</li>
+                </ul>
+              </div>
+              <div class="mock-group">
+                <h5>Understand the deal</h5>
+                <a class="mock-anchor"><span class="label">Panel machine cost (2026)</span><span class="url">/portable-roof-panel-rollforming-machine-cost/</span></a>
+                <ul class="mock-links">
+                  <li>Gutter machine cost (2026) <span class="url">/gutter-machine-cost-what-to-look-for/</span></li>
+                  <li>Financing &amp; leasing <span class="url">/leasing-financing/</span></li>
+                  <li>Build &amp; finance walkthrough <span class="url">/how-to-build-and-finance-your-ntm-rollformer-all-on-one-site/</span></li>
+                </ul>
+              </div>
+              <div class="mock-group">
+                <h5>Talk or configure</h5>
+                <a class="mock-anchor"><span class="label">Talk to a specialist</span><span class="url">/contact/</span></a>
+                <ul class="mock-links">
+                  <li>Configure your machine <span class="mock-pill expert">Expert</span></li>
+                  <li>How buying from NTM works <span class="mock-pill new">New</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="mock-callout"><b>Notes:</b> Configurator stays in the IA but moves from front door to expert shortcut. Persistent “Talk to a specialist” CTA in the header reinforces this lane.</div>
+        </section>
+
+        <!-- ========== OWNER SUPPORT ========== -->
+        <section class="mockup-stack">
+          <div class="mock-label-strip aqua"><span class="dot"></span>04 · Get owner support (hover)</div>
+          <div class="mock-frame">
+            <div class="mock-topbar">
+              <div class="mock-logo">NTM</div>
+              <div class="mock-nav">
+                <span class="mock-nav-item">Get started <span class="caret"></span></span>
+                <span class="mock-nav-item">Choose your machine <span class="caret"></span></span>
+                <span class="mock-nav-item">How to buy <span class="caret"></span></span>
+                <span class="mock-nav-item active aqua">Get owner support <span class="caret"></span></span>
+              </div>
+              <span class="mock-cta">Talk to a specialist</span>
+            </div>
+            <div class="mock-flyout aqua">
+              <div class="intro">
+                <h4>Get owner support</h4>
+                <p>One front door for owners: open a service request, find a manual, register warranty, request parts, or buy another machine.</p>
+                <a class="secondary" href="#">Open a service request →</a>
+              </div>
+              <div class="mock-group">
+                <h5>Get support now</h5>
+                <a class="mock-anchor"><span class="label">Open a service request</span><span class="url">/service-hub/</span></a>
+                <ul class="mock-links">
+                  <li>Service Hub <span class="url">/service-hub/</span></li>
+                  <li>NTM Knowledge Base <span class="url">/ntm-knowledge-base/</span></li>
+                  <li>Owner support landing <span class="mock-pill new">New</span></li>
+                </ul>
+              </div>
+              <div class="mock-group">
+                <h5>Operate</h5>
+                <a class="mock-anchor"><span class="label">Machine manuals</span><span class="url">/manuals/</span></a>
+                <ul class="mock-links">
+                  <li>Request training <span class="url">/service-training/</span></li>
+                  <li>What to expect in training</li>
+                  <li>Warranty registration <span class="url">/warranty-registration/</span></li>
+                  <li>Parts request <span class="mock-pill new">New</span></li>
+                </ul>
+              </div>
+              <div class="mock-group">
+                <h5>Troubleshoot &amp; buy again</h5>
+                <a class="mock-anchor"><span class="label">Common problems &amp; fixes</span><span class="url">/common-problems-with-ntm-portable-rollforming-machines-and-how-to-solve-them/</span></a>
+                <ul class="mock-links">
+                  <li>Top 5 service questions</li>
+                  <li>Prevent voiding your warranty</li>
+                  <li>Add a machine <span class="mock-pill new">New</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="mock-callout"><b>Notes:</b> Owners get one front door — the loud anchor on this flyout is a service request. Repeat-buyer “Add a machine” lane is the bridge back into <i>How to buy</i> without going through new-buyer education.</div>
+        </section>
+
+        <div class="takeaway">
+          <span class="label">Key takeaway</span>
+          <p>Top labels don’t click. Flyouts have two equal lanes — browse and guided. <code>/machines/</code> and every existing category and product page keep their URLs and stay visible. Configurator and Learning Center stay too; they move into the right action path.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
