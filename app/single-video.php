@@ -26,15 +26,18 @@ get_header();
     <?php while (have_posts()) : the_post(); ?>
         <article id="post-<?php the_ID(); ?>" <?php post_class(''); ?>>
             <?php get_template_part('templates/parts/video-section', null, [
-                'title'            => __('Portable Rollforming Channel', 'standard'),
-                'channel'          => __('New Tech Machinery', 'standard'),
-                'video_url'        => is_string($video) ? $video : '',
-                'video_type'       => get_the_date('j F Y'),
-                'company_name'     => __('Video', 'standard'),
-                'section_id'       => 'video-' . get_the_ID(),
-                'top_left_icon'    => 'live-dot',
-                'bottom_left_icon' => 'calendar',
-                'show_led_strip'   => false,
+                'title'             => __('New Tech Machinery', 'standard'),
+                'title_short'       => __('NTM', 'standard'),
+                'channel'           => __('Portable Rollforming Channel', 'standard'),
+                'channel_short'     => __('Rollforming Channel', 'standard'),
+                'video_url'         => is_string($video) ? $video : '',
+                'video_type'        => get_the_date('Y.m.d'),
+                'company_name'      => __('Video', 'standard'),
+                'section_id'        => 'video-' . get_the_ID(),
+                'top_left_icon'     => 'live-dot',
+                'bottom_left_icon'  => 'calendar',
+                'bottom_right_icon' => 'video',
+                'show_led_strip'    => false,
             ]); ?>
             <section class="pattern-dot-grid py-6 lg:py-12">
                 <div class="grid gap-6 lg:gap-12 max-w-4xl mx-auto w-full px-4">
