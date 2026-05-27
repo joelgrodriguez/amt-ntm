@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
 get_template_part('templates/parts/hero-category', null, [
     'section_id' => 'machines-hero',
     'content'    => [
-        'kicker'            => __('NTM // PORTABLE ROLLFORMING // SINCE 1991', 'standard'),
+        'kicker'            => __('PORTABLE ROLLFORMING // SINCE 1991', 'standard'),
         'title'             => __('Make More Money<br class="hidden lg:inline"> on Every Metal Roof Job.', 'standard'),
         'subtitle'          => __('Fabricate panels and gutters on-site with NTM portable rollformers. Up to $2.25 saved on every square foot.', 'standard'),
         'cta_primary'       => __('View All NTM Machines', 'standard'),
