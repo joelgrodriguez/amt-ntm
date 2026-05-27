@@ -74,7 +74,7 @@ $legal_links = [
                     <img
                         src="<?php echo esc_url(content_url('/uploads/2024/09/ntm-logos-1_color-white-e1776460003528.png')); ?>"
                         alt="<?php echo esc_attr(get_bloginfo('name')); ?>"
-                        class="h-24 w-auto"
+                        class="h-16 w-auto lg:h-24"
                         loading="lazy"
                     >
                 </a>
