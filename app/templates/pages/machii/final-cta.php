@@ -8,9 +8,8 @@
  * testimonial. The closer is the punctuation mark, not a second
  * pitch; the page already made the case.
  *
- * Build & Finance link points at /build-finance/ which is the
- * configurator entry NTM already uses (see templates/pages/
- * machines/lineup-flagship.php).
+ * Build & Finance link points at /configurator/machii/, the
+ * MACH II–specific configurator route.
  *
  * @package Standard
  *
@@ -48,7 +47,7 @@ if (!defined('ABSPATH')) {
                 <p class="font-mono text-xs uppercase tracking-wider text-blue-300">
                     <?php esc_html_e('Free 30-min call · No obligation', 'standard'); ?>
                 </p>
-                <a href="<?php echo esc_url(\Standard\Url\internal('/build-finance/')); ?>" class="btn btn-primary btn-xl">
+                <a href="<?php echo esc_url(\Standard\Url\internal('/configurator/machii/')); ?>" class="btn btn-primary btn-xl">
                     <?php esc_html_e('Build & Finance Your MACH II', 'standard'); ?>
                     <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                 </a>
