@@ -29,7 +29,7 @@ if (!defined('ABSPATH')) {
     <?php esc_html_e('Skip to main content', 'standard'); ?>
 </a>
 
-<header id="site-header" class="bg-white border-b border-blue-200 z-50 transition-colors duration-200">
+<header id="site-header" class="bg-white border-y border-blue-200 z-50 transition-colors duration-200">
     <!-- Mobile row: toggle | logo | actions -->
     <div class="flex items-center h-16 lg:hidden">
         <!-- Mobile menu toggle -->
