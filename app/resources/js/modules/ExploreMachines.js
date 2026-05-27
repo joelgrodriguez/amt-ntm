@@ -13,7 +13,6 @@
 
 const DEFAULTS = {
   selector: '.explore-machines',
-  scrollAmount: 400,
   debounceDelay: 100,
 };
 
@@ -147,14 +146,32 @@ export function initExploreMachines(options = {}) {
   }
 
   /**
-   * Scroll the track in a direction.
+   * Scroll the track in a direction. Snaps to the next/prev card's
+   * offsetLeft so the resulting scrollLeft is always a valid snap point.
+   * Why: programmatic `scrollBy` + `behavior: smooth` does not consistently
+   * trigger `scroll-snap-type: mandatory` on mobile Safari, which leaves the
+   * track parked between snap points (card hangs flush to the viewport edge).
    */
   function scrollTrack(panel, direction) {
     const track = panel.querySelector('.explore-machines__track');
     if (!track) return;
 
-    const amount = direction === 'next' ? config.scrollAmount : -config.scrollAmount;
-    track.scrollBy({ left: amount, behavior: 'smooth' });
+    const cards = Array.from(track.querySelectorAll('.card-product'));
+    if (cards.length === 0) return;
+
+    const current = track.scrollLeft;
+    const targets = cards.map((card) => card.offsetLeft);
+
+    let next;
+    if (direction === 'next') {
+      next = targets.find((offset) => offset > current + 1);
+      if (next === undefined) next = targets[targets.length - 1];
+    } else {
+      const prev = [...targets].reverse().find((offset) => offset < current - 1);
+      next = prev === undefined ? targets[0] : prev;
+    }
+
+    track.scrollTo({ left: next, behavior: 'smooth' });
 
     // Update counter after scroll completes
     setTimeout(() => updateCounter(panel, track), 350);

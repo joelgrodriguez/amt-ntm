@@ -119,9 +119,15 @@ $rendered_count = 0;
                     <?php if (!empty($stats)) : ?>
                         <dl class="grid grid-cols-3 border-y border-blue-200" aria-label="<?php echo esc_attr(sprintf(__('%s key specs', 'standard'), $flagship['model_label'])); ?>">
                             <?php foreach ($stats as $j => $stat) : ?>
+                                <?php
+                                // Front-page voice prefers terse single-word labels in
+                                // this 3-cell strip; the shared data file keeps the
+                                // longer "Tooling Changeover" for the SSQ3 detail page.
+                                $stat_label = preg_replace('/^Tooling\s+/i', '', $stat['label']);
+                                ?>
                                 <div class="py-3 px-3 <?php echo $j > 0 ? 'border-l border-blue-200' : ''; ?> <?php echo $j === 0 ? 'pl-0' : ''; ?>">
                                     <dt class="font-mono uppercase tracking-wider text-[10px] text-blue-400 mb-1">
-                                        <?php echo esc_html($stat['label']); ?>
+                                        <?php echo esc_html($stat_label); ?>
                                     </dt>
                                     <dd class="font-mono font-medium text-blue-900 text-sm lg:text-base">
                                         <?php echo esc_html($stat['value']); ?>
