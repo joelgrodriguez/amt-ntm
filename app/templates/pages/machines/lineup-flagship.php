@@ -34,12 +34,12 @@ $price_label = $machine['price_label'] ?? __('Starting at', 'standard');
 ?>
 
 <div class="grid bg-blue-900 text-white overflow-hidden lg:grid-cols-[5fr_4fr] lg:items-center">
-    <div class="relative aspect-[4/3] bg-blue-800 lg:aspect-auto lg:h-full lg:min-h-[420px]">
+    <div class="relative aspect-[5/4] bg-blue-800 sm:aspect-[4/3] lg:aspect-auto lg:h-full lg:min-h-[420px]">
         <?php \Standard\Images\responsive_image($machine['image'], $machine['name'], 'product-card', [
-            'class' => 'absolute inset-0 w-full h-full object-contain p-6 lg:p-10',
+            'class' => 'absolute inset-0 w-full h-full object-contain object-center px-8 py-6 lg:p-10',
         ]); ?>
     </div>
-    <div class="grid gap-6 p-8 lg:gap-8 lg:p-12 xl:p-16">
+    <div class="grid gap-5 px-6 py-8 sm:p-8 lg:gap-8 lg:p-12 xl:p-16">
 
         <?php if (!empty($machine['badge']) || !empty($machine['descriptor'])) : ?>
             <div class="flex flex-wrap items-center gap-3">
@@ -56,7 +56,7 @@ $price_label = $machine['price_label'] ?? __('Starting at', 'standard');
             </div>
         <?php endif; ?>
 
-        <h4 class="text-4xl font-medium tracking-tight text-white lg:text-5xl xl:text-6xl">
+        <h4 class="text-3xl font-medium tracking-tight text-white sm:text-4xl lg:text-5xl xl:text-6xl">
             <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="no-underline text-inherit hover:text-blue-200 transition-colors">
                 <?php echo esc_html($machine['name']); ?>
             </a>
@@ -64,11 +64,11 @@ $price_label = $machine['price_label'] ?? __('Starting at', 'standard');
 
         <?php if ($price) : ?>
             <div class="grid gap-1">
-                <p class="text-2xl font-medium text-white">
-                    <?php echo esc_html($price); ?>
-                </p>
                 <p class="font-mono text-xs text-blue-300 uppercase tracking-wider">
                     <?php echo esc_html($price_label); ?>
+                </p>
+                <p class="text-2xl font-medium text-white">
+                    <?php echo esc_html($price); ?>
                 </p>
             </div>
         <?php endif; ?>
@@ -83,7 +83,7 @@ $price_label = $machine['price_label'] ?? __('Starting at', 'standard');
         </ul>
 
         <div class="flex flex-wrap gap-3 pt-2">
-            <a href="<?php echo esc_url(\Standard\Url\with_query('/build-finance/', ['machine' => $machine['slug']])); ?>" class="btn btn-primary">
+            <a href="<?php echo esc_url(\Standard\Url\with_query('/build-finance/', ['machine' => $machine['slug']])); ?>" class="btn btn-primary w-full justify-center sm:w-auto sm:justify-start">
                 <?php esc_html_e('Build & Quote', 'standard'); ?>
                 <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
             </a>
