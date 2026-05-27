@@ -42,7 +42,8 @@ if (empty($machines)) {
 ?>
 
 <section
-    class="section bg-white border-t border-blue-200"
+    id="machii-family-portrait"
+    class="section bg-white border-t border-blue-200 scroll-mt-20"
     aria-labelledby="machii-variants-title"
 >
     <div class="container section-content">

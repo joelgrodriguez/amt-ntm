@@ -43,8 +43,7 @@ if (empty($machines)) {
 ?>
 
 <section
-    id="machii-family-portrait"
-    class="section bg-blue-50 border-t border-blue-200 scroll-mt-20"
+    class="section bg-blue-50 border-t border-blue-200 hidden md:block"
     aria-labelledby="machii-family-title"
 >
     <div class="container section-content">
