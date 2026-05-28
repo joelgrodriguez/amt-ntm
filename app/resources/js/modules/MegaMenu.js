@@ -1,8 +1,8 @@
 /**
  * Mega Menu
  *
- * Manages open/close of full-width desktop mega panels, tab switching
- * within panels, overlay, and keyboard navigation.
+ * Manages open/close of full-width desktop mega panels, overlay, and
+ * keyboard navigation (focus trap, Escape, Tab cycling).
  *
  * @file MegaMenu.js
  */
@@ -178,51 +178,10 @@ export const initMegaMenu = () => {
         close(opts);
     };
 
-    /** @param {HTMLButtonElement} tabBtn */
-    const switchTab = (tabBtn) => {
-        const panel = tabBtn.closest('.mega-panel');
-        if (!panel) return;
-
-        const targetId = tabBtn.dataset.tab;
-
-        // Roving tabindex: only the selected tab is focusable.
-        panel.querySelectorAll('[role="tab"]').forEach((btn) => {
-            const isTarget = /** @type {HTMLButtonElement} */ (btn).dataset.tab === targetId;
-            btn.setAttribute('aria-selected', isTarget ? 'true' : 'false');
-            btn.setAttribute('tabindex', isTarget ? '0' : '-1');
-        });
-
-        // Tabpanel IDs follow the pattern: mega-tabpanel-{panelId}-{tabId}
-        panel.querySelectorAll('[role="tabpanel"]').forEach((pane) => {
-            const el = /** @type {HTMLElement} */ (pane);
-            el.hidden = !el.id.endsWith(`-${targetId}`);
-        });
-    };
-
     // ── Event handlers ──────────────────────────────────────────────────
 
     /** @param {MouseEvent} e */
     const handleTriggerClick = (e) => toggle(/** @type {HTMLButtonElement} */ (e.currentTarget));
-
-    /** @param {MouseEvent} e */
-    const handleTabClick = (e) => switchTab(/** @type {HTMLButtonElement} */ (e.currentTarget));
-
-    /** Arrow key navigation within a tablist (ARIA APG requirement). */
-    /** @param {KeyboardEvent} e */
-    const handleTabKeydown = (e) => {
-        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-        const tabList = /** @type {HTMLElement|null} */ (/** @type {HTMLElement} */ (e.currentTarget).closest('[role="tablist"]'));
-        if (!tabList) return;
-        const tabs = /** @type {HTMLButtonElement[]} */ (Array.from(tabList.querySelectorAll('[role="tab"]')));
-        const idx  = tabs.indexOf(/** @type {HTMLButtonElement} */ (e.currentTarget));
-        const next = e.key === 'ArrowRight'
-            ? tabs[(idx + 1) % tabs.length]
-            : tabs[(idx - 1 + tabs.length) % tabs.length];
-        if (next) {
-            next.focus();
-            switchTab(next);
-        }
-    };
 
     /** @param {KeyboardEvent} e */
     const handleKeydown = (e) => {
@@ -260,7 +219,7 @@ export const initMegaMenu = () => {
     };
 
     /** Close on any click that isn't on an interactive piece of content.
-     * Triggers handle themselves (toggle); links/buttons/tabs inside the panel
+     * Triggers handle themselves (toggle); links/buttons inside the panel
      * are real content and don't close. Everything else — panel background,
      * sidebar gutter, scrim — closes. */
     /** @param {MouseEvent} e */
@@ -268,7 +227,7 @@ export const initMegaMenu = () => {
         if (!activePanel) return;
         const target = /** @type {Element} */ (e.target);
         if (Array.from(triggers).some((t) => t.contains(target))) return;
-        if (target.closest?.('a, button, [role="tab"], input, select, textarea, label')) return;
+        if (target.closest?.('a, button, input, select, textarea, label')) return;
         dismiss();
     };
 
@@ -281,31 +240,11 @@ export const initMegaMenu = () => {
     document.addEventListener('keydown', handleKeydown);
     document.addEventListener('click', handleDocClick);
 
-    const tabBtns = /** @type {NodeListOf<HTMLButtonElement>} */ (
-        container.querySelectorAll('[role="tab"]')
-    );
-
-    // Init roving tabindex per tablist: first tab is 0, siblings -1.
-    container.querySelectorAll('[role="tablist"]').forEach((tablist) => {
-        tablist.querySelectorAll('[role="tab"]').forEach((btn, i) => {
-            btn.setAttribute('tabindex', i === 0 ? '0' : '-1');
-        });
-    });
-
-    tabBtns.forEach((btn) => {
-        btn.addEventListener('click', handleTabClick);
-        btn.addEventListener('keydown', handleTabKeydown);
-    });
-
     return () => {
         cancelPendingOpen();
         triggers.forEach((t) => t.removeEventListener('click', handleTriggerClick));
         overlay?.removeEventListener('click', handleOverlayClick);
         document.removeEventListener('keydown', handleKeydown);
         document.removeEventListener('click', handleDocClick);
-        tabBtns.forEach((btn) => {
-            btn.removeEventListener('click', handleTabClick);
-            btn.removeEventListener('keydown', handleTabKeydown);
-        });
     };
 };

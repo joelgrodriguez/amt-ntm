@@ -276,9 +276,9 @@
 
 
 /* ── 11 · Avatar group hover ───────────────────────────────────────────
- * Used by .mega-profile-grid in the mega menu. JS sets shift/scale
- * vars + the timing-function inline so hover-in and mouseleave can use
- * different easings on the same property. */
+ * Distance-falloff hover lift for any .t-avatar-group. JS sets
+ * shift/scale vars + the timing-function inline so hover-in and
+ * mouseleave can use different easings on the same property. */
 .t-avatar {
   transform-origin: center;
   transform:

@@ -12,10 +12,12 @@
  *   - counts     : mono, right-aligned via ml-auto
  *   - checkbox   : 16px square, blue-500 accent, tucked at the leading edge
  *
- * The 4px left-stripe active indicator intentionally mirrors the mega
- * menu sidebar (.mega-tab[aria-selected="true"]). It is a sanctioned
- * brand-identity move site-wide, not the dashboard side-stripe pattern
- * the impeccable laws ban; the navigation chrome already commits to it.
+ * The 4px left-stripe active indicator is a sanctioned brand-identity
+ * exception to the "no side-stripe borders > 1px" rule. Originally it
+ * mirrored the mega-menu sidebar tabs (commits a228dec, 0203911); after
+ * the IA rebuild dropped those tabs, this filter rail is the surviving
+ * canonical use. Worth re-evaluating against DESIGN.md §8.8 the next
+ * time filters get touched.
  *
  * Modes:
  *   - checkbox : multi-select, submitted with the form's Apply button
