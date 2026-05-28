@@ -51,8 +51,8 @@ $reading_time     = $show_meta ? max(1, (int) ceil($word_count / 220)) : 0;
             <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-blue-600 font-mono text-sm pt-1">
                 <span class="flex items-center gap-2">
                     <?php icon('calendar', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-                    <time datetime="<?php echo esc_attr(get_the_date('c')); ?>">
-                        <?php echo esc_html(get_the_date('Y.m.d')); ?>
+                    <time datetime="<?php echo esc_attr(get_the_modified_time('c')); ?>">
+                        <?php echo esc_html(get_the_modified_date('Y.m.d')); ?>
                     </time>
                 </span>
                 <span class="text-blue-400" aria-hidden="true">/</span>

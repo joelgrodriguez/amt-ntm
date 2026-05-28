@@ -36,8 +36,8 @@ $content = [
             <?php the_title(sprintf('<h2 class="text-xl font-medium mb-2"><a href="%s" class="text-blue-900 no-underline hover:text-blue-500">', esc_url(get_permalink())), '</a></h2>'); ?>
 
             <div class="text-sm text-blue-500">
-                <time datetime="<?php echo esc_attr(get_the_date('c')); ?>">
-                    <?php echo esc_html(get_the_date()); ?>
+                <time datetime="<?php echo esc_attr(get_the_modified_time('c')); ?>">
+                    <?php echo esc_html(get_the_modified_date()); ?>
                 </time>
                 <span class="mx-2">&middot;</span>
                 <span><?php the_author(); ?></span>

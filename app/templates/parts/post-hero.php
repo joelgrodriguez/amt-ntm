@@ -102,8 +102,8 @@ $has_image = has_post_thumbnail();
                             case 'date': ?>
                                 <span class="flex items-center gap-2">
                                     <?php icon('calendar', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-                                    <time datetime="<?php echo esc_attr(get_the_date('c')); ?>">
-                                        <?php echo esc_html(get_the_date('j F Y')); ?>
+                                    <time datetime="<?php echo esc_attr(get_the_modified_time('c')); ?>">
+                                        <?php echo esc_html(get_the_modified_date('j F Y')); ?>
                                     </time>
                                 </span>
                                 <?php break;
