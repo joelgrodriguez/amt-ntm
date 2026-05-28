@@ -167,7 +167,7 @@ function get_desktop_nav(): array {
                                 'url'   => \Standard\Url\internal('/roof-panel-vs-gutter/'),
                             ],
                             [
-                                'label' => __('Top 5 misconceptions', 'standard'),
+                                'label' => __('Misconceptions about portable rollforming', 'standard'),
                                 'url'   => \Standard\Url\internal('/learning-center/portable-rollforming-misconceptions/'),
                             ],
                         ],
@@ -283,7 +283,7 @@ function get_desktop_nav(): array {
                         'label' => __('Compare', 'standard'),
                         'items' => [
                             [
-                                'label'  => __('SSQ3 / SSQII / SSR / SSH unified table', 'standard'),
+                                'label'  => __('Compare roof-panel machines', 'standard'),
                                 'url'    => \Standard\Url\internal('/compare-roof-panel-machines/'),
                                 'anchor' => true,
                             ],
@@ -334,7 +334,7 @@ function get_desktop_nav(): array {
                 'type'          => 'flyout-groups',
                 'intro'         => [
                     'title'           => __('How to buy', 'standard'),
-                    'body'            => __('Price, financing, quote, sales contact. Configurator stays — as the expert shortcut at the end, not the front door.', 'standard'),
+                    'body'            => __('Price, financing, quote, sales contact. Configurator stays: the expert shortcut at the end, not the front door.', 'standard'),
                     'secondary_label' => __('Request a quote', 'standard'),
                     'secondary_url'   => \Standard\Url\with_query('/contact/', ['form' => 'quote']),
                 ],
@@ -477,7 +477,7 @@ function get_desktop_nav(): array {
                                 'anchor' => true,
                             ],
                             [
-                                'label' => __('Top 5 service questions', 'standard'),
+                                'label' => __('Questions the service department hears most', 'standard'),
                                 'url'   => \Standard\Url\internal('/learning-center/the-top-five-questions-the-ntm-service-department-receives/'),
                             ],
                             [
