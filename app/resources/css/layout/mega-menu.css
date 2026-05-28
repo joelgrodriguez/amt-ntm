@@ -4,8 +4,10 @@
  * MegaMenu.js; .t-panel-slide reads it. */
 
 .mega-panel {
+    --mega-panel-offset: 4rem;
+
     position: fixed;
-    top: 4rem; /* header height (h-16 = 64px) */
+    top: var(--mega-panel-offset); /* header height (h-16 = 64px) */
     left: 0;
     right: 0;
     height: 50vh;
@@ -13,9 +15,9 @@
     background: var(--color-white);
     border-bottom: 1px solid var(--color-blue-200);
 
-    /* Drop from above viewport — preserves the panel's identity as a
-     * full-bleed shade falling from the header. */
-    --panel-translate-y: -100%;
+    /* Drop from above the viewport. Because the fixed panel starts below
+     * the header, the closed transform must also clear that top offset. */
+    --panel-translate-y: calc(-100% - var(--mega-panel-offset));
 
     /* Match the search modal's open/close personality: spring-out on
      * open, accelerated in-out on close. Transform-only — the shared
