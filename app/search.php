@@ -134,7 +134,7 @@ get_header();
                 <?php esc_html_e('Search the site', 'standard'); ?>
             </h2>
 
-            <form id="<?php echo esc_attr($search_form_id); ?>" class="grid gap-4 md:grid-cols-[minmax(0,1fr)_auto_auto] md:items-end" role="search" method="get" action="<?php echo esc_url(\Standard\Url\internal('/')); ?>">
+            <form id="<?php echo esc_attr($search_form_id); ?>" class="grid gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-end" role="search" method="get" action="<?php echo esc_url(\Standard\Url\internal('/')); ?>">
                 <div class="field">
                     <label for="global-search-field" class="field-label">
                         <?php esc_html_e('Search', 'standard'); ?>
@@ -152,12 +152,6 @@ get_header();
                 <button type="submit" class="btn btn-primary w-full md:w-auto">
                     <?php echo esc_html($content['submit']); ?>
                 </button>
-
-                <?php if ($has_filters) : ?>
-                    <a href="<?php echo esc_url($reset_url); ?>" class="btn btn-ghost w-full md:w-auto">
-                        <?php echo esc_html($content['reset']); ?>
-                    </a>
-                <?php endif; ?>
             </form>
         </div>
     </section>
@@ -180,9 +174,8 @@ get_header();
             <div class="grid gap-8 content-start">
                 <?php if ($chips !== []) : ?>
                     <?php get_template_part('templates/parts/filter-chips', null, [
-                        'chips'     => $chips,
-                        'clear_url' => $reset_url,
-                        'label'     => __('Active search filters', 'standard'),
+                        'chips' => $chips,
+                        'label' => __('Active search filters', 'standard'),
                     ]); ?>
                 <?php endif; ?>
 
@@ -210,15 +203,8 @@ get_header();
                                 <?php esc_html_e('Nothing matched those filters.', 'standard'); ?>
                             </h2>
                             <p class="text-blue-600">
-                                <?php esc_html_e('Try a broader keyword, remove a filter, or search all content.', 'standard'); ?>
+                                <?php esc_html_e('Try a broader keyword or remove a filter from the sidebar.', 'standard'); ?>
                             </p>
-                            <?php if ($has_filters) : ?>
-                                <div>
-                                    <a href="<?php echo esc_url($reset_url); ?>" class="btn btn-secondary">
-                                        <?php echo esc_html($content['reset']); ?>
-                                    </a>
-                                </div>
-                            <?php endif; ?>
                         </div>
                     </div>
                 <?php endif; ?>
