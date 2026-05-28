@@ -463,7 +463,28 @@ function configure_main_query(\WP_Query $query): void {
         force_no_results($query_args);
     }
 
-    if (trim((string) $query->get('s')) === '' && $tax_query === [] && $requested_post_types === []) {
+    // "?s=" with no value still trips both WP_Query::parse_search() (which
+    // emits a useless LIKE '%&#32;%' clause) and Relevanssi (which runs an
+    // empty-keyword search and overwrites $query->posts with nothing). When
+    // the user submitted no keyword but did pick a filter, neutralize WP's
+    // search SQL (posts_search → '') and tell Relevanssi to bail
+    // (relevanssi_search_ok → false). is_search stays true so search.php
+    // is still selected as the template.
+    $raw_s         = (string) $query->get('s');
+    $decoded_s     = html_entity_decode($raw_s, ENT_QUOTES, 'UTF-8');
+    $keyword_blank = trim($decoded_s) === '';
+    $filters_set   = $tax_query !== [] || $requested_post_types !== [];
+
+    if ($keyword_blank && $filters_set) {
+        \add_filter('posts_search', static function (string $search, \WP_Query $q) use ($query): string {
+            return $q === $query ? '' : $search;
+        }, 10, 2);
+        \add_filter('relevanssi_search_ok', static function (bool $ok, \WP_Query $q) use ($query): bool {
+            return $q === $query ? false : $ok;
+        }, 10, 2);
+    }
+
+    if ($keyword_blank && !$filters_set) {
         force_no_results($query_args);
     }
 
