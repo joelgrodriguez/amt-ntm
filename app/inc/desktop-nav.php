@@ -433,10 +433,6 @@ function get_desktop_nav(): array {
                                 'anchor' => true,
                             ],
                             [
-                                'label' => __('Service Hub', 'standard'),
-                                'url'   => \Standard\Url\internal('/service-hub/'),
-                            ],
-                            [
                                 'label' => __('NTM Knowledge Base', 'standard'),
                                 'url'   => \Standard\Url\internal('/ntm-knowledge-base/'),
                             ],
