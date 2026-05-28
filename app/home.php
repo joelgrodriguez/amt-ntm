@@ -128,8 +128,8 @@ $lc_paged = max(1, (int) get_query_var('paged'));
                             </span>
                             <dl class="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-caption text-blue-500">
                                 <div class="inline-flex items-center gap-1.5">
-                                    <dt class="sr-only"><?php esc_html_e('Published', 'standard'); ?></dt>
-                                    <dd><?php echo esc_html(get_the_date()); ?></dd>
+                                    <dt class="sr-only"><?php esc_html_e('Date', 'standard'); ?></dt>
+                                    <dd><?php echo esc_html(get_the_modified_date()); ?></dd>
                                 </div>
                                 <span class="text-blue-300" aria-hidden="true">/</span>
                                 <div class="inline-flex items-center gap-1.5">
