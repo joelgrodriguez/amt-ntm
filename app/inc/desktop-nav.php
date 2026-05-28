@@ -226,7 +226,6 @@ function get_desktop_nav(): array {
                 'type'          => 'flyout-groups',
                 'intro'         => [
                     'title'           => __('Choose your machine', 'standard'),
-                    'body'            => __('Browse the catalog directly, or take a short quiz if you\'re not sure where to start. Both lanes live here.', 'standard'),
                     'secondary_label' => __('See all machines', 'standard'),
                     'secondary_url'   => \Standard\Url\internal('/machines/'),
                 ],
@@ -334,7 +333,6 @@ function get_desktop_nav(): array {
                 'type'          => 'flyout-groups',
                 'intro'         => [
                     'title'           => __('How to buy', 'standard'),
-                    'body'            => __('Price, financing, quote, sales contact. Configurator stays: the expert shortcut at the end, not the front door.', 'standard'),
                     'secondary_label' => __('Request a quote', 'standard'),
                     'secondary_url'   => \Standard\Url\with_query('/contact/', ['form' => 'quote']),
                 ],
@@ -419,7 +417,6 @@ function get_desktop_nav(): array {
                 'type'          => 'flyout-groups',
                 'intro'         => [
                     'title'           => __('Get owner support', 'standard'),
-                    'body'            => __('One front door for owners: open a service request, find a manual, register warranty, request parts, or buy another machine.', 'standard'),
                     'secondary_label' => __('Open a service request', 'standard'),
                     'secondary_url'   => \Standard\Url\internal('/service-hub/'),
                 ],
