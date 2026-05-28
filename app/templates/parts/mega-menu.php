@@ -62,10 +62,10 @@ $panels = array_values(array_filter(
                                     <?php echo esc_html($group['label']); ?>
                                 </p>
                             <?php endif; ?>
-                            <ul class="list-none m-0 p-0 -mx-3">
+                            <ul class="mega-link-list">
                                 <?php foreach (($group['items'] ?? []) as $item) : ?>
                                     <li>
-                                        <a href="<?php echo esc_url($item['url'] ?? '#'); ?>" class="block px-3 py-2.5 font-sans text-body text-blue-700 no-underline transition-colors duration-150 ease-linear hover:bg-blue-50">
+                                        <a href="<?php echo esc_url($item['url'] ?? '#'); ?>" class="mega-link">
                                             <?php echo esc_html($item['label'] ?? ''); ?>
                                         </a>
                                     </li>
