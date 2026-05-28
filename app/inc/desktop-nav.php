@@ -167,7 +167,7 @@ function get_desktop_nav(): array {
                                 'url'   => \Standard\Url\internal('/roof-panel-vs-gutter/'),
                             ],
                             [
-                                'label' => __('Top 5 misconceptions', 'standard'),
+                                'label' => __('Misconceptions about portable rollforming', 'standard'),
                                 'url'   => \Standard\Url\internal('/learning-center/portable-rollforming-misconceptions/'),
                             ],
                         ],
@@ -226,7 +226,6 @@ function get_desktop_nav(): array {
                 'type'          => 'flyout-groups',
                 'intro'         => [
                     'title'           => __('Choose your machine', 'standard'),
-                    'body'            => __('Browse the catalog directly, or take a short quiz if you\'re not sure where to start. Both lanes live here.', 'standard'),
                     'secondary_label' => __('See all machines', 'standard'),
                     'secondary_url'   => \Standard\Url\internal('/machines/'),
                 ],
@@ -283,7 +282,7 @@ function get_desktop_nav(): array {
                         'label' => __('Compare', 'standard'),
                         'items' => [
                             [
-                                'label'  => __('SSQ3 / SSQII / SSR / SSH unified table', 'standard'),
+                                'label'  => __('Compare roof-panel machines', 'standard'),
                                 'url'    => \Standard\Url\internal('/compare-roof-panel-machines/'),
                                 'anchor' => true,
                             ],
@@ -334,7 +333,6 @@ function get_desktop_nav(): array {
                 'type'          => 'flyout-groups',
                 'intro'         => [
                     'title'           => __('How to buy', 'standard'),
-                    'body'            => __('Price, financing, quote, sales contact. Configurator stays — as the expert shortcut at the end, not the front door.', 'standard'),
                     'secondary_label' => __('Request a quote', 'standard'),
                     'secondary_url'   => \Standard\Url\with_query('/contact/', ['form' => 'quote']),
                 ],
@@ -419,7 +417,6 @@ function get_desktop_nav(): array {
                 'type'          => 'flyout-groups',
                 'intro'         => [
                     'title'           => __('Get owner support', 'standard'),
-                    'body'            => __('One front door for owners: open a service request, find a manual, register warranty, request parts, or buy another machine.', 'standard'),
                     'secondary_label' => __('Open a service request', 'standard'),
                     'secondary_url'   => \Standard\Url\internal('/service-hub/'),
                 ],
@@ -455,10 +452,6 @@ function get_desktop_nav(): array {
                                 'url'   => \Standard\Url\internal('/service-training/'),
                             ],
                             [
-                                'label' => __('What to expect in training', 'standard'),
-                                'url'   => \Standard\Url\internal('/learning-center/what-to-expect-portable-rollforming-machine-training-session/'),
-                            ],
-                            [
                                 'label' => __('Warranty registration', 'standard'),
                                 'url'   => \Standard\Url\internal('/machines/warranty-registration/'),
                             ],
@@ -477,7 +470,7 @@ function get_desktop_nav(): array {
                                 'anchor' => true,
                             ],
                             [
-                                'label' => __('Top 5 service questions', 'standard'),
+                                'label' => __('Questions the service department hears most', 'standard'),
                                 'url'   => \Standard\Url\internal('/learning-center/the-top-five-questions-the-ntm-service-department-receives/'),
                             ],
                             [

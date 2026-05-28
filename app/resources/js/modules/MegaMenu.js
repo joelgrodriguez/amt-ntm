@@ -1,24 +1,13 @@
 /**
  * Mega Menu
  *
- * Manages open/close of full-width desktop mega panels, overlay, and
- * keyboard navigation (focus trap, Escape, Tab cycling).
+ * Manages open/close of full-width desktop mega panels. This is a
+ * navigation disclosure, not a dialog: the page stays scrollable, the
+ * scrim is a soft veil (not a modal lock), and focus management only
+ * engages when the panel was opened by keyboard.
  *
  * @file MegaMenu.js
  */
-
-/* Motion is owned by .t-panel-slide (transitions.dev / transitions.css).
- * Switch delay matches --panel-close-dur so panel A finishes leaving before
- * panel B starts arriving. Read from a .mega-panel element (not :root) so
- * the mega-panel's local override of --panel-close-dur is honored. */
-const readSwitchDelayMs = () => {
-    if (typeof window === 'undefined') return 400;
-    const panel = document.querySelector('.mega-panel');
-    if (!panel) return 400;
-    const raw = getComputedStyle(panel).getPropertyValue('--panel-close-dur').trim();
-    const num = parseFloat(raw);
-    return Number.isFinite(num) ? num : 400;
-};
 
 export const initMegaMenu = () => {
     const triggers  = /** @type {NodeListOf<HTMLButtonElement>} */ (document.querySelectorAll('.mega-trigger'));
@@ -29,10 +18,7 @@ export const initMegaMenu = () => {
         return () => {};
     }
 
-    const SWITCH_DELAY_MS = readSwitchDelayMs();
-
-    /** Tabbable selector for focus trap. Mirrors the WAI-ARIA APG list,
-     *  minus tabindex="-1" since those are intentionally non-tabbable. */
+    /** Tabbable selector for keyboard focus trap. */
     const FOCUSABLE_SELECTOR = [
         'a[href]',
         'button:not([disabled])',
@@ -45,20 +31,19 @@ export const initMegaMenu = () => {
     /** @type {string|null} */
     let activePanel = null;
 
-    /** Pending open scheduled to fire after a close transition finishes. */
-    /** @type {{ trigger: HTMLButtonElement, timer: number } | null} */
-    let pendingOpen = null;
+    /** True only when the active panel was opened by keyboard (Enter/Space
+     *  on the trigger). Mouse opens leave this false so we don't yank the
+     *  user's pointer-driven scan focus into the panel. */
+    let isKeyboardOpen = false;
 
     /** @param {string} id */
     const getPanel = (id) => document.getElementById(`mega-panel-${id}`);
 
-    /** Get tabbable elements inside a panel, in DOM order. */
     /** @param {HTMLElement} panel */
     const getTabbable = (panel) =>
         /** @type {HTMLElement[]} */ (Array.from(panel.querySelectorAll(FOCUSABLE_SELECTOR)))
             .filter((el) => !el.hasAttribute('hidden') && el.offsetParent !== null);
 
-    /** Apply the open or closed visual + a11y state to a single panel. */
     /** @param {HTMLElement} panel @param {'open'|'closed'} state */
     const setPanelState = (panel, state) => {
         const open = state === 'open';
@@ -68,14 +53,12 @@ export const initMegaMenu = () => {
         panel.inert = !open;
     };
 
-    /** Reset chrome (triggers, overlay, body scroll lock) to the closed state. */
     const resetChrome = () => {
         triggers.forEach((t) => t.setAttribute('aria-expanded', 'false'));
         overlay?.classList.remove('is-open');
-        document.body.classList.remove('overflow-hidden', 'mega-open');
+        document.body.classList.remove('mega-open');
     };
 
-    /** Returns focus to the trigger that opened the active panel, if any. */
     const restoreFocusToActiveTrigger = () => {
         if (!activePanel) return;
         const sel = `.mega-trigger[data-mega-panel="${activePanel}"]`;
@@ -91,97 +74,72 @@ export const initMegaMenu = () => {
         }
         resetChrome();
         activePanel = null;
+        isKeyboardOpen = false;
     };
 
-    /** @param {HTMLButtonElement} trigger */
-    const open = (trigger) => {
+    /** @param {HTMLButtonElement} trigger @param {{ fromKeyboard?: boolean }} [opts] */
+    const open = (trigger, { fromKeyboard = false } = {}) => {
         const id = trigger.dataset.megaPanel;
         if (!id) return;
 
         const panel = getPanel(id);
         if (!panel) return;
 
-        // Clear closing state and force reflow so the open transition (and the
-        // staggered child entries) start from a clean slate.
+        // Hard-close any panel still on screen so trigger-to-trigger
+        // switching is instant. No timed close-then-open dance.
+        if (activePanel && activePanel !== id) {
+            const prev = getPanel(activePanel);
+            if (prev) setPanelState(prev, 'closed');
+        }
+
         panel.classList.remove('is-closing');
         void panel.offsetHeight;
         setPanelState(panel, 'open');
 
         trigger.setAttribute('aria-expanded', 'true');
+        triggers.forEach((t) => {
+            if (t !== trigger) t.setAttribute('aria-expanded', 'false');
+        });
         overlay?.classList.add('is-open');
-        document.body.classList.add('overflow-hidden', 'mega-open');
+        document.body.classList.add('mega-open');
         activePanel = id;
+        isKeyboardOpen = fromKeyboard;
 
-        // Move focus into the panel so screen reader + keyboard users land
-        // inside the dialog. First tabbable wins; if there isn't one, the
-        // panel itself takes focus (tabindex=-1 set in markup at open).
-        const first = getTabbable(panel)[0];
-        if (first) {
-            first.focus({ preventScroll: true });
-        } else {
-            panel.setAttribute('tabindex', '-1');
-            panel.focus({ preventScroll: true });
+        // Only move focus into the panel when the trigger was activated
+        // by keyboard. Mouse users keep their cursor-driven flow.
+        if (fromKeyboard) {
+            const first = getTabbable(panel)[0];
+            if (first) {
+                first.focus({ preventScroll: true });
+            } else {
+                panel.setAttribute('tabindex', '-1');
+                panel.focus({ preventScroll: true });
+            }
         }
     };
 
-    const cancelPendingOpen = () => {
-        if (!pendingOpen) return;
-        clearTimeout(pendingOpen.timer);
-        pendingOpen = null;
-    };
-
-    /** Close the active panel (if any) and queue an open after the close beat. */
-    /** @param {HTMLButtonElement} trigger */
-    const queueSwitchTo = (trigger) => {
-        // If a switch is already in flight, just retarget it — let the existing
-        // timer ride so we don't extend the wait on rapid clicks.
-        if (pendingOpen) {
-            pendingOpen.trigger = trigger;
-            return;
-        }
-
-        close();
-        const timer = window.setTimeout(() => {
-            const target = pendingOpen?.trigger;
-            pendingOpen = null;
-            if (target) open(target);
-        }, SWITCH_DELAY_MS);
-        pendingOpen = { trigger, timer };
-    };
-
-    /** Toggle — same trigger closes; different trigger queues a switch. */
-    /** @param {HTMLButtonElement} trigger */
-    const toggle = (trigger) => {
+    /** @param {HTMLButtonElement} trigger @param {{ fromKeyboard?: boolean }} [opts] */
+    const toggle = (trigger, opts = {}) => {
         const id = trigger.dataset.megaPanel;
-        const sameAsActive  = activePanel === id;
-        const sameAsPending = pendingOpen?.trigger === trigger;
-
-        if (sameAsActive || sameAsPending) {
-            cancelPendingOpen();
-            // User explicitly clicked the same trigger — don't steal their
-            // focus, they already have it on the trigger.
+        if (activePanel === id) {
             close();
             return;
         }
-
-        if (activePanel || pendingOpen) {
-            queueSwitchTo(trigger);
-            return;
-        }
-
-        open(trigger);
+        open(trigger, opts);
     };
 
     /** @param {{ restoreFocus?: boolean }} [opts] */
-    const dismiss = (opts = {}) => {
-        cancelPendingOpen();
-        close(opts);
-    };
+    const dismiss = (opts = {}) => close(opts);
 
     // ── Event handlers ──────────────────────────────────────────────────
 
     /** @param {MouseEvent} e */
-    const handleTriggerClick = (e) => toggle(/** @type {HTMLButtonElement} */ (e.currentTarget));
+    const handleTriggerClick = (e) => {
+        // detail === 0 fires when a button is activated by keyboard
+        // (Enter / Space), not mouse. That's our modality signal.
+        const fromKeyboard = e.detail === 0;
+        toggle(/** @type {HTMLButtonElement} */ (e.currentTarget), { fromKeyboard });
+    };
 
     /** @param {KeyboardEvent} e */
     const handleKeydown = (e) => {
@@ -192,8 +150,9 @@ export const initMegaMenu = () => {
             return;
         }
 
-        // Focus trap: Tab cycles within the open panel only.
-        if (e.key === 'Tab') {
+        // Focus trap engages only for keyboard-opened panels. Mouse users
+        // never had focus moved in, so trapping is the wrong fix here.
+        if (e.key === 'Tab' && isKeyboardOpen) {
             const panel = getPanel(activePanel);
             if (!panel) return;
             const tabbables = getTabbable(panel);
@@ -210,18 +169,11 @@ export const initMegaMenu = () => {
             } else if (!e.shiftKey && active === last) {
                 e.preventDefault();
                 first.focus();
-            } else if (!panel.contains(/** @type {Node} */ (active))) {
-                // Focus drifted outside the panel (e.g. via mouse) — bring it back.
-                e.preventDefault();
-                first.focus();
             }
         }
     };
 
-    /** Close on any click that isn't on an interactive piece of content.
-     * Triggers handle themselves (toggle); links/buttons inside the panel
-     * are real content and don't close. Everything else — panel background,
-     * sidebar gutter, scrim — closes. */
+    /** Close on any click outside an interactive piece of content. */
     /** @param {MouseEvent} e */
     const handleDocClick = (e) => {
         if (!activePanel) return;
@@ -231,8 +183,6 @@ export const initMegaMenu = () => {
         dismiss();
     };
 
-    // ── Wire up ─────────────────────────────────────────────────────────
-
     const handleOverlayClick = () => dismiss();
 
     triggers.forEach((t) => t.addEventListener('click', handleTriggerClick));
@@ -241,7 +191,6 @@ export const initMegaMenu = () => {
     document.addEventListener('click', handleDocClick);
 
     return () => {
-        cancelPendingOpen();
         triggers.forEach((t) => t.removeEventListener('click', handleTriggerClick));
         overlay?.removeEventListener('click', handleOverlayClick);
         document.removeEventListener('keydown', handleKeydown);

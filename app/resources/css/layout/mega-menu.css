@@ -93,15 +93,15 @@
     transform: rotate(180deg);
 }
 
-/* ── Overlay (scrim) + close affordance ───────────────────────────────── */
-
-/* The scrim is the primary close affordance. Cursor confirms it,
-   and timing/easing match the panel so they enter and exit in lockstep. */
+/* ── Overlay (soft veil) + close affordance ───────────────────────────────
+ * Not a modal scrim. The page underneath stays visible and scrollable;
+ * the veil just softens the background and gives a generous click target
+ * for dismiss. Tinted toward blue-50 so it reads as a recede, not a dim. */
 .mega-overlay {
     position: fixed;
     inset: 0;
     z-index: 40;
-    background: rgb(10 19 34 / 0.45); /* blue-900 @ 45% — tinted dim */
+    background: rgb(244 248 251 / 0.6); /* blue-50 @ 60% — soft recede */
     cursor: pointer;
     opacity: 0;
     pointer-events: none;
