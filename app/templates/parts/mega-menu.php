@@ -313,7 +313,7 @@ $panels = array_values(array_filter(
             <div class="mega-panel__sidebar">
                 <p class="mega-sidebar__label"><?php echo esc_html($panel['label']); ?></p>
                 <?php if (!empty($intro['title'])) : ?>
-                    <h2 class="px-5 mb-3 font-sans font-semibold text-heading-sm text-blue-900"><?php echo esc_html($intro['title']); ?></h2>
+                    <h2 class="px-5 mb-3 font-sans font-medium text-heading-sm text-blue-900"><?php echo esc_html($intro['title']); ?></h2>
                 <?php endif; ?>
                 <?php if (!empty($intro['body'])) : ?>
                     <p class="px-5 mb-6 font-sans text-sm leading-relaxed text-blue-600"><?php echo esc_html($intro['body']); ?></p>
@@ -339,7 +339,7 @@ $panels = array_values(array_filter(
                                     $is_anchor = !empty($item['anchor']);
                                     $base = 'block py-1 font-sans no-underline transition-colors duration-150 ease-linear hover:text-blue-500';
                                     $emphasis = $is_anchor
-                                        ? ' text-blue-900 font-semibold text-lg'
+                                        ? ' text-blue-900 font-medium text-lg'
                                         : ' text-blue-700 text-body';
                                 ?>
                                     <li>
