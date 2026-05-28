@@ -28,6 +28,32 @@ use function Standard\LearningCenter\get_type_cta;
 use function Standard\LearningCenter\get_type_icon;
 use function Standard\LearningCenter\get_type_label;
 
+// Filter-active redirect: when any lc_* is set, hand the request to
+// search.php so the canonical search-results UI (chips with the active
+// filter labels, count, pagination, single mixed grid) renders. One
+// results surface, one mental model. The redirect only fires for direct
+// hits on /learning-center/?lc_*=... so the Learning Center landing
+// stays intact.
+$lc_redirect_filters = get_active_filters();
+$lc_redirect_active  = ($lc_redirect_filters['category'] ?? '') !== ''
+    || ($lc_redirect_filters['type'] ?? '') !== ''
+    || ($lc_redirect_filters['machine'] ?? '') !== '';
+
+if ($lc_redirect_active && !isset($_GET['s']) && !headers_sent()) {
+    $redirect_args = ['s' => ''];
+    if (($lc_redirect_filters['category'] ?? '') !== '') {
+        $redirect_args['lc_category'] = $lc_redirect_filters['category'];
+    }
+    if (($lc_redirect_filters['type'] ?? '') !== '') {
+        $redirect_args['lc_type'] = $lc_redirect_filters['type'];
+    }
+    if (($lc_redirect_filters['machine'] ?? '') !== '') {
+        $redirect_args['lc_machine'] = $lc_redirect_filters['machine'];
+    }
+    wp_safe_redirect(add_query_arg($redirect_args, home_url('/')));
+    exit;
+}
+
 get_header();
 
 $filters = get_active_filters();
