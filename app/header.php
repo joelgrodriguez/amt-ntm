@@ -109,7 +109,7 @@ if (!defined('ABSPATH')) {
                             <?php if ($is_mega) : ?>
                                 <button
                                     type="button"
-                                    class="mega-trigger relative flex items-center w-full h-full px-5 font-sans font-medium text-body text-blue-700 bg-transparent border-0 cursor-pointer<?php echo $current_class; ?>"
+                                    class="mega-trigger relative flex items-center w-full h-full px-5 font-mono font-medium text-body text-blue-700 bg-transparent border-0 cursor-pointer<?php echo $current_class; ?>"
                                     data-mega-panel="<?php echo esc_attr($item['id']); ?>"
                                     aria-expanded="false"
                                     aria-controls="mega-panel-<?php echo esc_attr($item['id']); ?>"
@@ -120,7 +120,7 @@ if (!defined('ABSPATH')) {
                             <?php else : ?>
                                 <a
                                     href="<?php echo esc_url($fallback_url); ?>"
-                                    class="relative flex items-center w-full h-full px-5 font-sans font-medium text-body text-blue-700 no-underline<?php echo $current_class; ?>"
+                                    class="relative flex items-center w-full h-full px-5 font-mono font-medium text-body text-blue-700 no-underline<?php echo $current_class; ?>"
                                     <?php echo $current_attr; ?>
                                 >
                                     <?php echo esc_html($item['label']); ?>
