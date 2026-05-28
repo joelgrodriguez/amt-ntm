@@ -31,6 +31,17 @@ export const initMegaMenu = () => {
 
     const SWITCH_DELAY_MS = readSwitchDelayMs();
 
+    /** Tabbable selector for focus trap. Mirrors the WAI-ARIA APG list,
+     *  minus tabindex="-1" since those are intentionally non-tabbable. */
+    const FOCUSABLE_SELECTOR = [
+        'a[href]',
+        'button:not([disabled])',
+        'input:not([disabled]):not([type="hidden"])',
+        'select:not([disabled])',
+        'textarea:not([disabled])',
+        '[tabindex]:not([tabindex="-1"])',
+    ].join(',');
+
     /** @type {string|null} */
     let activePanel = null;
 
@@ -40,6 +51,12 @@ export const initMegaMenu = () => {
 
     /** @param {string} id */
     const getPanel = (id) => document.getElementById(`mega-panel-${id}`);
+
+    /** Get tabbable elements inside a panel, in DOM order. */
+    /** @param {HTMLElement} panel */
+    const getTabbable = (panel) =>
+        /** @type {HTMLElement[]} */ (Array.from(panel.querySelectorAll(FOCUSABLE_SELECTOR)))
+            .filter((el) => !el.hasAttribute('hidden') && el.offsetParent !== null);
 
     /** Apply the open or closed visual + a11y state to a single panel. */
     /** @param {HTMLElement} panel @param {'open'|'closed'} state */
@@ -58,10 +75,19 @@ export const initMegaMenu = () => {
         document.body.classList.remove('overflow-hidden', 'mega-open');
     };
 
-    const close = () => {
+    /** Returns focus to the trigger that opened the active panel, if any. */
+    const restoreFocusToActiveTrigger = () => {
+        if (!activePanel) return;
+        const sel = `.mega-trigger[data-mega-panel="${activePanel}"]`;
+        /** @type {HTMLButtonElement|null} */
+        (document.querySelector(sel))?.focus({ preventScroll: true });
+    };
+
+    const close = ({ restoreFocus = false } = {}) => {
         if (activePanel) {
             const panel = getPanel(activePanel);
             if (panel) setPanelState(panel, 'closed');
+            if (restoreFocus) restoreFocusToActiveTrigger();
         }
         resetChrome();
         activePanel = null;
@@ -85,6 +111,17 @@ export const initMegaMenu = () => {
         overlay?.classList.add('is-open');
         document.body.classList.add('overflow-hidden', 'mega-open');
         activePanel = id;
+
+        // Move focus into the panel so screen reader + keyboard users land
+        // inside the dialog. First tabbable wins; if there isn't one, the
+        // panel itself takes focus (tabindex=-1 set in markup at open).
+        const first = getTabbable(panel)[0];
+        if (first) {
+            first.focus({ preventScroll: true });
+        } else {
+            panel.setAttribute('tabindex', '-1');
+            panel.focus({ preventScroll: true });
+        }
     };
 
     const cancelPendingOpen = () => {
@@ -121,6 +158,8 @@ export const initMegaMenu = () => {
 
         if (sameAsActive || sameAsPending) {
             cancelPendingOpen();
+            // User explicitly clicked the same trigger — don't steal their
+            // focus, they already have it on the trigger.
             close();
             return;
         }
@@ -133,9 +172,10 @@ export const initMegaMenu = () => {
         open(trigger);
     };
 
-    const dismiss = () => {
+    /** @param {{ restoreFocus?: boolean }} [opts] */
+    const dismiss = (opts = {}) => {
         cancelPendingOpen();
-        close();
+        close(opts);
     };
 
     /** @param {HTMLButtonElement} tabBtn */
@@ -186,11 +226,37 @@ export const initMegaMenu = () => {
 
     /** @param {KeyboardEvent} e */
     const handleKeydown = (e) => {
-        if (e.key !== 'Escape' || !activePanel) return;
-        const triggerSelector = `.mega-trigger[data-mega-panel="${activePanel}"]`;
-        dismiss();
-        /** @type {HTMLButtonElement|null} */
-        (document.querySelector(triggerSelector))?.focus();
+        if (!activePanel) return;
+
+        if (e.key === 'Escape') {
+            dismiss({ restoreFocus: true });
+            return;
+        }
+
+        // Focus trap: Tab cycles within the open panel only.
+        if (e.key === 'Tab') {
+            const panel = getPanel(activePanel);
+            if (!panel) return;
+            const tabbables = getTabbable(panel);
+            if (tabbables.length === 0) {
+                e.preventDefault();
+                return;
+            }
+            const first = tabbables[0];
+            const last  = tabbables[tabbables.length - 1];
+            const active = document.activeElement;
+            if (e.shiftKey && active === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && active === last) {
+                e.preventDefault();
+                first.focus();
+            } else if (!panel.contains(/** @type {Node} */ (active))) {
+                // Focus drifted outside the panel (e.g. via mouse) — bring it back.
+                e.preventDefault();
+                first.focus();
+            }
+        }
     };
 
     /** Close on any click that isn't on an interactive piece of content.
@@ -208,8 +274,10 @@ export const initMegaMenu = () => {
 
     // ── Wire up ─────────────────────────────────────────────────────────
 
+    const handleOverlayClick = () => dismiss();
+
     triggers.forEach((t) => t.addEventListener('click', handleTriggerClick));
-    overlay?.addEventListener('click', dismiss);
+    overlay?.addEventListener('click', handleOverlayClick);
     document.addEventListener('keydown', handleKeydown);
     document.addEventListener('click', handleDocClick);
 
@@ -232,7 +300,7 @@ export const initMegaMenu = () => {
     return () => {
         cancelPendingOpen();
         triggers.forEach((t) => t.removeEventListener('click', handleTriggerClick));
-        overlay?.removeEventListener('click', dismiss);
+        overlay?.removeEventListener('click', handleOverlayClick);
         document.removeEventListener('keydown', handleKeydown);
         document.removeEventListener('click', handleDocClick);
         tabBtns.forEach((btn) => {

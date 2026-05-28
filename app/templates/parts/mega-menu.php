@@ -36,7 +36,8 @@ $panels = array_values(array_filter(
     <div
         id="mega-panel-<?php echo esc_attr($panel_id); ?>"
         class="mega-panel t-panel-slide"
-        role="region"
+        role="dialog"
+        aria-modal="true"
         aria-label="<?php echo esc_attr($panel['label']); ?>"
         aria-hidden="true"
     >
