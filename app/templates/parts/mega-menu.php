@@ -66,13 +66,16 @@ $panels = array_values(array_filter(
                             <ul class="list-none m-0 p-0 space-y-2">
                                 <?php foreach (($group['items'] ?? []) as $item) :
                                     $is_anchor = !empty($item['anchor']);
-                                    $base = 'block font-sans no-underline transition-colors duration-150 ease-linear hover:text-blue-500';
+                                    $base = 'flex items-center gap-2 py-2 font-sans text-body no-underline transition-colors duration-150 ease-linear hover:text-blue-500';
                                     $emphasis = $is_anchor
-                                        ? ' py-2.5 text-blue-900 font-medium text-lg'
-                                        : ' py-2 text-blue-700 text-body';
+                                        ? ' text-blue-900 font-medium'
+                                        : ' text-blue-700';
                                 ?>
                                     <li>
                                         <a href="<?php echo esc_url($item['url'] ?? '#'); ?>" class="<?php echo esc_attr($base . $emphasis); ?>">
+                                            <?php if ($is_anchor) : ?>
+                                                <span class="inline-block w-1 h-1 bg-red shrink-0" aria-hidden="true"></span>
+                                            <?php endif; ?>
                                             <?php echo esc_html($item['label'] ?? ''); ?>
                                         </a>
                                     </li>
