@@ -17,9 +17,29 @@
      * full-bleed shade falling from the header. */
     --panel-translate-y: -100%;
 
-    /* Close mirrors open so the dismiss feels like the reverse of the
-     * reveal, not a faster snap-out. */
-    --panel-close-dur: var(--panel-open-dur);
+    /* Match the search modal's open/close personality: spring-out on
+     * open, accelerated in-out on close. Transform-only — the shared
+     * .t-panel-slide also animates opacity + blur, which reads cheap on
+     * a full-viewport disclosure; we override below. */
+    --panel-open-dur:  520ms;
+    --panel-close-dur: 360ms;
+    --mega-panel-open-ease:  cubic-bezier(0.16, 1.05, 0.30, 1);
+    --mega-panel-close-ease: cubic-bezier(0.55, 0.06, 0.68, 0.19);
+}
+
+/* Override the shared .t-panel-slide for the mega panel: kill the
+   fade + blur (transform-only) and route through the panel-personality
+   eases above. Mirrors what .search-modal does to the same base. */
+.mega-panel.t-panel-slide {
+    opacity: 1;
+    filter: none;
+    transition: transform var(--panel-close-dur) var(--mega-panel-close-ease);
+}
+
+.mega-panel.t-panel-slide.is-open {
+    opacity: 1;
+    filter: none;
+    transition: transform var(--panel-open-dur) var(--mega-panel-open-ease);
 }
 
 /* Two-column inner layout: sidebar | content.
