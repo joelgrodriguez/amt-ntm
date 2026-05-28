@@ -77,7 +77,7 @@ $expect      = $content['expect_items'] ?? [];
                 <?php endif; ?>
                 <div class="grid gap-3">
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="btn btn-primary">
+                        <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="btn btn-primary btn--commit">
                             <?php echo esc_html($content['cta_primary']); ?>
                             <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                         </a>

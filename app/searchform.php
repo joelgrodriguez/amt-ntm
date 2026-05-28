@@ -32,7 +32,7 @@ $content = [
         value="<?php echo esc_attr(get_search_query()); ?>"
         name="s"
     >
-    <button type="submit" class="btn btn-primary font-mono">
+    <button type="submit" class="btn btn-primary btn--commit font-mono">
         <?php echo esc_html($content['button']); ?>
     </button>
 </form>

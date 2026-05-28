@@ -149,7 +149,7 @@ get_header();
                     >
                 </div>
 
-                <button type="submit" class="btn btn-primary w-full md:w-auto">
+                <button type="submit" class="btn btn-primary btn--commit w-full md:w-auto">
                     <?php echo esc_html($content['submit']); ?>
                 </button>
             </form>
