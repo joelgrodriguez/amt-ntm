@@ -65,7 +65,7 @@ if (empty($machines) || empty($rows)) {
                             }
                         ?>
                             <th class="<?php echo $is_flagship ? 'bg-blue-500' : 'bg-blue-800'; ?> text-white py-4 px-3 text-center border-r border-blue-700 min-w-[130px] md:min-w-0 break-words">
-                                <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="text-white no-underline hover:underline font-medium text-sm">
+                                <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="text-white no-underline hover:text-blue-200 transition-colors font-medium text-sm">
                                     <?php echo esc_html($machine['short_name'] ?? $machine['name']); ?>
                                 </a>
                                 <?php if ($is_flagship && $badge_text !== '') : ?>

@@ -91,7 +91,7 @@ if (!$is_last) {
 
         <?php if ($has_more && $archive_link) : ?>
             <a href="<?php echo esc_url($archive_link); ?>"
-               class="hidden sm:inline-flex items-center gap-2 text-sm font-mono font-medium text-blue-500 hover:underline">
+               class="hidden sm:inline-flex items-center gap-2 text-sm font-mono font-medium text-blue-500">
                 <?php echo esc_html($view_all_label); ?>
                 <?php icon('arrow-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
             </a>
@@ -112,7 +112,7 @@ if (!$is_last) {
     <?php if ($has_more && $archive_link) : ?>
         <div class="sm:hidden">
             <a href="<?php echo esc_url($archive_link); ?>"
-               class="inline-flex items-center gap-2 text-sm font-mono font-medium text-blue-500 hover:underline">
+               class="inline-flex items-center gap-2 text-sm font-mono font-medium text-blue-500">
                 <?php echo esc_html($view_all_label); ?>
                 <?php icon('arrow-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
             </a>

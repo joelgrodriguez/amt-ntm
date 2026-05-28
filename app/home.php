@@ -222,7 +222,7 @@ $lc_has_filters = ($filters['category'] ?? '') !== ''
                                 <?php echo esc_html($section['title']); ?>
                             </h2>
                             <?php if ($section['link']) : ?>
-                                <a href="<?php echo esc_url($section['link']); ?>" class="hidden sm:inline-flex items-center gap-2 text-sm font-mono font-medium text-blue-500 hover:underline">
+                                <a href="<?php echo esc_url($section['link']); ?>" class="hidden sm:inline-flex items-center gap-2 text-sm font-mono font-medium text-blue-500">
                                     <?php echo esc_html($section['link_text']); ?>
                                     <?php icon('arrow-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
                                 </a>
@@ -237,7 +237,7 @@ $lc_has_filters = ($filters['category'] ?? '') !== ''
 
                         <?php if ($section['link']) : ?>
                             <div class="mt-6 sm:hidden">
-                                <a href="<?php echo esc_url($section['link']); ?>" class="inline-flex items-center gap-2 text-sm font-mono font-medium text-blue-500 hover:underline">
+                                <a href="<?php echo esc_url($section['link']); ?>" class="inline-flex items-center gap-2 text-sm font-mono font-medium text-blue-500">
                                     <?php echo esc_html($section['link_text']); ?>
                                     <?php icon('arrow-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
                                 </a>

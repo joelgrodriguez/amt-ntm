@@ -57,11 +57,6 @@
     @apply text-blue-700;
   }
 
-  /* Remove underline default, use animated underline component instead */
-  a:not(.btn):not(.no-underline):not(#primary-menu a):hover {
-    @apply underline;
-  }
-
   img {
     @apply max-w-full h-auto;
   }
