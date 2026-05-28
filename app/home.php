@@ -69,9 +69,13 @@ $lc_groups = get_filter_groups($filters);
 $lc_has_filters = ($filters['category'] ?? '') !== ''
     || ($filters['type'] ?? '') !== ''
     || ($filters['machine'] ?? '') !== '';
+
+$lc_paged = max(1, (int) get_query_var('paged'));
 ?>
 
 <main id="primary">
+
+    <?php if (!$lc_has_filters) : ?>
 
     <!-- Hero: full fold (100dvh - header). Filter bar peeks below. -->
     <section class="lc-hero pattern-dot-grid border-b border-blue-200">
@@ -208,6 +212,8 @@ $lc_has_filters = ($filters['category'] ?? '') !== ''
         </div>
     </section>
 
+    <?php endif; // !$lc_has_filters ?>
+
     <!-- Filter rail + content sections -->
     <section class="border-b border-blue-200" aria-labelledby="lc-content-heading">
         <h2 id="lc-content-heading" class="sr-only">
@@ -232,13 +238,20 @@ $lc_has_filters = ($filters['category'] ?? '') !== ''
             ?>
 
             <div class="grid gap-12 lg:gap-16">
-                <?php foreach ($content_sections as $section) :
-                    $section_query = get_section_query($section['post_type'], 3, $filters);
+                <?php if ($lc_has_filters) :
+                    get_template_part('templates/parts/learning-center/results', null, [
+                        'filters'  => $filters,
+                        'base_url' => $filter_action,
+                        'paged'    => $lc_paged,
+                    ]);
+                else :
+                    foreach ($content_sections as $section) :
+                        $section_query = get_section_query($section['post_type'], 3, $filters);
 
-                    if (!$section_query->have_posts()) {
-                        wp_reset_postdata();
-                        continue;
-                    }
+                        if (!$section_query->have_posts()) {
+                            wp_reset_postdata();
+                            continue;
+                        }
                 ?>
                     <section id="lc-section-<?php echo esc_attr($section['post_type']); ?>" tabindex="-1">
 
@@ -271,7 +284,9 @@ $lc_has_filters = ($filters['category'] ?? '') !== ''
                         <?php endif; ?>
 
                     </section>
-                <?php wp_reset_postdata(); endforeach; ?>
+                <?php   wp_reset_postdata();
+                    endforeach;
+                endif; ?>
             </div>
 
         </div>
