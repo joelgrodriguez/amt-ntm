@@ -56,7 +56,7 @@ export const initMegaMenu = () => {
     const resetChrome = () => {
         triggers.forEach((t) => t.setAttribute('aria-expanded', 'false'));
         overlay?.classList.remove('is-open');
-        document.body.classList.remove('mega-open');
+        document.body.classList.remove('overflow-hidden', 'mega-open');
     };
 
     const restoreFocusToActiveTrigger = () => {
@@ -101,7 +101,7 @@ export const initMegaMenu = () => {
             if (t !== trigger) t.setAttribute('aria-expanded', 'false');
         });
         overlay?.classList.add('is-open');
-        document.body.classList.add('mega-open');
+        document.body.classList.add('overflow-hidden', 'mega-open');
         activePanel = id;
         isKeyboardOpen = fromKeyboard;
 
