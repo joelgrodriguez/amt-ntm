@@ -107,7 +107,7 @@ $helpful_links = [
                 <?php endforeach; ?>
             </div>
             <div class="text-center mt-12">
-                <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="inline-flex items-center gap-2 text-sm font-medium text-blue-500 hover:underline">
+                <a href="<?php echo esc_url(\Standard\Url\internal('/')); ?>" class="inline-flex items-center gap-2 text-sm font-medium text-blue-500">
                     <?php icon('arrow-left', ['class' => 'w-4 h-4']); ?>
                     <?php echo esc_html($content['back_home']); ?>
                 </a>
