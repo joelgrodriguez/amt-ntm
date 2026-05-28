@@ -158,9 +158,8 @@ function get_desktop_nav(): array {
                         'label' => __('Start here', 'standard'),
                         'items' => [
                             [
-                                'label'  => __('What is an NTM machine?', 'standard'),
-                                'url'    => \Standard\Url\internal('/learning-center/portable-rollforming-machine-equipment-types-uses/'),
-                                'anchor' => true,
+                                'label' => __('What is an NTM machine?', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/portable-rollforming-machine-equipment-types-uses/'),
                             ],
                             [
                                 'label' => __('Roof panel vs gutter machines', 'standard'),
@@ -176,9 +175,8 @@ function get_desktop_nav(): array {
                         'label' => __('See if it fits', 'standard'),
                         'items' => [
                             [
-                                'label'  => __('Are you ready to manufacture? (Quiz)', 'standard'),
-                                'url'    => \Standard\Url\internal('/portable-rollforming-machine-readiness-assessment/'),
-                                'anchor' => true,
+                                'label' => __('Are you ready to manufacture? (Quiz)', 'standard'),
+                                'url'   => \Standard\Url\internal('/portable-rollforming-machine-readiness-assessment/'),
                             ],
                             [
                                 'label' => __('Profit calculator', 'standard'),
@@ -194,9 +192,8 @@ function get_desktop_nav(): array {
                         'label' => __('Explore', 'standard'),
                         'items' => [
                             [
-                                'label'  => __('Start Here landing', 'standard'),
-                                'url'    => \Standard\Url\internal('/start-here/'),
-                                'anchor' => true,
+                                'label' => __('Start Here landing', 'standard'),
+                                'url'   => \Standard\Url\internal('/start-here/'),
                             ],
                             [
                                 'label' => __('First-time buyer playlist', 'standard'),
@@ -234,9 +231,8 @@ function get_desktop_nav(): array {
                         'label' => __('See all machines', 'standard'),
                         'items' => [
                             [
-                                'label'  => __('All NTM machines', 'standard'),
-                                'url'    => \Standard\Url\internal('/machines/'),
-                                'anchor' => true,
+                                'label' => __('All NTM machines', 'standard'),
+                                'url'   => \Standard\Url\internal('/machines/'),
                             ],
                             [
                                 'label' => __('Roof & wall panel machines', 'standard'),
@@ -260,9 +256,8 @@ function get_desktop_nav(): array {
                         'label' => __('Help me choose', 'standard'),
                         'items' => [
                             [
-                                'label'  => __('Which roof panel machine? (Quiz)', 'standard'),
-                                'url'    => \Standard\Url\internal('/roof-panel-machine-assessment-quiz/'),
-                                'anchor' => true,
+                                'label' => __('Which roof panel machine? (Quiz)', 'standard'),
+                                'url'   => \Standard\Url\internal('/roof-panel-machine-assessment-quiz/'),
                             ],
                             [
                                 'label' => __('Portable gutter machine selection guide', 'standard'),
@@ -282,9 +277,8 @@ function get_desktop_nav(): array {
                         'label' => __('Compare', 'standard'),
                         'items' => [
                             [
-                                'label'  => __('Compare roof-panel machines', 'standard'),
-                                'url'    => \Standard\Url\internal('/compare-roof-panel-machines/'),
-                                'anchor' => true,
+                                'label' => __('Compare roof-panel machines', 'standard'),
+                                'url'   => \Standard\Url\internal('/compare-roof-panel-machines/'),
                             ],
                             [
                                 'label' => __('SSQII vs SSR', 'standard'),
@@ -341,9 +335,8 @@ function get_desktop_nav(): array {
                         'label' => __('Get a quote', 'standard'),
                         'items' => [
                             [
-                                'label'  => __('Request a quote', 'standard'),
-                                'url'    => \Standard\Url\with_query('/contact/', ['form' => 'quote']),
-                                'anchor' => true,
+                                'label' => __('Request a quote', 'standard'),
+                                'url'   => \Standard\Url\with_query('/contact/', ['form' => 'quote']),
                             ],
                             [
                                 'label' => __('What to know before quoting', 'standard'),
@@ -363,9 +356,8 @@ function get_desktop_nav(): array {
                         'label' => __('Understand the deal', 'standard'),
                         'items' => [
                             [
-                                'label'  => __('Panel machine cost (2026)', 'standard'),
-                                'url'    => \Standard\Url\internal('/learning-center/portable-roof-panel-rollforming-machine-cost/'),
-                                'anchor' => true,
+                                'label' => __('Panel machine cost (2026)', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/portable-roof-panel-rollforming-machine-cost/'),
                             ],
                             [
                                 'label' => __('Gutter machine cost (2026)', 'standard'),
@@ -385,9 +377,8 @@ function get_desktop_nav(): array {
                         'label' => __('Talk or configure', 'standard'),
                         'items' => [
                             [
-                                'label'  => __('Talk to a specialist', 'standard'),
-                                'url'    => \Standard\Url\internal('/contact/'),
-                                'anchor' => true,
+                                'label' => __('Talk to a specialist', 'standard'),
+                                'url'   => \Standard\Url\internal('/contact/'),
                             ],
                             [
                                 'label' => __('Configure your machine (Expert shortcut)', 'standard'),
@@ -425,9 +416,8 @@ function get_desktop_nav(): array {
                         'label' => __('Get support now', 'standard'),
                         'items' => [
                             [
-                                'label'  => __('Open a service request', 'standard'),
-                                'url'    => \Standard\Url\internal('/service-hub/'),
-                                'anchor' => true,
+                                'label' => __('Open a service request', 'standard'),
+                                'url'   => \Standard\Url\internal('/service-hub/'),
                             ],
                             [
                                 'label' => __('NTM Knowledge Base', 'standard'),
@@ -443,9 +433,8 @@ function get_desktop_nav(): array {
                         'label' => __('Operate', 'standard'),
                         'items' => [
                             [
-                                'label'  => __('Machine manuals', 'standard'),
-                                'url'    => \Standard\Url\internal('/machines/manuals/'),
-                                'anchor' => true,
+                                'label' => __('Machine manuals', 'standard'),
+                                'url'   => \Standard\Url\internal('/machines/manuals/'),
                             ],
                             [
                                 'label' => __('Request training', 'standard'),
@@ -465,9 +454,8 @@ function get_desktop_nav(): array {
                         'label' => __('Troubleshoot & buy again', 'standard'),
                         'items' => [
                             [
-                                'label'  => __('Common problems & fixes', 'standard'),
-                                'url'    => \Standard\Url\internal('/learning-center/common-problems-with-ntm-portable-rollforming-machines-and-how-to-solve-them/'),
-                                'anchor' => true,
+                                'label' => __('Common problems & fixes', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/common-problems-with-ntm-portable-rollforming-machines-and-how-to-solve-them/'),
                             ],
                             [
                                 'label' => __('Questions the service department hears most', 'standard'),
