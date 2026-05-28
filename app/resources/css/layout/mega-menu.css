@@ -67,6 +67,35 @@
     align-self: stretch;
 }
 
+/* ── Sub-menu link list ───────────────────────────────────────────────────
+ * Mirrors the search-modal result row pattern: bg-blue-50 fill + 2px
+ * blue-500 left edge on hover. -mx-3 px-3 extends the hover surface to
+ * the column edges so the row reads as a list-row hover, not a chip. */
+.mega-link-list {
+    list-style: none;
+    margin: 0 -0.75rem;
+    padding: 0;
+}
+
+.mega-link {
+    display: block;
+    padding: 0.625rem 0.75rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    color: var(--color-blue-700);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+
+.mega-link:hover,
+.mega-link:focus-visible {
+    background: var(--color-blue-50);
+    border-left-color: var(--color-blue-500);
+    color: var(--color-blue-900);
+    outline: none;
+}
+
 /* ── View all CTA ─────────────────────────────────────────────────────── */
 
 .mega-panel__view-all {
