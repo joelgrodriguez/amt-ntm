@@ -41,7 +41,6 @@ $panels = array_values(array_filter(
     >
         <div class="mega-panel__inner">
             <div class="mega-panel__sidebar">
-                <p class="mega-sidebar__label"><?php echo esc_html($panel['label']); ?></p>
                 <?php if (!empty($intro['title'])) : ?>
                     <h2 class="px-5 mb-3 font-sans font-medium text-heading-sm text-blue-900"><?php echo esc_html($intro['title']); ?></h2>
                 <?php endif; ?>
