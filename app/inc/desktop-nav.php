@@ -455,10 +455,6 @@ function get_desktop_nav(): array {
                                 'url'   => \Standard\Url\internal('/service-training/'),
                             ],
                             [
-                                'label' => __('What to expect in training', 'standard'),
-                                'url'   => \Standard\Url\internal('/learning-center/what-to-expect-portable-rollforming-machine-training-session/'),
-                            ],
-                            [
                                 'label' => __('Warranty registration', 'standard'),
                                 'url'   => \Standard\Url\internal('/machines/warranty-registration/'),
                             ],
