@@ -145,10 +145,10 @@ function get_desktop_nav(): array {
             [
                 'kind'          => 'mega',
                 'id'            => 'get-started',
-                'label'         => __('Get started', 'standard'),
+                'label'         => __('Get Started', 'standard'),
                 'type'          => 'flyout-groups',
                 'intro'         => [
-                    'title'           => __('Get started', 'standard'),
+                    'title'           => __('Get Started', 'standard'),
                     'body'            => __('New to portable rollforming? Learn what NTM does, decide if it fits your business, and pick a direction.', 'standard'),
                     'secondary_label' => __('First-time buyer playlist', 'standard'),
                     'secondary_url'   => \Standard\Url\internal('/first-time-buyer-playlist/'),
@@ -222,10 +222,10 @@ function get_desktop_nav(): array {
             [
                 'kind'          => 'mega',
                 'id'            => 'choose-machine',
-                'label'         => __('Choose your machine', 'standard'),
+                'label'         => __('Choose Your Machine', 'standard'),
                 'type'          => 'flyout-groups',
                 'intro'         => [
-                    'title'           => __('Choose your machine', 'standard'),
+                    'title'           => __('Choose Your Machine', 'standard'),
                     'secondary_label' => __('See all machines', 'standard'),
                     'secondary_url'   => \Standard\Url\internal('/machines/'),
                 ],
@@ -329,10 +329,10 @@ function get_desktop_nav(): array {
             [
                 'kind'          => 'mega',
                 'id'            => 'how-to-buy',
-                'label'         => __('How to buy', 'standard'),
+                'label'         => __('How To Buy', 'standard'),
                 'type'          => 'flyout-groups',
                 'intro'         => [
-                    'title'           => __('How to buy', 'standard'),
+                    'title'           => __('How To Buy', 'standard'),
                     'secondary_label' => __('Request a quote', 'standard'),
                     'secondary_url'   => \Standard\Url\with_query('/contact/', ['form' => 'quote']),
                 ],
@@ -413,10 +413,10 @@ function get_desktop_nav(): array {
             [
                 'kind'          => 'mega',
                 'id'            => 'owner-support',
-                'label'         => __('Get owner support', 'standard'),
+                'label'         => __('Get Owner Support', 'standard'),
                 'type'          => 'flyout-groups',
                 'intro'         => [
-                    'title'           => __('Get owner support', 'standard'),
+                    'title'           => __('Get Owner Support', 'standard'),
                     'secondary_label' => __('Open a service request', 'standard'),
                     'secondary_url'   => \Standard\Url\internal('/service-hub/'),
                 ],
@@ -504,7 +504,7 @@ function get_desktop_nav(): array {
         ],
         'utility' => [
             [
-                'label'     => __('Talk to a specialist', 'standard'),
+                'label'     => __('Talk To A Specialist', 'standard'),
                 'url'       => \Standard\Url\internal('/contact/'),
                 'highlight' => true,
             ],
