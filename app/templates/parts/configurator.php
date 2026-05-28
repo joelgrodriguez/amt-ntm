@@ -85,7 +85,7 @@ $features = [
                 <div class="flex">
                     <a
                         href="<?php echo esc_url(\Standard\Url\internal('/configurator/')); ?>"
-                        class="btn btn-primary"
+                        class="btn btn-primary btn--commit"
                     >
                         <?php esc_html_e('Start Configuring', 'standard'); ?>
                         <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>

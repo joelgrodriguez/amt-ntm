@@ -96,4 +96,56 @@
   .btn-ghost:hover {
     @apply bg-blue-100 text-blue-800;
   }
+
+  /* Commit modifier — reserved for "executing a configured decision":
+     filter apply, search submit, configurator/quote CTA, form submit,
+     final CTA. Quiet buttons stay quiet; this one is the loud one.
+
+     The wipe colour is set per-variant (below) so it contrasts the resting
+     fill — same direction as each variant's existing hover language. */
+  .btn--commit {
+    @apply relative overflow-hidden;
+    isolation: isolate;
+    transition: background-color 200ms cubic-bezier(0.22, 1, 0.36, 1), color 200ms ease, transform 200ms ease;
+  }
+
+  .btn--commit::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: currentColor;
+    transform: translateX(-101%);
+    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: -1;
+  }
+
+  .btn--commit:hover::before,
+  .btn--commit:focus-visible::before {
+    transform: translateX(0);
+  }
+
+  .btn--commit:active {
+    transform: translateY(1px);
+  }
+
+  /* When the commit button hosts an icon, nudge it forward on hover.
+     Works with the icon() helper's <svg> output without extra wrapper spans. */
+  .btn--commit svg {
+    transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .btn--commit:hover svg,
+  .btn--commit:focus-visible svg {
+    transform: translateX(4px);
+  }
+
+  /* Per-variant wipe colour. Same logic as each variant's :hover —
+     darken primary blue, darken emphasis red, fill ghost/outline. */
+  .btn-primary.btn--commit::before {
+    background: color-mix(in srgb, var(--color-blue-500) 90%, black);
+  }
+
+  .btn-emphasis.btn--commit::before {
+    background: color-mix(in srgb, var(--color-red) 90%, black);
+  }
 }

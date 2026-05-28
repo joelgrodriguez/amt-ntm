@@ -222,7 +222,7 @@ $steps = [
             <?php endif; ?>
 
             <div class="configurator-cta__actions">
-                <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary">
+                <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary btn--commit">
                     <?php esc_html_e('Open Configurator', 'standard'); ?>
                     <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                 </a>
