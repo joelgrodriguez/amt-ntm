@@ -69,7 +69,7 @@ $url   = \Standard\Url\internal('/service-hub/' . $slug . '/');
                 <?php echo esc_html($desc); ?>
             </span>
         <?php endif; ?>
-        <span class="mt-2 flex items-center gap-1.5 font-mono uppercase tracking-wider text-blue-400 transition-colors duration-200 group-hover:text-blue-500" style="font-size: var(--text-caption);">
+        <span class="mt-2 flex items-center gap-1.5 font-mono uppercase tracking-wider text-blue-300 transition-colors duration-200 group-hover:text-blue-500" style="font-size: var(--text-caption);">
             <?php esc_html_e('View service content', 'standard'); ?>
             <?php icon('arrow-right', ['class' => 'w-3 h-3']); ?>
         </span>

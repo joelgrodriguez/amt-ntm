@@ -44,7 +44,14 @@
      drenched service-hub hero) where the default white field would break the
      dark mood. Blue-800 surface, blue-700 hairline, white text, blue-400
      placeholder. The focus ring's inner stop swaps white -> blue-900 so the
-     2px gap reads against the dark surface instead of flashing white. */
+     2px gap reads against the dark surface instead of flashing white.
+
+     Note: the blue-700 resting border is ~1.5:1 against a blue-900 page,
+     below WCAG 1.4.11's 3:1 for UI components. This is intentional — the
+     field's affordance is its filled blue-800 surface (which contrasts the
+     page), not the hairline. A blue-500 resting border would clear 3:1 but
+     read as a permanent focus state, which is worse. Border stays decorative;
+     surface carries recognition. */
   .field-input--on-dark {
     @apply border-blue-700 bg-blue-800 text-white;
   }
