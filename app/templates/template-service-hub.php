@@ -97,12 +97,8 @@ get_header();
 
     <!-- Keyword search bar. Relocated below the triage doors and machine
          grid; the rail is for narrowing. -->
-    <section class="border-b border-blue-200" aria-labelledby="service-hub-search-title">
+    <section class="border-b border-blue-200">
         <div class="container py-6 lg:py-8">
-            <h2 id="service-hub-search-title" class="sr-only">
-                <?php esc_html_e('Search service content', 'standard'); ?>
-            </h2>
-
             <form
                 id="<?php echo esc_attr($service_form_id); ?>"
                 method="get"
