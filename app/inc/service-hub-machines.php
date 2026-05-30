@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
 }
 
 const QUERY_VAR       = 'service_hub_machine';
-const REWRITE_VERSION = '1';
+const REWRITE_VERSION = '2';
 const VERSION_OPTION  = 'standard_service_hub_machine_rewrite_version';
 
 /**
@@ -52,13 +52,14 @@ function find_machine(string $slug): ?array {
 }
 
 /**
- * Register /service-hub/<slug>/. The `request` segment is excluded so the
- * real /service-hub/request/ child page wins; any non-machine slug 404s
- * via template-side validation.
+ * Register /service-hub/<slug>/. The negative lookahead excludes the
+ * `request` segment, so the real /service-hub/request/ child page resolves
+ * via WP's default page rule instead of being captured as a machine slug.
+ * Any other non-machine slug still 404s via template-side validation.
  */
 function register_rewrites(): void {
     \add_rewrite_rule(
-        '^service-hub/([^/]+)/?$',
+        '^service-hub/(?!request/?$)([^/]+)/?$',
         'index.php?' . QUERY_VAR . '=$matches[1]',
         'top'
     );
