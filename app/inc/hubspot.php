@@ -17,6 +17,9 @@ const DEFAULT_REGION = 'na1';
 const DEFAULT_PORTAL_ID = '4478417';
 const DEFAULT_FORM_ID = 'e5267365-c19e-4f19-991a-003c5fdbeecf';
 const META_FORM_ID = 'e5160c2b-c2f3-4a09-9eaa-0b9c5a3986a3';
+// Service-request form. Defaults to the general form until the dedicated
+// HubSpot form (NetSuite/HubSpot pipeline) is created; swap the literal then.
+const SERVICE_REQUEST_FORM_ID = DEFAULT_FORM_ID;
 
 /**
  * Render a lazy HubSpot form mount point.
