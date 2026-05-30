@@ -66,23 +66,39 @@ get_header();
                     <?php esc_html_e('Service Hub', 'standard'); ?>
                 </span>
                 <h1 class="font-semibold text-heading-lg lg:text-display text-blue-900 leading-tight tracking-tight">
-                    <?php esc_html_e('Service and Support', 'standard'); ?>
+                    <?php esc_html_e('Own a New Tech machine? Start here.', 'standard'); ?>
                 </h1>
                 <p class="font-sans text-blue-600 max-w-2xl" style="font-size: var(--text-body); line-height: var(--leading-body);">
-                    <?php esc_html_e('Manuals, troubleshooting articles, support videos, machine parts, and footprint downloads. Filter by machine, type, or topic, or call the service team.', 'standard'); ?>
+                    <?php esc_html_e('Find your machine, open a service request, or search the full library of manuals, articles, videos, and downloads.', 'standard'); ?>
                 </p>
             </div>
         </div>
     </header>
 
-    <!-- Keyword search bar. Lives outside the rail because it's the primary
-         entry point; the rail is for narrowing. -->
-    <section class="border-b border-blue-200" aria-labelledby="service-hub-search-title">
-        <div class="container py-6 lg:py-8">
-            <h2 id="service-hub-search-title" class="sr-only">
-                <?php esc_html_e('Search service content', 'standard'); ?>
-            </h2>
+    <?php get_template_part('templates/parts/service-hub/doors'); ?>
 
+    <section id="machines" class="container section-compact" aria-labelledby="service-hub-machines-title">
+        <h2 id="service-hub-machines-title" class="font-mono font-medium uppercase tracking-wider text-blue-700 m-0 mb-6" style="font-size: var(--text-caption);">
+            <?php esc_html_e('Browse by machine', 'standard'); ?>
+        </h2>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <?php foreach (\Standard\MachinesData\get_all_machines(false) as $machine) : ?>
+                <?php get_template_part('templates/parts/service-hub/machine-card', null, ['machine' => $machine]); ?>
+            <?php endforeach; ?>
+        </div>
+    </section>
+
+    <section id="search" class="border-t border-blue-200" aria-labelledby="service-hub-search-heading">
+        <div class="container section-compact">
+            <h2 id="service-hub-search-heading" class="font-mono font-medium uppercase tracking-wider text-blue-700 m-0" style="font-size: var(--text-caption);">
+                <?php esc_html_e('Search the knowledge base', 'standard'); ?>
+            </h2>
+        </div>
+
+    <!-- Keyword search bar. Relocated below the triage doors and machine
+         grid; the rail is for narrowing. -->
+    <section class="border-b border-blue-200">
+        <div class="container py-6 lg:py-8">
             <form
                 id="<?php echo esc_attr($service_form_id); ?>"
                 method="get"
@@ -214,6 +230,7 @@ get_header();
                 <?php endif; ?>
             </div>
         </div>
+    </section>
     </section>
 
     <?php
