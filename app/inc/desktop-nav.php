@@ -417,11 +417,11 @@ function get_desktop_nav(): array {
                         'items' => [
                             [
                                 'label' => __('Open a service request', 'standard'),
-                                'url'   => \Standard\Url\internal('/service-hub/'),
+                                'url'   => \Standard\Url\internal('/service-hub/request/'),
                             ],
                             [
                                 'label' => __('NTM Knowledge Base', 'standard'),
-                                'url'   => \Standard\Url\internal('/ntm-knowledge-base/'),
+                                'url'   => \Standard\Url\internal('/service-hub/'),
                             ],
                             [
                                 'label' => __('Owner support landing', 'standard'),
@@ -477,7 +477,7 @@ function get_desktop_nav(): array {
                     '/service-training/',
                     '/owner-support/',
                     '/owner-resources/',
-                    '/ntm-knowledge-base/',
+                    '/service-hub/request/',
                     '/machines/manuals/',
                     '/machines/warranty-registration/',
                     '/manual/',
