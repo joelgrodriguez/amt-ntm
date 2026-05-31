@@ -125,11 +125,14 @@ function route_template(string $template): string {
  * @return array<int, array{label: string, query: \WP_Query}>
  */
 function get_content_groups(string $machine_slug): array {
+    // Order is owner-priority, not alphabetical: the manual is what an owner
+    // reaches for first, videos second (the service team's strongest content
+    // for this hub), then written fixes, then parts/footprint downloads.
     $groups = [
         ['label' => \__('Manuals', 'standard'),             'types' => ['manual']],
+        ['label' => \__('Videos', 'standard'),              'types' => ['video']],
         ['label' => \__('Troubleshooting', 'standard'),     'types' => ['post']],
         ['label' => \__('Parts & footprints', 'standard'),  'types' => ['download', 'footprint', 'cutlist']],
-        ['label' => \__('Videos', 'standard'),              'types' => ['video']],
     ];
 
     $built = [];
@@ -155,4 +158,115 @@ function get_content_groups(string $machine_slug): array {
     }
 
     return $built;
+}
+
+/**
+ * Resolve a machine's footprint drawing for off-loop rendering.
+ *
+ * The product page reads the footprint from the ACF `footprint` field on the
+ * WooCommerce product *in the loop* (see woo/product/parts/blueprint.php). The
+ * service-hub machine page is a virtual route with no post in context, so we
+ * resolve it the long way: machine data-key -> WC product ID -> ACF footprint
+ * post -> featured image + embedded PDF URL.
+ *
+ * Returns empty strings for any piece that isn't available; the caller decides
+ * what to render. Static-cached per slug because the WC product lookup walks
+ * the published-product list once.
+ *
+ * @return array{image: string, alt: string, pdf: string}
+ */
+function get_machine_footprint(string $machine_slug): array {
+    static $cache = [];
+    if (isset($cache[$machine_slug])) {
+        return $cache[$machine_slug];
+    }
+
+    $empty = ['image' => '', 'alt' => '', 'pdf' => ''];
+
+    if (!\function_exists('get_field')) {
+        return $cache[$machine_slug] = $empty;
+    }
+
+    $product_id = resolve_product_id($machine_slug);
+    if ($product_id === 0) {
+        return $cache[$machine_slug] = $empty;
+    }
+
+    $footprint = \get_field('footprint', $product_id);
+    $footprint_post_id = 0;
+
+    if (\is_array($footprint) && !empty($footprint)) {
+        $first = \reset($footprint);
+        if (\is_object($first) && isset($first->ID)) {
+            $footprint_post_id = (int) $first->ID;
+        } elseif (\is_numeric($first)) {
+            $footprint_post_id = (int) $first;
+        }
+    } elseif (\is_object($footprint) && isset($footprint->ID)) {
+        $footprint_post_id = (int) $footprint->ID;
+    } elseif (\is_numeric($footprint)) {
+        $footprint_post_id = (int) $footprint;
+    }
+
+    if ($footprint_post_id === 0) {
+        return $cache[$machine_slug] = $empty;
+    }
+
+    $image = '';
+    $alt   = '';
+    $thumb_id = (int) \get_post_thumbnail_id($footprint_post_id);
+    if ($thumb_id > 0) {
+        $image = (string) (\wp_get_attachment_image_url($thumb_id, 'large') ?: '');
+        $alt   = (string) \get_post_meta($thumb_id, '_wp_attachment_image_alt', true);
+        if ($alt === '') {
+            $alt = (string) \get_the_title($footprint_post_id);
+        }
+    }
+
+    $pdf = '';
+    $footprint_post = \get_post($footprint_post_id);
+    if ($footprint_post && \function_exists('parse_blocks')) {
+        foreach (\parse_blocks($footprint_post->post_content) as $block) {
+            if (($block['blockName'] ?? '') === 'pdfjsblock/pdfjs-embed' && !empty($block['attrs']['imageURL'])) {
+                $pdf = (string) $block['attrs']['imageURL'];
+                break;
+            }
+        }
+    }
+
+    return $cache[$machine_slug] = ['image' => $image, 'alt' => $alt, 'pdf' => $pdf];
+}
+
+/**
+ * WooCommerce product ID for a machine slug, or 0.
+ *
+ * Machine data-keys (e.g. `ssh-multipro`) don't always match the WC product
+ * slug (e.g. `ssh-roof-panel-machine`), so we check the data-key directly and
+ * every WC slug that aliases to it (MachineProductData::get_slug_aliases()).
+ */
+function resolve_product_id(string $machine_slug): int {
+    if (!\function_exists('wc_get_products')) {
+        return 0;
+    }
+
+    $candidates = [$machine_slug];
+    if (\function_exists('Standard\\MachineProductData\\get_slug_aliases')) {
+        foreach (\Standard\MachineProductData\get_slug_aliases() as $wc_slug => $data_key) {
+            if ($data_key === $machine_slug) {
+                $candidates[] = $wc_slug;
+            }
+        }
+    }
+
+    $products = \function_exists('Standard\\Woo\\Cache\\get_products')
+        ? \Standard\Woo\Cache\get_products(['limit' => -1, 'status' => 'publish'])
+        : \wc_get_products(['limit' => -1, 'status' => 'publish']);
+
+    foreach ($products as $product) {
+        if (\in_array($product->get_slug(), $candidates, true)) {
+            return (int) $product->get_id();
+        }
+    }
+
+    return 0;
 }
