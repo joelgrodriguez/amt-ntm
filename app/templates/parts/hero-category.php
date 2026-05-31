@@ -96,7 +96,7 @@ if ($pattern) {
 
                 <h2
                     id="<?php echo esc_attr($section_id); ?>-title"
-                    class="font-sans font-medium leading-[0.95] tracking-tight text-white text-4xl lg:text-5xl xl:text-6xl"
+                    class="font-sans font-medium leading-[0.95] tracking-tight text-white text-4xl lg:text-5xl"
                 >
                     <?php echo wp_kses($content['title'], ['br' => ['class' => []]]); ?>
                 </h2>

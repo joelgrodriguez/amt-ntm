@@ -34,7 +34,8 @@ get_template_part('templates/parts/hero-category', null, [
         'cta_secondary_url'     => 'https://fast.wistia.net/embed/iframe/vf198bnz3w',
         'cta_secondary_trigger' => true,
         'video'                 => 'https://fast.wistia.net/embed/iframe/vf198bnz3w',
-        'poster'                => '',
+        'poster'                => content_url('/uploads/2026/05/ntm-ssq3-manual-controller-008.jpg'),
+        'poster_alt'            => __('NTM SSQ3 manual controller', 'standard'),
     ],
     'meta' => [
         ['label' => __('Standard On', 'standard'), 'value' => 'WAV'],
