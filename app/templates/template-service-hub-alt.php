@@ -29,7 +29,10 @@ use function Standard\ServiceHub\get_results_query;
 
 $filters = get_active_filters();
 $paged = max(1, (int) get_query_var('paged'), (int) get_query_var('page'));
-$service_query = get_results_query($filters, $paged);
+// 9 per page (3 rows of the 3-up grid); pagination handles the rest. The
+// shared query defaults to 12 — passing 9 here keeps it alt-page-only and
+// leaves the original /service-hub/ untouched.
+$service_query = get_results_query($filters, $paged, 9);
 $post_type_options = get_post_type_options();
 $form_action = get_permalink() ?: \Standard\Url\internal('/service-hub/');
 $has_filters = $filters['search'] !== ''
@@ -66,9 +69,8 @@ get_header();
 
     <?php /* Band 1 — Hero. Shared hero-category part (same as /machines): sr-only h1 (WP
             title, SEO), visible h2 headline, blue primary CTA, and a 16:9 Wistia video panel
-            on the right with the click-to-play facade. No meta rail (support page, not
-            marketing). Poster omitted for now — the facade shows a clean play badge on the
-            blue-800 panel until a service-specific poster image is supplied. */ ?>
+            on the right with the click-to-play facade (service-department poster). No meta
+            rail (support page, not marketing). */ ?>
     <?php
     get_template_part('templates/parts/hero-category', null, [
         'section_id' => 'service-hub-alt-hero',
@@ -126,7 +128,7 @@ get_header();
     <section class="bg-white border-t border-blue-200" aria-labelledby="service-hub-alt-includes-title">
         <div class="container section-compact">
             <h2 id="service-hub-alt-includes-title" class="font-mono font-medium uppercase tracking-wider text-blue-900 m-0 mb-8" style="font-size: var(--text-heading-sm);">
-                <?php esc_html_e('Behind every machine', 'standard'); ?>
+                <?php esc_html_e('Service content for every machine', 'standard'); ?>
             </h2>
             <?php
             $includes = [
@@ -165,7 +167,7 @@ get_header();
                         <?php esc_html_e('Your rollforming support team.', 'standard'); ?>
                     </h2>
                     <p class="font-sans text-blue-600 m-0" style="font-size: var(--text-body); line-height: var(--leading-body);">
-                        <?php esc_html_e('The same company that builds these machines backs them: more than 30 years of portable rollforming, machines in 40+ countries, and people who have answered the hard questions since the first SSP shipped. If the answer is not in the library, tell us what you need.', 'standard'); ?>
+                        <?php esc_html_e('NTM service is run by the people who build the machines: more than 30 years of portable rollforming, machines in 40+ countries, and specialists who know your roll former inside out. If the answer is not in the library, open a service request and tell us what you need.', 'standard'); ?>
                     </p>
                 </div>
                 <div class="flex flex-col gap-3">
