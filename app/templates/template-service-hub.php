@@ -63,33 +63,14 @@ $service_groups = get_filter_groups([
 // likewise resolves dormant slugs so the cards don't 404.
 $machine_categories = \Standard\MachinesData\get_machine_categories(true);
 
-// Latest service docs + videos for the resources block. Reuses the
-// service-repair department tax_query; returns rows shaped {url, kind, label}
-// so the two-column list markup loops them unchanged.
-$service_resources = static function (array $post_types, string $kind, int $limit): array {
-    $query = new \WP_Query([
-        'post_type'              => $post_types,
-        'post_status'            => 'publish',
-        'posts_per_page'         => $limit,
-        'orderby'                => 'date',
-        'order'                  => 'DESC',
-        'tax_query'              => \Standard\ServiceHub\get_service_tax_query(),
-        'no_found_rows'          => true,
-        'ignore_sticky_posts'    => true,
-    ]);
-    $rows = [];
-    foreach ($query->posts as $post) {
-        $rows[] = [
-            'url'   => (string) \get_permalink($post),
-            'kind'  => $kind,
-            'label' => \get_the_title($post),
-        ];
-    }
-    \wp_reset_postdata();
-    return $rows;
-};
-$resource_docs   = $service_resources(['manual'], __('MANUAL', 'standard'), 6);
-$resource_videos = $service_resources(['video'], __('VIDEO', 'standard'), 6);
+// UNIQ Controller resources for the dedicated UNIQ section. Reuses the same
+// curated {docs, videos} data that powers /machines/uniq-control-system/, so
+// the two surfaces stay in sync. Each row is {url, kind, label}. A focused
+// UNIQ block (vs a generic "latest docs/videos" list) avoids duplicating the
+// search/content firehose below, which already surfaces newest service content.
+$uniq_resources = \Standard\MachinesData\get_uniq_resources();
+$uniq_docs      = $uniq_resources['docs'] ?? [];
+$uniq_videos    = $uniq_resources['videos'] ?? [];
 
 get_header();
 ?>
@@ -239,28 +220,41 @@ get_header();
         </div>
     </section>
 
-    <?php /* Band 4.5 — Documentation & videos. Two-column hairline list fed by live
-            service-dept queries (latest manuals + videos). Hidden if both empty. */ ?>
-    <?php if (!empty($resource_docs) || !empty($resource_videos)) : ?>
-    <section class="bg-white border-t border-blue-200" aria-labelledby="service-hub-resources-title">
+    <?php /* Band 4.5 — UNIQ Automatic Control System. The controller that runs the
+            SSQ II / SSQ3 / WAV has its own deep doc + video library and isn't a machine
+            in the gallery, so it gets a dedicated section. Two-column hairline list
+            (the /machines/uniq-control-system/ pattern), fed by the SAME curated
+            get_uniq_resources() data so the two surfaces stay in sync. UNIQ-specific,
+            so it doesn't duplicate the newest-content search firehose below. */ ?>
+    <?php if (!empty($uniq_docs) || !empty($uniq_videos)) : ?>
+    <section class="bg-white border-t border-blue-200" aria-labelledby="service-hub-uniq-title">
         <div class="container section-compact">
-            <h2 id="service-hub-resources-title" class="font-mono font-medium uppercase tracking-wider text-blue-900 m-0 mb-8" style="font-size: var(--text-heading-sm);">
-                <?php esc_html_e('Latest documentation & videos', 'standard'); ?>
-            </h2>
+            <div class="grid gap-4 max-w-3xl mb-8">
+                <span class="section-eyebrow flex items-center gap-2">
+                    <span class="inline-block h-1 w-1 bg-red" aria-hidden="true"></span>
+                    <?php esc_html_e('Control System', 'standard'); ?>
+                </span>
+                <h2 id="service-hub-uniq-title" class="font-sans font-medium text-heading text-blue-900 leading-tight m-0">
+                    <?php esc_html_e('UNIQ Automatic Control System', 'standard'); ?>
+                </h2>
+                <p class="font-sans text-blue-600 m-0" style="font-size: var(--text-body); line-height: var(--leading-body);">
+                    <?php esc_html_e('The touchscreen brain for your SSQ II, SSQ3, and WAV rollformers. Field-update instructions, the supplement manual, and the full video library for installing, running, and upgrading UNIQ.', 'standard'); ?>
+                </p>
+            </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 bg-white border border-blue-200">
 
-                <?php if (!empty($resource_docs)) : ?>
-                    <div class="<?php echo !empty($resource_videos) ? 'border-b border-blue-200 md:border-b-0 md:border-r' : ''; ?>">
+                <?php if (!empty($uniq_docs)) : ?>
+                    <div class="<?php echo !empty($uniq_videos) ? 'border-b border-blue-200 md:border-b-0 md:border-r' : ''; ?>">
                         <h3 class="font-mono font-medium uppercase tracking-mono-label text-blue-500 p-6 lg:p-8 border-b border-blue-200" style="font-size: var(--text-caption);">
-                            <?php esc_html_e('Manuals', 'standard'); ?>
+                            <?php esc_html_e('Documentation', 'standard'); ?>
                         </h3>
                         <ul>
-                            <?php foreach ($resource_docs as $i => $doc) :
-                                $is_last = ($i === count($resource_docs) - 1);
+                            <?php foreach ($uniq_docs as $i => $doc) :
+                                $is_last = ($i === count($uniq_docs) - 1);
                             ?>
                                 <li class="<?php echo $is_last ? '' : 'border-b border-blue-200'; ?>">
-                                    <a href="<?php echo esc_url($doc['url']); ?>"
+                                    <a href="<?php echo esc_url(\Standard\Url\internal($doc['url'])); ?>"
                                        class="group flex items-start gap-4 px-6 py-5 lg:px-8 lg:py-6 transition-colors duration-150 hover:bg-blue-50 no-underline">
                                         <span class="font-mono uppercase tracking-mono-meta text-blue-400 shrink-0 min-w-16 pt-1" style="font-size: 10px;">
                                             <?php echo esc_html($doc['kind']); ?>
@@ -276,17 +270,17 @@ get_header();
                     </div>
                 <?php endif; ?>
 
-                <?php if (!empty($resource_videos)) : ?>
+                <?php if (!empty($uniq_videos)) : ?>
                     <div>
                         <h3 class="font-mono font-medium uppercase tracking-mono-label text-blue-500 p-6 lg:p-8 border-b border-blue-200" style="font-size: var(--text-caption);">
-                            <?php esc_html_e('Service Videos', 'standard'); ?>
+                            <?php esc_html_e('Video Tutorials', 'standard'); ?>
                         </h3>
                         <ul>
-                            <?php foreach ($resource_videos as $i => $video) :
-                                $is_last = ($i === count($resource_videos) - 1);
+                            <?php foreach ($uniq_videos as $i => $video) :
+                                $is_last = ($i === count($uniq_videos) - 1);
                             ?>
                                 <li class="<?php echo $is_last ? '' : 'border-b border-blue-200'; ?>">
-                                    <a href="<?php echo esc_url($video['url']); ?>"
+                                    <a href="<?php echo esc_url(\Standard\Url\internal($video['url'])); ?>"
                                        class="group flex items-start gap-4 px-6 py-5 lg:px-8 lg:py-6 transition-colors duration-150 hover:bg-blue-50 no-underline">
                                         <span class="font-mono uppercase tracking-mono-meta text-blue-400 shrink-0 min-w-16 pt-1" style="font-size: 10px;">
                                             <?php echo esc_html($video['kind']); ?>
@@ -303,6 +297,14 @@ get_header();
                 <?php endif; ?>
 
             </div>
+
+            <p class="mt-6 m-0">
+                <a href="<?php echo esc_url(\Standard\Url\internal('/machines/uniq-control-system/')); ?>"
+                   class="group inline-flex items-center gap-2 font-mono uppercase tracking-mono-meta text-blue-500 hover:text-blue-700 transition-colors duration-150 no-underline" style="font-size: var(--text-caption);">
+                    <?php esc_html_e('Full UNIQ control system page', 'standard'); ?>
+                    <?php icon('arrow-right', ['class' => 'w-3 h-3 transition-transform duration-150 group-hover:translate-x-1']); ?>
+                </a>
+            </p>
         </div>
     </section>
     <?php endif; ?>

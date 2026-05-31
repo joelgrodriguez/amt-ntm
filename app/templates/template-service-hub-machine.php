@@ -93,9 +93,10 @@ get_header();
     <?php get_template_part('templates/parts/breadcrumbs'); ?>
 
     <?php /* Hero — spec sheet. Identity + meta rail + service CTA on the left,
-            footprint drawing opposite on the right. Light surface, hairline
-            structural borders (DESIGN.md §8). One column when no footprint. */ ?>
-    <header class="bg-white border-b border-blue-200" aria-labelledby="service-hub-machine-title">
+            footprint drawing opposite on the right. Dot-grid blue-50 surface
+            (the --surface variant: dots, no fade), hairline structural borders
+            (DESIGN.md §8). One column when no footprint. */ ?>
+    <header class="pattern-dot-grid pattern-dot-grid--surface bg-blue-50 border-b border-blue-200" aria-labelledby="service-hub-machine-title">
         <div class="container section-compact">
             <?php $has_footprint = $footprint['image'] !== ''; ?>
             <div class="grid gap-10 lg:gap-16 <?php echo $has_footprint ? 'lg:grid-cols-2 lg:items-start' : 'max-w-3xl'; ?>">

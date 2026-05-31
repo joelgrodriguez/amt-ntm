@@ -3,10 +3,12 @@
  * Service Hub — machine footprint panel (hero right column).
  *
  * The technical "footprint" that sits opposite the hero text on a machine
- * service page: the plan-view drawing on a dot-grid panel, framed by mono
+ * service page: the plan-view drawing on a white plate, framed by mono
  * engineering chrome bars (top: ENGINEERING SPECS, bottom: Footprint + PDF
- * link). A blueprint, not a product shot. Light surface (white), hairline
- * blue-200 borders carry the structure (DESIGN.md §8).
+ * link). A blueprint, not a product shot. The plate stays a clean white card
+ * with hairline blue-200 borders (DESIGN.md §8); the dot-grid texture comes
+ * from the hero surface behind it, so the drawing area itself is undotted to
+ * avoid dots-on-dots.
  *
  * Unlike woo/product/parts/blueprint.php, this part is fully arg-driven so it
  * renders off-loop (the service-hub machine route is virtual, no post in
@@ -58,7 +60,7 @@ $alt = $alt !== ''
         <span class="pr-3 text-blue-400"><?php esc_html_e('Plan View', 'standard'); ?></span>
     </figcaption>
 
-    <div class="pattern-dot-grid pattern-dot-grid--solid p-6 lg:p-8">
+    <div class="p-6 lg:p-8">
         <?php if ($pdf !== '') : ?>
             <a
                 href="<?php echo esc_url($pdf); ?>"
