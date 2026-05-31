@@ -160,7 +160,7 @@ get_header();
                 ],
                 [
                     'icon'  => 'play',
-                    'label' => __('Videos', 'standard'),
+                    'label' => __('Service Videos', 'standard'),
                     'desc'  => __('Setup, operation, and how-to clips.', 'standard'),
                     'url'   => add_query_arg('service_type', 'video', $form_action) . '#search',
                 ],
