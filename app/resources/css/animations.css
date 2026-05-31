@@ -86,13 +86,22 @@
     transform: scale(1);
   }
 
-  /* Stagger children - add delay to sequential items */
+  /* Stagger children - add delay to sequential items. Ladders to 12 so
+     wider galleries (e.g. the service-hub machine grid at lg:grid-cols-3,
+     multiple rows) keep cascading instead of clumping past the 6th tile.
+     Delay caps at 250ms so a long list never feels like it's waiting. */
   .stagger > *:nth-child(1) { transition-delay: 0ms; }
   .stagger > *:nth-child(2) { transition-delay: 50ms; }
   .stagger > *:nth-child(3) { transition-delay: 100ms; }
   .stagger > *:nth-child(4) { transition-delay: 150ms; }
   .stagger > *:nth-child(5) { transition-delay: 200ms; }
   .stagger > *:nth-child(6) { transition-delay: 250ms; }
+  .stagger > *:nth-child(7) { transition-delay: 100ms; }
+  .stagger > *:nth-child(8) { transition-delay: 150ms; }
+  .stagger > *:nth-child(9) { transition-delay: 200ms; }
+  .stagger > *:nth-child(10) { transition-delay: 250ms; }
+  .stagger > *:nth-child(11) { transition-delay: 150ms; }
+  .stagger > *:nth-child(12) { transition-delay: 200ms; }
 
 }
 

@@ -68,7 +68,7 @@ get_header();
     <header class="pattern-dot-grid pattern-dot-grid--dark bg-blue-900">
         <div class="container section">
             <div class="grid gap-6 max-w-3xl">
-                <span class="section-eyebrow flex items-center gap-2 text-blue-400">
+                <span class="section-eyebrow flex items-center gap-2 text-blue-300">
                     <span class="inline-block h-1 w-1 bg-red" aria-hidden="true"></span>
                     <?php esc_html_e('Service Hub', 'standard'); ?>
                 </span>
@@ -96,7 +96,7 @@ get_header();
                         name="service_search"
                         type="search"
                         value="<?php echo esc_attr($filters['search']); ?>"
-                        class="field-input"
+                        class="field-input field-input--on-dark"
                         placeholder="<?php esc_attr_e('Machine, manual, problem, topic…', 'standard'); ?>"
                     >
                     <button type="submit" class="btn btn-primary w-full sm:w-auto h-11!">
@@ -105,7 +105,7 @@ get_header();
                     </button>
                 </form>
 
-                <p class="font-mono uppercase tracking-wider text-blue-400 m-0" style="font-size: var(--text-caption);">
+                <p class="font-mono uppercase tracking-wider text-blue-300 m-0" style="font-size: var(--text-caption);">
                     <?php esc_html_e('Need to talk to us?', 'standard'); ?>
                     <a href="<?php echo esc_url(\Standard\Url\internal('/service-hub/request/')); ?>" class="text-blue-200 underline underline-offset-2 transition-colors duration-200 hover:text-white">
                         <?php esc_html_e('Open a service request', 'standard'); ?>
@@ -135,7 +135,7 @@ get_header();
                     }
                     ?>
                     <div class="grid gap-6">
-                        <h3 class="font-mono font-medium uppercase tracking-wider text-blue-400 m-0" style="font-size: var(--text-caption);">
+                        <h3 class="font-mono font-medium uppercase tracking-wider text-blue-300 m-0" style="font-size: var(--text-caption);">
                             <?php echo esc_html($cat_label); ?>
                         </h3>
                         <div class="stagger grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -152,7 +152,7 @@ get_header();
     <?php /* Band 3 — What every machine page gives you. Light. Hairline-divided row, no card grid. */ ?>
     <section class="bg-white border-t border-blue-200" aria-labelledby="service-hub-alt-includes-title">
         <div class="container section-compact">
-            <h2 id="service-hub-alt-includes-title" class="section-eyebrow m-0 mb-8">
+            <h2 id="service-hub-alt-includes-title" class="font-mono font-medium uppercase tracking-wider text-blue-900 m-0 mb-8" style="font-size: var(--text-heading-sm);">
                 <?php esc_html_e('Behind every machine', 'standard'); ?>
             </h2>
             <?php
@@ -212,7 +212,7 @@ get_header();
     <?php /* Band 5 — Full search, relocated verbatim from template-service-hub.php. Query logic unchanged. */ ?>
     <section id="search" class="bg-white border-t border-blue-200" aria-labelledby="service-hub-alt-search-heading">
         <div class="container section-compact">
-            <h2 id="service-hub-alt-search-heading" class="section-eyebrow m-0">
+            <h2 id="service-hub-alt-search-heading" class="font-mono font-medium uppercase tracking-wider text-blue-900 m-0" style="font-size: var(--text-heading-sm);">
                 <?php esc_html_e('Search the library', 'standard'); ?>
             </h2>
         </div>
