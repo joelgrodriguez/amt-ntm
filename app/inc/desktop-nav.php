@@ -228,26 +228,26 @@ function get_desktop_nav(): array {
                 ],
                 'groups'        => [
                     [
-                        'label' => __('See all machines', 'standard'),
+                        'label' => __('See All Machines', 'standard'),
                         'items' => [
                             [
-                                'label' => __('All NTM machines', 'standard'),
+                                'label' => __('All NTM Machines', 'standard'),
                                 'url'   => \Standard\Url\internal('/machines/'),
                             ],
                             [
-                                'label' => __('Roof & wall panel machines', 'standard'),
+                                'label' => __('Roof & Wall Panel Machines', 'standard'),
                                 'url'   => \Standard\Url\internal('/roof-wall-panel-machines/'),
                             ],
                             [
-                                'label' => __('Seamless gutter machines', 'standard'),
+                                'label' => __('Seamless Gutter Machines', 'standard'),
                                 'url'   => \Standard\Url\internal('/seamless-gutter-machines/'),
                             ],
                             [
-                                'label' => __('Profiles archive', 'standard'),
+                                'label' => __('Profiles', 'standard'),
                                 'url'   => \Standard\Url\internal('/profiles/'),
                             ],
                             [
-                                'label' => __('Accessories & upgrades', 'standard'),
+                                'label' => __('Accessories & Upgrades', 'standard'),
                                 'url'   => \Standard\Url\internal('/machines/upgrades/'),
                             ],
                         ],
