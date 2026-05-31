@@ -66,6 +66,34 @@ $service_groups = get_filter_groups([
 // likewise resolves dormant slugs so the cards don't 404.
 $machine_categories = \Standard\MachinesData\get_machine_categories(true);
 
+// Latest service docs + videos for the UNIQ-style resources block. Reuses the
+// service-repair department tax_query; returns rows shaped {url, kind, label}
+// like get_uniq_resources() so the cloned markup loops them unchanged.
+$service_resources = static function (array $post_types, string $kind, int $limit): array {
+    $query = new \WP_Query([
+        'post_type'              => $post_types,
+        'post_status'            => 'publish',
+        'posts_per_page'         => $limit,
+        'orderby'                => 'date',
+        'order'                  => 'DESC',
+        'tax_query'              => \Standard\ServiceHub\get_service_tax_query(),
+        'no_found_rows'          => true,
+        'ignore_sticky_posts'    => true,
+    ]);
+    $rows = [];
+    foreach ($query->posts as $post) {
+        $rows[] = [
+            'url'   => (string) \get_permalink($post),
+            'kind'  => $kind,
+            'label' => \get_the_title($post),
+        ];
+    }
+    \wp_reset_postdata();
+    return $rows;
+};
+$resource_docs   = $service_resources(['manual'], __('MANUAL', 'standard'), 6);
+$resource_videos = $service_resources(['video'], __('VIDEO', 'standard'), 6);
+
 get_header();
 ?>
 
@@ -213,6 +241,76 @@ get_header();
             </div>
         </div>
     </section>
+
+    <?php /* Band 4.5 — Documentation & videos. UNIQ-style two-column hairline list
+            (templates/pages/uniq/resources.php), but fed by live service-dept queries
+            (latest manuals + videos) instead of a curated array. Hidden entirely if
+            there's no content in either column. */ ?>
+    <?php if (!empty($resource_docs) || !empty($resource_videos)) : ?>
+    <section class="bg-white border-t border-blue-200" aria-labelledby="service-hub-alt-resources-title">
+        <div class="container section-compact">
+            <h2 id="service-hub-alt-resources-title" class="font-mono font-medium uppercase tracking-wider text-blue-900 m-0 mb-8" style="font-size: var(--text-heading-sm);">
+                <?php esc_html_e('Latest documentation & videos', 'standard'); ?>
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 bg-white border border-blue-200">
+
+                <?php if (!empty($resource_docs)) : ?>
+                    <div class="<?php echo !empty($resource_videos) ? 'border-b border-blue-200 md:border-b-0 md:border-r' : ''; ?>">
+                        <h3 class="font-mono font-medium uppercase tracking-mono-label text-blue-500 p-6 lg:p-8 border-b border-blue-200" style="font-size: var(--text-caption);">
+                            <?php esc_html_e('Manuals', 'standard'); ?>
+                        </h3>
+                        <ul>
+                            <?php foreach ($resource_docs as $i => $doc) :
+                                $is_last = ($i === count($resource_docs) - 1);
+                            ?>
+                                <li class="<?php echo $is_last ? '' : 'border-b border-blue-200'; ?>">
+                                    <a href="<?php echo esc_url($doc['url']); ?>"
+                                       class="group flex items-start gap-4 px-6 py-5 lg:px-8 lg:py-6 transition-colors duration-150 hover:bg-blue-50 no-underline">
+                                        <span class="font-mono uppercase tracking-mono-meta text-blue-400 shrink-0 min-w-16 pt-1" style="font-size: 10px;">
+                                            <?php echo esc_html($doc['kind']); ?>
+                                        </span>
+                                        <span class="flex-1 font-sans text-base text-blue-700 group-hover:text-blue-500 transition-colors">
+                                            <?php echo esc_html($doc['label']); ?>
+                                        </span>
+                                        <?php icon('arrow-right', ['class' => 'w-4 h-4 text-blue-400 shrink-0 mt-1.5 transition-transform duration-150 group-hover:translate-x-1 group-hover:text-blue-500']); ?>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (!empty($resource_videos)) : ?>
+                    <div>
+                        <h3 class="font-mono font-medium uppercase tracking-mono-label text-blue-500 p-6 lg:p-8 border-b border-blue-200" style="font-size: var(--text-caption);">
+                            <?php esc_html_e('Service Videos', 'standard'); ?>
+                        </h3>
+                        <ul>
+                            <?php foreach ($resource_videos as $i => $video) :
+                                $is_last = ($i === count($resource_videos) - 1);
+                            ?>
+                                <li class="<?php echo $is_last ? '' : 'border-b border-blue-200'; ?>">
+                                    <a href="<?php echo esc_url($video['url']); ?>"
+                                       class="group flex items-start gap-4 px-6 py-5 lg:px-8 lg:py-6 transition-colors duration-150 hover:bg-blue-50 no-underline">
+                                        <span class="font-mono uppercase tracking-mono-meta text-blue-400 shrink-0 min-w-16 pt-1" style="font-size: 10px;">
+                                            <?php echo esc_html($video['kind']); ?>
+                                        </span>
+                                        <span class="flex-1 font-sans text-base text-blue-700 group-hover:text-blue-500 transition-colors">
+                                            <?php echo esc_html($video['label']); ?>
+                                        </span>
+                                        <?php icon('arrow-right', ['class' => 'w-4 h-4 text-blue-400 shrink-0 mt-1.5 transition-transform duration-150 group-hover:translate-x-1 group-hover:text-blue-500']); ?>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+
+            </div>
+        </div>
+    </section>
+    <?php endif; ?>
 
     <?php /* Band 5 — Search the content library. The keyword input now leads the
             section directly above the results (heading + search bar as one block),
