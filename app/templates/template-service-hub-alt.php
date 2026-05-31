@@ -64,32 +64,25 @@ get_header();
 
 <main id="primary">
 
-    <?php /* Band 1 — Drenched hero. Dark stage: the promise, pointing down to the gallery, with a single service-request escape hatch. */ ?>
-    <header class="pattern-dot-grid pattern-dot-grid--dark bg-blue-900">
-        <div class="container section">
-            <div class="grid gap-6 max-w-3xl">
-                <span class="section-eyebrow flex items-center gap-2 text-blue-300">
-                    <span class="inline-block h-1 w-1 bg-red" aria-hidden="true"></span>
-                    <?php esc_html_e('Service Hub', 'standard'); ?>
-                </span>
-
-                <h1 class="font-sans font-medium text-heading-lg lg:text-display text-white leading-tight tracking-tight">
-                    <?php esc_html_e('Your machine. Everything it needs. One place.', 'standard'); ?>
-                </h1>
-
-                <p class="font-sans text-blue-200 max-w-2xl" style="font-size: var(--text-body); line-height: var(--leading-body);">
-                    <?php esc_html_e('Find your machine below for its manuals, troubleshooting, parts, and videos. Or talk to the people who have built and backed these machines since 1991.', 'standard'); ?>
-                </p>
-
-                <p class="font-mono uppercase tracking-wider text-blue-300 m-0" style="font-size: var(--text-caption);">
-                    <?php esc_html_e('Need to talk to us?', 'standard'); ?>
-                    <a href="<?php echo esc_url(\Standard\Url\internal('/service-hub/request/')); ?>" class="text-blue-200 underline underline-offset-2 transition-colors duration-200 hover:text-white">
-                        <?php esc_html_e('Open a service request', 'standard'); ?>
-                    </a>
-                </p>
-            </div>
-        </div>
-    </header>
+    <?php /* Band 1 — Hero. Shared hero-category part (same as /machines): sr-only h1 (WP
+            title, SEO), visible h2 headline, blue primary CTA, and a 16:9 Wistia video panel
+            on the right with the click-to-play facade. No meta rail (support page, not
+            marketing). Poster omitted for now — the facade shows a clean play badge on the
+            blue-800 panel until a service-specific poster image is supplied. */ ?>
+    <?php
+    get_template_part('templates/parts/hero-category', null, [
+        'section_id' => 'service-hub-alt-hero',
+        'content'    => [
+            'kicker'           => __('Service Hub // Owner Support', 'standard'),
+            'title'            => __('Everything for your NTM machine.', 'standard'),
+            'subtitle'         => __('Manuals, troubleshooting, parts, and videos for every machine you run. Backed by the people who built them.', 'standard'),
+            'cta_primary'      => __('Open a service request', 'standard'),
+            'cta_primary_url'  => '/service-hub/request/',
+            'cta_primary_icon' => 'arrow-right',
+            'video'            => 'https://fast.wistia.net/embed/iframe/jxmgaicen7?videoFoam=true',
+        ],
+    ]);
+    ?>
 
     <?php /* Band 2 — Category-grouped machine directory. Light. Compact horizontal cards; pick your machine, get its support content. */ ?>
     <section class="bg-blue-50 border-t border-blue-200" aria-labelledby="service-hub-alt-machines-title">
@@ -111,7 +104,7 @@ get_header();
                     }
                     ?>
                     <div class="grid gap-4">
-                        <h3 class="font-mono font-medium uppercase tracking-wider text-blue-700 m-0" style="font-size: var(--text-caption);">
+                        <h3 class="font-mono font-medium uppercase tracking-wider text-blue-700 m-0" style="font-size: var(--text-body);">
                             <?php echo esc_html($cat_label); ?>
                         </h3>
                         <div class="stagger grid gap-4 sm:grid-cols-2">
@@ -162,13 +155,13 @@ get_header();
                 <div class="grid gap-4 max-w-2xl">
                     <span class="section-eyebrow flex items-center gap-2">
                         <span class="inline-block h-1 w-1 bg-red" aria-hidden="true"></span>
-                        <?php esc_html_e('Service Team', 'standard'); ?>
+                        <?php esc_html_e('Talk To Us', 'standard'); ?>
                     </span>
                     <h2 id="service-hub-alt-specialist-title" class="font-sans font-medium text-heading lg:text-heading-lg text-blue-900 leading-tight m-0">
-                        <?php esc_html_e('Real specialists. On the phone since 1991.', 'standard'); ?>
+                        <?php esc_html_e('Your rollforming support team.', 'standard'); ?>
                     </h2>
                     <p class="font-sans text-blue-600 m-0" style="font-size: var(--text-body); line-height: var(--leading-body);">
-                        <?php esc_html_e('The same company that builds these machines backs them. More than 30 years of portable rollforming, machines in 40+ countries, and a service team that has answered the hard questions since the first SSP shipped. If the answer is not in the library, tell us what you need.', 'standard'); ?>
+                        <?php esc_html_e('The same company that builds these machines backs them: more than 30 years of portable rollforming, machines in 40+ countries, and people who have answered the hard questions since the first SSP shipped. If the answer is not in the library, tell us what you need.', 'standard'); ?>
                     </p>
                 </div>
                 <div class="flex flex-col gap-3">
@@ -185,25 +178,26 @@ get_header();
         </div>
     </section>
 
-    <?php /* Band 5 — Full search, relocated verbatim from template-service-hub.php. Query logic unchanged. */ ?>
+    <?php /* Band 5 — Search the content library. The keyword input now leads the
+            section directly above the results (heading + search bar as one block),
+            instead of sitting in its own full-width row. Query logic unchanged. */ ?>
     <section id="search" class="bg-white border-t border-blue-200" aria-labelledby="service-hub-alt-search-heading">
         <div class="container section-compact">
-            <h2 id="service-hub-alt-search-heading" class="font-mono font-medium uppercase tracking-wider text-blue-900 m-0" style="font-size: var(--text-heading-sm);">
-                <?php esc_html_e('Search the library', 'standard'); ?>
-            </h2>
-        </div>
+            <div class="grid gap-5 md:flex md:items-end md:justify-between md:gap-8">
+                <h2 id="service-hub-alt-search-heading" class="font-mono font-medium uppercase tracking-wider text-blue-900 m-0 shrink-0" style="font-size: var(--text-heading-sm);">
+                    <?php esc_html_e('Search the service content library', 'standard'); ?>
+                </h2>
 
-        <section class="border-b border-blue-200">
-            <div class="container py-6 lg:py-8">
                 <form
                     id="<?php echo esc_attr($service_form_id); ?>"
                     method="get"
                     action="<?php echo esc_url($form_action); ?>"
-                    class="grid gap-4 md:grid-cols-[minmax(0,1fr)_auto_auto] md:items-end"
+                    class="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto_auto] sm:items-end md:w-full md:max-w-xl"
+                    role="search"
                 >
                     <div class="field">
-                        <label for="service-search" class="field-label">
-                            <?php esc_html_e('Search', 'standard'); ?>
+                        <label for="service-search" class="sr-only">
+                            <?php esc_html_e('Search the service content library', 'standard'); ?>
                         </label>
                         <input
                             id="service-search"
@@ -215,20 +209,20 @@ get_header();
                         >
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-full md:w-auto h-11!">
+                    <button type="submit" class="btn btn-primary w-full sm:w-auto h-11!">
                         <?php esc_html_e('Search', 'standard'); ?>
                     </button>
 
                     <?php if ($has_filters) : ?>
-                        <a href="<?php echo esc_url($form_action); ?>" class="btn btn-ghost w-full md:w-auto h-11!">
+                        <a href="<?php echo esc_url($form_action); ?>" class="btn btn-ghost w-full sm:w-auto h-11!">
                             <?php esc_html_e('Reset', 'standard'); ?>
                         </a>
                     <?php endif; ?>
                 </form>
             </div>
-        </section>
+        </div>
 
-        <section class="container section-compact" aria-labelledby="service-hub-alt-results-title">
+        <section class="container section-compact pt-0" aria-labelledby="service-hub-alt-results-title">
             <h2 id="service-hub-alt-results-title" class="sr-only">
                 <?php esc_html_e('Service results', 'standard'); ?>
             </h2>
