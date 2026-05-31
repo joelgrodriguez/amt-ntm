@@ -22,13 +22,17 @@ const REWRITE_VERSION = '2';
 const VERSION_OPTION  = 'standard_service_hub_machine_rewrite_version';
 
 /**
- * Active machine slugs, validated against machines-data.
+ * Machine slugs valid for a service mini-page. Includes dormant machines
+ * (e.g. SSQ II): support outlives sales. A machine pulled from the lineup
+ * still has owners in the field who need its manuals, parts, and fixes, so
+ * /service-hub/<slug>/ must resolve for it even though the product pages
+ * (which pass false) correctly hide it.
  *
  * @return string[]
  */
 function valid_slugs(): array {
     $slugs = [];
-    foreach (\Standard\MachinesData\get_all_machines(false) as $machine) {
+    foreach (\Standard\MachinesData\get_all_machines(true) as $machine) {
         $slug = (string) ($machine['slug'] ?? '');
         if ($slug !== '') {
             $slugs[] = $slug;
@@ -38,12 +42,13 @@ function valid_slugs(): array {
 }
 
 /**
- * Find one active machine entry by slug, or null.
+ * Find one machine entry by slug, or null. Includes dormant machines so
+ * superseded models still resolve a service mini-page (see valid_slugs()).
  *
  * @return array<string, mixed>|null
  */
 function find_machine(string $slug): ?array {
-    foreach (\Standard\MachinesData\get_all_machines(false) as $machine) {
+    foreach (\Standard\MachinesData\get_all_machines(true) as $machine) {
         if ((string) ($machine['slug'] ?? '') === $slug) {
             return $machine;
         }

@@ -24,8 +24,8 @@ get_template_part('templates/parts/hero-category', null, [
         'cta_primary'       => __('See the Machines', 'standard'),
         'cta_primary_url'   => '#product-grid',
         'video'             => 'https://fast.wistia.net/embed/iframe/7wwvl1pwh8?seo=false&videoFoam=true',
-        'poster'            => content_url('/uploads/2026/05/ntm-standing-seam-roof-007.jpg'),
-        'poster_alt'        => __('NTM roof and wall panel machine on a jobsite', 'standard'),
+        'poster'            => content_url('/uploads/2026/05/ntm-customer-onsite-001.jpg'),
+        'poster_alt'        => __('NTM customer running a roof panel machine on-site', 'standard'),
     ],
     'meta' => [
         ['label' => __('Faster', 'standard'),      'value' => '75%'],

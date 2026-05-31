@@ -29,7 +29,10 @@ use function Standard\ServiceHub\get_results_query;
 
 $filters = get_active_filters();
 $paged = max(1, (int) get_query_var('paged'), (int) get_query_var('page'));
-$service_query = get_results_query($filters, $paged);
+// 9 per page (3 rows of the 3-up grid); pagination handles the rest. The
+// shared query defaults to 12 — passing 9 here keeps it alt-page-only and
+// leaves the original /service-hub/ untouched.
+$service_query = get_results_query($filters, $paged, 9);
 $post_type_options = get_post_type_options();
 $form_action = get_permalink() ?: \Standard\Url\internal('/service-hub/');
 $has_filters = $filters['search'] !== ''
@@ -57,7 +60,11 @@ $service_groups = get_filter_groups([
     'type_options' => $type_choice_options,
 ]);
 
-$machine_categories = \Standard\MachinesData\get_machine_categories(false);
+// Include dormant machines: this is a support hub, not the sales catalog.
+// Owners of superseded models (e.g. SSQ II) still need their service content,
+// so they belong in the directory. The router (service-hub-machines.php)
+// likewise resolves dormant slugs so the cards don't 404.
+$machine_categories = \Standard\MachinesData\get_machine_categories(true);
 
 get_header();
 ?>
@@ -66,9 +73,8 @@ get_header();
 
     <?php /* Band 1 — Hero. Shared hero-category part (same as /machines): sr-only h1 (WP
             title, SEO), visible h2 headline, blue primary CTA, and a 16:9 Wistia video panel
-            on the right with the click-to-play facade. No meta rail (support page, not
-            marketing). Poster omitted for now — the facade shows a clean play badge on the
-            blue-800 panel until a service-specific poster image is supplied. */ ?>
+            on the right with the click-to-play facade (service-department poster). No meta
+            rail (support page, not marketing). */ ?>
     <?php
     get_template_part('templates/parts/hero-category', null, [
         'section_id' => 'service-hub-alt-hero',
@@ -80,6 +86,10 @@ get_header();
             'cta_primary_url'  => '/service-hub/request/',
             'cta_primary_icon' => 'arrow-right',
             'video'            => 'https://fast.wistia.net/embed/iframe/jxmgaicen7?videoFoam=true',
+            // Click-to-play poster (the facade thumbnail), same mechanism as
+            // /machines. Service-department photo: the right fit for a support hub.
+            'poster'           => content_url('/uploads/2022/04/service-department-working-on-SSQ-II.jpg'),
+            'poster_alt'       => __('NTM service team working on an SSQ machine', 'standard'),
         ],
     ]);
     ?>
@@ -122,27 +132,53 @@ get_header();
     <section class="bg-white border-t border-blue-200" aria-labelledby="service-hub-alt-includes-title">
         <div class="container section-compact">
             <h2 id="service-hub-alt-includes-title" class="font-mono font-medium uppercase tracking-wider text-blue-900 m-0 mb-8" style="font-size: var(--text-heading-sm);">
-                <?php esc_html_e('Behind every machine', 'standard'); ?>
+                <?php esc_html_e('Service content for every machine', 'standard'); ?>
             </h2>
             <?php
+            // Each card links to a real filtered view. Manuals / Articles / Videos
+            // jump to this page's search pre-filtered to that service post type
+            // (service_type=<type>) and anchored to the results. Owner Resources
+            // points at the standalone /owner-resources/ page.
             $includes = [
-                ['icon' => 'file-text', 'label' => __('Manuals', 'standard'),            'desc' => __('Operation, setup, and maintenance docs.', 'standard')],
-                ['icon' => 'settings',  'label' => __('Troubleshooting', 'standard'),     'desc' => __('Fixes and answers from the service team.', 'standard')],
-                ['icon' => 'download',  'label' => __('Parts & footprints', 'standard'),  'desc' => __('Diagrams, downloads, and footprints.', 'standard')],
-                ['icon' => 'play',      'label' => __('Videos', 'standard'),              'desc' => __('Setup, operation, and how-to clips.', 'standard')],
+                [
+                    'icon'  => 'file-text',
+                    'label' => __('Manuals', 'standard'),
+                    'desc'  => __('Operation, setup, and maintenance documents.', 'standard'),
+                    'url'   => add_query_arg('service_type', 'manual', $form_action) . '#search',
+                ],
+                [
+                    'icon'  => 'folder',
+                    'label' => __('Owner Resources', 'standard'),
+                    'desc'  => __('Guides and resources for NTM machine owners.', 'standard'),
+                    'url'   => \Standard\Url\internal('/owner-resources/'),
+                ],
+                [
+                    'icon'  => 'file-text',
+                    'label' => __('Service Articles', 'standard'),
+                    'desc'  => __('How-tos and fixes from the service team.', 'standard'),
+                    'url'   => add_query_arg('service_type', 'post', $form_action) . '#search',
+                ],
+                [
+                    'icon'  => 'play',
+                    'label' => __('Videos', 'standard'),
+                    'desc'  => __('Setup, operation, and how-to clips.', 'standard'),
+                    'url'   => add_query_arg('service_type', 'video', $form_action) . '#search',
+                ],
             ];
             ?>
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-blue-200">
                 <?php foreach ($includes as $item) : ?>
-                    <div class="flex flex-col gap-2 border-b border-r border-blue-200 p-6">
+                    <a href="<?php echo esc_url($item['url']); ?>"
+                       class="group flex flex-col gap-2 border-b border-r border-blue-200 p-6 no-underline transition-colors duration-200 hover:bg-blue-50">
                         <?php icon($item['icon'], ['class' => 'w-5 h-5 text-blue-500', 'aria-hidden' => 'true']); ?>
-                        <span class="font-mono font-medium uppercase tracking-wider text-blue-900" style="font-size: var(--text-caption);">
+                        <span class="flex items-center gap-1.5 font-mono font-medium uppercase tracking-wider text-blue-900 transition-colors duration-200 group-hover:text-blue-500" style="font-size: var(--text-caption);">
                             <?php echo esc_html($item['label']); ?>
+                            <?php icon('arrow-right', ['class' => 'w-3 h-3']); ?>
                         </span>
                         <span class="font-sans text-blue-600" style="font-size: var(--text-body); line-height: var(--leading-body);">
                             <?php echo esc_html($item['desc']); ?>
                         </span>
-                    </div>
+                    </a>
                 <?php endforeach; ?>
             </div>
         </div>
@@ -161,7 +197,7 @@ get_header();
                         <?php esc_html_e('Your rollforming support team.', 'standard'); ?>
                     </h2>
                     <p class="font-sans text-blue-600 m-0" style="font-size: var(--text-body); line-height: var(--leading-body);">
-                        <?php esc_html_e('The same company that builds these machines backs them: more than 30 years of portable rollforming, machines in 40+ countries, and people who have answered the hard questions since the first SSP shipped. If the answer is not in the library, tell us what you need.', 'standard'); ?>
+                        <?php esc_html_e('NTM service is run by the people who build the machines: more than 30 years of portable rollforming, machines in 40+ countries, and specialists who know your roll former inside out. If the answer is not in the library, open a service request and tell us what you need.', 'standard'); ?>
                     </p>
                 </div>
                 <div class="flex flex-col gap-3">
