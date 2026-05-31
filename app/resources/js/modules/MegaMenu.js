@@ -185,15 +185,30 @@ export const initMegaMenu = () => {
 
     const handleOverlayClick = () => dismiss();
 
+    /** Close on bfcache restore + history navigation. Browsers persist DOM
+     *  state across back/forward, which would otherwise re-show the panel
+     *  in whatever state the user left it. */
+    /** @param {PageTransitionEvent} e */
+    const handlePageShow = (e) => {
+        if (e.persisted && activePanel) dismiss();
+    };
+    const handlePopState = () => {
+        if (activePanel) dismiss();
+    };
+
     triggers.forEach((t) => t.addEventListener('click', handleTriggerClick));
     overlay?.addEventListener('click', handleOverlayClick);
     document.addEventListener('keydown', handleKeydown);
     document.addEventListener('click', handleDocClick);
+    window.addEventListener('pageshow', handlePageShow);
+    window.addEventListener('popstate', handlePopState);
 
     return () => {
         triggers.forEach((t) => t.removeEventListener('click', handleTriggerClick));
         overlay?.removeEventListener('click', handleOverlayClick);
         document.removeEventListener('keydown', handleKeydown);
         document.removeEventListener('click', handleDocClick);
+        window.removeEventListener('pageshow', handlePageShow);
+        window.removeEventListener('popstate', handlePopState);
     };
 };
