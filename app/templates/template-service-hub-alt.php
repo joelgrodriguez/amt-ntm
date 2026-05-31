@@ -64,57 +64,25 @@ get_header();
 
 <main id="primary">
 
-    <?php /* Band 1 — Hero. Mirrors the shared hero-category part (templates/parts/hero-category.php)
-            used on /machines: sr-only h1 for SEO, visible h2 headline, blue primary CTA, and a
-            16:9 video panel on the right. The panel is a placeholder for now: a blueprint poster
-            with the standard video-facade play badge, denoting "video lands here" without a real
-            embed. No meta rail (omitted per the page's support, not marketing, intent). */ ?>
-    <section class="relative overflow-hidden bg-blue-900 text-white pattern-dot-grid pattern-dot-grid--dark" aria-labelledby="service-hub-alt-hero-title">
-        <?php
-        $hero_page_title = function_exists('get_the_title') ? get_the_title() : '';
-        if ($hero_page_title !== '') :
-        ?>
-            <h1 class="sr-only"><?php echo esc_html($hero_page_title); ?></h1>
-        <?php endif; ?>
-
-        <div class="container py-16 lg:py-20 xl:py-24">
-            <div class="grid gap-10 lg:grid-cols-12 lg:gap-12 lg:items-center">
-
-                <div class="grid gap-8 lg:col-span-6 lg:gap-10">
-                    <p class="font-mono text-xs uppercase tracking-mono-label text-blue-300">
-                        <?php esc_html_e('Service Hub // Owner Support', 'standard'); ?>
-                    </p>
-
-                    <h2
-                        id="service-hub-alt-hero-title"
-                        class="font-sans font-medium leading-[0.95] tracking-tight text-white text-4xl lg:text-5xl xl:text-6xl"
-                    >
-                        <?php esc_html_e('Everything for your NTM machine.', 'standard'); ?>
-                    </h2>
-
-                    <p class="text-lg text-blue-200 max-w-xl lg:text-xl">
-                        <?php esc_html_e('Manuals, troubleshooting, parts, and videos for every machine you run. Backed by the people who built them.', 'standard'); ?>
-                    </p>
-
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="<?php echo esc_url(\Standard\Url\internal('/service-hub/request/')); ?>" class="btn btn-primary">
-                            <?php esc_html_e('Open a service request', 'standard'); ?>
-                            <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Right panel: 16:9 placeholder denoting video (no embed yet) -->
-                <div class="video-responsive lg:col-span-6 bg-blue-800">
-                    <?php \Standard\Images\fallback_image(['class' => 'absolute inset-0 w-full h-full object-cover']); ?>
-                    <span class="video-facade__play" aria-hidden="true">
-                        <?php icon('play', ['class' => 'w-6 h-6']); ?>
-                    </span>
-                </div>
-
-            </div>
-        </div>
-    </section>
+    <?php /* Band 1 — Hero. Shared hero-category part (same as /machines): sr-only h1 (WP
+            title, SEO), visible h2 headline, blue primary CTA, and a 16:9 Wistia video panel
+            on the right with the click-to-play facade. No meta rail (support page, not
+            marketing). Poster omitted for now — the facade shows a clean play badge on the
+            blue-800 panel until a service-specific poster image is supplied. */ ?>
+    <?php
+    get_template_part('templates/parts/hero-category', null, [
+        'section_id' => 'service-hub-alt-hero',
+        'content'    => [
+            'kicker'           => __('Service Hub // Owner Support', 'standard'),
+            'title'            => __('Everything for your NTM machine.', 'standard'),
+            'subtitle'         => __('Manuals, troubleshooting, parts, and videos for every machine you run. Backed by the people who built them.', 'standard'),
+            'cta_primary'      => __('Open a service request', 'standard'),
+            'cta_primary_url'  => '/service-hub/request/',
+            'cta_primary_icon' => 'arrow-right',
+            'video'            => 'https://fast.wistia.net/embed/iframe/jxmgaicen7?videoFoam=true',
+        ],
+    ]);
+    ?>
 
     <?php /* Band 2 — Category-grouped machine directory. Light. Compact horizontal cards; pick your machine, get its support content. */ ?>
     <section class="bg-blue-50 border-t border-blue-200" aria-labelledby="service-hub-alt-machines-title">
