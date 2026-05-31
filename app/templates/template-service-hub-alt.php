@@ -91,17 +91,17 @@ get_header();
         </div>
     </header>
 
-    <?php /* Band 2 — Category-grouped machine gallery. Dark stage continues; the machine is the door. */ ?>
-    <section class="bg-blue-900 border-t border-blue-800" aria-labelledby="service-hub-alt-machines-title">
+    <?php /* Band 2 — Category-grouped machine directory. Light. Compact horizontal cards; pick your machine, get its support content. */ ?>
+    <section class="bg-blue-50 border-t border-blue-200" aria-labelledby="service-hub-alt-machines-title">
         <div class="container section">
-            <h2 id="service-hub-alt-machines-title" class="font-sans font-medium text-heading text-white m-0 mb-2">
+            <h2 id="service-hub-alt-machines-title" class="font-sans font-medium text-heading text-blue-900 m-0 mb-2">
                 <?php esc_html_e('Find your machine', 'standard'); ?>
             </h2>
-            <p class="font-sans text-blue-300 max-w-2xl m-0 mb-10" style="font-size: var(--text-body); line-height: var(--leading-body);">
+            <p class="font-sans text-blue-600 max-w-2xl m-0 mb-10" style="font-size: var(--text-body); line-height: var(--leading-body);">
                 <?php esc_html_e('Pick your machine to open its service content: manuals, troubleshooting, parts, and videos for that exact model.', 'standard'); ?>
             </p>
 
-            <div class="grid gap-12 lg:gap-16">
+            <div class="grid gap-10 lg:gap-12">
                 <?php foreach ($machine_categories as $category) : ?>
                     <?php
                     $cat_label    = (string) ($category['label'] ?? '');
@@ -110,11 +110,11 @@ get_header();
                         continue;
                     }
                     ?>
-                    <div class="grid gap-6">
-                        <h3 class="font-mono font-medium uppercase tracking-wider text-blue-300 m-0" style="font-size: var(--text-caption);">
+                    <div class="grid gap-4">
+                        <h3 class="font-mono font-medium uppercase tracking-wider text-blue-700 m-0" style="font-size: var(--text-caption);">
                             <?php echo esc_html($cat_label); ?>
                         </h3>
-                        <div class="stagger grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                        <div class="stagger grid gap-4 sm:grid-cols-2">
                             <?php foreach ($cat_machines as $machine) : ?>
                                 <?php get_template_part('templates/parts/service-hub/machine-photo-card', null, ['machine' => $machine]); ?>
                             <?php endforeach; ?>
