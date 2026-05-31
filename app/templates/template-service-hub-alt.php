@@ -60,7 +60,11 @@ $service_groups = get_filter_groups([
     'type_options' => $type_choice_options,
 ]);
 
-$machine_categories = \Standard\MachinesData\get_machine_categories(false);
+// Include dormant machines: this is a support hub, not the sales catalog.
+// Owners of superseded models (e.g. SSQ II) still need their service content,
+// so they belong in the directory. The router (service-hub-machines.php)
+// likewise resolves dormant slugs so the cards don't 404.
+$machine_categories = \Standard\MachinesData\get_machine_categories(true);
 
 get_header();
 ?>
