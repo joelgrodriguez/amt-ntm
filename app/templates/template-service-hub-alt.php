@@ -131,24 +131,50 @@ get_header();
                 <?php esc_html_e('Service content for every machine', 'standard'); ?>
             </h2>
             <?php
+            // Each card links to a real filtered view. Manuals / Articles / Videos
+            // jump to this page's search pre-filtered to that service post type
+            // (service_type=<type>) and anchored to the results. Owner Resources
+            // points at the standalone /owner-resources/ page.
             $includes = [
-                ['icon' => 'file-text', 'label' => __('Manuals', 'standard'),            'desc' => __('Operation, setup, and maintenance docs.', 'standard')],
-                ['icon' => 'settings',  'label' => __('Troubleshooting', 'standard'),     'desc' => __('Fixes and answers from the service team.', 'standard')],
-                ['icon' => 'download',  'label' => __('Parts & footprints', 'standard'),  'desc' => __('Diagrams, downloads, and footprints.', 'standard')],
-                ['icon' => 'play',      'label' => __('Videos', 'standard'),              'desc' => __('Setup, operation, and how-to clips.', 'standard')],
+                [
+                    'icon'  => 'file-text',
+                    'label' => __('Manuals', 'standard'),
+                    'desc'  => __('Operation, setup, and maintenance documents.', 'standard'),
+                    'url'   => add_query_arg('service_type', 'manual', $form_action) . '#search',
+                ],
+                [
+                    'icon'  => 'folder',
+                    'label' => __('Owner Resources', 'standard'),
+                    'desc'  => __('Guides and resources for NTM machine owners.', 'standard'),
+                    'url'   => \Standard\Url\internal('/owner-resources/'),
+                ],
+                [
+                    'icon'  => 'file-text',
+                    'label' => __('Service Articles', 'standard'),
+                    'desc'  => __('How-tos and fixes from the service team.', 'standard'),
+                    'url'   => add_query_arg('service_type', 'post', $form_action) . '#search',
+                ],
+                [
+                    'icon'  => 'play',
+                    'label' => __('Videos', 'standard'),
+                    'desc'  => __('Setup, operation, and how-to clips.', 'standard'),
+                    'url'   => add_query_arg('service_type', 'video', $form_action) . '#search',
+                ],
             ];
             ?>
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-blue-200">
                 <?php foreach ($includes as $item) : ?>
-                    <div class="flex flex-col gap-2 border-b border-r border-blue-200 p-6">
+                    <a href="<?php echo esc_url($item['url']); ?>"
+                       class="group flex flex-col gap-2 border-b border-r border-blue-200 p-6 no-underline transition-colors duration-200 hover:bg-blue-50">
                         <?php icon($item['icon'], ['class' => 'w-5 h-5 text-blue-500', 'aria-hidden' => 'true']); ?>
-                        <span class="font-mono font-medium uppercase tracking-wider text-blue-900" style="font-size: var(--text-caption);">
+                        <span class="flex items-center gap-1.5 font-mono font-medium uppercase tracking-wider text-blue-900 transition-colors duration-200 group-hover:text-blue-500" style="font-size: var(--text-caption);">
                             <?php echo esc_html($item['label']); ?>
+                            <?php icon('arrow-right', ['class' => 'w-3 h-3']); ?>
                         </span>
                         <span class="font-sans text-blue-600" style="font-size: var(--text-body); line-height: var(--leading-body);">
                             <?php echo esc_html($item['desc']); ?>
                         </span>
-                    </div>
+                    </a>
                 <?php endforeach; ?>
             </div>
         </div>
