@@ -34,7 +34,14 @@ if ($slug === '') {
 // No marketing badge here: this is the support directory, not the product
 // catalog, so a "Flagship" flag would be selling to someone who already owns
 // the machine. Badge data (machines-data.php) is intentionally ignored.
-$name  = (string) ($machine['name'] ?? $machine['short_name'] ?? $slug);
+//
+// Trademark marks (TM/(R)) are stripped for display only. They belong on the
+// product/marketing pages where the name is prominent; in a support directory
+// they're visual noise. Source data in machines-data.php keeps the marks.
+$strip_tm = static fn(string $s): string => trim(str_replace(["\u{2122}", "\u{00AE}"], '', $s));
+
+$name  = $strip_tm((string) ($machine['name'] ?? $machine['short_name'] ?? $slug));
+$short = $strip_tm((string) ($machine['short_name'] ?? $name));
 $desc  = (string) ($machine['descriptor'] ?? '');
 $image = (string) ($machine['image'] ?? '');
 $url   = \Standard\Url\internal('/service-hub/' . $slug . '/');
@@ -53,7 +60,7 @@ $url   = \Standard\Url\internal('/service-hub/' . $slug . '/');
             >
         <?php else : ?>
             <span class="absolute inset-0 flex items-center justify-center p-2 text-center font-mono font-medium text-blue-600" style="font-size: var(--text-caption);">
-                <?php echo esc_html((string) ($machine['short_name'] ?? $name)); ?>
+                <?php echo esc_html($short); ?>
             </span>
         <?php endif; ?>
     </div>
