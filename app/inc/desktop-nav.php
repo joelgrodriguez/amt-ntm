@@ -451,7 +451,7 @@ function get_desktop_nav(): array {
                         ],
                     ],
                     [
-                        'label' => __('Troubleshoot & buy again', 'standard'),
+                        'label' => __('Troubleshoot', 'standard'),
                         'items' => [
                             [
                                 'label' => __('Common problems & fixes', 'standard'),
@@ -464,10 +464,6 @@ function get_desktop_nav(): array {
                             [
                                 'label' => __('Prevent voiding your warranty', 'standard'),
                                 'url'   => \Standard\Url\internal('/learning-center/ways-to-prevent-voiding-machine-warranty/'),
-                            ],
-                            [
-                                'label' => __('Add a machine', 'standard'),
-                                'url'   => \Standard\Url\internal('/add-a-machine/'),
                             ],
                         ],
                     ],
@@ -482,7 +478,6 @@ function get_desktop_nav(): array {
                     '/machines/warranty-registration/',
                     '/manual/',
                     '/request-parts/',
-                    '/add-a-machine/',
                     '/resources/',
                     '/resource/',
                     '/downloads/',
