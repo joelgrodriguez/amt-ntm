@@ -64,7 +64,7 @@ get_header();
 
 <main id="primary">
 
-    <?php /* Band 1 — Drenched hero. Dark stage, the promise + two universal actions. */ ?>
+    <?php /* Band 1 — Drenched hero. Dark stage: the promise, pointing down to the gallery, with a single service-request escape hatch. */ ?>
     <header class="pattern-dot-grid pattern-dot-grid--dark bg-blue-900">
         <div class="container section">
             <div class="grid gap-6 max-w-3xl">
@@ -78,32 +78,8 @@ get_header();
                 </h1>
 
                 <p class="font-sans text-blue-200 max-w-2xl" style="font-size: var(--text-body); line-height: var(--leading-body);">
-                    <?php esc_html_e('Find your machine for manuals, troubleshooting, parts, and videos. Or talk to the people who have built and backed these machines since 1991.', 'standard'); ?>
+                    <?php esc_html_e('Find your machine below for its manuals, troubleshooting, parts, and videos. Or talk to the people who have built and backed these machines since 1991.', 'standard'); ?>
                 </p>
-
-                <form
-                    method="get"
-                    action="<?php echo esc_url($form_action); ?>#search"
-                    class="mt-2 grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto]"
-                    role="search"
-                    aria-label="<?php esc_attr_e('Search the service library', 'standard'); ?>"
-                >
-                    <label for="service-hub-alt-hero-search" class="sr-only">
-                        <?php esc_html_e('Search the service library', 'standard'); ?>
-                    </label>
-                    <input
-                        id="service-hub-alt-hero-search"
-                        name="service_search"
-                        type="search"
-                        value="<?php echo esc_attr($filters['search']); ?>"
-                        class="field-input field-input--on-dark"
-                        placeholder="<?php esc_attr_e('Machine, manual, problem, topic…', 'standard'); ?>"
-                    >
-                    <button type="submit" class="btn btn-primary w-full sm:w-auto h-11!">
-                        <?php icon('search', ['class' => 'w-4 h-4']); ?>
-                        <?php esc_html_e('Search', 'standard'); ?>
-                    </button>
-                </form>
 
                 <p class="font-mono uppercase tracking-wider text-blue-300 m-0" style="font-size: var(--text-caption);">
                     <?php esc_html_e('Need to talk to us?', 'standard'); ?>
@@ -115,17 +91,17 @@ get_header();
         </div>
     </header>
 
-    <?php /* Band 2 — Category-grouped machine gallery. Dark stage continues; the machine is the door. */ ?>
-    <section class="bg-blue-900 border-t border-blue-800" aria-labelledby="service-hub-alt-machines-title">
+    <?php /* Band 2 — Category-grouped machine directory. Light. Compact horizontal cards; pick your machine, get its support content. */ ?>
+    <section class="bg-blue-50 border-t border-blue-200" aria-labelledby="service-hub-alt-machines-title">
         <div class="container section">
-            <h2 id="service-hub-alt-machines-title" class="font-sans font-medium text-heading text-white m-0 mb-2">
+            <h2 id="service-hub-alt-machines-title" class="font-sans font-medium text-heading text-blue-900 m-0 mb-2">
                 <?php esc_html_e('Find your machine', 'standard'); ?>
             </h2>
-            <p class="font-sans text-blue-300 max-w-2xl m-0 mb-10" style="font-size: var(--text-body); line-height: var(--leading-body);">
+            <p class="font-sans text-blue-600 max-w-2xl m-0 mb-10" style="font-size: var(--text-body); line-height: var(--leading-body);">
                 <?php esc_html_e('Pick your machine to open its service content: manuals, troubleshooting, parts, and videos for that exact model.', 'standard'); ?>
             </p>
 
-            <div class="grid gap-12 lg:gap-16">
+            <div class="grid gap-10 lg:gap-12">
                 <?php foreach ($machine_categories as $category) : ?>
                     <?php
                     $cat_label    = (string) ($category['label'] ?? '');
@@ -134,11 +110,11 @@ get_header();
                         continue;
                     }
                     ?>
-                    <div class="grid gap-6">
-                        <h3 class="font-mono font-medium uppercase tracking-wider text-blue-300 m-0" style="font-size: var(--text-caption);">
+                    <div class="grid gap-4">
+                        <h3 class="font-mono font-medium uppercase tracking-wider text-blue-700 m-0" style="font-size: var(--text-caption);">
                             <?php echo esc_html($cat_label); ?>
                         </h3>
-                        <div class="stagger grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                        <div class="stagger grid gap-4 sm:grid-cols-2">
                             <?php foreach ($cat_machines as $machine) : ?>
                                 <?php get_template_part('templates/parts/service-hub/machine-photo-card', null, ['machine' => $machine]); ?>
                             <?php endforeach; ?>
@@ -291,7 +267,7 @@ get_header();
                         $sort_options = \Standard\ServiceHub\get_sort_options();
                         $current_sort = $filters['sort'] !== '' ? $filters['sort'] : 'newest';
                         ?>
-                        <form method="get" action="<?php echo esc_url($form_action); ?>" class="field flex-row items-center gap-3" style="display: flex;">
+                        <form method="get" action="<?php echo esc_url($form_action); ?>" class="field flex flex-row items-center gap-3">
                             <?php foreach (['service_search', 'service_type', 'service_category', 'service_machine'] as $passthrough) : ?>
                                 <?php if (!empty($_GET[$passthrough])) : ?>
                                     <input type="hidden" name="<?php echo esc_attr($passthrough); ?>" value="<?php echo esc_attr(\Standard\ServiceHub\get_query_value($passthrough, $passthrough === 'service_search' ? 'text' : 'key')); ?>">
@@ -301,7 +277,7 @@ get_header();
                             <label for="service-sort" class="field-label whitespace-nowrap">
                                 <?php esc_html_e('Sort', 'standard'); ?>
                             </label>
-                            <select id="service-sort" name="service_sort" class="field-select" onchange="this.form.submit()" style="min-width: 12rem;">
+                            <select id="service-sort" name="service_sort" class="field-select min-w-48" onchange="this.form.submit()">
                                 <?php foreach ($sort_options as $key => $option) : ?>
                                     <option value="<?php echo esc_attr($key); ?>" <?php selected($current_sort, $key); ?>>
                                         <?php echo esc_html($option['label']); ?>
@@ -356,7 +332,7 @@ get_header();
     <?php
     get_template_part('templates/parts/cta/closer', null, [
         'title'           => __('Still need a hand?', 'standard'),
-        'text'            => __('Our service team has been on the other end of the phone for more than 30 years. If the answer is not in the library, call us.', 'standard'),
+        'text'            => __('Pick up the phone. A specialist who knows your machine will too.', 'standard'),
         'cta_primary'     => __('Talk to a service specialist', 'standard'),
         'cta_primary_url' => '/contact/',
         'section_id'      => 'service-hub-alt-closer-title',
