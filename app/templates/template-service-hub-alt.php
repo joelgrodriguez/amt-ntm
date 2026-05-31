@@ -80,7 +80,7 @@ get_header();
         'section_id' => 'service-hub-alt-hero',
         'content'    => [
             'kicker'           => __('Service Hub // Owner Support', 'standard'),
-            'title'            => __('Everything for your NTM machine.', 'standard'),
+            'title'            => __('Everything for your<br class="hidden lg:inline"> NTM machine.', 'standard'),
             'subtitle'         => __('Manuals, troubleshooting, parts, and videos for every machine you run. Backed by the people who built them.', 'standard'),
             'cta_primary'      => __('Open a service request', 'standard'),
             'cta_primary_url'  => '/service-hub/request/',
