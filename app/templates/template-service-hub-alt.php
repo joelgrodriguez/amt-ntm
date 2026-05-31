@@ -81,10 +81,9 @@ get_header();
             'cta_primary_icon' => 'arrow-right',
             'video'            => 'https://fast.wistia.net/embed/iframe/jxmgaicen7?videoFoam=true',
             // Click-to-play poster (the facade thumbnail), same mechanism as
-            // /machines. 1920x1080 16:9 still already in the media library. Swap
-            // to a frame from the jxmgaicen7 video itself if a closer match exists.
-            'poster'           => content_url('/uploads/2026/05/20260505_NTM_Metal-Roofing-Solutions-Profile_Thumbnail-V4.jpg'),
-            'poster_alt'       => __('NTM metal roofing machine', 'standard'),
+            // /machines. Service-department photo: the right fit for a support hub.
+            'poster'           => content_url('/uploads/2022/04/service-department-working-on-SSQ-II.jpg'),
+            'poster_alt'       => __('NTM service team working on an SSQ machine', 'standard'),
         ],
     ]);
     ?>
