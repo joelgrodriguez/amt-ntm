@@ -408,7 +408,7 @@ function get_desktop_nav(): array {
                 'type'          => 'flyout-groups',
                 'intro'         => [
                     'title'           => __('Get Owner Support', 'standard'),
-                    'secondary_label' => __('Open a service request', 'standard'),
+                    'secondary_label' => __('Visit the Service Hub', 'standard'),
                     'secondary_url'   => \Standard\Url\internal('/service-hub/'),
                 ],
                 'groups'        => [
