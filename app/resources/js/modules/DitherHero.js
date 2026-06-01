@@ -235,7 +235,16 @@ export function initDitherHero() {
   };
   const onLeave = () => { pointer.active = false; };
   const onScroll = () => { cachedRect = null; };
-  const onResize = () => { cachedRect = null; sample(); };
+  const onResize = () => {
+    cachedRect = null;
+    sample();
+    // sample() resizes (and clears) the canvas. Under reduced motion the loop
+    // has already stopped, so re-kick a single static render or the field
+    // goes blank until some other event happens to restart it.
+    if (reduceMotion && visible) {
+      start();
+    }
+  };
   const onVisibility = () => { visible = !document.hidden; if (visible) start(); else stop(); };
 
   const io = new IntersectionObserver((entries) => {
