@@ -26,7 +26,7 @@ $image      = content_url('/uploads/2026/05/ntm-ssq3-manual-controller-050.jpg')
 <link rel="preload" as="image" href="<?php echo esc_url($image); ?>" fetchpriority="high">
 
 <section
-    class="dither-hero relative isolate overflow-hidden bg-blue-900 text-white min-h-[88vh] flex items-end"
+    class="dither-hero relative isolate overflow-hidden bg-blue-900 text-white min-h-[75vh] sm:min-h-[88vh] flex items-end"
     data-dither-hero
     aria-label="<?php esc_attr_e('Featured: SSQ3 MultiPro', 'standard'); ?>"
 >
@@ -44,7 +44,7 @@ $image      = content_url('/uploads/2026/05/ntm-ssq3-manual-controller-050.jpg')
         alt=""
         aria-hidden="true"
         fetchpriority="high"
-        decoding="async"
+        decoding="sync"
         class="dither-hero__img absolute inset-0 h-full w-full object-cover"
     >
 
