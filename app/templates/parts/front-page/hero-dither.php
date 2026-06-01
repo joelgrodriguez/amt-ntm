@@ -67,7 +67,7 @@ $image      = content_url('/uploads/2026/05/ntm-ssq3-manual-controller-050.jpg')
             <?php esc_html_e('The most advanced portable roof and wall panel machine we\'ve ever built. Smarter, safer, more efficient.', 'standard'); ?>
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
-            <a href="<?php echo esc_url($ssq3_url); ?>" class="btn btn-emphasis dither-hero__cta">
+            <a href="<?php echo esc_url($ssq3_url); ?>" class="btn btn-light dither-hero__cta">
                 <?php esc_html_e('Explore the SSQ3', 'standard'); ?>
                 <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
             </a>
