@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+#
+# Replay all captured DB-side changes against a WordPress install.
+#
+# The theme is in git; the database is not. After pulling a fresh prod DB
+# locally, run this to re-apply every catalog/data fix that lives in the repo.
+# See docs/superpowers/specs/db-persistence-strategy.md.
+#
+# Usage:
+#   npm run db:apply                 # apply to DevKinsta (default)
+#   WP_CONTAINER="" WP_PATH=/path \  # apply to a non-Docker / prod target
+#     scripts/db/apply
+#
+# Each scripts/db/NNN-*.sh must be IDEMPOTENT (safe to run twice). They are
+# run in filename order. A failing script stops the run (set -e).
+
+set -euo pipefail
+
+# --- Target resolution (environment-agnostic; defaults to DevKinsta) ----------
+# WP_CONTAINER: docker container to exec into. Empty string = run wp directly
+#               on the host (use for a non-Docker target).
+# WP_PATH:      --path passed to wp inside that environment.
+WP_CONTAINER="${WP_CONTAINER-devkinsta_fpm}"
+WP_PATH="${WP_PATH-/www/kinsta/public/newtech}"
+
+# wp() wraps WP-CLI so individual migration scripts call `wp ...` and don't care
+# where it runs. Migration scripts should `source` this runner's helpers or be
+# invoked by it, so they inherit this function.
+wp() {
+  if [[ -n "$WP_CONTAINER" ]]; then
+    docker exec "$WP_CONTAINER" wp --path="$WP_PATH" --allow-root "$@"
+  else
+    command wp --path="$WP_PATH" "$@"
+  fi
+}
+export -f wp
+export WP_CONTAINER WP_PATH
+
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+echo "==> Applying DB migrations"
+echo "    container: ${WP_CONTAINER:-<host>}   path: $WP_PATH"
+
+# Sanity: can we reach WP at all?
+if ! wp core is-installed >/dev/null 2>&1; then
+  echo "!! Cannot reach a WordPress install at the configured target." >&2
+  echo "   Is DevKinsta running? Or set WP_CONTAINER/WP_PATH for your target." >&2
+  exit 1
+fi
+
+shopt -s nullglob
+scripts=("$HERE"/[0-9]*.sh)
+if [[ ${#scripts[@]} -eq 0 ]]; then
+  echo "    (no migration scripts yet)"
+fi
+
+for script in "${scripts[@]}"; do
+  echo "--> $(basename "$script")"
+  # shellcheck source=/dev/null
+  bash "$script"
+done
+
+echo "==> Done. ${#scripts[@]} script(s) applied."
+echo "    Reminder: redirects are captured separately in db/redirects.json"
+echo "    (import via the Redirection plugin), and ACF/CPT-UI config in"
+echo "    db/acf-cptui/ (see scripts/db/README.md)."
