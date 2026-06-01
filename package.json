@@ -9,6 +9,7 @@
     "maestro:land": "scripts/maestro-land-reviewed",
     "maestro:review": "scripts/maestro-land-reviewed --dry-run",
     "maestro:sync-tasks": "scripts/maestro-sync-tasks",
+    "db:apply": "scripts/db/apply",
     "preview": "vite preview"
   },
   "devDependencies": {

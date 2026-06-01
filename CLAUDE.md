@@ -251,6 +251,30 @@ docker exec devkinsta_fpm wp --path=/www/kinsta/public/newtech option get siteur
 docker exec devkinsta_fpm wp --path=/www/kinsta/public/newtech theme list --allow-root
 ```
 
+### Hard rule: capture all DB-side changes
+
+The theme is git-controlled. **The database is not.** Releasing means merging the
+theme to `master`, pulling a **fresh production DB** locally, and re-adding the
+theme from git — which **wipes every local DB change** (slugs, redirects, product
+categories/tags, custom flags). The only thing that survives a fresh pull is what
+is in git.
+
+Therefore, any time an agent changes DevKinsta DB / WordPress state that must
+persist past a fresh prod pull, it MUST also capture that change as a replayable
+file in the repo, in the **same task** — no silent DB edits. Channels:
+
+- **WooCommerce catalog data** (categories, tags, slugs, flags) → an idempotent
+  WP-CLI script in `scripts/db/` (numbered, safe to re-run). Replayed by
+  `npm run db:apply`.
+- **Redirects** → export to `db/redirects.json` (Redirection plugin export), not
+  hand-scripted.
+- **Slug changes** → always two steps: the slug edit script **and** an old→new
+  redirect entry. Never a bare slug change.
+
+Inspection-only commands (reading state) need no capture. See
+`docs/superpowers/specs/db-persistence-strategy.md` for the full strategy and
+`docs/superpowers/specs/data-normalization-backlog.md` for the queued fixes.
+
 ## Build Commands
 
 ```bash

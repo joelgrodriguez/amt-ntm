@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+#
+# TEMPLATE — copy to NNN-short-description.sh (next number) when capturing a
+# WooCommerce/WP catalog data change. Delete this header; keep it idempotent.
+#
+# Rules:
+#   - IDEMPOTENT: re-running must not double-apply. Use "set to X" operations
+#     (term set, meta update), never "toggle" or "append".
+#   - Use the `wp` function inherited from scripts/db/apply (it targets the
+#     right container/path). Do NOT hardcode `docker exec ... --allow-root`.
+#   - One logical change per script. Reference the backlog item it resolves.
+#   - For a SLUG change: also add the old→new redirect to db/redirects.json.
+#
+# Resolves: data-normalization-backlog.md #N  (delete if N/A)
+
+set -euo pipefail
+
+# Example — recategorize a mis-filed product (backlog #3):
+#
+#   product_id="$(wp post list --post_type=product --name="some-slug" \
+#                   --field=ID --format=ids)"
+#   if [[ -n "$product_id" ]]; then
+#     wp post term set "$product_id" product_cat roof-wall-panel-machines
+#     echo "    recategorized product $product_id"
+#   fi
+#
+# Example — set an ACF/meta flag idempotently:
+#
+#   wp post meta update "$product_id" _is_flagship 1
+
+echo "    (template — nothing to do)"
