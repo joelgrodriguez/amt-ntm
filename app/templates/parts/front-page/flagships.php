@@ -96,7 +96,7 @@ $rendered_count = 0;
                      + spec strip beneath) -->
                 <div class="grid gap-4 <?php echo $image_first_on_lg ? 'lg:order-1' : 'lg:order-2'; ?>">
                     <?php if ($hero_image) : ?>
-                        <div class="relative aspect-video overflow-hidden">
+                        <div class="relative aspect-video overflow-hidden" data-reveal="image">
                             <?php \Standard\Images\responsive_image($hero_image, $data['hero']['headline'] ?? '', 'large', [
                                 'class'   => 'w-full h-full object-cover block',
                                 'loading' => 'lazy',
@@ -139,7 +139,7 @@ $rendered_count = 0;
                 </div>
 
                 <!-- Content cell -->
-                <div class="grid gap-6 content-start <?php echo $image_first_on_lg ? 'lg:order-2' : 'lg:order-1'; ?>">
+                <div class="grid gap-6 content-start <?php echo $image_first_on_lg ? 'lg:order-2' : 'lg:order-1'; ?>" data-reveal="fade">
 
                     <!-- Eyebrow: red dot + category. (Badge moved onto the image.) -->
                     <div class="flex items-center gap-3 flex-wrap">

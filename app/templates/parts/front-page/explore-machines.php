@@ -56,16 +56,16 @@ $landing_labels = [
 
 <section class="explore-machines section" aria-labelledby="explore-machines-title">
     <div class="container grid gap-8 lg:gap-10">
-        <h2 id="explore-machines-title" class="section-title">
+        <h2 id="explore-machines-title" class="section-title" data-reveal="fade">
             <?php echo esc_html($content['title']); ?>
         </h2>
 
-        <div class="explore-machines__tabs flex flex-wrap border-b border-blue-300" role="tablist" aria-label="<?php echo esc_attr($content['tabs_label']); ?>">
+        <div class="explore-machines__tabs stagger flex flex-wrap border-b border-blue-300" role="tablist" aria-label="<?php echo esc_attr($content['tabs_label']); ?>">
             <?php foreach ($categories as $slug => $category) : ?>
                 <button
                     type="button"
                     id="tab-<?php echo esc_attr($slug); ?>"
-                    class="explore-machines__tab <?php echo $slug === $first_category ? 'explore-machines__tab--active' : ''; ?>"
+                    class="explore-machines__tab reveal <?php echo $slug === $first_category ? 'explore-machines__tab--active' : ''; ?>"
                     role="tab"
                     aria-selected="<?php echo $slug === $first_category ? 'true' : 'false'; ?>"
                     aria-controls="panel-<?php echo esc_attr($slug); ?>"
