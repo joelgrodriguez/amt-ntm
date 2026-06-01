@@ -64,6 +64,34 @@
   @apply visible relative opacity-100;
 }
 
+/* Card stagger — runs every time a panel becomes active (initial load and
+   each tab switch), since the JS toggles --active. This is the service-hub
+   cascade delivered through the carousel's own tab mechanism rather than the
+   global scroll-reveal (the inactive panels are opacity:0/invisible, so an
+   IntersectionObserver reveal would leave cards stuck hidden on tab 2+).
+   Shares the motion vocabulary: same expo-out settle as the rest of the site. */
+.explore-machines__panel--active > .explore-machines__track > .card-product {
+  animation: explore-card-in var(--duration-slow, 300ms)
+    var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)) both;
+}
+
+.explore-machines__panel--active > .explore-machines__track > .card-product:nth-child(1) { animation-delay: 0ms; }
+.explore-machines__panel--active > .explore-machines__track > .card-product:nth-child(2) { animation-delay: 60ms; }
+.explore-machines__panel--active > .explore-machines__track > .card-product:nth-child(3) { animation-delay: 120ms; }
+.explore-machines__panel--active > .explore-machines__track > .card-product:nth-child(4) { animation-delay: 180ms; }
+.explore-machines__panel--active > .explore-machines__track > .card-product:nth-child(n+5) { animation-delay: 220ms; }
+
+@keyframes explore-card-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .explore-machines__panel--active > .explore-machines__track > .card-product {
+    animation: none;
+  }
+}
+
 /* Tab styles */
 .explore-machines__tab {
   @apply px-4 py-2 font-sans font-medium text-blue-600;
