@@ -38,6 +38,8 @@ export function lerpColor(from, to, t) {
 
 /**
  * Build a centered grid of dot anchor points for a given area + spacing.
+ * Dots are not re-centered within the area: the first dot sits at (spacing/2, spacing/2)
+ * and any remainder at the right/bottom edge is left empty.
  * @param {number} width
  * @param {number} height
  * @param {number} spacing

@@ -29,3 +29,9 @@ test('buildGrid: cell count matches dimensions / spacing', () => {
   assert.equal(cells.length, 50);
   assert.deepEqual(cells[0], { x: 5, y: 5 }); // first cell centered in its 10px cell
 });
+
+test('buildGrid: drops the right-edge remainder (floor, not round/ceil)', () => {
+  // 105px wide / 10 spacing → still 10 cols (the extra 5px is dropped)
+  const cells = buildGrid(105, 50, 10);
+  assert.equal(cells.length, 50);
+});
