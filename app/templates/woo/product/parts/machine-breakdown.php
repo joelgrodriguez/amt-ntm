@@ -39,7 +39,7 @@ if (empty($breakdown)) {
         ?>
             <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center <?php echo $is_reversed ? 'lg:[&>*:first-child]:order-2' : ''; ?>">
                 <?php if (!empty($image)) : ?>
-                    <div class="aspect-video overflow-hidden">
+                    <div class="aspect-video overflow-hidden" data-reveal="image">
                         <?php \Standard\Images\responsive_image($image, $title, 'large', [
                             'class' => 'w-full h-full object-cover',
                         ]); ?>
@@ -49,7 +49,7 @@ if (empty($breakdown)) {
                         <span class="text-blue-400 text-sm font-mono"><?php echo esc_html($title); ?></span>
                     </div>
                 <?php endif; ?>
-                <div class="grid gap-4">
+                <div class="grid gap-4" data-reveal="fade">
                     <p class="text-sm font-medium uppercase tracking-wider text-red"><?php echo esc_html($title); ?></p>
                     <h3 class="text-2xl font-medium text-blue-900 lg:text-3xl"><?php echo esc_html($headline); ?></h3>
                     <p class="text-blue-600"><?php echo esc_html($copy); ?></p>

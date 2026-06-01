@@ -48,19 +48,23 @@ $render_media = function () use ($content, $stats, $featured_image_id) :void {
     $alt = $content['name'] . ', ' . $content['company'];
     ?>
     <div class="grid gap-6">
-        <?php if ($featured_image_id) : ?>
-            <?php echo wp_get_attachment_image($featured_image_id, 'large', false, [
-                'class'   => 'w-full aspect-video object-cover',
-                'alt'     => $alt,
-                'loading' => 'lazy',
-            ]); ?>
-        <?php elseif (!empty($content['image'])) : ?>
-            <img
-                src="<?php echo esc_url($content['image']); ?>"
-                alt="<?php echo esc_attr($alt); ?>"
-                class="w-full aspect-video object-cover"
-                loading="lazy"
-            >
+        <?php if ($featured_image_id || !empty($content['image'])) : ?>
+            <div class="overflow-hidden" data-reveal="image">
+                <?php if ($featured_image_id) : ?>
+                    <?php echo wp_get_attachment_image($featured_image_id, 'large', false, [
+                        'class'   => 'w-full aspect-video object-cover',
+                        'alt'     => $alt,
+                        'loading' => 'lazy',
+                    ]); ?>
+                <?php else : ?>
+                    <img
+                        src="<?php echo esc_url($content['image']); ?>"
+                        alt="<?php echo esc_attr($alt); ?>"
+                        class="w-full aspect-video object-cover"
+                        loading="lazy"
+                    >
+                <?php endif; ?>
+            </div>
         <?php endif; ?>
 
         <?php if (!empty($stats)) : ?>

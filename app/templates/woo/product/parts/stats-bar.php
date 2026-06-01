@@ -26,7 +26,7 @@ if (empty($stats)) {
 
 <section class="stats-band" aria-label="<?php esc_attr_e('Key specifications', 'standard'); ?>">
     <div class="container stats-band__inner">
-        <dl class="stats-band__grid">
+        <dl class="stats-band__grid stagger">
             <?php foreach ($stats as $stat) : ?>
                 <div class="stats-band__cell">
                     <dt class="stats-band__label"><?php echo esc_html($stat['label']); ?></dt>
