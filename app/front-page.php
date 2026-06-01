@@ -49,18 +49,8 @@ get_header();
 
 <main id="primary">
 
-    <?php
-    // CAPTURE — hero. Experiment: a dithered SSQ3 canvas hero can replace
-    // the slider behind a flag. OFF by default; flip with
-    // add_filter('ntm_dither_hero', '__return_true') or ?dither_hero=1.
-    $use_dither_hero = (bool) apply_filters('ntm_dither_hero', false);
-    if (isset($_GET['dither_hero'])) {
-        $use_dither_hero = $_GET['dither_hero'] === '1';
-    }
-    get_template_part(
-        'templates/parts/front-page/' . ($use_dither_hero ? 'hero-dither' : 'hero-slider')
-    );
-    ?>
+    <?php // CAPTURE ?>
+    <?php get_template_part('templates/parts/front-page/hero-slider'); ?>
 
     <?php // ROUTE ?>
     <?php get_template_part('templates/parts/front-page/explore-machines'); ?>
