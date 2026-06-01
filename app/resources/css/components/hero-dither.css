@@ -1,0 +1,48 @@
+/* Dithered canvas hero (experiment) — see DitherHero.js + hero-dither.php */
+
+.dither-hero__img {
+  /* Base photo carries LCP; dimmed so the dot field reads on top. */
+  filter: brightness(0.55) contrast(1.05);
+}
+
+.dither-hero__canvas {
+  opacity: 0;
+  transition: opacity 600ms ease;
+}
+.dither-hero__canvas.is-ready {
+  opacity: 1;
+}
+
+.dither-hero__scrim {
+  /* Keep headline legible at the bottom-left without flattening the art. */
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--color-blue-900) 88%, transparent) 0%,
+    color-mix(in srgb, var(--color-blue-900) 40%, transparent) 38%,
+    transparent 70%
+  );
+}
+
+/* The ONE red accent (DESIGN.md §2.4): a single slow pulse on the primary CTA. */
+.dither-hero__cta {
+  position: relative;
+}
+.dither-hero__cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-red) 70%, transparent);
+  animation: dither-hero-spark 3.2s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes dither-hero-spark {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-red) 60%, transparent); }
+  18%  { box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-red) 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-red) 0%, transparent); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dither-hero__canvas { transition: none; }
+  .dither-hero__cta::after { animation: none; }
+}
