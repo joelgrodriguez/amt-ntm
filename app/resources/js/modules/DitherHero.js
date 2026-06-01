@@ -56,3 +56,202 @@ export function buildGrid(width, height, spacing) {
   }
   return cells;
 }
+
+const DARK = [10, 19, 34];     // --color-blue-900 #0A1322
+const LIGHT = [155, 177, 199]; // --color-blue-300 #9BB1C7
+const RED = [205, 16, 24];     // --color-red #CD1018
+
+const DESKTOP_SPACING = 7;     // px between dots (CSS px)
+const MOBILE_SPACING = 11;     // sparser on small screens
+const MAX_RADIUS_FACTOR = 0.62; // dot radius cap relative to spacing
+const ASSEMBLE_MS = 1100;      // scatter → resolved duration
+const RIPPLE_AMP = 0.6;        // idle ripple amplitude (px)
+const CURSOR_RADIUS = 90;      // px influence radius of the pointer
+const CURSOR_PUSH = 6;         // px max displacement toward/away cursor
+
+/**
+ * Initialize the dithered canvas hero.
+ * No-ops (returns a noop cleanup) when the root element is absent so it
+ * is safe to call on every page.
+ * @returns {() => void} cleanup
+ */
+export function initDitherHero() {
+  const root = document.querySelector('[data-dither-hero]');
+  if (!root) {
+    return () => {};
+  }
+
+  const canvas = root.querySelector('[data-dither-canvas]');
+  const img = root.querySelector('[data-dither-img]');
+  if (!(canvas instanceof HTMLCanvasElement) || !(img instanceof HTMLImageElement)) {
+    return () => {};
+  }
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) {
+    return () => {};
+  }
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  let cells = [];          // [{x,y,r,color}] in CSS px
+  let raf = 0;
+  let startTs = 0;
+  let running = false;
+  let visible = true;
+  const pointer = { x: -9999, y: -9999, active: false };
+
+  function dpr() {
+    return Math.min(2, window.devicePixelRatio || 1);
+  }
+
+  // Sample the image once into an offscreen buffer sized to the canvas grid.
+  function sample() {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) {
+      return;
+    }
+    const ratio = dpr();
+    canvas.width = Math.round(rect.width * ratio);
+    canvas.height = Math.round(rect.height * ratio);
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+    const spacing = rect.width < 640 ? MOBILE_SPACING : DESKTOP_SPACING;
+    const grid = buildGrid(rect.width, rect.height, spacing);
+
+    // Draw the image (object-fit: cover) into a scratch canvas to read pixels.
+    const scratch = document.createElement('canvas');
+    scratch.width = Math.max(1, Math.floor(rect.width));
+    scratch.height = Math.max(1, Math.floor(rect.height));
+    const sctx = scratch.getContext('2d', { willReadFrequently: true });
+    if (!sctx) {
+      return;
+    }
+    const scale = Math.max(scratch.width / img.naturalWidth, scratch.height / img.naturalHeight);
+    const dw = img.naturalWidth * scale;
+    const dh = img.naturalHeight * scale;
+    sctx.drawImage(img, (scratch.width - dw) / 2, (scratch.height - dh) / 2, dw, dh);
+
+    let data;
+    try {
+      data = sctx.getImageData(0, 0, scratch.width, scratch.height).data;
+    } catch (e) {
+      return; // tainted canvas (cross-origin) — fall back to plain photo
+    }
+
+    const maxR = spacing * MAX_RADIUS_FACTOR;
+    cells = grid.map((c) => {
+      const px = Math.min(scratch.width - 1, Math.max(0, Math.floor(c.x)));
+      const py = Math.min(scratch.height - 1, Math.max(0, Math.floor(c.y)));
+      const i = (py * scratch.width + px) * 4;
+      const lum = (0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2]) / 255;
+      return {
+        x: c.x,
+        y: c.y,
+        ox: (Math.sin(px * 12.9898 + py * 78.233) * 43758.5453 % 1) * rect.width, // scatter origin
+        oy: (Math.sin(px * 39.346 + py * 11.135) * 24634.6345 % 1) * rect.height,
+        r: brightnessToRadius(lum, maxR),
+        color: lerpColor(DARK, LIGHT, lum),
+      };
+    });
+    canvas.classList.add('is-ready'); // CSS fades canvas in over the base img
+  }
+
+  function draw(ts) {
+    if (!startTs) startTs = ts;
+    const elapsed = ts - startTs;
+    const assemble = reduceMotion ? 1 : Math.min(1, elapsed / ASSEMBLE_MS);
+    const ease = assemble * (2 - assemble); // easeOutQuad
+    const rect = canvas.getBoundingClientRect();
+
+    ctx.clearRect(0, 0, rect.width, rect.height);
+
+    for (let k = 0; k < cells.length; k++) {
+      const c = cells[k];
+      let x = c.ox + (c.x - c.ox) * ease;
+      let y = c.oy + (c.y - c.oy) * ease;
+
+      if (!reduceMotion && assemble >= 1) {
+        // idle ripple
+        const wob = Math.sin((elapsed / 900) + (c.x + c.y) * 0.02) * RIPPLE_AMP;
+        y += wob;
+        // cursor displacement
+        if (finePointer && pointer.active) {
+          const dx = x - pointer.x;
+          const dy = y - pointer.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < CURSOR_RADIUS && dist > 0.001) {
+            const f = (1 - dist / CURSOR_RADIUS) * CURSOR_PUSH;
+            x += (dx / dist) * f;
+            y += (dy / dist) * f;
+          }
+        }
+      }
+
+      const [r, g, b] = c.color;
+      ctx.fillStyle = `rgb(${r},${g},${b})`;
+      ctx.beginPath();
+      ctx.arc(x, y, c.r * (0.4 + 0.6 * ease), 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    if (reduceMotion && assemble >= 1) {
+      running = false; // single static render, stop the loop
+      return;
+    }
+    if (running && visible) {
+      raf = requestAnimationFrame(draw);
+    }
+  }
+
+  function start() {
+    if (running) return;
+    running = true;
+    startTs = 0;
+    raf = requestAnimationFrame(draw);
+  }
+  function stop() {
+    running = false;
+    if (raf) cancelAnimationFrame(raf);
+    raf = 0;
+  }
+
+  const onMove = (e) => { pointer.x = e.clientX - canvas.getBoundingClientRect().left; pointer.y = e.clientY - canvas.getBoundingClientRect().top; pointer.active = true; };
+  const onLeave = () => { pointer.active = false; };
+  const onResize = () => { sample(); };
+  const onVisibility = () => { visible = !document.hidden; if (visible) start(); else stop(); };
+
+  const io = new IntersectionObserver((entries) => {
+    visible = entries[0].isIntersecting;
+    if (visible) start(); else stop();
+  }, { threshold: 0.01 });
+
+  function boot() {
+    sample();
+    io.observe(root);
+    if (finePointer) {
+      canvas.addEventListener('pointermove', onMove);
+      canvas.addEventListener('pointerleave', onLeave);
+    }
+    window.addEventListener('resize', onResize);
+    document.addEventListener('visibilitychange', onVisibility);
+    start();
+  }
+
+  if (img.complete && img.naturalWidth > 0) {
+    boot();
+  } else {
+    img.addEventListener('load', boot, { once: true });
+    img.addEventListener('error', () => { /* leave base img visible, never show canvas */ }, { once: true });
+  }
+
+  return () => {
+    stop();
+    io.disconnect();
+    canvas.removeEventListener('pointermove', onMove);
+    canvas.removeEventListener('pointerleave', onLeave);
+    window.removeEventListener('resize', onResize);
+    document.removeEventListener('visibilitychange', onVisibility);
+  };
+}
