@@ -99,8 +99,16 @@ export function initDitherHero() {
   let raf = 0;
   let startTs = 0;
   let running = false;
+  let assembled = false;
+  let cachedRect = null;
+  let booted = false;
   let visible = true;
   const pointer = { x: -9999, y: -9999, active: false };
+
+  function getRect() {
+    if (!cachedRect) cachedRect = canvas.getBoundingClientRect();
+    return cachedRect;
+  }
 
   function dpr() {
     return Math.min(2, window.devicePixelRatio || 1);
@@ -108,7 +116,8 @@ export function initDitherHero() {
 
   // Sample the image once into an offscreen buffer sized to the canvas grid.
   function sample() {
-    const rect = canvas.getBoundingClientRect();
+    assembled = false;
+    const rect = getRect();
     if (rect.width === 0 || rect.height === 0) {
       return;
     }
@@ -162,8 +171,9 @@ export function initDitherHero() {
     if (!startTs) startTs = ts;
     const elapsed = ts - startTs;
     const assemble = reduceMotion ? 1 : Math.min(1, elapsed / ASSEMBLE_MS);
+    if (assemble >= 1) { assembled = true; }
     const ease = assemble * (2 - assemble); // easeOutQuad
-    const rect = canvas.getBoundingClientRect();
+    const rect = getRect();
 
     ctx.clearRect(0, 0, rect.width, rect.height);
 
@@ -208,7 +218,7 @@ export function initDitherHero() {
   function start() {
     if (running) return;
     running = true;
-    startTs = 0;
+    if (!assembled) startTs = 0;
     raf = requestAnimationFrame(draw);
   }
   function stop() {
@@ -217,9 +227,15 @@ export function initDitherHero() {
     raf = 0;
   }
 
-  const onMove = (e) => { pointer.x = e.clientX - canvas.getBoundingClientRect().left; pointer.y = e.clientY - canvas.getBoundingClientRect().top; pointer.active = true; };
+  const onMove = (e) => {
+    const rect = getRect();
+    pointer.x = e.clientX - rect.left;
+    pointer.y = e.clientY - rect.top;
+    pointer.active = true;
+  };
   const onLeave = () => { pointer.active = false; };
-  const onResize = () => { sample(); };
+  const onScroll = () => { cachedRect = null; };
+  const onResize = () => { cachedRect = null; sample(); };
   const onVisibility = () => { visible = !document.hidden; if (visible) start(); else stop(); };
 
   const io = new IntersectionObserver((entries) => {
@@ -235,23 +251,32 @@ export function initDitherHero() {
       canvas.addEventListener('pointerleave', onLeave);
     }
     window.addEventListener('resize', onResize);
+    window.addEventListener('scroll', onScroll, { passive: true });
     document.addEventListener('visibilitychange', onVisibility);
     start();
   }
 
-  if (img.complete && img.naturalWidth > 0) {
+  function bootOnce() {
+    if (booted) return;
+    booted = true;
     boot();
+  }
+
+  if (img.complete && img.naturalWidth > 0) {
+    bootOnce();
   } else {
-    img.addEventListener('load', boot, { once: true });
-    img.addEventListener('error', () => { /* leave base img visible, never show canvas */ }, { once: true });
+    img.addEventListener('load', bootOnce, { once: true });
+    img.addEventListener('error', () => {}, { once: true });
   }
 
   return () => {
+    booted = true; // prevent a late load fire from re-booting
     stop();
     io.disconnect();
     canvas.removeEventListener('pointermove', onMove);
     canvas.removeEventListener('pointerleave', onLeave);
     window.removeEventListener('resize', onResize);
+    window.removeEventListener('scroll', onScroll);
     document.removeEventListener('visibilitychange', onVisibility);
   };
 }
