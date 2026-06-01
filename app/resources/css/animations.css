@@ -13,7 +13,8 @@
   --duration-fast: 150ms;
   --duration-base: 200ms;
   --duration-slow: 300ms;
-  --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+  /* Shared with transitions.dev --*-ease so both motion layers settle identically. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-spring: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -36,7 +37,7 @@
   /* Scroll reveal animations */
   .reveal {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(12px);
     transition:
       opacity var(--duration-slow) var(--ease-out),
       transform var(--duration-slow) var(--ease-out);
@@ -49,7 +50,7 @@
 
   .reveal-left {
     opacity: 0;
-    transform: translateX(-20px);
+    transform: translateX(-12px);
     transition:
       opacity var(--duration-slow) var(--ease-out),
       transform var(--duration-slow) var(--ease-out);
@@ -62,7 +63,7 @@
 
   .reveal-right {
     opacity: 0;
-    transform: translateX(20px);
+    transform: translateX(12px);
     transition:
       opacity var(--duration-slow) var(--ease-out),
       transform var(--duration-slow) var(--ease-out);
@@ -84,6 +85,41 @@
   .reveal-scale.is-visible {
     opacity: 1;
     transform: scale(1);
+  }
+
+  /* Image settle — for product photography. Subtle scale + clip from bottom,
+     so the machine "arrives" rather than fades. Transform/clip-path only — no
+     layout properties animated. */
+  .reveal-image {
+    opacity: 0;
+    transform: scale(1.04);
+    clip-path: inset(0 0 12% 0);
+    transition:
+      opacity var(--duration-slow) var(--ease-out),
+      transform var(--duration-slow) var(--ease-out),
+      clip-path var(--duration-slow) var(--ease-out);
+  }
+
+  .reveal-image.is-visible {
+    opacity: 1;
+    transform: scale(1);
+    clip-path: inset(0 0 0 0);
+  }
+
+  /* Hairline rule draw-in — for blueprint/spec dividers. Scales a 1px rule
+     from the left. Apply to the rule element itself, not a wrapper. */
+  .reveal-rule {
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition:
+      opacity var(--duration-base) var(--ease-out),
+      transform var(--duration-slow) var(--ease-out);
+  }
+
+  .reveal-rule.is-visible {
+    opacity: 1;
+    transform: scaleX(1);
   }
 
   /* Stagger children - add delay to sequential items. Ladders to 12 so
@@ -110,10 +146,16 @@
   .reveal,
   .reveal-left,
   .reveal-right,
-  .reveal-scale {
+  .reveal-scale,
+  .reveal-image,
+  .reveal-rule {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  .reveal-image {
+    clip-path: none;
   }
 
   .mobile-menu {

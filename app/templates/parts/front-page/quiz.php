@@ -38,7 +38,7 @@ $content = [
         <div class="grid gap-10 lg:grid-cols-2 lg:gap-16 lg:items-center">
 
             <!-- Content column (right) -->
-            <div class="content-start lg:order-2">
+            <div class="content-start lg:order-2" data-reveal="fade">
                 <?php get_template_part('templates/parts/section-header', null, [
                     'id'      => 'quiz-title',
                     'eyebrow' => $content['eyebrow'],
@@ -53,7 +53,7 @@ $content = [
 
             <!-- Image column (left) -->
             <div class="lg:order-1">
-                <div class="aspect-video overflow-hidden">
+                <div class="aspect-video overflow-hidden" data-reveal="image">
                     <img
                         src="<?php echo esc_url($content['image']); ?>"
                         alt="<?php echo esc_attr($content['image_alt']); ?>"

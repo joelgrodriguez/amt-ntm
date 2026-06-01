@@ -58,7 +58,7 @@ if (empty($rows)) {
 }
 ?>
 
-<section id="machine-resources" class="resources-ledger section bg-white" aria-labelledby="resources-title">
+<section id="machine-resources" class="resources-ledger section bg-white" aria-labelledby="resources-title" data-reveal="fade">
     <div class="container">
 
         <div class="section-header-left">

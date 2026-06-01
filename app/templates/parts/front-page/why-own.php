@@ -82,14 +82,14 @@ $value_points = [
                     ],
                 ]); ?>
             </div>
-            <div class="aspect-video overflow-hidden">
+            <div class="aspect-video overflow-hidden" data-reveal="image">
                 <?php \Standard\Images\responsive_image($content['image'], $content['image_alt'], 'large', [
                     'class'   => 'w-full h-full object-cover block',
                     'loading' => 'lazy',
                 ]); ?>
             </div>
         </div>
-        <div class="grid gap-12 md:grid-cols-2 md:gap-0 md:divide-x md:divide-blue-200">
+        <div class="grid gap-12 md:grid-cols-2 md:gap-0 md:divide-x md:divide-blue-200" data-reveal="fade">
             <div class="md:pr-10 lg:pr-16">
                 <div class="flex items-center gap-3 pb-6 mb-8 border-b border-blue-200">
                     <span class="w-2 h-2 bg-red shrink-0" aria-hidden="true"></span>

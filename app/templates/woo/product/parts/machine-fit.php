@@ -34,7 +34,7 @@ $is_for     = $fit['is_for'] ?? [];
 $is_not_for = $fit['is_not_for'] ?? [];
 ?>
 
-<section id="machine-fit" class="machine-fit bg-blue-50 py-12 md:py-16 lg:py-20" aria-labelledby="machine-fit-title">
+<section id="machine-fit" class="machine-fit bg-blue-50 py-12 md:py-16 lg:py-20" aria-labelledby="machine-fit-title" data-reveal="fade">
     <div class="container">
 
         <div class="section-header-left">

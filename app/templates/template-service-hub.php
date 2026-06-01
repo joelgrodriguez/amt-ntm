@@ -103,7 +103,7 @@ get_header();
     <?php /* Band 2 — Category-grouped machine directory. Light. Compact horizontal cards; pick your machine, get its support content. */ ?>
     <section class="bg-blue-50 border-t border-blue-200" aria-labelledby="service-hub-machines-title">
         <div class="container section">
-            <h2 id="service-hub-machines-title" class="font-sans font-medium text-heading text-blue-900 m-0 mb-2">
+            <h2 id="service-hub-machines-title" class="font-sans font-medium text-heading text-blue-900 m-0 mb-2" data-reveal="fade">
                 <?php esc_html_e('Find your machine', 'standard'); ?>
             </h2>
             <p class="font-sans text-blue-600 max-w-2xl m-0 mb-10" style="font-size: var(--text-body); line-height: var(--leading-body);">
@@ -199,7 +199,7 @@ get_header();
                         <span class="inline-block h-1 w-1 bg-red" aria-hidden="true"></span>
                         <?php esc_html_e('Talk To Us', 'standard'); ?>
                     </span>
-                    <h2 id="service-hub-specialist-title" class="font-sans font-medium text-heading lg:text-heading-lg text-blue-900 leading-tight m-0">
+                    <h2 id="service-hub-specialist-title" class="font-sans font-medium text-heading lg:text-heading-lg text-blue-900 leading-tight m-0" data-reveal="fade">
                         <?php esc_html_e('Your rollforming support team.', 'standard'); ?>
                     </h2>
                     <p class="font-sans text-blue-600 m-0" style="font-size: var(--text-body); line-height: var(--leading-body);">

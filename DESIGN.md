@@ -325,11 +325,75 @@ The principle: borders are exactly one step lighter (on dark) or one step darker
 
 ## 9. Motion
 
-- **Timing:** 150ms (fast micro-interactions), 200ms (default), 300ms (reveals).
-- **Easing:** `cubic-bezier(0.4, 0, 0.2, 1)` (standard) or `ease-out` for reveals.
-- **Scroll reveals:** Subtle fade + 8–16px translation. Stagger children at 50ms increments. Never bounce, never spring.
-- **Hover:** Color shift, border shift, or 1px translation only. No scale-on-hover for cards (icon-buttons may use a 1.05 scale sparingly).
-- **`prefers-reduced-motion`:** All non-essential motion is disabled. This is enforced, not optional.
+- **Timing:** `--duration-fast` 150ms · `--duration-base` 200ms · `--duration-slow` 300ms.
+- **Easing (shared):** `cubic-bezier(0.22, 1, 0.36, 1)` — both layers use the same curve so motion feels unified.
+- **Hover:** Color shift, border shift, or 1px translation only. No scale-on-hover for cards (icon-buttons may use 1.05 sparingly).
+- **`prefers-reduced-motion`:** All non-essential motion is disabled. Enforced, not optional.
+
+### Motion System — two layers
+
+The site uses two coordinated motion layers. They share the same easing curve and duration tokens, so the overall feel is consistent.
+
+#### Layer A — in-place micro-interactions (transitions.dev)
+
+Lives in `transitions.css`. The canonical source for anything that reacts to user input: accordions, dropdowns, modals, icon swaps, card resize, text/icon state swap, success flash, error shake, hover lifts, page slides, notification badges, number pop.
+
+**Rule:** do not give a component a custom `transition` property for something Layer A already covers. Tune the semantic token instead.
+
+#### Layer B — scroll entrances (animations.css + ScrollReveal.js)
+
+Content arriving as you scroll into view. IntersectionObserver fires once per element; once visible, the class is not removed. Travel: 8–16px. Never bounce, never spring.
+
+#### Shared vocabulary
+
+| Token | Value |
+|---|---|
+| `--ease-out` | `cubic-bezier(0.22, 1, 0.36, 1)` |
+| `--duration-fast` | 150ms |
+| `--duration-base` | 200ms |
+| `--duration-slow` | 300ms |
+
+Travel distance: 8–16px. Both layers settle on the same ease.
+
+#### Reveal variants
+
+| `data-reveal` value | CSS class | Use |
+|---|---|---|
+| `fade` (default) | `reveal` | Default; prose, section intros, standalone blocks |
+| `stagger` | `stagger` (on container) | Grids, lists, sequences — children cascade at 50ms increments |
+| `image` | `reveal-image` | Product photography; starts at scale(1.04) — **requires `overflow-hidden` on the element** |
+| `rule` | `reveal-rule` | Hairline / blueprint dividers; scales a 1px rule in from the left |
+| `left` | `reveal-left` | Directional entry; use sparingly |
+| `right` | `reveal-right` | Directional entry; use sparingly |
+| `scale` | `reveal-scale` | Cards (the service-hub machine-card effect) |
+
+#### How to apply
+
+Add `data-reveal="<value>"` to the element. JS (`ScrollReveal.js`) maps the attribute to the corresponding CSS class on init. You can also add the class directly and skip the attribute.
+
+```html
+<!-- attribute form (JS resolves to class) -->
+<h2 data-reveal="fade">Section title</h2>
+
+<!-- class form (no JS dependency) -->
+<div class="stagger">…</div>
+```
+
+#### The cardinal rule
+
+**One reveal variant per section type, chosen to fit what it reveals.** Deliberately leaving sections unrevealed is correct when motion would fight existing behavior (carousels, accordions, interactive widgets) or obscure important content.
+
+- **Never reveal-gate the hero, LCP element, or primary CTAs.** Users should not wait for the most important content.
+- **Never use `display: none`.** Reveals work by offsetting an already-visible default state (opacity + transform). Reduced-motion, no-JS, bfcache restore, and headless crawlers all show content immediately without any class toggle.
+- Don't apply the same fade variant to every section — that flattens the hierarchy. Use `stagger` for grids, `image` for photography, `fade` for prose intros, `scale` for cards.
+
+#### prefers-reduced-motion
+
+Enforced in both layers. Under `prefers-reduced-motion: reduce`, all scroll-reveal classes resolve instantly (opacity 1, transform none, transition none). No travel. No delay.
+
+#### No new JS dependency
+
+Vanilla `IntersectionObserver` + CSS only. No external library.
 
 ---
 

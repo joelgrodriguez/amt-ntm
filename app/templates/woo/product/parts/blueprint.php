@@ -105,7 +105,7 @@ if (!empty($trailer_dims)) {
 }
 ?>
 
-<section id="machine-blueprint" class="bg-white text-blue-600 border-y border-blue-200" aria-labelledby="blueprint-title">
+<section id="machine-blueprint" class="bg-white text-blue-600 border-y border-blue-200" aria-labelledby="blueprint-title" data-reveal="fade">
     <div class="border-b border-blue-200">
         <div class="border-x border-blue-200 container">
             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">

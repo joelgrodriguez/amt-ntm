@@ -79,7 +79,7 @@ $phases = [
                  match Flagships/Quiz rhythm), then a 2-up row of secondary
                  shots so the column matches the steps column's height
                  instead of floating in the middle with dead space. -->
-            <figure class="grid gap-4 lg:order-1">
+            <figure class="grid gap-4 lg:order-1" data-reveal="fade">
                 <div class="aspect-video overflow-hidden">
                     <img
                         src="<?php echo esc_url($content['image']); ?>"
@@ -120,9 +120,9 @@ $phases = [
                     'max_width' => 'max-w-md',
                 ]); ?>
 
-                <ol class="grid gap-6 lg:gap-8" role="list">
+                <ol class="stagger grid gap-6 lg:gap-8" role="list">
                     <?php foreach ($phases as $phase) : ?>
-                        <li class="grid gap-2">
+                        <li class="reveal grid gap-2">
                             <div class="flex items-baseline gap-3 font-mono uppercase tracking-wider text-xs text-blue-500">
                                 <span><?php echo esc_html($phase['index']); ?></span>
                                 <span class="w-6 h-px bg-blue-300" aria-hidden="true"></span>
