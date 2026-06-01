@@ -22,6 +22,7 @@ import { initHubspotForms } from './modules/HubspotForms.js';
 import { initSearchModal } from './modules/SearchModal.js';
 import { initVideoFacade } from './modules/VideoFacade.js';
 import { initAvatarGroupHover } from './modules/AvatarGroupHover.js';
+import { initDitherHero } from './modules/DitherHero.js';
 
 /** @type {Function|null} Cleanup function for mobile menu */
 let mobileMenuCleanup = null;
@@ -58,6 +59,9 @@ let videoFacadeCleanup = null;
 
 /** @type {Function|null} Cleanup function for avatar group hover */
 let avatarGroupHoverCleanup = null;
+
+/** @type {Function|null} Cleanup function for dither hero */
+let ditherHeroCleanup = null;
 
 /**
  * Executes callback when DOM is ready.
@@ -96,6 +100,7 @@ const initApp = () => {
   searchModalCleanup = initSearchModal();
   videoFacadeCleanup = initVideoFacade();
   avatarGroupHoverCleanup = initAvatarGroupHover();
+  ditherHeroCleanup = initDitherHero();
 };
 
 // Bootstrap
@@ -140,6 +145,9 @@ if (import.meta.hot) {
     }
     if (avatarGroupHoverCleanup) {
       avatarGroupHoverCleanup();
+    }
+    if (ditherHeroCleanup) {
+      ditherHeroCleanup();
     }
     // Reinitialize
     initApp();
