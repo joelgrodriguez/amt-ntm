@@ -21,6 +21,13 @@
 
     /* Drop from above viewport. Same identity choice as .mega-panel. */
     --panel-translate-y: -100%;
+
+    /* Slow the drawer beat down from the shared 400/350ms defaults.
+     * Full-height phone drawer needs more travel time to feel deliberate
+     * instead of snappy. Open uses a slight spring overshoot; close is
+     * accelerated in-out so the dismiss stays decisive. */
+    --panel-open-dur:  520ms;
+    --panel-close-dur: 420ms;
 }
 
 /* ── Page scrim (dims content behind the open menu) ──────────────────── */
@@ -35,7 +42,7 @@ body.overflow-hidden::after {
     z-index: 39;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 220ms var(--ease-spring);
+    transition: opacity 320ms var(--ease-spring);
 }
 
 body.overflow-hidden.menu-scrim-ready::after {
@@ -62,7 +69,7 @@ body.overflow-hidden.menu-scrim-ready::after {
     width: 100%;
     height: 100%;
     transform: translate3d(0, 0, 0);
-    transition: transform 280ms var(--ease-spring);
+    transition: transform 360ms var(--ease-spring);
     will-change: transform;
 }
 

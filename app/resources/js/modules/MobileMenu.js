@@ -292,12 +292,31 @@ export function initMobileMenu() {
       goBack();
     }
   };
+  /**
+   * Close the menu when the page is restored from the browser back/forward
+   * cache (bfcache). Mobile browsers aggressively persist DOM state across
+   * back navigation, which would otherwise re-show the menu in whatever
+   * state the user left it. Also handle popstate as a fallback for cases
+   * where bfcache is disabled.
+   *
+   * @param {PageTransitionEvent} e
+   */
+  const handlePageShow = (e) => {
+    if (e.persisted && state.isOpen) resetMenu();
+  };
+
+  const handlePopState = () => {
+    if (state.isOpen) resetMenu();
+  };
+
   toggle.addEventListener('click', handleToggleClick);
   menu.addEventListener('click', handleMenuClick);
   document.addEventListener('keydown', handleKeydown);
   window.addEventListener('resize', handleResize);
   menu.addEventListener('touchstart', handleTouchStart, { passive: true });
   menu.addEventListener('touchend', handleTouchEnd, { passive: true });
+  window.addEventListener('pageshow', handlePageShow);
+  window.addEventListener('popstate', handlePopState);
   render();
 
   return () => {
@@ -307,6 +326,8 @@ export function initMobileMenu() {
     window.removeEventListener('resize', handleResize);
     menu.removeEventListener('touchstart', handleTouchStart);
     menu.removeEventListener('touchend', handleTouchEnd);
+    window.removeEventListener('pageshow', handlePageShow);
+    window.removeEventListener('popstate', handlePopState);
     clearTimeout(resizeTimeout);
     resetMenu();
   };
