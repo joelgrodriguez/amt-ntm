@@ -61,9 +61,9 @@ $steps = [
             </p>
         </div>
 
-        <ol class="grid gap-px border border-blue-200 bg-blue-200 md:grid-cols-3" role="list">
+        <ol class="sh-reveal-row grid gap-8 md:grid-cols-3 lg:gap-10" role="list">
             <?php foreach ($steps as $idx => $step) : ?>
-                <li class="flex flex-col bg-blue-50">
+                <li class="sh-reveal flex flex-col border border-blue-200 bg-white" data-reveal>
                     <div class="relative aspect-[4/3] overflow-hidden bg-blue-100">
                         <?php
                         \Standard\Images\responsive_image(

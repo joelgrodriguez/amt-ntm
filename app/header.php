@@ -19,6 +19,11 @@ if (!defined('ABSPATH')) {
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php // Mark the document as JS-capable before paint. Scroll-reveal styles
+          // gate on html.js so content is fully visible when JS is absent
+          // (crawlers, headless renders, hidden tabs) rather than stuck at
+          // opacity:0. No-FOUC pattern: runs synchronously in <head>. ?>
+    <script>document.documentElement.classList.add('js');</script>
     <?php wp_head(); ?>
 </head>
 

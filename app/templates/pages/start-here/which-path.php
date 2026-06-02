@@ -106,21 +106,17 @@ $lanes = [
             </p>
         </div>
 
-        <div class="grid border border-blue-200 md:grid-cols-2">
+        <div class="grid gap-px border border-blue-200 bg-blue-200 md:grid-cols-2">
             <?php foreach ($lanes as $i => $lane) :
-                // 2x2 hairlines: top border once stacked (every cell after
-                // the first), left border on the md+ second column (odd
-                // index), top border on the md+ second row (index >= 2).
-                $border  = $i > 0 ? 'border-t border-blue-200 md:border-t-0' : '';
-                $border .= ($i % 2 === 1) ? ' md:border-l md:border-blue-200' : '';
-                $border .= ($i >= 2) ? ' md:border-t md:border-blue-200' : '';
+                // gap-px + a hairline grid background fences all four cells
+                // crisply; each cell just paints its own surface over it.
                 $is_out  = $lane['tone'] === 'out';
-                $surface = $is_out ? 'bg-blue-50' : '';
+                $surface = $is_out ? 'bg-blue-50' : 'bg-white';
             ?>
-                <div class="flex flex-col gap-5 p-6 md:p-8 lg:p-10 <?php echo esc_attr(trim($border . ' ' . $surface)); ?>">
+                <div class="flex flex-col gap-5 p-6 md:p-8 lg:p-10 <?php echo esc_attr($surface); ?>">
 
                     <div class="grid gap-2">
-                        <p class="font-mono text-xs uppercase tracking-mono-label <?php echo $is_out ? 'text-blue-400' : 'text-blue-500'; ?>">
+                        <p class="font-mono text-xs uppercase tracking-mono-label text-blue-500">
                             <?php echo esc_html($lane['eyebrow']); ?>
                         </p>
                         <h3 class="font-sans text-xl font-medium tracking-tight text-balance text-blue-900 lg:text-2xl">

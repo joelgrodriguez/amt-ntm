@@ -10,9 +10,16 @@
  *
  * Like the vs/ hero, this is an educational landing page, so the visible
  * marketing line IS the <h1> for SEO (target: "start a metal roofing /
- * rollforming business"). Dark band matches the category-page family. A
- * jobsite photo sits beside the text on desktop and below it on mobile,
- * so a first-timer sees the work before reading about it.
+ * rollforming business"). Dark band with the shared dot-grid backdrop
+ * (pattern-dot-grid--dark, the same one hero-category uses) so it reads
+ * as part of the category-page family. A jobsite photo sits beside the
+ * text on desktop and below it on mobile, so a first-timer sees the work
+ * before reading about it.
+ *
+ * We reuse the dot-grid pattern, not the whole hero-category part: that
+ * part renders an sr-only <h1> + an <h2> headline, but this page needs
+ * the marketing line to be the real <h1>, and it has no video slot to
+ * fill. Reusing the two pattern classes gets the look without the cost.
  *
  * @package Standard
  *
@@ -29,7 +36,7 @@ $hero_image = content_url('/uploads/2026/05/ntm-customer-onsite-002.jpg');
 $hero_alt   = __('An NTM owner running a portable rollforming machine on a jobsite', 'standard');
 ?>
 
-<section class="relative overflow-hidden bg-blue-900 text-white" aria-labelledby="start-here-title">
+<section class="relative overflow-hidden bg-blue-900 text-white pattern-dot-grid pattern-dot-grid--dark" aria-labelledby="start-here-title">
     <div class="container py-16 md:py-20 lg:py-24">
         <div class="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
 
@@ -50,25 +57,30 @@ $hero_alt   = __('An NTM owner running a portable rollforming machine on a jobsi
                     <?php esc_html_e('A portable rollformer turns flat coil into finished metal roofing panels and seamless gutters right on the jobsite. That is a real, ownable business: you make the product, you keep the margin, and you do not wait on a supplier. Here is what it takes to start, and where to go next.', 'standard'); ?>
                 </p>
 
-                <div class="mt-2 flex flex-col gap-4 sm:flex-row">
+                <div class="mt-2">
                     <a href="#which-path" class="btn btn-primary">
                         <?php esc_html_e('See if this is for you', 'standard'); ?>
                         <?php icon('arrow-down', ['class' => 'w-5 h-5']); ?>
-                    </a>
-                    <a href="<?php echo esc_url(\Standard\Url\internal('/contact/')); ?>" class="btn btn-outline-light">
-                        <?php esc_html_e('Talk to a specialist', 'standard'); ?>
                     </a>
                 </div>
 
             </div>
 
-            <div class="relative aspect-[4/3] overflow-hidden border border-white/10 bg-blue-800 lg:aspect-[5/4]">
+            <div class="relative aspect-video overflow-hidden border border-white/10 bg-blue-800">
                 <?php
                 \Standard\Images\responsive_image(
                     $hero_image,
                     $hero_alt,
                     'large',
-                    ['class' => 'h-full w-full object-cover']
+                    [
+                        // Above-the-fold LCP candidate: load it eagerly and
+                        // hint high priority so it isn't deferred behind
+                        // lazy assets. (responsive_image defaults to lazy.)
+                        'class'         => 'h-full w-full object-cover',
+                        'loading'       => 'eager',
+                        'fetchpriority' => 'high',
+                        'decoding'      => 'async',
+                    ]
                 );
                 ?>
             </div>

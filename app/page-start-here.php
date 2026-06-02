@@ -7,9 +7,10 @@
  * is new to the industry and weighing whether to start a business making
  * metal roofing panels or seamless gutters with a portable rollformer.
  *
- * The page sells the opportunity (hero, the business case, what the work
- * looks like), then routes the reader into the right lane (learn the
- * trade, see if it fits, choose a machine, or handle the money). It
+ * The page sells the opportunity (hero, the business case, owner voices,
+ * what the work looks like), then routes the reader into the right lane
+ * (learn the trade, see if it fits, choose a machine, or handle the
+ * money). It
  * deliberately sells the opportunity and hands the money mechanics off to
  * How Buying Works and Financing, rather than restating prices here.
  *
@@ -34,6 +35,8 @@ get_header();
     <?php get_template_part('templates/pages/start-here/hero'); ?>
 
     <?php get_template_part('templates/pages/start-here/the-case'); ?>
+
+    <?php get_template_part('templates/pages/start-here/owner-voices'); ?>
 
     <?php get_template_part('templates/pages/start-here/the-day'); ?>
 
