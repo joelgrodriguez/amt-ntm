@@ -63,14 +63,14 @@ $groups = [
                     <h3 class="font-mono text-xs uppercase tracking-mono-label text-blue-600">
                         <?php echo wp_kses_post($group['heading']); ?>
                     </h3>
-                    <ul class="grid gap-4">
+                    <ul class="grid gap-1">
                         <?php foreach ($group['links'] as $link) :
                             $href = !empty($link['url']) ? $link['url'] : '/' . $link['slug'] . '/';
                         ?>
                             <li>
                                 <a
                                     href="<?php echo esc_url(\Standard\Url\internal($href)); ?>"
-                                    class="group flex items-start gap-3 text-base text-blue-700 transition-colors hover:text-blue-500"
+                                    class="group flex min-h-11 items-start gap-3 py-2 text-base text-blue-700 transition-colors hover:text-blue-500"
                                 >
                                     <span class="mt-1 shrink-0 text-blue-400 transition-colors group-hover:text-blue-500" aria-hidden="true">
                                         <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>

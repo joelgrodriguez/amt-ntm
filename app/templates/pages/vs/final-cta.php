@@ -26,6 +26,6 @@ get_template_part('templates/parts/cta/closer', null, [
     'text'              => __('Tell us about the work you do and the customers you serve, and an NTM specialist will point you to the right machine. No pressure, no obligation.', 'standard'),
     'cta_primary'       => __('Talk to a Specialist', 'standard'),
     'cta_primary_url'   => '/contact/',
-    'cta_secondary'     => __('Take the Machine Quiz', 'standard'),
+    'cta_secondary'     => __('Take the machine quiz', 'standard'),
     'cta_secondary_url' => '/choose-your-machine/',
 ]);

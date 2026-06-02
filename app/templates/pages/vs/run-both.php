@@ -39,7 +39,7 @@ if (!defined('ABSPATH')) {
                     <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                 </a>
                 <a href="<?php echo esc_url(\Standard\Url\internal('/choose-your-machine/')); ?>" class="btn btn-outline-dark justify-center">
-                    <?php esc_html_e('Help me choose', 'standard'); ?>
+                    <?php esc_html_e('Take the machine quiz', 'standard'); ?>
                 </a>
             </div>
 
