@@ -28,7 +28,7 @@ $lanes = [
     [
         'eyebrow'   => __('Lane A', 'standard'),
         'title'     => __('Roof &amp; Wall Panel Machines', 'standard'),
-        'makes'     => __('Form the long metal panels that become the roof and the walls: standing seam roofing, flush wall, and board &amp; batten siding. Coil goes in one end, a finished panel comes out the other, cut to length on the jobsite.', 'standard'),
+        'makes'     => __('Form the long metal panels that become the roof and the walls: standing seam roofing (the raised, interlocking vertical ribs you see on modern metal roofs), flush wall, and board &amp; batten siding. Coil goes in one end, a finished panel comes out the other, cut to length on the jobsite.', 'standard'),
         'for'       => __('Roofers, metal panel installers, and exterior contractors who want to stop buying panels from a supplier and start fabricating their own.', 'standard'),
         'makes_list' => [
             __('Standing seam metal roof panels', 'standard'),
@@ -44,7 +44,7 @@ $lanes = [
     [
         'eyebrow'   => __('Lane B', 'standard'),
         'title'     => __('Seamless Gutter Machines', 'standard'),
-        'makes'     => __('Form one continuous, seamless gutter in the exact length the job needs, with no joints to leak. K-style and box-gutter profiles, run straight from coil right at the curb.', 'standard'),
+        'makes'     => __('Form one continuous, seamless gutter in the exact length the job needs, with no joints to leak. K-style (the common ogee profile that looks like crown molding from the curb) and box-gutter profiles, run straight from coil right at the jobsite.', 'standard'),
         'for'       => __('Gutter contractors, exterior crews, and roofers adding a gutter line. Lower entry cost makes it a common first machine.', 'standard'),
         'makes_list' => [
             __('Seamless K-style gutters (5&Prime;, 6&Prime;)', 'standard'),
