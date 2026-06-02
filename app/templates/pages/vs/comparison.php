@@ -59,8 +59,8 @@ $rows = [
     [
         'label'  => __('NTM machines', 'standard'),
         'values' => [
-            __('SSQ3™, SSH™, SSR™, 5V Crimp, WAV™', 'standard'),
-            __('MACH II™ 5&Prime; / 6&Prime; / Combo, BG7', 'standard'),
+            __('SSQ3™ · SSH™ · SSR™ · 5V Crimp · WAV™', 'standard'),
+            __('MACH II™ 5&Prime; · 6&Prime; · Combo · BG7', 'standard'),
         ],
     ],
     [
@@ -87,7 +87,7 @@ $rows = [
             <h2 id="vs-comparison-title" class="section-title m-0">
                 <?php esc_html_e('The Two Families, Side by Side', 'standard'); ?>
             </h2>
-            <p class="font-mono text-xs uppercase tracking-[0.18em] text-blue-500 m-0">
+            <p class="font-mono text-xs uppercase tracking-[0.18em] text-blue-600 m-0">
                 <?php esc_html_e('At a glance', 'standard'); ?>
             </p>
         </div>
@@ -98,11 +98,11 @@ $rows = [
             </caption>
             <thead>
                 <tr>
-                    <th class="w-32 border-r border-blue-700 bg-blue-800 px-3 py-4 text-left align-bottom text-xs font-medium uppercase tracking-mono-meta text-blue-200 sm:w-44 sm:px-4">
+                    <th class="w-24 border-r border-blue-700 bg-blue-800 px-3 py-4 text-left align-bottom text-xs font-medium uppercase tracking-mono-meta text-blue-200 sm:w-44 sm:px-4">
                         <?php esc_html_e('Compare', 'standard'); ?>
                     </th>
                     <?php foreach ($columns as $i => $col) : ?>
-                        <th class="border-blue-700 bg-blue-800 px-3 py-4 text-left align-bottom font-medium text-white sm:px-4 <?php echo $i === 0 ? 'border-r' : ''; ?>">
+                        <th scope="col" class="border-blue-700 bg-blue-800 px-3 py-4 text-left align-bottom font-medium text-white sm:px-4 <?php echo $i === 0 ? 'border-r' : ''; ?>">
                             <a href="<?php echo esc_url(\Standard\Url\internal($col['url'])); ?>" class="text-white no-underline transition-colors hover:text-blue-200">
                                 <?php echo wp_kses_post($col['label']); ?>
                             </a>
@@ -113,7 +113,7 @@ $rows = [
             <tbody>
                 <?php foreach ($rows as $row) : ?>
                     <tr class="border-t border-blue-200">
-                        <th scope="row" class="border-r border-blue-200 bg-white px-3 py-4 text-left align-top font-mono text-[11px] uppercase tracking-mono-meta text-blue-500 sm:px-4">
+                        <th scope="row" class="border-r border-blue-200 bg-white px-3 py-4 text-left align-top font-mono text-[11px] uppercase tracking-normal text-blue-500 sm:tracking-mono-meta sm:px-4">
                             <?php echo wp_kses_post($row['label']); ?>
                         </th>
                         <?php foreach ($row['values'] as $i => $value) : ?>
@@ -127,7 +127,17 @@ $rows = [
                     <td class="border-r border-blue-200 bg-white px-3 py-4 sm:px-4"></td>
                     <?php foreach ($columns as $i => $col) : ?>
                         <td class="px-3 py-4 align-top sm:px-4 <?php echo $i === 0 ? 'border-r border-blue-200' : ''; ?>">
-                            <a href="<?php echo esc_url(\Standard\Url\internal($col['url'])); ?>" class="btn btn-outline-dark btn-sm">
+                            <?php
+                            // Disambiguate for screen readers: every CTA reads
+                            // "Explore" otherwise. Decode entities (&amp;, &Prime;)
+                            // to plain text for the accessible name.
+                            $family = html_entity_decode(wp_strip_all_tags($col['label']), ENT_QUOTES, 'UTF-8');
+                            ?>
+                            <a
+                                href="<?php echo esc_url(\Standard\Url\internal($col['url'])); ?>"
+                                class="btn btn-outline-dark w-full justify-center"
+                                aria-label="<?php echo esc_attr(sprintf(/* translators: %s: machine family name */ __('Explore %s machines', 'standard'), $family)); ?>"
+                            >
                                 <?php esc_html_e('Explore', 'standard'); ?>
                             </a>
                         </td>
