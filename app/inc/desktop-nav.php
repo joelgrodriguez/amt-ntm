@@ -189,10 +189,10 @@ function get_desktop_nav(): array {
                         ],
                     ],
                     [
-                        'label' => __('Explore', 'standard'),
+                        'label' => __('Start or grow your business', 'standard'),
                         'items' => [
                             [
-                                'label' => __('Start Here landing', 'standard'),
+                                'label' => __('Start a machine business', 'standard'),
                                 'url'   => \Standard\Url\internal('/start-here/'),
                             ],
                             [

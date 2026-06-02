@@ -1,9 +1,21 @@
 <?php
 /**
- * Template Name: NTM — Start Here (placeholder)
+ * Template Name: NTM — Start Here
  *
- * Placeholder template. Production content will be added in a later pass.
- * Part of the four-action IA rebuild — see docs/handoff/.
+ * The business-starting front door. Anchor page #1 of the four-action IA
+ * rebuild, reached from the mega menu's "Get started" flyout. The reader
+ * is new to the industry and weighing whether to start a business making
+ * metal roofing panels or seamless gutters with a portable rollformer.
+ *
+ * The page sells the opportunity (hero, the business case, what the work
+ * looks like), then routes the reader into the right lane (learn the
+ * trade, see if it fits, choose a machine, or handle the money). It
+ * deliberately sells the opportunity and hands the money mechanics off to
+ * How Buying Works and Financing, rather than restating prices here.
+ *
+ * Built from shared category-page grammar so it reads as the same company
+ * that built the pages it routes to. Educational, weighted toward SEO +
+ * AEO (one visible <h1>, FAQPage schema, curated internal links).
  *
  * @package Standard
  */
@@ -14,32 +26,25 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$page_slug  = 'start-here';
-$page_title = 'Start Here';
-
 get_header();
 ?>
 
-<main id="primary" class="site-main">
-    <section class="mx-auto max-w-3xl px-6 py-24 text-center">
-        <p class="mb-6 font-mono text-xs uppercase tracking-widest text-blue-400">
-            <?php esc_html_e('In development', 'standard'); ?>
-        </p>
-        <p class="mb-4 text-5xl leading-none" aria-hidden="true">🚧</p>
-        <h1 class="mb-6 text-4xl font-medium tracking-tight text-blue-900">
-            <?php echo esc_html($page_title); ?>
-        </h1>
-        <p class="text-lg text-blue-600">
-            <?php esc_html_e('This page is scaffolded but not yet built.', 'standard'); ?>
-        </p>
-        <p class="text-lg text-blue-600">
-            <?php esc_html_e('Production content will be added in a follow-up pass.', 'standard'); ?>
-        </p>
-        <p class="mt-8 font-mono text-xs text-blue-400">
-            <?php esc_html_e('Template:', 'standard'); ?> <code><?php echo esc_html(basename(__FILE__)); ?></code> ·
-            <?php esc_html_e('Slug:', 'standard'); ?> <code>/<?php echo esc_html($page_slug); ?>/</code>
-        </p>
-    </section>
+<main id="primary">
+
+    <?php get_template_part('templates/pages/start-here/hero'); ?>
+
+    <?php get_template_part('templates/pages/start-here/the-case'); ?>
+
+    <?php get_template_part('templates/pages/start-here/the-day'); ?>
+
+    <?php get_template_part('templates/pages/start-here/which-path'); ?>
+
+    <?php get_template_part('templates/pages/start-here/proof'); ?>
+
+    <?php get_template_part('templates/pages/start-here/faq'); ?>
+
+    <?php get_template_part('templates/pages/start-here/final-cta'); ?>
+
 </main>
 
 <?php

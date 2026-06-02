@@ -51,9 +51,9 @@ Each opens a mega flyout. Layout per flyout: a 4-column grid. Column 1 is an int
 - Profit calculator → `/portable-rollforming-profit-calculator/`
 - Portable vs factory panel suppliers → `/portable-rollforming-vs-factory-panel-suppliers/`
 
-**Group · Explore**
-- Anchor: **Start Here landing** → `/start-here/` **NEW**
-- Start or grow a roofing business → curated playlist (NEW URL or category page)
+**Group · Start or grow your business**
+- Anchor: **Start a machine business** → `/start-here/` **NEW**
+- First-time buyer playlist → `/first-time-buyer-playlist/`
 - Learning Center → `/learning-center/`
 
 ---

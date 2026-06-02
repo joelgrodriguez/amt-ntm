@@ -23,7 +23,7 @@ if (!defined('ABSPATH')) {
 $faqs = [
     [
         'question' => __('What is the difference between a roof panel machine and a gutter machine?', 'standard'),
-        'answer'   => __('A roof and wall panel machine forms the long metal panels that become a building’s roof and walls: standing seam roofing, flush wall, and board & batten siding. A seamless gutter machine forms one continuous gutter, with no joints, to drain that roof. They are different tools for different products. One makes the surface, the other makes the drainage. New Tech Machinery builds both.', 'standard'),
+        'answer'   => __('A roof and wall panel machine forms the long metal panels that become a building’s roof and walls, such as standing seam roofing, flush wall, and board & batten siding. A seamless gutter machine forms one continuous gutter, with no joints, to drain that roof. They are different tools for different products: one makes the surface, the other makes the drainage. New Tech Machinery builds both.', 'standard'),
     ],
     [
         'question' => __('Which machine do I need for standing seam metal roofing?', 'standard'),
