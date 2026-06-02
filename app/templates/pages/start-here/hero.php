@@ -10,9 +10,16 @@
  *
  * Like the vs/ hero, this is an educational landing page, so the visible
  * marketing line IS the <h1> for SEO (target: "start a metal roofing /
- * rollforming business"). Dark band matches the category-page family. A
- * jobsite photo sits beside the text on desktop and below it on mobile,
- * so a first-timer sees the work before reading about it.
+ * rollforming business"). Dark band with the shared dot-grid backdrop
+ * (pattern-dot-grid--dark, the same one hero-category uses) so it reads
+ * as part of the category-page family. A jobsite photo sits beside the
+ * text on desktop and below it on mobile, so a first-timer sees the work
+ * before reading about it.
+ *
+ * We reuse the dot-grid pattern, not the whole hero-category part: that
+ * part renders an sr-only <h1> + an <h2> headline, but this page needs
+ * the marketing line to be the real <h1>, and it has no video slot to
+ * fill. Reusing the two pattern classes gets the look without the cost.
  *
  * @package Standard
  *
@@ -29,7 +36,7 @@ $hero_image = content_url('/uploads/2026/05/ntm-customer-onsite-002.jpg');
 $hero_alt   = __('An NTM owner running a portable rollforming machine on a jobsite', 'standard');
 ?>
 
-<section class="relative overflow-hidden bg-blue-900 text-white" aria-labelledby="start-here-title">
+<section class="relative overflow-hidden bg-blue-900 text-white pattern-dot-grid pattern-dot-grid--dark" aria-labelledby="start-here-title">
     <div class="container py-16 md:py-20 lg:py-24">
         <div class="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
 
