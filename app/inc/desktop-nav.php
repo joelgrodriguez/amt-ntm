@@ -192,7 +192,7 @@ function get_desktop_nav(): array {
                         'label' => __('Start or grow your business', 'standard'),
                         'items' => [
                             [
-                                'label' => __('Start a machine business', 'standard'),
+                                'label' => __('Start your rollforming business', 'standard'),
                                 'url'   => \Standard\Url\internal('/start-here/'),
                             ],
                             [

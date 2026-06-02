@@ -52,7 +52,7 @@ Each opens a mega flyout. Layout per flyout: a 4-column grid. Column 1 is an int
 - Portable vs factory panel suppliers → `/portable-rollforming-vs-factory-panel-suppliers/`
 
 **Group · Start or grow your business**
-- Anchor: **Start a machine business** → `/start-here/` **NEW**
+- Anchor: **Start your rollforming business** → `/start-here/` **NEW**
 - First-time buyer playlist → `/first-time-buyer-playlist/`
 - Learning Center → `/learning-center/`
 
