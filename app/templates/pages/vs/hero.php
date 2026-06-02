@@ -22,8 +22,8 @@ if (!defined('ABSPATH')) {
 }
 ?>
 
-<section class="relative overflow-hidden bg-blue-900 text-white" aria-labelledby="vs-hero-title">
-    <div class="container py-16 md:py-20 lg:py-24">
+<section class="relative overflow-hidden bg-blue-900 text-white pattern-dot-grid pattern-dot-grid--dark" aria-labelledby="vs-hero-title">
+    <div class="relative container py-16 md:py-20 lg:py-24">
         <div class="mx-auto grid max-w-3xl gap-6 text-center lg:gap-8">
 
             <p class="font-mono text-xs uppercase tracking-mono-label text-blue-300">
@@ -52,5 +52,23 @@ if (!defined('ABSPATH')) {
             </div>
 
         </div>
+
+        <figure class="mx-auto mt-12 max-w-5xl lg:mt-16">
+            <div class="aspect-video overflow-hidden border border-blue-700 bg-blue-800">
+                <img
+                    src="<?php echo esc_url(content_url('/uploads/2026/05/ntm-standing-seam-roof-016.jpg')); ?>"
+                    alt="<?php echo esc_attr__('A standing seam metal roof and seamless gutter on a finished home, both formed on site with NTM portable rollformers', 'standard'); ?>"
+                    class="h-full w-full object-cover"
+                    width="2560"
+                    height="1439"
+                    loading="eager"
+                    fetchpriority="high"
+                    decoding="async"
+                >
+            </div>
+            <figcaption class="mt-3 text-center font-mono text-xs uppercase tracking-mono-meta text-blue-400">
+                <?php esc_html_e('Roof panels and gutters, both formed on the jobsite', 'standard'); ?>
+            </figcaption>
+        </figure>
     </div>
 </section>
