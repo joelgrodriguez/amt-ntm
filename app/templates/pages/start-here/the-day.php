@@ -50,22 +50,22 @@ $steps = [
 ];
 ?>
 
-<section class="section bg-blue-50" aria-labelledby="start-here-day-title">
+<section class="section bg-blue-900 text-white" aria-labelledby="start-here-day-title">
     <div class="container section-content">
 
         <div class="section-header-left max-w-2xl">
-            <h2 id="start-here-day-title" class="section-title">
+            <h2 id="start-here-day-title" class="section-title text-white">
                 <?php esc_html_e('From Coil to Cash, on the Jobsite', 'standard'); ?>
             </h2>
-            <p class="section-subtitle text-pretty">
+            <p class="section-subtitle text-blue-200 text-pretty">
                 <?php esc_html_e('Three steps, start to finish. This is the whole job, from raw metal to a paid invoice.', 'standard'); ?>
             </p>
         </div>
 
         <ol class="sh-reveal-row grid gap-8 md:grid-cols-3 lg:gap-10" role="list">
             <?php foreach ($steps as $idx => $step) : ?>
-                <li class="sh-reveal flex flex-col border border-blue-200 bg-white" data-reveal>
-                    <div class="aspect-video overflow-hidden bg-blue-100">
+                <li class="sh-reveal flex flex-col border border-blue-800 bg-blue-800" data-reveal>
+                    <div class="aspect-video overflow-hidden bg-blue-900">
                         <?php
                         \Standard\Images\responsive_image(
                             $step['image'],
@@ -76,15 +76,15 @@ $steps = [
                         ?>
                     </div>
                     <div class="grid gap-3 p-6 lg:p-8">
-                        <div class="flex items-center gap-3 font-mono text-xs uppercase tracking-wider text-blue-500">
+                        <div class="flex items-center gap-3 font-mono text-xs uppercase tracking-wider text-blue-300">
                             <span><?php echo esc_html(sprintf('%02d', $idx + 1)); ?></span>
-                            <span class="h-px w-6 bg-blue-300" aria-hidden="true"></span>
+                            <span class="h-px w-6 bg-blue-600" aria-hidden="true"></span>
                             <span><?php echo wp_kses_post($step['label']); ?></span>
                         </div>
-                        <h3 class="font-sans text-xl font-medium tracking-tight text-blue-900">
+                        <h3 class="font-sans text-xl font-medium tracking-tight text-white">
                             <?php echo esc_html($step['title']); ?>
                         </h3>
-                        <p class="text-base text-blue-600 text-pretty">
+                        <p class="text-base text-blue-200 text-pretty">
                             <?php echo esc_html($step['text']); ?>
                         </p>
                     </div>
