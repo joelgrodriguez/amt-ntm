@@ -50,7 +50,7 @@ $groups = [
     <div class="container section-content">
 
         <div class="section-header-left max-w-2xl">
-            <p class="section-eyebrow"><?php esc_html_e('Keep reading', 'standard'); ?></p>
+            <p class="section-eyebrow text-blue-600"><?php esc_html_e('Keep reading', 'standard'); ?></p>
             <div class="section-divider"></div>
             <h2 id="vs-keep-reading-title" class="section-title">
                 <?php esc_html_e('Go Deeper on Either Machine', 'standard'); ?>
@@ -60,7 +60,7 @@ $groups = [
         <div class="grid gap-px border border-blue-200 bg-blue-200 md:grid-cols-3">
             <?php foreach ($groups as $group) : ?>
                 <div class="flex flex-col gap-5 bg-blue-50 p-6 lg:p-8">
-                    <h3 class="font-mono text-xs uppercase tracking-mono-label text-blue-500">
+                    <h3 class="font-mono text-xs uppercase tracking-mono-label text-blue-600">
                         <?php echo wp_kses_post($group['heading']); ?>
                     </h3>
                     <ul class="grid gap-4">

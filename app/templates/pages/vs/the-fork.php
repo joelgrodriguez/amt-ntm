@@ -74,7 +74,7 @@ $lanes = [
             </p>
         </div>
 
-        <div class="grid border border-blue-200 stagger md:grid-cols-2">
+        <div class="grid border border-blue-200 md:grid-cols-2">
             <?php foreach ($lanes as $i => $lane) :
                 // Left/top panel gets no divider; the right/bottom panel
                 // carries the single hairline so the two never double-fence.
@@ -86,7 +86,7 @@ $lanes = [
                         <p class="font-mono text-xs uppercase tracking-mono-label text-blue-500">
                             <?php echo esc_html($lane['eyebrow']); ?>
                         </p>
-                        <h3 class="font-sans text-2xl font-medium tracking-tight text-blue-900 lg:text-3xl">
+                        <h3 class="font-sans text-2xl font-medium tracking-tight text-balance text-blue-900 lg:text-3xl">
                             <?php echo wp_kses($lane['title'], ['br' => []]); ?>
                         </h3>
                     </div>
