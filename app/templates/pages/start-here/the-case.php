@@ -41,60 +41,22 @@ $ledger = [
         'url'      => '/learning-center/cost-and-what-to-know-starting-a-business-with-a-portable-gutter-machine/',
     ],
     [
-        'stat'     => __('1,000%', 'standard'),
-        'label'    => __('Business growth reported by owners', 'standard'),
-        'context'  => __('The number owners themselves report after going independent. One contractor built an entire metals business on the back of it.', 'standard'),
+        'stat'     => __('1 machine', 'standard'),
+        'label'    => __('Is enough to start, then grow on', 'standard'),
+        'context'  => __('Classic Metals started on a single NTM machine and built an entire metals business from it. Owners who go independent regularly report multiplying their volume once the panel work comes in-house.', 'standard'),
         'link'     => __('Read how Classic Metals did it', 'standard'),
         'url'      => '/learning-center/classic-metals-inc-how-to-build-a-metals-business/',
     ],
 ];
 ?>
 
-<section class="section" aria-labelledby="start-here-case-title">
+<section id="the-case" class="section scroll-mt-24" aria-labelledby="start-here-case-title">
     <div class="container section-content">
 
-        <div class="section-header-left max-w-2xl">
-            <p class="section-eyebrow"><?php esc_html_e('The business case', 'standard'); ?></p>
-            <div class="section-divider"></div>
-            <h2 id="start-here-case-title" class="section-title">
-                <?php esc_html_e('The Numbers a First Machine Has to Beat', 'standard'); ?>
-            </h2>
-            <p class="section-subtitle text-pretty">
-                <?php esc_html_e('You are not buying a tool, you are buying a margin. These are the figures NTM owners report, and the work that backs each one up.', 'standard'); ?>
-            </p>
-        </div>
+        <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
 
-        <div class="grid gap-10 lg:grid-cols-[1.6fr_1fr] lg:items-start lg:gap-16">
-
-            <dl class="grid border-t border-blue-200">
-                <?php foreach ($ledger as $row) : ?>
-                    <div class="grid gap-3 border-b border-blue-200 py-8 md:grid-cols-[auto_1fr] md:items-baseline md:gap-10">
-                        <dt class="font-mono text-3xl font-medium tracking-tight text-blue-900 md:text-4xl">
-                            <?php echo esc_html($row['stat']); ?>
-                        </dt>
-                        <dd class="grid gap-3 md:max-w-prose">
-                            <p class="font-mono text-[10px] uppercase tracking-mono-meta text-blue-400">
-                                <?php echo esc_html($row['label']); ?>
-                            </p>
-                            <p class="text-base text-blue-600 text-pretty lg:text-lg">
-                                <?php echo esc_html($row['context']); ?>
-                            </p>
-                            <a
-                                href="<?php echo esc_url(\Standard\Url\internal($row['url'])); ?>"
-                                class="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-mono-label text-blue-500 transition-colors hover:text-blue-700"
-                            >
-                                <?php echo esc_html($row['link']); ?>
-                                <span class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">
-                                    <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
-                                </span>
-                            </a>
-                        </dd>
-                    </div>
-                <?php endforeach; ?>
-            </dl>
-
-            <figure class="grid gap-3 lg:sticky lg:top-24">
-                <div class="aspect-[4/3] overflow-hidden border border-blue-200 bg-blue-100">
+            <figure class="grid gap-3">
+                <div class="aspect-video overflow-hidden border border-blue-200 bg-blue-100">
                     <?php
                     \Standard\Images\responsive_image(
                         content_url('/uploads/2026/01/JIm-and-family-with-SSQ.jpg'),
@@ -109,7 +71,45 @@ $ledger = [
                 </figcaption>
             </figure>
 
+            <div class="section-header-left max-w-xl">
+                <p class="section-eyebrow"><?php esc_html_e('The business case', 'standard'); ?></p>
+                <div class="section-divider"></div>
+                <h2 id="start-here-case-title" class="section-title">
+                    <?php esc_html_e('The Numbers a First Machine Has to Beat', 'standard'); ?>
+                </h2>
+                <p class="section-subtitle text-pretty">
+                    <?php esc_html_e('You are not buying a tool, you are buying a margin. These are the figures NTM owners report, and the work that backs each one up.', 'standard'); ?>
+                </p>
+            </div>
+
         </div>
+
+        <dl class="grid gap-px border border-blue-200 bg-blue-200 md:grid-cols-3">
+            <?php foreach ($ledger as $row) : ?>
+                <div class="flex flex-col gap-3 bg-white p-6 lg:p-8">
+                    <dt class="font-mono text-3xl font-medium tracking-tight text-blue-900 lg:text-4xl">
+                        <?php echo esc_html($row['stat']); ?>
+                    </dt>
+                    <dd class="flex flex-1 flex-col gap-3">
+                        <p class="font-mono text-[10px] uppercase tracking-mono-meta text-blue-400">
+                            <?php echo esc_html($row['label']); ?>
+                        </p>
+                        <p class="text-base text-blue-600 text-pretty">
+                            <?php echo esc_html($row['context']); ?>
+                        </p>
+                        <a
+                            href="<?php echo esc_url(\Standard\Url\internal($row['url'])); ?>"
+                            class="group mt-auto inline-flex min-h-11 items-center gap-2 font-mono text-xs uppercase tracking-mono-label text-blue-500 transition-colors hover:text-blue-700"
+                        >
+                            <?php echo esc_html($row['link']); ?>
+                            <span class="transition-transform group-hover:translate-x-0.5" aria-hidden="true">
+                                <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                            </span>
+                        </a>
+                    </dd>
+                </div>
+            <?php endforeach; ?>
+        </dl>
 
     </div>
 </section>

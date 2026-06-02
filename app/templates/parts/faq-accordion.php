@@ -32,6 +32,10 @@ $image_alt    = $args['image_alt'] ?? __('NTM machine being lifted onto a roofto
 // explicitly opts in.
 $image_aspect = $args['image_aspect'] ?? 'video';
 $is_fill      = $image_aspect === 'fill';
+// Section background. Defaults to the established blue-50 surface; a
+// caller can pass 'bg-white' (or another token class) to sit the FAQ on
+// a different band when the page's rhythm calls for it.
+$bg           = $args['bg'] ?? 'bg-blue-50';
 
 if (empty($content) || empty($faqs)) {
     return;
@@ -56,7 +60,7 @@ $faq_schema = [
 <?php echo wp_json_encode($faq_schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?>
 </script>
 
-<section class="section bg-blue-50" aria-labelledby="<?php echo esc_attr($section_id); ?>">
+<section class="section <?php echo esc_attr($bg); ?>" aria-labelledby="<?php echo esc_attr($section_id); ?>">
     <div class="container section-content">
         <div class="section-header-left">
             <?php if (!empty($content['eyebrow'])) : ?>

@@ -128,12 +128,10 @@ $lanes = [
                         <?php echo esc_html($lane['fit']); ?>
                     </p>
 
-                    <ul class="grid gap-2">
+                    <ul class="grid gap-2 border-t border-blue-200 pt-4">
                         <?php foreach ($lane['points'] as $point) : ?>
-                            <li class="flex items-start gap-2 text-sm text-blue-700">
-                                <span class="mt-0.5 shrink-0 text-blue-500" aria-hidden="true">
-                                    <?php icon('check', ['class' => 'w-4 h-4']); ?>
-                                </span>
+                            <li class="flex items-start gap-3 text-sm text-blue-700">
+                                <span class="mt-2 h-px w-3 shrink-0 bg-blue-400" aria-hidden="true"></span>
                                 <span><?php echo wp_kses_post($point); ?></span>
                             </li>
                         <?php endforeach; ?>
@@ -147,15 +145,21 @@ $lanes = [
                             <?php echo esc_html($lane['cta']); ?>
                             <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                         </a>
-                        <?php foreach ($lane['links'] as $link) : ?>
-                            <a
-                                href="<?php echo esc_url(\Standard\Url\internal($link['url'])); ?>"
-                                class="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-mono-label text-blue-500 transition-colors hover:text-blue-700"
-                            >
-                                <?php echo wp_kses_post($link['label']); ?>
-                                <?php icon('arrow-right', ['class' => 'w-3.5 h-3.5']); ?>
-                            </a>
-                        <?php endforeach; ?>
+                        <?php
+                        // Only the route-out (money) lane keeps a secondary
+                        // link; the three in-funnel lanes read as four clean
+                        // choices, with the primary CTA carrying the intent.
+                        if ($is_out) :
+                            foreach ($lane['links'] as $link) : ?>
+                                <a
+                                    href="<?php echo esc_url(\Standard\Url\internal($link['url'])); ?>"
+                                    class="inline-flex min-h-11 items-center gap-1.5 font-mono text-[11px] uppercase tracking-mono-label text-blue-500 transition-colors hover:text-blue-700"
+                                >
+                                    <?php echo wp_kses_post($link['label']); ?>
+                                    <?php icon('arrow-right', ['class' => 'w-3.5 h-3.5']); ?>
+                                </a>
+                            <?php endforeach;
+                        endif; ?>
                     </div>
 
                 </div>

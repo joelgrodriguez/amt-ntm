@@ -27,18 +27,21 @@ if (!defined('ABSPATH')) {
 // bring coil, roll the panel, install and bill.
 $steps = [
     [
+        'label' => __('Source', 'standard'),
         'title' => __('Bring the coil to the job', 'standard'),
         'text'  => __('You buy flat metal coil by the pound, far cheaper than finished panels, and haul it to the site on a trailer. No factory, no warehouse, no waiting on a supplier’s lead time.', 'standard'),
         'image' => content_url('/uploads/2026/01/20260106_NTM_Problems-With-Metal-Coil-Checking-For-Defects_Thumbnail-V2.jpg'),
         'alt'   => __('A contractor inspecting a roll of flat metal coil before feeding it into the machine', 'standard'),
     ],
     [
+        'label' => __('Roll', 'standard'),
         'title' => __('Roll the exact panels you need', 'standard'),
         'text'  => __('The machine forms each panel to length on the spot, only what the job calls for. Training comes with the machine, so you are running real panels within days, not months.', 'standard'),
         'image' => content_url('/uploads/2026/02/Machine-on-rooftop.jpg'),
         'alt'   => __('An NTM portable rollforming machine producing metal panels on a rooftop jobsite', 'standard'),
     ],
     [
+        'label' => __('Install &amp; bill', 'standard'),
         'title' => __('Install it and get paid', 'standard'),
         'text'  => __('You install the panels or gutters you just made and bill for the finished work. The margin that used to go to a panel supplier stays in your pocket on every job.', 'standard'),
         'image' => content_url('/uploads/2026/05/ntm-mach2-gutter-install-abel-001.jpg'),
@@ -51,8 +54,6 @@ $steps = [
     <div class="container section-content">
 
         <div class="section-header-left max-w-2xl">
-            <p class="section-eyebrow"><?php esc_html_e('What the work looks like', 'standard'); ?></p>
-            <div class="section-divider"></div>
             <h2 id="start-here-day-title" class="section-title">
                 <?php esc_html_e('From Coil to Cash, on the Jobsite', 'standard'); ?>
             </h2>
@@ -64,7 +65,7 @@ $steps = [
         <ol class="sh-reveal-row grid gap-8 md:grid-cols-3 lg:gap-10" role="list">
             <?php foreach ($steps as $idx => $step) : ?>
                 <li class="sh-reveal flex flex-col border border-blue-200 bg-white" data-reveal>
-                    <div class="relative aspect-[4/3] overflow-hidden bg-blue-100">
+                    <div class="aspect-video overflow-hidden bg-blue-100">
                         <?php
                         \Standard\Images\responsive_image(
                             $step['image'],
@@ -73,11 +74,13 @@ $steps = [
                             ['class' => 'h-full w-full object-cover']
                         );
                         ?>
-                        <span class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center bg-blue-900 font-mono text-sm font-medium text-white" aria-hidden="true">
-                            <?php echo esc_html(sprintf('%02d', $idx + 1)); ?>
-                        </span>
                     </div>
                     <div class="grid gap-3 p-6 lg:p-8">
+                        <div class="flex items-center gap-3 font-mono text-xs uppercase tracking-wider text-blue-500">
+                            <span><?php echo esc_html(sprintf('%02d', $idx + 1)); ?></span>
+                            <span class="h-px w-6 bg-blue-300" aria-hidden="true"></span>
+                            <span><?php echo wp_kses_post($step['label']); ?></span>
+                        </div>
                         <h3 class="font-sans text-xl font-medium tracking-tight text-blue-900">
                             <?php echo esc_html($step['title']); ?>
                         </h3>
