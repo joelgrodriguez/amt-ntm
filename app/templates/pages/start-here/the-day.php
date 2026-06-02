@@ -30,42 +30,42 @@ $steps = [
         'label' => __('Source', 'standard'),
         'title' => __('Bring the coil to the job', 'standard'),
         'text'  => __('You buy flat metal coil by the pound, far cheaper than finished panels, and haul it to the site on a trailer. No factory, no warehouse, no waiting on a supplier’s lead time.', 'standard'),
-        'image' => content_url('/uploads/2026/01/20260106_NTM_Problems-With-Metal-Coil-Checking-For-Defects_Thumbnail-V2.jpg'),
-        'alt'   => __('A contractor inspecting a roll of flat metal coil before feeding it into the machine', 'standard'),
+        'image' => content_url('/uploads/2024/10/lifting-coil.jpg'),
+        'alt'   => __('Coils of metal being lifted off a trailer at a jobsite', 'standard'),
     ],
     [
         'label' => __('Roll', 'standard'),
-        'title' => __('Roll the exact panels you need', 'standard'),
-        'text'  => __('The machine forms each panel to length on the spot, only what the job calls for. Training comes with the machine, so you are running real panels within days, not months.', 'standard'),
-        'image' => content_url('/uploads/2026/02/Machine-on-rooftop.jpg'),
-        'alt'   => __('An NTM portable rollforming machine producing metal panels on a rooftop jobsite', 'standard'),
+        'title' => __('Roll the exact panels or gutters you need', 'standard'),
+        'text'  => __('The machine forms each panel or gutter to length on the spot, only what the job calls for. Training comes with the machine, so you are running real product within days, not months.', 'standard'),
+        'image' => content_url('/uploads/2022/05/Person-shearing-gutter-on-MACH-II-machine.jpg'),
+        'alt'   => __('A crew running a seamless gutter off an NTM MACH II machine in a trailer', 'standard'),
     ],
     [
         'label' => __('Install &amp; bill', 'standard'),
         'title' => __('Install it and get paid', 'standard'),
         'text'  => __('You install the panels or gutters you just made and bill for the finished work. The margin that used to go to a panel supplier stays in your pocket on every job.', 'standard'),
-        'image' => content_url('/uploads/2026/05/ntm-mach2-gutter-install-abel-001.jpg'),
-        'alt'   => __('A crew installing a freshly formed seamless gutter run on a home', 'standard'),
+        'image' => content_url('/uploads/2023/04/Gutter-installation.jpg'),
+        'alt'   => __('A contractor installing a seamless gutter along a metal roof edge', 'standard'),
     ],
 ];
 ?>
 
-<section class="section bg-blue-50" aria-labelledby="start-here-day-title">
+<section class="section bg-blue-900 text-white" aria-labelledby="start-here-day-title">
     <div class="container section-content">
 
         <div class="section-header-left max-w-2xl">
-            <h2 id="start-here-day-title" class="section-title">
+            <h2 id="start-here-day-title" class="section-title text-white">
                 <?php esc_html_e('From Coil to Cash, on the Jobsite', 'standard'); ?>
             </h2>
-            <p class="section-subtitle text-pretty">
+            <p class="section-subtitle text-blue-200 text-pretty">
                 <?php esc_html_e('Three steps, start to finish. This is the whole job, from raw metal to a paid invoice.', 'standard'); ?>
             </p>
         </div>
 
         <ol class="sh-reveal-row grid gap-8 md:grid-cols-3 lg:gap-10" role="list">
             <?php foreach ($steps as $idx => $step) : ?>
-                <li class="sh-reveal flex flex-col border border-blue-200 bg-white" data-reveal>
-                    <div class="aspect-video overflow-hidden bg-blue-100">
+                <li class="sh-reveal flex flex-col border border-blue-800 bg-blue-800" data-reveal>
+                    <div class="aspect-video overflow-hidden bg-blue-900">
                         <?php
                         \Standard\Images\responsive_image(
                             $step['image'],
@@ -76,15 +76,15 @@ $steps = [
                         ?>
                     </div>
                     <div class="grid gap-3 p-6 lg:p-8">
-                        <div class="flex items-center gap-3 font-mono text-xs uppercase tracking-wider text-blue-500">
+                        <div class="flex items-center gap-3 font-mono text-xs uppercase tracking-wider text-blue-300">
                             <span><?php echo esc_html(sprintf('%02d', $idx + 1)); ?></span>
-                            <span class="h-px w-6 bg-blue-300" aria-hidden="true"></span>
+                            <span class="h-px w-6 bg-blue-600" aria-hidden="true"></span>
                             <span><?php echo wp_kses_post($step['label']); ?></span>
                         </div>
-                        <h3 class="font-sans text-xl font-medium tracking-tight text-blue-900">
+                        <h3 class="font-sans text-xl font-medium tracking-tight text-white">
                             <?php echo esc_html($step['title']); ?>
                         </h3>
-                        <p class="text-base text-blue-600 text-pretty">
+                        <p class="text-base text-blue-200 text-pretty">
                             <?php echo esc_html($step['text']); ?>
                         </p>
                     </div>
