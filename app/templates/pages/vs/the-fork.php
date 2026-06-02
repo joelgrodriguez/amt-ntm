@@ -40,6 +40,8 @@ $lanes = [
         'price_note' => __('SSR™ entry machine · up to 16 profiles', 'standard'),
         'url'       => '/roof-wall-panel-machines/',
         'cta'       => __('See roof &amp; wall machines', 'standard'),
+        'image'     => content_url('/uploads/2026/05/ntm-standing-seam-roof-016.jpg'),
+        'image_alt' => __('A finished standing seam metal roof formed from NTM panels', 'standard'),
     ],
     [
         'eyebrow'   => __('Lane B', 'standard'),
@@ -56,6 +58,8 @@ $lanes = [
         'price_note' => __('MACH II™ 5&Prime; · benchmark since 1994', 'standard'),
         'url'       => '/seamless-gutter-machines/',
         'cta'       => __('See seamless gutter machines', 'standard'),
+        'image'     => content_url('/uploads/2026/05/ntm-mach2-gutter-install-abel-001.jpg'),
+        'image_alt' => __('A seamless gutter run off an NTM MACH II machine going up on a jobsite', 'standard'),
     ],
 ];
 ?>
@@ -81,6 +85,17 @@ $lanes = [
                 $divider = $i === 1 ? 'border-t border-blue-200 md:border-t-0 md:border-l' : '';
             ?>
                 <div class="flex flex-col gap-6 p-6 md:p-8 lg:p-10 <?php echo esc_attr($divider); ?>">
+
+                    <div class="aspect-video overflow-hidden border border-blue-200 bg-blue-100">
+                        <?php
+                        \Standard\Images\responsive_image(
+                            $lane['image'],
+                            $lane['image_alt'],
+                            'large',
+                            ['class' => 'h-full w-full object-cover']
+                        );
+                        ?>
+                    </div>
 
                     <div class="grid gap-3">
                         <p class="font-mono text-xs uppercase tracking-mono-label text-blue-500">
