@@ -50,19 +50,16 @@ $hero_alt   = __('An NTM owner running a portable rollforming machine on a jobsi
                     <?php esc_html_e('A portable rollformer turns flat coil into finished metal roofing panels and seamless gutters right on the jobsite. That is a real, ownable business: you make the product, you keep the margin, and you do not wait on a supplier. Here is what it takes to start, and where to go next.', 'standard'); ?>
                 </p>
 
-                <div class="mt-2 flex flex-col gap-4 sm:flex-row">
+                <div class="mt-2">
                     <a href="#which-path" class="btn btn-primary">
                         <?php esc_html_e('See if this is for you', 'standard'); ?>
                         <?php icon('arrow-down', ['class' => 'w-5 h-5']); ?>
-                    </a>
-                    <a href="<?php echo esc_url(\Standard\Url\internal('/contact/')); ?>" class="btn btn-outline-light">
-                        <?php esc_html_e('Talk to a specialist', 'standard'); ?>
                     </a>
                 </div>
 
             </div>
 
-            <div class="relative aspect-[4/3] overflow-hidden border border-white/10 bg-blue-800 lg:aspect-[5/4]">
+            <div class="relative aspect-video overflow-hidden border border-white/10 bg-blue-800">
                 <?php
                 \Standard\Images\responsive_image(
                     $hero_image,
