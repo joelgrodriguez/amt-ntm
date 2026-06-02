@@ -49,6 +49,7 @@ $faqs = [
 
 get_template_part('templates/parts/faq-accordion', null, [
     'section_id' => 'start-here-faq-title',
+    'bg'         => 'bg-white',
     'content'    => [
         'eyebrow' => __('First-timer questions', 'standard'),
         'title'   => __('What New Owners Ask First', 'standard'),
