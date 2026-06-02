@@ -72,7 +72,15 @@ $hero_alt   = __('An NTM owner running a portable rollforming machine on a jobsi
                     $hero_image,
                     $hero_alt,
                     'large',
-                    ['class' => 'h-full w-full object-cover']
+                    [
+                        // Above-the-fold LCP candidate: load it eagerly and
+                        // hint high priority so it isn't deferred behind
+                        // lazy assets. (responsive_image defaults to lazy.)
+                        'class'         => 'h-full w-full object-cover',
+                        'loading'       => 'eager',
+                        'fetchpriority' => 'high',
+                        'decoding'      => 'async',
+                    ]
                 );
                 ?>
             </div>

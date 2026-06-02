@@ -1,0 +1,68 @@
+/**
+ * Start Here — page-scoped scroll reveal
+ *
+ * A restrained entrance for the two photo-led sections (the coil->roll->
+ * install steps and the owner-voice quotes). Built to be safe by
+ * construction: content is fully visible by default, and the hidden
+ * baseline only applies when JS is present (html.js, set pre-paint in
+ * header.php) AND motion is allowed. So crawlers, headless renders, and
+ * reduced-motion users always see the content; the reveal is pure
+ * enhancement, never a visibility gate.
+ *
+ * The shared ScrollReveal observer (initScrollReveal) adds .is-visible to
+ * each [data-reveal] element as it enters the viewport. Our sh-reveal
+ * rules are higher-specificity than the global .reveal (html.js .sh-reveal
+ * = 0,2,1 vs .reveal = 0,1,0), so they win even though the observer also
+ * stamps the global class on. Crucially, without JS the global .reveal is
+ * never added (it is JS-applied), so the element keeps only the literal
+ * sh-reveal class and our visible default holds. Each card/quote carries
+ * its own data-reveal, so a three-up row cascades as it scrolls in.
+ */
+
+@layer components {
+  /* Visible default. No JS / reduced motion => nothing hidden, ever. */
+  .sh-reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  html.js .sh-reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity var(--duration-slow, 500ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+      transform var(--duration-slow, 500ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+  }
+
+  html.js .sh-reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Fade-only variant: for the hairline-fenced quote row, where a Y
+     translate would briefly pull cells off the gap-px fence and flash the
+     grid background. Opacity alone keeps the fence intact. */
+  html.js .sh-reveal--fade {
+    transform: none;
+    transition: opacity var(--duration-slow, 500ms) var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+  }
+
+  html.js .sh-reveal--fade.is-visible {
+    transform: none;
+  }
+
+  /* Positional cascade: when a row of reveals enters together (desktop,
+     all in view at once), each settles a beat after the last. The delay
+     only takes effect on the .is-visible transition. Scoped to a row
+     container so it never leaks to single reveals. */
+  html.js .sh-reveal-row > .sh-reveal:nth-child(2) { transition-delay: 80ms; }
+  html.js .sh-reveal-row > .sh-reveal:nth-child(3) { transition-delay: 160ms; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html.js .sh-reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+}

@@ -65,9 +65,9 @@ $voices = [
             </h2>
         </div>
 
-        <ul class="grid gap-px border border-blue-800 bg-blue-800 md:grid-cols-3" role="list">
+        <ul class="sh-reveal-row grid gap-px border border-blue-800 bg-blue-800 md:grid-cols-3" role="list">
             <?php foreach ($voices as $voice) : ?>
-                <li>
+                <li class="sh-reveal sh-reveal--fade" data-reveal>
                     <blockquote class="flex h-full flex-col gap-6 bg-blue-900 p-6 lg:p-8">
                         <p class="font-sans text-lg text-blue-100 text-pretty lg:text-xl">
                             &ldquo;<?php echo esc_html($voice['quote']); ?>&rdquo;

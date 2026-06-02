@@ -116,7 +116,7 @@ $lanes = [
                 <div class="flex flex-col gap-5 p-6 md:p-8 lg:p-10 <?php echo esc_attr($surface); ?>">
 
                     <div class="grid gap-2">
-                        <p class="font-mono text-xs uppercase tracking-mono-label <?php echo $is_out ? 'text-blue-400' : 'text-blue-500'; ?>">
+                        <p class="font-mono text-xs uppercase tracking-mono-label text-blue-500">
                             <?php echo esc_html($lane['eyebrow']); ?>
                         </p>
                         <h3 class="font-sans text-xl font-medium tracking-tight text-balance text-blue-900 lg:text-2xl">

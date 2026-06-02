@@ -78,6 +78,7 @@
 @import "./pages/media.css";
 @import "./pages/learning-center.css";
 @import "./pages/roof-wall.css";
+@import "./pages/start-here.css";
 
 /* ── WooCommerce ───────────────────────────────────────────────────── */
 @import "./woo/product-card.css";
