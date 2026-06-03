@@ -70,10 +70,10 @@ $next_steps = [
                     </p>
                     <a
                         href="<?php echo esc_url(\Standard\Url\internal($step['url'])); ?>"
-                        class="group mt-auto inline-flex min-h-11 items-center gap-2 pt-2 font-mono text-sm uppercase tracking-mono-label text-blue-500 transition-colors hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                        class="group mt-auto inline-flex min-h-11 items-center gap-2 pt-2 font-mono text-sm uppercase tracking-mono-label text-blue-700 transition-colors hover:text-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                     >
                         <?php echo esc_html($step['cta']); ?>
-                        <?php icon('arrow-right', ['class' => 'w-4 h-4 transition-transform group-hover:translate-x-0.5']); ?>
+                        <?php icon('arrow-right', ['class' => 'w-4 h-4 transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0']); ?>
                     </a>
                 </div>
             <?php endforeach; ?>

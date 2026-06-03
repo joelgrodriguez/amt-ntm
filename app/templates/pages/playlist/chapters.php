@@ -97,13 +97,12 @@ $render_video_card = static function (int $id): void {
                 <img
                     src="<?php echo esc_url($thumb); ?>"
                     alt=""
-                    class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                    width="768" height="432"
+                    class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                     loading="lazy" decoding="async"
                 >
             <?php endif; ?>
             <span class="absolute inset-0 flex items-center justify-center" aria-hidden="true">
-                <span class="flex h-14 w-14 items-center justify-center rounded-full bg-blue-900/80 text-white backdrop-blur-sm transition-colors group-hover:bg-blue-500">
+                <span class="flex h-14 w-14 items-center justify-center rounded-full bg-blue-900/90 text-white ring-1 ring-white/25 backdrop-blur-sm transition-colors group-hover:bg-blue-500">
                     <?php icon('play', ['class' => 'w-6 h-6']); ?>
                 </span>
             </span>
@@ -122,12 +121,8 @@ $render_video_card = static function (int $id): void {
 };
 ?>
 
-<section class="section" aria-labelledby="playlist-chapters-title">
+<section class="section" aria-label="<?php esc_attr_e('The first-time buyer playlist, in order', 'standard'); ?>">
     <div class="container section-content">
-
-        <h2 id="playlist-chapters-title" class="sr-only">
-            <?php esc_html_e('The first-time buyer playlist, in order', 'standard'); ?>
-        </h2>
 
         <div class="grid gap-16 lg:gap-20">
             <?php foreach ($chapters as $i => $chapter) :
@@ -142,7 +137,11 @@ $render_video_card = static function (int $id): void {
                     continue;
                 }
             ?>
-                <div id="chapter-<?php echo esc_attr((string) $number); ?>" class="scroll-mt-24">
+                <section
+                    id="chapter-<?php echo esc_attr((string) $number); ?>"
+                    class="scroll-mt-24"
+                    aria-labelledby="chapter-<?php echo esc_attr((string) $number); ?>-title"
+                >
 
                     <div class="section-header-left mb-8 max-w-2xl lg:mb-10">
                         <p class="section-eyebrow">
@@ -152,9 +151,12 @@ $render_video_card = static function (int $id): void {
                             ?>
                         </p>
                         <div class="section-divider"></div>
-                        <h3 class="section-title">
+                        <h2
+                            id="chapter-<?php echo esc_attr((string) $number); ?>-title"
+                            class="font-sans text-2xl font-medium tracking-tight text-balance text-blue-900 lg:text-3xl"
+                        >
                             <?php echo esc_html($chapter['title']); ?>
-                        </h3>
+                        </h2>
                         <p class="section-subtitle text-pretty">
                             <?php echo esc_html($chapter['intro']); ?>
                         </p>
@@ -166,7 +168,7 @@ $render_video_card = static function (int $id): void {
                         } ?>
                     </div>
 
-                </div>
+                </section>
             <?php endforeach; ?>
         </div>
 
