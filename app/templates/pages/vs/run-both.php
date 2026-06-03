@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
 
 <section class="section" aria-labelledby="vs-run-both-title">
     <div class="container">
-        <div class="grid items-stretch gap-px border border-blue-200 bg-blue-200 md:grid-cols-2">
+        <div class="grid items-center gap-px border border-blue-200 bg-blue-200 md:grid-cols-2">
 
             <div class="order-2 flex flex-col justify-center gap-4 bg-white p-6 md:order-1 md:p-10 lg:p-12">
                 <p class="section-eyebrow"><?php esc_html_e('Or run both', 'standard'); ?></p>
@@ -33,7 +33,7 @@ if (!defined('ABSPATH')) {
                 </p>
                 <div class="mt-2 flex flex-col gap-3 sm:flex-row">
                     <a href="<?php echo esc_url(\Standard\Url\internal('/machines/')); ?>" class="btn btn-primary justify-center">
-                        <?php esc_html_e('See all machines', 'standard'); ?>
+                        <?php esc_html_e('View all machines', 'standard'); ?>
                         <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                     </a>
                     <a href="<?php echo esc_url(\Standard\Url\internal('/choose-your-machine/')); ?>" class="btn btn-outline-dark justify-center">
@@ -42,7 +42,7 @@ if (!defined('ABSPATH')) {
                 </div>
             </div>
 
-            <div class="order-1 min-h-64 overflow-hidden bg-blue-100 md:order-2 md:min-h-0">
+            <div class="order-1 aspect-video overflow-hidden bg-blue-100 md:order-2">
                 <?php
                 \Standard\Images\responsive_image(
                     content_url('/uploads/2026/05/ntm-mach2-gutter-install-abel-002.jpg'),

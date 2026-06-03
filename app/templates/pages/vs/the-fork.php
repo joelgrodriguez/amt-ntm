@@ -28,7 +28,7 @@ $lanes = [
     [
         'eyebrow'   => __('Lane A', 'standard'),
         'title'     => __('Roof &amp; Wall Panel Machines', 'standard'),
-        'makes'     => __('Form the long metal panels that become the roof and the walls: standing seam roofing (the raised, interlocking vertical ribs you see on modern metal roofs), flush wall, and board &amp; batten siding. Coil goes in one end, a finished panel comes out the other, cut to length on the jobsite.', 'standard'),
+        'makes'     => __('Form long metal panels for roofs and walls: standing seam roofing, flush wall, soffit, and board &amp; batten siding. Coil feeds into the machine, then finished panels come out cut to the exact job length.', 'standard'),
         'for'       => __('Roofers, metal panel installers, and exterior contractors who want to stop buying panels from a supplier and start fabricating their own.', 'standard'),
         'makes_list' => [
             __('Standing seam metal roof panels', 'standard'),
@@ -39,14 +39,14 @@ $lanes = [
         'price'     => __('From $44,900', 'standard'),
         'price_note' => __('SSR™ entry machine · up to 16 profiles', 'standard'),
         'url'       => '/roof-wall-panel-machines/',
-        'cta'       => __('See roof &amp; wall machines', 'standard'),
-        'image'     => content_url('/uploads/2026/05/ntm-standing-seam-roof-016.jpg'),
-        'image_alt' => __('A finished standing seam metal roof formed from NTM panels', 'standard'),
+        'cta'       => __('View roof &amp; wall machines', 'standard'),
+        'image'     => content_url('/uploads/2021/03/rollforming-machine-on-roof.jpg'),
+        'image_alt' => __('A portable roof panel machine forming panels on a rooftop jobsite', 'standard'),
     ],
     [
         'eyebrow'   => __('Lane B', 'standard'),
         'title'     => __('Seamless Gutter Machines', 'standard'),
-        'makes'     => __('Form one continuous, seamless gutter in the exact length the job needs, with no joints to leak. K-style (the common ogee profile that looks like crown molding from the curb) and box-gutter profiles, run straight from coil right at the jobsite.', 'standard'),
+        'makes'     => __('Form continuous seamless gutters for each building: K-style, box gutters, and combo 5&Prime;/6&Prime; runs. Coil feeds into the machine, then finished gutter comes out cut to the exact job length for each edge.', 'standard'),
         'for'       => __('Gutter contractors, exterior crews, and roofers adding a gutter line. Lower entry cost makes it a common first machine.', 'standard'),
         'makes_list' => [
             __('Seamless K-style gutters (5&Prime;, 6&Prime;)', 'standard'),
@@ -57,9 +57,9 @@ $lanes = [
         'price'     => __('From $9,800', 'standard'),
         'price_note' => __('MACH II™ 5&Prime; · benchmark since 1994', 'standard'),
         'url'       => '/seamless-gutter-machines/',
-        'cta'       => __('See seamless gutter machines', 'standard'),
-        'image'     => content_url('/uploads/2026/05/ntm-mach2-gutter-install-abel-001.jpg'),
-        'image_alt' => __('A seamless gutter run off an NTM MACH II machine going up on a jobsite', 'standard'),
+        'cta'       => __('View seamless gutter machines', 'standard'),
+        'image'     => content_url('/uploads/2021/03/nasser-miter-saw.png'),
+        'image_alt' => __('A gutter machine setup with a miter saw for jobsite gutter work', 'standard'),
     ],
 ];
 ?>
