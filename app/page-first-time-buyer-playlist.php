@@ -1,9 +1,21 @@
 <?php
 /**
- * Template Name: NTM — First-Time Buyer Playlist (placeholder)
+ * Template Name: NTM — First-Time Buyer Playlist
  *
- * Placeholder template. Production content will be added in a later pass.
- * Part of the four-action IA rebuild — see docs/handoff/.
+ * A curated, ordered onboarding sequence for someone brand new to
+ * portable rollforming. Reached from the mega menu's "Get started"
+ * flyout. The video archive already lets anyone browse all 200+ videos
+ * by category; this page does the thing an archive structurally cannot:
+ * it hand-picks a small set and puts them in the order a nervous first
+ * buyer should actually watch them, from "what even is this" through
+ * "which machine" and "what happens after I buy."
+ *
+ * Every card links to the existing single-video page rather than
+ * embedding a player inline, because the library mixes YouTube and
+ * Wistia sources and single-video.php already renders both correctly.
+ *
+ * Built from the same dressed-page grammar as /start-here/ and
+ * /roof-panel-vs-gutter/ so it reads as the same company.
  *
  * @package Standard
  */
@@ -14,32 +26,19 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$page_slug  = 'first-time-buyer-playlist';
-$page_title = 'First-Time Buyer Playlist';
-
 get_header();
 ?>
 
-<main id="primary" class="site-main">
-    <section class="mx-auto max-w-3xl px-6 py-24 text-center">
-        <p class="mb-6 font-mono text-xs uppercase tracking-widest text-blue-400">
-            <?php esc_html_e('In development', 'standard'); ?>
-        </p>
-        <p class="mb-4 text-5xl leading-none" aria-hidden="true">🚧</p>
-        <h1 class="mb-6 text-4xl font-medium tracking-tight text-blue-900">
-            <?php echo esc_html($page_title); ?>
-        </h1>
-        <p class="text-lg text-blue-600">
-            <?php esc_html_e('This page is scaffolded but not yet built.', 'standard'); ?>
-        </p>
-        <p class="text-lg text-blue-600">
-            <?php esc_html_e('Production content will be added in a follow-up pass.', 'standard'); ?>
-        </p>
-        <p class="mt-8 font-mono text-xs text-blue-400">
-            <?php esc_html_e('Template:', 'standard'); ?> <code><?php echo esc_html(basename(__FILE__)); ?></code> ·
-            <?php esc_html_e('Slug:', 'standard'); ?> <code>/<?php echo esc_html($page_slug); ?>/</code>
-        </p>
-    </section>
+<main id="primary">
+
+    <?php get_template_part('templates/pages/playlist/hero'); ?>
+
+    <?php get_template_part('templates/pages/playlist/chapters'); ?>
+
+    <?php get_template_part('templates/pages/playlist/after'); ?>
+
+    <?php get_template_part('templates/pages/playlist/final-cta'); ?>
+
 </main>
 
 <?php
