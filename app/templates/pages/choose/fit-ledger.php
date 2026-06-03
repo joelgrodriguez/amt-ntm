@@ -3,8 +3,11 @@
  * Choose Your Machine — Fit Ledger (reusable)
  *
  * One family's machines as a ranked ledger, not a card grid. Each row is a
- * single full-row link: model name (mono), a one-line "best when" qualifier,
- * two real spec chips, and the starting price. Rows are fenced by hairlines
+ * single full-row link: the machine's product photo (when set), model name
+ * (mono), a one-line "best when" qualifier, two real spec chips, and the
+ * starting price. The photo carries empty alt (decorative): the model name
+ * sits beside it and the whole row already has an aria-label. Rows are fenced
+ * by hairlines
  * and ordered flagship → entry, so a buyer self-selects by where their work
  * and budget land. This is the full-page sibling of the per-product
  * "Built for / Reconsider if" block (woo/product/parts/machine-fit.php).
@@ -94,7 +97,18 @@ $row_hover  = $surface !== '' ? 'hover:bg-white focus-visible:bg-white' : 'hover
                 <<?php echo $tag; ?><?php echo $href; ?> class="block <?php echo esc_attr(trim($rule . ' ' . $interact)); ?>">
                     <div class="grid items-baseline gap-x-8 gap-y-4 p-6 md:p-8 lg:grid-cols-12 lg:gap-y-2">
 
-                        <div class="lg:col-span-4">
+                        <div class="flex items-center gap-4 lg:col-span-4">
+                            <?php if (!empty($row['image'])) : ?>
+                                <span class="flex h-16 w-16 shrink-0 items-center justify-center border border-blue-200 bg-white p-1.5 lg:h-20 lg:w-20">
+                                    <img
+                                        src="<?php echo esc_url($row['image']); ?>"
+                                        alt=""
+                                        loading="lazy"
+                                        decoding="async"
+                                        class="h-full w-full object-contain"
+                                    >
+                                </span>
+                            <?php endif; ?>
                             <h3 class="font-mono text-lg font-medium text-blue-900 <?php echo $has_link ? 'group-hover:text-blue-500' : ''; ?>">
                                 <?php echo esc_html($row['name']); ?>
                             </h3>
