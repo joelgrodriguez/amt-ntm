@@ -4,8 +4,8 @@
  *
  * Closing dark band. The reader has either found their machine or narrowed
  * it down, so the close offers the site's persistent next step (talk to a
- * specialist) and a route to the side-by-side spec comparison for anyone
- * still deciding between two. Reuses the shared closer.
+ * specialist) and a family-agnostic route back to the full lineup for anyone
+ * still browsing. Reuses the shared closer.
  *
  * @package Standard
  *
@@ -25,6 +25,6 @@ get_template_part('templates/parts/cta/closer', null, [
     'text'              => __('Tell an NTM specialist the work you do and the machine you are leaning toward. They will confirm the fit, walk through profiles and pricing, and answer anything the page did not. No pressure, no obligation.', 'standard'),
     'cta_primary'       => __('Talk to a specialist', 'standard'),
     'cta_primary_url'   => '/contact/',
-    'cta_secondary'     => __('Compare roof panel machines', 'standard'),
-    'cta_secondary_url' => '/compare-roof-panel-machines/',
+    'cta_secondary'     => __('See all machines', 'standard'),
+    'cta_secondary_url' => '/machines/',
 ]);

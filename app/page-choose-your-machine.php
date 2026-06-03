@@ -28,17 +28,29 @@ if (!defined('ABSPATH')) {
 }
 
 get_header();
+
+// Assemble the catalog once, then hand each family to its ledger. Including
+// data.php inside both ledger parts would hydrate all ten machines twice
+// (~20 product lookups per load); doing it here keeps it to ten.
+$ntm_catalog = include get_template_directory() . '/templates/pages/choose/data.php';
 ?>
 
 <main id="primary">
 
     <?php get_template_part('templates/pages/choose/hero'); ?>
 
-    <?php get_template_part('templates/pages/choose/the-fork'); ?>
+    <?php get_template_part('templates/pages/choose/the-fork', null, [
+        'roof_from'   => $ntm_catalog['roof_from'] ?? '',
+        'gutter_from' => $ntm_catalog['gutter_from'] ?? '',
+    ]); ?>
 
-    <?php get_template_part('templates/pages/choose/roof-ledger'); ?>
+    <?php get_template_part('templates/pages/choose/roof-ledger', null, [
+        'rows' => $ntm_catalog['roof'] ?? [],
+    ]); ?>
 
-    <?php get_template_part('templates/pages/choose/gutter-ledger'); ?>
+    <?php get_template_part('templates/pages/choose/gutter-ledger', null, [
+        'rows' => $ntm_catalog['gutter'] ?? [],
+    ]); ?>
 
     <?php get_template_part('templates/pages/choose/final-cta'); ?>
 

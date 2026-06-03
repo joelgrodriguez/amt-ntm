@@ -90,20 +90,19 @@ $render_video_card = static function (int $id): void {
     ?>
     <a
         href="<?php echo esc_url($permalink); ?>"
-        class="group flex flex-col overflow-hidden border border-blue-200 bg-white transition-colors hover:border-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+        class="reveal group flex flex-col overflow-hidden border border-blue-200 bg-white transition-colors hover:border-blue-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
     >
         <div class="relative aspect-video overflow-hidden bg-blue-100">
             <?php if ($thumb) : ?>
                 <img
                     src="<?php echo esc_url($thumb); ?>"
                     alt=""
-                    class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                    width="768" height="432"
+                    class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                     loading="lazy" decoding="async"
                 >
             <?php endif; ?>
             <span class="absolute inset-0 flex items-center justify-center" aria-hidden="true">
-                <span class="flex h-14 w-14 items-center justify-center rounded-full bg-blue-900/80 text-white backdrop-blur-sm transition-colors group-hover:bg-blue-500">
+                <span class="flex h-14 w-14 items-center justify-center rounded-full bg-blue-900/90 text-white ring-1 ring-white/25 backdrop-blur-sm transition-colors group-hover:bg-blue-500">
                     <?php icon('play', ['class' => 'w-6 h-6']); ?>
                 </span>
             </span>
@@ -122,53 +121,62 @@ $render_video_card = static function (int $id): void {
 };
 ?>
 
-<section class="section" aria-labelledby="playlist-chapters-title">
-    <div class="container section-content">
+<?php
+// Each chapter renders as its own full-width band. The bands alternate
+// blue-50 / white so a long six-chapter scroll has a visible "new beat"
+// boundary at every chapter instead of one undifferentiated column.
+// Alternation tracks a rendered counter (not the array index), so a
+// skipped chapter never leaves two same-tone bands adjacent. Starting on
+// blue-50 makes the final chapter land on white, so the step into the
+// blue-50 "after" rail below reads as a real tone change rather than two
+// blue-50 bands butting together.
+$rendered = 0;
+foreach ($chapters as $i => $chapter) :
+    $number = $i + 1;
+    // Resolve the chapter's cards once so an all-missing chapter can be
+    // skipped rather than render an empty grid.
+    $live_ids = array_values(array_filter($chapter['video_ids'], static function (int $id): bool {
+        $post = get_post($id);
+        return $post instanceof \WP_Post && $post->post_status === 'publish' && $post->post_type === 'video';
+    }));
+    if (empty($live_ids)) {
+        continue;
+    }
+    $band = ($rendered % 2 === 0) ? 'bg-blue-50' : 'bg-white';
+    $rendered++;
+?>
+    <section
+        id="chapter-<?php echo esc_attr((string) $number); ?>"
+        class="section scroll-mt-24 <?php echo esc_attr($band); ?>"
+        aria-labelledby="chapter-<?php echo esc_attr((string) $number); ?>-title"
+    >
+        <div class="container section-content">
 
-        <h2 id="playlist-chapters-title" class="sr-only">
-            <?php esc_html_e('The first-time buyer playlist, in order', 'standard'); ?>
-        </h2>
+            <div class="section-header-left max-w-2xl">
+                <p class="section-eyebrow">
+                    <?php
+                    /* translators: %02d: chapter number, zero-padded. */
+                    printf(esc_html__('Chapter %02d · %s', 'standard'), (int) $number, esc_html($chapter['kicker']));
+                    ?>
+                </p>
+                <div class="section-divider"></div>
+                <h2
+                    id="chapter-<?php echo esc_attr((string) $number); ?>-title"
+                    class="font-sans text-2xl font-medium tracking-tight text-balance text-blue-900 lg:text-3xl"
+                >
+                    <?php echo esc_html($chapter['title']); ?>
+                </h2>
+                <p class="section-subtitle text-pretty">
+                    <?php echo esc_html($chapter['intro']); ?>
+                </p>
+            </div>
 
-        <div class="grid gap-16 lg:gap-20">
-            <?php foreach ($chapters as $i => $chapter) :
-                $number = $i + 1;
-                // Resolve the chapter's cards once so an all-missing
-                // chapter can be skipped rather than render an empty grid.
-                $live_ids = array_values(array_filter($chapter['video_ids'], static function (int $id): bool {
-                    $post = get_post($id);
-                    return $post instanceof \WP_Post && $post->post_status === 'publish' && $post->post_type === 'video';
-                }));
-                if (empty($live_ids)) {
-                    continue;
-                }
-            ?>
-                <div id="chapter-<?php echo esc_attr((string) $number); ?>" class="scroll-mt-24">
+            <div class="stagger grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <?php foreach ($live_ids as $id) {
+                    $render_video_card((int) $id);
+                } ?>
+            </div>
 
-                    <div class="section-header-left mb-8 max-w-2xl lg:mb-10">
-                        <p class="section-eyebrow">
-                            <?php
-                            /* translators: %02d: chapter number, zero-padded. */
-                            printf(esc_html__('Chapter %02d · %s', 'standard'), (int) $number, esc_html($chapter['kicker']));
-                            ?>
-                        </p>
-                        <div class="section-divider"></div>
-                        <h3 class="section-title">
-                            <?php echo esc_html($chapter['title']); ?>
-                        </h3>
-                        <p class="section-subtitle text-pretty">
-                            <?php echo esc_html($chapter['intro']); ?>
-                        </p>
-                    </div>
-
-                    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                        <?php foreach ($live_ids as $id) {
-                            $render_video_card((int) $id);
-                        } ?>
-                    </div>
-
-                </div>
-            <?php endforeach; ?>
         </div>
-
-    </div>
-</section>
+    </section>
+<?php endforeach; ?>
