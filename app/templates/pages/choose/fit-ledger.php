@@ -102,7 +102,7 @@ $row_hover  = $surface !== '' ? 'hover:bg-white focus-visible:bg-white' : 'hover
 
                         <div class="lg:col-span-5">
                             <p class="text-base text-blue-600 text-pretty">
-                                <span class="font-mono text-[10px] uppercase tracking-mono-meta text-blue-400">
+                                <span class="font-mono text-[10px] uppercase tracking-mono-meta text-blue-600">
                                     <?php esc_html_e('Best when', 'standard'); ?>
                                 </span>
                                 <span class="mt-1 block"><?php echo esc_html($row['best_when']); ?></span>
@@ -112,7 +112,7 @@ $row_hover  = $surface !== '' ? 'hover:bg-white focus-visible:bg-white' : 'hover
                                 <dl class="mt-4 flex flex-wrap gap-x-6 gap-y-2">
                                     <?php foreach ($row['chips'] as $chip) : ?>
                                         <div class="flex items-baseline gap-2">
-                                            <dt class="font-mono text-[10px] uppercase tracking-mono-meta text-blue-400">
+                                            <dt class="font-mono text-[10px] uppercase tracking-mono-meta text-blue-600">
                                                 <?php echo esc_html($chip['label']); ?><span class="sr-only">:</span>
                                             </dt>
                                             <dd class="font-mono text-sm text-blue-700"><?php echo esc_html($chip['value']); ?></dd>
@@ -125,7 +125,7 @@ $row_hover  = $surface !== '' ? 'hover:bg-white focus-visible:bg-white' : 'hover
                         <div class="flex items-center justify-between gap-4 lg:col-span-3 lg:justify-end">
                             <?php if (!empty($row['price'])) : ?>
                                 <div class="grid gap-0.5 lg:text-right">
-                                    <span class="font-mono text-[10px] uppercase tracking-mono-meta text-blue-400">
+                                    <span class="font-mono text-[10px] uppercase tracking-mono-meta text-blue-600">
                                         <?php esc_html_e('From', 'standard'); ?>
                                     </span>
                                     <span class="font-mono text-base text-blue-900"><?php echo esc_html($row['price']); ?></span>
@@ -145,7 +145,7 @@ $row_hover  = $surface !== '' ? 'hover:bg-white focus-visible:bg-white' : 'hover
 
         <?php if (!empty($secondary)) : ?>
             <div class="flex flex-wrap items-center gap-x-8 gap-y-3">
-                <p class="font-mono text-[10px] uppercase tracking-mono-meta text-blue-400">
+                <p class="font-mono text-[10px] uppercase tracking-mono-meta text-blue-600">
                     <?php esc_html_e('Not sure yet?', 'standard'); ?>
                 </p>
                 <?php foreach ($secondary as $link) : ?>
