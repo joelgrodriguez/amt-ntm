@@ -39,7 +39,10 @@ $ntm_catalog = include get_template_directory() . '/templates/pages/choose/data.
 
     <?php get_template_part('templates/pages/choose/hero'); ?>
 
-    <?php get_template_part('templates/pages/choose/the-fork'); ?>
+    <?php get_template_part('templates/pages/choose/the-fork', null, [
+        'roof_from'   => $ntm_catalog['roof_from'] ?? '',
+        'gutter_from' => $ntm_catalog['gutter_from'] ?? '',
+    ]); ?>
 
     <?php get_template_part('templates/pages/choose/roof-ledger', null, [
         'rows' => $ntm_catalog['roof'] ?? [],

@@ -6,13 +6,17 @@
  * roof & wall panel machines vs seamless gutter machines. Unlike the vs
  * page (which routes OUT to category pages), this fork routes DOWN the same
  * page to that family's fit ledger, because the chooser keeps the decision
- * on one surface. Each lane carries the family's real entry price, pulled
- * from the lowest-priced machine in app/data/machines/.
+ * on one surface. Each lane's entry price is derived from the catalog by the
+ * page template (roof_from / gutter_from in choose/data.php) and passed in,
+ * so it can never drift from the ledger below or the product pages.
  *
  * Built from the vs/the-fork cell grammar: one hairline-fenced grid, the
  * second panel carries the single divider so the two never double-fence.
  *
  * @package Standard
+ *
+ * @param string $roof_from   Lowest roof-family "From" price (e.g. "$43,400").
+ * @param string $gutter_from Lowest gutter-family "From" price (e.g. "$9,800").
  *
  * @usage Choose Your Machine (page-choose-your-machine.php)
  */
@@ -23,13 +27,18 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Derived in the page template from the assembled catalog; the literals are
+// a last-resort fallback only if the catalog couldn't resolve a floor.
+$roof_from   = !empty($args['roof_from']) ? $args['roof_from'] : '$43,400';
+$gutter_from = !empty($args['gutter_from']) ? $args['gutter_from'] : '$9,800';
+
 $lanes = [
     [
         'eyebrow'    => __('Roof & wall panel', 'standard'),
         'title'      => __('You make metal roofs &amp; walls', 'standard'),
         'makes'      => __('Standing seam roofing, flush wall and soffit, board &amp; batten siding, 5V crimp, and WAV panels. Coil feeds in, finished panels come out cut to job length.', 'standard'),
         'count'      => __('6 machines', 'standard'),
-        'price'      => __('From $43,400', 'standard'),
+        'price'      => $roof_from,
         'price_note' => __('SSR™ MultiPro Jr. · up to 16 profiles on the flagship', 'standard'),
         'target'     => '#roof-ledger',
         'cta'        => __('See the 6 roof &amp; wall machines', 'standard'),
@@ -39,7 +48,7 @@ $lanes = [
         'title'      => __('You make seamless gutter', 'standard'),
         'makes'      => __('Seamless K-style gutter in 5&Prime; and 6&Prime;, combo runs from one machine, and commercial box gutter. Coil feeds in, finished gutter comes out cut to each edge.', 'standard'),
         'count'      => __('4 machines', 'standard'),
-        'price'      => __('From $9,800', 'standard'),
+        'price'      => $gutter_from,
         'price_note' => __('MACH II™ 5&Prime; · the benchmark since 1994', 'standard'),
         'target'     => '#gutter-ledger',
         'cta'        => __('See the 4 gutter machines', 'standard'),
@@ -82,17 +91,22 @@ $lanes = [
 
                     <dl class="grid grid-cols-2 gap-x-6 gap-y-4 border-t border-blue-200 pt-5">
                         <div class="grid gap-1 min-w-0">
-                            <dt class="font-mono text-[10px] uppercase tracking-mono-meta text-blue-400">
+                            <dt class="font-mono text-[10px] uppercase tracking-mono-meta text-blue-600">
                                 <?php esc_html_e('In this family', 'standard'); ?>
                             </dt>
                             <dd class="font-mono text-lg text-blue-900"><?php echo esc_html($lane['count']); ?></dd>
                         </div>
                         <div class="grid gap-1 min-w-0">
-                            <dt class="font-mono text-[10px] uppercase tracking-mono-meta text-blue-400">
+                            <dt class="font-mono text-[10px] uppercase tracking-mono-meta text-blue-600">
                                 <?php esc_html_e('Starting price', 'standard'); ?>
                             </dt>
-                            <dd class="font-mono text-lg text-blue-900"><?php echo esc_html($lane['price']); ?></dd>
-                            <dd class="font-mono text-[11px] text-blue-400"><?php echo wp_kses_post($lane['price_note']); ?></dd>
+                            <dd class="font-mono text-lg text-blue-900">
+                                <?php
+                                /* translators: %s: lowest "from" price, e.g. $9,800. */
+                                printf(esc_html__('From %s', 'standard'), esc_html($lane['price']));
+                                ?>
+                            </dd>
+                            <dd class="font-mono text-[11px] text-blue-600"><?php echo wp_kses_post($lane['price_note']); ?></dd>
                         </div>
                     </dl>
 

@@ -27,7 +27,7 @@ get_template_part('templates/pages/choose/fit-ledger', null, [
     'subtitle'   => __('Six machines, ordered from the high-volume flagship down to the entry machine. Read each by the work it suits and the budget it lands in, then step into its full page.', 'standard'),
     'rows'       => $rows,
     'secondary'  => [
-        ['label' => __('Which roof panel machine? (Quiz)', 'standard'), 'url' => '/roof-panel-machine-assessment-quiz/'],
-        ['label' => __('Compare roof panel machines', 'standard'), 'url' => '/compare-roof-panel-machines/'],
+        ['label' => __('Take the roof panel quiz', 'standard'), 'url' => '/roof-panel-machine-assessment-quiz/'],
+        ['label' => __('Compare all six side by side', 'standard'), 'url' => '/compare-roof-panel-machines/'],
     ],
 ]);

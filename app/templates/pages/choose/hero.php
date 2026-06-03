@@ -33,8 +33,8 @@ get_template_part('templates/parts/hero-category', null, [
         'poster_alt'       => __('The New Tech Machinery portable rollforming lineup on a blue background', 'standard'),
     ],
     'meta' => [
+        ['label' => __('The lineup', 'standard'), 'value' => __('10 machines', 'standard')],
         ['label' => __('Roof & wall', 'standard'), 'value' => __('6 machines', 'standard')],
         ['label' => __('Seamless gutter', 'standard'), 'value' => __('4 machines', 'standard')],
-        ['label' => __('Next step', 'standard'), 'value' => __('Pick by the work', 'standard')],
     ],
 ]);
