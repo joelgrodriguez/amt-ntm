@@ -1,9 +1,22 @@
 <?php
 /**
- * Template Name: NTM — Choose Your Machine (placeholder)
+ * Template Name: NTM — Choose Your Machine
  *
- * Placeholder template. Production content will be added in a later pass.
- * Part of the four-action IA rebuild — see docs/handoff/.
+ * The machine-chooser landing. Anchor #2 of the four-action IA rebuild,
+ * reached from Start Here's "Choose a machine" lane and the "Choose your
+ * machine" mega-menu flyout. The reader knows the trade and wants to find
+ * the model that matches their work without taking a quiz.
+ *
+ * Flow: a compact hero, a two-lane fork (roof & wall vs seamless gutter)
+ * that jumps to the matching ledger on the same page, then a "fit ledger"
+ * per family ranking every machine by the work it suits. It deliberately
+ * complements the guided quizzes and the spec comparison (linked under each
+ * ledger) rather than duplicating them, and routes the decided buyer to a
+ * specialist conversation.
+ *
+ * Built from the vs/the-fork and start-here/which-path cell grammar and
+ * driven by app/data/machines/*.php (see templates/pages/choose/data.php),
+ * so prices, specs, and links stay in lockstep with the product pages.
  *
  * @package Standard
  */
@@ -14,32 +27,21 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$page_slug  = 'choose-your-machine';
-$page_title = 'Choose Your Machine';
-
 get_header();
 ?>
 
-<main id="primary" class="site-main">
-    <section class="mx-auto max-w-3xl px-6 py-24 text-center">
-        <p class="mb-6 font-mono text-xs uppercase tracking-widest text-blue-400">
-            <?php esc_html_e('In development', 'standard'); ?>
-        </p>
-        <p class="mb-4 text-5xl leading-none" aria-hidden="true">🚧</p>
-        <h1 class="mb-6 text-4xl font-medium tracking-tight text-blue-900">
-            <?php echo esc_html($page_title); ?>
-        </h1>
-        <p class="text-lg text-blue-600">
-            <?php esc_html_e('This page is scaffolded but not yet built.', 'standard'); ?>
-        </p>
-        <p class="text-lg text-blue-600">
-            <?php esc_html_e('Production content will be added in a follow-up pass.', 'standard'); ?>
-        </p>
-        <p class="mt-8 font-mono text-xs text-blue-400">
-            <?php esc_html_e('Template:', 'standard'); ?> <code><?php echo esc_html(basename(__FILE__)); ?></code> ·
-            <?php esc_html_e('Slug:', 'standard'); ?> <code>/<?php echo esc_html($page_slug); ?>/</code>
-        </p>
-    </section>
+<main id="primary">
+
+    <?php get_template_part('templates/pages/choose/hero'); ?>
+
+    <?php get_template_part('templates/pages/choose/the-fork'); ?>
+
+    <?php get_template_part('templates/pages/choose/roof-ledger'); ?>
+
+    <?php get_template_part('templates/pages/choose/gutter-ledger'); ?>
+
+    <?php get_template_part('templates/pages/choose/final-cta'); ?>
+
 </main>
 
 <?php
