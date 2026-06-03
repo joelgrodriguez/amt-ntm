@@ -2,13 +2,8 @@
 /**
  * Roof Panel vs Gutter — Hero
  *
- * Decision-page hero. Unlike the category heroes (which carry an
- * sr-only H1 + an H2 marketing line + a product video), this is an
- * educational page, so the visible marketing line IS the H1 for SEO.
- * No video: the job here is to orient, not to showcase a machine.
- *
- * Single-column centered stack on a dark band, matching the category
- * hero's dark surface so the page reads as part of the same family.
+ * Data wrapper for the shared hero-category template part. Mirrors the
+ * /machines hero rhythm: text rail left, 16:9 visual panel right.
  *
  * @package Standard
  *
@@ -20,55 +15,23 @@ declare(strict_types=1);
 if (!defined('ABSPATH')) {
     exit;
 }
-?>
 
-<section class="relative overflow-hidden bg-blue-900 text-white pattern-dot-grid pattern-dot-grid--dark" aria-labelledby="vs-hero-title">
-    <div class="relative container py-16 md:py-20 lg:py-24">
-        <div class="mx-auto grid max-w-3xl gap-6 text-center lg:gap-8">
-
-            <p class="font-mono text-xs uppercase tracking-mono-label text-blue-300">
-                <?php esc_html_e('Start here · Which machine?', 'standard'); ?>
-            </p>
-
-            <h1
-                id="vs-hero-title"
-                class="font-sans font-medium tracking-tight text-balance text-white text-4xl md:text-5xl"
-            >
-                <?php esc_html_e('Roof Panel or Gutter Machine? Here’s How to Tell.', 'standard'); ?>
-            </h1>
-
-            <p class="mx-auto max-w-2xl text-lg text-blue-200 lg:text-xl">
-                <?php esc_html_e('New Tech Machinery builds two families of portable rollformers. One forms the metal panels that become a roof and walls. The other forms seamless gutters that drain it. Which one you need comes down to one thing: what you make on the jobsite.', 'standard'); ?>
-            </p>
-
-            <div class="mt-2 flex flex-col justify-center gap-4 sm:flex-row">
-                <a href="#the-fork" class="btn btn-primary">
-                    <?php esc_html_e('Find your machine', 'standard'); ?>
-                    <?php icon('arrow-down', ['class' => 'w-5 h-5']); ?>
-                </a>
-                <a href="<?php echo esc_url(\Standard\Url\internal('/choose-your-machine/')); ?>" class="btn btn-outline-light">
-                    <?php esc_html_e('Take the machine quiz', 'standard'); ?>
-                </a>
-            </div>
-
-        </div>
-
-        <figure class="mx-auto mt-12 max-w-5xl lg:mt-16">
-            <div class="aspect-video overflow-hidden border border-blue-700 bg-blue-800">
-                <img
-                    src="<?php echo esc_url(content_url('/uploads/2026/05/ntm-standing-seam-roof-016.jpg')); ?>"
-                    alt="<?php echo esc_attr__('A standing seam metal roof and seamless gutter on a finished home, both formed on site with NTM portable rollformers', 'standard'); ?>"
-                    class="h-full w-full object-cover"
-                    width="2560"
-                    height="1439"
-                    loading="eager"
-                    fetchpriority="high"
-                    decoding="async"
-                >
-            </div>
-            <figcaption class="mt-3 text-center font-mono text-xs uppercase tracking-mono-meta text-blue-400">
-                <?php esc_html_e('Roof panels and gutters, both formed on the jobsite', 'standard'); ?>
-            </figcaption>
-        </figure>
-    </div>
-</section>
+get_template_part('templates/parts/hero-category', null, [
+    'section_id' => 'vs-hero',
+    'content'    => [
+        'kicker'              => __('START HERE // WHICH MACHINE?', 'standard'),
+        'title'               => __('Roof Panel or Gutter Machine?<br class="hidden lg:inline"> Here’s How to Tell.', 'standard'),
+        'subtitle'            => __('New Tech Machinery builds two families of portable rollformers. One forms the panels that become roofs and walls. The other forms seamless gutters. The right choice starts with what you make on the jobsite.', 'standard'),
+        'cta_primary'         => __('Find your machine', 'standard'),
+        'cta_primary_url'     => '#the-fork',
+        'cta_secondary'       => __('Take the machine quiz', 'standard'),
+        'cta_secondary_url'   => '/choose-your-machine/',
+        'poster'              => content_url('/uploads/2022/03/roof-panel-machines-blue-background.jpg'),
+        'poster_alt'          => __('Portable roof panel machines on a blue New Tech Machinery background', 'standard'),
+    ],
+    'meta' => [
+        ['label' => __('Decision', 'standard'), 'value' => __('Roof or gutter', 'standard')],
+        ['label' => __('Format', 'standard'), 'value' => __('On-site forming', 'standard')],
+        ['label' => __('Next step', 'standard'), 'value' => __('Pick a lane', 'standard')],
+    ],
+]);
