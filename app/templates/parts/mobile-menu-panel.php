@@ -62,7 +62,12 @@ if ($slug === '' || $groups === []) {
                     ?>
                         <li>
                             <a class="flex items-center justify-between min-h-12 py-3 font-sans no-underline transition-colors duration-150 ease-linear hover:bg-blue-50<?php echo esc_attr($size); ?>" href="<?php echo esc_url($item['url'] ?? '#'); ?>">
-                                <span><?php echo esc_html($item['label'] ?? ''); ?></span>
+                                <span class="flex items-center gap-2">
+                                    <?php echo esc_html($item['label'] ?? ''); ?>
+                                    <?php if (!empty($item['badge'])) : ?>
+                                        <span class="badge badge-emphasis"><?php echo esc_html($item['badge']); ?></span>
+                                    <?php endif; ?>
+                                </span>
                                 <?php icon('arrow-right', ['class' => 'w-4 h-4 flex-none text-blue-400']); ?>
                             </a>
                         </li>

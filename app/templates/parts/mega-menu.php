@@ -67,6 +67,9 @@ $panels = array_values(array_filter(
                                     <li>
                                         <a href="<?php echo esc_url($item['url'] ?? '#'); ?>" class="mega-link">
                                             <?php echo esc_html($item['label'] ?? ''); ?>
+                                            <?php if (!empty($item['badge'])) : ?>
+                                                <span class="badge badge-emphasis mega-link__badge"><?php echo esc_html($item['badge']); ?></span>
+                                            <?php endif; ?>
                                         </a>
                                     </li>
                                 <?php endforeach; ?>

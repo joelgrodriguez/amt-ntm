@@ -118,6 +118,12 @@
     outline: none;
 }
 
+/* Inline status badge (e.g. FLAGSHIP) trailing the link label. */
+.mega-link__badge {
+    margin-left: 0.5rem;
+    vertical-align: middle;
+}
+
 /* ── View all CTA ─────────────────────────────────────────────────────── */
 
 .mega-panel__view-all {

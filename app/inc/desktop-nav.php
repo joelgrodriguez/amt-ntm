@@ -268,8 +268,12 @@ function get_desktop_nav(): array {
                                 'url'   => \Standard\Url\internal('/what-coil-width-should-you-use/'),
                             ],
                             [
-                                'label' => __('Machine chooser landing', 'standard'),
+                                'label' => __('Machine Selection Guide', 'standard'),
                                 'url'   => \Standard\Url\internal('/choose-your-machine/'),
+                            ],
+                            [
+                                'label' => __('Build & Quote Your Machine', 'standard'),
+                                'url'   => \Standard\Url\internal('/configurator/'),
                             ],
                         ],
                     ],
@@ -291,6 +295,11 @@ function get_desktop_nav(): array {
                             [
                                 'label' => __('SSQ3 MultiPro', 'standard'),
                                 'url'   => \Standard\Url\internal('/configurator/ssq3-multi-pro/'),
+                                'badge' => __('Flagship', 'standard'),
+                            ],
+                            [
+                                'label' => __('MACH II Family', 'standard'),
+                                'url'   => \Standard\Url\internal('/machines/machii/'),
                             ],
                         ],
                     ],
@@ -305,6 +314,8 @@ function get_desktop_nav(): array {
                     '/machine/',
                     '/product/',
                     '/choose-your-machine/',
+                    '/configurator/',
+                    '/machines/machii/',
                     '/compare-roof-panel-machines/',
                     '/configurator/ssq3-multi-pro/',
                     '/configurator/ssh/',
