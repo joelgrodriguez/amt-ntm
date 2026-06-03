@@ -142,12 +142,16 @@ function get_default_machine_data(): array {
 }
 
 /**
- * Resolve a machine data key to its WooCommerce product permalink and name.
+ * Resolve a machine data key to its WooCommerce product permalink, name, and
+ * featured image.
  *
  * @param string $machine_key Machine data key (e.g. 'mach-ii-5-gutter').
- * @return array{url: string, name: string}|null Product URL and name, or null.
+ * @param string $image_size  Image size for the featured-image URL.
+ * @return array{url: string, name: string, image: string, image_alt: string}|null
+ *               Product link data, or null if the product isn't found.
+ *               `image` is '' when the product has no featured image.
  */
-function get_machine_product_link(string $machine_key): ?array {
+function get_machine_product_link(string $machine_key, string $image_size = 'woocommerce_thumbnail'): ?array {
     $aliases = get_slug_aliases();
     $reverse = array_flip($aliases);
     $slugs   = isset($reverse[$machine_key]) ? [$reverse[$machine_key]] : [$machine_key];
@@ -167,9 +171,15 @@ function get_machine_product_link(string $machine_key): ?array {
         if (!empty($posts)) {
             $product = wc_get_product($posts[0]);
             if ($product) {
+                $image_id  = $product->get_image_id();
+                $image_url = $image_id ? wp_get_attachment_image_url((int) $image_id, $image_size) : '';
+                $image_alt = $image_id ? (string) get_post_meta((int) $image_id, '_wp_attachment_image_alt', true) : '';
+
                 return [
-                    'url'  => get_permalink($posts[0]),
-                    'name' => $product->get_name(),
+                    'url'       => get_permalink($posts[0]),
+                    'name'      => $product->get_name(),
+                    'image'     => $image_url ?: '',
+                    'image_alt' => $image_alt,
                 ];
             }
         }

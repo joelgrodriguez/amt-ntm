@@ -25,6 +25,8 @@
  *   price      normalised "from" floor display string (e.g. "$43,400")
  *   price_num  numeric floor for min-finding (e.g. 43400), or null
  *   url        live product permalink, or null if the product is absent
+ *   image      WC featured-image URL (woocommerce_thumbnail), '' if none
+ *   image_alt  featured-image alt text, '' if none
  *
  * Rows whose product cannot be resolved locally still render (copy + chips);
  * they simply omit the link. Nothing 404s, nothing is faked.
@@ -190,6 +192,8 @@ $ntm_choose_hydrate = static function (array $row) use ($ntm_price_floor): array
         'price'       => $floor[0] ?? '',   // display, e.g. "$43,400"
         'price_num'   => $floor[1] ?? null, // numeric, for family-min
         'url'         => $link['url'] ?? null,
+        'image'       => $link['image'] ?? '',      // WC featured image, '' if none
+        'image_alt'   => $link['image_alt'] ?? '',
     ];
 };
 
