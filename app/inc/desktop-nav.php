@@ -434,14 +434,6 @@ function get_desktop_nav(): array {
                                 'label' => __('Open a service request', 'standard'),
                                 'url'   => \Standard\Url\internal('/service-hub/request/'),
                             ],
-                            [
-                                'label' => __('NTM Knowledge Base', 'standard'),
-                                'url'   => \Standard\Url\internal('/service-hub/'),
-                            ],
-                            [
-                                'label' => __('Owner support landing', 'standard'),
-                                'url'   => \Standard\Url\internal('/owner-support/'),
-                            ],
                         ],
                     ],
                     [
