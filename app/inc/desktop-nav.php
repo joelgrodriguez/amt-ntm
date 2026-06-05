@@ -304,6 +304,25 @@ function get_desktop_nav(): array {
                         ],
                     ],
                 ],
+                'cards'         => [
+                    [
+                        'label' => __('SSQ3 MultiPro', 'standard'),
+                        'url'   => \Standard\Url\internal('/configurator/ssq3-multi-pro/'),
+                        'badge' => __('Flagship', 'standard'),
+                    ],
+                    [
+                        'label' => __('SSR', 'standard'),
+                        'url'   => \Standard\Url\internal('/configurator/ssr/'),
+                    ],
+                    [
+                        'label' => __('SSH', 'standard'),
+                        'url'   => \Standard\Url\internal('/configurator/ssh/'),
+                    ],
+                    [
+                        'label' => __('MACH II', 'standard'),
+                        'url'   => \Standard\Url\internal('/machines/machii/'),
+                    ],
+                ],
                 'current_paths' => [
                     '/machines/',
                     '/roof-wall-panel-machines/',
