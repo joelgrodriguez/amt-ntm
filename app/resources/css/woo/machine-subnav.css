@@ -276,6 +276,17 @@
     transform: none;
   }
 
+  /* The shared subnav markup wraps content in .container (1440px cap +
+     px-4 gutters), correct for the header bar but wrong inside the narrow
+     rail track. Strip the cap and gutters so the rail fills its column. */
+  .machine-subnav--sidebar .container {
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
   .machine-subnav--sidebar .machine-subnav__inner {
     flex-direction: column;
     align-items: stretch;
