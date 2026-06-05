@@ -1,0 +1,401 @@
+{
+    "version": 1,
+    "source_site": "https://ntmservice.local",
+    "target_post_type": "post",
+    "assets": {
+        "bg7-entry-drum-adjustment": {
+            "file": "assets/BG7-Entry-Drum-Adjustment.jpg",
+            "title": "BG7 Entry Drum Adjustment",
+            "alt": "entry drum adjustment for BG7"
+        }
+    },
+    "articles": [
+        {
+            "source_id": 26,
+            "source_post_type": "article",
+            "source_url": "https://ntmservice.local/article/ssq-ii-machine-stuck-in-maintenance-mode/",
+            "title": "What Do I Do if My Machine Is Stuck in \"Maintenance Mode\" When Using the UNIQ® Control System?",
+            "slug": "ssq-ii-machine-stuck-in-maintenance-mode",
+            "date": "2022-05-31 13:27:25",
+            "modified": "2022-11-14 16:15:18",
+            "excerpt": "",
+            "content": "<!-- wp:paragraph -->\n<p>When the covers and guards are off of your machine, the machine will operate in \"maintenance mode.\" This is a normal safety function of the UNIQ® Automatic Control System and will not allow you to use any of the automatic functions (automatic run mode, automatic shear, programming recipes, etc.). When \"maintenance mode\" is activated, only the push buttons on the controller panel can be utilized.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>To exit \"maintenance mode\", first make sure your machine is set up correctly with all outside covers and shear guards in place. Make sure that the shear magnets / sensors are aligned properly. Once all covers and guards and sensors are in place, you can access automatic operation with the UNIQ Control System.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>If you haven't yet, <a href=\"https://newtechmachinery.com/machines/uniq-control-system-update/\"><strong>update your UNIQ Automatic Control System to the latest software here</strong></a>. </p>\n<!-- /wp:paragraph -->",
+            "department": "service-repair",
+            "category": "metal-roof-wall-panel-rollforming-machines",
+            "machine_tags": [
+                "ssq-ii-multipro-roof-panel-machine"
+            ],
+            "legacy_categories": [
+                "roof-wall-panel-machines"
+            ],
+            "legacy_tags": [
+                "ssq-ii"
+            ],
+            "seo": {
+                "_yoast_wpseo_metadesc": "When using the UNIQ® Automatic Control System on the SSQ II™, what do you do if the machine is stuck in maintenance mode? Learn how to solve",
+                "_yoast_wpseo_focuskw": "machine is stuck in maintenance mode",
+                "_yoast_wpseo_estimated-reading-time-minutes": "1"
+            }
+        },
+        {
+            "source_id": 30,
+            "source_post_type": "article",
+            "source_url": "https://ntmservice.local/article/panel-length-programming-encoder-alignment/",
+            "title": "Why Is the Finished Panel Not the Length I Programmed Into My Controller?",
+            "slug": "panel-length-programming-encoder-alignment",
+            "date": "2022-05-31 13:55:53",
+            "modified": "2022-11-14 16:14:53",
+            "excerpt": "",
+            "content": "<!-- wp:paragraph -->\n<p>If the panel is a different length than you programmed into your PLC or EZ-Counter controllers, the most common cause of this issue is that the encoder may need to be adjusted. Make sure that your encoder is making contact with the material inside the machine and that the tension is set properly.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:html -->\n<div class=\"wistia-responsive-embed\" style=\"position:relative;padding-top:56.25%;\"><iframe src=\"https://fast.wistia.net/embed/iframe/a63g2xfqhm?seo=false&amp;videoFoam=true\" title=\"Wistia video\" allow=\"autoplay; fullscreen\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"no\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" allowfullscreen></iframe></div>\n<!-- /wp:html -->\n\n<!-- wp:paragraph -->\n<p>Follow these steps to align and tension the encoder:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list {\"ordered\":true} -->\n<ol><!-- wp:list-item -->\n<li>Consult your machine manual to find instructions: https://newtechmachinery.com/learning-center/resource/manuals/</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Make sure all covers and guards are removed from the machine. *Don't operate your machine without covers and guards in place!</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Locate your encoder. Check your machine manual for help on where to find the encoder inside your machine.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Required tools: 5/32\" hex wrench, 3/32\" hex wrench, 7/16\" boxed-end wrench.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Using 5/32\" hex wrench and 7/16\" boxed-end wrench ensure through-bolt is tight but do not over-tighten.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Remove rubber cap on top of encoder.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Using 3/32\" hex wrench, apply pressure to the encoder and tighten the internal spring. This allows the encoder to make contact with the panel.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Reinstall the rubber cap on top of the encoder and replace all cover and guards.</li>\n<!-- /wp:list-item --></ol>\n<!-- /wp:list -->\n\n<!-- wp:paragraph -->\n<p><strong>Note: </strong>SSQ II MultiPro Machines use a self-tensioning encoder so this process does not apply. If you encounter any issues or if you are using the UNIQ Control System, please contact the Service department.</p>\n<!-- /wp:paragraph -->",
+            "department": "service-repair",
+            "category": "metal-roof-wall-panel-rollforming-machines",
+            "machine_tags": [
+                "ssq-ii-multipro-roof-panel-machine",
+                "ssh-multipro-roof-panel-machine",
+                "ssr-multipro-jr"
+            ],
+            "legacy_categories": [
+                "roof-wall-panel-machines"
+            ],
+            "legacy_tags": [
+                "ssh",
+                "ssq-ii",
+                "ssr"
+            ],
+            "seo": {
+                "_yoast_wpseo_metadesc": "If your finished panel isn't the length you programmed into your controller, it could be an encoder alignment issue. Fix it by following",
+                "_yoast_wpseo_focuskw": "finished panel not the length programmed into controller",
+                "_yoast_wpseo_estimated-reading-time-minutes": "2"
+            }
+        },
+        {
+            "source_id": 32,
+            "source_post_type": "article",
+            "source_url": "https://ntmservice.local/article/why-is-the-shear-not-cutting-properly/",
+            "title": "Why Is the Shear Not Cutting Properly?",
+            "slug": "why-is-the-shear-not-cutting-properly",
+            "date": "2022-05-31 14:20:26",
+            "modified": "2022-11-14 16:14:34",
+            "excerpt": "",
+            "content": "<!-- wp:paragraph -->\n<p>If your shear is not cutting cleanly or straight, it could mean that your shear is out of alignment or not properly lubricated. </p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p><strong>Note: The shear is extremely dangerous and can cause serious bodily injury or death. For this reason, the machine is provided with a guard to prevent the operator from reaching into the shear. It is crucial that the guard remains in place at all times when the machine is in operation. The guard should only be removed for maintenance and adjustment of the shear when the machine is unplugged/unpowered or locked out/tagged out.</strong></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p><a href=\"https://newtechmachinery.com/learning-center/roof-panel-rollforming-machine-problems/\"><strong>Learn more about common problems and solutions for portable roof panel machines in this article.</strong></a></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p><strong>Watch this video to learn more about the shear on your machine</strong></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:html -->\n<div class=\"wistia-responsive-embed\" style=\"position:relative;padding-top:56.25%;\"><iframe src=\"https://fast.wistia.net/embed/iframe/q28wu28gvz?seo=false&amp;videoFoam=true\" title=\"Wistia video\" allow=\"autoplay; fullscreen\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"no\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" allowfullscreen></iframe></div>\n<!-- /wp:html -->\n\n<!-- wp:heading -->\n<h2><strong>How to Fix Shear Alignment</strong></h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>If you notice any of these things happening when operating your machine and shear, this could mean your shear is out of alignment:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list -->\n<ul><!-- wp:list-item -->\n<li>The shear is cutting the metal unevenly or jaggedly.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>The cut panel is getting caught on or hitting the exit shear die.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>A worn out center mandrel.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>A broken shear die.</li>\n<!-- /wp:list-item --></ul>\n<!-- /wp:list -->\n\n<!-- wp:paragraph -->\n<p>There is more than one way to fix the problems you might be experiencing with the shear. Below are some common ways to fix shear misalignment.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading {\"level\":3} -->\n<h3><strong>How to Adjust the Entry and Exit Shear Dies</strong></h3>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>The Entry and Exit Shear Dies are specific to each roller set and may need to be changed when changing profiles. The Dies must be adjusted to the proper distance from the vertical legs of the panel. The outside vertical leg of the male and female Entry Dies should be approximately 1/32” away from the outside of the vertical legs of the panel. The Exit Dies should be positioned slightly to the outside of the male and female Entry Dies so that after a cut is made, the panel does not get hung up on the Exit Dies.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image -->\n<figure class=\"wp-block-image\"><img src=\"https://newtechmachinery.com/wp-content/uploads/2021/04/entryexitdies-1024x711.png\" alt=\"(article) 4 Common Problems with a Portable Roof Panel Rollforming Machine\"/></figure>\n<!-- /wp:image -->\n\n<!-- wp:paragraph -->\n<p>Follow this procedure to make the adjustments (see right drawing to follow along):</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p><strong>Entry &amp; Exit Shear Die Adjustments</strong></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list {\"ordered\":true} -->\n<ol><!-- wp:list-item -->\n<li>Run material through the machine until it is about six (6) inches away from the shear, then shut off the machine and disconnect the power.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Sight down the legs of the panel to find the approximate location to install the Entry Shear Dies. Hold them in place with the “C” bolts but do not tighten them yet.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Start up the machine and carefully jog the material forward while looking through the dies. If it seems like the panel will hit the dies, shut off the machine and disconnect the power. Then, further adjust the dies as necessary until the panel goes through cleanly.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Continue jogging the panel forward until it is about an inch or two past the shear dies, then shut off the machine and disconnect power.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Adjust the Entry Shear Dies until they are about 1/32” away from the outside of the vertical leg of the panel. Each profile will look different, so&nbsp;<a href=\"https://newtechmachinery.com/learning-center/resource/manuals\">make sure to reference your manual</a>&nbsp;to see how it is shown. Tighten the “C” bolts.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>If the Entry Shear Die has a Mandrel, it should be positioned as shown in the figure for your panel. If necessary, loosen the “E” bolts and adjust the Mandrels. Retighten the “E” bolts.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Install the Exit Shear Dies and adjust them so they are about 1/32” to the outboard of the Entry Shear Dies, as shown in the figure for your panel. Tighten the “C” bolts.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Adjust the Mandrel on the Exit Shear Die as needed, if it has one.</li>\n<!-- /wp:list-item --></ol>\n<!-- /wp:list -->\n\n<!-- wp:paragraph -->\n<p><strong>Blade Adjustments</strong></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list {\"ordered\":true} -->\n<ol><!-- wp:list-item -->\n<li>To cut properly, the Top Blades need to be positioned so that one of the #2 Blade tips is just to the inside of the male leg, as shown in the photo. Also, the tip of the #1 Blade is positioned to the inside of the female leg. The rake or angle of the blades should cut in a scissor action outward against the legs. If necessary, loosen the seven “D” bolts and move the Top Blades left or right to get them in the correct position. Retighten the bolts.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Start the machine and shear off a panel about 12 inches long, then jog the material forward a few inches. Make sure the panel is not scraping on the shear dies and inspect the quality of the cut on both sides. If any corrections need to be made, shut off the machine and disconnect the power, then adjust the shear dies.</li>\n<!-- /wp:list-item --></ol>\n<!-- /wp:list -->\n\n<!-- wp:heading {\"level\":4} -->\n<h4><strong>Maintaining the Shear</strong></h4>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>Clean and lubricate the Top Blades, Bottom Dies, and Male/Female Dies approximately every 30 cuts during regular use, or whenever cutting surfaces look dry. Proper lubrication is essential to clean cuts, rust prevention, and longevity of the shear.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>We recommend Super Lube® Multi-Purpose Synthetic Lubricant as a shear lubricant (it’s also available to purchase through New Tech Machinery). DO NOT use WD-40 to lubricate your shear.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p><strong>Watch this video to learn about machine maintenance including shear lubrication:</strong></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:html -->\n<div class=\"wistia-responsive-embed\" style=\"position:relative;padding-top:56.25%;\"><iframe src=\"https://fast.wistia.net/embed/iframe/kijqhc4s5d?seo=false&amp;videoFoam=true\" title=\"Wistia video\" allow=\"autoplay; fullscreen\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"no\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" allowfullscreen></iframe></div>\n<!-- /wp:html -->",
+            "department": "service-repair",
+            "category": "metal-roof-wall-panel-rollforming-machines",
+            "machine_tags": [
+                "ssq-ii-multipro-roof-panel-machine",
+                "ssh-multipro-roof-panel-machine",
+                "ssr-multipro-jr"
+            ],
+            "legacy_categories": [
+                "roof-wall-panel-machines"
+            ],
+            "legacy_tags": [
+                "ssh",
+                "ssq-ii",
+                "ssr"
+            ],
+            "seo": {
+                "_yoast_wpseo_canonical": "https://newtechmachinery.com/learning-center/roof-panel-rollforming-machine-problems/",
+                "_yoast_wpseo_estimated-reading-time-minutes": "5"
+            }
+        },
+        {
+            "source_id": 34,
+            "source_post_type": "article",
+            "source_url": "https://ntmservice.local/article/panel-is-not-forming-properly/",
+            "title": "The Panel Isn't Forming Properly or Having Shape Issues",
+            "slug": "panel-is-not-forming-properly",
+            "date": "2022-05-31 14:43:40",
+            "modified": "2023-05-23 14:34:25",
+            "excerpt": "",
+            "content": "<!-- wp:paragraph -->\n<p>If the finished panel doesn't look straight, has shape issues, or the legs are the wrong size, this could mean various things:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list -->\n<ul><!-- wp:list-item -->\n<li>Check to make sure your profile tooling is set up properly and in alignment.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Ensure your entry guide is set up correctly for the coil width you're using.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Ensure the material position on the expandable arbor is correct for the tooling profile in the machine. The arbor adjuster must also be on the correct side of the machine.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Check that entry rollers and shear/profile dies are correctly aligned to the material.</li>\n<!-- /wp:list-item --></ul>\n<!-- /wp:list -->\n\n<!-- wp:paragraph -->\n<p><strong>Watch this video demonstration for the correct procedures for all of the above</strong>: (Even though this video demonstrates the steps on an SSQ II machine, the process is similar for the SSH and SSR machines. Refer to your specific <a href=\"https://newtechmachinery.com/learning-center/resource/manuals/\">machine manual</a> for detailed instructions.)</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:html -->\n<div class=\"wistia-responsive-embed\" style=\"position:relative;padding-top:56.25%;\"><iframe src=\"https://fast.wistia.net/embed/iframe/2os9xtgz16?seo=false&amp;videoFoam=true\" title=\"Wistia video\" allow=\"autoplay; fullscreen\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"no\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" allowfullscreen></iframe></div>\n<!-- /wp:html -->",
+            "department": "service-repair",
+            "category": "metal-roof-wall-panel-rollforming-machines",
+            "machine_tags": [
+                "ssq-ii-multipro-roof-panel-machine",
+                "ssh-multipro-roof-panel-machine",
+                "ssr-multipro-jr"
+            ],
+            "legacy_categories": [
+                "roof-wall-panel-machines"
+            ],
+            "legacy_tags": [
+                "ssh",
+                "ssq-ii",
+                "ssr"
+            ],
+            "seo": {
+                "_yoast_wpseo_metadesc": "If a finished panel isn't forming properly, has shape issues, or the legs aren't the right size, follow these steps to correct",
+                "_yoast_wpseo_focuskw": "panel isn't forming properly",
+                "_yoast_wpseo_estimated-reading-time-minutes": "2"
+            }
+        },
+        {
+            "source_id": 36,
+            "source_post_type": "article",
+            "source_url": "https://ntmservice.local/article/gutter-is-running-uphill/",
+            "title": "The Gutter Is Running \"Uphill\"",
+            "slug": "gutter-is-running-uphill",
+            "date": "2022-05-31 15:03:38",
+            "modified": "2022-11-14 16:13:47",
+            "excerpt": "",
+            "content": "<!-- wp:paragraph -->\n<p>If you see that there's a slight bow upward towards the sky when looking at the bottom of your gutter from one end, this means your gutter is “running uphill.\" The ends of the gutter are higher at either end than they are in the center.&nbsp;</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p><a href=\"https://newtechmachinery.com/learning-center/resource/manuals/\">Refer to your gutter machine manual</a> before making any adjustments on your machine.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2>Learn How to Sight a Gutter and Identify Gutter Shape Issues</h2>\n<!-- /wp:heading -->\n\n<!-- wp:html -->\n<div class=\"wistia-responsive-embed\" style=\"position:relative;padding-top:56.25%;\"><iframe src=\"https://fast.wistia.net/embed/iframe/fsxlnck0h2?seo=false&amp;videoFoam=true\" title=\"Wistia video\" allow=\"autoplay; fullscreen\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"no\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" allowfullscreen></iframe></div>\n<!-- /wp:html -->\n\n<!-- wp:paragraph -->\n<p><strong>If your machine has multiple issues simultaneously, like \"uphill\" and \"into/away from the house\" only adjust one thing at a time. If you're unsure how to adjust your gutter machine contact the Service department first.</strong></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2>How to Adjust the Blue Station to Fix \"Uphill\" Gutter</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>If the gutter is running \"uphill,\" adjusting the blue station of the gutter machine swing shaft assembly. Follow the steps demonstrated in this video or read this article to <a href=\"https://newtechmachinery.com/learning-center/how-to-adjust-gutter-machine/\">learn how to sight your gutter and adjust your seamless gutter machine to fix \"uphill\" gutter</a> :</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:html -->\n<div class=\"wistia-responsive-embed\" style=\"position:relative;padding-top:56.25%;\"><iframe src=\"https://fast.wistia.net/embed/iframe/fsc6v7jr77?seo=false&amp;videoFoam=true\" title=\"Wistia video\" allow=\"autoplay; fullscreen\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"no\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" allowfullscreen></iframe></div>\n<!-- /wp:html -->\n\n<!-- wp:paragraph -->\n<p>To fix the gutter going \"uphill\", you’ll adjust the vertical axis, which is color-coded&nbsp;<strong>blue,</strong>&nbsp;on the exit mount adjustment assembly. By raising or lowering the box and rollers inside appropriately, you’ll control the uphill or downhill effect of the gutter.&nbsp;</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list {\"ordered\":true} -->\n<ol><!-- wp:list-item -->\n<li>Loosen the “F” bolt on top of the box assembly.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Turn the “E” bolt CLOCKWISE to raise the box to adjust for an uphill gutter.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Retighten the “F” bolts.</li>\n<!-- /wp:list-item --></ol>\n<!-- /wp:list -->\n\n<!-- wp:image {\"align\":\"center\",\"id\":37,\"sizeSlug\":\"full\",\"linkDestination\":\"none\"} -->\n<figure class=\"wp-block-image aligncenter size-full\"><img src=\"https://newtechmachinery.com/wp-content/uploads/2022/05/gutter-box-assembly-diagram.jpg\" alt=\"gutter box assembly\" class=\"wp-image-37\"/></figure>\n<!-- /wp:image -->",
+            "department": "service-repair",
+            "category": "seamless-gutter-rollforming-machines",
+            "machine_tags": [
+                "bg7-box-gutter-machine",
+                "mach-ii-5-gutter-machine",
+                "mach-ii-6-gutter-machine",
+                "mach-ii-5-6-gutter-machine"
+            ],
+            "legacy_categories": [
+                "seamless-gutter-machines"
+            ],
+            "legacy_tags": [
+                "bg7",
+                "mach-ii"
+            ],
+            "seo": {
+                "_yoast_wpseo_metadesc": "If you notice the finished gutter is running uphill, you'll need to adjust the swing shaft. Follow these steps to fix this problem",
+                "_yoast_wpseo_canonical": "https://newtechmachinery.com/learning-center/how-to-adjust-gutter-machine/",
+                "_yoast_wpseo_focuskw": "gutter is running uphill",
+                "_yoast_wpseo_estimated-reading-time-minutes": "2"
+            }
+        },
+        {
+            "source_id": 39,
+            "source_post_type": "article",
+            "source_url": "https://ntmservice.local/article/gutter-is-running-downhill/",
+            "title": "The Gutter Is Running \"Downhill\"",
+            "slug": "gutter-is-running-downhill",
+            "date": "2022-05-31 15:12:15",
+            "modified": "2022-11-08 15:15:25",
+            "excerpt": "",
+            "content": "<!-- wp:paragraph -->\n<p>When looking at the bottom of your gutter from one end, you can tell it’s “running downhill” when you see the gutter is bowing slightly downward. Downhill is when the ends of the gutter are lower than the center of the gutter.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p><a href=\"https://newtechmachinery.com/learning-center/resource/manuals/\">Refer to your gutter machine manual</a> before making any adjustments to your machine.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2>Learn How to Sight a Gutter and Identify Gutter Shape Issues</h2>\n<!-- /wp:heading -->\n\n<!-- wp:html -->\n<div class=\"wistia-responsive-embed\" style=\"position:relative;padding-top:56.25%;\"><iframe src=\"https://fast.wistia.net/embed/iframe/fsxlnck0h2?seo=false&amp;videoFoam=true\" title=\"Wistia video\" allow=\"autoplay; fullscreen\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"no\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" allowfullscreen></iframe></div>\n<!-- /wp:html -->\n\n<!-- wp:paragraph -->\n<p><strong>If your machine has multiple issues simultaneously, like \"downhill\" and \"into/away from the house\" only adjust one thing at a time. If you're unsure how to adjust your gutter machine contact the Service department first.</strong></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2>How to Adjust the Blue Station to Fix \"Downhill\" Gutter</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>If the gutter is running \"downhill,\" adjusting the blue station of the gutter machine swing shaft assembly. Follow the steps demonstrated in this video or <a href=\"https://newtechmachinery.com/learning-center/how-to-adjust-gutter-machine/\">read this article on sighting and adjusting your gutter machine to run properly</a>:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:html -->\n<div class=\"wistia-responsive-embed\" style=\"position:relative;padding-top:56.25%;\"><iframe src=\"https://fast.wistia.net/embed/iframe/fsc6v7jr77?seo=false&amp;videoFoam=true\" title=\"Wistia video\" allow=\"autoplay; fullscreen\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"no\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" allowfullscreen></iframe></div>\n<!-- /wp:html -->\n\n<!-- wp:paragraph -->\n<p>To fix the gutter going \"downhill\", you’ll adjust the vertical axis, which is color-coded&nbsp;<strong>blue,</strong>&nbsp;on the exit mount adjustment assembly. By raising or lowering the box and rollers inside appropriately, you’ll control the uphill or downhill effect of the gutter.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list {\"ordered\":true} -->\n<ol><!-- wp:list-item -->\n<li>Loosen the “F” bolt on top of the box assembly.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Turn the “E” bolt COUNTERCLOCKWISE to lower the box to adjust for a downhill gutter.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Retighten the “F” bolts.&nbsp;</li>\n<!-- /wp:list-item --></ol>\n<!-- /wp:list -->\n\n<!-- wp:image {\"id\":37,\"sizeSlug\":\"full\",\"linkDestination\":\"none\"} -->\n<figure class=\"wp-block-image size-full\"><img src=\"https://newtechmachinery.com/wp-content/uploads/2022/05/gutter-box-assembly-diagram.jpg\" alt=\"gutter box assembly\" class=\"wp-image-37\"/></figure>\n<!-- /wp:image -->\n\n<!-- wp:paragraph -->\n<p><strong>Still having issues? Click here to contact the Service department for assistance</strong></p>\n<!-- /wp:paragraph -->",
+            "department": "service-repair",
+            "category": "seamless-gutter-rollforming-machines",
+            "machine_tags": [
+                "bg7-box-gutter-machine",
+                "mach-ii-5-gutter-machine",
+                "mach-ii-6-gutter-machine",
+                "mach-ii-5-6-gutter-machine"
+            ],
+            "legacy_categories": [
+                "seamless-gutter-machines"
+            ],
+            "legacy_tags": [
+                "bg7",
+                "mach-ii"
+            ],
+            "seo": {
+                "_yoast_wpseo_metadesc": "If you find that the finished gutter is running \"downhill\" after it exits your machine, it could require some adjusting. Learn how to fix",
+                "_yoast_wpseo_canonical": "https://newtechmachinery.com/learning-center/how-to-adjust-gutter-machine/",
+                "_yoast_wpseo_focuskw": "gutter is running downhill",
+                "_yoast_wpseo_estimated-reading-time-minutes": "2"
+            }
+        },
+        {
+            "source_id": 56,
+            "source_post_type": "article",
+            "source_url": "https://ntmservice.local/article/gutter-running-into-the-house/",
+            "title": "Gutter Is Running \"Into the House\"",
+            "slug": "gutter-running-into-the-house",
+            "date": "2022-06-06 13:13:41",
+            "modified": "2022-11-08 15:07:25",
+            "excerpt": "",
+            "content": "<!-- wp:paragraph -->\n<p>If you see the ends of a finished piece of gutter bowing towards the house and the center is pulled away from the fascia, that means your gutter is “running into the house.” </p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p><a href=\"https://newtechmachinery.com/learning-center/resource/manuals/\">Refer to your gutter machine manual</a>&nbsp;before making any adjustments to your machine.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2>Learn How to Sight a Gutter and Identify Gutter Shape Issues</h2>\n<!-- /wp:heading -->\n\n<!-- wp:html -->\n<div class=\"wistia-responsive-embed\" style=\"position:relative;padding-top:56.25%;\"><iframe src=\"https://fast.wistia.net/embed/iframe/fsxlnck0h2?seo=false&amp;videoFoam=true\" title=\"Wistia video\" allow=\"autoplay; fullscreen\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"no\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" allowfullscreen></iframe></div>\n<!-- /wp:html -->\n\n<!-- wp:paragraph -->\n<p><strong>If your machine has multiple issues simultaneously, like “downhill” and “into/away from the house” only adjust one thing at a time. If you’re unsure how to adjust your gutter machine contact the Service department first.</strong></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2>How to Adjust the Green Station to Fix Gutter Running \"Into the House\"</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>If the gutter is running “into the house,” adjust the green station of the gutter machine swing shaft assembly. Follow the steps demonstrated in this video or find details in this <a href=\"https://newtechmachinery.com/learning-center/gutter-machine-problems/\">article on four common gutter machine problems and how to fix them</a>:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:html -->\n<div class=\"wistia-responsive-embed\" style=\"position:relative;padding-top:56.25%;\"><iframe src=\"https://fast.wistia.net/embed/iframe/8tc4oofaku?seo=false&amp;videoFoam=true\" title=\"Wistia video\" allow=\"autoplay; fullscreen\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"no\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" allowfullscreen></iframe></div>\n<!-- /wp:html -->\n\n<!-- wp:paragraph -->\n<p>To fix gutters going into the house, you’ll need to adjust the swing shaft assembly, color-coded green. This assembly applies pressure to the head of the gutter and is the most common adjustment used to straighten the gutter. </p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>To straighten your gutter:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list {\"ordered\":true} -->\n<ol><!-- wp:list-item -->\n<li>Loosen the two “J” bolts on top of the gutter box assembly enough so that the swing shaft assembly can slide.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Turn the adjustment bolt “K” to move the swing shaft assembly.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>To fix gutters going into the house, turn bolt “K” COUNTERCLOCKWISE a quarter of a turn at a time.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>After making an adjustment, run an 8′ long piece of gutter to check its straightness.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>If needed, adjust further by repeating the steps above, and be sure to check the gutter lip before completing any adjustments.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>While holding the swing shaft adjustment assembly so bolt “K” is against the box assembly, retighten bolts “J.”&nbsp;</li>\n<!-- /wp:list-item --></ol>\n<!-- /wp:list -->\n\n<!-- wp:image {\"id\":37} -->\n<figure class=\"wp-block-image\"><img src=\"https://newtechmachinery.com/wp-content/uploads/2022/05/gutter-box-assembly-diagram.jpg\" alt=\"gutter box assembly\" class=\"wp-image-37\"/></figure>\n<!-- /wp:image -->\n\n<!-- wp:paragraph -->\n<p><strong>Still having issues? Click here to contact the Service department for assistance</strong></p>\n<!-- /wp:paragraph -->",
+            "department": "service-repair",
+            "category": "seamless-gutter-rollforming-machines",
+            "machine_tags": [
+                "bg7-box-gutter-machine",
+                "mach-ii-5-gutter-machine",
+                "mach-ii-6-gutter-machine",
+                "mach-ii-5-6-gutter-machine"
+            ],
+            "legacy_categories": [
+                "seamless-gutter-machines"
+            ],
+            "legacy_tags": [
+                "bg7",
+                "mach-ii"
+            ],
+            "seo": {
+                "_yoast_wpseo_metadesc": "If you find the finished gutter is running \"into the house\", learn how to make the proper adjustments to correct this issue",
+                "_yoast_wpseo_canonical": "https://newtechmachinery.com/learning-center/gutter-machine-problems/",
+                "_yoast_wpseo_focuskw": "gutter is running into the house",
+                "_yoast_wpseo_estimated-reading-time-minutes": "2"
+            }
+        },
+        {
+            "source_id": 57,
+            "source_post_type": "article",
+            "source_url": "https://ntmservice.local/article/gutter-running-away-from-the-house/",
+            "title": "Gutter Running \"Away From the House\"",
+            "slug": "gutter-running-away-from-the-house",
+            "date": "2022-06-06 13:16:33",
+            "modified": "2022-11-14 16:13:20",
+            "excerpt": "",
+            "content": "<!-- wp:paragraph -->\n<p>When holding the gutter in your hands and looking straight down towards the ground, if it appears that the center of the gutter touches the fascia but the ends do not, that means it’s “running away from the house.”&nbsp;</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p><a href=\"https://newtechmachinery.com/learning-center/resource/manuals/\">Refer to your gutter machine manual</a>&nbsp;before making any adjustments to your machine.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2>Learn How to Sight a Gutter and Identify Gutter Shape Issues</h2>\n<!-- /wp:heading -->\n\n<!-- wp:html -->\n<div class=\"wistia-responsive-embed\" style=\"position:relative;padding-top:56.25%;\"><iframe src=\"https://fast.wistia.net/embed/iframe/fsxlnck0h2?seo=false&amp;videoFoam=true\" title=\"Wistia video\" allow=\"autoplay; fullscreen\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"no\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" allowfullscreen></iframe></div>\n<!-- /wp:html -->\n\n<!-- wp:paragraph -->\n<p><strong>If your machine has multiple issues simultaneously, like “downhill” and “into/away from the house” only adjust one thing at a time. If you’re unsure how to adjust your gutter machine contact the Service department first.</strong></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2>How to Adjust the Green Station to Fix Gutter Running \"Away From the House\"</h2>\n<!-- /wp:heading -->\n\n<!-- wp:paragraph -->\n<p>If the gutter is running “away from the house,” adjusting the green station of the gutter machine swing shaft assembly can help fix this issue. Follow the steps demonstrated in this video or <a href=\"https://newtechmachinery.com/learning-center/gutter-machine-problems/\">check out this article</a>:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:html -->\n<div class=\"wistia-responsive-embed\" style=\"position:relative;padding-top:56.25%;\"><iframe src=\"https://fast.wistia.net/embed/iframe/8tc4oofaku?seo=false&amp;videoFoam=true\" title=\"Wistia video\" allow=\"autoplay; fullscreen\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"no\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" allowfullscreen></iframe></div>\n<!-- /wp:html -->\n\n<!-- wp:paragraph -->\n<p>To fix gutters going away from the house, you’ll need to adjust the swing shaft assembly, color-coded green. This assembly applies pressure to the head of the gutter and is the most common adjustment used to straighten the gutter. </p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>To straighten your gutter:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list {\"ordered\":true} -->\n<ol><!-- wp:list-item -->\n<li>Loosen the two “J” bolts on top of the gutter box assembly enough so that the swing shaft assembly can slide.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>Turn the adjustment bolt “K” to move the swing shaft assembly.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>To fix gutters going away from the house, turn bolt “K” CLOCKWISE a quarter of a turn at a time.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>After making an adjustment, run an 8′ long piece of gutter to check its straightness.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>If needed, adjust further by repeating the steps above, and be sure to check the gutter lip before completing any adjustments.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>While holding the swing shaft adjustment assembly so bolt “K” is against the box assembly, retighten bolts “J.”&nbsp;</li>\n<!-- /wp:list-item --></ol>\n<!-- /wp:list -->\n\n<!-- wp:image {\"id\":37} -->\n<figure class=\"wp-block-image\"><img src=\"https://newtechmachinery.com/wp-content/uploads/2022/05/gutter-box-assembly-diagram.jpg\" alt=\"gutter box assembly\" class=\"wp-image-37\"/></figure>\n<!-- /wp:image -->",
+            "department": "service-repair",
+            "category": "seamless-gutter-rollforming-machines",
+            "machine_tags": [
+                "bg7-box-gutter-machine",
+                "mach-ii-5-gutter-machine",
+                "mach-ii-6-gutter-machine",
+                "mach-ii-5-6-gutter-machine"
+            ],
+            "legacy_categories": [
+                "seamless-gutter-machines"
+            ],
+            "legacy_tags": [
+                "bg7",
+                "mach-ii"
+            ],
+            "seo": {
+                "_yoast_wpseo_metadesc": "If your gutter is running away from the house, there's a simple adjustment you'll need to make. Learn how to fix this issue",
+                "_yoast_wpseo_canonical": "https://newtechmachinery.com/learning-center/gutter-machine-problems/",
+                "_yoast_wpseo_focuskw": "gutter running away from the house",
+                "_yoast_wpseo_estimated-reading-time-minutes": "2"
+            }
+        },
+        {
+            "source_id": 58,
+            "source_post_type": "article",
+            "source_url": "https://ntmservice.local/article/gutter-lip-is-too-big/",
+            "title": "The Gutter's Hem / Lip Is Too Big",
+            "slug": "gutter-lip-is-too-big",
+            "date": "2022-06-06 13:38:46",
+            "modified": "2022-11-14 16:12:51",
+            "excerpt": "",
+            "content": "<!-- wp:paragraph -->\n<p>If you find that the lip or hem of the gutter is coming out rippled or distorted it could be because the lip is too big. The recommended lip on a gutter is approximately 1/4\" to 5/16\" maximum and should be turned under.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>On a MACH II™ Gutter Machine, the easiest way to fix the problem is to move the Face/Right Entry, Back/Left Entry, and Post Entry Guides to the left. (Note: \"left\" and \"right\" sides refer to when you are facing the entry end of the machine.) Reference the <a href=\"https://newtechmachinery.com/wp-content/uploads/2021/03/MG5-MAN-Rev-5-Compressed.pdf\">Entry Guide Assembly Section of your manual</a> for instructions based on the sizing and configuration of your gutter machine.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>If an adjustment is made on the Face/Right Entry Guide, you'll also have to adjust the Post Guide on the first skate assembly as well as the Back/Left Entry Guide, using the coil as a guide. There should be no visible space between the entry guides and the coil. The guides should also not be so tight as to cause the gutter material to bind in the entry guide assembly.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Learn the proper way to adjust your MACH II Gutter Machine's Entry Guide in this video tutorial:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:html -->\n<div class=\"wistia-responsive-embed\" style=\"position:relative;padding-top:56.25%;\"><iframe src=\"https://fast.wistia.net/embed/iframe/112sb5ok36?seo=false&amp;videoFoam=true\" title=\"Wistia video\" allow=\"autoplay; fullscreen\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"no\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" allowfullscreen></iframe></div>\n<!-- /wp:html -->\n\n<!-- wp:paragraph -->\n<p>You can also check out our detailed <a href=\"https://newtechmachinery.com/learning-center/gutter-machine-problems/\">article on some common gutter machine problems and how to fix them here</a>.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>***Please note, depending on the year your machine was manufactured, there are some differences in the parts that need to be adjusted:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list -->\n<ul><!-- wp:list-item -->\n<li><strong>If your machine was machine manufactured</strong>&nbsp;<strong>in December 2014 or EARLIER:</strong>&nbsp;The last 4 digits of your machine’s serial number will give you the month and year it was produced. If the last 4 digits are 1214 (December 2014) or earlier, you will not have the Post Entry Guides to move.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><strong>If your machine was manufactured in January 2015 or LATER:</strong> If these 4 digits are 0115 (January 2015) or later, you will have a Post Guide Assembly.</li>\n<!-- /wp:list-item --></ul>\n<!-- /wp:list -->",
+            "department": "service-repair",
+            "category": "seamless-gutter-rollforming-machines",
+            "machine_tags": [
+                "mach-ii-5-gutter-machine",
+                "mach-ii-6-gutter-machine",
+                "mach-ii-5-6-gutter-machine"
+            ],
+            "legacy_categories": [
+                "seamless-gutter-machines"
+            ],
+            "legacy_tags": [
+                "mach-ii"
+            ],
+            "seo": {
+                "_yoast_wpseo_metadesc": "When a gutter is exiting your portable gutter machine, is the lip distorted? If the lip is too big it can cause this issue. To fix it, follow",
+                "_yoast_wpseo_canonical": "https://newtechmachinery.com/learning-center/gutter-machine-problems/",
+                "_yoast_wpseo_focuskw": "Gutter's lip is too big",
+                "_yoast_wpseo_estimated-reading-time-minutes": "2"
+            }
+        },
+        {
+            "source_id": 60,
+            "source_post_type": "article",
+            "source_url": "https://ntmservice.local/article/gutter-lip-is-too-small/",
+            "title": "The Gutter's Hem / Lip Is Too Small",
+            "slug": "gutter-lip-is-too-small",
+            "date": "2022-06-06 13:48:16",
+            "modified": "2022-11-14 16:12:10",
+            "excerpt": "",
+            "content": "<!-- wp:paragraph -->\n<p>If the hem or lip on your finished gutter is coming out too small, less than the minimum recommended 1/4\", it could hinder the way the gutter functions or cause it to be improperly installed. Having too small of a lip can also cause the gutter to run uphill and into the building.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>On a MACH II™ Gutter Machine, the easiest way to fix the problem is to move the Face/Right Entry, Back/Left Entry, and Post Entry Guides to the right. (Note: \"left\" and \"right\" sides refer to when you are facing the entry end of the machine.) Reference the&nbsp;<a href=\"https://newtechmachinery.com/wp-content/uploads/2021/03/MG5-MAN-Rev-5-Compressed.pdf\">Entry Guide Assembly Section of your manual</a>&nbsp;for instructions based on the sizing and configuration of your gutter machine.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>Learn the proper way to adjust the Entry Guide in this video:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:html -->\n<div class=\"wistia-responsive-embed\" style=\"position:relative;padding-top:56.25%;\"><iframe src=\"https://fast.wistia.net/embed/iframe/112sb5ok36?seo=false&amp;videoFoam=true\" title=\"Wistia video\" allow=\"autoplay; fullscreen\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"no\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" allowfullscreen></iframe></div>\n<!-- /wp:html -->\n\n<!-- wp:paragraph -->\n<p>You can also read this <a href=\"https://newtechmachinery.com/learning-center/gutter-machine-problems/\">article on common gutter machine problems and how to fix them</a>.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list {\"ordered\":true} -->\n<ol><!-- wp:list-item -->\n<li>To fix this issue, move the Face/Right, Back/Left Entry Guide, and Post Guide to the right. </li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>The Face/Right Entry Guide controls the amount of material that is fed into the face roller and box assembly. It should be moved only to increase or decrease the amount of lip that is turned under. </li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li>If an adjustment is made on the Face/Right Entry Guide, an adjustment must be made on the Post Guide on the first skate assembly as well as the Back/Left Entry Guide, using the coil as a guide. There should be no visible space between the entry guides and the coil. The guides should also not be so tight as to cause the gutter material to bind in the entry guide assembly.</li>\n<!-- /wp:list-item --></ol>\n<!-- /wp:list -->\n\n<!-- wp:paragraph -->\n<p>***Depending on the year your machine was manufactured, there are some differences in the parts that need to be adjusted:</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:list -->\n<ul><!-- wp:list-item -->\n<li><strong>If your machine was machine manufactured</strong>&nbsp;<strong>in December 2014 or EARLIER:</strong>&nbsp;The last 4 digits of your machine’s serial number will give you the month and year it was produced. If the last 4 digits are 1214 (December 2014) or earlier, you will not have the Post Entry Guides to move.</li>\n<!-- /wp:list-item -->\n\n<!-- wp:list-item -->\n<li><strong>If your machine was manufactured in January 2015 or LATER:</strong> If these 4 digits are 0115 (January 2015) or later, you will have a Post Guide Assembly.</li>\n<!-- /wp:list-item --></ul>\n<!-- /wp:list -->",
+            "department": "service-repair",
+            "category": "seamless-gutter-rollforming-machines",
+            "machine_tags": [
+                "mach-ii-5-gutter-machine",
+                "mach-ii-6-gutter-machine",
+                "mach-ii-5-6-gutter-machine"
+            ],
+            "legacy_categories": [
+                "seamless-gutter-machines"
+            ],
+            "legacy_tags": [
+                "mach-ii"
+            ],
+            "seo": {
+                "_yoast_wpseo_metadesc": "Finding the finished gutter's lip is too small? Correct the issue on your seamless gutter machine by following these troubleshooting tips",
+                "_yoast_wpseo_canonical": "https://newtechmachinery.com/learning-center/gutter-machine-problems/",
+                "_yoast_wpseo_focuskw": "gutter's lip is too small",
+                "_yoast_wpseo_estimated-reading-time-minutes": "3"
+            }
+        },
+        {
+            "source_id": 61,
+            "source_post_type": "article",
+            "source_url": "https://ntmservice.local/article/material-isnt-tracking-properly/",
+            "title": "Material Isn't Tracking Properly in the BG7™ Machine",
+            "slug": "material-isnt-tracking-properly",
+            "date": "2022-06-06 14:33:10",
+            "modified": "2022-11-14 16:11:06",
+            "excerpt": "",
+            "content": "<!-- wp:paragraph -->\n<p>If the dimensions of the gutter coming out of the machine are incorrect or the material has shape issues, then the material isn't tracking properly. Making sure that the Entry Guide or Entry Drum Extension is set up and aligned properly can help ensure that your material enters and exits the machine in proper alignment.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p><strong>Refer to the <a href=\"https://newtechmachinery.com/learning-center/manual/bg7-box-gutter-machine-with-plc-controller-manual/\">BG7 machine manual</a> for proper setup of the Entry Guide and Entry Drum Extension.</strong></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>For coil mounted on top of the gutter machine, pull the Entry Drum up and tighten the bolts. For any coil that is loaded on the free-standing decoiler, move the Entry Drum down and tighten the bolts. When running your machine with the Back Flange Assembly, move the Entry Drum out. When running Straight Back or Hook profiles, and when transporting your machine to a job site, be sure to push the Entry Drum in.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:image {\"align\":\"center\",\"id\":62,\"sizeSlug\":\"full\",\"linkDestination\":\"none\"} -->\n<figure class=\"wp-block-image aligncenter size-full\"><img src=\"{{asset:bg7-entry-drum-adjustment}}\" alt=\"entry drum adjustment for BG7\" class=\"wp-image-62\"/></figure>\n<!-- /wp:image -->",
+            "department": "service-repair",
+            "category": "seamless-gutter-rollforming-machines",
+            "machine_tags": [
+                "bg7-box-gutter-machine"
+            ],
+            "legacy_categories": [
+                "seamless-gutter-machines"
+            ],
+            "legacy_tags": [
+                "bg7"
+            ],
+            "seo": {
+                "_yoast_wpseo_metadesc": "If you encounter that the material isn't tracking properly in your BG7™ machine, what should you do? For this issue, refer to the manual",
+                "_yoast_wpseo_focuskw": "material isn't tracking properly",
+                "_yoast_wpseo_estimated-reading-time-minutes": "2"
+            }
+        },
+        {
+            "source_id": 74,
+            "source_post_type": "article",
+            "source_url": "https://ntmservice.local/article/update-uniq-automatic-control-system-software/",
+            "title": "How Do I Update My UNIQ® Automatic Control System Software?",
+            "slug": "update-uniq-automatic-control-system-software",
+            "date": "2022-11-07 18:08:29",
+            "modified": "2022-11-14 16:09:52",
+            "excerpt": "",
+            "content": "<!-- wp:paragraph -->\n<p>The NTM UNIQ® Automatic Control System software has undergone a complete re-design and update based on your feedback. The latest software update will ensure user-friendliness, reliability, and safety remain top of mind when using your UNIQ controller.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>This latest release can be downloaded and easily updated on your machine controller via the SD card and USB thumb drive provided. All machines are currently being shipped with the SD card and thumb drives. Check your UNIQ Control System for these items before contacting the Service Department.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p><a href=\"https://newtechmachinery.com/machines/uniq-control-system-update/\">Click here to download the latest UNIQ® software update.</a></p>\n<!-- /wp:paragraph -->",
+            "department": "service-repair",
+            "category": "metal-roof-wall-panel-rollforming-machines",
+            "machine_tags": [
+                "ssq-ii-multipro-roof-panel-machine",
+                "uniq-automatic-control-system"
+            ],
+            "legacy_categories": [
+                "roof-wall-panel-machines"
+            ],
+            "legacy_tags": [
+                "ssq-ii"
+            ],
+            "seo": {
+                "_yoast_wpseo_metadesc": "Want to know how to update your UNIQ® Automatic Control System software? Find the latest software update here and instructions on installing it",
+                "_yoast_wpseo_canonical": "https://newtechmachinery.com/machines/uniq-control-system-update/",
+                "_yoast_wpseo_focuskw": "update UNIQ automatic control system software",
+                "_yoast_wpseo_estimated-reading-time-minutes": "3"
+            }
+        },
+        {
+            "source_id": 200,
+            "source_post_type": "article",
+            "source_url": "https://ntmservice.local/article/how-to-do-a-changeover-for-a-5-6-combo-gutter-machine/",
+            "title": "How to do a changeover on the Mach II 5\"/6\" Combo Gutter Machine",
+            "slug": "how-to-do-a-changeover-for-a-5-6-combo-gutter-machine",
+            "date": "2025-01-28 20:37:42",
+            "modified": "2025-02-04 15:58:21",
+            "excerpt": "",
+            "content": "<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">5\" to 6\" changeover</h2>\n<!-- /wp:heading -->\n\n<!-- wp:html -->\n<div class=\"wistia-responsive-embed\" style=\"position:relative;padding-top:56.25%;\"><iframe src=\"https://fast.wistia.net/embed/iframe/8s1clzxwrb?seo=false&amp;videoFoam=true\" title=\"Wistia video\" allow=\"autoplay; fullscreen\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"no\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" allowfullscreen></iframe></div>\n<!-- /wp:html -->\n\n<!-- wp:paragraph -->\n<p></p>\n<!-- /wp:paragraph -->\n\n<!-- wp:heading -->\n<h2 class=\"wp-block-heading\">6\" to 5\" changeover</h2>\n<!-- /wp:heading -->\n\n<!-- wp:html -->\n<div class=\"wistia-responsive-embed\" style=\"position:relative;padding-top:56.25%;\"><iframe src=\"https://fast.wistia.net/embed/iframe/avmw8ede1i?seo=false&amp;videoFoam=true\" title=\"Wistia video\" allow=\"autoplay; fullscreen\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"no\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" allowfullscreen></iframe></div>\n<!-- /wp:html -->\n\n<!-- wp:paragraph -->\n<p></p>\n<!-- /wp:paragraph -->",
+            "department": "service-repair",
+            "category": "seamless-gutter-rollforming-machines",
+            "machine_tags": [
+                "mach-ii-5-6-gutter-machine"
+            ],
+            "legacy_categories": [],
+            "legacy_tags": [
+                "mach-ii"
+            ],
+            "seo": {
+                "_yoast_wpseo_canonical": "https://newtechmachinery.wistia.com/medias/8s1clzxwrb?embedType=iframe_web_component&seo=true&videoWidth=960",
+                "_yoast_wpseo_estimated-reading-time-minutes": "1"
+            }
+        }
+    ]
+}
