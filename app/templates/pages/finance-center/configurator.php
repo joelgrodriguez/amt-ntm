@@ -102,7 +102,7 @@ $steps = [
                     ?>
                 </span>
                 <figcaption class="finance-flow__shot-caption">
-                    <?php esc_html_e('The configurator — build, price, and apply in one screen', 'standard'); ?>
+                    <?php esc_html_e('The configurator: build, price, and apply in one screen', 'standard'); ?>
                 </figcaption>
             </figure>
         </div>

@@ -33,7 +33,7 @@ $paths = [
         'title'   => __('Apply online with Corbel', 'standard'),
         'fit'     => __('You want an answer now. Corbel runs your application against top-tier equipment lenders and comes back fast.', 'standard'),
         'points'  => [
-            __('Soft inquiry — applying won’t touch your credit score', 'standard'),
+            __('Soft inquiry, so applying won’t touch your credit score', 'standard'),
             __('Approval details in 4–8 business hours', 'standard'),
         ],
         'cta'     => __('How Corbel works', 'standard'),
@@ -81,7 +81,7 @@ $paths = [
                 <?php esc_html_e('Pick the path that fits your deal.', 'standard'); ?>
             </h2>
             <p class="section-subtitle text-pretty">
-                <?php esc_html_e('Most contractors mix two of these — apply with Corbel for speed, then claim Section 179 at tax time. Start wherever you are.', 'standard'); ?>
+                <?php esc_html_e('Most contractors mix two of these: apply with Corbel for speed, then claim Section 179 at tax time. Start wherever you are.', 'standard'); ?>
             </p>
         </div>
 
