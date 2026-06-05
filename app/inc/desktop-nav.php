@@ -173,7 +173,7 @@ function get_desktop_nav(): array {
                         ],
                     ],
                     [
-                        'label' => __('See if it fits', 'standard'),
+                        'label' => __('Are You Ready?', 'standard'), // TODO(copy): confirm vs "Is this for you?" / "Is it the right time?"
                         'items' => [
                             [
                                 'label' => __('Are you ready to manufacture? (Quiz)', 'standard'),
