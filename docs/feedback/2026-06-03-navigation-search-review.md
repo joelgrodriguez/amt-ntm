@@ -147,7 +147,7 @@ Joel committed (55:35) to extract **all** action steps. Grouped by type; source 
 - [x] Rename **"Understanding the deal" → "Understand the Investment"** — *decided* (Thad) — shipped (desktop-nav.php)
 - [x] Pick final wording for the **"See if it fits"** heading — *final: "Are You Ready?"* (locked 2026-06-05)
 - [x] Pick final wording for **"Request a Quote"** — *final: "Get help with your quote"* (locked 2026-06-05)
-- [ ] Rename **"Mach 2 family"** to model-descriptive (e.g. "Mach 2 — 5"/6"/6.5" combo" or "K-style gutter machines") — *open*
+- [x] Rename **"Mach 2 family"** to model-descriptive — *final: "MACH II Seamless Gutter Machines"* (Joel) — shipped (desktop-nav.php; card-grid label stays short "MACH II") 2026-06-05
 - [x] Remove the **"(expert shortcut)"** parenthetical — *decided* (Thad) — shipped (desktop-nav.php)
 
 ### Removes
@@ -180,8 +180,8 @@ Joel committed (55:35) to extract **all** action steps. Grouped by type; source 
 
 ### Search
 - [x] Relabel **"5 results" → "Top 5 results"** — *decided* (Evita) — shipped: badge reads "Top N results" when the 5-cap is hit, plain "N result(s)" under (SearchModal.js) 2026-06-05
-- [ ] Fine-tune **result-type filters** — *action* (Joel)
-- [ ] Decide the **result cap** (5 vs. more) — *open* (Joel)
+- [x] Fine-tune **result-type filters** — *action* (Joel) — service-hub Resource Type filter now hides zero-result types (template-service-hub.php) 2026-06-05
+- [x] Decide the **result cap** (5 vs. more) — *final: keep 5* (Joel) 2026-06-05
 
 ### Policy / decisions to confirm
 - [ ] Confirm **publish-date / "updated on" policy** (schema-affecting) with Rick — *open*
