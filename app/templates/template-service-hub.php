@@ -97,9 +97,11 @@ get_header();
             'kicker'           => __('Service Hub // Owner Support', 'standard'),
             'title'            => __('Everything for your<br class="hidden lg:inline"> NTM machine.', 'standard'),
             'subtitle'         => __('Manuals, troubleshooting, parts, and videos for every machine you run. Backed by the people who built them.', 'standard'),
-            'cta_primary'      => __('Open a service request', 'standard'),
-            'cta_primary_url'  => '/service-hub/request/',
-            'cta_primary_icon' => 'arrow-right',
+            'cta_primary'      => __('Find your machine', 'standard'),
+            'cta_primary_url'  => '#service-hub-machines',
+            'cta_primary_icon' => 'arrow-down',
+            'cta_secondary'    => __('Open a service request', 'standard'),
+            'cta_secondary_url' => '/service-hub/request/',
             'video'            => 'https://fast.wistia.net/embed/iframe/jxmgaicen7?videoFoam=true',
             // Click-to-play poster (the facade thumbnail), same mechanism as
             // /machines. Service-department photo: the right fit for a support hub.
