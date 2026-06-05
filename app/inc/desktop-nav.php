@@ -350,6 +350,10 @@ function get_desktop_nav(): array {
                                 'url'   => \Standard\Url\with_query('/contact/', ['form' => 'quote']),
                             ],
                             [
+                                'label' => __('Configure your machine', 'standard'),
+                                'url'   => \Standard\Url\internal('/configurator/'),
+                            ],
+                            [
                                 'label' => __('What to know before quoting', 'standard'),
                                 'url'   => \Standard\Url\internal('/learning-center/getting-a-portable-rollforming-machine-quote/'),
                             ],
