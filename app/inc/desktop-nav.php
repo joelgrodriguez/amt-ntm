@@ -346,7 +346,7 @@ function get_desktop_nav(): array {
                         'label' => __('Get a quote', 'standard'),
                         'items' => [
                             [
-                                'label' => __('Request a quote', 'standard'),
+                                'label' => __('Get help with your quote', 'standard'), // TODO(copy): confirm vs "Get an expert quote" / "Get a tailored quote"
                                 'url'   => \Standard\Url\with_query('/contact/', ['form' => 'quote']),
                             ],
                             [
