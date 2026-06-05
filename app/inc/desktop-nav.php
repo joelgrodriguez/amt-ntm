@@ -364,7 +364,7 @@ function get_desktop_nav(): array {
                         ],
                     ],
                     [
-                        'label' => __('Understand the deal', 'standard'),
+                        'label' => __('Understand the Investment', 'standard'),
                         'items' => [
                             [
                                 'label' => __('Panel machine cost (2026)', 'standard'),
