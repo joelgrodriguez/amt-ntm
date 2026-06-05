@@ -77,6 +77,19 @@ $panels = array_values(array_filter(
                         </div>
                     <?php endforeach; ?>
                 </div>
+                <?php $cards = $panel['cards'] ?? []; ?>
+                <?php if (!empty($cards)) : ?>
+                    <div class="mega-menu__cards mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
+                        <?php foreach ($cards as $card) : ?>
+                            <a href="<?php echo esc_url($card['url'] ?? '#'); ?>" class="mega-menu__card">
+                                <span class="mega-menu__card-label"><?php echo esc_html($card['label'] ?? ''); ?></span>
+                                <?php if (!empty($card['badge'])) : ?>
+                                    <span class="badge badge-emphasis mega-menu__card-badge"><?php echo esc_html($card['badge']); ?></span>
+                                <?php endif; ?>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
