@@ -61,13 +61,6 @@ if (!$machine) {
     </div>
 
     <?php
-    // Sidebar section-nav variant exists (machine-subnav--sidebar) but needs a two-column
-    // page layout (.layout-with-rail) + a scroll-offset fix in MachineSubnav.js before it can
-    // be enabled here. See docs/feedback/2026-06-03-navigation-search-review.md. Keep 'header' for now.
-    get_template_part('templates/woo/product/parts/subnav', null, compact('product', 'machine'));
-    ?>
-
-    <?php
     get_template_part('templates/parts/video-section', null, [
         'title'      => $product->get_name(),
         'video_url'  => is_string($video_url) ? $video_url : null,
@@ -76,7 +69,13 @@ if (!$machine) {
     ]);
     ?>
 
-    <?php get_template_part('templates/woo/product/parts/machine-breakdown', null, compact('machine')); ?>
+    <div class="container layout-with-rail">
+
+        <?php get_template_part('templates/woo/product/parts/subnav', null, compact('product', 'machine') + ['variant' => 'sidebar']); ?>
+
+        <div class="machine-rail-content min-w-0">
+
+            <?php get_template_part('templates/woo/product/parts/machine-breakdown', null, compact('machine')); ?>
 
     <?php get_template_part('templates/woo/product/parts/machine-fit', null, compact('machine')); ?>
 
@@ -104,7 +103,10 @@ if (!$machine) {
     }
     ?>
 
-    <?php get_template_part('templates/woo/product/parts/faq', null, compact('machine')); ?>
+            <?php get_template_part('templates/woo/product/parts/faq', null, compact('machine')); ?>
+
+        </div><!-- .machine-rail-content -->
+    </div><!-- .layout-with-rail -->
 
     <?php
     $closer_configurator_url = \Standard\Woo\Catalog\get_configurator_url($product->get_slug());
