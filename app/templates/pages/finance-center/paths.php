@@ -68,6 +68,20 @@ $paths = [
         'cta_url' => '#lenders',
         'external' => false,
     ],
+    [
+        'index'   => '04',
+        'eyebrow' => __('Your own bank', 'standard'),
+        'icon'    => 'dollar-sign',
+        'title'   => __('Bring your own lender', 'standard'),
+        'fit'     => __('You already have a bank or credit union you trust. NTM works with whatever lender you bring — you don’t have to use ours.', 'standard'),
+        'points'  => [
+            __('Use any bank, credit union, or finance partner you choose', 'standard'),
+            __('We’ll supply quotes, invoices, and specs your lender needs', 'standard'),
+        ],
+        'cta'     => __('See the lender directory', 'standard'),
+        'cta_url' => '#lenders',
+        'external' => false,
+    ],
 ];
 ?>
 
@@ -85,7 +99,7 @@ $paths = [
             </p>
         </div>
 
-        <div class="grid gap-px border border-blue-200 bg-blue-200 md:grid-cols-3">
+        <div class="grid gap-px border border-blue-200 bg-blue-200 md:grid-cols-2 lg:grid-cols-4">
             <?php foreach ($paths as $path) : ?>
                 <div class="flex flex-col gap-5 bg-white p-6 md:p-8 lg:p-10">
 
