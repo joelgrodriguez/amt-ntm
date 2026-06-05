@@ -20,6 +20,20 @@
 
 @layer components {
 
+  /* ── Three paths — card icon tile ─────────────────────────────────── */
+
+  .finance-path__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background-color: var(--color-blue-50);
+    border: 1px solid var(--color-blue-200);
+    color: var(--color-blue-500);
+    flex-shrink: 0;
+  }
+
   /* ── Build · Quote · Finance band ─────────────────────────────────── */
 
   .finance-flow__header {
@@ -45,7 +59,7 @@
   .finance-flow__eyebrow-dot {
     width: 6px;
     height: 6px;
-    background-color: var(--color-red);
+    background-color: var(--color-blue-500);
     flex-shrink: 0;
   }
 
@@ -179,7 +193,7 @@
     font-size: var(--text-caption);
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: var(--color-red);
+    color: var(--color-blue-300);
     margin: 0;
   }
 
@@ -228,7 +242,7 @@
 
   .finance-flow__alt-link:hover,
   .finance-flow__alt-link:focus-visible {
-    color: var(--color-red);
+    color: var(--color-white);
   }
 
   .finance-flow__alt-link:focus-visible {
@@ -394,99 +408,9 @@
 
   /* ── Lender directory ─────────────────────────────────────────────── */
 
-  .lender-feature {
-    display: grid;
-    gap: clamp(24px, 3vw, 40px);
-    background-color: var(--color-white);
-    border: 1px solid var(--color-blue-200);
-    padding: clamp(24px, 3vw, 40px);
-  }
-
-  @media (min-width: 768px) {
-    .lender-feature {
-      grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
-      align-items: center;
-    }
-  }
-
-  .lender-feature__brand {
-    display: grid;
-    gap: 12px;
-    justify-items: start;
-  }
-
-  .lender-feature__tag {
-    margin: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--font-mono);
-    font-weight: 500;
-    font-size: var(--text-caption);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--color-red);
-  }
-
-  .lender-feature__tag-dot {
-    width: 6px;
-    height: 6px;
-    background-color: var(--color-red);
-    flex-shrink: 0;
-  }
-
-  /* White frame so a dark-on-transparent logo (e.g. fnb.jpg) sits on a
-     clean ground regardless of the row's surface. */
-  .lender-feature__logo-frame {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--color-white);
-    border: 1px solid var(--color-blue-100);
-    padding: clamp(12px, 1.5vw, 18px);
-    width: 100%;
-    max-width: 18rem;
-  }
-
-  .lender-feature__logo {
-    display: block;
-    max-width: 100%;
-    height: auto;
-  }
-
-  .lender-feature__body {
-    display: grid;
-    gap: 12px;
-  }
-
-  .lender-feature__name {
-    margin: 0;
-    font-family: var(--font-sans);
-    font-weight: 500;
-    font-size: clamp(20px, 2vw, 26px);
-    letter-spacing: -0.01em;
-    color: var(--color-blue-900);
-  }
-
-  .lender-feature__copy {
-    margin: 0;
-    font-family: var(--font-sans);
-    font-size: var(--text-body);
-    line-height: 1.55;
-    color: var(--color-blue-600);
-    max-width: 52ch;
-  }
-
-  .lender-feature__actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: clamp(12px, 2vw, 20px);
-    margin-top: 4px;
-  }
-
-  /* Third-party list — hairline rows, name-first so a missing logo never
-     leaves a blank row. */
+  /* One even list — hairline rows, name-first so a missing logo never
+     leaves a blank row. FNB leads, marked with a blue "NTM's pick" badge;
+     no separate hero, no red. */
   .lender-list {
     list-style: none;
     margin: 0;
@@ -499,31 +423,38 @@
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
-    gap: clamp(16px, 2vw, 24px);
-    padding: clamp(16px, 2vw, 20px) clamp(4px, 1vw, 12px);
+    gap: clamp(20px, 2.5vw, 32px);
+    /* Vertical padding only; the row's separation is the top/bottom hairline,
+       never a side border. */
+    padding: clamp(18px, 2.2vw, 24px) 0;
     border-bottom: 1px solid var(--color-blue-200);
-    background-color: var(--color-white);
+    background-color: transparent;
     text-decoration: none;
     transition: background-color 200ms ease-out;
   }
 
   .lender-list__link:hover,
   .lender-list__link:focus-visible {
-    background-color: var(--color-blue-100);
+    background-color: var(--color-white);
   }
 
   .lender-list__link:focus-visible {
     outline: 2px solid var(--color-blue-500);
-    outline-offset: -2px;
+    outline-offset: 2px;
   }
 
+  /* Logo tile — larger, framed in white so each mark reads clearly and the
+     row keeps a consistent left column whatever the logo's aspect. */
   .lender-list__logo-wrap {
-    width: 84px;
-    height: 40px;
+    width: clamp(120px, 16vw, 160px);
+    height: clamp(56px, 7vw, 72px);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-blue-100);
+    padding: 10px 14px;
   }
 
   .lender-list__logo {
@@ -541,10 +472,34 @@
   }
 
   .lender-list__name {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
     font-family: var(--font-sans);
     font-weight: 500;
-    font-size: var(--text-body);
+    font-size: clamp(var(--text-body), 1.4vw, 18px);
     color: var(--color-blue-900);
+  }
+
+  /* "NTM's pick" — a quiet blue badge, the one place FNB is distinguished. */
+  .lender-list__pick {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-blue-700);
+    background-color: var(--color-blue-100);
+    border: 1px solid var(--color-blue-200);
+  }
+
+  .lender-list__pick svg {
+    color: var(--color-blue-500);
   }
 
   .lender-list__note {
@@ -555,15 +510,45 @@
     color: var(--color-blue-400);
   }
 
-  .lender-list__arrow {
-    color: var(--color-blue-400);
+  /* Visit affordance — mono label + arrow, label hidden on small screens. */
+  .lender-list__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-blue-500);
+  }
+
+  .lender-list__cta-label {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .lender-list__cta-label {
+      display: inline;
+    }
+  }
+
+  .lender-list__arrow {
+    display: inline-flex;
+    color: var(--color-blue-500);
     transition: color 200ms ease-out, transform 200ms ease-out;
+  }
+
+  .lender-list__link:hover .lender-list__cta,
+  .lender-list__link:focus-visible .lender-list__cta,
+  .lender-list__link:hover .lender-list__arrow,
+  .lender-list__link:focus-visible .lender-list__arrow {
+    color: var(--color-blue-700);
   }
 
   .lender-list__link:hover .lender-list__arrow,
   .lender-list__link:focus-visible .lender-list__arrow {
-    color: var(--color-blue-700);
     transform: translateX(2px);
   }
 

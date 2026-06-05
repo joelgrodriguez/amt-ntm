@@ -27,7 +27,12 @@ $post_id = get_the_ID();
 
 // hero_video (set in the DB, captured in scripts/db/) wins; fall back to the
 // known finance Wistia media so the hero always ships with the video.
-$fallback_video = 'https://newtechmachinery.wistia.com/medias/hesm0txl1n';
+//
+// hero-category's facade uses this value DIRECTLY as the iframe src on click,
+// so it must be an embeddable Wistia URL (fast.wistia.net/embed/iframe/<id>),
+// NOT a share/landing URL (…wistia.com/medias/<id>) which won't load in an
+// iframe. This is the same embed shape /machines/ passes.
+$fallback_video = 'https://fast.wistia.net/embed/iframe/hesm0txl1n?seo=false&videoFoam=true';
 $video = \Standard\PageTemplates\get_page_field($post_id, ['hero_video'], $fallback_video, false);
 
 get_template_part('templates/parts/hero-category', null, [

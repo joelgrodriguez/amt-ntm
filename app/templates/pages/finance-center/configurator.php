@@ -108,7 +108,7 @@ $steps = [
         </div>
 
         <div class="finance-flow__actions">
-            <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-emphasis btn--commit">
+            <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary btn--commit">
                 <?php esc_html_e('Open the configurator', 'standard'); ?>
                 <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
             </a>

@@ -29,6 +29,7 @@ $paths = [
     [
         'index'   => '01',
         'eyebrow' => __('Fastest', 'standard'),
+        'icon'    => 'clock',
         'title'   => __('Apply online with Corbel', 'standard'),
         'fit'     => __('You want an answer now. Corbel runs your application against top-tier equipment lenders and comes back fast.', 'standard'),
         'points'  => [
@@ -42,6 +43,7 @@ $paths = [
     [
         'index'   => '02',
         'eyebrow' => __('Tax savings', 'standard'),
+        'icon'    => 'trending-up',
         'title'   => __('Deduct it with Section 179', 'standard'),
         'fit'     => __('You’re buying before year-end. Section 179 lets you write off the equipment now instead of depreciating it for years.', 'standard'),
         'points'  => [
@@ -55,6 +57,7 @@ $paths = [
     [
         'index'   => '03',
         'eyebrow' => __('Work with a lender', 'standard'),
+        'icon'    => 'file-text',
         'title'   => __('Finance through a bank', 'standard'),
         'fit'     => __('You’d rather go through a bank. First National Bank is NTM’s preferred lender, with proven third-party options behind it.', 'standard'),
         'points'  => [
@@ -86,14 +89,18 @@ $paths = [
             <?php foreach ($paths as $path) : ?>
                 <div class="flex flex-col gap-5 bg-white p-6 md:p-8 lg:p-10">
 
-                    <div class="flex items-baseline justify-between gap-4">
-                        <p class="font-mono text-xs uppercase tracking-mono-label text-blue-500">
-                            <?php echo esc_html($path['eyebrow']); ?>
-                        </p>
+                    <div class="flex items-center justify-between gap-4">
+                        <span class="finance-path__icon" aria-hidden="true">
+                            <?php icon($path['icon'], ['class' => 'w-5 h-5']); ?>
+                        </span>
                         <span class="font-mono text-xs font-medium tabular-nums text-blue-300" aria-hidden="true">
                             <?php echo esc_html($path['index']); ?>
                         </span>
                     </div>
+
+                    <p class="font-mono text-xs uppercase tracking-mono-label text-blue-500">
+                        <?php echo esc_html($path['eyebrow']); ?>
+                    </p>
 
                     <h3 class="font-sans text-xl font-medium tracking-tight text-balance text-blue-900 lg:text-2xl">
                         <?php echo esc_html($path['title']); ?>

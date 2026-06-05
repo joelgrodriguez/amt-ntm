@@ -2,15 +2,16 @@
 /**
  * Finance Center — Lender directory
  *
- * Replaces the legacy three-logo column blocks with one clean directory.
- * First National Bank leads as NTM's preferred lender in a wider feature
- * row; the third-party lenders (Apex, American Bank, Crest, ACG) follow as
- * a hairline-ruled list. Every row leads with the lender NAME so it stays
- * legible even if a logo fails — the logo is enhancement, not the row.
+ * One even directory instead of a red-flagged FNB hero over a separate list.
+ * Every lender is a large-logo row; FNB simply leads, marked "NTM’s pick"
+ * with a small blue check. NTM doesn't finance in-house and isn't affiliated
+ * with any bank, so the lenders read as peers the buyer compares — not as a
+ * single push.
  *
- * Logos render through responsive_image(): URLs are upload-relative
- * (home_url-based) so they survive the local↔prod domain swap, and the
- * helper resolves each to its WP attachment for proper srcset/sizes.
+ * Logos render through responsive_image() (URLs are upload-relative, resolved
+ * to attachments for srcset). Each row leads with the lender NAME so a failed
+ * logo never blanks a row; the white logo tile keeps marks legible on the
+ * tinted section.
  *
  * @package Standard
  *
@@ -27,37 +28,41 @@ use function Standard\Images\responsive_image;
 
 $uploads = trailingslashit(home_url('/wp-content/uploads'));
 
-$preferred = [
-    'name'  => __('First National Bank', 'standard'),
-    'tag'   => __('Preferred lender', 'standard'),
-    'copy'  => __('NTM’s recommended financing partner. Loans, leasing, and equipment finance programs built for capital purchases like yours.', 'standard'),
-    'logo'  => $uploads . '2024/11/fnb.jpg',
-    'apply' => 'https://www.elbtools.com/secure/apply.php?elbt=110356250762',
-    'learn' => 'https://www.fnb-online.com/business/loans-leasing/equipment-financing',
-];
-
+// FNB leads as NTM's recommended partner (pick=true), but it's the same row
+// shape as the rest — no separate hero.
 $lenders = [
+    [
+        'name' => __('First National Bank', 'standard'),
+        'note' => __('Loans, leasing & equipment finance', 'standard'),
+        'pick' => true,
+        'logo' => $uploads . '2024/11/fnb.jpg',
+        'url'  => 'https://www.elbtools.com/secure/apply.php?elbt=110356250762',
+    ],
     [
         'name' => __('Apex Capital', 'standard'),
         'note' => __('Equipment finance + Section 179 calculator', 'standard'),
+        'pick' => false,
         'logo' => $uploads . '2021/06/NTM_Financing_ApexCapital.jpeg',
         'url'  => 'https://financewithapex.com/michelle/',
     ],
     [
         'name' => __('American Bank', 'standard'),
-        'note' => __('Equipment finance for small to mid-size businesses', 'standard'),
+        'note' => __('Equipment finance for small to mid-size business', 'standard'),
+        'pick' => false,
         'logo' => $uploads . '2024/02/AB_Equipment_Finance_horizontal.jpg',
         'url'  => 'https://www.americanbank.com/business/loans/equipment-finance',
     ],
     [
         'name' => __('Crest Capital', 'standard'),
         'note' => __('Equipment leasing and financing', 'standard'),
+        'pick' => false,
         'logo' => $uploads . '2021/06/NTM_Financing_CrestCapital.jpeg',
         'url'  => 'https://www.crestcapital.com/equipment_leasing',
     ],
     [
         'name' => __('ACG Equipment Finance', 'standard'),
         'note' => __('Section 179 Elite financing programs', 'standard'),
+        'pick' => false,
         'logo' => $uploads . '2021/06/NTM_ACGFinanceFlyerGraphic.jpeg',
         'url'  => 'https://acgequipmentfinance.com/',
     ],
@@ -78,84 +83,44 @@ $lenders = [
             </p>
         </div>
 
-        <div class="grid gap-8">
-
-            <article class="lender-feature">
-                <div class="lender-feature__brand">
-                    <p class="lender-feature__tag">
-                        <span class="lender-feature__tag-dot" aria-hidden="true"></span>
-                        <?php echo esc_html($preferred['tag']); ?>
-                    </p>
-                    <span class="lender-feature__logo-frame">
-                        <?php
-                        responsive_image($preferred['logo'], $preferred['name'], 'medium', [
-                            'class'  => 'lender-feature__logo',
-                            'width'  => '248',
-                            'height' => '79',
-                        ]);
-                        ?>
-                    </span>
-                </div>
-                <div class="lender-feature__body">
-                    <h3 class="lender-feature__name"><?php echo esc_html($preferred['name']); ?></h3>
-                    <p class="lender-feature__copy text-pretty"><?php echo esc_html($preferred['copy']); ?></p>
-                    <div class="lender-feature__actions">
-                        <a
-                            href="<?php echo esc_url($preferred['apply']); ?>"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="btn btn-primary"
-                        >
-                            <?php esc_html_e('Apply with FNB', 'standard'); ?>
-                            <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
-                        </a>
-                        <a
-                            href="<?php echo esc_url($preferred['learn']); ?>"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="inline-flex min-h-11 items-center gap-1.5 font-mono text-xs uppercase tracking-mono-label text-blue-500 transition-colors hover:text-blue-700"
-                        >
-                            <?php esc_html_e('FNB equipment financing', 'standard'); ?>
-                            <?php icon('arrow-right', ['class' => 'w-3.5 h-3.5']); ?>
-                        </a>
-                    </div>
-                </div>
-            </article>
-
-            <div>
-                <p class="font-mono text-xs uppercase tracking-mono-label text-blue-500 mb-4">
-                    <?php esc_html_e('Third-party options', 'standard'); ?>
-                </p>
-                <ul class="lender-list" role="list">
-                    <?php foreach ($lenders as $lender) : ?>
-                        <li class="lender-list__item">
-                            <a
-                                href="<?php echo esc_url($lender['url']); ?>"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="lender-list__link"
-                            >
-                                <span class="lender-list__logo-wrap">
-                                    <?php
-                                    responsive_image($lender['logo'], $lender['name'] . ' logo', 'medium', [
-                                        'class' => 'lender-list__logo',
-                                    ]);
-                                    ?>
-                                </span>
-                                <span class="lender-list__text">
-                                    <span class="lender-list__name"><?php echo esc_html($lender['name']); ?></span>
-                                    <span class="lender-list__note"><?php echo esc_html($lender['note']); ?></span>
-                                </span>
-                                <span class="lender-list__arrow" aria-hidden="true">
-                                    <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
-                                </span>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-
-        </div>
+        <ul class="lender-list" role="list">
+            <?php foreach ($lenders as $lender) : ?>
+                <li class="lender-list__item">
+                    <a
+                        href="<?php echo esc_url($lender['url']); ?>"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="lender-list__link"
+                    >
+                        <span class="lender-list__logo-wrap">
+                            <?php
+                            responsive_image($lender['logo'], $lender['name'] . ' logo', 'medium', [
+                                'class' => 'lender-list__logo',
+                            ]);
+                            ?>
+                        </span>
+                        <span class="lender-list__text">
+                            <span class="lender-list__name">
+                                <?php echo esc_html($lender['name']); ?>
+                                <?php if (!empty($lender['pick'])) : ?>
+                                    <span class="lender-list__pick">
+                                        <?php icon('check', ['class' => 'w-3.5 h-3.5']); ?>
+                                        <?php esc_html_e('NTM’s pick', 'standard'); ?>
+                                    </span>
+                                <?php endif; ?>
+                            </span>
+                            <span class="lender-list__note"><?php echo esc_html($lender['note']); ?></span>
+                        </span>
+                        <span class="lender-list__cta" aria-hidden="true">
+                            <span class="lender-list__cta-label"><?php esc_html_e('Visit', 'standard'); ?></span>
+                            <span class="lender-list__arrow">
+                                <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                            </span>
+                        </span>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
 
     </div>
 </section>
