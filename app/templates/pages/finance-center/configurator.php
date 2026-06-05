@@ -24,10 +24,21 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use function Standard\Images\responsive_image;
-
 $configurator_url = \Standard\Url\internal('/configurator/');
-$walkthrough_url  = \Standard\Url\internal('/learning-center/how-to-build-and-finance-your-ntm-rollformer-all-on-one-site/');
+
+// Two short walkthrough videos for the build-and-finance flow. Linked by
+// their stable learning-center paths (not post IDs, which churn on a fresh
+// prod pull).
+$videos = [
+    [
+        'title' => __('Configure your machine, step by step', 'standard'),
+        'url'   => '/learning-center/video/how-to-configure-your-new-tech-machinery-machine-step-by-step-video/',
+    ],
+    [
+        'title' => __('Build and finance in one place', 'standard'),
+        'url'   => '/learning-center/video/build-and-finance-your-ntm-machine-in-one-place-video/',
+    ],
+];
 
 $steps = [
     [
@@ -68,54 +79,65 @@ $steps = [
             </p>
         </div>
 
-        <div class="finance-flow__body">
-            <ol class="finance-flow__steps" role="list">
-                <?php foreach ($steps as $index => $step) : ?>
-                    <li class="finance-flow__step">
-                        <span class="finance-flow__step-index" aria-hidden="true">
-                            <?php echo esc_html(str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT)); ?>
-                        </span>
-                        <div class="finance-flow__step-body">
-                            <p class="finance-flow__step-kicker">
-                                <?php echo esc_html($step['kicker']); ?>
-                            </p>
-                            <h3 class="finance-flow__step-title">
-                                <?php echo esc_html($step['title']); ?>
-                            </h3>
-                            <p class="finance-flow__step-copy">
-                                <?php echo esc_html($step['copy']); ?>
-                            </p>
-                        </div>
-                    </li>
-                <?php endforeach; ?>
-            </ol>
+        <figure class="finance-flow__shot">
+            <span class="finance-flow__shot-frame">
+                <img
+                    src="<?php echo esc_url(THEME_URI . '/app/assets/images/config-mockup.png'); ?>"
+                    alt="<?php esc_attr_e('The NTM configurator with a machine build, live pricing, and a financing application in progress', 'standard'); ?>"
+                    class="finance-flow__shot-img"
+                    width="2613"
+                    height="1634"
+                    loading="lazy"
+                    decoding="async"
+                >
+            </span>
+            <figcaption class="finance-flow__shot-caption">
+                <?php esc_html_e('The configurator: build, price, and apply in one screen', 'standard'); ?>
+            </figcaption>
+        </figure>
 
-            <figure class="finance-flow__shot">
-                <span class="finance-flow__shot-frame">
-                    <?php
-                    responsive_image(
-                        content_url('/uploads/2024/08/configurator.png'),
-                        __('The NTM configurator with a machine build in progress', 'standard'),
-                        'large',
-                        ['class' => 'finance-flow__shot-img']
-                    );
-                    ?>
-                </span>
-                <figcaption class="finance-flow__shot-caption">
-                    <?php esc_html_e('The configurator: build, price, and apply in one screen', 'standard'); ?>
-                </figcaption>
-            </figure>
-        </div>
+        <ol class="finance-flow__steps" role="list">
+            <?php foreach ($steps as $index => $step) : ?>
+                <li class="finance-flow__step">
+                    <span class="finance-flow__step-index" aria-hidden="true">
+                        <?php echo esc_html(str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT)); ?>
+                    </span>
+                    <div class="finance-flow__step-body">
+                        <p class="finance-flow__step-kicker">
+                            <?php echo esc_html($step['kicker']); ?>
+                        </p>
+                        <h3 class="finance-flow__step-title">
+                            <?php echo esc_html($step['title']); ?>
+                        </h3>
+                        <p class="finance-flow__step-copy">
+                            <?php echo esc_html($step['copy']); ?>
+                        </p>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ol>
 
         <div class="finance-flow__actions">
             <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary btn--commit">
                 <?php esc_html_e('Open the configurator', 'standard'); ?>
                 <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
             </a>
-            <a href="<?php echo esc_url($walkthrough_url); ?>" class="finance-flow__alt-link">
-                <?php esc_html_e('See how it works, step by step', 'standard'); ?>
-                <span aria-hidden="true">&rarr;</span>
-            </a>
+        </div>
+
+        <div class="finance-flow__watch">
+            <p class="finance-flow__watch-label"><?php esc_html_e('Watch it in action', 'standard'); ?></p>
+            <ul class="finance-flow__watch-list" role="list">
+                <?php foreach ($videos as $video) : ?>
+                    <li>
+                        <a href="<?php echo esc_url(\Standard\Url\internal($video['url'])); ?>" class="finance-flow__watch-link">
+                            <span class="finance-flow__watch-icon" aria-hidden="true">
+                                <?php icon('play', ['class' => 'w-4 h-4']); ?>
+                            </span>
+                            <span><?php echo esc_html($video['title']); ?></span>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
         </div>
 
     </div>
