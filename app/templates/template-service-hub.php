@@ -231,7 +231,11 @@ get_header();
         </div>
     </section>
 
-    <?php /* Band 4.5 — UNIQ Automatic Control System. The controller that runs the
+    <?php /* Band 4.5 — FAQ. The most-asked owner questions, before the search
+            firehose, so the common stuff is answered without a ticket. */ ?>
+    <?php get_template_part('templates/parts/service-hub/faq'); ?>
+
+    <?php /* Band 4.6 — UNIQ Automatic Control System. The controller that runs the
             SSQ II / SSQ3 / WAV has its own deep doc + video library and isn't a machine
             in the gallery, so it gets a dedicated section. Two-column hairline list
             (the /machines/uniq-control-system/ pattern), fed by the SAME curated
