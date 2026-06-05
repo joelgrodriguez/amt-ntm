@@ -306,7 +306,6 @@
   }
 
   .machine-subnav--sidebar .machine-subnav__link.is-active {
-    border-bottom-color: transparent;
     border-left-color: var(--color-red);
   }
 }

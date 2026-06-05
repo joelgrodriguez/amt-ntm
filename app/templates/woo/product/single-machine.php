@@ -60,7 +60,12 @@ if (!$machine) {
         <?php get_template_part('templates/woo/product/parts/stats-bar', null, compact('machine')); ?>
     </div>
 
-    <?php get_template_part('templates/woo/product/parts/subnav', null, compact('product', 'machine') + ['variant' => 'sidebar']); ?>
+    <?php
+    // Sidebar section-nav variant exists (machine-subnav--sidebar) but needs a two-column
+    // page layout (.layout-with-rail) + a scroll-offset fix in MachineSubnav.js before it can
+    // be enabled here. See docs/feedback/2026-06-03-navigation-search-review.md. Keep 'header' for now.
+    get_template_part('templates/woo/product/parts/subnav', null, compact('product', 'machine'));
+    ?>
 
     <?php
     get_template_part('templates/parts/video-section', null, [
