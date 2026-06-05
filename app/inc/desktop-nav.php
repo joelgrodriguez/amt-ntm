@@ -173,7 +173,7 @@ function get_desktop_nav(): array {
                         ],
                     ],
                     [
-                        'label' => __('Are You Ready?', 'standard'), // TODO(copy): confirm vs "Is this for you?" / "Is it the right time?"
+                        'label' => __('Are You Ready?', 'standard'),
                         'items' => [
                             [
                                 'label' => __('Are you ready to manufacture? (Quiz)', 'standard'),
@@ -365,7 +365,7 @@ function get_desktop_nav(): array {
                         'label' => __('Get a quote', 'standard'),
                         'items' => [
                             [
-                                'label' => __('Get help with your quote', 'standard'), // TODO(copy): confirm vs "Get an expert quote" / "Get a tailored quote"
+                                'label' => __('Get help with your quote', 'standard'),
                                 'url'   => \Standard\Url\with_query('/contact/', ['form' => 'quote']),
                             ],
                             [

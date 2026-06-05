@@ -145,8 +145,8 @@ Joel committed (55:35) to extract **all** action steps. Grouped by type; source 
 ### Renames (labels)
 - [x] Rename **"Get Started" → "New to Roll Forming?"** — *decided* (Evita/Thad/Alex) — shipped (desktop-nav.php)
 - [x] Rename **"Understanding the deal" → "Understand the Investment"** — *decided* (Thad) — shipped (desktop-nav.php)
-- [~] Pick final wording for the **"See if it fits"** heading (lead candidate "Are you ready?") — *provisional: "Are You Ready?" live with TODO(copy) in code; needs final sign-off*
-- [~] Pick final wording for **"Request a Quote"** (expert-assisted framing, e.g. "Get help with your quote") — *provisional: "Get help with your quote" live with TODO(copy) in code; needs final sign-off*
+- [x] Pick final wording for the **"See if it fits"** heading — *final: "Are You Ready?"* (locked 2026-06-05)
+- [x] Pick final wording for **"Request a Quote"** — *final: "Get help with your quote"* (locked 2026-06-05)
 - [ ] Rename **"Mach 2 family"** to model-descriptive (e.g. "Mach 2 — 5"/6"/6.5" combo" or "K-style gutter machines") — *open*
 - [x] Remove the **"(expert shortcut)"** parenthetical — *decided* (Thad) — shipped (desktop-nav.php)
 
