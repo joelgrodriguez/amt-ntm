@@ -35,7 +35,8 @@ $form_action = get_permalink() ?: \Standard\Url\internal('/service-hub/');
 $has_filters = $filters['search'] !== ''
     || $filters['type'] !== ''
     || $filters['category'] !== ''
-    || $filters['machine'] !== '';
+    || $filters['machine'] !== ''
+    || $filters['sort'] !== '';
 
 $service_form_id = 'service-hub-form';
 

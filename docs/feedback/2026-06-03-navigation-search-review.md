@@ -165,8 +165,8 @@ Joel committed (55:35) to extract **all** action steps. Grouped by type; source 
 
 ### Templates / UX
 - [x] Build a **sidebar section-nav** template variant to compare against the header sticky nav — *decided to prototype* (Thad) — enabled on single-machine.php via `.layout-with-rail` (2026-06-05)
-- [ ] Make the **configurator open in a new tab** every time + add a link back to the NTM site from Corbel — *action*
-- [ ] Fix the **service content filter template** (clearing filters reloads same page) — *action*
+- [x] Make the **configurator open in a new tab** every time — *action* — shipped (all configurator links target=_blank; shared CTA parts opt-in via cta_primary_new_tab) 2026-06-05. *Corbel back-link to NTM is external (Corbel-side), still open.*
+- [x] Fix the **service content filter template** (clearing filters reloads same page) — *action* — original bug **already resolved by the Service Hub rebuild** (commit 3fd6fcd); verified live (clear goes 118→247 results, Clear link = bare URL). En route, fixed an adjacent gap: sort-only state now shows the Reset/Clear control (added `sort` to `$has_filters`) 2026-06-05.
 - [ ] Fix **Request Training page spacing**; fix troubleshooting / "prevent voiding warranty" display issues — *action*
 
 ### Content / data
