@@ -162,9 +162,8 @@ function get_desktop_nav(): array {
                                 'url'   => \Standard\Url\internal('/learning-center/portable-rollforming-machine-equipment-types-uses/'),
                             ],
                             [
-                                // TODO(link): confirm final URL Thad shared in chat
                                 'label' => __('What is portable roll forming?', 'standard'),
-                                'url'   => \Standard\Url\internal('/learning-center/what-is-portable-rollforming/'),
+                                'url'   => \Standard\Url\internal('/learning-center/what-is-a-standing-seam-machine/'),
                             ],
                             [
                                 'label' => __('Misconceptions about portable rollforming', 'standard'),
@@ -182,6 +181,10 @@ function get_desktop_nav(): array {
                             [
                                 'label' => __('Profit calculator', 'standard'),
                                 'url'   => \Standard\Url\internal('/learning-center/download/portable-rollforming-profit-calculator/'),
+                            ],
+                            [
+                                'label' => __('5 reasons not to wait', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/5-reasons-not-to-wait-to-buy-a-portable-rollformer/'),
                             ],
                             [
                                 'label' => __('Portable vs factory panel suppliers', 'standard'),
@@ -371,10 +374,6 @@ function get_desktop_nav(): array {
                             [
                                 'label' => __('Configure your machine', 'standard'),
                                 'url'   => \Standard\Url\internal('/configurator/'),
-                            ],
-                            [
-                                'label' => __('What to know before quoting', 'standard'),
-                                'url'   => \Standard\Url\internal('/learning-center/getting-a-portable-rollforming-machine-quote/'),
                             ],
                             [
                                 'label' => __('How to get a quote on an NTM machine', 'standard'),
