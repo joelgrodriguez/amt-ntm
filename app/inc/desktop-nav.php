@@ -145,10 +145,10 @@ function get_desktop_nav(): array {
             [
                 'kind'          => 'mega',
                 'id'            => 'get-started',
-                'label'         => __('Get Started', 'standard'),
+                'label'         => __('New to Roll Forming?', 'standard'),
                 'type'          => 'flyout-groups',
                 'intro'         => [
-                    'title'           => __('Get Started', 'standard'),
+                    'title'           => __('New to Roll Forming?', 'standard'),
                     'body'            => __('New to portable rollforming? Learn what NTM does, decide if it fits your business, and pick a direction.', 'standard'),
                     'secondary_label' => __('First-time buyer playlist', 'standard'),
                     'secondary_url'   => \Standard\Url\internal('/first-time-buyer-playlist/'),
@@ -162,8 +162,8 @@ function get_desktop_nav(): array {
                                 'url'   => \Standard\Url\internal('/learning-center/portable-rollforming-machine-equipment-types-uses/'),
                             ],
                             [
-                                'label' => __('Roof panel vs gutter machines', 'standard'),
-                                'url'   => \Standard\Url\internal('/roof-panel-vs-gutter/'),
+                                'label' => __('What is portable roll forming?', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/what-is-a-standing-seam-machine/'),
                             ],
                             [
                                 'label' => __('Misconceptions about portable rollforming', 'standard'),
@@ -172,7 +172,7 @@ function get_desktop_nav(): array {
                         ],
                     ],
                     [
-                        'label' => __('See if it fits', 'standard'),
+                        'label' => __('Are You Ready?', 'standard'),
                         'items' => [
                             [
                                 'label' => __('Are you ready to manufacture? (Quiz)', 'standard'),
@@ -181,6 +181,10 @@ function get_desktop_nav(): array {
                             [
                                 'label' => __('Profit calculator', 'standard'),
                                 'url'   => \Standard\Url\internal('/learning-center/download/portable-rollforming-profit-calculator/'),
+                            ],
+                            [
+                                'label' => __('5 reasons not to wait', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/5-reasons-not-to-wait-to-buy-a-portable-rollformer/'),
                             ],
                             [
                                 'label' => __('Portable vs factory panel suppliers', 'standard'),
@@ -211,7 +215,6 @@ function get_desktop_nav(): array {
                     '/first-time-buyer-playlist/',
                     '/learning-center/',
                     '/portable-rollforming-machine-readiness-assessment/',
-                    '/roof-panel-vs-gutter/',
                 ],
             ],
 
@@ -298,10 +301,29 @@ function get_desktop_nav(): array {
                                 'badge' => __('Flagship', 'standard'),
                             ],
                             [
-                                'label' => __('MACH II Family', 'standard'),
+                                'label' => __('MACH II Seamless Gutter Machines', 'standard'),
                                 'url'   => \Standard\Url\internal('/machines/machii/'),
                             ],
                         ],
+                    ],
+                ],
+                'cards'         => [
+                    [
+                        'label' => __('SSQ3 MultiPro', 'standard'),
+                        'url'   => \Standard\Url\internal('/configurator/ssq3-multi-pro/'),
+                        'badge' => __('Flagship', 'standard'),
+                    ],
+                    [
+                        'label' => __('SSR', 'standard'),
+                        'url'   => \Standard\Url\internal('/configurator/ssr/'),
+                    ],
+                    [
+                        'label' => __('SSH', 'standard'),
+                        'url'   => \Standard\Url\internal('/configurator/ssh/'),
+                    ],
+                    [
+                        'label' => __('MACH II', 'standard'),
+                        'url'   => \Standard\Url\internal('/machines/machii/'),
                     ],
                 ],
                 'current_paths' => [
@@ -346,12 +368,12 @@ function get_desktop_nav(): array {
                         'label' => __('Get a quote', 'standard'),
                         'items' => [
                             [
-                                'label' => __('Request a quote', 'standard'),
+                                'label' => __('Get help with your quote', 'standard'),
                                 'url'   => \Standard\Url\with_query('/contact/', ['form' => 'quote']),
                             ],
                             [
-                                'label' => __('What to know before quoting', 'standard'),
-                                'url'   => \Standard\Url\internal('/learning-center/getting-a-portable-rollforming-machine-quote/'),
+                                'label' => __('Configure your machine', 'standard'),
+                                'url'   => \Standard\Url\internal('/configurator/'),
                             ],
                             [
                                 'label' => __('How to get a quote on an NTM machine', 'standard'),
@@ -364,7 +386,7 @@ function get_desktop_nav(): array {
                         ],
                     ],
                     [
-                        'label' => __('Understand the deal', 'standard'),
+                        'label' => __('Understand the Investment', 'standard'),
                         'items' => [
                             [
                                 'label' => __('Panel machine cost (2026)', 'standard'),
@@ -392,7 +414,7 @@ function get_desktop_nav(): array {
                                 'url'   => \Standard\Url\internal('/contact/'),
                             ],
                             [
-                                'label' => __('Configure your machine (Expert shortcut)', 'standard'),
+                                'label' => __('Configure your machine', 'standard'),
                                 'url'   => \Standard\Url\internal('/configurator/'),
                             ],
                             [
@@ -429,14 +451,6 @@ function get_desktop_nav(): array {
                             [
                                 'label' => __('Open a service request', 'standard'),
                                 'url'   => \Standard\Url\internal('/service-hub/request/'),
-                            ],
-                            [
-                                'label' => __('NTM Knowledge Base', 'standard'),
-                                'url'   => \Standard\Url\internal('/service-hub/'),
-                            ],
-                            [
-                                'label' => __('Owner support landing', 'standard'),
-                                'url'   => \Standard\Url\internal('/owner-support/'),
                             ],
                         ],
                     ],

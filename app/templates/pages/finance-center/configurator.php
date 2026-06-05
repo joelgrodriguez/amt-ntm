@@ -82,7 +82,7 @@ $steps = [
         <figure class="finance-flow__shot">
             <span class="finance-flow__shot-frame">
                 <img
-                    src="<?php echo esc_url(THEME_URI . '/app/assets/images/config-mockup.png'); ?>"
+                    src="<?php echo esc_url(THEME_URI . '/assets/images/config-mockup.png'); ?>"
                     alt="<?php esc_attr_e('The NTM configurator with a machine build, live pricing, and a financing application in progress', 'standard'); ?>"
                     class="finance-flow__shot-img"
                     width="2613"
@@ -118,7 +118,7 @@ $steps = [
         </ol>
 
         <div class="finance-flow__actions">
-            <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary btn--commit">
+            <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary btn--commit" target="_blank" rel="noopener">
                 <?php esc_html_e('Open the configurator', 'standard'); ?>
                 <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
             </a>

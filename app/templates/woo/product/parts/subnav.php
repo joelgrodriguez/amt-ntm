@@ -22,6 +22,7 @@ if (!defined('ABSPATH')) {
 
 $product = $args['product'] ?? null;
 $machine = $args['machine'] ?? [];
+$variant = $args['variant'] ?? 'header';
 
 if (!$product) {
     return;
@@ -86,7 +87,7 @@ if (!empty($machine['case_study'])) {
 
 <nav
     id="machine-subnav"
-    class="machine-subnav"
+    class="machine-subnav machine-subnav--<?php echo esc_attr($variant); ?>"
     aria-label="<?php esc_attr_e('Machine page navigation', 'standard'); ?>"
 >
     <div class="container">
@@ -111,7 +112,7 @@ if (!empty($machine['case_study'])) {
 
                 <?php if ($configurator_url !== '') : ?>
                     <div class="machine-subnav__cta">
-                        <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary btn-sm">
+                        <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary btn-sm" target="_blank" rel="noopener">
                             <?php esc_html_e('Build', 'standard'); ?>
                         </a>
                     </div>

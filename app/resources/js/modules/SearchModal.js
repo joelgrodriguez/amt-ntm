@@ -326,7 +326,15 @@ export const initSearchModal = () => {
       resultsList.append(li);
     });
 
-    setStatus(`${items.length} result${items.length === 1 ? '' : 's'}`);
+    // "Top N results" when we hit the cap (more may exist — Evita: a bare
+    // "5 results" reads as "only 5 exist"). Plain "N result(s)" when under the
+    // cap, since those are genuinely all the matches.
+    const capped = items.length >= RESULTS_LIMIT;
+    setStatus(
+      capped
+        ? `Top ${items.length} results`
+        : `${items.length} result${items.length === 1 ? '' : 's'}`
+    );
 
     // Always offer a "see all" link, even when we capped at RESULTS_LIMIT.
     // We don't know the true total without an extra round-trip; the link

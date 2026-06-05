@@ -124,6 +124,39 @@
     vertical-align: middle;
 }
 
+/* ── Machine cards ────────────────────────────────────────────────────────
+ * Optional card grid rendered below the group columns in the choose-machine
+ * panel. Layout (grid/gap/margin) lives in the template via Tailwind; only
+ * the relative shell + pinned badge need custom CSS. */
+.mega-panel__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.75rem;
+    border: 1px solid var(--color-blue-200);
+    border-radius: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    font-weight: 500;
+    color: var(--color-blue-900);
+    text-decoration: none;
+    transition: border-color 120ms ease, background-color 120ms ease;
+}
+
+.mega-panel__card:hover,
+.mega-panel__card:focus-visible {
+    border-color: var(--color-blue-500);
+    background: var(--color-blue-50);
+    outline: none;
+}
+
+.mega-panel__card-badge {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+}
+
 /* ── View all CTA ─────────────────────────────────────────────────────── */
 
 .mega-panel__view-all {

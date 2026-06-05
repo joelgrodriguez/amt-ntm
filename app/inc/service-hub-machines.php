@@ -125,13 +125,14 @@ function route_template(string $template): string {
  * @return array<int, array{label: string, query: \WP_Query}>
  */
 function get_content_groups(string $machine_slug): array {
-    // Order is owner-priority, not alphabetical: the manual is what an owner
-    // reaches for first, videos second (the service team's strongest content
-    // for this hub), then written fixes, then parts/footprint downloads.
+    // Order leads with Troubleshooting: an owner on a service page usually
+    // arrives with a problem, so written fixes go first (Alex, 2026-06-03 nav
+    // review — "troubleshooting should lead on service-related pages"). Then
+    // the manual they reach for, the service team's videos, then parts/footprints.
     $groups = [
+        ['label' => \__('Troubleshooting', 'standard'),     'types' => ['post']],
         ['label' => \__('Manuals', 'standard'),             'types' => ['manual']],
         ['label' => \__('Videos', 'standard'),              'types' => ['video']],
-        ['label' => \__('Troubleshooting', 'standard'),     'types' => ['post']],
         ['label' => \__('Parts & footprints', 'standard'),  'types' => ['download', 'footprint', 'cutlist']],
     ];
 

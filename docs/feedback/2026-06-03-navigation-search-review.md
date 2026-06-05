@@ -31,7 +31,7 @@ Inspirations: Impact (buyer-journey nav), Tesla & Toyota (megamenu style). Thad 
 ### Adds / replacements
 - **Add the link Thad shared in chat** ("What is portable roll forming" article) to replace the removed roof-vs-gutter link. Note: that video still shows the old NASR/Messer machine in the thumbnail — flagged but acceptable for now. **Decided.**
 - Alex floated adding a generic "What is roll forming" item; Thad clarified the existing "What is an NTM machine?" link already points at the "What is portable roll forming" article, so it's covered.
-- Consider **"5 reasons not to wait"** content (Rick's) for the "See if it fits" section. Alex to drop in chat. **Idea.**
+- Consider **"5 reasons not to wait"** content (Rick's) for the "See if it fits" section. Alex to drop in chat. **Idea.** — *Done: Alex shared the link; added to the "Are You Ready?" group (2026-06-05).*
 
 ### Content / page updates
 - **"What is an NTM machine?" article is from 2022 — needs updating** (Alex has had a new video on his list). Tied to the publish-date decision below.
@@ -140,32 +140,34 @@ Live header search: instant results capped at top 5 (cap adjustable), link to fu
 
 Joel committed (55:35) to extract **all** action steps. Grouped by type; source tagged. "Decided" = agreed on the call; "Open" = needs a final choice; "Idea" = future/phase-2.
 
+> **Checkbox legend:** `[x]` shipped & verified in live code · `[~]` provisional (live in code but flagged `TODO(copy)`, awaiting final sign-off) · `[ ]` open. Reconciled against `dev..feedback` git history 2026-06-05.
+
 ### Renames (labels)
-- [ ] Rename **"Get Started" → "New to Roll Forming?"** — *decided* (Evita/Thad/Alex)
-- [ ] Rename **"Understanding the deal" → "Understand the Investment"** — *decided* (Thad)
-- [ ] Pick final wording for the **"See if it fits"** heading (lead candidate "Are you ready?") — *open, run options through AI*
-- [ ] Pick final wording for **"Request a Quote"** (expert-assisted framing, e.g. "Get help with your quote") — *open*
-- [ ] Rename **"Mach 2 family"** to model-descriptive (e.g. "Mach 2 — 5"/6"/6.5" combo" or "K-style gutter machines") — *open*
-- [ ] Remove the **"(expert shortcut)"** parenthetical — *decided* (Thad)
+- [x] Rename **"Get Started" → "New to Roll Forming?"** — *decided* (Evita/Thad/Alex) — shipped (desktop-nav.php)
+- [x] Rename **"Understanding the deal" → "Understand the Investment"** — *decided* (Thad) — shipped (desktop-nav.php)
+- [x] Pick final wording for the **"See if it fits"** heading — *final: "Are You Ready?"* (locked 2026-06-05)
+- [x] Pick final wording for **"Request a Quote"** — *final: "Get help with your quote"* (locked 2026-06-05)
+- [x] Rename **"Mach 2 family"** to model-descriptive — *final: "MACH II Seamless Gutter Machines"* (Joel) — shipped (desktop-nav.php; card-grid label stays short "MACH II") 2026-06-05
+- [x] Remove the **"(expert shortcut)"** parenthetical — *decided* (Thad) — shipped (desktop-nav.php)
 
 ### Removes
-- [ ] Remove **"Roof panel vs. gutter machines"** from nav (keep page in background for AI) — *decided*
-- [ ] Remove the **duplicate "what to know before a quote"** link, keep the newer one — *decided*
-- [ ] Remove **"Knowledge base"** nav item — *Joel-proposed, likely*
-- [ ] Remove **"Owner support landing"** placeholder — *Joel-proposed, likely*
+- [x] Remove **"Roof panel vs. gutter machines"** from nav (keep page in background for AI) — *decided* — shipped (desktop-nav.php)
+- [x] Remove the **duplicate "what to know before a quote"** link, keep the newer one — *decided* — dropped "What to know before quoting" (older getting-a-...-quote URL), kept Alex's "How to get a quote on an NTM machine" 2026-06-05
+- [x] Remove **"Knowledge base"** nav item — *Joel-proposed, likely* — shipped (desktop-nav.php)
+- [x] Remove **"Owner support landing"** placeholder — *Joel-proposed, likely* — shipped (desktop-nav.php; the `owner-support` id/path that remains is Section 4 "Get Owner Support" itself, not the old placeholder link)
 
 ### Adds / reorders
-- [ ] Add machines (cards) into the **megamenu** under Choose Your Machine — *decided* (Thad)
-- [ ] Replace removed roof-vs-gutter link with the **"What is portable roll forming"** article — *decided*
-- [ ] Add **"Configure"** link below "Request a Quote" in How to Buy — *decided* (Alex)
-- [ ] Reorder machine pages: **Profiles above Accessories** — *decided* (Thad)
-- [ ] Move **Troubleshooting to the top** of Get Support service videos — *decided* (Alex)
+- [x] Add machines (cards) into the **megamenu** under Choose Your Machine — *decided* (Thad) — shipped (mega-menu.php + desktop-nav.php)
+- [x] Replace removed roof-vs-gutter link with the **"What is portable roll forming"** article — *decided* — shipped (desktop-nav.php)
+- [x] Add **"Configure"** link below "Request a Quote" in How to Buy — *decided* (Alex) — shipped (desktop-nav.php)
+- [x] Reorder machine pages: **Profiles above Accessories** — *decided* (Thad) — already ordered correctly (single-machine.php: profile-selector before accessories)
+- [x] Move **Troubleshooting to the top** of Get Support service videos — *decided* (Alex) — shipped: per-machine service-hub content groups now lead with Troubleshooting (service-hub-machines.php) 2026-06-05. *Interpreted "lead" as fully first; blind, needs eyeball.*
 
 ### Templates / UX
-- [ ] Build a **sidebar section-nav** template variant to compare against the header sticky nav — *decided to prototype* (Thad)
-- [ ] Make the **configurator open in a new tab** every time + add a link back to the NTM site from Corbel — *action*
-- [ ] Fix the **service content filter template** (clearing filters reloads same page) — *action*
-- [ ] Fix **Request Training page spacing**; fix troubleshooting / "prevent voiding warranty" display issues — *action*
+- [x] Build a **sidebar section-nav** template variant to compare against the header sticky nav — *decided to prototype* (Thad) — enabled on single-machine.php via `.layout-with-rail` (2026-06-05)
+- [x] Make the **configurator open in a new tab** every time — *action* — shipped (all configurator links target=_blank; shared CTA parts opt-in via cta_primary_new_tab) 2026-06-05. *Corbel back-link to NTM is external (Corbel-side), still open.*
+- [x] Fix the **service content filter template** (clearing filters reloads same page) — *action* — original bug **already resolved by the Service Hub rebuild** (commit 3fd6fcd); verified live (clear goes 118→247 results, Clear link = bare URL). En route, fixed an adjacent gap: sort-only state now shows the Reset/Clear control (added `sort` to `$has_filters`) 2026-06-05.
+- [~] Fix **Request Training page spacing** — root-caused + fixed (CSS): page content sits in `.wp-block-group.is-layout-flow`, which broke Tailwind prose's direct-child spacing; re-applied flow spacing in single.css (2026-06-05). *Blind fix — needs post-merge eyeball to confirm the rhythm.* Troubleshooting / "prevent voiding warranty" display issues still open (separate, deferred to service meeting).
 
 ### Content / data
 - [ ] Update **machine prices** from Rick's newly published numbers (current update didn't catch) — *action*
@@ -177,9 +179,9 @@ Joel committed (55:35) to extract **all** action steps. Grouped by type; source 
 - [ ] Locate the missing **financing/leasing video**; spruce up the **"How to get a quote" checklist** page — *action*
 
 ### Search
-- [ ] Relabel **"5 results" → "Top 5 results"** — *decided* (Evita)
-- [ ] Fine-tune **result-type filters** — *action* (Joel)
-- [ ] Decide the **result cap** (5 vs. more) — *open* (Joel)
+- [x] Relabel **"5 results" → "Top 5 results"** — *decided* (Evita) — shipped: badge reads "Top N results" when the 5-cap is hit, plain "N result(s)" under (SearchModal.js) 2026-06-05
+- [x] Fine-tune **result-type filters** — *action* (Joel) — service-hub Resource Type filter now hides zero-result types (template-service-hub.php) 2026-06-05
+- [x] Decide the **result cap** (5 vs. more) — *final: keep 5* (Joel) 2026-06-05
 
 ### Policy / decisions to confirm
 - [ ] Confirm **publish-date / "updated on" policy** (schema-affecting) with Rick — *open*

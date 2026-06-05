@@ -25,6 +25,6 @@ $configurator_url = $product instanceof \WC_Product
             <p class="text-white font-medium text-lg">[Build Your Machine]</p>
             <p class="text-white/80 text-sm hidden md:block">[Choose profiles, power, controls & accessories — get an instant quote]</p>
         </div>
-        <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-sm bg-white text-blue-500 hover:bg-blue-100 shrink-0">[Open Configurator]</a>
+        <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-sm bg-white text-blue-500 hover:bg-blue-100 shrink-0" target="_blank" rel="noopener">[Open Configurator]</a>
     </div>
 </div>

@@ -35,6 +35,17 @@
   @apply w-full;
 }
 
+/* Restore vertical rhythm inside flow groups.
+   Tailwind Typography (.prose) spaces DIRECT children only (.prose > * + *).
+   The block editor wraps content in .wp-block-group.is-layout-flow, which
+   normally gets its spacing from WordPress's --wp--style--block-gap — a token
+   this classic theme doesn't emit. So grouped paragraphs/lists collapse with
+   no gap. Re-apply flow spacing to the group's own children, matching prose's
+   default 1.25em paragraph rhythm. Affects e.g. the Request Training page. */
+.prose .wp-block-group.is-layout-flow > * + * {
+  margin-block-start: 1.25em;
+}
+
 .prose .wp-block-image.is-resized,
 .prose .wp-block-image.is-resized img,
 .prose .wp-block-image.is-resized picture {

@@ -12,13 +12,14 @@
  * @package Standard
  *
  * @param array $args {
- *     @type string $title             Headline copy.
- *     @type string $text              Supporting subline.
- *     @type string $cta_primary       Button label.
- *     @type string $cta_primary_url   Button href (run through internal()).
- *     @type string $cta_secondary     Optional secondary button label.
- *     @type string $cta_secondary_url Optional secondary button href.
- *     @type string $section_id        ID for aria-labelledby.
+ *     @type string $title               Headline copy.
+ *     @type string $text                Supporting subline.
+ *     @type string $cta_primary         Button label.
+ *     @type string $cta_primary_url     Button href (run through internal()).
+ *     @type bool   $cta_primary_new_tab Optional. Open the primary button in a new tab. Default false.
+ *     @type string $cta_secondary       Optional secondary button label.
+ *     @type string $cta_secondary_url   Optional secondary button href.
+ *     @type string $section_id          ID for aria-labelledby.
  * }
  */
 
@@ -39,6 +40,8 @@ $defaults = [
 ];
 
 $content = wp_parse_args($args ?? [], $defaults);
+
+$primary_new_tab = !empty($content['cta_primary_new_tab']);
 ?>
 
 <section class="section bg-blue-900" aria-labelledby="<?php echo esc_attr($content['section_id']); ?>">
@@ -55,7 +58,7 @@ $content = wp_parse_args($args ?? [], $defaults);
         </div>
 
         <div class="flex flex-wrap justify-center gap-3">
-            <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="btn btn-primary">
+            <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="btn btn-primary"<?php echo $primary_new_tab ? ' target="_blank" rel="noopener"' : ''; ?>>
                 <?php echo esc_html($content['cta_primary']); ?>
                 <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
             </a>

@@ -35,12 +35,21 @@ $form_action = get_permalink() ?: \Standard\Url\internal('/service-hub/');
 $has_filters = $filters['search'] !== ''
     || $filters['type'] !== ''
     || $filters['category'] !== ''
-    || $filters['machine'] !== '';
+    || $filters['machine'] !== ''
+    || $filters['sort'] !== '';
 
 $service_form_id = 'service-hub-form';
 
+// Only offer Resource Type options that actually have content — a 0-result
+// type just dumps the user on the empty state. Counts come from the cached
+// get_post_type_counts(). Always keep the currently-active type even if its
+// count reads 0, so the user's own filter never vanishes from the UI.
+$type_counts = \Standard\ServiceHub\get_post_type_counts();
 $type_choice_options = ['' => __('All types', 'standard')];
 foreach ($post_type_options as $post_type => $option) {
+    if (($type_counts[$post_type] ?? 0) < 1 && $filters['type'] !== $post_type) {
+        continue;
+    }
     $type_choice_options[$post_type] = (string) $option['label'];
 }
 
@@ -88,9 +97,11 @@ get_header();
             'kicker'           => __('Service Hub // Owner Support', 'standard'),
             'title'            => __('Everything for your<br class="hidden lg:inline"> NTM machine.', 'standard'),
             'subtitle'         => __('Manuals, troubleshooting, parts, and videos for every machine you run. Backed by the people who built them.', 'standard'),
-            'cta_primary'      => __('Open a service request', 'standard'),
-            'cta_primary_url'  => '/service-hub/request/',
-            'cta_primary_icon' => 'arrow-right',
+            'cta_primary'      => __('Find your machine', 'standard'),
+            'cta_primary_url'  => '#service-hub-machines',
+            'cta_primary_icon' => 'arrow-down',
+            'cta_secondary'    => __('Open a service request', 'standard'),
+            'cta_secondary_url' => '/service-hub/request/',
             'video'            => 'https://fast.wistia.net/embed/iframe/jxmgaicen7?videoFoam=true',
             // Click-to-play poster (the facade thumbnail), same mechanism as
             // /machines. Service-department photo: the right fit for a support hub.
@@ -123,9 +134,9 @@ get_header();
                         <h3 class="font-mono font-medium uppercase tracking-wider text-blue-700 m-0" style="font-size: var(--text-body);">
                             <?php echo esc_html($cat_label); ?>
                         </h3>
-                        <div class="stagger grid gap-4 sm:grid-cols-2">
+                        <div class="stagger grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                             <?php foreach ($cat_machines as $machine) : ?>
-                                <?php get_template_part('templates/parts/service-hub/machine-photo-card', null, ['machine' => $machine]); ?>
+                                <?php get_template_part('templates/parts/service-hub/machine-photo-card', null, ['machine' => $machine, 'compact' => true]); ?>
                             <?php endforeach; ?>
                         </div>
                     </div>
@@ -220,7 +231,11 @@ get_header();
         </div>
     </section>
 
-    <?php /* Band 4.5 — UNIQ Automatic Control System. The controller that runs the
+    <?php /* Band 4.5 — FAQ. The most-asked owner questions, before the search
+            firehose, so the common stuff is answered without a ticket. */ ?>
+    <?php get_template_part('templates/parts/service-hub/faq'); ?>
+
+    <?php /* Band 4.6 — UNIQ Automatic Control System. The controller that runs the
             SSQ II / SSQ3 / WAV has its own deep doc + video library and isn't a machine
             in the gallery, so it gets a dedicated section. Two-column hairline list
             (the /machines/uniq-control-system/ pattern), fed by the SAME curated

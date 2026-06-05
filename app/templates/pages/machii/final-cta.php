@@ -47,7 +47,7 @@ if (!defined('ABSPATH')) {
                 <p class="font-mono text-xs uppercase tracking-wider text-blue-300">
                     <?php esc_html_e('Free 30-min call · No obligation', 'standard'); ?>
                 </p>
-                <a href="<?php echo esc_url(\Standard\Url\internal('/configurator/machii/')); ?>" class="btn btn-primary btn-xl">
+                <a href="<?php echo esc_url(\Standard\Url\internal('/configurator/machii/')); ?>" class="btn btn-primary btn-xl" target="_blank" rel="noopener">
                     <?php esc_html_e('Build & Finance Your MACH II', 'standard'); ?>
                     <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                 </a>

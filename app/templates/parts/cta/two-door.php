@@ -14,6 +14,8 @@
  * @param array $args {
  *     @type string $primary_label    Optional. Defaults to 'Configure & Quote'.
  *     @type string $primary_url      Optional. Defaults to '/configurator/'.
+ *     @type bool   $primary_new_tab  Optional. Open the primary door in a new tab. Defaults to true
+ *                                    (the primary door is the external configurator).
  *     @type string $specialist_label Optional. Defaults to 'Talk to a Specialist'.
  *     @type string $specialist_url   Optional. Defaults to '/contact/'.
  *     @type string $align            Optional. 'left' (default) | 'center'.
@@ -31,6 +33,9 @@ if (!defined('ABSPATH')) {
 $defaults = [
     'primary_label'    => __('Configure & Quote', 'standard'),
     'primary_url'      => '/configurator/',
+    // Default primary is the external configurator, so it opens in a new tab.
+    // If a caller overrides primary_url to an internal page, pass primary_new_tab => false.
+    'primary_new_tab'  => true,
     'specialist_label' => __('Talk to a Specialist', 'standard'),
     'specialist_url'   => '/contact/',
     'align'            => 'left',
@@ -46,7 +51,7 @@ $secondary_class = $cta['theme'] === 'dark' ? 'btn-outline-light' : 'btn-seconda
 <div class="flex flex-wrap items-center gap-4 <?php echo esc_attr($justify); ?>">
     <a
         href="<?php echo esc_url(\Standard\Url\internal($cta['primary_url'])); ?>"
-        class="btn btn-primary"
+        class="btn btn-primary"<?php echo !empty($cta['primary_new_tab']) ? ' target="_blank" rel="noopener"' : ''; ?>
     >
         <?php echo esc_html($cta['primary_label']); ?>
     </a>

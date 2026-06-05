@@ -57,7 +57,7 @@ $product_name     = $product->get_name();
 
         <div class="final-cta__actions">
             <?php if ($configurator_url !== '') : ?>
-                <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary">
+                <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary" target="_blank" rel="noopener">
                     <?php esc_html_e('Open Configurator', 'standard'); ?>
                     <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                 </a>

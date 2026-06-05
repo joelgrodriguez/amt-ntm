@@ -60,8 +60,6 @@ if (!$machine) {
         <?php get_template_part('templates/woo/product/parts/stats-bar', null, compact('machine')); ?>
     </div>
 
-    <?php get_template_part('templates/woo/product/parts/subnav', null, compact('product', 'machine')); ?>
-
     <?php
     get_template_part('templates/parts/video-section', null, [
         'title'      => $product->get_name(),
@@ -71,35 +69,44 @@ if (!$machine) {
     ]);
     ?>
 
-    <?php get_template_part('templates/woo/product/parts/machine-breakdown', null, compact('machine')); ?>
+    <div class="container layout-with-rail">
 
-    <?php get_template_part('templates/woo/product/parts/machine-fit', null, compact('machine')); ?>
+        <?php get_template_part('templates/woo/product/parts/subnav', null, compact('product', 'machine') + ['variant' => 'sidebar']); ?>
 
-    <?php get_template_part('templates/woo/product/parts/profile-selector', null, compact('product', 'machine')); ?>
+        <div class="machine-rail-content min-w-0">
 
-    <?php get_template_part('templates/woo/product/parts/accessories', null, compact('product', 'machine')); ?>
+            <?php get_template_part('templates/woo/product/parts/machine-breakdown', null, compact('machine')); ?>
 
-    <?php get_template_part('templates/woo/product/parts/blueprint', null, compact('machine')); ?>
+            <?php get_template_part('templates/woo/product/parts/machine-fit', null, compact('machine')); ?>
 
-    <?php get_template_part('templates/woo/product/parts/specs-accordion', null, compact('product', 'machine')); ?>
+            <?php get_template_part('templates/woo/product/parts/profile-selector', null, compact('product', 'machine')); ?>
 
-    <?php get_template_part('templates/woo/product/parts/resources', null, compact('machine')); ?>
+            <?php get_template_part('templates/woo/product/parts/accessories', null, compact('product', 'machine')); ?>
 
-    <?php
-    $case_study = $machine['case_study'] ?? null;
-    if (is_array($case_study) && !empty($case_study['content'])) {
-        get_template_part('templates/parts/customer-story', null, [
-            'anchor'         => 'machine-case-study',
-            'section_id'     => 'machine-case-study-title',
-            'image_position' => $case_study['image_position'] ?? 'right',
-            'background'     => $case_study['background'] ?? 'bg-blue-50',
-            'content'        => $case_study['content'],
-            'stats'          => $case_study['stats'] ?? [],
-        ]);
-    }
-    ?>
+            <?php get_template_part('templates/woo/product/parts/blueprint', null, compact('machine')); ?>
 
-    <?php get_template_part('templates/woo/product/parts/faq', null, compact('machine')); ?>
+            <?php get_template_part('templates/woo/product/parts/specs-accordion', null, compact('product', 'machine')); ?>
+
+            <?php get_template_part('templates/woo/product/parts/resources', null, compact('machine')); ?>
+
+            <?php
+            $case_study = $machine['case_study'] ?? null;
+            if (is_array($case_study) && !empty($case_study['content'])) {
+                get_template_part('templates/parts/customer-story', null, [
+                    'anchor'         => 'machine-case-study',
+                    'section_id'     => 'machine-case-study-title',
+                    'image_position' => $case_study['image_position'] ?? 'right',
+                    'background'     => $case_study['background'] ?? 'bg-blue-50',
+                    'content'        => $case_study['content'],
+                    'stats'          => $case_study['stats'] ?? [],
+                ]);
+            }
+            ?>
+
+            <?php get_template_part('templates/woo/product/parts/faq', null, compact('machine')); ?>
+
+        </div><!-- .machine-rail-content -->
+    </div><!-- .layout-with-rail -->
 
     <?php
     $closer_configurator_url = \Standard\Woo\Catalog\get_configurator_url($product->get_slug());
@@ -110,6 +117,7 @@ if (!$machine) {
             'text'              => __('Configure and price your machine in your browser, or get one of our specialists on the phone.', 'standard'),
             'cta_primary'       => __('Build & Price', 'standard'),
             'cta_primary_url'   => $closer_configurator_url,
+            'cta_primary_new_tab' => true,
             'cta_secondary'     => __('Talk to a Specialist', 'standard'),
             'cta_secondary_url' => '/contact/',
         ]);

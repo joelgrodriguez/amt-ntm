@@ -25,6 +25,7 @@ if (!defined('ABSPATH')) {
 }
 
 $machine = $args['machine'] ?? [];
+$compact = !empty($args['compact']);
 $slug    = (string) ($machine['slug'] ?? '');
 if ($slug === '') {
     return;
@@ -69,7 +70,7 @@ $url   = \Standard\Url\internal('/service-hub/' . $slug . '/');
         <span class="font-medium text-heading-sm text-blue-900 transition-colors duration-200 group-hover:text-blue-500">
             <?php echo esc_html($name); ?>
         </span>
-        <?php if ($desc !== '') : ?>
+        <?php if ($desc !== '' && !$compact) : ?>
             <span class="font-sans text-blue-600" style="font-size: var(--text-body); line-height: var(--leading-body);">
                 <?php echo esc_html($desc); ?>
             </span>

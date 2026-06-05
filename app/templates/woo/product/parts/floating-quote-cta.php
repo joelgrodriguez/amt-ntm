@@ -34,6 +34,7 @@ if ($configurator_url === '') {
     href="<?php echo esc_url($configurator_url); ?>"
     class="floating-quote-cta"
     aria-label="<?php esc_attr_e('Get a Quote Now', 'standard'); ?>"
+    target="_blank" rel="noopener"
 >
     <?php icon('settings', ['class' => 'w-5 h-5']); ?>
     <span class="floating-quote-cta__label"><?php esc_html_e('Get a Quote', 'standard'); ?></span>
