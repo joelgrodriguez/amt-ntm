@@ -86,6 +86,7 @@ $features = [
                     <a
                         href="<?php echo esc_url(\Standard\Url\internal('/configurator/')); ?>"
                         class="btn btn-primary btn--commit"
+                        target="_blank" rel="noopener"
                     >
                         <?php esc_html_e('Start Configuring', 'standard'); ?>
                         <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>

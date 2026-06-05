@@ -51,7 +51,7 @@ $has_range   = !empty($finance['price_range']);
                         <li>Add accessories &amp; trailer</li>
                     </ul>
                 </div>
-                <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary w-full">Open Configurator</a>
+                <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary w-full" target="_blank" rel="noopener">Open Configurator</a>
             </div>
             <div class="border border-blue-700 bg-blue-800 p-8 grid gap-6">
                 <div class="grid gap-2 text-center py-6">

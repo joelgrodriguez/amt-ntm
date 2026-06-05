@@ -117,6 +117,7 @@ if (!$machine) {
             'text'              => __('Configure and price your machine in your browser, or get one of our specialists on the phone.', 'standard'),
             'cta_primary'       => __('Build & Price', 'standard'),
             'cta_primary_url'   => $closer_configurator_url,
+            'cta_primary_new_tab' => true,
             'cta_secondary'     => __('Talk to a Specialist', 'standard'),
             'cta_secondary_url' => '/contact/',
         ]);

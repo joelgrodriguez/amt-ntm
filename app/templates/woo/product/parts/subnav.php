@@ -112,7 +112,7 @@ if (!empty($machine['case_study'])) {
 
                 <?php if ($configurator_url !== '') : ?>
                     <div class="machine-subnav__cta">
-                        <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary btn-sm">
+                        <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary btn-sm" target="_blank" rel="noopener">
                             <?php esc_html_e('Build', 'standard'); ?>
                         </a>
                     </div>

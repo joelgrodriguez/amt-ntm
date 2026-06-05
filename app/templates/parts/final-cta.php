@@ -9,7 +9,8 @@
  * @package Standard
  *
  * @usage Via get_template_part() with args:
- *   - content: array (title, text, expect_items, testimonial, specialist, cta_primary, cta_primary_url, cta_secondary, cta_secondary_url)
+ *   - content: array (title, text, expect_items, testimonial, specialist, cta_primary, cta_primary_url, cta_primary_new_tab, cta_secondary, cta_secondary_url)
+ *     cta_primary_new_tab: bool, optional. Open the primary button in a new tab. Default false.
  *   - section_id: string for aria-labelledby
  */
 
@@ -29,6 +30,8 @@ if (empty($content)) {
 $specialist  = $content['specialist'] ?? [];
 $testimonial = $content['testimonial'] ?? [];
 $expect      = $content['expect_items'] ?? [];
+
+$primary_new_tab = !empty($content['cta_primary_new_tab']);
 ?>
 
 <section class="section bg-blue-900" aria-labelledby="<?php echo esc_attr($section_id); ?>">
@@ -77,7 +80,7 @@ $expect      = $content['expect_items'] ?? [];
                 <?php endif; ?>
                 <div class="grid gap-3">
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="btn btn-primary btn--commit">
+                        <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="btn btn-primary btn--commit"<?php echo $primary_new_tab ? ' target="_blank" rel="noopener"' : ''; ?>>
                             <?php echo esc_html($content['cta_primary']); ?>
                             <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                         </a>

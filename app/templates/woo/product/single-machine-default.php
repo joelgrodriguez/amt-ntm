@@ -123,7 +123,7 @@ get_header();
                     <?php endif; ?>
 
                     <div class="machine-default__actions">
-                        <a href="<?php echo esc_url(\Standard\Url\internal('/configurator/' . $product->get_slug() . '/')); ?>" class="btn btn-primary">
+                        <a href="<?php echo esc_url(\Standard\Url\internal('/configurator/' . $product->get_slug() . '/')); ?>" class="btn btn-primary" target="_blank" rel="noopener">
                             <?php esc_html_e('Build & Quote', 'standard'); ?>
                             <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                         </a>
