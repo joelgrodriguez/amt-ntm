@@ -375,7 +375,7 @@ function get_desktop_nav(): array {
                                 'url'   => \Standard\Url\internal('/learning-center/gutter-machine-cost-what-to-look-for/'),
                             ],
                             [
-                                'label' => __('Financing & leasing', 'standard'),
+                                'label' => __('Finance your machine', 'standard'),
                                 'url'   => \Standard\Url\internal('/machines/leasing-financing/'),
                             ],
                             [
