@@ -103,11 +103,11 @@ Joel rebuilt the old finance page (previously ~two paragraphs + a contact form �
 - [ ] Decide whether to **still track service requests in HubSpot** for the data — *open*
 
 ### Service Hub page
-- [ ] **Move the "Open a service request" CTA lower**; lead the hero with a content-first / "solve your problem here" CTA — *decided* (Thad + Alex)
-- [ ] **Add an FAQ / top-questions section**, reusing the existing "top 10 most-asked" per-machine list — *decided*
-- [ ] **Add a firmware/software download button** to the unique-controller section, reusing the existing software-page link (single source) — *decided* (Thad)
-- [ ] **Condense the machines grid:** drop descriptions, 3-up columns, less vertical spacing — *decided, design-only*
-- [ ] **Fix the service content-library search-results template** — *action* (presenter-identified)
+- [x] **Move the "Open a service request" CTA lower**; lead the hero with a content-first / "solve your problem here" CTA — *decided* (Thad + Alex) — hero primary now "Find your machine" → `#service-hub-machines`; service-request demoted to secondary (still in the specialist band). (template-service-hub.php, ab8f3a6) 2026-06-05. *Blind — needs post-merge eyeball.*
+- [~] **Add an FAQ / top-questions section**, reusing the existing "top 10 most-asked" per-machine list — *decided* — section built as Band 4.5 via the shared faq-accordion part (FAQPage JSON-LD); copy is `TODO(copy)` pending Joel's curated top-10 (service-hub/faq.php, 559e348) 2026-06-05.
+- [ ] **Add a firmware/software download button** to the unique-controller section, reusing the existing software-page link (single source) — *decided* (Thad) — *codeable once the canonical download URL is in hand; see research todo §3.*
+- [x] **Condense the machines grid:** drop descriptions, 3-up columns, less vertical spacing — *decided, design-only* — `compact` arg on machine-photo-card drops the descriptor; grid now 1/2/3-up with tighter gap (93a5ec9) 2026-06-05. *Blind — needs post-merge eyeball.*
+- [ ] **Fix the service content-library search-results template** — *action* (presenter-identified) — *needs a live repro before any fix (no root cause captured); see research todo §2.*
 - [ ] **Transfer current owner-support / per-machine top-question content** into the Service Hub — *action, deferred (large manual job)*
 
 ### Content / data (team input)
@@ -115,10 +115,10 @@ Joel rebuilt the old finance page (previously ~two paragraphs + a contact form �
 - [ ] **Alex to send the "5 common questions" video thumbnail**; Joel adds it — *action*
 
 ### Finance Center
-- [ ] **Remove the Michelle video**, replace with an image — *decided* (Thad)
-- [ ] **Add a 4th "use your own lender" option** — top of page **and** lenders section — *decided* (Thad)
-- [ ] **Fix the configurator tutorial video CSS** (should sit on the right) — *action*
-- [ ] **Confirm the Section 179 / Apex outbound link** is the right destination — *open*
+- [x] **Remove the Michelle video**, replace with an image — *decided* (Thad) — *no-op verify: the rebuilt page never had a Michelle video; it uses a static configurator mockup + learning-center video links. (The only "Michelle" left is a vanity segment in the Apex lender URL, `financewithapex.com/michelle/` — tracked under the Section 179/Apex item.)*
+- [x] **Add a 4th "use your own lender" option** — top of page **and** lenders section — *decided* (Thad) — 4th path card (`dollar-sign`) + a reinforcing note in the lenders section; path grid now md:2-up/lg:4-up (paths.php + lenders.php, 55e0b93) 2026-06-05. *Blind — needs post-merge eyeball.*
+- [x] **Fix the configurator tutorial video CSS** (should sit on the right) — *action* — **root cause: not a video or CSS bug.** The configurator mockup `<img>` src double-counted the `app/` segment (`THEME_URI` already includes it), so it 404'd and rendered as a black box. Dropped the duplicate segment (configurator.php, 6a8bf83) 2026-06-05. *Blind — needs post-merge eyeball that the PNG renders real content.*
+- [ ] **Confirm the Section 179 / Apex outbound link** is the right destination — *open* — *note: the Apex lender link is `financewithapex.com/michelle/`; confirm that vanity URL is current.*
 - [ ] **Content discovery with Kathy (NTM Finance) + Terry** for accuracy; flag before demo, schedule in June (go-live end of June) — *action*
 
 ### Logistics
@@ -129,5 +129,6 @@ Joel rebuilt the old finance page (previously ~two paragraphs + a contact form �
 ## Follow-ups
 
 - This session continues the **service** and **financing** threads opened in [2026-06-03](2026-06-03-navigation-search-review.md). Most items here need **external input** (NetSuite/Seligo, Kathy/Terry on finance, Alex on tags/thumbnails) rather than theme-only code changes.
-- The two clearly **theme-codeable** items are: move the Service Hub hero CTA + add the FAQ section, and the Finance Center fixes (remove Michelle video, add "use your own lender", fix configurator-video CSS). Those can be picked up on this branch when greenlit.
+- **Shipped 2026-06-05** (5 commits, `6a8bf83`→`93a5ec9`): config-image fix, "use your own lender" path, content-first hero, FAQ section (placeholder copy), machines-grid condense. All blind (worktree can't browser-QA) — flagged for post-merge eyeball.
+- **Still open external/research items** are tracked with owner/blocker/next-action in `docs/superpowers/todos/2026-06-05-service-financing-research-followups.md` (local working doc): NetSuite/Seligo service-request flow, content tagging, top-10 FAQ copy, search-results repro, controller firmware URL, Kathy/Terry finance discovery, Section 179/Apex link, image-swap session.
 - Go-live target: **end of June**.
