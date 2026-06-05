@@ -60,7 +60,7 @@ if (!$machine) {
         <?php get_template_part('templates/woo/product/parts/stats-bar', null, compact('machine')); ?>
     </div>
 
-    <?php get_template_part('templates/woo/product/parts/subnav', null, compact('product', 'machine')); ?>
+    <?php get_template_part('templates/woo/product/parts/subnav', null, compact('product', 'machine') + ['variant' => 'sidebar']); ?>
 
     <?php
     get_template_part('templates/parts/video-section', null, [

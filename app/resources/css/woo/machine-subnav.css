@@ -250,3 +250,63 @@
     padding: 0 0.625rem;
   }
 }
+
+/* ── Sidebar variant ──────────────────────────────────────────────────
+   Mobile-first: at base/tablet the sidebar variant behaves exactly like
+   the header variant (horizontal scroll list — never a cramped vertical
+   strip on a 375px screen). The vertical, in-flow sticky sidebar only
+   engages at lg: (>=64rem) where there's room beside the content. */
+
+@media (min-width: 64rem) {
+  /* In-flow vertical rail that sticks beside the page content. Drop the
+     fixed-overlay treatment the header variant uses so it scrolls with
+     the page until it reaches the sticky offset. */
+  .machine-subnav--sidebar {
+    position: sticky;
+    top: 6rem;
+    left: auto;
+    right: auto;
+    align-self: start;
+    z-index: 30;
+    transform: none;
+    border-bottom: none;
+  }
+
+  .machine-subnav--sidebar.is-sticky {
+    transform: none;
+  }
+
+  .machine-subnav--sidebar .machine-subnav__inner {
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    gap: 1rem;
+  }
+
+  .machine-subnav--sidebar .machine-subnav__right {
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    gap: 1rem;
+  }
+
+  .machine-subnav--sidebar .machine-subnav__links {
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    gap: 0.125rem;
+    overflow: visible;
+  }
+
+  .machine-subnav--sidebar .machine-subnav__link {
+    height: auto;
+    padding: 0.5rem 0.875rem;
+    border-bottom: none;
+    border-left: 2px solid transparent;
+  }
+
+  .machine-subnav--sidebar .machine-subnav__link.is-active {
+    border-bottom-color: transparent;
+    border-left-color: var(--color-red);
+  }
+}
