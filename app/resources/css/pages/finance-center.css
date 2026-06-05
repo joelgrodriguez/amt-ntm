@@ -523,17 +523,24 @@
     margin: 0;
     padding: 0;
     display: grid;
+    /* Fully fenced container: hairline on all four sides. Top/left/right here;
+       the bottom edge is the last row's own border-bottom. */
     border-top: 1px solid var(--color-blue-200);
+    border-left: 1px solid var(--color-blue-200);
+    border-right: 1px solid var(--color-blue-200);
   }
 
-  .lender-list__link {
+  /* Shared row geometry for both the clickable lender link and the static
+     "bring your own lender" row. Horizontal padding insets the content from
+     the container's new side borders; the row's separation is the bottom
+     hairline. */
+  .lender-list__link,
+  .lender-list__row {
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: clamp(20px, 2.5vw, 32px);
-    /* Vertical padding only; the row's separation is the top/bottom hairline,
-       never a side border. */
-    padding: clamp(18px, 2.2vw, 24px) 0;
+    padding: clamp(18px, 2.2vw, 24px) clamp(16px, 2vw, 28px);
     border-bottom: 1px solid var(--color-blue-200);
     background-color: transparent;
     text-decoration: none;
@@ -570,6 +577,20 @@
     width: auto;
     height: auto;
     object-fit: contain;
+  }
+
+  /* "Bring your own lender" tile — no real logo, so a typographic mark fills
+     the same logo column. Same dimensions as the logo-wrap so the row lines
+     up with the lenders above it; tinted instead of white to read as the
+     "your own" option rather than a pick. */
+  .lender-list__mark {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: clamp(14px, 1.6vw, 18px);
+    letter-spacing: 0.12em;
+    color: var(--color-blue-500);
+    background-color: var(--color-blue-50);
+    border-color: var(--color-blue-200);
   }
 
   .lender-list__text {
