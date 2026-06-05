@@ -22,6 +22,7 @@ if (!defined('ABSPATH')) {
 
 $product = $args['product'] ?? null;
 $machine = $args['machine'] ?? [];
+$variant = $args['variant'] ?? 'header';
 
 if (!$product) {
     return;
@@ -86,7 +87,7 @@ if (!empty($machine['case_study'])) {
 
 <nav
     id="machine-subnav"
-    class="machine-subnav"
+    class="machine-subnav machine-subnav--<?php echo esc_attr($variant); ?>"
     aria-label="<?php esc_attr_e('Machine page navigation', 'standard'); ?>"
 >
     <div class="container">
