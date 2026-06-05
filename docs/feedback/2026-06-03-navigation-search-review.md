@@ -140,26 +140,28 @@ Live header search: instant results capped at top 5 (cap adjustable), link to fu
 
 Joel committed (55:35) to extract **all** action steps. Grouped by type; source tagged. "Decided" = agreed on the call; "Open" = needs a final choice; "Idea" = future/phase-2.
 
+> **Checkbox legend:** `[x]` shipped & verified in live code · `[~]` provisional (live in code but flagged `TODO(copy)`, awaiting final sign-off) · `[ ]` open. Reconciled against `dev..feedback` git history 2026-06-05.
+
 ### Renames (labels)
-- [ ] Rename **"Get Started" → "New to Roll Forming?"** — *decided* (Evita/Thad/Alex)
-- [ ] Rename **"Understanding the deal" → "Understand the Investment"** — *decided* (Thad)
-- [ ] Pick final wording for the **"See if it fits"** heading (lead candidate "Are you ready?") — *open, run options through AI*
-- [ ] Pick final wording for **"Request a Quote"** (expert-assisted framing, e.g. "Get help with your quote") — *open*
+- [x] Rename **"Get Started" → "New to Roll Forming?"** — *decided* (Evita/Thad/Alex) — shipped (desktop-nav.php)
+- [x] Rename **"Understanding the deal" → "Understand the Investment"** — *decided* (Thad) — shipped (desktop-nav.php)
+- [~] Pick final wording for the **"See if it fits"** heading (lead candidate "Are you ready?") — *provisional: "Are You Ready?" live with TODO(copy) in code; needs final sign-off*
+- [~] Pick final wording for **"Request a Quote"** (expert-assisted framing, e.g. "Get help with your quote") — *provisional: "Get help with your quote" live with TODO(copy) in code; needs final sign-off*
 - [ ] Rename **"Mach 2 family"** to model-descriptive (e.g. "Mach 2 — 5"/6"/6.5" combo" or "K-style gutter machines") — *open*
-- [ ] Remove the **"(expert shortcut)"** parenthetical — *decided* (Thad)
+- [x] Remove the **"(expert shortcut)"** parenthetical — *decided* (Thad) — shipped (desktop-nav.php)
 
 ### Removes
-- [ ] Remove **"Roof panel vs. gutter machines"** from nav (keep page in background for AI) — *decided*
-- [ ] Remove the **duplicate "what to know before a quote"** link, keep the newer one — *decided*
-- [ ] Remove **"Knowledge base"** nav item — *Joel-proposed, likely*
-- [ ] Remove **"Owner support landing"** placeholder — *Joel-proposed, likely*
+- [x] Remove **"Roof panel vs. gutter machines"** from nav (keep page in background for AI) — *decided* — shipped (desktop-nav.php)
+- [ ] Remove the **duplicate "what to know before a quote"** link, keep the newer one — *decided* — **still open:** two distinct quote-prep links live ("What to know before quoting" + "How to get a quote on an NTM machine"); which is the older dupe to drop is Alex's call (the newer Rick-updated one with video stays)
+- [x] Remove **"Knowledge base"** nav item — *Joel-proposed, likely* — shipped (desktop-nav.php)
+- [x] Remove **"Owner support landing"** placeholder — *Joel-proposed, likely* — shipped (desktop-nav.php; the `owner-support` id/path that remains is Section 4 "Get Owner Support" itself, not the old placeholder link)
 
 ### Adds / reorders
-- [ ] Add machines (cards) into the **megamenu** under Choose Your Machine — *decided* (Thad)
-- [ ] Replace removed roof-vs-gutter link with the **"What is portable roll forming"** article — *decided*
-- [ ] Add **"Configure"** link below "Request a Quote" in How to Buy — *decided* (Alex)
-- [ ] Reorder machine pages: **Profiles above Accessories** — *decided* (Thad)
-- [ ] Move **Troubleshooting to the top** of Get Support service videos — *decided* (Alex)
+- [x] Add machines (cards) into the **megamenu** under Choose Your Machine — *decided* (Thad) — shipped (mega-menu.php + desktop-nav.php)
+- [x] Replace removed roof-vs-gutter link with the **"What is portable roll forming"** article — *decided* — shipped (desktop-nav.php)
+- [x] Add **"Configure"** link below "Request a Quote" in How to Buy — *decided* (Alex) — shipped (desktop-nav.php)
+- [x] Reorder machine pages: **Profiles above Accessories** — *decided* (Thad) — already ordered correctly (single-machine.php: profile-selector before accessories)
+- [ ] Move **Troubleshooting to the top** of Get Support service videos — *decided* (Alex) — *open (service-page templates, not nav)*
 
 ### Templates / UX
 - [x] Build a **sidebar section-nav** template variant to compare against the header sticky nav — *decided to prototype* (Thad) — enabled on single-machine.php via `.layout-with-rail` (2026-06-05)
