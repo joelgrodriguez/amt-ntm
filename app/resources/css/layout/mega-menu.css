@@ -128,7 +128,7 @@
  * Optional card grid rendered below the group columns in the choose-machine
  * panel. Layout (grid/gap/margin) lives in the template via Tailwind; only
  * the relative shell + pinned badge need custom CSS. */
-.mega-menu__card {
+.mega-panel__card {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -144,14 +144,14 @@
     transition: border-color 120ms ease, background-color 120ms ease;
 }
 
-.mega-menu__card:hover,
-.mega-menu__card:focus-visible {
+.mega-panel__card:hover,
+.mega-panel__card:focus-visible {
     border-color: var(--color-blue-500);
     background: var(--color-blue-50);
     outline: none;
 }
 
-.mega-menu__card-badge {
+.mega-panel__card-badge {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
