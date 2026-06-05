@@ -56,7 +56,7 @@ $benefits = [
             <dl class="finance-figure">
                 <dt class="finance-figure__label"><?php esc_html_e('Deduct up to', 'standard'); ?></dt>
                 <dd class="finance-figure__value">$1,220,000</dd>
-                <dd class="finance-figure__note"><?php esc_html_e('of qualifying equipment', 'standard'); ?></dd>
+                <dd class="finance-figure__note"><?php esc_html_e('of qualifying equipment, current tax year', 'standard'); ?></dd>
             </dl>
         </div>
 

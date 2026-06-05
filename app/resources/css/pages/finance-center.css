@@ -20,6 +20,33 @@
 
 @layer components {
 
+  /* ── Anchor arrival feedback ──────────────────────────────────────── */
+
+  /* The path cards (and the hero) jump to #corbel / #section-179 / #lenders /
+     #finance-paths. When a section is the :target, pulse its heading once
+     (blue-500 -> resting blue-900) so the buyer registers they landed on the
+     right block. Color-only, one-shot, self-fading: no layout-driving
+     properties, so no reflow and nothing to thrash. Scoped to .section-title,
+     which has a known resting color (blue-900), so the settle is unambiguous
+     on every section regardless of surface. */
+  .finance-center [id]:target .section-title {
+    animation: finance-target-title 1500ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  @keyframes finance-target-title {
+    0%   { color: var(--color-blue-500); }
+    55%  { color: var(--color-blue-500); }
+    100% { color: var(--color-blue-900); }
+  }
+
+  /* Reduced motion: no pulse. Color-only animation is low-risk, but the
+     guideline is explicit, so honor it. */
+  @media (prefers-reduced-motion: reduce) {
+    .finance-center [id]:target .section-title {
+      animation: none;
+    }
+  }
+
   /* ── Three paths — card icon tile ─────────────────────────────────── */
 
   .finance-path__icon {
@@ -86,65 +113,29 @@
     text-wrap: pretty;
   }
 
-  /* Body — steps on the left, configurator screenshot on the right at lg+.
-     Below lg the screenshot drops under the steps. */
-  .finance-flow__body {
-    display: grid;
-    gap: clamp(32px, 4vw, 48px);
-    align-items: start;
-  }
-
-  @media (min-width: 1024px) {
-    .finance-flow__body {
-      grid-template-columns: minmax(0, 1fr) minmax(22rem, 30rem);
-      gap: clamp(40px, 5vw, 72px);
-      align-items: center;
-    }
-  }
-
-  /* Steps — a single hairline ledger. Two-up at tablet where there's room
-     beside no image; single column at lg+ where the screenshot takes the
-     other half. Borders live on the list + items so the fence never doubles. */
-  .finance-flow__steps {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    grid-template-columns: 1fr;
-    border-top: 1px solid var(--color-blue-800);
-  }
-
-  @media (min-width: 768px) and (max-width: 1023.98px) {
-    .finance-flow__steps {
-      grid-template-columns: 1fr 1fr;
-      column-gap: clamp(32px, 4vw, 64px);
-    }
-  }
-
-  /* Configurator screenshot — a hairline-framed screen on the dark surface.
-     A panel like the woo quote artifact, but a real screenshot. Depth comes
-     from the dark inner ground + hairline frame, not a drop shadow
-     (DESIGN.md §1: no shadows — contrast, borders, and spacing carry depth). */
+  /* Configurator mockup — the centerpiece. A polished product mockup gets the
+     full content width and room to breathe; the steps read as a process strip
+     below it. Hairline frame on the dark surface for depth, no shadow
+     (DESIGN.md §1: contrast, borders, and spacing carry depth). */
   .finance-flow__shot {
-    margin: 0;
+    margin: clamp(40px, 5vw, 64px) 0 0;
     display: grid;
-    gap: 12px;
+    gap: 14px;
+    justify-items: center;
   }
 
   .finance-flow__shot-frame {
     display: block;
+    width: 100%;
     border: 1px solid var(--color-blue-700);
     background-color: var(--color-black);
-    padding: 10px;
+    padding: clamp(8px, 1vw, 14px);
   }
 
   .finance-flow__shot-img {
     display: block;
     width: 100%;
     height: auto;
-    /* Hairline between the black mat and the screenshot so the UI edge
-       reads cleanly against the dark frame. */
-    border: 1px solid var(--color-blue-800);
   }
 
   .finance-flow__shot-caption {
@@ -153,21 +144,74 @@
     font-size: var(--text-caption);
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--color-blue-400);
+    color: var(--color-blue-300);
+    text-align: center;
+  }
+
+  /* Steps — a horizontal process strip below the mockup. Stacks on mobile,
+     2-up at tablet, 3-up at desktop. A top hairline separates the strip from
+     the image; per-step left hairlines (md+) fence the columns. */
+  .finance-flow__steps {
+    list-style: none;
+    padding: 0;
+    margin: clamp(36px, 4.5vw, 56px) 0 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    border-top: 1px solid var(--color-blue-800);
+  }
+
+  @media (min-width: 768px) {
+    .finance-flow__steps {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .finance-flow__steps {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   .finance-flow__step {
     display: grid;
-    grid-template-columns: 48px 1fr;
-    align-items: baseline;
-    gap: clamp(16px, 2vw, 24px);
+    grid-template-columns: 44px 1fr;
+    align-items: start;
+    gap: clamp(14px, 1.6vw, 20px);
     padding: clamp(20px, 2.4vw, 28px) 0;
     border-bottom: 1px solid var(--color-blue-800);
   }
 
+  /* Vertical hairline between columns on multi-col layouts, applied to the
+     leading edge of every step that isn't first in its row. */
   @media (min-width: 768px) {
     .finance-flow__step {
-      grid-template-columns: 56px 1fr;
+      padding-left: clamp(20px, 2.5vw, 32px);
+      padding-right: clamp(20px, 2.5vw, 32px);
+      border-left: 1px solid var(--color-blue-800);
+    }
+
+    .finance-flow__step:nth-child(2n + 1) {
+      padding-left: 0;
+      border-left: 0;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .finance-flow__step {
+      border-left: 1px solid var(--color-blue-800);
+    }
+
+    /* reset the tablet 2-col rule, then drop the left edge on every 3rd-col
+       first item (i.e. the first of each row of three). */
+    .finance-flow__step:nth-child(2n + 1) {
+      padding-left: clamp(20px, 2.5vw, 32px);
+      border-left: 1px solid var(--color-blue-800);
+    }
+
+    .finance-flow__step:nth-child(3n + 1) {
+      padding-left: 0;
+      border-left: 0;
     }
   }
 
@@ -213,7 +257,7 @@
     line-height: 1.55;
     font-size: var(--text-body);
     margin: 0;
-    max-width: 42ch;
+    max-width: 34ch;
     text-wrap: pretty;
   }
 
@@ -225,28 +269,75 @@
     margin-top: clamp(40px, 5vw, 64px);
   }
 
-  .finance-flow__alt-link {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 8px;
+  /* Watch-it-in-action — two short walkthrough videos, hairline-separated
+     from the actions above, presented as a labeled resource pair. */
+  .finance-flow__watch {
+    margin-top: clamp(24px, 3vw, 36px);
+    padding-top: clamp(20px, 2.4vw, 28px);
+    border-top: 1px solid var(--color-blue-800);
+    display: grid;
+    gap: 14px;
+  }
+
+  .finance-flow__watch-label {
+    margin: 0;
     font-family: var(--font-mono);
     font-weight: 500;
     font-size: var(--text-caption);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
+    color: var(--color-blue-300);
+  }
+
+  .finance-flow__watch-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px clamp(24px, 4vw, 48px);
+  }
+
+  .finance-flow__watch-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: var(--text-body);
     color: var(--color-blue-200);
     text-decoration: none;
     transition: color 200ms ease-out;
   }
 
-  .finance-flow__alt-link:hover,
-  .finance-flow__alt-link:focus-visible {
+  .finance-flow__watch-link:hover,
+  .finance-flow__watch-link:focus-visible {
     color: var(--color-white);
   }
 
-  .finance-flow__alt-link:focus-visible {
+  .finance-flow__watch-link:focus-visible {
     outline: 2px solid var(--color-blue-500);
     outline-offset: 4px;
+  }
+
+  /* Play glyph in a hairline square, brand blue. */
+  .finance-flow__watch-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border: 1px solid var(--color-blue-700);
+    color: var(--color-blue-300);
+    transition: border-color 200ms ease-out, color 200ms ease-out;
+  }
+
+  .finance-flow__watch-link:hover .finance-flow__watch-icon,
+  .finance-flow__watch-link:focus-visible .finance-flow__watch-icon {
+    border-color: var(--color-blue-500);
+    color: var(--color-white);
   }
 
   /* ── Corbel how-it-works ledger ───────────────────────────────────── */
@@ -471,34 +562,10 @@
   }
 
   .lender-list__name {
-    display: inline-flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
     font-family: var(--font-sans);
     font-weight: 500;
     font-size: clamp(var(--text-body), 1.4vw, 18px);
     color: var(--color-blue-900);
-  }
-
-  /* "NTM's pick" — a quiet blue badge, the one place FNB is distinguished. */
-  .lender-list__pick {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 2px 8px;
-    font-family: var(--font-mono);
-    font-weight: 500;
-    font-size: var(--text-caption);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-blue-700);
-    background-color: var(--color-blue-100);
-    border: 1px solid var(--color-blue-200);
-  }
-
-  .lender-list__pick svg {
-    color: var(--color-blue-500);
   }
 
   .lender-list__note {
