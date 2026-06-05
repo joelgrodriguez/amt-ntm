@@ -72,8 +72,25 @@
     text-wrap: pretty;
   }
 
-  /* Three steps in a single hairline ledger; two-up at tablet, three-up at
-     desktop. Borders live on the list + items so the fence never doubles. */
+  /* Body — steps on the left, configurator screenshot on the right at lg+.
+     Below lg the screenshot drops under the steps. */
+  .finance-flow__body {
+    display: grid;
+    gap: clamp(32px, 4vw, 48px);
+    align-items: start;
+  }
+
+  @media (min-width: 1024px) {
+    .finance-flow__body {
+      grid-template-columns: minmax(0, 1fr) minmax(22rem, 30rem);
+      gap: clamp(40px, 5vw, 72px);
+      align-items: center;
+    }
+  }
+
+  /* Steps — a single hairline ledger. Two-up at tablet where there's room
+     beside no image; single column at lg+ where the screenshot takes the
+     other half. Borders live on the list + items so the fence never doubles. */
   .finance-flow__steps {
     list-style: none;
     padding: 0;
@@ -83,18 +100,47 @@
     border-top: 1px solid var(--color-blue-800);
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 768px) and (max-width: 1023.98px) {
     .finance-flow__steps {
       grid-template-columns: 1fr 1fr;
       column-gap: clamp(32px, 4vw, 64px);
     }
   }
 
+  /* Configurator screenshot — a hairline-framed screen on the dark surface.
+     A panel like the woo quote artifact, but a real screenshot. */
+  .finance-flow__shot {
+    margin: 0;
+    display: grid;
+    gap: 12px;
+  }
+
+  .finance-flow__shot-frame {
+    display: block;
+    border: 1px solid var(--color-blue-700);
+    background-color: var(--color-black);
+    padding: 8px;
+  }
+
   @media (min-width: 1024px) {
-    .finance-flow__steps {
-      grid-template-columns: repeat(3, 1fr);
-      column-gap: clamp(40px, 5vw, 72px);
+    .finance-flow__shot-frame {
+      box-shadow: 0 24px 48px -16px rgb(0 0 0 / 0.45);
     }
+  }
+
+  .finance-flow__shot-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .finance-flow__shot-caption {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-blue-400);
   }
 
   .finance-flow__step {
@@ -382,10 +428,29 @@
     color: var(--color-red);
   }
 
+  .lender-feature__tag-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-red);
+    flex-shrink: 0;
+  }
+
+  /* White frame so a dark-on-transparent logo (e.g. fnb.jpg) sits on a
+     clean ground regardless of the row's surface. */
+  .lender-feature__logo-frame {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-blue-100);
+    padding: clamp(12px, 1.5vw, 18px);
+    width: 100%;
+    max-width: 18rem;
+  }
+
   .lender-feature__logo {
     display: block;
-    max-width: 248px;
-    width: 100%;
+    max-width: 100%;
     height: auto;
   }
 

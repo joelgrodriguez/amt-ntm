@@ -5,11 +5,12 @@
  * Replaces the legacy three-logo column blocks with one clean directory.
  * First National Bank leads as NTM's preferred lender in a wider feature
  * row; the third-party lenders (Apex, American Bank, Crest, ACG) follow as
- * a hairline-ruled list. Every row leads with the lender NAME in mono so it
- * stays legible even if a logo 404s — the logo is enhancement, not the row.
+ * a hairline-ruled list. Every row leads with the lender NAME so it stays
+ * legible even if a logo fails — the logo is enhancement, not the row.
  *
- * Logo URLs use upload-relative paths resolved against the live site so they
- * survive a domain change between local and production.
+ * Logos render through responsive_image(): URLs are upload-relative
+ * (home_url-based) so they survive the local↔prod domain swap, and the
+ * helper resolves each to its WP attachment for proper srcset/sizes.
  *
  * @package Standard
  *
@@ -21,6 +22,8 @@ declare(strict_types=1);
 if (!defined('ABSPATH')) {
     exit;
 }
+
+use function Standard\Images\responsive_image;
 
 $uploads = trailingslashit(home_url('/wp-content/uploads'));
 
@@ -55,7 +58,7 @@ $lenders = [
     [
         'name' => __('ACG Equipment Finance', 'standard'),
         'note' => __('Section 179 Elite financing programs', 'standard'),
-        'logo' => $uploads . '2021/06/NTM_ACGFinanceFlyerGraphic-1024x216.jpeg',
+        'logo' => $uploads . '2021/06/NTM_ACGFinanceFlyerGraphic.jpeg',
         'url'  => 'https://acgequipmentfinance.com/',
     ],
 ];
@@ -79,15 +82,19 @@ $lenders = [
 
             <article class="lender-feature">
                 <div class="lender-feature__brand">
-                    <p class="lender-feature__tag"><?php echo esc_html($preferred['tag']); ?></p>
-                    <img
-                        src="<?php echo esc_url($preferred['logo']); ?>"
-                        alt="<?php echo esc_attr($preferred['name']); ?>"
-                        class="lender-feature__logo"
-                        loading="lazy"
-                        width="248"
-                        height="79"
-                    >
+                    <p class="lender-feature__tag">
+                        <span class="lender-feature__tag-dot" aria-hidden="true"></span>
+                        <?php echo esc_html($preferred['tag']); ?>
+                    </p>
+                    <span class="lender-feature__logo-frame">
+                        <?php
+                        responsive_image($preferred['logo'], $preferred['name'], 'medium', [
+                            'class'  => 'lender-feature__logo',
+                            'width'  => '248',
+                            'height' => '79',
+                        ]);
+                        ?>
+                    </span>
                 </div>
                 <div class="lender-feature__body">
                     <h3 class="lender-feature__name"><?php echo esc_html($preferred['name']); ?></h3>
@@ -129,12 +136,11 @@ $lenders = [
                                 class="lender-list__link"
                             >
                                 <span class="lender-list__logo-wrap">
-                                    <img
-                                        src="<?php echo esc_url($lender['logo']); ?>"
-                                        alt=""
-                                        class="lender-list__logo"
-                                        loading="lazy"
-                                    >
+                                    <?php
+                                    responsive_image($lender['logo'], $lender['name'] . ' logo', 'medium', [
+                                        'class' => 'lender-list__logo',
+                                    ]);
+                                    ?>
                                 </span>
                                 <span class="lender-list__text">
                                     <span class="lender-list__name"><?php echo esc_html($lender['name']); ?></span>
