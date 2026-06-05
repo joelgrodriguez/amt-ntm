@@ -162,6 +162,11 @@ function get_desktop_nav(): array {
                                 'url'   => \Standard\Url\internal('/learning-center/portable-rollforming-machine-equipment-types-uses/'),
                             ],
                             [
+                                // TODO(link): confirm final URL Thad shared in chat
+                                'label' => __('What is portable roll forming?', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/what-is-portable-rollforming/'),
+                            ],
+                            [
                                 'label' => __('Misconceptions about portable rollforming', 'standard'),
                                 'url'   => \Standard\Url\internal('/learning-center/portable-rollforming-misconceptions/'),
                             ],
