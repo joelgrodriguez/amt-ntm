@@ -161,13 +161,13 @@ Joel committed (55:35) to extract **all** action steps. Grouped by type; source 
 - [x] Replace removed roof-vs-gutter link with the **"What is portable roll forming"** article — *decided* — shipped (desktop-nav.php)
 - [x] Add **"Configure"** link below "Request a Quote" in How to Buy — *decided* (Alex) — shipped (desktop-nav.php)
 - [x] Reorder machine pages: **Profiles above Accessories** — *decided* (Thad) — already ordered correctly (single-machine.php: profile-selector before accessories)
-- [ ] Move **Troubleshooting to the top** of Get Support service videos — *decided* (Alex) — *open (service-page templates, not nav)*
+- [x] Move **Troubleshooting to the top** of Get Support service videos — *decided* (Alex) — shipped: per-machine service-hub content groups now lead with Troubleshooting (service-hub-machines.php) 2026-06-05. *Interpreted "lead" as fully first; blind, needs eyeball.*
 
 ### Templates / UX
 - [x] Build a **sidebar section-nav** template variant to compare against the header sticky nav — *decided to prototype* (Thad) — enabled on single-machine.php via `.layout-with-rail` (2026-06-05)
 - [x] Make the **configurator open in a new tab** every time — *action* — shipped (all configurator links target=_blank; shared CTA parts opt-in via cta_primary_new_tab) 2026-06-05. *Corbel back-link to NTM is external (Corbel-side), still open.*
 - [x] Fix the **service content filter template** (clearing filters reloads same page) — *action* — original bug **already resolved by the Service Hub rebuild** (commit 3fd6fcd); verified live (clear goes 118→247 results, Clear link = bare URL). En route, fixed an adjacent gap: sort-only state now shows the Reset/Clear control (added `sort` to `$has_filters`) 2026-06-05.
-- [ ] Fix **Request Training page spacing**; fix troubleshooting / "prevent voiding warranty" display issues — *action*
+- [~] Fix **Request Training page spacing** — root-caused + fixed (CSS): page content sits in `.wp-block-group.is-layout-flow`, which broke Tailwind prose's direct-child spacing; re-applied flow spacing in single.css (2026-06-05). *Blind fix — needs post-merge eyeball to confirm the rhythm.* Troubleshooting / "prevent voiding warranty" display issues still open (separate, deferred to service meeting).
 
 ### Content / data
 - [ ] Update **machine prices** from Rick's newly published numbers (current update didn't catch) — *action*
