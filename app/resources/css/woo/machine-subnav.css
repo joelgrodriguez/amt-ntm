@@ -322,20 +322,14 @@
 
   /* ── Rail content: flatten full-width bands to white ───────────────
      Inside the rail, sections that carry a full-bleed bg-blue-50 band
-     (#machine-accessories, #machine-specs, .machine-fit) read white and
-     lean on the existing .section-divider hairlines for separation —
-     matching the Learning Center / accessories-catalog rail look. */
+     (#machine-accessories, #machine-specs, #machine-case-study, .machine-fit)
+     read white and lean on the existing .section-divider hairlines for
+     separation — matching the Learning Center / accessories-catalog rail
+     look. Every rail section reads white; no full-bleed escapes. */
   .machine-rail-content #machine-accessories,
   .machine-rail-content #machine-specs,
+  .machine-rail-content #machine-case-study,
   .machine-rail-content .machine-fit {
     background-color: transparent;
-  }
-
-  /* Case-study is the one full-bleed band inside the rail range. Pull it
-     back out to span the viewport; its own inner .container re-centers
-     the content. Scoped to this id, this breakpoint, this rail only. */
-  .machine-rail-content > #machine-case-study {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
   }
 }
