@@ -301,7 +301,7 @@ function get_desktop_nav(): array {
                                 'badge' => __('Flagship', 'standard'),
                             ],
                             [
-                                'label' => __('MACH II Family', 'standard'),
+                                'label' => __('MACH II Seamless Gutter Machines', 'standard'),
                                 'url'   => \Standard\Url\internal('/machines/machii/'),
                             ],
                         ],
