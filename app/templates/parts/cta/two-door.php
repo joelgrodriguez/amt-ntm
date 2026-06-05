@@ -33,6 +33,8 @@ if (!defined('ABSPATH')) {
 $defaults = [
     'primary_label'    => __('Configure & Quote', 'standard'),
     'primary_url'      => '/configurator/',
+    // Default primary is the external configurator, so it opens in a new tab.
+    // If a caller overrides primary_url to an internal page, pass primary_new_tab => false.
     'primary_new_tab'  => true,
     'specialist_label' => __('Talk to a Specialist', 'standard'),
     'specialist_url'   => '/contact/',

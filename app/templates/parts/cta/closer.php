@@ -12,14 +12,14 @@
  * @package Standard
  *
  * @param array $args {
- *     @type string $title             Headline copy.
- *     @type string $text              Supporting subline.
+ *     @type string $title               Headline copy.
+ *     @type string $text                Supporting subline.
  *     @type string $cta_primary         Button label.
  *     @type string $cta_primary_url     Button href (run through internal()).
  *     @type bool   $cta_primary_new_tab Optional. Open the primary button in a new tab. Default false.
- *     @type string $cta_secondary     Optional secondary button label.
- *     @type string $cta_secondary_url Optional secondary button href.
- *     @type string $section_id        ID for aria-labelledby.
+ *     @type string $cta_secondary       Optional secondary button label.
+ *     @type string $cta_secondary_url   Optional secondary button href.
+ *     @type string $section_id          ID for aria-labelledby.
  * }
  */
 
