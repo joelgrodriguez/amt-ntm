@@ -79,6 +79,7 @@
 @import "./pages/learning-center.css";
 @import "./pages/roof-wall.css";
 @import "./pages/start-here.css";
+@import "./pages/finance-center.css";
 
 /* ── WooCommerce ───────────────────────────────────────────────────── */
 @import "./woo/product-card.css";

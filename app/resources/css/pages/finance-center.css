@@ -1,0 +1,515 @@
+/**
+ * Finance Center — page-finance-center.php
+ *
+ * Page-native styles for /machines/leasing-financing/. Most of the page is
+ * built from shared section grammar (.section, .section-content, .btn,
+ * gap-px hairline cells); this file holds the few bespoke pieces:
+ *
+ *   .finance-flow   — the dark Build · Quote · Finance band (a page-native
+ *                     cousin of woo/configurator-cta, which needs a product)
+ *   .finance-steps  — the numbered Corbel how-it-works ledger
+ *   .finance-terms  — the Corbel at-a-glance terms card
+ *   .finance-figure — the Section 179 headline deduction figure
+ *   .lender-*       — the lender directory (feature row + hairline list)
+ *
+ * Vocabulary matches the rest of the site: blueprint hairlines, mono
+ * editorial labels, zero radius, no shadows, single red accent.
+ *
+ * @file pages/finance-center.css
+ */
+
+@layer components {
+
+  /* ── Build · Quote · Finance band ─────────────────────────────────── */
+
+  .finance-flow__header {
+    display: grid;
+    gap: clamp(12px, 1.5vw, 20px);
+    max-width: 64rem;
+    margin-bottom: clamp(40px, 5vw, 64px);
+  }
+
+  .finance-flow__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-blue-300);
+  }
+
+  .finance-flow__eyebrow-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-red);
+    flex-shrink: 0;
+  }
+
+  .finance-flow__title {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    color: var(--color-white);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0;
+    font-size: clamp(32px, 5vw, 56px);
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+
+  .finance-flow__lede {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    color: var(--color-blue-200);
+    line-height: 1.55;
+    margin: 0;
+    font-size: clamp(16px, 1.4vw, 20px);
+    max-width: 56ch;
+    text-wrap: pretty;
+  }
+
+  /* Three steps in a single hairline ledger; two-up at tablet, three-up at
+     desktop. Borders live on the list + items so the fence never doubles. */
+  .finance-flow__steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    border-top: 1px solid var(--color-blue-800);
+  }
+
+  @media (min-width: 768px) {
+    .finance-flow__steps {
+      grid-template-columns: 1fr 1fr;
+      column-gap: clamp(32px, 4vw, 64px);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .finance-flow__steps {
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: clamp(40px, 5vw, 72px);
+    }
+  }
+
+  .finance-flow__step {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    align-items: baseline;
+    gap: clamp(16px, 2vw, 24px);
+    padding: clamp(20px, 2.4vw, 28px) 0;
+    border-bottom: 1px solid var(--color-blue-800);
+  }
+
+  @media (min-width: 768px) {
+    .finance-flow__step {
+      grid-template-columns: 56px 1fr;
+    }
+  }
+
+  .finance-flow__step-index {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    color: var(--color-blue-300);
+    letter-spacing: 0.1em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .finance-flow__step-body {
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .finance-flow__step-kicker {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-red);
+    margin: 0;
+  }
+
+  .finance-flow__step-title {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    color: var(--color-white);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    font-size: clamp(19px, 1.8vw, 24px);
+    margin: 0;
+  }
+
+  .finance-flow__step-copy {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    color: var(--color-blue-200);
+    line-height: 1.55;
+    font-size: var(--text-body);
+    margin: 0;
+    max-width: 42ch;
+    text-wrap: pretty;
+  }
+
+  .finance-flow__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: clamp(16px, 2vw, 24px);
+    margin-top: clamp(40px, 5vw, 64px);
+  }
+
+  .finance-flow__alt-link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-blue-200);
+    text-decoration: none;
+    transition: color 200ms ease-out;
+  }
+
+  .finance-flow__alt-link:hover,
+  .finance-flow__alt-link:focus-visible {
+    color: var(--color-red);
+  }
+
+  .finance-flow__alt-link:focus-visible {
+    outline: 2px solid var(--color-blue-500);
+    outline-offset: 4px;
+  }
+
+  /* ── Corbel how-it-works ledger ───────────────────────────────────── */
+
+  .finance-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    border-top: 1px solid var(--color-blue-200);
+  }
+
+  .finance-steps__item {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    align-items: baseline;
+    gap: clamp(16px, 2vw, 24px);
+    padding: clamp(16px, 2vw, 22px) 0;
+    border-bottom: 1px solid var(--color-blue-200);
+  }
+
+  .finance-steps__index {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    color: var(--color-blue-400);
+    letter-spacing: 0.1em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .finance-steps__copy {
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    color: var(--color-blue-800);
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+
+  /* ── Corbel at-a-glance terms card ────────────────────────────────── */
+
+  .finance-terms {
+    display: grid;
+    gap: clamp(16px, 2vw, 20px);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-blue-200);
+    padding: clamp(20px, 2.4vw, 28px);
+  }
+
+  @media (min-width: 1024px) {
+    .finance-terms {
+      position: sticky;
+      top: 6rem;
+    }
+  }
+
+  .finance-terms__eyebrow {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-blue-500);
+    margin: 0;
+  }
+
+  .finance-terms__list {
+    margin: 0;
+    display: grid;
+  }
+
+  .finance-terms__row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--color-blue-100);
+  }
+
+  .finance-terms__row:first-child {
+    border-top: 1px solid var(--color-blue-200);
+  }
+
+  .finance-terms__row dt {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-blue-500);
+  }
+
+  .finance-terms__row dd {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-sm);
+    color: var(--color-blue-900);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  .finance-terms__fine {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    line-height: 1.5;
+    color: var(--color-blue-400);
+    text-wrap: pretty;
+  }
+
+  /* ── Section 179 headline figure ──────────────────────────────────── */
+
+  .finance-figure {
+    display: grid;
+    gap: 4px;
+    margin: 0;
+    padding-top: clamp(12px, 1.5vw, 16px);
+    border-top: 2px solid var(--color-blue-900);
+    justify-items: start;
+  }
+
+  @media (min-width: 1024px) {
+    .finance-figure {
+      justify-items: end;
+      text-align: right;
+    }
+  }
+
+  .finance-figure__label {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-blue-500);
+  }
+
+  .finance-figure__value {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    color: var(--color-blue-900);
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .finance-figure__note {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-blue-400);
+  }
+
+  /* ── Lender directory ─────────────────────────────────────────────── */
+
+  .lender-feature {
+    display: grid;
+    gap: clamp(24px, 3vw, 40px);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-blue-200);
+    padding: clamp(24px, 3vw, 40px);
+  }
+
+  @media (min-width: 768px) {
+    .lender-feature {
+      grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
+      align-items: center;
+    }
+  }
+
+  .lender-feature__brand {
+    display: grid;
+    gap: 12px;
+    justify-items: start;
+  }
+
+  .lender-feature__tag {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-red);
+  }
+
+  .lender-feature__logo {
+    display: block;
+    max-width: 248px;
+    width: 100%;
+    height: auto;
+  }
+
+  .lender-feature__body {
+    display: grid;
+    gap: 12px;
+  }
+
+  .lender-feature__name {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: clamp(20px, 2vw, 26px);
+    letter-spacing: -0.01em;
+    color: var(--color-blue-900);
+  }
+
+  .lender-feature__copy {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.55;
+    color: var(--color-blue-600);
+    max-width: 52ch;
+  }
+
+  .lender-feature__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: clamp(12px, 2vw, 20px);
+    margin-top: 4px;
+  }
+
+  /* Third-party list — hairline rows, name-first so a missing logo never
+     leaves a blank row. */
+  .lender-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    border-top: 1px solid var(--color-blue-200);
+  }
+
+  .lender-list__link {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: clamp(16px, 2vw, 24px);
+    padding: clamp(16px, 2vw, 20px) clamp(4px, 1vw, 12px);
+    border-bottom: 1px solid var(--color-blue-200);
+    background-color: var(--color-white);
+    text-decoration: none;
+    transition: background-color 200ms ease-out;
+  }
+
+  .lender-list__link:hover,
+  .lender-list__link:focus-visible {
+    background-color: var(--color-blue-100);
+  }
+
+  .lender-list__link:focus-visible {
+    outline: 2px solid var(--color-blue-500);
+    outline-offset: -2px;
+  }
+
+  .lender-list__logo-wrap {
+    width: 84px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .lender-list__logo {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .lender-list__text {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .lender-list__name {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: var(--text-body);
+    color: var(--color-blue-900);
+  }
+
+  .lender-list__note {
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-blue-400);
+  }
+
+  .lender-list__arrow {
+    color: var(--color-blue-400);
+    flex-shrink: 0;
+    transition: color 200ms ease-out, transform 200ms ease-out;
+  }
+
+  .lender-list__link:hover .lender-list__arrow,
+  .lender-list__link:focus-visible .lender-list__arrow {
+    color: var(--color-blue-700);
+    transform: translateX(2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lender-list__arrow {
+      transition: color 200ms ease-out;
+    }
+
+    .lender-list__link:hover .lender-list__arrow,
+    .lender-list__link:focus-visible .lender-list__arrow {
+      transform: none;
+    }
+  }
+}
