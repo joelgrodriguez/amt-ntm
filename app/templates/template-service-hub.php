@@ -40,8 +40,16 @@ $has_filters = $filters['search'] !== ''
 
 $service_form_id = 'service-hub-form';
 
+// Only offer Resource Type options that actually have content — a 0-result
+// type just dumps the user on the empty state. Counts come from the cached
+// get_post_type_counts(). Always keep the currently-active type even if its
+// count reads 0, so the user's own filter never vanishes from the UI.
+$type_counts = \Standard\ServiceHub\get_post_type_counts();
 $type_choice_options = ['' => __('All types', 'standard')];
 foreach ($post_type_options as $post_type => $option) {
+    if (($type_counts[$post_type] ?? 0) < 1 && $filters['type'] !== $post_type) {
+        continue;
+    }
     $type_choice_options[$post_type] = (string) $option['label'];
 }
 
