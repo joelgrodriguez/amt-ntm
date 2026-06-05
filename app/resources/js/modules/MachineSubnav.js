@@ -105,7 +105,15 @@ export function initMachineSubnav() {
         getComputedStyle(document.documentElement).getPropertyValue('--header-height'),
         10
       ) || 48;
-      const subnavH = subnav.offsetHeight;
+      // Sidebar rail sits beside the content (not above it), so its height
+      // must not be subtracted from the scroll target. Only the vertical
+      // rail at lg: counts as "beside"; below lg: the sidebar variant still
+      // renders as a horizontal bar, so keep its height. Evaluated per click
+      // so a resize across the breakpoint is always correct.
+      const railActive =
+        subnav.classList.contains('machine-subnav--sidebar') &&
+        window.matchMedia('(min-width: 64rem)').matches;
+      const subnavH = railActive ? 0 : subnav.offsetHeight;
       const offset = headerH + subnavH + 16;
 
       const y = target.getBoundingClientRect().top + window.scrollY - offset;
