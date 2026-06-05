@@ -162,7 +162,7 @@ Joel committed (55:35) to extract **all** action steps. Grouped by type; source 
 - [ ] Move **Troubleshooting to the top** of Get Support service videos — *decided* (Alex)
 
 ### Templates / UX
-- [ ] Build a **sidebar section-nav** template variant to compare against the header sticky nav — *decided to prototype* (Thad)
+- [x] Build a **sidebar section-nav** template variant to compare against the header sticky nav — *decided to prototype* (Thad) — enabled on single-machine.php via `.layout-with-rail` (2026-06-05)
 - [ ] Make the **configurator open in a new tab** every time + add a link back to the NTM site from Corbel — *action*
 - [ ] Fix the **service content filter template** (clearing filters reloads same page) — *action*
 - [ ] Fix **Request Training page spacing**; fix troubleshooting / "prevent voiding warranty" display issues — *action*
