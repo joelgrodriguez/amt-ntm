@@ -43,7 +43,7 @@ $benefits = [
 
         <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-16">
             <div class="section-header-left max-w-2xl">
-                <p class="section-eyebrow"><?php esc_html_e('Tax savings — Section 179', 'standard'); ?></p>
+                <p class="section-eyebrow"><?php esc_html_e('Tax savings with Section 179', 'standard'); ?></p>
                 <div class="section-divider"></div>
                 <h2 id="section-179-title" class="section-title">
                     <?php esc_html_e('Pay for your machine over time, deduct it this year.', 'standard'); ?>
@@ -79,6 +79,7 @@ $benefits = [
                 target="_blank"
                 rel="noopener noreferrer"
                 class="btn btn-primary w-full justify-center sm:w-auto"
+                aria-label="<?php esc_attr_e('Open the Section 179 savings calculator (opens in a new tab)', 'standard'); ?>"
             >
                 <?php esc_html_e('Open the savings calculator', 'standard'); ?>
                 <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>

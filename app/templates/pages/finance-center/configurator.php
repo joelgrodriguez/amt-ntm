@@ -24,6 +24,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use function Standard\Images\responsive_image;
+
 $configurator_url = \Standard\Url\internal('/configurator/');
 $walkthrough_url  = \Standard\Url\internal('/learning-center/how-to-build-and-finance-your-ntm-rollformer-all-on-one-site/');
 
@@ -66,29 +68,47 @@ $steps = [
             </p>
         </div>
 
-        <ol class="finance-flow__steps" role="list">
-            <?php foreach ($steps as $index => $step) : ?>
-                <li class="finance-flow__step">
-                    <span class="finance-flow__step-index" aria-hidden="true">
-                        <?php echo esc_html(str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT)); ?>
-                    </span>
-                    <div class="finance-flow__step-body">
-                        <p class="finance-flow__step-kicker">
-                            <?php echo esc_html($step['kicker']); ?>
-                        </p>
-                        <h3 class="finance-flow__step-title">
-                            <?php echo esc_html($step['title']); ?>
-                        </h3>
-                        <p class="finance-flow__step-copy">
-                            <?php echo esc_html($step['copy']); ?>
-                        </p>
-                    </div>
-                </li>
-            <?php endforeach; ?>
-        </ol>
+        <div class="finance-flow__body">
+            <ol class="finance-flow__steps" role="list">
+                <?php foreach ($steps as $index => $step) : ?>
+                    <li class="finance-flow__step">
+                        <span class="finance-flow__step-index" aria-hidden="true">
+                            <?php echo esc_html(str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT)); ?>
+                        </span>
+                        <div class="finance-flow__step-body">
+                            <p class="finance-flow__step-kicker">
+                                <?php echo esc_html($step['kicker']); ?>
+                            </p>
+                            <h3 class="finance-flow__step-title">
+                                <?php echo esc_html($step['title']); ?>
+                            </h3>
+                            <p class="finance-flow__step-copy">
+                                <?php echo esc_html($step['copy']); ?>
+                            </p>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ol>
+
+            <figure class="finance-flow__shot">
+                <span class="finance-flow__shot-frame">
+                    <?php
+                    responsive_image(
+                        content_url('/uploads/2024/08/configurator.png'),
+                        __('The NTM configurator with a machine build in progress', 'standard'),
+                        'large',
+                        ['class' => 'finance-flow__shot-img']
+                    );
+                    ?>
+                </span>
+                <figcaption class="finance-flow__shot-caption">
+                    <?php esc_html_e('The configurator: build, price, and apply in one screen', 'standard'); ?>
+                </figcaption>
+            </figure>
+        </div>
 
         <div class="finance-flow__actions">
-            <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-emphasis btn--commit">
+            <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary btn--commit">
                 <?php esc_html_e('Open the configurator', 'standard'); ?>
                 <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
             </a>

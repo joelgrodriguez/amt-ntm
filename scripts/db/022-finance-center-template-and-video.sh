@@ -35,9 +35,12 @@ fi
 
 template_slug='page-finance-center.php'
 
-# Wistia share URL for "How to Finance Your NTM Machine Video" (media hesm0txl1n).
-# render_video_embed() normalizes this to the fast.wistia.net embed iframe.
-hero_video='https://newtechmachinery.wistia.com/medias/hesm0txl1n'
+# Embeddable Wistia iframe URL for "How to Finance Your NTM Machine Video"
+# (media hesm0txl1n). Must be the embed URL, not a share/landing URL: the
+# hero-category facade uses this value directly as the iframe src on click
+# (same embed shape /machines/ uses). A wistia.com/medias/<id> share URL would
+# not load in an iframe.
+hero_video='https://fast.wistia.net/embed/iframe/hesm0txl1n?seo=false&videoFoam=true'
 
 wp post meta update "${page_id}" _wp_page_template "${template_slug}"
 wp post meta update "${page_id}" hero_video        "${hero_video}"
