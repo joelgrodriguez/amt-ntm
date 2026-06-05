@@ -134,9 +134,9 @@ get_header();
                         <h3 class="font-mono font-medium uppercase tracking-wider text-blue-700 m-0" style="font-size: var(--text-body);">
                             <?php echo esc_html($cat_label); ?>
                         </h3>
-                        <div class="stagger grid gap-4 sm:grid-cols-2">
+                        <div class="stagger grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                             <?php foreach ($cat_machines as $machine) : ?>
-                                <?php get_template_part('templates/parts/service-hub/machine-photo-card', null, ['machine' => $machine]); ?>
+                                <?php get_template_part('templates/parts/service-hub/machine-photo-card', null, ['machine' => $machine, 'compact' => true]); ?>
                             <?php endforeach; ?>
                         </div>
                     </div>
