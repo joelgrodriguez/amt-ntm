@@ -392,7 +392,7 @@ function get_desktop_nav(): array {
                                 'url'   => \Standard\Url\internal('/contact/'),
                             ],
                             [
-                                'label' => __('Configure your machine (Expert shortcut)', 'standard'),
+                                'label' => __('Configure your machine', 'standard'),
                                 'url'   => \Standard\Url\internal('/configurator/'),
                             ],
                             [
