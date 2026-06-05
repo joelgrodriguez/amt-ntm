@@ -162,10 +162,6 @@ function get_desktop_nav(): array {
                                 'url'   => \Standard\Url\internal('/learning-center/portable-rollforming-machine-equipment-types-uses/'),
                             ],
                             [
-                                'label' => __('Roof panel vs gutter machines', 'standard'),
-                                'url'   => \Standard\Url\internal('/roof-panel-vs-gutter/'),
-                            ],
-                            [
                                 'label' => __('Misconceptions about portable rollforming', 'standard'),
                                 'url'   => \Standard\Url\internal('/learning-center/portable-rollforming-misconceptions/'),
                             ],
@@ -211,7 +207,6 @@ function get_desktop_nav(): array {
                     '/first-time-buyer-playlist/',
                     '/learning-center/',
                     '/portable-rollforming-machine-readiness-assessment/',
-                    '/roof-panel-vs-gutter/',
                 ],
             ],
 
