@@ -122,7 +122,9 @@
   }
 
   /* Configurator screenshot — a hairline-framed screen on the dark surface.
-     A panel like the woo quote artifact, but a real screenshot. */
+     A panel like the woo quote artifact, but a real screenshot. Depth comes
+     from the dark inner ground + hairline frame, not a drop shadow
+     (DESIGN.md §1: no shadows — contrast, borders, and spacing carry depth). */
   .finance-flow__shot {
     margin: 0;
     display: grid;
@@ -133,19 +135,16 @@
     display: block;
     border: 1px solid var(--color-blue-700);
     background-color: var(--color-black);
-    padding: 8px;
-  }
-
-  @media (min-width: 1024px) {
-    .finance-flow__shot-frame {
-      box-shadow: 0 24px 48px -16px rgb(0 0 0 / 0.45);
-    }
+    padding: 10px;
   }
 
   .finance-flow__shot-img {
     display: block;
     width: 100%;
     height: auto;
+    /* Hairline between the black mat and the screenshot so the UI edge
+       reads cleanly against the dark frame. */
+    border: 1px solid var(--color-blue-800);
   }
 
   .finance-flow__shot-caption {

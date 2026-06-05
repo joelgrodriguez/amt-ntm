@@ -91,10 +91,17 @@ $lenders = [
                         target="_blank"
                         rel="noopener noreferrer"
                         class="lender-list__link"
+                        aria-label="<?php echo esc_attr(sprintf(
+                            /* translators: %s: lender name, e.g. "Apex Capital" */
+                            __('Visit %s (opens in a new tab)', 'standard'),
+                            $lender['name']
+                        )); ?>"
                     >
                         <span class="lender-list__logo-wrap">
                             <?php
-                            responsive_image($lender['logo'], $lender['name'] . ' logo', 'medium', [
+                            // alt="" — decorative: the visible lender name beside it
+                            // already names the link, so an alt would double-announce.
+                            responsive_image($lender['logo'], '', 'medium', [
                                 'class' => 'lender-list__logo',
                             ]);
                             ?>

@@ -94,6 +94,7 @@ $terms = [
                     target="_blank"
                     rel="noopener noreferrer"
                     class="btn btn-emphasis btn--commit w-full justify-center"
+                    aria-label="<?php esc_attr_e('Apply for financing with Corbel (opens in a new tab)', 'standard'); ?>"
                 >
                     <?php esc_html_e('Apply for financing', 'standard'); ?>
                     <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>

@@ -93,7 +93,7 @@ $paths = [
                         <span class="finance-path__icon" aria-hidden="true">
                             <?php icon($path['icon'], ['class' => 'w-5 h-5']); ?>
                         </span>
-                        <span class="font-mono text-xs font-medium tabular-nums text-blue-300" aria-hidden="true">
+                        <span class="font-mono text-xs font-medium tabular-nums text-blue-400" aria-hidden="true">
                             <?php echo esc_html($path['index']); ?>
                         </span>
                     </div>
