@@ -31,7 +31,7 @@ Inspirations: Impact (buyer-journey nav), Tesla & Toyota (megamenu style). Thad 
 ### Adds / replacements
 - **Add the link Thad shared in chat** ("What is portable roll forming" article) to replace the removed roof-vs-gutter link. Note: that video still shows the old NASR/Messer machine in the thumbnail — flagged but acceptable for now. **Decided.**
 - Alex floated adding a generic "What is roll forming" item; Thad clarified the existing "What is an NTM machine?" link already points at the "What is portable roll forming" article, so it's covered.
-- Consider **"5 reasons not to wait"** content (Rick's) for the "See if it fits" section. Alex to drop in chat. **Idea.**
+- Consider **"5 reasons not to wait"** content (Rick's) for the "See if it fits" section. Alex to drop in chat. **Idea.** — *Done: Alex shared the link; added to the "Are You Ready?" group (2026-06-05).*
 
 ### Content / page updates
 - **"What is an NTM machine?" article is from 2022 — needs updating** (Alex has had a new video on his list). Tied to the publish-date decision below.
@@ -152,7 +152,7 @@ Joel committed (55:35) to extract **all** action steps. Grouped by type; source 
 
 ### Removes
 - [x] Remove **"Roof panel vs. gutter machines"** from nav (keep page in background for AI) — *decided* — shipped (desktop-nav.php)
-- [ ] Remove the **duplicate "what to know before a quote"** link, keep the newer one — *decided* — **still open:** two distinct quote-prep links live ("What to know before quoting" + "How to get a quote on an NTM machine"); which is the older dupe to drop is Alex's call (the newer Rick-updated one with video stays)
+- [x] Remove the **duplicate "what to know before a quote"** link, keep the newer one — *decided* — dropped "What to know before quoting" (older getting-a-...-quote URL), kept Alex's "How to get a quote on an NTM machine" 2026-06-05
 - [x] Remove **"Knowledge base"** nav item — *Joel-proposed, likely* — shipped (desktop-nav.php)
 - [x] Remove **"Owner support landing"** placeholder — *Joel-proposed, likely* — shipped (desktop-nav.php; the `owner-support` id/path that remains is Section 4 "Get Owner Support" itself, not the old placeholder link)
 
@@ -179,7 +179,7 @@ Joel committed (55:35) to extract **all** action steps. Grouped by type; source 
 - [ ] Locate the missing **financing/leasing video**; spruce up the **"How to get a quote" checklist** page — *action*
 
 ### Search
-- [ ] Relabel **"5 results" → "Top 5 results"** — *decided* (Evita)
+- [x] Relabel **"5 results" → "Top 5 results"** — *decided* (Evita) — shipped: badge reads "Top N results" when the 5-cap is hit, plain "N result(s)" under (SearchModal.js) 2026-06-05
 - [ ] Fine-tune **result-type filters** — *action* (Joel)
 - [ ] Decide the **result cap** (5 vs. more) — *open* (Joel)
 
