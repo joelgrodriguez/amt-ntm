@@ -47,17 +47,6 @@ $feature_video = [
 ];
 $feature_video['post_id'] = $resolve_video_thumb($feature_video['url']);
 
-// "Watch it in action" — the granular Build-step walkthrough, as a card below.
-$watch_videos = [
-    [
-        'title' => __('Configure your machine, step by step', 'standard'),
-        'url'   => '/learning-center/video/how-to-configure-your-new-tech-machinery-machine-step-by-step-video/',
-    ],
-];
-foreach ($watch_videos as $i => $video) {
-    $watch_videos[$i]['post_id'] = $resolve_video_thumb($video['url']);
-}
-
 $steps = [
     [
         'kicker' => __('Build', 'standard'),
@@ -163,33 +152,6 @@ $steps = [
                 <?php esc_html_e('Open the configurator', 'standard'); ?>
                 <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
             </a>
-        </div>
-
-        <div class="finance-flow__watch">
-            <p class="finance-flow__watch-label"><?php esc_html_e('Watch it in action', 'standard'); ?></p>
-            <ul class="finance-flow__watch-list" role="list">
-                <?php foreach ($watch_videos as $video) : ?>
-                    <li>
-                        <a href="<?php echo esc_url(\Standard\Url\internal($video['url'])); ?>" class="finance-flow__watch-card">
-                            <span class="finance-flow__watch-thumb">
-                                <?php if (!empty($video['post_id'])) : ?>
-                                    <?php echo get_the_post_thumbnail($video['post_id'], 'card-thumbnail', [
-                                        'class'   => 'finance-flow__watch-img',
-                                        'loading' => 'lazy',
-                                        'alt'     => '',
-                                    ]); ?>
-                                <?php else : ?>
-                                    <?php \Standard\Images\fallback_image(['class' => 'finance-flow__watch-img']); ?>
-                                <?php endif; ?>
-                                <span class="finance-flow__watch-play" aria-hidden="true">
-                                    <?php icon('play', ['class' => 'w-5 h-5']); ?>
-                                </span>
-                            </span>
-                            <span class="finance-flow__watch-title"><?php echo esc_html($video['title']); ?></span>
-                        </a>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
         </div>
 
     </div>
