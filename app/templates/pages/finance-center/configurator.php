@@ -26,30 +26,36 @@ if (!defined('ABSPATH')) {
 
 $configurator_url = \Standard\Url\internal('/configurator/');
 
-// Two short walkthrough videos for the build-and-finance flow. Linked by
-// their stable learning-center paths (not post IDs, which churn on a fresh
-// prod pull). Each path's last segment is the `video` post slug; we resolve
-// it to pull the featured image for the card. A path that doesn't resolve
-// (e.g. before content lands, or a slug change) falls back to the card
-// fallback image, so the band never blanks.
-$videos = [
+// Resolve a `video` post from its learning-center URL (last path segment is
+// the slug) and return its post ID iff it has a featured image, else 0.
+// Paths are stable across prod pulls; post IDs are not, so we link by path
+// and resolve at render. A 0 means "fall back" so nothing ever blanks.
+$resolve_video_thumb = static function (string $url): int {
+    $segments = array_values(array_filter(explode('/', $url)));
+    $slug     = (string) end($segments);
+    $post     = $slug !== '' ? get_page_by_path($slug, OBJECT, 'video') : null;
+    return ($post && has_post_thumbnail($post)) ? (int) $post->ID : 0;
+};
+
+// Centerpiece video — the end-to-end "build and finance in one place" walk-
+// through. Its poster (featured image, fallback to the config mockup) sits in
+// the intro's right column with a play overlay and links out to the video
+// page. Matches the section's whole-flow thesis.
+$feature_video = [
+    'title' => __('Build and finance in one place', 'standard'),
+    'url'   => '/learning-center/video/build-and-finance-your-ntm-machine-in-one-place-video/',
+];
+$feature_video['post_id'] = $resolve_video_thumb($feature_video['url']);
+
+// "Watch it in action" — the granular Build-step walkthrough, as a card below.
+$watch_videos = [
     [
         'title' => __('Configure your machine, step by step', 'standard'),
         'url'   => '/learning-center/video/how-to-configure-your-new-tech-machinery-machine-step-by-step-video/',
     ],
-    [
-        'title' => __('Build and finance in one place', 'standard'),
-        'url'   => '/learning-center/video/build-and-finance-your-ntm-machine-in-one-place-video/',
-    ],
 ];
-
-// Resolve each video's featured-image markup once, here, so the card markup
-// below stays clean. Slug = last non-empty path segment.
-foreach ($videos as $i => $video) {
-    $segments = array_values(array_filter(explode('/', $video['url'])));
-    $slug     = (string) end($segments);
-    $post     = $slug !== '' ? get_page_by_path($slug, OBJECT, 'video') : null;
-    $videos[$i]['post_id'] = ($post && has_post_thumbnail($post)) ? (int) $post->ID : 0;
+foreach ($watch_videos as $i => $video) {
+    $watch_videos[$i]['post_id'] = $resolve_video_thumb($video['url']);
 }
 
 $steps = [
@@ -93,19 +99,40 @@ $steps = [
             </div>
 
             <figure class="finance-flow__shot">
-                <span class="finance-flow__shot-frame">
-                    <img
-                        src="<?php echo esc_url(THEME_URI . '/assets/images/config-mockup.png'); ?>"
-                        alt="<?php esc_attr_e('The NTM configurator with a machine build, live pricing, and a financing application in progress', 'standard'); ?>"
-                        class="finance-flow__shot-img"
-                        width="2613"
-                        height="1634"
-                        loading="lazy"
-                        decoding="async"
-                    >
-                </span>
+                <a
+                    href="<?php echo esc_url(\Standard\Url\internal($feature_video['url'])); ?>"
+                    class="finance-flow__shot-link"
+                    aria-label="<?php echo esc_attr(sprintf(
+                        /* translators: %s: video title */
+                        __('Watch: %s', 'standard'),
+                        $feature_video['title']
+                    )); ?>"
+                >
+                    <span class="finance-flow__shot-frame">
+                        <?php if (!empty($feature_video['post_id'])) : ?>
+                            <?php echo get_the_post_thumbnail($feature_video['post_id'], 'large', [
+                                'class'   => 'finance-flow__shot-img',
+                                'loading' => 'lazy',
+                                'alt'     => '',
+                            ]); ?>
+                        <?php else : ?>
+                            <img
+                                src="<?php echo esc_url(THEME_URI . '/assets/images/config-mockup.png'); ?>"
+                                alt=""
+                                class="finance-flow__shot-img"
+                                width="2613"
+                                height="1634"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                        <?php endif; ?>
+                        <span class="finance-flow__shot-play" aria-hidden="true">
+                            <?php icon('play', ['class' => 'w-6 h-6']); ?>
+                        </span>
+                    </span>
+                </a>
                 <figcaption class="finance-flow__shot-caption">
-                    <?php esc_html_e('The configurator: build, price, and apply in one screen', 'standard'); ?>
+                    <?php esc_html_e('Watch: build, price, and finance in one place', 'standard'); ?>
                 </figcaption>
             </figure>
         </div>
@@ -141,7 +168,7 @@ $steps = [
         <div class="finance-flow__watch">
             <p class="finance-flow__watch-label"><?php esc_html_e('Watch it in action', 'standard'); ?></p>
             <ul class="finance-flow__watch-list" role="list">
-                <?php foreach ($videos as $video) : ?>
+                <?php foreach ($watch_videos as $video) : ?>
                     <li>
                         <a href="<?php echo esc_url(\Standard\Url\internal($video['url'])); ?>" class="finance-flow__watch-card">
                             <span class="finance-flow__watch-thumb">
