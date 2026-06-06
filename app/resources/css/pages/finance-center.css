@@ -306,54 +306,99 @@
     color: var(--color-blue-300);
   }
 
+  /* Two video cards on the dark band: 16:9 thumbnail with a play overlay,
+     title below. Hairline-framed to match the band (no white surface);
+     border + title brighten on hover. Stacks 1-up mobile, 2-up at sm. */
   .finance-flow__watch-list {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px clamp(24px, 4vw, 48px);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(16px, 2vw, 24px);
   }
 
-  .finance-flow__watch-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    min-height: 44px;
-    font-family: var(--font-sans);
-    font-weight: 400;
-    font-size: var(--text-body);
-    color: var(--color-blue-200);
+  @media (min-width: 640px) {
+    .finance-flow__watch-list {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .finance-flow__watch-card {
+    display: grid;
+    grid-template-rows: auto auto;
+    border: 1px solid var(--color-blue-700);
+    background-color: var(--color-blue-800);
     text-decoration: none;
-    transition: color 200ms ease-out;
+    transition: border-color 200ms ease-out;
   }
 
-  .finance-flow__watch-link:hover,
-  .finance-flow__watch-link:focus-visible {
-    color: var(--color-white);
+  .finance-flow__watch-card:hover,
+  .finance-flow__watch-card:focus-visible {
+    border-color: var(--color-blue-500);
   }
 
-  .finance-flow__watch-link:focus-visible {
+  .finance-flow__watch-card:focus-visible {
     outline: 2px solid var(--color-blue-500);
-    outline-offset: 4px;
+    outline-offset: 2px;
   }
 
-  /* Play glyph in a hairline square, brand blue. */
-  .finance-flow__watch-icon {
+  .finance-flow__watch-thumb {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-bottom: 1px solid var(--color-blue-700);
+    transition: border-color 200ms ease-out;
+  }
+
+  .finance-flow__watch-card:hover .finance-flow__watch-thumb,
+  .finance-flow__watch-card:focus-visible .finance-flow__watch-thumb {
+    border-bottom-color: var(--color-blue-500);
+  }
+
+  .finance-flow__watch-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Play badge centered over the thumbnail. */
+  .finance-flow__watch-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
-    flex-shrink: 0;
-    border: 1px solid var(--color-blue-700);
-    color: var(--color-blue-300);
-    transition: border-color 200ms ease-out, color 200ms ease-out;
+    width: clamp(44px, 5vw, 56px);
+    height: clamp(44px, 5vw, 56px);
+    background-color: color-mix(in srgb, var(--color-blue-900) 70%, transparent);
+    border: 1px solid var(--color-white);
+    color: var(--color-white);
+    transition: background-color 200ms ease-out;
   }
 
-  .finance-flow__watch-link:hover .finance-flow__watch-icon,
-  .finance-flow__watch-link:focus-visible .finance-flow__watch-icon {
-    border-color: var(--color-blue-500);
+  .finance-flow__watch-card:hover .finance-flow__watch-play,
+  .finance-flow__watch-card:focus-visible .finance-flow__watch-play {
+    background-color: var(--color-blue-500);
+  }
+
+  .finance-flow__watch-title {
+    padding: clamp(14px, 1.8vw, 20px);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: var(--text-body);
+    line-height: 1.4;
+    color: var(--color-blue-100);
+    text-wrap: pretty;
+    transition: color 200ms ease-out;
+  }
+
+  .finance-flow__watch-card:hover .finance-flow__watch-title,
+  .finance-flow__watch-card:focus-visible .finance-flow__watch-title {
     color: var(--color-white);
   }
 
@@ -522,26 +567,42 @@
     list-style: none;
     margin: 0;
     padding: 0;
+    /* Two-column grid of lender boxes. The 1px gap over a blue-200 background
+       draws every internal seam (between columns and rows); the outer border
+       fences all four sides. Stacks to a single column on mobile. */
     display: grid;
-    /* Fully fenced container: hairline on all four sides. Top/left/right here;
-       the bottom edge is the last row's own border-bottom. */
-    border-top: 1px solid var(--color-blue-200);
-    border-left: 1px solid var(--color-blue-200);
-    border-right: 1px solid var(--color-blue-200);
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background-color: var(--color-blue-200);
+    border: 1px solid var(--color-blue-200);
+  }
+
+  /* Two-up only at lg, where each box has real room. Below that the boxes
+     stay full-width single-column — at the tablet 640px mark a two-up split
+     collides with the logo tile + reappearing "Visit" label and goes cramped. */
+  @media (min-width: 1024px) {
+    .lender-list {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* Each cell fills with the section surface so the 1px gaps read as
+     hairlines. The link/row fills its cell. */
+  .lender-list__item {
+    background-color: var(--color-blue-50);
   }
 
   /* Shared row geometry for both the clickable lender link and the static
-     "bring your own lender" row. Horizontal padding insets the content from
-     the container's new side borders; the row's separation is the bottom
-     hairline. */
+     "bring your own lender" row. The grid gap draws the seams, so the row
+     itself carries no border — just padding and its fill. */
   .lender-list__link,
   .lender-list__row {
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: clamp(20px, 2.5vw, 32px);
+    height: 100%;
     padding: clamp(18px, 2.2vw, 24px) clamp(16px, 2vw, 28px);
-    border-bottom: 1px solid var(--color-blue-200);
     background-color: transparent;
     text-decoration: none;
     transition: background-color 200ms ease-out;

@@ -28,7 +28,10 @@ $configurator_url = \Standard\Url\internal('/configurator/');
 
 // Two short walkthrough videos for the build-and-finance flow. Linked by
 // their stable learning-center paths (not post IDs, which churn on a fresh
-// prod pull).
+// prod pull). Each path's last segment is the `video` post slug; we resolve
+// it to pull the featured image for the card. A path that doesn't resolve
+// (e.g. before content lands, or a slug change) falls back to the card
+// fallback image, so the band never blanks.
 $videos = [
     [
         'title' => __('Configure your machine, step by step', 'standard'),
@@ -39,6 +42,15 @@ $videos = [
         'url'   => '/learning-center/video/build-and-finance-your-ntm-machine-in-one-place-video/',
     ],
 ];
+
+// Resolve each video's featured-image markup once, here, so the card markup
+// below stays clean. Slug = last non-empty path segment.
+foreach ($videos as $i => $video) {
+    $segments = array_values(array_filter(explode('/', $video['url'])));
+    $slug     = (string) end($segments);
+    $post     = $slug !== '' ? get_page_by_path($slug, OBJECT, 'video') : null;
+    $videos[$i]['post_id'] = ($post && has_post_thumbnail($post)) ? (int) $post->ID : 0;
+}
 
 $steps = [
     [
@@ -131,11 +143,22 @@ $steps = [
             <ul class="finance-flow__watch-list" role="list">
                 <?php foreach ($videos as $video) : ?>
                     <li>
-                        <a href="<?php echo esc_url(\Standard\Url\internal($video['url'])); ?>" class="finance-flow__watch-link">
-                            <span class="finance-flow__watch-icon" aria-hidden="true">
-                                <?php icon('play', ['class' => 'w-4 h-4']); ?>
+                        <a href="<?php echo esc_url(\Standard\Url\internal($video['url'])); ?>" class="finance-flow__watch-card">
+                            <span class="finance-flow__watch-thumb">
+                                <?php if (!empty($video['post_id'])) : ?>
+                                    <?php echo get_the_post_thumbnail($video['post_id'], 'card-thumbnail', [
+                                        'class'   => 'finance-flow__watch-img',
+                                        'loading' => 'lazy',
+                                        'alt'     => '',
+                                    ]); ?>
+                                <?php else : ?>
+                                    <?php \Standard\Images\fallback_image(['class' => 'finance-flow__watch-img']); ?>
+                                <?php endif; ?>
+                                <span class="finance-flow__watch-play" aria-hidden="true">
+                                    <?php icon('play', ['class' => 'w-5 h-5']); ?>
+                                </span>
                             </span>
-                            <span><?php echo esc_html($video['title']); ?></span>
+                            <span class="finance-flow__watch-title"><?php echo esc_html($video['title']); ?></span>
                         </a>
                     </li>
                 <?php endforeach; ?>
