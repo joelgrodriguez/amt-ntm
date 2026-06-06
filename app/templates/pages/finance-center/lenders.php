@@ -117,6 +117,21 @@ $lenders = [
                     </a>
                 </li>
             <?php endforeach; ?>
+
+            <?php /* Not a partner site — the "use your own bank/credit union" path.
+                     Renders as a static (non-link) row with a typographic mark
+                     in the logo column, since there's nowhere external to send. */ ?>
+            <li class="lender-list__item">
+                <div class="lender-list__row">
+                    <span class="lender-list__logo-wrap lender-list__mark" aria-hidden="true">
+                        <?php esc_html_e('BYO', 'standard'); ?>
+                    </span>
+                    <span class="lender-list__text">
+                        <span class="lender-list__name"><?php esc_html_e('Bring your own lender', 'standard'); ?></span>
+                        <span class="lender-list__note"><?php esc_html_e('Use any bank or credit union', 'standard'); ?></span>
+                    </span>
+                </div>
+            </li>
         </ul>
 
     </div>

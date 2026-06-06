@@ -66,35 +66,37 @@ $steps = [
 >
     <div class="container section">
 
-        <div class="finance-flow__header">
-            <p class="finance-flow__eyebrow">
-                <span aria-hidden="true" class="finance-flow__eyebrow-dot"></span>
-                <?php esc_html_e('Build · Quote · Finance', 'standard'); ?>
-            </p>
-            <h2 id="finance-flow-title" class="finance-flow__title">
-                <?php esc_html_e('Build it, price it, and finance it in one place.', 'standard'); ?>
-            </h2>
-            <p class="finance-flow__lede">
-                <?php esc_html_e('The configurator runs the whole path in the browser. Spec your machine, get a real quote, and start the financing application from the same screen.', 'standard'); ?>
-            </p>
-        </div>
+        <div class="finance-flow__intro">
+            <div class="finance-flow__header">
+                <p class="finance-flow__eyebrow">
+                    <span aria-hidden="true" class="finance-flow__eyebrow-dot"></span>
+                    <?php esc_html_e('Build · Quote · Finance', 'standard'); ?>
+                </p>
+                <h2 id="finance-flow-title" class="finance-flow__title">
+                    <?php esc_html_e('Build it, price it, and finance it in one place.', 'standard'); ?>
+                </h2>
+                <p class="finance-flow__lede">
+                    <?php esc_html_e('The configurator runs the whole path in the browser. Spec your machine, get a real quote, and start the financing application from the same screen.', 'standard'); ?>
+                </p>
+            </div>
 
-        <figure class="finance-flow__shot">
-            <span class="finance-flow__shot-frame">
-                <img
-                    src="<?php echo esc_url(THEME_URI . '/assets/images/config-mockup.png'); ?>"
-                    alt="<?php esc_attr_e('The NTM configurator with a machine build, live pricing, and a financing application in progress', 'standard'); ?>"
-                    class="finance-flow__shot-img"
-                    width="2613"
-                    height="1634"
-                    loading="lazy"
-                    decoding="async"
-                >
-            </span>
-            <figcaption class="finance-flow__shot-caption">
-                <?php esc_html_e('The configurator: build, price, and apply in one screen', 'standard'); ?>
-            </figcaption>
-        </figure>
+            <figure class="finance-flow__shot">
+                <span class="finance-flow__shot-frame">
+                    <img
+                        src="<?php echo esc_url(THEME_URI . '/assets/images/config-mockup.png'); ?>"
+                        alt="<?php esc_attr_e('The NTM configurator with a machine build, live pricing, and a financing application in progress', 'standard'); ?>"
+                        class="finance-flow__shot-img"
+                        width="2613"
+                        height="1634"
+                        loading="lazy"
+                        decoding="async"
+                    >
+                </span>
+                <figcaption class="finance-flow__shot-caption">
+                    <?php esc_html_e('The configurator: build, price, and apply in one screen', 'standard'); ?>
+                </figcaption>
+            </figure>
+        </div>
 
         <ol class="finance-flow__steps" role="list">
             <?php foreach ($steps as $index => $step) : ?>
