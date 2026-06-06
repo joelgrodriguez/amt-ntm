@@ -567,26 +567,42 @@
     list-style: none;
     margin: 0;
     padding: 0;
+    /* Two-column grid of lender boxes. The 1px gap over a blue-200 background
+       draws every internal seam (between columns and rows); the outer border
+       fences all four sides. Stacks to a single column on mobile. */
     display: grid;
-    /* Fully fenced container: hairline on all four sides. Top/left/right here;
-       the bottom edge is the last row's own border-bottom. */
-    border-top: 1px solid var(--color-blue-200);
-    border-left: 1px solid var(--color-blue-200);
-    border-right: 1px solid var(--color-blue-200);
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background-color: var(--color-blue-200);
+    border: 1px solid var(--color-blue-200);
+  }
+
+  /* Two-up only at lg, where each box has real room. Below that the boxes
+     stay full-width single-column — at the tablet 640px mark a two-up split
+     collides with the logo tile + reappearing "Visit" label and goes cramped. */
+  @media (min-width: 1024px) {
+    .lender-list {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* Each cell fills with the section surface so the 1px gaps read as
+     hairlines. The link/row fills its cell. */
+  .lender-list__item {
+    background-color: var(--color-blue-50);
   }
 
   /* Shared row geometry for both the clickable lender link and the static
-     "bring your own lender" row. Horizontal padding insets the content from
-     the container's new side borders; the row's separation is the bottom
-     hairline. */
+     "bring your own lender" row. The grid gap draws the seams, so the row
+     itself carries no border — just padding and its fill. */
   .lender-list__link,
   .lender-list__row {
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: clamp(20px, 2.5vw, 32px);
+    height: 100%;
     padding: clamp(18px, 2.2vw, 24px) clamp(16px, 2vw, 28px);
-    border-bottom: 1px solid var(--color-blue-200);
     background-color: transparent;
     text-decoration: none;
     transition: background-color 200ms ease-out;
