@@ -10,7 +10,12 @@
     top: var(--mega-panel-offset); /* header height (h-16 = 64px) */
     left: 0;
     right: 0;
-    height: 50vh;
+    /* Height follows content: a short panel is short, a tall one is tall.
+     * Capped at the viewport below the header so a very tall panel scrolls
+     * inside itself instead of running off-screen. No fixed 50vh — that
+     * left dead space under short panels and clipped the Profiles tab. */
+    height: auto;
+    max-height: calc(100vh - var(--mega-panel-offset));
     z-index: 45;
     background: var(--color-white);
     border-bottom: 1px solid var(--color-blue-200);
@@ -50,8 +55,10 @@
     display: grid;
     grid-template-columns: var(--rail-width, 13.5rem) 1fr;
     align-items: stretch;
-    height: 100%;
-    overflow: hidden;
+    /* Grow to the content; the parent's max-height caps it and turns on
+     * scrolling only when content actually exceeds the viewport. */
+    height: auto;
+    max-height: calc(100vh - var(--mega-panel-offset));
     max-width: var(--layout-wide);
     margin-inline: auto;
     width: 100%;
