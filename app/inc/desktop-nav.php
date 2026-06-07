@@ -220,110 +220,68 @@ function get_desktop_nav(): array {
 
             // ── 2. Choose your machine ─────────────────────────────────────
             [
-                'kind'          => 'mega',
-                'id'            => 'choose-machine',
-                'label'         => __('Choose Your Machine', 'standard'),
-                'type'          => 'flyout-groups',
-                'intro'         => [
-                    'title'           => __('Choose Your Machine', 'standard'),
-                    'secondary_label' => __('See all machines', 'standard'),
-                    'secondary_url'   => \Standard\Url\internal('/machines/'),
-                ],
-                'groups'        => [
+                'kind'           => 'mega',
+                'id'             => 'choose-machine',
+                'label'          => __('Choose Your Machine', 'standard'),
+                'type'           => 'tabbed-machines',
+                'sidebar_label'  => __('Choose Your Machine', 'standard'),
+                'view_all_url'   => \Standard\Url\internal('/machines/'),
+                'view_all_label' => __('See all machines', 'standard'),
+                'tabs'           => [
                     [
-                        'label' => __('See All Machines', 'standard'),
-                        'items' => [
+                        'id'             => 'roof-wall',
+                        'kind'           => 'products',
+                        'label'          => __('Roof & Wall Panel Machines', 'standard'),
+                        'category'       => 'roof-wall-panel-machines',
+                        'heading'        => __('Roof & Wall Panel Machines', 'standard'),
+                        'view_all_url'   => \Standard\Url\internal('/roof-wall-panel-machines/'),
+                        'view_all_label' => __('View All', 'standard'),
+                    ],
+                    [
+                        'id'             => 'gutter',
+                        'kind'           => 'products',
+                        'label'          => __('Seamless Gutter Machines', 'standard'),
+                        'category'       => 'gutter-machines',
+                        'heading'        => __('Seamless Gutter Machines', 'standard'),
+                        'view_all_url'   => \Standard\Url\internal('/seamless-gutter-machines/'),
+                        'view_all_label' => __('View All', 'standard'),
+                    ],
+                    [
+                        'id'             => 'profiles',
+                        'kind'           => 'profile-groups',
+                        'label'          => __('Profiles', 'standard'),
+                        'heading'        => __('Profiles', 'standard'),
+                        'view_all_url'   => \Standard\Url\internal('/profiles/'),
+                        'view_all_label' => __('View All', 'standard'),
+                        'sections'       => [
                             [
-                                'label' => __('All NTM Machines', 'standard'),
-                                'url'   => \Standard\Url\internal('/machines/'),
+                                'heading'        => __('Roof & Wall Panel', 'standard'),
+                                'category'       => 'profiles-metal-roof-wall-panel',
+                                'view_all_url'   => get_scoped_term_url('category', 'profiles-metal-roof-wall-panel', 'profile'),
+                                'view_all_label' => __('View All', 'standard'),
                             ],
                             [
-                                'label' => __('Roof & Wall Panel Machines', 'standard'),
-                                'url'   => \Standard\Url\internal('/roof-wall-panel-machines/'),
+                                'heading'        => __('Gutter', 'standard'),
+                                'category'       => 'profiles-gutter',
+                                'view_all_url'   => get_scoped_term_url('category', 'profiles-gutter', 'profile'),
+                                'view_all_label' => __('View All', 'standard'),
                             ],
                             [
-                                'label' => __('Seamless Gutter Machines', 'standard'),
-                                'url'   => \Standard\Url\internal('/seamless-gutter-machines/'),
-                            ],
-                            [
-                                'label' => __('Profiles', 'standard'),
-                                'url'   => \Standard\Url\internal('/profiles/'),
-                            ],
-                            [
-                                'label' => __('Accessories & Upgrades', 'standard'),
-                                'url'   => \Standard\Url\internal('/machines/upgrades/'),
+                                'heading'        => __('Clip Relief / Rib Rollers', 'standard'),
+                                'category'       => 'clip-relief-rib-rollers',
+                                'view_all_url'   => get_scoped_term_url('category', 'clip-relief-rib-rollers', 'profile'),
+                                'view_all_label' => __('View All', 'standard'),
                             ],
                         ],
                     ],
                     [
-                        'label' => __('Help me choose', 'standard'),
-                        'items' => [
-                            [
-                                'label' => __('Which roof panel machine? (Quiz)', 'standard'),
-                                'url'   => \Standard\Url\internal('/roof-panel-machine-assessment-quiz/'),
-                            ],
-                            [
-                                'label' => __('Portable gutter machine selection guide', 'standard'),
-                                'url'   => \Standard\Url\internal('/portable-gutter-machine-selection-guide/'),
-                            ],
-                            [
-                                'label' => __('What coil width should you use?', 'standard'),
-                                'url'   => \Standard\Url\internal('/what-coil-width-should-you-use/'),
-                            ],
-                            [
-                                'label' => __('Machine Selection Guide', 'standard'),
-                                'url'   => \Standard\Url\internal('/choose-your-machine/'),
-                            ],
-                            [
-                                'label' => __('Build & Quote Your Machine', 'standard'),
-                                'url'   => \Standard\Url\internal('/configurator/'),
-                            ],
-                        ],
-                    ],
-                    [
-                        'label' => __('Compare', 'standard'),
-                        'items' => [
-                            [
-                                'label' => __('Compare roof-panel machines', 'standard'),
-                                'url'   => \Standard\Url\internal('/compare-roof-panel-machines/'),
-                            ],
-                            [
-                                'label' => __('SSQII vs SSR', 'standard'),
-                                'url'   => \Standard\Url\internal('/learning-center/portable-roof-panel-machines-ssq-ii-vs-ssr/'),
-                            ],
-                            [
-                                'label' => __('SSR / SSH / SSQII', 'standard'),
-                                'url'   => \Standard\Url\internal('/learning-center/comparison-ntms-ssr-ssh-and-ssq-ii-portable-rollformers/'),
-                            ],
-                            [
-                                'label' => __('SSQ3 MultiPro', 'standard'),
-                                'url'   => \Standard\Url\internal('/configurator/ssq3-multi-pro/'),
-                                'badge' => __('Flagship', 'standard'),
-                            ],
-                            [
-                                'label' => __('MACH II Seamless Gutter Machines', 'standard'),
-                                'url'   => \Standard\Url\internal('/machines/machii/'),
-                            ],
-                        ],
-                    ],
-                ],
-                'cards'         => [
-                    [
-                        'label' => __('SSQ3 MultiPro', 'standard'),
-                        'url'   => \Standard\Url\internal('/configurator/ssq3-multi-pro/'),
-                        'badge' => __('Flagship', 'standard'),
-                    ],
-                    [
-                        'label' => __('SSR', 'standard'),
-                        'url'   => \Standard\Url\internal('/configurator/ssr/'),
-                    ],
-                    [
-                        'label' => __('SSH', 'standard'),
-                        'url'   => \Standard\Url\internal('/configurator/ssh/'),
-                    ],
-                    [
-                        'label' => __('MACH II', 'standard'),
-                        'url'   => \Standard\Url\internal('/machines/machii/'),
+                        'id'             => 'accessories',
+                        'kind'           => 'accessories',
+                        'label'          => __('Accessories', 'standard'),
+                        'category'       => 'accessories-add-on-equipment',
+                        'heading'        => __('Accessories & Upgrades', 'standard'),
+                        'view_all_url'   => \Standard\Url\internal('/machines/upgrades/'),
+                        'view_all_label' => __('View All', 'standard'),
                     ],
                 ],
                 'current_paths' => [
