@@ -81,7 +81,9 @@
 .mega-panel__sidebar {
     display: flex;
     flex-direction: column;
-    padding: 2rem 0;
+    /* Extra bottom room so panels that don't fill the viewport don't end
+     * tight against the border. Matches the content area below. */
+    padding: 2rem 0 3rem;
     border-right: 1px solid var(--color-blue-100);
     background: var(--color-white);
     overflow-y: auto;
@@ -91,7 +93,7 @@
 /* ── Content area ─────────────────────────────────────────────────────── */
 
 .mega-panel__content {
-    padding: 2rem 2.5rem;
+    padding: 2rem 2.5rem 3rem;
     overflow-y: auto;
     align-self: stretch;
 }
