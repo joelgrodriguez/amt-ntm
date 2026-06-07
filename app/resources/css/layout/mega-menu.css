@@ -49,6 +49,22 @@
     transition: transform var(--panel-open-dur) var(--mega-panel-open-ease);
 }
 
+/* Trigger-to-trigger switch: the outgoing panel fades out in place instead
+ * of sliding up, so it doesn't fight the incoming panel's drop-in. JS adds
+ * .is-switching for --mega-switch-fade, then removes it. Stays put
+ * (translateY 0) and just drops opacity. */
+.mega-panel {
+    --mega-switch-fade: 140ms;
+}
+
+.mega-panel.t-panel-slide.is-switching {
+    transform: translateY(0);
+    opacity: 0;
+    transition:
+        opacity var(--mega-switch-fade) var(--mega-panel-close-ease),
+        transform var(--mega-switch-fade) var(--mega-panel-close-ease);
+}
+
 /* Two-column inner layout: sidebar | content.
    Capped at --layout-wide so the dropdown aligns with body content and header. */
 .mega-panel__inner {
@@ -152,10 +168,42 @@
     background: var(--color-blue-50);
 }
 
-/* ── Tab panels ───────────────────────────────────────────────────────── */
+/* ── Tab panels: slide + fade swap ────────────────────────────────────────
+ * Page-side-by-side vocabulary (transitions.dev §8) adapted to the mega
+ * menu. The active panel sits in flow so the content area self-sizes to it;
+ * inactive panels are pulled out of flow, faded, and pushed aside. JS
+ * toggles .is-active (it no longer uses the [hidden] attribute), and a
+ * data-dir on the content wrapper sets which way the incoming panel travels
+ * so the motion follows the direction of the click in the sidebar. */
+.mega-tab-content {
+    position: relative;
+}
 
-.mega-tab-panel[hidden] {
-    display: none;
+.mega-tab-panel {
+    /* Inactive: out of flow, shifted toward where it came from, faded. */
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(var(--mega-tab-from-x, 12px));
+    transition:
+        opacity   var(--page-fade-dur, 200ms)  var(--page-fade-ease, cubic-bezier(0.22, 1, 0.36, 1)),
+        transform var(--page-slide-dur, 200ms) var(--page-slide-ease, cubic-bezier(0.22, 1, 0.36, 1));
+    will-change: opacity, transform;
+}
+
+/* Direction: when moving forward (clicked a tab below the old one) the new
+   panel enters from the right; backward, from the left. Set by JS. */
+.mega-tab-content[data-dir="back"] .mega-tab-panel {
+    --mega-tab-from-x: -12px;
+}
+
+.mega-tab-panel.is-active {
+    /* Active: back in flow so the panel drives the content height. */
+    position: relative;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
 }
 
 /* ── Product grid (machines + accessories) ────────────────────────────── */
@@ -165,6 +213,43 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem;
+}
+
+/* ── Card stagger on tab activate ──────────────────────────────────────────
+ * Cards fade + rise with a per-position delay each time their tab becomes
+ * active. Re-fires on every switch because JS removes/re-adds .is-active,
+ * so the animation selector re-matches. Same expo-out settle + cascade as
+ * the front-page explore-machines carousel — one shared motion vocabulary. */
+.mega-tab-panel.is-active .mega-product-grid > *,
+.mega-tab-panel.is-active .mega-profile-section {
+    animation: mega-card-in var(--duration-slow, 300ms)
+        var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)) both;
+}
+
+.mega-tab-panel.is-active .mega-product-grid > *:nth-child(1) { animation-delay: 0ms; }
+.mega-tab-panel.is-active .mega-product-grid > *:nth-child(2) { animation-delay: 60ms; }
+.mega-tab-panel.is-active .mega-product-grid > *:nth-child(3) { animation-delay: 120ms; }
+.mega-tab-panel.is-active .mega-product-grid > *:nth-child(4) { animation-delay: 180ms; }
+.mega-tab-panel.is-active .mega-product-grid > *:nth-child(n+5) { animation-delay: 220ms; }
+
+/* Profiles tab cascades by section (each section is a heading + a row). */
+.mega-tab-panel.is-active .mega-profile-section:nth-child(1) { animation-delay: 0ms; }
+.mega-tab-panel.is-active .mega-profile-section:nth-child(2) { animation-delay: 90ms; }
+.mega-tab-panel.is-active .mega-profile-section:nth-child(3) { animation-delay: 180ms; }
+
+@keyframes mega-card-in {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mega-tab-panel {
+        transition: none;
+    }
+    .mega-tab-panel.is-active .mega-product-grid > *,
+    .mega-tab-panel.is-active .mega-profile-section {
+        animation: none;
+    }
 }
 
 /* ── Tab/section header (title left, view-all link right) ──────────────── */
