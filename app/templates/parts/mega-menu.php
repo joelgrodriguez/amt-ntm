@@ -84,7 +84,7 @@ $panels = array_values(array_filter(
                 <?php endif; ?>
             </div>
 
-            <div class="mega-panel__content">
+            <div class="mega-panel__content mega-tab-content" data-dir="forward">
                 <?php foreach ($tabs as $i => $tab) :
                     $tab_kind = $tab['kind'] ?? 'products';
                 ?>
@@ -92,8 +92,8 @@ $panels = array_values(array_filter(
                         id="mega-tabpanel-<?php echo esc_attr($panel_id); ?>-<?php echo esc_attr($tab['id']); ?>"
                         role="tabpanel"
                         aria-labelledby="mega-tab-<?php echo esc_attr($panel_id); ?>-<?php echo esc_attr($tab['id']); ?>"
-                        class="mega-tab-panel"
-                        <?php echo $i !== 0 ? 'hidden' : ''; ?>
+                        class="mega-tab-panel<?php echo $i === 0 ? ' is-active' : ''; ?>"
+                        <?php echo $i !== 0 ? 'aria-hidden="true"' : ''; ?>
                     >
 
                     <?php if ($tab_kind === 'profile-groups') :

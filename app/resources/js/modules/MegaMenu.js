@@ -9,6 +9,10 @@
  * @file MegaMenu.js
  */
 
+/** Fade duration for the outgoing panel when switching triggers. Kept short
+ *  so the menu stays responsive; matches --mega-switch-fade in the CSS. */
+const MEGA_SWITCH_FADE_MS = 140;
+
 /**
  * Wire the category tab-list inside one tabbed-machines panel. Clicking a
  * tab (or arrowing onto it) reveals its panel and hides the siblings. Tabs
@@ -23,16 +27,42 @@ const initMegaTabs = (panel) => {
     const tabs = Array.from(panel.querySelectorAll('.mega-tab'));
     if (tabs.length < 2) return () => {};
 
+    /** The wrapper that holds the tab panels; carries data-dir for the
+     *  slide direction so the incoming panel travels with the click. */
+    const content = panel.querySelector('.mega-tab-content');
+
+    /** Index of the currently active tab, so we can tell forward from back. */
+    let activeIndex = Math.max(0, tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true'));
+
     /** @param {HTMLButtonElement} tab @param {{ focus?: boolean }} [opts] */
     const select = (tab, { focus = false } = {}) => {
+        const nextIndex = tabs.indexOf(tab);
+        if (nextIndex === -1 || nextIndex === activeIndex) {
+            if (focus) tab.focus();
+            return;
+        }
+
+        // Slide direction follows the sidebar: a later tab enters from the
+        // right (forward), an earlier one from the left (back).
+        if (content) {
+            content.setAttribute('data-dir', nextIndex > activeIndex ? 'forward' : 'back');
+        }
+
         tabs.forEach((t) => {
             const active = t === tab;
             t.setAttribute('aria-selected', String(active));
             t.tabIndex = active ? 0 : -1;
             const panelId = t.getAttribute('aria-controls');
             const tabPanel = panelId ? document.getElementById(panelId) : null;
-            if (tabPanel) tabPanel.hidden = !active;
+            if (!tabPanel) return;
+            // Toggling .is-active off→on re-fires the CSS card-stagger
+            // animation; aria-hidden keeps the inactive panels out of the
+            // a11y tree without display:none (which would kill the slide).
+            tabPanel.classList.toggle('is-active', active);
+            tabPanel.setAttribute('aria-hidden', active ? 'false' : 'true');
         });
+
+        activeIndex = nextIndex;
         if (focus) tab.focus();
     };
 
@@ -107,7 +137,13 @@ export const initMegaMenu = () => {
     /** @param {HTMLElement} panel */
     const getTabbable = (panel) =>
         /** @type {HTMLElement[]} */ (Array.from(panel.querySelectorAll(FOCUSABLE_SELECTOR)))
-            .filter((el) => !el.hasAttribute('hidden') && el.offsetParent !== null);
+            .filter((el) => {
+                if (el.hasAttribute('hidden') || el.offsetParent === null) return false;
+                // Inactive tab panels stay in the DOM (opacity:0, out of flow)
+                // so they can slide; exclude their contents from the focus trap.
+                const tabPanel = el.closest('.mega-tab-panel');
+                return !tabPanel || tabPanel.classList.contains('is-active');
+            });
 
     /** @param {HTMLElement} panel @param {'open'|'closed'} state */
     const setPanelState = (panel, state) => {
@@ -150,11 +186,17 @@ export const initMegaMenu = () => {
         const panel = getPanel(id);
         if (!panel) return;
 
-        // Hard-close any panel still on screen so trigger-to-trigger
-        // switching is instant. No timed close-then-open dance.
+        // Switching from another open panel: cross-fade rather than hard-cut.
+        // The outgoing panel fades out in place (.is-switching kills its
+        // slide-up exit) while the new one drops in — two competing vertical
+        // slides read as jagged; a fade under the incoming drop reads smooth.
         if (activePanel && activePanel !== id) {
             const prev = getPanel(activePanel);
-            if (prev) setPanelState(prev, 'closed');
+            if (prev) {
+                prev.classList.add('is-switching');
+                setPanelState(prev, 'closed');
+                window.setTimeout(() => prev.classList.remove('is-switching'), MEGA_SWITCH_FADE_MS);
+            }
         }
 
         panel.classList.remove('is-closing');
