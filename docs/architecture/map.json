@@ -1073,7 +1073,7 @@
       "path": "app/resources/css/layout/mega-menu.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 11667
+      "size": 15563
     },
     {
       "path": "app/resources/css/layout/pagination.css",
@@ -1319,7 +1319,7 @@
       "path": "app/resources/js/modules/MegaMenu.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 10515
+      "size": 12627
     },
     {
       "path": "app/resources/js/modules/MobileMenu.js",
@@ -2321,7 +2321,7 @@
       "path": "app/templates/parts/mega-menu.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 13714
+      "size": 13805
     },
     {
       "path": "app/templates/parts/mobile-menu-panel.php",
