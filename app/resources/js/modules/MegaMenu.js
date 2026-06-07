@@ -9,9 +9,10 @@
  * @file MegaMenu.js
  */
 
-/** Fade duration for the outgoing panel when switching triggers. Kept short
- *  so the menu stays responsive; matches --mega-switch-fade in the CSS. */
-const MEGA_SWITCH_FADE_MS = 140;
+/** How long to wait for the outgoing panel to finish closing before the
+ *  next one opens. Must match --panel-close-dur on .mega-panel so the
+ *  handoff lands exactly when the close animation ends. */
+const MEGA_PANEL_CLOSE_MS = 360;
 
 /**
  * Wire the category tab-list inside one tabbed-machines panel. Clicking a
@@ -126,6 +127,11 @@ export const initMegaMenu = () => {
     /** @type {string|null} */
     let activePanel = null;
 
+    /** Pending open scheduled after a close-out finishes (panel switch).
+     *  Cleared if the user clicks another trigger or dismisses mid-sequence
+     *  so a stale panel never opens. 0 = nothing pending. */
+    let switchTimer = 0;
+
     /** True only when the active panel was opened by keyboard (Enter/Space
      *  on the trigger). Mouse opens leave this false so we don't yank the
      *  user's pointer-driven scan focus into the panel. */
@@ -168,6 +174,11 @@ export const initMegaMenu = () => {
     };
 
     const close = ({ restoreFocus = false } = {}) => {
+        // Cancel a pending switch-open so it can't fire after we've closed.
+        if (switchTimer) {
+            window.clearTimeout(switchTimer);
+            switchTimer = 0;
+        }
         if (activePanel) {
             const panel = getPanel(activePanel);
             if (panel) setPanelState(panel, 'closed');
@@ -178,27 +189,10 @@ export const initMegaMenu = () => {
         isKeyboardOpen = false;
     };
 
-    /** @param {HTMLButtonElement} trigger @param {{ fromKeyboard?: boolean }} [opts] */
-    const open = (trigger, { fromKeyboard = false } = {}) => {
-        const id = trigger.dataset.megaPanel;
-        if (!id) return;
-
-        const panel = getPanel(id);
-        if (!panel) return;
-
-        // Switching from another open panel: cross-fade rather than hard-cut.
-        // The outgoing panel fades out in place (.is-switching kills its
-        // slide-up exit) while the new one drops in — two competing vertical
-        // slides read as jagged; a fade under the incoming drop reads smooth.
-        if (activePanel && activePanel !== id) {
-            const prev = getPanel(activePanel);
-            if (prev) {
-                prev.classList.add('is-switching');
-                setPanelState(prev, 'closed');
-                window.setTimeout(() => prev.classList.remove('is-switching'), MEGA_SWITCH_FADE_MS);
-            }
-        }
-
+    /** Reveal a panel now (no close sequencing). Caller guarantees no other
+     *  panel is currently on screen.
+     *  @param {HTMLButtonElement} trigger @param {string} id @param {HTMLElement} panel @param {boolean} fromKeyboard */
+    const revealPanel = (trigger, id, panel, fromKeyboard) => {
         panel.classList.remove('is-closing');
         void panel.offsetHeight;
         setPanelState(panel, 'open');
@@ -226,6 +220,40 @@ export const initMegaMenu = () => {
     };
 
     /** @param {HTMLButtonElement} trigger @param {{ fromKeyboard?: boolean }} [opts] */
+    const open = (trigger, { fromKeyboard = false } = {}) => {
+        const id = trigger.dataset.megaPanel;
+        if (!id) return;
+
+        const panel = getPanel(id);
+        if (!panel) return;
+
+        // Any in-flight switch is now stale — cancel it.
+        if (switchTimer) {
+            window.clearTimeout(switchTimer);
+            switchTimer = 0;
+        }
+
+        // Switching from another open panel: sequence it. Fully close the
+        // current panel (slides up and out), then — once that finishes —
+        // drop the new one in. One motion at a time reads deliberate and
+        // premium; overlapping slides read jagged.
+        if (activePanel && activePanel !== id) {
+            const prev = getPanel(activePanel);
+            if (prev) setPanelState(prev, 'closed');
+            // Keep the scrim up across the handoff so the page doesn't flash.
+            triggers.forEach((t) => t.setAttribute('aria-expanded', 'false'));
+            activePanel = null;
+            switchTimer = window.setTimeout(() => {
+                switchTimer = 0;
+                revealPanel(trigger, id, panel, fromKeyboard);
+            }, MEGA_PANEL_CLOSE_MS);
+            return;
+        }
+
+        revealPanel(trigger, id, panel, fromKeyboard);
+    };
+
+    /** @param {HTMLButtonElement} trigger @param {{ fromKeyboard?: boolean }} [opts] */
     const toggle = (trigger, opts = {}) => {
         const id = trigger.dataset.megaPanel;
         if (activePanel === id) {
@@ -250,12 +278,13 @@ export const initMegaMenu = () => {
 
     /** @param {KeyboardEvent} e */
     const handleKeydown = (e) => {
-        if (!activePanel) return;
-
-        if (e.key === 'Escape') {
+        // Escape also cancels a switch in flight (activePanel is null during
+        // the close→open gap, but switchTimer is pending).
+        if (e.key === 'Escape' && (activePanel || switchTimer)) {
             dismiss({ restoreFocus: true });
             return;
         }
+        if (!activePanel) return;
 
         // Focus trap engages only for keyboard-opened panels. Mouse users
         // never had focus moved in, so trapping is the wrong fix here.
@@ -283,7 +312,7 @@ export const initMegaMenu = () => {
     /** Close on any click outside an interactive piece of content. */
     /** @param {MouseEvent} e */
     const handleDocClick = (e) => {
-        if (!activePanel) return;
+        if (!activePanel && !switchTimer) return;
         const target = /** @type {Element} */ (e.target);
         if (Array.from(triggers).some((t) => t.contains(target))) return;
         if (target.closest?.('a, button, input, select, textarea, label')) return;
@@ -311,6 +340,7 @@ export const initMegaMenu = () => {
     window.addEventListener('popstate', handlePopState);
 
     return () => {
+        if (switchTimer) window.clearTimeout(switchTimer);
         triggers.forEach((t) => t.removeEventListener('click', handleTriggerClick));
         overlay?.removeEventListener('click', handleOverlayClick);
         document.removeEventListener('keydown', handleKeydown);
