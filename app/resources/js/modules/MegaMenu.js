@@ -9,6 +9,66 @@
  * @file MegaMenu.js
  */
 
+/**
+ * Wire the category tab-list inside one tabbed-machines panel. Clicking a
+ * tab (or arrowing onto it) reveals its panel and hides the siblings. Tabs
+ * are a roving-tabindex group: only the active tab is in the tab order, and
+ * Arrow/Home/End move selection between them.
+ *
+ * @param {HTMLElement} panel
+ * @returns {() => void} teardown
+ */
+const initMegaTabs = (panel) => {
+    /** @type {HTMLButtonElement[]} */
+    const tabs = Array.from(panel.querySelectorAll('.mega-tab'));
+    if (tabs.length < 2) return () => {};
+
+    /** @param {HTMLButtonElement} tab @param {{ focus?: boolean }} [opts] */
+    const select = (tab, { focus = false } = {}) => {
+        tabs.forEach((t) => {
+            const active = t === tab;
+            t.setAttribute('aria-selected', String(active));
+            t.tabIndex = active ? 0 : -1;
+            const panelId = t.getAttribute('aria-controls');
+            const tabPanel = panelId ? document.getElementById(panelId) : null;
+            if (tabPanel) tabPanel.hidden = !active;
+        });
+        if (focus) tab.focus();
+    };
+
+    /** @param {MouseEvent} e */
+    const handleClick = (e) => select(/** @type {HTMLButtonElement} */ (e.currentTarget));
+
+    /** @param {KeyboardEvent} e */
+    const handleKeydown = (e) => {
+        const i = tabs.indexOf(/** @type {HTMLButtonElement} */ (e.currentTarget));
+        if (i === -1) return;
+
+        let next = -1;
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') next = (i + 1) % tabs.length;
+        else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = tabs.length - 1;
+
+        if (next !== -1) {
+            e.preventDefault();
+            select(tabs[next], { focus: true });
+        }
+    };
+
+    tabs.forEach((t) => {
+        t.addEventListener('click', handleClick);
+        t.addEventListener('keydown', handleKeydown);
+    });
+
+    return () => {
+        tabs.forEach((t) => {
+            t.removeEventListener('click', handleClick);
+            t.removeEventListener('keydown', handleKeydown);
+        });
+    };
+};
+
 export const initMegaMenu = () => {
     const triggers  = /** @type {NodeListOf<HTMLButtonElement>} */ (document.querySelectorAll('.mega-trigger'));
     const overlay   = document.getElementById('mega-menu-overlay');
@@ -17,6 +77,11 @@ export const initMegaMenu = () => {
     if (!triggers.length || !container) {
         return () => {};
     }
+
+    // Wire category tabs inside every panel that has them.
+    const tabTeardowns = /** @type {HTMLElement[]} */ (
+        Array.from(container.querySelectorAll('.mega-panel'))
+    ).map(initMegaTabs);
 
     /** Tabbable selector for keyboard focus trap. */
     const FOCUSABLE_SELECTOR = [
@@ -210,5 +275,6 @@ export const initMegaMenu = () => {
         document.removeEventListener('click', handleDocClick);
         window.removeEventListener('pageshow', handlePageShow);
         window.removeEventListener('popstate', handlePopState);
+        tabTeardowns.forEach((teardown) => teardown());
     };
 };
