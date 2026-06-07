@@ -59,3 +59,11 @@ docs/superpowers/
 docs/content-needs-*.md
 docs/meeting-*.md
 docs/page-outlines-*.md
+# Shogun local coordination state
+.shogun/tasks.json
+.shogun/graph.json
+.shogun/mainline-queue.json
+.shogun/reservations.json
+.shogun/messages.jsonl
+.shogun/active.md
+.shogun/archive.md

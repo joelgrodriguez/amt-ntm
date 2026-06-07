@@ -1,0 +1,49 @@
+{
+  "name": "standard-press",
+  "provider": "superset",
+  "taskProvider": "superset",
+  "workspaceProvider": "superset",
+  "reviewProvider": "superset",
+  "baseBranch": "dev",
+  "branchPrefix": "shogun",
+  "taskPrefix": "Shogun",
+  "statuses": {
+    "todo": "Staged",
+    "inProgress": "Processing",
+    "blocked": "Blocked",
+    "inReview": "Reviewing",
+    "verifying": "Verifying",
+    "done": "Done",
+    "canceled": "Canceled"
+  },
+  "workflow": {
+    "mode": "review",
+    "acceptance": "Verifying",
+    "ciCommand": "npm run build",
+    "autoPush": false
+  },
+  "labels": {
+    "required": [
+      "shogun",
+      "project:<slug>",
+      "branch:<branch>",
+      "type:<work-type>",
+      "area:<area>",
+      "agent:<agent>",
+      "risk:<low|medium|high>"
+    ]
+  },
+  "validationCommand": "npm run build",
+  "coordinationState": {
+    "gitCommonDir": "shogun",
+    "fallbackDir": ".shogun"
+  },
+  "localState": [
+    ".shogun/graph.json",
+    ".shogun/mainline-queue.json",
+    ".shogun/reservations.json",
+    ".shogun/messages.jsonl",
+    ".shogun/active.md",
+    ".shogun/archive.md"
+  ]
+}
