@@ -1,13 +1,13 @@
 ---
 name: shogun
-description: Coordinate Shogun-managed multi-agent coding work with task graphs, file reservations, agent messages, validation, and review handoff. Use when working in a project installed with Shogun, handling Shogun/Superset/Orca tasks, reserving files, coordinating multiple agents, or moving work through review.
+description: Coordinate Shogun-managed Superset coding work with task graphs, file reservations, agent messages, validation, and review handoff. Use when working in a project installed with Shogun, handling Superset tasks, reserving files, coordinating multiple agents, or moving work through review.
 ---
 
 # Shogun
 
 ## Contract
 
-Use `.shogun/README.md` and `.shogun/config.json` as the local contract. This project uses `superset`, branches from `dev`, and validates with `npm run build`.
+Use `.shogun/README.md` and `.shogun/config.json` as the local contract. Shogun uses Superset, branches from `dev`, and validates with `npm run build`.
 
 Do not merge into `dev` from an agent worktree. Commit, validate, move the task to review, and stop.
 
@@ -26,6 +26,17 @@ Run `shogun map` when files, routes, entrypoints, tests, commands, boundaries, o
 3. Claim it with `shogun graph claim <task> --agent <name>`.
 4. Reserve files before editing: `shogun reserve add <task> <paths...> --agent <name> --ttl 2h`.
 5. If a reservation conflicts, do not edit those files. Send a message and choose another ready task.
+
+## Plain Feature Requests
+
+If the user asks for a feature and there is no useful graph yet, create the graph yourself. Do not make the user write a giant orchestration prompt.
+
+1. Read the architecture knowledgebase and inspect the relevant code.
+2. Create 3-6 small graph nodes with `shogun graph add`, ordered by real dependencies.
+3. Prefer boring nodes: architecture docs, data/API, UI, tests, validation. Skip nodes that do not apply.
+4. Then run the normal Start Work loop.
+
+A graph is just the order of operations. Keep it small enough that another agent can grab the next obvious piece without reading your mind.
 
 ## During Work
 

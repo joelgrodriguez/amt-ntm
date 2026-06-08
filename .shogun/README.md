@@ -41,7 +41,7 @@ Superset, so they are real board columns. `Verifying` is the human-QA gate: a
 task moves there after its branch merges into `dev`, and `approve`
 is the only command that moves it to `Done`.
 
-Run `shogun doctor --provider superset` after install to verify the
+Run `shogun doctor` after install to verify the
 Staged/Processing/Reviewing/Verifying/Done statuses have synced from Linear.
 
 ## Commands
@@ -58,6 +58,19 @@ shogun task iterate <task> "Tighten the mobile spacing"
 
 `land` leaves the Superset task in `Verifying`. `approve` is the only command
 that moves a task from `Verifying` to `Done`.
+
+## Plain Feature Requests
+
+You should be able to say:
+
+```text
+Build <feature>. Use Shogun.
+```
+
+The installed AGENTS.md and Shogun skill tell the agent to read the architecture
+knowledgebase, create a small dependency graph when one does not exist, reserve
+files, and work the first ready node. The CLI provides the rails; the agent does
+the decomposition.
 
 ## Mainline Mode
 

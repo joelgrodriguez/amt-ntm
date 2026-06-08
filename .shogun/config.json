@@ -1,9 +1,5 @@
 {
   "name": "standard-press",
-  "provider": "superset",
-  "taskProvider": "superset",
-  "workspaceProvider": "superset",
-  "reviewProvider": "superset",
   "baseBranch": "dev",
   "branchPrefix": "shogun",
   "taskPrefix": "Shogun",
