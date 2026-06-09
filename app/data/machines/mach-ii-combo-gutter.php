@@ -121,7 +121,11 @@ return [
         'best_for'     => __('5" & 6" K-style gutter production', 'standard'),
     ],
     'specs' => [
-        'image' => 'https://newtech.local/wp-content/uploads/2024/07/Mach-II-in-trailer-1-scaled.jpg',
+        // TODO(asset): Evita wants a transparent combo product photo here.
+        // Host fixed from dev (newtech.local → newtechmachinery.com) so it no
+        // longer hard-404s; confirm this upload exists on prod or swap for the
+        // transparent asset when supplied.
+        'image' => 'https://newtechmachinery.com/wp-content/uploads/2024/07/Mach-II-in-trailer-1-scaled.jpg',
         'standard_features' => [
             __('Polyurethane Drive Rollers', 'standard'),
             __('Two 360° Rotatable Reel Stands for Easy Coil Loading', 'standard'),

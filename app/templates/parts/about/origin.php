@@ -3,8 +3,12 @@
  * About — Built it. Still building it.
  *
  * Merged origin + timeline. One section, two beats: a short legacy lede
- * that names 1991, Larry Coben, and the Mazzella acquisition; then the
- * 5-machine timeline of category firsts as proof we're still shipping.
+ * that names 1991 and the company's ownership, then the 5-machine timeline
+ * of category firsts as proof we're still shipping.
+ *
+ * NOTE: NTM has split off from Mazzella Companies. The ownership copy below
+ * is a neutral placeholder pending final wording from the team (see the
+ * TODO(copy) markers). Do not re-add the "part of Mazzella" claim.
  *
  * Replaces the previous origin.php and the now-deleted timeline.php.
  * Filename stays "origin" so existing callers keep working.
@@ -23,7 +27,10 @@ $content = [
     'eyebrow' => __('Built it. Still building it.', 'standard'),
     'title'   => __('NTM shipped the SSP in 1991 and started a category. We\'re still the ones defining it.', 'standard'),
     'p1'      => __('NTM was the first to commercially produce a polyurethane drive-roller machine with separate forming rollers. Today almost every portable rollformer on the market uses that approach. The patents have aged out. The lead hasn\'t.', 'standard'),
-    'p2'      => __('Since 2015, NTM has been part of Mazzella Companies, a third-generation, family-owned American manufacturer. The backing means the capital to keep engineering, keep manufacturing in-house, and keep investing in the next category-defining machine.', 'standard'),
+    // TODO(copy): NTM split off from Mazzella Companies — confirm final
+    // ownership wording with the team. Neutral placeholder below avoids the
+    // now-false "part of Mazzella" claim while staying true.
+    'p2'      => __('NTM is an independent American manufacturer that designs, engineers, and builds its machines in-house. That control is what keeps the engineering moving and the next category-defining machine on the bench.', 'standard'),
 ];
 
 $callouts = [
@@ -32,8 +39,9 @@ $callouts = [
         'v' => __('Denver, 1991', 'standard'),
     ],
     [
-        'k' => __('Parent company',                'standard'),
-        'v' => __('Mazzella Companies (since 2015)', 'standard'),
+        // TODO(copy): confirm post-split ownership label with the team.
+        'k' => __('Ownership',           'standard'),
+        'v' => __('Independent American manufacturer', 'standard'),
     ],
 ];
 

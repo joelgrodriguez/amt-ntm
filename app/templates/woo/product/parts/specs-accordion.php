@@ -198,6 +198,10 @@ if (empty($sections)) {
             <p class="section-eyebrow"><?php esc_html_e('Technical Specifications', 'standard'); ?></p>
             <div class="section-divider"></div>
             <h2 id="specs-title" class="section-title"><?php esc_html_e('Full Details', 'standard'); ?></h2>
+            <?php /* TODO(copy): confirm wording with team — Evita asked for an explainer under this headline. */ ?>
+            <p class="section-subtitle max-w-xl">
+                <?php esc_html_e('Every standard feature, dimension, and spec for this machine. Expand a section for the full breakdown.', 'standard'); ?>
+            </p>
         </div>
 
         <div class="grid lg:grid-cols-2 gap-12 items-start">

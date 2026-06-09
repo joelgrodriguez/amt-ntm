@@ -45,7 +45,7 @@ $articles_query = new WP_Query($args);
     <!-- Header -->
     <header class="container mb-6 lg:mb-12">
         <div class="grid gap-4 justify-items-start">
-            <span class="text-xs font-mono uppercase tracking-widest text-red"><?php echo esc_html($content['eyebrow']); ?></span>
+            <span class="text-xs font-mono uppercase tracking-widest text-blue-500"><?php echo esc_html($content['eyebrow']); ?></span>
             <h1 class="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight"><?php echo esc_html($content['title']); ?></h1>
         </div>
     </header>

@@ -28,8 +28,7 @@ if (!defined('ABSPATH')) {
         <div class="grid gap-10 lg:grid-cols-12 lg:gap-12 lg:items-end">
 
             <div class="grid gap-6 lg:col-span-7">
-                <p class="font-mono text-xs uppercase tracking-[0.18em] text-blue-500 flex items-center gap-2">
-                    <span aria-hidden="true" class="inline-block w-1 h-1 bg-blue-500"></span>
+                <p class="font-mono text-xs uppercase tracking-[0.18em] text-blue-500">
                     <?php esc_html_e('Next Step', 'standard'); ?>
                 </p>
                 <h2

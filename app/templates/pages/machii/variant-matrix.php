@@ -48,15 +48,15 @@ if (empty($machines)) {
 >
     <div class="container section-content">
 
-        <div class="section-header-left">
+        <div class="section-header">
             <p class="section-eyebrow">
                 <?php esc_html_e('Pick a Model', 'standard'); ?>
             </p>
-            <div class="section-divider"></div>
+            <div class="section-divider-center"></div>
             <h2 id="machii-variants-title" class="section-title">
                 <?php esc_html_e('Three MACH II machines. Pick yours.', 'standard'); ?>
             </h2>
-            <p class="section-subtitle text-blue-600 max-w-2xl">
+            <p class="section-subtitle text-blue-600 max-w-2xl mx-auto">
                 <?php esc_html_e('Specs, highlights, and price for each machine. Pick the one your crew runs most days, or talk to a specialist if you\'re between configurations.', 'standard'); ?>
             </p>
         </div>

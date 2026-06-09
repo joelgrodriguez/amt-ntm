@@ -170,7 +170,7 @@ Never use weights outside 400 / 500. Never italicize. Never decorate.
 
 Solid `--color-blue-500` background. `--color-white` text in Mono 500, 14px. Zero border-radius. Padding: 12px top/bottom, 24px left/right. Hover: shift background to a 10% darkened blue. Focus: 2px outline `--color-blue-500` at 2px offset.
 
-For a single moment of maximum emphasis (one per page, ideally), the primary CTA may use `--color-red` as the background fill. Use sparingly.
+For a single moment of maximum emphasis (one per page, ideally), the primary CTA may use `--color-red` as the background fill (the `.btn-emphasis` variant). Use sparingly. **A red CTA must either be the one deliberate ignition on the page or sit beside a secondary CTA in a 2-up row — never the lone CTA in an ordinary section.** A solo CTA in a content section is `.btn-primary` (blue). (2026-06-09: audited and corrected three category-page CTAs that were lone red.)
 
 ### 5.2 Secondary Ghost Button
 **Role:** Secondary action — "Learn More," "View Specs."
@@ -185,7 +185,7 @@ Solid `--color-white` background. `--color-blue-800` text in Mono 500. Zero radi
 ### 5.4 Eyebrow
 **Role:** Small label above a heading identifying the section type or model line.
 
-Mono 500, 11px, uppercase, letter-spacing `0.1em`, color `--color-red` or `--color-blue-500`. Optionally preceded by a 4px × 4px square dot in the same color, with 8px gap to text.
+Mono 500, 11px, uppercase, letter-spacing `0.1em`, color `--color-blue-500` (the default — blue carries the system). `--color-red` only when the eyebrow is the page's deliberate accent moment, not a per-section reflex. **No leading dot on section eyebrows** (2026-06-09: removed the inconsistent per-instance dots). The square dot is reserved for the hero/brand-voice eyebrow only, where it's part of the marquee chrome.
 
 ### 5.5 Section Title
 **Role:** The label of a content section.
@@ -245,6 +245,7 @@ The visual language depends on cinematic, high-fidelity machine photography. Eve
 - **Real environments, idealized.** A finished machine on a polished shop floor; a panel being formed in clean light. Avoid mud, clutter, overt "industrial" tropes. Industrial-premium, not industrial-gritty.
 - **Consistent crop language.** Either full-bleed environmental shots or perfectly centered/silhouetted product shots. Don't mix in lifestyle photography that breaks the showroom feel.
 - **Motion in stills.** Subjects feel ready to operate — the calm before the run, not the chaos of the run.
+- **Light image wells.** When a product photo (transparent or `object-contain`) sits in its own well, the well is `--color-blue-50` — a clean studio plate, never a dark fill. Dark navy behind a product shot reads as a night photo; the light tint keeps the showroom feel. (2026-06-09: standardized after the MACH II Family light wells were held up as the reference.)
 
 ---
 
