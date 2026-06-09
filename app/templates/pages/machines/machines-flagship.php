@@ -110,7 +110,7 @@ $product_url = \Standard\Url\internal($flagship['url']);
                 <?php endif; ?>
 
                 <div class="flex flex-wrap gap-3 pt-2">
-                    <a href="<?php echo esc_url($product_url); ?>" class="btn btn-emphasis">
+                    <a href="<?php echo esc_url($product_url); ?>" class="btn btn-primary">
                         <?php esc_html_e('Explore the SSQ3', 'standard'); ?>
                         <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                     </a>

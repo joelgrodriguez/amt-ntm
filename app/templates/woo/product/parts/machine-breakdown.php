@@ -50,7 +50,7 @@ if (empty($breakdown)) {
                     </div>
                 <?php endif; ?>
                 <div class="grid gap-4" data-reveal="fade">
-                    <p class="text-sm font-medium uppercase tracking-wider text-red"><?php echo esc_html($title); ?></p>
+                    <p class="text-sm font-medium uppercase tracking-wider text-blue-500"><?php echo esc_html($title); ?></p>
                     <h3 class="text-2xl font-medium text-blue-900 lg:text-3xl"><?php echo esc_html($headline); ?></h3>
                     <p class="text-blue-600"><?php echo esc_html($copy); ?></p>
                     <?php if (!empty($specs)) : ?>

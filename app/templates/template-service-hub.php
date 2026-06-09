@@ -443,7 +443,7 @@ get_header();
                     <?php else : ?>
                         <div class="border-t border-blue-200 pt-12">
                             <div class="grid gap-4 max-w-xl">
-                                <span class="font-mono font-medium uppercase tracking-wider text-red" style="font-size: var(--text-caption);">
+                                <span class="font-mono font-medium uppercase tracking-wider text-blue-500" style="font-size: var(--text-caption);">
                                     <?php esc_html_e('No Matches', 'standard'); ?>
                                 </span>
                                 <h3 class="font-mono font-medium text-blue-900" style="font-size: var(--text-heading-sm);">

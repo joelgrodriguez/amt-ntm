@@ -60,7 +60,7 @@ $content_ml = $is_right ? ' lg:ml-auto' : '';
     <div class="hero-overlay__grain"></div>
     <div class="relative z-10 container py-16 lg:py-24">
         <div class="max-w-xl lg:max-w-lg xl:max-w-xl grid gap-6<?php echo esc_attr($content_ml); ?>">
-            <p class="text-sm font-medium uppercase tracking-wider text-red">
+            <p class="text-sm font-medium uppercase tracking-wider text-blue-500">
                 <?php echo esc_html($content['eyebrow']); ?>
             </p>
             <h1 id="<?php echo esc_attr($section_id); ?>-title" class="text-3xl font-semibold tracking-tight text-white md:text-4xl lg:text-[2.75rem] xl:text-5xl leading-tight">

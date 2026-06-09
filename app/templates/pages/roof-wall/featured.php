@@ -113,7 +113,7 @@ $name         = $lineup['name'] ?? 'SSQ3 MultiPro';
             <?php endif; ?>
 
             <div class="ssq3-marquee__actions">
-                <a href="<?php echo esc_url($product_url); ?>" class="btn btn-emphasis">
+                <a href="<?php echo esc_url($product_url); ?>" class="btn btn-primary">
                     <?php esc_html_e('Build & Configure', 'standard'); ?>
                     <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                 </a>

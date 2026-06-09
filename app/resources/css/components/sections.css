@@ -62,17 +62,24 @@
   .section-title {
     @apply font-sans font-medium tracking-tight text-blue-900;
     font-size: var(--text-heading);
+    /* Explicit tight leading per scale step (was browser-default ~1.2+, which
+       read loose on multi-line section heads vs. the tight hero H1s). Mirrors
+       .final-cta__title. text-wrap:balance evens multi-line headings. */
+    line-height: var(--leading-heading);
+    text-wrap: balance;
   }
 
   @media (min-width: 768px) {
     .section-title {
       font-size: var(--text-heading-lg);
+      line-height: var(--leading-heading-lg);
     }
   }
 
   @media (min-width: 1024px) {
     .section-title {
       font-size: var(--text-display);
+      line-height: var(--leading-display);
     }
   }
 

@@ -63,7 +63,7 @@ $receipts = [
                 </dl>
 
                 <div>
-                    <a href="<?php echo esc_url(\Standard\Url\internal('/machines/machii/')); ?>" class="btn btn-emphasis">
+                    <a href="<?php echo esc_url(\Standard\Url\internal('/machines/machii/')); ?>" class="btn btn-primary">
                         <?php esc_html_e('Meet the MACH II Family', 'standard'); ?>
                         <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                     </a>
