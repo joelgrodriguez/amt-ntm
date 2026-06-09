@@ -58,11 +58,11 @@ $people = [
 
 <section class="bg-white py-16 lg:py-24 border-t border-blue-200" aria-labelledby="about-people-title">
     <div class="container">
-        <div class="max-w-4xl mb-12 lg:mb-16">
+        <div class="max-w-3xl mx-auto text-center mb-12 lg:mb-16">
             <p class="font-mono uppercase tracking-wider text-xs text-blue-500 mb-5">
                 <?php echo esc_html($content['eyebrow']); ?>
             </p>
-            <h2 id="about-people-title" class="font-sans font-medium text-blue-900 text-2xl md:text-3xl lg:text-[2.5rem] leading-tight tracking-tight">
+            <h2 id="about-people-title" class="font-sans font-medium text-blue-900 text-2xl md:text-3xl lg:text-[2.5rem] leading-tight tracking-tight text-balance">
                 <?php echo esc_html($content['title']); ?>
             </h2>
         </div>

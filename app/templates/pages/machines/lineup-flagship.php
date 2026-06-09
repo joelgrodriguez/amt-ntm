@@ -34,7 +34,7 @@ $price_label = $machine['price_label'] ?? __('Starting at', 'standard');
 ?>
 
 <div class="grid bg-blue-900 text-white overflow-hidden lg:grid-cols-[5fr_4fr] lg:items-center">
-    <div class="relative aspect-[5/4] bg-blue-800 sm:aspect-[4/3] lg:aspect-auto lg:h-full lg:min-h-[420px]">
+    <div class="relative aspect-[5/4] bg-blue-50 sm:aspect-[4/3] lg:aspect-auto lg:h-full lg:min-h-[420px]">
         <?php \Standard\Images\responsive_image($machine['image'], $machine['name'], 'product-card', [
             'class' => 'absolute inset-0 w-full h-full object-contain object-center px-8 py-6 lg:p-10',
         ]); ?>

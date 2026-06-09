@@ -37,7 +37,9 @@ if (empty($faqs)) {
                     <?php icon('chevron-down', ['class' => 'w-4 h-4']); ?>
                 </span>
             </summary>
-            <div class="accordion__body text-base text-blue-600 leading-relaxed">
+            <!-- [&_li+li]:mt-2 + [&_p+p]:mt-3 space multi-line/multi-item answers
+                 so stacked steps don't read as one cramped block (Evita). -->
+            <div class="accordion__body text-base text-blue-600 leading-relaxed [&_li+li]:mt-2 [&_p+p]:mt-3">
                 <?php echo wp_kses_post($faq['answer']); ?>
             </div>
         </details>

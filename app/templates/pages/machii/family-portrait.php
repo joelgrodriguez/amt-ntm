@@ -47,16 +47,15 @@ if (empty($machines)) {
     aria-labelledby="machii-family-title"
 >
     <div class="container section-content">
-        <div class="section-header-left">
-            <p class="section-eyebrow flex items-center gap-2">
-                <span aria-hidden="true" class="inline-block w-1 h-1 bg-blue-500"></span>
+        <div class="section-header">
+            <p class="section-eyebrow">
                 <?php esc_html_e('The Family', 'standard'); ?>
             </p>
-            <div class="section-divider"></div>
+            <div class="section-divider-center"></div>
             <h2 id="machii-family-title" class="section-title">
                 <?php esc_html_e('Three K-style configurations.', 'standard'); ?>
             </h2>
-            <p class="section-subtitle text-blue-600 max-w-2xl">
+            <p class="section-subtitle text-blue-600 max-w-2xl mx-auto">
                 <?php esc_html_e('5", 6", and the 5"/6" Combo. Every MACH II runs polyurethane drive rollers, ships in 6 to 8 weeks, and is built for crews who treat their gutter machine like a member of payroll.', 'standard'); ?>
             </p>
         </div>

@@ -23,4 +23,5 @@ get_template_part('templates/parts/learning-center', null, [
     'post_count'    => 4,
     'cta_url'       => '/learning-center/?category=seamless-gutter-rollforming-machines',
     'cta_text'      => __('View All Gutter Resources', 'standard'),
+    'align'         => 'center',
 ]);

@@ -85,14 +85,14 @@ $memberships = [
 <section class="bg-blue-50 py-16 lg:py-24 border-t border-blue-200" aria-labelledby="about-support-title">
     <div class="container">
 
-        <div class="max-w-4xl mb-12 lg:mb-16">
+        <div class="max-w-3xl mx-auto text-center mb-12 lg:mb-16">
             <p class="font-mono uppercase tracking-wider text-xs text-blue-500 mb-5">
                 <?php echo esc_html($content['eyebrow']); ?>
             </p>
-            <h2 id="about-support-title" class="font-sans font-medium text-blue-900 text-2xl md:text-3xl lg:text-[2.5rem] leading-tight tracking-tight mb-6">
+            <h2 id="about-support-title" class="font-sans font-medium text-blue-900 text-2xl md:text-3xl lg:text-[2.5rem] leading-tight tracking-tight text-balance mb-6">
                 <?php echo esc_html($content['title']); ?>
             </h2>
-            <p class="font-sans text-blue-700 text-base lg:text-lg leading-relaxed max-w-2xl">
+            <p class="font-sans text-blue-700 text-base lg:text-lg leading-relaxed max-w-2xl mx-auto">
                 <?php echo esc_html($content['lede']); ?>
             </p>
         </div>

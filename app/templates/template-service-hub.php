@@ -257,7 +257,10 @@ get_header();
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 bg-white border border-blue-200">
+            <!-- items-start so each column sizes to its own content instead of
+                 stretching to match the taller column (Evita: the Documentation
+                 box should end under its text, not run the full column height). -->
+            <div class="grid grid-cols-1 md:grid-cols-2 md:items-start bg-white border border-blue-200">
 
                 <?php if (!empty($uniq_docs)) : ?>
                     <div class="<?php echo !empty($uniq_videos) ? 'border-b border-blue-200 md:border-b-0 md:border-r' : ''; ?>">

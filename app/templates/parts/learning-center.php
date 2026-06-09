@@ -35,6 +35,7 @@ $defaults = [
     'cta_url'    => '/learning-center/',
     'cta_text'      => __('View All Resources', 'standard'),
     'category_slug' => '',
+    'align'         => 'left',
 ];
 
 $args = wp_parse_args($args ?? [], $defaults);
@@ -55,11 +56,13 @@ if (!$query->have_posts()) {
     <div class="container section-content">
         <?php get_template_part('templates/parts/section-header', null, [
             'id'             => 'learning-center-title',
-            'align'          => 'left',
+            'align'          => $args['align'],
             'eyebrow'        => $args['eyebrow'],
             'eyebrow_dot'    => false,
             'title'          => $args['title'],
             'lede'           => $args['subtitle'],
+            // Left layout caps the lede; centered layout caps it via the
+            // header's own max-w-2xl mx-auto wrapper (section-header.php).
             'lede_max_width' => 'max-w-2xl',
         ]); ?>
 
