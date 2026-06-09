@@ -368,10 +368,11 @@ Read `docs/architecture/map.json` and `docs/architecture/flows.json` before
 unfamiliar feature work. If files, routes, entrypoints, tests, commands,
 boundaries, or documented flows change, run `shogun map` and verify with
 `shogun map --check`.
-For plain feature requests, create the Shogun graph yourself when none exists:
-inspect the code, add 3-6 dependency-ordered nodes with `shogun graph add`, then
-claim the first ready node. Do not make the user paste a giant orchestration
-prompt.
+For plain feature requests, create the parent Superset task first with
+`shogun task create` unless the user already gave you a task ID or URL. Then
+inspect the code, add 3-6 dependency-ordered graph nodes with
+`shogun graph add ... --parent <superset-task-id>`, and claim the first ready
+node. Do not make the user paste a giant orchestration prompt.
 If Shogun mode is `mainline`, queue completed branches with `shogun queue add`
 and let `shogun queue run` land through validation/CI. Do not manually merge.
 

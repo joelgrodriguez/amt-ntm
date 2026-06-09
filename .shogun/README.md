@@ -67,10 +67,11 @@ You should be able to say:
 Build <feature>. Use Shogun.
 ```
 
-The installed AGENTS.md and Shogun skill tell the agent to read the architecture
-knowledgebase, create a small dependency graph when one does not exist, reserve
-files, and work the first ready node. The CLI provides the rails; the agent does
-the decomposition.
+The installed AGENTS.md and Shogun skill tell the agent to create the parent
+Superset task first with `shogun task create`, read the architecture
+knowledgebase, create a small dependency graph with
+`shogun graph add ... --parent <superset-task-id>`, reserve files, and work the
+first ready node. The CLI provides the rails; the agent does the decomposition.
 
 ## Mainline Mode
 

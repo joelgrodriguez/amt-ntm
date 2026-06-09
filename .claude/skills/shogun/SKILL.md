@@ -22,21 +22,24 @@ Run `shogun map` when files, routes, entrypoints, tests, commands, boundaries, o
 ## Start Work
 
 1. Run `shogun graph ready --json`.
-2. Pick one ready task. If none are ready, inspect blockers with `shogun graph list`.
+2. Pick one ready graph node. If none are ready, inspect blockers with `shogun graph list`.
 3. Claim it with `shogun graph claim <task> --agent <name>`.
 4. Reserve files before editing: `shogun reserve add <task> <paths...> --agent <name> --ttl 2h`.
-5. If a reservation conflicts, do not edit those files. Send a message and choose another ready task.
+5. Remember the graph node's `parentTask`. That is the Superset task ID for review/landing commands.
+6. If a reservation conflicts, do not edit those files. Send a message and choose another ready task.
 
 ## Plain Feature Requests
 
 If the user asks for a feature and there is no useful graph yet, create the graph yourself. Do not make the user write a giant orchestration prompt.
 
-1. Read the architecture knowledgebase and inspect the relevant code.
-2. Create 3-6 small graph nodes with `shogun graph add`, ordered by real dependencies.
-3. Prefer boring nodes: architecture docs, data/API, UI, tests, validation. Skip nodes that do not apply.
-4. Then run the normal Start Work loop.
+1. If the user did not provide an existing Superset task ID or URL, create the parent task first: `shogun task create "<feature>" --type feature --area <area> --agent <name>`.
+2. Capture the returned Superset task ID. If task creation fails, run `shogun doctor` and stop instead of creating local-only graph work.
+3. Read the architecture knowledgebase and inspect the relevant code.
+4. Create 3-6 small graph nodes with `shogun graph add ... --parent <superset-task-id>`, ordered by real dependencies.
+5. Prefer boring nodes: architecture docs, data/API, UI, tests, validation. Skip nodes that do not apply.
+6. Then run the normal Start Work loop.
 
-A graph is just the order of operations. Keep it small enough that another agent can grab the next obvious piece without reading your mind.
+A graph is just the local order of operations. Superset is the task source of truth. Keep the graph small enough that another agent can grab the next obvious piece without reading your mind.
 
 ## During Work
 
@@ -50,11 +53,11 @@ A graph is just the order of operations. Keep it small enough that another agent
 
 1. Run the validation command.
 2. Commit the work on the task branch.
-3. In review mode, move the Shogun task to review with `shogun task review <task> --summary "..." --validation "npm run build"`.
-4. In mainline mode, queue it with `shogun queue add <task> --branch <branch>`.
-5. Mark graph work done with `shogun graph done <task>`.
-6. Release reservations with `shogun reserve release <task>`.
-7. Leave a short summary and QA note in the task.
+3. Mark graph work done with `shogun graph done <graph-node>`.
+4. If this was the last open graph node for the parent task, move the parent Superset task to review with `shogun task review <parent-task> --summary "..." --validation "npm run build"`.
+5. In mainline mode, queue the parent task with `shogun queue add <parent-task> --branch <branch>`.
+6. Release reservations with `shogun reserve release <graph-node>`.
+7. Leave a short summary and QA note on the parent Superset task.
 
 ## Judgment
 
