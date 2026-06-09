@@ -6,6 +6,8 @@ Stakeholder and review-meeting feedback, one file per session. Each file capture
 
 **Format:** meeting metadata → what was presented → feedback captured → action items → follow-ups. Quote feedback closely, flag any part of the meeting the notes don't cover, and keep action items as a checkbox list so they can be tracked to done.
 
+**[Post-Launch Roadmap](roadmap.md)** — every item deferred past launch across all sessions, grouped by theme. Present this at the demo; keep it in sync when a session doc moves a deferred item.
+
 ## Sessions
 
 | Date | Session | Status |
