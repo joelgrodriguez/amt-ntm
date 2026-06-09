@@ -67,7 +67,7 @@ The new IA replaces those five labels with **four action-driven labels**: Get st
   docker exec devkinsta_fpm wp --path=/www/kinsta/public/newtech post list --post_type=page --allow-root
   ```
 - **Vite dev server**: `cd /Users/jrodriguez/.superset/worktrees/<your-worktree>/ && npm run dev`
-- **Git worktrees**: read `AGENTS.md` / `CLAUDE.md` at repo root. You are a spawned worktree agent, not Maestro. Do not push to `dev` or `master`.
+- **Git worktrees**: read `AGENTS.md` / `CLAUDE.md` at repo root. You are a spawned Shogun worktree agent. Do not push to `dev` or `master`.
 
 ## What the user wants
 

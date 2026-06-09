@@ -1,6 +1,6 @@
 ---
 name: shogun
-description: Coordinate Shogun-managed Superset coding work with task graphs, file reservations, agent messages, validation, and review handoff. Use when working in a project installed with Shogun, handling Superset tasks, reserving files, coordinating multiple agents, or moving work through review.
+description: Coordinate Shogun-managed Superset coding work with task graphs, file reservations, agent messages, validation, and review handoff. Use automatically in any repo with .shogun/config.json when the user asks to create or work on a task, ticket, issue, feature, bug, chore, TODO, or implementation plan, even if Shogun is not named.
 ---
 
 # Shogun
@@ -8,6 +8,10 @@ description: Coordinate Shogun-managed Superset coding work with task graphs, fi
 ## Contract
 
 Use `.shogun/README.md` and `.shogun/config.json` as the local contract. Shogun uses Superset, branches from `dev`, and validates with `npm run build`.
+
+Task creation is mandatory in Shogun-installed repos. If the user asks to create a task, ticket, issue, feature, bug, chore, TODO, or implementation plan and does not provide an existing Superset task ID or URL, run `shogun task create` before graph planning or code work. Do this even if the user does not say "Shogun".
+
+Do not create only local graph nodes for user-requested work. A graph without a Superset parent task is just scratch planning, not a real task.
 
 Do not merge into `dev` from an agent worktree. Commit, validate, move the task to review, and stop.
 

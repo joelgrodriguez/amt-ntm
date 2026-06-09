@@ -44,7 +44,7 @@ The point of this pass is: the nav works, every link goes somewhere real, and th
 >
 > Each new page should be a PHP template file with `Template Name:` in the header so it's assignable in the WP page admin. The template body can be as simple as a header, the page title, and a `🚧 In development` note. Production content gets added in a later pass.
 >
-> Work on a new branch off `dev`. Follow the worktree agent rules in `AGENTS.md` / `CLAUDE.md`: create a Superset task, move it to In Progress before editing, commit clearly, move to In Review when done, and **do not merge into `dev`**. Maestro lands it.
+> Work on a new branch off `dev`. Follow the worktree agent rules in `AGENTS.md` / `CLAUDE.md`: create a Superset task, move it to `Processing` before editing, commit clearly, move to `Reviewing` when done, and **do not merge into `dev`**. Shogun lands it.
 >
 > **Stop and ask the user before:**
 > - Introducing any new visual component, CSS file, or design token

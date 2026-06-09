@@ -138,9 +138,9 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 10,
+      "fileCount": 8,
       "categories": {
-        "other": 8,
+        "other": 6,
         "docs": 1,
         "source": 1
       },
@@ -152,7 +152,7 @@
         "scripts/db/022-finance-center-template-and-video.sh",
         "scripts/db/apply",
         "scripts/db/README.md",
-        "scripts/maestro-land-reviewed"
+        "scripts/search-smoke.php"
       ]
     }
   ],
@@ -2699,7 +2699,7 @@
       "path": "CLAUDE.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 18109
+      "size": 13835
     },
     {
       "path": "db/imports/ntmservice-service-articles.json",
@@ -2771,7 +2771,7 @@
       "path": "docs/handoff/01-context.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 4634
+      "size": 4628
     },
     {
       "path": "docs/handoff/02-the-change.md",
@@ -2885,7 +2885,7 @@
       "path": "docs/handoff/README.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 7192
+      "size": 7194
     },
     {
       "path": "docs/image-inventory.md",
@@ -3065,7 +3065,7 @@
       "path": "docs/RECOVERY.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 4285
+      "size": 4283
     },
     {
       "path": "package-lock.json",
@@ -3077,7 +3077,7 @@
       "path": "package.json",
       "category": "manifest",
       "role": "Project manifest or dependency declaration.",
-      "size": 730
+      "size": 556
     },
     {
       "path": "PRODUCT.md",
@@ -3132,18 +3132,6 @@
       "category": "docs",
       "role": "Project documentation for humans and agents.",
       "size": 4669
-    },
-    {
-      "path": "scripts/maestro-land-reviewed",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 5633
-    },
-    {
-      "path": "scripts/maestro-sync-tasks",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 6012
     },
     {
       "path": "scripts/search-smoke.php",

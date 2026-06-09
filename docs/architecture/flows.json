@@ -130,10 +130,10 @@
       "type": "route"
     },
     {
-      "id": "directory:maestro",
+      "id": "directory:shogun",
       "lane": "docs",
-      "title": ".maestro",
-      "subtitle": "2 files · Project area.",
+      "title": ".shogun",
+      "subtitle": "5 files · Shogun workflow state and docs.",
       "type": "directory"
     },
     {
@@ -185,7 +185,7 @@
         },
         {
           "from": "route:app-resources-css-pages-finance-center-css",
-          "to": "directory:maestro",
+          "to": "directory:shogun",
           "label": "3",
           "detail": "Follow requests, routes, or commands into implementation code."
         }

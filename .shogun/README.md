@@ -67,11 +67,21 @@ You should be able to say:
 Build <feature>. Use Shogun.
 ```
 
+Or simply:
+
+```text
+Create a task for <feature>.
+```
+
 The installed AGENTS.md and Shogun skill tell the agent to create the parent
 Superset task first with `shogun task create`, read the architecture
 knowledgebase, create a small dependency graph with
 `shogun graph add ... --parent <superset-task-id>`, reserve files, and work the
 first ready node. The CLI provides the rails; the agent does the decomposition.
+
+If the request is only to create a task, the agent should stop after
+`shogun task create` and report the task ID. Graph nodes are for implementation,
+not for replacing the Superset task.
 
 ## Mainline Mode
 

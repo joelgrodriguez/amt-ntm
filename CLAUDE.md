@@ -98,120 +98,84 @@ Every UI change starts at the smallest viewport and scales up. No exceptions.
 
 This applies to every spawned worktree doing UI work too.
 
-## Maestro & Worktree Agents
+## Shogun & Worktree Agents
 
-This repo uses a "Maestro" orchestration pattern. The agent running on the `dev` checkout acts as orchestrator and spawns Superset worktree workspaces, each running its own agent on a `feat/*`/`fix/*`/`chore/*` branch off `dev`.
+This repo uses Shogun for Superset worktree orchestration. The `dev` checkout
+lands reviewed work. Spawned worktrees commit, validate, move tasks to
+`Reviewing`, and stop.
 
-Superset tasks are the source of truth for orchestration. `.maestro/active.md` and `.maestro/archive.md` are optional local notes; they do not replace the task queue.
+Use `.shogun/README.md` as the local workflow guide. Superset tasks are the
+source of truth; `.shogun/active.md` and `.shogun/archive.md` are local notes
+only. If your agent supports skills, load the Shogun skill from
+`.agents/skills`, `.claude/skills`, or `.opencode/skills` before taking Shogun
+work.
 
-### Superset Task Workflow
+Task creation is mandatory here. If the user asks to create a task, ticket,
+issue, feature, bug, chore, TODO, or implementation plan and did not provide an
+existing Superset task ID or URL, create the parent Superset task first with
+`shogun task create`. Do this even when the user does not say "Shogun". Do not
+create only local graph nodes for user-requested work.
 
 Task statuses:
 
-- `Backlog`: idea only; no worktree yet.
-- `Todo`: approved work. A worktree may exist, but no agent has started changing code yet.
-- `In Progress`: an agent is actively working, or the branch has unlanded changes that are not ready for review.
-- `In Review`: the agent finished, committed, validated, and the branch is ready for Maestro/user review before landing.
-- `Done`: Maestro merged the branch into `dev`, pushed `origin/dev`, and synced active worktrees.
+- `Staged`: idea or queued task.
+- `Processing`: an agent is actively working, or the branch has unlanded work.
+- `Reviewing`: the agent committed, validated, updated the task, and stopped.
+- `Verifying`: Shogun landed the branch into `dev`; user QA happens here.
+- `Done`: user approved the landed work.
 - `Canceled`: abandoned, duplicated, or reverted.
 
 Task labels:
 
-- Always use `amt-ntm`.
-- Add the branch label: `branch:<branch-slug>` such as `branch:cards` or `branch:search`.
-- Add one work type label: `type:ui`, `type:copy`, `type:search`, `type:navigation`, `type:template`, `type:backend`, or `type:bugfix`.
-- Add the agent label for the agent doing the task: `agent:codex`, `agent:claude`, or `agent:opencode`. If multiple agents touch the same task, keep each agent label.
+- Always include `shogun`.
+- Add `project:<slug>`, `branch:<branch>`, `type:<work-type>`,
+  `area:<domain>`, `agent:<agent>`, and `risk:<low|medium|high>`.
 - Add `blocked` when work cannot continue without a decision.
-
-Task description template:
-
-```text
-Branch:
-Workspace:
-Path:
-Agent:
-Goal:
-Status:
-Summary:
-Commits:
-Validation:
-Risk:
-```
 
 Useful commands:
 
 ```bash
-superset tasks statuses list
-superset tasks create --title "[AMT Maestro] <slug>: <goal>" --description "<template>" --priority medium --labels amt-ntm,branch:<slug>,type:<work-type>,agent:<agent>
-superset tasks update <task-id-or-slug> --status-id <in-review-status-id> --labels amt-ntm,branch:<slug>,type:<work-type>,agent:<agent>
-superset tasks list --search "AMT Maestro"
-npm run maestro:sync-tasks
-npm run maestro:review
-npm run maestro:land
+shogun doctor --provider superset
+shogun task create "<goal>" --type <work-type> --area <area> --agent <agent>
+shogun task start <task>
+shogun task review <task> --summary "..." --validation "npm run build"
+shogun task land <task> --branch <branch>
+shogun task approve <task>
+shogun task iterate <task> "..."
+shogun map
+shogun map --check
 ```
 
-When changing status, run `superset tasks statuses list` first; the CLI wants a status ID, not the status name. When changing labels, pass the full label set you want to keep.
+Read `docs/architecture/map.json` and `docs/architecture/flows.json` before
+unfamiliar feature work. If files, routes, entrypoints, tests, commands,
+boundaries, or documented flows change, run `shogun map` and verify with
+`shogun map --check`.
 
-Hard rule: worktree agents do not merge into `dev`. They commit their branch, update the Superset task with summary/commits/validation/risk, move it to `In Review`, and stop. Maestro lands it.
+If you are running from `dev`:
 
-If review asks for changes, move the same task back to `In Progress` and keep working on the same branch. After a task is `Done`, create a follow-up task for new changes unless the merge was reverted.
-
-### If you are the Maestro (running on `dev`)
-
-- Do not edit theme code from `dev`. Spawn a worktree for it.
+- Do not edit theme code from `dev` for feature work. Spawn a worktree.
 - Create or update a Superset task before spawning a worktree.
-- Put the Superset task ID, branch, workspace, path, agent, and goal in the task description.
-- Track extra notes in `.maestro/active.md` and `.maestro/archive.md` only when useful. These files are gitignored.
-- Agent routing:
-  - **Claude** — UI, frontend, templates, CSS, anything visual or design-y
-  - **Codex** — backend PHP, REST endpoints, architecture, careful programming
-  - **OpenCode (DeepSeek)** — mechanical work (comments, search/replace, renames)
-- Merge gate: only land branches in `In Review`, after the user says "land it" or asks to pull worktree changes.
-- Preferred landing command: `npm run maestro:land`. Use `npm run maestro:review` first when you want a dry run.
-- Land with a merge commit from the `dev` checkout, then push `origin/dev` from this checkout only.
-- After landing, sync `dev` back into every active worktree. Skip dirty worktrees and report them.
-- Mark the task `Done` only after the merge, push, and sync are complete.
-- When the user says "land reviewed work", find AMT Maestro tasks in `In Review`, inspect each branch, summarize what will land, merge approved work, push `origin/dev`, sync worktrees, and mark landed tasks `Done`.
-- If worktrees exist without matching Superset tasks, run `npm run maestro:sync-tasks` to create missing cards from the actual branch/worktree state.
+- Merge gate: only land branches in `Reviewing`, after the user asks to land or
+  pull worktree changes.
+- Land with a merge commit from the `dev` checkout, then push `origin/dev` from
+  this checkout only.
+- After landing, sync `dev` back into every active worktree. Skip dirty
+  worktrees and report them.
+- Shogun moves landed tasks to `Verifying`; user approval moves them to `Done`.
 
-### If you are a spawned worktree agent
+If you are a spawned worktree agent:
 
-You're running under `~/.superset/worktrees/<name>/`. You are NOT the Maestro.
-
-- A normal coding request is enough. If the user says "fix the card font size", do the task workflow automatically; do not ask them to create a task by hand.
+- You're running under `~/.superset/worktrees/<name>/`.
+- A normal coding request is enough. Create or find the Superset task yourself.
 - Do your assigned work on your branch. Commit frequently with clear messages.
-- Never merge into `dev` or `master`. Never push `origin/dev` or `origin/master`. Pushing your own feature branch is fine.
-- Do not touch `.maestro/` — that is the orchestrator's scratch space.
-- On first code task in a worktree, create or find the Superset task yourself. Use the current branch slug and a short goal from the user's prompt.
-- Keep the Superset task current when possible. If the CLI is unavailable, put the task-ready details in your final response.
-- Before editing code, move the task to `In Progress`.
-- When your task is done, commit the work, update the task with summary, commits, validation, and risk, move it to `In Review`, and stop. The Maestro decides when to merge.
+- Never merge into `dev` or `master`. Never push `origin/dev` or
+  `origin/master`. Pushing your own feature branch is fine.
+- Keep the Superset task current when possible. If the CLI is unavailable, put
+  the task-ready details in your final response.
+- Before editing code, move the task to `Processing`.
+- When your task is done, validate with `npm run build`, update the task with
+  summary/commits/validation/risk, move it to `Reviewing`, and stop.
 - If you hit a blocker or ambiguity, stop and surface it rather than guessing.
-
-Spawned worktree task bootstrap:
-
-```bash
-branch="$(git branch --show-current)"
-slug="${branch##*/}"
-labels="amt-ntm,branch:${slug},type:<ui|copy|search|navigation|template|backend|bugfix>,agent:<codex|claude|opencode>"
-superset tasks statuses list
-superset tasks create --title "[AMT Maestro] ${slug}: <goal>" --description "Branch: ${branch}
-Workspace:
-Path: $(pwd)
-Agent: <Claude|Codex|OpenCode>
-Goal: <goal>
-Status: In Progress
-Summary:
-Commits:
-Validation:
-Risk:" --priority medium --status-id <in-progress-status-id> --labels "$labels"
-```
-
-Before stopping:
-
-```bash
-superset tasks update <task-id-or-slug> --description "<completed template>" --status-id <in-review-status-id> --labels "$labels"
-```
 
 ## Shared Skills
 
@@ -356,34 +320,3 @@ SVG icons live in `app/assets/icons/`. Use the `icon()` helper in templates:
 - The Vite dev server URL is auto-detected.
 - When `npm run dev` runs, Vite writes the URL to `app/.vite-dev-server`.
 - PHP reads `app/.vite-dev-server` to load dev assets from Docker/DevKinsta or localhost.
-
-## Shogun Workflow
-
-Use `.shogun/README.md` as the local workflow guide for Superset worktrees.
-Superset tasks are the source of truth; `.shogun/active.md` and
-`.shogun/archive.md` are local notes only.
-If your agent supports skills, load the Shogun skill from `.agents/skills`,
-`.claude/skills`, or `.opencode/skills` before taking Shogun work.
-Read `docs/architecture/map.json` and `docs/architecture/flows.json` before
-unfamiliar feature work. If files, routes, entrypoints, tests, commands,
-boundaries, or documented flows change, run `shogun map` and verify with
-`shogun map --check`.
-For plain feature requests, create the parent Superset task first with
-`shogun task create` unless the user already gave you a task ID or URL. Then
-inspect the code, add 3-6 dependency-ordered graph nodes with
-`shogun graph add ... --parent <superset-task-id>`, and claim the first ready
-node. Do not make the user paste a giant orchestration prompt.
-If Shogun mode is `mainline`, queue completed branches with `shogun queue add`
-and let `shogun queue run` land through validation/CI. Do not manually merge.
-
-Agents working in spawned worktrees must commit, validate with
-`npm run build`, update the Superset task summary, move the task to
-`Reviewing`, and stop. Do not merge into `dev`; Shogun lands reviewed
-work from the base checkout.
-
-Use this task flow: `Staged -> Processing -> Reviewing -> Verifying -> Done`.
-`Verifying` is a real Superset status (synced from the team's Linear issue
-statuses): Shogun moves a task there after landing the branch into
-`dev`, and `approve` is the only command that marks it `Done`. If
-review fails, move the task back to `Processing`; after `Done`, create a
-follow-up task.
