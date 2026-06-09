@@ -39,7 +39,14 @@ if (empty($machines) || empty($rows)) {
              machine name), so an eyebrow + divider + title stack on top
              reads as a redundant masthead. One title, one mono kicker
              at the right edge, no divider line. -->
-        <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+        <?php
+        // Tighter gap when there's no subtitle (the bare title+table reads as
+        // a cramped pair, per Evita); a supplied subtitle fills the space
+        // instead and keeps the looser rhythm. Only the machii caller passes
+        // one today — the other 4 tables stay as the lighter masthead.
+        $has_subtitle = !empty($content['subtitle']);
+        ?>
+        <div class="flex flex-wrap items-end justify-between gap-4 <?php echo $has_subtitle ? 'mb-4' : 'mb-6'; ?>">
             <h2 id="<?php echo esc_attr($section_id); ?>" class="section-title m-0">
                 <?php echo esc_html($content['title']); ?>
             </h2>
@@ -49,6 +56,9 @@ if (empty($machines) || empty($rows)) {
                 </p>
             <?php endif; ?>
         </div>
+        <?php if ($has_subtitle) : ?>
+            <p class="section-subtitle max-w-2xl -mt-4 mb-8"><?php echo esc_html($content['subtitle']); ?></p>
+        <?php endif; ?>
         <div class="overflow-x-auto md:overflow-visible">
             <table class="w-full text-sm border-collapse border border-blue-200 md:table-fixed" aria-labelledby="<?php echo esc_attr($section_id); ?>">
                 <caption class="sr-only"><?php echo esc_html($content['title']); ?></caption>

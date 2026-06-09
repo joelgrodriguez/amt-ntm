@@ -37,6 +37,10 @@ get_template_part('templates/parts/comparison-table', null, [
     'content'    => [
         'eyebrow' => '',
         'title'   => __('Three machines, side by side.', 'standard'),
+        // TODO(copy): confirm wording — Evita flagged the bare title+table as
+        // looking incomplete; this fills the gap. Remove to fall back to the
+        // tighter title-only spacing.
+        'subtitle' => __('Same MACH II build, three K-style widths. Match the profile and speed to the work your crew runs most.', 'standard'),
     ],
     'machines'   => $machines,
     'rows'       => [

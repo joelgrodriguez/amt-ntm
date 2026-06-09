@@ -57,6 +57,10 @@ $title_id    = 'accessories-title';
                 <h2 id="<?php echo esc_attr($title_id); ?>" class="section-title">
                     <?php esc_html_e('Complete Your Setup', 'standard'); ?>
                 </h2>
+                <?php /* TODO(copy): confirm wording with team — Evita asked for an explainer under this headline. */ ?>
+                <p class="section-subtitle max-w-xl">
+                    <?php esc_html_e('The carts, covers, and add-ons built to run with this machine. Add what your crew needs to work faster on site.', 'standard'); ?>
+                </p>
             </div>
             <div class="flex gap-2 shrink-0">
                 <button type="button"

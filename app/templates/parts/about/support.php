@@ -23,7 +23,9 @@ if (!defined('ABSPATH')) {
 $content = [
     'eyebrow' => __('After the sale', 'standard'),
     'title'   => __('You\'re buying the support, the parts, and the people. The machine is just where it starts.', 'standard'),
-    'lede'    => __('Two manufacturing facilities, in-house parts inventory, factory-direct training, financing partners, and a service team that travels. NTM is backed by Mazzella Companies, which means the capital is there to keep investing.', 'standard'),
+    // TODO(copy): NTM split off from Mazzella — dropped the "backed by
+    // Mazzella" capital claim; confirm replacement wording with the team.
+    'lede'    => __('Two manufacturing facilities, in-house parts inventory, factory-direct training, financing partners, and a service team that travels. The investment in support is part of how NTM is built to keep going.', 'standard'),
 ];
 
 $facilities = [

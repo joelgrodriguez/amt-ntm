@@ -56,6 +56,10 @@ $title_id    = 'profiles-title';
                 <h2 id="<?php echo esc_attr($title_id); ?>" class="section-title">
                     <?php esc_html_e('Your Panels, Your Way', 'standard'); ?>
                 </h2>
+                <?php /* TODO(copy): confirm wording with team — Evita asked for an explainer under this headline. */ ?>
+                <p class="section-subtitle max-w-xl">
+                    <?php esc_html_e('Every profile this machine forms, in the gauges and widths your jobs call for. Swipe through to see the full range.', 'standard'); ?>
+                </p>
             </div>
             <div class="flex gap-2 shrink-0">
                 <button type="button"
