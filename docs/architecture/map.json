@@ -120,19 +120,19 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 54,
+      "fileCount": 58,
       "categories": {
-        "docs": 54
+        "docs": 58
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
+        "docs/feedback/2026-06-02-annotated-screenshots-review.md",
         "docs/feedback/2026-06-03-navigation-search-review.md",
         "docs/feedback/2026-06-05-service-financing-review.md",
         "docs/feedback/2026-06-08-machine-pages-review.md",
+        "docs/feedback/e_sola/NTM Site New Nav & Info Arch Working Session.docx",
         "docs/feedback/README.md",
-        "docs/handoff/01-context.md",
-        "docs/handoff/02-the-change.md",
-        "docs/handoff/03-mega-menu-spec.md"
+        "docs/feedback/roadmap.md"
       ]
     },
     {
@@ -2726,6 +2726,12 @@
       "size": 3400
     },
     {
+      "path": "docs/feedback/2026-06-02-annotated-screenshots-review.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 17290
+    },
+    {
       "path": "docs/feedback/2026-06-03-navigation-search-review.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
@@ -2744,10 +2750,22 @@
       "size": 13376
     },
     {
+      "path": "docs/feedback/e_sola/NTM Site New Nav & Info Arch Working Session.docx",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 4694612
+    },
+    {
       "path": "docs/feedback/README.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 1659
+      "size": 2348
+    },
+    {
+      "path": "docs/feedback/roadmap.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 6878
     },
     {
       "path": "docs/handoff/01-context.md",
@@ -2960,6 +2978,12 @@
       "size": 16792
     },
     {
+      "path": "docs/plans/2026-06-09-e-sola-feedback-design.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 17982
+    },
+    {
       "path": "docs/presentations/navigation-flow/choose-machine.html",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
@@ -3153,10 +3177,13 @@
     "CLAUDE.md",
     "DESIGN.md",
     "docs/architecture-boundaries.md",
+    "docs/feedback/2026-06-02-annotated-screenshots-review.md",
     "docs/feedback/2026-06-03-navigation-search-review.md",
     "docs/feedback/2026-06-05-service-financing-review.md",
     "docs/feedback/2026-06-08-machine-pages-review.md",
+    "docs/feedback/e_sola/NTM Site New Nav & Info Arch Working Session.docx",
     "docs/feedback/README.md",
+    "docs/feedback/roadmap.md",
     "docs/handoff/01-context.md",
     "docs/handoff/02-the-change.md",
     "docs/handoff/03-mega-menu-spec.md",
@@ -3192,6 +3219,7 @@
     "docs/plans/2026-05-26-navigation-simplification-plan.md",
     "docs/plans/2026-05-27-buyer-journey-navigation-flow.md",
     "docs/plans/2026-06-01-engineered-motion-system.md",
+    "docs/plans/2026-06-09-e-sola-feedback-design.md",
     "docs/presentations/navigation-flow/choose-machine.html",
     "docs/presentations/navigation-flow/content-gap.html",
     "docs/presentations/navigation-flow/decisions.html",
