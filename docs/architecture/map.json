@@ -120,19 +120,19 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 53,
+      "fileCount": 54,
       "categories": {
-        "docs": 53
+        "docs": 54
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
         "docs/feedback/2026-06-03-navigation-search-review.md",
         "docs/feedback/2026-06-05-service-financing-review.md",
+        "docs/feedback/2026-06-08-machine-pages-review.md",
         "docs/feedback/README.md",
         "docs/handoff/01-context.md",
         "docs/handoff/02-the-change.md",
-        "docs/handoff/03-mega-menu-spec.md",
-        "docs/handoff/04-pages-to-build.md"
+        "docs/handoff/03-mega-menu-spec.md"
       ]
     },
     {
@@ -2738,10 +2738,16 @@
       "size": 13304
     },
     {
+      "path": "docs/feedback/2026-06-08-machine-pages-review.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 13376
+    },
+    {
       "path": "docs/feedback/README.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 1329
+      "size": 1659
     },
     {
       "path": "docs/handoff/01-context.md",
@@ -3149,6 +3155,7 @@
     "docs/architecture-boundaries.md",
     "docs/feedback/2026-06-03-navigation-search-review.md",
     "docs/feedback/2026-06-05-service-financing-review.md",
+    "docs/feedback/2026-06-08-machine-pages-review.md",
     "docs/feedback/README.md",
     "docs/handoff/01-context.md",
     "docs/handoff/02-the-change.md",
