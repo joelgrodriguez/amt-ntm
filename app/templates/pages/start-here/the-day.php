@@ -44,8 +44,8 @@ $steps = [
         'label' => __('Install &amp; bill', 'standard'),
         'title' => __('Install it and get paid', 'standard'),
         'text'  => __('You install the panels or gutters you just made and bill for the finished work. The margin that used to go to a panel supplier stays in your pocket on every job.', 'standard'),
-        'image' => content_url('/uploads/2023/04/Gutter-installation.jpg'),
-        'alt'   => __('A contractor installing a seamless gutter along a metal roof edge', 'standard'),
+        'image' => content_url('/uploads/2026/05/ntm-mach2-gutter-install-abel-003.jpg'),
+        'alt'   => __('Three installers on ladders hanging seamless gutter on a residential roof', 'standard'),
     ],
 ];
 ?>
