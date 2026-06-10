@@ -23,7 +23,8 @@ get_template_part('templates/parts/hero-category', null, [
         'subtitle'          => __('Portable rollformers that produce standing seam, flush wall, and board & batten panels right on the jobsite.', 'standard'),
         'cta_primary'       => __('See the Machines', 'standard'),
         'cta_primary_url'   => '#product-grid',
-        'video'             => 'https://fast.wistia.net/embed/iframe/7wwvl1pwh8?seo=false&videoFoam=true',
+        // video removed — Adam Copel scoped Q2 off the machines promotion flow.
+        // Poster renders as a static image only; no play icon, no Wistia embed.
         'poster'            => content_url('/uploads/2026/05/ntm-customer-onsite-001.jpg'),
         'poster_alt'        => __('NTM customer running a roof panel machine on-site', 'standard'),
     ],
