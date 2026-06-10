@@ -32,8 +32,11 @@ get_template_part('templates/parts/hero-category', null, [
         'cta_primary_icon'      => 'arrow-down',
         // No video — the right panel is a static rooftop image (no poster/video
         // keys means hero-category renders the image straight, no play facade).
-        'poster'                => content_url('/uploads/2025/09/Machine-on-rooftop.jpg'),
-        'poster_alt'            => __('NTM portable rollformer running standing-seam panels on a rooftop', 'standard'),
+        // TODO(asset): Machine-on-rooftop.jpg has licensing/rights issues — replace with
+        // an approved alternative. Alex to confirm the correct image or provide new asset.
+        // Using ntm-ssq3-overhead-drone-001.jpg as interim (no rights issues).
+        'poster'                => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-ssq3-overhead-drone-001.jpg',
+        'poster_alt'            => __('NTM SSQ3 portable roof panel machine from above', 'standard'),
     ],
     'meta' => [
         ['label' => __('Apply', 'standard'), 'value' => __('Online', 'standard')],
