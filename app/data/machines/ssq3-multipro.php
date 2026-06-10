@@ -17,6 +17,8 @@ return [
     'hero' => [
         'headline'   => __('16 Panel Profiles.<br class="hidden lg:inline"> One Machine.', 'standard'),
         'subtitle'   => __('The most advanced portable roof and wall panel machine we\'ve ever built. Smarter, safer, and more efficient than ever.', 'standard'),
+        // TODO(asset): Alex to deliver Q3 on trailer with Unique screen visible (Monday pre-demo).
+        // Drop file into uploads and update hero_image path below.
         'hero_image' => content_url('/uploads/2026/05/ntm-q3-hero-placeholder.png'),
         'image'      => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-ssq3-manual-controller-050.jpg',
         'video'      => null,
