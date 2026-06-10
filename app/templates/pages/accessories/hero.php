@@ -32,5 +32,6 @@ get_template_part('templates/parts/hero-category', null, [
         // TODO(asset): Machine-on-rooftop-scaled.jpg has licensing/rights issues — replace
         // with an approved alternative. Alex to confirm or provide new asset.
         'poster'            => content_url('/uploads/2026/05/ntm-customer-onsite-001.jpg'),
+        'poster_alt'        => __('NTM operator running a portable rollformer on a rooftop job site', 'standard'),
     ],
 ]);
