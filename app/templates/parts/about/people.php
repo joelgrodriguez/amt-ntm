@@ -48,6 +48,8 @@ $people = [
         'caption' => __('Field repairs, refurbishments, on-site training. Same uniform, same answers.', 'standard'),
     ],
     [
+        // TODO(asset): Alex to deliver photo of the customer service rep (front desk).
+        // Drop file into uploads and update 'image' path on this card.
         'image'   => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-customer-service-002.jpg',
         'alt'     => __('NTM customer service representative on a headset call with a contractor.', 'standard'),
         'role'    => __('Customer service', 'standard'),
