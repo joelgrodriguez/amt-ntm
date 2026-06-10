@@ -80,10 +80,8 @@ if ($has_video && is_wistia_url($video)) {
             <?php endif; ?>
 
             <?php if ($has_video) : ?>
-                <div class="border border-blue-700 bg-black p-2">
-                    <div class="video-responsive">
-                        <?php echo $embed_html; ?>
-                    </div>
+                <div class="video-responsive">
+                    <?php echo $embed_html; ?>
                 </div>
             <?php endif; ?>
         </div>
