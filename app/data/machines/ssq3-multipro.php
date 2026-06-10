@@ -47,6 +47,8 @@ return [
                 __('Hydraulically powered shear with hardened tool steel blades', 'standard'),
                 __('Panel recognition safety system', 'standard'),
             ],
+            // TODO(asset): Alex to deliver Q3 forming system image (trailer + Unique screen preferred).
+            // Same Q3 batch as the hero. Drop file into uploads and update this path.
             'image'    => content_url('/uploads/2026/05/ntm-ssq3-manual-controller-121.jpg'),
         ],
         [
@@ -118,6 +120,9 @@ return [
     'case_study' => [
         'image_position' => 'right',
         'background'     => 'bg-blue-50',
+        // TODO(content): Alex to provide Q3 customer quote from Laramie, WY trip (transcript or video shorts).
+        // When the quote arrives: update 'quote', 'name', 'company', and 'cta_url' below.
+        // TODO(asset): Q3 customer photo to pair with the new quote (from the same trip).
         'content' => [
             'eyebrow'  => __('Customer Story', 'standard'),
             'quote'    => __('All you gotta do is come run one more panel out. You\'re not bound to what\'s in a crate. If you\'re the roofing contractor, you completely control your own destiny.', 'standard'),

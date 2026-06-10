@@ -27,6 +27,8 @@ $content = [
     'title'        => __('UNIQ® Automatic<br class="hidden lg:inline"> Control System', 'standard'),
     'subtitle'     => __("NTM's most advanced programmable controller, designed to improve automation, safety, and the operator experience.", 'standard'),
     'availability' => __('Standard on WAV · Optional on SSQ II & SSQ3', 'standard'),
+    // TODO(asset): Unique Controller section — current image is a wave machine; must be 16×19 ratio.
+    // Alex to deliver replacement when available.
     'image'        => content_url('/uploads/2023/09/WAV-with-UNIQ-Controller-scaled.jpg'),
     'cta_text'     => __('Learn More', 'standard'),
     'cta_url'      => '/machines/uniq-control-system/',
