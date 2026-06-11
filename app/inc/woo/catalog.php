@@ -38,6 +38,10 @@ function get_product_categories(): array {
             'label' => \__('Seamless Gutter Machines', 'standard'),
             'short' => \__('Gutters', 'standard'),
         ],
+        'profiles' => [
+            'label' => \__('Profiles & Tooling Sets', 'standard'),
+            'short' => \__('Profiles', 'standard'),
+        ],
         'accessories-add-on-equipment' => [
             'label' => \__('Accessories & Upgrades', 'standard'),
             'short' => \__('Accessories', 'standard'),
@@ -169,6 +173,23 @@ function get_primary_category_label(\WC_Product $product): string {
     $term = \get_term((int) $ids[0], 'product_cat');
 
     return $term instanceof \WP_Term ? $term->name : '';
+}
+
+/**
+ * Get published profile posts for the Explore section.
+ *
+ * @return \WP_Post[]
+ */
+function get_profiles_for_explore(): array {
+    $posts = \get_posts([
+        'post_type'      => 'profile',
+        'post_status'    => 'publish',
+        'posts_per_page' => 12,
+        'orderby'        => 'menu_order title',
+        'order'          => 'ASC',
+    ]);
+
+    return is_array($posts) ? $posts : [];
 }
 
 /**
