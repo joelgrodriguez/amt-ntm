@@ -47,7 +47,7 @@ if (!$lineup) {
 }
 
 $product_url  = \Standard\Url\internal($lineup['url']);
-$image_url    = $detail['hero']['image'] ?? $lineup['image'] ?? '';
+$image_url    = $detail['hero']['hero_image'] ?? $detail['hero']['image'] ?? $lineup['image'] ?? '';
 $slogan       = $detail['slogan'] ?? '';
 $stats        = $detail['stats'] ?? [];
 $name         = $lineup['name'] ?? 'SSQ3 MultiPro';

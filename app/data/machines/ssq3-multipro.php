@@ -17,7 +17,7 @@ return [
     'hero' => [
         'headline'   => __('16 Panel Profiles.<br class="hidden lg:inline"> One Machine.', 'standard'),
         'subtitle'   => __('The most advanced portable roof and wall panel machine we\'ve ever built. Smarter, safer, and more efficient than ever.', 'standard'),
-        'hero_image' => content_url('/uploads/2026/05/ntm-q3-hero-placeholder.png'),
+        'hero_image' => content_url('/uploads/2026/06/ntm-ssq3-on-trailer-001-1.png'),
         'image'      => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-ssq3-manual-controller-050.jpg',
         'video'      => null,
     ],
@@ -45,7 +45,7 @@ return [
                 __('Hydraulically powered shear with hardened tool steel blades', 'standard'),
                 __('Panel recognition safety system', 'standard'),
             ],
-            'image'    => content_url('/uploads/2026/05/ntm-ssq3-manual-controller-121.jpg'),
+            'image'    => content_url('/uploads/2026/06/ntm-ssq3-on-trailer-001-1.png'),
         ],
         [
             'id'       => 'frame',
@@ -116,6 +116,9 @@ return [
     'case_study' => [
         'image_position' => 'right',
         'background'     => 'bg-blue-50',
+        // TODO(content): Alex to provide Q3 customer quote from Laramie, WY trip (transcript or video shorts).
+        // When the quote arrives: update 'quote', 'name', 'company', and 'cta_url' below.
+        // TODO(asset): Q3 customer photo to pair with the new quote (from the same trip).
         'content' => [
             'eyebrow'  => __('Customer Story', 'standard'),
             'quote'    => __('All you gotta do is come run one more panel out. You\'re not bound to what\'s in a crate. If you\'re the roofing contractor, you completely control your own destiny.', 'standard'),

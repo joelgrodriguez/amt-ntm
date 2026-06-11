@@ -105,8 +105,10 @@ get_header();
             'video'            => 'https://fast.wistia.net/embed/iframe/jxmgaicen7?videoFoam=true',
             // Click-to-play poster (the facade thumbnail), same mechanism as
             // /machines. Service-department photo: the right fit for a support hub.
+            // TODO(asset): Alex to deliver "Top 5 Questions" video thumbnail (Monday pre-demo).
+            // Drop file into uploads and update poster path below.
             'poster'           => content_url('/uploads/2022/04/service-department-working-on-SSQ-II.jpg'),
-            'poster_alt'       => __('NTM service team working on an SSQ machine', 'standard'),
+            'poster_alt'       => __('Top 5 questions about portable rollforming machines — NTM Service Hub', 'standard'),
         ],
     ]);
     ?>

@@ -33,6 +33,7 @@ $steps = [
         'label'   => __('Roll', 'standard'),
         'title'   => __('Polyurethane drive, stainless forming.', 'standard'),
         'text'    => __('Polyurethane drive rollers (NTM\'s 1994 invention, now industry standard) feed coil through stainless forming rollers at up to 50 feet per minute. Forward-pulling easy-cut shear handles the finish cut.', 'standard'),
+        // TODO(asset): Alex to shoot Mach 2 drive roller close-ups or pull from existing footage.
         'image'   => content_url('/uploads/2022/01/clean-drive-rollers.jpg'),
         'alt'     => __('Clean polyurethane drive rollers inside an NTM MACH II gutter machine', 'standard'),
     ],

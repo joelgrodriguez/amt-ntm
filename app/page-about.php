@@ -27,8 +27,6 @@ get_header();
 
 <main id="primary">
 
-    <?php get_template_part('templates/parts/about/manifesto'); ?>
-
     <?php get_template_part('templates/parts/video-section', null, [
         'title'      => __('Who Is NTM?', 'standard'),
         'channel'    => __('Portable Rollforming Channel', 'standard'),
@@ -37,6 +35,8 @@ get_header();
     ]); ?>
 
     <div class="bg-white border-b border-blue-800" aria-hidden="true"></div>
+
+    <?php get_template_part('templates/parts/about/manifesto'); ?>
 
     <?php get_template_part('templates/parts/about/capabilities'); ?>
 

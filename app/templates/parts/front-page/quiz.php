@@ -28,8 +28,10 @@ $content = [
     'body'      => __('Take this 10-question quiz and find out which NTM roof panel machine is best suited for your metal roofing projects: the SSR™ MultiPro Jr., SSH™ MultiPro, or SSQ II™ MultiPro. See how the right machine can improve your manufacturing.', 'standard'),
     'cta'       => __('Take the 10-Question Quiz', 'standard'),
     'cta_url'   => '/roof-panel-machine-assessment-quiz/',
+    // TODO(asset): Alex to deliver "machine on a trailer" image (Monday pre-demo).
+    // Drop file into uploads and update this path.
     'image'     => content_url('/uploads/2026/04/training-3-scaled.jpg'),
-    'image_alt' => __('NTM training session with a roof panel machine in operation', 'standard'),
+    'image_alt' => __('NTM portable roof panel machine loaded on a trailer, job-site ready', 'standard'),
 ];
 ?>
 
