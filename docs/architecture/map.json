@@ -120,9 +120,9 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 58,
+      "fileCount": 60,
       "categories": {
-        "docs": 58
+        "docs": 60
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
@@ -130,9 +130,9 @@
         "docs/feedback/2026-06-03-navigation-search-review.md",
         "docs/feedback/2026-06-05-service-financing-review.md",
         "docs/feedback/2026-06-08-machine-pages-review.md",
-        "docs/feedback/e_sola/NTM Site New Nav & Info Arch Working Session.docx",
-        "docs/feedback/README.md",
-        "docs/feedback/roadmap.md"
+        "docs/feedback/2026-06-09-web-images-review-alex-actions.html",
+        "docs/feedback/2026-06-09-web-images-review.md",
+        "docs/feedback/e_sola/NTM Site New Nav & Info Arch Working Session.docx"
       ]
     },
     {
@@ -473,7 +473,7 @@
       "path": "app/data/machines/ssq3-multipro.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 15405
+      "size": 15696
     },
     {
       "path": "app/data/machines/ssr-multipro-jr.php",
@@ -1475,7 +1475,7 @@
       "path": "app/templates/pages/accessories/hero.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 1145
+      "size": 1431
     },
     {
       "path": "app/templates/pages/choose/data.php",
@@ -1547,7 +1547,7 @@
       "path": "app/templates/pages/finance-center/hero.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 1984
+      "size": 2265
     },
     {
       "path": "app/templates/pages/finance-center/lenders.php",
@@ -1697,7 +1697,7 @@
       "path": "app/templates/pages/machii/workflow.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 4413
+      "size": 4512
     },
     {
       "path": "app/templates/pages/machines/brand-statement.php",
@@ -1739,7 +1739,7 @@
       "path": "app/templates/pages/machines/hero.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 1497
+      "size": 1697
     },
     {
       "path": "app/templates/pages/machines/image-break.php",
@@ -1781,7 +1781,7 @@
       "path": "app/templates/pages/machines/uniq-spotlight.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 3887
+      "size": 4043
     },
     {
       "path": "app/templates/pages/machines/which-machine.php",
@@ -1883,7 +1883,7 @@
       "path": "app/templates/pages/roof-wall/featured.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 4448
+      "size": 4481
     },
     {
       "path": "app/templates/pages/roof-wall/final-cta.php",
@@ -1895,7 +1895,7 @@
       "path": "app/templates/pages/roof-wall/hero.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 1396
+      "size": 1453
     },
     {
       "path": "app/templates/pages/roof-wall/learning-center.php",
@@ -1955,7 +1955,7 @@
       "path": "app/templates/pages/start-here/the-day.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 4708
+      "size": 4730
     },
     {
       "path": "app/templates/pages/start-here/which-path.php",
@@ -2057,7 +2057,7 @@
       "path": "app/templates/parts/about/people.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4438
+      "size": 4598
     },
     {
       "path": "app/templates/parts/about/support.php",
@@ -2237,7 +2237,7 @@
       "path": "app/templates/parts/front-page/flagships.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 10370
+      "size": 10397
     },
     {
       "path": "app/templates/parts/front-page/hero-slide.php",
@@ -2255,7 +2255,7 @@
       "path": "app/templates/parts/front-page/quiz.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 2712
+      "size": 2856
     },
     {
       "path": "app/templates/parts/front-page/router.php",
@@ -2339,7 +2339,7 @@
       "path": "app/templates/parts/page-video-hero.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3593
+      "size": 3492
     },
     {
       "path": "app/templates/parts/post-hero.php",
@@ -2501,7 +2501,7 @@
       "path": "app/templates/template-service-hub.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 28750
+      "size": 28944
     },
     {
       "path": "app/templates/woo/product/parts/accessories.php",
@@ -2748,6 +2748,18 @@
       "category": "docs",
       "role": "Project documentation for humans and agents.",
       "size": 13376
+    },
+    {
+      "path": "docs/feedback/2026-06-09-web-images-review-alex-actions.html",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 4987
+    },
+    {
+      "path": "docs/feedback/2026-06-09-web-images-review.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 12908
     },
     {
       "path": "docs/feedback/e_sola/NTM Site New Nav & Info Arch Working Session.docx",
@@ -3169,6 +3181,8 @@
     "docs/feedback/2026-06-03-navigation-search-review.md",
     "docs/feedback/2026-06-05-service-financing-review.md",
     "docs/feedback/2026-06-08-machine-pages-review.md",
+    "docs/feedback/2026-06-09-web-images-review-alex-actions.html",
+    "docs/feedback/2026-06-09-web-images-review.md",
     "docs/feedback/e_sola/NTM Site New Nav & Info Arch Working Session.docx",
     "docs/feedback/README.md",
     "docs/feedback/roadmap.md",
