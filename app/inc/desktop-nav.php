@@ -145,10 +145,10 @@ function get_desktop_nav(): array {
             [
                 'kind'          => 'mega',
                 'id'            => 'get-started',
-                'label'         => __('New to Roll Forming?', 'standard'),
+                'label'         => __('New to Rollforming?', 'standard'),
                 'type'          => 'flyout-groups',
                 'intro'         => [
-                    'title'           => __('New to Roll Forming?', 'standard'),
+                    'title'           => __('New to Rollforming?', 'standard'),
                     'body'            => __('New to portable rollforming? Learn what NTM does, decide if it fits your business, and pick a direction.', 'standard'),
                     'secondary_label' => __('First-time buyer playlist', 'standard'),
                     'secondary_url'   => \Standard\Url\internal('/first-time-buyer-playlist/'),
@@ -162,7 +162,7 @@ function get_desktop_nav(): array {
                                 'url'   => \Standard\Url\internal('/learning-center/portable-rollforming-machine-equipment-types-uses/'),
                             ],
                             [
-                                'label' => __('What is portable roll forming?', 'standard'),
+                                'label' => __('What is portable rollforming?', 'standard'),
                                 'url'   => \Standard\Url\internal('/learning-center/what-is-a-standing-seam-machine/'),
                             ],
                             [
