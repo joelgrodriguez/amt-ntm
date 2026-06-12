@@ -42,7 +42,7 @@
      background. Hairline divider between image and content sits on the image
      side. */
   .card-product__image-wrapper {
-    @apply relative bg-blue-50 overflow-hidden;
+    @apply relative bg-white overflow-hidden;
     @apply border-b border-blue-200;
     aspect-ratio: 16 / 9;
   }
@@ -51,6 +51,7 @@
     @apply absolute inset-0 w-full h-full object-contain p-6;
     @apply transition-transform duration-300;
     @apply motion-reduce:transition-none;
+    mix-blend-mode: multiply;
   }
 
   .card-product:hover .card-product__image {
