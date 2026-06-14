@@ -1,6 +1,6 @@
 # 07 — Verification
 
-Before moving a Superset task to **In Review**, prove the work is correct. Don't hand back work you haven't verified.
+Before running `shogun task review <n>`, prove the work is correct. Don't hand back work you haven't verified.
 
 ## Phase 1 — Mega menu rebuild
 
@@ -92,7 +92,7 @@ Each one needs:
 
 ## Branch & commit hygiene
 
-Before moving the task to **In Review**:
+Before moving the task to `Reviewing`:
 
 ```bash
 git status                    # clean working tree, all changes committed
@@ -108,15 +108,9 @@ Co-Authored-By: Mastra Code (anthropic/claude-opus-4-7) <noreply@mastra.ai>
 
 (Or your equivalent agent footer.)
 
-## What the Superset task description should look like when handed back
+## What the Shogun issue/PR handoff should include when handed back
 
 ```
-Branch: feat/nav-ia
-Workspace: <your worktree>
-Path: <absolute path>
-Agent: Claude (or whichever)
-Goal: Rebuild mega menu IA: 4 action labels, 2-lane flyouts
-Status: In Review
 Summary:
   - Replaced get_desktop_nav() items with 4 action-driven labels
   - Added new mega-menu type 'flyout-groups' rendering in mega-menu.php

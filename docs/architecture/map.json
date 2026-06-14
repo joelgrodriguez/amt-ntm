@@ -473,7 +473,7 @@
       "path": "app/data/machines/ssq3-multipro.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 15696
+      "size": 15695
     },
     {
       "path": "app/data/machines/ssr-multipro-jr.php",
@@ -545,7 +545,7 @@
       "path": "app/inc/desktop-nav.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 22501
+      "size": 22498
     },
     {
       "path": "app/inc/filters.php",
@@ -755,7 +755,7 @@
       "path": "app/inc/woo/catalog.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 12390
+      "size": 12952
     },
     {
       "path": "app/inc/woo/machine-template.php",
@@ -1211,7 +1211,7 @@
       "path": "app/resources/css/woo/product-card.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 4828
+      "size": 4856
     },
     {
       "path": "app/resources/css/woo/resources-ledger.css",
@@ -2051,7 +2051,7 @@
       "path": "app/templates/parts/about/origin.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 6598
+      "size": 6651
     },
     {
       "path": "app/templates/parts/about/people.php",
@@ -2225,7 +2225,7 @@
       "path": "app/templates/parts/front-page/explore-machines.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 6982
+      "size": 7738
     },
     {
       "path": "app/templates/parts/front-page/final-cta.php",
@@ -2699,7 +2699,7 @@
       "path": "CLAUDE.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 16281
+      "size": 13663
     },
     {
       "path": "db/imports/ntmservice-service-articles.json",
@@ -2819,7 +2819,7 @@
       "path": "docs/handoff/07-verification.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 6863
+      "size": 6674
     },
     {
       "path": "docs/handoff/inventory/cutlist.csv",
@@ -2897,7 +2897,7 @@
       "path": "docs/handoff/README.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 7194
+      "size": 7209
     },
     {
       "path": "docs/image-inventory.md",
@@ -3077,7 +3077,7 @@
       "path": "docs/RECOVERY.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 4283
+      "size": 4252
     },
     {
       "path": "package-lock.json",
