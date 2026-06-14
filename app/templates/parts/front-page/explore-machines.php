@@ -45,11 +45,13 @@ $first_category = array_key_first($categories);
 $landing_urls = [
     'roof-wall-panel-machines'      => '/roof-wall-panel-machines/',
     'gutter-machines'               => '/seamless-gutter-machines/',
+    'profiles'                      => '/profiles/',
     'accessories-add-on-equipment'  => '/machines/upgrades/',
 ];
 $landing_labels = [
     'roof-wall-panel-machines'      => __('View All Panel Machines', 'standard'),
     'gutter-machines'               => __('View All Gutter Machines', 'standard'),
+    'profiles'                      => __('View All Profiles', 'standard'),
     'accessories-add-on-equipment'  => __('View All Accessories', 'standard'),
 ];
 ?>
@@ -79,10 +81,12 @@ $landing_labels = [
         <div class="explore-machines__panels">
             <?php foreach ($categories as $slug => $category) : ?>
                 <?php
-                $products       = get_products_by_category($slug);
+                $is_profiles    = $slug === 'profiles';
+                $profiles       = $is_profiles ? \Standard\Woo\Catalog\get_profiles_for_explore() : [];
+                $products       = $is_profiles ? [] : get_products_by_category($slug);
                 $landing_url    = $landing_urls[$slug] ?? '';
                 $landing_label  = $landing_labels[$slug] ?? __('View All', 'standard');
-                $product_count  = count($products);
+                $product_count  = $is_profiles ? count($profiles) : count($products);
                 ?>
                 <div
                     id="panel-<?php echo esc_attr($slug); ?>"
@@ -116,9 +120,15 @@ $landing_labels = [
                     </div>
 
                     <div class="explore-machines__track flex gap-4 overflow-x-auto md:gap-6">
-                        <?php foreach ($products as $product) : ?>
-                            <?php get_template_part('templates/parts/card-product', null, ['product' => $product]); ?>
-                        <?php endforeach; ?>
+                        <?php if ($is_profiles) : ?>
+                            <?php foreach ($profiles as $profile) : ?>
+                                <?php get_template_part('templates/parts/card-profile', null, ['profile' => $profile, 'context' => 'carousel']); ?>
+                            <?php endforeach; ?>
+                        <?php else : ?>
+                            <?php foreach ($products as $product) : ?>
+                                <?php get_template_part('templates/parts/card-product', null, ['product' => $product]); ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
 
                     <!-- Row anchor (below cards): outline button to the

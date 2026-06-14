@@ -38,11 +38,6 @@ $callouts = [
         'k' => __('Founded',     'standard'),
         'v' => __('Denver, 1991', 'standard'),
     ],
-    [
-        // TODO(copy): confirm post-split ownership label with the team.
-        'k' => __('Ownership',           'standard'),
-        'v' => __('Independent American manufacturer', 'standard'),
-    ],
 ];
 
 $milestones = [
@@ -75,6 +70,12 @@ $milestones = [
         'model' => 'UNIQ',
         'name'  => __('Control System', 'standard'),
         'note'  => __('NTM\'s digital control platform. The current standard across the lineup.', 'standard'),
+    ],
+    [
+        'year'  => '2024',
+        'model' => 'SSQ3 MultiPro',
+        'name'  => __('Roof & Wall Panel Machine', 'standard'),
+        'note'  => __('16 profiles, one machine. The most advanced portable roof panel machine ever built.', 'standard'),
     ],
 ];
 ?>
@@ -115,10 +116,10 @@ $milestones = [
 
         <div class="mb-8 lg:mb-10">
             <p class="font-mono uppercase tracking-wider text-xs text-blue-500">
-                <?php esc_html_e('Five machines that defined the category', 'standard'); ?>
+                <?php esc_html_e('Six machines that defined the category', 'standard'); ?>
             </p>
         </div>
-        <ol class="border-t border-blue-200 grid grid-cols-1 lg:grid-cols-5">
+        <ol class="border-t border-blue-200 grid grid-cols-1 lg:grid-cols-6">
             <?php foreach ($milestones as $i => $m) : ?>
                 <li class="px-0 lg:px-7 py-10 lg:py-12
                     <?php echo $i > 0 ? 'border-t lg:border-t-0 lg:border-l border-blue-200' : ''; ?>">

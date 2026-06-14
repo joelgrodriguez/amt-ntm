@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
 
 return [
     'category' => __('Roof & Wall Panel Machines', 'standard'),
-    'slogan'   => __('The future of portable roll forming.', 'standard'),
+    'slogan'   => __('The future of portable rollforming.', 'standard'),
     'hero' => [
         'headline'   => __('16 Panel Profiles.<br class="hidden lg:inline"> One Machine.', 'standard'),
         'subtitle'   => __('The most advanced portable roof and wall panel machine we\'ve ever built. Smarter, safer, and more efficient than ever.', 'standard'),
