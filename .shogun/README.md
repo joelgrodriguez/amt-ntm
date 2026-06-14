@@ -1,17 +1,30 @@
-# Shogun for Superset
+# Shogun
 
-Shogun coordinates Superset worktrees for `standard-press`. Superset tasks are
-the source of truth; Shogun handles the boring status moves and landing ritual.
+Shogun coordinates agent coding work for `standard-press` on top of GitHub.
+Tasks are GitHub issues; the issue is the truth. The configured GitHub
+Projects board is a view: its Status field tracks each task's stage.
 
 ## Lifecycle
 
-1. Create a Superset task with `shogun task create` (it starts in `Staged`).
-2. Spawn a Superset workspace from `dev`.
-3. Move the task to `Processing` when the agent starts.
-4. The worktree agent commits, validates, updates the task, moves it to `Reviewing`, and stops.
-5. From `dev`, merge the branch and move the task to `Verifying`.
-6. You review the running app from `dev`.
-7. Approve it to `Done`, or send it back to `Processing` for iteration.
+1. `shogun task create "<goal>"` opens a GitHub issue (stage `Staged`).
+   Dependencies go in the issue body's `## Blocked by` section via
+   `--blocked-by 12,14`.
+2. `shogun task ready` lists open, unstarted, unblocked tasks. This is how
+   agents pick work. A task is ready when every issue under its `## Blocked by`
+   heading is closed.
+3. `shogun task start <n>` refuses blocked tasks (`--force` overrides), creates
+   a worktree on branch `<n>-<kebab-title>` from `dev`, and moves
+   the board to `Processing`.
+4. The worktree agent commits, validates with `npm run build`, then
+   runs `shogun task review <n>` -- it opens (or updates) a PR whose body
+   starts with `Fixes #<n>` and moves the board to `Reviewing`.
+5. `shogun task land <n>` merges the PR via `gh pr merge`, closes the issue,
+   moves the board to `Verifying`, and comments `Unblocked: #<n> closed. All
+   blockers clear.` on each issue this one was blocking once its last open
+   blocker clears.
+6. You review the running app from `dev`. `shogun task approve <n>`
+   moves the board to `Done`; `shogun task iterate <n>` reopens the issue and
+   sends it back to `Processing`.
 
 ```text
 Staged -> Processing -> Reviewing -> Verifying -> Done
@@ -20,44 +33,60 @@ Staged -> Processing -> Reviewing -> Verifying -> Done
 ```
 
 Hard rule: spawned worktree agents do not merge into `dev`. Shogun
-lands reviewed work.
+lands reviewed work through the PR.
 
 ## Task Contract
 
-Task titles use `[Shogun] <slug>: <goal>`.
+The issue body uses three sections:
 
-Every task should have:
+```markdown
+## What to build
+
+## Acceptance criteria
+- [ ] ...
+
+## Blocked by
+- #12
+- #14
+```
+
+(or `None - can start immediately`). Only `#n` references under the
+`## Blocked by` heading create dependencies; mentions elsewhere in the body do
+not.
+
+Every task issue carries the labels:
 
 - `shogun`
-- `project:<slug>`
-- `branch:<branch>`
 - `type:<feature|bugfix|ui|copy|backend|refactor|test|docs|chore|research>`
 - `area:<domain>`
 - `agent:<codex|claude|opencode|...>`
 - `risk:<low|medium|high>`
 
-These statuses live in the team's Linear **Issue statuses** and sync into
-Superset, so they are real board columns. `Verifying` is the human-QA gate: a
-task moves there after its branch merges into `dev`, and `approve`
-is the only command that moves it to `Done`.
+The board's Status field must have the options `Staged`, `Processing`,
+`Reviewing`, `Verifying`, `Done`, and `Canceled`. If one is missing, Shogun
+fails and tells you which option to add -- it never tracks stage anywhere else.
+`Verifying` is the human-QA gate: a task moves there when its PR lands, and
+`approve` is the only command that moves it to `Done`.
 
-Run `shogun doctor` after install to verify the
-Staged/Processing/Reviewing/Verifying/Done statuses have synced from Linear.
+Run `shogun doctor` after install to verify gh is authenticated (with the
+`project` scope), the configured repo is reachable, the board exists, and the
+Status field has all six options.
 
 ## Commands
 
 ```bash
-shogun task create "Fix checkout tax rounding" --type bugfix --area checkout --agent codex
+shogun task create "Fix checkout tax rounding" --type bugfix --area checkout --blocked-by 12
+shogun task ready
 shogun task list
-shogun task start <task>
-shogun task review <task> --summary "Committed fix" --validation "npm run build"
-shogun task land <task> --branch shogun/fix-checkout-tax-rounding
-shogun task approve <task>
-shogun task iterate <task> "Tighten the mobile spacing"
+shogun task start <n>
+shogun task review <n> --summary "Committed fix"
+shogun task land <n>
+shogun task approve <n>
+shogun task iterate <n>
+shogun graph        # dependency DAG from the issue bodies
 ```
 
-`land` leaves the Superset task in `Verifying`. `approve` is the only command
-that moves a task from `Verifying` to `Done`.
+Every command accepts `--json`.
 
 ## Plain Feature Requests
 
@@ -73,33 +102,30 @@ Or simply:
 Create a task for <feature>.
 ```
 
-The installed AGENTS.md and Shogun skill tell the agent to create the parent
-Superset task first with `shogun task create`, read the architecture
-knowledgebase, create a small dependency graph with
-`shogun graph add ... --parent <superset-task-id>`, reserve files, and work the
-first ready node. The CLI provides the rails; the agent does the decomposition.
+The installed AGENTS.md and Shogun skill tell the agent to create the issues
+first with `shogun task create` (one issue per small vertical slice, wired
+together with `--blocked-by`), read the architecture knowledgebase, reserve
+files, and work the first task `shogun task ready` returns. The CLI provides
+the rails; the agent does the decomposition.
 
 If the request is only to create a task, the agent should stop after
-`shogun task create` and report the task ID. Graph nodes are for implementation,
-not for replacing the Superset task.
+`shogun task create` and report the issue number.
 
 ## Mainline Mode
 
 Review mode is the default. Mainline mode keeps worktrees as scratchpads, but
-lands tiny queued branches through validation/CI instead of waiting on a PR loop:
+lands tiny queued PRs through validation/CI instead of waiting on a review loop:
 
 ```bash
 shogun mode mainline --ci-command "npm run build"
-shogun queue add <task> --branch shogun/<slug>
+shogun queue add <n> --branch <n>-<slug>
 shogun queue run --max 1
-shogun queue run --max 1 --no-pull   # local-only repos without origin/<base>
-shogun task accept <task>
-shogun task revert <task> --commit <merge-sha>
+shogun task accept <n>
+shogun task revert <n> --commit <merge-sha>
 ```
 
-Do not treat mainline mode as permission to skip reservations, tests, or revert
-discipline. CI is the gate. In mainline mode, do not direct-land with
-`shogun task land --branch`; queue the branch.
+Blocked tasks are refused at `queue add` and skipped at `queue run`. In
+mainline mode, do not direct-land with `shogun task land`; queue the branch.
 
 ## Multi-Agent Coordination
 
@@ -107,13 +133,12 @@ Agents should use the bundled Shogun skill and these commands before editing:
 
 ```bash
 shogun map --check
-shogun graph ready
-shogun graph claim <task> --agent <name>
-shogun reserve add <task> <paths...> --agent <name>
-shogun message send "Blocked on API shape" --to coordinator --task <task>
+shogun task ready
+shogun reserve add <n> <paths...> --agent <name>
+shogun message send "Blocked on API shape" --to coordinator --task <n>
 ```
 
-The architecture map keeps the codebase explainable. `flows.json` documents the
-real product/system paths rendered in `index.html`. The graph controls order.
-Reservations control file collisions. Messages keep handoffs out of stale
-terminal scrollback.
+The architecture map keeps the codebase explainable. The `## Blocked by`
+sections control order. Reservations control file collisions (and post a
+one-line comment on the issue so humans can see what's held). Messages keep
+handoffs out of stale terminal scrollback.
