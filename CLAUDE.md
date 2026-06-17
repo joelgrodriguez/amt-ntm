@@ -313,3 +313,51 @@ SVG icons live in `app/assets/icons/`. Use the `icon()` helper in templates:
 - The Vite dev server URL is auto-detected.
 - When `npm run dev` runs, Vite writes the URL to `app/.vite-dev-server`.
 - PHP reads `app/.vite-dev-server` to load dev assets from Docker/DevKinsta or localhost.
+
+## Shogun Workflow
+
+Use `.shogun/README.md` as the local workflow guide. Tasks are GitHub issues;
+the configured GitHub Projects board's Status field tracks each task's stage.
+Orca owns spawned worktrees, terminals, and browser tabs. `.shogun/active.md`
+and `.shogun/archive.md` are local notes only.
+If your agent supports skills, load the Shogun skill from `.agents/skills`,
+`.claude/skills`, or `.opencode/skills` before taking Shogun work.
+
+Task creation is mandatory here. If the user asks to create a task, ticket,
+issue, feature, bug, chore, TODO, or implementation plan and did not provide an
+existing issue number or URL, create it first with `shogun task create`. Do
+this even when the user does not say "Shogun". Do not work untracked.
+
+`shogun task create "<goal>"` opens the GitHub issue, applies the Shogun
+labels, and puts it in the `Staged` board column. Capture the issue number it
+prints -- it is what `task start`, `task review`, and `task land` expect.
+Dependencies go in the issue's `## Blocked by` section (`--blocked-by 12,14`);
+a task is ready only when every blocker is closed. Pick work with
+`shogun task ready`, never by guessing.
+
+Read `docs/architecture/map.json` and `docs/architecture/flows.json` before
+unfamiliar feature work. If files, routes, entrypoints, tests, commands,
+boundaries, or documented flows change, run `shogun map` and verify with
+`shogun map --check`.
+For plain feature requests, create 1-6 small issues wired with `--blocked-by`
+unless the user already gave you an issue number. Then start the first task
+`shogun task ready` returns. Do not make the user paste a giant orchestration
+prompt.
+If Shogun mode is `mainline`, queue completed branches with `shogun queue add`
+and let `shogun queue run` land through validation/CI. Do not manually merge.
+
+Agents working in spawned Orca worktrees must commit, validate with
+`npm run build`, and run `shogun task review <n>` -- it opens or
+updates the PR (body starts with `Fixes #<n>`) and moves the board to
+`Reviewing` -- then stop. Do not merge into `dev`; Shogun lands
+reviewed work via `shogun task land`.
+
+Use this task flow: `Staged -> Processing -> Reviewing -> Verifying -> Done`.
+`Verifying` is the human-QA gate: `task land` merges the PR, closes the issue,
+moves the board there, and comments on newly unblocked issues; `approve` is
+the only command that marks a task `Done`. If review fails, `task iterate <n>`
+reopens the issue and returns it to `Processing`; after `Done`, create a
+follow-up task.
+
+Use `orca worktree set --worktree active --comment "..." --json` for meaningful
+progress checkpoints, especially before waiting on review or external input.

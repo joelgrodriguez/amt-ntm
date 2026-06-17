@@ -1,8 +1,9 @@
-# Shogun
+# Shogun for Orca
 
-Shogun coordinates agent coding work for `standard-press` on top of GitHub.
-Tasks are GitHub issues; the issue is the truth. The configured GitHub
-Projects board is a view: its Status field tracks each task's stage.
+Shogun coordinates Orca agent worktrees for `standard-press` on top of
+GitHub. Tasks are GitHub issues; the issue is the truth. The configured GitHub
+Projects board is a view: its Status field tracks each task's stage. Orca owns
+the spawned worktrees, terminals, and browser tabs.
 
 ## Lifecycle
 
@@ -12,9 +13,9 @@ Projects board is a view: its Status field tracks each task's stage.
 2. `shogun task ready` lists open, unstarted, unblocked tasks. This is how
    agents pick work. A task is ready when every issue under its `## Blocked by`
    heading is closed.
-3. `shogun task start <n>` refuses blocked tasks (`--force` overrides), creates
-   a worktree on branch `<n>-<kebab-title>` from `dev`, and moves
-   the board to `Processing`.
+3. `shogun task start <n>` refuses blocked tasks (`--force` overrides), asks
+   Orca to create a worktree on branch `<n>-<kebab-title>` from
+   `dev`, and moves the board to `Processing`.
 4. The worktree agent commits, validates with `npm run build`, then
    runs `shogun task review <n>` -- it opens (or updates) a PR whose body
    starts with `Fixes #<n>` and moves the board to `Reviewing`.
@@ -32,7 +33,7 @@ Staged -> Processing -> Reviewing -> Verifying -> Done
                 |_____________|____________|
 ```
 
-Hard rule: spawned worktree agents do not merge into `dev`. Shogun
+Hard rule: spawned Orca worktree agents do not merge into `dev`. Shogun
 lands reviewed work through the PR.
 
 ## Task Contract
@@ -57,6 +58,8 @@ not.
 Every task issue carries the labels:
 
 - `shogun`
+- `client:<client>`
+- `project:<orca-project>`
 - `type:<feature|bugfix|ui|copy|backend|refactor|test|docs|chore|research>`
 - `area:<domain>`
 - `agent:<codex|claude|opencode|...>`
@@ -78,7 +81,7 @@ Status field has all six options.
 shogun task create "Fix checkout tax rounding" --type bugfix --area checkout --blocked-by 12
 shogun task ready
 shogun task list
-shogun task start <n>
+shogun task start <n> --agent codex
 shogun task review <n> --summary "Committed fix"
 shogun task land <n>
 shogun task approve <n>
@@ -141,4 +144,5 @@ shogun message send "Blocked on API shape" --to coordinator --task <n>
 The architecture map keeps the codebase explainable. The `## Blocked by`
 sections control order. Reservations control file collisions (and post a
 one-line comment on the issue so humans can see what's held). Messages keep
-handoffs out of stale terminal scrollback.
+handoffs out of stale terminal scrollback. Use Orca worktree comments for
+human-visible progress checkpoints.
