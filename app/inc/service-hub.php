@@ -19,6 +19,14 @@ const CACHE_GROUP = 'standard_service_hub';
 const CACHE_TTL = 15 * MINUTE_IN_SECONDS;
 
 /**
+ * Post types offered as Resource Type filter rows, in display order. A subset
+ * of get_post_types(): Troubleshooting (knowledgebase), Footprints, Cutlists,
+ * and Pages are searchable but not surfaced as their own filter. Drives only
+ * the sidebar UI, never the query scope.
+ */
+const FILTER_TYPES = ['post', 'video', 'resource', 'download', 'manual', 'literature'];
+
+/**
  * @return string[]
  */
 function get_post_types(): array {
@@ -448,41 +456,32 @@ function get_filter_groups(array $filters, array $type_options): array {
         );
     }
 
+    // Resource Type — only the owner-facing content kinds. Troubleshooting,
+    // Footprints, Cutlists, and Pages are intentionally omitted from the filter
+    // UI (they still live in get_post_types() so their content stays searchable
+    // under "All types"; they just don't get their own filter row). Keep the
+    // active type even if it's off-list, so a deep link never loses its filter.
+    $filter_type_options = ['' => $type_options[''] ?? \__('All types', 'standard')];
+    foreach (FILTER_TYPES as $post_type) {
+        if (isset($type_options[$post_type])) {
+            $filter_type_options[$post_type] = $type_options[$post_type];
+        }
+    }
+    $active_type = (string) ($filters['type'] ?? '');
+    if ($active_type !== '' && !isset($filter_type_options[$active_type]) && isset($type_options[$active_type])) {
+        $filter_type_options[$active_type] = $type_options[$active_type];
+    }
+
     $groups[] = \Standard\Filters\build_choice_group(
         'service-type',
         \__('Resource Type', 'standard'),
         'service_type',
-        $type_options,
-        [(string) ($filters['type'] ?? '')],
+        $filter_type_options,
+        [$active_type],
         [],
         'file-text',
         'radio'
     );
-
-    $category_terms = get_category_terms_for_service();
-    if ($category_terms !== []) {
-        // Prepend an "All categories" sentinel via a plain choice group so the
-        // radio can be cleared; term groups don't carry an empty option.
-        $category_options = ['' => \__('All categories', 'standard')];
-        $category_counts = [];
-        foreach ($category_terms as $term) {
-            if ($term instanceof \WP_Term) {
-                $category_options[$term->slug] = $term->name;
-                $category_counts[$term->slug] = (int) $term->count;
-            }
-        }
-
-        $groups[] = \Standard\Filters\build_choice_group(
-            'service-category',
-            \__('Category', 'standard'),
-            'service_category',
-            $category_options,
-            [(string) ($filters['category'] ?? '')],
-            $category_counts,
-            'folder',
-            'radio'
-        );
-    }
 
     return $groups;
 }
