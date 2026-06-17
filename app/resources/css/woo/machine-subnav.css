@@ -368,7 +368,7 @@
      stray line). The blueprint section ships its own border-y; null its
      top rule so the seam isn't doubled there. */
   .machine-rail-content > section + section {
-    border-top: 1px solid var(--color-blue-200);
+    border-top: 1px solid var(--color-blue-100);
   }
 
   .machine-rail-content > section + #machine-blueprint,
@@ -376,8 +376,11 @@
     border-top: none;
   }
 
-  /* A touch more vertical room so each hairline has air on both sides. */
-  .machine-rail-content > section {
+  /* A touch more vertical room so each hairline has air on both sides.
+     Exclude the blueprint: it's a tight engineering-drawing chrome with
+     its own border-y frame and no section padding by design — forcing
+     padding inside it pushes content off its top border. */
+  .machine-rail-content > section:not(#machine-blueprint) {
     padding-top: clamp(4rem, 6vw, 6.5rem);
     padding-bottom: clamp(4rem, 6vw, 6.5rem);
   }

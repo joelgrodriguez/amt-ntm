@@ -50,10 +50,13 @@ if (!empty($machine['breakdown'])) {
     $nav_links[__('Overview', 'standard')] = 'machine-breakdown';
 }
 
-$fit = $machine['fit'] ?? null;
-if (!empty($fit['is_for']) || !empty($fit['is_not_for'])) {
-    $nav_links[__('Fit', 'standard')] = 'machine-fit';
-}
+// Machine Fit section is hidden in single-machine.php; keep its anchor out
+// of the rail so the link doesn't point at a missing section. Re-add this
+// alongside re-enabling the machine-fit render.
+// $fit = $machine['fit'] ?? null;
+// if (!empty($fit['is_for']) || !empty($fit['is_not_for'])) {
+//     $nav_links[__('Fit', 'standard')] = 'machine-fit';
+// }
 
 if (!empty($machine['profiles']['tag_slugs'])) {
     $nav_links[__('Profiles', 'standard')] = 'machine-profiles';

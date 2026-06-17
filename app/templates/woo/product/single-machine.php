@@ -77,7 +77,9 @@ if (!$machine) {
 
             <?php get_template_part('templates/woo/product/parts/machine-breakdown', null, compact('machine')); ?>
 
-            <?php get_template_part('templates/woo/product/parts/machine-fit', null, compact('machine')); ?>
+            <?php // Machine Fit section hidden per review. Data preserved in the
+                  // machine data files; re-enable by uncommenting this line.
+                  // get_template_part('templates/woo/product/parts/machine-fit', null, compact('machine')); ?>
 
             <?php get_template_part('templates/woo/product/parts/profile-selector', null, compact('product', 'machine')); ?>
 
