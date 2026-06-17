@@ -152,6 +152,16 @@
   /* same for the .cell stage label on ink slides (slides 3 & 12) */
   .slide--ink .cell .stage, .slide--dark .cell .stage { color: var(--blue-300); }
 
+  /* buyer-journey flow (slide 3) — four stops on one left-to-right path */
+  .journey { display: flex; align-items: flex-start; gap: 0; }
+  .journey__stop { flex: 1; display: flex; flex-direction: column; gap: .7rem; padding: 0 clamp(.8rem, 1.6vw, 1.6rem); }
+  .journey__stage { font-family: var(--mono); font-weight: 500; text-transform: uppercase; letter-spacing: .16em;
+    font-size: clamp(1rem, 1.8vw, 1.6rem); color: var(--white); line-height: 1; }
+  .journey__num { font-family: var(--mono); font-size: .72rem; color: var(--blue-400); letter-spacing: .1em; }
+  .journey__label { font-weight: 600; font-size: clamp(1.05rem, 1.5vw, 1.35rem); color: var(--blue-100); line-height: 1.15; }
+  .journey__note { color: var(--blue-300); font-size: clamp(.85rem, 1.1vw, 1rem); line-height: 1.4; }
+  .journey__arrow { align-self: center; flex: none; font-family: var(--mono); color: var(--red); font-size: clamp(1.4rem, 2.5vw, 2.4rem); padding: 0 .2rem; }
+
   /* tiles row (slide 9) */
   .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; flex: 1; align-content: center; }
   .tile { border: 1px solid var(--blue-200); padding: clamp(1.2rem,2.2vw,2rem); display: flex; flex-direction: column; gap: .7rem; }
@@ -307,17 +317,40 @@
   </section>
 
   <!-- 3 — THE BIG IDEA -->
-  <section class="slide slide--ink" data-note="Four labels = four buyer states. This was Thad's original vision — name that. The whole site is built on this spine.">
+  <section class="slide slide--ink" data-note="Four labels = four buyer states. This was Thad's original vision — name that. The whole site is built on this spine. This is the answer to problem #1 on the prior slide.">
     <div class="head">
       <span class="eyebrow"><span class="tick"></span>The big idea</span>
       <h2>Four labels. Four moments in the buyer's journey.</h2>
     </div>
     <div class="body" style="justify-content:center;">
-      <div class="cells cells--4">
-        <div class="cell"><span class="stage">Aware</span><span class="t">New to Roll Forming?</span><span class="d">The contractor who's never owned a machine. Make the case.</span></div>
-        <div class="cell"><span class="stage">Consider</span><span class="t">Choose Your Machine</span><span class="d">Now they're comparing. Machines, profiles, accessories.</span></div>
-        <div class="cell"><span class="stage">Decide</span><span class="t">How to Buy</span><span class="d">Quote, pricing, financing, configurator. Close the deal.</span></div>
-        <div class="cell"><span class="stage">Own</span><span class="t">Get Owner Support</span><span class="d">Manuals, firmware, service. The purchase comes with backup.</span></div>
+      <div class="journey">
+        <div class="journey__stop">
+          <span class="journey__num">01</span>
+          <span class="journey__stage">Aware</span>
+          <span class="journey__label">New to Roll Forming?</span>
+          <span class="journey__note">Never owned a machine. Make the case.</span>
+        </div>
+        <div class="journey__arrow">→</div>
+        <div class="journey__stop">
+          <span class="journey__num">02</span>
+          <span class="journey__stage">Consider</span>
+          <span class="journey__label">Choose Your Machine</span>
+          <span class="journey__note">Compare models, profiles, and tooling.</span>
+        </div>
+        <div class="journey__arrow">→</div>
+        <div class="journey__stop">
+          <span class="journey__num">03</span>
+          <span class="journey__stage">Decide</span>
+          <span class="journey__label">How to Buy</span>
+          <span class="journey__note">Quote, pricing, financing. Close the deal.</span>
+        </div>
+        <div class="journey__arrow">→</div>
+        <div class="journey__stop">
+          <span class="journey__num">04</span>
+          <span class="journey__stage">Own</span>
+          <span class="journey__label">Get Owner Support</span>
+          <span class="journey__note">Manuals, firmware, service. Backed after.</span>
+        </div>
       </div>
     </div>
   </section>
