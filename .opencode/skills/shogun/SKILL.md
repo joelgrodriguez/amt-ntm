@@ -1,19 +1,19 @@
 ---
 name: shogun
-description: Coordinate Shogun-managed coding work with GitHub issue tasks, blocked-by dependencies, file reservations, agent messages, validation, and PR review handoff. Use automatically in any repo with .shogun/config.json when the user asks to create or work on a task, ticket, issue, feature, bug, chore, TODO, or implementation plan, even if Shogun is not named.
+description: Coordinate Shogun-managed Orca coding work with GitHub issue tasks, blocked-by dependencies, file reservations, agent messages, validation, and PR review handoff. Use automatically in any repo with .shogun/config.json when the user asks to create or work on a task, ticket, issue, feature, bug, chore, TODO, or implementation plan, even if Shogun is not named.
 ---
 
 # Shogun
 
 ## Contract
 
-Use `.shogun/README.md` and `.shogun/config.json` as the local contract. Tasks are GitHub issues driven through the `gh` CLI; Shogun branches from `dev` and validates with `npm run build`.
+Use `.shogun/README.md` and `.shogun/config.json` as the local contract. Tasks are GitHub issues driven through the `gh` CLI; Orca owns the spawned worktrees, terminals, and browser tabs; Shogun branches from `dev` and validates with `npm run build`.
 
 Task creation is mandatory in Shogun-installed repos. If the user asks to create a task, ticket, issue, feature, bug, chore, TODO, or implementation plan and does not provide an existing issue number or URL, run `shogun task create` before code work. Do this even if the user does not say "Shogun".
 
 `shogun task create "<goal>"` opens the GitHub issue and puts it in the `Staged` column of the configured Projects board. The issue number it prints is the task ID for every later command. Dependencies go in the issue's `## Blocked by` section via `--blocked-by 12,14`; a task is ready only when every blocker is closed.
 
-Do not merge into `dev` from an agent worktree. Commit, validate, run `shogun task review <n>`, and stop.
+Do not merge into `dev` from an Orca agent worktree. Commit, validate, run `shogun task review <n>`, and stop.
 
 If `.shogun/config.json` says `workflow.mode` is `mainline`, do not manually merge or direct-land. Queue the branch with `shogun queue add <n> --branch <branch>`, let `shogun queue run` land through validation/CI, then use `shogun task accept` or `shogun task revert --commit <merge-sha>`.
 
@@ -27,7 +27,7 @@ Run `shogun map` when files, routes, entrypoints, tests, commands, boundaries, o
 
 1. Run `shogun task ready --json`. These are the open, unstarted, unblocked tasks.
 2. Pick one. If none are ready, inspect blockers with `shogun graph`.
-3. Start it with `shogun task start <n>`. This refuses blocked tasks, creates a worktree on branch `<n>-<kebab-title>` from `dev`, and moves the board to `Processing`.
+3. Start it with `shogun task start <n>`. This refuses blocked tasks, asks Orca to create a worktree on branch `<n>-<kebab-title>` from `dev`, and moves the board to `Processing`.
 4. Reserve files before editing: `shogun reserve add <n> <paths...> --agent <name> --ttl 2h`.
 5. If a reservation conflicts, do not edit those files. Send a message and pick another ready task.
 
@@ -45,6 +45,7 @@ The `## Blocked by` sections are the order of operations. Keep slices small enou
 
 - Keep edits inside the claimed task's goal.
 - Reserve extra files before touching them.
+- Use `orca worktree set --worktree active --comment "..." --json` for meaningful progress checkpoints.
 - Use `shogun message send "..." --to <agent|coordinator> --from <name> --task <n>` for blockers, handoffs, or decisions.
 - Check your inbox with `shogun message list --to <name> --unread`.
 - If genuinely blocked on a decision, add the blocker as an issue and wire it with `shogun task update <n> --blocked-by <blocker>`.

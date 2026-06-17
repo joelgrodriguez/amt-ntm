@@ -1,5 +1,9 @@
 {
   "name": "standard-press",
+  "taxonomy": {
+    "client": "new-tech",
+    "project": "ntm-wp"
+  },
   "baseBranch": "dev",
   "taskPrefix": "Shogun",
   "statuses": {
@@ -45,18 +49,8 @@
   "github": {
     "repo": "joelgrodriguez/amt-ntm",
     "project": {
-      "owner": "@me",
-      "number": "5",
-      "id": "PVT_kwHOAbf1FM4BagQo",
-      "statusFieldId": "PVTSSF_lAHOAbf1FM4BagQozhVXcKY",
-      "statusOptions": {
-        "staged": "b2198385",
-        "processing": "4bf52e0d",
-        "reviewing": "07a43dd6",
-        "verifying": "dc7ee833",
-        "done": "b93abaf7",
-        "canceled": "bc98b474"
-      }
+      "owner": "joelgrodriguez",
+      "number": 5
     }
   }
 }
