@@ -180,10 +180,14 @@ get_header();
                 ],
             ];
             ?>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-blue-200">
+            <?php /* Vertical dividers only — no outer top/bottom border on the row.
+                    border-l on the wrapper + border-r per card draws the column
+                    separators between the four cards; the top and bottom edges of
+                    the box are intentionally open. */ ?>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 border-l border-blue-200">
                 <?php foreach ($includes as $item) : ?>
                     <a href="<?php echo esc_url($item['url']); ?>"
-                       class="group flex flex-col gap-2 border-b border-r border-blue-200 p-6 no-underline transition-colors duration-200 hover:bg-blue-50">
+                       class="group flex flex-col gap-2 border-r border-blue-200 p-6 no-underline transition-colors duration-200 hover:bg-blue-50">
                         <?php icon($item['icon'], ['class' => 'w-5 h-5 text-blue-500', 'aria-hidden' => 'true']); ?>
                         <span class="flex items-center gap-1.5 font-mono font-medium uppercase tracking-wider text-blue-900 transition-colors duration-200 group-hover:text-blue-500" style="font-size: var(--text-caption);">
                             <?php echo esc_html($item['label']); ?>
@@ -241,16 +245,28 @@ get_header();
     <?php if (!empty($uniq_docs) || !empty($uniq_videos)) : ?>
     <section class="bg-blue-50 border-t border-blue-200" aria-labelledby="service-hub-uniq-title">
         <div class="container section-compact">
-            <div class="grid gap-4 max-w-3xl mb-8">
-                <span class="section-eyebrow flex items-center gap-2">
-                    <span class="inline-block h-1 w-1 bg-red" aria-hidden="true"></span>
-                    <?php esc_html_e('Control System', 'standard'); ?>
-                </span>
-                <h2 id="service-hub-uniq-title" class="font-sans font-medium text-heading text-blue-900 leading-tight m-0">
-                    <?php esc_html_e('UNIQ Automatic Control System', 'standard'); ?>
-                </h2>
-                <p class="font-sans text-blue-600 m-0" style="font-size: var(--text-body); line-height: var(--leading-body);">
-                    <?php esc_html_e('The touchscreen brain for your SSQ II, SSQ3, and WAV rollformers. Field-update instructions, the supplement manual, and the full video library for installing, running, and upgrading UNIQ.', 'standard'); ?>
+            <?php /* Two-column header: lede on the left, the "full page" link in the
+                    second column opposite it, bottom-aligned with the lede so it sits
+                    beside the description rather than below the whole box. */ ?>
+            <div class="grid gap-6 mb-8 lg:grid-cols-[2fr_1fr] lg:items-end">
+                <div class="grid gap-4 max-w-3xl">
+                    <span class="section-eyebrow flex items-center gap-2">
+                        <span class="inline-block h-1 w-1 bg-red" aria-hidden="true"></span>
+                        <?php esc_html_e('Control System', 'standard'); ?>
+                    </span>
+                    <h2 id="service-hub-uniq-title" class="font-sans font-medium text-heading text-blue-900 leading-tight m-0">
+                        <?php esc_html_e('UNIQ Automatic Control System', 'standard'); ?>
+                    </h2>
+                    <p class="font-sans text-blue-600 m-0" style="font-size: var(--text-body); line-height: var(--leading-body);">
+                        <?php esc_html_e('The touchscreen brain for your SSQ II, SSQ3, and WAV rollformers. Field-update instructions, the supplement manual, and the full video library for installing, running, and upgrading UNIQ.', 'standard'); ?>
+                    </p>
+                </div>
+                <p class="m-0 lg:justify-self-end">
+                    <a href="<?php echo esc_url(\Standard\Url\internal('/machines/uniq-control-system/')); ?>"
+                       class="group inline-flex items-center gap-2 font-mono uppercase tracking-mono-meta text-blue-500 hover:text-blue-700 transition-colors duration-150 no-underline" style="font-size: var(--text-body);">
+                        <?php esc_html_e('Full UNIQ control system page', 'standard'); ?>
+                        <?php icon('arrow-right', ['class' => 'w-4 h-4 transition-transform duration-150 group-hover:translate-x-1']); ?>
+                    </a>
                 </p>
             </div>
 
@@ -263,11 +279,13 @@ get_header();
             <div class="grid grid-cols-1 md:grid-cols-2 bg-white border border-blue-200">
 
                 <?php if (!empty($uniq_docs)) : ?>
-                    <div class="<?php echo !empty($uniq_videos) ? 'border-b border-blue-200 md:border-b-0 md:border-r' : ''; ?>">
+                    <div class="flex flex-col <?php echo !empty($uniq_videos) ? 'border-b border-blue-200 md:border-b-0 md:border-r' : ''; ?>">
                         <h3 class="font-mono font-medium uppercase tracking-mono-label text-blue-500 p-6 lg:p-8 border-b border-blue-200" style="font-size: var(--text-caption);">
                             <?php esc_html_e('Documentation', 'standard'); ?>
                         </h3>
-                        <ul>
+                        <?php /* grow so the shorter column fills the equal-height box;
+                                no mid-column line where the list ends. */ ?>
+                        <ul class="grow">
                             <?php foreach ($uniq_docs as $i => $doc) :
                                 $is_last = ($i === count($uniq_docs) - 1);
                             ?>
@@ -289,11 +307,11 @@ get_header();
                 <?php endif; ?>
 
                 <?php if (!empty($uniq_videos)) : ?>
-                    <div>
+                    <div class="flex flex-col">
                         <h3 class="font-mono font-medium uppercase tracking-mono-label text-blue-500 p-6 lg:p-8 border-b border-blue-200" style="font-size: var(--text-caption);">
                             <?php esc_html_e('Video Tutorials', 'standard'); ?>
                         </h3>
-                        <ul>
+                        <ul class="grow">
                             <?php foreach ($uniq_videos as $i => $video) :
                                 $is_last = ($i === count($uniq_videos) - 1);
                             ?>
@@ -315,14 +333,6 @@ get_header();
                 <?php endif; ?>
 
             </div>
-
-            <p class="mt-6 m-0">
-                <a href="<?php echo esc_url(\Standard\Url\internal('/machines/uniq-control-system/')); ?>"
-                   class="group inline-flex items-center gap-2 font-mono uppercase tracking-mono-meta text-blue-500 hover:text-blue-700 transition-colors duration-150 no-underline" style="font-size: var(--text-caption);">
-                    <?php esc_html_e('Full UNIQ control system page', 'standard'); ?>
-                    <?php icon('arrow-right', ['class' => 'w-3 h-3 transition-transform duration-150 group-hover:translate-x-1']); ?>
-                </a>
-            </p>
         </div>
     </section>
     <?php endif; ?>
