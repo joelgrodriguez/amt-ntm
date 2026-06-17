@@ -20,8 +20,11 @@ function theme_setup(): void {
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
     add_theme_support('custom-logo');
-    add_image_size('card-thumbnail', 640, 360, true);  // 16:9, post thumbnails (cropped)
-    add_image_size('product-card', 640, 360, true);    // 16:9, product/profile letterboxed via object-contain
+    add_image_size('card-thumbnail', 640, 360, true);  // 16:9, post thumbnails (hard-cropped, object-cover)
+    // Bounding box, NOT a crop: scale within 640×360 keeping aspect, so the
+    // whole product/accessory image survives and object-contain p-6 letterboxes
+    // it. A square shot becomes ~360×360 with side bars, never clipped.
+    add_image_size('product-card', 640, 360, false);   // 16:9 box, no crop, object-contain
     add_theme_support('align-wide');
     add_theme_support('wp-block-styles');
     add_theme_support('html5', [
