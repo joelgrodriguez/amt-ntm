@@ -270,6 +270,15 @@
     z-index: 30;
     transform: none;
     border-bottom: none;
+    /* Drop the rail's first link down to meet the breakdown section's
+       "Inside the Machine" eyebrow. The first rail section uses .section
+       (lg:py-24 = 6rem top); match it so both columns start level instead
+       of the rail floating flush against the video above. Equals the
+       sticky top offset, so there's no jump when it pins. */
+    padding-top: 6rem;
+    /* Breathing room below the last link when the user reaches the end of
+       the content column, so the rail never butts the closer/footer. */
+    padding-bottom: 4rem;
   }
 
   .machine-subnav--sidebar.is-sticky {
