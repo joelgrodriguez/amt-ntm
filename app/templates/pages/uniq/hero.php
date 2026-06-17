@@ -30,12 +30,7 @@ get_template_part('templates/parts/hero-category', null, [
         'cta_primary'           => __('Download Software Update', 'standard'),
         'cta_primary_url'       => '/machines/uniq-control-system-update/',
         'cta_primary_icon'      => 'arrow-right',
-        'cta_secondary'         => __('Watch the Tutorial', 'standard'),
-        'cta_secondary_url'     => 'https://fast.wistia.net/embed/iframe/vf198bnz3w',
-        'cta_secondary_trigger' => true,
         'video'                 => 'https://fast.wistia.net/embed/iframe/vf198bnz3w',
-        'poster'                => content_url('/uploads/2026/05/ntm-ssq3-manual-controller-008.jpg'),
-        'poster_alt'            => __('NTM SSQ3 manual controller', 'standard'),
     ],
     'meta' => [
         ['label' => __('Standard On', 'standard'), 'value' => 'WAV'],

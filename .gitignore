@@ -51,8 +51,11 @@ docs/*.png
 
 # Local dev tools
 solo.yml
+paseo.json
+.conductor/
 
 # Local-only planning docs
+docs/feedback/e_sola/
 docs/*.docx
 docs/*.xlsx
 docs/superpowers/

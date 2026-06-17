@@ -39,7 +39,7 @@ $people = [
         'image'   => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-production-004.jpg',
         'alt'     => __('NTM production technician on the Aurora shop floor, assembling a rollforming machine.', 'standard'),
         'role'    => __('Production', 'standard'),
-        'caption' => __('Builds, tests, and crates every machine in Aurora or Hermosillo.', 'standard'),
+        'caption' => __('Builds, tests, and crates every machine in Colorado or Hermosillo.', 'standard'),
     ],
     [
         'image'   => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-service-002.jpg',
@@ -48,17 +48,15 @@ $people = [
         'caption' => __('Field repairs, refurbishments, on-site training. Same uniform, same answers.', 'standard'),
     ],
     [
-        // TODO(asset): Alex to deliver photo of the customer service rep (front desk).
-        // Drop file into uploads and update 'image' path on this card.
-        'image'   => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-customer-service-002.jpg',
+        'image'   => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-customer-service-004.jpg',
         'alt'     => __('NTM customer service representative on a headset call with a contractor.', 'standard'),
         'role'    => __('Customer service', 'standard'),
-        'caption' => __('Phones answered by people, not menus. Aurora-based, machine-trained.', 'standard'),
+        'caption' => __('Phones answered by people, not menus. Colorado-based, machine-trained.', 'standard'),
     ],
 ];
 ?>
 
-<section class="bg-white py-16 lg:py-24 border-t border-blue-200" aria-labelledby="about-people-title">
+<section class="bg-blue-50 py-16 lg:py-24 border-t border-blue-200" aria-labelledby="about-people-title">
     <div class="container">
         <div class="max-w-3xl mx-auto text-center mb-12 lg:mb-16">
             <p class="font-mono uppercase tracking-wider text-xs text-blue-500 mb-5">
@@ -73,7 +71,7 @@ $people = [
             <?php foreach ($people as $person) : ?>
                 <li class="grid gap-4 content-start">
                     <figure class="grid gap-4">
-                        <div class="aspect-[4/5] w-full overflow-hidden bg-blue-50">
+                        <div class="aspect-[4/5] w-full overflow-hidden bg-blue-100">
                             <?php \Standard\Images\responsive_image($person['image'], $person['alt'], 'large', [
                                 'class'   => 'block w-full h-full object-cover',
                                 'loading' => 'lazy',

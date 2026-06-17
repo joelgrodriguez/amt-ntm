@@ -22,8 +22,8 @@
  *   name       short model name for the ledger (mono)
  *   best_when  one-line qualifier: who this machine is for
  *   chips      two {label,value} spec facts pulled from the data file stats
- *   price      normalised "from" floor display string (e.g. "$43,400")
- *   price_num  numeric floor for min-finding (e.g. 43400), or null
+ *   price      normalised "from" floor display string (e.g. "$44,900")
+ *   price_num  numeric floor for min-finding (e.g. 44900), or null
  *   url        live product permalink, or null if the product is absent
  *   image      WC featured-image URL (woocommerce_thumbnail), '' if none
  *   image_alt  featured-image alt text, '' if none
@@ -47,10 +47,10 @@ use function Standard\MachineProductData\get_machine_product_link;
  * Reduce any price_range string to its low-end "starting from" figure.
  *
  * The product data files store price two ways: simple machines as a floor
- * ("$43,400+") and configured-to-spec flagships as a range ("$121K - $137K").
+ * ("$44,900+") and configured-to-spec flagships as a range ("$130K - $143K").
  * The product pages want both shapes, but the chooser ledger is a single
  * "From X" column, so we take the low end of whichever shape we're given.
- * "$121K - $137K" -> ["$121,000", 121000]; "$43,400+" -> ["$43,400", 43400].
+ * "$130K - $143K" -> ["$130,000", 130000]; "$44,900+" -> ["$44,900", 44900].
  *
  * @param string $range The finance.price_range string.
  * @return array{0: string, 1: int}|null [display, numeric] or null if unparseable.
@@ -189,7 +189,7 @@ $ntm_choose_hydrate = static function (array $row) use ($ntm_price_floor): array
         'name'        => $row['name'],
         'best_when'   => $row['best_when'],
         'chips'       => $chips,
-        'price'       => $floor[0] ?? '',   // display, e.g. "$43,400"
+        'price'       => $floor[0] ?? '',   // display, e.g. "$44,900"
         'price_num'   => $floor[1] ?? null, // numeric, for family-min
         'url'         => $link['url'] ?? null,
         'image'       => $link['image'] ?? '',      // WC featured image, '' if none
