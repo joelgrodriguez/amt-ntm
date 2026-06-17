@@ -359,4 +359,26 @@
   .machine-rail-content .machine-fit {
     background-color: transparent;
   }
+
+  /* ── Rail content: hairline seams between sections ─────────────────
+     With the colored bands flattened to white, adjacent sections ran
+     together with no boundary. Draw a single full-width blue-200
+     hairline between each rendered pair (adjacent-sibling, so the first
+     section gets no rule and empty/early-returning parts never leave a
+     stray line). The blueprint section ships its own border-y; null its
+     top rule so the seam isn't doubled there. */
+  .machine-rail-content > section + section {
+    border-top: 1px solid var(--color-blue-200);
+  }
+
+  .machine-rail-content > section + #machine-blueprint,
+  .machine-rail-content > #machine-blueprint + section {
+    border-top: none;
+  }
+
+  /* A touch more vertical room so each hairline has air on both sides. */
+  .machine-rail-content > section {
+    padding-top: clamp(4rem, 6vw, 6.5rem);
+    padding-bottom: clamp(4rem, 6vw, 6.5rem);
+  }
 }
