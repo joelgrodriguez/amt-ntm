@@ -48,7 +48,7 @@ return [
                 __('Hydraulically powered shear with hardened tool steel blades', 'standard'),
                 __('Panel recognition safety system', 'standard'),
             ],
-            'image'    => content_url('/uploads/2026/06/ntm-ssq3-on-trailer-001-1.png'),
+            'image'    => content_url('/uploads/2026/06/ssq3-machine-side-backlit.jpg'),
         ],
         [
             'id'       => 'frame',
@@ -94,12 +94,6 @@ return [
             __('Businesses that need gas and electric flexibility on-site', 'standard'),
             __('Contractors processing steel, aluminum, copper, or terne-coat stainless', 'standard'),
             __('Operations that value fast 25-minute tooling changeovers', 'standard'),
-        ],
-        'is_not_for' => [
-            ['text' => __('Residential-only gutter installers', 'standard'), 'machine' => 'mach-ii-5-gutter'],
-            ['text' => __('Contractors who only need exposed-fastener 5V crimp panels', 'standard'), 'machine' => '5vc-5v-crimp'],
-            ['text' => __('Budget-conscious startups looking for entry-level rollforming', 'standard'), 'machine' => 'ssr-multipro-jr'],
-            ['text' => __('Shops that only run wall panels without roof profiles', 'standard'), 'machine' => 'wav-wall-panel'],
         ],
     ],
     'blueprint' => [
