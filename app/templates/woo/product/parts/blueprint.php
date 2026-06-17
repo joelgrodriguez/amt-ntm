@@ -127,9 +127,9 @@ if (!empty($trailer_dims)) {
 
         <div class="grid md:grid-cols-2 md:items-stretch">
             <?php if (!empty($footprint_url) || !empty($svg_name)) : ?>
-                <div class="border-b border-blue-200 md:border-b-0 md:border-r flex items-center justify-center">
+                <div class="pattern-dot-grid pattern-dot-grid--solid border-b border-blue-200 md:border-b-0 md:border-r flex items-center justify-center">
                     <?php if (!empty($footprint_url)) : ?>
-                        <div class="pattern-dot-grid pattern-dot-grid--solid w-full p-6 lg:p-8 flex items-center justify-center">
+                        <div class="w-full h-full p-6 lg:p-8 flex items-center justify-center">
                             <?php if (!empty($footprint_pdf_url)) : ?>
                                 <a
                                     href="<?php echo esc_url($footprint_pdf_url); ?>"
@@ -149,7 +149,7 @@ if (!empty($trailer_dims)) {
                             <?php endif; ?>
                         </div>
                     <?php else : ?>
-                        <div class="pattern-dot-grid pattern-dot-grid--solid border border-blue-200 aspect-[16/7] flex items-center justify-center w-full m-6 lg:m-8">
+                        <div class="border border-blue-200 aspect-[16/7] flex items-center justify-center w-full m-6 lg:m-8">
                             <span class="text-blue-500 text-sm font-mono"><?php echo esc_html($svg_name . '.svg'); ?></span>
                         </div>
                     <?php endif; ?>
