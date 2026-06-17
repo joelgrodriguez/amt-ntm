@@ -365,53 +365,88 @@ function get_terms_for_service_content(string $taxonomy, int $limit = 30): array
 }
 
 /**
- * Machine tags that actually have service-department content, in the canonical
- * machines-data order. Intersects the machine post-tags with the post_tag terms
- * attached to service posts — so the Machine filter never lists a machine that
- * returns zero results, and each option carries its service-only count.
+ * The Machine filter rows, curated. Ordered tag-slug => display label.
  *
- * @return \WP_Term[]
+ * Curated rather than derived: the machine→tag mapping has genuine edge cases
+ * (SSQ3 reuses SSQ II's library; the MACH II Combo spans the 5"/6" tags) that
+ * auto-inference gets wrong. An explicit list is predictable and one line to
+ * edit. The slug is the post_tag the filter queries; the label is what owners
+ * read. Counts are computed live (get_machine_tag_count) so they always match
+ * what clicking the row returns; a row with 0 service content is dropped.
+ *
+ * Add a machine: add a line. Keep it in the order you want it to appear.
+ *
+ * @return array<string, string> tag slug => label, in display order
  */
-function get_machine_terms_for_service(): array {
-    if (!\function_exists('Standard\\MachinesData\\get_machine_post_tags')) {
-        return [];
-    }
-
-    // Service-scoped post_tag terms, keyed by slug, carry the service count.
-    $service_counts = [];
-    foreach (get_terms_for_service_content('post_tag', 200) as $term) {
-        if ($term instanceof \WP_Term) {
-            $service_counts[$term->slug] = (int) $term->count;
-        }
-    }
-
-    if ($service_counts === []) {
-        return [];
-    }
-
-    // Walk machine tags in canonical order; keep only those with service
-    // content, and overwrite their count with the service-only count.
-    $machines = [];
-    foreach (\Standard\MachinesData\get_machine_post_tags() as $tag) {
-        if (!$tag instanceof \WP_Term || !isset($service_counts[$tag->slug])) {
-            continue;
-        }
-
-        $clone = clone $tag;
-        $clone->count = $service_counts[$tag->slug];
-        $machines[] = $clone;
-    }
-
-    return $machines;
+function get_machine_filter_map(): array {
+    return [
+        'ssq-ii-multipro-roof-panel-machine' => \__('SSQ II / SSQ3 MultiPro', 'standard'),
+        'ssh-multipro-roof-panel-machine'    => \__('SSH MultiPro', 'standard'),
+        'ssr-multipro-jr'                    => \__('SSR MultiPro Jr.', 'standard'),
+        '5vc-5v-crimp-roof-panel-machine'    => \__('5V Crimp', 'standard'),
+        'wav-wall-panel-machine'             => \__('WAV', 'standard'),
+        'mach-ii-5-6-gutter-machine'         => \__('MACH II 5"/6" Combo Gutter', 'standard'),
+        'mach-ii-5-gutter-machine'           => \__('MACH II 5" Gutter', 'standard'),
+        'mach-ii-6-gutter-machine'           => \__('MACH II 6" Gutter', 'standard'),
+        'bg7-box-gutter-machine'             => \__('BG7', 'standard'),
+    ];
 }
 
 /**
- * Categories that have service-department content, with service-only counts.
+ * Machine filter options that actually have service-department content, in the
+ * curated order. Each row's count is the true `dept AND tag` result count, so
+ * the sidebar number matches what clicking the filter returns; rows with no
+ * service content are omitted.
  *
- * @return \WP_Term[]
+ * @return array<string, array{label: string, count: int}> keyed by tag slug
  */
-function get_category_terms_for_service(): array {
-    return get_terms_for_service_content('category', 50);
+function get_machine_terms_for_service(): array {
+    $options = [];
+    foreach (get_machine_filter_map() as $tag_slug => $label) {
+        $count = get_machine_tag_count($tag_slug);
+        if ($count > 0) {
+            $options[$tag_slug] = ['label' => (string) $label, 'count' => $count];
+        }
+    }
+
+    return $options;
+}
+
+/**
+ * True count of service-department posts carrying a given post_tag slug —
+ * i.e. exactly what the machine filter returns when clicked (dept AND tag).
+ * Cached per slug; cheap (fields=ids, no_found_rows off only for the count).
+ */
+function get_machine_tag_count(string $tag_slug): int {
+    $cache_key = 'machine_tag_count:' . $tag_slug;
+    $cached = \wp_cache_get($cache_key, CACHE_GROUP);
+    if ($cached !== false) {
+        return (int) $cached;
+    }
+
+    $query = new \WP_Query([
+        'post_type'              => get_post_types(),
+        'post_status'            => 'publish',
+        'posts_per_page'         => 1,
+        'fields'                 => 'ids',
+        'ignore_sticky_posts'    => true,
+        'update_post_meta_cache' => false,
+        'update_post_term_cache' => false,
+        'tax_query'              => [
+            'relation' => 'AND',
+            get_service_tax_query()[0],
+            [
+                'taxonomy' => 'post_tag',
+                'field'    => 'slug',
+                'terms'    => [$tag_slug],
+            ],
+        ],
+    ]);
+
+    $count = (int) $query->found_posts;
+    \wp_cache_set($cache_key, $count, CACHE_GROUP, CACHE_TTL);
+
+    return $count;
 }
 
 /**
@@ -437,11 +472,9 @@ function get_filter_groups(array $filters, array $type_options): array {
         // as "All machines" (the sidebar treats an empty radio value that way).
         $machine_options = ['' => \__('All machines', 'standard')];
         $machine_counts = [];
-        foreach ($machine_terms as $term) {
-            if ($term instanceof \WP_Term) {
-                $machine_options[$term->slug] = $term->name;
-                $machine_counts[$term->slug] = (int) $term->count;
-            }
+        foreach ($machine_terms as $slug => $info) {
+            $machine_options[$slug] = (string) $info['label'];
+            $machine_counts[$slug] = (int) $info['count'];
         }
 
         $groups[] = \Standard\Filters\build_choice_group(
