@@ -142,8 +142,10 @@ get_header();
         </div>
     </section>
 
-    <?php /* Band 3 — Service content for every machine. Light. Hairline-divided row of links. */ ?>
-    <section class="bg-white border-t border-blue-200" aria-labelledby="service-hub-includes-title">
+    <?php /* Band 3 — Service content for every machine. Light. Hairline-divided row of links.
+            No band border-t: the white-on-blue-50 color change carries the seam, and
+            this section reads as a continuation of the directory above. */ ?>
+    <section class="bg-white" aria-labelledby="service-hub-includes-title">
         <div class="container section-compact">
             <h2 id="service-hub-includes-title" class="font-mono font-medium uppercase tracking-wider text-blue-900 m-0 mb-8" style="font-size: var(--text-heading-sm);">
                 <?php esc_html_e('Service content for every machine', 'standard'); ?>
@@ -202,8 +204,9 @@ get_header();
         </div>
     </section>
 
-    <?php /* Band 4 — Talk to a specialist. Light blue-50. Human-expertise proof + request CTA. */ ?>
-    <section class="bg-blue-50 border-t border-blue-200" aria-labelledby="service-hub-specialist-title">
+    <?php /* Band 4 — Talk to a specialist. Light blue-50. Human-expertise proof + request CTA.
+            No border-t: the blue-50-on-white shift is the seam against the section above. */ ?>
+    <section class="bg-blue-50" aria-labelledby="service-hub-specialist-title">
         <div class="container section-compact">
             <div class="grid gap-6 lg:grid-cols-[2fr_1fr] lg:items-center">
                 <div class="grid gap-4 max-w-2xl">
