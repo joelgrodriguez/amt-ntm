@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Presenter notes — NTM rebuild</title>
+<style>
+  :root{
+    --paper:#faf9f7; --ink:#1c2530; --muted:#6b7785; --faint:#97a2ad;
+    --line:#e3e0db; --rule:#c9c4bc;
+    --red:#bf2532; --green:#2f8f5b; --blue:#2c6fb0;
+    --tag-bg:#eef0f2;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{
+    font-family:var(--sans); background:var(--paper); color:var(--ink);
+    line-height:1.5; -webkit-font-smoothing:antialiased;
+    padding:2.4rem 1.4rem 6rem;
+  }
+  .wrap{ max-width:46rem; margin:0 auto; }
+
+  /* page intro */
+  .intro{ border-bottom:2px solid var(--ink); padding-bottom:1.1rem; margin-bottom:2.4rem; }
+  .intro h1{ font-size:1.15rem; letter-spacing:-.01em; }
+  .intro p{ color:var(--muted); font-size:.9rem; margin-top:.4rem; }
+  .intro .keys{ font-family:var(--mono); font-size:.72rem; color:var(--faint);
+    margin-top:.7rem; letter-spacing:.02em; }
+
+  /* one note block */
+  .note{ padding:1.8rem 0; border-top:1px solid var(--line); }
+  .note:first-of-type{ border-top:0; padding-top:0; }
+
+  .note .num{ font-family:var(--mono); font-size:.72rem; color:var(--faint);
+    letter-spacing:.14em; }
+  .note .head{ font-family:var(--mono); font-size:.74rem; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--muted); margin-top:.25rem; }
+  .note .screen{ font-size:1.18rem; font-weight:650; letter-spacing:-.01em;
+    margin-top:.5rem; text-wrap:balance; }
+
+  /* stay / go / back tag */
+  .tag{ display:inline-block; font-family:var(--mono); font-size:.66rem;
+    font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+    padding:.28rem .55rem; margin-top:.85rem; border:1px solid; }
+  .tag.stay{ color:var(--green); border-color:var(--green); }
+  .tag.go{   color:var(--red);   border-color:var(--red);   }
+  .tag.back{ color:var(--blue);  border-color:var(--blue);  }
+
+  ul{ list-style:none; margin-top:1.05rem; display:flex; flex-direction:column; gap:.7rem; }
+  li{ position:relative; padding-left:1.05rem; font-size:1rem; line-height:1.5; }
+  li::before{ content:""; position:absolute; left:0; top:.62em;
+    width:.34rem; height:.34rem; background:var(--red); }
+
+  li.dim{ color:var(--muted); font-size:.9rem; }
+  li.dim::before{ background:var(--faint); }
+
+  li.quote{ font-style:italic; font-size:1.02rem; padding-left:1.1rem;
+    border-left:3px solid var(--rule); margin-left:-1.1rem; }
+  li.quote::before{ display:none; }
+
+  li.cue{ font-family:var(--mono); font-size:.82rem; line-height:1.45;
+    text-transform:uppercase; letter-spacing:.02em; color:#fff;
+    background:var(--red); padding:.6rem .75rem; }
+  li.cue::before{ display:none; }
+  li.back-cue{ background:var(--blue); }
+
+  .term{ font-family:var(--mono); font-size:.85em; background:var(--tag-bg);
+    padding:.06rem .3rem; border-radius:2px; }
+
+  @media print{
+    body{ background:#fff; padding:1rem; }
+    .note{ break-inside:avoid; }
+    li.cue{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="intro">
+    <h1>Presenter notes — NTM website rebuild</h1>
+    <p>One note per slide, in order. Scroll as you go. Share only the Firefox window; keep this page on your own screen.</p>
+    <p class="keys">Green = stay on the slide · Red = go to the live site · Blue = back in the deck.</p>
+  </div>
+  <div id="notes"></div>
+</div>
+
+<script>
+/* Each entry = one slide in slides.html, in order.
+   head   = the section label (matches the deck)
+   screen = the headline the room is reading
+   status = stay | go | back
+   say    = bullets. Classes: (default) point · quote · cue (red action) ·
+            back-cue (blue action) · dim (optional/backup)                 */
+const NOTES = [
+  {
+    head: "Title",
+    status: "stay",
+    screen: "Built to guide buyers from first look to confident purchase.",
+    say: [
+      { t: "Open calm and direct. One sentence: this is a tour of the rebuilt New Tech Machinery site, organized around the <span class='term'>buyer's journey</span>." },
+      { t: "Frame the goal: it guides people from first look to a confident purchase." },
+      { t: "Don't apologize, don't hedge, don't say \"it's not finished.\" You're showing strong work.", c: "dim" },
+      { t: "Today I'm after two things: is the direction right, and look how far it's come.", c: "quote" }
+    ]
+  },
+  {
+    head: "The problem",
+    status: "stay",
+    screen: "The old site got in the buyer's way. (4 boxes: Navigation · Finding content · Look & feel · Mobile)",
+    say: [
+      { t: "THIS is the money slide. If they remember one thing, make it this. Stay here and let it breathe." },
+      { t: "Four real problems with the old site — walk the boxes, name each plainly:" },
+      { t: "1 · <span class='term'>Navigation</span> — built like our org chart (Machines, Resources, Learning Center). Buyers don't think in our categories, they think in what they're trying to do." },
+      { t: "2 · <span class='term'>Finding content</span> — no fast way to land on a machine, a manual, or a price. Nav didn't map to intent and search barely helped, so people gave up or called." },
+      { t: "3 · <span class='term'>Look &amp; feel</span> — crowded, dense, too many competing colors. An older feel that didn't look like the industry leaders we are." },
+      { t: "4 · <span class='term'>Mobile</span> — split behavior: owners look up manuals and support on their phones, while buyers and education-content readers are on desktop. The old site served neither well." },
+      { t: "Tie it together: the site was organized around us, not the buyer, so people got lost before they ever got to a quote.", c: "quote" },
+      { t: "Every one of these has a fix later in the deck — this slide sets up everything that follows.", c: "dim" }
+    ]
+  },
+  {
+    head: "The big idea",
+    status: "stay",
+    screen: "Four labels. Four moments in the buyer's journey.",
+    say: [
+      { t: "Four nav labels = four <span class='term'>buyer states</span>: aware → consider → decide → own." },
+      { t: "New to Rollforming? · Choose Your Machine · How to Buy · Get Owner Support." },
+      { t: "Name it: this was Thad's original vision — the whole site is built on this spine." },
+      { t: "Every page hangs off one of these four moments — nothing is orphaned.", c: "dim" }
+    ]
+  },
+  {
+    head: "Framework · StoryBrand / Endless Customers",
+    status: "stay",
+    screen: "The contractor is the hero. We're the guide.",
+    say: [
+      { t: "The framework is <span class='term'>StoryBrand</span> / <span class='term'>Endless Customers</span> — customer is the hero, we're the guide who hands them a plan." },
+      { t: "Key line — say it: we didn't bolt StoryBrand on. It's how the copy is already written." },
+      { t: "Read one quote off the slide out loud. Let the site's own words make the point." },
+      { t: "Buying panels from someone else is profit you give away. Rolling your own is the path to keeping it.", c: "quote" },
+      { t: "The plan we hand them is three steps: Explore · Build · Finance.", c: "dim" }
+    ]
+  },
+  {
+    head: "Feature · Finance Center",
+    status: "stay",
+    screen: "Financing was a black hole. Now it's a guided router.",
+    say: [
+      { t: "Thad's words: the old finance page was \"a black hole\" — two paragraphs and a contact form." },
+      { t: "Now it's a <span class='term'>router</span> — every honest way to pay, in one place." },
+      { t: "Four paths: Apply with Corbel (soft credit pull, decision in 4–8 hrs) · Section 179 tax deduction · compare bank lenders · or bring your own bank." },
+      { t: "Honest by design: we even tell them to use their own lender. We're a <span class='term'>guide, not a lender</span> — there's a disclaimer." },
+      { t: "Optional: switch to the live Finance Center now, or save it for the demo run.", c: "dim" }
+    ]
+  },
+  {
+    head: "Feature · The buying funnel",
+    status: "stay",
+    screen: "Build · Quote · Finance. One flow, no gatekeeping.",
+    say: [
+      { t: "The 3-step plan made real: Build · Quote · Finance — a transparent itemized quote, no \"call for pricing\" stall." },
+      { t: "KEY POINT, say it deliberately: we did NOT put the configurator on the homepage. On purpose." },
+      { t: "The configurator is a <span class='term'>bottom-of-funnel</span> tool — it answers \"how do I spec this,\" not \"which machine is right for me.\"" },
+      { t: "Homepage front-and-center = people open it not knowing what they want, build the wrong machine, generate bad-fit quotes = more work for sales." },
+      { t: "So: guide them to the right machine first, configure on the machine page, \"Talk to a Specialist\" is the escape hatch on every page." },
+      { t: "Thad's line: fewer quotes, but far better-qualified ones. Already shipped.", c: "quote" }
+    ]
+  },
+  {
+    head: "Feature · Navigation & mobile",
+    status: "stay",
+    screen: "Mobile-first. The same map, whatever the screen.",
+    say: [
+      { t: "Same four labels on phone and desktop — one mental model, <span class='term'>nothing to relearn</span>." },
+      { t: "Built <span class='term'>mobile-first</span> — most contractors are on a phone in a truck, not at a desk." },
+      { t: "The desktop mega-menu now shows machine cards with photos — Thad asked for that." },
+      { t: "The motion is deliberate: one panel fully closes before the next opens. Reads premium, not jittery.", c: "dim" },
+      { t: "This answers two of the slide-2 problems at once: navigation (one map everywhere) and mobile (built for the phone in the truck).", c: "dim" }
+    ]
+  },
+  {
+    head: "The look &amp; feel",
+    status: "stay",
+    screen: "Industrial. Engineered. Built like the machines.",
+    say: [
+      { t: "This closes problem 3 from slide 2: the dated, crowded look. Now it reads like the industry leader we are." },
+      { t: "Per Thad: the room won't argue the look itself — they'll ask \"is there strategy here, or is it willy-nilly?\" So show the strategy, don't defend taste." },
+      { t: "Every choice maps to the brand: <span class='term'>sharp corners</span> (built like the machines, not a soft consumer app), one disciplined palette, a <span class='term'>mono typeface</span> that tags the spec data." },
+      { t: "The photos are real machines on real jobs, not stock, not AI." },
+      { t: "If someone says \"I don't love the blue\" — answer the why, not the taste: it's a system, not a mood.", c: "quote" },
+      { t: "LAST SLIDE BEFORE THE DEMO. Finish your point, then hit next in the deck — a red banner appears. That's your signal to switch to Firefox tab 2 (live site).", c: "cue" }
+    ]
+  },
+  {
+    head: "— Live demo (in Firefox) —",
+    status: "go",
+    screen: "Switch to the live site. Run the click-path. End on the homepage.",
+    say: [
+      { t: "Go to Firefox tab 2 (live site). Drive the site, not this page.", c: "cue" },
+      { t: "1 · Homepage hero — \"notice it talks to YOU, the contractor, about YOUR margin — not about us.\"" },
+      { t: "2 · Open the mega-menu, switch panels slowly — \"watch one panel close before the next opens. That's the premium feel.\"" },
+      { t: "3 · Walk the four labels — \"not product categories. The four questions every buyer asks.\"" },
+      { t: "4 · How to Buy → Finance Center — tour the four paths — \"every way to pay, honestly, even your own bank.\"" },
+      { t: "5 · Build · Quote · Finance — open the configurator — \"no call-for-pricing. A real number, instantly.\"" },
+      { t: "6 · Resize to mobile / pull out your phone — swipe the menu — \"mobile-first, because the buyer is in a truck.\" (biggest wow)" },
+      { t: "7 · Header search — type a query — \"find a manual in two seconds.\"" },
+      { t: "8 · A machine page — finance CTA + specs — close the loop back to the journey." },
+      { t: "End on the homepage, then switch back to Firefox tab 1 (the deck) for the close.", c: "back-cue" }
+    ]
+  },
+  {
+    head: "Also shipped",
+    status: "back",
+    screen: "More that makes the site work harder.",
+    say: [
+      { t: "Back in the deck (Firefox tab 1). You're done with the live site — stay in the deck through the end.", c: "back-cue" },
+      { t: "Rapid-fire — one line each, don't linger." },
+      { t: "<span class='term'>Service Hub</span> — content-first owner support: per-machine manuals, firmware, troubleshooting, training. Replaces the old scattered KB." },
+      { t: "<span class='term'>Learning Center</span> — the educational engine that feeds the top of the funnel." },
+      { t: "<span class='term'>Live header search</span> — instant results, top-5, filtered by articles / videos / manuals / downloads." },
+      { t: "<span class='term'>Unified machine data layer</span> — one schema drives specs, pricing, and finance data. Change it once, it's right everywhere." }
+    ]
+  },
+  {
+    head: "The ask",
+    status: "stay",
+    screen: "Two questions, and what comes next.",
+    say: [
+      { t: "Two asks, soft. (1) Tell me the direction is right. (2) Here's what's left and what I need from you." },
+      { t: "Go-live target: <span class='term'>first week of July</span>." },
+      { t: "The real gates aren't code — they're: Rick's content review, team training, and a short content-freeze at launch for migration + redirects." },
+      { t: "Training plan: a live session + a recorded video. Sales via their Friday tacticals, service via the managers' call. Rick helps schedule." },
+      { t: "Ask of the room: keep the team continually aware July 1 is coming.", c: "quote" }
+    ]
+  },
+  {
+    head: "What's next · Phase 2 & beyond",
+    status: "stay",
+    screen: "The launch is the foundation. Here's where it goes.",
+    say: [
+      { t: "Lead with: the site we're launching is the foundation. This is the roadmap behind it." },
+      { t: "These are <span class='term'>explorations, not commitments</span> — say that out loud. No dates you can't keep." },
+      { t: "Sharpen buying: a compare tool, plus promo banners (\"0% financing\" in the mega-menu)." },
+      { t: "Deepen ownership: parts e-commerce, and direct service requests into NetSuite (gated on keeping source tracking)." },
+      { t: "Future platform: a \"Sally\" support bot, and eventually a mobile app." },
+      { t: "If someone gets excited about one: \"Great — it's on the list. Let's prioritize it after launch.\"", c: "quote" }
+    ]
+  },
+  {
+    head: "Q&A safety net — read if pressed",
+    status: "stay",
+    screen: "Crisp answers to the hard questions. Don't bluff — de-risk.",
+    say: [
+      { t: "Rollback? It's a theme — a code rollback, not a rebuild. Old site is saved. But day-to-day we fix the specific thing, not revert everything." },
+      { t: "SEO / broken links? No — existing URLs all stay live. We ADDED structured data (Product + FAQ schema) and fixed meta hygiene. More SEO surface, not less." },
+      { t: "Why bury the configurator? Bottom-of-funnel tool. On the homepage it makes bad-fit quotes. Fewer, better-qualified quotes." },
+      { t: "Confuse existing customers? Same four labels phone + desktop, bookmarks still work. And it's launched, not theoretical — GA + Microsoft Clarity let us watch and tune daily." },
+      { t: "ROI / why change? Old finance page was a black hole; configurator kills the \"call for pricing\" stall and pre-qualifies buyers." },
+      { t: "Cost / timeline? ~75–80% done. What's left is content, training, migration — not core dev. I'm the developer, no external cost." },
+      { t: "Finance wrong / legal? Accuracy review with Kathy + Terry before go-live. Page says NTM is a guide, not a lender." },
+      { t: "Who maintains it? I do — sole dev, so same-week fixes. Bus factor is real, which is why everything's documented.", c: "dim" },
+      { t: "Curveball you didn't prep: \"Good question — I don't have that number in front of me; I'll get it to you by [day].\" Then redirect to direction.", c: "cue" },
+      { t: "The 10→4 quote figure is anecdotal — present it as a hunch, not data.", c: "dim" }
+    ]
+  }
+];
+
+const TAG_LABEL = { stay: "Stay on slide", go: "Go to live site", back: "Back in deck" };
+
+document.getElementById('notes').innerHTML = NOTES.map((note, idx) => {
+  const st = note.status || "stay";
+  const bullets = note.say.map(b => {
+    const cls = b.c ? ' class="' + b.c + '"' : '';
+    return '<li' + cls + '>' + b.t + '</li>';
+  }).join('');
+  return '<section class="note">'
+    + '<div class="num">' + String(idx + 1).padStart(2, '0') + ' / ' + NOTES.length + '</div>'
+    + '<div class="head">' + note.head + '</div>'
+    + '<div class="screen">' + note.screen + '</div>'
+    + '<span class="tag ' + st + '">' + TAG_LABEL[st] + '</span>'
+    + '<ul>' + bullets + '</ul>'
+    + '</section>';
+}).join('');
+</script>
+</body>
+</html>
