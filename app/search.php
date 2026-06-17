@@ -18,6 +18,7 @@ if (!defined('ABSPATH')) {
 use function Standard\LearningCenter\get_active_filters as get_learning_center_filters;
 use function Standard\LearningCenter\get_category_filter_options;
 use function Standard\LearningCenter\get_filter_groups;
+use function Standard\LearningCenter\get_learning_center_url;
 use function Standard\LearningCenter\get_machine_filter_options;
 use function Standard\LearningCenter\get_type_filter_options;
 
@@ -46,15 +47,25 @@ $groups = get_filter_groups($filters, [
 $type_options = get_type_filter_options(false);
 $category_options = get_category_filter_options(false);
 $machine_options = get_machine_filter_options(false);
+$learning_center_url = get_learning_center_url();
 
-$build_remove_url = static function (string $param) use ($search_query, $filters): string {
+$build_remove_url = static function (string $param) use ($search_query, $filters, $learning_center_url): string {
     $params = [];
-    if ($search_query !== '') {
-        $params['s'] = $search_query;
-    }
 
     $next = $filters;
     $next[$param] = '';
+
+    $has_next_filters = ($next['category'] ?? '') !== ''
+        || ($next['type'] ?? '') !== ''
+        || ($next['machine'] ?? '') !== '';
+
+    if ($search_query !== '') {
+        $params['s'] = $search_query;
+    } elseif ($has_next_filters) {
+        $params['s'] = '';
+    } else {
+        return $learning_center_url;
+    }
 
     if (($next['category'] ?? '') !== '') {
         $params['lc_category'] = $next['category'];
@@ -88,7 +99,7 @@ $result_count = isset($GLOBALS['wp_query']) && $GLOBALS['wp_query'] instanceof W
     : 0;
 $reset_url = $search_query !== ''
     ? add_query_arg(['s' => $search_query], \Standard\Url\internal('/'))
-    : \Standard\Url\internal('/');
+    : $learning_center_url;
 $has_filters = $chips !== [];
 $selected_total = count($chips);
 $drawer_label = $selected_total > 0
