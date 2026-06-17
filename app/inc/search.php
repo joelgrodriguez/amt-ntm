@@ -464,12 +464,9 @@ function configure_main_query(\WP_Query $query): void {
     }
 
     // "?s=" with no value still trips both WP_Query::parse_search() (which
-    // emits a useless LIKE '%&#32;%' clause) and Relevanssi (which runs an
-    // empty-keyword search and overwrites $query->posts with nothing). When
-    // the user submitted no keyword but did pick a filter, neutralize WP's
-    // search SQL (posts_search → '') and tell Relevanssi to bail
-    // (relevanssi_search_ok → false). is_search stays true so search.php
-    // is still selected as the template.
+    // emits a useless LIKE '%&#32;%' clause) and Relevanssi. When the user
+    // submitted no keyword but did pick a filter, run the normal WP tax query:
+    // remove WP's blank search SQL and opt out of both Relevanssi gates.
     $raw_s         = (string) $query->get('s');
     $decoded_s     = html_entity_decode($raw_s, ENT_QUOTES, 'UTF-8');
     $keyword_blank = trim($decoded_s) === '';
@@ -481,6 +478,9 @@ function configure_main_query(\WP_Query $query): void {
         }, 10, 2);
         \add_filter('relevanssi_search_ok', static function (bool $ok, \WP_Query $q) use ($query): bool {
             return $q === $query ? false : $ok;
+        }, 10, 2);
+        \add_filter('relevanssi_prevent_default_request', static function (bool $prevent, \WP_Query $q) use ($query): bool {
+            return $q === $query ? false : $prevent;
         }, 10, 2);
     }
 
