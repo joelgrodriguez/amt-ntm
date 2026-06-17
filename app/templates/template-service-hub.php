@@ -100,8 +100,6 @@ get_header();
             'cta_primary'      => __('Find your machine', 'standard'),
             'cta_primary_url'  => '#service-hub-machines',
             'cta_primary_icon' => 'arrow-down',
-            'cta_secondary'    => __('Open a service request', 'standard'),
-            'cta_secondary_url' => '/service-hub/request/',
             'video'            => 'https://fast.wistia.net/embed/iframe/jxmgaicen7?videoFoam=true',
         ],
     ]);
@@ -241,7 +239,7 @@ get_header();
             get_uniq_resources() data so the two surfaces stay in sync. UNIQ-specific,
             so it doesn't duplicate the newest-content search firehose below. */ ?>
     <?php if (!empty($uniq_docs) || !empty($uniq_videos)) : ?>
-    <section class="bg-white border-t border-blue-200" aria-labelledby="service-hub-uniq-title">
+    <section class="bg-blue-50 border-t border-blue-200" aria-labelledby="service-hub-uniq-title">
         <div class="container section-compact">
             <div class="grid gap-4 max-w-3xl mb-8">
                 <span class="section-eyebrow flex items-center gap-2">
@@ -256,10 +254,13 @@ get_header();
                 </p>
             </div>
 
-            <!-- items-start so each column sizes to its own content instead of
-                 stretching to match the taller column (Evita: the Documentation
-                 box should end under its text, not run the full column height). -->
-            <div class="grid grid-cols-1 md:grid-cols-2 md:items-start bg-white border border-blue-200">
+            <!-- Columns stretch to equal height (default items-stretch) so the
+                 center divider (the docs column's md:border-r) runs the full box
+                 height. items-start was leaving the shorter Documentation column
+                 — and its right border — ending early, which broke the outer box
+                 (uneven bottom edge + a dangling divider). Equal height keeps the
+                 hairline box square. -->
+            <div class="grid grid-cols-1 md:grid-cols-2 bg-white border border-blue-200">
 
                 <?php if (!empty($uniq_docs)) : ?>
                     <div class="<?php echo !empty($uniq_videos) ? 'border-b border-blue-200 md:border-b-0 md:border-r' : ''; ?>">
