@@ -85,14 +85,14 @@
     {
       "path": "app",
       "purpose": "Application code and framework conventions.",
-      "fileCount": 420,
+      "fileCount": 422,
       "categories": {
-        "source": 161,
+        "source": 162,
         "other": 43,
         "config": 2,
         "route": 7,
         "test": 1,
-        "template": 206
+        "template": 207
       },
       "keyFiles": [
         "app/404.php",
@@ -120,9 +120,9 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 61,
+      "fileCount": 64,
       "categories": {
-        "docs": 61
+        "docs": 64
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
@@ -138,11 +138,11 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 8,
+      "fileCount": 13,
       "categories": {
-        "other": 6,
-        "docs": 1,
-        "source": 1
+        "other": 10,
+        "source": 2,
+        "docs": 1
       },
       "keyFiles": [
         "scripts/db/000-template.sh.example",
@@ -150,9 +150,9 @@
         "scripts/db/020-roof-panel-vs-gutter-seo-meta.sh",
         "scripts/db/021-start-here-seo-meta.sh",
         "scripts/db/022-finance-center-template-and-video.sh",
-        "scripts/db/apply",
-        "scripts/db/README.md",
-        "scripts/search-smoke.php"
+        "scripts/db/023-regenerate-product-card-thumbnails.sh",
+        "scripts/db/024-seed-knowledgebase.php",
+        "scripts/db/024-seed-knowledgebase.sh"
       ]
     }
   ],
@@ -173,7 +173,7 @@
       "path": ".gitignore",
       "category": "other",
       "role": "Repository file.",
-      "size": 1138
+      "size": 1183
     },
     {
       "path": "app/404.php",
@@ -428,6 +428,12 @@
       "size": 333
     },
     {
+      "path": "app/data/knowledgebase/articles.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 30342
+    },
+    {
       "path": "app/data/machines/5vc-5v-crimp.php",
       "category": "source",
       "role": "Application source code.",
@@ -455,13 +461,13 @@
       "path": "app/data/machines/mach-ii-combo-gutter.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 12381
+      "size": 11660
     },
     {
       "path": "app/data/machines/ssh-multipro.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 12102
+      "size": 12101
     },
     {
       "path": "app/data/machines/ssq-ii-multipro.php",
@@ -473,7 +479,7 @@
       "path": "app/data/machines/ssq3-multipro.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 16063
+      "size": 16012
     },
     {
       "path": "app/data/machines/ssr-multipro-jr.php",
@@ -503,7 +509,7 @@
       "path": "app/functions.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 1583
+      "size": 1612
     },
     {
       "path": "app/header.php",
@@ -590,6 +596,12 @@
       "size": 3206
     },
     {
+      "path": "app/inc/knowledgebase.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 2550
+    },
+    {
       "path": "app/inc/learning-center/config.php",
       "category": "config",
       "role": "Project configuration.",
@@ -629,13 +641,13 @@
       "path": "app/inc/machines-data.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 42836
+      "size": 42927
     },
     {
       "path": "app/inc/machines.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 5059
+      "size": 4986
     },
     {
       "path": "app/inc/mobile-nav.php",
@@ -665,7 +677,7 @@
       "path": "app/inc/post-types.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 4001
+      "size": 4210
     },
     {
       "path": "app/inc/related-posts.php",
@@ -683,19 +695,19 @@
       "path": "app/inc/service-hub-machines.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 9276
+      "size": 10856
     },
     {
       "path": "app/inc/service-hub.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 15690
+      "size": 23106
     },
     {
       "path": "app/inc/setup.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 2924
+      "size": 3157
     },
     {
       "path": "app/inc/sidebars.php",
@@ -707,7 +719,7 @@
       "path": "app/inc/urls.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 634
+      "size": 1863
     },
     {
       "path": "app/inc/video.php",
@@ -779,7 +791,7 @@
       "path": "app/page-about.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 2043
+      "size": 1607
     },
     {
       "path": "app/page-accessories.php",
@@ -899,7 +911,7 @@
       "path": "app/page-service-request.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 3078
+      "size": 7441
     },
     {
       "path": "app/page-start-here.php",
@@ -929,7 +941,7 @@
       "path": "app/resources/css/animations.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 4387
+      "size": 5170
     },
     {
       "path": "app/resources/css/base.css",
@@ -1085,7 +1097,7 @@
       "path": "app/resources/css/machine-product.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 401
+      "size": 363
     },
     {
       "path": "app/resources/css/mobile-menu.css",
@@ -1109,7 +1121,7 @@
       "path": "app/resources/css/pages/media.css",
       "category": "route",
       "role": "Route, page, controller, or request entry file.",
-      "size": 2680
+      "size": 1513
     },
     {
       "path": "app/resources/css/pages/roof-wall.css",
@@ -1121,7 +1133,7 @@
       "path": "app/resources/css/pages/single.css",
       "category": "route",
       "role": "Route, page, controller, or request entry file.",
-      "size": 4234
+      "size": 4766
     },
     {
       "path": "app/resources/css/pages/start-here.css",
@@ -1205,19 +1217,13 @@
       "path": "app/resources/css/woo/machine-subnav.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 9306
+      "size": 11801
     },
     {
       "path": "app/resources/css/woo/product-card.css",
       "category": "source",
       "role": "Application source code.",
       "size": 4856
-    },
-    {
-      "path": "app/resources/css/woo/resources-ledger.css",
-      "category": "source",
-      "role": "Application source code.",
-      "size": 3114
     },
     {
       "path": "app/resources/css/woo/stats-band.css",
@@ -1328,6 +1334,12 @@
       "size": 9813
     },
     {
+      "path": "app/resources/js/modules/RevealMore.js",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 3649
+    },
+    {
       "path": "app/resources/js/modules/ScrollHeader.js",
       "category": "source",
       "role": "Application source code.",
@@ -1368,12 +1380,6 @@
       "category": "source",
       "role": "Application source code.",
       "size": 6804
-    },
-    {
-      "path": "app/resources/js/modules/VideoFacade.js",
-      "category": "source",
-      "role": "Application source code.",
-      "size": 3480
     },
     {
       "path": "app/safelist.txt",
@@ -1547,7 +1553,7 @@
       "path": "app/templates/pages/finance-center/hero.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 2265
+      "size": 2014
     },
     {
       "path": "app/templates/pages/finance-center/lenders.php",
@@ -1619,7 +1625,7 @@
       "path": "app/templates/pages/gutter/hero.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 1389
+      "size": 1213
     },
     {
       "path": "app/templates/pages/gutter/learning-center.php",
@@ -1739,7 +1745,7 @@
       "path": "app/templates/pages/machines/hero.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 1697
+      "size": 1337
     },
     {
       "path": "app/templates/pages/machines/image-break.php",
@@ -1823,7 +1829,7 @@
       "path": "app/templates/pages/playlist/hero.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 2524
+      "size": 3328
     },
     {
       "path": "app/templates/pages/profiles/catalog-section.php",
@@ -1979,7 +1985,7 @@
       "path": "app/templates/pages/uniq/hero.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 1966
+      "size": 1582
     },
     {
       "path": "app/templates/pages/uniq/how-it-works.php",
@@ -2039,13 +2045,13 @@
       "path": "app/templates/parts/about/capabilities.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4449
+      "size": 4403
     },
     {
       "path": "app/templates/parts/about/manifesto.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4078
+      "size": 4452
     },
     {
       "path": "app/templates/parts/about/origin.php",
@@ -2057,7 +2063,7 @@
       "path": "app/templates/parts/about/people.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4598
+      "size": 4445
     },
     {
       "path": "app/templates/parts/about/support.php",
@@ -2237,7 +2243,7 @@
       "path": "app/templates/parts/front-page/flagships.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 10397
+      "size": 10378
     },
     {
       "path": "app/templates/parts/front-page/hero-slide.php",
@@ -2255,7 +2261,7 @@
       "path": "app/templates/parts/front-page/quiz.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 2856
+      "size": 2717
     },
     {
       "path": "app/templates/parts/front-page/router.php",
@@ -2303,7 +2309,7 @@
       "path": "app/templates/parts/hero-category.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 9437
+      "size": 7860
     },
     {
       "path": "app/templates/parts/learning-center/results.php",
@@ -2387,7 +2393,7 @@
       "path": "app/templates/parts/service-hub/faq.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 2332
+      "size": 2486
     },
     {
       "path": "app/templates/parts/service-hub/machine-card.php",
@@ -2495,13 +2501,19 @@
       "path": "app/templates/template-service-hub-machine.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 14113
+      "size": 17330
     },
     {
       "path": "app/templates/template-service-hub.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 28944
+      "size": 29916
+    },
+    {
+      "path": "app/templates/template-service-search.php",
+      "category": "template",
+      "role": "Application source code.",
+      "size": 11938
     },
     {
       "path": "app/templates/woo/product/parts/accessories.php",
@@ -2525,7 +2537,7 @@
       "path": "app/templates/woo/product/parts/blueprint.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 9676
+      "size": 9642
     },
     {
       "path": "app/templates/woo/product/parts/case-study.php",
@@ -2639,7 +2651,7 @@
       "path": "app/templates/woo/product/parts/resources.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3951
+      "size": 4085
     },
     {
       "path": "app/templates/woo/product/parts/specs-accordion.php",
@@ -2657,7 +2669,7 @@
       "path": "app/templates/woo/product/parts/subnav.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4019
+      "size": 4251
     },
     {
       "path": "app/templates/woo/product/parts/testimonials.php",
@@ -2681,7 +2693,7 @@
       "path": "app/templates/woo/product/single-machine.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 5764
+      "size": 5927
     },
     {
       "path": "app/theme.json",
@@ -2699,7 +2711,7 @@
       "path": "CLAUDE.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 13663
+      "size": 16330
     },
     {
       "path": "db/imports/ntmservice-service-articles.json",
@@ -3086,6 +3098,24 @@
       "size": 4252
     },
     {
+      "path": "docs/superpowers/specs/2026-06-16-service-hub-knowledgebase-design.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 9142
+    },
+    {
+      "path": "docs/superpowers/specs/2026-06-16-service-search-results-page-design.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 7500
+    },
+    {
+      "path": "docs/superpowers/specs/2026-06-16-ssq3-machii-template-polish-design.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 7758
+    },
+    {
       "path": "package-lock.json",
       "category": "other",
       "role": "Repository file.",
@@ -3138,6 +3168,36 @@
       "category": "other",
       "role": "Repository file.",
       "size": 2183
+    },
+    {
+      "path": "scripts/db/023-regenerate-product-card-thumbnails.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 1625
+    },
+    {
+      "path": "scripts/db/024-seed-knowledgebase.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 7042
+    },
+    {
+      "path": "scripts/db/024-seed-knowledgebase.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 2140
+    },
+    {
+      "path": "scripts/db/025-top-five-questions-headings.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 6369
+    },
+    {
+      "path": "scripts/db/026-create-service-search-page.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 2352
     },
     {
       "path": "scripts/db/apply",
@@ -3243,6 +3303,9 @@
     "docs/presentations/navigation-flow.html",
     "docs/presentations/website-update-notes.md",
     "docs/RECOVERY.md",
+    "docs/superpowers/specs/2026-06-16-service-hub-knowledgebase-design.md",
+    "docs/superpowers/specs/2026-06-16-service-search-results-page-design.md",
+    "docs/superpowers/specs/2026-06-16-ssq3-machii-template-polish-design.md",
     "PRODUCT.md",
     "README.md",
     "scripts/db/README.md",
