@@ -17,8 +17,8 @@ return [
     'hero' => [
         'headline'   => __('16 Panel Profiles.<br class="hidden lg:inline"> One Machine.', 'standard'),
         'subtitle'   => __('The most advanced portable roof and wall panel machine we\'ve ever built. Smarter, safer, and more efficient than ever.', 'standard'),
-        'hero_image' => content_url('/uploads/2026/06/ntm-ssq3-on-trailer-001-1.png'),
-        'image'      => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-ssq3-manual-controller-050.jpg',
+        'hero_image' => content_url('/uploads/2026/06/ssq3-operator-at-controls.jpg'),
+        'image'      => content_url('/uploads/2026/06/ssq3-operator-at-controls.jpg'),
         'video'      => null,
     ],
     'stats' => [
@@ -45,7 +45,7 @@ return [
                 __('Hydraulically powered shear with hardened tool steel blades', 'standard'),
                 __('Panel recognition safety system', 'standard'),
             ],
-            'image'    => content_url('/uploads/2026/06/ntm-ssq3-on-trailer-001-1.png'),
+            'image'    => content_url('/uploads/2026/06/ssq3-machine-rear-panel-exit.jpg'),
         ],
         [
             'id'       => 'frame',
@@ -57,7 +57,7 @@ return [
                 __('Welded tubular steel frame', 'standard'),
                 __('Powder-coated aluminum covers with windows', 'standard'),
             ],
-            'image'    => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-ssq3-overhead-drone-001.jpg',
+            'image'    => content_url('/uploads/2026/06/ssq3-machine-side-yard.jpg'),
         ],
         [
             'id'       => 'power-pack',
@@ -69,7 +69,7 @@ return [
                 __('5 HP or 7.5 HP electric motor options', 'standard'),
                 __('Up to 75 ft/min production speed', 'standard'),
             ],
-            'image'    => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-mach2-electric-power-pack-001.jpg',
+            'image'    => content_url('/uploads/2026/06/ssq3-machine-side-engine-end.jpg'),
         ],
         [
             'id'       => 'brain',
@@ -81,7 +81,7 @@ return [
                 __('Push-button RUN/JOG at entry & exit ends', 'standard'),
                 __('RFID cover sensors and on-controller diagnostics', 'standard'),
             ],
-            'image'    => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-ssq3-rfid-sensors-001.jpg',
+            'image'    => content_url('/uploads/2026/06/ssq3-controller-and-head.jpg'),
         ],
     ],
     'fit' => [
@@ -103,7 +103,14 @@ return [
         'svg' => 'ssq3-machine',
     ],
     'gallery' => [
-        'images'  => [],
+        'images'  => [
+            content_url('/uploads/2026/06/ssq3-machine-rear-quarter-studio.jpg'),
+            content_url('/uploads/2026/06/ssq3-machine-full-side-shop.jpg'),
+            content_url('/uploads/2026/06/ssq3-machine-side-backlit.jpg'),
+            content_url('/uploads/2026/06/ssq3-dual-coil-reels-branding.jpg'),
+            content_url('/uploads/2026/06/ssq3-operator-feeding-panel-jobsite.jpg'),
+            content_url('/uploads/2026/06/aerial-ssq3-forming-panel.jpg'),
+        ],
         'rotator' => [],
     ],
     'profiles' => [
@@ -125,7 +132,7 @@ return [
             'name'     => 'Joe Keene',
             'company'  => 'Integrity Metals',
             'machine'  => 'SSQ3 MultiPro',
-            'image'    => content_url('/uploads/2026/05/ntm-customer-onsite-002.jpg'),
+            'image'    => content_url('/uploads/2026/06/ssq3-crew-inspecting-panel.jpg'),
             'cta_text' => __('Watch the Full Story', 'standard'),
             'cta_url'  => '/learning-center/video/is-ntm-good-for-contractors-and-manufacturers-video/',
             'cta_icon' => 'play',
