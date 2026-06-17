@@ -28,47 +28,6 @@
 }
 
 /**
- * Video Facade
- *
- * Click-to-play placeholder for third-party video embeds (Wistia, etc.).
- * Renders the poster + a play badge; the heavy iframe + vendor script
- * only mount when the user clicks. Keeps third-party JS off the LCP
- * path and avoids loading the Wistia player for visitors who never
- * watch the video.
- *
- * The .video-responsive parent already provides the 16:9 frame; the
- * facade button fills it and stacks the play badge over the poster.
- */
-.video-facade {
-  @apply absolute inset-0 w-full h-full p-0 m-0 border-0 bg-transparent cursor-pointer;
-}
-
-.video-facade__play {
-  @apply absolute inset-0 grid place-items-center text-white pointer-events-none transition-transform duration-200;
-}
-
-.video-facade__play::before {
-  content: "";
-  @apply absolute w-16 h-16 bg-blue-500 transition-colors duration-200;
-}
-
-.video-facade__play svg {
-  @apply relative z-10 translate-x-[2px];
-}
-
-.video-facade:hover .video-facade__play {
-  transform: scale(1.06);
-}
-
-.video-facade:hover .video-facade__play::before {
-  @apply bg-blue-400;
-}
-
-.video-facade:focus-visible {
-  @apply outline-none ring-2 ring-blue-500 ring-offset-2 ring-offset-blue-900;
-}
-
-/**
  * WordPress Embed Blocks
  *
  * Automatic responsive handling for WordPress video embeds

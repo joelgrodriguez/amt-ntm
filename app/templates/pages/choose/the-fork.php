@@ -15,7 +15,7 @@
  *
  * @package Standard
  *
- * @param string $roof_from   Lowest roof-family "From" price (e.g. "$43,400").
+ * @param string $roof_from   Lowest roof-family "From" price (e.g. "$44,900").
  * @param string $gutter_from Lowest gutter-family "From" price (e.g. "$9,800").
  *
  * @usage Choose Your Machine (page-choose-your-machine.php)
@@ -29,7 +29,7 @@ if (!defined('ABSPATH')) {
 
 // Derived in the page template from the assembled catalog; the literals are
 // a last-resort fallback only if the catalog couldn't resolve a floor.
-$roof_from   = !empty($args['roof_from']) ? $args['roof_from'] : '$43,400';
+$roof_from   = !empty($args['roof_from']) ? $args['roof_from'] : '$44,900';
 $gutter_from = !empty($args['gutter_from']) ? $args['gutter_from'] : '$9,800';
 
 $lanes = [

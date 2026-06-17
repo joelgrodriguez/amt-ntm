@@ -52,6 +52,8 @@ get_template_part('templates/parts/faq-accordion', null, [
     ],
     'image_alt'    => __('NTM service team working on an SSQ machine', 'standard'),
     'image_aspect' => 'video',
-    'bg'           => 'bg-blue-50',
+    // bg-white so the FAQ doesn't double the Talk-To-Us blue-50 band directly
+    // above it; the alternation continues blue-50 (UNIQ) -> white (search).
+    'bg'           => 'bg-white',
     'faqs'         => $faqs,
 ]);

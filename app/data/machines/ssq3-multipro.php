@@ -19,6 +19,9 @@ return [
         'subtitle'   => __('The most advanced portable roof and wall panel machine we\'ve ever built. Smarter, safer, and more efficient than ever.', 'standard'),
         'hero_image' => content_url('/uploads/2026/06/ssq3-operator-at-controls.jpg'),
         'image'      => content_url('/uploads/2026/06/ssq3-operator-at-controls.jpg'),
+        // Front-page flagships callout shot (front-page/flagships.php picks this
+        // via image_key). Separate from the product-page hero on purpose.
+        'flagship_image' => content_url('/uploads/2026/06/ssq3-machine-side-loaded-coils.jpg'),
         'video'      => null,
     ],
     'stats' => [
@@ -29,7 +32,7 @@ return [
     ],
     'finance' => [
         'monthly_price' => null,
-        'price_range'   => __('$121K – $137K', 'standard'),
+        'price_range'   => __('$130K – $143K', 'standard'),
         'note'          => __('Depending on profile; notching option not included', 'standard'),
         'apr'           => '4.99%',
         'months'        => '84',
@@ -45,7 +48,7 @@ return [
                 __('Hydraulically powered shear with hardened tool steel blades', 'standard'),
                 __('Panel recognition safety system', 'standard'),
             ],
-            'image'    => content_url('/uploads/2026/06/ssq3-machine-rear-panel-exit.jpg'),
+            'image'    => content_url('/uploads/2026/06/ssq3-machine-side-backlit.jpg'),
         ],
         [
             'id'       => 'frame',
@@ -57,7 +60,7 @@ return [
                 __('Welded tubular steel frame', 'standard'),
                 __('Powder-coated aluminum covers with windows', 'standard'),
             ],
-            'image'    => content_url('/uploads/2026/06/ssq3-machine-side-yard.jpg'),
+            'image'    => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-ssq3-overhead-drone-001.jpg',
         ],
         [
             'id'       => 'power-pack',
@@ -69,7 +72,7 @@ return [
                 __('5 HP or 7.5 HP electric motor options', 'standard'),
                 __('Up to 75 ft/min production speed', 'standard'),
             ],
-            'image'    => content_url('/uploads/2026/06/ssq3-machine-side-engine-end.jpg'),
+            'image'    => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-mach2-electric-power-pack-001.jpg',
         ],
         [
             'id'       => 'brain',
@@ -81,7 +84,7 @@ return [
                 __('Push-button RUN/JOG at entry & exit ends', 'standard'),
                 __('RFID cover sensors and on-controller diagnostics', 'standard'),
             ],
-            'image'    => content_url('/uploads/2026/06/ssq3-controller-and-head.jpg'),
+            'image'    => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-ssq3-rfid-sensors-001.jpg',
         ],
     ],
     'fit' => [
@@ -91,12 +94,6 @@ return [
             __('Businesses that need gas and electric flexibility on-site', 'standard'),
             __('Contractors processing steel, aluminum, copper, or terne-coat stainless', 'standard'),
             __('Operations that value fast 25-minute tooling changeovers', 'standard'),
-        ],
-        'is_not_for' => [
-            ['text' => __('Residential-only gutter installers', 'standard'), 'machine' => 'mach-ii-5-gutter'],
-            ['text' => __('Contractors who only need exposed-fastener 5V crimp panels', 'standard'), 'machine' => '5vc-5v-crimp'],
-            ['text' => __('Budget-conscious startups looking for entry-level rollforming', 'standard'), 'machine' => 'ssr-multipro-jr'],
-            ['text' => __('Shops that only run wall panels without roof profiles', 'standard'), 'machine' => 'wav-wall-panel'],
         ],
     ],
     'blueprint' => [
@@ -144,6 +141,8 @@ return [
         'best_for'     => __('High-volume commercial & residential', 'standard'),
     ],
     'specs' => [
+        // Sticky image beside the "Full Details" specs accordion.
+        'image' => content_url('/uploads/2026/06/ssq3-machine-side-loaded-coils.jpg'),
         'standard_features' => [
             __('16 Polyurethane Drive Rollers', 'standard'),
             __('Roller System with Shear Dies', 'standard'),
@@ -292,8 +291,8 @@ return [
         ],
     ],
     'schema' => [
-        'low_price'    => '121000',
-        'high_price'   => '137000',
+        'low_price'    => '130000',
+        'high_price'   => '143000',
         'availability' => 'InStock',
         'brand'        => 'New Tech Machinery',
         'manufacturer' => 'New Tech Machinery',

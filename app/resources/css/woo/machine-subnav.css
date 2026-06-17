@@ -258,6 +258,24 @@
    engages at lg: (>=64rem) where there's room beside the content. */
 
 @media (min-width: 64rem) {
+  /* Narrow the rail on the machine product page only. The shared
+     .layout-with-rail width (13.5rem / 17rem) is tuned for filter
+     sidebars + the mega menu; the machine subnav holds only a short
+     title and one-word anchor links, so it reads too wide and leaves a
+     large gap. Scope the tighter track + gap here so the filter-sidebar
+     pages and the mega-menu alignment are untouched. */
+  .machine-product .layout-with-rail {
+    grid-template-columns: 10.5rem 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 80rem) {
+    .machine-product .layout-with-rail {
+      grid-template-columns: 12rem 1fr;
+      gap: 2.5rem;
+    }
+  }
+
   /* In-flow vertical rail that sticks beside the page content. Drop the
      fixed-overlay treatment the header variant uses so it scrolls with
      the page until it reaches the sticky offset. */
@@ -270,6 +288,15 @@
     z-index: 30;
     transform: none;
     border-bottom: none;
+    /* Drop the rail's first link down to meet the breakdown section's
+       "Inside the Machine" eyebrow. The first rail section uses .section
+       (lg:py-24 = 6rem top); match it so both columns start level instead
+       of the rail floating flush against the video above. Equals the
+       sticky top offset, so there's no jump when it pins. */
+    padding-top: 6rem;
+    /* Breathing room below the last link when the user reaches the end of
+       the content column, so the rail never butts the closer/footer. */
+    padding-bottom: 4rem;
   }
 
   .machine-subnav--sidebar.is-sticky {
@@ -331,5 +358,31 @@
   .machine-rail-content #machine-case-study,
   .machine-rail-content .machine-fit {
     background-color: transparent;
+  }
+
+  /* ── Rail content: hairline seams between sections ─────────────────
+     With the colored bands flattened to white, adjacent sections ran
+     together with no boundary. Draw a single full-width hairline between
+     each rendered pair (adjacent-sibling, so the first section gets no
+     rule and empty/early-returning parts never leave a stray line). */
+  .machine-rail-content > section + section {
+    border-top: 1px solid var(--color-blue-100);
+  }
+
+  /* The blueprint ships its own border-y frame (top + bottom). Let it
+     keep its own top edge — the seam above lands at the same pixel, so
+     it reads as one line. Only suppress the seam on the section AFTER
+     blueprint, so it doesn't double blueprint's own bottom border. */
+  .machine-rail-content > #machine-blueprint + section {
+    border-top: none;
+  }
+
+  /* A touch more vertical room so each hairline has air on both sides.
+     Exclude the blueprint: it's a tight engineering-drawing chrome with
+     its own border-y frame and no section padding by design — forcing
+     padding inside it pushes content off its top border. */
+  .machine-rail-content > section:not(#machine-blueprint) {
+    padding-top: clamp(4rem, 6vw, 6.5rem);
+    padding-bottom: clamp(4rem, 6vw, 6.5rem);
   }
 }

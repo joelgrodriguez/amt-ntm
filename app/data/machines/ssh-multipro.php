@@ -29,7 +29,7 @@ return [
     ],
     'finance' => [
         'monthly_price' => null,
-        'price_range'   => __('$69,200+', 'standard'),
+        'price_range'   => __('$71,600', 'standard'),
         'note'          => __('Depending on machine configuration; includes choice of one profile', 'standard'),
         'apr'           => '5.49%',
         'months'        => '72',
@@ -249,7 +249,7 @@ return [
         ],
     ],
     'schema' => [
-        'low_price'    => '69200',
+        'low_price'    => '71600',
         'high_price'   => null,
         'availability' => 'InStock',
         'brand'        => 'New Tech Machinery',

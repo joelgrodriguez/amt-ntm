@@ -76,6 +76,11 @@ $resources    = $data['resources'] ?? [];
 $manual_url   = (string) ($resources['manual'] ?? '');
 $brochure_url = (string) ($resources['brochure'] ?? '');
 
+// Per-machine FAQ from the data file (app/data/machines/<slug>.php). The
+// product page already renders this; the service page surfaces the same Q&A
+// so an owner gets it whether or not troubleshooting articles are tagged yet.
+$faqs = \is_array($data['faq'] ?? null) ? $data['faq'] : [];
+
 $groups      = get_content_groups($slug);
 $has_content = false;
 foreach ($groups as $group) {
@@ -120,18 +125,14 @@ get_header();
                         <?php endif; ?>
                     </div>
 
-                    <div class="flex flex-wrap gap-3">
-                        <a href="<?php echo esc_url($request_url); ?>" class="btn btn-primary">
-                            <?php esc_html_e('Start a service request', 'standard'); ?>
-                            <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
-                        </a>
-                        <?php if ($manual_url !== '') : ?>
-                            <a href="<?php echo esc_url($manual_url); ?>" class="btn btn-secondary">
-                                <?php icon('file-text', ['class' => 'w-4 h-4']); ?>
+                    <?php if ($manual_url !== '') : ?>
+                        <div class="flex flex-wrap gap-3">
+                            <a href="<?php echo esc_url(\Standard\Url\canonical($manual_url)); ?>" class="btn btn-primary">
+                                <?php icon('file-text', ['class' => 'w-5 h-5']); ?>
                                 <?php esc_html_e('Open the manual', 'standard'); ?>
                             </a>
-                        <?php endif; ?>
-                    </div>
+                        </div>
+                    <?php endif; ?>
 
                     <?php if (!empty($meta)) :
                         // Literal class strings only: Tailwind v4 scans source for
@@ -172,18 +173,67 @@ get_header();
         </div>
     </header>
 
+    <?php if (!empty($faqs)) : ?>
+        <?php /* FAQ leads the page — an owner usually lands with a question.
+                Centered column (mx-auto), left-aligned text for readability.
+                Bare accordion (contact-faq-list), mono section header. */ ?>
+        <section class="container section-compact" aria-labelledby="service-hub-machine-faq-title">
+            <div class="mx-auto max-w-3xl grid gap-6">
+                <h2 id="service-hub-machine-faq-title" class="font-mono font-medium uppercase tracking-wider text-blue-700 m-0 text-center" style="font-size: var(--text-caption);">
+                    <?php esc_html_e('Frequently asked', 'standard'); ?>
+                </h2>
+                <?php get_template_part('templates/parts/contact-faq-list', null, [
+                    'faqs' => $faqs,
+                ]); ?>
+            </div>
+        </section>
+    <?php endif; ?>
+
     <?php if ($has_content) : ?>
+        <?php
+        // Cards beyond this many ship hidden; RevealMore.js reveals the next
+        // batch per click. Two rows on the 3-col grid.
+        $reveal_batch = 6;
+        ?>
         <?php foreach ($groups as $group) : ?>
-            <?php if (!$group['query']->have_posts()) { continue; } ?>
+            <?php
+            if (!$group['query']->have_posts()) { continue; }
+            $found     = (int) $group['query']->found_posts;
+            $overflow  = $found > $reveal_batch;
+            $remaining = $found - $reveal_batch;
+            $index     = 0;
+            ?>
             <section class="container section-compact" aria-label="<?php echo esc_attr($group['label']); ?>">
                 <h2 class="font-mono font-medium uppercase tracking-wider text-blue-700 mb-6" style="font-size: var(--text-caption);">
                     <?php echo esc_html($group['label']); ?>
-                    <span class="text-blue-400">&middot; <?php echo (int) $group['query']->found_posts; ?></span>
+                    <span class="text-blue-400">&middot; <?php echo $found; ?></span>
                 </h2>
-                <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                    <?php while ($group['query']->have_posts()) : $group['query']->the_post(); ?>
-                        <?php get_template_part('templates/parts/card-post'); ?>
-                    <?php endwhile; ?>
+                <div data-reveal-group data-reveal-batch="<?php echo (int) $reveal_batch; ?>">
+                    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                        <?php while ($group['query']->have_posts()) : $group['query']->the_post(); ?>
+                            <?php /* Past the first batch: ship hidden + reveal-item so
+                                    JS can fade them in. With JS off they'd show (JS only
+                                    removes hidden), but the reveal items also carry the
+                                    transition base class. */ ?>
+                            <div data-reveal-item class="reveal-item<?php echo $index >= $reveal_batch ? ' hidden' : ''; ?>">
+                                <?php get_template_part('templates/parts/card-post'); ?>
+                            </div>
+                            <?php $index++; ?>
+                        <?php endwhile; ?>
+                    </div>
+                    <?php if ($overflow) : ?>
+                        <?php /* Ships hidden; RevealMore.js shows it once it confirms
+                                there's overflow to reveal, so no-JS visitors (who see
+                                every card) never get a dead button. */ ?>
+                        <div data-reveal-controls class="hidden mt-8 flex justify-center">
+                            <button type="button" data-reveal-button data-reveal-remaining="<?php echo (int) $remaining; ?>"
+                                    class="btn btn-md btn-secondary group">
+                                <?php esc_html_e('Show more', 'standard'); ?>
+                                <span class="text-blue-400">(<span data-reveal-count><?php echo (int) min($reveal_batch, $remaining); ?></span>)</span>
+                                <?php icon('chevron-down', ['class' => 'w-4 h-4 transition-transform duration-200 group-hover:translate-y-0.5']); ?>
+                            </button>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </section>
             <?php wp_reset_postdata(); ?>
@@ -250,11 +300,13 @@ get_header();
 
     <?php
     get_template_part('templates/parts/cta/closer', null, [
-        'title'           => __('Still need a hand?', 'standard'),
-        'text'            => __('Our service team has been on the other end of the phone for more than 30 years.', 'standard'),
-        'cta_primary'     => __('Talk to a service specialist', 'standard'),
-        'cta_primary_url' => '/contact/',
-        'section_id'      => 'service-hub-machine-closer-title',
+        'title'             => __('Still need a hand?', 'standard'),
+        'text'              => __('Our service team has been on the other end of the phone for more than 30 years.', 'standard'),
+        'cta_primary'       => __('Talk to a service specialist', 'standard'),
+        'cta_primary_url'   => '/contact/',
+        'cta_secondary'     => __('Start a service request', 'standard'),
+        'cta_secondary_url' => '/service-hub/request/?machine=' . rawurlencode($slug),
+        'section_id'        => 'service-hub-machine-closer-title',
     ]);
     ?>
 </main>

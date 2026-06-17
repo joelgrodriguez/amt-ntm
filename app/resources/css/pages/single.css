@@ -75,6 +75,22 @@
   display: block;
 }
 
+/* PDF.js Viewer plugin renders <iframe class="pdfjs-iframe" height="800">.
+   The containment guard above (.prose iframe { height: auto }) overrides that
+   pixel height and collapses the viewer to ~content height — i.e. nothing,
+   since a fresh PDF iframe has no intrinsic height. A document viewer needs an
+   explicit height, so opt it out and restore a usable size. Width stays fluid. */
+.prose .pdfjs-iframe {
+  width: 100%;
+  height: 800px;
+}
+
+@media (max-width: 640px) {
+  .prose .pdfjs-iframe {
+    height: 70vh;
+  }
+}
+
 .prose pre,
 .prose table {
   display: block;

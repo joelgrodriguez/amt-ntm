@@ -2,10 +2,10 @@
 /**
  * Machine Product — Resources & Support
  *
- * Hairline ledger of downloadable resources, matching the configurator-cta
- * and machine-fit vocabulary. Numbered rows, mono kicker per row, single
- * red accent dot on the section eyebrow. Replaces the earlier identical-
- * card grid (which leaned on a generic heroicon placeholder per cell).
+ * Three-column icon card grid: one card per resource (Manual, Brochure,
+ * Service & Training). Each card carries an icon, mono kicker, title, copy,
+ * and an arrowed CTA, linking to the resource. Mobile-first: single column
+ * at base, three columns from md up.
  *
  * @package Standard
  * @var array{machine: array} $args
@@ -27,6 +27,7 @@ if (!$resources) {
 $rows = [];
 if (!empty($resources['manual'])) {
     $rows[] = [
+        'icon'   => 'file-text',
         'kicker' => __('Manual', 'standard'),
         'title'  => __('Operator Manual', 'standard'),
         'copy'   => __('Setup, daily operation, maintenance schedule, and troubleshooting.', 'standard'),
@@ -36,6 +37,7 @@ if (!empty($resources['manual'])) {
 }
 if (!empty($resources['brochure'])) {
     $rows[] = [
+        'icon'   => 'download',
         'kicker' => __('Brochure', 'standard'),
         'title'  => __('Product Brochure', 'standard'),
         'copy'   => __('Full spec sheet, options, configurations, and pricing reference.', 'standard'),
@@ -45,6 +47,7 @@ if (!empty($resources['brochure'])) {
 }
 if (!empty($resources['service_training_url'])) {
     $rows[] = [
+        'icon'   => 'life-buoy',
         'kicker' => __('Service', 'standard'),
         'title'  => __('Service & Training', 'standard'),
         'copy'   => __('Hands-on training, technical support, and replacement-parts pipeline.', 'standard'),
@@ -58,7 +61,7 @@ if (empty($rows)) {
 }
 ?>
 
-<section id="machine-resources" class="resources-ledger section bg-white" aria-labelledby="resources-title" data-reveal="fade">
+<section id="machine-resources" class="resources section bg-white" aria-labelledby="resources-title" data-reveal="fade">
     <div class="container">
 
         <div class="section-header-left">
@@ -67,37 +70,33 @@ if (empty($rows)) {
             <h2 id="resources-title" class="section-title"><?php esc_html_e('Downloads & Support', 'standard'); ?></h2>
         </div>
 
-        <ol class="resources-ledger__rows" role="list">
-            <?php foreach ($rows as $index => $row) : ?>
-                <li class="resources-ledger__row">
+        <ul class="mt-10 grid gap-6 md:grid-cols-3" role="list">
+            <?php foreach ($rows as $row) : ?>
+                <li>
                     <a
                         href="<?php echo esc_url($row['url']); ?>"
-                        class="resources-ledger__link"
+                        class="group flex h-full flex-col gap-4 border border-blue-100 bg-white p-6 transition-colors hover:border-blue-300 lg:p-8"
                         target="_blank"
                         rel="noopener"
                     >
-                        <span class="resources-ledger__index" aria-hidden="true">
-                            <?php echo esc_html(str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT)); ?>
+                        <span class="flex h-12 w-12 items-center justify-center bg-blue-50 text-blue-500 transition-colors group-hover:bg-blue-100">
+                            <?php icon($row['icon'], ['class' => 'w-6 h-6']); ?>
                         </span>
-                        <span class="resources-ledger__body">
-                            <span class="resources-ledger__kicker">
-                                <?php echo esc_html($row['kicker']); ?>
-                            </span>
-                            <span class="resources-ledger__title">
-                                <?php echo esc_html($row['title']); ?>
-                            </span>
-                            <span class="resources-ledger__copy">
-                                <?php echo esc_html($row['copy']); ?>
-                            </span>
+                        <span class="font-mono text-[11px] font-medium uppercase tracking-wider text-blue-500">
+                            <?php echo esc_html($row['kicker']); ?>
                         </span>
-                        <span class="resources-ledger__cta">
+                        <span class="text-xl font-medium text-blue-900">
+                            <?php echo esc_html($row['title']); ?>
+                        </span>
+                        <span class="text-blue-600"><?php echo esc_html($row['copy']); ?></span>
+                        <span class="mt-auto inline-flex items-center gap-1 pt-2 font-medium text-blue-700 group-hover:text-blue-900">
                             <span><?php echo esc_html($row['cta']); ?></span>
-                            <span aria-hidden="true" class="resources-ledger__arrow">&rarr;</span>
+                            <?php icon('arrow-right', ['class' => 'w-4 h-4 transition-transform group-hover:translate-x-0.5']); ?>
                         </span>
                     </a>
                 </li>
             <?php endforeach; ?>
-        </ol>
+        </ul>
 
     </div>
 </section>

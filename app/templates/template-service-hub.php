@@ -20,8 +20,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use function Standard\LearningCenter\get_filter_groups;
 use function Standard\ServiceHub\get_active_filters;
+use function Standard\ServiceHub\get_filter_groups;
 use function Standard\ServiceHub\get_post_type_label;
 use function Standard\ServiceHub\get_post_type_options;
 use function Standard\ServiceHub\get_results_query;
@@ -31,7 +31,11 @@ $paged = max(1, (int) get_query_var('paged'), (int) get_query_var('page'));
 // 9 results per page (3 rows of the 3-up grid); pagination handles the rest.
 $service_query = get_results_query($filters, $paged, 9);
 $post_type_options = get_post_type_options();
-$form_action = get_permalink() ?: \Standard\Url\internal('/service-hub/');
+
+// The search form + sidebar submit to the DEDICATED results page so a search
+// lands on stripped results, not back on this full hub. The grid below still
+// renders here for browsing; the handoff only happens on submit.
+$form_action = \Standard\Url\internal('/service-hub/search/');
 $has_filters = $filters['search'] !== ''
     || $filters['type'] !== ''
     || $filters['category'] !== ''
@@ -41,9 +45,8 @@ $has_filters = $filters['search'] !== ''
 $service_form_id = 'service-hub-form';
 
 // Only offer Resource Type options that actually have content — a 0-result
-// type just dumps the user on the empty state. Counts come from the cached
-// get_post_type_counts(). Always keep the currently-active type even if its
-// count reads 0, so the user's own filter never vanishes from the UI.
+// type just dumps the user on the empty state. Always keep the active type even
+// if its count reads 0, so the user's own filter never vanishes.
 $type_counts = \Standard\ServiceHub\get_post_type_counts();
 $type_choice_options = ['' => __('All types', 'standard')];
 foreach ($post_type_options as $post_type => $option) {
@@ -53,18 +56,8 @@ foreach ($post_type_options as $post_type => $option) {
     $type_choice_options[$post_type] = (string) $option['label'];
 }
 
-$service_groups = get_filter_groups([
-    'category' => $filters['category'],
-    'type'     => $filters['type'],
-    'machine'  => $filters['machine'],
-], [
-    'names' => [
-        'category' => 'service_category',
-        'type'     => 'service_type',
-        'machine'  => 'service_machine',
-    ],
-    'type_options' => $type_choice_options,
-]);
+// Machine-first, service-scoped filter groups (Machine, Resource Type, Category).
+$service_groups = get_filter_groups($filters, $type_choice_options);
 
 // Include dormant machines: this is a support hub, not the sales catalog.
 // Owners of superseded models (e.g. SSQ II) still need their service content,
@@ -88,8 +81,8 @@ get_header();
 
     <?php /* Band 1 — Hero. Shared hero-category part (same as /machines): sr-only h1 (WP
             title, SEO), visible h2 headline, blue primary CTA, and a 16:9 Wistia video panel
-            on the right with the click-to-play facade (service-department poster). No meta
-            rail (support page, not marketing). */ ?>
+            on the right (native player, embedded inline). No meta rail (support page, not
+            marketing). */ ?>
     <?php
     get_template_part('templates/parts/hero-category', null, [
         'section_id' => 'service-hub-hero',
@@ -100,21 +93,16 @@ get_header();
             'cta_primary'      => __('Find your machine', 'standard'),
             'cta_primary_url'  => '#service-hub-machines',
             'cta_primary_icon' => 'arrow-down',
-            'cta_secondary'    => __('Open a service request', 'standard'),
-            'cta_secondary_url' => '/service-hub/request/',
             'video'            => 'https://fast.wistia.net/embed/iframe/jxmgaicen7?videoFoam=true',
-            // Click-to-play poster (the facade thumbnail), same mechanism as
-            // /machines. Service-department photo: the right fit for a support hub.
-            // TODO(asset): Alex to deliver "Top 5 Questions" video thumbnail (Monday pre-demo).
-            // Drop file into uploads and update poster path below.
-            'poster'           => content_url('/uploads/2022/04/service-department-working-on-SSQ-II.jpg'),
-            'poster_alt'       => __('Top 5 questions about portable rollforming machines — NTM Service Hub', 'standard'),
         ],
     ]);
     ?>
 
-    <?php /* Band 2 — Category-grouped machine directory. Light. Compact horizontal cards; pick your machine, get its support content. */ ?>
-    <section class="bg-blue-50 border-t border-blue-200" aria-labelledby="service-hub-machines-title">
+    <?php /* Band 2 — Category-grouped machine directory. Light. Compact horizontal cards; pick your machine, get its support content.
+            id="service-hub-machines" is the hero "Find your machine" CTA target;
+            smooth-scroll + header offset are global (base.css scroll-behavior /
+            scroll-padding-top). */ ?>
+    <section id="service-hub-machines" class="bg-blue-50 border-t border-blue-200 scroll-mt-24" aria-labelledby="service-hub-machines-title">
         <div class="container section">
             <h2 id="service-hub-machines-title" class="font-sans font-medium text-heading text-blue-900 m-0 mb-2" data-reveal="fade">
                 <?php esc_html_e('Find your machine', 'standard'); ?>
@@ -147,8 +135,10 @@ get_header();
         </div>
     </section>
 
-    <?php /* Band 3 — Service content for every machine. Light. Hairline-divided row of links. */ ?>
-    <section class="bg-white border-t border-blue-200" aria-labelledby="service-hub-includes-title">
+    <?php /* Band 3 — Service content for every machine. Light. Hairline-divided row of links.
+            No band border-t: the white-on-blue-50 color change carries the seam, and
+            this section reads as a continuation of the directory above. */ ?>
+    <section class="bg-white" aria-labelledby="service-hub-includes-title">
         <div class="container section-compact">
             <h2 id="service-hub-includes-title" class="font-mono font-medium uppercase tracking-wider text-blue-900 m-0 mb-8" style="font-size: var(--text-heading-sm);">
                 <?php esc_html_e('Service content for every machine', 'standard'); ?>
@@ -185,10 +175,14 @@ get_header();
                 ],
             ];
             ?>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-blue-200">
+            <?php /* Vertical dividers only — no outer top/bottom border on the row.
+                    border-l on the wrapper + border-r per card draws the column
+                    separators between the four cards; the top and bottom edges of
+                    the box are intentionally open. */ ?>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 border-l border-blue-200">
                 <?php foreach ($includes as $item) : ?>
                     <a href="<?php echo esc_url($item['url']); ?>"
-                       class="group flex flex-col gap-2 border-b border-r border-blue-200 p-6 no-underline transition-colors duration-200 hover:bg-blue-50">
+                       class="group flex flex-col gap-2 border-r border-blue-200 p-6 no-underline transition-colors duration-200 hover:bg-blue-50">
                         <?php icon($item['icon'], ['class' => 'w-5 h-5 text-blue-500', 'aria-hidden' => 'true']); ?>
                         <span class="flex items-center gap-1.5 font-mono font-medium uppercase tracking-wider text-blue-900 transition-colors duration-200 group-hover:text-blue-500" style="font-size: var(--text-caption);">
                             <?php echo esc_html($item['label']); ?>
@@ -203,8 +197,9 @@ get_header();
         </div>
     </section>
 
-    <?php /* Band 4 — Talk to a specialist. Light blue-50. Human-expertise proof + request CTA. */ ?>
-    <section class="bg-blue-50 border-t border-blue-200" aria-labelledby="service-hub-specialist-title">
+    <?php /* Band 4 — Talk to a specialist. Light blue-50. Human-expertise proof + request CTA.
+            No border-t: the blue-50-on-white shift is the seam against the section above. */ ?>
+    <section class="bg-blue-50" aria-labelledby="service-hub-specialist-title">
         <div class="container section-compact">
             <div class="grid gap-6 lg:grid-cols-[2fr_1fr] lg:items-center">
                 <div class="grid gap-4 max-w-2xl">
@@ -244,32 +239,49 @@ get_header();
             get_uniq_resources() data so the two surfaces stay in sync. UNIQ-specific,
             so it doesn't duplicate the newest-content search firehose below. */ ?>
     <?php if (!empty($uniq_docs) || !empty($uniq_videos)) : ?>
-    <section class="bg-white border-t border-blue-200" aria-labelledby="service-hub-uniq-title">
+    <section class="bg-blue-50" aria-labelledby="service-hub-uniq-title">
         <div class="container section-compact">
-            <div class="grid gap-4 max-w-3xl mb-8">
-                <span class="section-eyebrow flex items-center gap-2">
-                    <span class="inline-block h-1 w-1 bg-red" aria-hidden="true"></span>
-                    <?php esc_html_e('Control System', 'standard'); ?>
-                </span>
-                <h2 id="service-hub-uniq-title" class="font-sans font-medium text-heading text-blue-900 leading-tight m-0">
-                    <?php esc_html_e('UNIQ Automatic Control System', 'standard'); ?>
-                </h2>
-                <p class="font-sans text-blue-600 m-0" style="font-size: var(--text-body); line-height: var(--leading-body);">
-                    <?php esc_html_e('The touchscreen brain for your SSQ II, SSQ3, and WAV rollformers. Field-update instructions, the supplement manual, and the full video library for installing, running, and upgrading UNIQ.', 'standard'); ?>
+            <?php /* Two-column header: lede on the left, the "full page" link in the
+                    second column opposite it, bottom-aligned with the lede so it sits
+                    beside the description rather than below the whole box. */ ?>
+            <div class="grid gap-6 mb-8 lg:grid-cols-[2fr_1fr] lg:items-end">
+                <div class="grid gap-4 max-w-3xl">
+                    <span class="section-eyebrow flex items-center gap-2">
+                        <span class="inline-block h-1 w-1 bg-red" aria-hidden="true"></span>
+                        <?php esc_html_e('Control System', 'standard'); ?>
+                    </span>
+                    <h2 id="service-hub-uniq-title" class="font-sans font-medium text-heading text-blue-900 leading-tight m-0">
+                        <?php esc_html_e('UNIQ Automatic Control System', 'standard'); ?>
+                    </h2>
+                    <p class="font-sans text-blue-600 m-0" style="font-size: var(--text-body); line-height: var(--leading-body);">
+                        <?php esc_html_e('The touchscreen brain for your SSQ II, SSQ3, and WAV rollformers. Field-update instructions, the supplement manual, and the full video library for installing, running, and upgrading UNIQ.', 'standard'); ?>
+                    </p>
+                </div>
+                <p class="m-0 lg:justify-self-end">
+                    <a href="<?php echo esc_url(\Standard\Url\internal('/machines/uniq-control-system/')); ?>"
+                       class="group inline-flex items-center gap-2 font-mono uppercase tracking-mono-meta text-blue-500 hover:text-blue-700 transition-colors duration-150 no-underline" style="font-size: var(--text-body);">
+                        <?php esc_html_e('Full UNIQ control system page', 'standard'); ?>
+                        <?php icon('arrow-right', ['class' => 'w-4 h-4 transition-transform duration-150 group-hover:translate-x-1']); ?>
+                    </a>
                 </p>
             </div>
 
-            <!-- items-start so each column sizes to its own content instead of
-                 stretching to match the taller column (Evita: the Documentation
-                 box should end under its text, not run the full column height). -->
-            <div class="grid grid-cols-1 md:grid-cols-2 md:items-start bg-white border border-blue-200">
+            <!-- Columns stretch to equal height (default items-stretch) so the
+                 center divider (the docs column's md:border-r) runs the full box
+                 height. items-start was leaving the shorter Documentation column
+                 — and its right border — ending early, which broke the outer box
+                 (uneven bottom edge + a dangling divider). Equal height keeps the
+                 hairline box square. -->
+            <div class="grid grid-cols-1 md:grid-cols-2 bg-white border border-blue-200">
 
                 <?php if (!empty($uniq_docs)) : ?>
-                    <div class="<?php echo !empty($uniq_videos) ? 'border-b border-blue-200 md:border-b-0 md:border-r' : ''; ?>">
+                    <div class="flex flex-col <?php echo !empty($uniq_videos) ? 'border-b border-blue-200 md:border-b-0 md:border-r' : ''; ?>">
                         <h3 class="font-mono font-medium uppercase tracking-mono-label text-blue-500 p-6 lg:p-8 border-b border-blue-200" style="font-size: var(--text-caption);">
                             <?php esc_html_e('Documentation', 'standard'); ?>
                         </h3>
-                        <ul>
+                        <?php /* grow so the shorter column fills the equal-height box;
+                                no mid-column line where the list ends. */ ?>
+                        <ul class="grow">
                             <?php foreach ($uniq_docs as $i => $doc) :
                                 $is_last = ($i === count($uniq_docs) - 1);
                             ?>
@@ -291,11 +303,11 @@ get_header();
                 <?php endif; ?>
 
                 <?php if (!empty($uniq_videos)) : ?>
-                    <div>
+                    <div class="flex flex-col">
                         <h3 class="font-mono font-medium uppercase tracking-mono-label text-blue-500 p-6 lg:p-8 border-b border-blue-200" style="font-size: var(--text-caption);">
                             <?php esc_html_e('Video Tutorials', 'standard'); ?>
                         </h3>
-                        <ul>
+                        <ul class="grow">
                             <?php foreach ($uniq_videos as $i => $video) :
                                 $is_last = ($i === count($uniq_videos) - 1);
                             ?>
@@ -317,21 +329,16 @@ get_header();
                 <?php endif; ?>
 
             </div>
-
-            <p class="mt-6 m-0">
-                <a href="<?php echo esc_url(\Standard\Url\internal('/machines/uniq-control-system/')); ?>"
-                   class="group inline-flex items-center gap-2 font-mono uppercase tracking-mono-meta text-blue-500 hover:text-blue-700 transition-colors duration-150 no-underline" style="font-size: var(--text-caption);">
-                    <?php esc_html_e('Full UNIQ control system page', 'standard'); ?>
-                    <?php icon('arrow-right', ['class' => 'w-3 h-3 transition-transform duration-150 group-hover:translate-x-1']); ?>
-                </a>
-            </p>
         </div>
     </section>
     <?php endif; ?>
 
     <?php /* Band 5 — Search the content library. The keyword input leads the section
-            directly above the results (heading + search bar as one block). */ ?>
-    <section id="search" class="bg-white border-t border-blue-200" aria-labelledby="service-hub-search-heading">
+            directly above the results (heading + search bar as one block). The
+            form + filter sidebar submit to /service-hub/search/, the dedicated
+            results page, so a search lands on stripped results instead of the
+            whole hub; the grid here stays for in-place browsing. */ ?>
+    <section id="search" class="bg-white" aria-labelledby="service-hub-search-heading">
         <div class="container section-compact">
             <div class="grid gap-5 md:flex md:items-end md:justify-between md:gap-8">
                 <h2 id="service-hub-search-heading" class="font-mono font-medium uppercase tracking-wider text-blue-900 m-0 shrink-0" style="font-size: var(--text-heading-sm);">

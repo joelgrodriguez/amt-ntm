@@ -16,15 +16,13 @@
  *
  * @param array  $content    {kicker, title, subtitle, cta_primary,
  *                            cta_primary_url, cta_primary_icon,
- *                            cta_secondary, cta_secondary_url,
- *                            cta_secondary_trigger, video, poster,
- *                            poster_alt}
+ *                            cta_secondary, cta_secondary_url, video,
+ *                            poster, poster_alt}
  *                           cta_primary_icon defaults to 'arrow-down'.
  *                           Pass 'arrow-right' for navigation CTAs.
- *                           cta_secondary_trigger, when truthy, makes
- *                           the secondary CTA a remote facade trigger
- *                           (the panel's own Wistia facade activates),
- *                           instead of a navigation link.
+ *                           Wistia videos embed directly with their native
+ *                           player (no click-to-play poster facade); the
+ *                           poster is used only when there is no video.
  * @param array  $meta       Array of {label, value} mono rail items.
  * @param string $section_id ID used for aria-labelledby.
  * @param bool   $pattern    Render the dot-grid backdrop. Default true
@@ -41,27 +39,27 @@ if (!defined('ABSPATH')) {
 use function Standard\Video\render_video_embed;
 use function Standard\Video\is_wistia_url;
 
-$content              = $args['content'] ?? [];
-$meta                 = $args['meta'] ?? [];
-$section_id           = $args['section_id'] ?? 'hero';
-$pattern              = $args['pattern'] ?? true;
-$video                = $content['video'] ?? '';
-$poster               = $content['poster'] ?? '';
-$poster_alt           = $content['poster_alt'] ?? '';
-$kicker               = $content['kicker'] ?? ($content['eyebrow'] ?? '');
-$cta_primary_icon     = $content['cta_primary_icon'] ?? 'arrow-down';
-$cta_secondary_remote = !empty($content['cta_secondary_trigger']);
-$facade_id            = $section_id . '-facade';
+$content          = $args['content'] ?? [];
+$meta             = $args['meta'] ?? [];
+$section_id       = $args['section_id'] ?? 'hero';
+$pattern          = $args['pattern'] ?? true;
+$video            = $content['video'] ?? '';
+$poster           = $content['poster'] ?? '';
+$poster_alt       = $content['poster_alt'] ?? '';
+$kicker           = $content['kicker'] ?? ($content['eyebrow'] ?? '');
+$cta_primary_icon = $content['cta_primary_icon'] ?? 'arrow-down';
 
 // Decide which video pipeline to use.
-// Wistia gets the click-to-play treatment: the poster image is the LCP,
-// the iframe + E-v1.js only load when the user actually wants the video.
-// Self-hosted mp4 still autoplays inline (cheap, no third-party).
-$is_mp4           = $video !== '' && preg_match('/\.mp4($|\?)/i', $video);
-$is_wistia        = $video !== '' && !$is_mp4 && is_wistia_url($video);
-$other_embed      = ($video !== '' && !$is_mp4 && !$is_wistia) ? render_video_embed($video) : '';
-$has_other_embed  = $other_embed !== '';
-$has_mp4_video    = (bool) $is_mp4;
+// Wistia embeds directly with its native player (no click-to-play poster
+// facade) so it behaves like the About hero. Force eager loading — these
+// heroes are above the fold. Self-hosted mp4 still autoplays inline.
+$is_mp4          = $video !== '' && preg_match('/\.mp4($|\?)/i', $video);
+$is_wistia       = $video !== '' && !$is_mp4 && is_wistia_url($video);
+$wistia_embed    = $is_wistia ? str_replace('loading="lazy"', 'loading="eager"', render_video_embed($video)) : '';
+$other_embed     = ($video !== '' && !$is_mp4 && !$is_wistia) ? render_video_embed($video) : '';
+$has_wistia      = $wistia_embed !== '';
+$has_other_embed = $other_embed !== '';
+$has_mp4_video   = (bool) $is_mp4;
 ?>
 
 <?php
@@ -113,20 +111,9 @@ if ($pattern) {
                         <?php icon($cta_primary_icon, ['class' => 'w-5 h-5']); ?>
                     </a>
                     <?php if (!empty($content['cta_secondary'])) : ?>
-                        <?php if ($cta_secondary_remote && $is_wistia) : ?>
-                            <button
-                                type="button"
-                                class="btn btn-outline-light"
-                                data-video-trigger="#<?php echo esc_attr($facade_id); ?>"
-                            >
-                                <?php echo esc_html($content['cta_secondary']); ?>
-                                <?php icon('play', ['class' => 'w-4 h-4']); ?>
-                            </button>
-                        <?php else : ?>
-                            <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_secondary_url'])); ?>" class="btn btn-outline-light">
-                                <?php echo esc_html($content['cta_secondary']); ?>
-                            </a>
-                        <?php endif; ?>
+                        <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_secondary_url'])); ?>" class="btn btn-outline-light">
+                            <?php echo esc_html($content['cta_secondary']); ?>
+                        </a>
                     <?php endif; ?>
                 </div>
 
@@ -151,26 +138,8 @@ if ($pattern) {
 
             <!-- Right panel: 16:9 video or poster -->
             <div class="video-responsive lg:col-span-6 bg-blue-800">
-                <?php if ($is_wistia) : ?>
-                    <button
-                        type="button"
-                        class="video-facade"
-                        id="<?php echo esc_attr($facade_id); ?>"
-                        data-video-facade
-                        data-video-url="<?php echo esc_url($video); ?>"
-                        aria-label="<?php echo esc_attr__('Play video', 'standard'); ?>"
-                    >
-                        <?php if ($poster) : ?>
-                            <?php \Standard\Images\responsive_image($poster, $poster_alt, 'full', [
-                                'class'         => 'object-cover',
-                                'loading'       => 'eager',
-                                'fetchpriority' => 'high',
-                            ]); ?>
-                        <?php endif; ?>
-                        <span class="video-facade__play" aria-hidden="true">
-                            <?php icon('play', ['class' => 'w-6 h-6']); ?>
-                        </span>
-                    </button>
+                <?php if ($has_wistia) : ?>
+                    <?php echo $wistia_embed; ?>
                 <?php elseif ($has_other_embed) : ?>
                     <?php echo $other_embed; ?>
                 <?php elseif ($has_mp4_video) : ?>
@@ -196,3 +165,7 @@ if ($pattern) {
         </div>
     </div>
 </section>
+
+<?php if ($has_wistia) : ?>
+    <script src="https://fast.wistia.net/assets/external/E-v1.js" async></script>
+<?php endif; ?>

@@ -39,7 +39,7 @@ if (
     $data_slug = $aliases[$product->get_slug()] ?? $product->get_slug();
     foreach (\Standard\MachinesData\get_all_machines(true) as $m) {
         if (($m['slug'] ?? '') === $data_slug) {
-            $current_short = $m['name'] ?? $current_name;
+            $current_short = $m['short_name'] ?? $m['name'] ?? $current_name;
             break;
         }
     }
@@ -50,10 +50,13 @@ if (!empty($machine['breakdown'])) {
     $nav_links[__('Overview', 'standard')] = 'machine-breakdown';
 }
 
-$fit = $machine['fit'] ?? null;
-if (!empty($fit['is_for']) || !empty($fit['is_not_for'])) {
-    $nav_links[__('Fit', 'standard')] = 'machine-fit';
-}
+// Machine Fit section is hidden in single-machine.php; keep its anchor out
+// of the rail so the link doesn't point at a missing section. Re-add this
+// alongside re-enabling the machine-fit render.
+// $fit = $machine['fit'] ?? null;
+// if (!empty($fit['is_for']) || !empty($fit['is_not_for'])) {
+//     $nav_links[__('Fit', 'standard')] = 'machine-fit';
+// }
 
 if (!empty($machine['profiles']['tag_slugs'])) {
     $nav_links[__('Profiles', 'standard')] = 'machine-profiles';

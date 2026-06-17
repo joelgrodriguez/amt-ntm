@@ -19,11 +19,20 @@ const CACHE_GROUP = 'standard_service_hub';
 const CACHE_TTL = 15 * MINUTE_IN_SECONDS;
 
 /**
+ * Post types offered as Resource Type filter rows, in display order. A subset
+ * of get_post_types(): Troubleshooting (knowledgebase), Footprints, Cutlists,
+ * and Pages are searchable but not surfaced as their own filter. Drives only
+ * the sidebar UI, never the query scope.
+ */
+const FILTER_TYPES = ['post', 'video', 'resource', 'download', 'manual', 'literature'];
+
+/**
  * @return string[]
  */
 function get_post_types(): array {
     return [
         'post',
+        'knowledgebase',
         'video',
         'resource',
         'download',
@@ -51,7 +60,8 @@ function get_department_terms(): array {
  */
 function get_post_type_options(): array {
     return [
-        'post'       => ['label' => \__('Articles', 'standard'), 'icon' => 'file-text'],
+        'post'          => ['label' => \__('Articles', 'standard'), 'icon' => 'file-text'],
+        'knowledgebase' => ['label' => \__('Troubleshooting', 'standard'), 'icon' => 'life-buoy'],
         'video'      => ['label' => \__('Videos', 'standard'), 'icon' => 'play'],
         'resource'   => ['label' => \__('Resources', 'standard'), 'icon' => 'folder'],
         'download'   => ['label' => \__('Downloads', 'standard'), 'icon' => 'download'],
@@ -218,6 +228,16 @@ function get_query_args(array $filters, int $paged = 1, int $per_page = 12): arr
 
     if (!empty($filters['search'])) {
         $args['s'] = (string) $filters['search'];
+        // Relevanssi (the site search engine) intercepts any WP_Query with `s`
+        // set. On a SECONDARY query it half-hooks and returns nothing unless we
+        // opt in explicitly — so without this flag, keyword searches here return
+        // 0 results even when matches exist. `relevanssi => true` runs the query
+        // through Relevanssi properly and still honors our tax_query (department
+        // + machine + category). Only set it when there's actually a keyword;
+        // filter-only queries use plain WP_Query.
+        if (\function_exists('relevanssi_do_query')) {
+            $args['relevanssi'] = true;
+        }
     }
 
     $sort_options = get_sort_options();
@@ -342,6 +362,161 @@ function get_terms_for_service_content(string $taxonomy, int $limit = 30): array
     \wp_cache_set($cache_key, $terms, CACHE_GROUP, CACHE_TTL);
 
     return $terms;
+}
+
+/**
+ * The Machine filter rows, curated. Ordered tag-slug => display label.
+ *
+ * Curated rather than derived: the machine→tag mapping has genuine edge cases
+ * (SSQ3 reuses SSQ II's library; the MACH II Combo spans the 5"/6" tags) that
+ * auto-inference gets wrong. An explicit list is predictable and one line to
+ * edit. The slug is the post_tag the filter queries; the label is what owners
+ * read. Counts are computed live (get_machine_tag_count) so they always match
+ * what clicking the row returns; a row with 0 service content is dropped.
+ *
+ * Add a machine: add a line. Keep it in the order you want it to appear.
+ *
+ * @return array<string, string> tag slug => label, in display order
+ */
+function get_machine_filter_map(): array {
+    return [
+        'ssq-ii-multipro-roof-panel-machine' => \__('SSQ II / SSQ3 MultiPro', 'standard'),
+        'ssh-multipro-roof-panel-machine'    => \__('SSH MultiPro', 'standard'),
+        'ssr-multipro-jr'                    => \__('SSR MultiPro Jr.', 'standard'),
+        '5vc-5v-crimp-roof-panel-machine'    => \__('5V Crimp', 'standard'),
+        'wav-wall-panel-machine'             => \__('WAV', 'standard'),
+        'mach-ii-5-6-gutter-machine'         => \__('MACH II 5"/6" Combo Gutter', 'standard'),
+        'mach-ii-5-gutter-machine'           => \__('MACH II 5" Gutter', 'standard'),
+        'mach-ii-6-gutter-machine'           => \__('MACH II 6" Gutter', 'standard'),
+        'bg7-box-gutter-machine'             => \__('BG7', 'standard'),
+    ];
+}
+
+/**
+ * Machine filter options that actually have service-department content, in the
+ * curated order. Each row's count is the true `dept AND tag` result count, so
+ * the sidebar number matches what clicking the filter returns; rows with no
+ * service content are omitted.
+ *
+ * @return array<string, array{label: string, count: int}> keyed by tag slug
+ */
+function get_machine_terms_for_service(): array {
+    $options = [];
+    foreach (get_machine_filter_map() as $tag_slug => $label) {
+        $count = get_machine_tag_count($tag_slug);
+        if ($count > 0) {
+            $options[$tag_slug] = ['label' => (string) $label, 'count' => $count];
+        }
+    }
+
+    return $options;
+}
+
+/**
+ * True count of service-department posts carrying a given post_tag slug —
+ * i.e. exactly what the machine filter returns when clicked (dept AND tag).
+ * Cached per slug; cheap (fields=ids, no_found_rows off only for the count).
+ */
+function get_machine_tag_count(string $tag_slug): int {
+    $cache_key = 'machine_tag_count:' . $tag_slug;
+    $cached = \wp_cache_get($cache_key, CACHE_GROUP);
+    if ($cached !== false) {
+        return (int) $cached;
+    }
+
+    $query = new \WP_Query([
+        'post_type'              => get_post_types(),
+        'post_status'            => 'publish',
+        'posts_per_page'         => 1,
+        'fields'                 => 'ids',
+        'ignore_sticky_posts'    => true,
+        'update_post_meta_cache' => false,
+        'update_post_term_cache' => false,
+        'tax_query'              => [
+            'relation' => 'AND',
+            get_service_tax_query()[0],
+            [
+                'taxonomy' => 'post_tag',
+                'field'    => 'slug',
+                'terms'    => [$tag_slug],
+            ],
+        ],
+    ]);
+
+    $count = (int) $query->found_posts;
+    \wp_cache_set($cache_key, $count, CACHE_GROUP, CACHE_TTL);
+
+    return $count;
+}
+
+/**
+ * Build the Service Hub filter sidebar groups: Machine first (the owner's
+ * mental model), then Resource Type, then Category. Every option is scoped to
+ * content that lives in the service department, so no filter ever returns zero
+ * results. Field names match get_active_filters() so the GET form round-trips.
+ *
+ * @param array{search?: string, type?: string, category?: string, machine?: string} $filters
+ * @param array<string, string> $type_options [post_type => label], pre-gated by count
+ * @return array<int, array<string, mixed>>
+ */
+function get_filter_groups(array $filters, array $type_options): array {
+    if (!\function_exists('Standard\\Filters\\build_choice_group')) {
+        require_once \get_template_directory() . '/inc/filters.php';
+    }
+
+    $groups = [];
+
+    $machine_terms = get_machine_terms_for_service();
+    if ($machine_terms !== []) {
+        // Machine first — the owner's mental model. An empty-value option acts
+        // as "All machines" (the sidebar treats an empty radio value that way).
+        $machine_options = ['' => \__('All machines', 'standard')];
+        $machine_counts = [];
+        foreach ($machine_terms as $slug => $info) {
+            $machine_options[$slug] = (string) $info['label'];
+            $machine_counts[$slug] = (int) $info['count'];
+        }
+
+        $groups[] = \Standard\Filters\build_choice_group(
+            'service-machine',
+            \__('Machine', 'standard'),
+            'service_machine',
+            $machine_options,
+            [(string) ($filters['machine'] ?? '')],
+            $machine_counts,
+            'settings',
+            'radio'
+        );
+    }
+
+    // Resource Type — only the owner-facing content kinds. Troubleshooting,
+    // Footprints, Cutlists, and Pages are intentionally omitted from the filter
+    // UI (they still live in get_post_types() so their content stays searchable
+    // under "All types"; they just don't get their own filter row). Keep the
+    // active type even if it's off-list, so a deep link never loses its filter.
+    $filter_type_options = ['' => $type_options[''] ?? \__('All types', 'standard')];
+    foreach (FILTER_TYPES as $post_type) {
+        if (isset($type_options[$post_type])) {
+            $filter_type_options[$post_type] = $type_options[$post_type];
+        }
+    }
+    $active_type = (string) ($filters['type'] ?? '');
+    if ($active_type !== '' && !isset($filter_type_options[$active_type]) && isset($type_options[$active_type])) {
+        $filter_type_options[$active_type] = $type_options[$active_type];
+    }
+
+    $groups[] = \Standard\Filters\build_choice_group(
+        'service-type',
+        \__('Resource Type', 'standard'),
+        'service_type',
+        $filter_type_options,
+        [$active_type],
+        [],
+        'file-text',
+        'radio'
+    );
+
+    return $groups;
 }
 
 /**

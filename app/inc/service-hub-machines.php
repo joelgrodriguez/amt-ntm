@@ -18,7 +18,9 @@ if (!defined('ABSPATH')) {
 }
 
 const QUERY_VAR       = 'service_hub_machine';
-const REWRITE_VERSION = '2';
+// Bumped to 3 when the knowledgebase CPT (inc/knowledgebase.php) added its own
+// rewrite slug — this versioned flush also clears the rules for that type.
+const REWRITE_VERSION = '4';
 const VERSION_OPTION  = 'standard_service_hub_machine_rewrite_version';
 
 /**
@@ -58,13 +60,14 @@ function find_machine(string $slug): ?array {
 
 /**
  * Register /service-hub/<slug>/. The negative lookahead excludes the
- * `request` segment, so the real /service-hub/request/ child page resolves
- * via WP's default page rule instead of being captured as a machine slug.
- * Any other non-machine slug still 404s via template-side validation.
+ * `request` and `search` segments, so the real /service-hub/request/ and
+ * /service-hub/search/ child pages resolve via WP's default page rule instead
+ * of being captured as a machine slug. Any other non-machine slug still 404s
+ * via template-side validation.
  */
 function register_rewrites(): void {
     \add_rewrite_rule(
-        '^service-hub/(?!request/?$)([^/]+)/?$',
+        '^service-hub/(?!(?:request|search)/?$)([^/]+)/?$',
         'index.php?' . QUERY_VAR . '=$matches[1]',
         'top'
     );
@@ -116,6 +119,39 @@ function route_template(string $template): string {
 \add_filter('template_include', __NAMESPACE__ . '\\route_template', 30);
 
 /**
+ * All post_tag slugs that hold a machine's service content.
+ *
+ * Two sources, unioned:
+ *   1. the data-file slug itself (e.g. ssq-ii-multipro) — where the migrated
+ *      knowledgebase posts are tagged (scripts/db/024-seed-knowledgebase.sh);
+ *   2. the real WP content tags the machine declares in its data file's
+ *      profiles.tag_slugs (e.g. ssq-ii-multipro-roof-panel-machine) — where the
+ *      bulk of legacy videos/manuals/downloads actually live.
+ *
+ * This is why a superseded model still fills its page from the surviving model's
+ * library: ssq3-multipro declares ssq-ii-multipro-roof-panel-machine, so the
+ * SSQ3 service page reuses the SSQ II content with no duplication. The generic
+ * 'accessories' tag is dropped — it isn't machine-specific.
+ *
+ * @return string[]
+ */
+function get_service_tag_slugs(string $machine_slug): array {
+    $slugs = [$machine_slug];
+
+    if (\function_exists('Standard\\MachineProductData\\get_machine_product_data')) {
+        $data = \Standard\MachineProductData\get_machine_product_data($machine_slug) ?? [];
+        foreach ((array) ($data['profiles']['tag_slugs'] ?? []) as $tag) {
+            $tag = (string) $tag;
+            if ($tag !== '' && $tag !== 'accessories') {
+                $slugs[] = $tag;
+            }
+        }
+    }
+
+    return \array_values(\array_unique($slugs));
+}
+
+/**
  * Grouped service content for one machine.
  *
  * Returns groups in display order; each group is a WP_Query of
@@ -125,15 +161,16 @@ function route_template(string $template): string {
  * @return array<int, array{label: string, query: \WP_Query}>
  */
 function get_content_groups(string $machine_slug): array {
-    // Order leads with Troubleshooting: an owner on a service page usually
-    // arrives with a problem, so written fixes go first (Alex, 2026-06-03 nav
-    // review — "troubleshooting should lead on service-related pages"). Then
-    // the manual they reach for, the service team's videos, then parts/footprints.
+    $tag_slugs = get_service_tag_slugs($machine_slug);
+    // The FAQ leads the page (rendered in the template, after the hero). Then
+    // Manuals — the document an owner reaches for first — followed by written
+    // Troubleshooting fixes and the service team's videos. The Parts &
+    // footprints group is intentionally dropped here: the footprint already
+    // lives in the hero, so a duplicate section adds noise without value.
     $groups = [
-        ['label' => \__('Troubleshooting', 'standard'),     'types' => ['post']],
-        ['label' => \__('Manuals', 'standard'),             'types' => ['manual']],
-        ['label' => \__('Videos', 'standard'),              'types' => ['video']],
-        ['label' => \__('Parts & footprints', 'standard'),  'types' => ['download', 'footprint', 'cutlist']],
+        ['label' => \__('Manuals', 'standard'),         'types' => ['manual']],
+        ['label' => \__('Troubleshooting', 'standard'), 'types' => ['knowledgebase', 'post']],
+        ['label' => \__('Videos', 'standard'),          'types' => ['video']],
     ];
 
     $built = [];
@@ -151,7 +188,7 @@ function get_content_groups(string $machine_slug): array {
                 [
                     'taxonomy' => 'post_tag',
                     'field'    => 'slug',
-                    'terms'    => [$machine_slug],
+                    'terms'    => $tag_slugs,
                 ],
             ],
         ]);
