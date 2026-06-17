@@ -258,6 +258,24 @@
    engages at lg: (>=64rem) where there's room beside the content. */
 
 @media (min-width: 64rem) {
+  /* Narrow the rail on the machine product page only. The shared
+     .layout-with-rail width (13.5rem / 17rem) is tuned for filter
+     sidebars + the mega menu; the machine subnav holds only a short
+     title and one-word anchor links, so it reads too wide and leaves a
+     large gap. Scope the tighter track + gap here so the filter-sidebar
+     pages and the mega-menu alignment are untouched. */
+  .machine-product .layout-with-rail {
+    grid-template-columns: 10.5rem 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 80rem) {
+    .machine-product .layout-with-rail {
+      grid-template-columns: 12rem 1fr;
+      gap: 2.5rem;
+    }
+  }
+
   /* In-flow vertical rail that sticks beside the page content. Drop the
      fixed-overlay treatment the header variant uses so it scrolls with
      the page until it reaches the sticky offset. */
