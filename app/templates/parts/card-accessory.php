@@ -49,7 +49,7 @@ if ($context === 'carousel') {
     <div class="card-accessory__image">
         <?php if (!empty($card['image_id'])) : ?>
             <?php echo wp_get_attachment_image((int) $card['image_id'], 'product-card', false, [
-                'class' => 'w-full h-full object-contain p-3 transition-transform group-hover:scale-105',
+                'class' => 'w-full h-full object-contain p-2 transition-transform group-hover:scale-105',
                 'alt'   => $card['title'],
             ]); ?>
         <?php else : ?>
