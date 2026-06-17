@@ -129,6 +129,15 @@ $legacy_category = standard_search_smoke_query(['_sft_category' => 'testimonials
 standard_search_smoke_assert_true((int) $legacy_category->found_posts > 0, 'Legacy _sft_category filter still resolves.');
 standard_search_smoke_assert_no_post_types($legacy_category, $blocked_post_types, 'Legacy filter excludes blocked post types.');
 
+$lc_category = standard_search_smoke_query(['lc_category' => 'seamless-gutter-rollforming-machines'], ['s' => '']);
+standard_search_smoke_assert_true((int) $lc_category->found_posts > 0, 'Learning Center category filter-only search returns results.');
+standard_search_smoke_assert_no_post_types($lc_category, $blocked_post_types, 'Learning Center category filter excludes blocked post types.');
+standard_search_smoke_assert_same(
+    apply_filters('relevanssi_prevent_default_request', true, $lc_category),
+    false,
+    'Learning Center filter-only search allows the default WP request.'
+);
+
 foreach ($blocked_index_post_types as $blocked_post_type) {
     $posts = get_posts([
         'post_type'              => $blocked_post_type,
