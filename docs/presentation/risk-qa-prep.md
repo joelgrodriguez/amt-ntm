@@ -80,16 +80,22 @@ anecdotal, not as documented data. No hard baseline for quote volume / conversio
 GA + Clarity will establish one going forward.)*
 
 ### Q: "What's the cost and timeline risk?"
-Target go-live is the **first week of July** — either just before or just after the 4th. The
-build itself is largely done — what's left is content and training, not core development. The
-real open items:
+Target go-live is **July 1st** (approximately). The build itself is largely done — the site's
+about 75–80% — what's left is content, training, and migration, not core development. The real
+open items:
 - **Pillar-page content** — I'm putting the new content into a spreadsheet for Rick to review
-  and update as he sees fit; he hands it back and I run a script to update the pages. (Matches
-  the captured "content discovery / accuracy review" actions in the feedback docs.)
-- **Team training** — sales and service teams need a walkthrough; aiming to knock that out in
-  the next week or two.
+  and edit as he sees fit; he hands it back and I run a script to update the pages. (Matches the
+  captured "content discovery / accuracy review" actions in the feedback docs.)
+- **Team training** — sales and service need a walkthrough before launch; ~two weeks to do it.
+  Plan: a live session + a recorded video. Sales via their Friday tacticals; service via a
+  managers' call plus a video to everyone else. Rick helps schedule it. (See the maintenance/
+  training answer below.)
+- **A short content-freeze at launch** — I'll need a couple of days where no one edits the site
+  while I migrate content from the service website and apply URL/redirect changes. I'll give the
+  team advance notice to make any edits beforehand. This is the one real bottleneck.
 - Plus the standing items: finance accuracy (Kathy + Terry), direct service requests
-  (NetSuite / Seligo, phase 2), final images (Alex).
+  (NetSuite / Seligo, phase 2), final images (Alex got strong Q3 shots; a return trip planned
+  for more).
 The risk isn't "will the site get built" — it's "will the content review and training land on
 schedule," which is partly why I'm here. There's no big external cost; I'm the developer.
 
@@ -107,6 +113,14 @@ external dependency or agency turnaround. Combined with the GA + Clarity monitor
 something on a Monday and have it fixed the same week. The flip side worth naming: it's a
 one-person bus factor — so the documented changes, replayable DB scripts, and architecture docs
 exist precisely so the work isn't locked in my head.
+
+### Q: "How do we get the sales and service teams ready?"
+A deliberate, two-format rollout before launch — and we have ~two weeks. **A live session plus a
+recorded video** so it sticks and so anyone who misses the meeting still gets it:
+- **Sales** — easiest to get live; join one of their Friday tacticals (this Friday or next).
+- **Service** — a call with the service managers, plus a video out to everyone else.
+I'll ask **Rick to help schedule** both. The point: the teams should be continually aware July 1
+is coming and walk in already knowing the new nav and the configurator flow on day one.
 
 ### Q: "Is it accessible / will it work on every device?"
 Yes — mobile-first by rule (most contractors are on a phone in a truck), with big touch
