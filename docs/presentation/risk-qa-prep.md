@@ -80,7 +80,7 @@ anecdotal, not as documented data. No hard baseline for quote volume / conversio
 GA + Clarity will establish one going forward.)*
 
 ### Q: "What's the cost and timeline risk?"
-Target go-live is **July 1st** (approximately). The build itself is largely done — the site's
+Target go-live is the **first week of July**. The build itself is largely done — the site's
 about 75–80% — what's left is content, training, and migration, not core development. The real
 open items:
 - **Pillar-page content** — I'm putting the new content into a spreadsheet for Rick to review
@@ -94,8 +94,7 @@ open items:
   while I migrate content from the service website and apply URL/redirect changes. I'll give the
   team advance notice to make any edits beforehand. This is the one real bottleneck.
 - Plus the standing items: finance accuracy (Kathy + Terry), direct service requests
-  (NetSuite / Seligo, phase 2), final images (Alex got strong Q3 shots; a return trip planned
-  for more).
+  (NetSuite / Seligo, phase 2), final images (real Q3 photos now in, replacing the AI ones).
 The risk isn't "will the site get built" — it's "will the content review and training land on
 schedule," which is partly why I'm here. There's no big external cost; I'm the developer.
 
