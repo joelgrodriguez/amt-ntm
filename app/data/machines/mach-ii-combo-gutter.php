@@ -45,7 +45,7 @@ return [
                 __('Stainless steel forming rollers', 'standard'),
                 __('Forward pulling easy cut shear with extra shear', 'standard'),
             ],
-            'image'    => content_url('/uploads/2026/05/ntm-mach2-electric-power-pack-005.jpg'),
+            'image'    => content_url('/uploads/2024/07/inside-Mach-II-gutter-machine-scaled.jpg'),
         ],
         [
             'id'       => 'frame',
@@ -57,7 +57,7 @@ return [
                 __('Welded tubular steel frame', 'standard'),
                 __('Two 360° rotatable reel stands', 'standard'),
             ],
-            'image'    => content_url('/uploads/2026/05/ntm-mach2-gutter-assembly-drone-002.jpg'),
+            'image'    => content_url('/uploads/2022/08/20220811_NTM_MACH-II-5-6-Specs_Featured-Image.jpg'),
         ],
         [
             'id'       => 'power',
@@ -69,7 +69,7 @@ return [
                 __('Push-button RUN/JOG at entry & exit ends', 'standard'),
                 __('Power interruption safety circuit', 'standard'),
             ],
-            'image'    => content_url('/uploads/2026/05/ntm-mach2-electric-power-pack-019.jpg'),
+            'image'    => content_url('/uploads/2023/05/SSQ-II-machine-specialists-scaled.jpg'),
         ],
     ],
     'fit' => [
@@ -78,12 +78,6 @@ return [
             __('Businesses that want maximum gutter versatility without buying two machines', 'standard'),
             __('Crews who prefer a lightweight machine with simple electric operation', 'standard'),
             __('Contractors processing steel, aluminum, or copper gutter material', 'standard'),
-        ],
-        'is_not_for' => [
-            ['text' => __('Contractors who only run 5" gutters and want the lightest option', 'standard'), 'machine' => 'mach-ii-5-gutter'],
-            ['text' => __('Commercial box gutter operations', 'standard'), 'machine' => 'bg7-box-gutter'],
-            ['text' => __('Roofing contractors needing roof or wall panels', 'standard'), 'machine' => 'ssr-multipro-jr'],
-            ['text' => __('High-volume operations needing hydraulic drive', 'standard')],
         ],
     ],
     'blueprint' => [
@@ -121,11 +115,8 @@ return [
         'best_for'     => __('5" & 6" K-style gutter production', 'standard'),
     ],
     'specs' => [
-        // TODO(asset): Evita wants a transparent combo product photo here.
-        // Host fixed from dev (newtech.local → newtechmachinery.com) so it no
-        // longer hard-404s; confirm this upload exists on prod or swap for the
-        // transparent asset when supplied.
-        'image' => 'https://newtechmachinery.com/wp-content/uploads/2024/07/Mach-II-in-trailer-1-scaled.jpg',
+        // Sticky image beside the "Full Details" specs accordion.
+        'image' => content_url('/uploads/2023/04/MACH-II-combo-gutter-machine-inside-a-trailer-at-job-site.jpg'),
         'standard_features' => [
             __('Polyurethane Drive Rollers', 'standard'),
             __('Two 360° Rotatable Reel Stands for Easy Coil Loading', 'standard'),
