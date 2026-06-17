@@ -147,11 +147,12 @@
   ul.ticks .mk--red { color: var(--red); }
   ul.ticks .mk--blue { color: var(--blue-500); }
 
-  /* image frames */
-  .shot { border: 1px solid var(--blue-200); overflow: hidden; background: var(--blue-50); }
-  .shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .shot--contain { background: var(--blue-900); }
-  .shot--contain img { object-fit: contain; }
+  /* image frames — default to CONTAIN so wide page screenshots never crop on the sides.
+     Use .shot--cover only for an intentional tight crop (e.g. a hero band). */
+  .shot { border: 1px solid var(--blue-200); overflow: hidden; background: var(--white); display: flex; }
+  .shot img { width: 100%; height: 100%; object-fit: contain; object-position: top center; display: block; }
+  .shot--cover img { object-fit: cover; object-position: top center; }
+  .shot--ink { background: var(--blue-900); }
   .fill { width: 100%; height: 100%; }
   .figcap { font-family: var(--mono); font-size: .72rem; color: var(--blue-400); margin-top: .6rem; text-transform: uppercase; letter-spacing: .1em; }
 
@@ -346,17 +347,24 @@
       <span class="eyebrow"><span class="tick"></span>Feature · The buying funnel</span>
       <h2>Build · Quote · Finance — one flow, no gatekeeping.</h2>
     </div>
-    <div class="body" style="justify-content:center;">
-      <div class="cells cells--3">
-        <div class="cell"><span class="n">01</span><span class="t">Build</span><span class="d">Spec the machine — profiles, power pack, controls, accessories — in a guided picker.</span></div>
-        <div class="cell"><span class="n">02</span><span class="t">Quote</span><span class="d">A real, itemized price on screen. No “contact us for pricing” stall.</span></div>
-        <div class="cell"><span class="n">03</span><span class="t">Finance</span><span class="d">Apply in the same flow. The whole path runs in the browser.</span></div>
+    <div class="body">
+      <div class="cols-2 top">
+        <div>
+          <div class="shot shot--ink fill" style="max-height:52vh;"><img src="assets/screens/configurator.png" alt="The online configurator — Find the right solution for you, powered by Corbel"></div>
+          <p class="figcap">The configurator — build, price, and apply in the browser</p>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:1rem;">
+          <ul class="ticks">
+            <li><span class="mk mk--blue">01</span><span><b>Build</b> — spec the machine in a guided picker.</span></li>
+            <li><span class="mk mk--blue">02</span><span><b>Quote</b> — a real, itemized price. No “contact us for pricing.”</span></li>
+            <li><span class="mk mk--blue">03</span><span><b>Finance</b> — apply in the same flow, all in the browser.</span></li>
+          </ul>
+          <p class="quote" style="font-size:.95rem; max-width:44ch; border-color:var(--blue-400);">
+            We put this on the <b>machine page</b>, not the homepage — on purpose.
+            <cite>— fewer quotes, but far better-qualified ones</cite>
+          </p>
+        </div>
       </div>
-      <p class="quote" style="margin-top:2rem; max-width:60ch; border-color:var(--blue-400);">
-        We put this on the <b>machine page</b>, not the homepage — on purpose.
-        Guide buyers to the right machine first; configure once they know what they want.
-        <cite>— fewer quotes, but far better-qualified ones</cite>
-      </p>
     </div>
   </section>
 
@@ -393,7 +401,10 @@
     </div>
     <div class="body">
       <div class="cols-2 top">
-        <div class="shot fill" style="max-height:60vh;"><img src="assets/screens/homepage-hero.png" alt="Homepage hero"></div>
+        <div>
+          <div class="shot fill" style="max-height:58vh;"><img src="assets/screens/machine-page.png" alt="SSQ3 machine page — engineered look and feel"></div>
+          <p class="figcap">Machine page — real Q3 photography, engineered chrome</p>
+        </div>
         <div style="display:flex; flex-direction:column; gap:1.4rem;">
           <ul class="ticks">
             <li><span class="mk mk--blue">—</span><span>Sharp corners — built like the machines, not a soft consumer app</span></li>
@@ -411,16 +422,26 @@
   </section>
 
   <!-- 9 — SUPPORTING UPGRADES -->
-  <section class="slide slide--ink" data-note="Rapid-fire. One line each, don't linger. Live search, Service Hub, the machine data layer that powers pricing/specs everywhere.">
+  <section class="slide slide--ink" data-note="Rapid-fire. Two real pages on top (Service Hub = content-first owner support; Learning Center = the educational engine). Then one line each for search, Service Hub, data layer. Don't linger.">
     <div class="head">
       <span class="eyebrow"><span class="tick"></span>Also shipped</span>
-      <h2>Three more upgrades worth a line each.</h2>
+      <h2>More that makes the site work harder.</h2>
     </div>
-    <div class="body">
-      <div class="tiles">
-        <div class="tile"><span class="k">Discovery</span><span class="h">Live header search</span><span class="p">Instant results as you type, top-5, filtered by type — find a manual in two seconds.</span></div>
-        <div class="tile"><span class="k">Ownership</span><span class="h">Service Hub</span><span class="p">Pick a machine → its manuals, firmware, troubleshooting, and training, all in one place.</span></div>
-        <div class="tile"><span class="k">Foundation</span><span class="h">Machine data layer</span><span class="p">One source of truth drives specs, pricing, and finance data across every page.</span></div>
+    <div class="body" style="gap:1.4rem;">
+      <div class="cols-2 top" style="flex:none; align-items:start;">
+        <div>
+          <div class="shot fill" style="height:34vh;"><img src="assets/screens/service-hub.png" alt="Service Hub — content-first owner support"></div>
+          <p class="figcap">Service Hub — content-first, per-machine support</p>
+        </div>
+        <div>
+          <div class="shot fill" style="height:34vh;"><img src="assets/screens/learning-center.png" alt="Learning Center — educational content engine"></div>
+          <p class="figcap">Learning Center — the educational engine</p>
+        </div>
+      </div>
+      <div class="tiles" style="flex:none; align-content:start;">
+        <div class="tile"><span class="k">Discovery</span><span class="h">Live header search</span><span class="p">Instant results, top-5, filtered by type — find a manual in two seconds.</span></div>
+        <div class="tile"><span class="k">Ownership</span><span class="h">Service Hub</span><span class="p">Pick a machine → its manuals, firmware, troubleshooting, training.</span></div>
+        <div class="tile"><span class="k">Foundation</span><span class="h">Machine data layer</span><span class="p">One source of truth drives specs, pricing, and finance everywhere.</span></div>
       </div>
     </div>
   </section>
