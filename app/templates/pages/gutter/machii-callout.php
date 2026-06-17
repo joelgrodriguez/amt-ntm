@@ -39,13 +39,13 @@ $receipts = [
 
             <div class="grid gap-7 order-2 lg:order-1">
                 <div class="section-header-left">
-                    <p class="section-eyebrow text-blue-300"><?php esc_html_e('The MACH II Family · Since 1994', 'standard'); ?></p>
+                    <p class="section-eyebrow text-blue-300"><?php esc_html_e('The MACH II · Since 1994', 'standard'); ?></p>
                     <div class="section-divider bg-blue-500"></div>
                     <h2 id="machii-callout-title" class="section-title text-white">
-                        <?php esc_html_e('The line behind every MACH II on the road.', 'standard'); ?>
+                        <?php esc_html_e('Run every gutter job with the machine built to make you the hero.', 'standard'); ?>
                     </h2>
                     <p class="section-subtitle text-blue-200 max-w-xl">
-                        <?php esc_html_e('NTM invented the portable seamless gutter machine category in 1994 and has been refining the same backbone ever since. Three K-style configurations — 5", 6", and the 5"/6" Combo — all running polyurethane drive rollers, all built in Aurora, Colorado.', 'standard'); ?>
+                        <?php esc_html_e('NTM invented the portable seamless gutter machine in 1994 and has refined the same backbone ever since. Pick the K-style that fits your work: the 5", the 6", or the 5"/6" Combo. Every one runs polyurethane drive rollers and is built to help you win more jobs.', 'standard'); ?>
                     </p>
                 </div>
 
@@ -64,7 +64,7 @@ $receipts = [
 
                 <div>
                     <a href="<?php echo esc_url(\Standard\Url\internal('/machines/machii/')); ?>" class="btn btn-primary">
-                        <?php esc_html_e('Meet the MACH II Family', 'standard'); ?>
+                        <?php esc_html_e('Meet the MACH II', 'standard'); ?>
                         <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                     </a>
                 </div>

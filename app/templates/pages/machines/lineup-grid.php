@@ -22,8 +22,9 @@ use function Standard\MachinesData\get_machine_categories;
 use function Standard\MachinesData\to_card_product;
 
 $content = [
-    'eyebrow' => __('Our Machines', 'standard'),
-    'title'   => __('Machines for Every Project', 'standard'),
+    'eyebrow'  => __('Our Machines', 'standard'),
+    'title'    => __('Machines for Every Project', 'standard'),
+    'subtitle' => __('Roof, wall, and seamless gutter rollformers built for on-site fabrication. Find the portable NTM machine that fits the work you do every day.', 'standard'),
 ];
 
 $categories = get_machine_categories();
@@ -32,15 +33,16 @@ $categories = get_machine_categories();
 <section id="lineup" class="section" aria-labelledby="lineup-title">
     <div class="container section-content">
 
-        <div class="section-header-left">
-            <p class="section-eyebrow">
-                <?php echo esc_html($content['eyebrow']); ?>
-            </p>
-            <div class="section-divider"></div>
-            <h2 id="lineup-title" class="section-title">
-                <?php echo esc_html($content['title']); ?>
-            </h2>
-        </div>
+        <?php get_template_part('templates/parts/section-header', null, [
+            'id'             => 'lineup-title',
+            'align'          => 'left',
+            'eyebrow'        => $content['eyebrow'],
+            'eyebrow_dot'    => false,
+            'title'          => $content['title'],
+            'lede'           => $content['subtitle'],
+            // Match the Learning Center header: left-aligned, wider lede cap.
+            'lede_max_width' => 'max-w-3xl',
+        ]); ?>
 
         <?php foreach ($categories as $key => $category) : ?>
             <div class="grid gap-10">
