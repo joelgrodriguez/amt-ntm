@@ -58,7 +58,7 @@ function get_hero_slides(): array {
             'slogan'           => __('Build standing seam, flush wall, and board-and-batten panels on-site with NTM portable rollformers. 16 profiles, gas or electric power, owner-grade.', 'standard'),
             // Slider-only image. Keeps data/machines/ssq3-multipro.php's
             // hero.hero_image free to drive the single-machine page.
-            'background_image' => content_url('/uploads/2026/05/ntm-q3-hero-placeholder-2.png'),
+            'background_image' => content_url('/uploads/2026/06/ssq3-machine-rear-panel-exit.jpg'),
             // Image bias: this shot has the machine sitting low in the
             // frame, so anchor to the bottom edge when cover-cropped.
             'focal_point'      => 'center bottom',
