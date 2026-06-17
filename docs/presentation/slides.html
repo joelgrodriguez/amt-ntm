@@ -155,6 +155,10 @@
   .shot--ink { background: var(--blue-900); }
   .fill { width: 100%; height: 100%; }
   .figcap { font-family: var(--mono); font-size: .72rem; color: var(--blue-400); margin-top: .6rem; text-transform: uppercase; letter-spacing: .1em; }
+  /* on dark/ink slides blue-400 is only 3.4:1 — lift to blue-300 (8.4:1) */
+  .slide--ink .figcap, .slide--dark .figcap { color: var(--blue-300); }
+  /* same for the .cell stage label on ink slides (slides 3 & 12) */
+  .slide--ink .cell .stage, .slide--dark .cell .stage { color: var(--blue-300); }
 
   /* tiles row (slide 9) */
   .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; flex: 1; align-content: center; }
@@ -162,6 +166,11 @@
   .tile .k { font-family: var(--mono); font-size: .74rem; text-transform: uppercase; letter-spacing: .14em; color: var(--blue-500); }
   .tile .h { font-weight: 600; font-size: clamp(1.05rem,1.5vw,1.35rem); color: var(--blue-900); }
   .tile .p { color: var(--blue-600); font-size: clamp(.85rem,1.1vw,1rem); line-height: 1.4; }
+  /* tiles sit on an ink (blue-800) slide too — without this, .h is blue-900 on blue-800 (1.2:1, invisible) */
+  .slide--ink .tile, .slide--dark .tile { border-color: var(--blue-700); background: var(--blue-800); }
+  .slide--ink .tile .k, .slide--dark .tile .k { color: var(--blue-300); }
+  .slide--ink .tile .h, .slide--dark .tile .h { color: var(--white); }
+  .slide--ink .tile .p, .slide--dark .tile .p { color: var(--blue-200); }
 
   /* you said / we did (slide 10) */
   .saiddid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--blue-200); margin: auto 0; width: 100%; }
@@ -605,8 +614,12 @@
     else if (e.key.toLowerCase() === 'd') { flashDemo(); }
   });
 
-  // click-to-advance (but not when selecting text / using the notes overlay)
-  deck.addEventListener('click', (e) => { if (!window.getSelection().toString()) next(); });
+  // click to move: left 30% goes back, right 70% advances. Skip if selecting text.
+  // The back-zone means a stray overshoot mid-talk is one click to recover, not a fumble.
+  deck.addEventListener('click', (e) => {
+    if (window.getSelection().toString()) return;
+    (e.clientX < window.innerWidth * 0.3) ? prev() : next();
+  });
 
   show(0);
 </script>
