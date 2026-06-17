@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 const QUERY_VAR       = 'service_hub_machine';
 // Bumped to 3 when the knowledgebase CPT (inc/knowledgebase.php) added its own
 // rewrite slug — this versioned flush also clears the rules for that type.
-const REWRITE_VERSION = '3';
+const REWRITE_VERSION = '4';
 const VERSION_OPTION  = 'standard_service_hub_machine_rewrite_version';
 
 /**
@@ -60,13 +60,14 @@ function find_machine(string $slug): ?array {
 
 /**
  * Register /service-hub/<slug>/. The negative lookahead excludes the
- * `request` segment, so the real /service-hub/request/ child page resolves
- * via WP's default page rule instead of being captured as a machine slug.
- * Any other non-machine slug still 404s via template-side validation.
+ * `request` and `search` segments, so the real /service-hub/request/ and
+ * /service-hub/search/ child pages resolve via WP's default page rule instead
+ * of being captured as a machine slug. Any other non-machine slug still 404s
+ * via template-side validation.
  */
 function register_rewrites(): void {
     \add_rewrite_rule(
-        '^service-hub/(?!request/?$)([^/]+)/?$',
+        '^service-hub/(?!(?:request|search)/?$)([^/]+)/?$',
         'index.php?' . QUERY_VAR . '=$matches[1]',
         'top'
     );

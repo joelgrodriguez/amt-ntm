@@ -20,8 +20,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use function Standard\LearningCenter\get_filter_groups;
 use function Standard\ServiceHub\get_active_filters;
+use function Standard\ServiceHub\get_filter_groups;
 use function Standard\ServiceHub\get_post_type_label;
 use function Standard\ServiceHub\get_post_type_options;
 use function Standard\ServiceHub\get_results_query;
@@ -31,7 +31,11 @@ $paged = max(1, (int) get_query_var('paged'), (int) get_query_var('page'));
 // 9 results per page (3 rows of the 3-up grid); pagination handles the rest.
 $service_query = get_results_query($filters, $paged, 9);
 $post_type_options = get_post_type_options();
-$form_action = get_permalink() ?: \Standard\Url\internal('/service-hub/');
+
+// The search form + sidebar submit to the DEDICATED results page so a search
+// lands on stripped results, not back on this full hub. The grid below still
+// renders here for browsing; the handoff only happens on submit.
+$form_action = \Standard\Url\internal('/service-hub/search/');
 $has_filters = $filters['search'] !== ''
     || $filters['type'] !== ''
     || $filters['category'] !== ''
@@ -41,9 +45,8 @@ $has_filters = $filters['search'] !== ''
 $service_form_id = 'service-hub-form';
 
 // Only offer Resource Type options that actually have content — a 0-result
-// type just dumps the user on the empty state. Counts come from the cached
-// get_post_type_counts(). Always keep the currently-active type even if its
-// count reads 0, so the user's own filter never vanishes from the UI.
+// type just dumps the user on the empty state. Always keep the active type even
+// if its count reads 0, so the user's own filter never vanishes.
 $type_counts = \Standard\ServiceHub\get_post_type_counts();
 $type_choice_options = ['' => __('All types', 'standard')];
 foreach ($post_type_options as $post_type => $option) {
@@ -53,18 +56,8 @@ foreach ($post_type_options as $post_type => $option) {
     $type_choice_options[$post_type] = (string) $option['label'];
 }
 
-$service_groups = get_filter_groups([
-    'category' => $filters['category'],
-    'type'     => $filters['type'],
-    'machine'  => $filters['machine'],
-], [
-    'names' => [
-        'category' => 'service_category',
-        'type'     => 'service_type',
-        'machine'  => 'service_machine',
-    ],
-    'type_options' => $type_choice_options,
-]);
+// Machine-first, service-scoped filter groups (Machine, Resource Type, Category).
+$service_groups = get_filter_groups($filters, $type_choice_options);
 
 // Include dormant machines: this is a support hub, not the sales catalog.
 // Owners of superseded models (e.g. SSQ II) still need their service content,
@@ -246,7 +239,7 @@ get_header();
             get_uniq_resources() data so the two surfaces stay in sync. UNIQ-specific,
             so it doesn't duplicate the newest-content search firehose below. */ ?>
     <?php if (!empty($uniq_docs) || !empty($uniq_videos)) : ?>
-    <section class="bg-blue-50 border-t border-blue-200" aria-labelledby="service-hub-uniq-title">
+    <section class="bg-blue-50" aria-labelledby="service-hub-uniq-title">
         <div class="container section-compact">
             <?php /* Two-column header: lede on the left, the "full page" link in the
                     second column opposite it, bottom-aligned with the lede so it sits
@@ -341,8 +334,11 @@ get_header();
     <?php endif; ?>
 
     <?php /* Band 5 — Search the content library. The keyword input leads the section
-            directly above the results (heading + search bar as one block). */ ?>
-    <section id="search" class="bg-white border-t border-blue-200" aria-labelledby="service-hub-search-heading">
+            directly above the results (heading + search bar as one block). The
+            form + filter sidebar submit to /service-hub/search/, the dedicated
+            results page, so a search lands on stripped results instead of the
+            whole hub; the grid here stays for in-place browsing. */ ?>
+    <section id="search" class="bg-white" aria-labelledby="service-hub-search-heading">
         <div class="container section-compact">
             <div class="grid gap-5 md:flex md:items-end md:justify-between md:gap-8">
                 <h2 id="service-hub-search-heading" class="font-mono font-medium uppercase tracking-wider text-blue-900 m-0 shrink-0" style="font-size: var(--text-heading-sm);">

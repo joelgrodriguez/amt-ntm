@@ -220,6 +220,16 @@ function get_query_args(array $filters, int $paged = 1, int $per_page = 12): arr
 
     if (!empty($filters['search'])) {
         $args['s'] = (string) $filters['search'];
+        // Relevanssi (the site search engine) intercepts any WP_Query with `s`
+        // set. On a SECONDARY query it half-hooks and returns nothing unless we
+        // opt in explicitly — so without this flag, keyword searches here return
+        // 0 results even when matches exist. `relevanssi => true` runs the query
+        // through Relevanssi properly and still honors our tax_query (department
+        // + machine + category). Only set it when there's actually a keyword;
+        // filter-only queries use plain WP_Query.
+        if (\function_exists('relevanssi_do_query')) {
+            $args['relevanssi'] = true;
+        }
     }
 
     $sort_options = get_sort_options();
@@ -344,6 +354,137 @@ function get_terms_for_service_content(string $taxonomy, int $limit = 30): array
     \wp_cache_set($cache_key, $terms, CACHE_GROUP, CACHE_TTL);
 
     return $terms;
+}
+
+/**
+ * Machine tags that actually have service-department content, in the canonical
+ * machines-data order. Intersects the machine post-tags with the post_tag terms
+ * attached to service posts — so the Machine filter never lists a machine that
+ * returns zero results, and each option carries its service-only count.
+ *
+ * @return \WP_Term[]
+ */
+function get_machine_terms_for_service(): array {
+    if (!\function_exists('Standard\\MachinesData\\get_machine_post_tags')) {
+        return [];
+    }
+
+    // Service-scoped post_tag terms, keyed by slug, carry the service count.
+    $service_counts = [];
+    foreach (get_terms_for_service_content('post_tag', 200) as $term) {
+        if ($term instanceof \WP_Term) {
+            $service_counts[$term->slug] = (int) $term->count;
+        }
+    }
+
+    if ($service_counts === []) {
+        return [];
+    }
+
+    // Walk machine tags in canonical order; keep only those with service
+    // content, and overwrite their count with the service-only count.
+    $machines = [];
+    foreach (\Standard\MachinesData\get_machine_post_tags() as $tag) {
+        if (!$tag instanceof \WP_Term || !isset($service_counts[$tag->slug])) {
+            continue;
+        }
+
+        $clone = clone $tag;
+        $clone->count = $service_counts[$tag->slug];
+        $machines[] = $clone;
+    }
+
+    return $machines;
+}
+
+/**
+ * Categories that have service-department content, with service-only counts.
+ *
+ * @return \WP_Term[]
+ */
+function get_category_terms_for_service(): array {
+    return get_terms_for_service_content('category', 50);
+}
+
+/**
+ * Build the Service Hub filter sidebar groups: Machine first (the owner's
+ * mental model), then Resource Type, then Category. Every option is scoped to
+ * content that lives in the service department, so no filter ever returns zero
+ * results. Field names match get_active_filters() so the GET form round-trips.
+ *
+ * @param array{search?: string, type?: string, category?: string, machine?: string} $filters
+ * @param array<string, string> $type_options [post_type => label], pre-gated by count
+ * @return array<int, array<string, mixed>>
+ */
+function get_filter_groups(array $filters, array $type_options): array {
+    if (!\function_exists('Standard\\Filters\\build_choice_group')) {
+        require_once \get_template_directory() . '/inc/filters.php';
+    }
+
+    $groups = [];
+
+    $machine_terms = get_machine_terms_for_service();
+    if ($machine_terms !== []) {
+        // Machine first — the owner's mental model. An empty-value option acts
+        // as "All machines" (the sidebar treats an empty radio value that way).
+        $machine_options = ['' => \__('All machines', 'standard')];
+        $machine_counts = [];
+        foreach ($machine_terms as $term) {
+            if ($term instanceof \WP_Term) {
+                $machine_options[$term->slug] = $term->name;
+                $machine_counts[$term->slug] = (int) $term->count;
+            }
+        }
+
+        $groups[] = \Standard\Filters\build_choice_group(
+            'service-machine',
+            \__('Machine', 'standard'),
+            'service_machine',
+            $machine_options,
+            [(string) ($filters['machine'] ?? '')],
+            $machine_counts,
+            'settings',
+            'radio'
+        );
+    }
+
+    $groups[] = \Standard\Filters\build_choice_group(
+        'service-type',
+        \__('Resource Type', 'standard'),
+        'service_type',
+        $type_options,
+        [(string) ($filters['type'] ?? '')],
+        [],
+        'file-text',
+        'radio'
+    );
+
+    $category_terms = get_category_terms_for_service();
+    if ($category_terms !== []) {
+        // Prepend an "All categories" sentinel via a plain choice group so the
+        // radio can be cleared; term groups don't carry an empty option.
+        $category_options = ['' => \__('All categories', 'standard')];
+        $category_counts = [];
+        foreach ($category_terms as $term) {
+            if ($term instanceof \WP_Term) {
+                $category_options[$term->slug] = $term->name;
+                $category_counts[$term->slug] = (int) $term->count;
+            }
+        }
+
+        $groups[] = \Standard\Filters\build_choice_group(
+            'service-category',
+            \__('Category', 'standard'),
+            'service_category',
+            $category_options,
+            [(string) ($filters['category'] ?? '')],
+            $category_counts,
+            'folder',
+            'radio'
+        );
+    }
+
+    return $groups;
 }
 
 /**
