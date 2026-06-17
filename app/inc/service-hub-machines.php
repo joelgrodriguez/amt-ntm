@@ -18,7 +18,9 @@ if (!defined('ABSPATH')) {
 }
 
 const QUERY_VAR       = 'service_hub_machine';
-const REWRITE_VERSION = '2';
+// Bumped to 3 when the knowledgebase CPT (inc/knowledgebase.php) added its own
+// rewrite slug — this versioned flush also clears the rules for that type.
+const REWRITE_VERSION = '3';
 const VERSION_OPTION  = 'standard_service_hub_machine_rewrite_version';
 
 /**
@@ -116,6 +118,39 @@ function route_template(string $template): string {
 \add_filter('template_include', __NAMESPACE__ . '\\route_template', 30);
 
 /**
+ * All post_tag slugs that hold a machine's service content.
+ *
+ * Two sources, unioned:
+ *   1. the data-file slug itself (e.g. ssq-ii-multipro) — where the migrated
+ *      knowledgebase posts are tagged (scripts/db/024-seed-knowledgebase.sh);
+ *   2. the real WP content tags the machine declares in its data file's
+ *      profiles.tag_slugs (e.g. ssq-ii-multipro-roof-panel-machine) — where the
+ *      bulk of legacy videos/manuals/downloads actually live.
+ *
+ * This is why a superseded model still fills its page from the surviving model's
+ * library: ssq3-multipro declares ssq-ii-multipro-roof-panel-machine, so the
+ * SSQ3 service page reuses the SSQ II content with no duplication. The generic
+ * 'accessories' tag is dropped — it isn't machine-specific.
+ *
+ * @return string[]
+ */
+function get_service_tag_slugs(string $machine_slug): array {
+    $slugs = [$machine_slug];
+
+    if (\function_exists('Standard\\MachineProductData\\get_machine_product_data')) {
+        $data = \Standard\MachineProductData\get_machine_product_data($machine_slug) ?? [];
+        foreach ((array) ($data['profiles']['tag_slugs'] ?? []) as $tag) {
+            $tag = (string) $tag;
+            if ($tag !== '' && $tag !== 'accessories') {
+                $slugs[] = $tag;
+            }
+        }
+    }
+
+    return \array_values(\array_unique($slugs));
+}
+
+/**
  * Grouped service content for one machine.
  *
  * Returns groups in display order; each group is a WP_Query of
@@ -125,12 +160,13 @@ function route_template(string $template): string {
  * @return array<int, array{label: string, query: \WP_Query}>
  */
 function get_content_groups(string $machine_slug): array {
+    $tag_slugs = get_service_tag_slugs($machine_slug);
     // Order leads with Troubleshooting: an owner on a service page usually
     // arrives with a problem, so written fixes go first (Alex, 2026-06-03 nav
     // review — "troubleshooting should lead on service-related pages"). Then
     // the manual they reach for, the service team's videos, then parts/footprints.
     $groups = [
-        ['label' => \__('Troubleshooting', 'standard'),     'types' => ['post']],
+        ['label' => \__('Troubleshooting', 'standard'),     'types' => ['knowledgebase', 'post']],
         ['label' => \__('Manuals', 'standard'),             'types' => ['manual']],
         ['label' => \__('Videos', 'standard'),              'types' => ['video']],
         ['label' => \__('Parts & footprints', 'standard'),  'types' => ['download', 'footprint', 'cutlist']],
@@ -151,7 +187,7 @@ function get_content_groups(string $machine_slug): array {
                 [
                     'taxonomy' => 'post_tag',
                     'field'    => 'slug',
-                    'terms'    => [$machine_slug],
+                    'terms'    => $tag_slugs,
                 ],
             ],
         ]);

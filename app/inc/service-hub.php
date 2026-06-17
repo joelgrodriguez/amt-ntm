@@ -24,6 +24,7 @@ const CACHE_TTL = 15 * MINUTE_IN_SECONDS;
 function get_post_types(): array {
     return [
         'post',
+        'knowledgebase',
         'video',
         'resource',
         'download',
@@ -51,7 +52,8 @@ function get_department_terms(): array {
  */
 function get_post_type_options(): array {
     return [
-        'post'       => ['label' => \__('Articles', 'standard'), 'icon' => 'file-text'],
+        'post'          => ['label' => \__('Articles', 'standard'), 'icon' => 'file-text'],
+        'knowledgebase' => ['label' => \__('Troubleshooting', 'standard'), 'icon' => 'life-buoy'],
         'video'      => ['label' => \__('Videos', 'standard'), 'icon' => 'play'],
         'resource'   => ['label' => \__('Resources', 'standard'), 'icon' => 'folder'],
         'download'   => ['label' => \__('Downloads', 'standard'), 'icon' => 'download'],

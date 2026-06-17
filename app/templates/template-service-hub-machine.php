@@ -76,6 +76,11 @@ $resources    = $data['resources'] ?? [];
 $manual_url   = (string) ($resources['manual'] ?? '');
 $brochure_url = (string) ($resources['brochure'] ?? '');
 
+// Per-machine FAQ from the data file (app/data/machines/<slug>.php). The
+// product page already renders this; the service page surfaces the same Q&A
+// so an owner gets it whether or not troubleshooting articles are tagged yet.
+$faqs = \is_array($data['faq'] ?? null) ? $data['faq'] : [];
+
 $groups      = get_content_groups($slug);
 $has_content = false;
 foreach ($groups as $group) {
@@ -244,6 +249,23 @@ get_header();
                         <?php esc_html_e('Search the knowledge base', 'standard'); ?>
                     </a>
                 </div>
+            </div>
+        </section>
+    <?php endif; ?>
+
+    <?php if (!empty($faqs)) : ?>
+        <?php /* FAQ — the machine's own Q&A from the data file. Bare accordion
+                (contact-faq-list), wrapped to match the page's compact rhythm
+                and mono section header. Shown whether or not articles are
+                tagged, so the page always carries real answers. */ ?>
+        <section class="container section-compact" aria-labelledby="service-hub-machine-faq-title">
+            <div class="border-t border-blue-200 pt-12 grid gap-6 max-w-3xl">
+                <h2 id="service-hub-machine-faq-title" class="font-mono font-medium uppercase tracking-wider text-blue-700 m-0" style="font-size: var(--text-caption);">
+                    <?php esc_html_e('Frequently asked', 'standard'); ?>
+                </h2>
+                <?php get_template_part('templates/parts/contact-faq-list', null, [
+                    'faqs' => $faqs,
+                ]); ?>
             </div>
         </section>
     <?php endif; ?>

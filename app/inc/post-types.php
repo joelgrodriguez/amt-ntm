@@ -34,6 +34,11 @@ function get_display_config(string $post_type): array {
             'cta'   => \__('Read article', 'standard'),
             'label' => \__('Read full article', 'standard'),
         ],
+        'knowledgebase' => [
+            'icon'  => 'life-buoy',
+            'cta'   => \__('Read article', 'standard'),
+            'label' => \__('Read this troubleshooting article', 'standard'),
+        ],
         'video'    => [
             'icon'  => 'play',
             'cta'   => \__('Watch video', 'standard'),
