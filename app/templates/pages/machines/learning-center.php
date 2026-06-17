@@ -22,5 +22,4 @@ get_template_part('templates/parts/learning-center', null, [
     'post_count' => 4,
     'cta_url'    => '/learning-center/',
     'cta_text'   => __('View All Resources', 'standard'),
-    'align'      => 'center',
 ]);

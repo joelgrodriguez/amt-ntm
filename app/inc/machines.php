@@ -69,6 +69,9 @@ function get_hero_slides(): array {
             'slogan'    => __('Run 5- and 6-inch K-style seamless gutters on every job, single setup, no machine swap. NTM portable gutter machines keep the full ticket in-house.', 'standard'),
             'cta_url'   => '/seamless-gutter-machines/',
             'cta_label' => __('Explore Gutter Machines', 'standard'),
+            // Slider-only: no video on the homepage hero. The machine's
+            // hero.video still drives the MACH II Combo product page.
+            'background_video' => '',
         ],
     ];
 
@@ -85,7 +88,7 @@ function get_hero_slides(): array {
             'title'            => $meta['title'],
             'slogan'           => $meta['slogan'],
             'background_image' => $meta['background_image'] ?? $data['hero']['hero_image'] ?? $data['hero']['image'] ?? '',
-            'background_video' => $data['hero']['video'] ?? '',
+            'background_video' => $meta['background_video'] ?? $data['hero']['video'] ?? '',
             'learn_more_url'   => $meta['cta_url'],
             'cta_label'        => $meta['cta_label'],
             'focal_point'      => $meta['focal_point'] ?? '',

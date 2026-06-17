@@ -22,7 +22,7 @@ get_template_part('templates/parts/faq-accordion', null, [
     'content'    => [
         'eyebrow' => __('FAQ', 'standard'),
         'title'   => __('Learn More About NTM Machines', 'standard'),
-        'image'   => content_url('/uploads/2026/04/Line-of-SSQs.jpg'),
+        'image'   => content_url('/uploads/2026/06/aerial-ssq3-jobsite.jpg'),
     ],
     'faqs' => get_faq_items(),
 ]);

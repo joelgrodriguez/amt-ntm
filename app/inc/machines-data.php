@@ -105,6 +105,51 @@ function get_product_price(string $slug): ?string {
 }
 
 /**
+ * Get a WooCommerce product's featured-image URL for a machine slug.
+ *
+ * Same slug → product lookup (with alias fallback) as get_product_url().
+ * This is the image the homepage cards use; resolving it here lets the
+ * /machines lineup render the identical product shot instead of the
+ * hardcoded data-file URL, keeping every card consistent site-wide.
+ *
+ * @param string $slug Machine slug (data slug or WC slug).
+ * @return string Featured image URL, or '' when unresolved.
+ */
+function get_product_image(string $slug): string {
+    static $images = null;
+
+    if ($images === null) {
+        $images = [];
+        if (function_exists('wc_get_products')) {
+            $products = \Standard\Woo\Cache\get_products([
+                'limit'  => -1,
+                'status' => 'publish',
+                'type'   => 'simple',
+            ]);
+            foreach ($products as $product) {
+                $url = \wp_get_attachment_url($product->get_image_id());
+                if ($url) {
+                    $images[$product->get_slug()] = $url;
+                }
+            }
+        }
+    }
+
+    if (isset($images[$slug])) {
+        return $images[$slug];
+    }
+
+    if (function_exists('Standard\\MachineProductData\\get_slug_aliases')) {
+        $wc_slug = array_search($slug, \Standard\MachineProductData\get_slug_aliases(), true);
+        if ($wc_slug !== false && isset($images[$wc_slug])) {
+            return $images[$wc_slug];
+        }
+    }
+
+    return '';
+}
+
+/**
  * Get all machines organized by category.
  *
  * Dormant machines (e.g. SSQ II, superseded by SSQ3) are filtered out
@@ -129,7 +174,7 @@ function get_machine_categories(bool $include_dormant = false): array {
                     'short_name' => 'SSQ3 MultiPro',
                     'descriptor' => 'The most advanced portable roll former ever built',
                     'description' => 'Runs 16 panel profiles on a high-speed hydraulic drive. NTM\'s flagship roof and wall panel machine for commercial crews.',
-                    'image'      => $base . '2026/03/SSQ3_OL_0226-hero.png',
+                    'image'      => content_url('/uploads/2026/06/ntm-ssq3-on-trailer-001-1-scaled.png'),
                     'url'        => get_product_url('ssq3-multipro'),
                     'price'      => '$130,000',
                     'badge'      => 'Flagship',
@@ -416,7 +461,11 @@ function to_card_product(array $machine, string $category_key): array {
             ? \__('Seamless Gutter Machine', 'standard')
             : \__('Roof & Wall Panel Machine', 'standard'),
         'description'    => $machine['description'] ?? '',
-        'image'          => $machine['image'] ?? '',
+        // Prefer the WooCommerce featured image (same source the homepage
+        // cards use) so every machine card renders the identical product
+        // shot. Falls back to the hardcoded data-file URL only when Woo
+        // can't resolve the product.
+        'image'          => get_product_image($slug) ?: ($machine['image'] ?? ''),
         'price'          => !empty($machine['price'])
             ? $machine['price']
             : (get_product_price($slug) ?? ''),
