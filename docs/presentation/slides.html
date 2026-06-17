@@ -125,22 +125,7 @@
   .slide--ink .cell .t, .slide--dark .cell .t { color: var(--white); }
   .slide--ink .cell .d, .slide--dark .cell .d { color: var(--blue-200); }
 
-  /* old vs new (slide 2) */
-  .vs { display: grid; grid-template-columns: 1fr auto 1fr; gap: clamp(1.5rem,3vw,3rem); align-items: center; flex: 1; }
-  .vs__col h3 { font-family: var(--mono); font-size: .8rem; text-transform: uppercase; letter-spacing: .14em; margin-bottom: 1.1rem; }
-  .vs__old h3 { color: var(--blue-400); }
-  .vs__new h3 { color: var(--blue-500); }
-  .vs__list { display: flex; flex-direction: column; gap: .7rem; }
-  .pill {
-    border: 1px solid var(--blue-200); padding: .8rem 1rem; font-weight: 500;
-    font-size: clamp(.95rem, 1.3vw, 1.2rem); color: var(--blue-300);
-    display: flex; align-items: center; gap: .7rem;
-  }
-  .vs__new .pill { color: var(--blue-900); border-color: var(--blue-500); border-left-width: 3px; }
-  .vs__new .pill .s { font-family: var(--mono); font-size: .72rem; color: var(--blue-500); margin-left: auto; text-transform: uppercase; letter-spacing: .1em; }
-  .vs__arrow { font-family: var(--mono); color: var(--blue-400); font-size: 1.6rem; }
-
-  /* compare without/with (used implicitly) + check/x lists */
+  /* check/x lists */
   ul.ticks { display: flex; flex-direction: column; gap: .85rem; }
   ul.ticks li { display: flex; gap: .7rem; align-items: flex-start; font-size: clamp(.95rem,1.3vw,1.15rem); color: var(--blue-700); line-height: 1.3; }
   ul.ticks .mk { font-family: var(--mono); font-weight: 500; flex: none; }
@@ -279,33 +264,17 @@
   </section>
 
   <!-- 2 — THE PROBLEM -->
-  <section class="slide" data-note="THE money slide. Old nav = our org chart. New nav = the buyer's questions. If they only remember one slide, make it this one.">
+  <section class="slide" data-note="Frame the whole problem the redesign solved, in four parts. Don't dwell on each — set them up, because the rest of the deck is the answer to each one. Lead: the old site put work between the buyer and what they came for. Nav is #1 and the strongest; the next slide pays it off.">
     <div class="head">
       <span class="eyebrow"><span class="tick"></span>The problem</span>
-      <h2>We organized the old site like our org chart.<br>Buyers don't think in org charts.</h2>
+      <h2>The old site got in the buyer's way.</h2>
     </div>
-    <div class="body">
-      <div class="vs">
-        <div class="vs__col vs__old">
-          <h3>Old nav · our catalog</h3>
-          <div class="vs__list">
-            <div class="pill">Machines</div>
-            <div class="pill">Profiles</div>
-            <div class="pill">Resources</div>
-            <div class="pill">Learning Center</div>
-            <div class="pill">Service &amp; Support</div>
-          </div>
-        </div>
-        <div class="vs__arrow">→</div>
-        <div class="vs__col vs__new">
-          <h3>New nav · the buyer's questions</h3>
-          <div class="vs__list">
-            <div class="pill">New to Roll Forming? <span class="s">am I right for this</span></div>
-            <div class="pill">Choose Your Machine <span class="s">which one</span></div>
-            <div class="pill">How to Buy <span class="s">how do I pay</span></div>
-            <div class="pill">Get Owner Support <span class="s">I own one, now what</span></div>
-          </div>
-        </div>
+    <div class="body" style="justify-content:center;">
+      <div class="cells cells--4">
+        <div class="cell"><span class="n">01</span><span class="t">Navigation</span><span class="d">Organized like our org chart (Machines, Resources, Learning Center), not the questions a buyer actually asks.</span></div>
+        <div class="cell"><span class="n">02</span><span class="t">Finding content</span><span class="d">No fast way to land on a manual, spec, or video. Search was weak, so people gave up or called.</span></div>
+        <div class="cell"><span class="n">03</span><span class="t">Look &amp; credibility</span><span class="d">Broken images, stock photos, inconsistent color. It didn't look like a 5–6 figure machine company.</span></div>
+        <div class="cell"><span class="n">04</span><span class="t">Mobile</span><span class="d">Contractors shop from a phone in the truck. The old site wasn't built for that screen.</span></div>
       </div>
     </div>
   </section>
