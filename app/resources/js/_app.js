@@ -20,8 +20,8 @@ import { initAccordion } from './modules/Accordion.js';
 import { initCarouselNav } from './modules/CarouselNav.js';
 import { initHubspotForms } from './modules/HubspotForms.js';
 import { initSearchModal } from './modules/SearchModal.js';
-import { initVideoFacade } from './modules/VideoFacade.js';
 import { initAvatarGroupHover } from './modules/AvatarGroupHover.js';
+import { initRevealMore } from './modules/RevealMore.js';
 
 /** @type {Function|null} Cleanup function for mobile menu */
 let mobileMenuCleanup = null;
@@ -53,11 +53,12 @@ let hubspotFormsCleanup = null;
 /** @type {Function|null} Cleanup function for search modal */
 let searchModalCleanup = null;
 
-/** @type {Function|null} Cleanup function for video facade */
-let videoFacadeCleanup = null;
 
 /** @type {Function|null} Cleanup function for avatar group hover */
 let avatarGroupHoverCleanup = null;
+
+/** @type {Function|null} Cleanup function for reveal-more groups */
+let revealMoreCleanup = null;
 
 /**
  * Executes callback when DOM is ready.
@@ -94,8 +95,8 @@ const initApp = () => {
   carouselNavCleanup = initCarouselNav();
   hubspotFormsCleanup = initHubspotForms();
   searchModalCleanup = initSearchModal();
-  videoFacadeCleanup = initVideoFacade();
   avatarGroupHoverCleanup = initAvatarGroupHover();
+  revealMoreCleanup = initRevealMore();
 };
 
 // Bootstrap
@@ -135,11 +136,11 @@ if (import.meta.hot) {
     if (searchModalCleanup) {
       searchModalCleanup();
     }
-    if (videoFacadeCleanup) {
-      videoFacadeCleanup();
-    }
     if (avatarGroupHoverCleanup) {
       avatarGroupHoverCleanup();
+    }
+    if (revealMoreCleanup) {
+      revealMoreCleanup();
     }
     // Reinitialize
     initApp();

@@ -87,6 +87,29 @@
     transform: scale(1);
   }
 
+  /* Reveal-more cards — progressive disclosure on long service-hub groups
+     (see RevealMore.js). A card revealed by "Show more" starts offset and
+     fades/rises in; the JS staggers them for a premium cascade. Cards in the
+     first batch never get .reveal-item applied as a hidden state — they ship
+     visible. */
+  .reveal-item {
+    transition:
+      opacity var(--duration-slow) var(--ease-out),
+      transform var(--duration-slow) var(--ease-out);
+  }
+
+  /* Only cards that were hidden then revealed animate. They carry the offset
+     until .is-visible lands (next frame, staggered by JS). */
+  .reveal-item.reveal-item--pending {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  .reveal-item.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   /* Image settle — for product photography. Subtle scale + clip from bottom,
      so the machine "arrives" rather than fades. Transform/clip-path only — no
      layout properties animated. */

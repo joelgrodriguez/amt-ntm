@@ -161,15 +161,15 @@ function get_service_tag_slugs(string $machine_slug): array {
  */
 function get_content_groups(string $machine_slug): array {
     $tag_slugs = get_service_tag_slugs($machine_slug);
-    // Order leads with Troubleshooting: an owner on a service page usually
-    // arrives with a problem, so written fixes go first (Alex, 2026-06-03 nav
-    // review — "troubleshooting should lead on service-related pages"). Then
-    // the manual they reach for, the service team's videos, then parts/footprints.
+    // The FAQ leads the page (rendered in the template, after the hero). Then
+    // Manuals — the document an owner reaches for first — followed by written
+    // Troubleshooting fixes and the service team's videos. The Parts &
+    // footprints group is intentionally dropped here: the footprint already
+    // lives in the hero, so a duplicate section adds noise without value.
     $groups = [
-        ['label' => \__('Troubleshooting', 'standard'),     'types' => ['knowledgebase', 'post']],
-        ['label' => \__('Manuals', 'standard'),             'types' => ['manual']],
-        ['label' => \__('Videos', 'standard'),              'types' => ['video']],
-        ['label' => \__('Parts & footprints', 'standard'),  'types' => ['download', 'footprint', 'cutlist']],
+        ['label' => \__('Manuals', 'standard'),         'types' => ['manual']],
+        ['label' => \__('Troubleshooting', 'standard'), 'types' => ['knowledgebase', 'post']],
+        ['label' => \__('Videos', 'standard'),          'types' => ['video']],
     ];
 
     $built = [];

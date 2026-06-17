@@ -88,8 +88,8 @@ get_header();
 
     <?php /* Band 1 — Hero. Shared hero-category part (same as /machines): sr-only h1 (WP
             title, SEO), visible h2 headline, blue primary CTA, and a 16:9 Wistia video panel
-            on the right with the click-to-play facade (service-department poster). No meta
-            rail (support page, not marketing). */ ?>
+            on the right (native player, embedded inline). No meta rail (support page, not
+            marketing). */ ?>
     <?php
     get_template_part('templates/parts/hero-category', null, [
         'section_id' => 'service-hub-hero',
@@ -103,18 +103,15 @@ get_header();
             'cta_secondary'    => __('Open a service request', 'standard'),
             'cta_secondary_url' => '/service-hub/request/',
             'video'            => 'https://fast.wistia.net/embed/iframe/jxmgaicen7?videoFoam=true',
-            // Click-to-play poster (the facade thumbnail), same mechanism as
-            // /machines. Service-department photo: the right fit for a support hub.
-            // TODO(asset): Alex to deliver "Top 5 Questions" video thumbnail (Monday pre-demo).
-            // Drop file into uploads and update poster path below.
-            'poster'           => content_url('/uploads/2022/04/service-department-working-on-SSQ-II.jpg'),
-            'poster_alt'       => __('Top 5 questions about portable rollforming machines — NTM Service Hub', 'standard'),
         ],
     ]);
     ?>
 
-    <?php /* Band 2 — Category-grouped machine directory. Light. Compact horizontal cards; pick your machine, get its support content. */ ?>
-    <section class="bg-blue-50 border-t border-blue-200" aria-labelledby="service-hub-machines-title">
+    <?php /* Band 2 — Category-grouped machine directory. Light. Compact horizontal cards; pick your machine, get its support content.
+            id="service-hub-machines" is the hero "Find your machine" CTA target;
+            smooth-scroll + header offset are global (base.css scroll-behavior /
+            scroll-padding-top). */ ?>
+    <section id="service-hub-machines" class="bg-blue-50 border-t border-blue-200 scroll-mt-24" aria-labelledby="service-hub-machines-title">
         <div class="container section">
             <h2 id="service-hub-machines-title" class="font-sans font-medium text-heading text-blue-900 m-0 mb-2" data-reveal="fade">
                 <?php esc_html_e('Find your machine', 'standard'); ?>
