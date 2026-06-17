@@ -80,8 +80,9 @@ anecdotal, not as documented data. No hard baseline for quote volume / conversio
 GA + Clarity will establish one going forward.)*
 
 ### Q: "What's the cost and timeline risk?"
-Target go-live is **around the 4th of July** (just before or just after). The build itself is
-largely done — what's left is content and training, not core development. The real open items:
+Target go-live is the **first week of July** — either just before or just after the 4th. The
+build itself is largely done — what's left is content and training, not core development. The
+real open items:
 - **Pillar-page content** — I'm putting the new content into a spreadsheet for Rick to review
   and update as he sees fit; he hands it back and I run a script to update the pages. (Matches
   the captured "content discovery / accuracy review" actions in the feedback docs.)
@@ -91,8 +92,6 @@ largely done — what's left is content and training, not core development. The 
   (NetSuite / Seligo, phase 2), final images (Alex).
 The risk isn't "will the site get built" — it's "will the content review and training land on
 schedule," which is partly why I'm here. There's no big external cost; I'm the developer.
-**[Joel: confirm the exact target — your note said "first week of June" but with the 4th-of-July
-reference I've written early July. Fix this to the real date before presenting.]**
 
 ### Q: "What if the financing information is wrong, or creates a legal problem?"
 Two safeguards. (1) An accuracy review with Kathy (NTM Finance) and Terry is **already on the
