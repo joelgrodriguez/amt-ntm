@@ -6,7 +6,7 @@ Stakeholder and review-meeting feedback, one file per session. Each file capture
 
 **Format:** meeting metadata → what was presented → feedback captured → action items → follow-ups. Quote feedback closely, flag any part of the meeting the notes don't cover, and keep action items as a checkbox list so they can be tracked to done.
 
-**[Post-Launch Roadmap](roadmap.md)** — every item deferred past launch across all sessions, grouped by theme. Present this at the demo; keep it in sync when a session doc moves a deferred item.
+**[Post-Launch Roadmap](2026-06-17-stakeholder-review.md#post-launch-roadmap)** — every item deferred past launch across all sessions, grouped by theme, folded into the 2026-06-17 stakeholder review doc. Present this at the demo; keep it in sync when a session doc moves a deferred item.
 
 ## Sessions
 
@@ -17,7 +17,7 @@ Stakeholder and review-meeting feedback, one file per session. Each file capture
 | 2026-06-05 | [Service & Support + Financing Working Session](2026-06-05-service-financing-review.md) | Service Hub depth (NetSuite request flow, content-first hero, FAQ, controller download, tagging) + rebuilt Finance Center (drop Michelle video, add "use your own lender", Kathy/Terry content discovery) |
 | 2026-06-08 | [Machine Product Pages Working Session](2026-06-08-machine-pages-review.md) | Category roll-ups + simple machine pages + Q3/Mark 2 pillar pages. Theme polish (16:9 mockup crop, profile ordering/featured-4/count, five-pillar strip, Mark 2 hero video, section-nav spacing) + heavy content/asset review (pricing, videos, Q3 story, copy accuracy). "Custom page per machine" deferred to roadmap |
 | 2026-06-09 | [Web Images Review](2026-06-09-web-images-review.md) | Page-by-page image swap/keep decisions with Alex ahead of the demo — Q3 asset gap is the critical path; profile color swaps deferred post-launch |
-| 2026-06-17 | [Leadership Presentation Review](2026-06-17-stakeholder-presentation-review.md) | The stakeholder demo. Buy-in secured ("fantastic work"). Pre-launch punch list: SSQ3 base-price + "trailer sold separately", new trailer vs. traditional page, drop 36% APR, fix quote-checklist copy, remove gutter quiz, About history/ownership/portability copy, Q3 image/content fixes, service tagging. Gated: safety messaging (counsel), Sally safety Q&A + rate-limit, rollout/A-B test plan. Roadmap: SSQ3 3D walkthrough, siding, custom profiles, third-party service/coil callouts |
+| 2026-06-17 | [Stakeholder Review & Post-Launch Roadmap](2026-06-17-stakeholder-review.md) | The stakeholder demo. Buy-in secured ("fantastic work"). Pre-launch punch list: SSQ3 base-price + "trailer sold separately", new trailer vs. traditional page, drop 36% APR, fix quote-checklist copy, remove gutter quiz, About history/ownership/portability copy, Q3 image/content fixes, service tagging. Gated: safety messaging (counsel), rollout/A-B test plan. **Combined doc** — the cross-session post-launch roadmap (machines, service, nav, strategy) lives at the bottom of this same file |
 
 ## Upcoming sessions (planned)
 

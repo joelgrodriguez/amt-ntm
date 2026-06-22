@@ -1,22 +1,27 @@
-# NTM Website Update — Leadership Presentation Review — 2026-06-17
+# NTM Website Update — Stakeholder Review & Post-Launch Roadmap — 2026-06-17
 
 The stakeholder demo every prior review session was building toward, and the
 meeting [the presentation deck](../presentation/slides.html) was built for. Joel
 walked leadership through the full redesigned site (strategy slides → live tour),
 then took feedback. This is the **top of the funnel** — execs, not the working
 team — so most feedback is product/strategy/content direction plus a few
-launch-gating concerns (pricing display, AI-bot liability, rollout/testing). Adam
-Copel drove most of it. Verdict was positive — "fantastic work… really, really
-well done… this is pretty awesome" — with a punch list of content, pricing,
-legal, and rollout items to close before the **first-week-of-July launch**.
+launch-gating concerns (pricing display, rollout/testing). Adam Copel drove most
+of it. Verdict was positive — "fantastic work… really, really well done… this is
+pretty awesome" — with a punch list of content, pricing, legal, and rollout items
+to close before the **first-week-of-July launch**.
+
+This doc is the single implementation source for the 2026-06-17 session: the
+meeting record and feedback up top, the **pre-launch action items** in the middle,
+and the **post-launch roadmap** (folded in from the standing cross-session
+roadmap) at the bottom.
 
 - **Meeting:** NTM Website Update Presentation
 - **Date:** 2026-06-17, 5:59 PM (~1h 6m)
 - **Presenter:** Joel Rodriguez
 - **Attendees:** Adam Copel (driving most feedback), Thad Barnette, Evita Sola, Alex Spence, Rick Zand, Ben Bradley
 - **Setting:** leadership together in the Denver conference room on a large-screen TV (per Thad)
-- **Names referenced (not present / mentioned):** Terry ("it has to be better"), Brian/Bryan, Jenkins/Jake (counsel — safety/AI disclaimer review), Kimble, Sally (the HubSpot AI bot, not a person), Caldwell/Corbel
-- **Related work:** [`2026-06-02`](2026-06-02-annotated-screenshots-review.md) (Mazzella → AMT thread), [`2026-06-03`](2026-06-03-navigation-search-review.md) (nav/IA), [`2026-06-05`](2026-06-05-service-financing-review.md) (service + finance), [`2026-06-08`](2026-06-08-machine-pages-review.md) (machine pages), [`2026-06-09`](2026-06-09-web-images-review.md) (image swaps), [`roadmap.md`](roadmap.md) (deferred items)
+- **Names referenced (not present / mentioned):** Terry ("it has to be better"), Brian/Bryan, Jenkins/Jake (counsel — safety disclaimer review), Kimble, Caldwell/Corbel
+- **Related work:** [`2026-06-02`](2026-06-02-annotated-screenshots-review.md) (Mazzella → AMT thread), [`2026-06-03`](2026-06-03-navigation-search-review.md) (nav/IA), [`2026-06-05`](2026-06-05-service-financing-review.md) (service + finance), [`2026-06-08`](2026-06-08-machine-pages-review.md) (machine pages), [`2026-06-09`](2026-06-09-web-images-review.md) (image swaps)
 
 Goal of the meeting: get leadership buy-in on the **look, feel, and direction**,
 not pixel-level design — and show progress, not launch approval. **Achieved.**
@@ -48,8 +53,7 @@ first-time-buyer playlist + "start your own business" page → Choose Your Machi
 / instant machine grid, category roll-ups for panel and gutter, all-machines
 page, Q3 and Mark 2 pillar pages, a simple machine page → How to Buy / Finance
 Center + configurator path → Get Owner Support / Service Hub + per-machine
-service pages) → About page → Learning Center → the live **"Sally" HubSpot AI
-chat** (on the current site).
+service pages) → About page → Learning Center.
 
 ---
 
@@ -179,35 +183,7 @@ never claims that "would be used against you."
 > "I love the idea. I just want to make sure he [the lawyer] says it."
 
 Anything safety-related goes to counsel (Jenkins/Jake) before publishing.
-**Decided — content with a legal-review gate.** (The related Sally AI-bot safety
-workstream is tracked under **Sally**, below.)
-
-### Sally (the HubSpot AI bot) — now live, three concerns (Adam, Rick) — **pre-launch ops**
-
-Sally (HubSpot-powered AI chat, model not disclosed) is **already live** and was
-demoed in the room — the biggest single new thread of the meeting. She graduated
-from a roadmap "idea" ([2026-06-03](2026-06-03-navigation-search-review.md)) to a
-live, in-room demo with real cost + liability concerns. Three distinct threads:
-
-1. **Cost / abuse throttling (Adam):** plan is 3,000 points/month, ~1 token per
-   *resolved conversation*; currently in a 2-week free window. Adam wants a
-   **"speedometer"** / rate cap on "internet warriors" burning tokens — floated
-   ~50 questions as a ceiling. *Action — Rick: confirm token mechanics +
-   investigate a per-user rate limit.*
-2. **Safety-answer liability (Adam, Ben — big discussion):** the bot must answer
-   safety questions **succinctly and absolutely**, never with hedged paragraphs.
-   Examples the room wants locked: "Can I run my machine with the covers off?" →
-   **"No. Under no circumstances,"** full stop. "Can I put my hand through the
-   shear?" → hard no. Plan: a **sit-down session** (Adam, Ben, Rick, maybe Brian)
-   to write ~100 canned safety Q&As, then have the lawyer review (Jenkins,
-   ~$350–500/hr). Rick: "I can customize any of those answers." *Action —
-   schedule the safety-Q&A session; Rick implements canned answers; lawyer
-   reviews.*
-3. **Answer quality / model tuning (Ben/Adam):** poke at how Sally answers,
-   update the model/prompt as needed. *Ongoing.*
-
-(Owned by Rick/leadership in HubSpot — outside this theme's code, but launch-
-gating, so tracked here.)
+**Decided — content with a legal-review gate.**
 
 ### Testing & rollout plan — how do we de-risk launch (Adam) — **pre-launch, the real gate**
 
@@ -301,8 +277,6 @@ Content/asset items overlap with the content team (Rick) and Alex — flagged in
 - [ ] **Q3 page — "built to take a beating"** → link the machine-down-the-hill video. *(content/theme)*
 - [ ] **Q3 page — retouch the sun glare** on the top-left coil photo. *(asset: Alex)*
 - [ ] **Q3 page — add the trailer (Trey) accessory** to the accessories callout. *(content)*
-- [ ] **Sally — token mechanics + rate-limit** — confirm per-conversation token cost; investigate a "speedometer" cap on abusive usage. *(ops; Rick)*
-- [ ] **Sally — safety-answer Q&A bank** — schedule the sit-down (Adam/Ben/Rick/Brian), write ~100 canned absolute-answer safety Q&As, Rick implements, lawyer (Jenkins) reviews. *(ops + legal gate)*
 - [ ] **Testing/rollout mechanics** — research A/B or staged rollout (sales/service → customer cohort → wide); confirm **Microsoft Clarity** is installed at launch. *(process; Joel)*
 - [ ] **Service content tagging** — make sure service content is tagged properly **by machine** (so per-machine service pages and the service filter fill correctly). *(content/data; carries over from 2026-06-05)*
 - [ ] **Surface calendar booking** more prominently on "talk to a specialist" paths. *(theme; scope TBD)*
@@ -323,25 +297,134 @@ Content/asset items overlap with the content team (Rick) and Alex — flagged in
 
 ---
 
-## Roadmap candidates (post-launch — confirm against [`roadmap.md`](roadmap.md))
-
-These came up as "future / phase-two" and should land on the roadmap, not the
-launch list:
-
-- **3D walkthrough for the SSQ3** (Toyota.com-style turntable / 360). Joel ~halfway; explicitly *not* holding the launch. Best done with a real turntable shoot at an owner site — Adam offered to source a **turntable photo-rig owner in Cleveland/Denver** (the proper way to capture it, vs. a faked 3D render). → aligns with existing roadmap "3D / photographic spec callouts."
-- **Service-request → NetSuite automation** — service requests created from the website flow directly into NetSuite as tickets, removing manual re-entry (a service-team pain point). Already on the roadmap from [2026-06-05](2026-06-05-service-financing-review.md); reaffirmed at exec level. Phase-two.
-- **Siding** — where it lives (own site vs. section vs. banner), distributor handling, custom-profile policy. "Future conversations" — needs its own decision + spec.
-- **Custom profiles** — whether to list/offer them on the site at all (standing-seam only; avoid solar/fence/custom-gutter). Leadership decision pending (Adam/Thad/Joel).
-- **Third-party service / coil sourcing callouts** — shout-outs to distributors who service, and reputable coil suppliers (Drexel, Sheffield, Paclat). Philosophical/policy decision first.
-
----
-
 ## Follow-ups
 
 - **This was the buy-in gate, and direction passed.** The hard bet — intent-based navigation over catalog navigation — survived the room, including Adam's initial skepticism. Look & feel (no orange, disciplined palette) survived the loudest legacy-orange advocate. Win condition met.
 - **Launch target: first week of July 2026.** Development is "done" per Joel — remaining work is content, images, pricing, copy, and the trailer page. Two weeks of ramp-up + **sales/service training** (Thad).
-- **The two real risks the room raised are non-code:** (1) **Sally liability** — the AI bot is live and answering safety questions with hedged paragraphs; needs the canned-answer + lawyer pass *before* a public launch. (2) **Rollout de-risking** — Adam wants proof real users won't get lost, via Clarity + a staged release, not a flip-the-switch cutover. Both tracked to done before go-live.
+- **The real risk the room raised is non-code:** **rollout de-risking** — Adam wants proof real users won't get lost, via Clarity + a staged release, not a flip-the-switch cutover. Track to done before go-live.
 - **Microsoft Clarity** to be installed at launch for heatmaps + session replay (already used to inform the redesign).
 - **Safety is the one true blocker shape:** anything safety-related is gated on counsel; don't let it slip into the launch un-reviewed.
-- The theme-codeable subset this work owns is small — pricing display convention, calendar-booking CTA surfacing, the parent-company link, the gutter-quiz removal, and the trailer page. Most other items belong to **Rick (content/Sally), Alex (assets), or leadership (strategy decisions)**.
+- The theme-codeable subset this work owns is small — pricing display convention, calendar-booking CTA surfacing, the parent-company link, the gutter-quiz removal, and the trailer page. Most other items belong to **Rick (content), Alex (assets), or leadership (strategy decisions)**.
 - The big quotable for the room (Adam, twice): "it has to be better" — tempered with healthy caution about launching without a test plan. The rollout-mechanics research answers that concern.
+
+---
+
+# Post-Launch Roadmap
+
+Everything explicitly **deferred past the launch** across the stakeholder review sessions. These are the "we'd love to, but not day-one" items — parked deliberately, not dropped. Pre-launch must-dos live in the action-item lists above (and each session's own doc), not here.
+
+**Source sessions:**
+- [2026-06-03 — Navigation & Info Arch](2026-06-03-navigation-search-review.md)
+- [2026-06-05 — Service & Support + Financing](2026-06-05-service-financing-review.md)
+- [2026-06-08 — Machine Product Pages](2026-06-08-machine-pages-review.md)
+- 2026-06-17 — Stakeholder Presentation (this doc)
+
+**Framing (Thad, 2026-06-08):** put deferred work on the roadmap with a horizon — "30 days out, 60 days out" — so stakeholders see the trajectory at the demo and we get ahead of "why isn't the custom page on every machine?" Pull an item forward only if they make it a priority.
+
+**Each item:** what it is · why it's deferred · what unblocks it · rough horizon.
+
+> **Horizon legend:** `30d` post-launch (assets/content mostly in hand) · `60d` (needs build + assets) · `phase-2` (real project, own spec) · `long-term` (vision, not yet scoped). Horizons are planning guesses, not commitments.
+
+---
+
+## Machines
+
+### Custom pillar page for every machine — `60d`
+Only **Q3** and **Mark 2 combo** got the full custom landing treatment (side section-nav, machine-fit, panels/gutters, engineering specs, social proof). Every machine should eventually get it.
+- **Why deferred:** scoped to two for the demo to avoid over-committing on assets; Copel originally scoped it to Q3-only. The template exists and is reusable — the blocker is content/photos/video per machine, not code.
+- **Unblocks it:** per-machine assets (Alex has SSR footage from Jim that could move quickly if prioritized). Thad's guidance: expect "the custom one's way better than the SSR page" and have the roadmap line ready.
+
+### Video in every machine hero — `60d`
+Hero is "prime real estate" (Evita); the goal is a background video in every machine hero, not a static image.
+- **Why deferred:** blocked on per-machine video assets.
+- **Unblocks it:** the asset library. The **Mark 2 combo hero video swap is the pre-launch exception** (asset exists) and lives in that session's action items, not here — this roadmap item is the *general* rollout.
+
+### Toyota-style sticky per-machine sub-nav — `phase-2`
+The pattern Joel is emulating (Toyota's per-model sticky nav). The Q3/Mark 2 side section-nav is the first step; the full per-machine sticky-nav system is the bigger ambition.
+- **Why deferred:** larger UX system; the current section-nav covers the demo need.
+- **Unblocks it:** design time once the pillar-page rollout is further along.
+
+### 3D / photographic spec callouts (incl. SSQ3 walkthrough) — `phase-2`
+Annotated machine imagery on the spec sections (Joel: "I want to do this so bad") — the Toyota-style "here's this part, here's that part" treatment, including a **3D SSQ3 walkthrough** (Toyota.com-style turntable / 360).
+- **Why deferred:** Joel has Alex Crisman's machine drawings, but turning them into 3D renders is a "bigger lift." The SSQ3 walkthrough is ~halfway and explicitly *not* holding the launch. Best done with a real turntable shoot at an owner site — Adam offered to source a **turntable photo-rig owner in Cleveland/Denver** (the proper way to capture it, vs. a faked 3D render).
+- **Unblocks it:** a dedicated render/illustration effort against the Crisman drawings; a turntable capture rig.
+
+### Compare tool — `phase-2`
+Apple-style add-to-compare showing machines side by side with specs.
+- **Why deferred:** flagged "phase 2" at the nav session; the per-category comparison tables cover the launch need.
+- **Unblocks it:** its own spec — interaction model, which specs to surface, mobile behavior.
+
+---
+
+## Service & Support
+
+### Service-request → NetSuite automation (website) — `phase-2`
+Service requests created from the website flow **directly into NetSuite** as tickets, removing the manual re-entry step (a service-team pain point). Reaffirmed at exec level on 2026-06-17.
+- **Why deferred:** integration work (NetSuite/Seligo) beyond launch scope; the source-tracking decision gate applies (Thad won't ship a flow that loses request-source visibility).
+- **Unblocks it:** the website service-request integration (see the 2026-06-05 research todo).
+
+### Direct service-case creation from the mobile app — `long-term`
+The website service-request flow (create a NetSuite case directly, no HubSpot middle-step) is the **pre-launch** target. Doing the same **from the mobile app** is the longer arc — direct case creation is explicitly a driver for the app itself.
+- **Why deferred:** depends on the website NetSuite/Seligo integration landing first, plus app work outside this theme.
+- **Unblocks it:** the website service-request integration (see the 2026-06-05 research todo), then app-side build. Same source-tracking decision gate applies (Thad won't ship a flow that loses request-source visibility).
+
+### Migrate all owner-support / per-machine content into the Service Hub — `30d`
+Move the current owner-support knowledge base and per-machine top-question content into the new Service Hub.
+- **Why deferred:** large **manual** job; doing it before the Hub structure settles would be double work.
+- **Unblocks it:** finalized Service Hub structure + the `service` content-tag review (Alex). Mostly content labor, not code.
+
+### Parts e-commerce for replaceable parts — `long-term`
+Let owners buy small replaceable parts (caster wheel, spring, handle, bolt, screw) directly, no service ticket — to cut the service-team ticket backlog.
+- **Why deferred:** flagged "long-term" at the nav session; a real e-commerce surface (catalog, cart, fulfillment) well beyond launch scope.
+- **Unblocks it:** its own project — SKU/catalog source, checkout, fulfillment path.
+
+---
+
+## Finance
+
+> No finance-specific items are deferred to *this* roadmap. The Finance Center rebuild is a pre-launch deliverable; its open items (Kathy/Terry content discovery, Section 179/Apex link confirmation) are **pre-launch actions** in the 2026-06-05 list, not roadmap items. Left here as a placeholder so the theme grouping is complete and nobody assumes finance work was forgotten.
+
+---
+
+## Navigation & Discovery
+
+### Promo / offer banners — `30d`
+Promotional/offer banners in the nav, plus per-machine offer banners. Joel to mock up.
+- **Why deferred:** "idea" at the nav session; needs a mock and a decision on the offer/merchandising model.
+- **Unblocks it:** a mockup + which offers/campaigns drive them.
+
+### Programmatic article CTAs — `phase-2`
+Programmatic CTAs at article start/end.
+- **Why deferred:** "idea / to build" at the nav session.
+- **Unblocks it:** a CTA-injection pattern for articles.
+
+---
+
+## Strategy — leadership decides, then build
+
+These came up on 2026-06-17 as "marinate on this" threads — leadership sets the policy, then the team builds against it.
+
+### Custom profiles — `pending decision`
+Whether to list/offer custom standing-seam profiles on the site at all (bounded: standing-seam only — no solar, fences, custom gutter). Adam leans yes as a wedge against big-box.
+- **Unblocks it:** a Joel + Thad + Adam decision.
+
+### Coil-supplier callouts — `pending decision`
+Whether to name reputable coil suppliers (Drexel, Sheffield, Paclat…) or stay silent. Get-in-front-of-it vs. stay-silent.
+- **Unblocks it:** a leadership policy call.
+
+### Third-party-service callouts — `pending decision`
+Whether to shout out distributors that offer service (a distributor benefit, frequently asked).
+- **Unblocks it:** a leadership policy call.
+
+### Siding placement — `pending; launches with HOF`
+Where siding lives when it launches (with HOF): section vs. banner vs. homepage block vs. its own site (Ford-trucks vs. Dodge-Ram model), plus distributor handling. Joel: templates ready, needs content; "explore all machines" stays the bread-and-butter focus.
+- **Unblocks it:** a future leadership conversation; not launch-blocking.
+
+---
+
+## Cross-cutting notes
+
+- **Pre-launch ≠ roadmap.** Items like pricing updates, the 16:9 mockup-crop fix, profile ordering, the five-pillar strip, copy/accuracy passes, the Mark 2 hero video swap, and the NetSuite website request-flow research are **launch-targeted** and tracked in the action-item lists above (and their own session docs) — intentionally excluded from the roadmap section.
+- **The demo move:** present this roadmap *at* the demo. It converts "why isn't X done?" into "X is on the 30/60-day plan," and lets stakeholders pull items forward by trading them against launch scope (Thad: "we can do that, but we can't do this other thing").
+- **Go-live target:** first week of July 2026. All horizons are measured from launch.
+- This roadmap is a synthesis of the feedback sessions — when a session doc changes a deferred item's status, reflect it here too.
