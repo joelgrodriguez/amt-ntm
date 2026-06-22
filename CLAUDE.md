@@ -314,6 +314,41 @@ SVG icons live in `app/assets/icons/`. Use the `icon()` helper in templates:
 - When `npm run dev` runs, Vite writes the URL to `app/.vite-dev-server`.
 - PHP reads `app/.vite-dev-server` to load dev assets from Docker/DevKinsta or localhost.
 
+## Presentation deck & presenter notes (keep in sync)
+
+The stakeholder deck and Joel's presenter notes mirror each other one-to-one.
+Joel reads the notes while presenting; the deck is screen-shared. If you change
+one, change the other in the **same task**, or they drift apart in the room.
+
+- Deck: `docs/presentation/slides.html` — slides are `<section class="slide"
+  data-note="...">`, in order.
+- Notes: `docs/presentation/notes.html` — a single-page, light-mode, scrollable
+  script. Data lives in the `NOTES` array in the `<script>` block; each entry
+  maps to one slide **by position**.
+
+Rule: any time you add, remove, reorder, or rewrite a slide in `slides.html`,
+update the matching `NOTES` entry in `notes.html` in the same change. Keep them
+aligned by index.
+
+Each `NOTES` entry:
+
+- `head` — section label (match the slide's eyebrow).
+- `screen` — the slide headline, so Joel knows what the room is seeing.
+- `status` — `"stay"` (talk over the slide), `"go"` (switch to the live site in
+  Firefox tab 2), or `"back"` (return to the deck in tab 1). Exactly one `go` and
+  one `back` across the whole flow.
+- `say` — bullets as `{ t, c }`. Classes: default = talking point · `"quote"` =
+  say verbatim · `"cue"` = red action/stage cue · `"back-cue"` = blue
+  return-to-deck cue · `"dim"` = optional/backup. `<span class='term'>…</span>`
+  marks a key term Joel should say to signal domain knowledge.
+
+Write bullets to help Joel *present*, not just list facts: a short statement he
+can glance-and-say, the reasoning/why (when a feature solves a problem, name the
+problem — tie back to slide 2's three: navigation, findability, dated look),
+a say-out-loud quote where one lands, and a clear cue for when to go to the site
+vs. stay on the slide. After editing, open `notes.html` and confirm all entries
+render in order with correct statuses.
+
 ## Shogun Workflow
 
 Use `.shogun/README.md` as the local workflow guide. Tasks are GitHub issues;

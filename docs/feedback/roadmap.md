@@ -76,10 +76,12 @@ Promotional/offer banners in the nav, plus per-machine offer banners. Joel to mo
 - **Why deferred:** "idea" at the nav session; needs a mock and a decision on the offer/merchandising model.
 - **Unblocks it:** a mockup + which offers/campaigns drive them.
 
-### "Sally" agent bot + programmatic article CTAs — `phase-2`
-Programmatic CTAs at article start/end, and integrating the "Sally" agent bot.
-- **Why deferred:** "idea / to build" at the nav session; the bot integration is its own effort.
-- **Unblocks it:** scoping the Sally integration + a CTA-injection pattern for articles.
+### Programmatic article CTAs — `phase-2`
+Programmatic CTAs at article start/end.
+- **Why deferred:** "idea / to build" at the nav session.
+- **Unblocks it:** a CTA-injection pattern for articles.
+
+> **Update (2026-06-17):** the **"Sally" agent bot is no longer deferred — it is live** and was demoed at the stakeholder meeting (HubSpot-powered AI chat). It moved from roadmap idea to a pre-launch concern: token-cost throttling and the safety-answer liability / lawyer-review pass now live in the [2026-06-17 demo](2026-06-17-stakeholder-presentation-review.md) action items, not here.
 
 ---
 
