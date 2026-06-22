@@ -112,7 +112,13 @@ function get_woocommerce_products(string $category_slug): array {
             'description'    => $description,
             'descriptor'     => $is_accessory ? '' : \wp_strip_all_tags($product->get_short_description()),
             'image'          => \wp_get_attachment_url($product->get_image_id()),
-            'price'          => $is_accessory ? '' : get_display_price($product),
+            // Machines are priced via finance.price_range in their data file
+            // (same source as the landing pages and the /machines lineup
+            // cards); WooCommerce carries no price for them. Fall back to the
+            // Woo display price only if the data file has none.
+            'price'          => $is_accessory
+                ? ''
+                : (machine_card_price($product->get_slug()) ?: get_display_price($product)),
             'price_label'    => \__('Starting at', 'standard'),
             'subtitle'       => $is_accessory ? ($product->get_price_html() ?: null) : null,
             'explore_url'    => $product->get_permalink(),
@@ -123,6 +129,18 @@ function get_woocommerce_products(string $category_slug): array {
     }
 
     return $formatted;
+}
+
+/**
+ * Resolve a machine's data-file price_range by slug, or '' if unavailable.
+ *
+ * Thin bridge to Standard\MachinesData\get_card_price() so the homepage
+ * cards and the /machines lineup cards share one price source.
+ */
+function machine_card_price(string $slug): string {
+    return function_exists('Standard\\MachinesData\\get_card_price')
+        ? \Standard\MachinesData\get_card_price($slug)
+        : '';
 }
 
 /**
@@ -248,7 +266,7 @@ function format_sample_machine_product(array $machine, string $category_slug): a
         'description'    => $machine['description'] ?? '',
         'descriptor'     => $machine['descriptor'] ?? '',
         'image'          => $machine['image'] ?? '',
-        'price'          => !empty($machine['price']) ? $machine['price'] : FALLBACK_MACHINE_PRICE,
+        'price'          => machine_card_price($slug) ?: FALLBACK_MACHINE_PRICE,
         'price_label'    => !empty($machine['price_label']) ? $machine['price_label'] : \__('Starting at', 'standard'),
         'explore_url'    => get_sample_machine_url($machine, $category_slug, $public_slug),
         'build_url'      => $configurator_slug !== '' ? \Standard\Url\internal('/configurator/' . $configurator_slug . '/') : '',
