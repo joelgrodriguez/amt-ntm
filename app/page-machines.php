@@ -34,6 +34,11 @@ get_header();
 
     <?php get_template_part('templates/pages/machines/which-machine'); ?>
 
+    <?php get_template_part('templates/parts/ironclad-support', null, [
+        'section_id' => 'machines-ironclad-support',
+        'background' => 'bg-white',
+    ]); ?>
+
     <?php get_template_part('templates/pages/machines/learning-center'); ?>
 
     <?php get_template_part('templates/pages/machines/faq-accordion'); ?>

@@ -779,6 +779,51 @@ function get_gutter_faq_items(): array {
 }
 
 /**
+ * NTM's 5-Pillar "Ironclad Support" — the canonical post-sale promise.
+ *
+ * Single source of truth for the five pillars (Quality, Parts, Service,
+ * Training, Warranty). Sourced verbatim from NTM's 5-pillar video and
+ * the "Maximize Uptime" learning-center article. Rendered by the
+ * reusable templates/parts/ironclad-support.php strip, dropped onto
+ * machine, category, and pillar pages so the support story reads with a
+ * single voice everywhere it appears.
+ *
+ * `label` is the mono one-liner (the promise); `body` is the sans
+ * supporting sentence. Order is the brand-standard order from the video.
+ *
+ * @return array<int, array{label: string, title: string, body: string}>
+ */
+function get_ironclad_pillars(): array {
+    return [
+        [
+            'label' => __('Job-ready from day one', 'standard'),
+            'title' => __('Quality Control', 'standard'),
+            'body'  => __('Every machine is tested and inspected to spec before it ships — critical systems down to the last bolt. Minimal setup, zero guesswork, production on day one.', 'standard'),
+        ],
+        [
+            'label' => __('On demand, fast', 'standard'),
+            'title' => __('Parts Availability', 'standard'),
+            'body'  => __('$2M+ in critical parts inventory, often shipped overnight. If a part is unavailable, we prioritize fulfillment within a week so a stalled job gets moving again.', 'standard'),
+        ],
+        [
+            'label' => __('Nationwide network', 'standard'),
+            'title' => __('Service', 'standard'),
+            'body'  => __('Direct access to dozens of experienced technicians. Most issues are resolved over the phone; when they are not, on-site service is available anywhere you operate.', 'standard'),
+        ],
+        [
+            'label' => __('Hands-on, no cost', 'standard'),
+            'title' => __('Training', 'standard'),
+            'body'  => __('Personalized training on your machine and your profiles — at your location or our Aurora facility, free to new machine owners. More is always available as your crew grows.', 'standard'),
+        ],
+        [
+            'label' => __('3-year limited', 'standard'),
+            'title' => __('Warranty', 'standard'),
+            'body'  => __('Coverage against defects in materials, workmanship, and design. If something is not right, we fix or replace it — fast.', 'standard'),
+        ],
+    ];
+}
+
+/**
  * Get UNIQ control system features for the technology spotlight.
  *
  * @return array<int, array{title: string, text: string}>

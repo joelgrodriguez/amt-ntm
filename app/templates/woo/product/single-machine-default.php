@@ -164,6 +164,10 @@ get_header();
 
     <?php get_template_part('templates/woo/product/parts/default-profiles', null, compact('product')); ?>
 
+    <?php get_template_part('templates/parts/ironclad-support', null, [
+        'section_id' => 'machine-default-ironclad-support',
+    ]); ?>
+
     <?php
     $default_closer_url = \Standard\Woo\Catalog\get_configurator_url($product->get_slug());
     if ($default_closer_url !== '') {
