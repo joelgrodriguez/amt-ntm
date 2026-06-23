@@ -1,22 +1,30 @@
 #!/usr/bin/env bash
 #
-# Create the NTM trailer landing page at /machines/upgrades/trailer/ and assign
-# it the "NTM Trailer" page template (page-trailer.php).
+# Create the NTM trailer landing page at /machines/trailer/ and assign it the
+# "NTM Trailer" page template (page-trailer.php).
 #
 # WHY THIS SCRIPT EXISTS: the trailer landing page (stakeholder review
 # 2026-06-17, Adam) is a theme template, but WordPress needs an actual published
 # page pointed at it for the route to exist. Pages live only in the DB, and a
-# fresh prod pull wipes hand-created pages — so the page (and its parent
-# "upgrades" page under /machines/) has to be replayable.
+# fresh prod pull wipes hand-created pages — so the page has to be replayable.
+#
+# WHY /machines/trailer/ AND NOT /machines/upgrades/trailer/: WooCommerce's
+# product permalink base is /machines/%product_cat%/, so ANY two-segment path
+# under /machines/ (e.g. /machines/upgrades/trailer/) is parsed as
+# <product_cat>/<product>. WP finds no product, then guess-404s with a 301 to
+# the nearest product slug (trailer-tr23g). A one-segment page directly under
+# /machines/ (like /machines/uniq-control-system/) does not collide. So the
+# trailer page is a direct child of /machines/ (207), not nested under a parent.
 #
 # WHAT IT DOES, idempotently:
-#   1. Ensures a parent "upgrades" page exists under /machines/ (page 207).
-#   2. Ensures a "trailer" child page exists under upgrades.
-#   3. Assigns the trailer page the page-trailer.php template via _wp_page_template.
+#   1. Ensures a "trailer" page exists directly under /machines/ (page 207).
+#   2. Assigns the trailer page the page-trailer.php template via _wp_page_template.
+#   3. If a stray "trailer" page exists under the old "upgrades" parent (from the
+#      earlier route), re-parents it to 207 instead of creating a duplicate.
 #
-# SAFE BY DESIGN: every step is get-or-create by slug+parent. Re-running finds
-# the existing pages and only re-asserts the template meta, so it is a no-op
-# after the first apply. DRY_RUN=1 by default; set DRY_RUN=0 to write.
+# SAFE BY DESIGN: get-or-create by slug, re-parenting an existing page rather
+# than duplicating. Re-running is a no-op after the first apply. DRY_RUN=1 by
+# default; set DRY_RUN=0 to write.
 #
 # Resolves: trailer landing page route from the 2026-06-17 action items.
 
@@ -27,8 +35,9 @@ set -uo pipefail
 
 DRY_RUN="${DRY_RUN-1}"   # default safe: report only. DRY_RUN=0 to apply.
 
-# /machines/ is page 207 (the machines hub). Children of it render at
-# /machines/<slug>/, grandchildren at /machines/<parent>/<slug>/.
+# /machines/ is page 207 (the machines hub). Direct children render at
+# /machines/<slug>/ — the only depth that does NOT collide with the Woo product
+# permalink base /machines/%product_cat%/.
 MACHINES_ID="207"
 TEMPLATE="page-trailer.php"
 
@@ -45,66 +54,72 @@ $dry         = getenv('NTM_DRY_RUN') !== '0';
 $machines_id = (int) getenv('NTM_MACHINES_ID');
 $template    = getenv('NTM_TEMPLATE');
 
-// Get-or-create a published page by slug under a given parent. Returns the ID.
-$ensure_page = function (string $slug, string $title, int $parent) use ($dry): int {
-    $existing = get_posts([
-        'post_type'        => 'page',
-        'name'             => $slug,
-        'post_parent'      => $parent,
-        'post_status'      => ['publish', 'draft', 'pending'],
-        'numberposts'      => 1,
-        'fields'           => 'ids',
-        'suppress_filters' => false,
-    ]);
-    if (!empty($existing)) {
-        return (int) $existing[0];
-    }
-    if ($dry) {
-        echo "    [dry-run] would create page '{$slug}' (parent {$parent}).\n";
-        return 0;
-    }
-    $id = wp_insert_post([
-        'post_type'   => 'page',
-        'post_status' => 'publish',
-        'post_title'  => $title,
-        'post_name'   => $slug,
-        'post_parent' => $parent,
-    ]);
-    echo "    created page '{$slug}' (id {$id}, parent {$parent}).\n";
-    return (int) $id;
-};
-
 if (!get_post($machines_id)) {
-    echo "    SKIPPED: /machines/ page (id {$machines_id}) not found; can't anchor the tree.\n";
+    echo "    SKIPPED: /machines/ page (id {$machines_id}) not found; can't anchor the page.\n";
     return;
 }
 
-$upgrades_id = $ensure_page('upgrades', 'Upgrades', $machines_id);
-if ($upgrades_id === 0 && !$dry) {
-    echo "    ERROR: failed to create 'upgrades' page.\n";
-    return;
-}
+// Find any existing "trailer" page by slug, regardless of current parent — this
+// catches the page from the earlier /machines/upgrades/trailer/ route so we
+// re-parent it to /machines/ instead of leaving a duplicate behind.
+$existing = get_posts([
+    'post_type'        => 'page',
+    'name'             => 'trailer',
+    'post_status'      => ['publish', 'draft', 'pending'],
+    'numberposts'      => 1,
+    'fields'           => 'ids',
+    'suppress_filters' => false,
+]);
+$trailer_id = !empty($existing) ? (int) $existing[0] : 0;
 
-$trailer_id = $ensure_page('trailer', 'NTM Trailer', $upgrades_id ?: $machines_id);
-if ($trailer_id === 0 && !$dry) {
-    echo "    ERROR: failed to create 'trailer' page.\n";
-    return;
-}
-
-// Assign the template (idempotent: set_post_meta no-ops if already correct).
 if ($dry) {
-    echo "    [dry-run] would assign template '{$template}' to the trailer page.\n";
+    if ($trailer_id) {
+        $parent = (int) get_post($trailer_id)->post_parent;
+        $note   = $parent === $machines_id ? 'already under /machines/' : "would re-parent from {$parent} to {$machines_id}";
+        echo "    [dry-run] trailer page {$trailer_id} exists ({$note}); would assert template '{$template}'.\n";
+    } else {
+        echo "    [dry-run] would create 'trailer' page under /machines/ ({$machines_id}) with template '{$template}'.\n";
+    }
     echo "    set DRY_RUN=0 to apply, or run via: npm run db:apply\n";
     return;
 }
 
+if ($trailer_id) {
+    // Re-parent to /machines/ if it's anywhere else (e.g. the old upgrades parent).
+    if ((int) get_post($trailer_id)->post_parent !== $machines_id) {
+        wp_update_post(['ID' => $trailer_id, 'post_parent' => $machines_id]);
+        echo "    re-parented trailer page {$trailer_id} to /machines/ ({$machines_id}).\n";
+    } else {
+        echo "    trailer page {$trailer_id} already under /machines/ (no re-parent).\n";
+    }
+} else {
+    $trailer_id = (int) wp_insert_post([
+        'post_type'   => 'page',
+        'post_status' => 'publish',
+        'post_title'  => 'NTM Trailer',
+        'post_name'   => 'trailer',
+        'post_parent' => $machines_id,
+    ]);
+    echo "    created 'trailer' page (id {$trailer_id}) under /machines/ ({$machines_id}).\n";
+}
+
+if ($trailer_id === 0) {
+    echo "    ERROR: failed to create or find the trailer page.\n";
+    return;
+}
+
+// Assign the template (idempotent: no-ops if already correct).
 $current = get_post_meta($trailer_id, '_wp_page_template', true);
 if ($current === $template) {
     echo "    template already '{$template}' on page {$trailer_id} (no-op).\n";
 } else {
     update_post_meta($trailer_id, '_wp_page_template', $template);
-    echo "    assigned template '{$template}' to page {$trailer_id} (/machines/upgrades/trailer/).\n";
+    echo "    assigned template '{$template}' to page {$trailer_id} (/machines/trailer/).\n";
 }
+
+// Rewrite cache must be refreshed so the new page route resolves immediately.
+flush_rewrite_rules(false);
+echo "    flushed rewrite rules.\n";
 PHP
 
 if [[ -n "${WP_CONTAINER:-}" ]]; then

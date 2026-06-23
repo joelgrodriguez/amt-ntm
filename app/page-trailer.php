@@ -8,8 +8,10 @@
  * costs what it does, pairing with the machine-page "trailer sold separately"
  * pricing note.
  *
- * Lives at /machines/upgrades/trailer/ (page assigned this template via the
- * companion db script scripts/db/028-trailer-landing-page.sh).
+ * Lives at /machines/trailer/ (page assigned this template via the companion
+ * db script scripts/db/028-trailer-landing-page.sh). The route is a direct
+ * child of /machines/ on purpose: deeper nesting collides with the WooCommerce
+ * product permalink base /machines/%product_cat%/.
  *
  * @package Standard
  */
