@@ -393,7 +393,7 @@ Content/asset items overlap with the content team (Rick) and Alex — flagged in
 - [ ] **About — confirm history/timeline** dates. *(content)*
 - [x] ~~**About — parent-company link only** — single "our parent company" link → AMT (→ Sheffield); no AMT/Sheffield branding on the NTM site. Resolves the [Mazzella → AMT](2026-06-02-annotated-screenshots-review.md) thread. *(content + theme)*~~ — **done #35** (landed; discreet "Parent company → AMT" link to archmettech.com in the About Company-data aside; no Sheffield, no branding)
 - [ ] **About + homepage — weave in the portability-DNA narrative** (Adam's StoryBrand copy: on-demand, unlimited length/no seams, fewer leaks, lean/waste-control, since '91); dedupe with homepage "why/who for." *(content; Rick)*
-- [ ] **Five-pillar messaging up front** — surface the five-pillar value props/benefits more prominently across the content, not buried. *(content; Rick)*
+- [x] ~~**Five-pillar messaging up front** — surface the five-pillar value props/benefits more prominently across the content, not buried. *(content; Rick)*~~ — **done #37** (landed; built the decided-but-unbuilt reusable "5-Pillar Ironclad Support" strip — `get_ironclad_pillars()` canonical data + `templates/parts/ironclad-support.php` — and wired it onto Q3/Mark 2 pillar pages with a "Support" subnav anchor, the simple machine template, and all three category roll-ups. Copy verbatim from NTM's 5-pillar video + "Maximize Uptime" article, incl. the 3-year limited warranty. **Note:** this builds + places the strip; Rick's copy review of the surrounding page content is still open content work.)
 - [ ] **Q3 page — align copy to imagery** — "precision panel after panel" → panel/roller-set image; assign each value prop the right photo. *(asset: Alex / content)*
 - [ ] **Q3 page — "built to take a beating"** → link the machine-down-the-hill video. *(content/theme)*
 - [ ] **Q3 page — retouch the sun glare** on the top-left coil photo. *(asset: Alex)*
@@ -425,7 +425,7 @@ Content/asset items overlap with the content team (Rick) and Alex — flagged in
 - **The real risk the room raised is non-code:** **rollout de-risking** — Adam wants proof real users won't get lost, via Clarity + a staged release, not a flip-the-switch cutover. Track to done before go-live.
 - **Microsoft Clarity** to be installed at launch for heatmaps + session replay (already used to inform the redesign).
 - **Safety is the one true blocker shape:** anything safety-related is gated on counsel; don't let it slip into the launch un-reviewed.
-- The theme-codeable subset this work owns is small — pricing display convention, calendar-booking CTA surfacing, the parent-company link, the gutter-quiz removal, and the trailer page. Most other items belong to **Rick (content), Alex (assets), or leadership (strategy decisions)**.
+- The theme-codeable subset this work owns is small — pricing display convention, calendar-booking CTA surfacing, the parent-company link, the gutter-quiz removal, the five-pillar Ironclad Support strip, and the trailer page. Most other items belong to **Rick (content), Alex (assets), or leadership (strategy decisions)**.
 - The big quotable for the room (Adam, twice): "it has to be better" — tempered with healthy caution about launching without a test plan. The rollout-mechanics research answers that concern.
 
 ---
