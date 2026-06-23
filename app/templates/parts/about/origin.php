@@ -38,6 +38,15 @@ $callouts = [
         'k' => __('Founded',     'standard'),
         'v' => __('Denver, 1991', 'standard'),
     ],
+    // One discreet link to the parent company (Adam, stakeholder review
+    // 2026-06-17): "make them travel to get there." No AMT/Sheffield branding
+    // on the NTM site — just this quiet outbound link. A 'href' on a callout
+    // turns its value into an external anchor (see the renderer below).
+    [
+        'k'    => __('Parent company', 'standard'),
+        'v'    => __('AMT', 'standard'),
+        'href' => 'https://archmettech.com/',
+    ],
 ];
 
 $milestones = [
@@ -106,9 +115,21 @@ $milestones = [
                         <span class="font-mono uppercase tracking-wider text-xs text-blue-500">
                             <?php echo esc_html($callout['k']); ?>
                         </span>
-                        <span class="font-sans font-medium text-blue-900 text-base lg:text-lg leading-snug">
-                            <?php echo esc_html($callout['v']); ?>
-                        </span>
+                        <?php if (!empty($callout['href'])) : ?>
+                            <a
+                                href="<?php echo esc_url($callout['href']); ?>"
+                                target="_blank"
+                                rel="noopener"
+                                class="font-sans font-medium text-blue-900 text-base lg:text-lg leading-snug underline decoration-blue-300 underline-offset-4 hover:decoration-blue-900 transition-colors inline-flex items-center gap-1.5 w-fit"
+                            >
+                                <?php echo esc_html($callout['v']); ?>
+                                <?php icon('arrow-right', ['class' => 'w-3.5 h-3.5 -rotate-45']); ?>
+                            </a>
+                        <?php else : ?>
+                            <span class="font-sans font-medium text-blue-900 text-base lg:text-lg leading-snug">
+                                <?php echo esc_html($callout['v']); ?>
+                            </span>
+                        <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
             </aside>
