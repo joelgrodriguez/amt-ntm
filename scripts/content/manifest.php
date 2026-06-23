@@ -132,4 +132,44 @@ return [
             'app/templates/pages/finance-center/*.php',
         ],
     ],
+
+    // Custom MACH II family landing page (its own hardcoded copy).
+    'machii' => [
+        'label' => 'MACH II Landing',
+        'paths' => [
+            'app/page-machii.php',
+            'app/templates/pages/machii/*.php',
+        ],
+    ],
+
+    // SSQ3 MultiPro product page. The per-machine copy lives in the data file
+    // (hero, breakdown, fit, case study, specs, FAQ — almost all __()-wrapped);
+    // the page is rendered by the shared woo product template, whose generic
+    // labels are captured once under 'product-ui' below.
+    'ssq3' => [
+        'label' => 'SSQ3 MultiPro (product)',
+        'paths' => [
+            'app/data/machines/ssq3-multipro.php',
+        ],
+    ],
+
+    // MACH II product pages (the three gutter variants), copy from data files.
+    'mach-ii' => [
+        'label' => 'MACH II (product)',
+        'paths' => [
+            'app/data/machines/mach-ii-5-gutter.php',
+            'app/data/machines/mach-ii-6-gutter.php',
+            'app/data/machines/mach-ii-combo-gutter.php',
+        ],
+    ],
+
+    // Shared machine product-page UI labels (Specs, Request a Quote, etc.) —
+    // rendered for every machine, so reviewed once here, not per machine.
+    'product-ui' => [
+        'label' => 'Machine Product UI (shared)',
+        'paths' => [
+            'app/templates/woo/product/single-machine.php',
+            'app/templates/woo/product/parts/*.php',
+        ],
+    ],
 ];

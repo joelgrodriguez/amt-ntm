@@ -9,19 +9,30 @@ back to a developer to apply to the code.
 This is the round-trip:
 
 ```
-npm run content:export   →  CSV the content team edits  →  developer applies edits to PHP  →  ships to dev
+npm run content:xlsx   →  Excel workbook the content team edits  →  developer applies edits to PHP  →  ships to dev
 ```
 
 ## 1. Export (developer)
 
+Two formats, same data, same anchors — pick whichever the team prefers:
+
 ```bash
-npm run content:export
+npm run content:xlsx     # one .xlsx workbook, a tab per page + an "All" tab
+npm run content:export   # plain CSVs (one per page + combined)
 ```
 
-Writes CSVs to `scripts/content/exports/` (gitignored — regenerate any time):
+Both write to `scripts/content/exports/` (gitignored — regenerate any time):
 
-- `copy-review-<page>.csv` — one file per page (Home, About, Safety, …), focused.
-- `copy-review-all.csv` — every string, combined.
+- `copy-review.xlsx` — **the recommended hand-off.** One tab per page plus an
+  `All` tab, frozen header row, and the `key` / `current_content` columns locked
+  read-only so only `new_content` is editable.
+- `copy-review-<page>.csv` — one CSV per page (Home, About, Safety, …), focused.
+- `copy-review-all.csv` — every string in one CSV.
+
+Scope (15 tabs): the pillar/landing pages (Home, About, Machines, Roof & Wall,
+Seamless Gutter, UNIQ, Safety, Trailer, Choose, Start Here, Finance), the custom
+**MACH II Landing**, the **SSQ3** and **MACH II** machine product pages (copy
+from `app/data/machines/*.php`), and the shared **Machine Product UI** labels.
 
 Each row is one piece of copy. Columns:
 
@@ -36,8 +47,11 @@ Each row is one piece of copy. Columns:
 
 ## 2. Review (content team)
 
-1. Open the CSV in Excel or Google Sheets (it opens natively, accents included).
+1. Open `copy-review.xlsx` in Excel (or import to Google Sheets). Each tab is a
+   page; the `All` tab is everything in one place.
 2. Read `current_content`. To change it, type the replacement in `new_content`.
+   In the workbook the reference columns are **locked** — Excel only lets you type
+   in `new_content`, which is the point.
 3. **Leave a row's `new_content` blank to keep the current copy.** Only filled-in
    rows are treated as changes.
 4. **Do not touch `key` or `current_content`** — those are how the developer finds
@@ -46,11 +60,13 @@ Each row is one piece of copy. Columns:
    you need to leave a comment; it's ignored on import.
 6. Hand the file back (same filename is fine).
 
-What's in scope: the marketing copy on Home, About, Machines (overview), Roof &
-Wall, Seamless Gutter, UNIQ, Safety, Trailer, Choose Your Machine, Start Here,
-and Finance Center. Not in scope (yet): deep per-machine spec sheets, and any
-copy that would change a **page URL** — flag URL changes separately, they need a
-redirect, not just a copy edit.
+Some copy contains HTML (e.g. `<br>` or `<strong>`) — leave the tags as-is unless
+the change is intentional; they render on the page.
+
+Not in scope: any copy that would change a **page URL** — flag URL changes
+separately, they need a redirect, not just a copy edit. Pure spec/catalog values
+(prices, dimensions like "25 min") that aren't `__()`-wrapped in the data files
+are also excluded; ask if the team needs those too.
 
 ## 3. Apply (developer)
 

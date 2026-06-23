@@ -2,6 +2,11 @@
 
 <!-- shogun:auto — appended on land, newest first. Read top-down for current behavior. -->
 
+## Content-review XLSX export: build a multi-tab Excel workbook (one tab per page + All tab, locked reference columns) from the content CSV extractor — #46
+*Landed 2026-06-23 · type: feature*
+
+- Content-review XLSX export: build a multi-tab Excel workbook (one tab per page + All tab, locked reference columns) from the content CSV extractor
+
 ## Content-review CSV export: extract pillar/landing page copy from PHP to an editable CSV for the content team, with a human-reviewed re-apply path — #45
 *Landed 2026-06-23 · type: feature*
 
