@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "db:apply": "scripts/db/apply",
+    "content:export": "php scripts/content/export-copy.php",
     "preview": "vite preview"
   },
   "devDependencies": {

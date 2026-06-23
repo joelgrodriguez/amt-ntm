@@ -2,6 +2,11 @@
 
 <!-- shogun:auto — appended on land, newest first. Read top-down for current behavior. -->
 
+## Content-review CSV export: extract pillar/landing page copy from PHP to an editable CSV for the content team, with a human-reviewed re-apply path — #45
+*Landed 2026-06-23 · type: feature*
+
+- Content-review CSV export: extract pillar/landing page copy from PHP to an editable CSV for the content team, with a human-reviewed re-apply path
+
 ## Page ID 11062 ("NTM Machine Quote Checklist", slug `ntm-machine-quote-checklist-thank-you`) opens with `<h3>Thank you for submitting the form.</h3>` — leftover confirmation copy on a page that has no form. Rewrite the heading. Page content lives in the WP DB, so the change MUST be captured as a replayable script in `scripts/db/` (repo hard rule: DB changes are wiped on fresh prod pull). — #33
 *Landed 2026-06-23 · type: fix*
 
