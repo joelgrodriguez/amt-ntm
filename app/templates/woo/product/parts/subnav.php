@@ -79,6 +79,10 @@ if (!empty($resources['manual']) || !empty($resources['brochure']) || !empty($re
     $nav_links[__('Resources', 'standard')] = 'machine-resources';
 }
 
+// 5-pillar Ironclad Support strip renders on every pillar page (no machine
+// data gate), so its anchor is always available.
+$nav_links[__('Support', 'standard')] = 'machine-ironclad-support';
+
 if (!empty($machine['faq'])) {
     $nav_links[__('FAQ', 'standard')] = 'machine-faq';
 }

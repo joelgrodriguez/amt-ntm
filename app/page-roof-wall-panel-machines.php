@@ -40,6 +40,11 @@ get_header();
 
     <?php get_template_part('templates/pages/machines/which-machine'); ?>
 
+    <?php get_template_part('templates/parts/ironclad-support', null, [
+        'section_id' => 'roof-wall-ironclad-support',
+        'background' => 'bg-white',
+    ]); ?>
+
     <?php get_template_part('templates/pages/roof-wall/faq'); ?>
 
     <?php get_template_part('templates/pages/roof-wall/learning-center'); ?>

@@ -36,6 +36,11 @@ get_header();
 
     <?php get_template_part('templates/pages/gutter/machii-callout'); ?>
 
+    <?php get_template_part('templates/parts/ironclad-support', null, [
+        'section_id' => 'gutter-ironclad-support',
+        'background' => 'bg-white',
+    ]); ?>
+
     <?php get_template_part('templates/pages/gutter/faq'); ?>
 
     <?php get_template_part('templates/pages/gutter/learning-center'); ?>

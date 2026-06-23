@@ -91,6 +91,11 @@ if (!$machine) {
 
             <?php get_template_part('templates/woo/product/parts/resources', null, compact('machine')); ?>
 
+            <?php get_template_part('templates/parts/ironclad-support', null, [
+                'section_id' => 'machine-ironclad-support',
+                'background' => 'bg-blue-50',
+            ]); ?>
+
             <?php
             $case_study = $machine['case_study'] ?? null;
             if (is_array($case_study) && !empty($case_study['content'])) {

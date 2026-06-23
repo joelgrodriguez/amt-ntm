@@ -3,7 +3,7 @@
   "generatedBy": "shogun map",
   "project": {
     "name": "standard-press",
-    "root": "amt-ntm"
+    "root": "five-pillar-strip"
   },
   "stack": {
     "languages": [
@@ -63,9 +63,9 @@
     {
       "path": ".",
       "purpose": "Root-level manifests, docs, and configuration.",
-      "fileCount": 12,
+      "fileCount": 13,
       "categories": {
-        "other": 4,
+        "other": 5,
         "docs": 5,
         "manifest": 1,
         "source": 1,
@@ -73,26 +73,26 @@
       },
       "keyFiles": [
         ".distignore",
+        ".git",
         ".gitattributes",
         ".gitignore",
         "CLAUDE.md",
         "DESIGN.md",
         "package-lock.json",
-        "package.json",
-        "PRODUCT.md"
+        "package.json"
       ]
     },
     {
       "path": "app",
       "purpose": "Application code and framework conventions.",
-      "fileCount": 422,
+      "fileCount": 423,
       "categories": {
         "source": 162,
         "other": 43,
         "config": 2,
         "route": 7,
         "test": 1,
-        "template": 207
+        "template": 208
       },
       "keyFiles": [
         "app/404.php",
@@ -120,9 +120,9 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 64,
+      "fileCount": 68,
       "categories": {
-        "docs": 64
+        "docs": 68
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
@@ -132,15 +132,15 @@
         "docs/feedback/2026-06-08-machine-pages-review.md",
         "docs/feedback/2026-06-09-web-images-review-alex-actions.html",
         "docs/feedback/2026-06-09-web-images-review.md",
-        "docs/feedback/README.md"
+        "docs/feedback/2026-06-17-stakeholder-review.md"
       ]
     },
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 13,
+      "fileCount": 14,
       "categories": {
-        "other": 10,
+        "other": 11,
         "source": 2,
         "docs": 1
       },
@@ -162,6 +162,12 @@
       "category": "other",
       "role": "Repository file.",
       "size": 607
+    },
+    {
+      "path": ".git",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 119
     },
     {
       "path": ".gitattributes",
@@ -479,7 +485,7 @@
       "path": "app/data/machines/ssq3-multipro.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 16012
+      "size": 16777
     },
     {
       "path": "app/data/machines/ssr-multipro-jr.php",
@@ -641,13 +647,13 @@
       "path": "app/inc/machines-data.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 42927
+      "size": 47817
     },
     {
       "path": "app/inc/machines.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 4986
+      "size": 5197
     },
     {
       "path": "app/inc/mobile-nav.php",
@@ -767,7 +773,7 @@
       "path": "app/inc/woo/catalog.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 12952
+      "size": 13724
     },
     {
       "path": "app/inc/woo/machine-template.php",
@@ -851,7 +857,7 @@
       "path": "app/page-machines.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 1085
+      "size": 1258
     },
     {
       "path": "app/page-manuals.php",
@@ -893,13 +899,13 @@
       "path": "app/page-roof-wall-panel-machines.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 1319
+      "size": 1493
     },
     {
       "path": "app/page-seamless-gutter-machines.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 1227
+      "size": 1303
     },
     {
       "path": "app/page-service-hub.php",
@@ -1217,7 +1223,7 @@
       "path": "app/resources/css/woo/machine-subnav.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 11801
+      "size": 11852
     },
     {
       "path": "app/resources/css/woo/product-card.css",
@@ -1535,7 +1541,7 @@
       "path": "app/templates/pages/finance-center/corbel.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 4812
+      "size": 4806
     },
     {
       "path": "app/templates/pages/finance-center/disclaimer.php",
@@ -1547,7 +1553,7 @@
       "path": "app/templates/pages/finance-center/faq.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 2833
+      "size": 2828
     },
     {
       "path": "app/templates/pages/finance-center/hero.php",
@@ -1631,13 +1637,13 @@
       "path": "app/templates/pages/gutter/learning-center.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 876
+      "size": 843
     },
     {
       "path": "app/templates/pages/gutter/machii-callout.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 3926
+      "size": 3940
     },
     {
       "path": "app/templates/pages/gutter/product-grid.php",
@@ -1733,7 +1739,7 @@
       "path": "app/templates/pages/machines/faq-accordion.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 652
+      "size": 659
     },
     {
       "path": "app/templates/pages/machines/final-cta.php",
@@ -1757,7 +1763,7 @@
       "path": "app/templates/pages/machines/learning-center.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 685
+      "size": 655
     },
     {
       "path": "app/templates/pages/machines/lineup-flagship.php",
@@ -1769,7 +1775,7 @@
       "path": "app/templates/pages/machines/lineup-grid.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 2606
+      "size": 2928
     },
     {
       "path": "app/templates/pages/machines/machines-flagship.php",
@@ -1907,7 +1913,7 @@
       "path": "app/templates/pages/roof-wall/learning-center.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 914
+      "size": 881
     },
     {
       "path": "app/templates/pages/roof-wall/product-grid.php",
@@ -2057,7 +2063,7 @@
       "path": "app/templates/parts/about/origin.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 6651
+      "size": 7948
     },
     {
       "path": "app/templates/parts/about/people.php",
@@ -2312,6 +2318,12 @@
       "size": 7860
     },
     {
+      "path": "app/templates/parts/ironclad-support.php",
+      "category": "template",
+      "role": "Application source code.",
+      "size": 4148
+    },
+    {
       "path": "app/templates/parts/learning-center/results.php",
       "category": "template",
       "role": "Application source code.",
@@ -2321,7 +2333,7 @@
       "path": "app/templates/parts/learning-center.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3084
+      "size": 3477
     },
     {
       "path": "app/templates/parts/mega-menu.php",
@@ -2669,7 +2681,7 @@
       "path": "app/templates/woo/product/parts/subnav.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4251
+      "size": 4446
     },
     {
       "path": "app/templates/woo/product/parts/testimonials.php",
@@ -2687,13 +2699,13 @@
       "path": "app/templates/woo/product/single-machine-default.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 9480
+      "size": 9624
     },
     {
       "path": "app/templates/woo/product/single-machine.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 5927
+      "size": 6133
     },
     {
       "path": "app/theme.json",
@@ -2711,7 +2723,7 @@
       "path": "CLAUDE.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 16330
+      "size": 18200
     },
     {
       "path": "db/imports/ntmservice-service-articles.json",
@@ -2774,16 +2786,16 @@
       "size": 12908
     },
     {
+      "path": "docs/feedback/2026-06-17-stakeholder-review.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 30149
+    },
+    {
       "path": "docs/feedback/README.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 2348
-    },
-    {
-      "path": "docs/feedback/roadmap.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 6878
+      "size": 3248
     },
     {
       "path": "docs/handoff/01-context.md",
@@ -3002,10 +3014,28 @@
       "size": 17982
     },
     {
+      "path": "docs/presentation/notes.html",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 17532
+    },
+    {
+      "path": "docs/presentation/phase-2-brief.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 3063
+    },
+    {
+      "path": "docs/presentation/risk-qa-prep.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 10133
+    },
+    {
       "path": "docs/presentation/slides.html",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 30989
+      "size": 2512242
     },
     {
       "path": "docs/presentation/stakeholder-presentation-playbook.md",
@@ -3098,22 +3128,28 @@
       "size": 4252
     },
     {
-      "path": "docs/superpowers/specs/2026-06-16-service-hub-knowledgebase-design.md",
+      "path": "docs/specs/about.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 9142
+      "size": 1218
     },
     {
-      "path": "docs/superpowers/specs/2026-06-16-service-search-results-page-design.md",
+      "path": "docs/specs/content.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 7500
+      "size": 940
     },
     {
-      "path": "docs/superpowers/specs/2026-06-16-ssq3-machii-template-polish-design.md",
+      "path": "docs/specs/finance-center.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 7758
+      "size": 655
+    },
+    {
+      "path": "docs/specs/machines.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 1602
     },
     {
       "path": "package-lock.json",
@@ -3200,6 +3236,12 @@
       "size": 2352
     },
     {
+      "path": "scripts/db/027-quote-checklist-fix-stray-heading.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 3913
+    },
+    {
       "path": "scripts/db/apply",
       "category": "other",
       "role": "Repository file.",
@@ -3249,8 +3291,8 @@
     "docs/feedback/2026-06-08-machine-pages-review.md",
     "docs/feedback/2026-06-09-web-images-review-alex-actions.html",
     "docs/feedback/2026-06-09-web-images-review.md",
+    "docs/feedback/2026-06-17-stakeholder-review.md",
     "docs/feedback/README.md",
-    "docs/feedback/roadmap.md",
     "docs/handoff/01-context.md",
     "docs/handoff/02-the-change.md",
     "docs/handoff/03-mega-menu-spec.md",
@@ -3287,6 +3329,9 @@
     "docs/plans/2026-05-27-buyer-journey-navigation-flow.md",
     "docs/plans/2026-06-01-engineered-motion-system.md",
     "docs/plans/2026-06-09-e-sola-feedback-design.md",
+    "docs/presentation/notes.html",
+    "docs/presentation/phase-2-brief.md",
+    "docs/presentation/risk-qa-prep.md",
     "docs/presentation/slides.html",
     "docs/presentation/stakeholder-presentation-playbook.md",
     "docs/presentations/navigation-flow/choose-machine.html",
@@ -3303,9 +3348,10 @@
     "docs/presentations/navigation-flow.html",
     "docs/presentations/website-update-notes.md",
     "docs/RECOVERY.md",
-    "docs/superpowers/specs/2026-06-16-service-hub-knowledgebase-design.md",
-    "docs/superpowers/specs/2026-06-16-service-search-results-page-design.md",
-    "docs/superpowers/specs/2026-06-16-ssq3-machii-template-polish-design.md",
+    "docs/specs/about.md",
+    "docs/specs/content.md",
+    "docs/specs/finance-center.md",
+    "docs/specs/machines.md",
     "PRODUCT.md",
     "README.md",
     "scripts/db/README.md",
