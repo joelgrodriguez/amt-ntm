@@ -3,7 +3,7 @@
   "generatedBy": "shogun map",
   "project": {
     "name": "standard-press",
-    "root": "five-pillar-strip"
+    "root": "41-build-standalone-safety-landing-page-legal-gated-ships-in-draft"
   },
   "stack": {
     "languages": [
@@ -85,14 +85,14 @@
     {
       "path": "app",
       "purpose": "Application code and framework conventions.",
-      "fileCount": 423,
+      "fileCount": 434,
       "categories": {
-        "source": 162,
+        "source": 164,
         "other": 43,
         "config": 2,
         "route": 7,
         "test": 1,
-        "template": 208
+        "template": 217
       },
       "keyFiles": [
         "app/404.php",
@@ -120,9 +120,9 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 68,
+      "fileCount": 69,
       "categories": {
-        "docs": 68
+        "docs": 69
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
@@ -138,9 +138,9 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 14,
+      "fileCount": 16,
       "categories": {
-        "other": 11,
+        "other": 13,
         "source": 2,
         "docs": 1
       },
@@ -167,7 +167,7 @@
       "path": ".git",
       "category": "other",
       "role": "Repository file.",
-      "size": 119
+      "size": 168
     },
     {
       "path": ".gitattributes",
@@ -647,7 +647,7 @@
       "path": "app/inc/machines-data.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 47817
+      "size": 51161
     },
     {
       "path": "app/inc/machines.php",
@@ -902,6 +902,12 @@
       "size": 1493
     },
     {
+      "path": "app/page-safety.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 1080
+    },
+    {
       "path": "app/page-seamless-gutter-machines.php",
       "category": "source",
       "role": "Application source code.",
@@ -924,6 +930,12 @@
       "category": "source",
       "role": "Application source code.",
       "size": 1673
+    },
+    {
+      "path": "app/page-trailer.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 1174
     },
     {
       "path": "app/page-uniq-control-system.php",
@@ -1928,6 +1940,30 @@
       "size": 1434
     },
     {
+      "path": "app/templates/pages/safety/final-cta.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 736
+    },
+    {
+      "path": "app/templates/pages/safety/hero.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 1661
+    },
+    {
+      "path": "app/templates/pages/safety/safe-operation.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 4200
+    },
+    {
+      "path": "app/templates/pages/safety/systems.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 2932
+    },
+    {
       "path": "app/templates/pages/start-here/faq.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
@@ -1974,6 +2010,36 @@
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
       "size": 8263
+    },
+    {
+      "path": "app/templates/pages/trailer/engineering.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 6476
+    },
+    {
+      "path": "app/templates/pages/trailer/final-cta.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 1392
+    },
+    {
+      "path": "app/templates/pages/trailer/hero.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 2152
+    },
+    {
+      "path": "app/templates/pages/trailer/models.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 7467
+    },
+    {
+      "path": "app/templates/pages/trailer/vs-traditional.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 6854
     },
     {
       "path": "app/templates/pages/uniq/features.php",
@@ -2789,7 +2855,7 @@
       "path": "docs/feedback/2026-06-17-stakeholder-review.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 30149
+      "size": 31207
     },
     {
       "path": "docs/feedback/README.md",
@@ -2922,6 +2988,12 @@
       "category": "docs",
       "role": "Project documentation for humans and agents.",
       "size": 18818
+    },
+    {
+      "path": "docs/legal/safety-copy-review.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 6288
     },
     {
       "path": "docs/ntm-machines.md",
@@ -3149,7 +3221,7 @@
       "path": "docs/specs/machines.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 1602
+      "size": 3987
     },
     {
       "path": "package-lock.json",
@@ -3242,6 +3314,18 @@
       "size": 3913
     },
     {
+      "path": "scripts/db/028-trailer-landing-page.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 5621
+    },
+    {
+      "path": "scripts/db/029-safety-landing-page-draft.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 5652
+    },
+    {
       "path": "scripts/db/apply",
       "category": "other",
       "role": "Repository file.",
@@ -3314,6 +3398,7 @@
     "docs/handoff/inventory/video.csv",
     "docs/handoff/README.md",
     "docs/image-inventory.md",
+    "docs/legal/safety-copy-review.md",
     "docs/ntm-machines.md",
     "docs/plans/2026-03-03-machines-page-design.md",
     "docs/plans/2026-03-03-machines-page-plan.md",
