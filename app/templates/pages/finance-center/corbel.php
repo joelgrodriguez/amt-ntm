@@ -36,8 +36,8 @@ $terms = [
         'value' => __('36 / 48 / 60 mo', 'standard'),
     ],
     [
-        'label' => __('APR range', 'standard'),
-        'value' => __('8–36%', 'standard'),
+        'label' => __('APR', 'standard'),
+        'value' => __('From 8%', 'standard'),
     ],
     [
         'label' => __('Structures', 'standard'),
