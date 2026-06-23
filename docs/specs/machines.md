@@ -2,6 +2,11 @@
 
 <!-- shogun:auto — appended on land, newest first. Read top-down for current behavior. -->
 
+## Build reusable 5-Pillar Ironclad Support strip + wire into pillar, category & machine pages — #37
+*Landed 2026-06-23 · type: feat*
+
+- Build reusable 5-Pillar Ironclad Support strip + wire into pillar, category & machine pages
+
 ## A production-ready trailer landing page — "NTM trailer vs. traditional" — at route `/machines/upgrades/trailer`. Adam, stakeholder review 2026-06-17 (mentioned twice, on his checklist): the NTM trailer is expensive *because* it's engineered for the machine (bolt-down, chip trays, heavy-duty). We're not telling that story; it pairs with the SSQ3 "trailer sold separately" asterisk (#34) by explaining *why* the trailer costs what it does.
 
 Lead framing: **engineered-as-one-system** (the trailer is designed AROUND the machine; a generic trailer can't be). — #36
