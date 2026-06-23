@@ -265,9 +265,9 @@ Content/asset items overlap with the content team (Rick) and Alex — flagged in
 - [ ] **SSQ3 pricing display:** lead with base price (~$85–90K) + asterisk "trailer sold separately"; stop leading with the $130–143K (trailer-inclusive) range. `app/data/machines/ssq3-multipro.php` + pricing pattern. *(content + theme)*
 - [ ] **Apply the base-price + disclaimer pattern** to pricing generally (entry vs. souped-up framing), not just Q3. *(content + theme)*
 - [ ] **Create the NTM trailer article / landing page** — "NTM trailer vs. traditional," engineering + durability story. *(content + theme; Joel ~halfway)*
-- [ ] **Remove 36% APR** from the Finance Center (and audit all finance percentages for compliance) — `finance-center/faq.php` ("8% to 36% APR") and `corbel.php` (`'8–36%'`). *(content)*
-- [ ] **Fix quote-checklist page copy** — remove the stray "thank you for filling out the form" confirmation text. *(content)*
-- [ ] **Remove the which-machine quiz** from the gutter landing page — drop the `which-machine.php` include from `page-seamless-gutter-machines.php`. *(theme)*
+- [x] **Remove 36% APR** from the Finance Center (and audit all finance percentages for compliance) — `finance-center/faq.php` ("8% to 36% APR") and `corbel.php` (`'8–36%'`). *(content)* — done #31 (faq → "from 8% APR"; corbel → "From 8%"; audit confirmed those were the only two 36% mentions)
+- [x] **Fix quote-checklist page copy** — remove the stray "thank you for filling out the form" confirmation text. *(content)* — done #33 (heading "Thank you for submitting the form." → "Your Machine Quote Checklist"; captured as db script 027. **Note:** rest of the page body is still post-download boilerplate and the slug ends in `-thank-you` — see follow-up below)
+- [x] **Remove the which-machine quiz** from the gutter landing page — drop the `which-machine.php` include from `page-seamless-gutter-machines.php`. *(theme)* — done #32 (kept on `page-machines.php` + `page-roof-wall-panel-machines.php`)
 - [ ] **Gutter / Mark 2 pages: benefit/differentiation pass** — durability + advantages vs. KWM. *(content; Rick + Joel)*
 - [ ] **About — confirm history/timeline** dates. *(content)*
 - [ ] **About — parent-company link only** — single "our parent company" link → AMT (→ Sheffield); no AMT/Sheffield branding on the NTM site. Resolves the [Mazzella → AMT](2026-06-02-annotated-screenshots-review.md) thread. *(content + theme)*
@@ -306,6 +306,7 @@ Content/asset items overlap with the content team (Rick) and Alex — flagged in
 - **Safety is the one true blocker shape:** anything safety-related is gated on counsel; don't let it slip into the launch un-reviewed.
 - The theme-codeable subset this work owns is small — pricing display convention, calendar-booking CTA surfacing, the parent-company link, the gutter-quiz removal, and the trailer page. Most other items belong to **Rick (content), Alex (assets), or leadership (strategy decisions)**.
 - The big quotable for the room (Adam, twice): "it has to be better" — tempered with healthy caution about launching without a test plan. The rollout-mechanics research answers that concern.
+- **Quote-checklist page (#33) — open question for Joel.** The heading fix shipped, but page 11062 ("NTM Machine Quote Checklist") is *structurally* a post-download thank-you page: body copy is "others who downloaded this guide enjoyed…" and the slug is `ntm-machine-quote-checklist-thank-you`. Two unresolved calls: (a) does the body need a real checklist rewrite, and (b) should the slug drop `-thank-you` (a rename needs a redirect entry per the DB-capture rule). Both are content/IA decisions, not mechanical — left for Joel.
 
 ---
 
