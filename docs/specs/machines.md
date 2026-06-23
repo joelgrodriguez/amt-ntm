@@ -2,6 +2,15 @@
 
 <!-- shogun:auto — appended on land, newest first. Read top-down for current behavior. -->
 
+## The trailer page route `/machines/upgrades/trailer/` (#36) collides with WooCommerce's product permalink base `/machines/%product_cat%/`. Any 2-segment path under `/machines/` is read as `<product_cat>/<product>`; WP fails to find a product, then guess-404s with a 301 to `/machines/accessories-add-on-equipment/trailer-tr23g/`. (1-segment pages like `/machines/uniq-control-system/` are fine — they don't match the 2-segment product rule.)
+
+Fix: move the page to **/machines/trailer/** (one level under /machines/, beside uniq). No Woo changes. — #38
+*Landed 2026-06-23 · type: fix*
+
+- The trailer page route `/machines/upgrades/trailer/` (#36) collides with WooCommerce's product permalink base `/machines/%product_cat%/`. Any 2-segment path under `/machines/` is read as `<product_cat>/<product>`; WP fails to find a product, then guess-404s with a 301 to `/machines/accessories-add-on-equipment/trailer-tr23g/`. (1-segment pages like `/machines/uniq-control-system/` are fine — they don't match the 2-segment product rule.)
+
+Fix: move the page to **/machines/trailer/** (one level under /machines/, beside uniq). No Woo changes.
+
 ## Build reusable 5-Pillar Ironclad Support strip + wire into pillar, category & machine pages — #37
 *Landed 2026-06-23 · type: feat*
 
