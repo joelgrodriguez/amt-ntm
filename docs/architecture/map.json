@@ -3,7 +3,7 @@
   "generatedBy": "shogun map",
   "project": {
     "name": "standard-press",
-    "root": "39-weave-portability-dna-narrative-into-home-about-category-pages"
+    "root": "41-build-standalone-safety-landing-page-legal-gated-ships-in-draft"
   },
   "stack": {
     "languages": [
@@ -85,14 +85,14 @@
     {
       "path": "app",
       "purpose": "Application code and framework conventions.",
-      "fileCount": 430,
+      "fileCount": 434,
       "categories": {
-        "source": 163,
+        "source": 164,
         "other": 43,
         "config": 2,
         "route": 7,
         "test": 1,
-        "template": 214
+        "template": 217
       },
       "keyFiles": [
         "app/404.php",
@@ -120,9 +120,9 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 68,
+      "fileCount": 69,
       "categories": {
-        "docs": 68
+        "docs": 69
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
@@ -138,9 +138,9 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 15,
+      "fileCount": 16,
       "categories": {
-        "other": 12,
+        "other": 13,
         "source": 2,
         "docs": 1
       },
@@ -167,7 +167,7 @@
       "path": ".git",
       "category": "other",
       "role": "Repository file.",
-      "size": 167
+      "size": 168
     },
     {
       "path": ".gitattributes",
@@ -509,7 +509,7 @@
       "path": "app/front-page.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 2650
+      "size": 2324
     },
     {
       "path": "app/functions.php",
@@ -647,7 +647,7 @@
       "path": "app/inc/machines-data.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 50379
+      "size": 51161
     },
     {
       "path": "app/inc/machines.php",
@@ -900,6 +900,12 @@
       "category": "source",
       "role": "Application source code.",
       "size": 1493
+    },
+    {
+      "path": "app/page-safety.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 1080
     },
     {
       "path": "app/page-seamless-gutter-machines.php",
@@ -1934,6 +1940,30 @@
       "size": 1434
     },
     {
+      "path": "app/templates/pages/safety/final-cta.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 736
+    },
+    {
+      "path": "app/templates/pages/safety/hero.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 1661
+    },
+    {
+      "path": "app/templates/pages/safety/safe-operation.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 4200
+    },
+    {
+      "path": "app/templates/pages/safety/systems.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 2932
+    },
+    {
       "path": "app/templates/pages/start-here/faq.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
@@ -2099,7 +2129,7 @@
       "path": "app/templates/parts/about/origin.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 8153
+      "size": 7948
     },
     {
       "path": "app/templates/parts/about/people.php",
@@ -2339,7 +2369,7 @@
       "path": "app/templates/parts/front-page/why-own.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 6546
+      "size": 6521
     },
     {
       "path": "app/templates/parts/hero-asymmetric.php",
@@ -2394,12 +2424,6 @@
       "category": "template",
       "role": "Application source code.",
       "size": 3492
-    },
-    {
-      "path": "app/templates/parts/portability-dna.php",
-      "category": "template",
-      "role": "Application source code.",
-      "size": 4142
     },
     {
       "path": "app/templates/parts/post-hero.php",
@@ -2966,6 +2990,12 @@
       "size": 18818
     },
     {
+      "path": "docs/legal/safety-copy-review.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 6288
+    },
+    {
       "path": "docs/ntm-machines.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
@@ -3290,6 +3320,12 @@
       "size": 5621
     },
     {
+      "path": "scripts/db/029-safety-landing-page-draft.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 5652
+    },
+    {
       "path": "scripts/db/apply",
       "category": "other",
       "role": "Repository file.",
@@ -3362,6 +3398,7 @@
     "docs/handoff/inventory/video.csv",
     "docs/handoff/README.md",
     "docs/image-inventory.md",
+    "docs/legal/safety-copy-review.md",
     "docs/ntm-machines.md",
     "docs/plans/2026-03-03-machines-page-design.md",
     "docs/plans/2026-03-03-machines-page-plan.md",

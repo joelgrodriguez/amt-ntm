@@ -871,6 +871,65 @@ function get_portability_pillars(): array {
 }
 
 /**
+ * NTM safety systems — the factual operator-protection equipment on the machines.
+ *
+ * Single source of truth for the /safety landing page (templates/pages/safety/
+ * systems.php). Each entry states what a piece of equipment IS or DOES, not
+ * what it prevents — facts, never outcome claims.
+ *
+ * LEGAL GATE (stakeholder review 2026-06-17): everything safety-worded must be
+ * reviewed by counsel (Jenkins/Jake) before the page is published. State facts
+ * only ("designed with an interlock"), never claims that could be "used against
+ * us" ("safest machine on the market" is deliberately excluded). The page that
+ * renders this ships in WP Draft status until sign-off. Every string here is
+ * mirrored into docs/legal/safety-copy-review.md for that review. Do not add
+ * superlatives or injury-outcome promises to this list.
+ *
+ * Sourced from equipment NTM already documents across app/data/machines/*.php
+ * (power-interruption circuit, panel/gutter recognition, RFID cover sensors,
+ * shear warning strobe, interior LEDs) and the UNIQ maintenance-mode interlock
+ * documented in app/data/knowledgebase/articles.php.
+ *
+ * `label` is the mono one-liner; `body` is the sans factual sentence.
+ *
+ * @return array<int, array{label: string, title: string, body: string}>
+ */
+function get_safety_systems(): array {
+    return [
+        [
+            'label' => __('Guard-detect interlock', 'standard'),
+            'title' => __('Cover & Guard Sensors', 'standard'),
+            'body'  => __('RFID cover sensors detect when guards are in place. With a guard removed, the UNIQ control system enters maintenance mode and the automatic run, shear, and programming functions are disabled.', 'standard'),
+        ],
+        [
+            'label' => __('Operator alert', 'standard'),
+            'title' => __('Shear Warning Strobe', 'standard'),
+            'body'  => __('A strobe on the controller signals before the shear actuates, so the operator has a visual cue at the point of operation.', 'standard'),
+        ],
+        [
+            'label' => __('Power-loss handling', 'standard'),
+            'title' => __('Power Interruption Safety Circuit', 'standard'),
+            'body'  => __('A dedicated circuit governs how the machine responds to a loss of power, so a power interruption does not leave the drive in an uncontrolled state.', 'standard'),
+        ],
+        [
+            'label' => __('Feed verification', 'standard'),
+            'title' => __('Panel & Gutter Recognition', 'standard'),
+            'body'  => __('The control system recognizes the loaded profile before a run, confirming the machine is set up for the material it is about to form.', 'standard'),
+        ],
+        [
+            'label' => __('Point-of-work visibility', 'standard'),
+            'title' => __('Interior LED Lighting', 'standard'),
+            'body'  => __('Interior LEDs light the forming area so the operator can see the coil path and rollers during setup and operation.', 'standard'),
+        ],
+        [
+            'label' => __('Hands-on, no cost', 'standard'),
+            'title' => __('Operator Training', 'standard'),
+            'body'  => __('Every new machine owner gets one-on-one operator training, where safe operation is covered alongside running the machine and the profiles.', 'standard'),
+        ],
+    ];
+}
+
+/**
  * Get UNIQ control system features for the technology spotlight.
  *
  * @return array<int, array{title: string, text: string}>
