@@ -26,7 +26,7 @@ if (!defined('ABSPATH')) {
 $content = [
     'eyebrow' => __('Built it. Still building it.', 'standard'),
     'title'   => __('NTM shipped the SSP in 1991 and started a category. We\'re still the ones defining it.', 'standard'),
-    'p1'      => __('NTM was the first to commercially produce a polyurethane drive-roller machine with separate forming rollers. Today almost every portable rollformer on the market uses that approach. The patents have aged out. The lead hasn\'t.', 'standard'),
+    'p1'      => __('Portability has been our bet since 1991. The SSP put a working rollformer on the jobsite and started a category, because metal made where the roof is gives the contractor control of the whole process. NTM was the first to commercially produce a polyurethane drive-roller machine with separate forming rollers, and today almost every portable rollformer on the market uses that approach. The patents have aged out. The lead hasn\'t.', 'standard'),
     // TODO(copy): NTM split off from Mazzella Companies — confirm final
     // ownership wording with the team. Neutral placeholder below avoids the
     // now-false "part of Mazzella" claim while staying true.
