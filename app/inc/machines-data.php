@@ -824,6 +824,53 @@ function get_ironclad_pillars(): array {
 }
 
 /**
+ * NTM's "Portability is our DNA" proof-points — the on-demand manufacturing story.
+ *
+ * Single source of truth for the four reasons portable rollforming wins:
+ * unlimited length, no seams, fewer leak points, controlled waste. Sourced
+ * from Adam's StoryBrand framing in the 2026-06-17 stakeholder review:
+ * on-demand metal made on the jobsite drives cost down, cuts waste, and gives
+ * contractors control of the manufacturing process. Big-box historically
+ * shipped fixed lengths that underserved the end user; portability is the fix.
+ *
+ * Rendered by templates/parts/portability-dna.php on the homepage, and told
+ * (in prose form) on the About origin section, so the DNA story reads with one
+ * voice on both surfaces. The category roll-ups already carry their own "Why
+ * Portable" value-prop, so the strip stays off them. Change the copy here, not
+ * in the part.
+ *
+ * `label` is the mono one-liner (the promise); `body` is the sans supporting
+ * sentence. TODO(copy): first draft pending Rick's content review (this is a
+ * `content; Rick` action item), the same review gate as get_ironclad_pillars().
+ *
+ * @return array<int, array{label: string, title: string, body: string}>
+ */
+function get_portability_pillars(): array {
+    return [
+        [
+            'label' => __('Any length, on demand', 'standard'),
+            'title' => __('Unlimited Length', 'standard'),
+            'body'  => __('Roll one continuous panel to the exact run the roof needs. No factory-set length limits, no splicing pieces together to reach the ridge.', 'standard'),
+        ],
+        [
+            'label' => __('One continuous panel', 'standard'),
+            'title' => __('No Seams', 'standard'),
+            'body'  => __('A panel formed in a single run has no mid-length joints, so there are fewer places for water to work its way underneath.', 'standard'),
+        ],
+        [
+            'label' => __('Fewer failure points', 'standard'),
+            'title' => __('Fewer Leak Points', 'standard'),
+            'body'  => __('Every joint is a future leak. Forming on site eliminates the seams a shipped panel forces on you, which means fewer callbacks and a roof that lasts longer.', 'standard'),
+        ],
+        [
+            'label' => __('Make only what you need', 'standard'),
+            'title' => __('Controlled Waste', 'standard'),
+            'body'  => __('Produce the exact footage each job calls for, when it calls for it. You control the material instead of paying for offcuts you never ordered.', 'standard'),
+        ],
+    ];
+}
+
+/**
  * Get UNIQ control system features for the technology spotlight.
  *
  * @return array<int, array{title: string, text: string}>
