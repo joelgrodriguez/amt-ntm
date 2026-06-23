@@ -8,6 +8,7 @@
     "build": "vite build",
     "db:apply": "scripts/db/apply",
     "content:export": "php scripts/content/export-copy.php",
+    "content:xlsx": "php scripts/content/export-xlsx.php",
     "preview": "vite preview"
   },
   "devDependencies": {
