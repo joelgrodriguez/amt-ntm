@@ -26,7 +26,7 @@ $faqs = [
     ],
     [
         'question' => __('What are the financing terms and rates?', 'standard'),
-        'answer'   => __('Once approved, you can choose a payment plan over 36, 48, or 60 months. Rates run from 8% to 36% APR depending on the personal and commercial credit behind each application.', 'standard'),
+        'answer'   => __('Once approved, you can choose a payment plan over 36, 48, or 60 months. Rates start at 8% APR and are set by the personal and commercial credit behind each application.', 'standard'),
     ],
     [
         'question' => __('What financing or leasing options do you offer?', 'standard'),
