@@ -32,8 +32,15 @@ return [
     ],
     'finance' => [
         'monthly_price' => null,
-        'price_range'   => __('$130K – $143K', 'standard'),
-        'note'          => __('Depending on profile; notching option not included', 'standard'),
+        // Lead with the BASE machine price (Adam, stakeholder review 2026-06-17;
+        // Joel chose $85K). The old $130K–$143K baked in the trailer, while
+        // competitor On Roll/KWM quote minus the trailer — so ours looked more
+        // expensive. The asterisk + note carry "trailer sold separately"
+        // wherever the note renders (configurator-cta, cta-finance). The hero
+        // shows the bare value with no note slot, so the asterisk rides on the
+        // value itself ($85K*).
+        'price_range'   => __('$85K*', 'standard'),
+        'note'          => __('*Base machine. Trailer sold separately. Final price depends on configuration.', 'standard'),
         'apr'           => '4.99%',
         'months'        => '84',
     ],
@@ -291,7 +298,10 @@ return [
         ],
     ],
     'schema' => [
-        'low_price'    => '130000',
+        // low_price = base machine ($85K, trailer excluded); high_price = top
+        // configured build (trailer + options). Keeps rich-result pricing honest
+        // with the on-page "starting at $85K" lead (see finance.price_range).
+        'low_price'    => '85000',
         'high_price'   => '143000',
         'availability' => 'InStock',
         'brand'        => 'New Tech Machinery',
