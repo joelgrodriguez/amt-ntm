@@ -3,7 +3,7 @@
   "generatedBy": "shogun map",
   "project": {
     "name": "standard-press",
-    "root": "amt-ntm"
+    "root": "43-add-safety-strip-to-service-hub-publish-the-safety-page"
   },
   "stack": {
     "languages": [
@@ -73,37 +73,26 @@
       },
       "keyFiles": [
         ".distignore",
+        ".git",
         ".gitattributes",
         ".gitignore",
         "CLAUDE.md",
         "DESIGN.md",
         "package-lock.json",
-        "package.json",
-        "paseo.json"
-      ]
-    },
-    {
-      "path": ".conductor",
-      "purpose": "Project area.",
-      "fileCount": 1,
-      "categories": {
-        "other": 1
-      },
-      "keyFiles": [
-        ".conductor/settings.local.toml"
+        "package.json"
       ]
     },
     {
       "path": "app",
       "purpose": "Application code and framework conventions.",
-      "fileCount": 435,
+      "fileCount": 429,
       "categories": {
-        "source": 164,
+        "source": 163,
         "other": 43,
         "config": 2,
         "route": 7,
         "test": 1,
-        "template": 218
+        "template": 213
       },
       "keyFiles": [
         "app/404.php",
@@ -131,9 +120,9 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 74,
+      "fileCount": 68,
       "categories": {
-        "docs": 74
+        "docs": 68
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
@@ -169,16 +158,16 @@
   ],
   "files": [
     {
-      "path": ".conductor/settings.local.toml",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 107
-    },
-    {
       "path": ".distignore",
       "category": "other",
       "role": "Repository file.",
       "size": 607
+    },
+    {
+      "path": ".git",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 160
     },
     {
       "path": ".gitattributes",
@@ -520,7 +509,7 @@
       "path": "app/front-page.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 2650
+      "size": 2324
     },
     {
       "path": "app/functions.php",
@@ -658,7 +647,7 @@
       "path": "app/inc/machines-data.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 53723
+      "size": 47817
     },
     {
       "path": "app/inc/machines.php",
@@ -911,12 +900,6 @@
       "category": "source",
       "role": "Application source code.",
       "size": 1493
-    },
-    {
-      "path": "app/page-safety.php",
-      "category": "source",
-      "role": "Application source code.",
-      "size": 1080
     },
     {
       "path": "app/page-seamless-gutter-machines.php",
@@ -1951,30 +1934,6 @@
       "size": 1434
     },
     {
-      "path": "app/templates/pages/safety/final-cta.php",
-      "category": "template",
-      "role": "Route, page, controller, or request entry file.",
-      "size": 736
-    },
-    {
-      "path": "app/templates/pages/safety/hero.php",
-      "category": "template",
-      "role": "Route, page, controller, or request entry file.",
-      "size": 1661
-    },
-    {
-      "path": "app/templates/pages/safety/safe-operation.php",
-      "category": "template",
-      "role": "Route, page, controller, or request entry file.",
-      "size": 4200
-    },
-    {
-      "path": "app/templates/pages/safety/systems.php",
-      "category": "template",
-      "role": "Route, page, controller, or request entry file.",
-      "size": 2932
-    },
-    {
       "path": "app/templates/pages/start-here/faq.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
@@ -2140,7 +2099,7 @@
       "path": "app/templates/parts/about/origin.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 8153
+      "size": 7948
     },
     {
       "path": "app/templates/parts/about/people.php",
@@ -2380,7 +2339,7 @@
       "path": "app/templates/parts/front-page/why-own.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 6546
+      "size": 6521
     },
     {
       "path": "app/templates/parts/hero-asymmetric.php",
@@ -2435,12 +2394,6 @@
       "category": "template",
       "role": "Application source code.",
       "size": 3492
-    },
-    {
-      "path": "app/templates/parts/portability-dna.php",
-      "category": "template",
-      "role": "Application source code.",
-      "size": 4142
     },
     {
       "path": "app/templates/parts/post-hero.php",
@@ -2602,7 +2555,7 @@
       "path": "app/templates/template-service-hub.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 29916
+      "size": 31763
     },
     {
       "path": "app/templates/template-service-search.php",
@@ -2875,12 +2828,6 @@
       "size": 31207
     },
     {
-      "path": "docs/feedback/e_sola/NTM Site New Nav & Info Arch Working Session.docx",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 4694612
-    },
-    {
       "path": "docs/feedback/README.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
@@ -3011,12 +2958,6 @@
       "category": "docs",
       "role": "Project documentation for humans and agents.",
       "size": 18818
-    },
-    {
-      "path": "docs/legal/safety-copy-review.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 6288
     },
     {
       "path": "docs/ntm-machines.md",
@@ -3241,34 +3182,10 @@
       "size": 655
     },
     {
-      "path": "docs/specs/frontend.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 2455
-    },
-    {
       "path": "docs/specs/machines.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
       "size": 3987
-    },
-    {
-      "path": "docs/superpowers/specs/2026-06-16-service-hub-knowledgebase-design.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 9142
-    },
-    {
-      "path": "docs/superpowers/specs/2026-06-16-service-search-results-page-design.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 7500
-    },
-    {
-      "path": "docs/superpowers/specs/2026-06-16-ssq3-machii-template-polish-design.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 7758
     },
     {
       "path": "package-lock.json",
@@ -3281,12 +3198,6 @@
       "category": "manifest",
       "role": "Project manifest or dependency declaration.",
       "size": 556
-    },
-    {
-      "path": "paseo.json",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 3
     },
     {
       "path": "PRODUCT.md",
@@ -3373,10 +3284,10 @@
       "size": 5621
     },
     {
-      "path": "scripts/db/029-safety-landing-page-draft.sh",
+      "path": "scripts/db/030-publish-safety-page.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 5652
+      "size": 2425
     },
     {
       "path": "scripts/db/apply",
@@ -3429,7 +3340,6 @@
     "docs/feedback/2026-06-09-web-images-review-alex-actions.html",
     "docs/feedback/2026-06-09-web-images-review.md",
     "docs/feedback/2026-06-17-stakeholder-review.md",
-    "docs/feedback/e_sola/NTM Site New Nav & Info Arch Working Session.docx",
     "docs/feedback/README.md",
     "docs/handoff/01-context.md",
     "docs/handoff/02-the-change.md",
@@ -3452,7 +3362,6 @@
     "docs/handoff/inventory/video.csv",
     "docs/handoff/README.md",
     "docs/image-inventory.md",
-    "docs/legal/safety-copy-review.md",
     "docs/ntm-machines.md",
     "docs/plans/2026-03-03-machines-page-design.md",
     "docs/plans/2026-03-03-machines-page-plan.md",
@@ -3490,11 +3399,7 @@
     "docs/specs/about.md",
     "docs/specs/content.md",
     "docs/specs/finance-center.md",
-    "docs/specs/frontend.md",
     "docs/specs/machines.md",
-    "docs/superpowers/specs/2026-06-16-service-hub-knowledgebase-design.md",
-    "docs/superpowers/specs/2026-06-16-service-search-results-page-design.md",
-    "docs/superpowers/specs/2026-06-16-ssq3-machii-template-polish-design.md",
     "PRODUCT.md",
     "README.md",
     "scripts/db/README.md",

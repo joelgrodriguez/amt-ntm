@@ -228,6 +228,36 @@ get_header();
         </div>
     </section>
 
+    <?php /* Band 4.4 — Safety. Owners on the service hub are running machines
+            daily; point them at the safety landing (systems + safe-operation
+            resources). Facts only, no claims — links out, says nothing the
+            /safety page doesn't. bg-white breaks the blue-50 above; the
+            border-b carries the seam into the white FAQ below. */ ?>
+    <section class="section bg-white border-b border-blue-200" aria-labelledby="service-hub-safety-title">
+        <div class="container section-content">
+            <div class="grid gap-8 lg:grid-cols-[2fr_1fr] lg:items-center lg:gap-16">
+                <div class="section-header-left max-w-2xl">
+                    <p class="section-eyebrow">
+                        <?php esc_html_e('Operating safely', 'standard'); ?>
+                    </p>
+                    <div class="section-divider"></div>
+                    <h2 id="service-hub-safety-title" class="section-title">
+                        <?php esc_html_e('Run the machine safely, every shift.', 'standard'); ?>
+                    </h2>
+                    <p class="section-subtitle text-pretty">
+                        <?php esc_html_e('The guard interlocks, safety circuit, and operator alerts built into your machine, plus the training and best-practice resources that keep a crew running it right.', 'standard'); ?>
+                    </p>
+                </div>
+                <div class="lg:justify-self-end">
+                    <a href="<?php echo esc_url(\Standard\Url\internal('/safety/')); ?>" class="btn btn-primary">
+                        <?php esc_html_e('Safety systems & resources', 'standard'); ?>
+                        <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <?php /* Band 4.5 — FAQ. The most-asked owner questions, before the search
             firehose, so the common stuff is answered without a ticket. */ ?>
     <?php get_template_part('templates/parts/service-hub/faq'); ?>
