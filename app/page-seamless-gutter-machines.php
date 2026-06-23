@@ -36,8 +36,6 @@ get_header();
 
     <?php get_template_part('templates/pages/gutter/machii-callout'); ?>
 
-    <?php get_template_part('templates/pages/machines/which-machine', null, ['bg' => '']); ?>
-
     <?php get_template_part('templates/pages/gutter/faq'); ?>
 
     <?php get_template_part('templates/pages/gutter/learning-center'); ?>
