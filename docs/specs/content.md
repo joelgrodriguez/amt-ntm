@@ -2,6 +2,11 @@
 
 <!-- shogun:auto — appended on land, newest first. Read top-down for current behavior. -->
 
+## Unlock XLSX content-review sheets: drop sheet protection so the content team can sort/filter/edit freely — #47
+*Landed 2026-06-24 · type: chore*
+
+- Unlock XLSX content-review sheets: drop sheet protection so the content team can sort/filter/edit freely
+
 ## Content-review XLSX export: build a multi-tab Excel workbook (one tab per page + All tab, locked reference columns) from the content CSV extractor — #46
 *Landed 2026-06-23 · type: feature*
 

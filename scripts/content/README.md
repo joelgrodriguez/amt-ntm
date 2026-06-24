@@ -24,8 +24,9 @@ npm run content:export   # plain CSVs (one per page + combined)
 Both write to `scripts/content/exports/` (gitignored — regenerate any time):
 
 - `copy-review.xlsx` — **the recommended hand-off.** One tab per page plus an
-  `All` tab, frozen header row, and the `key` / `current_content` columns locked
-  read-only so only `new_content` is editable.
+  `All` tab, frozen header row, wrapped text. Sheets are unlocked, so the team
+  can sort, filter, and edit freely — just leave `key` / `current_content` alone
+  (they're the match anchors; see below).
 - `copy-review-<page>.csv` — one CSV per page (Home, About, Safety, …), focused.
 - `copy-review-all.csv` — every string in one CSV.
 
@@ -50,8 +51,8 @@ Each row is one piece of copy. Columns:
 1. Open `copy-review.xlsx` in Excel (or import to Google Sheets). Each tab is a
    page; the `All` tab is everything in one place.
 2. Read `current_content`. To change it, type the replacement in `new_content`.
-   In the workbook the reference columns are **locked** — Excel only lets you type
-   in `new_content`, which is the point.
+   The sheets are unlocked so you can sort and filter; just don't edit `key` or
+   `current_content` (step 4).
 3. **Leave a row's `new_content` blank to keep the current copy.** Only filled-in
    rows are treated as changes.
 4. **Do not touch `key` or `current_content`** — those are how the developer finds
