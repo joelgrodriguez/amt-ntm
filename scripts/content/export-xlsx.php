@@ -4,8 +4,9 @@
  *
  * Same data as export-copy.php (it shares extract.php), but written as a single
  * .xlsx with one worksheet per page plus an "All" tab. Nicer for the content
- * team than juggling 11 CSVs: a frozen header row, the reference columns (key,
- * current_content) locked read-only, and a roomy editable new_content column.
+ * team than juggling 11 CSVs: a frozen header row, wrapped text, and a roomy
+ * new_content column. Sheets are unprotected, so the team can sort, filter,
+ * widen columns, and paste freely.
  *
  *     php scripts/content/export-xlsx.php          (or: npm run content:xlsx)
  *
@@ -16,9 +17,9 @@
  * That keeps the toolchain as light as the CSV path (no new project deps).
  *
  * Columns: page, section, field, key, current_content, new_content
- *   - key + current_content are locked (sheet protection, no password). Only
- *     new_content is editable. The team fills new_content; everything else is
- *     the match anchor the apply step relies on.
+ *   - The team fills new_content. key + current_content are the match anchors
+ *     the apply step relies on — marked "do not edit" in the header, not locked,
+ *     so editing stays frictionless; the re-apply guard catches stray edits.
  *
  * @package Standard
  */
@@ -269,10 +270,11 @@ function sheet_xml(array $rows): string
         .   '<col min="6" max="6" width="60" customWidth="1"/>'   // new_content
         . '</cols>'
         . '<sheetData>' . $body . '</sheetData>'
-        // Protect locked cells but let users select & edit unlocked (new_content).
-        . '<sheetProtection sheet="1" objects="1" scenarios="1" '
-        .   'selectLockedCells="1" selectUnlockedCells="1" '
-        .   'formatColumns="0" formatRows="0" insertRows="0" deleteRows="0" sort="0" autoFilter="0"/>'
+        // No <sheetProtection>: every cell is freely editable, so the team can
+        // sort, filter, widen columns, and paste without unprotecting first. The
+        // key / current_content columns are marked "do not edit" in the header
+        // and README rather than locked; on re-apply, the guard (current_content
+        // must still match the source) catches any accidental edits anyway.
         . '<autoFilter ref="A1:F' . $lastRow . '"/>'
         . '</worksheet>';
 }
