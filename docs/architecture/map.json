@@ -96,14 +96,14 @@
     {
       "path": "app",
       "purpose": "Application code and framework conventions.",
-      "fileCount": 439,
+      "fileCount": 440,
       "categories": {
         "source": 165,
         "other": 43,
         "config": 2,
         "route": 7,
         "test": 1,
-        "template": 221
+        "template": 222
       },
       "keyFiles": [
         "app/404.php",
@@ -1510,7 +1510,7 @@
       "path": "app/templates/pages/accessories/fit-by-machine.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 6469
+      "size": 6635
     },
     {
       "path": "app/templates/pages/accessories/hero.php",
@@ -1846,7 +1846,7 @@
       "path": "app/templates/pages/machines/which-machine.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 1811
+      "size": 1830
     },
     {
       "path": "app/templates/pages/manuals/catalog-section.php",
@@ -2273,6 +2273,12 @@
       "category": "template",
       "role": "Application source code.",
       "size": 3042
+    },
+    {
+      "path": "app/templates/parts/cta/fit-helper.php",
+      "category": "template",
+      "role": "Application source code.",
+      "size": 2860
     },
     {
       "path": "app/templates/parts/cta/subscribe.php",
@@ -2752,7 +2758,7 @@
       "path": "app/templates/woo/product/parts/machine-fit.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4427
+      "size": 4782
     },
     {
       "path": "app/templates/woo/product/parts/product-card-link.php",

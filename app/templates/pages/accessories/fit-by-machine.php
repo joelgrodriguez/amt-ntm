@@ -124,5 +124,11 @@ $matrix   = get_fitment_matrix();
             <?php endforeach; ?>
         </div>
 
+        <?php
+        get_template_part('templates/parts/cta/fit-helper', null, [
+            'heading_id' => 'accessories-fit-helper-title',
+        ]);
+        ?>
+
     </div>
 </section>
