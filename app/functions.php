@@ -54,6 +54,7 @@ $theme_includes = [
     'inc/contact-data.php',
     'inc/accessories-data.php',
     'inc/machine-schema.php',
+    'inc/seo.php',
     'inc/post-types.php',
     'inc/post-archive.php',
     'inc/pdf-attachment.php',

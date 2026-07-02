@@ -311,6 +311,10 @@ SVG icons live in `app/assets/icons/`. Use the `icon()` helper in templates:
 - Theme requires PHP 8.0+ and WordPress 6.0+.
 - Nav menus: `primary`, `mobile`, `footer`.
 - The Vite dev server URL is auto-detected.
+- SEO plugin dependency: Yoast is expected on prod for full titles/meta/social
+  tags and the Organization/WebSite schema graph. When no SEO plugin is active,
+  `app/inc/seo.php` emits fallback meta description, canonical, OG/Twitter
+  tags, and LocalBusiness + WebSite JSON-LD.
 - When `npm run dev` runs, Vite writes the URL to `app/.vite-dev-server`.
 - PHP reads `app/.vite-dev-server` to load dev assets from Docker/DevKinsta or localhost.
 
