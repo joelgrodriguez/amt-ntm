@@ -2,6 +2,11 @@
 
 <!-- shogun:auto — appended on land, newest first. Read top-down for current behavior. -->
 
+## Add prev/next arrow controls to testimonial slider (SocialProof) — #63
+*Landed 2026-07-02 · type: feature*
+
+- Add prev/next arrow controls to testimonial slider (SocialProof)
+
 ## Fix testimonial rotator broken portraits: regenerate missing -300x300 thumbnails, capture as db script — #62
 *Landed 2026-07-02 · type: bugfix*
 

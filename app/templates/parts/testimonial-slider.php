@@ -143,17 +143,35 @@ $total      = count($testimonials);
                     <span class="hidden md:inline"><?php echo esc_html($content['count_left']); ?></span>
                 </div>
 
-                <nav class="flex gap-1" aria-label="<?php echo esc_attr($content['nav_label']); ?>">
-                    <?php foreach ($testimonials as $index => $testimonial) : ?>
-                        <?php $is_active = $index === 0; ?>
-                        <button
-                            type="button"
-                            class="social-proof__dot h-3 border-none cursor-pointer transition-colors duration-150 hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2 <?php echo $is_active ? 'bg-red w-3' : 'bg-blue-300 w-1'; ?>"
-                            data-index="<?php echo esc_attr((string) $index); ?>"
-                            aria-label="<?php echo esc_attr(sprintf(__('View testimonial %d', 'standard'), $index + 1)); ?>"
-                            <?php echo $is_active ? 'aria-current="true"' : ''; ?>
-                        ></button>
-                    <?php endforeach; ?>
+                <nav class="flex items-center gap-1" aria-label="<?php echo esc_attr($content['nav_label']); ?>">
+                    <button
+                        type="button"
+                        class="social-proof__prev grid place-items-center w-11 h-11 -my-4 border-none bg-transparent cursor-pointer text-blue-900 transition-colors duration-150 hover:text-blue-500 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2"
+                        aria-label="<?php esc_attr_e('Previous testimonial', 'standard'); ?>"
+                    >
+                        <?php icon('chevron-left', ['class' => 'w-4 h-4']); ?>
+                    </button>
+
+                    <span class="flex items-center gap-1 px-1">
+                        <?php foreach ($testimonials as $index => $testimonial) : ?>
+                            <?php $is_active = $index === 0; ?>
+                            <button
+                                type="button"
+                                class="social-proof__dot h-3 border-none cursor-pointer transition-colors duration-150 hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2 <?php echo $is_active ? 'bg-red w-3' : 'bg-blue-300 w-1'; ?>"
+                                data-index="<?php echo esc_attr((string) $index); ?>"
+                                aria-label="<?php echo esc_attr(sprintf(__('View testimonial %d', 'standard'), $index + 1)); ?>"
+                                <?php echo $is_active ? 'aria-current="true"' : ''; ?>
+                            ></button>
+                        <?php endforeach; ?>
+                    </span>
+
+                    <button
+                        type="button"
+                        class="social-proof__next grid place-items-center w-11 h-11 -my-4 border-none bg-transparent cursor-pointer text-blue-900 transition-colors duration-150 hover:text-blue-500 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2"
+                        aria-label="<?php esc_attr_e('Next testimonial', 'standard'); ?>"
+                    >
+                        <?php icon('chevron-right', ['class' => 'w-4 h-4']); ?>
+                    </button>
                 </nav>
 
                 <div class="flex items-center gap-2 pr-3">

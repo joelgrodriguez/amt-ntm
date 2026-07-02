@@ -93,6 +93,10 @@ function initSection(section, signal) {
     goToSlide((currentIndex + 1) % slides.length);
   }
 
+  function prevSlide() {
+    goToSlide((currentIndex - 1 + slides.length) % slides.length);
+  }
+
   function startAutoplay() {
     stopAutoplay();
     if (prefersReducedMotion.matches) return;
@@ -106,16 +110,26 @@ function initSection(section, signal) {
     }
   }
 
-  // Manual nav: jump to the chosen slide and reset the timer so the
-  // user gets the full interval to read what they picked.
+  // Manual nav: jump to (dots) or step through (arrows) the slides and
+  // reset the timer so the user gets the full interval to read what
+  // they landed on. Arrows wrap around at both ends.
   section.addEventListener(
     'click',
     (e) => {
       const dot = e.target.closest('.social-proof__dot');
-      if (!dot) return;
+      const prev = e.target.closest('.social-proof__prev');
+      const next = e.target.closest('.social-proof__next');
 
-      const index = parseInt(dot.dataset.index, 10);
-      goToSlide(index);
+      if (dot) {
+        goToSlide(parseInt(dot.dataset.index, 10));
+      } else if (prev) {
+        prevSlide();
+      } else if (next) {
+        nextSlide();
+      } else {
+        return;
+      }
+
       startAutoplay();
     },
     { signal }
