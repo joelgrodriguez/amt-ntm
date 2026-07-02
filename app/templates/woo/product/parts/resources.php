@@ -56,6 +56,25 @@ if (!empty($resources['service_training_url'])) {
     ];
 }
 
+// "How to change a profile" is one of the most common owner questions. Each
+// item is a Learning Center video/article for this specific machine.
+if (!empty($resources['profile_change']) && is_array($resources['profile_change'])) {
+    foreach ($resources['profile_change'] as $guide) {
+        if (empty($guide['url'])) {
+            continue;
+        }
+        $is_video = str_contains((string) $guide['url'], '/video/');
+        $rows[] = [
+            'icon'   => $is_video ? 'video' : 'file-text',
+            'kicker' => __('Profiles', 'standard'),
+            'title'  => (string) ($guide['label'] ?? __('How to Change a Profile', 'standard')),
+            'copy'   => __('Step-by-step Learning Center walkthrough for changing profiles on this machine.', 'standard'),
+            'cta'    => $is_video ? __('Watch Now', 'standard') : __('Read Guide', 'standard'),
+            'url'    => \Standard\Url\internal($guide['url']),
+        ];
+    }
+}
+
 if (empty($rows)) {
     return;
 }

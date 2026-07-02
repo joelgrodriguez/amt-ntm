@@ -2,6 +2,11 @@
 
 <!-- shogun:auto — appended on land, newest first. Read top-down for current behavior. -->
 
+## Link 'How To Change A Profile' videos from machine pages, profiles pages, and support menu (per-machine content exists in LC) — #68
+*Landed 2026-07-02 · type: feature*
+
+- Link 'How To Change A Profile' videos from machine pages, profiles pages, and support menu (per-machine content exists in LC)
+
 ## Unlock XLSX content-review sheets: drop sheet protection so the content team can sort/filter/edit freely — #47
 *Landed 2026-06-24 · type: chore*
 
