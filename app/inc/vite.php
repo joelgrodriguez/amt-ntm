@@ -148,6 +148,10 @@ add_action('wp_enqueue_scripts', function (): void {
     if (is_woocommerce_theme_screen()) {
         enqueue_vite_entry('theme-woocommerce', 'app/resources/css/woo.css');
     }
+
+    if (is_page_template('page-finance-center.php')) {
+        enqueue_vite_entry('theme-finance-center', 'app/resources/css/pages/finance-center.css');
+    }
 });
 
 add_filter('script_loader_tag', function (string $tag, string $handle, string $src): string {

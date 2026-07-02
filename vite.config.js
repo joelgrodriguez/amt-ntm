@@ -59,7 +59,7 @@ export default defineConfig(({ command }) => {
 
     build: {
       outDir: 'app/dist',
-      emptyDirOnBuild: true,
+      emptyOutDir: true,
       manifest: true,
       sourcemap: 'hidden',
       rollupOptions: {
@@ -68,6 +68,7 @@ export default defineConfig(({ command }) => {
           frontPage: resolve(__dirname, 'app/resources/js/front-page.js'),
           machineProduct: resolve(__dirname, 'app/resources/js/machine-product.js'),
           woocommerce: resolve(__dirname, 'app/resources/css/woo.css'),
+          financeCenter: resolve(__dirname, 'app/resources/css/pages/finance-center.css'),
           editor: resolve(__dirname, 'app/resources/css/editor.css'),
         },
         output: {
