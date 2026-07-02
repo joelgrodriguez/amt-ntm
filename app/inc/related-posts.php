@@ -45,6 +45,13 @@ const RELATED_POST_TYPES = ['post', 'video', 'download', 'resource'];
 const RELATED_POOL_MULTIPLIER = 4;
 
 /**
+ * Transient cache for the final ranked ID list, keyed per post + count.
+ * Same idiom as Standard\Woo\Cache (prefix + TTL + LIKE-based flush).
+ */
+const RELATED_CACHE_PREFIX = 'std_rel_';
+const RELATED_CACHE_TTL = 12 * HOUR_IN_SECONDS;
+
+/**
  * Get related posts for the current post.
  *
  * Returns a WP_Query whose results are ordered by the scoring model
@@ -62,6 +69,38 @@ function get_related_posts(int $count = 4): \WP_Query
         return new \WP_Query();
     }
 
+    $cache_key   = RELATED_CACHE_PREFIX . $post_id . '_' . $count;
+    $ordered_ids = get_transient($cache_key);
+
+    if (!is_array($ordered_ids)) {
+        $ordered_ids = rank_related_post_ids($post_id, $count);
+        set_transient($cache_key, $ordered_ids, RELATED_CACHE_TTL);
+    }
+
+    if (empty($ordered_ids)) {
+        return new \WP_Query();
+    }
+
+    return new \WP_Query([
+        'post_type'           => RELATED_POST_TYPES,
+        'posts_per_page'      => $count,
+        'post__in'            => $ordered_ids,
+        'orderby'             => 'post__in',
+        'post_status'         => 'publish',
+        'ignore_sticky_posts' => true,
+        'no_found_rows'       => true,
+    ]);
+}
+
+/**
+ * Run the full scoring model and return ranked related post IDs.
+ *
+ * @param int $post_id Current post ID.
+ * @param int $count   Number of IDs to return.
+ * @return int[] Ranked post IDs, best match first.
+ */
+function rank_related_post_ids(int $post_id, int $count): array
+{
     $categories       = get_the_category($post_id);
     $category_ids     = $categories ? array_map(fn($cat) => (int) $cat->term_id, $categories) : [];
     $primary_category = $category_ids ? get_primary_category($post_id) : null;
@@ -93,7 +132,7 @@ function get_related_posts(int $count = 4): \WP_Query
     }
 
     if (empty($ranked)) {
-        return new \WP_Query();
+        return [];
     }
     uasort($ranked, function ($a, $b) {
         if ($a['score'] === $b['score']) {
@@ -102,17 +141,28 @@ function get_related_posts(int $count = 4): \WP_Query
         return $b['score'] <=> $a['score'];
     });
 
-    $ordered_ids = array_slice(array_keys($ranked), 0, $count);
+    return array_slice(array_keys($ranked), 0, $count);
+}
 
-    return new \WP_Query([
-        'post_type'           => RELATED_POST_TYPES,
-        'posts_per_page'      => $count,
-        'post__in'            => $ordered_ids,
-        'orderby'             => 'post__in',
-        'post_status'         => 'publish',
-        'ignore_sticky_posts' => true,
-        'no_found_rows'       => true,
-    ]);
+/**
+ * Get a candidate's term IDs from the object term cache.
+ *
+ * The pool queries prime the term cache for every candidate in one
+ * query (`update_post_term_cache`), and get_the_terms() reads that
+ * cache — unlike wp_get_post_categories()/wp_get_post_tags(), which
+ * hit the DB per post.
+ *
+ * @param \WP_Post $candidate Candidate post.
+ * @param string   $taxonomy  Taxonomy name.
+ * @return int[] Term IDs.
+ */
+function get_candidate_term_ids(\WP_Post $candidate, string $taxonomy): array
+{
+    $terms = get_the_terms($candidate, $taxonomy);
+
+    return is_array($terms)
+        ? array_map(static fn(\WP_Term $term): int => (int) $term->term_id, $terms)
+        : [];
 }
 
 /**
@@ -141,11 +191,14 @@ function score_category_candidates(int $post_id, array $category_ids, int $prima
         'ignore_sticky_posts' => true,
         'suppress_filters'    => false,
         'no_found_rows'       => true,
+        // Prime term caches for the whole pool in one query so the
+        // per-candidate term lookups below never hit the DB.
+        'update_post_term_cache' => true,
     ]);
 
     $scored = [];
     foreach ($pool as $candidate) {
-        $candidate_cats    = wp_get_post_categories((int) $candidate->ID);
+        $candidate_cats    = get_candidate_term_ids($candidate, 'category');
         $shared            = array_intersect($category_ids, $candidate_cats);
         $shared_count      = count($shared);
 
@@ -193,11 +246,14 @@ function score_tag_candidates(int $post_id, array $tag_ids, array $exclude_ids, 
         'post_status'         => 'publish',
         'ignore_sticky_posts' => true,
         'no_found_rows'       => true,
+        // Prime term caches for the whole pool in one query so the
+        // per-candidate term lookups below never hit the DB.
+        'update_post_term_cache' => true,
     ]);
 
     $scored = [];
     foreach ($pool as $candidate) {
-        $candidate_tags = wp_get_post_tags((int) $candidate->ID, ['fields' => 'ids']);
+        $candidate_tags = get_candidate_term_ids($candidate, 'post_tag');
         $shared_count   = count(array_intersect($tag_ids, $candidate_tags));
 
         if ($shared_count === 0) {
@@ -211,3 +267,39 @@ function score_tag_candidates(int $post_id, array $tag_ids, array $exclude_ids, 
 
     return $scored;
 }
+
+/**
+ * Flush all cached related-post ID lists.
+ *
+ * Same LIKE-based transient flush idiom as Standard\Woo\Cache\flush().
+ * Hooked to save/delete of related post types and to category/tag
+ * deletion, so editors see fresh relations immediately; the TTL is
+ * the backstop for everything else.
+ */
+function flush_related_posts_cache(): void
+{
+    global $wpdb;
+    $like = $wpdb->esc_like('_transient_' . RELATED_CACHE_PREFIX) . '%';
+    $wpdb->query(
+        $wpdb->prepare("DELETE FROM {$wpdb->options} WHERE option_name LIKE %s", $like)
+    );
+    $like_timeout = $wpdb->esc_like('_transient_timeout_' . RELATED_CACHE_PREFIX) . '%';
+    $wpdb->query(
+        $wpdb->prepare("DELETE FROM {$wpdb->options} WHERE option_name LIKE %s", $like_timeout)
+    );
+}
+
+/**
+ * Flush only when the changed post is a related-eligible type.
+ */
+function maybe_flush_related_posts_cache(int $post_id, \WP_Post $post): void
+{
+    if (in_array($post->post_type, RELATED_POST_TYPES, true)) {
+        flush_related_posts_cache();
+    }
+}
+
+add_action('save_post', __NAMESPACE__ . '\\maybe_flush_related_posts_cache', 10, 2);
+add_action('deleted_post', __NAMESPACE__ . '\\maybe_flush_related_posts_cache', 10, 2);
+add_action('delete_category', __NAMESPACE__ . '\\flush_related_posts_cache');
+add_action('delete_post_tag', __NAMESPACE__ . '\\flush_related_posts_cache');

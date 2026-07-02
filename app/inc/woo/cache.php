@@ -83,8 +83,22 @@ function flush(): void {
     );
 }
 
+/**
+ * Flush on delete, but only for products. 'deleted_post' fires for
+ * every post type; without the guard, deleting any page/post wipes
+ * the whole product-query cache.
+ *
+ * @param int      $post_id Deleted post ID.
+ * @param \WP_Post $post    Deleted post object (passed since WP 5.5).
+ */
+function flush_on_deleted_post(int $post_id, \WP_Post $post): void {
+    if ($post->post_type === 'product') {
+        flush();
+    }
+}
+
 add_action('save_post_product', __NAMESPACE__ . '\\flush');
-add_action('deleted_post', __NAMESPACE__ . '\\flush');
+add_action('deleted_post', __NAMESPACE__ . '\\flush_on_deleted_post', 10, 2);
 add_action('woocommerce_update_product', __NAMESPACE__ . '\\flush');
 add_action('woocommerce_delete_product', __NAMESPACE__ . '\\flush');
 add_action('edited_product_cat', __NAMESPACE__ . '\\flush');
