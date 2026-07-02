@@ -131,9 +131,9 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 82,
+      "fileCount": 83,
       "categories": {
-        "docs": 82
+        "docs": 83
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
@@ -616,7 +616,7 @@
       "path": "app/inc/images.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 3206
+      "size": 3474
     },
     {
       "path": "app/inc/knowledgebase.php",
@@ -664,13 +664,13 @@
       "path": "app/inc/machines-data.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 55006
+      "size": 55031
     },
     {
       "path": "app/inc/machines.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 5197
+      "size": 5247
     },
     {
       "path": "app/inc/mobile-nav.php",
@@ -796,7 +796,7 @@
       "path": "app/inc/woo/catalog.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 13947
+      "size": 13972
     },
     {
       "path": "app/inc/woo/machine-template.php",
@@ -1936,7 +1936,7 @@
       "path": "app/templates/pages/roof-wall/customer-story.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 1634
+      "size": 1659
     },
     {
       "path": "app/templates/pages/roof-wall/faq.php",
@@ -2176,13 +2176,13 @@
       "path": "app/templates/parts/about/people.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4445
+      "size": 4545
     },
     {
       "path": "app/templates/parts/about/support.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 8378
+      "size": 8453
     },
     {
       "path": "app/templates/parts/brand-statement.php",
@@ -2392,7 +2392,7 @@
       "path": "app/templates/parts/front-page/social-proof.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4186
+      "size": 4211
     },
     {
       "path": "app/templates/parts/front-page/three-step-plan.php",
@@ -2416,7 +2416,7 @@
       "path": "app/templates/parts/front-page/why-own.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 6546
+      "size": 6571
     },
     {
       "path": "app/templates/parts/hero-asymmetric.php",
@@ -2572,7 +2572,7 @@
       "path": "app/templates/parts/testimonial-slider.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 8883
+      "size": 8908
     },
     {
       "path": "app/templates/parts/value-prop-cards.php",
@@ -2674,7 +2674,7 @@
       "path": "app/templates/woo/product/parts/case-study.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4219
+      "size": 4244
     },
     {
       "path": "app/templates/woo/product/parts/comparison.php",
@@ -2752,7 +2752,7 @@
       "path": "app/templates/woo/product/parts/hero.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4205
+      "size": 4230
     },
     {
       "path": "app/templates/woo/product/parts/machine-breakdown.php",
@@ -2842,7 +2842,7 @@
       "path": "CLAUDE.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 18479
+      "size": 19962
     },
     {
       "path": "db/imports/ntmservice-service-articles.json",
@@ -3319,6 +3319,12 @@
       "size": 633
     },
     {
+      "path": "docs/specs/templates.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 348
+    },
+    {
       "path": "docs/specs/trailer.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
@@ -3707,6 +3713,7 @@
     "docs/specs/machines.md",
     "docs/specs/pricing.md",
     "docs/specs/seo.md",
+    "docs/specs/templates.md",
     "docs/specs/trailer.md",
     "docs/superpowers/specs/2026-06-16-service-hub-knowledgebase-design.md",
     "docs/superpowers/specs/2026-06-16-service-search-results-page-design.md",

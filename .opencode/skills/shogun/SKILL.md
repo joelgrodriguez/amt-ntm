@@ -1,19 +1,19 @@
 ---
 name: shogun
-description: Coordinate Shogun-managed Orca coding work with GitHub issue tasks, blocked-by dependencies, file reservations, agent messages, validation, and PR review handoff. Use automatically in any repo with .shogun/config.json when the user asks to create or work on a task, ticket, issue, feature, bug, chore, TODO, or implementation plan, even if Shogun is not named.
+description: Coordinate Shogun-managed Orca coding work with GitHub issue tasks, blocked-by dependencies, file reservations, agent messages, validation, and local review handoff. Use automatically in any repo with .shogun/config.json when the user asks to create or work on a task, ticket, issue, feature, bug, chore, TODO, or implementation plan, even if Shogun is not named.
 ---
 
 # Shogun
 
 ## Contract
 
-Use `.shogun/README.md` and `.shogun/config.json` as the local contract. Tasks are GitHub issues driven through the `gh` CLI; Orca owns the spawned worktrees, terminals, and browser tabs; Shogun branches from `dev` and validates with `npm run build`.
+Use `.shogun/README.md` and `.shogun/config.json` as the local contract. Tasks are GitHub issues driven through the `gh` CLI; Orca owns the spawned worktrees, terminals, and browser tabs; Shogun branches task work from the `dev` integration branch and validates with `npm run build`. Protected branches such as `main` and `master` are not Shogun development bases.
 
 Task creation is mandatory in Shogun-installed repos. If the user asks to create a task, ticket, issue, feature, bug, chore, TODO, or implementation plan and does not provide an existing issue number or URL, run `shogun task create` before code work. Do this even if the user does not say "Shogun".
 
 `shogun task create "<goal>"` opens the GitHub issue and puts it in the `Staged` column of the configured Projects board. The issue number it prints is the task ID for every later command. Dependencies go in the issue's `## Blocked by` section via `--blocked-by 12,14`; a task is ready only when every blocker is closed.
 
-Do not merge into `dev` from an Orca agent worktree. Commit, validate, run `shogun task review <n>`, and stop.
+Do not merge into `dev` from an Orca agent worktree. Do not run raw `git push`, `git merge`, `shogun task land`, or `shogun task cleanup --apply` from a spawned task worktree. Commit, validate, run `shogun task review <n>`, and stop.
 
 If `.shogun/config.json` says `workflow.mode` is `mainline`, do not manually merge or direct-land. Queue the branch with `shogun queue add <n> --branch <branch>`, let `shogun queue run` land through validation/CI, then use `shogun task accept` or `shogun task revert --commit <merge-sha>`.
 
@@ -23,11 +23,13 @@ Read `docs/architecture/map.json` and `docs/architecture/flows.json` before unfa
 
 Run `shogun map` when files, routes, entrypoints, tests, commands, boundaries, or documented flows change. Run `shogun map --check` before review; stale architecture docs mean the task is not done.
 
+A durable behavior spec accretes at `docs/specs/<area>.md` as tasks land — a newest-first log of what each area is supposed to do. Read the spec for your task's area before changing existing behavior; browse any area with `shogun spec <area>` or list them with `shogun spec`. It is generated automatically on land; never hand-edit it.
+
 ## Start Work
 
 1. Run `shogun task ready --json`. These are the open, unstarted, unblocked tasks.
 2. Pick one. If none are ready, inspect blockers with `shogun graph`.
-3. Start it with `shogun task start <n>`. This refuses blocked tasks, asks Orca to create a worktree on branch `<n>-<kebab-title>` from `dev`, and moves the board to `Processing`.
+3. Start it with `shogun task start <n>`. This refuses blocked tasks, asks Orca to create a worktree on branch `<n>-<kebab-title>` from `dev`, and moves the board to `Processing`. Route the worktree's model per work type (load the `route` skill): `shogun task start <n> --agent-command "<full launch command>"` launches a flagged agent (model, effort, bypass) that a bare `--agent` id can't express. Pass `--agent-command` more than once to run several collaborating agents in the one worktree (e.g. one on the UI, one on the DB).
 4. Reserve files before editing: `shogun reserve add <n> <paths...> --agent <name> --ttl 2h`.
 5. If a reservation conflicts, do not edit those files. Send a message and pick another ready task.
 
@@ -54,11 +56,11 @@ The `## Blocked by` sections are the order of operations. Keep slices small enou
 
 1. Run the validation command.
 2. Commit the work on the task branch.
-3. Run `shogun task review <n> --summary "..."`. It opens (or updates) the PR -- body starts with `Fixes #<n>` -- and moves the board to `Reviewing`.
+3. Run `shogun task review <n> --summary "..."`. In the default local landing workflow it only moves the board to `Reviewing`; it does not push and does not open a PR. If the project explicitly sets `workflow.landing` to `pr`, Shogun keeps the older PR review behavior.
 4. In mainline mode, queue instead: `shogun queue add <n> --branch <branch>`.
 5. Release reservations with `shogun reserve release <n>`.
 
-Landing is `shogun task land <n>` from the base checkout (human or coordinator): it merges the PR, closes the issue, moves the board to `Verifying`, and comments on each newly unblocked issue. `approve` is the only command that moves a task to `Done`.
+Landing is `shogun task land <n>` from the clean `dev` integration checkout (human or coordinator): it locally merges the task branch, validates, commits `Land #<n>: <title>`, closes the issue, moves the board to `Verifying`, and comments on each newly unblocked issue. It does not push. `approve` is the only command that moves a task to `Done`; cleanup is manual after `Done` with `shogun task cleanup <n> --dry-run` then `shogun task cleanup <n> --apply`.
 
 ## Judgment
 

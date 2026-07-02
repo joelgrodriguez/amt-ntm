@@ -357,8 +357,10 @@ render in order with correct statuses.
 
 Use `.shogun/README.md` as the local workflow guide. Tasks are GitHub issues;
 the configured GitHub Projects board's Status field tracks each task's stage.
-Orca owns spawned worktrees, terminals, and browser tabs. `.shogun/active.md`
-and `.shogun/archive.md` are local notes only.
+Orca owns spawned worktrees, terminals, and browser tabs. `dev` is
+the integration branch; protected branches such as `main` and `master` are not
+Shogun development bases. `.shogun/active.md` and `.shogun/archive.md` are
+local notes only.
 If your agent supports skills, load the Shogun skill from `.agents/skills`,
 `.claude/skills`, or `.opencode/skills` before taking Shogun work.
 
@@ -386,17 +388,40 @@ If Shogun mode is `mainline`, queue completed branches with `shogun queue add`
 and let `shogun queue run` land through validation/CI. Do not manually merge.
 
 Agents working in spawned Orca worktrees must commit, validate with
-`npm run build`, and run `shogun task review <n>` -- it opens or
-updates the PR (body starts with `Fixes #<n>`) and moves the board to
-`Reviewing` -- then stop. Do not merge into `dev`; Shogun lands
-reviewed work via `shogun task land`.
+`npm run build`, and run `shogun task review <n>` -- in the default
+local landing workflow this only moves the board to `Reviewing` and does not
+push or open a PR -- then stop. Do not run raw `git push`, do not merge into
+`dev`, and do not run `shogun task land`.
 
 Use this task flow: `Staged -> Processing -> Reviewing -> Verifying -> Done`.
-`Verifying` is the human-QA gate: `task land` merges the PR, closes the issue,
-moves the board there, and comments on newly unblocked issues; `approve` is
-the only command that marks a task `Done`. If review fails, `task iterate <n>`
-reopens the issue and returns it to `Processing`; after `Done`, create a
-follow-up task.
+`Verifying` is the human-QA gate: the coordinator runs `shogun task land <n>`
+from the clean `dev` integration worktree. It locally merges the
+task branch, validates, commits `Land #<n>: <title>`, closes the issue, moves
+the board there, and comments on newly unblocked issues. It does not push.
+`approve` is the only command that marks a task `Done`. If review fails,
+`task iterate <n>` reopens the issue and returns it to `Processing`; after
+`Done`, cleanup is manual with `shogun task cleanup <n> --dry-run` followed by
+`shogun task cleanup <n> --apply`.
 
 Use `orca worktree set --worktree active --comment "..." --json` for meaningful
 progress checkpoints, especially before waiting on review or external input.
+
+## Model routing
+
+Pick the right agent CLI per work type; do not make the user type flags or model
+names. Load the `route` skill from `.agents/skills/route`, `.claude/skills/route`,
+or `.opencode/skills/route` for the full table and launch commands. In short:
+copy/marketing and research/web -> Grok (`grok-build`); docs, design, API, and
+report writeups -> Claude Opus; bulk implementation -> Grok Composer; architecture,
+hard reasoning, debugging, and security -> Codex xhigh; cheap build/test
+verification -> GLM 5.2. Announce the routing call in one line, then proceed.
+
+When the work is a real code task, launch the routed model straight into the
+task's Orca worktree:
+`shogun task start <n> --agent-command "<full launch command>"` -- Shogun creates
+the worktree, runs the command in it, and hands the agent its task preamble.
+One-off work (a piece of copy, a research lookup) runs inline without a Shogun task.
+
+Apply the quality patterns from the route skill where they fit: cross-model review
+(the reviewer is never the author) after substantive work, and plan-then-attack
+before a thorny change.
