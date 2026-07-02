@@ -49,7 +49,7 @@ $faq_schema = [
             'name'           => $faq['question'] ?? '',
             'acceptedAnswer' => [
                 '@type' => 'Answer',
-                'text'  => $faq['answer'] ?? '',
+                'text'  => wp_strip_all_tags($faq['answer'] ?? ''),
             ],
         ];
     }, $faqs),
