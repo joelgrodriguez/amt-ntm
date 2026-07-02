@@ -27,7 +27,7 @@ $content = [
 $bg = $args['bg'] ?? '';
 ?>
 
-<section class="section <?php echo esc_attr($bg); ?>" aria-labelledby="which-machine-title">
+<section id="which-machine" class="section <?php echo esc_attr($bg); ?>" aria-labelledby="which-machine-title">
     <div class="container grid gap-8 text-center max-w-3xl mx-auto">
         <div class="grid gap-4">
             <h2 id="which-machine-title" class="section-title">

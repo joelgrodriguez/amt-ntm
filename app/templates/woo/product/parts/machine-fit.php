@@ -96,5 +96,15 @@ $is_not_for = $fit['is_not_for'] ?? [];
 
         </div>
 
+        <div class="mt-12">
+            <?php
+            // The section surface is already blue-50, so the callout flips to white.
+            get_template_part('templates/parts/cta/fit-helper', null, [
+                'surface'    => 'bg-white',
+                'heading_id' => 'machine-fit-helper-title',
+            ]);
+            ?>
+        </div>
+
     </div>
 </section>
