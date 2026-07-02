@@ -22,13 +22,19 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Prices come live from the WooCommerce products (trailer-tr23 #2857,
+// trailer-tr23g #2856). The literals are a fallback for environments
+// without WooCommerce only; the store price wins whenever it resolves.
+$tr23_price  = \Standard\MachinesData\get_product_price('trailer-tr23') ?? __('$32,600', 'standard');
+$tr23g_price = \Standard\MachinesData\get_product_price('trailer-tr23g') ?? __('$34,200', 'standard');
+
 $models = [
     [
         'model'      => 'TR23',
         'name'       => __('3-Axle Trailer', 'standard'),
         'hitch'      => __('Standard bumper-pull', 'standard'),
         'desc'       => __('A 23,000 lb capacity three-axle trailer for the triple overhead reel rack. Couples to a standard rear hitch, so it goes behind the truck you already run.', 'standard'),
-        'price'      => __('$32,600', 'standard'),
+        'price'      => $tr23_price,
         'specs'      => [
             ['label' => __('Capacity', 'standard'),    'value' => __('23,000 lb', 'standard')],
             ['label' => __('Hitch', 'standard'),       'value' => __('3-axle bumper-pull', 'standard')],
@@ -44,7 +50,7 @@ $models = [
         'name'       => __('Gooseneck Trailer', 'standard'),
         'hitch'      => __('In-bed gooseneck', 'standard'),
         'desc'       => __('The same 23,000 lb capacity in a gooseneck configuration. Couples to an in-bed hitch for more stability and a tighter turning radius, paired with a compatible truck bed.', 'standard'),
-        'price'      => __('$34,200', 'standard'),
+        'price'      => $tr23g_price,
         'specs'      => [
             ['label' => __('Capacity', 'standard'),    'value' => __('23,000 lb', 'standard')],
             ['label' => __('Hitch', 'standard'),       'value' => __('Gooseneck (in-bed)', 'standard')],

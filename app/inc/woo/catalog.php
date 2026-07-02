@@ -17,6 +17,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Last-resort display price when neither the machine data file nor the Woo
+// product carries a price. Intentionally a literal: it only renders when
+// both real sources are empty, which should never happen in production.
 const FALLBACK_MACHINE_PRICE = '$87,245';
 
 /**

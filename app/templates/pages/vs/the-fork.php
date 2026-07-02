@@ -24,6 +24,11 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Entry prices resolve from each family's entry machine data file
+// (schema.low_price) so the fork can never drift from the product pages.
+$roof_from   = \Standard\MachinesData\get_from_price('ssr-multipro-jr');
+$gutter_from = \Standard\MachinesData\get_from_price('mach-ii-5-gutter');
+
 $lanes = [
     [
         'eyebrow'   => __('Lane A', 'standard'),
@@ -36,7 +41,7 @@ $lanes = [
             __('Board &amp; batten siding', 'standard'),
         ],
         'machines'  => __('SSQ3™ MultiPro, SSH™, SSR™, 5V Crimp, WAV™', 'standard'),
-        'price'     => __('From $44,900', 'standard'),
+        'price'     => sprintf(/* translators: %s: roof-family entry price, e.g. $44,900 */ __('From %s', 'standard'), $roof_from),
         'price_note' => __('SSR™ entry machine · up to 16 profiles', 'standard'),
         'url'       => '/roof-wall-panel-machines/',
         'cta'       => __('View roof &amp; wall machines', 'standard'),
@@ -54,7 +59,7 @@ $lanes = [
             __('Box gutters (BG7)', 'standard'),
         ],
         'machines'  => __('MACH II™ 5&Prime;, MACH II™ 6&Prime;, MACH II™ Combo, BG7', 'standard'),
-        'price'     => __('From $9,800', 'standard'),
+        'price'     => sprintf(/* translators: %s: gutter-family entry price, e.g. $9,800 */ __('From %s', 'standard'), $gutter_from),
         'price_note' => __('MACH II™ 5&Prime; · benchmark since 1994', 'standard'),
         'url'       => '/seamless-gutter-machines/',
         'cta'       => __('View seamless gutter machines', 'standard'),

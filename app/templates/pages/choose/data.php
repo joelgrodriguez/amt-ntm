@@ -47,10 +47,11 @@ use function Standard\MachineProductData\get_machine_product_link;
  * Reduce any price_range string to its low-end "starting from" figure.
  *
  * The product data files store price two ways: simple machines as a floor
- * ("$44,900+") and configured-to-spec flagships as a range ("$130K - $143K").
- * The product pages want both shapes, but the chooser ledger is a single
- * "From X" column, so we take the low end of whichever shape we're given.
- * "$130K - $143K" -> ["$130,000", 130000]; "$44,900+" -> ["$44,900", 44900].
+ * ("$44,900+") and configured-to-spec flagships as a range ("$120K – $130K")
+ * or an asterisked base ("$85K*"). The product pages want those shapes, but
+ * the chooser ledger is a single "From X" column, so we take the low end of
+ * whichever shape we're given.
+ * "$120K – $130K" -> ["$120,000", 120000]; "$44,900+" -> ["$44,900", 44900].
  *
  * @param string $range The finance.price_range string.
  * @return array{0: string, 1: int}|null [display, numeric] or null if unparseable.

@@ -35,7 +35,13 @@ get_template_part('templates/parts/value-prop-cards', null, [
         [
             'icon'  => 'dollar-sign',
             'title' => __('Low Entry Cost', 'standard'),
-            'text'  => __('Starting at $9,800 with flexible financing options. Most gutter contractors pay off their machine within the first year of operation.', 'standard'),
+            // Entry price resolves from the MACH II 5" data file
+            // (schema.low_price) so it can't drift from the product page.
+            'text'  => sprintf(
+                /* translators: %s: gutter entry price, e.g. $9,800 */
+                __('Starting at %s with flexible financing options. Most gutter contractors pay off their machine within the first year of operation.', 'standard'),
+                \Standard\MachinesData\get_from_price('mach-ii-5-gutter')
+            ),
         ],
     ],
 ]);
