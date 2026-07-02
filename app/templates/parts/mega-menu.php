@@ -211,6 +211,14 @@ $panels = array_values(array_filter(
                         <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                     </a>
                 <?php endif; ?>
+                <?php foreach (($intro['secondary_links'] ?? []) as $link) : ?>
+                    <?php if (!empty($link['url'])) : ?>
+                        <a href="<?php echo esc_url($link['url']); ?>" class="mega-panel__view-all px-5">
+                            <?php echo esc_html($link['label'] ?? __('Learn more', 'standard')); ?>
+                            <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                        </a>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </div>
             <div class="mega-panel__content">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10">

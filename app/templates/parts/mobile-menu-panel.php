@@ -82,5 +82,13 @@ if ($slug === '' || $groups === []) {
                 <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
             </a>
         <?php endif; ?>
+        <?php foreach (($intro['secondary_links'] ?? []) as $link) : ?>
+            <?php if (!empty($link['url'])) : ?>
+                <a class="mobile-menu__view-all" href="<?php echo esc_url($link['url']); ?>">
+                    <?php echo esc_html($link['label'] ?? __('Learn more', 'standard')); ?>
+                    <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                </a>
+            <?php endif; ?>
+        <?php endforeach; ?>
     </div>
 </section>
