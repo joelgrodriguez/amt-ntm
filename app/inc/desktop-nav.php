@@ -152,6 +152,12 @@ function get_desktop_nav(): array {
                     'body'            => __('New to portable rollforming? Learn what NTM does, decide if it fits your business, and pick a direction.', 'standard'),
                     'secondary_label' => __('First-time buyer playlist', 'standard'),
                     'secondary_url'   => \Standard\Url\internal('/first-time-buyer-playlist/'),
+                    'secondary_links' => [
+                        [
+                            'label' => __('Learning Center', 'standard'),
+                            'url'   => \Standard\Url\internal('/learning-center/'),
+                        ],
+                    ],
                 ],
                 'groups'        => [
                     [
@@ -320,6 +326,16 @@ function get_desktop_nav(): array {
                     'title'           => __('How To Buy', 'standard'),
                     'secondary_label' => __('Request a quote', 'standard'),
                     'secondary_url'   => \Standard\Url\with_query('/contact/', ['form' => 'quote']),
+                    'secondary_links' => [
+                        [
+                            'label' => __('Build & Configure', 'standard'),
+                            'url'   => \Standard\Url\internal('/configurator/'),
+                        ],
+                        [
+                            'label' => __('Learning Center', 'standard'),
+                            'url'   => \Standard\Url\internal('/learning-center/'),
+                        ],
+                    ],
                 ],
                 'groups'        => [
                     [
@@ -401,6 +417,12 @@ function get_desktop_nav(): array {
                     'title'           => __('Get Owner Support', 'standard'),
                     'secondary_label' => __('Visit the Service Hub', 'standard'),
                     'secondary_url'   => \Standard\Url\internal('/service-hub/'),
+                    'secondary_links' => [
+                        [
+                            'label' => __('Learning Center', 'standard'),
+                            'url'   => \Standard\Url\internal('/learning-center/'),
+                        ],
+                    ],
                 ],
                 'groups'        => [
                     [

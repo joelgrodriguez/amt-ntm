@@ -18,6 +18,43 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Turn the Choose Your Machine desktop tabs into a single stacked mobile group.
+ *
+ * Desktop renders each tab as a live product/profile grid; mobile can't, so we
+ * flatten each tab to one link pointing at its "View all" archive. The Profiles
+ * tab has no single archive of its own on some tabs, so we fall back to the
+ * tab's own view_all_url. Result: users can still reach every machine category
+ * from the mobile L2 panel instead of hitting an empty screen.
+ *
+ * @param array<int, array<string, mixed>> $tabs
+ * @return array<int, array<string, mixed>>
+ */
+function reshape_machine_tabs_to_groups(array $tabs): array {
+    $items = [];
+    foreach ($tabs as $tab) {
+        $url = $tab['view_all_url'] ?? '';
+        if ($url === '') {
+            continue;
+        }
+        $items[] = [
+            'label' => $tab['label'] ?? ($tab['heading'] ?? ''),
+            'url'   => $url,
+        ];
+    }
+
+    if ($items === []) {
+        return [];
+    }
+
+    return [
+        [
+            'label' => __('Browse machines', 'standard'),
+            'items' => $items,
+        ],
+    ];
+}
+
+/**
  * Returns the mobile navigation tree.
  *
  * Shape:
@@ -43,6 +80,27 @@ function get_mobile_nav_tree(): array {
         if (($item['kind'] ?? '') !== 'mega') {
             continue;
         }
+
+        // The Choose Your Machine panel is 'tabbed-machines': its content lives
+        // in 'tabs', not 'groups', and it has no 'intro'. On desktop the tabs
+        // render live WooCommerce grids; mobile can't. Reshape the tabs into
+        // stacked link groups so the L2 panel isn't empty (which would make the
+        // L1 chevron row a dead panel-opener). Synthesize an intro so the
+        // panel gets a "See all machines" footer link.
+        if (($item['type'] ?? '') === 'tabbed-machines') {
+            $top[] = [
+                'type'   => 'panel',
+                'slug'   => $item['id'],
+                'label'  => $item['label'],
+                'intro'  => [
+                    'secondary_label' => $item['view_all_label'] ?? __('See all machines', 'standard'),
+                    'secondary_url'   => $item['view_all_url'] ?? \Standard\Url\internal('/machines/'),
+                ],
+                'groups' => reshape_machine_tabs_to_groups($item['tabs'] ?? []),
+            ];
+            continue;
+        }
+
         $top[] = [
             'type'   => 'panel',
             'slug'   => $item['id'],
