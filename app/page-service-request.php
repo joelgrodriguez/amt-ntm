@@ -25,7 +25,7 @@ get_header();
 
 <main id="primary">
 
-    <?php get_template_part('templates/parts/breadcrumbs'); ?>
+    <?php /* Breadcrumbs render globally from header.php now that pages are supported. */ ?>
 
     <header class="pattern-dot-grid pattern-dot-grid--surface bg-blue-50 border-b border-blue-200">
         <div class="container section-compact">

@@ -160,7 +160,7 @@ if (!defined('ABSPATH')) {
     </div>
 </header>
 
-<!-- Breadcrumb trail — renders only on supported deep single templates.
+<!-- Breadcrumb trail — renders on supported deep singles, products, and child pages.
      Sits OUTSIDE <header> so the mega-menu panel (fixed, top: 4rem) cleanly
      overlaps it when open. The <header>'s own border-bottom acts as the
      trail's top edge; the trail keeps its own border-bottom as the seam
