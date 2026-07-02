@@ -17,11 +17,10 @@ Package manager: npm
 ## Key Directories
 
 - `.`: Root-level manifests, docs, and configuration. (13 files)
-- `.conductor`: Project area. (1 files)
 - `app`: Application code and framework conventions. (435 files)
 - `db`: Project area. (2 files)
-- `docs`: Project documentation. (74 files)
-- `scripts`: Developer automation scripts. (17 files)
+- `docs`: Project documentation. (73 files)
+- `scripts`: Developer automation scripts. (24 files)
 
 ## Entrypoints
 
@@ -41,6 +40,11 @@ Package manager: npm
 
 Human-authored system flows live in `docs/architecture/flows.json` and render into `index.html`.
 
+- `buyer-funnel`: Buyer funnel (6 steps)
+- `lead-capture`: Lead capture (3 steps)
+- `service-request`: Service request (4 steps)
+- `learning-center`: Learning Center consumption (3 steps)
+- `finance-center`: Finance Center (3 steps)
 - `agent-orientation`: Agent orientation (3 steps)
 - `validation`: Validation (1 steps)
 

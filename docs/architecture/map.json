@@ -3,7 +3,7 @@
   "generatedBy": "shogun map",
   "project": {
     "name": "standard-press",
-    "root": "amt-ntm"
+    "root": "agent-ad7970696a6f181c4"
   },
   "stack": {
     "languages": [
@@ -73,24 +73,13 @@
       },
       "keyFiles": [
         ".distignore",
+        ".git",
         ".gitattributes",
         ".gitignore",
         "CLAUDE.md",
         "DESIGN.md",
         "package-lock.json",
-        "package.json",
-        "paseo.json"
-      ]
-    },
-    {
-      "path": ".conductor",
-      "purpose": "Project area.",
-      "fileCount": 1,
-      "categories": {
-        "other": 1
-      },
-      "keyFiles": [
-        ".conductor/settings.local.toml"
+        "package.json"
       ]
     },
     {
@@ -131,9 +120,9 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 74,
+      "fileCount": 73,
       "categories": {
-        "docs": 74
+        "docs": 73
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
@@ -149,36 +138,36 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 17,
+      "fileCount": 24,
       "categories": {
-        "other": 14,
-        "source": 2,
-        "docs": 1
+        "source": 6,
+        "other": 16,
+        "docs": 2
       },
       "keyFiles": [
+        "scripts/content/export-copy.php",
+        "scripts/content/export-xlsx.php",
+        "scripts/content/exports/.gitkeep",
+        "scripts/content/extract.php",
+        "scripts/content/manifest.php",
+        "scripts/content/README.md",
         "scripts/db/000-template.sh.example",
-        "scripts/db/010-strip-hardcoded-buttons-from-machine-excerpts.sh",
-        "scripts/db/020-roof-panel-vs-gutter-seo-meta.sh",
-        "scripts/db/021-start-here-seo-meta.sh",
-        "scripts/db/022-finance-center-template-and-video.sh",
-        "scripts/db/023-regenerate-product-card-thumbnails.sh",
-        "scripts/db/024-seed-knowledgebase.php",
-        "scripts/db/024-seed-knowledgebase.sh"
+        "scripts/db/010-strip-hardcoded-buttons-from-machine-excerpts.sh"
       ]
     }
   ],
   "files": [
     {
-      "path": ".conductor/settings.local.toml",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 107
-    },
-    {
       "path": ".distignore",
       "category": "other",
       "role": "Repository file.",
       "size": 607
+    },
+    {
+      "path": ".git",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 125
     },
     {
       "path": ".gitattributes",
@@ -190,7 +179,7 @@
       "path": ".gitignore",
       "category": "other",
       "role": "Repository file.",
-      "size": 1183
+      "size": 1410
     },
     {
       "path": "app/404.php",
@@ -2818,7 +2807,7 @@
       "path": "db/redirects.json",
       "category": "other",
       "role": "Repository file.",
-      "size": 69320
+      "size": 311642
     },
     {
       "path": "DESIGN.md",
@@ -2873,12 +2862,6 @@
       "category": "docs",
       "role": "Project documentation for humans and agents.",
       "size": 31207
-    },
-    {
-      "path": "docs/feedback/e_sola/NTM Site New Nav & Info Arch Working Session.docx",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 4694612
     },
     {
       "path": "docs/feedback/README.md",
@@ -3232,7 +3215,13 @@
       "path": "docs/specs/content.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 940
+      "size": 1890
+    },
+    {
+      "path": "docs/specs/docs.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 400
     },
     {
       "path": "docs/specs/finance-center.md",
@@ -3253,22 +3242,16 @@
       "size": 3987
     },
     {
-      "path": "docs/superpowers/specs/2026-06-16-service-hub-knowledgebase-design.md",
+      "path": "docs/superpowers/specs/data-normalization-backlog.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 9142
+      "size": 6781
     },
     {
-      "path": "docs/superpowers/specs/2026-06-16-service-search-results-page-design.md",
+      "path": "docs/superpowers/specs/db-persistence-strategy.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 7500
-    },
-    {
-      "path": "docs/superpowers/specs/2026-06-16-ssq3-machii-template-polish-design.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 7758
+      "size": 9188
     },
     {
       "path": "package-lock.json",
@@ -3280,13 +3263,7 @@
       "path": "package.json",
       "category": "manifest",
       "role": "Project manifest or dependency declaration.",
-      "size": 556
-    },
-    {
-      "path": "paseo.json",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 3
+      "size": 676
     },
     {
       "path": "PRODUCT.md",
@@ -3299,6 +3276,42 @@
       "category": "docs",
       "role": "Project documentation for humans and agents.",
       "size": 2617
+    },
+    {
+      "path": "scripts/content/export-copy.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 2854
+    },
+    {
+      "path": "scripts/content/export-xlsx.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 13063
+    },
+    {
+      "path": "scripts/content/exports/.gitkeep",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 0
+    },
+    {
+      "path": "scripts/content/extract.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 12675
+    },
+    {
+      "path": "scripts/content/manifest.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 5187
+    },
+    {
+      "path": "scripts/content/README.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 5087
     },
     {
       "path": "scripts/db/000-template.sh.example",
@@ -3391,6 +3404,12 @@
       "size": 2339
     },
     {
+      "path": "scripts/db/diff-prod-vs-dev.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 9317
+    },
+    {
       "path": "scripts/db/README.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
@@ -3435,7 +3454,6 @@
     "docs/feedback/2026-06-09-web-images-review-alex-actions.html",
     "docs/feedback/2026-06-09-web-images-review.md",
     "docs/feedback/2026-06-17-stakeholder-review.md",
-    "docs/feedback/e_sola/NTM Site New Nav & Info Arch Working Session.docx",
     "docs/feedback/README.md",
     "docs/handoff/01-context.md",
     "docs/handoff/02-the-change.md",
@@ -3495,14 +3513,15 @@
     "docs/RECOVERY.md",
     "docs/specs/about.md",
     "docs/specs/content.md",
+    "docs/specs/docs.md",
     "docs/specs/finance-center.md",
     "docs/specs/frontend.md",
     "docs/specs/machines.md",
-    "docs/superpowers/specs/2026-06-16-service-hub-knowledgebase-design.md",
-    "docs/superpowers/specs/2026-06-16-service-search-results-page-design.md",
-    "docs/superpowers/specs/2026-06-16-ssq3-machii-template-polish-design.md",
+    "docs/superpowers/specs/data-normalization-backlog.md",
+    "docs/superpowers/specs/db-persistence-strategy.md",
     "PRODUCT.md",
     "README.md",
+    "scripts/content/README.md",
     "scripts/db/README.md",
     "TODO.md"
   ],
