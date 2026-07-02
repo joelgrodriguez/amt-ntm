@@ -338,7 +338,7 @@ function get_sample_machine_badge(string $slug): string {
  * @return array<int, array<string, string>>
  */
 function get_sample_accessory_products(): array {
-    $uploads_url = 'https://newtechmachinery.com/wp-content/uploads';
+    $uploads_url = \Standard\Url\canonical('https://newtechmachinery.com/wp-content/uploads');
 
     return [
         [

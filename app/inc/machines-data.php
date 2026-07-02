@@ -205,7 +205,7 @@ function get_from_price(string $slug): string {
  * @return array<string, array{label: string, machines: array}>
  */
 function get_machine_categories(bool $include_dormant = false): array {
-    $base = 'https://newtechmachinery.com/wp-content/uploads/';
+    $base = \Standard\Url\canonical('https://newtechmachinery.com/wp-content/uploads/');
 
     $categories = [
         'roof-wall' => [

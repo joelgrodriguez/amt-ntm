@@ -46,6 +46,11 @@ function responsive_image(string $url, string $alt = '', string $size = 'large',
         return;
     }
 
+    // Rebase hardcoded prod-host URLs (curated data files) onto the current
+    // site so the attachment lookup below can succeed locally and dev/staging
+    // never loads images from production. No-op for any other host.
+    $url = \Standard\Url\canonical($url);
+
     $attrs = array_merge([
         'alt'      => $alt,
         'loading'  => 'lazy',

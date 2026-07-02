@@ -30,25 +30,25 @@ $content = [
 
 $people = [
     [
-        'image'   => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-engineer-003.jpg',
+        'image'   => \Standard\Url\canonical('https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-engineer-003.jpg'),
         'alt'     => __('NTM engineer at a workstation, reviewing CAD drawings of a rollformer mechanism.', 'standard'),
         'role'    => __('Engineering', 'standard'),
         'caption' => __('Designs the next machine. Answers the support call about the last one.', 'standard'),
     ],
     [
-        'image'   => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-production-004.jpg',
+        'image'   => \Standard\Url\canonical('https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-production-004.jpg'),
         'alt'     => __('NTM production technician on the Aurora shop floor, assembling a rollforming machine.', 'standard'),
         'role'    => __('Production', 'standard'),
         'caption' => __('Builds, tests, and crates every machine in Colorado or Hermosillo.', 'standard'),
     ],
     [
-        'image'   => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-service-002.jpg',
+        'image'   => \Standard\Url\canonical('https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-service-002.jpg'),
         'alt'     => __('NTM service technician inspecting a rollforming machine in the field.', 'standard'),
         'role'    => __('Service', 'standard'),
         'caption' => __('Field repairs, refurbishments, on-site training. Same uniform, same answers.', 'standard'),
     ],
     [
-        'image'   => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-customer-service-004.jpg',
+        'image'   => \Standard\Url\canonical('https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-customer-service-004.jpg'),
         'alt'     => __('NTM customer service representative on a headset call with a contractor.', 'standard'),
         'role'    => __('Customer service', 'standard'),
         'caption' => __('Phones answered by people, not menus. Colorado-based, machine-trained.', 'standard'),

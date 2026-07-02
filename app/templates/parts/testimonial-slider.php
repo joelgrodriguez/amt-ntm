@@ -50,7 +50,7 @@ $content = wp_parse_args($args['content'] ?? [], [
 
 $section_id = $args['section_id'] ?? 'testimonial-slider-title';
 $anchor     = $args['anchor'] ?? '';
-$cdn        = $args['cdn'] ?? 'https://newtechmachinery.com/wp-content/uploads/2025/06';
+$cdn        = \Standard\Url\canonical($args['cdn'] ?? 'https://newtechmachinery.com/wp-content/uploads/2025/06');
 $total      = count($testimonials);
 ?>
 

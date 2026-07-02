@@ -42,7 +42,7 @@ $content = [
     'count_left' => __('Stories', 'standard'),
 ];
 
-$cdn = 'https://newtechmachinery.com/wp-content/uploads/2025/06';
+$cdn = \Standard\Url\canonical('https://newtechmachinery.com/wp-content/uploads/2025/06');
 
 $testimonials = [
     [
