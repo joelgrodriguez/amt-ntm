@@ -24,7 +24,7 @@ $finance = $machine['finance'] ?? [];
 
 $headline = !empty($hero['headline']) ? $hero['headline'] : $product->get_name();
 $subtitle = !empty($hero['subtitle']) ? $hero['subtitle'] : $product->get_short_description();
-$image    = $hero['hero_image'] ?? $hero['image'] ?? '';
+$image    = \Standard\Url\canonical($hero['hero_image'] ?? $hero['image'] ?? '');
 $video    = $hero['video'] ?? '';
 $has_mp4  = $video !== '' && preg_match('/\.mp4($|\?)/i', $video);
 

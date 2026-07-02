@@ -26,7 +26,7 @@ if (!defined('ABSPATH')) {
 $machine      = $args['machine'] ?? [];
 $testimonials = $machine['testimonials'] ?? [];
 
-$cdn = 'https://newtechmachinery.com/wp-content/uploads/2025/06';
+$cdn = \Standard\Url\canonical('https://newtechmachinery.com/wp-content/uploads/2025/06');
 
 // Shared fallback set — same authored quotes used on the front page so
 // the "shared testimonial" between surfaces is intentional, not coincidence.

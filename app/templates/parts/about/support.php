@@ -35,7 +35,7 @@ $facilities = [
         'address' => __('16265 E. 33rd Dr., Suite 40', 'standard'),
         'meta'    => __('Headquarters, engineering, assembly, QC', 'standard'),
         'year'    => __('Since 1991', 'standard'),
-        'image'   => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-production-001.jpg',
+        'image'   => \Standard\Url\canonical('https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-production-001.jpg'),
         'alt'     => __('NTM production technician inspecting a rollforming machine on the Aurora shop floor.', 'standard'),
     ],
     [
@@ -44,7 +44,7 @@ $facilities = [
         'address' => __('16401 E. 33rd Dr., Suite 10', 'standard'),
         'meta'    => __('Service & engineering center, operator training', 'standard'),
         'year'    => __('Across the street', 'standard'),
-        'image'   => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-service-001.jpg',
+        'image'   => \Standard\Url\canonical('https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-service-001.jpg'),
         'alt'     => __('NTM service technician working on a rollforming machine at the Aurora Service & Engineering Center.', 'standard'),
     ],
     [
@@ -53,7 +53,7 @@ $facilities = [
         'address' => __('Latitud Industrial Park', 'standard'),
         'meta'    => __('Second manufacturing facility, regional support for Latin America', 'standard'),
         'year'    => __('Since 2004', 'standard'),
-        'image'   => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-production-007.jpg',
+        'image'   => \Standard\Url\canonical('https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-team-production-007.jpg'),
         'alt'     => __('NTM production floor showing rollforming machine assembly.', 'standard'),
     ],
 ];
