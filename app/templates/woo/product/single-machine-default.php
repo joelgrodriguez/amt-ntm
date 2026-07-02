@@ -23,6 +23,13 @@ $product = wc_get_product(get_the_ID());
 if (!$product) {
     return;
 }
+
+// Configurator URL routes through the woo-slug -> short-slug map so the
+// button never emits the raw product slug (e.g.
+// ssr-multipro-jr-roof-panel-machine). Empty string means this machine
+// has no configurator page; fall back to /contact/ in that case.
+$configurator_url = \Standard\Woo\Catalog\get_configurator_url($product->get_slug());
+
 $video_url   = null;
 $video_title = null;
 $video_sub   = null;
@@ -123,8 +130,8 @@ get_header();
                     <?php endif; ?>
 
                     <div class="machine-default__actions">
-                        <a href="<?php echo esc_url(\Standard\Url\internal('/configurator/' . $product->get_slug() . '/')); ?>" class="btn btn-primary" target="_blank" rel="noopener">
-                            <?php esc_html_e('Build & Quote', 'standard'); ?>
+                        <a href="<?php echo esc_url($configurator_url ?: \Standard\Url\internal('/contact/')); ?>" class="btn btn-primary"<?php echo $configurator_url ? ' target="_blank" rel="noopener"' : ''; ?>>
+                            <?php echo $configurator_url ? esc_html__('Build & Quote', 'standard') : esc_html__('Get a Quote', 'standard'); ?>
                             <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                         </a>
                         <a href="<?php echo esc_url(\Standard\Url\internal('/contact/')); ?>" class="btn btn-secondary">
