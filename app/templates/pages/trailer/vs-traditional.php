@@ -56,9 +56,9 @@ $rows = [
         'ntm'         => __('Four drop-foot stabilizing jacks, one per corner, steady the trailer for the load.', 'standard'),
     ],
     [
-        'concern'     => __('Certification', 'standard'),
+        'concern'     => __('Compliance', 'standard'),
         'generic'     => __('Varies by builder; often unstated.', 'standard'),
-        'ntm'         => __('Certified compliant with the National Association of Trailer Manufacturers (NATM).', 'standard'),
+        'ntm'         => __('Built in compliance with National Association of Trailer Manufacturers (NATM) standards.', 'standard'),
     ],
 ];
 ?>

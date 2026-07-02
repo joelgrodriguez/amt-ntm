@@ -44,9 +44,9 @@ $reasons = [
         'text'  => __('Safety first in transit: electronic brakes plus a breakaway kit keep the machine secure if the worst happens on the road.', 'standard'),
     ],
     [
-        'spec'  => __('Certification', 'standard'),
+        'spec'  => __('Compliance', 'standard'),
         'title' => __('NATM compliant', 'standard'),
-        'text'  => __('Certified compliant with the National Association of Trailer Manufacturers, the quality and safety credential business owners look for.', 'standard'),
+        'text'  => __('Built in compliance with National Association of Trailer Manufacturers (NATM) standards, the quality and safety benchmark business owners look for.', 'standard'),
     ],
     [
         'spec'  => __('Cleanup', 'standard'),
@@ -68,7 +68,7 @@ $reasons = [
 $photos = [
     [
         'src' => content_url('/uploads/2023/09/NATM-Compliant-trailer-sticker.png'),
-        'alt' => __('NATM compliance certification sticker on an NTM trailer', 'standard'),
+        'alt' => __('NATM compliance sticker on an NTM trailer', 'standard'),
     ],
     [
         'src' => content_url('/uploads/2023/09/trailer-stabilizing-jack.png'),

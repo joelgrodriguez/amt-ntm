@@ -59,8 +59,8 @@ Section header: "Run it right" / "The equipment is half of it. These walk an ope
 
 These regulatory **claims** live elsewhere in the site today and were deliberately **kept off** this page until substantiated. Flagging for your call:
 
-- **"CE-Compliant Safety"** — appears in the UNIQ feature grid (`get_uniq_features()`, `machines-data.php`). CE marking is a regulatory claim; no certificate is linked in the codebase. Decide: link CE documentation, or soften the wording.
-- **"NATM compliant"** (trailer engineering page) — National Association of Trailer Manufacturers compliance claim; no credential linked. Decide: link the credential, or soften.
+- **"CE-Compliant Safety"** — appeared in the UNIQ feature grid (`get_uniq_features()`, `machines-data.php`). CE marking is a regulatory claim; no certificate is linked in the codebase. **Update 2026-07-01 (#49):** wording softened to "Interlocked Safety Controls" (no CE claim) pending substantiation. See `docs/legal/compliance-claims-review.md`.
+- **"NATM compliant"** (trailer engineering page) — National Association of Trailer Manufacturers compliance claim; no credential linked. **Update 2026-07-01 (#49):** "Certified" dropped site-wide; "NATM compliant" retained (compliance sticker photo in-repo). See `docs/legal/compliance-claims-review.md`.
 
 If you want either claim *added* to the safety page, we need the supporting document first.
 
