@@ -2,6 +2,11 @@
 
 <!-- shogun:auto — appended on land, newest first. Read top-down for current behavior. -->
 
+## Frontend build cleanup: dedupe transitions.css import, per-page CSS split, font weight audit + preload, remove dead deps, fix emptyOutDir typo — #54
+*Landed 2026-07-02 · type: chore*
+
+- Frontend build cleanup: dedupe transitions.css import, per-page CSS split, font weight audit + preload, remove dead deps, fix emptyOutDir typo
+
 ## Weave Adam's StoryBrand "portability is in our DNA" narrative into the site, per the 2026-06-17 stakeholder review action item. Adam flagged it **overlaps the homepage "who our machines are for / the why" — same story, two surfaces; dedupe.**
 
 Strategy: one canonical set of four portability proof-points, **two frames** (no repeated sentences):
