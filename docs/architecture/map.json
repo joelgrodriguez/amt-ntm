@@ -131,9 +131,9 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 83,
+      "fileCount": 85,
       "categories": {
-        "docs": 83
+        "docs": 85
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
@@ -149,10 +149,10 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 37,
+      "fileCount": 38,
       "categories": {
         "source": 6,
-        "other": 29,
+        "other": 30,
         "docs": 2
       },
       "keyFiles": [
@@ -484,7 +484,7 @@
       "path": "app/data/machines/ssh-multipro.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 12101
+      "size": 12732
     },
     {
       "path": "app/data/machines/ssq-ii-multipro.php",
@@ -502,13 +502,13 @@
       "path": "app/data/machines/ssr-multipro-jr.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 11729
+      "size": 12154
     },
     {
       "path": "app/data/machines/wav-wall-panel.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 9582
+      "size": 10762
     },
     {
       "path": "app/footer.php",
@@ -568,7 +568,7 @@
       "path": "app/inc/desktop-nav.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 22498
+      "size": 23539
     },
     {
       "path": "app/inc/filters.php",
@@ -676,7 +676,7 @@
       "path": "app/inc/mobile-nav.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 2215
+      "size": 4354
     },
     {
       "path": "app/inc/page-templates.php",
@@ -1414,7 +1414,7 @@
       "path": "app/resources/js/modules/SocialProof.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 4637
+      "size": 5021
     },
     {
       "path": "app/resources/js/modules/TableOfContents.js",
@@ -1900,7 +1900,7 @@
       "path": "app/templates/pages/profiles/hero.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 1182
+      "size": 1767
     },
     {
       "path": "app/templates/pages/resources/featured.php",
@@ -2452,13 +2452,13 @@
       "path": "app/templates/parts/mega-menu.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 13805
+      "size": 14332
     },
     {
       "path": "app/templates/parts/mobile-menu-panel.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3989
+      "size": 4448
     },
     {
       "path": "app/templates/parts/mobile-menu.php",
@@ -2572,7 +2572,7 @@
       "path": "app/templates/parts/testimonial-slider.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 8908
+      "size": 10202
     },
     {
       "path": "app/templates/parts/value-prop-cards.php",
@@ -2782,7 +2782,7 @@
       "path": "app/templates/woo/product/parts/resources.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4085
+      "size": 5040
     },
     {
       "path": "app/templates/woo/product/parts/specs-accordion.php",
@@ -2818,7 +2818,7 @@
       "path": "app/templates/woo/product/single-machine-default.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 9624
+      "size": 10066
     },
     {
       "path": "app/templates/woo/product/single-machine.php",
@@ -3280,7 +3280,7 @@
       "path": "docs/specs/content.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 1890
+      "size": 2194
     },
     {
       "path": "docs/specs/docs.md",
@@ -3298,13 +3298,19 @@
       "path": "docs/specs/frontend.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 2791
+      "size": 3230
     },
     {
       "path": "docs/specs/machines.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
       "size": 3987
+    },
+    {
+      "path": "docs/specs/nav.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 288
     },
     {
       "path": "docs/specs/pricing.md",
@@ -3329,6 +3335,12 @@
       "category": "docs",
       "role": "Project documentation for humans and agents.",
       "size": 348
+    },
+    {
+      "path": "docs/specs/woo.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 408
     },
     {
       "path": "docs/superpowers/specs/2026-06-16-service-hub-knowledgebase-design.md",
@@ -3589,6 +3601,12 @@
       "size": 2425
     },
     {
+      "path": "scripts/db/031-regenerate-testimonial-portraits.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 1699
+    },
+    {
       "path": "scripts/db/apply",
       "category": "other",
       "role": "Repository file.",
@@ -3711,10 +3729,12 @@
     "docs/specs/finance-center.md",
     "docs/specs/frontend.md",
     "docs/specs/machines.md",
+    "docs/specs/nav.md",
     "docs/specs/pricing.md",
     "docs/specs/seo.md",
     "docs/specs/templates.md",
     "docs/specs/trailer.md",
+    "docs/specs/woo.md",
     "docs/superpowers/specs/2026-06-16-service-hub-knowledgebase-design.md",
     "docs/superpowers/specs/2026-06-16-service-search-results-page-design.md",
     "docs/superpowers/specs/2026-06-16-ssq3-machii-template-polish-design.md",
