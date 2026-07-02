@@ -22,11 +22,55 @@ function get_vite_dev_server(): ?string {
         }
 
         $file = THEME_DIR . '/.vite-dev-server';
-        $url = file_exists($file)
+        $candidate = file_exists($file)
             ? normalize_vite_dev_server((string) file_get_contents($file))
+            : null;
+
+        // A stale .vite-dev-server file (dev server crashed, or wrote a
+        // LAN IP that no longer answers) would enqueue dead asset URLs
+        // and render the site with no CSS/JS. Only trust the file if
+        // the server actually answers; otherwise fall back to dist/.
+        $url = ($candidate !== null && is_vite_dev_server_reachable($candidate))
+            ? $candidate
             : null;
     }
     return $url;
+}
+
+/**
+ * Cheap TCP reachability check for the Vite dev server.
+ *
+ * Memoized per request via the static in get_vite_dev_server(), and
+ * only runs in local/development environments, so the ~150ms worst
+ * case is a one-time local cost.
+ */
+function is_vite_dev_server_reachable(string $url): bool {
+    static $reachable = null;
+    if ($reachable !== null) {
+        return $reachable;
+    }
+
+    $parts = wp_parse_url($url);
+    $host = $parts['host'] ?? '';
+    $port = (int) ($parts['port'] ?? ((($parts['scheme'] ?? '') === 'https') ? 443 : 80));
+
+    if ($host === '') {
+        $reachable = false;
+        return $reachable;
+    }
+
+    $errno = 0;
+    $errstr = '';
+    $socket = @fsockopen($host, $port, $errno, $errstr, 0.15);
+
+    if ($socket === false) {
+        $reachable = false;
+        return $reachable;
+    }
+
+    fclose($socket);
+    $reachable = true;
+    return $reachable;
 }
 
 function use_vite_dev_server(): bool {
