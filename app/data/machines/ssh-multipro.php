@@ -229,6 +229,18 @@ return [
         'manual'               => 'https://newtechmachinery.com/learning-center/manual/ssh-roof-panel-machine-with-plc-controller-manual/',
         'brochure'             => 'https://newtechmachinery.com/learning-center/literature/ssh-brochure/',
         'service_training_url' => '/service-training',
+        // "How to change a profile" is one of the most common owner questions.
+        // SSH has both a Learning Center video and a step-by-step article.
+        'profile_change'       => [
+            [
+                'label' => __('How to Change a Profile (Video)', 'standard'),
+                'url'   => '/learning-center/video/how-to-change-a-profile-new-tech-machinerys-ssh-multipro-video/',
+            ],
+            [
+                'label' => __('How to Change a Profile: Step-by-Step', 'standard'),
+                'url'   => '/learning-center/how-to-change-a-profile-in-an-ssh-multipro/',
+            ],
+        ],
     ],
     'faq' => [
         [

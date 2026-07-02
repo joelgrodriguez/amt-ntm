@@ -191,6 +191,27 @@ return [
         'manual'               => 'https://newtechmachinery.com/learning-center/manual/wav-wall-panel-machine-manual/',
         'brochure'             => 'https://newtechmachinery.com/learning-center/literature/wav-wall-panel-machine-brochure/',
         'service_training_url' => '/service-training',
+        // "How to change a profile" is one of the most common owner questions.
+        // On the WAV a profile change means moving between coil widths, so
+        // there is a Learning Center video for each width transition.
+        'profile_change'       => [
+            [
+                'label' => __('Change a Profile: 8-1F to 12-1F', 'standard'),
+                'url'   => '/learning-center/video/how-to-change-a-profile-ntms-wav-machine-8-1f-to-12-1f-video/',
+            ],
+            [
+                'label' => __('Change a Profile: 12-1F to 16-4F', 'standard'),
+                'url'   => '/learning-center/video/how-to-change-a-profile-ntms-wav-machine-12-1f-to-16-4f-video/',
+            ],
+            [
+                'label' => __('Change a Profile: 12-1F to 8-1F', 'standard'),
+                'url'   => '/learning-center/video/how-to-change-a-profile-new-tech-machinerys-wav-12-1f-to-8-1f-video/',
+            ],
+            [
+                'label' => __('Change a Profile: 16-4F to 12-1F', 'standard'),
+                'url'   => '/learning-center/video/how-to-change-a-profile-new-tech-machinerys-wav-16-4f-to-12-1f-video/',
+            ],
+        ],
     ],
     'faq' => [
         [

@@ -26,6 +26,15 @@ if (!defined('ABSPATH')) {
             <p class="font-sans text-blue-600 max-w-2xl" style="font-size: var(--text-body); line-height: var(--leading-body);">
                 <?php esc_html_e('Every roof, wall, gutter, and trim profile NTM rolls, with specs, compatible machines, and the rollers that form them. Filter by category to dig in.', 'standard'); ?>
             </p>
+            <p class="mt-6">
+                <a
+                    href="<?php echo esc_url(\Standard\Url\internal('/learning-center/how-to-change-a-profile-in-an-ssh-multipro/')); ?>"
+                    class="inline-flex min-h-[44px] items-center gap-1 text-sm font-medium text-blue-500 no-underline transition-colors hover:text-blue-500/80"
+                >
+                    <span><?php esc_html_e('How to change a profile on your machine', 'standard'); ?></span>
+                    <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                </a>
+            </p>
         </div>
     </div>
 </section>
