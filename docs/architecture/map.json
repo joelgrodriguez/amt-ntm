@@ -3,7 +3,7 @@
   "generatedBy": "shogun map",
   "project": {
     "name": "standard-press",
-    "root": "amt-ntm"
+    "root": "agent-a7d29a1a427f323e1"
   },
   "stack": {
     "languages": [
@@ -63,9 +63,9 @@
     {
       "path": ".",
       "purpose": "Root-level manifests, docs, and configuration.",
-      "fileCount": 12,
+      "fileCount": 13,
       "categories": {
-        "other": 4,
+        "other": 5,
         "docs": 5,
         "manifest": 1,
         "source": 1,
@@ -73,26 +73,26 @@
       },
       "keyFiles": [
         ".distignore",
+        ".git",
         ".gitattributes",
         ".gitignore",
         "CLAUDE.md",
         "DESIGN.md",
         "package-lock.json",
-        "package.json",
-        "PRODUCT.md"
+        "package.json"
       ]
     },
     {
       "path": "app",
       "purpose": "Application code and framework conventions.",
-      "fileCount": 422,
+      "fileCount": 425,
       "categories": {
         "source": 162,
         "other": 43,
         "config": 2,
         "route": 7,
         "test": 1,
-        "template": 207
+        "template": 210
       },
       "keyFiles": [
         "app/404.php",
@@ -120,9 +120,9 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 64,
+      "fileCount": 61,
       "categories": {
-        "docs": 64
+        "docs": 61
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
@@ -162,6 +162,12 @@
       "category": "other",
       "role": "Repository file.",
       "size": 607
+    },
+    {
+      "path": ".git",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 125
     },
     {
       "path": ".gitattributes",
@@ -641,13 +647,13 @@
       "path": "app/inc/machines-data.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 42927
+      "size": 44732
     },
     {
       "path": "app/inc/machines.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 4986
+      "size": 5197
     },
     {
       "path": "app/inc/mobile-nav.php",
@@ -833,7 +839,7 @@
       "path": "app/page-footprints.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 1786
+      "size": 745
     },
     {
       "path": "app/page-how-buying-works.php",
@@ -1580,10 +1586,28 @@
       "size": 4659
     },
     {
+      "path": "app/templates/pages/footprints/dimensions.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 7055
+    },
+    {
+      "path": "app/templates/pages/footprints/final-cta.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 1088
+    },
+    {
       "path": "app/templates/pages/footprints/hero.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
       "size": 1287
+    },
+    {
+      "path": "app/templates/pages/footprints/library.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 1752
     },
     {
       "path": "app/templates/pages/gutter/brand-statement.php",
@@ -1631,13 +1655,13 @@
       "path": "app/templates/pages/gutter/learning-center.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 876
+      "size": 843
     },
     {
       "path": "app/templates/pages/gutter/machii-callout.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 3926
+      "size": 3940
     },
     {
       "path": "app/templates/pages/gutter/product-grid.php",
@@ -1733,7 +1757,7 @@
       "path": "app/templates/pages/machines/faq-accordion.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 652
+      "size": 659
     },
     {
       "path": "app/templates/pages/machines/final-cta.php",
@@ -1757,7 +1781,7 @@
       "path": "app/templates/pages/machines/learning-center.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 685
+      "size": 655
     },
     {
       "path": "app/templates/pages/machines/lineup-flagship.php",
@@ -1769,7 +1793,7 @@
       "path": "app/templates/pages/machines/lineup-grid.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 2606
+      "size": 2928
     },
     {
       "path": "app/templates/pages/machines/machines-flagship.php",
@@ -1907,7 +1931,7 @@
       "path": "app/templates/pages/roof-wall/learning-center.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 914
+      "size": 881
     },
     {
       "path": "app/templates/pages/roof-wall/product-grid.php",
@@ -2321,7 +2345,7 @@
       "path": "app/templates/parts/learning-center.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3084
+      "size": 3477
     },
     {
       "path": "app/templates/parts/mega-menu.php",
@@ -3098,24 +3122,6 @@
       "size": 4252
     },
     {
-      "path": "docs/superpowers/specs/2026-06-16-service-hub-knowledgebase-design.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 9142
-    },
-    {
-      "path": "docs/superpowers/specs/2026-06-16-service-search-results-page-design.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 7500
-    },
-    {
-      "path": "docs/superpowers/specs/2026-06-16-ssq3-machii-template-polish-design.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 7758
-    },
-    {
       "path": "package-lock.json",
       "category": "other",
       "role": "Repository file.",
@@ -3303,9 +3309,6 @@
     "docs/presentations/navigation-flow.html",
     "docs/presentations/website-update-notes.md",
     "docs/RECOVERY.md",
-    "docs/superpowers/specs/2026-06-16-service-hub-knowledgebase-design.md",
-    "docs/superpowers/specs/2026-06-16-service-search-results-page-design.md",
-    "docs/superpowers/specs/2026-06-16-ssq3-machii-template-polish-design.md",
     "PRODUCT.md",
     "README.md",
     "scripts/db/README.md",
