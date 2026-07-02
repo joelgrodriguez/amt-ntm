@@ -17,10 +17,11 @@ Package manager: npm
 ## Key Directories
 
 - `.`: Root-level manifests, docs, and configuration. (13 files)
-- `app`: Application code and framework conventions. (435 files)
+- `.conductor`: Project area. (1 files)
+- `app`: Application code and framework conventions. (439 files)
 - `db`: Project area. (2 files)
-- `docs`: Project documentation. (73 files)
-- `scripts`: Developer automation scripts. (24 files)
+- `docs`: Project documentation. (81 files)
+- `scripts`: Developer automation scripts. (37 files)
 
 ## Entrypoints
 
