@@ -2,6 +2,11 @@
 
 <!-- shogun:auto — appended on land, newest first. Read top-down for current behavior. -->
 
+## Fix testimonial rotator broken portraits: regenerate missing -300x300 thumbnails, capture as db script — #62
+*Landed 2026-07-02 · type: bugfix*
+
+- Fix testimonial rotator broken portraits: regenerate missing -300x300 thumbnails, capture as db script
+
 ## Frontend build cleanup: dedupe transitions.css import, per-page CSS split, font weight audit + preload, remove dead deps, fix emptyOutDir typo — #54
 *Landed 2026-07-02 · type: chore*
 
