@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "generatedBy": "shogun map",
-  "description": "Starter flow map. Edit this file with real product workflows; shogun map will preserve it.",
+  "description": "Product flow map for the NTM theme: buyer funnel, lead capture, service, learning center, and finance center, plus the agent orientation/validation starters.",
   "lanes": [
     {
       "id": "actor",
@@ -53,6 +53,20 @@
       "type": "actor"
     },
     {
+      "id": "actor:buyer",
+      "lane": "actor",
+      "title": "Prospective buyer",
+      "subtitle": "Researching / choosing / financing a rollforming machine",
+      "type": "actor"
+    },
+    {
+      "id": "actor:owner",
+      "lane": "actor",
+      "title": "Machine owner",
+      "subtitle": "Owns an NTM machine; needs service, parts, or manuals",
+      "type": "actor"
+    },
+    {
       "id": "docs:architecture",
       "lane": "docs",
       "title": "docs/architecture",
@@ -79,6 +93,118 @@
       "title": "npm run build",
       "subtitle": "validation",
       "type": "command"
+    },
+    {
+      "id": "route:front-page",
+      "lane": "route",
+      "title": "app/front-page.php",
+      "subtitle": "Homepage: buyer-journey nav, machine highlights, contact band",
+      "type": "route"
+    },
+    {
+      "id": "route:choose-your-machine",
+      "lane": "route",
+      "title": "app/page-choose-your-machine.php",
+      "subtitle": "/choose-your-machine/ — instant machine grid by intent",
+      "type": "route"
+    },
+    {
+      "id": "route:category-rollup",
+      "lane": "route",
+      "title": "app/page-machines.php (+ roof-wall / gutter roll-ups)",
+      "subtitle": "All-machines page + page-roof-wall-panel-machines.php + page-seamless-gutter-machines.php",
+      "type": "route"
+    },
+    {
+      "id": "route:machine-product",
+      "lane": "route",
+      "title": "app/templates/woo/product/single-machine.php",
+      "subtitle": "Machine product page (/machines/%product_cat%/<machine>/); pillar treatment for Q3 / Mark 2",
+      "type": "route"
+    },
+    {
+      "id": "config:machines-data",
+      "lane": "config",
+      "title": "app/data/machines/*.php",
+      "subtitle": "Per-machine data files (pricing, specs, media) read by app/inc/machines-data.php",
+      "type": "config"
+    },
+    {
+      "id": "source:configurator-cta",
+      "lane": "source",
+      "title": "app/templates/woo/product/parts/configurator-finance.php",
+      "subtitle": "Theme-owned CTAs: Open Configurator (external Corbel) / Explore Financing",
+      "type": "source"
+    },
+    {
+      "id": "route:finance-center",
+      "lane": "route",
+      "title": "app/page-finance-center.php",
+      "subtitle": "/machines/leasing-financing/ — NTM Finance Center (hero video, lenders, FAQ)",
+      "type": "route"
+    },
+    {
+      "id": "source:specialist-cta",
+      "lane": "source",
+      "title": "app/templates/pages/finance-center/specialist-cta.php",
+      "subtitle": "Talk-to-a-specialist closing section: copy + phone + HubSpot lead form",
+      "type": "source"
+    },
+    {
+      "id": "source:hubspot",
+      "lane": "source",
+      "title": "app/inc/hubspot.php",
+      "subtitle": "HubSpot form embed helpers used by lead-capture surfaces",
+      "type": "source"
+    },
+    {
+      "id": "route:lead-form",
+      "lane": "route",
+      "title": "app/templates/template-lead-form.php",
+      "subtitle": "Lead Form Landing template: prose column + sticky HubSpot form",
+      "type": "route"
+    },
+    {
+      "id": "route:service-hub",
+      "lane": "route",
+      "title": "app/page-service-hub.php",
+      "subtitle": "/service-hub/ — machine directory, troubleshooting, search lead-in",
+      "type": "route"
+    },
+    {
+      "id": "route:service-search",
+      "lane": "route",
+      "title": "app/templates/template-service-search.php",
+      "subtitle": "/service-hub/search/ — dedicated service results page (created by scripts/db/026)",
+      "type": "route"
+    },
+    {
+      "id": "source:service-hub-inc",
+      "lane": "source",
+      "title": "app/inc/service-hub.php",
+      "subtitle": "Service query layer: filters, curated machine map, department-scoped results",
+      "type": "source"
+    },
+    {
+      "id": "route:service-request",
+      "lane": "route",
+      "title": "app/page-service-request.php",
+      "subtitle": "/service-request/ — HubSpot form to open a service case",
+      "type": "route"
+    },
+    {
+      "id": "route:learning-center",
+      "lane": "route",
+      "title": "app/home.php",
+      "subtitle": "/learning-center/ — posts page: hero, sections by post type, category/machine filters",
+      "type": "route"
+    },
+    {
+      "id": "route:single-article",
+      "lane": "route",
+      "title": "app/single.php",
+      "subtitle": "Article view with JS table of contents and related content",
+      "type": "route"
     },
     {
       "id": "route:app-resources-css-pages-finance-center-css",
@@ -166,6 +292,155 @@
     }
   ],
   "flows": [
+    {
+      "id": "buyer-funnel",
+      "title": "Buyer funnel",
+      "description": "Front page to a configurator-ready machine page. Navigation is organized by buyer intent (aware → consider → decide → own), not by catalog.",
+      "steps": [
+        {
+          "from": "actor:buyer",
+          "to": "route:front-page",
+          "label": "1",
+          "detail": "Lands on the homepage; picks a buyer-intent nav bucket."
+        },
+        {
+          "from": "route:front-page",
+          "to": "route:choose-your-machine",
+          "label": "2",
+          "detail": "Choose Your Machine: instant grid of every machine."
+        },
+        {
+          "from": "route:choose-your-machine",
+          "to": "route:category-rollup",
+          "label": "3",
+          "detail": "Narrows by category: all machines, roof/wall panel, or seamless gutter roll-up."
+        },
+        {
+          "from": "route:category-rollup",
+          "to": "route:machine-product",
+          "label": "4",
+          "detail": "Opens a machine page (WooCommerce product; Q3 / Mark 2 get the full pillar treatment)."
+        },
+        {
+          "from": "config:machines-data",
+          "to": "route:machine-product",
+          "label": "5",
+          "detail": "Pricing, specs, and media come from the per-machine data files in git."
+        },
+        {
+          "from": "route:machine-product",
+          "to": "source:configurator-cta",
+          "label": "6",
+          "detail": "Guided path ends at the theme CTAs: Open Configurator (external Corbel) or Explore Financing."
+        }
+      ]
+    },
+    {
+      "id": "lead-capture",
+      "title": "Lead capture",
+      "description": "Every lead surface routes into HubSpot forms rendered through one helper module. Self-serve leads; the form is the catch-all.",
+      "steps": [
+        {
+          "from": "actor:buyer",
+          "to": "route:lead-form",
+          "label": "1",
+          "detail": "Reaches a lead surface: Lead Form Landing template, front-page contact band, or a specialist CTA."
+        },
+        {
+          "from": "route:lead-form",
+          "to": "source:hubspot",
+          "label": "2",
+          "detail": "Template renders the embedded HubSpot form via app/inc/hubspot.php."
+        },
+        {
+          "from": "source:hubspot",
+          "to": "source:specialist-cta",
+          "label": "3",
+          "detail": "Same helper powers the Finance Center specialist form and other HubSpot embeds; submissions land in HubSpot CRM."
+        }
+      ]
+    },
+    {
+      "id": "service-request",
+      "title": "Service request",
+      "description": "Owner-support path: Service Hub landing → dedicated search results → service request form. Search posts plain GET; no AJAX.",
+      "steps": [
+        {
+          "from": "actor:owner",
+          "to": "route:service-hub",
+          "label": "1",
+          "detail": "Opens /service-hub/: machine directory, troubleshooting sections, search lead-in."
+        },
+        {
+          "from": "route:service-hub",
+          "to": "route:service-search",
+          "label": "2",
+          "detail": "Search lead-in hands off to /service-hub/search/ (page row captured by scripts/db/026)."
+        },
+        {
+          "from": "source:service-hub-inc",
+          "to": "route:service-search",
+          "label": "3",
+          "detail": "Results and Machine-first filters come from the service-scoped query layer (curated machine map, department-ANDed counts)."
+        },
+        {
+          "from": "route:service-search",
+          "to": "route:service-request",
+          "label": "4",
+          "detail": "If self-serve content doesn't resolve it, the owner files a service request (HubSpot form)."
+        }
+      ]
+    },
+    {
+      "id": "learning-center",
+      "title": "Learning Center consumption",
+      "description": "Education path for buyers and owners: filtered content library to a single article with a generated table of contents.",
+      "steps": [
+        {
+          "from": "actor:buyer",
+          "to": "route:learning-center",
+          "label": "1",
+          "detail": "Browses /learning-center/ (posts page): hero, sections by post type, category + machine-tag filters."
+        },
+        {
+          "from": "route:learning-center",
+          "to": "route:single-article",
+          "label": "2",
+          "detail": "Opens an article; TableOfContents.js builds the on-page rail from the H2s."
+        },
+        {
+          "from": "route:single-article",
+          "to": "route:machine-product",
+          "label": "3",
+          "detail": "Article CTAs and machine tags route readers back into the buyer funnel."
+        }
+      ]
+    },
+    {
+      "id": "finance-center",
+      "title": "Finance Center",
+      "description": "How-to-buy path: educate on financing, then either configure/quote or talk to a human. Deliberately replaces dumping users straight into the configurator.",
+      "steps": [
+        {
+          "from": "actor:buyer",
+          "to": "route:finance-center",
+          "label": "1",
+          "detail": "Opens /machines/leasing-financing/ (template + hero video wired by scripts/db/022)."
+        },
+        {
+          "from": "route:finance-center",
+          "to": "source:configurator-cta",
+          "label": "2",
+          "detail": "Self-serve path: lender options and the external Corbel configurator for a quote."
+        },
+        {
+          "from": "route:finance-center",
+          "to": "source:specialist-cta",
+          "label": "3",
+          "detail": "Human path: Talk-to-a-specialist closing section with phone + HubSpot lead form."
+        }
+      ]
+    },
     {
       "id": "agent-orientation",
       "title": "Agent orientation",
