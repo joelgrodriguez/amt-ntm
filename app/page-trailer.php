@@ -4,7 +4,7 @@
  *
  * Dedicated landing page for the NTM trailer — "NTM trailer vs. traditional."
  * Tells the engineered-as-one-system story (bolt-down balance, scrap trays,
- * crane lifting eyes, NATM-compliant brakes) that explains why the trailer
+ * crane lifting eyes, NATM compliance) that explains why the trailer
  * costs what it does, pairing with the machine-page "trailer sold separately"
  * pricing note.
  *

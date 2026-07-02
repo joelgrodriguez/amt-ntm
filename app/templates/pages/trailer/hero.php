@@ -40,7 +40,7 @@ get_template_part('templates/parts/hero-category', null, [
     ],
     'meta' => [
         ['label' => __('Capacity', 'standard'), 'value' => __('Up to 23,000 lb', 'standard')],
-        ['label' => __('Certified', 'standard'), 'value' => __('NATM Compliant', 'standard')],
+        ['label' => __('Compliance', 'standard'), 'value' => __('NATM Compliant', 'standard')],
         ['label' => __('Tongue Weight', 'standard'), 'value' => __('750 lb balanced', 'standard')],
     ],
 ]);

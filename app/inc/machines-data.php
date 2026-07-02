@@ -949,8 +949,8 @@ function get_uniq_features(): array {
             'text'  => 'Error messages with help pages and videos. Operators diagnose and fix problems independently.',
         ],
         [
-            'title' => 'CE-Compliant Safety',
-            'text'  => 'Controls start drive, notching, and shear functions with safety compliance.',
+            'title' => 'Interlocked Safety Controls',
+            'text'  => 'Start drive, notching, and shear functions run through the controller\'s safety interlocks.',
         ],
     ];
 }
