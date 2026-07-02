@@ -3,7 +3,7 @@
   "generatedBy": "shogun map",
   "project": {
     "name": "standard-press",
-    "root": "agent-ab99f043dc6456048"
+    "root": "amt-ntm"
   },
   "stack": {
     "languages": [
@@ -73,13 +73,24 @@
       },
       "keyFiles": [
         ".distignore",
-        ".git",
         ".gitattributes",
         ".gitignore",
         "CLAUDE.md",
         "DESIGN.md",
         "package-lock.json",
-        "package.json"
+        "package.json",
+        "paseo.json"
+      ]
+    },
+    {
+      "path": ".conductor",
+      "purpose": "Project area.",
+      "fileCount": 1,
+      "categories": {
+        "other": 1
+      },
+      "keyFiles": [
+        ".conductor/settings.local.toml"
       ]
     },
     {
@@ -120,9 +131,9 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 77,
+      "fileCount": 82,
       "categories": {
-        "docs": 77
+        "docs": 82
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
@@ -138,36 +149,36 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 24,
+      "fileCount": 37,
       "categories": {
         "source": 6,
-        "other": 16,
+        "other": 29,
         "docs": 2
       },
       "keyFiles": [
         "scripts/content/export-copy.php",
         "scripts/content/export-xlsx.php",
         "scripts/content/exports/.gitkeep",
-        "scripts/content/extract.php",
-        "scripts/content/manifest.php",
-        "scripts/content/README.md",
-        "scripts/db/000-template.sh.example",
-        "scripts/db/010-strip-hardcoded-buttons-from-machine-excerpts.sh"
+        "scripts/content/exports/copy-review-about.csv",
+        "scripts/content/exports/copy-review-all.csv",
+        "scripts/content/exports/copy-review-choose.csv",
+        "scripts/content/exports/copy-review-finance.csv",
+        "scripts/content/exports/copy-review-gutter.csv"
       ]
     }
   ],
   "files": [
     {
+      "path": ".conductor/settings.local.toml",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 107
+    },
+    {
       "path": ".distignore",
       "category": "other",
       "role": "Repository file.",
       "size": 607
-    },
-    {
-      "path": ".git",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 125
     },
     {
       "path": ".gitattributes",
@@ -521,7 +532,7 @@
       "path": "app/header.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 8915
+      "size": 8928
     },
     {
       "path": "app/home.php",
@@ -539,7 +550,7 @@
       "path": "app/inc/breadcrumbs.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 3718
+      "size": 8798
     },
     {
       "path": "app/inc/contact-data.php",
@@ -935,7 +946,7 @@
       "path": "app/page-service-request.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 7441
+      "size": 7471
     },
     {
       "path": "app/page-start-here.php",
@@ -2621,7 +2632,7 @@
       "path": "app/templates/template-service-hub-machine.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 17330
+      "size": 17360
     },
     {
       "path": "app/templates/template-service-hub.php",
@@ -2898,6 +2909,12 @@
       "category": "docs",
       "role": "Project documentation for humans and agents.",
       "size": 31207
+    },
+    {
+      "path": "docs/feedback/e_sola/NTM Site New Nav & Info Arch Working Session.docx",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 4694612
     },
     {
       "path": "docs/feedback/README.md",
@@ -3290,16 +3307,40 @@
       "size": 3987
     },
     {
+      "path": "docs/specs/pricing.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 362
+    },
+    {
       "path": "docs/specs/seo.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 417
+      "size": 633
     },
     {
       "path": "docs/specs/trailer.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
       "size": 348
+    },
+    {
+      "path": "docs/superpowers/specs/2026-06-16-service-hub-knowledgebase-design.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 9142
+    },
+    {
+      "path": "docs/superpowers/specs/2026-06-16-service-search-results-page-design.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 7500
+    },
+    {
+      "path": "docs/superpowers/specs/2026-06-16-ssq3-machii-template-polish-design.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 7758
     },
     {
       "path": "docs/superpowers/specs/data-normalization-backlog.md",
@@ -3324,6 +3365,12 @@
       "category": "manifest",
       "role": "Project manifest or dependency declaration.",
       "size": 561
+    },
+    {
+      "path": "paseo.json",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 3
     },
     {
       "path": "PRODUCT.md",
@@ -3354,6 +3401,84 @@
       "category": "other",
       "role": "Repository file.",
       "size": 0
+    },
+    {
+      "path": "scripts/content/exports/copy-review-about.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 11280
+    },
+    {
+      "path": "scripts/content/exports/copy-review-all.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 118433
+    },
+    {
+      "path": "scripts/content/exports/copy-review-choose.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 7140
+    },
+    {
+      "path": "scripts/content/exports/copy-review-finance.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 12033
+    },
+    {
+      "path": "scripts/content/exports/copy-review-gutter.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 10015
+    },
+    {
+      "path": "scripts/content/exports/copy-review-home.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 15521
+    },
+    {
+      "path": "scripts/content/exports/copy-review-machines.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 14670
+    },
+    {
+      "path": "scripts/content/exports/copy-review-roof-wall.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 10728
+    },
+    {
+      "path": "scripts/content/exports/copy-review-safety.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 5403
+    },
+    {
+      "path": "scripts/content/exports/copy-review-start-here.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 13738
+    },
+    {
+      "path": "scripts/content/exports/copy-review-trailer.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 10882
+    },
+    {
+      "path": "scripts/content/exports/copy-review-uniq.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 7563
+    },
+    {
+      "path": "scripts/content/exports/copy-review.xlsx",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 160368
     },
     {
       "path": "scripts/content/extract.php",
@@ -3514,6 +3639,7 @@
     "docs/feedback/2026-06-09-web-images-review-alex-actions.html",
     "docs/feedback/2026-06-09-web-images-review.md",
     "docs/feedback/2026-06-17-stakeholder-review.md",
+    "docs/feedback/e_sola/NTM Site New Nav & Info Arch Working Session.docx",
     "docs/feedback/README.md",
     "docs/handoff/01-context.md",
     "docs/handoff/02-the-change.md",
@@ -3579,8 +3705,12 @@
     "docs/specs/finance-center.md",
     "docs/specs/frontend.md",
     "docs/specs/machines.md",
+    "docs/specs/pricing.md",
     "docs/specs/seo.md",
     "docs/specs/trailer.md",
+    "docs/superpowers/specs/2026-06-16-service-hub-knowledgebase-design.md",
+    "docs/superpowers/specs/2026-06-16-service-search-results-page-design.md",
+    "docs/superpowers/specs/2026-06-16-ssq3-machii-template-polish-design.md",
     "docs/superpowers/specs/data-normalization-backlog.md",
     "docs/superpowers/specs/db-persistence-strategy.md",
     "PRODUCT.md",
