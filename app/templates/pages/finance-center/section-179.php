@@ -55,7 +55,8 @@ $benefits = [
 
             <dl class="finance-figure">
                 <dt class="finance-figure__label"><?php esc_html_e('Deduct up to', 'standard'); ?></dt>
-                <dd class="finance-figure__value">$1,220,000</dd>
+                <?php // Cap interpolates from Standard\Finance\SECTION_179_CAP — a tax-year figure reviewed annually. ?>
+                <dd class="finance-figure__value"><?php echo esc_html(\Standard\Finance\section_179_cap()); ?></dd>
                 <dd class="finance-figure__note"><?php esc_html_e('of qualifying equipment, current tax year', 'standard'); ?></dd>
             </dl>
         </div>

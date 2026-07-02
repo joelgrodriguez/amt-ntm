@@ -20,6 +20,12 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Entry prices resolve from each family's entry machine data file
+// (schema.low_price) so the answer copy can never drift from the
+// product pages.
+$roof_from   = \Standard\MachinesData\get_from_price('ssr-multipro-jr');
+$gutter_from = \Standard\MachinesData\get_from_price('mach-ii-5-gutter');
+
 $faqs = [
     [
         'question' => __('What is the difference between a roof panel machine and a gutter machine?', 'standard'),
@@ -39,7 +45,12 @@ $faqs = [
     ],
     [
         'question' => __('How much do NTM machines cost?', 'standard'),
-        'answer'   => __('Seamless gutter machines are the lower-cost entry point, starting at $9,800 for the MACH II™ 5". Roof and wall panel machines start at $44,900 for the SSR™ MultiPro Jr. and run higher for flagship multi-profile machines like the SSQ3™. NTM offers financing, including lease-to-own and seasonal plans, on both families.', 'standard'),
+        'answer'   => sprintf(
+            /* translators: 1: gutter entry price (e.g. $9,800), 2: roof entry price (e.g. $44,900) */
+            __('Seamless gutter machines are the lower-cost entry point, starting at %1$s for the MACH II™ 5". Roof and wall panel machines start at %2$s for the SSR™ MultiPro Jr. and run higher for flagship multi-profile machines like the SSQ3™. NTM offers financing, including lease-to-own and seasonal plans, on both families.', 'standard'),
+            $gutter_from,
+            $roof_from
+        ),
     ],
     [
         'question' => __('I am new to portable rollforming. Where should I start?', 'standard'),

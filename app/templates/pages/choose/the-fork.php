@@ -27,10 +27,11 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Derived in the page template from the assembled catalog; the literals are
-// a last-resort fallback only if the catalog couldn't resolve a floor.
-$roof_from   = !empty($args['roof_from']) ? $args['roof_from'] : '$44,900';
-$gutter_from = !empty($args['gutter_from']) ? $args['gutter_from'] : '$9,800';
+// Derived in the page template from the assembled catalog; the fallback
+// resolves the entry machine's data-file price (schema.low_price) so even
+// the last resort can't drift from the product pages.
+$roof_from   = !empty($args['roof_from']) ? $args['roof_from'] : \Standard\MachinesData\get_from_price('ssr-multipro-jr');
+$gutter_from = !empty($args['gutter_from']) ? $args['gutter_from'] : \Standard\MachinesData\get_from_price('mach-ii-5-gutter');
 
 $lanes = [
     [

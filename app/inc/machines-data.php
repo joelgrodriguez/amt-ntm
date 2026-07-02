@@ -172,6 +172,29 @@ function get_card_price(string $slug): string {
 }
 
 /**
+ * Get a machine's plain "from" dollar figure (e.g. "$44,900").
+ *
+ * Reads schema.low_price from the machine's data file — the numeric low
+ * end that already drives the Product JSON-LD — and formats it for prose
+ * and comparison tables. Marketing copy that quotes a starting price
+ * should call this instead of hardcoding the figure, so it can never
+ * drift from the product pages.
+ *
+ * @param string $slug Machine slug (data slug or WC slug).
+ * @return string Formatted price (e.g. "$9,800"), or '' when unresolved.
+ */
+function get_from_price(string $slug): string {
+    if (!function_exists('Standard\\MachineProductData\\get_machine_product_data')) {
+        return '';
+    }
+
+    $data = \Standard\MachineProductData\get_machine_product_data($slug);
+    $low  = $data['schema']['low_price'] ?? null;
+
+    return is_numeric($low) ? '$' . \number_format((float) $low) : '';
+}
+
+/**
  * Get all machines organized by category.
  *
  * Dormant machines (e.g. SSQ II, superseded by SSQ3) are filtered out
@@ -745,7 +768,15 @@ function get_gutter_faq_items(): array {
     return [
         [
             'question' => 'How much does a seamless gutter machine cost?',
-            'answer'   => 'NTM seamless gutter machines start at $9,800 for the MACH II 5" model, $10,500 for the MACH II 6", and $12,300 for the 5"/6" combo. The BG7 box gutter machine starts at $71,600. Flexible financing (including lease-to-own and seasonal plans) makes it easy to get started.',
+            // Prices interpolate from each machine's data file so this
+            // answer can never drift from the product pages.
+            'answer'   => sprintf(
+                'NTM seamless gutter machines start at %s for the MACH II 5" model, %s for the MACH II 6", and %s for the 5"/6" combo. The BG7 box gutter machine starts at %s. Flexible financing (including lease-to-own and seasonal plans) makes it easy to get started.',
+                get_from_price('mach-ii-5-gutter'),
+                get_from_price('mach-ii-6-gutter'),
+                get_from_price('mach-ii-combo-gutter'),
+                get_from_price('bg7-box-gutter')
+            ),
         ],
         [
             'question' => 'How long does delivery take after ordering?',

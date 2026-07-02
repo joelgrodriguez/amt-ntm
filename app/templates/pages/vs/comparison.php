@@ -22,6 +22,11 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Entry prices resolve from each family's entry machine data file
+// (schema.low_price) so this table can never drift from the product pages.
+$roof_from   = \Standard\MachinesData\get_from_price('ssr-multipro-jr');
+$gutter_from = \Standard\MachinesData\get_from_price('mach-ii-5-gutter');
+
 $columns = [
     [
         'label' => __('Roof &amp; Wall Panel', 'standard'),
@@ -66,8 +71,8 @@ $rows = [
     [
         'label'  => __('Starting price', 'standard'),
         'values' => [
-            __('$44,900', 'standard'),
-            __('$9,800', 'standard'),
+            $roof_from,
+            $gutter_from,
         ],
     ],
     [

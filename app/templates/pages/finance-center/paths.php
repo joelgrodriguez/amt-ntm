@@ -47,7 +47,11 @@ $paths = [
         'title'   => __('Deduct it with Section 179', 'standard'),
         'fit'     => __('You’re buying before year-end. Section 179 lets you write off the equipment now instead of depreciating it for years.', 'standard'),
         'points'  => [
-            __('Deduct up to $1,220,000 of qualifying equipment', 'standard'),
+            sprintf(
+                /* translators: %s: Section 179 deduction cap, e.g. $1,220,000 */
+                __('Deduct up to %s of qualifying equipment', 'standard'),
+                \Standard\Finance\section_179_cap()
+            ),
             __('Applies to purchased, financed, or leased machines', 'standard'),
         ],
         'cta'     => __('See the Section 179 math', 'standard'),
