@@ -95,7 +95,7 @@ get_header();
 
 <main id="primary">
 
-    <?php get_template_part('templates/parts/breadcrumbs'); ?>
+    <?php /* Breadcrumbs render globally from header.php now that pages are supported. */ ?>
 
     <?php /* Hero — spec sheet. Identity + meta rail + service CTA on the left,
             footprint drawing opposite on the right. Dot-grid blue-50 surface
