@@ -22,17 +22,19 @@ export function init() {
 
   let ticking = false;
 
+  function setButtonVisible(isVisible) {
+    button.classList.toggle('opacity-0', !isVisible);
+    button.classList.toggle('pointer-events-none', !isVisible);
+    button.classList.toggle('opacity-100', isVisible);
+    button.inert = !isVisible;
+  }
+
   /**
    * Update button visibility based on scroll position
    */
   function updateButton() {
-    if (window.scrollY > SCROLL_THRESHOLD) {
-      button.classList.remove('opacity-0', 'pointer-events-none');
-      button.classList.add('opacity-100');
-    } else {
-      button.classList.add('opacity-0', 'pointer-events-none');
-      button.classList.remove('opacity-100');
-    }
+    const megaMenuOpen = document.body.classList.contains('mega-open');
+    setButtonVisible(window.scrollY > SCROLL_THRESHOLD && !megaMenuOpen);
     ticking = false;
   }
 
@@ -57,10 +59,14 @@ export function init() {
     });
   }
   updateButton();
+  const bodyObserver = new MutationObserver(updateButton);
+  bodyObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
   window.addEventListener('scroll', onScroll, { passive: true });
   button.addEventListener('click', scrollToTop);
   return () => {
+    bodyObserver.disconnect();
     window.removeEventListener('scroll', onScroll);
     button.removeEventListener('click', scrollToTop);
+    button.inert = true;
   };
 }

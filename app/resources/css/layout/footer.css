@@ -1,27 +1,43 @@
 /**
  * Footer Styles
  *
- * CSS-only accordion for mobile footer navigation
+ * Native details accordion for mobile footer navigation
  * and related footer component styles.
  *
  * @file footer.css
  */
 
-/* Footer Accordion (CSS-only) */
+/* Footer Accordion */
 .footer-section {
   @apply relative;
 }
 
-.footer-accordion-toggle:checked ~ label .footer-accordion-icon svg {
+.footer-accordion > summary {
+  list-style: none;
+}
+
+.footer-accordion > summary::-webkit-details-marker {
+  display: none;
+}
+
+.footer-accordion-content {
+  @apply grid overflow-hidden max-h-0 transition-all duration-300 ease-in-out;
+}
+
+.footer-accordion[open] > summary .footer-accordion-icon svg {
   @apply rotate-180;
 }
 
-.footer-accordion-toggle:checked ~ .footer-accordion-content {
+.footer-accordion[open] > .footer-accordion-content {
   @apply max-h-96;
 }
 
 @media (min-width: 1024px) {
+  .footer-accordion > summary {
+    pointer-events: none;
+  }
+
   .footer-accordion-content {
-    @apply !max-h-none;
+    @apply !max-h-none !overflow-visible;
   }
 }

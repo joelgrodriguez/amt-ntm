@@ -22,6 +22,8 @@ $content = [
     'next_label'    => __('Next slide', 'standard'),
     'nav_label'     => __('Slide navigation', 'standard'),
     'go_to_slide'   => __('Go to slide %d', 'standard'),
+    'pause_label'   => __('Pause slide autoplay', 'standard'),
+    'play_label'    => __('Play slide autoplay', 'standard'),
 ];
 
 // Get hero slides (mix of machine-derived + arbitrary category slides)
@@ -79,17 +81,35 @@ $total_slides = count($slides);
 
     <!-- Pagination Dots + Keyboard hint -->
     <div class="hero-slider__chrome">
-        <div class="hero-slider__progress" role="tablist" aria-label="<?php echo esc_attr($content['nav_label']); ?>">
-            <?php for ($i = 0; $i < $total_slides; $i++) : ?>
-                <button
-                    type="button"
-                    class="hero-slider__segment <?php echo $i === 0 ? 'hero-slider__segment--active' : ''; ?>"
-                    aria-label="<?php echo esc_attr(sprintf($content['go_to_slide'], $i + 1)); ?>"
-                    aria-selected="<?php echo $i === 0 ? 'true' : 'false'; ?>"
-                    role="tab"
-                    data-slide="<?php echo esc_attr((string) $i); ?>"
-                ></button>
-            <?php endfor; ?>
+        <div class="hero-slider__controls">
+            <button
+                type="button"
+                class="hero-slider__pause"
+                aria-label="<?php echo esc_attr($content['pause_label']); ?>"
+                aria-pressed="false"
+                data-pause-label="<?php echo esc_attr($content['pause_label']); ?>"
+                data-play-label="<?php echo esc_attr($content['play_label']); ?>"
+            >
+                <span data-pause-icon>
+                    <?php icon('pause', ['class' => 'hero-slider__pause-icon']); ?>
+                </span>
+                <span data-play-icon hidden>
+                    <?php icon('play', ['class' => 'hero-slider__pause-icon']); ?>
+                </span>
+            </button>
+
+            <div class="hero-slider__progress" role="tablist" aria-label="<?php echo esc_attr($content['nav_label']); ?>">
+                <?php for ($i = 0; $i < $total_slides; $i++) : ?>
+                    <button
+                        type="button"
+                        class="hero-slider__segment <?php echo $i === 0 ? 'hero-slider__segment--active' : ''; ?>"
+                        aria-label="<?php echo esc_attr(sprintf($content['go_to_slide'], $i + 1)); ?>"
+                        aria-selected="<?php echo $i === 0 ? 'true' : 'false'; ?>"
+                        role="tab"
+                        data-slide="<?php echo esc_attr((string) $i); ?>"
+                    ></button>
+                <?php endfor; ?>
+            </div>
         </div>
 
     </div>

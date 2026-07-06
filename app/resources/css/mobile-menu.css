@@ -11,7 +11,7 @@
 
 .mobile-menu {
     position: fixed;
-    top: var(--header-height, 4rem);
+    top: var(--header-height);
     left: 0;
     right: 0;
     bottom: 0;
@@ -146,7 +146,11 @@ body.overflow-hidden.menu-scrim-ready::after {
 .mobile-menu__contact:hover,
 .mobile-menu__contact:focus-visible {
     background: color-mix(in srgb, var(--color-blue-500) 90%, black);
-    outline: none;
+}
+
+.mobile-menu__contact:focus-visible {
+    outline: 2px solid var(--color-white);
+    outline-offset: -4px;
 }
 
 .mobile-menu__contact-icon,
@@ -184,7 +188,11 @@ body.overflow-hidden.menu-scrim-ready::after {
 .mobile-menu__row:hover,
 .mobile-menu__row:focus-visible {
     background: var(--color-blue-50);
-    outline: none;
+}
+
+.mobile-menu__row:focus-visible {
+    outline: 2px solid var(--color-blue-500);
+    outline-offset: -2px;
 }
 
 .mobile-menu__row--secondary {
@@ -256,7 +264,11 @@ body.overflow-hidden.menu-scrim-ready::after {
 .mobile-menu__back:hover,
 .mobile-menu__back:focus-visible {
     background: var(--color-blue-100);
-    outline: none;
+}
+
+.mobile-menu__back:focus-visible {
+    outline: 2px solid var(--color-blue-500);
+    outline-offset: -2px;
 }
 
 /* Spacer keeps the title visually centered now that the L2 close button
@@ -308,7 +320,11 @@ body.overflow-hidden.menu-scrim-ready::after {
 .mobile-menu__view-all:hover,
 .mobile-menu__view-all:focus-visible {
     background: var(--color-blue-50);
-    outline: none;
+}
+
+.mobile-menu__view-all:focus-visible {
+    outline: 2px solid var(--color-blue-500);
+    outline-offset: 2px;
 }
 
 /* ── Reduced motion ───────────────────────────────────────────────────── */

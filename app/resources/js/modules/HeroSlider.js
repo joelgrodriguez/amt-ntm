@@ -36,6 +36,9 @@ export function initHeroSlider(options = {}) {
   const prevBtn = slider.querySelector('.hero-slider__nav--prev');
   const nextBtn = slider.querySelector('.hero-slider__nav--next');
   const segments = slider.querySelectorAll('.hero-slider__segment');
+  const pauseToggle = slider.querySelector('.hero-slider__pause');
+  const pauseIcon = pauseToggle?.querySelector('[data-pause-icon]');
+  const playIcon = pauseToggle?.querySelector('[data-play-icon]');
 
   if (!track || slides.length === 0) return;
 
@@ -47,14 +50,46 @@ export function initHeroSlider(options = {}) {
   let currentIndex = 0;
   let autoPlayTimer = null;
   let isPlaying = false;
+  let userPaused = false;
   let isSnapping = false;
   let touchStartX = 0;
   const controller = new AbortController();
   const { signal } = controller;
 
-  const prefersReducedMotion = window.matchMedia(
+  const reducedMotionQuery = window.matchMedia(
     '(prefers-reduced-motion: reduce)'
-  ).matches;
+  );
+  userPaused = reducedMotionQuery.matches;
+
+  function updatePauseToggle() {
+    if (!(pauseToggle instanceof HTMLElement)) return;
+
+    pauseToggle.setAttribute('aria-pressed', String(userPaused));
+    pauseToggle.setAttribute(
+      'aria-label',
+      userPaused
+        ? pauseToggle.dataset.playLabel || 'Play slide autoplay'
+        : pauseToggle.dataset.pauseLabel || 'Pause slide autoplay'
+    );
+
+    if (pauseIcon instanceof HTMLElement) {
+      pauseIcon.hidden = userPaused;
+    }
+    if (playIcon instanceof HTMLElement) {
+      playIcon.hidden = !userPaused;
+    }
+  }
+
+  function syncVideoPlayback() {
+    slider.querySelectorAll('video').forEach((video) => {
+      if (!(video instanceof HTMLVideoElement)) return;
+      if (userPaused) {
+        video.pause();
+        return;
+      }
+      video.play().catch(() => {});
+    });
+  }
 
   /**
    * Go to a specific slide. Supports the off-by-one clone position
@@ -80,6 +115,7 @@ export function initHeroSlider(options = {}) {
     slides.forEach((slide, i) => {
       slide.setAttribute('aria-hidden', String(i !== realIndex));
     });
+    syncVideoPlayback();
   }
 
   /**
@@ -113,30 +149,51 @@ export function initHeroSlider(options = {}) {
   }
 
   function startAutoPlay() {
-    if (prefersReducedMotion || isPlaying) return;
+    if (userPaused || isPlaying) {
+      updatePauseToggle();
+      syncVideoPlayback();
+      return;
+    }
 
     isPlaying = true;
     slider.classList.add('hero-slider--playing');
     autoPlayTimer = setInterval(nextSlide, config.autoPlayInterval);
+    updatePauseToggle();
+    syncVideoPlayback();
   }
 
   function stopAutoPlay() {
-    if (!isPlaying) return;
+    if (isPlaying) {
+      isPlaying = false;
+      slider.classList.remove('hero-slider--playing');
+      clearInterval(autoPlayTimer);
+      autoPlayTimer = null;
+    }
+    updatePauseToggle();
+    syncVideoPlayback();
+  }
 
-    isPlaying = false;
-    slider.classList.remove('hero-slider--playing');
-    clearInterval(autoPlayTimer);
-    autoPlayTimer = null;
+  function setUserPaused(paused) {
+    userPaused = paused;
+    if (userPaused) {
+      stopAutoPlay();
+    } else {
+      startAutoPlay();
+    }
   }
 
   function handleNavClick(direction) {
     direction === 'next' ? nextSlide() : prevSlide();
-    stopAutoPlay();
+    setUserPaused(true);
   }
 
   function handleSegmentClick(index) {
     goToSlide(index);
-    stopAutoPlay();
+    setUserPaused(true);
+  }
+
+  function handlePauseToggle() {
+    setUserPaused(!userPaused);
   }
 
   function handleTouchStart(e) {
@@ -159,7 +216,7 @@ export function initHeroSlider(options = {}) {
 
     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
       e.key === 'ArrowRight' ? nextSlide() : prevSlide();
-      stopAutoPlay();
+      setUserPaused(true);
     }
   }
 
@@ -172,6 +229,7 @@ export function initHeroSlider(options = {}) {
   function setupEventListeners() {
     prevBtn?.addEventListener('click', () => handleNavClick('prev'), { signal });
     nextBtn?.addEventListener('click', () => handleNavClick('next'), { signal });
+    pauseToggle?.addEventListener('click', handlePauseToggle, { signal });
     track.addEventListener('transitionend', handleTransitionEnd, { signal });
     segments.forEach((segment, index) => {
       segment.addEventListener('click', () => handleSegmentClick(index), { signal });
@@ -189,17 +247,18 @@ export function initHeroSlider(options = {}) {
     });
     slider.addEventListener('focusin', stopAutoPlay, { signal });
     slider.addEventListener('focusout', handleFocusOut, { signal });
+    reducedMotionQuery.addEventListener('change', (e) => {
+      if (e.matches) {
+        setUserPaused(true);
+      } else {
+        startAutoPlay();
+      }
+    }, { signal });
   }
 
   function setAriaAttributes() {
-    // role=region with a meaningful label is the honest contract for
-    // this widget. aria-roledescription="carousel" was previously set
-    // but signals to AT users "expect play/pause controls" — we have
-    // hover-pause + focus-pause + keyboard arrow nav + tablist
-    // segments, but no AT-visible Play/Pause button. Plain region
-    // matches what's actually exposed. The tablist on the segment
-    // dots already gives AT users full slide navigation.
     slider.setAttribute('role', 'region');
+    slider.setAttribute('aria-roledescription', 'carousel');
     slider.setAttribute('aria-label', 'Featured machines');
 
     slides.forEach((slide, i) => {
@@ -300,6 +359,8 @@ export function initHeroSlider(options = {}) {
   }
   setAriaAttributes();
   setupEventListeners();
+  updatePauseToggle();
+  syncVideoPlayback();
   startAutoPlay();
   observeViewport();
   if ('requestIdleCallback' in window) {

@@ -25,7 +25,7 @@
 
 /* Prevent content jump when header becomes fixed */
 body.header-is-sticky {
-  padding-top: var(--header-height, 4rem);
+  padding-top: var(--header-height);
 }
 
 body.search-modal-is-open {
@@ -125,4 +125,3 @@ body.search-modal-is-open .search-trigger--desktop::after {
     transition: opacity 0ms, transform 0ms;
   }
 }
-

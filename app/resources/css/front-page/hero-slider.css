@@ -94,6 +94,40 @@
 
 .hero-slider__chrome > * { pointer-events: auto; }
 
+.hero-slider__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hero-slider__pause {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  color: var(--color-white);
+  background-color: color-mix(in srgb, var(--color-black) 35%, transparent);
+  border: none;
+  cursor: pointer;
+  transition: background-color 200ms ease;
+}
+
+.hero-slider__pause:hover {
+  background-color: color-mix(in srgb, var(--color-black) 60%, transparent);
+}
+
+.hero-slider__pause:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 2px;
+}
+
+.hero-slider__pause-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
 .hero-slider__progress {
   display: flex;
   align-items: center;
@@ -154,6 +188,7 @@
 @media (prefers-reduced-motion: reduce) {
   .hero-slider__track,
   .hero-slider__nav,
+  .hero-slider__pause,
   .hero-slider__segment::before {
     transition: none;
   }
