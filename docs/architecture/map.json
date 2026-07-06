@@ -96,9 +96,9 @@
     {
       "path": "app",
       "purpose": "Application code and framework conventions.",
-      "fileCount": 441,
+      "fileCount": 442,
       "categories": {
-        "source": 166,
+        "source": 167,
         "other": 43,
         "config": 2,
         "route": 7,
@@ -526,13 +526,13 @@
       "path": "app/functions.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 1659
+      "size": 1684
     },
     {
       "path": "app/header.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 8928
+      "size": 8909
     },
     {
       "path": "app/home.php",
@@ -616,7 +616,7 @@
       "path": "app/inc/images.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 3474
+      "size": 3493
     },
     {
       "path": "app/inc/knowledgebase.php",
@@ -671,6 +671,12 @@
       "category": "source",
       "role": "Application source code.",
       "size": 5247
+    },
+    {
+      "path": "app/inc/mega-menu.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 2869
     },
     {
       "path": "app/inc/mobile-nav.php",
@@ -1126,7 +1132,7 @@
       "path": "app/resources/css/layout/mega-menu.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 15246
+      "size": 15417
     },
     {
       "path": "app/resources/css/layout/pagination.css",
@@ -1366,7 +1372,7 @@
       "path": "app/resources/js/modules/MegaMenu.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 14066
+      "size": 14266
     },
     {
       "path": "app/resources/js/modules/MobileMenu.js",
@@ -1696,7 +1702,7 @@
       "path": "app/templates/pages/gutter/machii-callout.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 3940
+      "size": 3937
     },
     {
       "path": "app/templates/pages/gutter/product-grid.php",
@@ -1744,7 +1750,7 @@
       "path": "app/templates/pages/machii/heritage.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 3939
+      "size": 3972
     },
     {
       "path": "app/templates/pages/machii/hero.php",
@@ -1762,7 +1768,7 @@
       "path": "app/templates/pages/machii/workflow.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 4512
+      "size": 4538
     },
     {
       "path": "app/templates/pages/machines/brand-statement.php",
@@ -1810,7 +1816,7 @@
       "path": "app/templates/pages/machines/image-break.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 730
+      "size": 749
     },
     {
       "path": "app/templates/pages/machines/learning-center.php",
@@ -1846,7 +1852,7 @@
       "path": "app/templates/pages/machines/uniq-spotlight.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 4043
+      "size": 4078
     },
     {
       "path": "app/templates/pages/machines/which-machine.php",
@@ -2056,7 +2062,7 @@
       "path": "app/templates/pages/trailer/engineering.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 6471
+      "size": 6452
     },
     {
       "path": "app/templates/pages/trailer/final-cta.php",
@@ -2074,7 +2080,7 @@
       "path": "app/templates/pages/trailer/models.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 7859
+      "size": 7840
     },
     {
       "path": "app/templates/pages/trailer/vs-traditional.php",
@@ -2188,7 +2194,7 @@
       "path": "app/templates/parts/brand-statement.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 2613
+      "size": 2642
     },
     {
       "path": "app/templates/parts/breadcrumbs.php",
@@ -2308,7 +2314,7 @@
       "path": "app/templates/parts/customer-story.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 5792
+      "size": 5821
     },
     {
       "path": "app/templates/parts/disclaimer.php",
@@ -2320,7 +2326,7 @@
       "path": "app/templates/parts/faq-accordion.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4534
+      "size": 4592
     },
     {
       "path": "app/templates/parts/filter-chips.php",
@@ -2338,7 +2344,7 @@
       "path": "app/templates/parts/final-cta.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 7211
+      "size": 7334
     },
     {
       "path": "app/templates/parts/front-page/contact.php",
@@ -2374,13 +2380,13 @@
       "path": "app/templates/parts/front-page/hero-slider.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3345
+      "size": 3058
     },
     {
       "path": "app/templates/parts/front-page/quiz.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 2717
+      "size": 2706
     },
     {
       "path": "app/templates/parts/front-page/router.php",
@@ -2398,7 +2404,7 @@
       "path": "app/templates/parts/front-page/three-step-plan.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 6445
+      "size": 6432
     },
     {
       "path": "app/templates/parts/front-page/tools.php",
@@ -2452,7 +2458,7 @@
       "path": "app/templates/parts/mega-menu.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 14332
+      "size": 14442
     },
     {
       "path": "app/templates/parts/mobile-menu-panel.php",
@@ -2524,7 +2530,7 @@
       "path": "app/templates/parts/service-hub/faq.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 2486
+      "size": 2509
     },
     {
       "path": "app/templates/parts/service-hub/machine-card.php",
@@ -2572,7 +2578,7 @@
       "path": "app/templates/parts/testimonial-slider.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 10202
+      "size": 10256
     },
     {
       "path": "app/templates/parts/value-prop-cards.php",
