@@ -97,28 +97,25 @@ $primary_new_tab = !empty($content['cta_primary_new_tab']);
                 <div class="flex flex-col gap-6">
                     <div class="relative aspect-[4/3] w-full">
                         <?php if (!empty($specialist['image_machine'])) : ?>
-                            <img
-                                src="<?php echo esc_url($specialist['image_machine']); ?>"
-                                alt=""
-                                class="hidden xl:block absolute top-0 left-0 w-2/5 aspect-square object-contain bg-white p-3"
-                                loading="lazy"
-                            >
+                            <?php \Standard\Images\responsive_image($specialist['image_machine'], '', 'product-card', [
+                                'class'   => 'hidden xl:block absolute top-0 left-0 w-2/5 aspect-square object-contain bg-white p-3',
+                                'loading' => 'lazy',
+                                'sizes'   => '(min-width: 1280px) 20vw, 1px',
+                            ]); ?>
                         <?php endif; ?>
                         <?php if (!empty($specialist['image_action'])) : ?>
-                            <img
-                                src="<?php echo esc_url($specialist['image_action']); ?>"
-                                alt=""
-                                class="hidden xl:block absolute bottom-0 right-0 w-3/5 h-3/5 object-cover"
-                                loading="lazy"
-                            >
+                            <?php \Standard\Images\responsive_image($specialist['image_action'], '', 'large', [
+                                'class'   => 'hidden xl:block absolute bottom-0 right-0 w-3/5 h-3/5 object-cover',
+                                'loading' => 'lazy',
+                                'sizes'   => '(min-width: 1280px) 30vw, 1px',
+                            ]); ?>
                         <?php endif; ?>
                         <div class="absolute inset-0 z-20 flex flex-col xl:top-[10%] xl:left-[20%] xl:inset-auto xl:w-3/5 xl:h-[85%]">
-                            <img
-                                src="<?php echo esc_url($specialist['image']); ?>"
-                                alt="<?php echo esc_attr($specialist['name']); ?>"
-                                class="w-full flex-1 object-cover"
-                                loading="lazy"
-                            >
+                            <?php \Standard\Images\responsive_image($specialist['image'], $specialist['name'], 'large', [
+                                'class'   => 'w-full flex-1 object-cover',
+                                'loading' => 'lazy',
+                                'sizes'   => '(min-width: 1280px) 30vw, 100vw',
+                            ]); ?>
                             <div class="bg-blue-800 px-4 py-3">
                                 <p class="text-xs uppercase tracking-wider text-blue-500 font-medium">
                                     <?php esc_html_e('Book a call with', 'standard'); ?>

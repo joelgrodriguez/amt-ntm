@@ -40,12 +40,11 @@ if ($title === '' || $text === '') {
         <div class="container">
             <div class="grid gap-10 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-center">
                 <div>
-                    <img
-                        src="<?php echo esc_url($image); ?>"
-                        alt="<?php echo esc_attr($image_alt); ?>"
-                        class="w-full aspect-video object-cover"
-                        loading="lazy"
-                    >
+                    <?php \Standard\Images\responsive_image($image, $image_alt, 'large', [
+                        'class'   => 'w-full aspect-video object-cover',
+                        'loading' => 'lazy',
+                        'sizes'   => '(min-width: 768px) 50vw, 100vw',
+                    ]); ?>
                 </div>
                 <div class="grid gap-6">
                     <div class="section-divider"></div>

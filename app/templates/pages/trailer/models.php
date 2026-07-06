@@ -96,13 +96,11 @@ $models = [
                     </div>
 
                     <div class="aspect-[16/10] overflow-hidden border border-blue-700 bg-blue-50" data-reveal="image">
-                        <img
-                            src="<?php echo esc_url($model['image']); ?>"
-                            alt="<?php echo esc_attr($model['image_alt']); ?>"
-                            loading="lazy"
-                            decoding="async"
-                            class="w-full h-full object-contain"
-                        >
+                        <?php \Standard\Images\responsive_image($model['image'], $model['image_alt'], 'large', [
+                            'class'   => 'w-full h-full object-contain',
+                            'loading' => 'lazy',
+                            'sizes'   => '(min-width: 1024px) 50vw, 100vw',
+                        ]); ?>
                     </div>
 
                     <h3 class="font-sans font-medium text-2xl text-white leading-tight">

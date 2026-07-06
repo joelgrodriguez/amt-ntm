@@ -57,12 +57,11 @@ $render_media = function () use ($content, $stats, $featured_image_id) :void {
                         'loading' => 'lazy',
                     ]); ?>
                 <?php else : ?>
-                    <img
-                        src="<?php echo esc_url($content['image']); ?>"
-                        alt="<?php echo esc_attr($alt); ?>"
-                        class="w-full aspect-video object-cover"
-                        loading="lazy"
-                    >
+                    <?php \Standard\Images\responsive_image($content['image'], $alt, 'large', [
+                        'class'   => 'w-full aspect-video object-cover',
+                        'loading' => 'lazy',
+                        'sizes'   => '(min-width: 768px) 50vw, 100vw',
+                    ]); ?>
                 <?php endif; ?>
             </div>
         <?php endif; ?>

@@ -54,13 +54,11 @@ $content = [
             <!-- Image column (left) -->
             <div class="lg:order-1">
                 <div class="aspect-video overflow-hidden" data-reveal="image">
-                    <img
-                        src="<?php echo esc_url($content['image']); ?>"
-                        alt="<?php echo esc_attr($content['image_alt']); ?>"
-                        loading="lazy"
-                        decoding="async"
-                        class="w-full h-full object-cover block"
-                    >
+                    <?php \Standard\Images\responsive_image($content['image'], $content['image_alt'], 'large', [
+                        'class'   => 'w-full h-full object-cover block',
+                        'loading' => 'lazy',
+                        'sizes'   => '(min-width: 1024px) 50vw, 100vw',
+                    ]); ?>
                 </div>
             </div>
 

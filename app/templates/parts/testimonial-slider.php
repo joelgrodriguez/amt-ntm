@@ -88,7 +88,11 @@ $total      = count($testimonials);
             aria-label="<?php echo esc_attr($content['sr_title']); ?>"
         >
             <?php foreach ($testimonials as $index => $testimonial) : ?>
-                <?php $is_active = $index === 0; ?>
+                <?php
+                $is_active   = $index === 0;
+                $portrait_150 = $cdn . '/' . $testimonial['slug'] . '-150x150.png';
+                $portrait_300 = $cdn . '/' . $testimonial['slug'] . '-300x300.png';
+                ?>
                 <blockquote
                     class="social-proof__slide [grid-area:1/1] grid gap-8 p-6 md:p-10 lg:p-12 md:grid-cols-[140px_1fr] md:gap-12 md:items-start transition-opacity duration-200 ease-out <?php echo $is_active ? 'opacity-100' : 'opacity-0 pointer-events-none'; ?>"
                     data-index="<?php echo esc_attr((string) $index); ?>"
@@ -96,19 +100,16 @@ $total      = count($testimonials);
                     aria-label="<?php echo esc_attr(sprintf(__('%1$d of %2$d', 'standard'), $index + 1, $total)); ?>"
                     <?php echo $is_active ? '' : 'aria-hidden="true"'; ?>
                 >
-                    <img
-                        src="<?php echo esc_url($cdn . '/' . $testimonial['slug'] . '-150x150.png'); ?>"
-                        srcset="<?php echo esc_url($cdn . '/' . $testimonial['slug'] . '-150x150.png'); ?> 150w, <?php echo esc_url($cdn . '/' . $testimonial['slug'] . '-300x300.png'); ?> 300w"
-                        sizes="(min-width: 768px) 140px, 120px"
-                        alt=""
-                        role="presentation"
-                        width="140"
-                        height="140"
-                        class="w-28 h-28 md:w-[140px] md:h-[140px] object-cover mx-auto md:mx-0"
-                        loading="<?php echo $is_active ? 'eager' : 'lazy'; ?>"
-                        <?php echo $is_active ? '' : 'fetchpriority="low"'; ?>
-                        decoding="async"
-                    />
+                    <?php \Standard\Images\responsive_image($portrait_150, '', 'thumbnail', [
+                        'srcset'        => $portrait_150 . ' 150w, ' . $portrait_300 . ' 300w',
+                        'sizes'         => '(min-width: 768px) 140px, 120px',
+                        'role'          => 'presentation',
+                        'width'         => '140',
+                        'height'        => '140',
+                        'class'         => 'w-28 h-28 md:w-[140px] md:h-[140px] object-cover mx-auto md:mx-0',
+                        'loading'       => $is_active ? 'eager' : 'lazy',
+                        'fetchpriority' => $is_active ? '' : 'low',
+                    ]); ?>
 
                     <div class="grid gap-6 content-start text-center md:text-left">
                         <p class="font-sans font-medium text-blue-900 text-xl leading-snug md:text-2xl">

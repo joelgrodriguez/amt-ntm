@@ -41,12 +41,11 @@ $features = get_uniq_features();
     <div class="container grid gap-12 lg:gap-16">
         <div class="grid gap-12 md:grid-cols-2 md:gap-12 lg:gap-16 md:items-center">
             <div class="grid gap-3">
-                <img
-                    src="<?php echo esc_url($content['image']); ?>"
-                    alt="<?php echo esc_attr__('UNIQ Automatic Control System touchscreen', 'standard'); ?>"
-                    class="w-full h-auto"
-                    loading="lazy"
-                >
+                <?php \Standard\Images\responsive_image($content['image'], __('UNIQ Automatic Control System touchscreen', 'standard'), 'large', [
+                    'class'   => 'w-full h-auto',
+                    'loading' => 'lazy',
+                    'sizes'   => '(min-width: 768px) 50vw, 100vw',
+                ]); ?>
                 <p class="text-sm font-mono uppercase tracking-wider text-blue-500">
                     <?php echo esc_html($content['availability']); ?>
                 </p>

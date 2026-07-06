@@ -93,21 +93,19 @@ $faq_schema = [
             </div>
             <?php if ($is_fill) : ?>
                 <div class="hidden md:block md:h-full md:min-h-0 md:overflow-hidden">
-                    <img
-                        src="<?php echo esc_url($content['image']); ?>"
-                        alt="<?php echo esc_attr($image_alt); ?>"
-                        class="w-full h-full object-cover"
-                        loading="lazy"
-                    >
+                    <?php \Standard\Images\responsive_image($content['image'], $image_alt, 'large', [
+                        'class'   => 'w-full h-full object-cover',
+                        'loading' => 'lazy',
+                        'sizes'   => '(min-width: 768px) 50vw, 100vw',
+                    ]); ?>
                 </div>
             <?php else : ?>
                 <div class="hidden md:block md:sticky md:top-24">
-                    <img
-                        src="<?php echo esc_url($content['image']); ?>"
-                        alt="<?php echo esc_attr($image_alt); ?>"
-                        class="w-full h-auto object-cover aspect-video"
-                        loading="lazy"
-                    >
+                    <?php \Standard\Images\responsive_image($content['image'], $image_alt, 'large', [
+                        'class'   => 'w-full h-auto object-cover aspect-video',
+                        'loading' => 'lazy',
+                        'sizes'   => '(min-width: 768px) 50vw, 100vw',
+                    ]); ?>
                 </div>
             <?php endif; ?>
 

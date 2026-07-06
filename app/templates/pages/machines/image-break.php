@@ -22,10 +22,9 @@ $content = [
 ?>
 
 <section class="relative" aria-label="<?php echo esc_attr($content['alt']); ?>">
-    <img
-        src="<?php echo esc_url($content['image']); ?>"
-        alt="<?php echo esc_attr($content['alt']); ?>"
-        class="w-full h-64 md:h-80 lg:h-96 object-cover"
-        loading="lazy"
-    >
+    <?php \Standard\Images\responsive_image($content['image'], $content['alt'], 'full', [
+        'class'   => 'w-full h-64 md:h-80 lg:h-96 object-cover',
+        'loading' => 'lazy',
+        'sizes'   => '100vw',
+    ]); ?>
 </section>
