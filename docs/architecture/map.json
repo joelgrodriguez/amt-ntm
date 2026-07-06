@@ -3,7 +3,7 @@
   "generatedBy": "shogun map",
   "project": {
     "name": "standard-press",
-    "root": "amt-ntm"
+    "root": "72-mega-menu-a11y-fragment-cache"
   },
   "stack": {
     "languages": [
@@ -73,32 +73,21 @@
       },
       "keyFiles": [
         ".distignore",
+        ".git",
         ".gitattributes",
         ".gitignore",
         "CLAUDE.md",
         "DESIGN.md",
         "package-lock.json",
-        "package.json",
-        "paseo.json"
-      ]
-    },
-    {
-      "path": ".conductor",
-      "purpose": "Project area.",
-      "fileCount": 1,
-      "categories": {
-        "other": 1
-      },
-      "keyFiles": [
-        ".conductor/settings.local.toml"
+        "package.json"
       ]
     },
     {
       "path": "app",
       "purpose": "Application code and framework conventions.",
-      "fileCount": 441,
+      "fileCount": 442,
       "categories": {
-        "source": 166,
+        "source": 167,
         "other": 43,
         "config": 2,
         "route": 7,
@@ -131,9 +120,9 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 85,
+      "fileCount": 81,
       "categories": {
-        "docs": 85
+        "docs": 81
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
@@ -149,36 +138,36 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 38,
+      "fileCount": 25,
       "categories": {
         "source": 6,
-        "other": 30,
+        "other": 17,
         "docs": 2
       },
       "keyFiles": [
         "scripts/content/export-copy.php",
         "scripts/content/export-xlsx.php",
         "scripts/content/exports/.gitkeep",
-        "scripts/content/exports/copy-review-about.csv",
-        "scripts/content/exports/copy-review-all.csv",
-        "scripts/content/exports/copy-review-choose.csv",
-        "scripts/content/exports/copy-review-finance.csv",
-        "scripts/content/exports/copy-review-gutter.csv"
+        "scripts/content/extract.php",
+        "scripts/content/manifest.php",
+        "scripts/content/README.md",
+        "scripts/db/000-template.sh.example",
+        "scripts/db/010-strip-hardcoded-buttons-from-machine-excerpts.sh"
       ]
     }
   ],
   "files": [
     {
-      "path": ".conductor/settings.local.toml",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 107
-    },
-    {
       "path": ".distignore",
       "category": "other",
       "role": "Repository file.",
       "size": 607
+    },
+    {
+      "path": ".git",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 134
     },
     {
       "path": ".gitattributes",
@@ -526,13 +515,13 @@
       "path": "app/functions.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 1659
+      "size": 1684
     },
     {
       "path": "app/header.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 8928
+      "size": 8909
     },
     {
       "path": "app/home.php",
@@ -671,6 +660,12 @@
       "category": "source",
       "role": "Application source code.",
       "size": 5247
+    },
+    {
+      "path": "app/inc/mega-menu.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 2869
     },
     {
       "path": "app/inc/mobile-nav.php",
@@ -1126,7 +1121,7 @@
       "path": "app/resources/css/layout/mega-menu.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 15246
+      "size": 15417
     },
     {
       "path": "app/resources/css/layout/pagination.css",
@@ -1366,7 +1361,7 @@
       "path": "app/resources/js/modules/MegaMenu.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 14066
+      "size": 14266
     },
     {
       "path": "app/resources/js/modules/MobileMenu.js",
@@ -2452,7 +2447,7 @@
       "path": "app/templates/parts/mega-menu.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 14332
+      "size": 14442
     },
     {
       "path": "app/templates/parts/mobile-menu-panel.php",
@@ -2911,12 +2906,6 @@
       "size": 31207
     },
     {
-      "path": "docs/feedback/e_sola/NTM Site New Nav & Info Arch Working Session.docx",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 4694612
-    },
-    {
       "path": "docs/feedback/README.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
@@ -3343,24 +3332,6 @@
       "size": 408
     },
     {
-      "path": "docs/superpowers/specs/2026-06-16-service-hub-knowledgebase-design.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 9142
-    },
-    {
-      "path": "docs/superpowers/specs/2026-06-16-service-search-results-page-design.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 7500
-    },
-    {
-      "path": "docs/superpowers/specs/2026-06-16-ssq3-machii-template-polish-design.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 7758
-    },
-    {
       "path": "docs/superpowers/specs/data-normalization-backlog.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
@@ -3383,12 +3354,6 @@
       "category": "manifest",
       "role": "Project manifest or dependency declaration.",
       "size": 561
-    },
-    {
-      "path": "paseo.json",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 3
     },
     {
       "path": "PRODUCT.md",
@@ -3419,84 +3384,6 @@
       "category": "other",
       "role": "Repository file.",
       "size": 0
-    },
-    {
-      "path": "scripts/content/exports/copy-review-about.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 11280
-    },
-    {
-      "path": "scripts/content/exports/copy-review-all.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 118433
-    },
-    {
-      "path": "scripts/content/exports/copy-review-choose.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 7140
-    },
-    {
-      "path": "scripts/content/exports/copy-review-finance.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 12033
-    },
-    {
-      "path": "scripts/content/exports/copy-review-gutter.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 10015
-    },
-    {
-      "path": "scripts/content/exports/copy-review-home.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 15521
-    },
-    {
-      "path": "scripts/content/exports/copy-review-machines.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 14670
-    },
-    {
-      "path": "scripts/content/exports/copy-review-roof-wall.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 10728
-    },
-    {
-      "path": "scripts/content/exports/copy-review-safety.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 5403
-    },
-    {
-      "path": "scripts/content/exports/copy-review-start-here.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 13738
-    },
-    {
-      "path": "scripts/content/exports/copy-review-trailer.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 10882
-    },
-    {
-      "path": "scripts/content/exports/copy-review-uniq.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 7563
-    },
-    {
-      "path": "scripts/content/exports/copy-review.xlsx",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 160368
     },
     {
       "path": "scripts/content/extract.php",
@@ -3663,7 +3550,6 @@
     "docs/feedback/2026-06-09-web-images-review-alex-actions.html",
     "docs/feedback/2026-06-09-web-images-review.md",
     "docs/feedback/2026-06-17-stakeholder-review.md",
-    "docs/feedback/e_sola/NTM Site New Nav & Info Arch Working Session.docx",
     "docs/feedback/README.md",
     "docs/handoff/01-context.md",
     "docs/handoff/02-the-change.md",
@@ -3735,9 +3621,6 @@
     "docs/specs/templates.md",
     "docs/specs/trailer.md",
     "docs/specs/woo.md",
-    "docs/superpowers/specs/2026-06-16-service-hub-knowledgebase-design.md",
-    "docs/superpowers/specs/2026-06-16-service-search-results-page-design.md",
-    "docs/superpowers/specs/2026-06-16-ssq3-machii-template-polish-design.md",
     "docs/superpowers/specs/data-normalization-backlog.md",
     "docs/superpowers/specs/db-persistence-strategy.md",
     "PRODUCT.md",
