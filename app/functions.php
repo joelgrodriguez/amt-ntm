@@ -38,6 +38,7 @@ $theme_includes = [
     'inc/content-taxonomy.php',
     'inc/breadcrumbs.php',
     'inc/related-posts.php',
+    'inc/mega-menu.php',
     'inc/knowledgebase.php',
     'inc/service-hub.php',
     'inc/woo/setup.php',

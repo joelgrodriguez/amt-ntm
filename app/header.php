@@ -168,7 +168,7 @@ if (!defined('ABSPATH')) {
 <?php get_template_part('templates/parts/breadcrumbs'); ?>
 
 <!-- Mega menu panels (desktop) -->
-<?php get_template_part('templates/parts/mega-menu'); ?>
+<?php \Standard\MegaMenu\render(); ?>
 
 <!-- Mobile menu (full width, below header) -->
 <?php get_template_part('templates/parts/mobile-menu'); ?>
