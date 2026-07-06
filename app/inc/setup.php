@@ -1,6 +1,6 @@
 <?php
 /**
- * Theme setup: theme supports, menus, content width.
+ * Theme setup: theme supports and content width.
  *
  * @package Standard
  */
@@ -29,21 +29,14 @@ function theme_setup(): void {
     add_theme_support('wp-block-styles');
     add_theme_support('html5', [
         'search-form',
-        'comment-form',
-        'comment-list',
         'gallery',
         'caption',
         'style',
         'script',
     ]);
-    add_theme_support('customize-selective-refresh-widgets');
     add_theme_support('responsive-embeds');
     add_theme_support('editor-styles');
     add_editor_style(get_editor_style_url());
-    register_nav_menus([
-        'primary' => __('Primary Menu', 'standard'),
-        'footer'  => __('Footer Menu', 'standard'),
-    ]);
     if (!isset($GLOBALS['content_width'])) {
         $GLOBALS['content_width'] = 1440;
     }

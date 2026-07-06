@@ -1,3 +1,6 @@
+# Tailwind @source scans this file so classes emitted only from database content
+# can still generate utilities. It does not define or preserve WordPress block
+# styles; those live in app/resources/css/utilities.css and WordPress core CSS.
 alignfull
 alignwide
 alignnone

@@ -12,7 +12,7 @@ namespace Standard;
 if (!defined('ABSPATH')) {
     exit;
 }
-define('THEME_VERSION', '1.0.0');
+define('THEME_VERSION', '1.1.0');
 define('THEME_DIR', get_template_directory());
 define('THEME_URI', get_template_directory_uri());
 
@@ -27,7 +27,6 @@ $theme_includes = [
     'inc/filters.php',
     'inc/mobile-nav.php',
     'inc/desktop-nav.php',
-    'inc/sidebars.php',
     'inc/fonts.php',
     'inc/cleanup.php',
     'inc/icons.php',
@@ -63,7 +62,6 @@ $theme_includes = [
     'inc/pdf-attachment.php',
     'inc/footprints.php',
     'inc/walkers/class-pagination.php',
-    'inc/walkers/class-primary-nav-walker.php',
 ];
 
 foreach ($theme_includes as $file) {

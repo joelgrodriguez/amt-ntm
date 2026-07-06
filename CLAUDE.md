@@ -264,12 +264,15 @@ Vite integration:
 
 CSS architecture:
 
-- `app/resources/css/theme.css`: design tokens via `@theme`
+- `app/theme.json`: design token source, compiled by `vite-plugin-theme-json.js` to `app/resources/css/tokens.css`
 - `app/resources/css/base.css`: base element styles
-- `app/resources/css/components.css`: reusable component classes
+- `app/resources/css/components/`: reusable component styles
+- `app/resources/css/layout/`: shared layout styles
+- `app/resources/css/pages/`: page-specific styles
+- `app/resources/css/woo/`: WooCommerce and machine-product styles
 - `app/resources/css/utilities.css`: custom utility classes
 - `app/resources/css/animations.css`: animation definitions
-- `app/safelist.txt`: WordPress block classes preserved in production builds
+- `app/safelist.txt`: extra Tailwind `@source` scan input for database-emitted class names; it does not preserve WordPress core block classes, which live in `utilities.css` and core styles
 
 **CSS authoring rule: Tailwind-first.** Use Tailwind utility classes directly in PHP/HTML templates. Only reach for custom CSS when Tailwind cannot express the style — complex selectors (`:nth-child` stagger delays, `.is-open .parent .child`), pseudo-element tricks (`::after` scrims), or JS-toggled state classes (`.is-closing`, `.is-open`). Never write a custom class just to wrap a single utility.
 
@@ -280,11 +283,11 @@ All PHP uses `declare(strict_types=1)` and the `Standard` namespace.
 Includes loaded by `app/functions.php`:
 
 - `app/inc/vite.php`: Vite integration
-- `app/inc/setup.php`: theme supports and nav menus
-- `app/inc/sidebars.php`: widget areas
+- `app/inc/setup.php`: theme supports
+- `app/inc/desktop-nav.php` and `app/inc/mobile-nav.php`: hardcoded PHP navigation data; nav menus are not registered
 - `app/inc/fonts.php`: Bunny Fonts
 - `app/inc/icons.php`: SVG icon loader with caching
-- `app/inc/walkers/`: custom nav menu walkers
+- `app/inc/walkers/class-pagination.php`: pagination renderer
 
 Template hierarchy:
 
@@ -295,7 +298,12 @@ Template hierarchy:
 
 Located in `app/resources/js/modules/`:
 
+- About 20 focused modules initialize front-end behaviors.
+- Examples include:
 - `MobileMenu.js`: full-width mobile menu with header state management
+- `MegaMenu.js`: desktop mega-menu interactions
+- `SearchModal.js`: site search modal
+- `HeroSlider.js`: front-page hero slider
 - `ScrollReveal.js`: scroll-based reveal animations
 
 ### Icons
@@ -309,7 +317,7 @@ SVG icons live in `app/assets/icons/`. Use the `icon()` helper in templates:
 ## Development Notes
 
 - Theme requires PHP 8.0+ and WordPress 6.0+.
-- Nav menus: `primary`, `mobile`, `footer`.
+- Navigation is hardcoded PHP data in `app/inc/desktop-nav.php` and `app/inc/mobile-nav.php`; WordPress nav menus are not registered.
 - The Vite dev server URL is auto-detected.
 - SEO plugin dependency: Yoast is expected on prod for full titles/meta/social
   tags and the Organization/WebSite schema graph. When no SEO plugin is active,
