@@ -7,6 +7,9 @@
 
 @import "tailwindcss";
 
+/* Self-hosted font faces */
+@import "./fonts.css";
+
 /* Design tokens from theme.json */
 @import "./tokens.css";
 

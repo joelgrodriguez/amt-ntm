@@ -27,6 +27,7 @@ const DEV_SERVER_FILE = resolve(__dirname, 'app/.vite-dev-server');
 
 export default defineConfig(({ command }) => {
   return {
+    base: './',
     plugins: [
       themeJsonToCss({ themeJsonPath: './app/theme.json' }),
       tailwindcss(),
@@ -58,6 +59,7 @@ export default defineConfig(({ command }) => {
     ],
 
     build: {
+      assetsInlineLimit: 0,
       outDir: 'app/dist',
       emptyOutDir: true,
       manifest: true,

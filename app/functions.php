@@ -29,6 +29,7 @@ $theme_includes = [
     'inc/desktop-nav.php',
     'inc/sidebars.php',
     'inc/fonts.php',
+    'inc/cleanup.php',
     'inc/icons.php',
     'inc/images.php',
     'inc/grid.php',
