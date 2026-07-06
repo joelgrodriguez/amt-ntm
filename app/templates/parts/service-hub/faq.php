@@ -6,8 +6,6 @@
  * common stuff is answered without opening a ticket. Delegates to the shared
  * faq-accordion part, which also emits FAQPage JSON-LD for AEO.
  *
- * Curated from the service team's top-asked owner questions.
- *
  * @package Standard
  *
  * @usage Service Hub (template-service-hub.php)
@@ -21,24 +19,20 @@ if (!defined('ABSPATH')) {
 
 $faqs = [
     [
-        'question' => __('Where do I find the manual for my machine?', 'standard'),
-        'answer'   => __('Pick your machine from the directory below to jump to its manuals, troubleshooting articles, and videos. Or filter the search results on this page for "Manuals".', 'standard'),
+        'question' => __('How do I open a service request?', 'standard'),
+        'answer'   => __('Use the "Open a service request" button on this page or visit /service-hub/request/. Include your machine and serial number if you have them.', 'standard'),
     ],
     [
-        'question' => __('What should I do before calling support?', 'standard'),
-        'answer'   => __('Search the service content library first—most fixes are already documented. Have your machine model and serial number ready. The more detail you can share, the faster we can help.', 'standard'),
+        'question' => __('Where do I find the manual for my machine?', 'standard'),
+        'answer'   => __('Pick your machine from the directory on this page. Each machine opens its manuals, troubleshooting, and videos. Or filter the search results for Manuals.', 'standard'),
     ],
     [
         'question' => __('How do I update my UNIQ control system?', 'standard'),
-        'answer'   => __('Use the UNIQ Automatic Control System section below for the latest firmware and step-by-step update instructions. The same resources appear on SSQ II, SSQ3, and WAV machine pages.', 'standard'),
+        'answer'   => __('See the UNIQ Automatic Control System section below for field-update instructions and the supplement manual. The full UNIQ control system page has the video library.', 'standard'),
     ],
     [
-        'question' => __('How do I open a service request?', 'standard'),
-        'answer'   => __('Use the "Open a service request" button on this page or visit /service-hub/request/. Include your machine model, serial number, and a clear description of the issue—photos or video help the team diagnose faster.', 'standard'),
-    ],
-    [
-        'question' => __('How often does my machine need to be serviced?', 'standard'),
-        'answer'   => __('Refer to the maintenance section in your machine manual for daily, weekly, monthly, and yearly schedules. The Learning Center also has checklists and how-to videos.', 'standard'),
+        'question' => __('What should I do before calling support?', 'standard'),
+        'answer'   => __('Check the Service Hub and FAQ first. Most questions are already answered in the Service Hub and our FAQ. Search the knowledge base for manuals, articles, and videos.', 'standard'),
     ],
 ];
 
