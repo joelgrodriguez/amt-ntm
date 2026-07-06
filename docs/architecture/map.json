@@ -96,24 +96,24 @@
     {
       "path": "app",
       "purpose": "Application code and framework conventions.",
-      "fileCount": 441,
+      "fileCount": 442,
       "categories": {
+        "other": 44,
         "source": 166,
-        "other": 43,
         "config": 2,
         "route": 7,
         "test": 1,
         "template": 222
       },
       "keyFiles": [
+        "app/.vite-dev-server",
         "app/404.php",
         "app/archive.php",
         "app/assets/blueprints/.gitkeep",
         "app/assets/icons/alert-triangle.svg",
         "app/assets/icons/arrow-down.svg",
         "app/assets/icons/arrow-left.svg",
-        "app/assets/icons/arrow-right.svg",
-        "app/assets/icons/arrow-up.svg"
+        "app/assets/icons/arrow-right.svg"
       ]
     },
     {
@@ -191,6 +191,12 @@
       "category": "other",
       "role": "Repository file.",
       "size": 1410
+    },
+    {
+      "path": "app/.vite-dev-server",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 25
     },
     {
       "path": "app/404.php",
@@ -2842,7 +2848,7 @@
       "path": "CLAUDE.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 19962
+      "size": 27591
     },
     {
       "path": "db/imports/ntmservice-service-articles.json",
@@ -3646,7 +3652,7 @@
       "path": "vite.config.js",
       "category": "config",
       "role": "Project configuration.",
-      "size": 2838
+      "size": 3150
     }
   ],
   "tests": [

@@ -18,20 +18,77 @@ are verified against the installed CLIs (`--help`, 2026-07). Bypass/auto-approve
 is on everywhere by design — worktree isolation is the safety net, not per-call
 prompts. Effort values are tunable defaults; edit them in the table below.
 
+**The three-seat model (Joel's override, 2026-07).** Coding work runs on a
+fixed cast:
+- **Brain / orchestrator / planner → Claude Fable 5 (high).** Fable is the one
+  that *thinks*: analyzes the codebase, plans, decides, and dispatches. It holds
+  the mission; it doesn't grep files itself. Fable is the **premium seat** —
+  the smartest and best coder, chosen for quality, not thrift. The reason it
+  delegates reading (Composer) and writing (Codex) is to spend its expensive
+  reasoning on judgment, not on grinding through files.
+- **Executor / code writer → GPT-5.5 (xhigh) via Codex.** When code actually
+  gets written, Codex writes it. (Replaces Composer as the implementer.)
+- **Reader / scout → Composer 2.5.** Composer reads the codebase and reports
+  findings *back to Fable*, who orchestrates. Reader by default; it still writes
+  code when Joel explicitly routes a write task to it.
+
+So "inspect this codebase" → Fable directs, Composer reads and reports, Fable
+analyzes and decides, Codex executes any resulting changes. Fable is the brain
+of the whole loop.
+
+**The stack has three layers — the conductor is above Fable.**
+```
+YOU (English)
+  └─ Conductor: Claude Opus 4.8 xhigh   ← the session Joel sits in
+       └─ dispatches → Fable (brain)     ← Orca terminal, per project/worktree
+            ├─ Composer (reads/scouts)
+            └─ Codex (writes code)
+```
+Joel talks to the **conductor** (Opus xhigh), not to Fable. The conductor
+interprets English, routes, and drives Orca/Shogun. It dispatches **Fable as a
+worker brain** into an Orca terminal; Fable runs its own crew (Composer reads,
+Codex writes) and reports back up.
+
+**Backup when Fable runs dry → the CONDUCTOR respawns as Opus. Fable cannot
+rescue itself.** A dead/credit-exhausted Fable terminal has no way to call
+`orca terminal create` or summon a replacement — it just errors and sits. So the
+parachute is **conductor-owned supervision**, not a model feature on Fable:
+- The conductor **watches** the Fable terminal (this is exactly what the
+  `escalate` skill does — poll the terminal, detect stalled/errored/credit-wall).
+- On a credit error, the conductor spins a **new** terminal with Opus and
+  re-dispatches the same task:
+  `orca terminal create --worktree <same selector> --command "claude --model opus --effort xhigh --dangerously-skip-permissions"`.
+- Fable never knows; the layer above it did the swap.
+
+`--fallback-model opus` (Claude's in-process flag) is a **red herring here**: it
+only works in headless `--print` mode and swaps *within one process* — it cannot
+drive Orca or respawn a watchable terminal. Use it only for headless dispatched
+work where no live terminal is needed. For the normal watch-a-terminal workflow,
+fallback = conductor notices + respawns.
+
+Not an "ultracode" effort — the installed `claude` CLI (v2.1) accepts only
+`low|medium|high|xhigh|max`; there is no `ultracode` effort flag, so both the
+conductor and the parachute run at `xhigh` (dial to `max` only if depth can't be
+compromised). If a future Claude Code build exposes `ultracode` as a real
+`--effort` value, wire it in then.
+
 ## The routing table
 
 | Work type | Agent | Launch command |
 |---|---|---|
-| Docs / long-form / naming / brand voice | Claude Opus | `claude --model opus --effort high --dangerously-skip-permissions` |
-| UI/UX design / API design | Claude Opus | `claude --model opus --effort high --dangerously-skip-permissions` |
+| Docs / knowledgebase / READMEs / guides / changelog / PR / ADR | **`docs-writer` agent** (Claude Opus) | `claude --agent docs-writer --model opus --effort xhigh --dangerously-skip-permissions` |
+| Naming / brand voice / long-form | Claude Opus | `claude --model opus --effort xhigh --dangerously-skip-permissions` |
+| UI/UX design / API design | Claude Opus | `claude --model opus --effort xhigh --dangerously-skip-permissions` |
 | Marketing / CTA / ad copy / conversion / social | Grok Build | `grok -m grok-build` |
 | Research — gather / web / current / social / market | Grok Build | `grok -m grok-build` |
-| Research → written report / brief | Claude Opus | `claude --model opus --effort high --dangerously-skip-permissions` |
+| Research → written report / brief | Claude Opus | `claude --model opus --effort xhigh --dangerously-skip-permissions` |
+| **Orchestration / planning / analysis (the brain)** | **Claude Fable 5 high** | `claude --model fable --effort high --dangerously-skip-permissions` |
 | Architecture / hard reasoning / plan a thorny change | Codex **xhigh** | `codex -m gpt-5.5 -c model_reasoning_effort=xhigh --dangerously-bypass-approvals-and-sandbox` |
-| Clean-spec implementation (bulk coding) | Grok Composer 2.5 | `grok -m grok-composer-2.5-fast` |
+| **Implementation / code writing (executor)** | **GPT-5.5 xhigh** | `codex -m gpt-5.5 -c model_reasoning_effort=xhigh --dangerously-bypass-approvals-and-sandbox` |
+| **Codebase reading / scouting → report to the brain** | Composer 2.5 (reader) | `grok -m grok-composer-2.5-fast` |
 | Debugging / investigation / root-cause | Codex **xhigh** | `codex -m gpt-5.5 -c model_reasoning_effort=xhigh --dangerously-bypass-approvals-and-sandbox` |
-| Verification — cheap/bulk (build passes? tests green?) | GLM 5.2 (OpenCode) | `opencode -m zhipuai-coding-plan/glm-5.2 --variant high` |
-| Verification — taste (does this UI/copy read well?) | Claude Opus | `claude --model opus --effort high --dangerously-skip-permissions` |
+| Verification — cheap/bulk (build passes? tests green?) | GLM 5.2 (OpenCode) | `opencode run -m zhipuai-coding-plan/glm-5.2 "<prompt>"` |
+| Verification — taste (does this UI/copy read well?) | Claude Opus | `claude --model opus --effort xhigh --dangerously-skip-permissions` |
 | **Review** — adversarial second opinion on finished work | **A DIFFERENT model than the author** (see Quality patterns) | reviewer-dependent |
 | **Security audit** — hunt exploits, rate by real exploitability | Codex **xhigh** | `codex -m gpt-5.5 -c model_reasoning_effort=xhigh --dangerously-bypass-approvals-and-sandbox` |
 | **Plan** — draft a plan for a thorny change | Codex **xhigh** | `codex -m gpt-5.5 -c model_reasoning_effort=xhigh --dangerously-bypass-approvals-and-sandbox` |
@@ -41,10 +98,39 @@ prompts. Effort values are tunable defaults; edit them in the table below.
   premium reasoning tier** — use it for architecture, hard reasoning, and
   debugging (Codex xhigh is worth the tokens; the "furnace" concern is about
   Claude/Fable xhigh, NOT Codex). Bulk/execution work stays at high or lower.
-- Claude: `--effort <low|medium|high>`. Avoid pushing Claude/Fable to its
-  highest tier for routine work — diminishing returns for the token cost.
-- OpenCode/GLM: `--variant high`.
+- Claude: `--effort <low|medium|high|xhigh>`. **Opus defaults to `xhigh`** by
+  Joel's override (2026-07). Note: this overrides the general "Claude/Fable
+  xhigh is a furnace / diminishing returns" caution — his call, his tokens. Dial
+  a specific call down to `high` only if xhigh is visibly overkill for it.
+- OpenCode/GLM: verify runs **headless** — `opencode run -m <model> "<prompt>"`.
+  Free models available (no cost): `opencode/nemotron-3-ultra-free` (strongest),
+  `deepseek-v4-flash-free`, `mimo-v2.5-free`, `north-mini-code-free`. GLM 5.2
+  stays the DEFAULT tester; free models are a fallback/experiment lane, not the
+  CI-critical default (free-model uptime isn't guaranteed).
 - Grok: `--effort <level>` (only `grok-composer` supports it; `grok-build` doesn't).
+
+## Judgment layer — skills that USE this table (don't pick a model)
+
+Three skills encode Joel's orchestration judgment so agents advance the knowable
+cases and surface only the novel ones. They *consume* `route`; they aren't rows
+in it. Each has one clear job and defers the rest:
+
+| Skill | One job | Defers to |
+|---|---|---|
+| `done-check` | Judge "is this done to Joel's bar" (tests green + cross-review clean + no P0 → commit to `dev` + notify; ambiguous/P0 → surface) | `check-work` (verify), `route` (reviewer) |
+| `escalate` | Watch a raw-CLI minion, decide stalled/looping → re-route or surface (hybrid: `STATUS:` self-report + `terminal show` poll) | `route` (re-route target), Orca terminals (signal) |
+| `orchestrate` | Run draft→attack→execute→watch→review→done, seats filled from this table | `route` (seats), Orca `$orchestration` (dispatch), `escalate`, `done-check` |
+
+`orchestrate` is the mission loop — validated by Hashimoto/Jinjing (planner →
+coder → judge; premium brains only on plan+judge = ~few dollars vs $50+). Our
+version routes the seats instead of retyping them, and judges cross-vendor
+(`reviewer ≠ author`). The seats: **Fable 5 high is the planner/orchestrator
+brain**, **Codex xhigh is the executor**, **Composer 2.5 is the reader/scout**.
+Auto-advance is **`dev`-only**; `master`/remote never happen unattended. Fable
+is the premium brain: it holds the mission and delegates file-reading to
+Composer and code-writing to Codex so its expensive reasoning goes to judgment,
+not grepping. If Fable's credits run dry, fall back to Opus (see the three-seat
+model above for the exact commands).
 
 ## Quality patterns (these matter more than the roster)
 
@@ -61,9 +147,10 @@ author's blind spots missed. Rule: `reviewer != author`.
 
 | Work done by | Reviewed by |
 |---|---|
-| Grok (impl / copy) | Codex xhigh (code) · Claude Opus (copy) |
-| Codex (debug / arch) | Claude Opus |
-| Claude (docs / design) | Codex xhigh |
+| Codex (impl / debug / arch) | Claude Fable or Opus |
+| Grok Composer (scout report / any code it wrote) | Codex xhigh |
+| Grok Build (copy) | Claude Opus (copy) |
+| Claude (docs / design / a plan) | Codex xhigh |
 | GLM (cheap verify) | escalate to Claude/Codex only if the cheap pass is uncertain |
 
 Review prompt shape: *"Adversarially review this. Assume it's wrong. Find the
@@ -106,8 +193,11 @@ whole build. This is why it pays for itself.
      findings to **Claude** for the writeup (the "considered voice" lane).
      For a *marketing* deliverable, keep it all in Grok (voice + research in
      one session, no handoff).
-   - Bulk implementation → Grok. Debugging/root-cause → Codex. Cheap verify
-     (build/tests) → GLM. Taste verify (does UI/copy read well) → Claude.
+   - **Orchestrate / plan / analyze → Claude Fable 5 high (the brain).**
+   - **Write code / implement → Codex GPT-5.5 xhigh (the executor).**
+   - **Read/scout a codebase and report → Grok Composer 2.5.**
+   - Debugging/root-cause → Codex. Cheap verify (build/tests) → GLM. Taste
+     verify (does UI/copy read well) → Claude.
 2. When two rows fit (e.g. "verify"), split by **cost/stakes**: mechanical or
    high-volume → the cheap lane (GLM); judgment or user-facing → the taste lane
    (Claude/Codex). For copy, split by **register**: persuasion → Grok,
@@ -119,7 +209,8 @@ whole build. This is why it pays for itself.
      ```
      codex -m gpt-5.5 -c model_reasoning_effort=high --dangerously-bypass-approvals-and-sandbox "<prompt>"
      ```
-   - **In an existing Orca worktree** (fresh agent in the current checkout):
+   - **In an existing Orca worktree** (fresh agent in the current checkout —
+     here, Composer as reader/scout):
      ```
      orca terminal create --worktree active --command "grok -m grok-composer-2.5-fast --always-approve" --json
      ```
@@ -149,8 +240,9 @@ Each agent's real launch vocabulary (source: `<cli> --help`):
   - `grok-build` — xAI's coding model, **512K context**, **backend web search
     supported**. Use for research/web/current and marketing copy (bigger context
     + search). This is the researcher + copy model.
-  - `grok-composer-2.5-fast` — Cursor's coding model (the default), 200K. Use
-    for clean-spec implementation.
+  - `grok-composer-2.5-fast` — Cursor's coding model (the default), 200K. Now
+    the **reader/scout** seat: reads a codebase and reports back to Fable. Still
+    writes code when Joel explicitly routes a write task to it.
   Permissions: Joel's `~/.grok/config.toml` already sets
   `permission_mode = "always-approve"` globally, so no per-launch flag needed
   (add `--always-approve` only to be explicit). Other flags: `--check`

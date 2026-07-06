@@ -410,6 +410,135 @@ progress checkpoints, especially before waiting on review or external input.
 
 Pick the right agent CLI per work type; do not make the user type flags or model
 names. Load the `route` skill from `.agents/skills/route`, `.claude/skills/route`,
+or `.opencode/skills/route` for the full table and launch commands.
+
+Coding work runs on a three-seat cast: **orchestration/planning/analysis (the
+brain) -> Claude Fable 5 high**; **implementation/code-writing (the executor) ->
+Codex GPT-5.5 xhigh**; **codebase reading/scouting -> Grok Composer 2.5** (reads
+and reports back to the brain; writes only when explicitly routed to). In short:
+copy/marketing and research/web -> Grok (`grok-build`); docs, design, API, and
+report writeups -> Claude Opus; orchestrate/plan/analyze -> Claude Fable 5 high;
+write code -> Codex GPT-5.5 xhigh; read/scout a codebase -> Grok Composer; deep
+architecture, hard reasoning, debugging, and security -> Codex xhigh; cheap
+build/test verification -> GLM 5.2. Announce the routing call in one line, then
+proceed.
+
+When the work is a real code task, launch the routed model straight into the
+task's Orca worktree:
+`shogun task start <n> --agent-command "<full launch command>"` -- Shogun creates
+the worktree, runs the command in it, and hands the agent its task preamble.
+One-off work (a piece of copy, a research lookup) runs inline without a Shogun task.
+
+Spawning an agent into any Orca worktree always routes first. When asked to "create
+a branch and do X" or otherwise spawn a worktree, route X, then launch the chosen
+model FLAGGED via `orca terminal create --worktree <selector> --command "<full
+launch string with model/effort/bypass>"`. Do not use a bare `orca worktree create
+--agent codex` -- a bare `--agent` id cannot carry model/effort/bypass flags, so it
+silently ignores routing. A spawned agent must be the routed model, not the default.
+
+Apply the quality patterns from the route skill where they fit: cross-model review
+(the reviewer is never the author) after substantive work, and plan-then-attack
+before a thorny change.
+
+## Model routing
+
+Pick the right agent CLI per work type; do not make the user type flags or model
+names. Load the `route` skill from `.agents/skills/route`, `.claude/skills/route`,
+or `.opencode/skills/route` for the full table and launch commands.
+
+Coding work runs on a three-seat cast: **orchestration/planning/analysis (the
+brain) -> Claude Fable 5 high**; **implementation/code-writing (the executor) ->
+Codex GPT-5.5 xhigh**; **codebase reading/scouting -> Grok Composer 2.5** (reads
+and reports back to the brain; writes only when explicitly routed to). In short:
+copy/marketing and research/web -> Grok (`grok-build`); docs, design, API, and
+report writeups -> Claude Opus; orchestrate/plan/analyze -> Claude Fable 5 high;
+write code -> Codex GPT-5.5 xhigh; read/scout a codebase -> Grok Composer; deep
+architecture, hard reasoning, debugging, and security -> Codex xhigh; cheap
+build/test verification -> GLM 5.2. Announce the routing call in one line, then
+proceed.
+
+When the work is a real code task, launch the routed model straight into the
+task's Orca worktree:
+`shogun task start <n> --agent-command "<full launch command>"` -- Shogun creates
+the worktree, runs the command in it, and hands the agent its task preamble.
+One-off work (a piece of copy, a research lookup) runs inline without a Shogun task.
+
+Spawning an agent into any Orca worktree always routes first. When asked to "create
+a branch and do X" or otherwise spawn a worktree, route X, then launch the chosen
+model FLAGGED via `orca terminal create --worktree <selector> --command "<full
+launch string with model/effort/bypass>"`. Do not use a bare `orca worktree create
+--agent codex` -- a bare `--agent` id cannot carry model/effort/bypass flags, so it
+silently ignores routing. A spawned agent must be the routed model, not the default.
+
+Apply the quality patterns from the route skill where they fit: cross-model review
+(the reviewer is never the author) after substantive work, and plan-then-attack
+before a thorny change.
+
+## Model routing
+
+Pick the right agent CLI per work type; do not make the user type flags or model
+names. Load the `route` skill from `.agents/skills/route`, `.claude/skills/route`,
+or `.opencode/skills/route` for the full table and launch commands.
+
+Coding work runs on a three-seat cast: **orchestration/planning/analysis (the
+brain) -> Claude Fable 5 high**; **implementation/code-writing (the executor) ->
+Codex GPT-5.5 xhigh**; **codebase reading/scouting -> Grok Composer 2.5** (reads
+and reports back to the brain; writes only when explicitly routed to). In short:
+copy/marketing and research/web -> Grok (`grok-build`); docs, design, API, and
+report writeups -> Claude Opus; orchestrate/plan/analyze -> Claude Fable 5 high;
+write code -> Codex GPT-5.5 xhigh; read/scout a codebase -> Grok Composer; deep
+architecture, hard reasoning, debugging, and security -> Codex xhigh; cheap
+build/test verification -> GLM 5.2. Announce the routing call in one line, then
+proceed.
+
+When the work is a real code task, launch the routed model straight into the
+task's Orca worktree:
+`shogun task start <n> --agent-command "<full launch command>"` -- Shogun creates
+the worktree, runs the command in it, and hands the agent its task preamble.
+One-off work (a piece of copy, a research lookup) runs inline without a Shogun task.
+
+Spawning an agent into any Orca worktree always routes first. When asked to "create
+a branch and do X" or otherwise spawn a worktree, route X, then launch the chosen
+model FLAGGED via `orca terminal create --worktree <selector> --command "<full
+launch string with model/effort/bypass>"`. Do not use a bare `orca worktree create
+--agent codex` -- a bare `--agent` id cannot carry model/effort/bypass flags, so it
+silently ignores routing. A spawned agent must be the routed model, not the default.
+
+Apply the quality patterns from the route skill where they fit: cross-model review
+(the reviewer is never the author) after substantive work, and plan-then-attack
+before a thorny change.
+
+## Model routing
+
+Pick the right agent CLI per work type; do not make the user type flags or model
+names. Load the `route` skill from `.agents/skills/route`, `.claude/skills/route`,
+or `.opencode/skills/route` for the full table and launch commands. In short:
+copy/marketing and research/web -> Grok (`grok-build`); docs, design, API, and
+report writeups -> Claude Opus; bulk implementation -> Grok Composer; architecture,
+hard reasoning, debugging, and security -> Codex xhigh; cheap build/test
+verification -> GLM 5.2. Announce the routing call in one line, then proceed.
+
+When the work is a real code task, launch the routed model straight into the
+task's Orca worktree:
+`shogun task start <n> --agent-command "<full launch command>"` -- Shogun creates
+the worktree, runs the command in it, and hands the agent its task preamble.
+One-off work (a piece of copy, a research lookup) runs inline without a Shogun task.
+
+Spawning an agent into any Orca worktree always routes first. When asked to "create
+a branch and do X" or otherwise spawn a worktree, route X, then launch the chosen
+model FLAGGED via `orca terminal create --worktree <selector> --command "<full
+launch string with model/effort/bypass>"`. Do not use a bare `orca worktree create
+--agent codex` -- a bare `--agent` id cannot carry model/effort/bypass flags, so it
+silently ignores routing. A spawned agent must be the routed model, not the default.
+
+Apply the quality patterns from the route skill where they fit: cross-model review
+(the reviewer is never the author) after substantive work, and plan-then-attack
+before a thorny change.
+
+## Model routing
+
+Pick the right agent CLI per work type; do not make the user type flags or model
+names. Load the `route` skill from `.agents/skills/route`, `.claude/skills/route`,
 or `.opencode/skills/route` for the full table and launch commands. In short:
 copy/marketing and research/web -> Grok (`grok-build`); docs, design, API, and
 report writeups -> Claude Opus; bulk implementation -> Grok Composer; architecture,

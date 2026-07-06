@@ -35,10 +35,14 @@ export default defineConfig(({ command }) => {
         name: 'vite-dev-server-url',
         configureServer(server) {
           const ip = getLocalIP();
-          const port = server.config.server.port || 5173;
-          const url = `http://${ip}:${port}`;
 
           server.httpServer?.once('listening', () => {
+            const address = server.httpServer?.address();
+            const port = typeof address === 'object' && address !== null
+              ? address.port
+              : server.config.server.port || 5173;
+            const url = `http://${ip}:${port}`;
+
             writeFileSync(DEV_SERVER_FILE, url);
             console.log(`\n  Dev server URL written to app/.vite-dev-server`);
             console.log(`  WordPress will load assets from: ${url}\n`);
@@ -87,7 +91,9 @@ export default defineConfig(({ command }) => {
     server: {
       host: '0.0.0.0',
       port: 5173,
-      strictPort: true,
+      // WordPress reads the actual URL from app/.vite-dev-server, so it is safe
+      // to use the next free port when another local Vite app owns 5173.
+      strictPort: false,
       cors: true,
     },
   };

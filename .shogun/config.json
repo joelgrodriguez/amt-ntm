@@ -6,6 +6,7 @@
   },
   "baseBranch": "dev",
   "taskPrefix": "Shogun",
+  "setupCommand": "npm ci --prefer-offline --no-audit --no-fund",
   "statuses": {
     "todo": "Staged",
     "inProgress": "Processing",
@@ -32,6 +33,17 @@
       "agent:<agent>",
       "risk:<low|medium|high>"
     ]
+  },
+  "policy": {
+    "forbiddenPaths": [
+      ".env",
+      ".env.*"
+    ],
+    "requireReservationsForChangedFiles": false
+  },
+  "agentPreflight": {
+    "commands": {},
+    "cacheTtlHours": 24
   },
   "validationCommand": "npm run build",
   "coordinationState": {
