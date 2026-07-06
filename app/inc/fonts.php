@@ -1,6 +1,6 @@
 <?php
 /**
- * Bunny Fonts registration.
+ * Self-hosted font preloads.
  *
  * @package Standard
  */
@@ -21,16 +21,47 @@ if (!defined('ABSPATH')) {
  * (falls back to Georgia if editor content ever selects it). Mono 600
  * dropped too: nothing renders mono above 500.
  */
-const FONTS_URL = 'https://fonts.bunny.net/css?family=Noto+Sans:400,500,600,700|Noto+Sans+Mono:400,500&display=swap';
+const FONT_PRELOAD_FILES = [
+    'noto-sans/noto-sans-latin-400-normal.woff2',
+    'noto-sans-mono/noto-sans-mono-latin-500-normal.woff2',
+];
 
-add_action('wp_head', function (): void {
-    echo '<link rel="preconnect" href="https://fonts.bunny.net" crossorigin>' . "\n";
-}, 1);
+function get_theme_font_url(string $file): ?string {
+    $file = ltrim($file, '/');
+    $dev_server = get_vite_dev_server();
 
-add_action('wp_enqueue_scripts', function (): void {
-    wp_enqueue_style('theme-fonts', FONTS_URL, [], null);
-});
+    if ($dev_server !== null) {
+        return $dev_server . '/app/resources/fonts/' . $file;
+    }
 
-add_action('enqueue_block_editor_assets', function (): void {
-    wp_enqueue_style('theme-fonts', FONTS_URL, [], null);
-});
+    $manifest = get_vite_manifest();
+    $entry = $manifest['app/resources/fonts/' . $file] ?? null;
+
+    if (!is_array($entry)) {
+        return null;
+    }
+
+    $dist_file = $entry['file'] ?? '';
+
+    if (!is_string($dist_file) || $dist_file === '') {
+        return null;
+    }
+
+    return THEME_URI . '/dist/' . $dist_file;
+}
+
+function preload_theme_fonts(): void {
+    foreach (FONT_PRELOAD_FILES as $file) {
+        $url = get_theme_font_url($file);
+
+        if ($url === null) {
+            continue;
+        }
+
+        printf(
+            '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n",
+            esc_url($url)
+        );
+    }
+}
+add_action('wp_head', __NAMESPACE__ . '\\preload_theme_fonts', 1);
