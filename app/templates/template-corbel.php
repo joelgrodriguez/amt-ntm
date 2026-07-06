@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Crobel
+ * Template Name: Corbel
  *
  * Blank full-screen embed canvas. No header, no footer, no body chrome.
  * The post content (typically an iframe, WebGL canvas, or third-party
@@ -26,15 +26,15 @@ remove_filter('the_content', 'wptexturize');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-        .crobel-embed { width: 100vw; height: 100vh; display: block; }
-        .crobel-embed > iframe { width: 100%; height: 100%; border: 0; display: block; }
+        .corbel-embed { width: 100vw; height: 100vh; display: block; }
+        .corbel-embed > iframe { width: 100%; height: 100%; border: 0; display: block; }
     </style>
     <?php wp_head(); ?>
 </head>
-<body <?php body_class('crobel-embed-canvas'); ?>>
+<body <?php body_class('corbel-embed-canvas'); ?>>
 <?php wp_body_open(); ?>
 
-<main id="primary" class="crobel-embed">
+<main id="primary" class="corbel-embed">
     <?php
     while (have_posts()) :
         the_post();

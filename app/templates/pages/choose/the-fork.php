@@ -112,7 +112,7 @@ $lanes = [
                     </dl>
 
                     <div class="mt-auto pt-2">
-                        <a href="<?php echo esc_attr($lane['target']); ?>" class="btn btn-primary w-full justify-center sm:w-auto">
+                        <a href="<?php echo esc_url($lane['target']); ?>" class="btn btn-primary w-full justify-center sm:w-auto">
                             <?php echo wp_kses_post($lane['cta']); ?>
                             <?php icon('arrow-down', ['class' => 'w-5 h-5']); ?>
                         </a>

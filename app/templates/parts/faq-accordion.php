@@ -57,7 +57,7 @@ $faq_schema = [
 ?>
 
 <script type="application/ld+json">
-<?php echo wp_json_encode($faq_schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?>
+<?php echo wp_json_encode($faq_schema, \Standard\Seo\SCHEMA_JSON_FLAGS); ?>
 </script>
 
 <section class="section <?php echo esc_attr($bg); ?>" aria-labelledby="<?php echo esc_attr($section_id); ?>">
