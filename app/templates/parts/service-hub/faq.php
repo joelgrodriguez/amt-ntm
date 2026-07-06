@@ -6,8 +6,7 @@
  * common stuff is answered without opening a ticket. Delegates to the shared
  * faq-accordion part, which also emits FAQPage JSON-LD for AEO.
  *
- * TODO(copy): placeholder Q&A. Replace with the real top-10 owner questions
- * the service team identified when the support section first launched.
+ * Curated from the service team's top-asked owner questions.
  *
  * @package Standard
  *
@@ -20,23 +19,26 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// TODO(copy): replace all four with the curated top-10 owner Q&A.
 $faqs = [
     [
-        'question' => __('How do I open a service request?', 'standard'),
-        'answer'   => __('TODO(copy): placeholder answer. Walk the owner through opening a request and what to have ready (machine model, serial, photos).', 'standard'),
-    ],
-    [
         'question' => __('Where do I find the manual for my machine?', 'standard'),
-        'answer'   => __('TODO(copy): placeholder answer. Point to the per-machine page and the Manuals filter.', 'standard'),
-    ],
-    [
-        'question' => __('How do I update my UNIQ control system?', 'standard'),
-        'answer'   => __('TODO(copy): placeholder answer. Link the UNIQ section / software page.', 'standard'),
+        'answer'   => __('Pick your machine from the directory below to jump to its manuals, troubleshooting articles, and videos. Or filter the search results on this page for "Manuals".', 'standard'),
     ],
     [
         'question' => __('What should I do before calling support?', 'standard'),
-        'answer'   => __('TODO(copy): placeholder answer. Steer toward troubleshooting articles and the search library first.', 'standard'),
+        'answer'   => __('Search the service content library first—most fixes are already documented. Have your machine model and serial number ready. The more detail you can share, the faster we can help.', 'standard'),
+    ],
+    [
+        'question' => __('How do I update my UNIQ control system?', 'standard'),
+        'answer'   => __('Use the UNIQ Automatic Control System section below for the latest firmware and step-by-step update instructions. The same resources appear on SSQ II, SSQ3, and WAV machine pages.', 'standard'),
+    ],
+    [
+        'question' => __('How do I open a service request?', 'standard'),
+        'answer'   => __('Tap "Open a service request" on this page or go to /service-hub/request/. Include the machine model, serial number, and a clear description of the issue—photos or video help the team diagnose faster.', 'standard'),
+    ],
+    [
+        'question' => __('How often does my machine need to be serviced?', 'standard'),
+        'answer'   => __('Refer to the maintenance section in your machine manual for daily, weekly, monthly, and yearly schedules. The Learning Center also has checklists and how-to videos.', 'standard'),
     ],
 ];
 
