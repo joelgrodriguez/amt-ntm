@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
 
 $content = [
     'title'      => __("Let's Talk", 'standard'),
-    'text'       => __('Ready to take control of your business? Contact us today to discuss your equipment needs.', 'standard'),
+    'text'       => __('Ready to increase your ROI? Contact us today', 'standard'),
     'form_title' => __('Send Us a Message', 'standard'),
     'form_text'  => __("Fill out the form below and we'll get back to you within one business day.", 'standard'),
 ];

@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
 }
 
 get_template_part('templates/parts/cta/closer', null, [
-    'title'           => __('Ready to Take Control of Your Business?', 'standard'),
+    'title'           => __('Ready to increase your uptime and ROI?', 'standard'),
     'text'            => __('Join thousands of contractors who stopped waiting on suppliers and started rolling their own profits.', 'standard'),
     'cta_primary'     => __('Talk to a Specialist', 'standard'),
     'cta_primary_url' => '/contact/',

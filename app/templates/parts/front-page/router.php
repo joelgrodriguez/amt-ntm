@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'title'     => __('Find the machine that fits your shop.', 'standard'),
+    'title'     => __('Find the machine that fits your operation.', 'standard'),
     'submit'    => __('See My Machine', 'standard'),
     'help'      => __('Or talk to a specialist', 'standard'),
     'form_aria' => __('Find your machine', 'standard'),

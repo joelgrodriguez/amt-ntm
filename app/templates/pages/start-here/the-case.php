@@ -36,7 +36,7 @@ $ledger = [
     [
         'stat'     => __('1–2 yrs', 'standard'),
         'label'    => __('Typical machine payback period', 'standard'),
-        'context'  => __('Most owners cover the cost of the machine inside one or two busy seasons, then the equipment is working for profit, not paying itself off.', 'standard'),
+        'context'  => __("Most machine owners cover the cost with a few big jobs or a busy season. Then it's all ROI.", 'standard'),
         'link'     => __('What it costs to start', 'standard'),
         'url'      => '/learning-center/cost-and-what-to-know-starting-a-business-with-a-portable-gutter-machine/',
     ],

@@ -20,8 +20,8 @@ if (!defined('ABSPATH')) {
 
 get_template_part('templates/parts/cta/closer', null, [
     'section_id'        => 'start-here-final-cta-title',
-    'title'             => __('Ready to Start Your Machine Business?', 'standard'),
-    'text'              => __('Find the machine that fits the work you want to do, or tell an NTM specialist about your plans and they will help you map the first step. No pressure, no obligation.', 'standard'),
+    'title'             => __('Ready to start your portable rollforming business?', 'standard'),
+    'text'              => __("Find the machine that fits your operation, or talk to an NTM account manager and they'll walk you through the process. No pressure, no obligation.", 'standard'),
     'cta_primary'       => __('Find your machine', 'standard'),
     'cta_primary_url'   => '/choose-your-machine/',
     'cta_secondary'     => __('Talk to a specialist', 'standard'),

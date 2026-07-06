@@ -49,7 +49,7 @@ $flagships = [
             __('16 panel profiles', 'standard'),
             __('Gas or electric power', 'standard'),
             __('On-board RFID profile recognition', 'standard'),
-            __('25-minute tooling changeovers', 'standard'),
+            __('Changeovers in half the time', 'standard'),
         ],
         'cta_label'    => __('Explore the SSQ3', 'standard'),
         'cta_url'      => '/machines/roof-wall-panel-machines/ssq3-multipro/',
