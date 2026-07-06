@@ -96,10 +96,10 @@
     {
       "path": "app",
       "purpose": "Application code and framework conventions.",
-      "fileCount": 442,
+      "fileCount": 444,
       "categories": {
-        "source": 167,
-        "other": 43,
+        "source": 168,
+        "other": 44,
         "config": 2,
         "route": 7,
         "test": 1,
@@ -149,10 +149,10 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 38,
+      "fileCount": 39,
       "categories": {
         "source": 6,
-        "other": 30,
+        "other": 31,
         "docs": 2
       },
       "keyFiles": [
@@ -379,6 +379,12 @@
       "size": 355
     },
     {
+      "path": "app/assets/icons/pause.svg",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 390
+    },
+    {
       "path": "app/assets/icons/phone.svg",
       "category": "other",
       "role": "Repository file.",
@@ -514,7 +520,7 @@
       "path": "app/footer.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 8691
+      "size": 8409
     },
     {
       "path": "app/front-page.php",
@@ -526,13 +532,13 @@
       "path": "app/functions.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 1684
+      "size": 1635
     },
     {
       "path": "app/header.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 8909
+      "size": 8935
     },
     {
       "path": "app/home.php",
@@ -551,6 +557,12 @@
       "category": "source",
       "role": "Application source code.",
       "size": 8798
+    },
+    {
+      "path": "app/inc/cleanup.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 1003
     },
     {
       "path": "app/inc/contact-data.php",
@@ -586,7 +598,7 @@
       "path": "app/inc/fonts.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 1058
+      "size": 1674
     },
     {
       "path": "app/inc/footprints.php",
@@ -742,13 +754,7 @@
       "path": "app/inc/setup.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 3157
-    },
-    {
-      "path": "app/inc/sidebars.php",
-      "category": "source",
-      "role": "Application source code.",
-      "size": 981
+      "size": 2905
     },
     {
       "path": "app/inc/urls.php",
@@ -773,12 +779,6 @@
       "category": "source",
       "role": "Application source code.",
       "size": 7111
-    },
-    {
-      "path": "app/inc/walkers/class-primary-nav-walker.php",
-      "category": "source",
-      "role": "Application source code.",
-      "size": 963
     },
     {
       "path": "app/inc/woo/accessories.php",
@@ -820,7 +820,7 @@
       "path": "app/index.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 851
+      "size": 877
     },
     {
       "path": "app/page-about.php",
@@ -982,19 +982,19 @@
       "path": "app/resources/css/_app.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 3686
+      "size": 3739
     },
     {
       "path": "app/resources/css/animations.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 5170
+      "size": 5282
     },
     {
       "path": "app/resources/css/base.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 1440
+      "size": 1476
     },
     {
       "path": "app/resources/css/components/accordion.css",
@@ -1078,7 +1078,13 @@
       "path": "app/resources/css/editor.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 755
+      "size": 808
+    },
+    {
+      "path": "app/resources/css/fonts.css",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 16296
     },
     {
       "path": "app/resources/css/front-page/explore-machines.css",
@@ -1090,7 +1096,7 @@
       "path": "app/resources/css/front-page/hero-slider.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 4858
+      "size": 5571
     },
     {
       "path": "app/resources/css/front-page/router.css",
@@ -1120,19 +1126,19 @@
       "path": "app/resources/css/layout/footer.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 485
+      "size": 782
     },
     {
       "path": "app/resources/css/layout/header.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 3436
+      "size": 3429
     },
     {
       "path": "app/resources/css/layout/mega-menu.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 15417
+      "size": 15452
     },
     {
       "path": "app/resources/css/layout/pagination.css",
@@ -1150,7 +1156,7 @@
       "path": "app/resources/css/mobile-menu.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 9337
+      "size": 9697
     },
     {
       "path": "app/resources/css/pages/finance-center.css",
@@ -1162,7 +1168,7 @@
       "path": "app/resources/css/pages/learning-center.css",
       "category": "route",
       "role": "Route, page, controller, or request entry file.",
-      "size": 1008
+      "size": 1001
     },
     {
       "path": "app/resources/css/pages/media.css",
@@ -1294,7 +1300,7 @@
       "path": "app/resources/js/_app.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 4160
+      "size": 4461
     },
     {
       "path": "app/resources/js/front-page.js",
@@ -1345,10 +1351,16 @@
       "size": 871
     },
     {
+      "path": "app/resources/js/modules/FooterAccordions.js",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 1742
+    },
+    {
       "path": "app/resources/js/modules/HeroSlider.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 10012
+      "size": 11398
     },
     {
       "path": "app/resources/js/modules/HeroVideo.js",
@@ -1378,7 +1390,7 @@
       "path": "app/resources/js/modules/MobileMenu.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 9813
+      "size": 9833
     },
     {
       "path": "app/resources/js/modules/RevealMore.js",
@@ -1408,19 +1420,19 @@
       "path": "app/resources/js/modules/ScrollToTop.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 1513
+      "size": 1829
     },
     {
       "path": "app/resources/js/modules/SearchModal.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 25039
+      "size": 25065
     },
     {
       "path": "app/resources/js/modules/SocialProof.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 5021
+      "size": 6477
     },
     {
       "path": "app/resources/js/modules/TableOfContents.js",
@@ -1432,7 +1444,7 @@
       "path": "app/safelist.txt",
       "category": "other",
       "role": "Repository file.",
-      "size": 429
+      "size": 669
     },
     {
       "path": "app/search.php",
@@ -1492,13 +1504,13 @@
       "path": "app/single.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 1873
+      "size": 1899
     },
     {
       "path": "app/style.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 163
+      "size": 210
     },
     {
       "path": "app/templates/pages/accessories/catalog-grid.php",
@@ -1570,7 +1582,7 @@
       "path": "app/templates/pages/choose/the-fork.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 6447
+      "size": 6446
     },
     {
       "path": "app/templates/pages/finance-center/configurator.php",
@@ -2266,7 +2278,7 @@
       "path": "app/templates/parts/content-none.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 885
+      "size": 911
     },
     {
       "path": "app/templates/parts/content-search.php",
@@ -2320,13 +2332,13 @@
       "path": "app/templates/parts/disclaimer.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 837
+      "size": 863
     },
     {
       "path": "app/templates/parts/faq-accordion.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4592
+      "size": 4576
     },
     {
       "path": "app/templates/parts/filter-chips.php",
@@ -2380,7 +2392,7 @@
       "path": "app/templates/parts/front-page/hero-slider.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3058
+      "size": 4000
     },
     {
       "path": "app/templates/parts/front-page/quiz.php",
@@ -2494,7 +2506,7 @@
       "path": "app/templates/parts/post-navigation.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 2532
+      "size": 2558
     },
     {
       "path": "app/templates/parts/product-grid.php",
@@ -2506,7 +2518,7 @@
       "path": "app/templates/parts/related-posts.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 1113
+      "size": 1139
     },
     {
       "path": "app/templates/parts/search-modal.php",
@@ -2578,7 +2590,7 @@
       "path": "app/templates/parts/testimonial-slider.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 10256
+      "size": 11421
     },
     {
       "path": "app/templates/parts/value-prop-cards.php",
@@ -2599,10 +2611,10 @@
       "size": 2852
     },
     {
-      "path": "app/templates/template-crobel.php",
+      "path": "app/templates/template-corbel.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 1203
+      "size": 1219
     },
     {
       "path": "app/templates/template-empty-shell.php",
@@ -2848,7 +2860,7 @@
       "path": "CLAUDE.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 30627
+      "size": 31338
     },
     {
       "path": "db/imports/ntmservice-service-articles.json",
@@ -3613,6 +3625,12 @@
       "size": 1699
     },
     {
+      "path": "scripts/db/032-corbel-template-meta.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 1445
+    },
+    {
       "path": "scripts/db/apply",
       "category": "other",
       "role": "Repository file.",
@@ -3652,7 +3670,7 @@
       "path": "vite.config.js",
       "category": "config",
       "role": "Project configuration.",
-      "size": 3150
+      "size": 3194
     }
   ],
   "tests": [
