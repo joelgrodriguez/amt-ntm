@@ -83,17 +83,6 @@
       ]
     },
     {
-      "path": ".conductor",
-      "purpose": "Project area.",
-      "fileCount": 1,
-      "categories": {
-        "other": 1
-      },
-      "keyFiles": [
-        ".conductor/settings.local.toml"
-      ]
-    },
-    {
       "path": "app",
       "purpose": "Application code and framework conventions.",
       "fileCount": 444,
@@ -131,9 +120,9 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 85,
+      "fileCount": 86,
       "categories": {
-        "docs": 85
+        "docs": 86
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
@@ -149,31 +138,25 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 39,
+      "fileCount": 40,
       "categories": {
         "source": 6,
-        "other": 31,
+        "other": 32,
         "docs": 2
       },
       "keyFiles": [
         "scripts/content/export-copy.php",
         "scripts/content/export-xlsx.php",
         "scripts/content/exports/.gitkeep",
+        "scripts/content/exports/copy-review 1.xlsx",
         "scripts/content/exports/copy-review-about.csv",
         "scripts/content/exports/copy-review-all.csv",
         "scripts/content/exports/copy-review-choose.csv",
-        "scripts/content/exports/copy-review-finance.csv",
-        "scripts/content/exports/copy-review-gutter.csv"
+        "scripts/content/exports/copy-review-finance.csv"
       ]
     }
   ],
   "files": [
-    {
-      "path": ".conductor/settings.local.toml",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 107
-    },
     {
       "path": ".distignore",
       "category": "other",
@@ -730,7 +713,7 @@
       "path": "app/inc/search.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 17320
+      "size": 17366
     },
     {
       "path": "app/inc/seo.php",
@@ -2032,7 +2015,7 @@
       "path": "app/templates/pages/start-here/final-cta.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 1059
+      "size": 1053
     },
     {
       "path": "app/templates/pages/start-here/hero.php",
@@ -2056,7 +2039,7 @@
       "path": "app/templates/pages/start-here/the-case.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 5761
+      "size": 5714
     },
     {
       "path": "app/templates/pages/start-here/the-day.php",
@@ -2362,7 +2345,7 @@
       "path": "app/templates/parts/front-page/contact.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4865
+      "size": 4820
     },
     {
       "path": "app/templates/parts/front-page/explore-machines.php",
@@ -2374,13 +2357,13 @@
       "path": "app/templates/parts/front-page/final-cta.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 839
+      "size": 838
     },
     {
       "path": "app/templates/parts/front-page/flagships.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 10378
+      "size": 10377
     },
     {
       "path": "app/templates/parts/front-page/hero-slide.php",
@@ -2398,13 +2381,13 @@
       "path": "app/templates/parts/front-page/quiz.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 2706
+      "size": 2669
     },
     {
       "path": "app/templates/parts/front-page/router.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4304
+      "size": 4309
     },
     {
       "path": "app/templates/parts/front-page/social-proof.php",
@@ -3319,6 +3302,12 @@
       "size": 3230
     },
     {
+      "path": "docs/specs/learning-center.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 387
+    },
+    {
       "path": "docs/specs/machines.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
@@ -3437,6 +3426,12 @@
       "category": "other",
       "role": "Repository file.",
       "size": 0
+    },
+    {
+      "path": "scripts/content/exports/copy-review 1.xlsx",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 164080
     },
     {
       "path": "scripts/content/exports/copy-review-about.csv",
@@ -3752,6 +3747,7 @@
     "docs/specs/docs.md",
     "docs/specs/finance-center.md",
     "docs/specs/frontend.md",
+    "docs/specs/learning-center.md",
     "docs/specs/machines.md",
     "docs/specs/nav.md",
     "docs/specs/pricing.md",
