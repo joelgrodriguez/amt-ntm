@@ -6,9 +6,6 @@
  * common stuff is answered without opening a ticket. Delegates to the shared
  * faq-accordion part, which also emits FAQPage JSON-LD for AEO.
  *
- * TODO(copy): placeholder Q&A. Replace with the real top-10 owner questions
- * the service team identified when the support section first launched.
- *
  * @package Standard
  *
  * @usage Service Hub (template-service-hub.php)
@@ -20,23 +17,22 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// TODO(copy): replace all four with the curated top-10 owner Q&A.
 $faqs = [
     [
         'question' => __('How do I open a service request?', 'standard'),
-        'answer'   => __('TODO(copy): placeholder answer. Walk the owner through opening a request and what to have ready (machine model, serial, photos).', 'standard'),
+        'answer'   => __('Use the "Open a service request" button on this page or visit /service-hub/request/. Include your machine and serial number if you have them.', 'standard'),
     ],
     [
         'question' => __('Where do I find the manual for my machine?', 'standard'),
-        'answer'   => __('TODO(copy): placeholder answer. Point to the per-machine page and the Manuals filter.', 'standard'),
+        'answer'   => __('Pick your machine from the directory on this page. Each machine opens its manuals, troubleshooting, and videos. Or filter the search results for Manuals.', 'standard'),
     ],
     [
         'question' => __('How do I update my UNIQ control system?', 'standard'),
-        'answer'   => __('TODO(copy): placeholder answer. Link the UNIQ section / software page.', 'standard'),
+        'answer'   => __('See the UNIQ Automatic Control System section below for field-update instructions and the supplement manual. The full UNIQ control system page has the video library.', 'standard'),
     ],
     [
         'question' => __('What should I do before calling support?', 'standard'),
-        'answer'   => __('TODO(copy): placeholder answer. Steer toward troubleshooting articles and the search library first.', 'standard'),
+        'answer'   => __('Check the Service Hub and FAQ first. Most questions are already answered in the Service Hub and our FAQ. Search the knowledge base for manuals, articles, and videos.', 'standard'),
     ],
 ];
 
