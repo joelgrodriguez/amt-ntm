@@ -75,3 +75,7 @@ docs/page-outlines-*.md
 .shogun/messages.jsonl
 .shogun/active.md
 .shogun/archive.md
+# Shogun local coordination state
+.shogun/events.jsonl
+.shogun/report-cursors.json
+.shogun/agent-preflight.json

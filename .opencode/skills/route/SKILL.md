@@ -36,6 +36,11 @@ So "inspect this codebase" → Fable directs, Composer reads and reports, Fable
 analyzes and decides, Codex executes any resulting changes. Fable is the brain
 of the whole loop.
 
+**Token-saving driver rule.** For long unattended orchestration where the driver
+mostly dispatches, watches, and hands off, use **Codex as the driver seat** to
+save Claude/Fable tokens. Use Fable/Claude as the driver when the chain needs
+taste, planning judgment, or explicit Fable supervision.
+
 **The stack has three layers — the conductor is above Fable.**
 ```
 YOU (English)
@@ -55,16 +60,19 @@ rescue itself.** A dead/credit-exhausted Fable terminal has no way to call
 parachute is **conductor-owned supervision**, not a model feature on Fable:
 - The conductor **watches** the Fable terminal (this is exactly what the
   `escalate` skill does — poll the terminal, detect stalled/errored/credit-wall).
-- On a credit error, the conductor spins a **new** terminal with Opus and
-  re-dispatches the same task:
-  `orca terminal create --worktree <same selector> --command "claude --model opus --effort xhigh --dangerously-skip-permissions"`.
+- On a credit/auth/trust error, the conductor uses Shogun to spin a **new**
+  terminal with Opus and re-dispatch the same task:
+  `shogun agent fallback <task|terminal> --to "claude --model opus --effort xhigh --dangerously-skip-permissions"`.
 - Fable never knows; the layer above it did the swap.
 
 `--fallback-model opus` (Claude's in-process flag) is a **red herring here**: it
 only works in headless `--print` mode and swaps *within one process* — it cannot
 drive Orca or respawn a watchable terminal. Use it only for headless dispatched
 work where no live terminal is needed. For the normal watch-a-terminal workflow,
-fallback = conductor notices + respawns.
+fallback = `task sync` / `task report` warns, then the conductor explicitly runs
+`shogun agent fallback ...`. Shogun creates the Opus terminal in the same Orca
+worktree, sends the same task context, and records the original/new terminal
+handles.
 
 Not an "ultracode" effort — the installed `claude` CLI (v2.1) accepts only
 `low|medium|high|xhigh|max`; there is no `ultracode` effort flag, so both the
@@ -126,11 +134,13 @@ coder → judge; premium brains only on plan+judge = ~few dollars vs $50+). Our
 version routes the seats instead of retyping them, and judges cross-vendor
 (`reviewer ≠ author`). The seats: **Fable 5 high is the planner/orchestrator
 brain**, **Codex xhigh is the executor**, **Composer 2.5 is the reader/scout**.
-Auto-advance is **`dev`-only**; `master`/remote never happen unattended. Fable
+For long unattended runs, the **driver seat defaults to Codex** to save
+Claude/Fable tokens; Fable/Claude drives when taste or planning judgment is in
+the loop. Auto-advance is **`dev`-only**; `master`/remote never happen unattended. Fable
 is the premium brain: it holds the mission and delegates file-reading to
 Composer and code-writing to Codex so its expensive reasoning goes to judgment,
-not grepping. If Fable's credits run dry, fall back to Opus (see the three-seat
-model above for the exact commands).
+not grepping. If Fable's credits run dry, Shogun/conductor falls back to Opus
+with `shogun agent fallback <task|terminal> --to "claude --model opus --effort xhigh --dangerously-skip-permissions"`.
 
 ## Quality patterns (these matter more than the roster)
 

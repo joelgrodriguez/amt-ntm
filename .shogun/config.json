@@ -7,10 +7,12 @@
   "baseBranch": "dev",
   "taskPrefix": "Shogun",
   "setupCommand": "npm ci --prefer-offline --no-audit --no-fund",
+  "tasks": {
+    "backend": "github-issues"
+  },
   "statuses": {
     "todo": "Staged",
     "inProgress": "Processing",
-    "blocked": "Blocked",
     "inReview": "Reviewing",
     "verifying": "Verifying",
     "done": "Done",
@@ -51,29 +53,18 @@
     "fallbackDir": ".shogun"
   },
   "localState": [
-    ".shogun/graph.json",
     ".shogun/mainline-queue.json",
     ".shogun/reservations.json",
     ".shogun/messages.jsonl",
+    ".shogun/events.jsonl",
+    ".shogun/report-cursors.json",
+    ".shogun/agent-preflight.json",
     ".shogun/active.md",
-    ".shogun/archive.md"
+    ".shogun/archive.md",
+    ".shogun/graph.json"
   ],
   "branchPrefix": "shogun",
   "github": {
-    "repo": "joelgrodriguez/amt-ntm",
-    "project": {
-      "owner": "joelgrodriguez",
-      "number": "5",
-      "id": "PVT_kwHOAbf1FM4BagQo",
-      "statusFieldId": "PVTSSF_lAHOAbf1FM4BagQozhVXcKY",
-      "statusOptions": {
-        "staged": "b2198385",
-        "processing": "4bf52e0d",
-        "reviewing": "07a43dd6",
-        "verifying": "dc7ee833",
-        "done": "b93abaf7",
-        "canceled": "bc98b474"
-      }
-    }
+    "repo": "joelgrodriguez/amt-ntm"
   }
 }

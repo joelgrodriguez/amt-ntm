@@ -96,24 +96,24 @@
     {
       "path": "app",
       "purpose": "Application code and framework conventions.",
-      "fileCount": 442,
+      "fileCount": 441,
       "categories": {
-        "other": 44,
         "source": 166,
+        "other": 43,
         "config": 2,
         "route": 7,
         "test": 1,
         "template": 222
       },
       "keyFiles": [
-        "app/.vite-dev-server",
         "app/404.php",
         "app/archive.php",
         "app/assets/blueprints/.gitkeep",
         "app/assets/icons/alert-triangle.svg",
         "app/assets/icons/arrow-down.svg",
         "app/assets/icons/arrow-left.svg",
-        "app/assets/icons/arrow-right.svg"
+        "app/assets/icons/arrow-right.svg",
+        "app/assets/icons/arrow-up.svg"
       ]
     },
     {
@@ -190,13 +190,7 @@
       "path": ".gitignore",
       "category": "other",
       "role": "Repository file.",
-      "size": 1410
-    },
-    {
-      "path": "app/.vite-dev-server",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 25
+      "size": 1522
     },
     {
       "path": "app/404.php",
@@ -520,7 +514,7 @@
       "path": "app/footer.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 8714
+      "size": 8691
     },
     {
       "path": "app/front-page.php",
@@ -814,7 +808,7 @@
       "path": "app/inc/woo/setup.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 789
+      "size": 1451
     },
     {
       "path": "app/index.php",
@@ -2848,7 +2842,7 @@
       "path": "CLAUDE.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 27591
+      "size": 30627
     },
     {
       "path": "db/imports/ntmservice-service-articles.json",
@@ -3346,7 +3340,7 @@
       "path": "docs/specs/woo.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 408
+      "size": 1239
     },
     {
       "path": "docs/superpowers/specs/2026-06-16-service-hub-knowledgebase-design.md",
