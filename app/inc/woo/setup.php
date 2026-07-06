@@ -17,6 +17,11 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+const PRODUCT_CATEGORY_ARCHIVE_REDIRECTS = [
+    'roof-wall-panel-machines' => '/roof-wall-panel-machines/',
+    'gutter-machines'          => '/seamless-gutter-machines/',
+];
+
 /**
  * Declare WooCommerce theme support.
  *
@@ -33,3 +38,22 @@ add_action('after_setup_theme', function (): void {
  * Theme provides its own styling via resources/css/woocommerce.css.
  */
 add_filter('woocommerce_enqueue_styles', '__return_empty_array');
+
+/**
+ * Keep public product category archives out of unstyled WooCommerce markup.
+ */
+add_action('template_redirect', function (): void {
+    if (!\is_tax('product_cat')) {
+        return;
+    }
+
+    $term = \get_queried_object();
+    $path = '/machines/';
+
+    if ($term instanceof \WP_Term && isset(PRODUCT_CATEGORY_ARCHIVE_REDIRECTS[$term->slug])) {
+        $path = PRODUCT_CATEGORY_ARCHIVE_REDIRECTS[$term->slug];
+    }
+
+    \wp_safe_redirect(\home_url($path), 301);
+    exit;
+});

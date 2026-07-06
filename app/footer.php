@@ -26,8 +26,8 @@ $footer_sections = [
         'description' => null,
         'links' => [
             ['/configure-your-ntm-machine', __('Configure Your Machine', 'standard'), true],
-            ['/product-category/roof-wall-panel-machines', __('Roof & Wall Panel Machines', 'standard'), false],
-            ['/product-category/gutter-machines', __('Gutter Machines', 'standard'), false],
+            ['/roof-wall-panel-machines/', __('Roof & Wall Panel Machines', 'standard'), false],
+            ['/seamless-gutter-machines/', __('Gutter Machines', 'standard'), false],
             ['/profiles', __('Profiles', 'standard'), false],
         ],
     ],
