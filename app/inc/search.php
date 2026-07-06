@@ -534,13 +534,11 @@ function configure_taxonomy_archive_query(\WP_Query $query): void {
     }
 
     $requested_post_types = get_request_values(get_post_type_filter_keys(), 'post_type');
-    if ($requested_post_types === []) {
-        return;
-    }
+    $post_types = $requested_post_types === []
+        ? get_searchable_post_types()
+        : array_values(array_intersect($requested_post_types, get_searchable_post_types()));
 
-    $post_types = array_values(array_intersect($requested_post_types, get_searchable_post_types()));
-
-    if ($post_types === []) {
+    if ($requested_post_types !== [] && $post_types === []) {
         $query_args = [];
         force_no_results($query_args);
 
