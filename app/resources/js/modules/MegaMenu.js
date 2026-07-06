@@ -35,6 +35,26 @@ const initMegaTabs = (panel) => {
     /** Index of the currently active tab, so we can tell forward from back. */
     let activeIndex = Math.max(0, tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true'));
 
+    /** @param {HTMLButtonElement} tab @param {boolean} active */
+    const setTabPanelState = (tab, active) => {
+        const panelId = tab.getAttribute('aria-controls');
+        const tabPanel = panelId ? document.getElementById(panelId) : null;
+        if (!tabPanel) return;
+        // Toggling .is-active off→on re-fires the CSS card-stagger
+        // animation; aria-hidden + inert keep inactive panels out of both
+        // the a11y tree and keyboard order without display:none.
+        tabPanel.classList.toggle('is-active', active);
+        tabPanel.setAttribute('aria-hidden', active ? 'false' : 'true');
+        tabPanel.inert = !active;
+    };
+
+    tabs.forEach((t, i) => {
+        const active = i === activeIndex;
+        t.setAttribute('aria-selected', String(active));
+        t.tabIndex = active ? 0 : -1;
+        setTabPanelState(t, active);
+    });
+
     /** @param {HTMLButtonElement} tab @param {{ focus?: boolean }} [opts] */
     const select = (tab, { focus = false } = {}) => {
         const nextIndex = tabs.indexOf(tab);
@@ -53,14 +73,7 @@ const initMegaTabs = (panel) => {
             const active = t === tab;
             t.setAttribute('aria-selected', String(active));
             t.tabIndex = active ? 0 : -1;
-            const panelId = t.getAttribute('aria-controls');
-            const tabPanel = panelId ? document.getElementById(panelId) : null;
-            if (!tabPanel) return;
-            // Toggling .is-active off→on re-fires the CSS card-stagger
-            // animation; aria-hidden keeps the inactive panels out of the
-            // a11y tree without display:none (which would kill the slide).
-            tabPanel.classList.toggle('is-active', active);
-            tabPanel.setAttribute('aria-hidden', active ? 'false' : 'true');
+            setTabPanelState(t, active);
         });
 
         activeIndex = nextIndex;
@@ -109,10 +122,11 @@ export const initMegaMenu = () => {
         return () => {};
     }
 
+    /** @type {HTMLElement[]} */
+    const panels = Array.from(container.querySelectorAll('.mega-panel'));
+
     // Wire category tabs inside every panel that has them.
-    const tabTeardowns = /** @type {HTMLElement[]} */ (
-        Array.from(container.querySelectorAll('.mega-panel'))
-    ).map(initMegaTabs);
+    const tabTeardowns = panels.map(initMegaTabs);
 
     /** Tabbable selector for keyboard focus trap. */
     const FOCUSABLE_SELECTOR = [
@@ -145,10 +159,7 @@ export const initMegaMenu = () => {
         /** @type {HTMLElement[]} */ (Array.from(panel.querySelectorAll(FOCUSABLE_SELECTOR)))
             .filter((el) => {
                 if (el.hasAttribute('hidden') || el.offsetParent === null) return false;
-                // Inactive tab panels stay in the DOM (opacity:0, out of flow)
-                // so they can slide; exclude their contents from the focus trap.
-                const tabPanel = el.closest('.mega-tab-panel');
-                return !tabPanel || tabPanel.classList.contains('is-active');
+                return !el.closest('[inert]');
             });
 
     /** @param {HTMLElement} panel @param {'open'|'closed'} state */
@@ -159,6 +170,8 @@ export const initMegaMenu = () => {
         panel.setAttribute('aria-hidden', open ? 'false' : 'true');
         panel.inert = !open;
     };
+
+    panels.forEach((panel) => setPanelState(panel, 'closed'));
 
     const resetChrome = () => {
         triggers.forEach((t) => t.setAttribute('aria-expanded', 'false'));

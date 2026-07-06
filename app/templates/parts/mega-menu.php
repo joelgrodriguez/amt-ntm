@@ -46,6 +46,7 @@ $panels = array_values(array_filter(
         role="group"
         aria-label="<?php echo esc_attr($panel['label']); ?>"
         aria-hidden="true"
+        inert
     >
         <div class="mega-panel__inner">
 
@@ -57,7 +58,7 @@ $panels = array_values(array_filter(
                 <?php if (!empty($panel['sidebar_label'])) : ?>
                     <p class="mega-sidebar__label"><?php echo esc_html($panel['sidebar_label']); ?></p>
                 <?php endif; ?>
-                <ul class="mega-tab-list" role="tablist" aria-label="<?php echo esc_attr($panel['label']); ?>">
+                <ul class="mega-tab-list" role="tablist" aria-orientation="vertical" aria-label="<?php echo esc_attr($panel['label']); ?>">
                     <?php foreach ($tabs as $i => $tab) : ?>
                         <li role="none">
                             <button
@@ -93,7 +94,8 @@ $panels = array_values(array_filter(
                         role="tabpanel"
                         aria-labelledby="mega-tab-<?php echo esc_attr($panel_id); ?>-<?php echo esc_attr($tab['id']); ?>"
                         class="mega-tab-panel<?php echo $i === 0 ? ' is-active' : ''; ?>"
-                        <?php echo $i !== 0 ? 'aria-hidden="true"' : ''; ?>
+                        aria-hidden="<?php echo $i === 0 ? 'false' : 'true'; ?>"
+                        <?php echo $i !== 0 ? 'inert' : ''; ?>
                     >
 
                     <?php if ($tab_kind === 'profile-groups') :
