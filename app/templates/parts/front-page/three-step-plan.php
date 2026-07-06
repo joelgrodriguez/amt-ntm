@@ -81,24 +81,20 @@ $phases = [
                  instead of floating in the middle with dead space. -->
             <figure class="grid gap-4 lg:order-1" data-reveal="fade">
                 <div class="aspect-video overflow-hidden">
-                    <img
-                        src="<?php echo esc_url($content['image']); ?>"
-                        alt="<?php echo esc_attr($content['image_alt']); ?>"
-                        loading="lazy"
-                        decoding="async"
-                        class="w-full h-full object-cover block"
-                    >
+                    <?php \Standard\Images\responsive_image($content['image'], $content['image_alt'], 'large', [
+                        'class'   => 'w-full h-full object-cover block',
+                        'loading' => 'lazy',
+                        'sizes'   => '(min-width: 1024px) 50vw, 100vw',
+                    ]); ?>
                 </div>
                 <div class="grid gap-4 sm:grid-cols-2">
                     <?php foreach ($secondary_images as $img) : ?>
                         <div class="aspect-[4/3] overflow-hidden">
-                            <img
-                                src="<?php echo esc_url($img['src']); ?>"
-                                alt="<?php echo esc_attr($img['alt']); ?>"
-                                loading="lazy"
-                                decoding="async"
-                                class="w-full h-full object-cover block"
-                            >
+                            <?php \Standard\Images\responsive_image($img['src'], $img['alt'], 'large', [
+                                'class'   => 'w-full h-full object-cover block',
+                                'loading' => 'lazy',
+                                'sizes'   => '(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw',
+                            ]); ?>
                         </div>
                     <?php endforeach; ?>
                 </div>

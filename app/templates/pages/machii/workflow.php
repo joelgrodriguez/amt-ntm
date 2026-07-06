@@ -67,12 +67,11 @@ $steps = [
             <?php foreach ($steps as $step) : ?>
                 <li class="grid gap-5 content-start">
                     <div class="aspect-video overflow-hidden border border-blue-200">
-                        <img
-                            src="<?php echo esc_url($step['image']); ?>"
-                            alt="<?php echo esc_attr($step['alt']); ?>"
-                            class="w-full h-full object-cover"
-                            loading="lazy"
-                        >
+                        <?php \Standard\Images\responsive_image($step['image'], $step['alt'], 'large', [
+                            'class'   => 'w-full h-full object-cover',
+                            'loading' => 'lazy',
+                            'sizes'   => '(min-width: 1024px) 33vw, 100vw',
+                        ]); ?>
                     </div>
                     <p class="font-mono text-xs uppercase tracking-[0.18em] text-blue-500">
                         <span class="text-blue-400 mr-2"><?php echo esc_html($step['ordinal']); ?></span>

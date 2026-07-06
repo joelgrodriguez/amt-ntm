@@ -32,14 +32,7 @@ if (empty($slides)) {
 }
 
 $total_slides = count($slides);
-
-// Preload first slide image for faster LCP
-$first_slide = $slides[0] ?? null;
 ?>
-
-<?php if ($first_slide && !empty($first_slide['background_image'])) : ?>
-<link rel="preload" as="image" href="<?php echo esc_url($first_slide['background_image']); ?>" fetchpriority="high">
-<?php endif; ?>
 
 <section class="hero-slider" aria-label="<?php echo esc_attr($content['section_label']); ?>">
 

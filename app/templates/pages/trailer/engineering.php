@@ -119,13 +119,11 @@ $photos = [
             <div class="grid gap-px bg-blue-200 border border-blue-200 lg:sticky lg:top-24">
                 <?php foreach ($photos as $photo) : ?>
                     <figure class="bg-blue-50 overflow-hidden" data-reveal="image">
-                        <img
-                            src="<?php echo esc_url($photo['src']); ?>"
-                            alt="<?php echo esc_attr($photo['alt']); ?>"
-                            loading="lazy"
-                            decoding="async"
-                            class="w-full aspect-[4/3] object-cover"
-                        >
+                        <?php \Standard\Images\responsive_image($photo['src'], $photo['alt'], 'large', [
+                            'class'   => 'w-full aspect-[4/3] object-cover',
+                            'loading' => 'lazy',
+                            'sizes'   => '(min-width: 1024px) 40vw, 100vw',
+                        ]); ?>
                     </figure>
                 <?php endforeach; ?>
             </div>

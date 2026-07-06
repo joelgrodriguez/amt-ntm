@@ -3,7 +3,7 @@
   "generatedBy": "shogun map",
   "project": {
     "name": "standard-press",
-    "root": "amt-ntm"
+    "root": "70-perf-hero-lcp-responsive-images"
   },
   "stack": {
     "languages": [
@@ -73,24 +73,13 @@
       },
       "keyFiles": [
         ".distignore",
+        ".git",
         ".gitattributes",
         ".gitignore",
         "CLAUDE.md",
         "DESIGN.md",
         "package-lock.json",
-        "package.json",
-        "paseo.json"
-      ]
-    },
-    {
-      "path": ".conductor",
-      "purpose": "Project area.",
-      "fileCount": 1,
-      "categories": {
-        "other": 1
-      },
-      "keyFiles": [
-        ".conductor/settings.local.toml"
+        "package.json"
       ]
     },
     {
@@ -131,9 +120,9 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 85,
+      "fileCount": 81,
       "categories": {
-        "docs": 85
+        "docs": 81
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
@@ -149,36 +138,36 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 38,
+      "fileCount": 25,
       "categories": {
         "source": 6,
-        "other": 30,
+        "other": 17,
         "docs": 2
       },
       "keyFiles": [
         "scripts/content/export-copy.php",
         "scripts/content/export-xlsx.php",
         "scripts/content/exports/.gitkeep",
-        "scripts/content/exports/copy-review-about.csv",
-        "scripts/content/exports/copy-review-all.csv",
-        "scripts/content/exports/copy-review-choose.csv",
-        "scripts/content/exports/copy-review-finance.csv",
-        "scripts/content/exports/copy-review-gutter.csv"
+        "scripts/content/extract.php",
+        "scripts/content/manifest.php",
+        "scripts/content/README.md",
+        "scripts/db/000-template.sh.example",
+        "scripts/db/010-strip-hardcoded-buttons-from-machine-excerpts.sh"
       ]
     }
   ],
   "files": [
     {
-      "path": ".conductor/settings.local.toml",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 107
-    },
-    {
       "path": ".distignore",
       "category": "other",
       "role": "Repository file.",
       "size": 607
+    },
+    {
+      "path": ".git",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 136
     },
     {
       "path": ".gitattributes",
@@ -616,7 +605,7 @@
       "path": "app/inc/images.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 3474
+      "size": 3493
     },
     {
       "path": "app/inc/knowledgebase.php",
@@ -1696,7 +1685,7 @@
       "path": "app/templates/pages/gutter/machii-callout.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 3940
+      "size": 3937
     },
     {
       "path": "app/templates/pages/gutter/product-grid.php",
@@ -1744,7 +1733,7 @@
       "path": "app/templates/pages/machii/heritage.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 3939
+      "size": 3972
     },
     {
       "path": "app/templates/pages/machii/hero.php",
@@ -1762,7 +1751,7 @@
       "path": "app/templates/pages/machii/workflow.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 4512
+      "size": 4538
     },
     {
       "path": "app/templates/pages/machines/brand-statement.php",
@@ -1810,7 +1799,7 @@
       "path": "app/templates/pages/machines/image-break.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 730
+      "size": 749
     },
     {
       "path": "app/templates/pages/machines/learning-center.php",
@@ -1846,7 +1835,7 @@
       "path": "app/templates/pages/machines/uniq-spotlight.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 4043
+      "size": 4078
     },
     {
       "path": "app/templates/pages/machines/which-machine.php",
@@ -2056,7 +2045,7 @@
       "path": "app/templates/pages/trailer/engineering.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 6471
+      "size": 6452
     },
     {
       "path": "app/templates/pages/trailer/final-cta.php",
@@ -2074,7 +2063,7 @@
       "path": "app/templates/pages/trailer/models.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 7859
+      "size": 7840
     },
     {
       "path": "app/templates/pages/trailer/vs-traditional.php",
@@ -2188,7 +2177,7 @@
       "path": "app/templates/parts/brand-statement.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 2613
+      "size": 2642
     },
     {
       "path": "app/templates/parts/breadcrumbs.php",
@@ -2308,7 +2297,7 @@
       "path": "app/templates/parts/customer-story.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 5792
+      "size": 5821
     },
     {
       "path": "app/templates/parts/disclaimer.php",
@@ -2320,7 +2309,7 @@
       "path": "app/templates/parts/faq-accordion.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4534
+      "size": 4592
     },
     {
       "path": "app/templates/parts/filter-chips.php",
@@ -2338,7 +2327,7 @@
       "path": "app/templates/parts/final-cta.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 7211
+      "size": 7334
     },
     {
       "path": "app/templates/parts/front-page/contact.php",
@@ -2374,13 +2363,13 @@
       "path": "app/templates/parts/front-page/hero-slider.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3345
+      "size": 3058
     },
     {
       "path": "app/templates/parts/front-page/quiz.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 2717
+      "size": 2706
     },
     {
       "path": "app/templates/parts/front-page/router.php",
@@ -2398,7 +2387,7 @@
       "path": "app/templates/parts/front-page/three-step-plan.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 6445
+      "size": 6432
     },
     {
       "path": "app/templates/parts/front-page/tools.php",
@@ -2572,7 +2561,7 @@
       "path": "app/templates/parts/testimonial-slider.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 10202
+      "size": 10256
     },
     {
       "path": "app/templates/parts/value-prop-cards.php",
@@ -2909,12 +2898,6 @@
       "category": "docs",
       "role": "Project documentation for humans and agents.",
       "size": 31207
-    },
-    {
-      "path": "docs/feedback/e_sola/NTM Site New Nav & Info Arch Working Session.docx",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 4694612
     },
     {
       "path": "docs/feedback/README.md",
@@ -3343,24 +3326,6 @@
       "size": 408
     },
     {
-      "path": "docs/superpowers/specs/2026-06-16-service-hub-knowledgebase-design.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 9142
-    },
-    {
-      "path": "docs/superpowers/specs/2026-06-16-service-search-results-page-design.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 7500
-    },
-    {
-      "path": "docs/superpowers/specs/2026-06-16-ssq3-machii-template-polish-design.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 7758
-    },
-    {
       "path": "docs/superpowers/specs/data-normalization-backlog.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
@@ -3383,12 +3348,6 @@
       "category": "manifest",
       "role": "Project manifest or dependency declaration.",
       "size": 561
-    },
-    {
-      "path": "paseo.json",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 3
     },
     {
       "path": "PRODUCT.md",
@@ -3419,84 +3378,6 @@
       "category": "other",
       "role": "Repository file.",
       "size": 0
-    },
-    {
-      "path": "scripts/content/exports/copy-review-about.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 11280
-    },
-    {
-      "path": "scripts/content/exports/copy-review-all.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 118433
-    },
-    {
-      "path": "scripts/content/exports/copy-review-choose.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 7140
-    },
-    {
-      "path": "scripts/content/exports/copy-review-finance.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 12033
-    },
-    {
-      "path": "scripts/content/exports/copy-review-gutter.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 10015
-    },
-    {
-      "path": "scripts/content/exports/copy-review-home.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 15521
-    },
-    {
-      "path": "scripts/content/exports/copy-review-machines.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 14670
-    },
-    {
-      "path": "scripts/content/exports/copy-review-roof-wall.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 10728
-    },
-    {
-      "path": "scripts/content/exports/copy-review-safety.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 5403
-    },
-    {
-      "path": "scripts/content/exports/copy-review-start-here.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 13738
-    },
-    {
-      "path": "scripts/content/exports/copy-review-trailer.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 10882
-    },
-    {
-      "path": "scripts/content/exports/copy-review-uniq.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 7563
-    },
-    {
-      "path": "scripts/content/exports/copy-review.xlsx",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 160368
     },
     {
       "path": "scripts/content/extract.php",
@@ -3663,7 +3544,6 @@
     "docs/feedback/2026-06-09-web-images-review-alex-actions.html",
     "docs/feedback/2026-06-09-web-images-review.md",
     "docs/feedback/2026-06-17-stakeholder-review.md",
-    "docs/feedback/e_sola/NTM Site New Nav & Info Arch Working Session.docx",
     "docs/feedback/README.md",
     "docs/handoff/01-context.md",
     "docs/handoff/02-the-change.md",
@@ -3735,9 +3615,6 @@
     "docs/specs/templates.md",
     "docs/specs/trailer.md",
     "docs/specs/woo.md",
-    "docs/superpowers/specs/2026-06-16-service-hub-knowledgebase-design.md",
-    "docs/superpowers/specs/2026-06-16-service-search-results-page-design.md",
-    "docs/superpowers/specs/2026-06-16-ssq3-machii-template-polish-design.md",
     "docs/superpowers/specs/data-normalization-backlog.md",
     "docs/superpowers/specs/db-persistence-strategy.md",
     "PRODUCT.md",

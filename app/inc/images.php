@@ -65,7 +65,7 @@ function responsive_image(string $url, string $alt = '', string $size = 'large',
 
     $attributes = '';
     foreach ($attrs as $name => $value) {
-        if ($value === '') {
+        if ($value === '' && $name !== 'alt') {
             continue;
         }
         $attributes .= ' ' . esc_attr((string) $name) . '="' . esc_attr((string) $value) . '"';

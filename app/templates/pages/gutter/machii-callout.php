@@ -71,13 +71,11 @@ $receipts = [
             </div>
 
             <figure class="m-0 order-1 lg:order-2">
-                <img
-                    src="<?php echo esc_url($image); ?>"
-                    alt="<?php echo esc_attr($image_alt); ?>"
-                    class="w-full h-auto object-cover aspect-video border border-blue-800"
-                    loading="lazy"
-                    decoding="async"
-                >
+                <?php \Standard\Images\responsive_image($image, $image_alt, 'large', [
+                    'class'   => 'w-full h-auto object-cover aspect-video border border-blue-800',
+                    'loading' => 'lazy',
+                    'sizes'   => '(min-width: 1024px) 50vw, 100vw',
+                ]); ?>
             </figure>
 
         </div>
