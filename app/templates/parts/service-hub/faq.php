@@ -34,7 +34,7 @@ $faqs = [
     ],
     [
         'question' => __('How do I open a service request?', 'standard'),
-        'answer'   => __('Tap "Open a service request" on this page or go to /service-hub/request/. Include the machine model, serial number, and a clear description of the issue—photos or video help the team diagnose faster.', 'standard'),
+        'answer'   => __('Use the "Open a service request" button on this page or visit /service-hub/request/. Include your machine model, serial number, and a clear description of the issue—photos or video help the team diagnose faster.', 'standard'),
     ],
     [
         'question' => __('How often does my machine need to be serviced?', 'standard'),
