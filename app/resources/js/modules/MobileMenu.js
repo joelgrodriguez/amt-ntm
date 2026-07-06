@@ -67,7 +67,7 @@ export function initMobileMenu() {
 
   const panels = menu.querySelectorAll('.mobile-menu__panel');
   const pageElements = document.querySelectorAll(
-    'main, footer, #site-header a, #site-header button:not(#mobile-menu-toggle)'
+    'a[href="#primary"], main, footer, #site-header a, #site-header button:not(#mobile-menu-toggle)'
   );
 
   /**

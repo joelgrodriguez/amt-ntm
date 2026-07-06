@@ -433,5 +433,6 @@ body.mega-open {
 
 body.mega-open #scroll-to-top {
     opacity: 0 !important;
+    visibility: hidden !important;
     pointer-events: none !important;
 }

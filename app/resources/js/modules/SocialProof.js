@@ -23,7 +23,7 @@ const AUTOPLAY_INTERVAL = 6500;
 let abortController = null;
 
 const DOT_ACTIVE = ['bg-red', 'w-3'];
-const DOT_INACTIVE = ['bg-blue-300', 'w-1'];
+const DOT_INACTIVE = ['bg-blue-400', 'w-1'];
 const SLIDE_ACTIVE = ['opacity-100'];
 const SLIDE_INACTIVE = ['opacity-0', 'pointer-events-none'];
 
@@ -53,6 +53,9 @@ function initSection(section, signal) {
   const slides = section.querySelectorAll('.social-proof__slide');
   const dots = section.querySelectorAll('.social-proof__dot');
   const currentLabel = section.querySelector('[data-current]');
+  const pauseToggle = section.querySelector('.social-proof__pause');
+  const pauseIcon = pauseToggle?.querySelector('[data-pause-icon]');
+  const playIcon = pauseToggle?.querySelector('[data-play-icon]');
 
   if (slides.length < 2) return;
 
@@ -60,6 +63,26 @@ function initSection(section, signal) {
   let autoplayTimer = null;
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let userPaused = prefersReducedMotion.matches;
+
+  function updatePauseToggle() {
+    if (!(pauseToggle instanceof HTMLElement)) return;
+
+    pauseToggle.setAttribute('aria-pressed', String(userPaused));
+    pauseToggle.setAttribute(
+      'aria-label',
+      userPaused
+        ? pauseToggle.dataset.playLabel || 'Play testimonial autoplay'
+        : pauseToggle.dataset.pauseLabel || 'Pause testimonial autoplay'
+    );
+
+    if (pauseIcon instanceof HTMLElement) {
+      pauseIcon.hidden = userPaused;
+    }
+    if (playIcon instanceof HTMLElement) {
+      playIcon.hidden = !userPaused;
+    }
+  }
 
   /**
    * Show slide at given index.
@@ -99,8 +122,12 @@ function initSection(section, signal) {
 
   function startAutoplay() {
     stopAutoplay();
-    if (prefersReducedMotion.matches) return;
+    if (userPaused) {
+      updatePauseToggle();
+      return;
+    }
     autoplayTimer = setInterval(nextSlide, AUTOPLAY_INTERVAL);
+    updatePauseToggle();
   }
 
   function stopAutoplay() {
@@ -108,6 +135,27 @@ function initSection(section, signal) {
       clearInterval(autoplayTimer);
       autoplayTimer = null;
     }
+    updatePauseToggle();
+  }
+
+  function setUserPaused(paused) {
+    userPaused = paused;
+    if (userPaused) {
+      stopAutoplay();
+    } else {
+      startAutoplay();
+    }
+  }
+
+  function pauseForInteraction() {
+    stopAutoplay();
+  }
+
+  function resumeAfterInteraction(e) {
+    if (e?.relatedTarget instanceof Node && section.contains(e.relatedTarget)) {
+      return;
+    }
+    startAutoplay();
   }
 
   // Manual nav: jump to (dots) or step through (arrows) the slides and
@@ -119,8 +167,12 @@ function initSection(section, signal) {
       const dot = e.target.closest('.social-proof__dot');
       const prev = e.target.closest('.social-proof__prev');
       const next = e.target.closest('.social-proof__next');
+      const pause = e.target.closest('.social-proof__pause');
 
-      if (dot) {
+      if (pause) {
+        setUserPaused(!userPaused);
+        return;
+      } else if (dot) {
         goToSlide(parseInt(dot.dataset.index, 10));
       } else if (prev) {
         prevSlide();
@@ -136,16 +188,16 @@ function initSection(section, signal) {
   );
 
   // Pause on hover/focus so readers can finish a quote.
-  section.addEventListener('mouseenter', stopAutoplay, { signal });
-  section.addEventListener('mouseleave', startAutoplay, { signal });
-  section.addEventListener('focusin', stopAutoplay, { signal });
-  section.addEventListener('focusout', startAutoplay, { signal });
+  section.addEventListener('mouseenter', pauseForInteraction, { signal });
+  section.addEventListener('mouseleave', resumeAfterInteraction, { signal });
+  section.addEventListener('focusin', pauseForInteraction, { signal });
+  section.addEventListener('focusout', resumeAfterInteraction, { signal });
 
   prefersReducedMotion.addEventListener(
     'change',
     (e) => {
       if (e.matches) {
-        stopAutoplay();
+        setUserPaused(true);
       } else {
         startAutoplay();
       }
@@ -157,6 +209,7 @@ function initSection(section, signal) {
   // which fires this listener and kills this section's autoplay timer.
   signal.addEventListener('abort', stopAutoplay, { once: true });
 
+  updatePauseToggle();
   startAutoplay();
 }
 

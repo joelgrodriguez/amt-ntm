@@ -43,6 +43,8 @@ $content = wp_parse_args($args['content'] ?? [], [
     'channel'    => __('Customer testimonials', 'standard'),
     'sr_title'   => __('Customer testimonials', 'standard'),
     'nav_label'  => __('Testimonial navigation', 'standard'),
+    'pause_label' => __('Pause testimonial autoplay', 'standard'),
+    'play_label'  => __('Play testimonial autoplay', 'standard'),
     'cta_label'  => __('All customer stories', 'standard'),
     'cta_url'    => '/learning-center/category/testimonials/',
     'count_left' => __('Stories', 'standard'),
@@ -147,6 +149,22 @@ $total      = count($testimonials);
                 <nav class="flex items-center gap-1" aria-label="<?php echo esc_attr($content['nav_label']); ?>">
                     <button
                         type="button"
+                        class="social-proof__pause grid place-items-center w-11 h-11 -my-4 border-none bg-transparent cursor-pointer text-blue-900 transition-colors duration-150 hover:text-blue-500 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2"
+                        aria-label="<?php echo esc_attr($content['pause_label']); ?>"
+                        aria-pressed="false"
+                        data-pause-label="<?php echo esc_attr($content['pause_label']); ?>"
+                        data-play-label="<?php echo esc_attr($content['play_label']); ?>"
+                    >
+                        <span data-pause-icon>
+                            <?php icon('pause', ['class' => 'w-4 h-4']); ?>
+                        </span>
+                        <span data-play-icon hidden>
+                            <?php icon('play', ['class' => 'w-4 h-4']); ?>
+                        </span>
+                    </button>
+
+                    <button
+                        type="button"
                         class="social-proof__prev grid place-items-center w-11 h-11 -my-4 border-none bg-transparent cursor-pointer text-blue-900 transition-colors duration-150 hover:text-blue-500 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2"
                         aria-label="<?php esc_attr_e('Previous testimonial', 'standard'); ?>"
                     >
@@ -158,7 +176,7 @@ $total      = count($testimonials);
                             <?php $is_active = $index === 0; ?>
                             <button
                                 type="button"
-                                class="social-proof__dot h-3 border-none cursor-pointer transition-colors duration-150 hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2 <?php echo $is_active ? 'bg-red w-3' : 'bg-blue-300 w-1'; ?>"
+                                class="social-proof__dot h-3 border-none cursor-pointer transition-colors duration-150 hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-2 <?php echo $is_active ? 'bg-red w-3' : 'bg-blue-400 w-1'; ?>"
                                 data-index="<?php echo esc_attr((string) $index); ?>"
                                 aria-label="<?php echo esc_attr(sprintf(__('View testimonial %d', 'standard'), $index + 1)); ?>"
                                 <?php echo $is_active ? 'aria-current="true"' : ''; ?>

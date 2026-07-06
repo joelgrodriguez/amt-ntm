@@ -312,6 +312,7 @@ export const initSearchModal = () => {
       link.id = `site-search-modal-result-${index}`;
       link.setAttribute('role', 'option');
       link.setAttribute('aria-selected', 'false');
+      link.tabIndex = -1;
 
       const type = document.createElement('span');
       type.className = 'search-modal__results-type';

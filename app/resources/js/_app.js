@@ -16,6 +16,7 @@ import { initScrollReveal } from './modules/ScrollReveal.js';
 import { initTableOfContents } from './modules/TableOfContents.js';
 import { init as initScrollHeader } from './modules/ScrollHeader.js';
 import { init as initScrollToTop } from './modules/ScrollToTop.js';
+import { initFooterAccordions } from './modules/FooterAccordions.js';
 import { initAccordion } from './modules/Accordion.js';
 import { initCarouselNav } from './modules/CarouselNav.js';
 import { initHubspotForms } from './modules/HubspotForms.js';
@@ -40,6 +41,9 @@ let scrollHeaderCleanup = null;
 
 /** @type {Function|null} Cleanup function for scroll to top */
 let scrollToTopCleanup = null;
+
+/** @type {Function|null} Cleanup function for footer accordions */
+let footerAccordionsCleanup = null;
 
 /** @type {Function|null} Cleanup function for accordion */
 let accordionCleanup = null;
@@ -91,6 +95,7 @@ const initApp = () => {
   });
   scrollHeaderCleanup = initScrollHeader();
   scrollToTopCleanup = initScrollToTop();
+  footerAccordionsCleanup = initFooterAccordions();
   accordionCleanup = initAccordion();
   carouselNavCleanup = initCarouselNav();
   hubspotFormsCleanup = initHubspotForms();
@@ -123,6 +128,9 @@ if (import.meta.hot) {
     }
     if (scrollToTopCleanup) {
       scrollToTopCleanup();
+    }
+    if (footerAccordionsCleanup) {
+      footerAccordionsCleanup();
     }
     if (accordionCleanup) {
       accordionCleanup();

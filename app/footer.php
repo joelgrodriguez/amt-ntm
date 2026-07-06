@@ -3,7 +3,7 @@
  * The footer template.
  *
  * Displays the site footer with navigation columns and legal links.
- * Mobile: CSS-only accordions for each section.
+ * Mobile: native details accordions for each section.
  * Desktop: 5-column grid layout.
  *
  * @link https://developer.wordpress.org/themes/basics/template-files/#template-partials
@@ -80,27 +80,19 @@ $legal_links = [
                 </a>
             </div>
             <?php foreach ($footer_sections as $index => $section) : ?>
-                <div class="footer-section border-t border-blue-700 lg:border-0">
-                    <input
-                        type="checkbox"
-                        id="footer-accordion-<?php echo esc_attr($index); ?>"
-                        class="footer-accordion-toggle peer sr-only"
-                    >
-                    <label
-                        for="footer-accordion-<?php echo esc_attr($index); ?>"
-                        class="flex items-center justify-between py-4 cursor-pointer lg:cursor-default lg:py-0 lg:mb-4"
-                    >
-                        <h3 class="text-white font-medium text-sm uppercase tracking-wider">
+                <details class="footer-section footer-accordion border-t border-blue-700 lg:border-0" data-footer-accordion>
+                    <summary class="flex items-center justify-between py-4 cursor-pointer lg:cursor-default lg:py-0 lg:mb-4 focus-visible:outline-2 focus-visible:outline-blue-300 focus-visible:outline-offset-2">
+                        <span class="text-white font-medium text-sm uppercase tracking-wider">
                             <?php echo esc_html($section['title']); ?>
-                        </h3>
+                        </span>
                         <span class="footer-accordion-icon lg:hidden">
                             <?php icon('chevron-down', ['class' => 'w-3 h-3 text-blue-300 transition-transform duration-300']); ?>
                         </span>
-                    </label>
-                    <div class="footer-accordion-content grid overflow-hidden transition-all duration-300 ease-in-out max-h-0 peer-checked:max-h-96 lg:max-h-none">
+                    </summary>
+                    <div class="footer-accordion-content">
                         <div class="pb-4 lg:pb-0">
                             <?php if ($section['description']) : ?>
-                                <p class="text-sm text-blue-400 leading-relaxed">
+                                <p class="text-sm text-blue-300 leading-relaxed">
                                     <?php echo esc_html($section['description']); ?>
                                 </p>
                             <?php endif; ?>
@@ -111,7 +103,7 @@ $legal_links = [
                                         <li>
                                             <a
                                                 href="<?php echo esc_url(\Standard\Url\internal($link[0])); ?>"
-                                                class="text-sm text-blue-400 hover:text-white transition-colors inline-flex items-center gap-2"
+                                                class="text-sm text-blue-300 hover:text-white transition-colors inline-flex items-center gap-2"
                                             >
                                                 <?php echo esc_html($link[1]); ?>
                                                 <?php if (!empty($link[2])) : ?>
@@ -126,7 +118,7 @@ $legal_links = [
                             <?php endif; ?>
                         </div>
                     </div>
-                </div>
+                </details>
             <?php endforeach; ?>
 
         </div>
@@ -138,13 +130,13 @@ $legal_links = [
                     <?php foreach ($legal_links as $link) : ?>
                         <a
                             href="<?php echo esc_url(\Standard\Url\internal($link[1])); ?>"
-                            class="text-blue-400 hover:text-white transition-colors"
+                            class="text-blue-300 hover:text-white transition-colors"
                         >
                             <?php echo esc_html($link[0]); ?>
                         </a>
                     <?php endforeach; ?>
                 </nav>
-                <p class="text-xs text-blue-500 md:text-center">
+                <p class="text-xs text-blue-300 md:text-center">
                     &copy; <?php echo esc_html(current_time('Y')); ?> <?php echo esc_html(get_bloginfo('name')); ?>.
                     <?php esc_html_e('All rights reserved.', 'standard'); ?>
                 </p>
@@ -154,7 +146,7 @@ $legal_links = [
                             href="<?php echo esc_url($social[1]); ?>"
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="text-blue-400 hover:text-white transition-colors"
+                            class="text-blue-300 hover:text-white transition-colors"
                             aria-label="<?php echo esc_attr($social[2]); ?>"
                         >
                             <?php icon($social[0], ['class' => 'w-5 h-5']); ?>
@@ -171,6 +163,7 @@ $legal_links = [
     type="button"
     class="fixed bottom-6 right-6 z-50 w-10 h-10 bg-red text-white flex items-center justify-center hover:bg-blue-600 transition-all duration-300 opacity-0 pointer-events-none"
     aria-label="<?php esc_attr_e('Scroll to top', 'standard'); ?>"
+    inert
 >
     <?php icon('chevron-up', ['class' => 'w-4 h-4']); ?>
 </button>
