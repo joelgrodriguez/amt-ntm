@@ -18,25 +18,6 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Build a taxonomy archive URL scoped to one post type.
- */
-function get_scoped_term_url(string $taxonomy, string $slug, string $post_type): string {
-    $term = \get_term_by('slug', $slug, $taxonomy);
-    if ($term instanceof \WP_Term) {
-        $link = \get_term_link($term);
-        if (!\is_wp_error($link)) {
-            return \add_query_arg(['post_type' => \sanitize_key($post_type)], $link);
-        }
-    }
-
-    $base = $taxonomy === 'post_tag'
-        ? '/tag/' . $slug . '/'
-        : '/category/' . $slug . '/';
-
-    return \add_query_arg(['post_type' => \sanitize_key($post_type)], \Standard\Url\internal($base));
-}
-
-/**
  * Test whether a nav item represents the URL the user is currently viewing.
  *
  * Compares the request path against the item's URL path (or any of its
@@ -263,19 +244,19 @@ function get_desktop_nav(): array {
                             [
                                 'heading'        => __('Roof & Wall Panel', 'standard'),
                                 'category'       => 'profiles-metal-roof-wall-panel',
-                                'view_all_url'   => get_scoped_term_url('category', 'profiles-metal-roof-wall-panel', 'profile'),
+                                'view_all_url'   => \Standard\Url\internal('/profiles/'),
                                 'view_all_label' => __('View All', 'standard'),
                             ],
                             [
                                 'heading'        => __('Gutter', 'standard'),
                                 'category'       => 'profiles-gutter',
-                                'view_all_url'   => get_scoped_term_url('category', 'profiles-gutter', 'profile'),
+                                'view_all_url'   => \Standard\Url\internal('/profiles/'),
                                 'view_all_label' => __('View All', 'standard'),
                             ],
                             [
                                 'heading'        => __('Clip Relief / Rib Rollers', 'standard'),
                                 'category'       => 'clip-relief-rib-rollers',
-                                'view_all_url'   => get_scoped_term_url('category', 'clip-relief-rib-rollers', 'profile'),
+                                'view_all_url'   => \Standard\Url\internal('/profiles/'),
                                 'view_all_label' => __('View All', 'standard'),
                             ],
                         ],
