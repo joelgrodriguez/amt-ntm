@@ -79,6 +79,7 @@
 @import "./pages/learning-center.css";
 @import "./pages/roof-wall.css";
 @import "./pages/start-here.css";
+@import "./pages/embed-canvas.css";
 /* pages/finance-center.css is its own Vite entry, enqueued only on the
  * NTM — Finance Center template (see app/inc/vite.php). */
 
