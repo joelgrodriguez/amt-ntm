@@ -204,8 +204,8 @@ return [
         ],
     ],
     'resources' => [
-        'manual'               => 'https://newtechmachinery.com/learning-center/manual/5vc-5v-roof-panel-machine-with-ams-controller-manual/',
-        'brochure'             => 'https://newtechmachinery.com/learning-center/literature/5vc-5v-crimp-roof-panel-machine-brochure/',
+        'manual'               => '/learning-center/manual/5vc-5v-roof-panel-machine-with-ams-controller-manual/',
+        'brochure'             => '/learning-center/literature/5vc-5v-crimp-roof-panel-machine-brochure/',
         'service_training_url' => '/service-training',
     ],
     'faq' => [

@@ -32,7 +32,7 @@ if (!empty($resources['manual'])) {
         'title'  => __('Operator Manual', 'standard'),
         'copy'   => __('Setup, daily operation, maintenance schedule, and troubleshooting.', 'standard'),
         'cta'    => __('Open Manual', 'standard'),
-        'url'    => \Standard\Url\internal($resources['manual']),
+        'url'    => \Standard\Url\canonical($resources['manual']),
     ];
 }
 if (!empty($resources['brochure'])) {
@@ -42,7 +42,7 @@ if (!empty($resources['brochure'])) {
         'title'  => __('Product Brochure', 'standard'),
         'copy'   => __('Full spec sheet, options, configurations, and pricing reference.', 'standard'),
         'cta'    => __('Open Brochure', 'standard'),
-        'url'    => \Standard\Url\internal($resources['brochure']),
+        'url'    => \Standard\Url\canonical($resources['brochure']),
     ];
 }
 if (!empty($resources['service_training_url'])) {

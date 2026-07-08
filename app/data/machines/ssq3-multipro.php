@@ -271,8 +271,8 @@ return [
         ],
     ],
     'resources' => [
-        'manual'              => '/learning-center/manual/ssq3-roof-panel-machine-manual/',
-        'brochure'            => '/learning-center/literature/ssq3-multipro-roof-panel-machine-brochure/',
+        'manual'              => '/learning-center/manual/ssq-3-roof-panel-machine-manual/',
+        'brochure'            => '/learning-center/literature/ssq-3-multipro-roof-panel-machine-brochure/',
         'service_training_url' => '/service-training',
     ],
     'faq' => [

@@ -128,7 +128,7 @@ function filter_available_resources(array $data): array {
         return $data;
     }
 
-    foreach (['brochure'] as $key) {
+    foreach (['manual', 'brochure'] as $key) {
         $path = $data['resources'][$key] ?? '';
         if (!is_string($path) || $path === '') {
             continue;

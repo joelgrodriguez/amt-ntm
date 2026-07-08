@@ -188,8 +188,8 @@ return [
         ],
     ],
     'resources' => [
-        'manual'               => 'https://newtechmachinery.com/learning-center/manual/mach-ii-gutter-machines-manual/',
-        'brochure'             => 'https://newtechmachinery.com/learning-center/literature/mach-ii-5-6-5-6-gutter-machines-brochure/',
+        'manual'               => '/learning-center/manual/mach-ii-gutter-machines-manual/',
+        'brochure'             => '/learning-center/literature/mach-ii-5-6-5-6-gutter-machines-brochure/',
         'service_training_url' => '/service-training',
     ],
     'faq' => [
