@@ -213,6 +213,13 @@ function get_desktop_nav(): array {
                 'sidebar_label'  => __('Choose Your Machine', 'standard'),
                 'view_all_url'   => \Standard\Url\internal('/machines/'),
                 'view_all_label' => __('See all machines', 'standard'),
+                'secondary_links' => [
+                    [
+                        'label' => __('Build and Quote', 'standard'),
+                        'url'   => \Standard\Url\internal('/configurator/'),
+                        'badge' => __('NEW', 'standard'),
+                    ],
+                ],
                 'tabs'           => [
                     [
                         'id'             => 'roof-wall',
