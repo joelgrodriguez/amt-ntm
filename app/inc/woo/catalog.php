@@ -47,7 +47,7 @@ function get_product_categories(): array {
         ],
         'accessories-add-on-equipment' => [
             'label' => \__('Accessories & Upgrades', 'standard'),
-            'short' => \__('Accessories', 'standard'),
+            'short' => \__('Upgrades', 'standard'),
         ],
     ];
 }
@@ -63,6 +63,100 @@ function get_products_by_category(string $category_slug): array {
     }
 
     return get_sample_products($category_slug);
+}
+
+/**
+ * Map a WooCommerce product slug to its machine data slug.
+ */
+function resolve_machine_data_slug(string $woo_slug): string {
+    if (!function_exists('Standard\\MachineProductData\\get_slug_aliases')) {
+        return $woo_slug;
+    }
+
+    $aliases = \Standard\MachineProductData\get_slug_aliases();
+
+    return $aliases[$woo_slug] ?? $woo_slug;
+}
+
+/**
+ * Card badge from machine data (badge field, featured flag, or '').
+ */
+function resolve_machine_badge(string $woo_slug): string {
+    $data_slug = resolve_machine_data_slug($woo_slug);
+
+    if (function_exists('Standard\\MachinesData\\get_machine_categories')) {
+        foreach (\Standard\MachinesData\get_machine_categories() as $category) {
+            foreach ($category['machines'] ?? [] as $machine) {
+                if (($machine['slug'] ?? '') !== $data_slug) {
+                    continue;
+                }
+
+                if (!empty($machine['badge'])) {
+                    return (string) $machine['badge'];
+                }
+
+                if (!empty($machine['featured'])) {
+                    return \__('Featured', 'standard');
+                }
+
+                return '';
+            }
+        }
+    }
+
+    return '';
+}
+
+/**
+ * Canonical machine order per Woo category slug (data-file order).
+ *
+ * @return array<string, int>
+ */
+function get_machine_sort_order(string $category_slug): array {
+    if (!function_exists('Standard\\MachinesData\\get_gutter_machines')) {
+        return [];
+    }
+
+    $machines = match ($category_slug) {
+        'gutter-machines'          => \Standard\MachinesData\get_gutter_machines(),
+        'roof-wall-panel-machines' => \Standard\MachinesData\get_roof_wall_machines(),
+        default                    => [],
+    };
+
+    $order = [];
+    foreach ($machines as $index => $machine) {
+        $slug = (string) ($machine['slug'] ?? '');
+        if ($slug !== '') {
+            $order[$slug] = $index;
+        }
+    }
+
+    return $order;
+}
+
+/**
+ * Sort Woo products to match machine data order (featured/flagship first).
+ *
+ * @param array<int, \WC_Product> $products
+ * @return array<int, \WC_Product>
+ */
+function sort_products_by_machine_data(array $products, string $category_slug): array {
+    $order = get_machine_sort_order($category_slug);
+    if ($order === []) {
+        return $products;
+    }
+
+    usort(
+        $products,
+        static function (\WC_Product $a, \WC_Product $b) use ($order): int {
+            $pos_a = $order[resolve_machine_data_slug($a->get_slug())] ?? PHP_INT_MAX;
+            $pos_b = $order[resolve_machine_data_slug($b->get_slug())] ?? PHP_INT_MAX;
+
+            return $pos_a <=> $pos_b;
+        }
+    );
+
+    return $products;
 }
 
 /**
@@ -88,6 +182,11 @@ function get_woocommerce_products(string $category_slug): array {
         'orderby'  => 'menu_order',
         'order'    => 'ASC',
     ]);
+
+    if (!$is_accessory) {
+        $products = sort_products_by_machine_data($products, $category_slug);
+    }
+
     $dormant_slugs = function_exists('Standard\\MachinesData\\get_dormant_wc_slugs')
         ? \Standard\MachinesData\get_dormant_wc_slugs()
         : [];
@@ -97,11 +196,6 @@ function get_woocommerce_products(string $category_slug): array {
         if (!empty($dormant_slugs) && in_array($product->get_slug(), $dormant_slugs, true)) {
             continue;
         }
-        // Flagship badge: hardcoded slug list. Currently SSQ3 only.
-        // Add more slugs here as the flagship lineup grows; for a
-        // larger set, move this to a per-machine data flag.
-        $flagship_slugs = ['ssq3-multipro'];
-        $is_flagship    = \in_array($product->get_slug(), $flagship_slugs, true);
 
         $description = '';
         if (!$is_accessory && function_exists('Standard\\MachinesData\\get_machine_description')) {
@@ -126,7 +220,7 @@ function get_woocommerce_products(string $category_slug): array {
             'subtitle'       => $is_accessory ? ($product->get_price_html() ?: null) : null,
             'explore_url'    => $product->get_permalink(),
             'build_url'      => $is_accessory ? '' : get_configurator_url($product->get_slug()),
-            'badge'          => $is_flagship ? \__('Flagship', 'standard') : '',
+            'badge'          => $is_accessory ? '' : resolve_machine_badge($product->get_slug()),
             'is_accessory'   => $is_accessory,
         ];
     }
@@ -273,7 +367,7 @@ function format_sample_machine_product(array $machine, string $category_slug): a
         'price_label'    => !empty($machine['price_label']) ? $machine['price_label'] : \__('Starting at', 'standard'),
         'explore_url'    => get_sample_machine_url($machine, $category_slug, $public_slug),
         'build_url'      => $configurator_slug !== '' ? \Standard\Url\internal('/configurator/' . $configurator_slug . '/') : '',
-        'badge'          => get_sample_machine_badge($slug),
+        'badge'          => resolve_machine_badge($slug) ?: get_sample_machine_badge($slug),
     ];
 }
 
@@ -327,8 +421,8 @@ function get_sample_machine_url(array $machine, string $category_slug, string $p
 
 function get_sample_machine_badge(string $slug): string {
     $map = [
-        'ssq3-multipro'    => 'Best Seller',
-        'mach-ii-5-gutter' => 'Popular',
+        'ssq3-multipro'        => 'Flagship',
+        'mach-ii-combo-gutter' => 'Featured',
     ];
 
     return $map[$slug] ?? '';

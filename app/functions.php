@@ -39,6 +39,7 @@ $theme_includes = [
     'inc/breadcrumbs.php',
     'inc/related-posts.php',
     'inc/mega-menu.php',
+    'inc/floating-build-cta.php',
     'inc/knowledgebase.php',
     'inc/service-hub.php',
     'inc/woo/setup.php',

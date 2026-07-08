@@ -85,7 +85,12 @@ if ($slug === '' || $groups === []) {
         <?php foreach (($intro['secondary_links'] ?? []) as $link) : ?>
             <?php if (!empty($link['url'])) : ?>
                 <a class="mobile-menu__view-all" href="<?php echo esc_url($link['url']); ?>">
-                    <?php echo esc_html($link['label'] ?? __('Learn more', 'standard')); ?>
+                    <span class="inline-flex items-center gap-2">
+                        <?php echo esc_html($link['label'] ?? __('Learn more', 'standard')); ?>
+                        <?php if (!empty($link['badge'])) : ?>
+                            <span class="badge badge-emphasis"><?php echo esc_html($link['badge']); ?></span>
+                        <?php endif; ?>
+                    </span>
                     <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                 </a>
             <?php endif; ?>

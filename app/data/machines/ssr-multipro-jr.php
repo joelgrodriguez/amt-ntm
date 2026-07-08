@@ -218,8 +218,8 @@ return [
         ],
     ],
     'resources' => [
-        'manual'               => 'https://newtechmachinery.com/learning-center/manual/ssr-roof-panel-machine-manual/',
-        'brochure'             => 'https://newtechmachinery.com/learning-center/literature/ssr-multipro-jr-roof-panel-machine-brochure/',
+        'manual'               => '/learning-center/manual/ssr-roof-panel-machine-manual/',
+        'brochure'             => '/learning-center/literature/ssr-multipro-jr-roof-panel-machine-brochure/',
         'service_training_url' => '/service-training',
         // "How to change a profile" is one of the most common owner questions.
         // Per-machine Learning Center video(s), listed on the resources grid.

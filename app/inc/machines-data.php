@@ -366,8 +366,7 @@ function get_machine_categories(bool $include_dormant = false): array {
                     'description' => 'Switches between 5" and 6" K style gutters from a single setup. No machine swap, no second trip to the truck.',
                     'image'      => $base . '2025/09/20250911_NTM_MACH-II-5-6-Combo_1000x1000.png',
                     'url'        => get_product_url('mach-ii-combo-gutter'),
-                    'badge'      => '',
-                    'featured'   => true,
+                    'badge'      => 'Featured',
                     'highlights' => [
                         '5"/6" combo K-style gutters from raw coil',
                         'Up to 50 feet per minute with polyurethane drive rollers',

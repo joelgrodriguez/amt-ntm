@@ -1,0 +1,75 @@
+/**
+ * Floating Build & Configure CTA
+ *
+ * Fixed bottom-left configurator shortcut. Enters ~1.2s after load with a
+ * soft slide, scale, de-blur, and shadow — no scroll gate.
+ *
+ * @file components/floating-build-cta.css
+ * @see js/modules/FloatingBuildCta.js
+ */
+
+.floating-build-cta {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--color-blue-500);
+  color: white;
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 0%);
+  will-change: transform, opacity, filter, box-shadow;
+
+  opacity: 0;
+  transform: translate3d(-1rem, 0.5rem, 0) scale(0.97);
+  filter: blur(2px);
+  pointer-events: none;
+
+  transition:
+    opacity 720ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 720ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 720ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 720ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 150ms ease-out;
+}
+
+.floating-build-cta.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.18);
+  pointer-events: auto;
+}
+
+.floating-build-cta:hover {
+  background-color: color-mix(in srgb, var(--color-blue-500) 90%, black);
+}
+
+.floating-build-cta:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+.floating-build-cta__label {
+  letter-spacing: 0.02em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-build-cta {
+    filter: none;
+    transform: translate3d(-0.5rem, 0, 0) scale(1);
+    transition-duration: 150ms;
+  }
+
+  .floating-build-cta.is-visible {
+    transform: translate3d(0, 0, 0);
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.12);
+  }
+}

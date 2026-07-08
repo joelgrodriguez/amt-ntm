@@ -62,6 +62,7 @@
 @import "./components/hero.css";
 @import "./components/hubspot-form.css";
 @import "./components/search-modal.css";
+@import "./components/floating-build-cta.css";
 
 /* ── Layout ────────────────────────────────────────────────────────── */
 @import "./layout/container.css";
@@ -79,6 +80,7 @@
 @import "./pages/learning-center.css";
 @import "./pages/roof-wall.css";
 @import "./pages/start-here.css";
+@import "./pages/embed-canvas.css";
 /* pages/finance-center.css is its own Vite entry, enqueued only on the
  * NTM — Finance Center template (see app/inc/vite.php). */
 

@@ -160,15 +160,12 @@ $legal_links = [
         </div>
     </div>
 </footer>
-<button
-    id="scroll-to-top"
-    type="button"
-    class="fixed bottom-6 right-6 z-50 w-10 h-10 bg-red text-white flex items-center justify-center hover:bg-blue-600 transition-all duration-300 opacity-0 pointer-events-none"
-    aria-label="<?php esc_attr_e('Scroll to top', 'standard'); ?>"
-    inert
->
-    <?php icon('chevron-up', ['class' => 'w-4 h-4']); ?>
-</button>
+<?php
+$floating_build_cta = \Standard\FloatingBuildCta\get_context();
+if ($floating_build_cta !== null) {
+    get_template_part('templates/parts/floating-build-cta', null, $floating_build_cta);
+}
+?>
 <svg style="position:absolute;width:0;height:0" aria-hidden="true">
     <filter id="hero-grain-filter">
         <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>

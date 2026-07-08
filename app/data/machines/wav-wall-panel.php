@@ -188,8 +188,8 @@ return [
         ],
     ],
     'resources' => [
-        'manual'               => 'https://newtechmachinery.com/learning-center/manual/wav-wall-panel-machine-manual/',
-        'brochure'             => 'https://newtechmachinery.com/learning-center/literature/wav-wall-panel-machine-brochure/',
+        'manual'               => '/learning-center/manual/wav-wall-panel-machine-manual/',
+        'brochure'             => '/learning-center/literature/wav-panel-machine-brochure/',
         'service_training_url' => '/service-training',
         // "How to change a profile" is one of the most common owner questions.
         // On the WAV a profile change means moving between coil widths, so

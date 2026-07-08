@@ -81,10 +81,10 @@ $milestones = [
         'note'  => __('NTM\'s digital control platform. The current standard across the lineup.', 'standard'),
     ],
     [
-        'year'  => '2024',
+        'year'  => '2025',
         'model' => 'SSQ3 MultiPro',
         'name'  => __('Roof & Wall Panel Machine', 'standard'),
-        'note'  => __('16 profiles, one machine. The most advanced portable roof panel machine ever built.', 'standard'),
+        'note'  => __('Concept shown in 2024, released in 2025. Sixteen profiles, one machine — the most advanced portable roof panel machine ever built.', 'standard'),
     ],
 ];
 ?>

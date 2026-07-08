@@ -79,12 +79,24 @@ npm run maestro:land    # execute
 
 ## Release To Master
 
-Only the `master` checkout pushes remote `master`:
+Only the `master` checkout pushes remote `master`.
+
+`dev` keeps agent tooling (AGENTS.md, `.agents/`, `.claude/`, `.opencode/`, `.shogun/`, etc.).
+`master` is theme-only for staging/prod — strip those paths after every merge from `dev`:
 
 ```bash
 git switch master
 git pull --ff-only origin master
-git merge --ff-only dev
+./scripts/release/to-master.sh
+```
+
+Or manually:
+
+```bash
+git merge --ff-only dev   # or --no-ff if master has prior strip commits
+npm run release:strip
+git commit -m "chore(release): strip dev-only agent tooling from master"  # if needed
+npm run build
 git push origin master
 ```
 

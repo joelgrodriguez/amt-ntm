@@ -201,8 +201,8 @@ return [
         ],
     ],
     'resources' => [
-        'manual'               => 'https://newtechmachinery.com/learning-center/manual/bg7-box-gutter-machine-with-plc-controller-manual/',
-        'brochure'             => 'https://newtechmachinery.com/learning-center/literature/bg7-box-gutter-machine-brochure/',
+        'manual'               => '/learning-center/manual/bg7-box-gutter-machine-with-plc-controller-manual/',
+        'brochure'             => '/learning-center/literature/bg7-box-gutter-machine-brochure/',
         'service_training_url' => '/service-training',
     ],
     'faq' => [

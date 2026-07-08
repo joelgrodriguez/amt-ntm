@@ -58,7 +58,7 @@ get_header();
 
     <?php do_action('woocommerce_before_single_product'); ?>
 
-    <section class="section machine-default__fold" aria-labelledby="machine-default-title">
+    <section id="machine-hero" class="section machine-default__fold" aria-labelledby="machine-default-title">
         <div class="container section-content">
             <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
 
@@ -197,8 +197,6 @@ get_header();
         ]);
     }
     ?>
-
-    <?php get_template_part('templates/woo/product/parts/floating-quote-cta', null, compact('product')); ?>
 
 </main>
 

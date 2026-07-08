@@ -108,12 +108,41 @@ function get_machine_product_data(string $slug): ?array {
             $data = require $file;
 
             if (is_array($data)) {
-                return array_merge(get_default_machine_data(), $data);
+                $data = array_merge(get_default_machine_data(), $data);
+                return filter_available_resources($data);
             }
         }
     }
 
     return null;
+}
+
+/**
+ * Drop resource links that 404 on the current site.
+ *
+ * @param array<string, mixed> $data
+ * @return array<string, mixed>
+ */
+function filter_available_resources(array $data): array {
+    if (!isset($data['resources']) || !is_array($data['resources'])) {
+        return $data;
+    }
+
+    foreach (['manual', 'brochure'] as $key) {
+        $path = $data['resources'][$key] ?? '';
+        if (!is_string($path) || $path === '') {
+            continue;
+        }
+        if (!\Standard\Url\resource_path_resolves($path)) {
+            unset($data['resources'][$key]);
+        }
+    }
+
+    if ($data['resources'] === []) {
+        $data['resources'] = null;
+    }
+
+    return $data;
 }
 
 /**

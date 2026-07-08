@@ -15,7 +15,7 @@ import { initMegaMenu } from './modules/MegaMenu.js';
 import { initScrollReveal } from './modules/ScrollReveal.js';
 import { initTableOfContents } from './modules/TableOfContents.js';
 import { init as initScrollHeader } from './modules/ScrollHeader.js';
-import { init as initScrollToTop } from './modules/ScrollToTop.js';
+import { initFloatingBuildCta } from './modules/FloatingBuildCta.js';
 import { initFooterAccordions } from './modules/FooterAccordions.js';
 import { initAccordion } from './modules/Accordion.js';
 import { initCarouselNav } from './modules/CarouselNav.js';
@@ -39,8 +39,8 @@ let catalogNavCleanup = null;
 /** @type {Function|null} Cleanup function for scroll header */
 let scrollHeaderCleanup = null;
 
-/** @type {Function|null} Cleanup function for scroll to top */
-let scrollToTopCleanup = null;
+/** @type {Function|null} Cleanup function for floating build CTA */
+let floatingBuildCtaCleanup = null;
 
 /** @type {Function|null} Cleanup function for footer accordions */
 let footerAccordionsCleanup = null;
@@ -94,7 +94,7 @@ const initApp = () => {
     tocContainerSelector: '#catalog-nav',
   });
   scrollHeaderCleanup = initScrollHeader();
-  scrollToTopCleanup = initScrollToTop();
+  floatingBuildCtaCleanup = initFloatingBuildCta();
   footerAccordionsCleanup = initFooterAccordions();
   accordionCleanup = initAccordion();
   carouselNavCleanup = initCarouselNav();
@@ -126,8 +126,8 @@ if (import.meta.hot) {
     if (scrollHeaderCleanup) {
       scrollHeaderCleanup();
     }
-    if (scrollToTopCleanup) {
-      scrollToTopCleanup();
+    if (floatingBuildCtaCleanup) {
+      floatingBuildCtaCleanup();
     }
     if (footerAccordionsCleanup) {
       footerAccordionsCleanup();

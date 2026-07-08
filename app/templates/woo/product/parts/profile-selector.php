@@ -42,6 +42,11 @@ if (empty($profiles)) {
     return;
 }
 
+$profile_copy = $machine['profiles'] ?? [];
+$eyebrow      = $profile_copy['eyebrow'] ?? __('Panel Profiles', 'standard');
+$title        = $profile_copy['title'] ?? __('Your Panels, Your Way', 'standard');
+$subtitle     = $profile_copy['subtitle'] ?? __('Every profile this machine forms, in the gauges and widths your jobs call for. Swipe through to see the full range.', 'standard');
+
 $carousel_id = 'profiles-carousel';
 $title_id    = 'profiles-title';
 ?>
@@ -51,14 +56,14 @@ $title_id    = 'profiles-title';
 
         <div class="flex items-end justify-between gap-4 mb-10">
             <div class="section-header-left mb-0">
-                <p class="section-eyebrow"><?php esc_html_e('Panel Profiles', 'standard'); ?></p>
+                <p class="section-eyebrow"><?php echo esc_html($eyebrow); ?></p>
                 <div class="section-divider"></div>
                 <h2 id="<?php echo esc_attr($title_id); ?>" class="section-title">
-                    <?php esc_html_e('Your Panels, Your Way', 'standard'); ?>
+                    <?php echo esc_html($title); ?>
                 </h2>
                 <?php /* TODO(copy): confirm wording with team — Evita asked for an explainer under this headline. */ ?>
                 <p class="section-subtitle max-w-xl">
-                    <?php esc_html_e('Every profile this machine forms, in the gauges and widths your jobs call for. Swipe through to see the full range.', 'standard'); ?>
+                    <?php echo esc_html($subtitle); ?>
                 </p>
             </div>
             <div class="flex gap-2 shrink-0">
