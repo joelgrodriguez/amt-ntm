@@ -89,6 +89,9 @@ return [
     ],
     'profiles' => [
         'tag_slugs' => ['mach-ii-5-gutter-machine', 'mach-ii-5-6-gutter-machine', 'mach-ii-6-gutter-machine'],
+        'eyebrow'   => __('Gutter Profiles', 'standard'),
+        'title'     => __('Your Panels, Your Way', 'standard'),
+        'subtitle'  => __('Every 5" and 6" K-style profile this machine forms. Swipe through to see the full range.', 'standard'),
     ],
     'accessories' => [
         'product_tag' => 'MACHII',
