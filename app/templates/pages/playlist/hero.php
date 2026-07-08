@@ -46,7 +46,7 @@ $hero_image = content_url('/uploads/2026/06/ssq3-controller.jpg');
                 </h1>
 
                 <p class="max-w-xl text-lg text-blue-200 lg:text-xl">
-                    <?php esc_html_e('This page is your starting point before you buy. We picked the videos that answer a first-time buyer’s biggest questions — what these machines do, whether the business fits you, and which one to look at first — and put them in order. Start at the top and work down.', 'standard'); ?>
+                    <?php esc_html_e('This page is your starting point before you buy. We picked the videos that answer a first time buyer’s biggest questions about what these machines do, whether the business fits you, and which one to look at first, and put them in order. Start at the top and work down.', 'standard'); ?>
                 </p>
 
                 <div class="mt-2 flex flex-col gap-4 sm:flex-row">
