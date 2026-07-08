@@ -216,7 +216,12 @@ $panels = array_values(array_filter(
                 <?php foreach (($intro['secondary_links'] ?? []) as $link) : ?>
                     <?php if (!empty($link['url'])) : ?>
                         <a href="<?php echo esc_url($link['url']); ?>" class="mega-panel__view-all px-5">
-                            <?php echo esc_html($link['label'] ?? __('Learn more', 'standard')); ?>
+                            <span class="inline-flex items-center gap-2">
+                                <?php echo esc_html($link['label'] ?? __('Learn more', 'standard')); ?>
+                                <?php if (!empty($link['badge'])) : ?>
+                                    <span class="badge badge-emphasis"><?php echo esc_html($link['badge']); ?></span>
+                                <?php endif; ?>
+                            </span>
                             <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
                         </a>
                     <?php endif; ?>
