@@ -18,25 +18,6 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Build a taxonomy archive URL scoped to one post type.
- */
-function get_scoped_term_url(string $taxonomy, string $slug, string $post_type): string {
-    $term = \get_term_by('slug', $slug, $taxonomy);
-    if ($term instanceof \WP_Term) {
-        $link = \get_term_link($term);
-        if (!\is_wp_error($link)) {
-            return \add_query_arg(['post_type' => \sanitize_key($post_type)], $link);
-        }
-    }
-
-    $base = $taxonomy === 'post_tag'
-        ? '/tag/' . $slug . '/'
-        : '/category/' . $slug . '/';
-
-    return \add_query_arg(['post_type' => \sanitize_key($post_type)], \Standard\Url\internal($base));
-}
-
-/**
  * Test whether a nav item represents the URL the user is currently viewing.
  *
  * Compares the request path against the item's URL path (or any of its
@@ -149,8 +130,7 @@ function get_desktop_nav(): array {
                 'type'          => 'flyout-groups',
                 'intro'         => [
                     'title'           => __('New to Rollforming?', 'standard'),
-                    'body'            => __('New to portable rollforming? Learn what NTM does, decide if it fits your business, and pick a direction.', 'standard'),
-                    'secondary_label' => __('First-time buyer playlist', 'standard'),
+                    'secondary_label' => __('First-time buyers', 'standard'),
                     'secondary_url'   => \Standard\Url\internal('/first-time-buyer-playlist/'),
                     'secondary_links' => [
                         [
@@ -163,6 +143,10 @@ function get_desktop_nav(): array {
                     [
                         'label' => __('Start here', 'standard'),
                         'items' => [
+                            [
+                                'label' => __('First-time buyer videos', 'standard'),
+                                'url'   => \Standard\Url\internal('/first-time-buyer-playlist/'),
+                            ],
                             [
                                 'label' => __('What is an NTM machine?', 'standard'),
                                 'url'   => \Standard\Url\internal('/learning-center/portable-rollforming-machine-equipment-types-uses/'),
@@ -206,10 +190,6 @@ function get_desktop_nav(): array {
                                 'url'   => \Standard\Url\internal('/start-here/'),
                             ],
                             [
-                                'label' => __('First-time buyer playlist', 'standard'),
-                                'url'   => \Standard\Url\internal('/first-time-buyer-playlist/'),
-                            ],
-                            [
                                 'label' => __('Learning Center', 'standard'),
                                 'url'   => \Standard\Url\internal('/learning-center/'),
                             ],
@@ -233,6 +213,13 @@ function get_desktop_nav(): array {
                 'sidebar_label'  => __('Choose Your Machine', 'standard'),
                 'view_all_url'   => \Standard\Url\internal('/machines/'),
                 'view_all_label' => __('See all machines', 'standard'),
+                'secondary_links' => [
+                    [
+                        'label' => __('Build and Quote', 'standard'),
+                        'url'   => \Standard\Url\internal('/configurator/'),
+                        'badge' => __('NEW', 'standard'),
+                    ],
+                ],
                 'tabs'           => [
                     [
                         'id'             => 'roof-wall',
@@ -263,19 +250,19 @@ function get_desktop_nav(): array {
                             [
                                 'heading'        => __('Roof & Wall Panel', 'standard'),
                                 'category'       => 'profiles-metal-roof-wall-panel',
-                                'view_all_url'   => get_scoped_term_url('category', 'profiles-metal-roof-wall-panel', 'profile'),
+                                'view_all_url'   => \Standard\Url\internal('/profiles/'),
                                 'view_all_label' => __('View All', 'standard'),
                             ],
                             [
                                 'heading'        => __('Gutter', 'standard'),
                                 'category'       => 'profiles-gutter',
-                                'view_all_url'   => get_scoped_term_url('category', 'profiles-gutter', 'profile'),
+                                'view_all_url'   => \Standard\Url\internal('/profiles/'),
                                 'view_all_label' => __('View All', 'standard'),
                             ],
                             [
                                 'heading'        => __('Clip Relief / Rib Rollers', 'standard'),
                                 'category'       => 'clip-relief-rib-rollers',
-                                'view_all_url'   => get_scoped_term_url('category', 'clip-relief-rib-rollers', 'profile'),
+                                'view_all_url'   => \Standard\Url\internal('/profiles/'),
                                 'view_all_label' => __('View All', 'standard'),
                             ],
                         ],
@@ -328,8 +315,9 @@ function get_desktop_nav(): array {
                     'secondary_url'   => \Standard\Url\with_query('/contact/', ['form' => 'quote']),
                     'secondary_links' => [
                         [
-                            'label' => __('Build & Configure', 'standard'),
+                            'label' => __('Build and Quote', 'standard'),
                             'url'   => \Standard\Url\internal('/configurator/'),
+                            'badge' => __('NEW', 'standard'),
                         ],
                         [
                             'label' => __('Learning Center', 'standard'),
@@ -346,8 +334,9 @@ function get_desktop_nav(): array {
                                 'url'   => \Standard\Url\with_query('/contact/', ['form' => 'quote']),
                             ],
                             [
-                                'label' => __('Configure your machine', 'standard'),
+                                'label' => __('Configure Your NTM Machine', 'standard'),
                                 'url'   => \Standard\Url\internal('/configurator/'),
+                                'badge' => __('NEW', 'standard'),
                             ],
                             [
                                 'label' => __('How to get a quote on an NTM machine', 'standard'),
@@ -381,19 +370,19 @@ function get_desktop_nav(): array {
                         ],
                     ],
                     [
-                        'label' => __('Talk or configure', 'standard'),
+                        'label' => __('Talk or learn', 'standard'),
                         'items' => [
+                            [
+                                'label' => __('What to expect when purchasing', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/what-to-expect-purchasing-portable-rollforming-machine/'),
+                            ],
+                            [
+                                'label' => __('Learning Center', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/'),
+                            ],
                             [
                                 'label' => __('Talk to a specialist', 'standard'),
                                 'url'   => \Standard\Url\internal('/contact/'),
-                            ],
-                            [
-                                'label' => __('Configure your machine', 'standard'),
-                                'url'   => \Standard\Url\internal('/configurator/'),
-                            ],
-                            [
-                                'label' => __('How buying from NTM works', 'standard'),
-                                'url'   => \Standard\Url\internal('/how-buying-works/'),
                             ],
                         ],
                     ],
@@ -402,7 +391,7 @@ function get_desktop_nav(): array {
                     '/contact/',
                     '/configurator/',
                     '/machines/leasing-financing/',
-                    '/how-buying-works/',
+                    '/learning-center/',
                     '/ntm-machine-quote-checklist-thank-you/',
                 ],
             ],
@@ -432,6 +421,10 @@ function get_desktop_nav(): array {
                                 'label' => __('Open a service request', 'standard'),
                                 'url'   => \Standard\Url\internal('/service-hub/request/'),
                             ],
+                            [
+                                'label' => __('Contact Service Department', 'standard'),
+                                'url'   => \Standard\Url\internal('/contact/'),
+                            ],
                         ],
                     ],
                     [
@@ -449,10 +442,6 @@ function get_desktop_nav(): array {
                                 'label' => __('Warranty registration', 'standard'),
                                 'url'   => \Standard\Url\internal('/machines/warranty-registration/'),
                             ],
-                            [
-                                'label' => __('Parts request', 'standard'),
-                                'url'   => \Standard\Url\internal('/request-parts/'),
-                            ],
                         ],
                     ],
                     [
@@ -463,7 +452,7 @@ function get_desktop_nav(): array {
                                 'url'   => \Standard\Url\internal('/learning-center/common-problems-with-ntm-portable-rollforming-machines-and-how-to-solve-them/'),
                             ],
                             [
-                                'label' => __('Questions the service department hears most', 'standard'),
+                                'label' => __('Top 5 service department questions', 'standard'),
                                 'url'   => \Standard\Url\internal('/learning-center/the-top-five-questions-the-ntm-service-department-receives/'),
                             ],
                             [
@@ -482,7 +471,6 @@ function get_desktop_nav(): array {
                     '/machines/manuals/',
                     '/machines/warranty-registration/',
                     '/manual/',
-                    '/request-parts/',
                     '/resources/',
                     '/resource/',
                     '/downloads/',

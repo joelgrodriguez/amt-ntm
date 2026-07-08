@@ -73,8 +73,8 @@ foreach (($data['stats'] ?? []) as $stat) {
 // content is tagged, so the hero and the empty state always have something
 // real to offer.
 $resources    = $data['resources'] ?? [];
-$manual_url   = (string) ($resources['manual'] ?? '');
-$brochure_url = (string) ($resources['brochure'] ?? '');
+$manual_url   = isset($resources['manual']) ? \Standard\Url\canonical((string) $resources['manual']) : '';
+$brochure_url = isset($resources['brochure']) ? \Standard\Url\canonical((string) $resources['brochure']) : '';
 
 // Per-machine FAQ from the data file (app/data/machines/<slug>.php). The
 // product page already renders this; the service page surfaces the same Q&A

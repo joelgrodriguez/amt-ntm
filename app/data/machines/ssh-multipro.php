@@ -226,8 +226,8 @@ return [
         ],
     ],
     'resources' => [
-        'manual'               => 'https://newtechmachinery.com/learning-center/manual/ssh-roof-panel-machine-with-plc-controller-manual/',
-        'brochure'             => 'https://newtechmachinery.com/learning-center/literature/ssh-brochure/',
+        'manual'               => '/learning-center/manual/ssh-roof-panel-machine-with-plc-controller-manual/',
+        'brochure'             => '/learning-center/literature/ssh-brochure/',
         'service_training_url' => '/service-training',
         // "How to change a profile" is one of the most common owner questions.
         // SSH has both a Learning Center video and a step-by-step article.

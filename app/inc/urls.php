@@ -46,6 +46,32 @@ function with_query(string $path, array $query): string {
  * Non-newtechmachinery.com absolute URLs (e.g. a Wistia embed) and relative
  * paths are returned untouched — only the known prod host is rebased.
  */
+/**
+ * Whether an internal resource path resolves to a published post on this site.
+ *
+ * Machine data may reference literature/manual URLs before the posts exist, or
+ * with a slug that drifted from the Learning Center export. Templates should
+ * not surface brochure/manual CTAs when this returns false.
+ */
+function resource_path_resolves(string $path): bool {
+    $path = trim($path);
+    if ($path === '') {
+        return false;
+    }
+
+    $url = canonical($path);
+    if (!\wp_http_validate_url($url)) {
+        $url = internal($path);
+    }
+
+    $post_id = \url_to_postid($url);
+    if ($post_id <= 0) {
+        return false;
+    }
+
+    return \get_post_status($post_id) === 'publish';
+}
+
 function canonical(string $url): string {
     $url = trim($url);
     if ($url === '' || !\wp_http_validate_url($url)) {

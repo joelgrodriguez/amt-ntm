@@ -233,8 +233,8 @@ return [
         ],
     ],
     'resources' => [
-        'manual'               => 'https://newtechmachinery.com/learning-center/manual/ssq-ii-roof-panel-machine-manual/',
-        'brochure'             => 'https://newtechmachinery.com/learning-center/literature/ssq-ii-multipro-roof-panel-machine-brochure/',
+        'manual'               => '/learning-center/manual/ssq-ii-roof-panel-machine-manual/',
+        'brochure'             => '/learning-center/literature/ssq-ii-multipro-roof-panel-machine-brochure/',
         'service_training_url' => '/service-training',
     ],
     'faq' => [

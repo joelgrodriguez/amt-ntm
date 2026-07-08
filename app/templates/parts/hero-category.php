@@ -68,7 +68,7 @@ if ($pattern) {
     $section_classes .= ' pattern-dot-grid pattern-dot-grid--dark';
 }
 ?>
-<section class="<?php echo esc_attr($section_classes); ?>" aria-labelledby="<?php echo esc_attr($section_id); ?>-title">
+<section id="<?php echo esc_attr($section_id); ?>" class="<?php echo esc_attr($section_classes); ?>" aria-labelledby="<?php echo esc_attr($section_id); ?>-title">
     <?php
     // Screen-reader-only H1 carrying the WP page title (e.g. "Roof and
     // Wall Panel Machines"). Mirrors the old theme's pattern and gives

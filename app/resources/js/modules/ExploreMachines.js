@@ -16,6 +16,9 @@ const DEFAULTS = {
   debounceDelay: 100,
 };
 
+/** Direct track children — product cards and profile carousel cards. */
+const TRACK_CARD_SELECTOR = '.card-product, .carousel__card';
+
 /* Read --text-swap-dur from CSS so the JS phase timing stays in sync with
  * the shared token in transitions.css. Falls back to 150ms (the default). */
 const TEXT_SWAP_DUR_MS = (() => {
@@ -116,7 +119,7 @@ export function initExploreMachines(options = {}) {
    */
   function updateCounter(panel, track) {
     const currentEl = panel.querySelector('.explore-machines__current');
-    const cards = track.querySelectorAll('.card-product');
+    const cards = track.querySelectorAll(TRACK_CARD_SELECTOR);
 
     if (!currentEl || cards.length === 0) return;
 
@@ -156,7 +159,7 @@ export function initExploreMachines(options = {}) {
     const track = panel.querySelector('.explore-machines__track');
     if (!track) return;
 
-    const cards = Array.from(track.querySelectorAll('.card-product'));
+    const cards = Array.from(track.querySelectorAll(TRACK_CARD_SELECTOR));
     if (cards.length === 0) return;
 
     const current = track.scrollLeft;

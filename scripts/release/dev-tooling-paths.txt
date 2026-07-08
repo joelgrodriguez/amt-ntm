@@ -1,0 +1,9 @@
+# Dev-only paths — tracked on `dev`, removed from `master` after each release.
+# One path per line. Lines starting with # are ignored.
+AGENTS.md
+CLAUDE.md
+.agents
+.claude
+.opencode
+.shogun
+docs/superpowers

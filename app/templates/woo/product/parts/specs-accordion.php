@@ -220,7 +220,7 @@ if (empty($sections)) {
 
                 <?php if (!empty($resources['brochure'])) : ?>
                     <div class="mt-6">
-                        <a href="<?php echo esc_url(\Standard\Url\internal($resources['brochure'])); ?>" class="btn btn-sm btn-outline-dark" target="_blank" rel="noopener"><?php esc_html_e('Download Full Spec Sheet', 'standard'); ?></a>
+                        <a href="<?php echo esc_url(\Standard\Url\canonical($resources['brochure'])); ?>" class="btn btn-sm btn-outline-dark" target="_blank" rel="noopener"><?php esc_html_e('Download Full Spec Sheet', 'standard'); ?></a>
                     </div>
                 <?php endif; ?>
             </div>

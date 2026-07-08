@@ -9,7 +9,9 @@
     "db:apply": "scripts/db/apply",
     "content:export": "php scripts/content/export-copy.php",
     "content:xlsx": "php scripts/content/export-xlsx.php",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "release:strip": "scripts/release/strip-dev-tooling.sh",
+    "release:master": "scripts/release/to-master.sh"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",

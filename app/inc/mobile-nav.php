@@ -95,6 +95,7 @@ function get_mobile_nav_tree(): array {
                 'intro'  => [
                     'secondary_label' => $item['view_all_label'] ?? __('See all machines', 'standard'),
                     'secondary_url'   => $item['view_all_url'] ?? \Standard\Url\internal('/machines/'),
+                    'secondary_links' => $item['secondary_links'] ?? [],
                 ],
                 'groups' => reshape_machine_tabs_to_groups($item['tabs'] ?? []),
             ];

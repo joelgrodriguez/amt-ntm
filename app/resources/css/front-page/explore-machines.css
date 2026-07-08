@@ -44,8 +44,10 @@
 /* Each card consumes an exact fraction of the track. The card itself is
    stack-only; width math + snap behavior live on the carousel, not the
    card. No peek of the next card — width fills the visible window. */
-.explore-machines__track > .card-product {
+.explore-machines__track > .card-product,
+.explore-machines__track > .carousel__card {
   flex: 0 0 calc((100% - (var(--cards-per-view) - 1) * var(--carousel-gap)) / var(--cards-per-view));
+  width: auto;
   scroll-snap-align: start;
 }
 
@@ -70,16 +72,17 @@
    global scroll-reveal (the inactive panels are opacity:0/invisible, so an
    IntersectionObserver reveal would leave cards stuck hidden on tab 2+).
    Shares the motion vocabulary: same expo-out settle as the rest of the site. */
-.explore-machines__panel--active > .explore-machines__track > .card-product {
+.explore-machines__panel--active > .explore-machines__track > .card-product,
+.explore-machines__panel--active > .explore-machines__track > .carousel__card {
   animation: explore-card-in var(--duration-slow, 300ms)
     var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)) both;
 }
 
-.explore-machines__panel--active > .explore-machines__track > .card-product:nth-child(1) { animation-delay: 0ms; }
-.explore-machines__panel--active > .explore-machines__track > .card-product:nth-child(2) { animation-delay: 60ms; }
-.explore-machines__panel--active > .explore-machines__track > .card-product:nth-child(3) { animation-delay: 120ms; }
-.explore-machines__panel--active > .explore-machines__track > .card-product:nth-child(4) { animation-delay: 180ms; }
-.explore-machines__panel--active > .explore-machines__track > .card-product:nth-child(n+5) { animation-delay: 220ms; }
+.explore-machines__panel--active > .explore-machines__track > :is(.card-product, .carousel__card):nth-child(1) { animation-delay: 0ms; }
+.explore-machines__panel--active > .explore-machines__track > :is(.card-product, .carousel__card):nth-child(2) { animation-delay: 60ms; }
+.explore-machines__panel--active > .explore-machines__track > :is(.card-product, .carousel__card):nth-child(3) { animation-delay: 120ms; }
+.explore-machines__panel--active > .explore-machines__track > :is(.card-product, .carousel__card):nth-child(4) { animation-delay: 180ms; }
+.explore-machines__panel--active > .explore-machines__track > :is(.card-product, .carousel__card):nth-child(n+5) { animation-delay: 220ms; }
 
 @keyframes explore-card-in {
   from { opacity: 0; transform: translateY(12px); }
@@ -87,7 +90,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .explore-machines__panel--active > .explore-machines__track > .card-product {
+  .explore-machines__panel--active > .explore-machines__track > :is(.card-product, .carousel__card) {
     animation: none;
   }
 }

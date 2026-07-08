@@ -42,11 +42,11 @@ $hero_image = content_url('/uploads/2026/06/ssq3-controller.jpg');
                     id="playlist-hero-title"
                     class="font-sans font-medium tracking-tight text-balance text-white text-4xl md:text-5xl"
                 >
-                    <?php esc_html_e('The First-Time Buyer Playlist', 'standard'); ?>
+                    <?php esc_html_e('Curated videos for first-time buyers', 'standard'); ?>
                 </h1>
 
                 <p class="max-w-xl text-lg text-blue-200 lg:text-xl">
-                    <?php esc_html_e('Thinking about a portable rollformer but not sure where to start? We pulled the videos that answer a first-time buyer’s real questions and put them in order. Start at the top, work down, and by the end you will know what these machines do, whether the business fits you, and which one to look at first.', 'standard'); ?>
+                    <?php esc_html_e('This page is your starting point before you buy. We picked the videos that answer a first time buyer’s biggest questions about what these machines do, whether the business fits you, and which one to look at first, and put them in order. Start at the top and work down.', 'standard'); ?>
                 </p>
 
                 <div class="mt-2 flex flex-col gap-4 sm:flex-row">

@@ -56,24 +56,53 @@ $content = [
     'view_all'          => __('View All Posts', 'standard'),
 ];
 
-get_header();
+$is_category         = is_category();
+$is_taxonomy_archive = is_category() || is_tag();
+$hero_title          = '';
+$hero_description    = '';
 
-// Get current query info
-$is_category = is_category();
+if ($is_taxonomy_archive && $current_term instanceof WP_Term) {
+    $hero_title = $current_term->name;
+    $hero_description = trim(wp_strip_all_tags((string) term_description($current_term)));
+
+    if ($hero_description === '') {
+        if (is_category()) {
+            if ($active_type === 'manual') {
+                $hero_description = __('Operator and service manuals in this category.', 'standard');
+            } elseif ($active_type === 'profile') {
+                $hero_description = __('Panel and gutter profiles in this category.', 'standard');
+            } else {
+                $hero_description = __('Articles, videos, downloads, and resources in this category.', 'standard');
+            }
+        } else {
+            $hero_description = __('Learning Center content for this topic.', 'standard');
+        }
+    }
+}
+
+get_header();
 ?>
 
-<main id="primary" class="pattern-dot-grid py-6 lg:py-12">
+<main id="primary">
 
-    <!-- Header -->
-    <header class="container mb-6 lg:mb-12">
-        <div class="grid gap-4 justify-items-start">
-            <span class="text-xs font-mono uppercase tracking-widest text-blue-500"><?php echo esc_html($content['eyebrow']); ?></span>
-            <?php the_archive_title('<h1 class="font-sans text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-blue-900">', '</h1>'); ?>
-            <?php the_archive_description('<p class="text-blue-600 max-w-2xl">', '</p>'); ?>
-        </div>
-    </header>
+    <?php if ($is_taxonomy_archive && $hero_title !== '') : ?>
+        <?php get_template_part('templates/parts/archive/hero', null, [
+            'eyebrow'     => $content['eyebrow'],
+            'title'       => $hero_title,
+            'description' => $hero_description,
+        ]); ?>
+        <section class="bg-white pt-12 pb-24 lg:pt-16 lg:pb-32">
+    <?php else : ?>
+        <div class="pattern-dot-grid py-6 lg:py-12">
+            <header class="container mb-6 lg:mb-12">
+                <div class="grid gap-4 justify-items-start">
+                    <span class="text-xs font-mono uppercase tracking-widest text-blue-500"><?php echo esc_html($content['eyebrow']); ?></span>
+                    <?php the_archive_title('<h1 class="font-sans text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight text-blue-900">', '</h1>'); ?>
+                    <?php the_archive_description('<p class="text-blue-600 max-w-2xl">', '</p>'); ?>
+                </div>
+            </header>
+    <?php endif; ?>
 
-    <!-- Two-column layout: Filter Sidebar + Content -->
     <div class="container layout-with-rail">
 
         <?php if ($is_scoped_catalog) : ?>
@@ -199,6 +228,12 @@ $is_category = is_category();
         </div>
 
     </div>
+
+    <?php if ($is_taxonomy_archive && $hero_title !== '') : ?>
+        </section>
+    <?php else : ?>
+        </div>
+    <?php endif; ?>
 
 </main>
 

@@ -83,8 +83,8 @@ $lanes = [
             __('How the buying process runs, start to finish', 'standard'),
             __('Financing and lease-to-own options', 'standard'),
         ],
-        'cta'     => __('How buying works', 'standard'),
-        'cta_url' => '/how-buying-works/',
+        'cta'     => __('What to expect when purchasing', 'standard'),
+        'cta_url' => '/learning-center/what-to-expect-purchasing-portable-rollforming-machine/',
         'links'   => [
             ['label' => __('Financing &amp; leasing', 'standard'), 'url' => '/leasing-financing/'],
         ],
