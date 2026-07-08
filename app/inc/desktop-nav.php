@@ -391,10 +391,6 @@ function get_desktop_nav(): array {
                                 'label' => __('Configure your machine', 'standard'),
                                 'url'   => \Standard\Url\internal('/configurator/'),
                             ],
-                            [
-                                'label' => __('How buying from NTM works', 'standard'),
-                                'url'   => \Standard\Url\internal('/how-buying-works/'),
-                            ],
                         ],
                     ],
                 ],
@@ -402,7 +398,6 @@ function get_desktop_nav(): array {
                     '/contact/',
                     '/configurator/',
                     '/machines/leasing-financing/',
-                    '/how-buying-works/',
                     '/ntm-machine-quote-checklist-thank-you/',
                 ],
             ],
@@ -449,10 +444,6 @@ function get_desktop_nav(): array {
                                 'label' => __('Warranty registration', 'standard'),
                                 'url'   => \Standard\Url\internal('/machines/warranty-registration/'),
                             ],
-                            [
-                                'label' => __('Parts request', 'standard'),
-                                'url'   => \Standard\Url\internal('/request-parts/'),
-                            ],
                         ],
                     ],
                     [
@@ -482,7 +473,6 @@ function get_desktop_nav(): array {
                     '/machines/manuals/',
                     '/machines/warranty-registration/',
                     '/manual/',
-                    '/request-parts/',
                     '/resources/',
                     '/resource/',
                     '/downloads/',
