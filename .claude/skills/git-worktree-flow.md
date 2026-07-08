@@ -81,8 +81,16 @@ npm run maestro:land    # execute
 
 Only the `master` checkout pushes remote `master`.
 
-`dev` keeps agent tooling (AGENTS.md, `.agents/`, `.claude/`, `.opencode/`, `.shogun/`, etc.).
-`master` is theme-only for staging/prod — strip those paths after every merge from `dev`:
+`dev` keeps agent tooling, planning docs (`DESIGN.md`, `PRODUCT.md`, `TODO.md`, `docs/`), and orchestration dirs (`.agents/`, `.claude/`, `.opencode/`, `.shogun/`, `.playwright-mcp/`, etc.).
+`master` is theme-only for staging/prod — strip those paths after every merge from `dev`.
+
+Install the post-checkout hook once so `git switch master` auto-cleans leftover dev files:
+
+```bash
+npm run release:hooks
+```
+
+Release:
 
 ```bash
 git switch master

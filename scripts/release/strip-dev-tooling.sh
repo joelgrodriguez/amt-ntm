@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Remove dev-only agent/orchestration files from the current checkout (master).
+# Remove dev-only paths from git index and working tree (master release step).
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -17,16 +17,15 @@ while IFS= read -r path || [[ -n "$path" ]]; do
     continue
   fi
 
-  if git ls-files --error-unmatch "$path" &>/dev/null; then
+  if git ls-files --error-unmatch "$path" &>/dev/null 2>&1; then
     git rm -rf --ignore-unmatch "$path" >/dev/null
-    echo "removed: $path"
+    echo "git removed: $path"
     removed=1
-  elif [[ -e "$path" ]]; then
-    rm -rf "$path"
-    echo "deleted untracked: $path"
   fi
 done < "$PATHS_FILE"
 
+"$ROOT/scripts/release/clean-dev-tooling-worktree.sh"
+
 if [[ "$removed" -eq 0 ]]; then
-  echo "No tracked dev-tooling paths to remove."
+  echo "No tracked dev-tooling paths left in git index."
 fi

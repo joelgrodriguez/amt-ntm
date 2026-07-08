@@ -1,9 +1,21 @@
-# Dev-only paths — tracked on `dev`, removed from `master` after each release.
+# Dev-only paths — tracked on `dev`, absent from `master` after each release.
 # One path per line. Lines starting with # are ignored.
+
+# Agent / orchestration
 AGENTS.md
 CLAUDE.md
 .agents
 .claude
 .opencode
 .shogun
-docs/superpowers
+.maestro
+.conductor
+.superpowers
+.impeccable
+.playwright-mcp
+
+# Planning / design / internal docs
+DESIGN.md
+PRODUCT.md
+TODO.md
+docs
