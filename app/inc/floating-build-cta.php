@@ -50,33 +50,6 @@ function is_eligible_page(): bool {
 }
 
 /**
- * Element id observed to reveal the CTA after scroll (IntersectionObserver).
- */
-function get_scroll_anchor(): string {
-    if (is_singular('product')) {
-        return 'machine-hero';
-    }
-
-    if (is_front_page()) {
-        return 'hero-slider';
-    }
-
-    if (is_page_template('page-machines.php')) {
-        return 'machines-hero';
-    }
-
-    if (is_page_template('page-roof-wall-panel-machines.php')) {
-        return 'roof-wall-hero';
-    }
-
-    if (is_page_template('page-seamless-gutter-machines.php')) {
-        return 'gutter-hero';
-    }
-
-    return '';
-}
-
-/**
  * Configurator destination for the current page.
  */
 function get_url(): string {
@@ -96,7 +69,7 @@ function get_url(): string {
 }
 
 /**
- * @return array{url: string, label: string, aria_label: string, scroll_anchor: string}|null
+ * @return array{url: string, label: string, aria_label: string}|null
  */
 function get_context(): ?array {
     if (!is_eligible_page()) {
@@ -110,9 +83,8 @@ function get_context(): ?array {
     }
 
     return [
-        'url'           => $url,
-        'label'         => __('Build & Configure', 'standard'),
-        'aria_label'    => __('Build and configure your NTM machine', 'standard'),
-        'scroll_anchor' => get_scroll_anchor(),
+        'url'        => $url,
+        'label'      => __('Build & Configure', 'standard'),
+        'aria_label' => __('Build and configure your NTM machine', 'standard'),
     ];
 }

@@ -1,32 +1,14 @@
 /**
  * Floating Build & Configure CTA
  *
- * Reveals the bottom-left configurator shortcut after scrolling past
- * the page hero. Uses IntersectionObserver when a scroll anchor exists;
- * falls back to a scroll threshold otherwise.
+ * Reveals the bottom-left configurator shortcut shortly after load with
+ * a delayed entrance — no scroll gate. Hides while the mega menu is open.
  *
  * @module FloatingBuildCta
  */
 
-const SCROLL_THRESHOLD = 300;
-
-/**
- * @param {string} anchorId
- * @returns {HTMLElement|null}
- */
-function resolveScrollAnchor(anchorId) {
-  if (!anchorId) {
-    return null;
-  }
-
-  const direct = document.getElementById(anchorId);
-  if (direct) {
-    return direct;
-  }
-
-  const titled = document.getElementById(`${anchorId}-title`);
-  return titled?.closest('section') ?? null;
-}
+/** Delay before the entrance so the hero settles first. */
+const REVEAL_DELAY_MS = 1100;
 
 /**
  * @returns {Function}
@@ -38,73 +20,40 @@ export function initFloatingBuildCta() {
     return () => {};
   }
 
-  const anchor = resolveScrollAnchor(cta.dataset.scrollAnchor ?? '');
-  let ticking = false;
-  let scrollFallbackCleanup = () => {};
+  let revealed = false;
+  let revealTimer = null;
 
-  const show = () => cta.classList.add('is-visible');
-  const hide = () => cta.classList.remove('is-visible');
+  function show() {
+    if (document.body.classList.contains('mega-open')) {
+      return;
+    }
 
-  function setVisible(isVisible) {
-    const megaMenuOpen = document.body.classList.contains('mega-open');
+    cta.classList.add('is-visible');
+    revealed = true;
+  }
 
-    if (isVisible && !megaMenuOpen) {
-      show();
-    } else {
+  function hide() {
+    cta.classList.remove('is-visible');
+  }
+
+  revealTimer = window.setTimeout(show, REVEAL_DELAY_MS);
+
+  const bodyObserver = new MutationObserver(() => {
+    if (document.body.classList.contains('mega-open')) {
       hide();
+      return;
     }
-  }
 
-  function updateFromScroll() {
-    setVisible(window.scrollY > SCROLL_THRESHOLD);
-    ticking = false;
-  }
-
-  function onScroll() {
-    if (!ticking) {
-      requestAnimationFrame(updateFromScroll);
-      ticking = true;
+    if (revealed) {
+      show();
     }
-  }
-
-  function bindScrollFallback() {
-    updateFromScroll();
-    const bodyObserver = new MutationObserver(updateFromScroll);
-    bodyObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    return () => {
-      bodyObserver.disconnect();
-      window.removeEventListener('scroll', onScroll);
-    };
-  }
-
-  if (anchor) {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setVisible(!entry.isIntersecting);
-      },
-      { threshold: 0 }
-    );
-
-    observer.observe(anchor);
-
-    const bodyObserver = new MutationObserver(() => {
-      if (document.body.classList.contains('mega-open')) {
-        hide();
-      }
-    });
-    bodyObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-
-    return () => {
-      observer.disconnect();
-      bodyObserver.disconnect();
-    };
-  }
-
-  scrollFallbackCleanup = bindScrollFallback();
+  });
+  bodyObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
   return () => {
-    scrollFallbackCleanup();
+    window.clearTimeout(revealTimer);
+    bodyObserver.disconnect();
+    hide();
+    revealed = false;
   };
 }

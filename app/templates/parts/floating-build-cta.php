@@ -12,7 +12,6 @@
  *     @type string $url           Configurator URL.
  *     @type string $label         Visible label.
  *     @type string $aria_label    Accessible name.
- *     @type string $scroll_anchor Element id to observe for reveal.
  * }
  */
 
@@ -22,10 +21,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$url           = $args['url'] ?? '';
-$label         = $args['label'] ?? __('Build & Configure', 'standard');
-$aria_label    = $args['aria_label'] ?? $label;
-$scroll_anchor = $args['scroll_anchor'] ?? '';
+$url        = $args['url'] ?? '';
+$label      = $args['label'] ?? __('Build & Configure', 'standard');
+$aria_label = $args['aria_label'] ?? $label;
 
 if ($url === '') {
     return;
@@ -37,9 +35,6 @@ if ($url === '') {
     href="<?php echo esc_url($url); ?>"
     class="floating-build-cta"
     aria-label="<?php echo esc_attr($aria_label); ?>"
-    <?php if ($scroll_anchor !== '') : ?>
-        data-scroll-anchor="<?php echo esc_attr($scroll_anchor); ?>"
-    <?php endif; ?>
     target="_blank"
     rel="noopener"
 >
