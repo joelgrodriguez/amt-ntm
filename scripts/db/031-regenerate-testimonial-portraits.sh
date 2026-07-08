@@ -46,4 +46,7 @@ if [[ ${#ids[@]} -eq 0 ]]; then
 fi
 
 echo "    regenerating ${#ids[@]} testimonial portrait(s): ${ids[*]}"
-wp media regenerate "${ids[@]}" --yes
+# FAIL-SOFT: don't let one broken attachment abort the whole db:apply run.
+if ! wp media regenerate "${ids[@]}" --yes; then
+  echo "    !! some portraits failed to regenerate (see above) — continuing."
+fi
