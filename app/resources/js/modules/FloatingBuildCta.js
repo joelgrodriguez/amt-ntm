@@ -8,7 +8,7 @@
  */
 
 /** Delay before the entrance so the hero settles first. */
-const REVEAL_DELAY_MS = 1100;
+const REVEAL_DELAY_MS = 1200;
 
 /**
  * @returns {Function}
@@ -29,11 +29,13 @@ export function initFloatingBuildCta() {
     }
 
     cta.classList.add('is-visible');
+    cta.removeAttribute('aria-hidden');
     revealed = true;
   }
 
   function hide() {
     cta.classList.remove('is-visible');
+    cta.setAttribute('aria-hidden', 'true');
   }
 
   revealTimer = window.setTimeout(show, REVEAL_DELAY_MS);

@@ -1,8 +1,8 @@
 /**
  * Floating Build & Configure CTA
  *
- * Fixed bottom-left configurator shortcut. Enters ~1s after load with a
- * soft slide, scale, and de-blur — no scroll gate.
+ * Fixed bottom-left configurator shortcut. Enters ~1.2s after load with a
+ * soft slide, scale, de-blur, and shadow — no scroll gate.
  *
  * @file components/floating-build-cta.css
  * @see js/modules/FloatingBuildCta.js
@@ -24,17 +24,19 @@
   font-weight: 500;
   text-decoration: none;
   white-space: nowrap;
-  will-change: transform, opacity, filter;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 0%);
+  will-change: transform, opacity, filter, box-shadow;
 
   opacity: 0;
-  transform: translate3d(-0.75rem, 0.375rem, 0) scale(0.98);
-  filter: blur(3px);
+  transform: translate3d(-1rem, 0.5rem, 0) scale(0.97);
+  filter: blur(2px);
   pointer-events: none;
 
   transition:
-    opacity 650ms var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)),
-    transform 650ms var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)),
-    filter 650ms var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)),
+    opacity 720ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 720ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 720ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 720ms cubic-bezier(0.16, 1, 0.3, 1),
     background-color 150ms ease-out;
 }
 
@@ -42,6 +44,7 @@
   opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
   filter: blur(0);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.18);
   pointer-events: auto;
 }
 
@@ -67,5 +70,6 @@
 
   .floating-build-cta.is-visible {
     transform: translate3d(0, 0, 0);
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.12);
   }
 }

@@ -35,6 +35,7 @@ if ($url === '') {
     href="<?php echo esc_url($url); ?>"
     class="floating-build-cta"
     aria-label="<?php echo esc_attr($aria_label); ?>"
+    aria-hidden="true"
     target="_blank"
     rel="noopener"
 >
