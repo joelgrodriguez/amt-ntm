@@ -130,7 +130,7 @@ function get_desktop_nav(): array {
                 'type'          => 'flyout-groups',
                 'intro'         => [
                     'title'           => __('New to Rollforming?', 'standard'),
-                    'secondary_label' => __('First-time buyers — click here', 'standard'),
+                    'secondary_label' => __('First-time buyers', 'standard'),
                     'secondary_url'   => \Standard\Url\internal('/first-time-buyer-playlist/'),
                     'secondary_links' => [
                         [
