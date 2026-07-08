@@ -415,6 +415,10 @@ function get_desktop_nav(): array {
                                 'label' => __('Open a service request', 'standard'),
                                 'url'   => \Standard\Url\internal('/service-hub/request/'),
                             ],
+                            [
+                                'label' => __('Contact Service Department', 'standard'),
+                                'url'   => \Standard\Url\internal('/contact/'),
+                            ],
                         ],
                     ],
                     [
