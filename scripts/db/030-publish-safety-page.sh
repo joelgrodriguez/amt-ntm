@@ -68,7 +68,7 @@ fi
 if [[ -n "${WP_CONTAINER:-}" ]]; then
   printf '%s\n' "$PHP_SRC" | docker exec -i \
     -e NTM_DRY_RUN="$NTM_DRY_RUN" \
-    "$WP_CONTAINER" wp --path="${WP_PATH:-/www/kinsta/public/newtech}" --allow-root eval-file -
+    "$WP_CONTAINER" "${WP_PHP_BIN:-php8.3}" /usr/local/bin/wp --path="${WP_PATH:-/www/kinsta/public/newtech}" --allow-root eval-file -
 else
   printf '%s\n' "$PHP_SRC" | wp eval-file -
 fi

@@ -35,14 +35,14 @@ if [[ ! -r "$PHP_FILE" ]]; then
 fi
 
 if [[ -n "$WP_CONTAINER" ]]; then
-  docker exec -i "$WP_CONTAINER" wp --path="$WP_PATH" --allow-root eval-file - < "$PHP_FILE"
+  docker exec -i "$WP_CONTAINER" "${WP_PHP_BIN:-php8.3}" /usr/local/bin/wp --path="$WP_PATH" --allow-root eval-file - < "$PHP_FILE"
 else
   command wp --path="$WP_PATH" eval-file - < "$PHP_FILE"
 fi
 
 # Flush rewrites so the new CPT's permalinks resolve on a fresh DB.
 if [[ -n "$WP_CONTAINER" ]]; then
-  docker exec "$WP_CONTAINER" wp --path="$WP_PATH" --allow-root rewrite flush >/dev/null 2>&1 || true
+  docker exec "$WP_CONTAINER" "${WP_PHP_BIN:-php8.3}" /usr/local/bin/wp --path="$WP_PATH" --allow-root rewrite flush >/dev/null 2>&1 || true
 else
   command wp --path="$WP_PATH" rewrite flush >/dev/null 2>&1 || true
 fi
