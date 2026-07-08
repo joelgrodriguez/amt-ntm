@@ -386,8 +386,8 @@ function get_desktop_nav(): array {
                         'label' => __('Talk or learn', 'standard'),
                         'items' => [
                             [
-                                'label' => __('How buying from NTM works', 'standard'),
-                                'url'   => \Standard\Url\internal('/how-buying-works/'),
+                                'label' => __('What to expect when purchasing', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/what-to-expect-purchasing-portable-rollforming-machine/'),
                             ],
                             [
                                 'label' => __('Learning Center', 'standard'),
@@ -404,7 +404,6 @@ function get_desktop_nav(): array {
                     '/contact/',
                     '/configurator/',
                     '/machines/leasing-financing/',
-                    '/how-buying-works/',
                     '/learning-center/',
                     '/ntm-machine-quote-checklist-thank-you/',
                 ],
