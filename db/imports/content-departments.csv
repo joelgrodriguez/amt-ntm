@@ -1,0 +1,595 @@
+Post ID,Department
+12,Sales
+13,Sales
+14,Sales
+16,Sales
+18,Sales
+19,Sales
+20,Sales
+21,Sales
+24,Sales
+25,Sales
+29,Sales
+141,Service & Repair
+144,Sales
+147,Sales
+150,Sales
+153,Sales
+179,Sales
+190,Sales
+206,Service & Repair
+207,Sales
+208,Sales
+216,Training
+217,Sales
+256,Service & Repair
+264,"Sales, Service & Repair"
+269,Sales
+271,Sales
+273,Sales
+276,Sales
+299,Sales
+328,Sales
+375,"Sales, Service & Repair"
+385,Sales
+386,Service & Repair
+440,Service & Repair
+448,Service & Repair
+484,Sales
+490,Sales
+492,Service & Repair
+493,Service & Repair
+496,Sales
+836,Sales
+861,Service & Repair
+866,Sales
+882,Service & Repair
+884,Service & Repair
+885,Service & Repair
+886,Service & Repair
+887,"Service & Repair, Training"
+888,Service & Repair
+958,Service & Repair
+968,Sales
+975,Service & Repair
+981,Service & Repair
+987,Sales
+1100,Sales
+1103,Service & Repair
+1111,Sales
+1116,Sales
+1180,Sales
+1244,Sales
+1270,Sales
+1281,Sales
+1289,Sales
+1300,Sales
+1305,Sales
+1310,Service & Repair
+1312,Sales
+1315,Sales
+1319,Sales
+1393,Sales
+1395,"Service & Repair, Training"
+1396,Service & Repair
+1397,Service & Repair
+1398,Service & Repair
+1399,Service & Repair
+1400,"Sales, Service & Repair"
+1401,Sales
+1402,Sales
+1404,Sales
+1406,Service & Repair
+1407,Service & Repair
+1408,Service & Repair
+1409,Service & Repair
+1410,Service & Repair
+1411,Service & Repair
+1412,Service & Repair
+1413,Service & Repair
+1414,Service & Repair
+1415,Service & Repair
+1416,Service & Repair
+1417,Service & Repair
+1418,Service & Repair
+1419,Service & Repair
+1420,Service & Repair
+1421,Service & Repair
+1422,Service & Repair
+1424,Service & Repair
+1425,Service & Repair
+1426,Service & Repair
+1427,Service & Repair
+1428,Service & Repair
+1482,Sales
+1492,Sales
+1523,Sales
+1544,Sales
+1545,Service & Repair
+1623,Sales
+1630,Sales
+1631,Sales
+1633,Sales
+1634,Sales
+1635,Service & Repair
+1636,Service & Repair
+1638,"Sales, Service & Repair"
+1641,Sales
+1642,"Sales, Service & Repair"
+1643,Service & Repair
+1644,Sales
+1645,Service & Repair
+1646,Service & Repair
+1647,Service & Repair
+1648,Service & Repair
+1649,Service & Repair
+1650,Service & Repair
+1651,Sales
+1652,Service & Repair
+1654,Sales
+1657,Sales
+1661,Service & Repair
+1662,"Sales, Service & Repair"
+1664,Service & Repair
+1665,Service & Repair
+1666,Service & Repair
+1667,Service & Repair
+1668,Sales
+1669,Sales
+1670,Sales
+1671,Service & Repair
+1672,Service & Repair
+1673,"Sales, Service & Repair"
+1674,Service & Repair
+1675,Sales
+1676,Service & Repair
+1677,"Sales, Service & Repair"
+1678,Sales
+1681,Sales
+1682,Service & Repair
+1683,Service & Repair
+1684,Sales
+1691,Sales
+1705,Sales
+1764,Service & Repair
+1906,Sales
+2054,Sales
+2057,Service & Repair
+2058,Service & Repair
+2059,Sales
+2060,Sales
+2061,Sales
+2070,Service & Repair
+2554,Sales
+2555,Sales
+2557,Sales
+2558,Sales
+2559,Sales
+2560,Sales
+2562,Sales
+2563,Sales
+2564,Sales
+2565,Sales
+2566,Sales
+2567,Sales
+2568,Sales
+2569,Sales
+2629,Sales
+2886,Service & Repair
+2929,Sales
+2932,Sales
+3004,Service & Repair
+3028,Sales
+3058,Sales
+3066,Service & Repair
+3117,Service & Repair
+3130,Service & Repair
+3187,Service & Repair
+3195,Service & Repair
+3202,"Service & Repair, Training"
+3269,Service & Repair
+3291,Service & Repair
+3363,Sales
+3378,Service & Repair
+3386,"Sales, Service & Repair"
+3414,Sales
+3462,Service & Repair
+3514,Service & Repair
+3657,Service & Repair
+3690,Sales
+3743,"Sales, Service & Repair"
+3779,Service & Repair
+3818,Sales
+3823,Service & Repair
+3857,"Sales, Service & Repair"
+3860,Sales
+3946,Sales
+3955,Sales
+3978,Service & Repair
+4139,"Sales, Service & Repair"
+4208,Sales
+4228,Service & Repair
+4335,Service & Repair
+4451,Sales
+4466,Sales
+4479,Sales
+4564,"Sales, Service & Repair"
+4594,"Sales, Service & Repair"
+4597,Sales
+4602,Sales
+4608,Sales
+4611,Sales
+4619,Sales
+4648,Sales
+4651,Sales
+4661,"Sales, Service & Repair"
+4687,Service & Repair
+4695,Sales
+4707,"Sales, Service & Repair, Training"
+4735,Service & Repair
+4748,Service & Repair
+4760,Service & Repair
+4781,Sales
+4817,Sales
+4855,Service & Repair
+4865,Sales
+4879,Sales
+4887,Sales
+4904,Service & Repair
+4916,Sales
+4933,Sales
+4952,Sales
+4953,Sales
+4961,Service & Repair
+5015,Service & Repair
+5045,Sales
+5072,Sales
+5080,"Sales, Service & Repair"
+5102,Sales
+5118,Sales
+5127,Sales
+5132,Sales
+5139,Sales
+5151,Service & Repair
+5159,"Sales, Service & Repair, Training"
+5173,Service & Repair
+5180,Sales
+5192,Service & Repair
+5216,Sales
+5223,Sales
+5225,Sales
+5244,Sales
+5255,Service & Repair
+5308,Service & Repair
+5321,Sales
+5333,Sales
+5344,Service & Repair
+5345,Sales
+5359,Service & Repair
+5416,Sales
+5427,"Sales, Service & Repair"
+5441,Sales
+5444,Sales
+5462,Sales
+5491,Sales
+5496,Service & Repair
+5508,Sales
+5510,Sales
+5517,Service & Repair
+5527,Sales
+5541,Sales
+5559,Service & Repair
+5568,Service & Repair
+5582,Sales
+5615,Sales
+5622,Service & Repair
+5629,Sales
+5679,Service & Repair
+5688,Service & Repair
+5699,Sales
+5722,Sales
+5790,Sales
+5795,"Sales, Service & Repair"
+5817,"Sales, Service & Repair"
+5830,Sales
+5850,Service & Repair
+5855,"Sales, Service & Repair"
+5887,Sales
+5904,Service & Repair
+6085,Sales
+6107,Sales
+6117,Sales
+6131,Sales
+6140,Sales
+6150,Sales
+6231,Sales
+6243,Service & Repair
+6298,Sales
+6316,Service & Repair
+6325,Service & Repair
+6331,Service & Repair
+6355,"Sales, Service & Repair"
+6367,Sales
+6382,Service & Repair
+6392,Sales
+6424,Sales
+6453,Service & Repair
+6467,Service & Repair
+6516,Service & Repair
+6523,Training
+6565,"Sales, Service & Repair"
+6575,Sales
+6626,Service & Repair
+6630,Service & Repair
+6632,Service & Repair
+6644,Sales
+6671,Sales
+6730,Sales
+6736,Service & Repair
+6789,Service & Repair
+6798,Service & Repair
+6807,"Sales, Service & Repair, Training"
+6833,Sales
+6842,Sales
+6868,Sales
+6895,Sales
+6913,Service & Repair
+6936,Sales
+6954,Service & Repair
+6980,Sales
+6981,Service & Repair
+7044,"Sales, Service & Repair"
+7060,Sales
+7131,Sales
+7160,Service & Repair
+7185,Sales
+7282,Service & Repair
+7307,Service & Repair
+7364,"Service & Repair, Training"
+7374,Sales
+7410,Sales
+7467,Sales
+7478,Service & Repair
+7491,Service & Repair
+7512,Sales
+7547,Service & Repair
+7570,Service & Repair
+7588,"Service & Repair, Training"
+7596,Service & Repair
+7607,Sales
+7609,Sales
+7617,Sales
+7674,Sales
+7688,Sales
+7710,Sales
+7727,Service & Repair
+7746,Sales
+7765,Service & Repair
+7800,"Sales, Service & Repair"
+7805,Sales
+7833,Service & Repair
+7864,"Sales, Service & Repair"
+7867,Sales
+7885,Training
+7902,Sales
+7912,Service & Repair
+7966,Service & Repair
+7974,"Sales, Service & Repair, Training"
+7996,"Service & Repair, Training"
+8072,Training
+8108,Service & Repair
+8132,Sales
+8155,Service & Repair
+8165,Service & Repair
+8177,Service & Repair
+8204,Service & Repair
+8233,Sales
+8434,Sales
+8753,Sales
+8764,Sales
+8988,Sales
+9024,Sales
+9113,Service & Repair
+9114,Sales
+9409,Service & Repair
+9635,Sales
+9641,Service & Repair
+9690,Sales
+10125,"Sales, Service & Repair"
+10145,Sales
+10214,Sales
+10220,Service & Repair
+10289,Service & Repair
+10321,Service & Repair
+10370,Service & Repair
+10435,Sales
+10465,Service & Repair
+10567,Sales
+10584,Service & Repair
+10667,Service & Repair
+10723,Sales
+10734,Sales
+10774,Service & Repair
+10777,Sales
+10778,Sales
+10797,Sales
+10833,Sales
+10841,Service & Repair
+10858,Sales
+10936,Service & Repair
+11000,Sales
+11023,Sales
+11047,Sales
+11062,Sales
+11089,Sales
+11110,Sales
+11155,Sales
+11164,Sales
+11230,Sales
+11261,"Service & Repair, Training"
+11284,Sales
+11311,Service & Repair
+11334,Service & Repair
+11358,Sales
+11385,Service & Repair
+11432,Sales
+11449,Service & Repair
+11524,Sales
+11536,Service & Repair
+11632,Service & Repair
+11640,Sales
+11675,Service & Repair
+11682,Service & Repair
+11725,Service & Repair
+11730,Sales
+11747,Service & Repair
+11752,Service & Repair
+11782,Sales
+11798,Service & Repair
+11801,Sales
+11860,"Sales, Service & Repair"
+11930,"Sales, Service & Repair"
+11941,Service & Repair
+11991,Sales
+13165,Service & Repair
+13231,Sales
+13244,Sales
+13298,Service & Repair
+13306,Service & Repair
+13333,Sales
+13339,Service & Repair
+13401,Sales
+13428,Sales
+13445,Sales
+13500,Sales
+13513,Sales
+13534,Sales
+13543,Service & Repair
+13567,Sales
+13610,Service & Repair
+13634,Sales
+13661,"Sales, Service & Repair"
+13668,Sales
+13687,Sales
+13732,Sales
+13741,Service & Repair
+13819,Sales
+13889,Sales
+13900,Sales
+14080,Sales
+14122,Sales
+14174,Sales
+14180,Sales
+14323,Sales
+14325,Sales
+14326,Sales
+14389,Sales
+14522,Sales
+14612,Service & Repair
+14621,Sales
+14666,Service & Repair
+14786,Sales
+14806,Sales
+14866,Sales
+14891,Sales
+14902,Sales
+14953,Service & Repair
+14976,Sales
+15046,Sales
+15098,Service & Repair
+15138,Service & Repair
+15236,Service & Repair
+15297,Service & Repair
+15349,Sales
+15372,Service & Repair
+15558,Sales
+15563,Sales
+15625,Sales
+15662,Sales
+15702,Sales
+15785,Sales
+15821,Sales
+15840,Service & Repair
+15868,Sales
+15897,Sales
+15936,Sales
+15951,Sales
+15969,Service & Repair
+16049,Sales
+16057,Sales
+16087,Service & Repair
+16088,Sales
+16188,Service & Repair
+16190,Sales
+16284,Service & Repair
+16297,Service & Repair
+16313,Sales
+16340,Sales
+16356,Sales
+16625,"Sales, Service & Repair"
+16648,Sales
+16668,Sales
+16991,Sales
+17007,Sales
+17096,Sales
+17124,Sales
+17129,Sales
+17174,Sales
+17310,Sales
+17451,Sales
+17466,Sales
+17474,Sales
+17477,"Sales, Service & Repair"
+17515,Sales
+17634,Sales
+17678,Sales
+17710,Sales
+17832,Service & Repair
+17870,Service & Repair
+17881,Sales
+17926,Sales
+17957,Sales
+18002,Sales
+18195,Sales
+18206,Sales
+18275,Sales
+18277,Sales
+18278,Sales
+18279,Sales
+18280,Sales
+18281,Sales
+18367,Sales
+18568,Sales
+18591,Sales
+18608,Sales
+18616,Sales
+18658,Sales
+18678,"Sales, Service & Repair"
+18688,Sales
+18699,Service & Repair
+18716,Sales
+18743,Sales
+18901,Sales
+19039,Sales
+19118,Sales
+19193,Service & Repair
+19196,Sales
+19200,Sales
+19224,Sales
+19296,Sales
+19351,Service & Repair
+19432,Sales
+19468,Sales
+19531,Sales
+19541,Sales
+19571,Service & Repair
+19595,Sales
+19599,Sales
+19647,Service & Repair
+19697,Sales
+19704,Sales
+19731,Sales
+19776,Service & Repair
+19830,Service & Repair
+19943,Sales
+20022,Sales

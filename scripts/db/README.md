@@ -23,6 +23,7 @@ Then re-import the other two channels (see below): redirects and ACF/CPT-UI.
 | A slug | `scripts/db/NNN-*.sh` **and** an old→new redirect in `db/redirects.json` |
 | A redirect | export to `db/redirects.json` (Redirection plugin) |
 | An ACF field group / CPT-UI post type or taxonomy | export to `db/acf-cptui/` (see below) |
+| A `content_department` (Service Hub) assignment | re-export `db/imports/content-departments.csv` (replayed by `036-import-content-departments.sh`) |
 | Reading/inspecting only | nothing — no capture needed |
 
 ### 1. Catalog data → numbered scripts
@@ -65,10 +66,11 @@ docker exec devkinsta_fpm wp --path=/www/kinsta/public/newtech db query \
   --skip-column-names --allow-root | python3 -m json.tool > db/redirects.json
 ```
 
-Re-import after a fresh pull is handled by a `scripts/db/NNN-*.sh` migration
-that reads `db/redirects.json` and `INSERT … ON DUPLICATE KEY`s the rows back in
-(idempotent). Author that script when first needed; the export above is what
-keeps the data captured in the meantime.
+Re-import after a fresh pull is handled by `037-import-redirects.sh` (runs in
+the normal `db:apply` pass): it reads `db/redirects.json` and creates only the
+entries whose source URL is missing, via the plugin's `Red_Item` API — the
+plugin's own bulk import does not dedupe, so never use it against a DB that
+already has most of the rows.
 
 ### 3. ACF field groups + CPT-UI post types/taxonomies → `db/acf-cptui/`
 
