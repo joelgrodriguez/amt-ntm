@@ -308,7 +308,7 @@ function get_desktop_nav(): array {
                     'secondary_url'   => \Standard\Url\with_query('/contact/', ['form' => 'quote']),
                     'secondary_links' => [
                         [
-                            'label' => __('Build & Configure', 'standard'),
+                            'label' => __('Build and Quote', 'standard'),
                             'url'   => \Standard\Url\internal('/configurator/'),
                             'badge' => __('NEW', 'standard'),
                         ],
@@ -327,7 +327,7 @@ function get_desktop_nav(): array {
                                 'url'   => \Standard\Url\with_query('/contact/', ['form' => 'quote']),
                             ],
                             [
-                                'label' => __('Configure your machine', 'standard'),
+                                'label' => __('Configure Your NTM Machine', 'standard'),
                                 'url'   => \Standard\Url\internal('/configurator/'),
                                 'badge' => __('NEW', 'standard'),
                             ],
