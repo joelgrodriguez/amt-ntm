@@ -36,9 +36,6 @@ export function initHeroSlider(options = {}) {
   const prevBtn = slider.querySelector('.hero-slider__nav--prev');
   const nextBtn = slider.querySelector('.hero-slider__nav--next');
   const segments = slider.querySelectorAll('.hero-slider__segment');
-  const pauseToggle = slider.querySelector('.hero-slider__pause');
-  const pauseIcon = pauseToggle?.querySelector('[data-pause-icon]');
-  const playIcon = pauseToggle?.querySelector('[data-play-icon]');
 
   if (!track || slides.length === 0) return;
 
@@ -60,25 +57,6 @@ export function initHeroSlider(options = {}) {
     '(prefers-reduced-motion: reduce)'
   );
   userPaused = reducedMotionQuery.matches;
-
-  function updatePauseToggle() {
-    if (!(pauseToggle instanceof HTMLElement)) return;
-
-    pauseToggle.setAttribute('aria-pressed', String(userPaused));
-    pauseToggle.setAttribute(
-      'aria-label',
-      userPaused
-        ? pauseToggle.dataset.playLabel || 'Play slide autoplay'
-        : pauseToggle.dataset.pauseLabel || 'Pause slide autoplay'
-    );
-
-    if (pauseIcon instanceof HTMLElement) {
-      pauseIcon.hidden = userPaused;
-    }
-    if (playIcon instanceof HTMLElement) {
-      playIcon.hidden = !userPaused;
-    }
-  }
 
   function syncVideoPlayback() {
     slider.querySelectorAll('video').forEach((video) => {
@@ -150,7 +128,6 @@ export function initHeroSlider(options = {}) {
 
   function startAutoPlay() {
     if (userPaused || isPlaying) {
-      updatePauseToggle();
       syncVideoPlayback();
       return;
     }
@@ -158,7 +135,6 @@ export function initHeroSlider(options = {}) {
     isPlaying = true;
     slider.classList.add('hero-slider--playing');
     autoPlayTimer = setInterval(nextSlide, config.autoPlayInterval);
-    updatePauseToggle();
     syncVideoPlayback();
   }
 
@@ -169,7 +145,6 @@ export function initHeroSlider(options = {}) {
       clearInterval(autoPlayTimer);
       autoPlayTimer = null;
     }
-    updatePauseToggle();
     syncVideoPlayback();
   }
 
@@ -190,10 +165,6 @@ export function initHeroSlider(options = {}) {
   function handleSegmentClick(index) {
     goToSlide(index);
     setUserPaused(true);
-  }
-
-  function handlePauseToggle() {
-    setUserPaused(!userPaused);
   }
 
   function handleTouchStart(e) {
@@ -229,7 +200,6 @@ export function initHeroSlider(options = {}) {
   function setupEventListeners() {
     prevBtn?.addEventListener('click', () => handleNavClick('prev'), { signal });
     nextBtn?.addEventListener('click', () => handleNavClick('next'), { signal });
-    pauseToggle?.addEventListener('click', handlePauseToggle, { signal });
     track.addEventListener('transitionend', handleTransitionEnd, { signal });
     segments.forEach((segment, index) => {
       segment.addEventListener('click', () => handleSegmentClick(index), { signal });
@@ -359,7 +329,6 @@ export function initHeroSlider(options = {}) {
   }
   setAriaAttributes();
   setupEventListeners();
-  updatePauseToggle();
   syncVideoPlayback();
   startAutoPlay();
   observeViewport();
