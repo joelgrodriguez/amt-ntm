@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Installed by scripts/release/install-git-hooks.sh
+# After switching branches, scrub dev-only paths when landing on master.
+set -euo pipefail
+
+# post-checkout: <prev-head> <new-head> <branch-flag (1 = branch checkout)>
+if [[ "${3:-}" != "1" ]]; then
+  exit 0
+fi
+
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+if [[ -z "$ROOT" ]]; then
+  exit 0
+fi
+
+branch="$(git -C "$ROOT" branch --show-current 2>/dev/null || true)"
+if [[ "$branch" == "master" ]]; then
+  "$ROOT/scripts/release/clean-dev-tooling-worktree.sh" >/dev/null 2>&1 || true
+fi
+
+exit 0

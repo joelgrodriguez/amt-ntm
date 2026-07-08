@@ -38,4 +38,7 @@ npm run build
 
 git push origin master
 
-echo "Released to origin/master (theme only, no agent tooling)."
+"$ROOT/scripts/release/clean-dev-tooling-worktree.sh"
+
+echo "Released to origin/master (theme only, no dev tooling)."
+echo "Tip: npm run release:hooks — auto-clean when switching to master."

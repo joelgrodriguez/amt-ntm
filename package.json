@@ -11,6 +11,8 @@
     "content:xlsx": "php scripts/content/export-xlsx.php",
     "preview": "vite preview",
     "release:strip": "scripts/release/strip-dev-tooling.sh",
+    "release:clean": "scripts/release/clean-dev-tooling-worktree.sh",
+    "release:hooks": "scripts/release/install-git-hooks.sh",
     "release:master": "scripts/release/to-master.sh"
   },
   "devDependencies": {
