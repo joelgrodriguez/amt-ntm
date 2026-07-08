@@ -130,7 +130,6 @@ function get_desktop_nav(): array {
                 'type'          => 'flyout-groups',
                 'intro'         => [
                     'title'           => __('New to Rollforming?', 'standard'),
-                    'body'            => __('New to portable rollforming? Learn what NTM does, decide if it fits your business, and pick a direction.', 'standard'),
                     'secondary_label' => __('First-time buyer playlist', 'standard'),
                     'secondary_url'   => \Standard\Url\internal('/first-time-buyer-playlist/'),
                     'secondary_links' => [
