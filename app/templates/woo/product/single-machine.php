@@ -139,8 +139,6 @@ if (!$machine) {
     }
     ?>
 
-    <?php get_template_part('templates/woo/product/parts/floating-quote-cta', null, compact('product')); ?>
-
 </main>
 
 <?php

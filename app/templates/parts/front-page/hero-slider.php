@@ -34,7 +34,7 @@ if (empty($slides)) {
 $total_slides = count($slides);
 ?>
 
-<section class="hero-slider" aria-label="<?php echo esc_attr($content['section_label']); ?>">
+<section id="hero-slider" class="hero-slider" aria-label="<?php echo esc_attr($content['section_label']); ?>">
 
     <!-- Visually-hidden page title. The hero slider is the first
          landmark on the front page; the buyer is already looking at

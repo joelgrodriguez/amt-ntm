@@ -1,17 +1,14 @@
 /**
- * Floating Quote CTA
+ * Floating Build & Configure CTA
  *
- * Fixed bottom-left button on machine product pages.
- * Slides in from the left after scrolling past the hero.
- * On mobile, this replaces the scroll-to-top button.
+ * Fixed bottom-left configurator shortcut on machine and category
+ * landing pages. Slides in after scrolling past the hero.
  *
- * @file floating-quote-cta.css
- *
- * @usage Single Machine Product (single-machine.php)
- * @see js/modules/FloatingQuoteCta.js
+ * @file components/floating-build-cta.css
+ * @see js/modules/FloatingBuildCta.js
  */
 
-.floating-quote-cta {
+.floating-build-cta {
   position: fixed;
   bottom: 1.5rem;
   left: 1.5rem;
@@ -32,35 +29,26 @@
     transform 300ms ease-out,
     background-color 150ms ease-out;
 
-  /* Hidden by default — JS reveals on scroll */
   opacity: 0;
   transform: translateX(-1rem);
   pointer-events: none;
 }
 
-.floating-quote-cta.is-visible {
+.floating-build-cta.is-visible {
   opacity: 1;
   transform: translateX(0);
   pointer-events: auto;
 }
 
-.floating-quote-cta:hover {
+.floating-build-cta:hover {
   background-color: color-mix(in srgb, var(--color-blue-500) 90%, black);
 }
 
-.floating-quote-cta:focus-visible {
+.floating-build-cta:focus-visible {
   outline: 2px solid white;
   outline-offset: 2px;
 }
 
-.floating-quote-cta__label {
+.floating-build-cta__label {
   letter-spacing: 0.02em;
-}
-
-/* ── Mobile: hide scroll-to-top on machine pages ──────────────────── */
-
-@media (max-width: 767px) {
-  .machine-product ~ #scroll-to-top {
-    display: none;
-  }
 }

@@ -429,9 +429,9 @@ body.mega-open {
     overflow: hidden;
 }
 
-/* ── Hide scroll-to-top while a mega panel is open ────────────────────── */
+/* ── Hide floating build CTA while a mega panel is open ─────────────── */
 
-body.mega-open #scroll-to-top {
+body.mega-open #floating-build-cta {
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
