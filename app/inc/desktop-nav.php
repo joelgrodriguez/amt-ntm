@@ -381,15 +381,19 @@ function get_desktop_nav(): array {
                         ],
                     ],
                     [
-                        'label' => __('Talk or configure', 'standard'),
+                        'label' => __('Talk or learn', 'standard'),
                         'items' => [
+                            [
+                                'label' => __('How buying from NTM works', 'standard'),
+                                'url'   => \Standard\Url\internal('/how-buying-works/'),
+                            ],
+                            [
+                                'label' => __('Learning Center', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/'),
+                            ],
                             [
                                 'label' => __('Talk to a specialist', 'standard'),
                                 'url'   => \Standard\Url\internal('/contact/'),
-                            ],
-                            [
-                                'label' => __('Configure your machine', 'standard'),
-                                'url'   => \Standard\Url\internal('/configurator/'),
                             ],
                         ],
                     ],
@@ -398,6 +402,8 @@ function get_desktop_nav(): array {
                     '/contact/',
                     '/configurator/',
                     '/machines/leasing-financing/',
+                    '/how-buying-works/',
+                    '/learning-center/',
                     '/ntm-machine-quote-checklist-thank-you/',
                 ],
             ],
