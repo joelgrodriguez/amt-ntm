@@ -442,7 +442,7 @@ function get_desktop_nav(): array {
                                 'url'   => \Standard\Url\internal('/learning-center/common-problems-with-ntm-portable-rollforming-machines-and-how-to-solve-them/'),
                             ],
                             [
-                                'label' => __('Questions the service department hears most', 'standard'),
+                                'label' => __('Top 5 service department questions', 'standard'),
                                 'url'   => \Standard\Url\internal('/learning-center/the-top-five-questions-the-ntm-service-department-receives/'),
                             ],
                             [
