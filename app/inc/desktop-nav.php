@@ -130,7 +130,7 @@ function get_desktop_nav(): array {
                 'type'          => 'flyout-groups',
                 'intro'         => [
                     'title'           => __('New to Rollforming?', 'standard'),
-                    'secondary_label' => __('First-time buyer playlist', 'standard'),
+                    'secondary_label' => __('First-time buyers — click here', 'standard'),
                     'secondary_url'   => \Standard\Url\internal('/first-time-buyer-playlist/'),
                     'secondary_links' => [
                         [
@@ -143,6 +143,10 @@ function get_desktop_nav(): array {
                     [
                         'label' => __('Start here', 'standard'),
                         'items' => [
+                            [
+                                'label' => __('First-time buyer videos', 'standard'),
+                                'url'   => \Standard\Url\internal('/first-time-buyer-playlist/'),
+                            ],
                             [
                                 'label' => __('What is an NTM machine?', 'standard'),
                                 'url'   => \Standard\Url\internal('/learning-center/portable-rollforming-machine-equipment-types-uses/'),
@@ -184,10 +188,6 @@ function get_desktop_nav(): array {
                             [
                                 'label' => __('Start your rollforming business', 'standard'),
                                 'url'   => \Standard\Url\internal('/start-here/'),
-                            ],
-                            [
-                                'label' => __('First-time buyer playlist', 'standard'),
-                                'url'   => \Standard\Url\internal('/first-time-buyer-playlist/'),
                             ],
                             [
                                 'label' => __('Learning Center', 'standard'),
