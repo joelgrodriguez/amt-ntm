@@ -26,15 +26,21 @@ WP_PATH="${WP_PATH-/www/kinsta/public/newtech}"
 # wp() wraps WP-CLI so individual migration scripts call `wp ...` and don't care
 # where it runs. Migration scripts should `source` this runner's helpers or be
 # invoked by it, so they inherit this function.
+#
+# WP_PHP_BIN: PHP binary used inside the container. DevKinsta's default CLI
+# php is 7.4, which fatals on the theme's PHP 8 syntax (match expressions),
+# so pin a modern one. Ignored when WP_CONTAINER is empty (host wp).
+WP_PHP_BIN="${WP_PHP_BIN-php8.3}"
+
 wp() {
   if [[ -n "$WP_CONTAINER" ]]; then
-    docker exec "$WP_CONTAINER" wp --path="$WP_PATH" --allow-root "$@"
+    docker exec "$WP_CONTAINER" "$WP_PHP_BIN" /usr/local/bin/wp --path="$WP_PATH" --allow-root "$@"
   else
     command wp --path="$WP_PATH" "$@"
   fi
 }
 export -f wp
-export WP_CONTAINER WP_PATH
+export WP_CONTAINER WP_PATH WP_PHP_BIN
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
