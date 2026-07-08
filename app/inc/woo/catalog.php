@@ -47,7 +47,7 @@ function get_product_categories(): array {
         ],
         'accessories-add-on-equipment' => [
             'label' => \__('Accessories & Upgrades', 'standard'),
-            'short' => \__('Accessories', 'standard'),
+            'short' => \__('Upgrades', 'standard'),
         ],
     ];
 }
