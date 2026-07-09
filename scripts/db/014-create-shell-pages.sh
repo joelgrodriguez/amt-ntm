@@ -40,6 +40,20 @@ if [[ -n "$machines_id" ]]; then
       echo "    adopted 'ntm-accessories' (#$old_id) -> slug 'upgrades'"
     fi
   fi
+
+  # --- Re-parenting: manuals + footprints live at /machines/<slug>/ ---------
+  # Prod has these as top-level pages; the theme's IA (and the captured
+  # /manuals/ + /footprints/ redirects) expect them under /machines/. Move
+  # the top-level published page instead of creating a duplicate.
+  for move_slug in manuals footprints; do
+    if [[ -z "$(find_page "$move_slug" "$machines_id")" ]]; then
+      stray_id="$(find_page "$move_slug" 0)"
+      if [[ -n "$stray_id" ]]; then
+        wp post update "$stray_id" --post_parent="$machines_id" >/dev/null
+        echo "    re-parented '$move_slug' (#$stray_id) under /machines/"
+      fi
+    fi
+  done
 fi
 
 # slug|title|parent-slug (empty = top level)|template|content
