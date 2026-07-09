@@ -28,6 +28,14 @@ set -euo pipefail
 # Regenerate just the product-card size, no confirmation prompt, across all
 # attachments. Yes/no is auto-answered so the script is non-interactive under
 # `npm run db:apply`.
-wp media regenerate --image_size=product-card --yes
+#
+# FAIL-SOFT: `media regenerate` exits non-zero if ANY attachment fails, which
+# would abort the whole db:apply run (set -e). Thumbnails are best-effort —
+# the known benign failure is PDF attachments where ImageMagick's security
+# policy forbids PDF rasterization (DevKinsta's container default). Warn and
+# continue instead of killing the replay pipeline.
+if ! wp media regenerate --image_size=product-card --yes; then
+  echo "    !! some product-card thumbnails failed to regenerate (see above) — continuing."
+fi
 
 echo "    product-card thumbnails regenerated (no-crop 16:9 bounding box)."

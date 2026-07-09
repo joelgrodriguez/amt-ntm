@@ -26,15 +26,34 @@ WP_PATH="${WP_PATH-/www/kinsta/public/newtech}"
 # wp() wraps WP-CLI so individual migration scripts call `wp ...` and don't care
 # where it runs. Migration scripts should `source` this runner's helpers or be
 # invoked by it, so they inherit this function.
+#
+# WP_PHP_BIN: PHP binary used inside the container. DevKinsta's default CLI
+# php is 7.4, which fatals on the theme's PHP 8 syntax (match expressions),
+# so pin a modern one. Ignored when WP_CONTAINER is empty (host wp).
+WP_PHP_BIN="${WP_PHP_BIN-php8.3}"
+
+# DRY_RUN: the replay MUST apply by default — a fresh prod pull that runs
+# db:apply and silently no-ops is the exact failure this system exists to
+# prevent (bitten once: 028/029 shipped nothing on rehearsal). Individual
+# scripts keep their own DRY_RUN=1 default for cautious manual runs; the
+# runner flips it. Preview a full run with: DRY_RUN=1 npm run db:apply
+DRY_RUN="${DRY_RUN-0}"
+export DRY_RUN
+
 wp() {
   if [[ -n "$WP_CONTAINER" ]]; then
-    docker exec "$WP_CONTAINER" wp --path="$WP_PATH" --allow-root "$@"
+    # -e flags forward the migration-script env (NTM_*) into the container —
+    # scripts that pipe PHP through `wp eval-file` read config via getenv().
+    # docker omits any -e VAR that is unset on the host, so this list is safe.
+    docker exec \
+      -e DRY_RUN -e NTM_DRY_RUN -e NTM_POST_ID -e NTM_MACHINES_ID -e NTM_TEMPLATE \
+      "$WP_CONTAINER" "$WP_PHP_BIN" /usr/local/bin/wp --path="$WP_PATH" --allow-root "$@"
   else
     command wp --path="$WP_PATH" "$@"
   fi
 }
 export -f wp
-export WP_CONTAINER WP_PATH
+export WP_CONTAINER WP_PATH WP_PHP_BIN
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 

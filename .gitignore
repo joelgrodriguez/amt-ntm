@@ -79,3 +79,12 @@ docs/page-outlines-*.md
 .shogun/events.jsonl
 .shogun/report-cursors.json
 .shogun/agent-preflight.json
+# Admiral local coordination state
+.admiral/mainline-queue.json
+.admiral/reservations.json
+.admiral/messages.jsonl
+.admiral/events.jsonl
+.admiral/report-cursors.json
+.admiral/agent-preflight.json
+.admiral/active.md
+.admiral/archive.md

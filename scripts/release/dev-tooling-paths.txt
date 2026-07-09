@@ -8,6 +8,7 @@ CLAUDE.md
 .claude
 .opencode
 .shogun
+.admiral
 .maestro
 .conductor
 .superpowers
