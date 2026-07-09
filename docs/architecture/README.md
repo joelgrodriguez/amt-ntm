@@ -16,12 +16,11 @@ Package manager: npm
 
 ## Key Directories
 
-- `.`: Root-level manifests, docs, and configuration. (13 files)
-- `.worktrees`: Project area. (590 files)
+- `.`: Root-level manifests, docs, and configuration. (12 files)
 - `app`: Application code and framework conventions. (447 files)
 - `db`: Project area. (3 files)
 - `docs`: Project documentation. (84 files)
-- `scripts`: Developer automation scripts. (54 files)
+- `scripts`: Developer automation scripts. (40 files)
 
 ## Entrypoints
 
@@ -29,14 +28,6 @@ Package manager: npm
 
 ## Routes
 
-- `.worktrees/76-db-capture-gaps/app/resources/css/pages/embed-canvas.css`
-- `.worktrees/76-db-capture-gaps/app/resources/css/pages/finance-center.css`
-- `.worktrees/76-db-capture-gaps/app/resources/css/pages/learning-center.css`
-- `.worktrees/76-db-capture-gaps/app/resources/css/pages/media.css`
-- `.worktrees/76-db-capture-gaps/app/resources/css/pages/roof-wall.css`
-- `.worktrees/76-db-capture-gaps/app/resources/css/pages/single.css`
-- `.worktrees/76-db-capture-gaps/app/resources/css/pages/start-here.css`
-- `.worktrees/76-db-capture-gaps/app/resources/css/pages/toc.css`
 - `app/resources/css/pages/embed-canvas.css`
 - `app/resources/css/pages/finance-center.css`
 - `app/resources/css/pages/learning-center.css`
