@@ -117,11 +117,17 @@ function get_machine_sort_order(string $category_slug): array {
         return [];
     }
 
-    $machines = match ($category_slug) {
-        'gutter-machines'          => \Standard\MachinesData\get_gutter_machines(),
-        'roof-wall-panel-machines' => \Standard\MachinesData\get_roof_wall_machines(),
-        default                    => [],
-    };
+    switch ($category_slug) {
+        case 'gutter-machines':
+            $machines = \Standard\MachinesData\get_gutter_machines();
+            break;
+        case 'roof-wall-panel-machines':
+            $machines = \Standard\MachinesData\get_roof_wall_machines();
+            break;
+        default:
+            $machines = [];
+            break;
+    }
 
     $order = [];
     foreach ($machines as $index => $machine) {

@@ -103,7 +103,7 @@
      wrapped labels stack cleanly under the checkbox column. */
   .filter-option {
     @apply flex w-full items-start gap-3 bg-transparent border-l-4 border-transparent py-2 pl-2 pr-3 text-sm text-blue-700 no-underline cursor-pointer;
-    min-height: 2.5rem;
+    min-height: 2.75rem;
     transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
   }
 
@@ -184,7 +184,7 @@
   }
 
   .filter-chip {
-    @apply inline-flex min-h-8 items-center gap-2 border border-blue-500 bg-blue-50 pl-3 pr-2 text-blue-900 no-underline;
+    @apply inline-flex min-h-11 items-center gap-2 border border-blue-500 bg-blue-50 pl-3 pr-2 text-blue-900 no-underline;
     @apply font-mono uppercase tracking-wider;
     font-size: var(--text-caption);
     transition: background-color 200ms ease-out, color 200ms ease-out;
@@ -195,7 +195,7 @@
   }
 
   .filter-chip-x {
-    @apply flex h-6 w-6 items-center justify-center;
+    @apply flex h-8 w-8 items-center justify-center;
   }
 
   /* Sidebar shell. Hairline rail on lg+. Below lg the sidebar lives
@@ -218,7 +218,7 @@
     @apply relative flex w-full items-center justify-between gap-2 bg-blue-900 text-white border-0 cursor-pointer overflow-hidden;
     @apply font-mono uppercase tracking-wider;
     @apply px-4;
-    min-height: 2.5rem;
+    min-height: 2.75rem;
     font-size: var(--text-caption);
     transition: background-color 200ms cubic-bezier(0.22, 1, 0.36, 1), color 200ms ease, transform 200ms ease;
   }
@@ -264,7 +264,7 @@
   /* The Clear link: small, ghosted, mono. Sits below as the quiet
      escape hatch. The x icon underscores the destruction. */
   .filter-clear {
-    @apply inline-flex items-center justify-center gap-2 px-3 py-2 text-blue-500 no-underline;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 px-3 py-2 text-blue-500 no-underline;
     @apply font-mono uppercase tracking-wider;
     font-size: var(--text-caption);
     transition: color 150ms ease;

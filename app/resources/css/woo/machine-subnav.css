@@ -185,6 +185,10 @@
   flex-shrink: 0;
 }
 
+.machine-subnav__cta-button {
+  white-space: nowrap;
+}
+
 /* ── Section Anchors ─────────────────────────────────────────────── */
 
 .machine-subnav__links {
@@ -242,6 +246,16 @@
 
   .machine-subnav__inner {
     gap: 0.75rem;
+  }
+
+  .machine-subnav__left {
+    min-width: 0;
+    flex-shrink: 1;
+  }
+
+  .machine-subnav__current-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 

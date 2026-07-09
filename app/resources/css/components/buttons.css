@@ -17,11 +17,11 @@
   }
 
   .btn-sm {
-    @apply h-8 px-4 min-w-24 text-caption;
+    @apply h-11 px-4 min-w-24 text-caption;
   }
 
   .btn-md {
-    @apply h-10 px-5 min-w-28 text-body;
+    @apply h-11 px-5 min-w-28 text-body;
   }
 
   .btn-xl {
@@ -147,5 +147,15 @@
 
   .btn-emphasis.btn--commit::before {
     background: color-mix(in srgb, var(--color-red) 90%, black);
+  }
+
+  @media (min-width: 48rem) and (hover: hover) and (pointer: fine) {
+    .btn-sm {
+      @apply h-8;
+    }
+
+    .btn-md {
+      @apply h-10;
+    }
   }
 }
