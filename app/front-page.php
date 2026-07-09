@@ -14,6 +14,7 @@
  *   ROUTE
  *   explore       (browse the catalog by category, with per-tab
  *                  jumps to the category landing pages)
+ *   waypoint      (compact path reset after catalog browsing)
  *   quiz          (10-question assessment for the unsure)
  *
  *   SELL
@@ -54,6 +55,7 @@ get_header();
 
     <?php // ROUTE ?>
     <?php get_template_part('templates/parts/front-page/explore-machines'); ?>
+    <?php get_template_part('templates/parts/front-page/waypoint'); ?>
     <?php get_template_part('templates/parts/front-page/quiz'); ?>
 
     <?php // SELL ?>
