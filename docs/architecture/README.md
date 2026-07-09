@@ -21,7 +21,7 @@ Package manager: npm
 - `app`: Application code and framework conventions. (447 files)
 - `db`: Project area. (3 files)
 - `docs`: Project documentation. (84 files)
-- `scripts`: Developer automation scripts. (52 files)
+- `scripts`: Developer automation scripts. (54 files)
 
 ## Entrypoints
 
