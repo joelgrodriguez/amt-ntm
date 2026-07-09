@@ -2,6 +2,15 @@
 
 <!-- admiral:auto — appended on land, newest first. Read top-down for current behavior. -->
 
+## Implement mobile waypoint and product CTA hierarchy — #78
+*Landed 2026-07-09 · type: ui*
+
+- Homepage includes a compact mobile-first waypoint after the first buying section with clear paths to machine browsing, comparison, sales contact, and service/manuals
+- Product pages keep strong CTAs at hero/subnav/final close while mid-page CTAs are demoted to contextual links
+- Existing product configurator, finance, and anchor behavior still works
+- npm run build passes
+- admiral map --check passes
+
 ## Implement high-priority mobile UX fixes — #77
 *Landed 2026-07-09 · type: ui*
 
