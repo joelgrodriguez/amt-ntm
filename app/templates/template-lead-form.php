@@ -49,20 +49,26 @@ while (have_posts()) :
     ?>
 
     <section class="section" aria-labelledby="lead-form-content-title">
-        <div class="container">
+        <div class="container grid gap-8 lg:gap-12">
+            <?php if ($is_contact && !$has_hero) : ?>
+                <header class="section-header-left max-w-3xl">
+                    <p class="section-eyebrow"><?php esc_html_e('New Tech Machinery', 'standard'); ?></p>
+                    <h1 id="lead-form-content-title" class="font-sans text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-blue-900 leading-none m-0">
+                        <?php esc_html_e('Talk to NTM.', 'standard'); ?>
+                    </h1>
+                    <p class="text-blue-600 max-w-2xl m-0">
+                        <?php esc_html_e('Questions about machines, pricing, parts, or service? Send the details and the right team will follow up.', 'standard'); ?>
+                    </p>
+                </header>
+            <?php endif; ?>
+
             <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(420px,560px)] lg:gap-16 lg:items-start">
                 <article id="post-<?php the_ID(); ?>" <?php post_class('grid gap-8 min-w-0 order-2 lg:order-none lg:col-start-1 lg:row-start-1'); ?>>
-                    <?php if (!$has_hero) : ?>
+                    <?php if (!$has_hero && !$is_contact) : ?>
                         <header class="section-header-left max-w-3xl">
                             <p class="section-eyebrow"><?php esc_html_e('New Tech Machinery', 'standard'); ?></p>
                             <h1 id="lead-form-content-title" class="font-sans text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-blue-900 leading-none">
-                                <?php
-                                if ($is_contact) {
-                                    esc_html_e('Talk to NTM.', 'standard');
-                                } else {
-                                    the_title();
-                                }
-                                ?>
+                                <?php the_title(); ?>
                             </h1>
                         </header>
                     <?php else : ?>
