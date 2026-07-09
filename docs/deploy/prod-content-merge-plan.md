@@ -193,7 +193,48 @@ wp relevanssi index                     # search depends on it
 5. Kinsta staging → live (Kinsta takes an automatic backup; note the restore point).
 6. Post-launch: watch Redirection 404 log + GSC coverage for a week; lift freeze.
 
-## 5. Risks & mitigations
+## 5. Rehearsal results (2026-07-08) — COMPLETE ✅
+
+Phases C, R, and V were executed against the `newtech_1` donor. The local
+`newtech` site now runs the new theme on a fresh prod DB with every capture
+replayed. Verified: 35-URL smoke battery all-200, front page fully composed
+(quiz photo srcset from re-registered media, testimonial slider, flagship
+band), LC category archives + department filters (376/257/15), relevanssi
+reindexed (3,658 posts), new prod content renders (5 Pillars video, True Cost
+post, Save-30% landing page, Spanish brochures), redirect chains loop-free.
+
+The rehearsal caught and fixed five capture/pipeline defects (all landed under
+#76, five iterations):
+
+1. `media regenerate` fatals on PDF attachments (ImageMagick policy) aborted
+   the whole replay → 023/031 fail-soft.
+2. 024/029/030 bypass the wp() wrapper and ran PHP 7.4 → php8.3 pinned.
+3. 028/029 default DRY_RUN=1, so a fresh replay silently skipped the trailer
+   and safety pages → apply exports DRY_RUN=0; wrapper forwards NTM_* env
+   (028 saw NTM_MACHINES_ID=0 and skipped).
+4. Eight more shell pages were missing — local creations whose IDs prod reused
+   for revisions (invisible to ID diffs) — plus prod's `ntm-accessories` page
+   needed slug adoption to `upgrades`, and `manuals`/`footprints` needed
+   re-parenting under /machines/ → 014 owns all page shells now.
+5. Prod's legacy redirect `/machines/manuals → /learning-center/resource/
+   manuals/` + our captured reverse formed an infinite 301 loop → 038 disables
+   enabled redirects whose source resolves to published content.
+
+**Gate outcomes:** A — prod's plugin set minus search-filter-pro, ninja-forms,
+wp-pagenavi, woocommerce-products-by-tags (25 active; sucuri/clarity/
+pixelyoursite/hurrytimer/events-calendar/leadin stay on). B — no action
+needed: the theme links the *article* URL, which is published; only the
+duplicate video CPT was privated. C — still required at cutover.
+
+**Cutover-day runbook is unchanged (Phase X)**, with timing now known:
+re-pull fresh prod DB → file syncs (plugins prod-wins --delete, uploads
+--ignore-existing) → DB import + search-replace → theme activate + plugin
+deactivations → `npm run db:apply` (~12 min, dominated by 023) → relevanssi
+index (~3 min) → rewrite/cache flush → smoke battery → DevKinsta push to
+Kinsta staging → QA → promote. Backups from this rehearsal:
+`~/Development/kinsta/_local-only/amt-ntm/db-backups/`.
+
+## 6. Risks & mitigations
 
 - **Prod drifts between donor snapshot and cutover** → freeze + mandatory re-pull +
   re-run of the diff at cutover (Phase X.2–3).
