@@ -20,6 +20,14 @@
     @apply h-8 px-4 min-w-24 text-caption;
   }
 
+  /* PRODUCT.md: "CTAs are not 32px buttons." Keep the compact desktop look;
+     guarantee a 44px target where the pointer is a finger. */
+  @media (pointer: coarse) {
+    .btn-sm {
+      @apply h-11;
+    }
+  }
+
   .btn-md {
     @apply h-10 px-5 min-w-28 text-body;
   }
