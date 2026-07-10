@@ -312,7 +312,7 @@ Located in `app/resources/js/modules/`:
 SVG icons live in `app/assets/icons/`. Use the `icon()` helper in templates:
 
 ```php
-<?php icon('arrow--right', ['class' => 'w-5 h-5']); ?>
+<?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
 ```
 
 ## Development Notes

@@ -1,89 +1,37 @@
 # Theme TODO
 
-Tracking future enhancements and features.
+Tracking future enhancements. Culled 2026-07-10 after the pre-launch audit —
+everything previously listed here had already shipped:
+
+- Mobile filter drawer → `filter-sidebar.php` renders a `<details class="filter-drawer">` on mobile for all sidebar consumers.
+- Profile/manual WooCommerce card integration → landed via advisor plan 011 (matched machine tags render product cards/thumbnails linking to product pages; unmatched fall back to tag archives).
+- Profile/manual archive pages with filters → `archive.php` scoped-catalog mode at `/learning-center/profile/` and `/learning-center/manual/`.
+- Search integration for profiles/manuals → `search.php` + `content-search.php` native-card dispatch.
+- Compatible profiles/manuals on machine product pages → profile selector/carousels + the resources section's Operator Manual row.
+
+Audit-deferred engineering items (CSS bundle split, YouTube facade,
+`machines-data.php` split, dark-surface `text-blue-400` audit, Schema Pro
+keep/kill decision, video captions/transcripts QA) are tracked in
+`plans/README.md` — not duplicated here.
 
 ---
 
-## Mobile Filters
+## Cross-sell alias coverage
 
 **Priority:** Medium
+**Status:** Open (data, not code)
+**File:** `app/inc/machine-product-data.php` (`get_slug_aliases()`)
+
+Only 15 of 66 profile machine-tag usages currently resolve to a WooCommerce
+product (verified 2026-07-10). Tags whose slug matches no product slug or alias
+fall back gracefully to tag archives. To raise coverage, add `wc-slug =>
+tag-slug` entries to the alias map per machine — no template changes needed.
+
+## Language indicator for Spanish manuals
+
+**Priority:** Low
 **Status:** Not started
-**Files:** `single-profile.php`, future archive templates
 
-### Problem
-Filter sidebars are hidden on mobile (`hidden lg:block`). Users cannot access filters on smaller screens.
-
-### Solution
-Create a reusable slide-out drawer component:
-
-1. **New files:**
-   - `templates/parts/mobile-filter-drawer.php` - Drawer component
-   - `resources/js/modules/MobileFilters.js` - Open/close behavior (similar to `MobileMenu.js`)
-
-2. **Implementation:**
-   - "Filter" button visible only on mobile (below header or as sticky bar)
-   - Drawer slides in from left or bottom
-   - Reuses same filter content from sidebar
-   - Close button and overlay backdrop
-
-3. **Templates to update:**
-   - [ ] `single-profile.php` - Profile type and machine filters
-   - [ ] `single-manual.php` - Manual type and machine filters
-   - [ ] Archive templates (when created)
-   - [ ] Product listing pages (when needed)
-
----
-
-## Profile Template - WooCommerce Integration
-
-**Priority:** Medium
-**Status:** Not started
-**File:** `single-profile.php:137`
-
-### Current state
-Machine tags display as placeholder cards with settings icon. Links go to tag archive pages.
-
-### Tasks
-- [ ] Connect machine tags to WooCommerce products by matching tag name to product title/SKU
-- [ ] Display actual product images in "Compatible NTM Machines" cards
-- [ ] Link cards to product pages instead of tag archives
-- [ ] Handle cases where no matching product is found (fallback to current behavior)
-
-### Code location
-```php
-// @todo: Connect tag to WooCommerce product
-// Find product by matching tag name to product title/SKU
-// $product = wc_get_products(['name' => $machine_tag->name, 'limit' => 1]);
-```
-
----
-
-## Manual Template - WooCommerce Integration
-
-**Priority:** Medium
-**Status:** Not started
-**File:** `single-manual.php:140`
-
-### Current state
-Machine tags display as placeholder cards with settings icon. Links go to tag archive pages.
-
-### Tasks
-- [ ] Connect machine tags to WooCommerce products by matching tag name to product title/SKU
-- [ ] Display actual product images in "Related NTM Machines" cards
-- [ ] Link cards to product pages instead of tag archives
-- [ ] Handle cases where no matching product is found (fallback to current behavior)
-
-### Notes
-- Manuals categorized by: Seamless Gutter Machines, Roof and Wall Panel Machines, Accessories
-- Some manuals are in Spanish (may need language indicator in future)
-- Each manual tagged with specific machine(s) it applies to
-
----
-
-## Future Considerations
-
-- [ ] Profile archive page with filters
-- [ ] Manual archive page with filters
-- [ ] Machine/product single page showing all compatible profiles and manuals
-- [ ] Search integration for profiles and manuals
-- [ ] Language indicator for Spanish manuals
+Some manuals are in Spanish. Add a language indicator to `card-manual.php`
+and/or the single-manual hero (likely a taxonomy or meta flag first — nothing
+in the data model marks language today).
