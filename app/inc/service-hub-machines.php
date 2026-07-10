@@ -296,13 +296,16 @@ function resolve_product_id(string $machine_slug): int {
         }
     }
 
-    $products = \function_exists('Standard\\Woo\\Cache\\get_products')
-        ? \Standard\Woo\Cache\get_products(['limit' => -1, 'status' => 'publish'])
-        : \wc_get_products(['limit' => -1, 'status' => 'publish']);
-
-    foreach ($products as $product) {
-        if (\in_array($product->get_slug(), $candidates, true)) {
-            return (int) $product->get_id();
+    foreach ($candidates as $slug) {
+        $ids = \get_posts([
+            'post_type'   => 'product',
+            'name'        => $slug,
+            'post_status' => 'publish',
+            'numberposts' => 1,
+            'fields'      => 'ids',
+        ]);
+        if (!empty($ids)) {
+            return (int) $ids[0];
         }
     }
 

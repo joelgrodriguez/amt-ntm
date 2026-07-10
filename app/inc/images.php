@@ -24,9 +24,16 @@ function get_attachment_id(string $url): int {
     }
 
     if (!array_key_exists($url, $cache)) {
-        $cache[$url] = function_exists('attachment_url_to_postid')
-            ? (int) attachment_url_to_postid($url)
-            : 0;
+        $key   = 'url2id_' . md5($url);
+        $found = wp_cache_get($key, 'amt-ntm-images');
+        if ($found !== false) {
+            $cache[$url] = (int) $found;
+        } else {
+            $cache[$url] = function_exists('attachment_url_to_postid')
+                ? (int) attachment_url_to_postid($url)
+                : 0;
+            wp_cache_set($key, $cache[$url], 'amt-ntm-images', 12 * HOUR_IN_SECONDS);
+        }
     }
 
     return $cache[$url];
