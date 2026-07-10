@@ -177,11 +177,19 @@ $archive_url = (string) $args['archive_url'];
                     <ul class="grid gap-2 list-none p-0 m-0">
                         <?php foreach ($machine_tags as $machine_tag) :
                             $product_link = get_machine_product_link($machine_tag->slug);
-                            $href = $product_link['url'] ?? get_tag_link($machine_tag->term_id);
+                            $href         = $product_link['url'] ?? get_tag_link($machine_tag->term_id);
+                            $image        = $product_link['image'] ?? '';
+                            $image_alt    = ($product_link['image_alt'] ?? '') !== '' ? $product_link['image_alt'] : $machine_tag->name;
                         ?>
                             <li>
                                 <a href="<?php echo esc_url($href); ?>"
-                                   class="group grid gap-1 px-4 py-3 bg-white border border-blue-200 no-underline transition-colors duration-200 hover:border-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                                   class="group flex items-center gap-3 px-4 py-3 bg-white border border-blue-200 no-underline transition-colors duration-200 hover:border-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                                    <?php if ($image !== '') : ?>
+                                        <span class="flex h-12 w-12 shrink-0 items-center justify-center bg-white" aria-hidden="false">
+                                            <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($image_alt); ?>"
+                                                 class="max-h-full max-w-full object-contain" loading="lazy" decoding="async">
+                                        </span>
+                                    <?php endif; ?>
                                     <span class="font-sans font-semibold text-blue-900 leading-snug tracking-tight group-hover:text-blue-500 transition-colors">
                                         <?php echo esc_html($machine_tag->name); ?>
                                     </span>
