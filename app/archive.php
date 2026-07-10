@@ -38,7 +38,12 @@ $type_options = get_post_type_filter_options();
 $active_type_label = $active_type !== '' && isset($type_options[$active_type])
     ? $type_options[$active_type]
     : '';
-$is_scoped_catalog = count($requested_types) === 1 && in_array($active_type, ['profile', 'manual'], true);
+// Scoped whenever the active type is a catalog CPT — whether that came from a
+// ?post_type= filter link OR from landing on the CPT archive itself. The old
+// GET-only check made the bare /learning-center/manual|profile/ entry pages
+// render the blog-category dashboard sidebar, whose every option was a dead
+// combo for catalog content.
+$is_scoped_catalog = in_array($active_type, ['profile', 'manual'], true);
 $current_term = get_queried_object();
 $current_category_terms = $current_term instanceof WP_Term && $current_term->taxonomy === 'category'
     ? [$current_term]
