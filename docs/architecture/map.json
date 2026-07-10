@@ -67,36 +67,47 @@
     {
       "path": ".",
       "purpose": "Root-level manifests, docs, and configuration.",
-      "fileCount": 12,
+      "fileCount": 11,
       "categories": {
-        "other": 4,
+        "other": 3,
         "docs": 5,
         "manifest": 1,
         "source": 1,
         "config": 1
       },
       "keyFiles": [
-        ".distignore",
         ".gitattributes",
         ".gitignore",
         "CLAUDE.md",
         "DESIGN.md",
         "package-lock.json",
         "package.json",
-        "PRODUCT.md"
+        "PRODUCT.md",
+        "README.md"
+      ]
+    },
+    {
+      "path": ".github",
+      "purpose": "Project area.",
+      "fileCount": 1,
+      "categories": {
+        "config": 1
+      },
+      "keyFiles": [
+        ".github/workflows/ci.yml"
       ]
     },
     {
       "path": "app",
       "purpose": "Application code and framework conventions.",
-      "fileCount": 448,
+      "fileCount": 443,
       "categories": {
-        "source": 168,
+        "source": 170,
         "other": 44,
         "config": 2,
         "route": 8,
         "test": 1,
-        "template": 225
+        "template": 218
       },
       "keyFiles": [
         "app/404.php",
@@ -141,12 +152,30 @@
       ]
     },
     {
+      "path": "plans",
+      "purpose": "Project area.",
+      "fileCount": 16,
+      "categories": {
+        "docs": 16
+      },
+      "keyFiles": [
+        "plans/001-php-lint-ci-baseline.md",
+        "plans/002-machine-schema-hardening.md",
+        "plans/003-seo-fallback-robots-canonicals.md",
+        "plans/004-collapse-per-render-product-lookups.md",
+        "plans/005-trim-font-subsets.md",
+        "plans/006-a11y-commitments.md",
+        "plans/007-js-conversion-robustness.md",
+        "plans/008-repo-hygiene.md"
+      ]
+    },
+    {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 40,
+      "fileCount": 45,
       "categories": {
-        "source": 8,
-        "other": 30,
+        "source": 9,
+        "other": 34,
         "docs": 2
       },
       "keyFiles": [
@@ -157,22 +186,22 @@
         "scripts/content/manifest.php",
         "scripts/content/README.md",
         "scripts/db/000-template.sh.example",
-        "scripts/db/010-strip-hardcoded-buttons-from-machine-excerpts.sh"
+        "scripts/db/010-strip-hardcoded-buttons-from-machine-excerpts.php"
       ]
     }
   ],
   "files": [
     {
-      "path": ".distignore",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 607
-    },
-    {
       "path": ".gitattributes",
       "category": "other",
       "role": "Repository file.",
-      "size": 889
+      "size": 430
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "category": "config",
+      "role": "Project configuration.",
+      "size": 496
     },
     {
       "path": ".gitignore",
@@ -190,7 +219,7 @@
       "path": "app/archive.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 9773
+      "size": 10083
     },
     {
       "path": "app/assets/blueprints/.gitkeep",
@@ -508,7 +537,7 @@
       "path": "app/footer.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 8236
+      "size": 8350
     },
     {
       "path": "app/front-page.php",
@@ -568,13 +597,13 @@
       "path": "app/inc/desktop-nav.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 23078
+      "size": 23607
     },
     {
       "path": "app/inc/filters.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 4620
+      "size": 4876
     },
     {
       "path": "app/inc/finance-data.php",
@@ -622,7 +651,7 @@
       "path": "app/inc/images.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 3493
+      "size": 3786
     },
     {
       "path": "app/inc/knowledgebase.php",
@@ -640,7 +669,7 @@
       "path": "app/inc/learning-center/filters.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 8597
+      "size": 8944
     },
     {
       "path": "app/inc/learning-center/queries.php",
@@ -658,13 +687,13 @@
       "path": "app/inc/machine-product-data.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 6406
+      "size": 6614
     },
     {
       "path": "app/inc/machine-schema.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 4922
+      "size": 5666
     },
     {
       "path": "app/inc/machines-data.php",
@@ -700,7 +729,7 @@
       "path": "app/inc/pdf-attachment.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 1220
+      "size": 1275
     },
     {
       "path": "app/inc/post-archive.php",
@@ -730,13 +759,13 @@
       "path": "app/inc/seo.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 7192
+      "size": 8073
     },
     {
       "path": "app/inc/service-hub-machines.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 10856
+      "size": 10807
     },
     {
       "path": "app/inc/service-hub.php",
@@ -982,7 +1011,7 @@
       "path": "app/resources/css/animations.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 5282
+      "size": 5848
     },
     {
       "path": "app/resources/css/base.css",
@@ -1000,7 +1029,7 @@
       "path": "app/resources/css/components/buttons.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 4259
+      "size": 4336
     },
     {
       "path": "app/resources/css/components/cards.css",
@@ -1084,7 +1113,7 @@
       "path": "app/resources/css/fonts.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 16296
+      "size": 5337
     },
     {
       "path": "app/resources/css/front-page/explore-machines.css",
@@ -1192,7 +1221,7 @@
       "path": "app/resources/css/pages/single.css",
       "category": "route",
       "role": "Route, page, controller, or request entry file.",
-      "size": 4766
+      "size": 5382
     },
     {
       "path": "app/resources/css/pages/start-here.css",
@@ -1300,7 +1329,7 @@
       "path": "app/resources/js/_app.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 4493
+      "size": 5079
     },
     {
       "path": "app/resources/js/front-page.js",
@@ -1336,13 +1365,19 @@
       "path": "app/resources/js/modules/ContactLazy.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 2155
+      "size": 2256
     },
     {
       "path": "app/resources/js/modules/ExploreMachines.js",
       "category": "source",
       "role": "Application source code.",
       "size": 8783
+    },
+    {
+      "path": "app/resources/js/modules/FilterDrawerSync.js",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 1233
     },
     {
       "path": "app/resources/js/modules/FloatingBuildCta.js",
@@ -1372,7 +1407,7 @@
       "path": "app/resources/js/modules/HubspotForms.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 2791
+      "size": 3052
     },
     {
       "path": "app/resources/js/modules/MachineSubnav.js",
@@ -1391,6 +1426,12 @@
       "category": "source",
       "role": "Application source code.",
       "size": 9833
+    },
+    {
+      "path": "app/resources/js/modules/ProfileGallery.js",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 1619
     },
     {
       "path": "app/resources/js/modules/RevealMore.js",
@@ -1420,7 +1461,7 @@
       "path": "app/resources/js/modules/SearchModal.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 25065
+      "size": 25466
     },
     {
       "path": "app/resources/js/modules/SocialProof.js",
@@ -1474,7 +1515,7 @@
       "path": "app/single-manual.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 6054
+      "size": 8316
     },
     {
       "path": "app/single-profile.php",
@@ -1498,7 +1539,7 @@
       "path": "app/single.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 1899
+      "size": 2999
     },
     {
       "path": "app/style.css",
@@ -1817,12 +1858,6 @@
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
       "size": 1337
-    },
-    {
-      "path": "app/templates/pages/machines/image-break.php",
-      "category": "template",
-      "role": "Route, page, controller, or request entry file.",
-      "size": 749
     },
     {
       "path": "app/templates/pages/machines/learning-center.php",
@@ -2248,19 +2283,7 @@
       "path": "app/templates/parts/comparison-table.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 7428
-    },
-    {
-      "path": "app/templates/parts/configurator-cta.php",
-      "category": "template",
-      "role": "Project configuration.",
-      "size": 11024
-    },
-    {
-      "path": "app/templates/parts/configurator.php",
-      "category": "template",
-      "role": "Project configuration.",
-      "size": 3886
+      "size": 7474
     },
     {
       "path": "app/templates/parts/contact-faq-list.php",
@@ -2350,7 +2373,7 @@
       "path": "app/templates/parts/filter-sidebar.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 9124
+      "size": 9672
     },
     {
       "path": "app/templates/parts/final-cta.php",
@@ -2437,22 +2460,10 @@
       "size": 3353
     },
     {
-      "path": "app/templates/parts/front-page/who-is-ntm.php",
-      "category": "template",
-      "role": "Application source code.",
-      "size": 560
-    },
-    {
       "path": "app/templates/parts/front-page/why-own.php",
       "category": "template",
       "role": "Application source code.",
       "size": 6571
-    },
-    {
-      "path": "app/templates/parts/hero-asymmetric.php",
-      "category": "template",
-      "role": "Application source code.",
-      "size": 4258
     },
     {
       "path": "app/templates/parts/hero-category.php",
@@ -2509,12 +2520,6 @@
       "size": 4142
     },
     {
-      "path": "app/templates/parts/post-hero.php",
-      "category": "template",
-      "role": "Application source code.",
-      "size": 7208
-    },
-    {
       "path": "app/templates/parts/post-navigation.php",
       "category": "template",
       "role": "Application source code.",
@@ -2557,12 +2562,6 @@
       "size": 2509
     },
     {
-      "path": "app/templates/parts/service-hub/machine-card.php",
-      "category": "template",
-      "role": "Application source code.",
-      "size": 1506
-    },
-    {
       "path": "app/templates/parts/service-hub/machine-footprint.php",
       "category": "template",
       "role": "Application source code.",
@@ -2590,7 +2589,7 @@
       "path": "app/templates/parts/single/spec-sheet-layout.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 8693
+      "size": 12155
     },
     {
       "path": "app/templates/parts/taxonomy-filter-sidebar.php",
@@ -2872,7 +2871,7 @@
       "path": "CLAUDE.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 37609
+      "size": 37820
     },
     {
       "path": "db/imports/content-departments.csv",
@@ -2896,7 +2895,7 @@
       "path": "DESIGN.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 32884
+      "size": 33058
     },
     {
       "path": "docs/architecture-boundaries.md",
@@ -2908,7 +2907,7 @@
       "path": "docs/deploy/prod-content-merge-plan.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 14879
+      "size": 15181
     },
     {
       "path": "docs/feedback/2026-06-02-annotated-screenshots-review.md",
@@ -3412,7 +3411,103 @@
       "path": "package.json",
       "category": "manifest",
       "role": "Project manifest or dependency declaration.",
-      "size": 807
+      "size": 950
+    },
+    {
+      "path": "plans/001-php-lint-ci-baseline.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 8794
+    },
+    {
+      "path": "plans/002-machine-schema-hardening.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 7807
+    },
+    {
+      "path": "plans/003-seo-fallback-robots-canonicals.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 6800
+    },
+    {
+      "path": "plans/004-collapse-per-render-product-lookups.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 8961
+    },
+    {
+      "path": "plans/005-trim-font-subsets.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 6157
+    },
+    {
+      "path": "plans/006-a11y-commitments.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 10747
+    },
+    {
+      "path": "plans/007-js-conversion-robustness.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 9261
+    },
+    {
+      "path": "plans/008-repo-hygiene.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 11106
+    },
+    {
+      "path": "plans/009-remove-placeholder-schema-db.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 9748
+    },
+    {
+      "path": "plans/010-purge-placeholder-schema-cache.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 6736
+    },
+    {
+      "path": "plans/011-machine-cross-sell.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 11195
+    },
+    {
+      "path": "plans/012-scoped-catalog-branch-fix.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 5977
+    },
+    {
+      "path": "plans/013-lc-type-options-manuals-profiles.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 5393
+    },
+    {
+      "path": "plans/014-filter-drawer-checked-sync.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 7163
+    },
+    {
+      "path": "plans/015-render-filter-counts.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 6135
+    },
+    {
+      "path": "plans/README.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 6001
     },
     {
       "path": "PRODUCT.md",
@@ -3424,7 +3519,7 @@
       "path": "README.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 2617
+      "size": 2750
     },
     {
       "path": "scripts/content/export-copy.php",
@@ -3469,10 +3564,16 @@
       "size": 1216
     },
     {
+      "path": "scripts/db/010-strip-hardcoded-buttons-from-machine-excerpts.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 4256
+    },
+    {
       "path": "scripts/db/010-strip-hardcoded-buttons-from-machine-excerpts.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 2970
+      "size": 2205
     },
     {
       "path": "scripts/db/014-create-shell-pages.sh",
@@ -3607,6 +3708,30 @@
       "size": 903
     },
     {
+      "path": "scripts/db/039-fix-fake-headings-blog-posts.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 11251
+    },
+    {
+      "path": "scripts/db/040-profile-featured-images.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 6182
+    },
+    {
+      "path": "scripts/db/041-unpublish-placeholder-custom-schema.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 6337
+    },
+    {
+      "path": "scripts/db/042-purge-placeholder-schema-cache.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 4524
+    },
+    {
       "path": "scripts/db/apply",
       "category": "other",
       "role": "Repository file.",
@@ -3634,7 +3759,7 @@
       "path": "scripts/release/dev-tooling-paths.txt",
       "category": "other",
       "role": "Repository file.",
-      "size": 355
+      "size": 361
     },
     {
       "path": "scripts/release/hooks/post-checkout",
@@ -3658,7 +3783,7 @@
       "path": "scripts/release/to-master.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 1172
+      "size": 1190
     },
     {
       "path": "scripts/search-smoke.php",
@@ -3670,7 +3795,7 @@
       "path": "TODO.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 2866
+      "size": 1859
     },
     {
       "path": "vite-plugin-theme-json.js",
@@ -3775,6 +3900,22 @@
     "docs/specs/woo.md",
     "docs/superpowers/specs/data-normalization-backlog.md",
     "docs/superpowers/specs/db-persistence-strategy.md",
+    "plans/001-php-lint-ci-baseline.md",
+    "plans/002-machine-schema-hardening.md",
+    "plans/003-seo-fallback-robots-canonicals.md",
+    "plans/004-collapse-per-render-product-lookups.md",
+    "plans/005-trim-font-subsets.md",
+    "plans/006-a11y-commitments.md",
+    "plans/007-js-conversion-robustness.md",
+    "plans/008-repo-hygiene.md",
+    "plans/009-remove-placeholder-schema-db.md",
+    "plans/010-purge-placeholder-schema-cache.md",
+    "plans/011-machine-cross-sell.md",
+    "plans/012-scoped-catalog-branch-fix.md",
+    "plans/013-lc-type-options-manuals-profiles.md",
+    "plans/014-filter-drawer-checked-sync.md",
+    "plans/015-render-filter-counts.md",
+    "plans/README.md",
     "PRODUCT.md",
     "README.md",
     "scripts/content/README.md",
@@ -3782,6 +3923,7 @@
     "TODO.md"
   ],
   "configs": [
+    ".github/workflows/ci.yml",
     "app/inc/learning-center/config.php",
     "app/resources/css/woo/configurator-cta.css",
     "vite.config.js"
