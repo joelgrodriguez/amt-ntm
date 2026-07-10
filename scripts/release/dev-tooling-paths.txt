@@ -20,3 +20,4 @@ DESIGN.md
 PRODUCT.md
 TODO.md
 docs
+plans
