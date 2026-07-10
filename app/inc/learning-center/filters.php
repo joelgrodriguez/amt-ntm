@@ -66,6 +66,8 @@ function get_type_filter_options(bool $include_all = true, string $all_label = '
     return $options + [
         'post'       => \__('Articles', 'standard'),
         'video'      => \__('Videos', 'standard'),
+        'manual'     => \__('Manuals', 'standard'),
+        'profile'    => \__('Profiles', 'standard'),
         'resource'   => \__('Resources', 'standard'),
         'download'   => \__('Downloads', 'standard'),
         'literature' => \__('Literature', 'standard'),
