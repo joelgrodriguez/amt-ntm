@@ -19,7 +19,7 @@ conditions. The reviewer maintains this index.
 | 007 | Conversion-path robustness (HubSpot retry, URL guards) | P2 | S | — | DONE (landed 1073404) |
 | 005 | Trim non-Latin font subsets | P2 | S | — | DONE (landed a557794) |
 | 008 | Repo hygiene (dead parts, README, dist config, agent docs) | P2 | S–M | — | DONE (landed 4801561) |
-| 011 | Manual/profile → product cross-sell wiring | P2 | M | 004 | IN PROGRESS |
+| 011 | Manual/profile → product cross-sell wiring | P2 | M | 004 | DONE (landed; verified live — matched tags render product cards/thumbnails, unmatched fall back; 15/66 profile tags resolve, alias map is the coverage lever) |
 
 Status values: TODO | IN PROGRESS | DONE | BLOCKED (with one-line reason) |
 REJECTED (with one-line rationale)
