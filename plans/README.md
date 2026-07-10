@@ -11,7 +11,7 @@ conditions. The reviewer maintains this index.
 |------|-------|----------|--------|------------|--------|
 | 001 | PHP lint gate + minimal CI | P1 | S–M | — | DONE (landed 5133523) |
 | 009 | Remove placeholder Schema Pro markup (db 041) | P1 | S | — | DONE (landed f8e20f9; drafting alone insufficient → 010) |
-| 010 | Purge placeholder Schema Pro output cache (db 042) | P1 | S | 009 | IN PROGRESS |
+| 010 | Purge placeholder Schema Pro output cache (db 042) | P1 | S | 009 | DONE (landed; 787 rows purged + canary; count 0; JSON-LD 5/5 parse) |
 | 003 | Fallback SEO: robots noindex + paged canonicals | P1 | S | — | DONE (landed 7ee845f) |
 | 004 | Collapse per-render product/attachment lookups | P1 | S | — | DONE (landed 06210a1) |
 | 006 | A11y commitments: tap targets, contrast, table semantics, motion backstop | P1 | M | — | DONE (landed with 008 batch) |
