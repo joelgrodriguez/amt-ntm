@@ -305,7 +305,19 @@ export const initSearchModal = () => {
       link.className = 'search-modal__results-item';
       link.dataset.searchModalResult = '';
       link.dataset.index = String(index);
-      link.href = item.url;
+      let safeHref = '';
+      try {
+        const parsed = new URL(item.url, window.location.origin);
+        if (parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+          safeHref = parsed.href;
+        }
+      } catch {
+        // unparseable URL from the REST response — leave the item unlinked
+      }
+      if (!safeHref) {
+        return; // skip rendering this result
+      }
+      link.href = safeHref;
       // Stable per-render id so aria-activedescendant on the input has
       // something to point at. The index is enough — we wipe the list
       // every render so collisions across renders don't matter.
