@@ -9,15 +9,16 @@ conditions. The reviewer maintains this index.
 
 | Plan | Title | Priority | Effort | Depends on | Status |
 |------|-------|----------|--------|------------|--------|
-| 001 | PHP lint gate + minimal CI | P1 | S–M | — | TODO |
-| 009 | Remove placeholder Schema Pro markup (db 041) | P1 | S | — | TODO |
-| 003 | Fallback SEO: robots noindex + paged canonicals | P1 | S | — | TODO |
-| 004 | Collapse per-render product/attachment lookups | P1 | S | — | TODO |
-| 006 | A11y commitments: tap targets, contrast, table semantics, motion backstop | P1 | M | — | TODO |
-| 002 | Machine-schema hardening (pv cast, image guard) | P2 | S | — | TODO |
-| 007 | Conversion-path robustness (HubSpot retry, URL guards) | P2 | S | — | TODO |
-| 005 | Trim non-Latin font subsets | P2 | S | — | TODO |
-| 008 | Repo hygiene (dead parts, README, dist config, agent docs) | P2 | S–M | — | TODO |
+| 001 | PHP lint gate + minimal CI | P1 | S–M | — | DONE (landed 5133523) |
+| 009 | Remove placeholder Schema Pro markup (db 041) | P1 | S | — | DONE (landed f8e20f9; drafting alone insufficient → 010) |
+| 010 | Purge placeholder Schema Pro output cache (db 042) | P1 | S | 009 | IN PROGRESS |
+| 003 | Fallback SEO: robots noindex + paged canonicals | P1 | S | — | DONE (landed 7ee845f) |
+| 004 | Collapse per-render product/attachment lookups | P1 | S | — | DONE (landed 06210a1) |
+| 006 | A11y commitments: tap targets, contrast, table semantics, motion backstop | P1 | M | — | DONE (landed with 008 batch) |
+| 002 | Machine-schema hardening (pv cast, image guard) | P2 | S | — | DONE (landed 1675e31) |
+| 007 | Conversion-path robustness (HubSpot retry, URL guards) | P2 | S | — | DONE (landed 1073404) |
+| 005 | Trim non-Latin font subsets | P2 | S | — | DONE (landed a557794) |
+| 008 | Repo hygiene (dead parts, README, dist config, agent docs) | P2 | S–M | — | DONE (landed 4801561) |
 
 Status values: TODO | IN PROGRESS | DONE | BLOCKED (with one-line reason) |
 REJECTED (with one-line rationale)
