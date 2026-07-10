@@ -4,6 +4,12 @@
  *
  * Generates Product + FAQPage structured data for machine product pages.
  *
+ * Verified 2026-07-10: with Yoast SEO + Premium active, this is the ONLY
+ * Product emitter on machine pages (Yoast emits no Product; WC core's
+ * structured data does not fire on the custom single-machine template).
+ * Do not add a seo_plugin_active() guard here — it would remove the page's
+ * only Product schema.
+ *
  * @package Standard
  */
 
@@ -51,7 +57,6 @@ function build_product_schema(\WC_Product $product, array $machine): ?array {
         'name'        => $product->get_name(),
         'description' => wp_strip_all_tags($hero['subtitle'] ?? $product->get_short_description()),
         'url'         => get_permalink($product->get_id()),
-        'image'       => wp_get_attachment_url($product->get_image_id()) ?: ($hero['image'] ?? ''),
         'brand'       => [
             '@type' => 'Brand',
             'name'  => $overrides['brand'] ?? 'New Tech Machinery',
@@ -61,6 +66,13 @@ function build_product_schema(\WC_Product $product, array $machine): ?array {
             'name'  => $overrides['manufacturer'] ?? 'New Tech Machinery',
         ],
     ];
+
+    // Omit the image key entirely when empty: a missing image is a soft
+    // warning for Google's Product rich results, but image: "" is an error.
+    $image = wp_get_attachment_url($product->get_image_id()) ?: ($hero['image'] ?? '');
+    if ($image !== '') {
+        $schema['image'] = $image;
+    }
 
     if (!empty($overrides['category'])) {
         $schema['category'] = $overrides['category'];
@@ -117,11 +129,11 @@ function build_additional_properties(array $specs, array $machine): array {
     }
 
     foreach (($machine['stats'] ?? []) as $stat) {
-        $props[] = pv($stat['label'], $stat['value']);
+        $props[] = pv((string) $stat['label'], $stat['value'] ?? '');
     }
 
     foreach (($specs['materials'] ?? []) as $mat) {
-        $props[] = pv('Material: ' . $mat['name'], $mat['gauge']);
+        $props[] = pv('Material: ' . (string) $mat['name'], $mat['gauge'] ?? '');
     }
 
     if (!empty($specs['warranty']['description'])) {
@@ -132,15 +144,18 @@ function build_additional_properties(array $specs, array $machine): array {
 }
 
 /**
+ * PropertyValue node. Accepts any scalar because curated machine data is
+ * hand-edited — a numeric weight must not fatal the page under strict_types.
+ *
  * @param string $name
- * @param string $value
+ * @param string|int|float $value
  * @return array
  */
-function pv(string $name, string $value): array {
+function pv(string $name, string|int|float $value): array {
     return [
         '@type' => 'PropertyValue',
         'name'  => $name,
-        'value' => $value,
+        'value' => (string) $value,
     ];
 }
 
