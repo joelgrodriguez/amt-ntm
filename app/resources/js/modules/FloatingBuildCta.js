@@ -1,5 +1,5 @@
 /**
- * Floating Build & Configure CTA
+ * Floating Build & Quote CTA
  *
  * Reveals the bottom-left configurator shortcut shortly after load with
  * a delayed entrance — no scroll gate. Hides while the mega menu is open.
