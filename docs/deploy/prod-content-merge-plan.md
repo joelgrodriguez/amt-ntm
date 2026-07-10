@@ -142,6 +142,12 @@ All exports read the **current local DB** — do this first or the data is gone.
 
 ### Phase R — Rebase local DB onto prod copy (rehearsal now, repeat at cutover)
 
+> **Gate (before cutover):** In MyKinsta, confirm the LIVE and STAGING
+> environments run **PHP ≥ 8.1**. The theme uses PHP 8.0+ syntax
+> (`match()` in `app/inc/woo/catalog.php`) and white-screens on PHP 7.4 —
+> the local wp-cli php8.3 pin (step 3 below) only protects CLI, not the
+> web runtime.
+
 ```bash
 # 1. Backups (both DBs) to ~/Development/kinsta/_local-only/amt-ntm/
 docker exec devkinsta_db sh -c 'mysqldump -uroot -p"$MYSQL_ROOT_PASSWORD" newtech'   > .../newtech-pre-rebase.sql

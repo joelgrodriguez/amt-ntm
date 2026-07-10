@@ -34,6 +34,8 @@ else
   echo "Dev tooling already stripped on master."
 fi
 
+npm run lint:php
+
 npm run build
 
 git push origin master
