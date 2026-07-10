@@ -24,6 +24,7 @@ if (!defined('ABSPATH')) {
 const SCHEMA_JSON_FLAGS = JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT;
 
 add_action('wp_head', __NAMESPACE__ . '\\render_head_tags', 5);
+add_filter('wp_robots', __NAMESPACE__ . '\\robots_directives');
 
 /**
  * True when a dedicated SEO plugin owns the document head.
@@ -33,6 +34,27 @@ function seo_plugin_active(): bool
     return defined('WPSEO_VERSION')      // Yoast SEO
         || defined('RANK_MATH_VERSION')  // Rank Math
         || defined('SEOPRESS_VERSION');  // SEOPress
+}
+
+/**
+ * Fallback robots: keep internal search results out of the index.
+ * No-op whenever a dedicated SEO plugin owns the head.
+ *
+ * @param array<string, bool|string> $robots
+ * @return array<string, bool|string>
+ */
+function robots_directives(array $robots): array
+{
+    if (seo_plugin_active()) {
+        return $robots;
+    }
+
+    if (is_search()) {
+        $robots['noindex'] = true;
+        $robots['follow']  = true;
+    }
+
+    return $robots;
 }
 
 /**
@@ -119,18 +141,31 @@ function canonical_url(): string
     if (is_category() || is_tag() || is_tax()) {
         $link = get_term_link(get_queried_object());
         if (is_string($link)) {
-            return $link;
+            return paged_url($link);
         }
     }
 
     if (is_post_type_archive()) {
         $link = get_post_type_archive_link((string) get_query_var('post_type'));
         if (is_string($link)) {
-            return $link;
+            return paged_url($link);
         }
     }
 
     return '';
+}
+
+/**
+ * Append /page/N/ to an archive base URL when the query is paginated,
+ * so page 2+ self-canonicalizes instead of pointing at page 1.
+ */
+function paged_url(string $base): string
+{
+    $paged = (int) get_query_var('paged');
+    if ($paged > 1) {
+        return trailingslashit($base) . 'page/' . $paged . '/';
+    }
+    return $base;
 }
 
 /**
