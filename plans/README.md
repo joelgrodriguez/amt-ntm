@@ -20,10 +20,10 @@ conditions. The reviewer maintains this index.
 | 005 | Trim non-Latin font subsets | P2 | S | — | DONE (landed a557794) |
 | 008 | Repo hygiene (dead parts, README, dist config, agent docs) | P2 | S–M | — | DONE (landed 4801561) |
 | 011 | Manual/profile → product cross-sell wiring | P2 | M | 004 | DONE (landed; verified live — matched tags render product cards/thumbnails, unmatched fall back; 15/66 profile tags resolve, alias map is the coverage lever) |
-| 012 | Scoped-catalog sidebar on bare CPT archives | P1 | S | — | IN PROGRESS |
-| 013 | Manuals+Profiles in LC type filter options | P1 | S | — | IN PROGRESS |
-| 014 | Filter drawer checked-state sync (mobile) | P2 | S | — | IN PROGRESS |
-| 015 | Render accurate filter counts, drop misleading ones | P2 | S | — | IN PROGRESS |
+| 012 | Scoped-catalog sidebar on bare CPT archives | P1 | S | — | DONE (verified live: entry pages show real category trees) |
+| 013 | Manuals+Profiles in LC type filter options | P1 | S | — | DONE (incl. follow-up: get_active_filters validates against filter options; radio + chip verified live) |
+| 014 | Filter drawer checked-state sync (mobile) | P2 | S | — | DONE (module in bundle; markup verified) |
+| 015 | Render accurate filter counts, drop misleading ones | P2 | S | — | DONE (service-hub counts render; link groups suppress global counts) |
 
 Status values: TODO | IN PROGRESS | DONE | BLOCKED (with one-line reason) |
 REJECTED (with one-line rationale)
