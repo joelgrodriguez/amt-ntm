@@ -20,6 +20,14 @@
       grid-template-columns: 240px 1fr;
       gap: 3rem; /* 48px */
     }
+
+    /* Posts with too few real headings render no TOC aside (see single.php).
+       Drop the reserved 240px rail so content isn't stranded beside an empty
+       gutter — the article gets the full container width instead. */
+    .article-layout--no-toc {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
   }
 }
 
