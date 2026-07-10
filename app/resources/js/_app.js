@@ -21,6 +21,7 @@ import { initAccordion } from './modules/Accordion.js';
 import { initCarouselNav } from './modules/CarouselNav.js';
 import { initHubspotForms } from './modules/HubspotForms.js';
 import { initSearchModal } from './modules/SearchModal.js';
+import { initFilterDrawerSync } from './modules/FilterDrawerSync.js';
 import { initAvatarGroupHover } from './modules/AvatarGroupHover.js';
 import { initRevealMore } from './modules/RevealMore.js';
 import { initProfileGallery } from './modules/ProfileGallery.js';
@@ -58,6 +59,8 @@ let hubspotFormsCleanup = null;
 /** @type {Function|null} Cleanup function for search modal */
 let searchModalCleanup = null;
 
+/** @type {Function|null} Cleanup function for filter drawer sync */
+let filterDrawerSyncCleanup = null;
 
 /** @type {Function|null} Cleanup function for avatar group hover */
 let avatarGroupHoverCleanup = null;
@@ -104,6 +107,7 @@ const initApp = () => {
   carouselNavCleanup = initCarouselNav();
   hubspotFormsCleanup = initHubspotForms();
   searchModalCleanup = initSearchModal();
+  filterDrawerSyncCleanup = initFilterDrawerSync();
   avatarGroupHoverCleanup = initAvatarGroupHover();
   revealMoreCleanup = initRevealMore();
   profileGalleryCleanup = initProfileGallery();
@@ -148,6 +152,9 @@ if (import.meta.hot) {
     }
     if (searchModalCleanup) {
       searchModalCleanup();
+    }
+    if (filterDrawerSyncCleanup) {
+      filterDrawerSyncCleanup();
     }
     if (avatarGroupHoverCleanup) {
       avatarGroupHoverCleanup();
