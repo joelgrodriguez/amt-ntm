@@ -19,6 +19,7 @@ conditions. The reviewer maintains this index.
 | 007 | Conversion-path robustness (HubSpot retry, URL guards) | P2 | S | — | DONE (landed 1073404) |
 | 005 | Trim non-Latin font subsets | P2 | S | — | DONE (landed a557794) |
 | 008 | Repo hygiene (dead parts, README, dist config, agent docs) | P2 | S–M | — | DONE (landed 4801561) |
+| 011 | Manual/profile → product cross-sell wiring | P2 | M | 004 | IN PROGRESS |
 
 Status values: TODO | IN PROGRESS | DONE | BLOCKED (with one-line reason) |
 REJECTED (with one-line rationale)
@@ -68,12 +69,17 @@ REJECTED (with one-line rationale)
 - **npm audit advisories (vite/rollup path traversal)**: dev-server/build-time
   exposure only; `npm audit fix` at leisure, no plan needed.
 
-## Direction findings (owner decisions, not defects — no plans written)
+## Direction findings
 
-- **Filterable CPT archives** ("the library is half-built"): profile/manual/
-  video/footprint/literature have `has_archive` + singles but no dedicated
-  archive templates; TODO.md already wants archive pages + a mobile filter
-  drawer. M–L effort.
-- **Wire the Woo↔CPT machine-tag cross-sell**: `single-profile.php:137` /
-  `single-manual.php:140` placeholder cards → product pages; the
-  `accessory-tag-map.php` pattern is the precedent. M effort.
+- **Filterable CPT archives** ("the library is half-built"): **ALREADY SHIPPED —
+  verified 2026-07-10, no plan needed.** TODO.md was stale. Evidence:
+  `archive.php` is a dashboard archive with scoped-catalog mode for
+  profile/manual (filter sidebar via `taxonomy-filter-sidebar.php`), the LC
+  dashboard branch covers video/footprint/literature, `content-search.php`
+  dispatches every result to its native card (`card-profile`, `card-manual`,
+  `card-product`), and the mobile filter drawer exists
+  (`filter-sidebar.php:194` `<details class="filter-drawer">`, `lg:hidden` in
+  `filters.css:283`). Live check: `/learning-center/profile/` and
+  `/learning-center/manual/` → 200 with sidebar. Do not re-audit from TODO.md.
+- **Wire the Woo↔CPT machine-tag cross-sell**: genuinely unimplemented
+  (`single-manual.php` `@todo` placeholder cards confirmed) → **plan 011**.
