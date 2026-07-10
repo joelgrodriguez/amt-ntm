@@ -183,8 +183,12 @@ function get_desktop_nav(): array {
                         ],
                     ],
                     [
-                        'label' => __('Start or grow your business', 'standard'),
+                        'label' => __('Why New Tech', 'standard'),
                         'items' => [
+                            [
+                                'label' => __('Why choose New Tech Machinery?', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/why-choose-new-tech-machinery/'),
+                            ],
                             [
                                 'label' => __('Start your rollforming business', 'standard'),
                                 'url'   => \Standard\Url\internal('/start-here/'),
@@ -372,6 +376,10 @@ function get_desktop_nav(): array {
                     [
                         'label' => __('Talk or learn', 'standard'),
                         'items' => [
+                            [
+                                'label' => __('Why choose New Tech Machinery?', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/why-choose-new-tech-machinery/'),
+                            ],
                             [
                                 'label' => __('What to expect when purchasing', 'standard'),
                                 'url'   => \Standard\Url\internal('/learning-center/what-to-expect-purchasing-portable-rollforming-machine/'),

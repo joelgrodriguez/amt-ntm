@@ -48,6 +48,7 @@ $footer_sections = [
         'description' => null,
         'links' => [
             ['/about', __('About', 'standard'), false],
+            ['/learning-center/why-choose-new-tech-machinery/', __('Why New Tech Machinery', 'standard'), false],
             ['/careers', __('Careers', 'standard'), false],
             ['/contact', __('Contact Us', 'standard'), false],
         ],
