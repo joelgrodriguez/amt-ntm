@@ -1,8 +1,8 @@
 /**
  * Floating Build & Configure CTA
  *
- * Fixed bottom-left configurator shortcut. Enters ~1.2s after load with a
- * soft slide, scale, de-blur, and shadow — no scroll gate.
+ * Fixed bottom-left configurator shortcut on tablet/desktop. Hidden on small
+ * mobile so it does not compete with hero, subnav, and in-flow quote CTAs.
  *
  * @file components/floating-build-cta.css
  * @see js/modules/FloatingBuildCta.js
@@ -13,7 +13,7 @@
   bottom: 1.5rem;
   left: 1.5rem;
   z-index: 50;
-  display: inline-flex;
+  display: none;
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
@@ -59,6 +59,12 @@
 
 .floating-build-cta__label {
   letter-spacing: 0.02em;
+}
+
+@media (min-width: 48rem) {
+  .floating-build-cta {
+    display: inline-flex;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

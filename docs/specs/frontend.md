@@ -1,5 +1,20 @@
 # Behavior spec: frontend
 
+<!-- admiral:auto — appended on land, newest first. Read top-down for current behavior. -->
+
+## Implement high-priority mobile UX fixes — #77
+*Landed 2026-07-09 · type: ui*
+
+- Mobile touch targets are at least 44px where visible on touch devices
+- Floating Build CTA no longer crowds primary mobile CTAs
+- Contact lead-form template shows mobile context before fields
+- Comparison tables expose a mobile swipe affordance
+- Service Hub machine directory avoids blank image wells
+- PHP syntax remains compatible with the current local PHP runtime
+- npm run build passes
+
+# Behavior spec: frontend
+
 <!-- shogun:auto — appended on land, newest first. Read top-down for current behavior. -->
 
 ## Add prev/next arrow controls to testimonial slider (SocialProof) — #63

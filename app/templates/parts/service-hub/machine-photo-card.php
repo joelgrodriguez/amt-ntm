@@ -46,21 +46,24 @@ $short = $strip_tm((string) ($machine['short_name'] ?? $name));
 $desc  = (string) ($machine['descriptor'] ?? '');
 $image = (string) ($machine['image'] ?? '');
 $url   = \Standard\Url\internal('/service-hub/' . $slug . '/');
+$fallback_classes = 'absolute inset-0 flex items-center justify-center p-2 text-center font-mono font-medium text-blue-600';
 ?>
 <a href="<?php echo esc_url($url); ?>"
    class="group reveal-scale flex items-center gap-4 bg-white border border-blue-200 p-4 transition-colors duration-200 hover:border-blue-500 no-underline">
 
     <div class="relative shrink-0 size-20 overflow-hidden bg-blue-50 border border-blue-200">
         <?php if ($image !== '') : ?>
-            <img
-                src="<?php echo esc_url($image); ?>"
-                alt="<?php echo esc_attr($name); ?>"
-                loading="lazy"
-                decoding="async"
-                class="absolute inset-0 h-full w-full object-contain p-2"
-            >
+            <?php
+            \Standard\Images\responsive_image($image, $name, 'thumbnail', [
+                'class'   => 'absolute inset-0 h-full w-full object-contain bg-white p-2',
+                'onerror' => 'this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';',
+            ]);
+            ?>
+            <span class="<?php echo esc_attr($fallback_classes); ?>" style="display: none; font-size: var(--text-caption);">
+                <?php echo esc_html($short); ?>
+            </span>
         <?php else : ?>
-            <span class="absolute inset-0 flex items-center justify-center p-2 text-center font-mono font-medium text-blue-600" style="font-size: var(--text-caption);">
+            <span class="<?php echo esc_attr($fallback_classes); ?>" style="font-size: var(--text-caption);">
                 <?php echo esc_html($short); ?>
             </span>
         <?php endif; ?>

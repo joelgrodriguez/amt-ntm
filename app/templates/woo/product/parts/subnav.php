@@ -119,8 +119,9 @@ if (!empty($machine['case_study'])) {
 
                 <?php if ($configurator_url !== '') : ?>
                     <div class="machine-subnav__cta">
-                        <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary btn-sm" target="_blank" rel="noopener">
-                            <?php esc_html_e('Build', 'standard'); ?>
+                        <a href="<?php echo esc_url($configurator_url); ?>" class="btn btn-primary btn-sm machine-subnav__cta-button" target="_blank" rel="noopener">
+                            <?php icon('settings', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+                            <span><?php esc_html_e('Build & Quote', 'standard'); ?></span>
                         </a>
                     </div>
                 <?php endif; ?>
