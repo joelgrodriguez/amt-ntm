@@ -23,6 +23,7 @@ import { initHubspotForms } from './modules/HubspotForms.js';
 import { initSearchModal } from './modules/SearchModal.js';
 import { initAvatarGroupHover } from './modules/AvatarGroupHover.js';
 import { initRevealMore } from './modules/RevealMore.js';
+import { initProfileGallery } from './modules/ProfileGallery.js';
 
 /** @type {Function|null} Cleanup function for mobile menu */
 let mobileMenuCleanup = null;
@@ -64,6 +65,9 @@ let avatarGroupHoverCleanup = null;
 /** @type {Function|null} Cleanup function for reveal-more groups */
 let revealMoreCleanup = null;
 
+/** @type {Function|null} Cleanup function for profile gallery */
+let profileGalleryCleanup = null;
+
 /**
  * Executes callback when DOM is ready.
  *
@@ -102,6 +106,7 @@ const initApp = () => {
   searchModalCleanup = initSearchModal();
   avatarGroupHoverCleanup = initAvatarGroupHover();
   revealMoreCleanup = initRevealMore();
+  profileGalleryCleanup = initProfileGallery();
 };
 
 // Bootstrap
@@ -149,6 +154,9 @@ if (import.meta.hot) {
     }
     if (revealMoreCleanup) {
       revealMoreCleanup();
+    }
+    if (profileGalleryCleanup) {
+      profileGalleryCleanup();
     }
     // Reinitialize
     initApp();
