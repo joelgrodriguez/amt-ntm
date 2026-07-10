@@ -181,6 +181,13 @@ function get_default_machine_data(): array {
  *               `image` is '' when the product has no featured image.
  */
 function get_machine_product_link(string $machine_key, string $image_size = 'woocommerce_thumbnail'): ?array {
+    static $cache = [];
+
+    $cache_key = $machine_key . '|' . $image_size;
+    if (array_key_exists($cache_key, $cache)) {
+        return $cache[$cache_key];
+    }
+
     $aliases = get_slug_aliases();
     $reverse = array_flip($aliases);
     $slugs   = isset($reverse[$machine_key]) ? [$reverse[$machine_key]] : [$machine_key];
@@ -204,7 +211,7 @@ function get_machine_product_link(string $machine_key, string $image_size = 'woo
                 $image_url = $image_id ? wp_get_attachment_image_url((int) $image_id, $image_size) : '';
                 $image_alt = $image_id ? (string) get_post_meta((int) $image_id, '_wp_attachment_image_alt', true) : '';
 
-                return [
+                return $cache[$cache_key] = [
                     'url'       => get_permalink($posts[0]),
                     'name'      => $product->get_name(),
                     'image'     => $image_url ?: '',
@@ -214,5 +221,5 @@ function get_machine_product_link(string $machine_key, string $image_size = 'woo
         }
     }
 
-    return null;
+    return $cache[$cache_key] = null;
 }

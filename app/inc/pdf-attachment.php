@@ -43,7 +43,8 @@ function url_from_post(\WP_Post $post): ?string {
     }
 
     if (preg_match('/url=([^\s\]"]+\.pdf)/i', $content, $m) === 1) {
-        return $m[1];
+        $url = esc_url_raw($m[1]);
+        return $url !== '' ? $url : null;
     }
 
     return null;

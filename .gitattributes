@@ -25,21 +25,3 @@
 *.eot binary
 *.pdf binary
 *.zip binary
-
-# Export ignore (for GitHub releases/archives)
-.git export-ignore
-.gitignore export-ignore
-.gitattributes export-ignore
-.distignore export-ignore
-.editorconfig export-ignore
-.claude/ export-ignore
-node_modules/ export-ignore
-resources/ export-ignore
-package.json export-ignore
-package-lock.json export-ignore
-vite.config.js export-ignore
-safelist.txt export-ignore
-tests/ export-ignore
-phpunit.xml* export-ignore
-phpcs.xml* export-ignore
-*.log export-ignore

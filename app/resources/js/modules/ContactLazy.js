@@ -40,6 +40,9 @@ function loadHubspot(target) {
       target: '#' + target.id,
     });
   });
+  script.addEventListener('error', () => {
+    hubspotLoaded = false;
+  });
   document.head.appendChild(script);
 }
 
@@ -75,4 +78,5 @@ export function cleanup() {
     abortController.abort();
     abortController = null;
   }
+  hubspotLoaded = false;
 }

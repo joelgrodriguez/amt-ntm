@@ -65,7 +65,7 @@ if ($embed_html === '') {
 }
 ?>
 
-<section class="bg-blue-900 text-blue-400" aria-labelledby="<?php echo esc_attr($args['section_id'] . '-title'); ?>">
+<section class="bg-blue-900 text-blue-300" aria-labelledby="<?php echo esc_attr($args['section_id'] . '-title'); ?>">
     <div class="border-b border-blue-800">
         <div class="border-x border-blue-800 container">
             <div class="flex items-center justify-between py-3 text-xs font-mono uppercase tracking-wider">

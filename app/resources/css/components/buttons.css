@@ -16,6 +16,7 @@
     transition: background-color 200ms ease-out, color 200ms ease-out, border-color 200ms ease-out;
   }
 
+  /* PRODUCT.md: "CTAs are not 32px buttons." 44px minimum at every size. */
   .btn-sm {
     @apply h-11 px-4 min-w-24 text-caption;
   }

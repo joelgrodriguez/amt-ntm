@@ -68,7 +68,7 @@ if (empty($machines) || empty($rows)) {
                     <caption class="sr-only"><?php echo esc_html($content['title']); ?></caption>
                     <thead>
                         <tr>
-                            <th class="bg-blue-800 text-white py-4 px-4 text-left font-medium text-base border-r border-blue-700 sticky left-0 z-10 shadow-[6px_0_8px_-6px_rgba(10,19,34,0.18)] md:static md:shadow-none">
+                            <th scope="col" class="bg-blue-800 text-white py-4 px-4 text-left font-medium text-base border-r border-blue-700 sticky left-0 z-10 shadow-[6px_0_8px_-6px_rgba(10,19,34,0.18)] md:static md:shadow-none">
                                 <?php esc_html_e('Machine', 'standard'); ?>
                             </th>
                             <?php foreach ($machines as $machine) :
@@ -78,7 +78,7 @@ if (empty($machines) || empty($rows)) {
                                     $badge_text = __('Featured', 'standard');
                                 }
                             ?>
-                                <th class="<?php echo $is_flagship ? 'bg-blue-500' : 'bg-blue-800'; ?> text-white py-4 px-3 text-center border-r border-blue-700 min-w-[130px] md:min-w-0 break-words">
+                                <th scope="col" class="<?php echo $is_flagship ? 'bg-blue-500' : 'bg-blue-800'; ?> text-white py-4 px-3 text-center border-r border-blue-700 min-w-[130px] md:min-w-0 break-words">
                                     <a href="<?php echo esc_url(\Standard\Url\internal($machine['url'])); ?>" class="text-white no-underline hover:text-blue-200 transition-colors font-medium text-sm">
                                         <?php echo esc_html($machine['short_name'] ?? $machine['name']); ?>
                                     </a>
@@ -94,9 +94,9 @@ if (empty($machines) || empty($rows)) {
                     <tbody>
                         <?php foreach ($rows as $key => $label) : ?>
                             <tr class="border-b border-blue-200">
-                                <td class="py-3 px-4 font-medium text-blue-800 border-r border-blue-200 sticky left-0 bg-white z-10 shadow-[6px_0_8px_-6px_rgba(10,19,34,0.12)] md:static md:shadow-none">
+                                <th scope="row" class="py-3 px-4 font-medium text-blue-800 text-left border-r border-blue-200 sticky left-0 bg-white z-10 shadow-[6px_0_8px_-6px_rgba(10,19,34,0.12)] md:static md:shadow-none">
                                     <?php echo esc_html($label); ?>
-                                </td>
+                                </th>
                                 <?php foreach ($machines as $machine) :
                                     $is_flagship = !empty($machine['badge']) || !empty($machine['featured']);
                                     $value       = $machine['specs'][$key] ?? '';

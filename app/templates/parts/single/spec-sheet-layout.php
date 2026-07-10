@@ -38,7 +38,36 @@ use function Standard\MachineProductData\get_machine_product_link;
 $post_id      = (int) get_the_ID();
 $title        = get_the_title();
 $machine_tags = get_the_tags();
+$thumb_id     = get_post_thumbnail_id($post_id);
 $thumb_url    = get_the_post_thumbnail_url($post_id, 'large');
+
+// Secondary profile views (Seam / Snapped / 3D …) recorded by db/040 as an
+// ordered, comma-separated list of attachment ids in _profile_gallery_ids.
+// Rendered as a thumbnail strip under the featured figure; clicking one swaps
+// the main image (progressive enhancement — the featured image is the default
+// and works with JS off).
+$gallery_meta = (string) get_post_meta($post_id, '_profile_gallery_ids', true);
+$gallery_ids  = array_filter(array_map('intval', array_filter(explode(',', $gallery_meta), 'strlen')));
+
+// Build [{full, thumb, alt}] for the featured image + each secondary view, so
+// the strip can offer every view including the featured one as a swap target.
+$gallery_items = [];
+if ($thumb_id && $thumb_url) {
+    $gallery_items[] = [
+        'full'  => $thumb_url,
+        'thumb' => (string) (wp_get_attachment_image_url($thumb_id, 'medium') ?: $thumb_url),
+    ];
+}
+foreach ($gallery_ids as $gid) {
+    $full = wp_get_attachment_image_url($gid, 'large');
+    if (!$full) {
+        continue;
+    }
+    $gallery_items[] = [
+        'full'  => $full,
+        'thumb' => (string) (wp_get_attachment_image_url($gid, 'medium') ?: $full),
+    ];
+}
 
 $type_object  = get_post_type_object((string) get_post_type());
 $type_label   = $type_object instanceof \WP_Post_Type
@@ -74,12 +103,13 @@ $archive_url = (string) $args['archive_url'];
 
     <div class="grid gap-10 lg:grid-cols-[360px_1fr] lg:gap-16">
 
-        <aside class="grid gap-8 self-start">
+        <aside class="grid gap-4 self-start">
             <figure class="border border-blue-200 m-0">
                 <?php if ($thumb_url) : ?>
-                    <img src="<?php echo esc_url($thumb_url); ?>"
+                    <img id="profile-main-image"
+                         src="<?php echo esc_url($thumb_url); ?>"
                          alt="<?php echo esc_attr($alt_text); ?>"
-                         class="block w-full h-auto"
+                         class="block w-full h-auto t-fade"
                          loading="eager"
                          decoding="async">
                 <?php else : ?>
@@ -88,6 +118,28 @@ $archive_url = (string) $args['archive_url'];
                     </span>
                 <?php endif; ?>
             </figure>
+
+            <?php if (count($gallery_items) > 1) : ?>
+                <ul class="profile-gallery grid grid-cols-4 gap-2 list-none p-0 m-0"
+                    data-profile-gallery
+                    aria-label="<?php esc_attr_e('Profile views', 'standard'); ?>">
+                    <?php foreach ($gallery_items as $i => $item) : ?>
+                        <li>
+                            <button type="button"
+                                    class="profile-gallery__thumb block w-full border border-blue-200 bg-white p-0 cursor-pointer transition-colors duration-200 hover:border-blue-500<?php echo $i === 0 ? ' is-active' : ''; ?>"
+                                    data-full="<?php echo esc_url($item['full']); ?>"
+                                    aria-pressed="<?php echo $i === 0 ? 'true' : 'false'; ?>"
+                                    aria-label="<?php echo esc_attr(sprintf(__('View %d', 'standard'), $i + 1)); ?>">
+                                <img src="<?php echo esc_url($item['thumb']); ?>"
+                                     alt=""
+                                     class="block w-full h-auto"
+                                     loading="lazy"
+                                     decoding="async">
+                            </button>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
 
             <?php if ($pdf_url) : ?>
                 <div class="grid gap-2">
@@ -125,11 +177,19 @@ $archive_url = (string) $args['archive_url'];
                     <ul class="grid gap-2 list-none p-0 m-0">
                         <?php foreach ($machine_tags as $machine_tag) :
                             $product_link = get_machine_product_link($machine_tag->slug);
-                            $href = $product_link['url'] ?? get_tag_link($machine_tag->term_id);
+                            $href         = $product_link['url'] ?? get_tag_link($machine_tag->term_id);
+                            $image        = $product_link['image'] ?? '';
+                            $image_alt    = ($product_link['image_alt'] ?? '') !== '' ? $product_link['image_alt'] : $machine_tag->name;
                         ?>
                             <li>
                                 <a href="<?php echo esc_url($href); ?>"
-                                   class="group grid gap-1 px-4 py-3 bg-white border border-blue-200 no-underline transition-colors duration-200 hover:border-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                                   class="group flex items-center gap-3 px-4 py-3 bg-white border border-blue-200 no-underline transition-colors duration-200 hover:border-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                                    <?php if ($image !== '') : ?>
+                                        <span class="flex h-12 w-12 shrink-0 items-center justify-center bg-white" aria-hidden="false">
+                                            <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($image_alt); ?>"
+                                                 class="max-h-full max-w-full object-contain" loading="lazy" decoding="async">
+                                        </span>
+                                    <?php endif; ?>
                                     <span class="font-sans font-semibold text-blue-900 leading-snug tracking-tight group-hover:text-blue-500 transition-colors">
                                         <?php echo esc_html($machine_tag->name); ?>
                                     </span>

@@ -47,7 +47,7 @@ function clearPlaceholder(target) {
 
 async function mountForm(target) {
   if (target.dataset.hubspotLoaded === 'true') {
-    return;
+    return true;
   }
 
   const formId = target.dataset.hubspotFormId;
@@ -55,7 +55,9 @@ async function mountForm(target) {
   const region = target.dataset.hubspotRegion || 'na1';
 
   if (!formId || !portalId || !target.id) {
-    return;
+    // Misconfigured element — retrying won't fix a missing ID, so report
+    // success to let the observer unobserve it instead of retrying forever.
+    return true;
   }
 
   target.dataset.hubspotLoaded = 'true';
@@ -69,9 +71,11 @@ async function mountForm(target) {
       formId,
       target: `#${target.id}`,
     });
+    return true;
   } catch (_error) {
     target.dataset.hubspotLoaded = 'false';
     target.innerHTML = '<p class="text-sm text-blue-600">Form unavailable. Call New Tech Machinery directly.</p>';
+    return false;
   }
 }
 
@@ -91,13 +95,15 @@ export function initHubspotForms() {
 
   const observer = new IntersectionObserver(
     (entries) => {
-      entries.forEach((entry) => {
+      entries.forEach(async (entry) => {
         if (!entry.isIntersecting) {
           return;
         }
 
-        mountForm(entry.target);
-        observer.unobserve(entry.target);
+        const mounted = await mountForm(entry.target);
+        if (mounted) {
+          observer.unobserve(entry.target);
+        }
       });
     },
     { rootMargin: '500px 0px' }

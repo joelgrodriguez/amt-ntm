@@ -26,7 +26,10 @@ function get_active_filters(): array {
     return [
         'category' => $category,
         'machine'  => $machine,
-        'type'     => in_array($type, get_post_types(), true) ? $type : '',
+        // Validate against what the type filter UI can offer, not the LC content
+        // allowlist — manual/profile are selectable filters even though the LC
+        // landing's own sections don't query them.
+        'type'     => in_array($type, array_keys(get_type_filter_options(false)), true) ? $type : '',
     ];
 }
 
@@ -66,6 +69,8 @@ function get_type_filter_options(bool $include_all = true, string $all_label = '
     return $options + [
         'post'       => \__('Articles', 'standard'),
         'video'      => \__('Videos', 'standard'),
+        'manual'     => \__('Manuals', 'standard'),
+        'profile'    => \__('Profiles', 'standard'),
         'resource'   => \__('Resources', 'standard'),
         'download'   => \__('Downloads', 'standard'),
         'literature' => \__('Literature', 'standard'),

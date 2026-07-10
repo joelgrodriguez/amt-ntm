@@ -18,6 +18,7 @@ if (!defined('ABSPATH')) {
 }
 
 use function Standard\ContentTaxonomy\get_terms_for_post_type;
+use function Standard\MachineProductData\get_machine_product_link;
 
 $content = [
     'badge'              => __('Manual', 'standard'),
@@ -27,6 +28,7 @@ $content = [
     'manuals_available'  => __('%d manuals available', 'standard'),
     'no_machines'        => __('No machines tagged for this manual.', 'standard'),
     'add_tags_hint'      => __('Add machine tags to display related equipment.', 'standard'),
+    'view_machine'       => __('View machine', 'standard'),
 ];
 
 get_header();
@@ -80,30 +82,52 @@ $machine_tags = get_the_tags();
                         <?php if ($machine_tags && !empty($machine_tags)) : ?>
                             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                 <?php foreach ($machine_tags as $machine_tag) :
-                                    // @todo: Connect tag to WooCommerce product
-                                    // Find product by matching tag name to product title/SKU
-                                    // $product = wc_get_products(['name' => $machine_tag->name, 'limit' => 1]);
+                                    $product_link = get_machine_product_link($machine_tag->slug);
                                 ?>
-                                    <?php $manual_tag_url = add_query_arg(['post_type' => 'manual'], get_tag_link($machine_tag->term_id)); ?>
-                                    <a href="<?php echo esc_url($manual_tag_url); ?>" class="group block border border-blue-200 bg-white hover:border-blue-500 transition-colors">
-                                        <!-- Machine Image Placeholder -->
-                                        <div class="aspect-video bg-blue-50 flex items-center justify-center border-b border-blue-200">
-                                            <?php icon('settings', ['class' => 'w-12 h-12 text-blue-300 group-hover:text-blue-500 transition-colors']); ?>
-                                        </div>
-                                        <div class="p-4">
-                                            <p class="font-medium text-blue-900 group-hover:text-blue-500 transition-colors">
-                                                <?php echo esc_html($machine_tag->name); ?>
-                                            </p>
-                                            <p class="text-xs text-blue-500 mt-1 font-mono">
-                                                <?php
-                                                printf(
-                                                    esc_html($content['manuals_available']),
-                                                    $machine_tag->count
-                                                );
-                                                ?>
-                                            </p>
-                                        </div>
-                                    </a>
+                                    <?php if ($product_link !== null) : ?>
+                                        <a href="<?php echo esc_url($product_link['url']); ?>" class="group block border border-blue-200 bg-white hover:border-blue-500 transition-colors">
+                                            <div class="aspect-video bg-white p-2 flex items-center justify-center border-b border-blue-200">
+                                                <?php if ($product_link['image'] !== '') : ?>
+                                                    <img src="<?php echo esc_url($product_link['image']); ?>"
+                                                         alt="<?php echo esc_attr($product_link['image_alt'] !== '' ? $product_link['image_alt'] : $machine_tag->name); ?>"
+                                                         class="max-h-full max-w-full object-contain"
+                                                         loading="lazy" decoding="async">
+                                                <?php else : ?>
+                                                    <?php icon('settings', ['class' => 'w-12 h-12 text-blue-300 group-hover:text-blue-500 transition-colors']); ?>
+                                                <?php endif; ?>
+                                            </div>
+                                            <div class="p-4">
+                                                <p class="font-medium text-blue-900 group-hover:text-blue-500 transition-colors">
+                                                    <?php echo esc_html($machine_tag->name); ?>
+                                                </p>
+                                                <p class="text-xs text-blue-500 mt-1 font-mono inline-flex items-center gap-1">
+                                                    <?php echo esc_html($content['view_machine']); ?>
+                                                    <?php icon('arrow-right', ['class' => 'w-3 h-3']); ?>
+                                                </p>
+                                            </div>
+                                        </a>
+                                    <?php else : ?>
+                                        <?php $manual_tag_url = add_query_arg(['post_type' => 'manual'], get_tag_link($machine_tag->term_id)); ?>
+                                        <a href="<?php echo esc_url($manual_tag_url); ?>" class="group block border border-blue-200 bg-white hover:border-blue-500 transition-colors">
+                                            <!-- Machine Image Placeholder -->
+                                            <div class="aspect-video bg-blue-50 flex items-center justify-center border-b border-blue-200">
+                                                <?php icon('settings', ['class' => 'w-12 h-12 text-blue-300 group-hover:text-blue-500 transition-colors']); ?>
+                                            </div>
+                                            <div class="p-4">
+                                                <p class="font-medium text-blue-900 group-hover:text-blue-500 transition-colors">
+                                                    <?php echo esc_html($machine_tag->name); ?>
+                                                </p>
+                                                <p class="text-xs text-blue-500 mt-1 font-mono">
+                                                    <?php
+                                                    printf(
+                                                        esc_html($content['manuals_available']),
+                                                        $machine_tag->count
+                                                    );
+                                                    ?>
+                                                </p>
+                                            </div>
+                                        </a>
+                                    <?php endif; ?>
                                 <?php endforeach; ?>
                             </div>
                         <?php else : ?>
