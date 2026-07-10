@@ -106,8 +106,8 @@ Status field tracks `Staged -> Processing -> Reviewing -> Verifying -> Done`.
 The `dev` checkout lands reviewed work. Spawned worktrees commit, validate,
 run `shogun task review <n>`, and stop.
 
-Use `.shogun/README.md` as the local workflow guide. `.shogun/active.md` and
-`.shogun/archive.md` are local notes only. If your agent supports skills, load
+Use `.admiral/README.md` as the local workflow guide. `.admiral/active.md` and
+`.admiral/archive.md` are local notes only. If your agent supports skills, load
 the Shogun skill from `.agents/skills`, `.claude/skills`, or
 `.opencode/skills` before taking Shogun work.
 
@@ -202,10 +202,11 @@ This project runs locally in DevKinsta.
 Preferred inspection commands:
 
 ```bash
+# php8.3 pin required: the container's default CLI PHP is 7.4 and fatals on this theme's match() syntax.
 docker ps
-docker exec devkinsta_fpm wp --path=/www/kinsta/public/newtech option get home --allow-root
-docker exec devkinsta_fpm wp --path=/www/kinsta/public/newtech option get siteurl --allow-root
-docker exec devkinsta_fpm wp --path=/www/kinsta/public/newtech theme list --allow-root
+docker exec devkinsta_fpm php8.3 /usr/local/bin/wp --path=/www/kinsta/public/newtech option get home --allow-root
+docker exec devkinsta_fpm php8.3 /usr/local/bin/wp --path=/www/kinsta/public/newtech option get siteurl --allow-root
+docker exec devkinsta_fpm php8.3 /usr/local/bin/wp --path=/www/kinsta/public/newtech theme list --allow-root
 ```
 
 ### Hard rule: capture all DB-side changes
@@ -285,7 +286,7 @@ Includes loaded by `app/functions.php`:
 - `app/inc/vite.php`: Vite integration
 - `app/inc/setup.php`: theme supports
 - `app/inc/desktop-nav.php` and `app/inc/mobile-nav.php`: hardcoded PHP navigation data; nav menus are not registered
-- `app/inc/fonts.php`: Bunny Fonts
+- `app/inc/fonts.php`: self-hosted Noto font preloads (latin subsets)
 - `app/inc/icons.php`: SVG icon loader with caching
 - `app/inc/walkers/class-pagination.php`: pagination renderer
 
@@ -363,11 +364,11 @@ render in order with correct statuses.
 
 ## Shogun Workflow
 
-Use `.shogun/README.md` as the local workflow guide. Tasks are GitHub issues;
+Use `.admiral/README.md` as the local workflow guide. Tasks are GitHub issues;
 a single `status:*` issue label tracks each task's stage. Orca owns spawned
 worktrees, terminals, and browser tabs. `dev` is the integration
 branch; protected branches such as `main` and `master` are not Shogun
-development bases. `.shogun/active.md` and `.shogun/archive.md` are local notes
+development bases. `.admiral/active.md` and `.admiral/archive.md` are local notes
 only.
 If your agent supports skills, load the Shogun skill from `.agents/skills`,
 `.claude/skills`, or `.opencode/skills` before taking Shogun work.
