@@ -155,7 +155,10 @@ function build_term_link_group(
         $options[] = [
             'value'  => $term->slug,
             'label'  => $term->name,
-            'count'  => (int) $term->count,
+            // Term ->count is the GLOBAL count across all post types — misleading in the
+            // scoped contexts this builder serves (e.g. a manual-only catalog). Suppress;
+            // callers with accurate numbers use build_choice_group's $counts instead.
+            'count'  => null,
             'active' => in_array((int) $term->term_id, $active_ids, true),
             'url'    => (string) $url,
         ];

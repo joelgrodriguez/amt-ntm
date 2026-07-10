@@ -109,6 +109,7 @@ $render_group = static function (array $group, int $index, string $scope, bool $
                 $label  = (string) ($option['label'] ?? '');
                 $active = !empty($option['active']);
                 $url    = isset($option['url']) ? (string) $option['url'] : '';
+                $count  = isset($option['count']) && $option['count'] !== null ? (int) $option['count'] : null;
 
                 // Allow empty value in radio mode (acts as "All"); checkbox
                 // mode still needs a real value because submit assembles an array.
@@ -126,6 +127,9 @@ $render_group = static function (array $group, int $index, string $scope, bool $
                             href="<?php echo esc_url($url); ?>"
                         >
                             <span class="filter-option-label"><?php echo esc_html($label); ?></span>
+                            <?php if ($count !== null) : ?>
+                                <span class="filter-option-count"><?php echo esc_html((string) $count); ?></span>
+                            <?php endif; ?>
                         </a>
                     <?php else : ?>
                         <label class="filter-option" data-active="<?php echo $active ? 'true' : 'false'; ?>">
@@ -138,6 +142,9 @@ $render_group = static function (array $group, int $index, string $scope, bool $
                                 <?php checked($active); ?>
                             >
                             <span class="filter-option-label"><?php echo esc_html($label); ?></span>
+                            <?php if ($count !== null) : ?>
+                                <span class="filter-option-count"><?php echo esc_html((string) $count); ?></span>
+                            <?php endif; ?>
                         </label>
                     <?php endif; ?>
                 </li>
