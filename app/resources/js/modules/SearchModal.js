@@ -103,10 +103,19 @@ const matchesAnyPattern = (normalized, patterns) => patterns.some((pattern) => {
   }
 });
 
+const emptyMachineManifest = () => ({
+  limit: RESULTS_LIMIT,
+  machines: [],
+  categories: {},
+  exactGroups: [],
+  categoryGroups: [],
+  modifierGroups: [],
+});
+
 const readMachineManifest = (modal) => {
   const node = modal.querySelector('[data-search-modal-machine-manifest]');
   if (!(node instanceof HTMLScriptElement)) {
-    return { limit: RESULTS_LIMIT, machines: [], exactGroups: [], categoryGroups: [], modifierGroups: [] };
+    return emptyMachineManifest();
   }
 
   try {
@@ -114,12 +123,13 @@ const readMachineManifest = (modal) => {
     return {
       limit: Number.isInteger(parsed.limit) ? parsed.limit : RESULTS_LIMIT,
       machines: Array.isArray(parsed.machines) ? parsed.machines : [],
+      categories: parsed.categories && typeof parsed.categories === 'object' && !Array.isArray(parsed.categories) ? parsed.categories : {},
       exactGroups: Array.isArray(parsed.exactGroups) ? parsed.exactGroups : [],
       categoryGroups: Array.isArray(parsed.categoryGroups) ? parsed.categoryGroups : [],
       modifierGroups: Array.isArray(parsed.modifierGroups) ? parsed.modifierGroups : [],
     };
   } catch (_) {
-    return { limit: RESULTS_LIMIT, machines: [], exactGroups: [], categoryGroups: [], modifierGroups: [] };
+    return emptyMachineManifest();
   }
 };
 
@@ -133,17 +143,55 @@ const uniquePush = (items, item) => {
   }
 };
 
+const activeCategoryKeySet = (manifest) => {
+  const set = new Set();
+  Object.values(manifest.categories || {}).forEach((keys) => {
+    if (Array.isArray(keys)) {
+      keys.forEach((key) => {
+        if (typeof key === 'string' && key !== '') {
+          set.add(key);
+        }
+      });
+    }
+  });
+  return set;
+};
+
+const isActiveMachine = (machine, activeKeys) => {
+  if (!machine?.key || machine.active === false) {
+    return false;
+  }
+  return activeKeys.size === 0 || activeKeys.has(machine.key);
+};
+
 const machineLookup = (manifest) => {
   const map = new Map();
+  const activeKeys = activeCategoryKeySet(manifest);
   manifest.machines.forEach((machine) => {
-    if (machine?.key) {
+    if (isActiveMachine(machine, activeKeys)) {
       map.set(machine.key, machine);
     }
   });
   return map;
 };
 
-const getExactMachineKeys = (query, manifest) => {
+const groupKeysInActiveOrder = (group, manifest, lookup) => {
+  const rawKeys = Array.isArray(group?.keys) ? group.keys : [];
+  const rawSet = new Set(rawKeys);
+
+  if (group?.family) {
+    const activeFamilyKeys = Object.values(manifest.categories || {})
+      .flatMap((keys) => (Array.isArray(keys) ? keys : []))
+      .filter((key) => rawSet.has(key));
+    if (activeFamilyKeys.length > 0) {
+      return activeFamilyKeys.filter((key) => lookup.has(key));
+    }
+  }
+
+  return rawKeys.filter((key) => lookup.has(key));
+};
+
+const getExactMachineKeys = (query, manifest, lookup) => {
   const normalized = normalizeSearchText(query);
   const keys = [];
   const add = (key) => uniquePush(keys, key);
@@ -153,23 +201,29 @@ const getExactMachineKeys = (query, manifest) => {
       return;
     }
     if (matchesAnyPattern(normalized, group.patterns)) {
-      group.keys.forEach(add);
+      groupKeysInActiveOrder(group, manifest, lookup).forEach(add);
     }
   });
 
   return keys;
 };
 
-const getCategoryMachineKeys = (query, manifest) => {
+const getCategoryMachineKeys = (query, manifest, lookup) => {
   const normalized = normalizeSearchText(query);
   const keys = [];
 
   manifest.categoryGroups.forEach((group) => {
-    if (!Array.isArray(group?.phrases) || !Array.isArray(group?.keys)) {
+    if (!Array.isArray(group?.phrases)) {
       return;
     }
     if (group.phrases.some((phrase) => containsPhrase(normalized, phrase))) {
-      group.keys.forEach((key) => uniquePush(keys, key));
+      const activeCategoryKeys = typeof group.category === 'string'
+        && Array.isArray(manifest.categories?.[group.category])
+        ? manifest.categories[group.category]
+        : (Array.isArray(group?.keys) ? group.keys : []);
+      activeCategoryKeys
+        .filter((key) => lookup.has(key))
+        .forEach((key) => uniquePush(keys, key));
     }
   });
 
@@ -186,8 +240,8 @@ export const localMachineSuggestions = (query, scope, manifest) => {
 
   const lookup = machineLookup(manifest);
   const keys = [];
-  getExactMachineKeys(query, manifest).forEach((key) => uniquePush(keys, key));
-  getCategoryMachineKeys(query, manifest).forEach((key) => uniquePush(keys, key));
+  getExactMachineKeys(query, manifest, lookup).forEach((key) => uniquePush(keys, key));
+  getCategoryMachineKeys(query, manifest, lookup).forEach((key) => uniquePush(keys, key));
 
   return keys
     .map((key) => lookup.get(key))
@@ -243,6 +297,19 @@ const combineUniqueResults = (primary, secondary, limit = RESULTS_LIMIT) => {
   secondary.forEach(push);
 
   return results.slice(0, limit);
+};
+
+export const shouldHydrateLocalResultClick = (event, item) => {
+  if (!item?.local) {
+    return false;
+  }
+  if (event?.metaKey || event?.ctrlKey || event?.shiftKey || event?.altKey) {
+    return false;
+  }
+  if (typeof event?.button === 'number' && event.button !== 0) {
+    return false;
+  }
+  return true;
 };
 
 export const reconcileResults = (localItems, remoteItems, query, manifest) => {
@@ -606,7 +673,7 @@ export const initSearchModal = () => {
     const params = new URLSearchParams({
       search: query,
       per_page: String(RESULTS_LIMIT),
-      _fields: 'id,title,url,subtype',
+      _fields: 'id,title,url,subtype,machineKey',
     });
     if (scope !== '') {
       params.set('subtype', scope);
@@ -774,6 +841,7 @@ export const initSearchModal = () => {
       return;
     }
 
+    setStatus('Opening result…');
     try {
       const hydrated = await getHydratedResultForLocalItem(item);
       window.location.href = hydrated?.url || item.url;
@@ -951,7 +1019,7 @@ export const initSearchModal = () => {
 
     const index = Number.parseInt(link.dataset.index ?? '', 10);
     const item = Number.isInteger(index) ? renderedResults[index] : null;
-    if (!item?.local) {
+    if (!shouldHydrateLocalResultClick(event, item)) {
       return;
     }
 

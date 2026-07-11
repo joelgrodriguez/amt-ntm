@@ -694,10 +694,10 @@ function get_machine_search_category_keys(string $category): array {
  *
  * @return array{
  *   limit:int,
- *   machines:array<int, array{key:string,title:string,url:string,subtype:string,category:string}>,
+ *   machines:array<int, array{key:string,title:string,url:string,subtype:string,category:string,active:bool}>,
  *   categories:array<string, string[]>,
  *   exactGroups:array<int, array{keys:string[],patterns:string[],family?:bool}>,
- *   categoryGroups:array<int, array{phrases:string[],keys:string[]}>,
+ *   categoryGroups:array<int, array{category:string,phrases:string[],keys:string[]}>,
  *   modifierGroups:array<int, array{phrases:string[]}>
  * }
  */
@@ -712,12 +712,14 @@ function get_machine_suggestion_manifest(): array {
             'url'      => \Standard\Url\internal('/machines/' . $machine['category'] . '/' . $machine['slug'] . '/'),
             'subtype'  => 'product',
             'category' => $machine['category'],
+            'active'   => !array_key_exists('active', $machine) || $machine['active'] !== false,
         ];
     }
 
     $category_groups = [];
     foreach (get_machine_category_intent_groups() as $group) {
         $category_groups[] = [
+            'category' => $group['category'],
             'phrases' => $group['phrases'],
             'keys'    => $categories[$group['category']] ?? [],
         ];
@@ -1364,14 +1366,17 @@ function get_rest_requested_post_types(\WP_REST_Request $request): array {
 }
 
 /**
- * @return array{id:int,title:string,url:string,subtype:string}
+ * @return array{id:int,title:string,url:string,subtype:string,machineKey:string}
  */
 function format_rest_search_result(\WP_Post $post, string $search = '', int $rank = 0): array {
+    $machine_keys = $post->post_type === 'product' ? get_canonical_machine_keys_by_product_id() : [];
+
     return [
-        'id'      => (int) $post->ID,
-        'title'   => (string) \get_the_title($post),
-        'url'     => get_rest_search_result_permalink($post, $search, $rank),
-        'subtype' => (string) $post->post_type,
+        'id'         => (int) $post->ID,
+        'title'      => (string) \get_the_title($post),
+        'url'        => get_rest_search_result_permalink($post, $search, $rank),
+        'subtype'    => (string) $post->post_type,
+        'machineKey' => $machine_keys[(int) $post->ID] ?? '',
     ];
 }
 
@@ -1550,7 +1555,7 @@ function query_rest_suggestion_result_ids(string $search, array $post_types, int
 /**
  * @param int[]    $ids
  * @param string[] $post_types
- * @return array<int, array{id:int,title:string,url:string,subtype:string}>
+ * @return array<int, array{id:int,title:string,url:string,subtype:string,machineKey:string}>
  */
 function format_rest_search_results_from_ids(array $ids, string $search, array $post_types, int $limit): array {
     $items = [];

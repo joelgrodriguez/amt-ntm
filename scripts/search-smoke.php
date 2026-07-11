@@ -388,8 +388,9 @@ function standard_search_smoke_assert_source_contracts(): void {
         str_contains($search_source, 'get_transient($cache_key)')
         && str_contains($search_source, 'set_transient($cache_key')
         && str_contains($search_source, 'REST_SUGGESTION_CACHE_VERSION_OPTION')
-        && str_contains($search_source, 'format_rest_search_results_from_ids'),
-        'REST suggestions cache normalized query/subtype result IDs and formats URLs per response.'
+        && str_contains($search_source, 'format_rest_search_results_from_ids')
+        && str_contains($search_source, "'machineKey' =>"),
+        'REST suggestions cache normalized query/subtype result IDs and formats URLs plus machine keys per response.'
     );
     standard_search_smoke_assert_true(
         str_contains($search_source, "add_action('save_post'")
@@ -412,8 +413,11 @@ function standard_search_smoke_assert_source_contracts(): void {
     standard_search_smoke_assert_true(
         str_contains($modal_test_source, 'specific MACH aliases beat the broad family')
         && str_contains($modal_test_source, 'tracked URLs')
-        && str_contains($modal_test_source, 'modifier queries keep REST relevance before local machines'),
-        'Search modal has behavior smoke coverage for local aliases, reconciliation, and tracked URL hydration.'
+        && str_contains($modal_test_source, 'modifier queries keep REST relevance before local machines')
+        && str_contains($modal_test_source, 'modified local clicks stay native')
+        && str_contains($modal_test_source, 'family groups filter inactive category machines')
+        && str_contains($modal_test_source, 'hydrates by machine key when permalinks differ'),
+        'Search modal has behavior smoke coverage for local aliases, reconciliation, modified clicks, active-family filtering, and tracked URL hydration.'
     );
 }
 

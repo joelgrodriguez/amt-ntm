@@ -753,7 +753,7 @@
       "path": "app/inc/search.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 56540
+      "size": 56924
     },
     {
       "path": "app/inc/seo.php",
@@ -1467,13 +1467,13 @@
       "path": "app/resources/js/modules/SearchModal.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 36309
+      "size": 38306
     },
     {
       "path": "app/resources/js/modules/SearchModal.test.mjs",
       "category": "test",
       "role": "Automated test or test support file.",
-      "size": 5463
+      "size": 8237
     },
     {
       "path": "app/resources/js/modules/SocialProof.js",
@@ -3825,7 +3825,7 @@
       "path": "scripts/search-smoke.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 35378
+      "size": 35767
     },
     {
       "path": "TODO.md",
