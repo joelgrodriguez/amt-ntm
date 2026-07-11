@@ -46,7 +46,10 @@ $paths = [
 
 <section class="bg-blue-900 text-white border-y border-blue-700" aria-labelledby="home-waypoint-title">
     <div class="container py-8 md:py-10">
-        <div class="grid gap-5 md:grid-cols-3 md:items-center md:gap-8">
+        <!-- lg shifts the split from 1/3+2/3 to 1/4+3/4: the title never
+             needs a third of the row, and the extra quarter keeps the
+             card descriptions on a single line. -->
+        <div class="grid gap-5 md:grid-cols-3 md:items-center md:gap-8 lg:grid-cols-4">
             <div class="grid gap-2 md:col-span-1">
                 <p class="font-mono text-xs font-medium uppercase tracking-widest text-blue-300 m-0">
                     <?php esc_html_e('Next step', 'standard'); ?>
@@ -56,7 +59,7 @@ $paths = [
                 </h2>
             </div>
 
-            <ul class="grid gap-2 sm:grid-cols-2 lg:grid-cols-4 md:col-span-2 m-0 p-0 list-none" role="list">
+            <ul class="grid gap-2 sm:grid-cols-2 lg:grid-cols-4 md:col-span-2 lg:col-span-3 m-0 p-0 list-none" role="list">
                 <?php foreach ($paths as $path) : ?>
                     <li>
                         <a
