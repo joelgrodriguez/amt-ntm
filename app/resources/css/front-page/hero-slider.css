@@ -149,6 +149,54 @@
   .hero-slider__nav--next  { right: 2rem; }
 }
 
+/* ── Ken Burns drift ────────────────────────────────────────────── */
+
+/* One motion language across all slides: an identical slow push-in
+   (1 → 1.07 over 9s, linear — felt, not watched). Variety comes from
+   WHERE the camera pushes, not a different effect per slide:
+   transform-origin cycles center / left / right so each slide drifts
+   toward a different part of the frame. Duration outlasts the 7s
+   autoplay interval + 900ms track glide so the zoom never dies while
+   a slide is still on screen; `forwards` holds the end frame if the
+   visitor pauses on a slide.
+
+   Keyed to [aria-hidden="false"] (HeroSlider.js toggles it) so the
+   animation restarts every time a slide activates. Hidden slides REST
+   at the end scale: deactivation removes the animation mid-zoom, and
+   without the rest value the outgoing image would snap back to 1
+   while sliding out. Parking hidden media at 1.07 turns that into a
+   ≤1% step, and the incoming slide's 1.07 → 1 reset happens while it
+   is still fully off-screen. The loop clone instead parks at scale 1
+   to match the freshly-restarted real first slide at the wrap snap.
+
+   Video slides are excluded (:has) — footage already moves, zooming
+   it is double motion. Transform-only, so it runs on the compositor. */
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-slider__slide .hero__photo:not(:has(.hero__media--video)) .hero__media {
+    transform: scale(1.07);
+  }
+
+  .hero-slider__slide[aria-hidden="false"] .hero__photo:not(:has(.hero__media--video)) .hero__media {
+    animation: hero-ken-burns 9s linear forwards;
+  }
+
+  .hero-slider__slide[data-clone-of] .hero__media {
+    transform: none;
+  }
+
+  /* Focal drift by track position: center, then left of frame, then
+     right. Cycles for any slide count. */
+  .hero-slider__slide:nth-child(3n + 1) .hero__media { transform-origin: 50% 45%; }
+  .hero-slider__slide:nth-child(3n + 2) .hero__media { transform-origin: 30% 50%; }
+  .hero-slider__slide:nth-child(3n)     .hero__media { transform-origin: 70% 50%; }
+}
+
+@keyframes hero-ken-burns {
+  from { transform: scale(1); }
+  to   { transform: scale(1.07); }
+}
+
 /* ── Reduced motion ─────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
