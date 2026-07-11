@@ -2139,7 +2139,7 @@
       "path": "app/templates/pages/trailer/models.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 6058
+      "size": 6082
     },
     {
       "path": "app/templates/pages/trailer/vs-traditional.php",
@@ -2625,7 +2625,7 @@
       "path": "app/templates/parts/trailer-strip.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 5139
+      "size": 5163
     },
     {
       "path": "app/templates/parts/value-prop-cards.php",
