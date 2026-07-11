@@ -87,6 +87,15 @@ function standard_search_smoke_pass(string $message): void {
     echo "PASS: {$message}\n";
 }
 
+function standard_search_smoke_skip(string $message): void {
+    if (class_exists('WP_CLI')) {
+        \WP_CLI::log("SKIP: {$message}");
+        return;
+    }
+
+    echo "SKIP: {$message}\n";
+}
+
 /**
  * @param mixed $actual
  * @param mixed $expected
@@ -222,16 +231,96 @@ function standard_search_smoke_result_text(\WP_Post $post): string {
     return trim($value);
 }
 
-function standard_search_smoke_assert_url_has_tracking(string $url, string $message): void {
+function standard_search_smoke_relevanssi_version(): string {
+    if (!function_exists('get_plugins')) {
+        $plugin_functions = ABSPATH . 'wp-admin/includes/plugin.php';
+        if (file_exists($plugin_functions)) {
+            require_once $plugin_functions;
+        }
+    }
+
+    if (!function_exists('get_plugins')) {
+        return '';
+    }
+
+    $plugins = get_plugins();
+    foreach (['relevanssi-premium/relevanssi.php', 'relevanssi/relevanssi.php'] as $plugin_file) {
+        $version = $plugins[$plugin_file]['Version'] ?? '';
+        if (is_string($version) && $version !== '') {
+            return $version;
+        }
+    }
+
+    return '';
+}
+
+function standard_search_smoke_decode_relevanssi_tracking_value(string $value): string {
+    if (function_exists('relevanssi_base64url_decode')) {
+        return (string) relevanssi_base64url_decode($value);
+    }
+
+    $decoded = base64_decode(strtr($value, '-_', '+/'), true);
+
+    return is_string($decoded) ? $decoded : '';
+}
+
+function standard_search_smoke_expected_tracking_query(string $search): string {
+    $query = str_replace('|', ' ', $search);
+
+    return function_exists('relevanssi_strtolower')
+        ? (string) relevanssi_strtolower($query)
+        : strtolower($query);
+}
+
+function standard_search_smoke_assert_url_has_tracking(
+    string $url,
+    string $search,
+    int $rank,
+    int $post_id,
+    string $message
+): void {
     if ((string) get_option('relevanssi_click_tracking', 'off') !== 'on' || !function_exists('relevanssi_log_click')) {
-        standard_search_smoke_pass($message . ' Click tracking is unavailable/off, so URL decoration is skipped.');
+        standard_search_smoke_skip($message . ' Click tracking is unavailable/off, so URL decoration is skipped.');
         return;
     }
 
-    standard_search_smoke_assert_true(
-        str_contains($url, '_rt=') && str_contains($url, '_rt_nonce='),
-        $message . ' URL was: ' . $url
-    );
+    $version = standard_search_smoke_relevanssi_version();
+    if ($version === '' || !str_starts_with($version, '2.29.')) {
+        standard_search_smoke_fail($message . " Relevanssi click-tracking payload is intentionally coupled to 2.29.x; detected version '{$version}'.");
+    }
+
+    $query = parse_url($url, PHP_URL_QUERY);
+    $params = [];
+    if (is_string($query)) {
+        parse_str($query, $params);
+    }
+
+    $encoded = isset($params['_rt']) && is_scalar($params['_rt']) ? (string) $params['_rt'] : '';
+    $nonce = isset($params['_rt_nonce']) && is_scalar($params['_rt_nonce']) ? (string) $params['_rt_nonce'] : '';
+    if ($encoded === '' || $nonce === '') {
+        standard_search_smoke_fail($message . ' Missing _rt or _rt_nonce. URL was: ' . $url);
+    }
+
+    if ($post_id <= 0 || wp_verify_nonce($nonce, 'relevanssi_click_tracking_' . $post_id) === false) {
+        standard_search_smoke_fail($message . ' Relevanssi tracking nonce does not verify for post ' . $post_id . '.');
+    }
+
+    $decoded = standard_search_smoke_decode_relevanssi_tracking_value($encoded);
+    $parts = explode('|', $decoded);
+    if (count($parts) !== 4) {
+        standard_search_smoke_fail($message . " Relevanssi 2.29 _rt payload should be rank|page|query|time; got '{$decoded}'.");
+    }
+
+    $expected_query = standard_search_smoke_expected_tracking_query($search);
+    if ((int) $parts[0] !== $rank || (int) $parts[1] !== 1 || $parts[2] !== $expected_query) {
+        standard_search_smoke_fail($message . " Relevanssi 2.29 _rt payload drifted; got '{$decoded}'.");
+    }
+
+    if (!ctype_digit($parts[3]) || abs(time() - (int) $parts[3]) > 300) {
+        standard_search_smoke_fail($message . " Relevanssi 2.29 _rt timestamp is invalid; got '{$decoded}'.");
+    }
+
+    standard_search_smoke_pass($message);
 }
 
 function standard_search_smoke_assert_machine_intent(string $search, array $expected_exact_keys, string $message): void {
@@ -271,6 +360,51 @@ function standard_search_smoke_assert_source_contracts(): void {
         && str_contains($content_source, 'get_search_result_permalink'),
         'Generic card-post search results receive the tracked search URL override.'
     );
+    standard_search_smoke_assert_true(
+        str_contains($search_source, 'wp_cache_get(CANONICAL_MACHINE_PRODUCT_IDS_CACHE_KEY')
+        && str_contains($search_source, 'wp_cache_set(CANONICAL_MACHINE_PRODUCT_IDS_CACHE_KEY')
+        && str_contains($search_source, 'wp_cache_delete(CANONICAL_MACHINE_PRODUCT_IDS_CACHE_KEY'),
+        'Canonical machine product IDs are cached and invalidated through wp_cache.'
+    );
+    standard_search_smoke_assert_true(
+        str_contains($search_source, "add_action('save_post_product'")
+        && str_contains($search_source, "add_action('deleted_post'")
+        && str_contains($search_source, "add_action('post_updated'"),
+        'Canonical machine product ID cache invalidates on safe product save, delete, and slug change hooks.'
+    );
+    standard_search_smoke_assert_true(
+        str_contains($search_source, 'Relevanssi Premium 2.29 click-tracking payloads')
+        && str_contains($search_source, "\$value = \$rank . '|1|' . \$query . '|' . time();"),
+        'REST/modal click tracking documents the intentional Relevanssi 2.29 payload coupling.'
+    );
+}
+
+function standard_search_smoke_assert_canonical_machine_product_cache_contract(): void {
+    if (!function_exists('Standard\\Search\\get_canonical_machine_product_ids')
+        || !function_exists('Standard\\Search\\flush_canonical_machine_product_id_cache')) {
+        standard_search_smoke_fail('Canonical machine product ID cache functions are unavailable.');
+    }
+
+    $cache_key = constant('Standard\\Search\\CANONICAL_MACHINE_PRODUCT_IDS_CACHE_KEY');
+    $cache_group = constant('Standard\\Search\\CACHE_GROUP');
+
+    \Standard\Search\flush_canonical_machine_product_id_cache();
+    $ids = \Standard\Search\get_canonical_machine_product_ids();
+
+    $found = false;
+    $cached = wp_cache_get($cache_key, $cache_group, false, $found);
+    if (!$found || $cached !== $ids) {
+        standard_search_smoke_fail('Canonical machine product IDs were not persisted in wp_cache.');
+    }
+
+    \Standard\Search\flush_canonical_machine_product_id_cache();
+    $found_after_flush = false;
+    wp_cache_get($cache_key, $cache_group, false, $found_after_flush);
+    if ($found_after_flush) {
+        standard_search_smoke_fail('Canonical machine product ID cache did not clear through wp_cache_delete.');
+    }
+
+    standard_search_smoke_pass('Canonical machine product IDs persist in wp_cache and flush cleanly.');
 }
 
 /**
@@ -458,6 +592,10 @@ if (function_exists('relevanssi_do_query')) {
     standard_search_smoke_assert_top_machine('SSQ2', 'ssq-ii-multipro');
     standard_search_smoke_assert_top_machine('MACH II', 'mach-ii-combo-gutter');
     standard_search_smoke_assert_top_machine('Mach 2', 'mach-ii-combo-gutter');
+    standard_search_smoke_assert_top_machine('GM 5/6', 'mach-ii-combo-gutter');
+    standard_search_smoke_assert_top_machine('gm56', 'mach-ii-combo-gutter');
+    standard_search_smoke_assert_top_machine('gm 5', 'mach-ii-5-gutter');
+    standard_search_smoke_assert_top_machine('gm 6', 'mach-ii-6-gutter');
     standard_search_smoke_assert_top_machine('BG7', 'bg7-box-gutter');
     standard_search_smoke_assert_top_machine('WAV', 'wav-wall-panel');
 
@@ -501,14 +639,16 @@ if (function_exists('relevanssi_do_query')) {
     standard_search_smoke_assert_rest_parity('MACH II', 'product');
     standard_search_smoke_assert_rest_parity('SSQ3 manual');
 
-    standard_search_smoke_assert_machine_intent('SSQ2', ['ssq-ii-multipro'], 'SSQ2 safely maps to SSQ II.');
-    standard_search_smoke_assert_machine_intent('SSQ200 profile', [], 'SSQ200 profile does not map to SSQ II.');
-    standard_search_smoke_assert_machine_intent('SSQ210A profile', [], 'SSQ210A profile does not map to SSQ II.');
-    standard_search_smoke_assert_machine_intent('SSQ275 profile', [], 'SSQ275 profile does not map to SSQ II.');
-
     $rest_items = standard_search_smoke_rest_items('SSQ3');
     $first_rest_url = (string) ($rest_items[0]['url'] ?? '');
-    standard_search_smoke_assert_url_has_tracking($first_rest_url, 'REST/modal result URLs preserve Relevanssi click tracking.');
+    $first_rest_id = (int) ($rest_items[0]['id'] ?? 0);
+    standard_search_smoke_assert_url_has_tracking(
+        $first_rest_url,
+        'SSQ3',
+        1,
+        $first_rest_id,
+        'REST/modal result URLs preserve Relevanssi 2.29 click tracking.'
+    );
 
     $post_only = standard_search_smoke_query(['post_type' => 'post'], ['s' => 'gutter']);
     $first_post = standard_search_smoke_first_post($post_only, 'Post-only search has a generic card-post result.');
@@ -516,12 +656,33 @@ if (function_exists('relevanssi_do_query')) {
         $post_only,
         static fn(): string => \Standard\Search\get_search_result_permalink($first_post)
     );
-    standard_search_smoke_assert_url_has_tracking($tracked_post_url, 'Generic card-post search URLs preserve Relevanssi click tracking.');
+    standard_search_smoke_assert_url_has_tracking(
+        $tracked_post_url,
+        'gutter',
+        1,
+        (int) $first_post->ID,
+        'Generic card-post search URLs preserve Relevanssi 2.29 click tracking.'
+    );
 } else {
-    standard_search_smoke_pass('Relevanssi is unavailable; machine ranking checks skipped without fatal errors.');
+    standard_search_smoke_skip('Relevanssi is unavailable; machine ranking, REST parity, and click-tracking checks skipped without fatal errors.');
 }
 
+standard_search_smoke_assert_machine_intent('SSQ2', ['ssq-ii-multipro'], 'SSQ2 safely maps to SSQ II.');
+standard_search_smoke_assert_machine_intent('SSQ200 profile', [], 'SSQ200 profile does not map to SSQ II.');
+standard_search_smoke_assert_machine_intent('SSQ210A profile', [], 'SSQ210A profile does not map to SSQ II.');
+standard_search_smoke_assert_machine_intent('SSQ275 profile', [], 'SSQ275 profile does not map to SSQ II.');
+standard_search_smoke_assert_machine_intent('GM 5/6', ['mach-ii-combo-gutter'], 'GM 5/6 safely maps to the combo gutter machine.');
+standard_search_smoke_assert_machine_intent('gm56', ['mach-ii-combo-gutter'], 'gm56 safely maps to the combo gutter machine.');
+standard_search_smoke_assert_machine_intent('gm 5', ['mach-ii-5-gutter'], 'gm 5 safely maps to the 5-inch gutter machine.');
+standard_search_smoke_assert_machine_intent('gm 6', ['mach-ii-6-gutter'], 'gm 6 safely maps to the 6-inch gutter machine.');
+standard_search_smoke_assert_machine_intent('gm500 profile', [], 'gm500 does not map to a GM machine.');
+standard_search_smoke_assert_machine_intent('gm 50 profile', [], 'gm 50 does not map to a GM machine.');
+standard_search_smoke_assert_machine_intent('gm 5 0 profile', [], 'gm 5 0 does not map to a GM machine.');
+standard_search_smoke_assert_machine_intent('gm 56a profile', [], 'gm 56a does not map to a GM machine.');
+standard_search_smoke_assert_machine_intent('agm 5 profile', [], 'agm 5 does not map to a GM machine.');
+
 standard_search_smoke_assert_source_contracts();
+standard_search_smoke_assert_canonical_machine_product_cache_contract();
 
 foreach ($blocked_index_post_types as $blocked_post_type) {
     $posts = get_posts([
@@ -534,7 +695,7 @@ foreach ($blocked_index_post_types as $blocked_post_type) {
     ]);
 
     if ($posts === []) {
-        standard_search_smoke_pass("No {$blocked_post_type} post exists to test index exclusion.");
+        standard_search_smoke_skip("No {$blocked_post_type} post exists to test index exclusion.");
         continue;
     }
 

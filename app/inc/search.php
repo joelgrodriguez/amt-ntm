@@ -17,6 +17,8 @@ const REST_NAMESPACE = 'standard/v1';
 const REST_SEARCH_ROUTE = '/search';
 const SEARCH_CONTEXT_QUERY_VAR = 'standard_search_context';
 const SEARCH_CONTEXT_SITE = 'site';
+const CACHE_GROUP = 'standard_search';
+const CANONICAL_MACHINE_PRODUCT_IDS_CACHE_KEY = 'canonical_machine_product_ids_v1';
 const MACHINE_PRODUCT_CATEGORIES = [
     'roof-wall-panel-machines',
     'gutter-machines',
@@ -577,16 +579,44 @@ function product_is_in_machine_category(int $post_id): bool {
 /**
  * @return array<string, int>
  */
-function get_canonical_machine_product_ids(): array {
+function canonical_machine_product_ids_request_cache(?array $value = null, bool $set = false): ?array {
     static $cache = null;
 
-    if ($cache !== null) {
-        return $cache;
+    if ($set) {
+        $cache = $value;
     }
 
-    $cache = [];
+    return $cache;
+}
+
+/**
+ * @param mixed $value
+ * @return array<string, int>|null
+ */
+function normalize_cached_canonical_machine_product_ids($value): ?array {
+    if (!is_array($value)) {
+        return null;
+    }
+
+    $ids = [];
+    foreach ($value as $key => $post_id) {
+        $key = \sanitize_key((string) $key);
+        $post_id = (int) $post_id;
+        if ($key !== '' && $post_id > 0) {
+            $ids[$key] = $post_id;
+        }
+    }
+
+    return $ids;
+}
+
+/**
+ * @return array<string, int>
+ */
+function resolve_canonical_machine_product_ids(): array {
+    $ids = [];
     if (!\post_type_exists('product')) {
-        return $cache;
+        return $ids;
     }
 
     foreach (get_machine_product_slug_candidates_by_key() as $key => $slugs) {
@@ -599,24 +629,76 @@ function get_canonical_machine_product_ids(): array {
                 continue;
             }
 
-            $cache[$key] = (int) $post->ID;
+            $ids[$key] = (int) $post->ID;
             break;
         }
     }
 
-    return $cache;
+    return $ids;
+}
+
+/**
+ * @return array<string, int>
+ */
+function get_canonical_machine_product_ids(): array {
+    $request_cache = canonical_machine_product_ids_request_cache();
+    if ($request_cache !== null) {
+        return $request_cache;
+    }
+
+    $found = false;
+    $cached = \wp_cache_get(CANONICAL_MACHINE_PRODUCT_IDS_CACHE_KEY, CACHE_GROUP, false, $found);
+    $ids = $found ? normalize_cached_canonical_machine_product_ids($cached) : null;
+
+    if ($ids === null) {
+        $ids = resolve_canonical_machine_product_ids();
+        \wp_cache_set(CANONICAL_MACHINE_PRODUCT_IDS_CACHE_KEY, $ids, CACHE_GROUP);
+    }
+
+    canonical_machine_product_ids_request_cache($ids, true);
+
+    return $ids;
+}
+
+function flush_canonical_machine_product_id_cache(): void {
+    canonical_machine_product_ids_request_cache(null, true);
+    \wp_cache_delete(CANONICAL_MACHINE_PRODUCT_IDS_CACHE_KEY, CACHE_GROUP);
+}
+
+function flush_canonical_machine_product_id_cache_for_product_save(int $post_id, \WP_Post $post, bool $update): void {
+    unset($update);
+
+    if ($post->post_type !== 'product' || \wp_is_post_autosave($post_id) || \wp_is_post_revision($post_id)) {
+        return;
+    }
+
+    flush_canonical_machine_product_id_cache();
+}
+
+function flush_canonical_machine_product_id_cache_for_deleted_post(int $post_id, \WP_Post $post): void {
+    unset($post_id);
+
+    if ($post->post_type === 'product') {
+        flush_canonical_machine_product_id_cache();
+    }
+}
+
+function flush_canonical_machine_product_id_cache_for_product_slug_change(int $post_id, \WP_Post $post_after, \WP_Post $post_before): void {
+    unset($post_id);
+
+    if ($post_after->post_type !== 'product') {
+        return;
+    }
+
+    if ((string) $post_after->post_name !== (string) $post_before->post_name) {
+        flush_canonical_machine_product_id_cache();
+    }
 }
 
 /**
  * @return array<int, string>
  */
 function get_canonical_machine_keys_by_product_id(): array {
-    static $cache = null;
-
-    if ($cache !== null) {
-        return $cache;
-    }
-
     $cache = [];
     foreach (get_canonical_machine_product_ids() as $key => $post_id) {
         $cache[(int) $post_id] = (string) $key;
@@ -667,13 +749,13 @@ function get_machine_search_intent(string $query): array {
         }
     };
 
-    if (preg_match('/\bgm\s*5\s*6\b/', $normalized) === 1) {
+    if (preg_match('/\bgm\s*5\s*6\b(?!\s*\d)/', $normalized) === 1) {
         $add_key('mach-ii-combo-gutter');
     }
-    if (preg_match('/\bgm\s*5\b/', $normalized) === 1) {
+    if (preg_match('/\bgm\s*5\b(?!\s*\d)/', $normalized) === 1) {
         $add_key('mach-ii-5-gutter');
     }
-    if (preg_match('/\bgm\s*6\b/', $normalized) === 1) {
+    if (preg_match('/\bgm\s*6\b(?!\s*\d)/', $normalized) === 1) {
         $add_key('mach-ii-6-gutter');
     }
 
@@ -1021,6 +1103,12 @@ function encode_relevanssi_click_tracking_value(string $value): string {
     return rtrim(strtr(base64_encode($value), '+/', '-_'), '=');
 }
 
+/**
+ * Mirror Relevanssi Premium 2.29 click-tracking payloads for modal REST
+ * results. Relevanssi decorates loop permalinks via relevanssi_get_permalink(),
+ * but JSON search results bypass that path; the smoke script decodes this
+ * intentional coupling so plugin drift fails loudly.
+ */
 function get_rest_search_result_permalink(\WP_Post $post, string $search, int $rank): string {
     $url = \get_permalink($post);
     $url = is_string($url) && $url !== '' ? $url : '#';
@@ -1335,6 +1423,9 @@ function configure_taxonomy_archive_query(\WP_Query $query): void {
 \add_action('pre_get_posts', __NAMESPACE__ . '\\configure_main_query');
 \add_action('pre_get_posts', __NAMESPACE__ . '\\configure_taxonomy_archive_query');
 \add_action('rest_api_init', __NAMESPACE__ . '\\register_rest_routes');
+\add_action('save_post_product', __NAMESPACE__ . '\\flush_canonical_machine_product_id_cache_for_product_save', 10, 3);
+\add_action('deleted_post', __NAMESPACE__ . '\\flush_canonical_machine_product_id_cache_for_deleted_post', 10, 2);
+\add_action('post_updated', __NAMESPACE__ . '\\flush_canonical_machine_product_id_cache_for_product_slug_change', 10, 3);
 \add_filter('rest_post_search_query', __NAMESPACE__ . '\\configure_rest_post_search_query', 10, 2);
 \add_filter('option_relevanssi_post_type_weights', __NAMESPACE__ . '\\tune_relevanssi_post_type_weights');
 \add_filter('option_relevanssi_index_post_types', __NAMESPACE__ . '\\sanitize_relevanssi_index_post_types');
