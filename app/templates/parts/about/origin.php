@@ -49,6 +49,11 @@ $callouts = [
     ],
 ];
 
+// Timeline hidden pending Rick's confirmation of the milestones
+// (Joel, 2026-07-10). Flip to true to bring it back — markup below
+// is intact.
+$show_timeline = false;
+
 $milestones = [
     [
         'year'  => '1991',
@@ -101,7 +106,7 @@ $milestones = [
             </h2>
         </div>
 
-        <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 mb-16 lg:mb-20">
+        <div class="grid lg:grid-cols-12 gap-10 lg:gap-16<?php echo $show_timeline ? ' mb-16 lg:mb-20' : ''; ?>">
             <div class="lg:col-span-8">
                 <div class="grid gap-6 font-sans text-blue-700 text-base lg:text-lg leading-relaxed max-w-2xl">
                     <p><?php echo esc_html($content['p1']); ?></p>
@@ -135,6 +140,7 @@ $milestones = [
             </aside>
         </div>
 
+        <?php if ($show_timeline) : ?>
         <div class="mb-8 lg:mb-10">
             <p class="font-mono uppercase tracking-wider text-xs text-blue-500">
                 <?php esc_html_e('Six machines that defined the category', 'standard'); ?>
@@ -162,6 +168,7 @@ $milestones = [
                 </li>
             <?php endforeach; ?>
         </ol>
+        <?php endif; ?>
 
     </div>
 </section>
