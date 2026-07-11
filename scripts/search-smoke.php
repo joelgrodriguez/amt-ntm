@@ -336,7 +336,9 @@ function standard_search_smoke_assert_source_contracts(): void {
     $root = dirname(__DIR__);
     $search_source = file_get_contents($root . '/app/inc/search.php') ?: '';
     $content_source = file_get_contents($root . '/app/templates/parts/content-search.php') ?: '';
+    $modal_template_source = file_get_contents($root . '/app/templates/parts/search-modal.php') ?: '';
     $modal_source = file_get_contents($root . '/app/resources/js/modules/SearchModal.js') ?: '';
+    $modal_test_source = file_get_contents($root . '/app/resources/js/modules/SearchModal.test.mjs') ?: '';
 
     if (preg_match('/function\s+get_relevanssi_index_post_types\b.*?^}/ms', $search_source, $match) !== 1) {
         standard_search_smoke_fail('Could not inspect get_relevanssi_index_post_types source.');
@@ -377,6 +379,46 @@ function standard_search_smoke_assert_source_contracts(): void {
         && str_contains($search_source, "\$value = \$rank . '|1|' . \$query . '|' . time();"),
         'REST/modal click tracking documents the intentional Relevanssi 2.29 payload coupling.'
     );
+    standard_search_smoke_assert_true(
+        str_contains($search_source, 'MACHINE_SEARCH_CATALOG')
+        && !str_contains($search_source, 'Standard\\MachinesData\\get_machine_categories'),
+        'Search machine-category derivation uses the git-owned search catalog, not the full MachinesData catalog.'
+    );
+    standard_search_smoke_assert_true(
+        str_contains($search_source, 'get_transient($cache_key)')
+        && str_contains($search_source, 'set_transient($cache_key')
+        && str_contains($search_source, 'REST_SUGGESTION_CACHE_VERSION_OPTION')
+        && str_contains($search_source, 'format_rest_search_results_from_ids')
+        && str_contains($search_source, "'machineKey' =>"),
+        'REST suggestions cache normalized query/subtype result IDs and formats URLs plus machine keys per response.'
+    );
+    standard_search_smoke_assert_true(
+        str_contains($search_source, "add_action('save_post'")
+        && str_contains($search_source, "add_action('transition_post_status'")
+        && str_contains($search_source, "add_action('set_object_terms'"),
+        'REST suggestion cache invalidates on searchable post and term changes.'
+    );
+    standard_search_smoke_assert_true(
+        str_contains($modal_template_source, 'data-search-modal-machine-manifest')
+        && str_contains($modal_template_source, 'get_machine_suggestion_manifest'),
+        'Search modal receives the local machine suggestion manifest.'
+    );
+    standard_search_smoke_assert_true(
+        str_contains($modal_source, 'const DEBOUNCE_MS = 275')
+        && str_contains($modal_source, 'AbortController')
+        && str_contains($modal_source, 'REQUEST_MEMO_TTL_MS')
+        && str_contains($modal_source, 'requestKeyFor'),
+        'Search modal controls duplicate and overlapping REST requests.'
+    );
+    standard_search_smoke_assert_true(
+        str_contains($modal_test_source, 'specific MACH aliases beat the broad family')
+        && str_contains($modal_test_source, 'tracked URLs')
+        && str_contains($modal_test_source, 'modifier queries keep REST relevance before local machines')
+        && str_contains($modal_test_source, 'modified local clicks stay native')
+        && str_contains($modal_test_source, 'family groups filter inactive category machines')
+        && str_contains($modal_test_source, 'hydrates by machine key when permalinks differ'),
+        'Search modal has behavior smoke coverage for local aliases, reconciliation, modified clicks, active-family filtering, and tracked URL hydration.'
+    );
 }
 
 function standard_search_smoke_assert_canonical_machine_product_cache_contract(): void {
@@ -405,6 +447,104 @@ function standard_search_smoke_assert_canonical_machine_product_cache_contract()
     }
 
     standard_search_smoke_pass('Canonical machine product IDs persist in wp_cache and flush cleanly.');
+}
+
+function standard_search_smoke_assert_machine_catalog_probe(): void {
+    if (!function_exists('Standard\\Search\\get_active_machine_keys_by_product_category')) {
+        standard_search_smoke_fail('Machine category key seam is unavailable.');
+    }
+
+    global $wpdb;
+
+    $before = (int) $wpdb->num_queries;
+    $start = microtime(true);
+    $keys = \Standard\Search\get_active_machine_keys_by_product_category();
+    $elapsed_ms = (microtime(true) - $start) * 1000;
+    $queries = (int) $wpdb->num_queries - $before;
+
+    standard_search_smoke_assert_same(
+        $queries,
+        0,
+        'Machine category key lookup is zero-query in the search path.'
+    );
+    standard_search_smoke_assert_same(
+        count($keys['roof-wall-panel-machines'] ?? []),
+        5,
+        'Machine catalog exposes the five active roof/wall machine keys.'
+    );
+    standard_search_smoke_assert_same(
+        count($keys['gutter-machines'] ?? []),
+        4,
+        'Machine catalog exposes the four active gutter machine keys.'
+    );
+
+    standard_search_smoke_pass('Machine category key lookup completed in ' . round($elapsed_ms, 2) . 'ms.');
+}
+
+function standard_search_smoke_assert_rest_suggestion_cache_contract(): void {
+    foreach ([
+        'Standard\\Search\\flush_rest_suggestion_cache',
+        'Standard\\Search\\get_rest_suggestion_cache_key',
+        'Standard\\Search\\normalize_search_text',
+    ] as $function) {
+        if (!function_exists($function)) {
+            standard_search_smoke_fail('REST suggestion cache function is unavailable: ' . $function);
+        }
+    }
+
+    global $wpdb;
+
+    \Standard\Search\flush_rest_suggestion_cache();
+
+    $search = 'SSQ3';
+    $post_types = \Standard\Search\get_searchable_post_types();
+    $cache_key = \Standard\Search\get_rest_suggestion_cache_key(
+        \Standard\Search\normalize_search_text($search),
+        $post_types,
+        5
+    );
+
+    $cold_before = (int) $wpdb->num_queries;
+    $cold_start = microtime(true);
+    $cold_items = standard_search_smoke_rest_items($search);
+    $cold_ms = (microtime(true) - $cold_start) * 1000;
+    $cold_queries = (int) $wpdb->num_queries - $cold_before;
+
+    $cached = get_transient($cache_key);
+    if (!is_array($cached) || $cached === []) {
+        standard_search_smoke_fail('REST suggestion cache did not persist a non-empty ID list.');
+    }
+
+    foreach ($cached as $value) {
+        if (!is_int($value)) {
+            standard_search_smoke_fail('REST suggestion cache must store result IDs only; got ' . gettype($value) . '.');
+        }
+    }
+
+    $warm_before = (int) $wpdb->num_queries;
+    $warm_start = microtime(true);
+    $warm_items = standard_search_smoke_rest_items($search);
+    $warm_ms = (microtime(true) - $warm_start) * 1000;
+    $warm_queries = (int) $wpdb->num_queries - $warm_before;
+
+    standard_search_smoke_assert_same(
+        array_map(static fn(array $item): int => (int) ($item['id'] ?? 0), $warm_items),
+        array_map(static fn(array $item): int => (int) ($item['id'] ?? 0), $cold_items),
+        'Warm REST suggestion cache preserves result ID order.'
+    );
+
+    if ($cold_queries > 10) {
+        standard_search_smoke_assert_true(
+            $warm_queries < $cold_queries,
+            "Warm REST suggestion cache reduces query count (cold {$cold_queries}, warm {$warm_queries})."
+        );
+    } else {
+        standard_search_smoke_skip("Cold REST suggestion query count was already low ({$cold_queries}); warm-cache reduction assertion skipped.");
+    }
+
+    standard_search_smoke_pass(
+        'REST suggestion cache timing probe: cold ' . round($cold_ms, 2) . "ms / {$cold_queries} queries; warm " . round($warm_ms, 2) . "ms / {$warm_queries} queries."
+    );
 }
 
 /**
@@ -592,6 +732,9 @@ if (function_exists('relevanssi_do_query')) {
     standard_search_smoke_assert_top_machine('SSQ2', 'ssq-ii-multipro');
     standard_search_smoke_assert_top_machine('MACH II', 'mach-ii-combo-gutter');
     standard_search_smoke_assert_top_machine('Mach 2', 'mach-ii-combo-gutter');
+    standard_search_smoke_assert_top_machine('MACH II 5', 'mach-ii-5-gutter');
+    standard_search_smoke_assert_top_machine('MACH II 6', 'mach-ii-6-gutter');
+    standard_search_smoke_assert_top_machine('MACH II 5/6', 'mach-ii-combo-gutter');
     standard_search_smoke_assert_top_machine('GM 5/6', 'mach-ii-combo-gutter');
     standard_search_smoke_assert_top_machine('gm56', 'mach-ii-combo-gutter');
     standard_search_smoke_assert_top_machine('gm 5', 'mach-ii-5-gutter');
@@ -675,6 +818,9 @@ standard_search_smoke_assert_machine_intent('GM 5/6', ['mach-ii-combo-gutter'], 
 standard_search_smoke_assert_machine_intent('gm56', ['mach-ii-combo-gutter'], 'gm56 safely maps to the combo gutter machine.');
 standard_search_smoke_assert_machine_intent('gm 5', ['mach-ii-5-gutter'], 'gm 5 safely maps to the 5-inch gutter machine.');
 standard_search_smoke_assert_machine_intent('gm 6', ['mach-ii-6-gutter'], 'gm 6 safely maps to the 6-inch gutter machine.');
+standard_search_smoke_assert_machine_intent('MACH II 5', ['mach-ii-5-gutter'], 'MACH II 5 safely maps to the 5-inch gutter machine.');
+standard_search_smoke_assert_machine_intent('MACH II 6', ['mach-ii-6-gutter'], 'MACH II 6 safely maps to the 6-inch gutter machine.');
+standard_search_smoke_assert_machine_intent('MACH II 5/6', ['mach-ii-combo-gutter'], 'MACH II 5/6 safely maps to the combo gutter machine.');
 standard_search_smoke_assert_machine_intent('gm500 profile', [], 'gm500 does not map to a GM machine.');
 standard_search_smoke_assert_machine_intent('gm 50 profile', [], 'gm 50 does not map to a GM machine.');
 standard_search_smoke_assert_machine_intent('gm 5 0 profile', [], 'gm 5 0 does not map to a GM machine.');
@@ -682,7 +828,9 @@ standard_search_smoke_assert_machine_intent('gm 56a profile', [], 'gm 56a does n
 standard_search_smoke_assert_machine_intent('agm 5 profile', [], 'agm 5 does not map to a GM machine.');
 
 standard_search_smoke_assert_source_contracts();
+standard_search_smoke_assert_machine_catalog_probe();
 standard_search_smoke_assert_canonical_machine_product_cache_contract();
+standard_search_smoke_assert_rest_suggestion_cache_contract();
 
 foreach ($blocked_index_post_types as $blocked_post_type) {
     $posts = get_posts([
