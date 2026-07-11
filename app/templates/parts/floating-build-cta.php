@@ -1,6 +1,6 @@
 <?php
 /**
- * Floating Build & Configure CTA
+ * Floating Build & Quote CTA
  *
  * Fixed bottom-left shortcut to the configurator. Machine pages route to
  * the machine-specific build; category landings and the home page route
@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) {
 }
 
 $url        = $args['url'] ?? '';
-$label      = $args['label'] ?? __('Build & Configure', 'standard');
+$label      = $args['label'] ?? __('Build & Quote', 'standard');
 $aria_label = $args['aria_label'] ?? $label;
 
 if ($url === '') {

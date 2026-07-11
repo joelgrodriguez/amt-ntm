@@ -1,6 +1,6 @@
 <?php
 /**
- * Floating Build & Configure CTA — page eligibility and URLs.
+ * Floating Build & Quote CTA — page eligibility and URLs.
  *
  * @package Standard
  */
@@ -84,7 +84,7 @@ function get_context(): ?array {
 
     return [
         'url'        => $url,
-        'label'      => __('Build & Configure', 'standard'),
-        'aria_label' => __('Build and configure your NTM machine', 'standard'),
+        'label'      => __('Build & Quote', 'standard'),
+        'aria_label' => __('Build and quote your NTM machine', 'standard'),
     ];
 }
