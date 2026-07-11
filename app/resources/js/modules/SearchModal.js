@@ -143,32 +143,10 @@ const uniquePush = (items, item) => {
   }
 };
 
-const activeCategoryKeySet = (manifest) => {
-  const set = new Set();
-  Object.values(manifest.categories || {}).forEach((keys) => {
-    if (Array.isArray(keys)) {
-      keys.forEach((key) => {
-        if (typeof key === 'string' && key !== '') {
-          set.add(key);
-        }
-      });
-    }
-  });
-  return set;
-};
-
-const isActiveMachine = (machine, activeKeys) => {
-  if (!machine?.key || machine.active === false) {
-    return false;
-  }
-  return activeKeys.size === 0 || activeKeys.has(machine.key);
-};
-
 const machineLookup = (manifest) => {
   const map = new Map();
-  const activeKeys = activeCategoryKeySet(manifest);
   manifest.machines.forEach((machine) => {
-    if (isActiveMachine(machine, activeKeys)) {
+    if (machine?.key) {
       map.set(machine.key, machine);
     }
   });

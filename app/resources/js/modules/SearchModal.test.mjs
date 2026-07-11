@@ -58,6 +58,33 @@ test('localMachineSuggestions: category matches use active machine sets only', (
   assert.deepEqual(keys, ['ssq3-multipro', 'ssh-multipro', 'ssr-multipro-jr', '5vc-5v-crimp', 'wav-wall-panel']);
 });
 
+test('localMachineSuggestions: exact inactive aliases stay searchable without widening active sets', () => {
+  assert.deepEqual(
+    localMachineSuggestions('SSQ2', '', manifest).map((item) => item.machineKey),
+    ['ssq-ii-multipro'],
+  );
+
+  assert.deepEqual(
+    localMachineSuggestions('roof panel machine', '', manifest).map((item) => item.machineKey),
+    ['ssq3-multipro', 'ssh-multipro', 'ssr-multipro-jr', '5vc-5v-crimp', 'wav-wall-panel'],
+  );
+
+  const inactiveFamilyManifest = {
+    ...manifest,
+    categories: {
+      ...manifest.categories,
+      'gutter-machines': ['mach-ii-combo-gutter', 'mach-ii-5-gutter', 'bg7-box-gutter'],
+    },
+    machines: manifest.machines.map((machine) =>
+      machine.key === 'mach-ii-6-gutter' ? { ...machine, active: false } : machine),
+  };
+
+  assert.deepEqual(
+    localMachineSuggestions('mach ii', '', inactiveFamilyManifest).map((item) => item.machineKey),
+    ['mach-ii-combo-gutter', 'mach-ii-5-gutter'],
+  );
+});
+
 test('localMachineSuggestions: family groups filter inactive category machines', () => {
   const inactiveFamilyManifest = {
     ...manifest,
