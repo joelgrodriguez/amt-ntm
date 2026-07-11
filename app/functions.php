@@ -52,6 +52,7 @@ $theme_includes = [
     'inc/machines.php',
     'inc/learning-center.php',
     'inc/machines-data.php',
+    'inc/trailer-data.php',
     'inc/service-hub-machines.php',
     'inc/contact-data.php',
     'inc/finance-data.php',

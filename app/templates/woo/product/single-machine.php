@@ -85,6 +85,8 @@ if (!$machine) {
 
             <?php get_template_part('templates/woo/product/parts/accessories', null, compact('product', 'machine')); ?>
 
+            <?php get_template_part('templates/parts/trailer-strip', null, compact('product')); ?>
+
             <?php get_template_part('templates/woo/product/parts/blueprint', null, compact('machine')); ?>
 
             <?php get_template_part('templates/woo/product/parts/specs-accordion', null, compact('product', 'machine')); ?>

@@ -35,6 +35,8 @@ get_header();
 
     <?php get_template_part('templates/pages/trailer/models'); ?>
 
+    <?php get_template_part('templates/pages/trailer/compatibility'); ?>
+
     <?php get_template_part('templates/pages/trailer/final-cta'); ?>
 
 </main>
