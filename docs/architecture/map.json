@@ -100,13 +100,13 @@
     {
       "path": "app",
       "purpose": "Application code and framework conventions.",
-      "fileCount": 447,
+      "fileCount": 448,
       "categories": {
         "source": 171,
         "other": 44,
         "config": 2,
         "route": 8,
-        "test": 1,
+        "test": 2,
         "template": 221
       },
       "keyFiles": [
@@ -172,21 +172,21 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 60,
+      "fileCount": 46,
       "categories": {
         "source": 9,
-        "other": 49,
+        "other": 35,
         "docs": 2
       },
       "keyFiles": [
         "scripts/content/export-copy.php",
         "scripts/content/export-xlsx.php",
         "scripts/content/exports/.gitkeep",
-        "scripts/content/exports/copy-review 1.xlsx",
-        "scripts/content/exports/copy-review-about.csv",
-        "scripts/content/exports/copy-review-all.csv",
-        "scripts/content/exports/copy-review-choose.csv",
-        "scripts/content/exports/copy-review-finance.csv"
+        "scripts/content/extract.php",
+        "scripts/content/manifest.php",
+        "scripts/content/README.md",
+        "scripts/db/000-template.sh.example",
+        "scripts/db/010-strip-hardcoded-buttons-from-machine-excerpts.php"
       ]
     }
   ],
@@ -753,7 +753,7 @@
       "path": "app/inc/search.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 45112
+      "size": 56540
     },
     {
       "path": "app/inc/seo.php",
@@ -1467,7 +1467,13 @@
       "path": "app/resources/js/modules/SearchModal.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 25472
+      "size": 36309
+    },
+    {
+      "path": "app/resources/js/modules/SearchModal.test.mjs",
+      "category": "test",
+      "role": "Automated test or test support file.",
+      "size": 5463
     },
     {
       "path": "app/resources/js/modules/SocialProof.js",
@@ -2559,7 +2565,7 @@
       "path": "app/templates/parts/search-modal.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 12978
+      "size": 13383
     },
     {
       "path": "app/templates/parts/section-header.php",
@@ -3564,90 +3570,6 @@
       "size": 0
     },
     {
-      "path": "scripts/content/exports/copy-review 1.xlsx",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 164080
-    },
-    {
-      "path": "scripts/content/exports/copy-review-about.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 11280
-    },
-    {
-      "path": "scripts/content/exports/copy-review-all.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 118433
-    },
-    {
-      "path": "scripts/content/exports/copy-review-choose.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 7140
-    },
-    {
-      "path": "scripts/content/exports/copy-review-finance.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 12033
-    },
-    {
-      "path": "scripts/content/exports/copy-review-gutter.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 10015
-    },
-    {
-      "path": "scripts/content/exports/copy-review-home.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 15521
-    },
-    {
-      "path": "scripts/content/exports/copy-review-machines.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 14670
-    },
-    {
-      "path": "scripts/content/exports/copy-review-roof-wall.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 10728
-    },
-    {
-      "path": "scripts/content/exports/copy-review-safety.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 5403
-    },
-    {
-      "path": "scripts/content/exports/copy-review-start-here.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 13738
-    },
-    {
-      "path": "scripts/content/exports/copy-review-trailer.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 10882
-    },
-    {
-      "path": "scripts/content/exports/copy-review-uniq.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 7563
-    },
-    {
-      "path": "scripts/content/exports/copy-review.xlsx",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 160368
-    },
-    {
       "path": "scripts/content/extract.php",
       "category": "source",
       "role": "Application source code.",
@@ -3903,7 +3825,7 @@
       "path": "scripts/search-smoke.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 28517
+      "size": 35378
     },
     {
       "path": "TODO.md",
@@ -3925,7 +3847,8 @@
     }
   ],
   "tests": [
-    "app/resources/js/modules/ScrollReveal.test.mjs"
+    "app/resources/js/modules/ScrollReveal.test.mjs",
+    "app/resources/js/modules/SearchModal.test.mjs"
   ],
   "docs": [
     "CLAUDE.md",

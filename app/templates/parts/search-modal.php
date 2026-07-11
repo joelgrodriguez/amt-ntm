@@ -27,9 +27,11 @@ if (!defined('ABSPATH')) {
 }
 
 use function Standard\Search\get_post_type_filter_options;
+use function Standard\Search\get_machine_suggestion_manifest;
 use function Standard\Search\get_popular_searches;
 
 $post_type_options = get_post_type_filter_options();
+$machine_manifest  = get_machine_suggestion_manifest();
 $popular           = get_popular_searches();
 
 // Preselected chip mirrors current page state so re-opening on a results
@@ -170,6 +172,15 @@ $current_query = (string) \get_search_query();
             data-search-modal-post-type
             <?php echo $active_post_type === '' ? 'disabled' : ''; ?>
         >
+
+        <script type="application/json" data-search-modal-machine-manifest>
+            <?php
+            echo wp_json_encode(
+                $machine_manifest,
+                JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
+            );
+            ?>
+        </script>
 
         <?php if ($popular !== []) : ?>
             <!-- Cold-open on-ramp. Curated suggestions live here as one-tap
