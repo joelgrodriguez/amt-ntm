@@ -164,12 +164,16 @@
 
    Keyed to [aria-hidden="false"] (HeroSlider.js toggles it) so the
    animation restarts every time a slide activates. Hidden slides REST
-   at the end scale: deactivation removes the animation mid-zoom, and
+   at scale(1.05): deactivation removes the animation mid-zoom, and
    without the rest value the outgoing image would snap back to 1
-   while sliding out. Parking hidden media at 1.07 turns that into a
-   ≤1% step, and the incoming slide's 1.07 → 1 reset happens while it
-   is still fully off-screen. The loop clone instead parks at scale 1
-   to match the freshly-restarted real first slide at the wrap snap.
+   while sliding out. 1.05 is where the zoom sits when the 7s autoplay
+   fires ((7s − 0.9s delay) / 9s ≈ 0.68 of the way to 1.07), so the
+   typical outgoing step is ~0.3%. The incoming slide's reset to 1
+   happens while it is still fully off-screen. The loop clone is
+   excluded from the rest rule — it must sit at scale(1) so the wrap
+   glide ends exactly where the freshly-restarted first slide begins
+   (the exclusion lives on the rest rule itself: a separate override
+   loses the specificity fight against :not(:has(...))).
 
    Video slides are excluded (:has) — footage already moves, zooming
    it is double motion. Transform-only, so it runs on the compositor. */
@@ -183,16 +187,12 @@
     will-change: transform;
   }
 
-  .hero-slider__slide .hero__photo:not(:has(.hero__media--video)) .hero__media {
-    transform: scale(1.07);
+  .hero-slider__slide:not([data-clone-of]) .hero__photo:not(:has(.hero__media--video)) .hero__media {
+    transform: scale(1.05);
   }
 
   .hero-slider__slide[aria-hidden="false"] .hero__photo:not(:has(.hero__media--video)) .hero__media {
     animation: hero-ken-burns 9s linear 900ms both;
-  }
-
-  .hero-slider__slide[data-clone-of] .hero__media {
-    transform: none;
   }
 
   /* Focal drift by track position: center, then left of frame, then
