@@ -172,9 +172,9 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 45,
+      "fileCount": 46,
       "categories": {
-        "source": 8,
+        "source": 9,
         "other": 35,
         "docs": 2
       },
@@ -501,7 +501,7 @@
       "path": "app/data/machines/mach-ii-combo-gutter.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 11913
+      "size": 11918
     },
     {
       "path": "app/data/machines/ssh-multipro.php",
@@ -687,7 +687,7 @@
       "path": "app/inc/machine-product-data.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 6614
+      "size": 7881
     },
     {
       "path": "app/inc/machine-schema.php",
@@ -753,7 +753,7 @@
       "path": "app/inc/search.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 17366
+      "size": 41788
     },
     {
       "path": "app/inc/seo.php",
@@ -1467,7 +1467,7 @@
       "path": "app/resources/js/modules/SearchModal.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 25466
+      "size": 25472
     },
     {
       "path": "app/resources/js/modules/SocialProof.js",
@@ -1809,7 +1809,7 @@
       "path": "app/templates/pages/machii/hero.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 4575
+      "size": 4580
     },
     {
       "path": "app/templates/pages/machii/variant-matrix.php",
@@ -2277,13 +2277,13 @@
       "path": "app/templates/parts/card-manual.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3375
+      "size": 3470
     },
     {
       "path": "app/templates/parts/card-post.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3517
+      "size": 3640
     },
     {
       "path": "app/templates/parts/card-product.php",
@@ -2295,7 +2295,7 @@
       "path": "app/templates/parts/card-profile.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3533
+      "size": 3628
     },
     {
       "path": "app/templates/parts/comparison-table.php",
@@ -2325,7 +2325,7 @@
       "path": "app/templates/parts/content-search.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 1131
+      "size": 1485
     },
     {
       "path": "app/templates/parts/content.php",
@@ -3183,7 +3183,7 @@
       "path": "docs/plans/2026-05-22-search-implementation-plan.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 7762
+      "size": 8999
     },
     {
       "path": "docs/plans/2026-05-26-navigation-simplification-plan.md",
@@ -3405,7 +3405,7 @@
       "path": "docs/specs/trailer.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 348
+      "size": 1197
     },
     {
       "path": "docs/specs/woo.md",
@@ -3699,7 +3699,7 @@
       "path": "scripts/db/035-register-theme-media.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 4283
+      "size": 4297
     },
     {
       "path": "scripts/db/036-import-content-departments.sh",
@@ -3819,7 +3819,7 @@
       "path": "scripts/search-smoke.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 6162
+      "size": 21207
     },
     {
       "path": "TODO.md",

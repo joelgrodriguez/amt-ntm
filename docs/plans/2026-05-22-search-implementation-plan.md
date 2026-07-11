@@ -60,6 +60,14 @@ Supported compatibility params:
 
 Compatibility params are accepted so old links do not silently rot. They should not become the preferred API.
 
+REST modal contract:
+
+- `GET /wp-json/standard/v1/search`
+- Params: `search`, optional `subtype`, optional `per_page`
+- Backed by the same Relevanssi query and machine-aware relevance contract as the full search page.
+- Response shape stays compatible with the old modal: `id`, `title`, `url`, `subtype`.
+- Result URLs preserve Relevanssi click tracking when tracking is enabled.
+
 ---
 
 ## Implementation Phases
@@ -81,7 +89,7 @@ Status: partly done.
 
 Status: partly done.
 
-- [ ] Remove stale indexed post types from Relevanssi settings, especially `bogus`.
+- [x] Remove stale indexed post types from Relevanssi settings, especially `bogus`, through a git-owned option filter.
 - [x] Add theme-level Relevanssi guardrails so `pricesheet` and `cutlist` are excluded at index/result time.
 - [x] Block direct `attachment` search results while preserving the option to use PDF text on parent content.
 - [ ] Rebuild the Relevanssi index so previously indexed excluded content is purged.
@@ -100,23 +108,27 @@ Recommended index post types:
 - `download`
 - `manual`
 - `footprint`
+- `attachment`, only for PDF-parent discovery experiments; direct attachment results remain blocked
 
 ### Phase 3: Tune Relevance
 
-Status: not started.
+Status: partly done.
 
 - [ ] Keep title weighting high.
 - [ ] Give machine taxonomy matches a strong boost.
 - [ ] Give exact title matches a strong boost.
-- [ ] Boost manuals for searches containing `manual`, `guide`, `pdf`, `operation`, `controller`, or machine model names.
-- [ ] Boost products for machine model searches like `ssq`, `ssq3`, `mach ii`, `bg7`, `wav`, `ssh`, `ssr`.
-- [ ] Add synonyms for common search language:
+- [x] Let manuals/resources/accessories outrank machine products when the query explicitly asks for `manual`, `guide`, `pdf`, `service`, `troubleshooting`, `parts`, `cover`, `cart`, `controller`, or `accessory`.
+- [x] Boost only canonical machine products in the roof/wall panel and gutter machine categories when the query has machine/model/category intent.
+- [x] Add git-owned machine aliases for common search language:
   - `ssqii`, `ssq ii`, `ssq2`
   - `ssq3`, `ssq 3`
   - `mach2`, `mach ii`
+  - `bg7`, `wav`, `ssh`, `ssr`, `5vc`
+  - safe shorthand `gm5`, `gm6`, `gm56`
   - `roof panel`, `standing seam`
   - `gutter machine`, `seamless gutter`
   - `manual`, `owner manual`, `operator manual`
+- [x] Keep exact model queries deterministic: canonical machine products lead; MACH II uses catalog order.
 - [ ] Add stopword exceptions if important short machine terms get swallowed.
 
 Teaching line: relevance is not magic; it is a weighted argument about what the user probably meant.
@@ -195,7 +207,18 @@ Smoke-test searches:
 - `gutter`
 - `ssq`
 - `ssq3`
+- `ssq 3`
+- `ssq2`
 - `mach ii`
+- `mach 2`
+- `bg7`
+- `wav`
+- `gutter machine`
+- `roof panel machine`
+- `ssq3 manual`
+- `bg7 manual`
+- `ssq3 cover`
+- `mach ii cart`
 - `manual`
 - `controller`
 - `brochure`
@@ -224,6 +247,9 @@ Expected behavior:
 - Empty search returns zero results unless filters are present.
 - Invalid post type returns zero results.
 - Relevanssi relevance order remains active.
+- Full-page search and the modal REST endpoint agree on top results.
+- Relevanssi click tracking is preserved for every search result card URL.
+- Aliases use token boundaries, so `SSQ200`, `SSQ210A`, and `SSQ275` do not map to `SSQ II`.
 - Pagination works.
 
 ---

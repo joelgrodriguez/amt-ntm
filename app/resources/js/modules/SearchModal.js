@@ -6,7 +6,7 @@
  * global keyboard shortcuts (`/` and Cmd/Ctrl+K).
  */
 
-const REST_URL = '/wp-json/wp/v2/search';
+const REST_URL = '/wp-json/standard/v1/search';
 const RESULTS_LIMIT = 5;
 const DEBOUNCE_MS = 180;
 const MIN_QUERY_LENGTH = 2;
