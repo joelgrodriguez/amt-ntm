@@ -63,6 +63,8 @@ function get_hero_slides(): array {
             'focal_point'      => 'center top',
             'cta_url'          => '/roof-wall-panel-machines/',
             'cta_label'        => __('Explore Panel Machines', 'standard'),
+            // Product-only video; keep the homepage hero slider image-led.
+            'background_video' => '',
         ],
         'mach-ii-combo-gutter' => [
             'title'     => __('Do More<br class="hidden lg:inline"> in Less Time', 'standard'),

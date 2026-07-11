@@ -2,6 +2,22 @@
 
 <!-- admiral:auto — appended on land, newest first. Read top-down for current behavior. -->
 
+## Use the SSQ3 panel-running video as the product hero background — #82
+*Landed 2026-07-11 · type: ui*
+
+- The SSQ3 WooCommerce product hero uses the July 2026 panel-running MP4
+- The existing SSQ3 operator-at-controls image remains the poster and fallback
+- The shared machine hero implementation is reused without changing other product pages
+- npm run build passes
+
+## Rename the floating machine CTA from Build & Configure to Build & Quote — #79
+*Landed 2026-07-11 · type: copy*
+
+- The large floating CTA on the homepage reads Build & Quote
+- The same floating CTA on eligible machine pages reads Build & Quote
+- Its accessible label uses quote language
+- Existing CTA URL and behavior remain unchanged
+
 ## Implement high-priority mobile UX fixes — #77
 *Landed 2026-07-09 · type: ui*
 
