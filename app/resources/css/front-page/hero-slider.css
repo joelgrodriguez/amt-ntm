@@ -155,10 +155,12 @@
    (1 → 1.07 over 9s, linear — felt, not watched). Variety comes from
    WHERE the camera pushes, not a different effect per slide:
    transform-origin cycles center / left / right so each slide drifts
-   toward a different part of the frame. Duration outlasts the 7s
-   autoplay interval + 900ms track glide so the zoom never dies while
-   a slide is still on screen; `forwards` holds the end frame if the
-   visitor pauses on a slide.
+   toward a different part of the frame. The 900ms delay matches the
+   track glide: nothing zooms while the track is translating (two
+   simultaneous transforms on viewport-sized layers drop frames), the
+   push-in starts the moment the slide settles. Fill-mode `both` holds
+   scale(1) during the delay and the end frame if the visitor pauses
+   on a slide.
 
    Keyed to [aria-hidden="false"] (HeroSlider.js toggles it) so the
    animation restarts every time a slide activates. Hidden slides REST
@@ -173,12 +175,20 @@
    it is double motion. Transform-only, so it runs on the compositor. */
 
 @media (prefers-reduced-motion: no-preference) {
+  /* Keep every slide's media on a persistent compositor layer so
+     activating/deactivating a slide never promotes/demotes a
+     viewport-sized texture mid-glide — that layer churn is what
+     makes the track transition stutter. */
+  .hero-slider__slide .hero__media {
+    will-change: transform;
+  }
+
   .hero-slider__slide .hero__photo:not(:has(.hero__media--video)) .hero__media {
     transform: scale(1.07);
   }
 
   .hero-slider__slide[aria-hidden="false"] .hero__photo:not(:has(.hero__media--video)) .hero__media {
-    animation: hero-ken-burns 9s linear forwards;
+    animation: hero-ken-burns 9s linear 900ms both;
   }
 
   .hero-slider__slide[data-clone-of] .hero__media {
