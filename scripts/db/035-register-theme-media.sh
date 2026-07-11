@@ -3,11 +3,11 @@
 # Register the theme's own media library items.
 #
 # WHY THIS SCRIPT EXISTS: the front page (quiz section, flagship band, hero
-# slider) and SSQ3 surfaces reference a photo set uploaded during the redesign.
-# The FILES ship with the uploads directory, but the attachment ROWS are DB
-# objects a fresh prod pull wipes — and without rows, responsive_image() can't
-# build srcset markup and admin media search can't find them. This re-registers
-# each file in place (--skip-copy) with its original title/alt.
+# slider), MACH II, and SSQ3 surfaces reference media uploaded during the
+# redesign. The FILES ship with the uploads directory, but the attachment ROWS
+# are DB objects a fresh prod pull wipes — and without rows, responsive_image()
+# can't build srcset markup and admin media search can't find them. This
+# re-registers each file in place (--skip-copy) with its original title/alt.
 #
 # Resolved by _wp_attached_file path, never by ID: the redesign-era IDs
 # (20654-20745) collide with rows production allocated independently.
@@ -21,7 +21,7 @@ uploads_dir="$(wp eval 'echo wp_get_upload_dir()["basedir"];')"
 
 # relative-path|title|alt
 media=(
-  '2026/05/20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1.mp4|20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1|'
+  '2026/05/20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1-720p.mp4|20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1-720p|'
   '2026/07/20260708_NTM_SSQ3-Page-Panel-Running_V1-1080p.mp4|20260708_NTM_SSQ3-Page-Panel-Running_V1-1080p|'
   '2026/05/ntm-q3-hero-placeholder.png|ntm-q3-hero-placeholder|'
   '2026/05/ntm-q3-hero-placeholder-2.png|ntm-q3-hero-placeholder-2|'
