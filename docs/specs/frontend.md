@@ -2,6 +2,17 @@
 
 <!-- admiral:auto — appended on land, newest first. Read top-down for current behavior. -->
 
+## Optimize and persist the SSQ3 product hero video — #84
+*Landed 2026-07-11 · type: chore*
+
+- The full 27.5-second loop is preserved without trimming
+- The optimized MP4 is 1280x720 H.264 at 24 fps with no audio, yuv420p, and faststart
+- The optimized file is materially smaller than 9.8 MB
+- The original file remains available for rollback
+- The optimized attachment is registered through the replayable theme-media script
+- The SSQ3 product hero uses the optimized URL while the homepage remains image-only
+- npm run build passes
+
 ## Use the SSQ3 panel-running video as the product hero background — #82
 *Landed 2026-07-11 · type: ui*
 
