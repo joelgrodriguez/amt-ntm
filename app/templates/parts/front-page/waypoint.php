@@ -56,12 +56,12 @@ $paths = [
                 </h2>
             </div>
 
-            <ul class="grid gap-2 sm:grid-cols-2 lg:grid-cols-4 md:col-span-2 m-0 p-0 list-none" role="list">
+            <ul class="grid gap-2 sm:grid-cols-2 md:col-span-2 lg:col-span-3 lg:grid-cols-4 m-0 p-0 list-none" role="list">
                 <?php foreach ($paths as $path) : ?>
                     <li>
                         <a
                             href="<?php echo esc_url(\Standard\Url\internal($path['url'])); ?>"
-                            class="group grid min-h-20 grid-cols-[2.75rem_minmax(0,1fr)] items-center gap-3 border border-blue-700 bg-blue-800/40 p-3 text-white no-underline transition-colors hover:border-blue-400 hover:bg-blue-800"
+                            class="group grid min-h-20 grid-cols-[2.75rem_minmax(0,1fr)] items-center gap-2 border border-blue-700 bg-blue-800/40 p-3 text-white no-underline transition-colors hover:border-blue-400 hover:bg-blue-800"
                         >
                             <span class="flex h-11 w-11 items-center justify-center bg-blue-700 text-blue-200 transition-colors group-hover:bg-blue-600 group-hover:text-white">
                                 <?php icon($path['icon'], ['class' => 'w-5 h-5']); ?>
