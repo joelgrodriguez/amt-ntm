@@ -23,7 +23,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$video      = content_url('/uploads/2026/05/20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1.mp4');
+$video      = content_url('/uploads/2026/05/20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1-720p.mp4');
 $poster     = content_url('/uploads/2026/05/ntm-mach2-gutter-install-abel-001.jpg');
 $poster_alt = __('NTM MACH II seamless gutter machine in action', 'standard');
 
