@@ -19,9 +19,154 @@ const SEARCH_CONTEXT_QUERY_VAR = 'standard_search_context';
 const SEARCH_CONTEXT_SITE = 'site';
 const CACHE_GROUP = 'standard_search';
 const CANONICAL_MACHINE_PRODUCT_IDS_CACHE_KEY = 'canonical_machine_product_ids_v1';
+const REST_SUGGESTION_CACHE_TTL = 120;
+const REST_SUGGESTION_CACHE_PREFIX = 'standard_search_suggestions_v1_';
+const REST_SUGGESTION_CACHE_VERSION_OPTION = 'standard_search_suggestion_cache_version';
 const MACHINE_PRODUCT_CATEGORIES = [
     'roof-wall-panel-machines',
     'gutter-machines',
+];
+const MACHINE_SEARCH_CATALOG = [
+    'roof-wall-panel-machines' => [
+        [
+            'key'     => 'ssq3-multipro',
+            'title'   => 'SSQ3 MultiPro',
+            'slug'    => 'ssq3-roof-panel-machine',
+        ],
+        [
+            'key'     => 'ssq-ii-multipro',
+            'title'   => 'SSQ II MultiPro',
+            'slug'    => 'ssq-roof-panel-machine',
+            'active'  => false,
+        ],
+        [
+            'key'     => 'ssh-multipro',
+            'title'   => 'SSH MultiPro',
+            'slug'    => 'ssh-roof-panel-machine',
+        ],
+        [
+            'key'     => 'ssr-multipro-jr',
+            'title'   => 'SSR MultiPro Jr.',
+            'slug'    => 'ssr-roof-panel-machine',
+        ],
+        [
+            'key'     => '5vc-5v-crimp',
+            'title'   => '5VC-5V Crimp',
+            'slug'    => '5vc-5v-crimp-roof-panel-machine',
+        ],
+        [
+            'key'     => 'wav-wall-panel',
+            'title'   => 'WAV Wall Panel Machine',
+            'slug'    => 'wav-wall-panel-machine',
+        ],
+    ],
+    'gutter-machines' => [
+        [
+            'key'     => 'mach-ii-combo-gutter',
+            'title'   => 'MACH II 5"/6" Combo Gutter Machine',
+            'slug'    => 'mach-ii-5-6-combo-gutter-machine',
+        ],
+        [
+            'key'     => 'mach-ii-5-gutter',
+            'title'   => 'MACH II 5" Gutter Machine',
+            'slug'    => 'mach-ii-5-gutter-machine',
+        ],
+        [
+            'key'     => 'mach-ii-6-gutter',
+            'title'   => 'MACH II 6" Gutter Machine',
+            'slug'    => 'mach-ii-6-gutter-machine',
+        ],
+        [
+            'key'     => 'bg7-box-gutter',
+            'title'   => 'BG7 Box Gutter Machine',
+            'slug'    => 'bg7-box-gutter-machine',
+        ],
+    ],
+];
+const MACHINE_EXACT_INTENT_GROUPS = [
+    [
+        'keys'     => ['mach-ii-combo-gutter'],
+        'patterns' => [
+            '\\bgm\\s*5\\s*6\\b(?!\\s*\\d)',
+            '\\bmach\\s*(?:ii|2)\\s*5\\s*(?:/|\\s)?\\s*6\\b',
+            '\\bmach\\s*(?:ii|2)\\s*combo\\b',
+        ],
+    ],
+    [
+        'keys'     => ['mach-ii-5-gutter'],
+        'patterns' => [
+            '\\bgm\\s*5\\b(?!\\s*\\d)',
+            '\\bmach\\s*(?:ii|2)\\s*5\\b(?!\\s*\\d)',
+        ],
+    ],
+    [
+        'keys'     => ['mach-ii-6-gutter'],
+        'patterns' => [
+            '\\bgm\\s*6\\b(?!\\s*\\d)',
+            '\\bmach\\s*(?:ii|2)\\s*6\\b(?!\\s*\\d)',
+        ],
+    ],
+    [
+        'keys'     => ['ssq3-multipro'],
+        'patterns' => ['\\bssq\\b(?!\\s*(?:ii|2|3|[0-9][a-z0-9]*))'],
+    ],
+    [
+        'keys'     => ['ssq3-multipro'],
+        'patterns' => ['\\bssq\\s*3\\b', '\\bq\\s*3\\b'],
+    ],
+    [
+        'keys'     => ['ssq-ii-multipro'],
+        'patterns' => ['\\bssq\\s*(?:ii|2)\\b'],
+    ],
+    [
+        'keys'     => ['mach-ii-combo-gutter', 'mach-ii-5-gutter', 'mach-ii-6-gutter'],
+        'patterns' => ['\\bmach\\s*(?:ii|2)\\b(?!\\s*(?:5|6|combo))'],
+        'family'   => true,
+    ],
+    [
+        'keys'     => ['bg7-box-gutter'],
+        'patterns' => ['\\bbg\\s*7\\b'],
+    ],
+    [
+        'keys'     => ['wav-wall-panel'],
+        'patterns' => ['\\bwav\\b'],
+    ],
+    [
+        'keys'     => ['ssh-multipro'],
+        'patterns' => ['\\bssh\\b'],
+    ],
+    [
+        'keys'     => ['ssr-multipro-jr'],
+        'patterns' => ['\\bssr\\b'],
+    ],
+    [
+        'keys'     => ['5vc-5v-crimp'],
+        'patterns' => ['\\b5\\s*vc\\b', '\\b5v\\s*crimp\\b'],
+    ],
+];
+const MACHINE_CATEGORY_INTENT_GROUPS = [
+    [
+        'category' => 'gutter-machines',
+        'phrases'  => ['gutter machine', 'seamless gutter', 'box gutter machine', 'k style gutter'],
+    ],
+    [
+        'category' => 'roof-wall-panel-machines',
+        'phrases'  => ['roof panel machine', 'roof wall panel machine', 'roof and wall panel machine', 'standing seam machine', 'wall panel machine'],
+    ],
+];
+const MACHINE_MODIFIER_INTENT_GROUPS = [
+    [
+        'group'   => 'manual',
+        'phrases' => ['manual', 'manuals', 'guide', 'guides', 'pdf', 'operation', 'operator', 'operators', 'owner', 'owners'],
+    ],
+    [
+        'group'   => 'service',
+        'phrases' => ['service', 'services', 'troubleshoot', 'troubleshooting', 'repair', 'repairs', 'maintenance'],
+    ],
+    [
+        'group'   => 'accessory',
+        'phrases' => ['part', 'parts', 'cover', 'covers', 'cart', 'carts', 'controller', 'controllers', 'accessory', 'accessories'],
+    ],
 ];
 
 /**
@@ -441,24 +586,159 @@ function normalized_contains_phrase(string $normalized, string $phrase): bool {
 }
 
 /**
+ * @param string[] $phrases
+ */
+function normalized_contains_any_phrase(string $normalized, array $phrases): bool {
+    foreach ($phrases as $phrase) {
+        if (normalized_contains_phrase($normalized, (string) $phrase)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/**
+ * @param string[] $patterns
+ */
+function normalized_matches_any_pattern(string $normalized, array $patterns): bool {
+    foreach ($patterns as $pattern) {
+        $pattern = (string) $pattern;
+        if ($pattern !== '' && preg_match('~' . $pattern . '~', $normalized) === 1) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/**
+ * @return array<int, array{keys:string[],patterns:string[],family?:bool}>
+ */
+function get_machine_exact_intent_groups(): array {
+    return MACHINE_EXACT_INTENT_GROUPS;
+}
+
+/**
+ * @return array<int, array{category:string,phrases:string[]}>
+ */
+function get_machine_category_intent_groups(): array {
+    return MACHINE_CATEGORY_INTENT_GROUPS;
+}
+
+/**
+ * @return array<int, array{group:string,phrases:string[]}>
+ */
+function get_machine_modifier_intent_groups(): array {
+    return MACHINE_MODIFIER_INTENT_GROUPS;
+}
+
+/**
+ * @return array<string, array<int, array{key:string,title:string,slug:string,active?:bool}>>
+ */
+function get_machine_search_catalog(): array {
+    return MACHINE_SEARCH_CATALOG;
+}
+
+/**
+ * @return array<int, array{key:string,title:string,slug:string,active?:bool,category:string}>
+ */
+function get_machine_search_catalog_items(): array {
+    $items = [];
+
+    foreach (get_machine_search_catalog() as $category => $machines) {
+        foreach ($machines as $machine) {
+            $machine['category'] = $category;
+            $items[] = $machine;
+        }
+    }
+
+    return $items;
+}
+
+/**
  * @return string[]
  */
 function get_machine_data_keys(): array {
-    if (\function_exists('Standard\\MachineProductData\\get_machine_data_keys')) {
-        return \Standard\MachineProductData\get_machine_data_keys();
+    return array_values(array_unique(array_map(
+        static fn(array $machine): string => $machine['key'],
+        get_machine_search_catalog_items()
+    )));
+}
+
+/**
+ * @return string[]
+ */
+function get_machine_search_category_keys(string $category): array {
+    $catalog = get_machine_search_catalog();
+    if (!isset($catalog[$category])) {
+        return [];
+    }
+
+    $keys = [];
+    foreach ($catalog[$category] as $machine) {
+        if (array_key_exists('active', $machine) && $machine['active'] === false) {
+            continue;
+        }
+        $keys[] = $machine['key'];
+    }
+
+    return $keys;
+}
+
+/**
+ * Small, git-owned manifest for instant modal suggestions.
+ *
+ * This intentionally does not resolve post IDs or call WooCommerce. The REST
+ * reconciliation pass supplies fresh titles, IDs, and click-tracked URLs.
+ *
+ * @return array{
+ *   limit:int,
+ *   machines:array<int, array{key:string,title:string,url:string,subtype:string,category:string,active:bool}>,
+ *   categories:array<string, string[]>,
+ *   exactGroups:array<int, array{keys:string[],patterns:string[],family?:bool}>,
+ *   categoryGroups:array<int, array{category:string,phrases:string[],keys:string[]}>,
+ *   modifierGroups:array<int, array{phrases:string[]}>
+ * }
+ */
+function get_machine_suggestion_manifest(): array {
+    $machines = [];
+    $categories = get_active_machine_keys_by_product_category();
+
+    foreach (get_machine_search_catalog_items() as $machine) {
+        $machines[] = [
+            'key'      => $machine['key'],
+            'title'    => $machine['title'],
+            'url'      => \Standard\Url\internal('/machines/' . $machine['category'] . '/' . $machine['slug'] . '/'),
+            'subtype'  => 'product',
+            'category' => $machine['category'],
+            'active'   => !array_key_exists('active', $machine) || $machine['active'] !== false,
+        ];
+    }
+
+    $category_groups = [];
+    foreach (get_machine_category_intent_groups() as $group) {
+        $category_groups[] = [
+            'category' => $group['category'],
+            'phrases' => $group['phrases'],
+            'keys'    => $categories[$group['category']] ?? [],
+        ];
+    }
+
+    $modifier_groups = [];
+    foreach (get_machine_modifier_intent_groups() as $group) {
+        $modifier_groups[] = [
+            'phrases' => $group['phrases'],
+        ];
     }
 
     return [
-        'ssq3-multipro',
-        'ssq-ii-multipro',
-        'ssh-multipro',
-        'ssr-multipro-jr',
-        '5vc-5v-crimp',
-        'wav-wall-panel',
-        'mach-ii-5-gutter',
-        'mach-ii-6-gutter',
-        'mach-ii-combo-gutter',
-        'bg7-box-gutter',
+        'limit'          => 5,
+        'machines'       => $machines,
+        'categories'     => $categories,
+        'exactGroups'    => get_machine_exact_intent_groups(),
+        'categoryGroups' => $category_groups,
+        'modifierGroups' => $modifier_groups,
     ];
 }
 
@@ -473,8 +753,11 @@ function get_machine_product_slug_candidates_by_key(): array {
     }
 
     $cache = [];
-    foreach (get_machine_data_keys() as $key) {
-        $cache[$key] = [$key];
+    foreach (get_machine_search_catalog_items() as $machine) {
+        $cache[$machine['key']] = array_values(array_unique([
+            $machine['key'],
+            $machine['slug'],
+        ]));
     }
 
     if (\function_exists('Standard\\MachineProductData\\get_slug_aliases')) {
@@ -507,37 +790,9 @@ function get_active_machine_keys_by_product_category(): array {
     }
 
     $cache = [
-        'roof-wall-panel-machines' => ['ssq3-multipro', 'ssh-multipro', 'ssr-multipro-jr', '5vc-5v-crimp', 'wav-wall-panel'],
-        'gutter-machines'          => ['mach-ii-combo-gutter', 'mach-ii-5-gutter', 'mach-ii-6-gutter', 'bg7-box-gutter'],
+        'roof-wall-panel-machines' => get_machine_search_category_keys('roof-wall-panel-machines'),
+        'gutter-machines'          => get_machine_search_category_keys('gutter-machines'),
     ];
-
-    if (\function_exists('Standard\\MachinesData\\get_machine_categories')) {
-        $categories = \Standard\MachinesData\get_machine_categories(false);
-        $from_data = [
-            'roof-wall-panel-machines' => [],
-            'gutter-machines'          => [],
-        ];
-
-        foreach (($categories['roof-wall']['machines'] ?? []) as $machine) {
-            $slug = (string) ($machine['slug'] ?? '');
-            if ($slug !== '') {
-                $from_data['roof-wall-panel-machines'][] = $slug;
-            }
-        }
-
-        foreach (($categories['gutter']['machines'] ?? []) as $machine) {
-            $slug = (string) ($machine['slug'] ?? '');
-            if ($slug !== '') {
-                $from_data['gutter-machines'][] = $slug;
-            }
-        }
-
-        foreach ($from_data as $category => $keys) {
-            if ($keys !== []) {
-                $cache[$category] = array_values(array_unique($keys));
-            }
-        }
-    }
 
     return $cache;
 }
@@ -749,84 +1004,37 @@ function get_machine_search_intent(string $query): array {
         }
     };
 
-    if (preg_match('/\bgm\s*5\s*6\b(?!\s*\d)/', $normalized) === 1) {
-        $add_key('mach-ii-combo-gutter');
-    }
-    if (preg_match('/\bgm\s*5\b(?!\s*\d)/', $normalized) === 1) {
-        $add_key('mach-ii-5-gutter');
-    }
-    if (preg_match('/\bgm\s*6\b(?!\s*\d)/', $normalized) === 1) {
-        $add_key('mach-ii-6-gutter');
-    }
-
-    if (
-        preg_match('/\bssq\b/', $normalized) === 1
-        && preg_match('/\bssq\s*(?:ii|2|3|[0-9][a-z0-9]*)\b/', $normalized) !== 1
-    ) {
-        $add_key('ssq3-multipro');
-    }
-    if (preg_match('/\bssq\s*3\b/', $normalized) === 1 || preg_match('/\bq\s*3\b/', $normalized) === 1) {
-        $add_key('ssq3-multipro');
-    }
-    if (preg_match('/\bssq\s*(?:ii|2)\b/', $normalized) === 1) {
-        $add_key('ssq-ii-multipro');
-    }
-    if (preg_match('/\bmach\s*(?:ii|2)\b/', $normalized) === 1) {
-        $family_order = array_values(array_filter(
-            $active_by_category['gutter-machines'] ?? [],
-            static fn(string $key): bool => str_starts_with($key, 'mach-ii-')
-        ));
-        if ($family_order === []) {
-            $family_order = ['mach-ii-combo-gutter', 'mach-ii-5-gutter', 'mach-ii-6-gutter'];
+    foreach (get_machine_exact_intent_groups() as $group) {
+        if (!normalized_matches_any_pattern($normalized, $group['patterns'])) {
+            continue;
         }
-        foreach ($family_order as $key) {
+
+        $keys = $group['keys'];
+        if (!empty($group['family'])) {
+            $family_order = array_values(array_filter(
+                $active_by_category['gutter-machines'] ?? [],
+                static fn(string $key): bool => str_starts_with($key, 'mach-ii-')
+            ));
+            $keys = $family_order !== [] ? $family_order : $keys;
+        }
+
+        foreach ($keys as $key) {
             $add_key($key);
         }
     }
-    if (preg_match('/\bbg\s*7\b/', $normalized) === 1) {
-        $add_key('bg7-box-gutter');
-    }
-    if (preg_match('/\bwav\b/', $normalized) === 1) {
-        $add_key('wav-wall-panel');
-    }
-    if (preg_match('/\bssh\b/', $normalized) === 1) {
-        $add_key('ssh-multipro');
-    }
-    if (preg_match('/\bssr\b/', $normalized) === 1) {
-        $add_key('ssr-multipro-jr');
-    }
-    if (preg_match('/\b5\s*vc\b/', $normalized) === 1 || preg_match('/\b5v\s*crimp\b/', $normalized) === 1) {
-        $add_key('5vc-5v-crimp');
-    }
 
     $category_keys = [];
-    if (
-        normalized_contains_phrase($normalized, 'gutter machine')
-        || normalized_contains_phrase($normalized, 'seamless gutter')
-        || normalized_contains_phrase($normalized, 'box gutter machine')
-        || normalized_contains_phrase($normalized, 'k style gutter')
-    ) {
-        $category_keys = array_merge($category_keys, $active_by_category['gutter-machines'] ?? []);
-    }
-    if (
-        normalized_contains_phrase($normalized, 'roof panel machine')
-        || normalized_contains_phrase($normalized, 'roof wall panel machine')
-        || normalized_contains_phrase($normalized, 'roof and wall panel machine')
-        || normalized_contains_phrase($normalized, 'standing seam machine')
-        || normalized_contains_phrase($normalized, 'wall panel machine')
-    ) {
-        $category_keys = array_merge($category_keys, $active_by_category['roof-wall-panel-machines'] ?? []);
+    foreach (get_machine_category_intent_groups() as $group) {
+        if (normalized_contains_any_phrase($normalized, $group['phrases'])) {
+            $category_keys = array_merge($category_keys, $active_by_category[$group['category']] ?? []);
+        }
     }
 
     $modifier_groups = [];
-    if (preg_match('/\b(manual|manuals|guide|guides|pdf|operation|operators?|owners?)\b/', $normalized) === 1) {
-        $modifier_groups[] = 'manual';
-    }
-    if (preg_match('/\b(service|services|troubleshoot|troubleshooting|repair|repairs|maintenance)\b/', $normalized) === 1) {
-        $modifier_groups[] = 'service';
-    }
-    if (preg_match('/\b(parts?|covers?|carts?|controllers?|accessor(?:y|ies))\b/', $normalized) === 1) {
-        $modifier_groups[] = 'accessory';
+    foreach (get_machine_modifier_intent_groups() as $group) {
+        if (normalized_contains_any_phrase($normalized, $group['phrases'])) {
+            $modifier_groups[] = $group['group'];
+        }
     }
 
     $category_keys = array_values(array_unique($category_keys));
@@ -1158,32 +1366,164 @@ function get_rest_requested_post_types(\WP_REST_Request $request): array {
 }
 
 /**
- * @return array{id:int,title:string,url:string,subtype:string}
+ * @return array{id:int,title:string,url:string,subtype:string,machineKey:string}
  */
 function format_rest_search_result(\WP_Post $post, string $search = '', int $rank = 0): array {
+    $machine_keys = $post->post_type === 'product' ? get_canonical_machine_keys_by_product_id() : [];
+
     return [
-        'id'      => (int) $post->ID,
-        'title'   => (string) \get_the_title($post),
-        'url'     => get_rest_search_result_permalink($post, $search, $rank),
-        'subtype' => (string) $post->post_type,
+        'id'         => (int) $post->ID,
+        'title'      => (string) \get_the_title($post),
+        'url'        => get_rest_search_result_permalink($post, $search, $rank),
+        'subtype'    => (string) $post->post_type,
+        'machineKey' => $machine_keys[(int) $post->ID] ?? '',
     ];
 }
 
-function handle_rest_search_request(\WP_REST_Request $request): \WP_REST_Response {
-    $search = \sanitize_text_field((string) $request->get_param('search'));
-    $search = trim($search);
+/**
+ * @param string[] $post_types
+ * @return string[]
+ */
+function normalize_rest_suggestion_cache_post_types(array $post_types): array {
+    $normalized = array_values(array_filter(array_map(
+        static fn($post_type): string => \sanitize_key((string) $post_type),
+        $post_types
+    )));
+    sort($normalized);
 
-    if ($search === '') {
-        return \rest_ensure_response([]);
+    return array_values(array_unique($normalized));
+}
+
+function get_rest_suggestion_cache_version(): string {
+    $version = \get_option(REST_SUGGESTION_CACHE_VERSION_OPTION, '1');
+
+    return is_scalar($version) && (string) $version !== '' ? (string) $version : '1';
+}
+
+/**
+ * @param string[] $post_types
+ */
+function get_rest_suggestion_cache_key(string $normalized_query, array $post_types, int $limit): string {
+    $payload = \wp_json_encode([
+        'v'       => get_rest_suggestion_cache_version(),
+        'query'   => $normalized_query,
+        'subtype' => normalize_rest_suggestion_cache_post_types($post_types),
+        'limit'   => $limit,
+    ]);
+
+    if (!is_string($payload)) {
+        $payload = $normalized_query . '|' . implode(',', normalize_rest_suggestion_cache_post_types($post_types)) . '|' . $limit;
     }
 
-    $post_types = get_rest_requested_post_types($request);
+    return REST_SUGGESTION_CACHE_PREFIX . md5($payload);
+}
+
+/**
+ * @param mixed $value
+ * @return int[]|null
+ */
+function normalize_cached_rest_suggestion_ids($value): ?array {
+    if (!is_array($value)) {
+        return null;
+    }
+
+    $ids = [];
+    foreach ($value as $post_id) {
+        $post_id = (int) $post_id;
+        if ($post_id > 0) {
+            $ids[] = $post_id;
+        }
+    }
+
+    return array_values(array_unique($ids));
+}
+
+/**
+ * @return int[]|null
+ */
+function get_cached_rest_suggestion_ids(string $cache_key): ?array {
+    $cached = \get_transient($cache_key);
+
+    return normalize_cached_rest_suggestion_ids($cached);
+}
+
+/**
+ * @param int[] $ids
+ */
+function set_cached_rest_suggestion_ids(string $cache_key, array $ids): void {
+    \set_transient($cache_key, array_values(array_unique(array_map('intval', $ids))), REST_SUGGESTION_CACHE_TTL);
+}
+
+function flush_rest_suggestion_cache(): void {
+    \update_option(REST_SUGGESTION_CACHE_VERSION_OPTION, sprintf('%.6F', microtime(true)), false);
+}
+
+function post_type_affects_rest_suggestion_cache(string $post_type): bool {
+    return in_array(\sanitize_key($post_type), get_searchable_post_types(), true);
+}
+
+function flush_rest_suggestion_cache_for_post_save(int $post_id, \WP_Post $post, bool $update): void {
+    unset($update);
+
+    if (\wp_is_post_autosave($post_id) || \wp_is_post_revision($post_id)) {
+        return;
+    }
+
+    if (post_type_affects_rest_suggestion_cache($post->post_type)) {
+        flush_rest_suggestion_cache();
+    }
+}
+
+function flush_rest_suggestion_cache_for_deleted_post(int $post_id, \WP_Post $post): void {
+    unset($post_id);
+
+    if (post_type_affects_rest_suggestion_cache($post->post_type)) {
+        flush_rest_suggestion_cache();
+    }
+}
+
+function flush_rest_suggestion_cache_for_status_change(string $new_status, string $old_status, \WP_Post $post): void {
+    if ($new_status === $old_status || !post_type_affects_rest_suggestion_cache($post->post_type)) {
+        return;
+    }
+
+    if ($new_status === 'publish' || $old_status === 'publish') {
+        flush_rest_suggestion_cache();
+    }
+}
+
+/**
+ * @param mixed $terms
+ * @param mixed $tt_ids
+ * @param mixed $old_tt_ids
+ */
+function flush_search_caches_for_term_change(int $object_id, $terms, $tt_ids, string $taxonomy, bool $append, $old_tt_ids): void {
+    unset($terms, $tt_ids, $append, $old_tt_ids);
+
+    if (!in_array($taxonomy, ['category', 'post_tag', 'machine', 'content_department', 'product_cat', 'product_tag'], true)) {
+        return;
+    }
+
+    $post = \get_post($object_id);
+    if (!$post instanceof \WP_Post || !post_type_affects_rest_suggestion_cache($post->post_type)) {
+        return;
+    }
+
+    if ($taxonomy === 'product_cat' && $post->post_type === 'product') {
+        flush_canonical_machine_product_id_cache();
+    }
+
+    flush_rest_suggestion_cache();
+}
+
+/**
+ * @param string[] $post_types
+ * @return int[]
+ */
+function query_rest_suggestion_result_ids(string $search, array $post_types, int $per_page): array {
     if ($post_types === []) {
-        return \rest_ensure_response([]);
+        return [];
     }
-
-    $per_page = (int) $request->get_param('per_page');
-    $per_page = max(1, min(20, $per_page > 0 ? $per_page : 5));
 
     $query_args = [
         's'                    => $search,
@@ -1201,13 +1541,75 @@ function handle_rest_search_request(\WP_REST_Request $request): \WP_REST_Respons
     }
 
     $query = new \WP_Query($query_args);
-    $items = [];
+    $ids = [];
 
-    foreach (array_values($query->posts) as $index => $post) {
+    foreach (array_values($query->posts) as $post) {
         if ($post instanceof \WP_Post) {
-            $items[] = format_rest_search_result($post, $search, $index + 1);
+            $ids[] = (int) $post->ID;
         }
     }
+
+    return array_values(array_unique($ids));
+}
+
+/**
+ * @param int[]    $ids
+ * @param string[] $post_types
+ * @return array<int, array{id:int,title:string,url:string,subtype:string,machineKey:string}>
+ */
+function format_rest_search_results_from_ids(array $ids, string $search, array $post_types, int $limit): array {
+    $items = [];
+    $allowed = array_fill_keys($post_types, true);
+
+    foreach ($ids as $post_id) {
+        if (count($items) >= $limit) {
+            break;
+        }
+
+        $post = \get_post((int) $post_id);
+        if (!$post instanceof \WP_Post || $post->post_status !== 'publish') {
+            continue;
+        }
+
+        if (!isset($allowed[$post->post_type]) || is_excluded_post_type((string) $post->post_type)) {
+            continue;
+        }
+
+        $items[] = format_rest_search_result($post, $search, count($items) + 1);
+    }
+
+    return $items;
+}
+
+function handle_rest_search_request(\WP_REST_Request $request): \WP_REST_Response {
+    $search = \sanitize_text_field((string) $request->get_param('search'));
+    $search = trim($search);
+
+    if ($search === '') {
+        return \rest_ensure_response([]);
+    }
+
+    $post_types = get_rest_requested_post_types($request);
+    if ($post_types === []) {
+        return \rest_ensure_response([]);
+    }
+
+    $per_page = (int) $request->get_param('per_page');
+    $per_page = max(1, min(20, $per_page > 0 ? $per_page : 5));
+    $normalized_query = normalize_search_text($search);
+    if ($normalized_query === '') {
+        return \rest_ensure_response([]);
+    }
+
+    $cache_key = get_rest_suggestion_cache_key($normalized_query, $post_types, $per_page);
+    $ids = get_cached_rest_suggestion_ids($cache_key);
+
+    if ($ids === null) {
+        $ids = query_rest_suggestion_result_ids($search, $post_types, $per_page);
+        set_cached_rest_suggestion_ids($cache_key, $ids);
+    }
+
+    $items = format_rest_search_results_from_ids($ids, $search, $post_types, $per_page);
 
     return \rest_ensure_response($items);
 }
@@ -1423,9 +1825,13 @@ function configure_taxonomy_archive_query(\WP_Query $query): void {
 \add_action('pre_get_posts', __NAMESPACE__ . '\\configure_main_query');
 \add_action('pre_get_posts', __NAMESPACE__ . '\\configure_taxonomy_archive_query');
 \add_action('rest_api_init', __NAMESPACE__ . '\\register_rest_routes');
+\add_action('save_post', __NAMESPACE__ . '\\flush_rest_suggestion_cache_for_post_save', 10, 3);
 \add_action('save_post_product', __NAMESPACE__ . '\\flush_canonical_machine_product_id_cache_for_product_save', 10, 3);
 \add_action('deleted_post', __NAMESPACE__ . '\\flush_canonical_machine_product_id_cache_for_deleted_post', 10, 2);
+\add_action('deleted_post', __NAMESPACE__ . '\\flush_rest_suggestion_cache_for_deleted_post', 10, 2);
 \add_action('post_updated', __NAMESPACE__ . '\\flush_canonical_machine_product_id_cache_for_product_slug_change', 10, 3);
+\add_action('transition_post_status', __NAMESPACE__ . '\\flush_rest_suggestion_cache_for_status_change', 10, 3);
+\add_action('set_object_terms', __NAMESPACE__ . '\\flush_search_caches_for_term_change', 10, 6);
 \add_filter('rest_post_search_query', __NAMESPACE__ . '\\configure_rest_post_search_query', 10, 2);
 \add_filter('option_relevanssi_post_type_weights', __NAMESPACE__ . '\\tune_relevanssi_post_type_weights');
 \add_filter('option_relevanssi_index_post_types', __NAMESPACE__ . '\\sanitize_relevanssi_index_post_types');
