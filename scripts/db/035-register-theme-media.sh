@@ -22,6 +22,7 @@ uploads_dir="$(wp eval 'echo wp_get_upload_dir()["basedir"];')"
 # relative-path|title|alt
 media=(
   '2026/05/20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1.mp4|20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1|'
+  '2026/07/20260708_NTM_SSQ3-Page-Panel-Running_V1-720p.mp4|20260708_NTM_SSQ3-Page-Panel-Running_V1-720p|'
   '2026/05/ntm-q3-hero-placeholder.png|ntm-q3-hero-placeholder|'
   '2026/05/ntm-q3-hero-placeholder-2.png|ntm-q3-hero-placeholder-2|'
   '2026/06/ntm-ssq3-on-trailer-001-1-scaled.png|NTM SSQ3 on trailer|NTM SSQ3 portable roof panel machine mounted on trailer, Unique control system visible'

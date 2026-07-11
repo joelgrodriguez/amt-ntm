@@ -22,7 +22,7 @@ return [
         // Front-page flagships callout shot (front-page/flagships.php picks this
         // via image_key). Separate from the product-page hero on purpose.
         'flagship_image' => content_url('/uploads/2026/06/ssq3-machine-side-loaded-coils.jpg'),
-        'video'      => content_url('/uploads/2026/07/20260708_NTM_SSQ3-Page-Panel-Running_V1.mp4'),
+        'video'      => content_url('/uploads/2026/07/20260708_NTM_SSQ3-Page-Panel-Running_V1-720p.mp4'),
     ],
     'stats' => [
         ['value' => '16',          'label' => __('Panel Profiles', 'standard')],
