@@ -753,7 +753,7 @@
       "path": "app/inc/search.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 41788
+      "size": 41979
     },
     {
       "path": "app/inc/seo.php",
@@ -3819,7 +3819,7 @@
       "path": "scripts/search-smoke.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 21207
+      "size": 21277
     },
     {
       "path": "TODO.md",

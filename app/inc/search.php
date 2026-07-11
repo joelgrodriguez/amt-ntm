@@ -677,6 +677,12 @@ function get_machine_search_intent(string $query): array {
         $add_key('mach-ii-6-gutter');
     }
 
+    if (
+        preg_match('/\bssq\b/', $normalized) === 1
+        && preg_match('/\bssq\s*(?:ii|2|3|[0-9][a-z0-9]*)\b/', $normalized) !== 1
+    ) {
+        $add_key('ssq3-multipro');
+    }
     if (preg_match('/\bssq\s*3\b/', $normalized) === 1 || preg_match('/\bq\s*3\b/', $normalized) === 1) {
         $add_key('ssq3-multipro');
     }

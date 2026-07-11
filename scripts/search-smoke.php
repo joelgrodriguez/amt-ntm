@@ -452,6 +452,7 @@ standard_search_smoke_assert_same(
 );
 
 if (function_exists('relevanssi_do_query')) {
+    standard_search_smoke_assert_top_machine('SSQ', 'ssq3-multipro');
     standard_search_smoke_assert_top_machine('SSQ3', 'ssq3-multipro');
     standard_search_smoke_assert_top_machine('SSQ 3', 'ssq3-multipro');
     standard_search_smoke_assert_top_machine('SSQ2', 'ssq-ii-multipro');
