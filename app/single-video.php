@@ -60,6 +60,8 @@ get_header();
                     <?php get_template_part('templates/parts/disclaimer'); ?>
 
                     <?php get_template_part('templates/parts/post-navigation'); ?>
+                </div>
+                <div class="container mt-6 lg:mt-12">
                     <?php get_template_part('templates/parts/related-posts'); ?>
                 </div>
             </section>
