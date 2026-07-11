@@ -89,6 +89,9 @@ if (
                     <p class="hero__meta">
                         <?php esc_html_e('Starting at', 'standard'); ?>
                         <span class="hero__meta-value"><?php echo wp_kses_post($price_display); ?></span>
+                        <?php if (!empty($finance['note'])) : ?>
+                            <span class="mt-2 max-w-md text-xs normal-case tracking-normal text-blue-200"><?php echo esc_html($finance['note']); ?></span>
+                        <?php endif; ?>
                     </p>
                 <?php endif; ?>
                 <div class="hero__cta">
