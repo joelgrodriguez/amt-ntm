@@ -519,7 +519,7 @@
       "path": "app/data/machines/ssq3-multipro.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 16779
+      "size": 16850
     },
     {
       "path": "app/data/machines/ssr-multipro-jr.php",
@@ -705,7 +705,7 @@
       "path": "app/inc/machines.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 5247
+      "size": 5361
     },
     {
       "path": "app/inc/mega-menu.php",
@@ -3339,7 +3339,7 @@
       "path": "docs/specs/frontend.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 4173
+      "size": 4545
     },
     {
       "path": "docs/specs/learning-center.md",
