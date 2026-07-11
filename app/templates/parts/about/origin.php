@@ -3,7 +3,7 @@
  * About — Built it. Still building it.
  *
  * Merged origin + timeline. One section, two beats: a short legacy lede
- * that names 1991 and the company's ownership, then the ten-release
+ * that names 1991 and the company's ownership, then the release
  * timeline of category firsts as proof we're still shipping.
  *
  * NOTE: NTM has split off from Mazzella Companies. The ownership copy below
@@ -101,6 +101,11 @@ $milestones = [
         'model' => 'UNIQ',
         'name'  => __('Control System', 'standard'),
     ],
+    [
+        'year'  => '2025',
+        'model' => 'SSQ3 MultiPro',
+        'name'  => __('Roof & Wall Panel Machine', 'standard'),
+    ],
 ];
 ?>
 
@@ -152,13 +157,14 @@ $milestones = [
 
         <div class="mb-8 lg:mb-10">
             <p class="font-mono uppercase tracking-wider text-xs text-blue-500">
-                <?php esc_html_e('Ten releases that defined the category', 'standard'); ?>
+                <?php esc_html_e('The releases that defined the category', 'standard'); ?>
             </p>
         </div>
         <!-- Every cell carries its own top rule, so the grid rewraps
              cleanly at any column count without first-in-row border
-             bookkeeping: 1-col timeline at base, 2 at sm, 5 at lg. -->
-        <ol class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-7">
+             bookkeeping: 1-col timeline at base, 2 at sm, 4 at lg
+             (11 items split 4+4+3; 5 columns would strand a lone cell). -->
+        <ol class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-7">
             <?php foreach ($milestones as $m) : ?>
                 <li class="border-t border-blue-200 py-6 lg:py-8">
                     <div class="grid gap-3">
