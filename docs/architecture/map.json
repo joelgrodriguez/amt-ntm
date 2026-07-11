@@ -186,7 +186,7 @@
         "scripts/content/manifest.php",
         "scripts/content/README.md",
         "scripts/db/000-template.sh.example",
-        "scripts/db/010-strip-hardcoded-buttons-from-machine-excerpts.sh"
+        "scripts/db/010-strip-hardcoded-buttons-from-machine-excerpts.php"
       ]
     }
   ],
@@ -3588,10 +3588,16 @@
       "size": 1216
     },
     {
+      "path": "scripts/db/010-strip-hardcoded-buttons-from-machine-excerpts.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 4256
+    },
+    {
       "path": "scripts/db/010-strip-hardcoded-buttons-from-machine-excerpts.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 2970
+      "size": 2205
     },
     {
       "path": "scripts/db/014-create-shell-pages.sh",
