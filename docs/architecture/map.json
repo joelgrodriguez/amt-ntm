@@ -753,7 +753,7 @@
       "path": "app/inc/search.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 17366
+      "size": 45112
     },
     {
       "path": "app/inc/seo.php",
@@ -1467,7 +1467,7 @@
       "path": "app/resources/js/modules/SearchModal.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 25466
+      "size": 25472
     },
     {
       "path": "app/resources/js/modules/SocialProof.js",
@@ -2277,13 +2277,13 @@
       "path": "app/templates/parts/card-manual.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3375
+      "size": 3470
     },
     {
       "path": "app/templates/parts/card-post.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3517
+      "size": 3640
     },
     {
       "path": "app/templates/parts/card-product.php",
@@ -2295,7 +2295,7 @@
       "path": "app/templates/parts/card-profile.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3533
+      "size": 3628
     },
     {
       "path": "app/templates/parts/comparison-table.php",
@@ -2325,7 +2325,7 @@
       "path": "app/templates/parts/content-search.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 1131
+      "size": 1485
     },
     {
       "path": "app/templates/parts/content.php",
@@ -3183,7 +3183,7 @@
       "path": "docs/plans/2026-05-22-search-implementation-plan.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 7762
+      "size": 8999
     },
     {
       "path": "docs/plans/2026-05-26-navigation-simplification-plan.md",
@@ -3903,7 +3903,7 @@
       "path": "scripts/search-smoke.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 6162
+      "size": 28517
     },
     {
       "path": "TODO.md",

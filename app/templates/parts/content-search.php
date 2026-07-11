@@ -21,8 +21,11 @@ if (!defined('ABSPATH')) {
 $post_type = (string) get_post_type();
 
 if ($post_type === 'product') {
+    $product = \Standard\Search\get_product_card_data((int) get_the_ID());
+    $product['explore_url'] = \Standard\Search\get_search_result_permalink(get_post());
+
     get_template_part('templates/parts/card-product', null, [
-        'product' => \Standard\Search\get_product_card_data((int) get_the_ID()),
+        'product' => $product,
     ]);
     return;
 }
@@ -31,6 +34,7 @@ if ($post_type === 'profile') {
     get_template_part('templates/parts/card-profile', null, [
         'profile' => get_post(),
         'context' => 'grid',
+        'url'     => \Standard\Search\get_search_result_permalink(get_post()),
     ]);
     return;
 }
@@ -39,8 +43,11 @@ if ($post_type === 'manual') {
     get_template_part('templates/parts/card-manual', null, [
         'manual'  => get_post(),
         'context' => 'grid',
+        'url'     => \Standard\Search\get_search_result_permalink(get_post()),
     ]);
     return;
 }
 
-get_template_part('templates/parts/card-post');
+get_template_part('templates/parts/card-post', null, [
+    'url' => \Standard\Search\get_search_result_permalink(get_post()),
+]);
