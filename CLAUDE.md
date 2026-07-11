@@ -362,325 +362,47 @@ a say-out-loud quote where one lands, and a clear cue for when to go to the site
 vs. stay on the slide. After editing, open `notes.html` and confirm all entries
 render in order with correct statuses.
 
-## Shogun Workflow
-
-Use `.admiral/README.md` as the local workflow guide. Tasks are GitHub issues;
-a single `status:*` issue label tracks each task's stage. Orca owns spawned
-worktrees, terminals, and browser tabs. `dev` is the integration
-branch; protected branches such as `main` and `master` are not Shogun
-development bases. `.admiral/active.md` and `.admiral/archive.md` are local notes
-only.
-If your agent supports skills, load the Shogun skill from `.agents/skills`,
-`.claude/skills`, or `.opencode/skills` before taking Shogun work.
-
-Task creation is mandatory here. If the user asks to create a task, ticket,
-issue, feature, bug, chore, TODO, or implementation plan and did not provide an
-existing issue number or URL, create it first with `shogun task create`. Do
-this even when the user does not say "Shogun". Do not work untracked.
-
-`shogun task create "<goal>"` opens the GitHub issue, applies the Shogun
-labels, and adds `status:staged`. Capture the issue number it prints -- it is
-what `task start`, `task review`, and `task land` expect.
-Dependencies go in the issue's `## Blocked by` section (`--blocked-by 12,14`);
-a task is ready only when every blocker is closed. Pick work with
-`shogun task ready`, never by guessing.
-
-Read `docs/architecture/map.json` and `docs/architecture/flows.json` before
-unfamiliar feature work. If files, routes, entrypoints, tests, commands,
-boundaries, or documented flows change, run `shogun map` and verify with
-`shogun map --check`.
-For plain feature requests, create 1-6 small issues wired with `--blocked-by`
-unless the user already gave you an issue number. Then start the first task
-`shogun task ready` returns. Do not make the user paste a giant orchestration
-prompt.
-If Shogun mode is `mainline`, queue completed branches with `shogun queue add`
-and let `shogun queue run` land through validation/CI. Do not manually merge.
-
-Agents working in spawned Orca worktrees must commit, validate with
-`npm run build`, and run `shogun task review <n>` -- in the default
-local landing workflow this only moves the issue to `Reviewing` and does not
-push or open a PR -- then stop. Do not run raw `git push`, do not merge into
-`dev`, and do not run `shogun task land`.
-
-Use this task flow: `Staged -> Processing -> Reviewing -> Verifying -> Done`.
-`Verifying` is the human-QA gate: the coordinator runs `shogun task land <n>`
-from the clean `dev` integration worktree. It locally merges the
-task branch, validates, commits `Land #<n>: <title>`, and moves the issue
-there. It does not push. `approve` is the only command that closes the issue,
-marks it `Done`, and comments on newly unblocked issues. If review fails,
-`task iterate <n>` reopens the issue and returns it to `Processing`; after
-`Done`, cleanup is manual with `shogun task cleanup <n> --dry-run` followed by
-`shogun task cleanup <n> --apply`.
-
-Use `shogun task report <n>` before handoff or landing to see GitHub, Orca, git
-changed files, inferred agent lanes, reservations, messages, and recent Shogun
-events in one place. Human-readable reports are Markdown headed `Session
-Report` with the content in a table.
-Use `shogun task report <n> --since-last` after an agent answer when you need
-the delta since the previous report; Shogun uses Orca terminal read cursors for
-bounded output and includes commits, changed files, and launched agents.
-If `shogun task sync <n>` or `shogun task report <n>` says Fable appears blocked
-by spend limits, credits, auth, or a trust prompt, the coordinator should run
-`shogun agent fallback <n> --to "claude --model opus --effort xhigh --dangerously-skip-permissions"`.
-Fallback is Shogun/conductor supervision, not Claude's in-process fallback; do
-not silently auto-respawn.
-
-Use `orca worktree set --worktree active --comment "..." --json` for meaningful
-progress checkpoints, especially before waiting on review or external input.
-
-## Model routing
-
-Pick the right agent CLI per work type; do not make the user type flags or model
-names. Load the `route` skill from `.agents/skills/route`, `.claude/skills/route`,
-or `.opencode/skills/route` for the full table and launch commands.
-
-Coding work runs on a three-seat cast: **orchestration/planning/analysis (the
-brain) -> Claude Fable 5 high**; **implementation/code-writing (the executor) ->
-Codex GPT-5.5 xhigh**; **codebase reading/scouting -> Grok Composer 2.5** (reads
-and reports back to the brain; writes only when explicitly routed to). In short:
-copy/marketing and research/web -> Grok (`grok-build`); docs, design, API, and
-report writeups -> Claude Opus; orchestrate/plan/analyze -> Claude Fable 5 high;
-write code -> Codex GPT-5.5 xhigh; read/scout a codebase -> Grok Composer; deep
-architecture, hard reasoning, debugging, and security -> Codex xhigh; cheap
-build/test verification -> GLM 5.2. Announce the routing call in one line, then
-proceed.
-For long unattended orchestration runs, prefer Codex as the driver seat to save
-Claude/Fable tokens; use Fable/Claude when the chain needs taste, planning
-judgment, or explicit Fable supervision.
-
-When the work is a real code task, launch the routed model straight into the
-task's Orca worktree:
-`shogun task start <n> --agent-command "<full launch command>"` -- Shogun creates
-the worktree, runs the command in it, and hands the agent its task preamble.
-One-off work (a piece of copy, a research lookup) runs inline without a Shogun task.
-
-Spawning an agent into any Orca worktree always routes first. When asked to "create
-a branch and do X" or otherwise spawn a worktree, route X, then launch the chosen
-model FLAGGED via `orca terminal create --worktree <selector> --command "<full
-launch string with model/effort/bypass>"`. Do not use a bare `orca worktree create
---agent codex` -- a bare `--agent` id cannot carry model/effort/bypass flags, so it
-silently ignores routing. A spawned agent must be the routed model, not the default.
-
-Apply the quality patterns from the route skill where they fit: cross-model review
-(the reviewer is never the author) after substantive work, and plan-then-attack
-before a thorny change.
-
-## Model routing
-
-Pick the right agent CLI per work type; do not make the user type flags or model
-names. Load the `route` skill from `.agents/skills/route`, `.claude/skills/route`,
-or `.opencode/skills/route` for the full table and launch commands.
-
-Coding work runs on a three-seat cast: **orchestration/planning/analysis (the
-brain) -> Claude Fable 5 high**; **implementation/code-writing (the executor) ->
-Codex GPT-5.5 xhigh**; **codebase reading/scouting -> Grok Composer 2.5** (reads
-and reports back to the brain; writes only when explicitly routed to). In short:
-copy/marketing and research/web -> Grok (`grok-build`); docs, design, API, and
-report writeups -> Claude Opus; orchestrate/plan/analyze -> Claude Fable 5 high;
-write code -> Codex GPT-5.5 xhigh; read/scout a codebase -> Grok Composer; deep
-architecture, hard reasoning, debugging, and security -> Codex xhigh; cheap
-build/test verification -> GLM 5.2. Announce the routing call in one line, then
-proceed.
-
-When the work is a real code task, launch the routed model straight into the
-task's Orca worktree:
-`shogun task start <n> --agent-command "<full launch command>"` -- Shogun creates
-the worktree, runs the command in it, and hands the agent its task preamble.
-One-off work (a piece of copy, a research lookup) runs inline without a Shogun task.
-
-Spawning an agent into any Orca worktree always routes first. When asked to "create
-a branch and do X" or otherwise spawn a worktree, route X, then launch the chosen
-model FLAGGED via `orca terminal create --worktree <selector> --command "<full
-launch string with model/effort/bypass>"`. Do not use a bare `orca worktree create
---agent codex` -- a bare `--agent` id cannot carry model/effort/bypass flags, so it
-silently ignores routing. A spawned agent must be the routed model, not the default.
-
-Apply the quality patterns from the route skill where they fit: cross-model review
-(the reviewer is never the author) after substantive work, and plan-then-attack
-before a thorny change.
-
-## Model routing
-
-Pick the right agent CLI per work type; do not make the user type flags or model
-names. Load the `route` skill from `.agents/skills/route`, `.claude/skills/route`,
-or `.opencode/skills/route` for the full table and launch commands.
-
-Coding work runs on a three-seat cast: **orchestration/planning/analysis (the
-brain) -> Claude Fable 5 high**; **implementation/code-writing (the executor) ->
-Codex GPT-5.5 xhigh**; **codebase reading/scouting -> Grok Composer 2.5** (reads
-and reports back to the brain; writes only when explicitly routed to). In short:
-copy/marketing and research/web -> Grok (`grok-build`); docs, design, API, and
-report writeups -> Claude Opus; orchestrate/plan/analyze -> Claude Fable 5 high;
-write code -> Codex GPT-5.5 xhigh; read/scout a codebase -> Grok Composer; deep
-architecture, hard reasoning, debugging, and security -> Codex xhigh; cheap
-build/test verification -> GLM 5.2. Announce the routing call in one line, then
-proceed.
-
-When the work is a real code task, launch the routed model straight into the
-task's Orca worktree:
-`shogun task start <n> --agent-command "<full launch command>"` -- Shogun creates
-the worktree, runs the command in it, and hands the agent its task preamble.
-One-off work (a piece of copy, a research lookup) runs inline without a Shogun task.
-
-Spawning an agent into any Orca worktree always routes first. When asked to "create
-a branch and do X" or otherwise spawn a worktree, route X, then launch the chosen
-model FLAGGED via `orca terminal create --worktree <selector> --command "<full
-launch string with model/effort/bypass>"`. Do not use a bare `orca worktree create
---agent codex` -- a bare `--agent` id cannot carry model/effort/bypass flags, so it
-silently ignores routing. A spawned agent must be the routed model, not the default.
-
-Apply the quality patterns from the route skill where they fit: cross-model review
-(the reviewer is never the author) after substantive work, and plan-then-attack
-before a thorny change.
-
-## Model routing
-
-Pick the right agent CLI per work type; do not make the user type flags or model
-names. Load the `route` skill from `.agents/skills/route`, `.claude/skills/route`,
-or `.opencode/skills/route` for the full table and launch commands.
-
-Coding work runs on a three-seat cast: **orchestration/planning/analysis (the
-brain) -> Claude Fable 5 high**; **implementation/code-writing (the executor) ->
-Codex GPT-5.5 xhigh**; **codebase reading/scouting -> Grok Composer 2.5** (reads
-and reports back to the brain; writes only when explicitly routed to). In short:
-copy/marketing and research/web -> Grok (`grok-build`); docs, design, API, and
-report writeups -> Claude Opus; orchestrate/plan/analyze -> Claude Fable 5 high;
-write code -> Codex GPT-5.5 xhigh; read/scout a codebase -> Grok Composer; deep
-architecture, hard reasoning, debugging, and security -> Codex xhigh; cheap
-build/test verification -> GLM 5.2. Announce the routing call in one line, then
-proceed.
-
-When the work is a real code task, launch the routed model straight into the
-task's Orca worktree:
-`shogun task start <n> --agent-command "<full launch command>"` -- Shogun creates
-the worktree, runs the command in it, and hands the agent its task preamble.
-One-off work (a piece of copy, a research lookup) runs inline without a Shogun task.
-
-Spawning an agent into any Orca worktree always routes first. When asked to "create
-a branch and do X" or otherwise spawn a worktree, route X, then launch the chosen
-model FLAGGED via `orca terminal create --worktree <selector> --command "<full
-launch string with model/effort/bypass>"`. Do not use a bare `orca worktree create
---agent codex` -- a bare `--agent` id cannot carry model/effort/bypass flags, so it
-silently ignores routing. A spawned agent must be the routed model, not the default.
-
-Apply the quality patterns from the route skill where they fit: cross-model review
-(the reviewer is never the author) after substantive work, and plan-then-attack
-before a thorny change.
-
-## Model routing
-
-Pick the right agent CLI per work type; do not make the user type flags or model
-names. Load the `route` skill from `.agents/skills/route`, `.claude/skills/route`,
-or `.opencode/skills/route` for the full table and launch commands. In short:
-copy/marketing and research/web -> Grok (`grok-build`); docs, design, API, and
-report writeups -> Claude Opus; bulk implementation -> Grok Composer; architecture,
-hard reasoning, debugging, and security -> Codex xhigh; cheap build/test
-verification -> GLM 5.2. Announce the routing call in one line, then proceed.
-
-When the work is a real code task, launch the routed model straight into the
-task's Orca worktree:
-`shogun task start <n> --agent-command "<full launch command>"` -- Shogun creates
-the worktree, runs the command in it, and hands the agent its task preamble.
-One-off work (a piece of copy, a research lookup) runs inline without a Shogun task.
-
-Spawning an agent into any Orca worktree always routes first. When asked to "create
-a branch and do X" or otherwise spawn a worktree, route X, then launch the chosen
-model FLAGGED via `orca terminal create --worktree <selector> --command "<full
-launch string with model/effort/bypass>"`. Do not use a bare `orca worktree create
---agent codex` -- a bare `--agent` id cannot carry model/effort/bypass flags, so it
-silently ignores routing. A spawned agent must be the routed model, not the default.
-
-Apply the quality patterns from the route skill where they fit: cross-model review
-(the reviewer is never the author) after substantive work, and plan-then-attack
-before a thorny change.
-
-## Model routing
-
-Pick the right agent CLI per work type; do not make the user type flags or model
-names. Load the `route` skill from `.agents/skills/route`, `.claude/skills/route`,
-or `.opencode/skills/route` for the full table and launch commands. In short:
-copy/marketing and research/web -> Grok (`grok-build`); docs, design, API, and
-report writeups -> Claude Opus; bulk implementation -> Grok Composer; architecture,
-hard reasoning, debugging, and security -> Codex xhigh; cheap build/test
-verification -> GLM 5.2. Announce the routing call in one line, then proceed.
-
-When the work is a real code task, launch the routed model straight into the
-task's Orca worktree:
-`shogun task start <n> --agent-command "<full launch command>"` -- Shogun creates
-the worktree, runs the command in it, and hands the agent its task preamble.
-One-off work (a piece of copy, a research lookup) runs inline without a Shogun task.
-
-Apply the quality patterns from the route skill where they fit: cross-model review
-(the reviewer is never the author) after substantive work, and plan-then-attack
-before a thorny change.
-
 ## Admiral Workflow
 
-Use `.admiral/README.md` as the local workflow guide. Tasks are GitHub issues;
-a single `status:*` issue label tracks each task's stage. Orca owns spawned
-worktrees, terminals, and browser tabs. `dev` is the integration
-branch; protected branches such as `main` and `master` are not Admiral
-development bases. `.admiral/active.md` and `.admiral/archive.md` are local notes
-only.
-If your agent supports skills, load the Admiral skill from `.agents/skills`,
-`.claude/skills`, or `.opencode/skills` before taking Admiral work.
+Use `.admiral/README.md` as the local workflow guide and load the Admiral
+skill from `.agents/skills`, `.claude/skills`, or `.opencode/skills` for the
+full contract (lifecycle, commands, knowledgebase). Tasks are GitHub issues;
+Orca owns spawned worktrees, terminals, and browser tabs. `dev` is
+the integration branch; protected branches such as `main` and `master` are
+not Admiral development bases.
 
 Task creation is mandatory here. If the user asks to create a task, ticket,
-issue, feature, bug, chore, TODO, or implementation plan and did not provide an
-existing issue number or URL, create it first with `admiral task create`. Do
-this even when the user does not say "Admiral". Do not work untracked.
+issue, feature, bug, chore, TODO, or implementation plan and did not provide
+an existing issue number or URL, create it first with `admiral task create`.
+Do not work untracked.
 
-`admiral task create "<goal>"` opens the GitHub issue, applies the Admiral
-labels, and adds `status:staged`. Capture the issue number it prints -- it is
-what `task start`, `task review`, and `task land` expect.
-Dependencies go in the issue's `## Blocked by` section (`--blocked-by 12,14`);
-a task is ready only when every blocker is closed. Pick work with
-`admiral task ready`, never by guessing.
+**Hard rules for any agent working in a spawned Orca task worktree:**
 
-Read `docs/architecture/map.json` and `docs/architecture/flows.json` before
-unfamiliar feature work. If files, routes, entrypoints, tests, commands,
-boundaries, or documented flows change, run `admiral map` and verify with
-`admiral map --check`.
-For plain feature requests, create 1-6 small issues wired with `--blocked-by`
-unless the user already gave you an issue number. Then start the first task
-`admiral task ready` returns. Do not make the user paste a giant orchestration
-prompt.
-If Admiral mode is `mainline`, queue completed branches with `admiral queue add`
-and let `admiral queue run` land through validation/CI. Do not manually merge.
+- Work only inside the claimed task's worktree and only on that task's goal.
+- Validate with `npm run build` and make it pass before review.
+- Run `admiral task review <n>` to hand off, then stop. Never run raw `git
+  push`, never merge into `dev`, and never run `admiral task land`
+  or `admiral task cleanup --apply` from a task worktree — landing happens
+  separately from the clean integration worktree.
+- End each substantive answer with a Markdown section headed `## Session
+  Report` containing a table with this shape:
 
-Agents working in spawned Orca worktrees must commit, validate with
-`npm run build`, and run `admiral task review <n>` -- in the default
-local landing workflow this only moves the issue to `Reviewing` and does not
-push or open a PR -- then stop. Do not run raw `git push`, do not merge into
-`dev`, and do not run `admiral task land`.
+  | Topic | Report |
+  | --- | --- |
+  | What happened / what was done | Summary of completed work. |
+  | Files changed | Paths changed, or `none`. |
+  | Commits | Hash + subject, or `none`. |
+  | Validation | Command and result, or why it was not run. |
+  | Agents / terminals | Agents or terminals used/launched. |
+  | Blockers / next action | Blockers and the next concrete action. |
 
-Use this task flow: `Staged -> Processing -> Reviewing -> Verifying -> Done`.
-`Verifying` is the human-QA gate: the coordinator runs `admiral task land <n>`
-from the clean `dev` integration worktree. It locally merges the
-task branch, validates, commits `Land #<n>: <title>`, and moves the issue
-there. It does not push. `approve` is the only command that closes the issue,
-marks it `Done`, and comments on newly unblocked issues. If review fails,
-`task iterate <n>` reopens the issue and returns it to `Processing`; after
-`Done`, cleanup is manual with `admiral task cleanup <n> --dry-run` followed by
-`admiral task cleanup <n> --apply`.
-
-Use `admiral task report <n>` before handoff or landing to see GitHub, Orca, git
-changed files, inferred agent lanes, reservations, messages, and recent Admiral
-events in one place. Human-readable reports are Markdown headed `Session
-Report` with the content in a table.
-Use `admiral task report <n> --since-last` after an agent answer when you need
-the delta since the previous report; Admiral uses Orca terminal read cursors for
-bounded output and includes commits, changed files, and launched agents.
-Run `admiral-recap [N]` (any shell, any agent CLI) for a quick cross-task recap
-of the last N agent/task events in this repo — read-only, works everywhere.
-If `admiral task sync <n>` or `admiral task report <n>` says Fable appears blocked
-by spend limits, credits, auth, or a trust prompt, the coordinator should run
-`admiral agent fallback <n> --to "claude --model opus --effort xhigh --dangerously-skip-permissions"`.
-Fallback is Admiral/commodore supervision, not Claude's in-process fallback; do
-not silently auto-respawn.
-
-Use `orca worktree set --worktree active --comment "..." --json` for meaningful
-progress checkpoints, especially before waiting on review or external input.
+- If the same step fails twice, do not grind a third attempt: consult a
+  different-vendor model once, headless (e.g. `codex exec "<what you tried,
+  what broke, what you need>"` if you are Claude, or the Claude equivalent if
+  you are Codex), act on the answer, and note the consult in your Session
+  Report. Escalate to the commodore only for decisions that are not yours
+  (scope, product, anything irreversible) — one paragraph via `gh issue
+  comment <n> --body "<blocker>"`, not the full consult transcript.
 
 ## Model routing
 

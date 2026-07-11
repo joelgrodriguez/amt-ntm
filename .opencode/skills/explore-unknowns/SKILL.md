@@ -1,6 +1,6 @@
 ---
 name: explore-unknowns
-description: Burn the fog before slicing a feature into Shogun tasks. A guided quadrant walk (known/unknown × known/unknown) that turns a vague request into a reviewed map — the thing you decompose from. Use when a feature is unfamiliar, the codebase area is new to you, "good" is something you'd only recognize on sight, or you can't yet name the slices. Runs at the Staged stage, before `shogun task create`. Pairs with the shogun skill (which slices the resulting map into blocked-by issues).
+description: Burn the fog before slicing a feature into Admiral tasks. A guided quadrant walk (known/unknown × known/unknown) that turns a vague request into a reviewed map — the thing you decompose from. Use when a feature is unfamiliar, the codebase area is new to you, "good" is something you'd only recognize on sight, or you can't yet name the slices. Runs before `admiral task create`. Pairs with the admiral skill (which slices the resulting map into blocked-by issues).
 ---
 
 # Explore Unknowns
@@ -13,8 +13,8 @@ bottlenecked by how well you clarify them, not by the model. Burn the fog
 to unwind, and an unknown that changes the architecture is expensive twice.
 
 This skill produces one artifact: **a map** the human has reviewed. It creates
-no worktrees and writes no code. When the map is clear, the shogun skill slices
-it into `shogun task create --blocked-by` issues.
+no worktrees and writes no code. When the map is clear, the admiral skill slices
+it into `admiral task create --blocked-by` issues.
 
 ## The four quadrants
 
@@ -61,21 +61,21 @@ replication spike, not a from-scratch guess. Capture the source links in the map
 
 ## Hand over the map
 
-The walk is done when a single self-contained page (or the Staged issue body)
+The walk is done when a single self-contained page (or the not-yet-created issue body)
 holds all four quadrants: settled ground, resolved + still-OPEN questions, the
 taste you surfaced, the landmines you found, and any reference links. That map —
-not this conversation — is what the shogun skill slices. If a quadrant is still
+not this conversation — is what the admiral skill slices. If a quadrant is still
 foggy after the walk, that fog becomes the first slice's job, recorded as an
 OPEN the first issue must resolve.
 
 ## Carries into implementation and after
 
-The walk doesn't end at Staged — unknowns surface during and after the build too:
+The walk doesn't end before the issue is created — unknowns surface during and after the build too:
 
 - **During:** tell the implementing agent to keep an `implementation-notes.md`
   with a **Deviations** log — when an edge case forces a change from the plan,
   it picks the conservative option, logs it under Deviations, and keeps going.
-  In Shogun that deviation is also the signal to reslice: split the issue and
+  In Admiral that deviation is also the signal to reslice: split the issue and
   re-wire `--blocked-by` rather than broaden the patch. The Deviations log is the
   raw material the land-time **Rationale** section is written from.
 - **After:** before landing, have the agent produce a short explainer + a **quiz**

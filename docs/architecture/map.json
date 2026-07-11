@@ -172,21 +172,21 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 45,
+      "fileCount": 60,
       "categories": {
-        "source": 8,
-        "other": 35,
+        "source": 9,
+        "other": 49,
         "docs": 2
       },
       "keyFiles": [
         "scripts/content/export-copy.php",
         "scripts/content/export-xlsx.php",
         "scripts/content/exports/.gitkeep",
-        "scripts/content/extract.php",
-        "scripts/content/manifest.php",
-        "scripts/content/README.md",
-        "scripts/db/000-template.sh.example",
-        "scripts/db/010-strip-hardcoded-buttons-from-machine-excerpts.php"
+        "scripts/content/exports/copy-review 1.xlsx",
+        "scripts/content/exports/copy-review-about.csv",
+        "scripts/content/exports/copy-review-all.csv",
+        "scripts/content/exports/copy-review-choose.csv",
+        "scripts/content/exports/copy-review-finance.csv"
       ]
     }
   ],
@@ -501,7 +501,7 @@
       "path": "app/data/machines/mach-ii-combo-gutter.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 11913
+      "size": 11918
     },
     {
       "path": "app/data/machines/ssh-multipro.php",
@@ -687,7 +687,7 @@
       "path": "app/inc/machine-product-data.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 6614
+      "size": 7881
     },
     {
       "path": "app/inc/machine-schema.php",
@@ -1809,7 +1809,7 @@
       "path": "app/templates/pages/machii/hero.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 4575
+      "size": 4580
     },
     {
       "path": "app/templates/pages/machii/variant-matrix.php",
@@ -2895,7 +2895,7 @@
       "path": "CLAUDE.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 37820
+      "size": 21121
     },
     {
       "path": "db/imports/content-departments.csv",
@@ -3405,7 +3405,7 @@
       "path": "docs/specs/trailer.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 348
+      "size": 1197
     },
     {
       "path": "docs/specs/woo.md",
@@ -3564,6 +3564,90 @@
       "size": 0
     },
     {
+      "path": "scripts/content/exports/copy-review 1.xlsx",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 164080
+    },
+    {
+      "path": "scripts/content/exports/copy-review-about.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 11280
+    },
+    {
+      "path": "scripts/content/exports/copy-review-all.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 118433
+    },
+    {
+      "path": "scripts/content/exports/copy-review-choose.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 7140
+    },
+    {
+      "path": "scripts/content/exports/copy-review-finance.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 12033
+    },
+    {
+      "path": "scripts/content/exports/copy-review-gutter.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 10015
+    },
+    {
+      "path": "scripts/content/exports/copy-review-home.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 15521
+    },
+    {
+      "path": "scripts/content/exports/copy-review-machines.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 14670
+    },
+    {
+      "path": "scripts/content/exports/copy-review-roof-wall.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 10728
+    },
+    {
+      "path": "scripts/content/exports/copy-review-safety.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 5403
+    },
+    {
+      "path": "scripts/content/exports/copy-review-start-here.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 13738
+    },
+    {
+      "path": "scripts/content/exports/copy-review-trailer.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 10882
+    },
+    {
+      "path": "scripts/content/exports/copy-review-uniq.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 7563
+    },
+    {
+      "path": "scripts/content/exports/copy-review.xlsx",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 160368
+    },
+    {
       "path": "scripts/content/extract.php",
       "category": "source",
       "role": "Application source code.",
@@ -3699,7 +3783,7 @@
       "path": "scripts/db/035-register-theme-media.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 4283
+      "size": 4297
     },
     {
       "path": "scripts/db/036-import-content-departments.sh",

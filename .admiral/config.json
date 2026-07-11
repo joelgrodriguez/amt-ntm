@@ -7,19 +7,16 @@
   "baseBranch": "dev",
   "taskPrefix": "Admiral",
   "setupCommand": "npm ci --prefer-offline --no-audit --no-fund",
+  "tasks": {
+    "backend": "github-issues"
+  },
   "statuses": {
-    "todo": "Staged",
-    "inProgress": "Processing",
-    "blocked": "Blocked",
-    "inReview": "Reviewing",
-    "verifying": "Verifying",
-    "done": "Done",
-    "canceled": "Canceled"
+    "inProgress": "in-progress",
+    "inReview": "in-review"
   },
   "workflow": {
-    "mode": "review",
     "landing": "local",
-    "acceptance": "Verifying",
+    "mode": "review",
     "ciCommand": "npm run build",
     "autoPush": false
   },
@@ -40,10 +37,6 @@
       ".env.*"
     ],
     "requireReservationsForChangedFiles": false
-  },
-  "agentPreflight": {
-    "commands": {},
-    "cacheTtlHours": 24
   },
   "router": {
     "typeDefaults": {
@@ -114,19 +107,17 @@
     "fallbackDir": ".admiral"
   },
   "localState": [
+    ".admiral/events.jsonl",
+    ".admiral/active.md",
+    ".admiral/archive.md",
     ".admiral/mainline-queue.json",
     ".admiral/reservations.json",
     ".admiral/messages.jsonl",
-    ".admiral/events.jsonl",
     ".admiral/report-cursors.json",
-    ".admiral/agent-preflight.json",
-    ".admiral/active.md",
-    ".admiral/archive.md"
+    ".admiral/agent-preflight.json"
   ],
-  "github": {
-    "project": {
-      "number": 10,
-      "owner": "joelgrodriguez"
-    }
+  "agentPreflight": {
+    "commands": {},
+    "cacheTtlHours": 24
   }
 }

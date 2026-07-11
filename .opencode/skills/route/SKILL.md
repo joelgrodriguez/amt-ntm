@@ -8,7 +8,9 @@ description: >-
   work", or is deciding which of their agent CLIs to run for writing, copy,
   design, marketing, implementation, debugging, or verification. Outputs the
   exact shell command to run (directly, via Orca's `terminal create --command`,
-  or `worktree create`). Session-layer routing — independent of Shogun.
+  or `worktree create`). In Admiral-installed repos, `.admiral/config.json`
+  `router` is the operational source of truth; this skill documents the default
+  table and override guidance.
 ---
 
 # Route
@@ -17,6 +19,16 @@ Pick the agent + launch command for a piece of work, by work type. All commands
 are verified against the installed CLIs (`--help`, 2026-07). Bypass/auto-approve
 is on everywhere by design — worktree isolation is the safety net, not per-call
 prompts. Effort values are tunable defaults; edit them in the table below.
+
+In Admiral-installed projects, routing decisions are deterministic and live in
+`.admiral/config.json` under `router`. The fixed seats are `orchestrator`,
+`scout`, `implementer`, `verifier`, `reviewer`, `marketer`, and `docs`. Each
+seat has a full launch `command` plus an ordered `fallback` chain; `typeDefaults`
+maps issue `type:` labels to seats. Override a project by editing only the seat
+you need, for example `router.seats.implementer.command`. `admiral task start
+<n> --route` infers from the task type, `--route verifier` overrides. When an
+agent hits a spend/auth wall, respawn it manually with the seat's fallback
+command: `admiral task start <n> --agent-command "<fallback command>"`.
 
 **The three-seat model (Joel's override, 2026-07).** Coding work runs on a
 fixed cast:
@@ -41,42 +53,41 @@ mostly dispatches, watches, and hands off, use **Codex as the driver seat** to
 save Claude/Fable tokens. Use Fable/Claude as the driver when the chain needs
 taste, planning judgment, or explicit Fable supervision.
 
-**The stack has three layers — the conductor is above Fable.**
+**The stack has three layers — the commodore is above Fable.**
 ```
 YOU (English)
-  └─ Conductor: Claude Opus 4.8 xhigh   ← the session Joel sits in
+  └─ Commodore: Claude Opus 4.8 xhigh   ← the session Joel sits in
        └─ dispatches → Fable (brain)     ← Orca terminal, per project/worktree
             ├─ Composer (reads/scouts)
             └─ Codex (writes code)
 ```
-Joel talks to the **conductor** (Opus xhigh), not to Fable. The conductor
-interprets English, routes, and drives Orca/Shogun. It dispatches **Fable as a
+Joel talks to the **commodore** (Opus xhigh), not to Fable. The commodore
+interprets English, routes, and drives Orca/Admiral. It dispatches **Fable as a
 worker brain** into an Orca terminal; Fable runs its own crew (Composer reads,
 Codex writes) and reports back up.
 
 **Backup when Fable runs dry → the CONDUCTOR respawns as Opus. Fable cannot
 rescue itself.** A dead/credit-exhausted Fable terminal has no way to call
 `orca terminal create` or summon a replacement — it just errors and sits. So the
-parachute is **conductor-owned supervision**, not a model feature on Fable:
-- The conductor **watches** the Fable terminal (this is exactly what the
+parachute is **commodore-owned supervision**, not a model feature on Fable:
+- The commodore **watches** the Fable terminal (this is exactly what the
   `escalate` skill does — poll the terminal, detect stalled/errored/credit-wall).
-- On a credit/auth/trust error, the conductor uses Shogun to spin a **new**
-  terminal with Opus and re-dispatch the same task:
-  `shogun agent fallback <task|terminal> --to "claude --model opus --effort xhigh --dangerously-skip-permissions"`.
+- On a credit/auth/trust error, the commodore manually spins a **new** terminal
+  with Opus in the same worktree and re-dispatches the same task:
+  `admiral task start <n> --agent-command "claude --model opus --effort xhigh --dangerously-skip-permissions"`.
 - Fable never knows; the layer above it did the swap.
 
 `--fallback-model opus` (Claude's in-process flag) is a **red herring here**: it
 only works in headless `--print` mode and swaps *within one process* — it cannot
 drive Orca or respawn a watchable terminal. Use it only for headless dispatched
 work where no live terminal is needed. For the normal watch-a-terminal workflow,
-fallback = `task sync` / `task report` warns, then the conductor explicitly runs
-`shogun agent fallback ...`. Shogun creates the Opus terminal in the same Orca
-worktree, sends the same task context, and records the original/new terminal
-handles.
+the commodore watches the terminal directly and, on a wall, manually launches
+the fallback command above in the same Orca worktree with the same task
+context.
 
 Not an "ultracode" effort — the installed `claude` CLI (v2.1) accepts only
 `low|medium|high|xhigh|max`; there is no `ultracode` effort flag, so both the
-conductor and the parachute run at `xhigh` (dial to `max` only if depth can't be
+commodore and the parachute run at `xhigh` (dial to `max` only if depth can't be
 compromised). If a future Claude Code build exposes `ultracode` as a real
 `--effort` value, wire it in then.
 
@@ -117,30 +128,20 @@ compromised). If a future Claude Code build exposes `ultracode` as a real
   CI-critical default (free-model uptime isn't guaranteed).
 - Grok: `--effort <level>` (only `grok-composer` supports it; `grok-build` doesn't).
 
-## Judgment layer — skills that USE this table (don't pick a model)
+## Judgment layer — lives in the admiral skill (don't pick a model)
 
-Three skills encode Joel's orchestration judgment so agents advance the knowable
-cases and surface only the novel ones. They *consume* `route`; they aren't rows
-in it. Each has one clear job and defers the rest:
-
-| Skill | One job | Defers to |
-|---|---|---|
-| `done-check` | Judge "is this done to Joel's bar" (tests green + cross-review clean + no P0 → commit to `dev` + notify; ambiguous/P0 → surface) | `check-work` (verify), `route` (reviewer) |
-| `escalate` | Watch a raw-CLI minion, decide stalled/looping → re-route or surface (hybrid: `STATUS:` self-report + `terminal show` poll) | `route` (re-route target), Orca terminals (signal) |
-| `orchestrate` | Run draft→attack→execute→watch→review→done, seats filled from this table | `route` (seats), Orca `$orchestration` (dispatch), `escalate`, `done-check` |
-
-`orchestrate` is the mission loop — validated by Hashimoto/Jinjing (planner →
-coder → judge; premium brains only on plan+judge = ~few dollars vs $50+). Our
-version routes the seats instead of retyping them, and judges cross-vendor
-(`reviewer ≠ author`). The seats: **Fable 5 high is the planner/orchestrator
-brain**, **Codex xhigh is the executor**, **Composer 2.5 is the reader/scout**.
-For long unattended runs, the **driver seat defaults to Codex** to save
+The orchestration judgment (mission loop, agent supervision, done gate) is
+consolidated into the **admiral skill's "Judgment layer" section** — the
+standalone done-check / escalate / orchestrate skills are retired (2026-07-06).
+The contracts still consume `route`: the mission loop fills seats from this
+table, supervision re-routes via it, and the done gate picks its cross-vendor
+reviewer (`reviewer ≠ author`) from the Review row. Validated shape
+(Hashimoto/Jinjing): planner → coder → judge with premium brains only on
+plan+judge. For long unattended runs the driver seat defaults to Codex to save
 Claude/Fable tokens; Fable/Claude drives when taste or planning judgment is in
-the loop. Auto-advance is **`dev`-only**; `master`/remote never happen unattended. Fable
-is the premium brain: it holds the mission and delegates file-reading to
-Composer and code-writing to Codex so its expensive reasoning goes to judgment,
-not grepping. If Fable's credits run dry, Shogun/conductor falls back to Opus
-with `shogun agent fallback <task|terminal> --to "claude --model opus --effort xhigh --dangerously-skip-permissions"`.
+the loop. Auto-advance is **`dev`-only**; `master`/remote never happen
+unattended. If Fable's credits run dry, the commodore respawns Opus manually
+with `admiral task start <n> --agent-command "claude --model opus --effort xhigh --dangerously-skip-permissions"`.
 
 ## Quality patterns (these matter more than the roster)
 
@@ -189,7 +190,39 @@ For anything hard (architecture, a risky refactor, a multi-step change), plan
 A bad plan caught here costs one review; caught after execution it costs the
 whole build. This is why it pays for itself.
 
-## How to route
+### 4. Signal the flagship — mid-task advisor consult, not a respawn
+
+The advisor pattern (Anthropic's Sonnet+Fable-advisor data: most of the
+premium model's accuracy at a fraction of its cost): a cheap executor works
+every turn, and the premium brain is a **one-shot tool call** consulted only
+when stuck. In this fleet the advisor is the **flagship** — Claude Fable,
+headless.
+
+Trigger: the same step has failed **twice** (a test that won't pass, a bug
+that moved, an approach that keeps unraveling). Don't grind a third time and
+don't respawn — signal the flagship:
+
+```
+claude -p "Flagship consult. I am <model> working <task/branch>. Goal: <one
+line>. I tried: <attempt 1, attempt 2 — what happened>. Relevant files:
+<paths>. Question: what am I missing / what's the right approach?"
+```
+
+One shot, act on the answer. Costs pennies; a wrong-path hour costs the task.
+Escalate to the human/commodore only when the flagship's answer requires a
+decision that isn't yours (scope, product, irreversible action). Note the
+consult and its outcome in the work log/report. If the stuck work IS Claude's
+(reviewer ≠ author holds for advice too), signal Codex xhigh instead:
+`codex exec "<same consult shape>"`.
+
+**Step 0 — ceremony check (the ~30-minute rule).** Before picking a model, ask
+whether the work is under ~30 minutes of agent effort or confined to one
+file/concern. If yes: run it inline — current session or a direct shell launch,
+no Admiral/Shogun task, no new worktree, no spawned agent — unless the user
+explicitly asks for a tracked task. The issue + worktree + spawn + review + land
+ceremony is fixed overhead that small work never pays back. At or above the
+threshold, or when work parallelizes or has dependencies, dispatch normally.
+
 
 1. Classify the work into a row above. Quick map:
    - **Persuasion voice** (marketing, CTA, ad, conversion, social) →
@@ -279,6 +312,6 @@ Verified default/opt-in state (`<cli> --help`):
   arbitrary command string — that's the escape hatch for flagged launches.
 - Bypass is on by default here; drop the `--dangerously-*` / `--always-approve`
   flag from a command to restore that agent's normal approval prompts.
-- This routing is session-layer and works anywhere. It is independent of Shogun
+- This routing is session-layer and works anywhere. It is independent of Admiral
   (the work-tracker) and Orca (the worktree spawner); it just decides *what
   command to run*.
