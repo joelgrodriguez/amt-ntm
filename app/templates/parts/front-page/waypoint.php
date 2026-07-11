@@ -25,21 +25,21 @@ $paths = [
     ],
     [
         'icon'  => 'trending-up',
-        'label' => __('Compare models', 'standard'),
-        'text'  => __('Scan specs side by side.', 'standard'),
-        'url'   => '/machines/#comparison-title',
-    ],
-    [
-        'icon'  => 'phone',
-        'label' => __('Talk to sales', 'standard'),
-        'text'  => __('Get help choosing.', 'standard'),
-        'url'   => '/contact/',
+        'label' => __('Upgrade your machine', 'standard'),
+        'text'  => __('Accessories and add-ons.', 'standard'),
+        'url'   => '/machines/upgrades/',
     ],
     [
         'icon'  => 'life-buoy',
         'label' => __('Service & manuals', 'standard'),
         'text'  => __('Owner support and docs.', 'standard'),
         'url'   => '/service-hub/',
+    ],
+    [
+        'icon'  => 'phone',
+        'label' => __('Talk to sales', 'standard'),
+        'text'  => __('Get help choosing.', 'standard'),
+        'url'   => '/contact/',
     ],
 ];
 ?>
