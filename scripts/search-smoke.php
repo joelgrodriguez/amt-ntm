@@ -15,6 +15,28 @@ if (!defined('ABSPATH')) {
     exit(1);
 }
 
+function standard_search_smoke_load_search_contract(): void {
+    if (function_exists('Standard\\Search\\get_searchable_post_types')) {
+        return;
+    }
+
+    $root = dirname(__DIR__);
+    foreach ([
+        'app/inc/urls.php',
+        'app/inc/woo/cache.php',
+        'app/inc/machine-product-data.php',
+        'app/inc/machines-data.php',
+        'app/inc/search.php',
+    ] as $file) {
+        $path = $root . '/' . $file;
+        if (file_exists($path)) {
+            require_once $path;
+        }
+    }
+}
+
+standard_search_smoke_load_search_contract();
+
 /**
  * @param array<string, string> $get
  * @param array<string, mixed>  $query_args
@@ -25,7 +47,9 @@ function standard_search_smoke_query(array $get, array $query_args): \WP_Query {
 
     $query = new \WP_Query();
     $previous_main_query = $GLOBALS['wp_the_query'] ?? null;
+    $previous_query = $GLOBALS['wp_query'] ?? null;
     $GLOBALS['wp_the_query'] = $query;
+    $GLOBALS['wp_query'] = $query;
 
     $query->query($query_args);
 
@@ -33,6 +57,11 @@ function standard_search_smoke_query(array $get, array $query_args): \WP_Query {
         $GLOBALS['wp_the_query'] = $previous_main_query;
     } else {
         unset($GLOBALS['wp_the_query']);
+    }
+    if ($previous_query instanceof \WP_Query) {
+        $GLOBALS['wp_query'] = $previous_query;
+    } else {
+        unset($GLOBALS['wp_query']);
     }
 
     $_GET = $previous_get;
@@ -56,6 +85,15 @@ function standard_search_smoke_pass(string $message): void {
     }
 
     echo "PASS: {$message}\n";
+}
+
+function standard_search_smoke_skip(string $message): void {
+    if (class_exists('WP_CLI')) {
+        \WP_CLI::log("SKIP: {$message}");
+        return;
+    }
+
+    echo "SKIP: {$message}\n";
 }
 
 /**
@@ -89,6 +127,415 @@ function standard_search_smoke_assert_no_post_types(\WP_Query $query, array $blo
     }
 
     standard_search_smoke_pass($message);
+}
+
+/**
+ * @return mixed
+ */
+function standard_search_smoke_with_query_globals(\WP_Query $query, callable $callback) {
+    $previous_main_query = $GLOBALS['wp_the_query'] ?? null;
+    $previous_query = $GLOBALS['wp_query'] ?? null;
+    $GLOBALS['wp_the_query'] = $query;
+    $GLOBALS['wp_query'] = $query;
+
+    try {
+        return $callback();
+    } finally {
+        if ($previous_main_query instanceof \WP_Query) {
+            $GLOBALS['wp_the_query'] = $previous_main_query;
+        } else {
+            unset($GLOBALS['wp_the_query']);
+        }
+        if ($previous_query instanceof \WP_Query) {
+            $GLOBALS['wp_query'] = $previous_query;
+        } else {
+            unset($GLOBALS['wp_query']);
+        }
+    }
+}
+
+/**
+ * @return string[]
+ */
+function standard_search_smoke_machine_slugs(string $machine_key): array {
+    if (function_exists('Standard\\Search\\get_machine_product_slug_candidates_by_key')) {
+        $map = \Standard\Search\get_machine_product_slug_candidates_by_key();
+
+        return $map[$machine_key] ?? [$machine_key];
+    }
+
+    return [$machine_key];
+}
+
+/**
+ * @param string[] $categories
+ */
+function standard_search_smoke_product_id_by_slug_category(array $slugs, array $categories, string $label): int {
+    foreach ($slugs as $slug) {
+        $post = get_page_by_path($slug, OBJECT, 'product');
+        if (!$post instanceof \WP_Post || $post->post_status !== 'publish') {
+            continue;
+        }
+
+        if ($categories !== [] && taxonomy_exists('product_cat') && !has_term($categories, 'product_cat', $post->ID)) {
+            continue;
+        }
+
+        return (int) $post->ID;
+    }
+
+    standard_search_smoke_fail("Could not resolve {$label} product by slug/category.");
+}
+
+function standard_search_smoke_machine_product_id(string $machine_key): int {
+    return standard_search_smoke_product_id_by_slug_category(
+        standard_search_smoke_machine_slugs($machine_key),
+        ['roof-wall-panel-machines', 'gutter-machines'],
+        $machine_key
+    );
+}
+
+/**
+ * @param string[] $machine_keys
+ * @return int[]
+ */
+function standard_search_smoke_machine_product_ids(array $machine_keys): array {
+    return array_map('standard_search_smoke_machine_product_id', $machine_keys);
+}
+
+function standard_search_smoke_first_post(\WP_Query $query, string $message): \WP_Post {
+    $post = $query->posts[0] ?? null;
+    if (!$post instanceof \WP_Post) {
+        standard_search_smoke_fail($message . ' Search returned no first result.');
+    }
+
+    return $post;
+}
+
+function standard_search_smoke_rank(\WP_Query $query, int $post_id): ?int {
+    foreach (array_values($query->posts) as $index => $post) {
+        if ($post instanceof \WP_Post && (int) $post->ID === $post_id) {
+            return $index + 1;
+        }
+    }
+
+    return null;
+}
+
+function standard_search_smoke_result_text(\WP_Post $post): string {
+    $value = $post->post_title . ' ' . $post->post_name . ' ' . $post->post_type;
+    $value = html_entity_decode($value, ENT_QUOTES, 'UTF-8');
+    $value = strtolower((string) remove_accents($value));
+    $value = preg_replace('/[^a-z0-9]+/', ' ', $value) ?? $value;
+
+    return trim($value);
+}
+
+function standard_search_smoke_relevanssi_version(): string {
+    if (!function_exists('get_plugins')) {
+        $plugin_functions = ABSPATH . 'wp-admin/includes/plugin.php';
+        if (file_exists($plugin_functions)) {
+            require_once $plugin_functions;
+        }
+    }
+
+    if (!function_exists('get_plugins')) {
+        return '';
+    }
+
+    $plugins = get_plugins();
+    foreach (['relevanssi-premium/relevanssi.php', 'relevanssi/relevanssi.php'] as $plugin_file) {
+        $version = $plugins[$plugin_file]['Version'] ?? '';
+        if (is_string($version) && $version !== '') {
+            return $version;
+        }
+    }
+
+    return '';
+}
+
+function standard_search_smoke_decode_relevanssi_tracking_value(string $value): string {
+    if (function_exists('relevanssi_base64url_decode')) {
+        return (string) relevanssi_base64url_decode($value);
+    }
+
+    $decoded = base64_decode(strtr($value, '-_', '+/'), true);
+
+    return is_string($decoded) ? $decoded : '';
+}
+
+function standard_search_smoke_expected_tracking_query(string $search): string {
+    $query = str_replace('|', ' ', $search);
+
+    return function_exists('relevanssi_strtolower')
+        ? (string) relevanssi_strtolower($query)
+        : strtolower($query);
+}
+
+function standard_search_smoke_assert_url_has_tracking(
+    string $url,
+    string $search,
+    int $rank,
+    int $post_id,
+    string $message
+): void {
+    if ((string) get_option('relevanssi_click_tracking', 'off') !== 'on' || !function_exists('relevanssi_log_click')) {
+        standard_search_smoke_skip($message . ' Click tracking is unavailable/off, so URL decoration is skipped.');
+        return;
+    }
+
+    $version = standard_search_smoke_relevanssi_version();
+    if ($version === '' || !str_starts_with($version, '2.29.')) {
+        standard_search_smoke_fail($message . " Relevanssi click-tracking payload is intentionally coupled to 2.29.x; detected version '{$version}'.");
+    }
+
+    $query = parse_url($url, PHP_URL_QUERY);
+    $params = [];
+    if (is_string($query)) {
+        parse_str($query, $params);
+    }
+
+    $encoded = isset($params['_rt']) && is_scalar($params['_rt']) ? (string) $params['_rt'] : '';
+    $nonce = isset($params['_rt_nonce']) && is_scalar($params['_rt_nonce']) ? (string) $params['_rt_nonce'] : '';
+    if ($encoded === '' || $nonce === '') {
+        standard_search_smoke_fail($message . ' Missing _rt or _rt_nonce. URL was: ' . $url);
+    }
+
+    if ($post_id <= 0 || wp_verify_nonce($nonce, 'relevanssi_click_tracking_' . $post_id) === false) {
+        standard_search_smoke_fail($message . ' Relevanssi tracking nonce does not verify for post ' . $post_id . '.');
+    }
+
+    $decoded = standard_search_smoke_decode_relevanssi_tracking_value($encoded);
+    $parts = explode('|', $decoded);
+    if (count($parts) !== 4) {
+        standard_search_smoke_fail($message . " Relevanssi 2.29 _rt payload should be rank|page|query|time; got '{$decoded}'.");
+    }
+
+    $expected_query = standard_search_smoke_expected_tracking_query($search);
+    if ((int) $parts[0] !== $rank || (int) $parts[1] !== 1 || $parts[2] !== $expected_query) {
+        standard_search_smoke_fail($message . " Relevanssi 2.29 _rt payload drifted; got '{$decoded}'.");
+    }
+
+    if (!ctype_digit($parts[3]) || abs(time() - (int) $parts[3]) > 300) {
+        standard_search_smoke_fail($message . " Relevanssi 2.29 _rt timestamp is invalid; got '{$decoded}'.");
+    }
+
+    standard_search_smoke_pass($message);
+}
+
+function standard_search_smoke_assert_machine_intent(string $search, array $expected_exact_keys, string $message): void {
+    if (!function_exists('Standard\\Search\\get_machine_search_intent')) {
+        standard_search_smoke_fail('Machine intent parser is unavailable.');
+    }
+
+    $intent = \Standard\Search\get_machine_search_intent($search);
+    standard_search_smoke_assert_same($intent['exact_keys'], $expected_exact_keys, $message);
+}
+
+function standard_search_smoke_assert_source_contracts(): void {
+    $root = dirname(__DIR__);
+    $search_source = file_get_contents($root . '/app/inc/search.php') ?: '';
+    $content_source = file_get_contents($root . '/app/templates/parts/content-search.php') ?: '';
+    $modal_source = file_get_contents($root . '/app/resources/js/modules/SearchModal.js') ?: '';
+
+    if (preg_match('/function\s+get_relevanssi_index_post_types\b.*?^}/ms', $search_source, $match) !== 1) {
+        standard_search_smoke_fail('Could not inspect get_relevanssi_index_post_types source.');
+    }
+
+    standard_search_smoke_assert_true(
+        !str_contains($match[0], 'post_type_exists'),
+        'Relevanssi index post-type contract is not filtered by registration timing.'
+    );
+    standard_search_smoke_assert_true(
+        str_contains($search_source, "add_filter('option_relevanssi_index_post_types'"),
+        'Relevanssi index post-type cleanup is persisted in git-owned theme code.'
+    );
+    standard_search_smoke_assert_true(
+        str_contains($modal_source, '/wp-json/standard/v1/search')
+        && !str_contains($modal_source, '/wp-json/wp/v2/search'),
+        'Search modal uses the theme REST endpoint instead of native WP search.'
+    );
+    standard_search_smoke_assert_true(
+        str_contains($content_source, "get_template_part('templates/parts/card-post', null")
+        && str_contains($content_source, 'get_search_result_permalink'),
+        'Generic card-post search results receive the tracked search URL override.'
+    );
+    standard_search_smoke_assert_true(
+        str_contains($search_source, 'wp_cache_get(CANONICAL_MACHINE_PRODUCT_IDS_CACHE_KEY')
+        && str_contains($search_source, 'wp_cache_set(CANONICAL_MACHINE_PRODUCT_IDS_CACHE_KEY')
+        && str_contains($search_source, 'wp_cache_delete(CANONICAL_MACHINE_PRODUCT_IDS_CACHE_KEY'),
+        'Canonical machine product IDs are cached and invalidated through wp_cache.'
+    );
+    standard_search_smoke_assert_true(
+        str_contains($search_source, "add_action('save_post_product'")
+        && str_contains($search_source, "add_action('deleted_post'")
+        && str_contains($search_source, "add_action('post_updated'"),
+        'Canonical machine product ID cache invalidates on safe product save, delete, and slug change hooks.'
+    );
+    standard_search_smoke_assert_true(
+        str_contains($search_source, 'Relevanssi Premium 2.29 click-tracking payloads')
+        && str_contains($search_source, "\$value = \$rank . '|1|' . \$query . '|' . time();"),
+        'REST/modal click tracking documents the intentional Relevanssi 2.29 payload coupling.'
+    );
+}
+
+function standard_search_smoke_assert_canonical_machine_product_cache_contract(): void {
+    if (!function_exists('Standard\\Search\\get_canonical_machine_product_ids')
+        || !function_exists('Standard\\Search\\flush_canonical_machine_product_id_cache')) {
+        standard_search_smoke_fail('Canonical machine product ID cache functions are unavailable.');
+    }
+
+    $cache_key = constant('Standard\\Search\\CANONICAL_MACHINE_PRODUCT_IDS_CACHE_KEY');
+    $cache_group = constant('Standard\\Search\\CACHE_GROUP');
+
+    \Standard\Search\flush_canonical_machine_product_id_cache();
+    $ids = \Standard\Search\get_canonical_machine_product_ids();
+
+    $found = false;
+    $cached = wp_cache_get($cache_key, $cache_group, false, $found);
+    if (!$found || $cached !== $ids) {
+        standard_search_smoke_fail('Canonical machine product IDs were not persisted in wp_cache.');
+    }
+
+    \Standard\Search\flush_canonical_machine_product_id_cache();
+    $found_after_flush = false;
+    wp_cache_get($cache_key, $cache_group, false, $found_after_flush);
+    if ($found_after_flush) {
+        standard_search_smoke_fail('Canonical machine product ID cache did not clear through wp_cache_delete.');
+    }
+
+    standard_search_smoke_pass('Canonical machine product IDs persist in wp_cache and flush cleanly.');
+}
+
+/**
+ * @param callable(\WP_Post): bool $predicate
+ */
+function standard_search_smoke_first_matching_rank(\WP_Query $query, callable $predicate): ?int {
+    foreach (array_values($query->posts) as $index => $post) {
+        if ($post instanceof \WP_Post && $predicate($post)) {
+            return $index + 1;
+        }
+    }
+
+    return null;
+}
+
+function standard_search_smoke_assert_top_machine(string $search, string $machine_key): void {
+    $expected_id = standard_search_smoke_machine_product_id($machine_key);
+    $query = standard_search_smoke_query([], ['s' => $search]);
+    $first = standard_search_smoke_first_post($query, "{$search} leads with {$machine_key}.");
+
+    standard_search_smoke_assert_same(
+        (int) $first->ID,
+        $expected_id,
+        "{$search} leads with canonical {$machine_key} machine product."
+    );
+}
+
+/**
+ * @param string[] $machine_keys
+ */
+function standard_search_smoke_assert_top_in_machine_set(string $search, array $machine_keys, string $message): void {
+    $expected_ids = standard_search_smoke_machine_product_ids($machine_keys);
+    $query = standard_search_smoke_query([], ['s' => $search]);
+    $first = standard_search_smoke_first_post($query, $message);
+
+    standard_search_smoke_assert_true(
+        in_array((int) $first->ID, $expected_ids, true),
+        $message . ' First result was "' . $first->post_title . '".'
+    );
+}
+
+/**
+ * @param callable(\WP_Post): bool $modifier_predicate
+ * @param string[] $machine_keys
+ */
+function standard_search_smoke_assert_modifier_beats_machine(
+    string $search,
+    callable $modifier_predicate,
+    array $machine_keys,
+    string $message
+): void {
+    $query = standard_search_smoke_query([], ['s' => $search]);
+    $modifier_rank = standard_search_smoke_first_matching_rank($query, $modifier_predicate);
+    if ($modifier_rank === null) {
+        standard_search_smoke_fail($message . ' No matching modifier result found.');
+    }
+
+    $machine_rank = null;
+    foreach (standard_search_smoke_machine_product_ids($machine_keys) as $machine_id) {
+        $rank = standard_search_smoke_rank($query, $machine_id);
+        if ($rank !== null) {
+            $machine_rank = $machine_rank === null ? $rank : min($machine_rank, $rank);
+        }
+    }
+
+    standard_search_smoke_assert_true(
+        $machine_rank === null || $modifier_rank < $machine_rank,
+        $message . " Modifier rank {$modifier_rank}, machine rank " . ($machine_rank ?? 'not present') . '.'
+    );
+}
+
+/**
+ * @return int[]
+ */
+function standard_search_smoke_query_ids(\WP_Query $query, int $limit = 5): array {
+    $ids = [];
+    foreach (array_slice($query->posts, 0, $limit) as $post) {
+        if ($post instanceof \WP_Post) {
+            $ids[] = (int) $post->ID;
+        }
+    }
+
+    return $ids;
+}
+
+/**
+ * @return int[]
+ */
+function standard_search_smoke_rest_ids(string $search, string $subtype = '', int $limit = 5): array {
+    return array_map(
+        static fn(array $item): int => (int) ($item['id'] ?? 0),
+        standard_search_smoke_rest_items($search, $subtype, $limit)
+    );
+}
+
+/**
+ * @return array<int, array<string, mixed>>
+ */
+function standard_search_smoke_rest_items(string $search, string $subtype = '', int $limit = 5): array {
+    if (!function_exists('Standard\\Search\\handle_rest_search_request')) {
+        standard_search_smoke_fail('REST search handler is unavailable.');
+    }
+
+    $request = new \WP_REST_Request('GET', '/standard/v1/search');
+    $request->set_param('search', $search);
+    $request->set_param('per_page', $limit);
+    if ($subtype !== '') {
+        $request->set_param('subtype', $subtype);
+    }
+
+    $response = \Standard\Search\handle_rest_search_request($request);
+    $data = $response instanceof \WP_REST_Response ? $response->get_data() : [];
+
+    if (!is_array($data)) {
+        standard_search_smoke_fail('REST search handler returned a non-array payload.');
+    }
+
+    return array_values(array_filter($data, 'is_array'));
+}
+
+function standard_search_smoke_assert_rest_parity(string $search, string $subtype = ''): void {
+    $get = $subtype !== '' ? ['post_type' => $subtype] : [];
+    $query = standard_search_smoke_query($get, ['s' => $search]);
+    $page_ids = standard_search_smoke_query_ids($query);
+    $rest_ids = standard_search_smoke_rest_ids($search, $subtype);
+
+    standard_search_smoke_assert_same(
+        $rest_ids,
+        $page_ids,
+        "REST/modal top results match full-page search for {$search}" . ($subtype !== '' ? " ({$subtype})" : '') . '.'
+    );
 }
 
 $blocked_post_types = ['pricesheet', 'cutlist', 'attachment'];
@@ -138,6 +585,105 @@ standard_search_smoke_assert_same(
     'Learning Center filter-only search allows the default WP request.'
 );
 
+if (function_exists('relevanssi_do_query')) {
+    standard_search_smoke_assert_top_machine('SSQ', 'ssq3-multipro');
+    standard_search_smoke_assert_top_machine('SSQ3', 'ssq3-multipro');
+    standard_search_smoke_assert_top_machine('SSQ 3', 'ssq3-multipro');
+    standard_search_smoke_assert_top_machine('SSQ2', 'ssq-ii-multipro');
+    standard_search_smoke_assert_top_machine('MACH II', 'mach-ii-combo-gutter');
+    standard_search_smoke_assert_top_machine('Mach 2', 'mach-ii-combo-gutter');
+    standard_search_smoke_assert_top_machine('GM 5/6', 'mach-ii-combo-gutter');
+    standard_search_smoke_assert_top_machine('gm56', 'mach-ii-combo-gutter');
+    standard_search_smoke_assert_top_machine('gm 5', 'mach-ii-5-gutter');
+    standard_search_smoke_assert_top_machine('gm 6', 'mach-ii-6-gutter');
+    standard_search_smoke_assert_top_machine('BG7', 'bg7-box-gutter');
+    standard_search_smoke_assert_top_machine('WAV', 'wav-wall-panel');
+
+    standard_search_smoke_assert_top_in_machine_set(
+        'gutter machine',
+        ['mach-ii-combo-gutter', 'mach-ii-5-gutter', 'mach-ii-6-gutter', 'bg7-box-gutter'],
+        'Generic gutter machine query leads with an active canonical gutter machine.'
+    );
+    standard_search_smoke_assert_top_in_machine_set(
+        'roof panel machine',
+        ['ssq3-multipro', 'ssh-multipro', 'ssr-multipro-jr', '5vc-5v-crimp', 'wav-wall-panel'],
+        'Generic roof panel machine query leads with an active canonical roof/wall machine.'
+    );
+
+    standard_search_smoke_assert_modifier_beats_machine(
+        'SSQ3 manual',
+        static fn(\WP_Post $post): bool => $post->post_type === 'manual' && str_contains(standard_search_smoke_result_text($post), 'ssq3'),
+        ['ssq3-multipro'],
+        'SSQ3 manual query lets the manual outrank the machine.'
+    );
+    standard_search_smoke_assert_modifier_beats_machine(
+        'BG7 manual',
+        static fn(\WP_Post $post): bool => $post->post_type === 'manual' && str_contains(standard_search_smoke_result_text($post), 'bg7'),
+        ['bg7-box-gutter'],
+        'BG7 manual query lets the manual outrank the machine.'
+    );
+    standard_search_smoke_assert_modifier_beats_machine(
+        'SSQ3 cover',
+        static fn(\WP_Post $post): bool => $post->post_type === 'product' && str_contains(standard_search_smoke_result_text($post), 'cover'),
+        ['ssq3-multipro'],
+        'SSQ3 cover query lets the requested accessory outrank the machine.'
+    );
+    standard_search_smoke_assert_modifier_beats_machine(
+        'MACH II cart',
+        static fn(\WP_Post $post): bool => $post->post_type === 'product' && str_contains(standard_search_smoke_result_text($post), 'cart'),
+        ['mach-ii-combo-gutter', 'mach-ii-5-gutter', 'mach-ii-6-gutter'],
+        'MACH II cart query lets the requested accessory outrank MACH II machines.'
+    );
+
+    standard_search_smoke_assert_rest_parity('SSQ3');
+    standard_search_smoke_assert_rest_parity('MACH II', 'product');
+    standard_search_smoke_assert_rest_parity('SSQ3 manual');
+
+    $rest_items = standard_search_smoke_rest_items('SSQ3');
+    $first_rest_url = (string) ($rest_items[0]['url'] ?? '');
+    $first_rest_id = (int) ($rest_items[0]['id'] ?? 0);
+    standard_search_smoke_assert_url_has_tracking(
+        $first_rest_url,
+        'SSQ3',
+        1,
+        $first_rest_id,
+        'REST/modal result URLs preserve Relevanssi 2.29 click tracking.'
+    );
+
+    $post_only = standard_search_smoke_query(['post_type' => 'post'], ['s' => 'gutter']);
+    $first_post = standard_search_smoke_first_post($post_only, 'Post-only search has a generic card-post result.');
+    $tracked_post_url = standard_search_smoke_with_query_globals(
+        $post_only,
+        static fn(): string => \Standard\Search\get_search_result_permalink($first_post)
+    );
+    standard_search_smoke_assert_url_has_tracking(
+        $tracked_post_url,
+        'gutter',
+        1,
+        (int) $first_post->ID,
+        'Generic card-post search URLs preserve Relevanssi 2.29 click tracking.'
+    );
+} else {
+    standard_search_smoke_skip('Relevanssi is unavailable; machine ranking, REST parity, and click-tracking checks skipped without fatal errors.');
+}
+
+standard_search_smoke_assert_machine_intent('SSQ2', ['ssq-ii-multipro'], 'SSQ2 safely maps to SSQ II.');
+standard_search_smoke_assert_machine_intent('SSQ200 profile', [], 'SSQ200 profile does not map to SSQ II.');
+standard_search_smoke_assert_machine_intent('SSQ210A profile', [], 'SSQ210A profile does not map to SSQ II.');
+standard_search_smoke_assert_machine_intent('SSQ275 profile', [], 'SSQ275 profile does not map to SSQ II.');
+standard_search_smoke_assert_machine_intent('GM 5/6', ['mach-ii-combo-gutter'], 'GM 5/6 safely maps to the combo gutter machine.');
+standard_search_smoke_assert_machine_intent('gm56', ['mach-ii-combo-gutter'], 'gm56 safely maps to the combo gutter machine.');
+standard_search_smoke_assert_machine_intent('gm 5', ['mach-ii-5-gutter'], 'gm 5 safely maps to the 5-inch gutter machine.');
+standard_search_smoke_assert_machine_intent('gm 6', ['mach-ii-6-gutter'], 'gm 6 safely maps to the 6-inch gutter machine.');
+standard_search_smoke_assert_machine_intent('gm500 profile', [], 'gm500 does not map to a GM machine.');
+standard_search_smoke_assert_machine_intent('gm 50 profile', [], 'gm 50 does not map to a GM machine.');
+standard_search_smoke_assert_machine_intent('gm 5 0 profile', [], 'gm 5 0 does not map to a GM machine.');
+standard_search_smoke_assert_machine_intent('gm 56a profile', [], 'gm 56a does not map to a GM machine.');
+standard_search_smoke_assert_machine_intent('agm 5 profile', [], 'agm 5 does not map to a GM machine.');
+
+standard_search_smoke_assert_source_contracts();
+standard_search_smoke_assert_canonical_machine_product_cache_contract();
+
 foreach ($blocked_index_post_types as $blocked_post_type) {
     $posts = get_posts([
         'post_type'              => $blocked_post_type,
@@ -149,7 +695,7 @@ foreach ($blocked_index_post_types as $blocked_post_type) {
     ]);
 
     if ($posts === []) {
-        standard_search_smoke_pass("No {$blocked_post_type} post exists to test index exclusion.");
+        standard_search_smoke_skip("No {$blocked_post_type} post exists to test index exclusion.");
         continue;
     }
 

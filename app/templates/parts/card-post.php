@@ -34,6 +34,9 @@ use function Standard\PostTypes\get_primary_category;
 $post_type = get_post_type();
 $config    = get_display_config((string) $post_type);
 $category  = get_primary_category();
+$url       = isset($args['url']) && is_string($args['url']) && $args['url'] !== ''
+    ? $args['url']
+    : (get_permalink() ?: '#');
 ?>
 
 <article class="group relative grid grid-rows-[auto_1fr_auto] h-full bg-white border border-blue-200 transition-colors duration-200 hover:border-blue-500">
@@ -59,7 +62,7 @@ $category  = get_primary_category();
 
         <?php the_title(sprintf(
             '<h3 class="font-medium text-lg leading-snug text-blue-900 transition-colors duration-200 group-hover:text-blue-500"><a href="%s" class="text-inherit no-underline hover:no-underline after:absolute after:inset-0 after:content-[\'\'] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" aria-label="%s">',
-            esc_url(get_permalink()),
+            esc_url($url),
             esc_attr(sprintf(
                 /* translators: %1$s post title, %2$s post-type-specific verb (e.g. "Read full article"). */
                 __('%1$s. %2$s.', 'standard'),

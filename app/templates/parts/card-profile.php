@@ -45,7 +45,9 @@ if (!$profile instanceof \WP_Post) {
     return;
 }
 
-$url   = get_permalink($profile);
+$url   = isset($args['url']) && is_string($args['url']) && $args['url'] !== ''
+    ? $args['url']
+    : get_permalink($profile);
 $title = get_the_title($profile);
 $thumb = get_the_post_thumbnail_url($profile, 'product-card');
 
