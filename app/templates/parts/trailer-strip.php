@@ -59,7 +59,7 @@ $multiple = count($trailers) > 1;
                 <p class="section-subtitle text-blue-300 text-pretty">
                     <?php esc_html_e('The trailer is engineered around the machine, not adapted to it. Sold separately.', 'standard'); ?>
                 </p>
-                <a href="<?php echo esc_url(\Standard\Url\internal('/machines/trailer/')); ?>" class="font-mono text-xs font-medium uppercase tracking-wider text-blue-200 hover:text-white inline-flex items-center gap-1 w-fit">
+                <a href="<?php echo esc_url(\Standard\Url\internal('/machines/trailer/')); ?>" class="font-mono text-xs font-medium uppercase tracking-wider text-blue-200 hover:text-white inline-flex items-center gap-1 w-fit min-h-[44px] py-2 -my-2">
                     <?php esc_html_e('See the trailer lineup', 'standard'); ?>
                     <?php icon('arrow-right', ['class' => 'w-3.5 h-3.5']); ?>
                 </a>

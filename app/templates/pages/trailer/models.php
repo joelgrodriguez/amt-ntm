@@ -108,7 +108,7 @@ if (empty($trailers)) {
                                 <?php echo esc_html($trailer['price']); ?>
                             </span>
                         </div>
-                        <a href="<?php echo esc_url($trailer['url']); ?>" class="font-mono text-xs font-medium uppercase tracking-wider text-blue-200 hover:text-white inline-flex items-center gap-1">
+                        <a href="<?php echo esc_url($trailer['url']); ?>" class="font-mono text-xs font-medium uppercase tracking-wider text-blue-200 hover:text-white inline-flex items-center gap-1 min-h-[44px] py-2 -my-2">
                             <?php esc_html_e('View details', 'standard'); ?>
                             <?php icon('arrow-right', ['class' => 'w-3.5 h-3.5']); ?>
                         </a>
