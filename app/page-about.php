@@ -8,7 +8,7 @@
  *  1. Manifesto       — partnership headline, "Who Is NTM?" company-overview video, metric strip
  *  2. Capabilities    — design, engineer, manufacture, ship, train & service
  *  3. People          — four portraits across the disciplines that touch every customer
- *  4. Origin          — "Built it. Still building it." (merged origin + 5-machine timeline)
+ *  4. Origin          — "Built it. Still building it." (merged origin + release timeline)
  *  5. Support         — Aurora + Hermosillo, parts, training, financing, memberships
  *  6. Closer CTA      — partnership-aligned close
  *

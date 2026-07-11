@@ -169,6 +169,8 @@ get_header();
 
     <?php get_template_part('templates/woo/product/parts/default-accessories', null, compact('product')); ?>
 
+    <?php get_template_part('templates/parts/trailer-strip', null, compact('product')); ?>
+
     <?php get_template_part('templates/woo/product/parts/default-profiles', null, compact('product')); ?>
 
     <?php get_template_part('templates/parts/ironclad-support', null, [

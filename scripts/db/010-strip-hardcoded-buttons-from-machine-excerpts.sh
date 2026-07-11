@@ -1,68 +1,59 @@
 #!/usr/bin/env bash
 #
 # Strip hardcoded CTA buttons from machine product short descriptions
-# (post_excerpt). The theme renders its own CTAs — "Open Configurator" /
-# "Explore Financing" in templates/woo/product/parts/configurator-finance.php —
-# so any button baked into the excerpt is pure duplication and must be removed.
+# (post_excerpt). The theme renders its own CTAs ("Open Configurator" /
+# "Explore Financing") in templates/woo/product/parts/configurator-finance.php,
+# so button markup baked into the excerpt is duplicate content.
 #
-# WHY THIS SCRIPT EXISTS: this was done by hand once. A fresh prod DB pull brings
-# the buttons back (the edit lived only in the local DB, not git). This makes the
-# fix replayable: it runs on every `npm run db:apply`.
+# WHY THIS SCRIPT EXISTS: a fresh DB pull can bring the old excerpt CTAs back.
+# This replayable migration removes them without relying on local hand-edits.
 #
-# SAFE BY DESIGN: the theme's CTAs are independent of the excerpt, so removing
-# the excerpt button cannot remove a CTA the page needs. We only strip the button
-# markup, never the surrounding sales copy.
+# WHAT IT DOES: runs a PHP cleanup scoped to published WooCommerce products in
+# exactly these product_cat slugs: gutter-machines and roof-wall-panel-machines.
+# It removes only a trailing <div> whose contents are one to three anchors and
+# every anchor has a tokenized "btn" class. Ordinary inline links in the copy
+# are left untouched.
+#
+# SAFE BY DESIGN: idempotent, scoped by taxonomy + publish status, and guarded
+# by the trailing button-container check. A second run is a no-op.
 #
 # Resolves: data-normalization-backlog.md #8
-#
-# ⚠️ PATTERN_TODO — NOT YET FINALIZED.
-# This local DB already has the buttons stripped, so the exact prod markup could
-# not be observed when authoring. Before trusting this script:
-#   1. On the NEXT fresh prod pull (buttons present), dump a machine excerpt:
-#        wp post list --post_type=product --field=ID \
-#          --product_cat=roof-wall-panel-machines | head -1   # get an ID
-#        wp post get <ID> --field=post_excerpt
-#   2. Copy the real button markup here and lock BUTTON_PATTERN below.
-#   3. Dry-run (PRINT, don't write) and eyeball every diff before enabling writes.
-# Until step 2 is done, this script runs in DRY-RUN and changes nothing.
 
 set -euo pipefail
 
-DRY_RUN="${DRY_RUN-1}"   # default safe: print, don't write. Set DRY_RUN=0 to apply.
+DRY_RUN="${DRY_RUN-1}"   # default safe: report only. DRY_RUN=0 to apply.
+export NTM_DRY_RUN="$DRY_RUN"
 
-# Machine product categories whose excerpts carried the buttons.
-CATS="roof-wall-panel-machines,gutter-machines"
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PHP_FILE="$HERE/010-strip-hardcoded-buttons-from-machine-excerpts.php"
 
-# TODO: replace with the real markup once observed on a fresh prod pull.
-# Likely an anchor with a btn class appended to the excerpt, e.g.
-#   <a class="btn ..." href="...">Get a Quote</a>
-# or a shortcode like [button ...]...[/button]. Confirm against real data.
-BUTTON_PATTERN='PATTERN_TODO'
-
-if [[ "$BUTTON_PATTERN" == "PATTERN_TODO" ]]; then
-  echo "    SKIPPED: button markup pattern not yet finalized (see PATTERN_TODO)."
-  echo "    Capture real markup on the next prod pull, then lock BUTTON_PATTERN."
-  exit 0
+if [[ ! -f "$PHP_FILE" ]]; then
+  echo "    ERROR: missing PHP companion: $PHP_FILE" >&2
+  exit 1
 fi
 
-ids="$(wp post list --post_type=product --product_cat="$CATS" \
-        --post_status=publish --field=ID --format=ids)"
+# Normal db:apply runs provide wp(). This fallback keeps the migration runnable
+# by itself while preserving the same target defaults.
+if ! declare -F wp >/dev/null; then
+  WP_CONTAINER="${WP_CONTAINER-devkinsta_fpm}"
+  WP_PATH="${WP_PATH-/www/kinsta/public/newtech}"
+  WP_PHP_BIN="${WP_PHP_BIN-php8.3}"
 
-for id in $ids; do
-  excerpt="$(wp post get "$id" --field=post_excerpt)"
-  # PHP-side strip keeps regex semantics consistent and handles multiline HTML.
-  cleaned="$(printf '%s' "$excerpt" | wp eval-file /dev/stdin <<'PHP'
-$in  = stream_get_contents(STDIN);
-$out = preg_replace('#'.getenv('BUTTON_PATTERN').'#is', '', $in);
-echo trim($out);
-PHP
-  )"
-  if [[ "$cleaned" != "$excerpt" ]]; then
-    if [[ "$DRY_RUN" == "0" ]]; then
-      wp post update "$id" --post_excerpt="$cleaned" >/dev/null
-      echo "    stripped button from product $id"
+  wp() {
+    if [[ -n "$WP_CONTAINER" ]]; then
+      docker exec -e NTM_DRY_RUN "$WP_CONTAINER" "$WP_PHP_BIN" \
+        /usr/local/bin/wp --path="$WP_PATH" --allow-root "$@"
     else
-      echo "    [dry-run] product $id has a button to strip"
+      command wp --path="$WP_PATH" "$@"
     fi
-  fi
-done
+  }
+fi
+
+if [[ -n "${WP_CONTAINER:-}" ]]; then
+  in_container="/tmp/$(basename "$PHP_FILE")"
+  docker cp "$PHP_FILE" "${WP_CONTAINER}:${in_container}" >/dev/null
+  trap 'docker exec "$WP_CONTAINER" rm -f "$in_container" >/dev/null 2>&1 || true' EXIT
+  wp eval-file "$in_container"
+else
+  wp eval-file "$PHP_FILE"
+fi

@@ -89,6 +89,17 @@ if (
                     <p class="hero__meta">
                         <?php esc_html_e('Starting at', 'standard'); ?>
                         <span class="hero__meta-value"><?php echo wp_kses_post($price_display); ?></span>
+                        <?php if (!empty($finance['note'])) : ?>
+                            <?php
+                            // Linkify "Trailer sold separately" to /machines/trailer/.
+                            // The helper returns already-escaped HTML with only a
+                            // controlled <a>; wp_kses is a belt-and-suspenders allowlist.
+                            $note_html = function_exists('Standard\\TrailerData\\linkify_note')
+                                ? \Standard\TrailerData\linkify_note((string) $finance['note'])
+                                : esc_html((string) $finance['note']);
+                            ?>
+                            <span class="mt-2 max-w-md text-xs normal-case tracking-normal text-blue-200"><?php echo wp_kses($note_html, ['a' => ['href' => true, 'class' => true]]); ?></span>
+                        <?php endif; ?>
                     </p>
                 <?php endif; ?>
                 <div class="hero__cta">

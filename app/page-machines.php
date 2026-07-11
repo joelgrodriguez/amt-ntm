@@ -32,6 +32,8 @@ get_header();
 
     <?php get_template_part('templates/pages/machines/customer-story'); ?>
 
+    <?php get_template_part('templates/pages/machines/trailer-callout'); ?>
+
     <?php get_template_part('templates/pages/machines/which-machine'); ?>
 
     <?php get_template_part('templates/parts/ironclad-support', null, [

@@ -64,11 +64,27 @@ function get_slug_aliases(): array {
 }
 
 /**
- * Resolve a WooCommerce product slug to a machine data key.
+ * Explicit profile tag slug → data key aliases.
  *
- * Tries: exact match → alias map → longest-prefix match.
+ * Most profile tag slugs resolve by exact Woo alias or data-key prefix. Keep
+ * this list only for tag slugs whose wording cannot identify the data key.
  *
- * @param string $slug WooCommerce product slug.
+ * @return array<string, string>
+ */
+function get_profile_tag_aliases(): array {
+    return [
+        'ssr-multipro-roof-panel-machine' => 'ssr-multipro-jr',
+        'mach-ii-5-6-gutter-machine'      => 'mach-ii-combo-gutter',
+    ];
+}
+
+/**
+ * Resolve a machine slug to a machine data key.
+ *
+ * Accepts a machine data key, WooCommerce product slug, or known profile tag
+ * slug. Tries: exact match → alias maps → longest-prefix match.
+ *
+ * @param string $slug Machine data key, WooCommerce product slug, or profile tag slug.
  * @return string|null The matching machine key, or null.
  */
 function resolve_machine_key(string $slug): ?string {
@@ -80,6 +96,11 @@ function resolve_machine_key(string $slug): ?string {
     if (isset($aliases[$slug])) {
         return $aliases[$slug];
     }
+    $tag_aliases = get_profile_tag_aliases();
+    if (isset($tag_aliases[$slug])) {
+        return $tag_aliases[$slug];
+    }
+
     $sorted = $keys;
     usort($sorted, fn(string $a, string $b): int => strlen($b) - strlen($a));
 
@@ -90,6 +111,29 @@ function resolve_machine_key(string $slug): ?string {
     }
 
     return null;
+}
+
+/**
+ * Build ordered WooCommerce slug candidates for machine-product lookup.
+ *
+ * @param string $slug Machine data key, WooCommerce product slug, or profile tag slug.
+ * @return string[]
+ */
+function get_machine_product_slug_candidates(string $slug): array {
+    $candidates = [$slug];
+    $key        = resolve_machine_key($slug);
+
+    if ($key !== null) {
+        foreach (get_slug_aliases() as $woo_slug => $data_key) {
+            if ($data_key === $key) {
+                $candidates[] = $woo_slug;
+            }
+        }
+
+        $candidates[] = $key;
+    }
+
+    return array_values(array_unique(array_filter($candidates, 'strlen')));
 }
 
 /**
@@ -171,10 +215,11 @@ function get_default_machine_data(): array {
 }
 
 /**
- * Resolve a machine data key to its WooCommerce product permalink, name, and
- * featured image.
+ * Resolve a machine slug to its WooCommerce product permalink, name, and
+ * featured image. Accepts a data key, Woo product slug, or known profile tag
+ * slug.
  *
- * @param string $machine_key Machine data key (e.g. 'mach-ii-5-gutter').
+ * @param string $machine_key Machine data key, Woo product slug, or profile tag slug.
  * @param string $image_size  Image size for the featured-image URL.
  * @return array{url: string, name: string, image: string, image_alt: string}|null
  *               Product link data, or null if the product isn't found.
@@ -188,18 +233,13 @@ function get_machine_product_link(string $machine_key, string $image_size = 'woo
         return $cache[$cache_key];
     }
 
-    $aliases = get_slug_aliases();
-    $reverse = array_flip($aliases);
-    $slugs   = isset($reverse[$machine_key]) ? [$reverse[$machine_key]] : [$machine_key];
-
-    if (!in_array($machine_key, $slugs, true)) {
-        $slugs[] = $machine_key;
-    }
+    $slugs = get_machine_product_slug_candidates($machine_key);
 
     foreach ($slugs as $slug) {
         $posts = get_posts([
             'post_type'   => 'product',
             'name'        => $slug,
+            'post_status' => 'publish',
             'numberposts' => 1,
             'fields'      => 'ids',
         ]);

@@ -3,8 +3,8 @@
  * About — Built it. Still building it.
  *
  * Merged origin + timeline. One section, two beats: a short legacy lede
- * that names 1991 and the company's ownership, then the 5-machine timeline
- * of category firsts as proof we're still shipping.
+ * that names 1991 and the company's ownership, then the release
+ * timeline of category firsts as proof we're still shipping.
  *
  * NOTE: NTM has split off from Mazzella Companies. The ownership copy below
  * is a neutral placeholder pending final wording from the team (see the
@@ -49,42 +49,62 @@ $callouts = [
     ],
 ];
 
+// Release list confirmed by Joel (2026-07-10).
 $milestones = [
     [
         'year'  => '1991',
         'model' => 'SSP',
         'name'  => __('Roof Panel Machine', 'standard'),
-        'note'  => __('The machine that started the modern portable roof panel category.', 'standard'),
     ],
     [
         'year'  => '1994',
         'model' => 'MACH II',
         'name'  => __('Seamless Gutter Machine', 'standard'),
-        'note'  => __('Did for gutters what the SSP did for roof panels.', 'standard'),
     ],
     [
-        'year'  => __('Early 90s', 'standard'),
-        'model' => __('Polyurethane Drive Roller', 'standard'),
-        'name'  => __('Industry-First Mechanism', 'standard'),
-        'note'  => __('Separate forming rollers, polyurethane drive. Now the industry standard.', 'standard'),
+        'year'  => '2001',
+        'model' => 'SSR MultiPro Jr.',
+        'name'  => __('Roof Panel Machine', 'standard'),
+    ],
+    [
+        'year'  => '2004',
+        'model' => 'SSH',
+        'name'  => __('Roof Panel Machine', 'standard'),
+    ],
+    [
+        'year'  => '2005',
+        'model' => 'BG7',
+        'name'  => __('Box Gutter Machine', 'standard'),
+    ],
+    [
+        'year'  => '2006',
+        'model' => '5V Crimp',
+        'name'  => __('Roof Panel Machine', 'standard'),
     ],
     [
         'year'  => '2008',
         'model' => 'SSQ',
         'name'  => __('Quick Change Roof Panel Machine', 'standard'),
-        'note'  => __('Profile changeovers in minutes, not hours. The platform that became SSQ II.', 'standard'),
+    ],
+    [
+        'year'  => '2017',
+        'model' => 'WAV',
+        'name'  => __('Wall Panel Machine', 'standard'),
+    ],
+    [
+        'year'  => '2018',
+        'model' => 'SSQ II',
+        'name'  => __('Roof Panel Machine', 'standard'),
     ],
     [
         'year'  => '2021',
         'model' => 'UNIQ',
         'name'  => __('Control System', 'standard'),
-        'note'  => __('NTM\'s digital control platform. The current standard across the lineup.', 'standard'),
     ],
     [
         'year'  => '2025',
         'model' => 'SSQ3 MultiPro',
         'name'  => __('Roof & Wall Panel Machine', 'standard'),
-        'note'  => __('Concept shown in 2024, released in 2025. Sixteen profiles, one machine — the most advanced portable roof panel machine ever built.', 'standard'),
     ],
 ];
 ?>
@@ -137,14 +157,17 @@ $milestones = [
 
         <div class="mb-8 lg:mb-10">
             <p class="font-mono uppercase tracking-wider text-xs text-blue-500">
-                <?php esc_html_e('Six machines that defined the category', 'standard'); ?>
+                <?php esc_html_e('The releases that defined the category', 'standard'); ?>
             </p>
         </div>
-        <ol class="border-t border-blue-200 grid grid-cols-1 lg:grid-cols-6">
-            <?php foreach ($milestones as $i => $m) : ?>
-                <li class="px-0 lg:px-7 py-10 lg:py-12
-                    <?php echo $i > 0 ? 'border-t lg:border-t-0 lg:border-l border-blue-200' : ''; ?>">
-                    <div class="grid gap-4">
+        <!-- Every cell carries its own top rule, so the grid rewraps
+             cleanly at any column count without first-in-row border
+             bookkeeping: 1-col timeline at base, 2 at sm, 4 at lg
+             (11 items split 4+4+3; 5 columns would strand a lone cell). -->
+        <ol class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-7">
+            <?php foreach ($milestones as $m) : ?>
+                <li class="border-t border-blue-200 py-6 lg:py-8">
+                    <div class="grid gap-3">
                         <div class="flex items-center gap-2 font-mono">
                             <span class="w-2 h-2 bg-red" aria-hidden="true"></span>
                             <span class="text-sm text-red uppercase tracking-wider"><?php echo esc_html($m['year']); ?></span>
@@ -152,11 +175,8 @@ $milestones = [
                         <h3 class="font-mono font-medium text-blue-900 text-lg leading-tight">
                             <?php echo esc_html($m['model']); ?>
                         </h3>
-                        <p class="font-mono uppercase tracking-wider text-xs text-blue-500 leading-snug -mt-2">
+                        <p class="font-mono uppercase tracking-wider text-xs text-blue-500 leading-snug -mt-1">
                             <?php echo esc_html($m['name']); ?>
-                        </p>
-                        <p class="font-sans text-blue-700 text-base leading-relaxed">
-                            <?php echo esc_html($m['note']); ?>
                         </p>
                     </div>
                 </li>
