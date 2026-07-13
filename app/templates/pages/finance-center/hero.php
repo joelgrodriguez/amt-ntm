@@ -37,7 +37,7 @@ get_template_part('templates/parts/hero-category', null, [
     ],
     'meta' => [
         ['label' => __('Apply', 'standard'), 'value' => __('Online', 'standard')],
-        ['label' => __('Decision', 'standard'), 'value' => __('4–8 hrs', 'standard')],
+        ['label' => __('Decision', 'standard'), 'value' => __('4 to 8 hrs', 'standard')],
         ['label' => __('Credit pull', 'standard'), 'value' => __('Soft', 'standard')],
     ],
 ]);

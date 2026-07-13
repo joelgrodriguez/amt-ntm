@@ -77,7 +77,7 @@ $lenders = [
                 <?php esc_html_e('NTM doesn’t finance machines in-house, and we’re not affiliated with any bank. These are the partners contractors have used to fund their machines. Compare terms and talk to whichever fits your situation.', 'standard'); ?>
             </p>
             <p class="section-subtitle text-pretty">
-                <?php esc_html_e('Already have a lender? You can finance through any bank or credit union you choose — we’ll provide the quote, invoice, and machine specs they need.', 'standard'); ?>
+                <?php esc_html_e('Already have a lender? You can finance through any bank or credit union you choose. We’ll provide the quote, invoice, and machine specs they need.', 'standard'); ?>
             </p>
         </div>
 

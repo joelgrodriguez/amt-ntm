@@ -25,7 +25,7 @@ $apply_url = 'https://app.corbelpay.com/reception/newtechmachinery/applications/
 
 $steps = [
     __('Submit your credit application, even if your quote isn’t finalized.', 'standard'),
-    __('Get approval details back within 4–8 business hours.', 'standard'),
+    __('Get approval details back within 4 to 8 business hours.', 'standard'),
     __('Finalize your equipment purchase with your NTM sales rep.', 'standard'),
     __('Pick the payment plan that fits your season and cash flow.', 'standard'),
 ];
