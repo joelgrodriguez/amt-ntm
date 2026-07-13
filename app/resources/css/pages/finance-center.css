@@ -559,8 +559,10 @@
     font-size: var(--text-caption);
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--color-blue-700);
-    background-color: var(--color-blue-100);
+    color: var(--color-white);
+    /* Green (Corbel's brand) so the badge echoes the featured logo tile
+       beside it rather than competing with the site's red flagship accent. */
+    background-color: var(--color-green);
     padding: 2px 8px;
   }
 
@@ -645,6 +647,17 @@
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--color-blue-400);
+  }
+
+  /* Featured-row helper line: one sans sentence under the mono note, saying
+     why Corbel leads (build + finance in one place). Sits only on the Corbel
+     row; peer rows keep just the mono note. */
+  .lender-list__blurb {
+    margin-top: 4px;
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.45;
+    color: var(--color-blue-600);
   }
 
   /* Visit affordance — mono label + arrow, label hidden on small screens. */

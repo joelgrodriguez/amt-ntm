@@ -45,10 +45,10 @@ $paths = [
         'eyebrow' => __('Work with a lender', 'standard'),
         'icon'    => 'file-text',
         'title'   => __('Finance through a bank', 'standard'),
-        'fit'     => __('You’d rather go through a bank. First National Bank is NTM’s preferred lender, with proven third-party options behind it.', 'standard'),
+        'fit'     => __('You’d rather go straight to a bank. NTM works with a directory of proven equipment lenders you can compare and apply to directly.', 'standard'),
         'points'  => [
-            __('FNB equipment financing, NTM’s recommended partner', 'standard'),
-            __('Apex, American Bank, Crest, and ACG on call too', 'standard'),
+            __('First National Bank, Apex, American Bank, Crest, and ACG', 'standard'),
+            __('Compare terms and pick the one that fits your business', 'standard'),
         ],
         'cta'     => __('See the lender directory', 'standard'),
         'cta_url' => '#lenders',

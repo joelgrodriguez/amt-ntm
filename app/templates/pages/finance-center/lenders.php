@@ -87,7 +87,7 @@ $lenders = [
                 <?php esc_html_e('The lenders we work with.', 'standard'); ?>
             </h2>
             <p class="section-subtitle text-pretty">
-                <?php esc_html_e('NTM doesn’t finance machines in-house, and we’re not affiliated with any bank. These are the partners contractors have used to fund their machines. Compare terms and talk to whichever fits your situation.', 'standard'); ?>
+                <?php esc_html_e('NTM doesn’t finance machines in-house. Corbel is our preferred partner because you build the machine and apply for financing in one place. The banks below are proven equipment lenders contractors have used to fund their machines.', 'standard'); ?>
             </p>
             <p class="section-subtitle text-pretty">
                 <?php esc_html_e('Already have a lender? You can finance through any bank or credit union you choose. We’ll provide the quote, invoice, and machine specs they need.', 'standard'); ?>
@@ -120,6 +120,9 @@ $lenders = [
                             <span class="lender-list__badge"><?php esc_html_e('Preferred', 'standard'); ?></span>
                         </span>
                         <span class="lender-list__note"><?php echo esc_html($featured['note']); ?></span>
+                        <span class="lender-list__blurb">
+                            <?php esc_html_e('Build your machine and apply for financing in one place, in minutes.', 'standard'); ?>
+                        </span>
                     </span>
                     <span class="lender-list__cta" aria-hidden="true">
                         <span class="lender-list__cta-label"><?php esc_html_e('Apply', 'standard'); ?></span>
