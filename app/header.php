@@ -116,7 +116,7 @@ if (!defined('ABSPATH')) {
                             <?php if ($is_mega) : ?>
                                 <button
                                     type="button"
-                                    class="mega-trigger relative flex items-center w-full h-full px-5 font-mono font-medium text-body text-blue-700 bg-transparent border-0 cursor-pointer<?php echo $current_class; ?>"
+                                    class="mega-trigger relative flex items-center w-full h-full px-3 xl:px-5 font-mono font-medium text-body text-blue-700 bg-transparent border-0 cursor-pointer<?php echo $current_class; ?>"
                                     data-mega-panel="<?php echo esc_attr($item['id']); ?>"
                                     aria-expanded="false"
                                     aria-controls="mega-panel-<?php echo esc_attr($item['id']); ?>"
@@ -127,7 +127,7 @@ if (!defined('ABSPATH')) {
                             <?php else : ?>
                                 <a
                                     href="<?php echo esc_url($fallback_url); ?>"
-                                    class="relative flex items-center w-full h-full px-5 font-mono font-medium text-body text-blue-700 no-underline<?php echo $current_class; ?>"
+                                    class="relative flex items-center w-full h-full px-3 xl:px-5 font-mono font-medium text-body text-blue-700 no-underline<?php echo $current_class; ?>"
                                     <?php echo $current_attr; ?>
                                 >
                                     <?php echo esc_html($item['label']); ?>
@@ -140,10 +140,10 @@ if (!defined('ABSPATH')) {
         </div>
 
         <!-- Utility rail: contact + search flush right, equal-width with logo rail -->
-        <div class="flex items-center justify-end w-full h-16 gap-10">
+        <div class="flex items-center justify-end w-full h-16 gap-4 xl:gap-10">
             <?php $contact = array_values(array_filter($desktop_nav['utility'], fn($i) => !empty($i['highlight'])))[0] ?? null; ?>
             <?php if ($contact) : ?>
-                <a href="<?php echo esc_url($contact['url']); ?>" class="inline-flex items-center px-4 py-2 font-sans text-sm font-medium text-blue-700 border border-blue-500 hover:bg-blue-50 transition-colors no-underline">
+                <a href="<?php echo esc_url($contact['url']); ?>" class="inline-flex items-center px-3 py-2 xl:px-4 font-sans text-sm font-medium text-blue-700 border border-blue-500 hover:bg-blue-50 transition-colors no-underline whitespace-nowrap">
                     <?php echo esc_html($contact['label']); ?>
                 </a>
             <?php endif; ?>

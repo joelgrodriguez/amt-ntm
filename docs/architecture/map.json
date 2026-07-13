@@ -136,9 +136,9 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 84,
+      "fileCount": 85,
       "categories": {
-        "docs": 84
+        "docs": 85
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
@@ -555,7 +555,7 @@
       "path": "app/header.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 8935
+      "size": 8986
     },
     {
       "path": "app/home.php",
@@ -1173,7 +1173,7 @@
       "path": "app/resources/css/layout/mega-menu.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 15441
+      "size": 16204
     },
     {
       "path": "app/resources/css/layout/pagination.css",
@@ -2517,7 +2517,7 @@
       "path": "app/templates/parts/mega-menu.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 15671
+      "size": 15741
     },
     {
       "path": "app/templates/parts/mobile-menu-panel.php",
@@ -3396,6 +3396,12 @@
       "size": 362
     },
     {
+      "path": "docs/specs/search.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 789
+    },
+    {
       "path": "docs/specs/seo.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
@@ -3931,6 +3937,7 @@
     "docs/specs/machines.md",
     "docs/specs/nav.md",
     "docs/specs/pricing.md",
+    "docs/specs/search.md",
     "docs/specs/seo.md",
     "docs/specs/templates.md",
     "docs/specs/trailer.md",

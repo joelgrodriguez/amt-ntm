@@ -20,7 +20,7 @@ Package manager: npm
 - `.github`: Project area. (1 files)
 - `app`: Application code and framework conventions. (448 files)
 - `db`: Project area. (3 files)
-- `docs`: Project documentation. (84 files)
+- `docs`: Project documentation. (85 files)
 - `plans`: Project area. (16 files)
 - `scripts`: Developer automation scripts. (46 files)
 
