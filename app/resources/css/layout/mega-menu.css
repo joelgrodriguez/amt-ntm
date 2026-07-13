@@ -183,6 +183,12 @@
 .mega-tab-content {
     position: relative;
     min-width: 0;
+    /* Inactive panels sit at translateX(±12px) waiting to slide in; that
+     * overhang extends the scroll area and spawns a horizontal scrollbar on
+     * classic-scrollbar platforms (Windows). On tabbed panels this element IS
+     * the .mega-panel__content scroller (overflow-y: auto), so clip would be
+     * coerced to hidden anyway — say hidden outright. */
+    overflow-x: hidden;
 }
 
 .mega-tab-panel {
