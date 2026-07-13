@@ -1300,7 +1300,21 @@ function get_search_result_permalink(?\WP_Post $post = null): string {
         $url = \get_permalink($post);
     }
 
-    return is_string($url) && $url !== '' ? $url : '#';
+    if (!is_string($url) || $url === '') {
+        return '#';
+    }
+
+    // Relevanssi's click-tracking cache can capture the product permalink
+    // before WooCommerce substitutes %product_cat% (both filter
+    // post_type_link at priority 10, Relevanssi first), then serve the
+    // cached placeholder URL through relevanssi_get_permalink(). A literal
+    // %product_cat% in an href is invalid percent-encoding — Cloudflare
+    // rejects the click with a 400 — so re-run Woo's substitution here.
+    if (strpos($url, '%product_cat%') !== false && \function_exists('wc_product_post_type_link')) {
+        $url = \wc_product_post_type_link($url, $post);
+    }
+
+    return $url;
 }
 
 function encode_relevanssi_click_tracking_value(string $value): string {
