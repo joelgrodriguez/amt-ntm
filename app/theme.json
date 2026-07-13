@@ -80,6 +80,11 @@
           "name": "Red",
           "slug": "red",
           "color": "#CD1018"
+        },
+        {
+          "name": "Green",
+          "slug": "green",
+          "color": "#1F5C3D"
         }
       ]
     },

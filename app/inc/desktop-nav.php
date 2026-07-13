@@ -25,8 +25,40 @@ if (!defined('ABSPATH')) {
  * 'current_paths' array; link items just match their own url. Anything
  * pointing at "/" only matches the literal home page so it doesn't claim
  * every URL on the site.
+ *
+ * Ownership is resolved by SPECIFICITY: matching is a URL-prefix test, so a
+ * page under a shared parent (e.g. /machines/leasing-financing/ sits under
+ * /machines/) prefix-matches more than one item. The item with the LONGEST
+ * matching path wins and is the only one marked current — otherwise both
+ * "Choose Your Machine" (owns /machines/) and "How To Buy" (owns
+ * /machines/leasing-financing/) would highlight on the finance page. A tie in
+ * match length keeps every tied item current (they own the same depth).
  */
 function is_current_item(array $item): bool {
+    $own = current_match_length($item);
+    if ($own === 0) {
+        return false;
+    }
+
+    // This item is current only if no sibling nav item matches more
+    // specifically (a longer prefix). Equal-length matches co-win.
+    foreach (get_desktop_nav()['items'] as $other) {
+        if (current_match_length($other) > $own) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/**
+ * Length of the longest path this item matches against the current request,
+ * or 0 if it matches nothing. Longer = more specific ownership of the URL.
+ *
+ * The home target ("/") only matches the literal front page and contributes
+ * length 1 there, so it never out-specifies a real section path.
+ */
+function current_match_length(array $item): int {
     $candidate_urls = [];
 
     if (isset($item['url']) && is_string($item['url']) && $item['url'] !== '') {
@@ -48,10 +80,11 @@ function is_current_item(array $item): bool {
     }
 
     if ($candidate_urls === []) {
-        return false;
+        return 0;
     }
 
     $request_path = current_request_path();
+    $best         = 0;
 
     foreach ($candidate_urls as $url) {
         $item_path = url_to_path($url);
@@ -59,17 +92,17 @@ function is_current_item(array $item): bool {
         if ($item_path === '/' || $item_path === '') {
             // Home only matches the literal front page.
             if ($request_path === '/' && \is_front_page()) {
-                return true;
+                $best = max($best, 1);
             }
             continue;
         }
 
         if ($request_path === $item_path || str_starts_with($request_path, $item_path)) {
-            return true;
+            $best = max($best, strlen($item_path));
         }
     }
 
-    return false;
+    return $best;
 }
 
 /**

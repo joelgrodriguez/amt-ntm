@@ -484,9 +484,10 @@
 
   /* ── Lender directory ─────────────────────────────────────────────── */
 
-  /* One even list — hairline rows, name-first so a missing logo never
-     leaves a blank row. FNB leads, marked with a blue "NTM's pick" badge;
-     no separate hero, no red. */
+  /* Hairline rows, name-first so a missing logo never leaves a blank row.
+     Corbel leads as the preferred partner in a full-width featured row (green
+     OG card, "Preferred" badge); the remaining lenders sit below as an even
+     two-up peer grid. No red. */
   .lender-list {
     list-style: none;
     margin: 0;
@@ -514,6 +515,55 @@
      hairlines. The link/row fills its cell. */
   .lender-list__item {
     background-color: var(--color-blue-50);
+  }
+
+  /* Featured (preferred) row: spans the full width above the two-up grid so
+     Corbel reads as the lead partner, not one peer among the alphabetical
+     rows. Only the grid-column span belongs here; geometry stays shared. */
+  .lender-list__item--featured {
+    grid-column: 1 / -1;
+  }
+
+  /* Let Corbel's green Open Graph card fill the featured logo tile edge to
+     edge instead of sitting boxed-on-white like the peer marks. Drop the white
+     fill + inner padding and clip so the gradient reads as an intentional
+     branded tile. */
+  .lender-list__logo-wrap--featured {
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .lender-list__logo--featured {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    object-fit: cover;
+  }
+
+  /* Name + Preferred badge share a baseline-aligned row. */
+  .lender-list__name-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .lender-list__badge {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: var(--text-caption);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-white);
+    /* Green (Corbel's brand) so the badge echoes the featured logo tile
+       beside it rather than competing with the site's red flagship accent. */
+    background-color: var(--color-green);
+    padding: 2px 8px;
   }
 
   /* Shared row geometry for both the clickable lender link and the static
@@ -597,6 +647,17 @@
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--color-blue-400);
+  }
+
+  /* Featured-row helper line: one sans sentence under the mono note, saying
+     why Corbel leads (build + finance in one place). Sits only on the Corbel
+     row; peer rows keep just the mono note. */
+  .lender-list__blurb {
+    margin-top: 4px;
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.45;
+    color: var(--color-blue-600);
   }
 
   /* Visit affordance — mono label + arrow, label hidden on small screens. */

@@ -28,6 +28,19 @@ use function Standard\Images\responsive_image;
 
 $uploads = trailingslashit(home_url('/wp-content/uploads'));
 
+// Corbel leads the directory as NTM's preferred partner: they run the online
+// configurator/application AND provide the lending, so they get a full-width
+// featured row above the peer grid, marked with a "Preferred" badge. Logo is
+// Corbel's Open Graph card (white wordmark on green); the featured tile is
+// styled to let that green card fill it rather than sit boxed on white.
+// Import captured in scripts/db/044-corbel-preferred-lender-logo.sh.
+$featured = [
+    'name' => __('Corbel', 'standard'),
+    'note' => __('Apply once, matched to top equipment lenders', 'standard'),
+    'logo' => $uploads . '2026/07/corbel-preferred-lender.png',
+    'url'  => 'https://app.corbelpay.com/reception/newtechmachinery/applications/spot?p=',
+];
+
 // Listed alphabetically — these are peers the buyer compares, not a ranked
 // push. NTM doesn't finance in-house and isn't affiliated with any of them.
 $lenders = [
@@ -74,14 +87,52 @@ $lenders = [
                 <?php esc_html_e('The lenders we work with.', 'standard'); ?>
             </h2>
             <p class="section-subtitle text-pretty">
-                <?php esc_html_e('NTM doesn’t finance machines in-house, and we’re not affiliated with any bank. These are the partners contractors have used to fund their machines. Compare terms and talk to whichever fits your situation.', 'standard'); ?>
+                <?php esc_html_e('NTM doesn’t finance machines in-house. Corbel is our preferred partner because you build the machine and apply for financing in one place. The banks below are proven equipment lenders contractors have used to fund their machines.', 'standard'); ?>
             </p>
             <p class="section-subtitle text-pretty">
-                <?php esc_html_e('Already have a lender? You can finance through any bank or credit union you choose — we’ll provide the quote, invoice, and machine specs they need.', 'standard'); ?>
+                <?php esc_html_e('Already have a lender? You can finance through any bank or credit union you choose. We’ll provide the quote, invoice, and machine specs they need.', 'standard'); ?>
             </p>
         </div>
 
         <ul class="lender-list" role="list">
+            <li class="lender-list__item lender-list__item--featured">
+                <a
+                    href="<?php echo esc_url($featured['url']); ?>"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="lender-list__link"
+                    aria-label="<?php echo esc_attr(sprintf(
+                        /* translators: %s: lender name, e.g. "Corbel" */
+                        __('Apply with %s, NTM’s preferred partner (opens in a new tab)', 'standard'),
+                        $featured['name']
+                    )); ?>"
+                >
+                    <span class="lender-list__logo-wrap lender-list__logo-wrap--featured">
+                        <?php
+                        responsive_image($featured['logo'], '', 'medium', [
+                            'class' => 'lender-list__logo lender-list__logo--featured',
+                        ]);
+                        ?>
+                    </span>
+                    <span class="lender-list__text">
+                        <span class="lender-list__name-row">
+                            <span class="lender-list__name"><?php echo esc_html($featured['name']); ?></span>
+                            <span class="lender-list__badge"><?php esc_html_e('Preferred', 'standard'); ?></span>
+                        </span>
+                        <span class="lender-list__note"><?php echo esc_html($featured['note']); ?></span>
+                        <span class="lender-list__blurb">
+                            <?php esc_html_e('Build your machine and apply for financing in one place, in minutes.', 'standard'); ?>
+                        </span>
+                    </span>
+                    <span class="lender-list__cta" aria-hidden="true">
+                        <span class="lender-list__cta-label"><?php esc_html_e('Apply', 'standard'); ?></span>
+                        <span class="lender-list__arrow">
+                            <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
+                        </span>
+                    </span>
+                </a>
+            </li>
+
             <?php foreach ($lenders as $lender) : ?>
                 <li class="lender-list__item">
                     <a

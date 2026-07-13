@@ -34,7 +34,7 @@ $paths = [
         'fit'     => __('You want an answer now. Corbel runs your application against top-tier equipment lenders and comes back fast.', 'standard'),
         'points'  => [
             __('Soft inquiry, so applying won’t touch your credit score', 'standard'),
-            __('Approval details in 4–8 business hours', 'standard'),
+            __('Approval details in 4 to 8 business hours', 'standard'),
         ],
         'cta'     => __('How Corbel works', 'standard'),
         'cta_url' => '#corbel',
@@ -42,42 +42,24 @@ $paths = [
     ],
     [
         'index'   => '02',
-        'eyebrow' => __('Tax savings', 'standard'),
-        'icon'    => 'trending-up',
-        'title'   => __('Deduct it with Section 179', 'standard'),
-        'fit'     => __('You’re buying before year-end. Section 179 lets you write off the equipment now instead of depreciating it for years.', 'standard'),
-        'points'  => [
-            sprintf(
-                /* translators: %s: Section 179 deduction cap, e.g. $1,220,000 */
-                __('Deduct up to %s of qualifying equipment', 'standard'),
-                \Standard\Finance\section_179_cap()
-            ),
-            __('Applies to purchased, financed, or leased machines', 'standard'),
-        ],
-        'cta'     => __('See the Section 179 math', 'standard'),
-        'cta_url' => '#section-179',
-        'external' => false,
-    ],
-    [
-        'index'   => '03',
         'eyebrow' => __('Work with a lender', 'standard'),
         'icon'    => 'file-text',
         'title'   => __('Finance through a bank', 'standard'),
-        'fit'     => __('You’d rather go through a bank. First National Bank is NTM’s preferred lender, with proven third-party options behind it.', 'standard'),
+        'fit'     => __('You’d rather go straight to a bank. NTM works with a directory of proven equipment lenders you can compare and apply to directly.', 'standard'),
         'points'  => [
-            __('FNB equipment financing, NTM’s recommended partner', 'standard'),
-            __('Apex, American Bank, Crest, and ACG on call too', 'standard'),
+            __('First National Bank, Apex, American Bank, Crest, and ACG', 'standard'),
+            __('Compare terms and pick the one that fits your business', 'standard'),
         ],
         'cta'     => __('See the lender directory', 'standard'),
         'cta_url' => '#lenders',
         'external' => false,
     ],
     [
-        'index'   => '04',
+        'index'   => '03',
         'eyebrow' => __('Your own bank', 'standard'),
         'icon'    => 'dollar-sign',
         'title'   => __('Bring your own lender', 'standard'),
-        'fit'     => __('You already have a bank or credit union you trust. NTM works with whatever lender you bring — you don’t have to use ours.', 'standard'),
+        'fit'     => __('You already have a bank or credit union you trust. NTM works with whatever lender you bring. You don’t have to use ours.', 'standard'),
         'points'  => [
             __('Use any bank, credit union, or finance partner you choose', 'standard'),
             __('We’ll supply quotes, invoices, and specs your lender needs', 'standard'),
@@ -99,11 +81,11 @@ $paths = [
                 <?php esc_html_e('Pick the path that fits your deal.', 'standard'); ?>
             </h2>
             <p class="section-subtitle text-pretty">
-                <?php esc_html_e('Most contractors mix two of these: apply with Corbel for speed, then claim Section 179 at tax time. Start wherever you are.', 'standard'); ?>
+                <?php esc_html_e('Pick a route to fund the machine, then claim your Section 179 deduction at tax time on top of whichever one you choose. Start wherever you are.', 'standard'); ?>
             </p>
         </div>
 
-        <div class="grid gap-px border border-blue-200 bg-blue-200 md:grid-cols-2 lg:grid-cols-4">
+        <div class="grid gap-px border border-blue-200 bg-blue-200 md:grid-cols-3">
             <?php foreach ($paths as $path) : ?>
                 <div class="flex flex-col gap-5 bg-white p-6 md:p-8 lg:p-10">
 
