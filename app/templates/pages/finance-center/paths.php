@@ -34,7 +34,7 @@ $paths = [
         'fit'     => __('You want an answer now. Corbel runs your application against top-tier equipment lenders and comes back fast.', 'standard'),
         'points'  => [
             __('Soft inquiry, so applying won’t touch your credit score', 'standard'),
-            __('Approval details in 4–8 business hours', 'standard'),
+            __('Approval details in 4 to 8 business hours', 'standard'),
         ],
         'cta'     => __('How Corbel works', 'standard'),
         'cta_url' => '#corbel',
@@ -59,7 +59,7 @@ $paths = [
         'eyebrow' => __('Your own bank', 'standard'),
         'icon'    => 'dollar-sign',
         'title'   => __('Bring your own lender', 'standard'),
-        'fit'     => __('You already have a bank or credit union you trust. NTM works with whatever lender you bring — you don’t have to use ours.', 'standard'),
+        'fit'     => __('You already have a bank or credit union you trust. NTM works with whatever lender you bring. You don’t have to use ours.', 'standard'),
         'points'  => [
             __('Use any bank, credit union, or finance partner you choose', 'standard'),
             __('We’ll supply quotes, invoices, and specs your lender needs', 'standard'),
@@ -81,7 +81,7 @@ $paths = [
                 <?php esc_html_e('Pick the path that fits your deal.', 'standard'); ?>
             </h2>
             <p class="section-subtitle text-pretty">
-                <?php esc_html_e('Pick a route to fund the machine — then claim your Section 179 deduction at tax time on top of whichever one you choose. Start wherever you are.', 'standard'); ?>
+                <?php esc_html_e('Pick a route to fund the machine, then claim your Section 179 deduction at tax time on top of whichever one you choose. Start wherever you are.', 'standard'); ?>
             </p>
         </div>
 
