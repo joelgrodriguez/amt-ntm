@@ -579,6 +579,24 @@ function compact_search_text(string $value): string {
     return str_replace(' ', '', normalize_search_text($value));
 }
 
+/**
+ * Collapse simple English plurals ("machines" → "machine") so intent
+ * phrases written in the singular also match plural queries. Only words
+ * of four or more letters ending in a single "s" lose it; short words
+ * ("gas") and "ss" endings ("stainless") stay untouched.
+ */
+function singularize_search_text(string $normalized): string {
+    $words = array_map(
+        static fn(string $word): string =>
+            preg_match('/^[a-z]{3,}s$/', $word) === 1 && !str_ends_with($word, 'ss')
+                ? substr($word, 0, -1)
+                : $word,
+        explode(' ', $normalized)
+    );
+
+    return implode(' ', $words);
+}
+
 function normalized_contains_phrase(string $normalized, string $phrase): bool {
     $phrase = normalize_search_text($phrase);
 
@@ -993,7 +1011,16 @@ function get_machine_product_ids_for_keys(array $keys): array {
  */
 function get_machine_search_intent(string $query): array {
     $normalized = normalize_search_text($query);
+    $singular = singularize_search_text($normalized);
     $compact = compact_search_text($query);
+
+    // Phrase lists are written in the singular; match the query both as
+    // typed and singularized so "gutter machines" carries the same intent
+    // as "gutter machine".
+    $contains_any_phrase = static function (array $phrases) use ($normalized, $singular): bool {
+        return normalized_contains_any_phrase($normalized, $phrases)
+            || ($singular !== $normalized && normalized_contains_any_phrase($singular, $phrases));
+    };
     $exact_keys = [];
     $family_order = [];
     $active_by_category = get_active_machine_keys_by_product_category();
@@ -1025,14 +1052,14 @@ function get_machine_search_intent(string $query): array {
 
     $category_keys = [];
     foreach (get_machine_category_intent_groups() as $group) {
-        if (normalized_contains_any_phrase($normalized, $group['phrases'])) {
+        if ($contains_any_phrase($group['phrases'])) {
             $category_keys = array_merge($category_keys, $active_by_category[$group['category']] ?? []);
         }
     }
 
     $modifier_groups = [];
     foreach (get_machine_modifier_intent_groups() as $group) {
-        if (normalized_contains_any_phrase($normalized, $group['phrases'])) {
+        if ($contains_any_phrase($group['phrases'])) {
             $modifier_groups[] = $group['group'];
         }
     }
