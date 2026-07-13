@@ -41,7 +41,11 @@ body.search-modal-is-open {
   text-decoration: none;
 }
 
-/* Thick bottom indicator — flush at bottom of full-height nav item */
+/* Thick bottom indicator — flush at bottom of full-height nav item.
+   Inset by the trigger's horizontal padding so the line hugs the label and
+   two active items sitting side by side keep a visible gap instead of reading
+   as one continuous bar. Padding is px-3 (0.75rem) at lg, px-5 (1.25rem) at xl
+   — see header.php nav triggers — so the inset tracks it at each breakpoint. */
 /* border-color reset overrides the global ::after border from base.css */
 .mega-trigger::after,
 #primary-menu > li > a::after {
@@ -49,12 +53,20 @@ body.search-modal-is-open {
   content: '';
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: 0.75rem;
+  right: 0.75rem;
   height: 2px;
   background-color: var(--color-blue-500);
   transform: scaleX(0);
   transition: transform 250ms ease;
+}
+
+@media (min-width: 1280px) {
+  .mega-trigger::after,
+  #primary-menu > li > a::after {
+    left: 1.25rem;
+    right: 1.25rem;
+  }
 }
 
 .mega-trigger:hover::after,
