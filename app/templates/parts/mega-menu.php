@@ -42,7 +42,7 @@ $panels = array_values(array_filter(
 
     <div
         id="mega-panel-<?php echo esc_attr($panel_id); ?>"
-        class="mega-panel t-panel-slide"
+        class="mega-panel mega-panel--<?php echo esc_attr(sanitize_html_class($panel_type)); ?> t-panel-slide"
         role="group"
         aria-label="<?php echo esc_attr($panel['label']); ?>"
         aria-hidden="true"
