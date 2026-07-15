@@ -88,3 +88,6 @@ docs/page-outlines-*.md
 .admiral/agent-preflight.json
 .admiral/active.md
 .admiral/archive.md
+
+# Local API tokens / credentials — never commit
+docs/tokens.md

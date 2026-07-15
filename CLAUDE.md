@@ -427,7 +427,7 @@ judgment, or explicit Fable supervision.
 When the work is a real code task, launch the routed model straight into the
 task's Orca worktree:
 `admiral task start <n> --agent-command "<full launch command>"` -- Admiral creates
-the worktree, runs the command in it, and hands the agent its task preamble.
+the worktree and runs the command in it with the task preamble embedded.
 One-off work (a piece of copy, a research lookup) runs inline without a Admiral task.
 
 Spawning an agent into any Orca worktree always routes first. When asked to "create
