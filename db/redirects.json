@@ -7,7 +7,7 @@
         {
             "id": 1,
             "name": "Redirections",
-            "redirects": 341,
+            "redirects": 360,
             "module_id": 1,
             "moduleName": "WordPress",
             "enabled": true
@@ -7318,7 +7318,7 @@
         },
         {
             "id": 298,
-            "url": "/mach-ii-5\u2033-6\u2033-5\u2033-6\u2033-combo-quote/",
+            "url": "/mach-ii-5″-6″-5″-6″-combo-quote/",
             "match_url": "/mach-ii-5%e2%80%b3-6%e2%80%b3-5%e2%80%b3-6%e2%80%b3-combo-quote",
             "match_data": {
                 "source": {
@@ -7448,7 +7448,7 @@
         },
         {
             "id": 303,
-            "url": "/mach-ii-5\u2033-6-combo-quote/",
+            "url": "/mach-ii-5″-6-combo-quote/",
             "match_url": "/mach-ii-5%e2%80%b3-6-combo-quote",
             "match_data": {
                 "source": {
@@ -7474,7 +7474,7 @@
         },
         {
             "id": 304,
-            "url": "/mach-ii-6\u2033-quote/",
+            "url": "/mach-ii-6″-quote/",
             "match_url": "/mach-ii-6%e2%80%b3-quote",
             "match_data": {
                 "source": {
@@ -9186,6 +9186,500 @@
             "group_id": 1,
             "position": 340,
             "last_access": "June 23, 2026",
+            "enabled": true
+        },
+        {
+            "id": 370,
+            "url": "/search-results/?_sf_s=0%",
+            "match_url": "/search-results",
+            "match_data": {
+                "source": {
+                    "flag_query": "exact",
+                    "flag_case": true,
+                    "flag_trailing": false,
+                    "flag_regex": false
+                }
+            },
+            "action_code": 301,
+            "action_type": "url",
+            "action_data": {
+                "url": "https://newtech.local/ssq3-multipro-0-financing-5-slots-left/"
+            },
+            "match_type": "url",
+            "title": "",
+            "hits": 0,
+            "regex": false,
+            "group_id": 1,
+            "position": 335,
+            "last_access": "-",
+            "enabled": true
+        },
+        {
+            "id": 371,
+            "url": "/search-results/?_sf_s=0% financing",
+            "match_url": "/search-results",
+            "match_data": {
+                "source": {
+                    "flag_query": "exact",
+                    "flag_case": true,
+                    "flag_trailing": false,
+                    "flag_regex": false
+                }
+            },
+            "action_code": 301,
+            "action_type": "url",
+            "action_data": {
+                "url": "https://newtech.local/ssq3-multipro-0-financing-5-slots-left/"
+            },
+            "match_type": "url",
+            "title": "",
+            "hits": 0,
+            "regex": false,
+            "group_id": 1,
+            "position": 336,
+            "last_access": "-",
+            "enabled": true
+        },
+        {
+            "id": 372,
+            "url": "/search-results/?_sf_s=ssq3 0% financing",
+            "match_url": "/search-results",
+            "match_data": {
+                "source": {
+                    "flag_query": "exact",
+                    "flag_case": true,
+                    "flag_trailing": false,
+                    "flag_regex": false
+                }
+            },
+            "action_code": 301,
+            "action_type": "url",
+            "action_data": {
+                "url": "https://newtech.local/ssq3-multipro-0-financing-5-slots-left/"
+            },
+            "match_type": "url",
+            "title": "",
+            "hits": 0,
+            "regex": false,
+            "group_id": 1,
+            "position": 337,
+            "last_access": "-",
+            "enabled": true
+        },
+        {
+            "id": 373,
+            "url": "/search-results/?_sf_s=0 financing",
+            "match_url": "/search-results",
+            "match_data": {
+                "source": {
+                    "flag_query": "exact",
+                    "flag_case": true,
+                    "flag_trailing": false,
+                    "flag_regex": false
+                }
+            },
+            "action_code": 301,
+            "action_type": "url",
+            "action_data": {
+                "url": "https://newtech.local/ssq3-multipro-0-financing-5-slots-left/"
+            },
+            "match_type": "url",
+            "title": "",
+            "hits": 0,
+            "regex": false,
+            "group_id": 1,
+            "position": 338,
+            "last_access": "-",
+            "enabled": true
+        },
+        {
+            "id": 383,
+            "url": "/5vc-5v-crimp-roof-panel-machine/",
+            "match_url": "/5vc-5v-crimp-roof-panel-machine",
+            "match_data": {
+                "source": {
+                    "flag_query": "exact",
+                    "flag_case": true,
+                    "flag_trailing": true,
+                    "flag_regex": false
+                }
+            },
+            "action_code": 301,
+            "action_type": "url",
+            "action_data": {
+                "url": "/machines/roof-wall-panel-machines/5vc-5v-crimp-roof-panel-machine/"
+            },
+            "match_type": "url",
+            "title": "",
+            "hits": 0,
+            "regex": false,
+            "group_id": 1,
+            "position": 348,
+            "last_access": "-",
+            "enabled": true
+        },
+        {
+            "id": 384,
+            "url": "/ssh-roof-panel-machine/",
+            "match_url": "/ssh-roof-panel-machine",
+            "match_data": {
+                "source": {
+                    "flag_query": "exact",
+                    "flag_case": true,
+                    "flag_trailing": true,
+                    "flag_regex": false
+                }
+            },
+            "action_code": 301,
+            "action_type": "url",
+            "action_data": {
+                "url": "/machines/roof-wall-panel-machines/ssh-roof-panel-machine/"
+            },
+            "match_type": "url",
+            "title": "",
+            "hits": 0,
+            "regex": false,
+            "group_id": 1,
+            "position": 349,
+            "last_access": "-",
+            "enabled": true
+        },
+        {
+            "id": 385,
+            "url": "/ssq-roof-panel-machine/",
+            "match_url": "/ssq-roof-panel-machine",
+            "match_data": {
+                "source": {
+                    "flag_query": "exact",
+                    "flag_case": true,
+                    "flag_trailing": true,
+                    "flag_regex": false
+                }
+            },
+            "action_code": 301,
+            "action_type": "url",
+            "action_data": {
+                "url": "/machines/roof-wall-panel-machines/ssq-roof-panel-machine/"
+            },
+            "match_type": "url",
+            "title": "",
+            "hits": 0,
+            "regex": false,
+            "group_id": 1,
+            "position": 350,
+            "last_access": "-",
+            "enabled": true
+        },
+        {
+            "id": 386,
+            "url": "/ssq3-multipro/",
+            "match_url": "/ssq3-multipro",
+            "match_data": {
+                "source": {
+                    "flag_query": "exact",
+                    "flag_case": true,
+                    "flag_trailing": true,
+                    "flag_regex": false
+                }
+            },
+            "action_code": 301,
+            "action_type": "url",
+            "action_data": {
+                "url": "/machines/roof-wall-panel-machines/ssq3-multipro/"
+            },
+            "match_type": "url",
+            "title": "",
+            "hits": 0,
+            "regex": false,
+            "group_id": 1,
+            "position": 351,
+            "last_access": "-",
+            "enabled": true
+        },
+        {
+            "id": 387,
+            "url": "/wav-wall-panel-machine/",
+            "match_url": "/wav-wall-panel-machine",
+            "match_data": {
+                "source": {
+                    "flag_query": "exact",
+                    "flag_case": true,
+                    "flag_trailing": true,
+                    "flag_regex": false
+                }
+            },
+            "action_code": 301,
+            "action_type": "url",
+            "action_data": {
+                "url": "/machines/roof-wall-panel-machines/wav-wall-panel-machine/"
+            },
+            "match_type": "url",
+            "title": "",
+            "hits": 0,
+            "regex": false,
+            "group_id": 1,
+            "position": 352,
+            "last_access": "-",
+            "enabled": true
+        },
+        {
+            "id": 388,
+            "url": "/bg7-box-gutter-machine/",
+            "match_url": "/bg7-box-gutter-machine",
+            "match_data": {
+                "source": {
+                    "flag_query": "exact",
+                    "flag_case": true,
+                    "flag_trailing": true,
+                    "flag_regex": false
+                }
+            },
+            "action_code": 301,
+            "action_type": "url",
+            "action_data": {
+                "url": "/machines/gutter-machines/bg7-box-gutter-machine/"
+            },
+            "match_type": "url",
+            "title": "",
+            "hits": 0,
+            "regex": false,
+            "group_id": 1,
+            "position": 353,
+            "last_access": "-",
+            "enabled": true
+        },
+        {
+            "id": 389,
+            "url": "/best-portable-seamless-gutter-machines-in-2025/",
+            "match_url": "/best-portable-seamless-gutter-machines-in-2025",
+            "match_data": {
+                "source": {
+                    "flag_query": "exact",
+                    "flag_case": true,
+                    "flag_trailing": true,
+                    "flag_regex": false
+                }
+            },
+            "action_code": 301,
+            "action_type": "url",
+            "action_data": {
+                "url": "/learning-center/best-portable-seamless-gutter-machines-in-2025/"
+            },
+            "match_type": "url",
+            "title": "",
+            "hits": 0,
+            "regex": false,
+            "group_id": 1,
+            "position": 354,
+            "last_access": "-",
+            "enabled": true
+        },
+        {
+            "id": 390,
+            "url": "/best-residential-roof-panel-machines-for-starting-a-business/",
+            "match_url": "/best-residential-roof-panel-machines-for-starting-a-business",
+            "match_data": {
+                "source": {
+                    "flag_query": "exact",
+                    "flag_case": true,
+                    "flag_trailing": true,
+                    "flag_regex": false
+                }
+            },
+            "action_code": 301,
+            "action_type": "url",
+            "action_data": {
+                "url": "/learning-center/best-residential-roof-panel-machines-for-starting-a-business/"
+            },
+            "match_type": "url",
+            "title": "",
+            "hits": 0,
+            "regex": false,
+            "group_id": 1,
+            "position": 355,
+            "last_access": "-",
+            "enabled": true
+        },
+        {
+            "id": 391,
+            "url": "/diy-prefab-gutters-vs-a-portable-seamless-gutter-machine/",
+            "match_url": "/diy-prefab-gutters-vs-a-portable-seamless-gutter-machine",
+            "match_data": {
+                "source": {
+                    "flag_query": "exact",
+                    "flag_case": true,
+                    "flag_trailing": true,
+                    "flag_regex": false
+                }
+            },
+            "action_code": 301,
+            "action_type": "url",
+            "action_data": {
+                "url": "/learning-center/diy-prefab-gutters-vs-a-portable-seamless-gutter-machine/"
+            },
+            "match_type": "url",
+            "title": "",
+            "hits": 0,
+            "regex": false,
+            "group_id": 1,
+            "position": 356,
+            "last_access": "-",
+            "enabled": true
+        },
+        {
+            "id": 392,
+            "url": "/portable-rollforming-machine-equipment-types-uses/",
+            "match_url": "/portable-rollforming-machine-equipment-types-uses",
+            "match_data": {
+                "source": {
+                    "flag_query": "exact",
+                    "flag_case": true,
+                    "flag_trailing": true,
+                    "flag_regex": false
+                }
+            },
+            "action_code": 301,
+            "action_type": "url",
+            "action_data": {
+                "url": "/learning-center/portable-rollforming-machine-equipment-types-uses/"
+            },
+            "match_type": "url",
+            "title": "",
+            "hits": 0,
+            "regex": false,
+            "group_id": 1,
+            "position": 357,
+            "last_access": "-",
+            "enabled": true
+        },
+        {
+            "id": 393,
+            "url": "/portable-rollforming-misconceptions/",
+            "match_url": "/portable-rollforming-misconceptions",
+            "match_data": {
+                "source": {
+                    "flag_query": "exact",
+                    "flag_case": true,
+                    "flag_trailing": true,
+                    "flag_regex": false
+                }
+            },
+            "action_code": 301,
+            "action_type": "url",
+            "action_data": {
+                "url": "/learning-center/portable-rollforming-misconceptions/"
+            },
+            "match_type": "url",
+            "title": "",
+            "hits": 0,
+            "regex": false,
+            "group_id": 1,
+            "position": 358,
+            "last_access": "-",
+            "enabled": true
+        },
+        {
+            "id": 394,
+            "url": "/ssh-vs-ssr-roof-panel-machines/",
+            "match_url": "/ssh-vs-ssr-roof-panel-machines",
+            "match_data": {
+                "source": {
+                    "flag_query": "exact",
+                    "flag_case": true,
+                    "flag_trailing": true,
+                    "flag_regex": false
+                }
+            },
+            "action_code": 301,
+            "action_type": "url",
+            "action_data": {
+                "url": "/learning-center/ssh-vs-ssr-roof-panel-machines/"
+            },
+            "match_type": "url",
+            "title": "",
+            "hits": 0,
+            "regex": false,
+            "group_id": 1,
+            "position": 359,
+            "last_access": "-",
+            "enabled": true
+        },
+        {
+            "id": 395,
+            "url": "/standing-seam-metal-roof-profiles-snap-lock-vs-mechanical-seam/",
+            "match_url": "/standing-seam-metal-roof-profiles-snap-lock-vs-mechanical-seam",
+            "match_data": {
+                "source": {
+                    "flag_query": "exact",
+                    "flag_case": true,
+                    "flag_trailing": true,
+                    "flag_regex": false
+                }
+            },
+            "action_code": 301,
+            "action_type": "url",
+            "action_data": {
+                "url": "/learning-center/standing-seam-metal-roof-profiles-snap-lock-vs-mechanical-seam/"
+            },
+            "match_type": "url",
+            "title": "",
+            "hits": 0,
+            "regex": false,
+            "group_id": 1,
+            "position": 360,
+            "last_access": "-",
+            "enabled": true
+        },
+        {
+            "id": 396,
+            "url": "/the-true-cost-of-a-mach-ii-5-portable-gutter-machine/",
+            "match_url": "/the-true-cost-of-a-mach-ii-5-portable-gutter-machine",
+            "match_data": {
+                "source": {
+                    "flag_query": "exact",
+                    "flag_case": true,
+                    "flag_trailing": true,
+                    "flag_regex": false
+                }
+            },
+            "action_code": 301,
+            "action_type": "url",
+            "action_data": {
+                "url": "/learning-center/the-true-cost-of-a-mach-ii-5-portable-gutter-machine/"
+            },
+            "match_type": "url",
+            "title": "",
+            "hits": 0,
+            "regex": false,
+            "group_id": 1,
+            "position": 361,
+            "last_access": "-",
+            "enabled": true
+        },
+        {
+            "id": 397,
+            "url": "/which-is-the-best-gutter-metal-aluminum-vs-steel-vs-copper-vs-zinc-vs-galvalume/",
+            "match_url": "/which-is-the-best-gutter-metal-aluminum-vs-steel-vs-copper-vs-zinc-vs-galvalume",
+            "match_data": {
+                "source": {
+                    "flag_query": "exact",
+                    "flag_case": true,
+                    "flag_trailing": true,
+                    "flag_regex": false
+                }
+            },
+            "action_code": 301,
+            "action_type": "url",
+            "action_data": {
+                "url": "/learning-center/which-is-the-best-gutter-metal-aluminum-vs-steel-vs-copper-vs-zinc-vs-galvalume/"
+            },
+            "match_type": "url",
+            "title": "",
+            "hits": 0,
+            "regex": false,
+            "group_id": 1,
+            "position": 362,
+            "last_access": "-",
             "enabled": true
         }
     ]
