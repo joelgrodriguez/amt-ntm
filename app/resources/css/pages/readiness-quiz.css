@@ -1,10 +1,12 @@
 /**
  * Readiness Quiz page styles.
  *
- * Structure ported from the original Abacus.AI app (gradient page → centered
- * container → elevated white card → radio-dot option tiles → gauge results →
- * blue next-steps panel), recolored to the NTM theme palette (tokens.css blues,
- * Noto Sans). Mobile-first. Buttons/eyebrows reuse theme components.
+ * Structure ported from the original Abacus.AI app (gradient page → bordered
+ * card → radio-dot option tiles → gauge results → blue next-steps panel),
+ * recolored to the NTM theme and conformed to DESIGN.md: ZERO border-radius,
+ * NO shadow — depth is border + 1px translate, matching components/cards.css.
+ * Only the radio dot stays circular. Mobile-first. Buttons/eyebrows reuse
+ * theme components.
  */
 
 @layer components {
@@ -49,24 +51,24 @@
   .quiz-progress__track {
     height: 8px;
     background: var(--color-blue-100);
-    border-radius: 999px;
     overflow: hidden;
   }
 
   .quiz-progress__fill {
     height: 100%;
     background: var(--color-blue-500);
-    border-radius: 999px;
     transition: width var(--resize-dur, 300ms) var(--resize-ease, cubic-bezier(0.22, 1, 0.36, 1));
   }
 
-  /* The elevated card that holds question + results ----------------------- */
+  /* The card holding intro / question / results.
+     min-height keeps the footer from jumping as screens change height. */
   .quiz-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding: 1.5rem;
     background: #fff;
-    border: 1px solid var(--color-blue-100);
-    border-radius: 0.75rem;
-    box-shadow: 0 10px 15px -3px rgb(10 19 34 / 0.06), 0 4px 6px -4px rgb(10 19 34 / 0.05);
+    border: 1px solid var(--color-blue-200);
   }
 
   /* Intro ----------------------------------------------------------------- */
@@ -86,6 +88,27 @@
   }
 
   /* Questions ------------------------------------------------------------- */
+  .quiz-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    align-self: flex-start;
+    margin-bottom: 1.25rem;
+    padding: 0.375rem 0;
+    background: none;
+    border: none;
+    color: var(--color-blue-400);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color var(--hover-dur, 150ms) ease;
+  }
+
+  .quiz-back:hover {
+    color: var(--color-blue-500);
+  }
+
   .quiz-question__label {
     margin: 0 0 0.5rem;
     font-family: var(--font-mono);
@@ -109,7 +132,6 @@
     padding: 0.75rem;
     background: var(--color-blue-50);
     border: 1px solid var(--color-blue-200);
-    border-radius: 0.5rem;
     color: var(--color-blue-700);
     font-size: 0.875rem;
   }
@@ -120,7 +142,7 @@
     margin-top: 1rem;
   }
 
-  /* Radio-dot option tile ------------------------------------------------- */
+  /* Radio-dot option tile — square tile, circular dot -------------------- */
   .quiz-option {
     display: flex;
     align-items: flex-start;
@@ -128,16 +150,16 @@
     min-height: 3rem; /* >= 44px touch target */
     padding: 1rem;
     text-align: left;
-    border: 2px solid var(--color-blue-200);
+    border: 1px solid var(--color-blue-200);
     background: var(--color-blue-50);
-    border-radius: 0.5rem;
     font-size: 0.9375rem;
     line-height: 1.35;
     color: var(--color-blue-900);
     cursor: pointer;
     transition:
       border-color var(--hover-dur, 150ms) ease,
-      background-color var(--hover-dur, 150ms) ease;
+      background-color var(--hover-dur, 150ms) ease,
+      transform var(--hover-dur, 150ms) ease;
   }
 
   .quiz-option__dot {
@@ -146,7 +168,7 @@
     height: 1.25rem;
     margin-top: 0.125rem;
     border: 2px solid var(--color-blue-300);
-    border-radius: 999px;
+    border-radius: 999px; /* the one intentional circle */
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -166,6 +188,7 @@
   .quiz-option:hover {
     border-color: var(--color-blue-500);
     background: #fff;
+    transform: translateY(-1px); /* depth via translate, per DESIGN.md */
   }
 
   .quiz-option:hover .quiz-option__dot {
@@ -174,25 +197,6 @@
 
   .quiz-option:hover .quiz-option__dot::after {
     opacity: 1;
-  }
-
-  .quiz-back {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.375rem;
-    margin-bottom: 1rem;
-    padding: 0.375rem 0;
-    background: none;
-    border: none;
-    color: var(--color-blue-400);
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: color var(--hover-dur, 150ms) ease;
-  }
-
-  .quiz-back:hover {
-    color: var(--color-blue-500);
   }
 
   /* Results --------------------------------------------------------------- */
@@ -252,14 +256,12 @@
     max-width: 48ch;
   }
 
-  /* Recommendation card --------------------------------------------------- */
+  /* Recommendation card — square, bordered, no shadow -------------------- */
   .quiz-recommendation {
     margin-top: 2rem;
     padding: 1.5rem;
     border: 1px solid var(--color-blue-200);
-    border-radius: 0.75rem;
-    background: #fff;
-    box-shadow: 0 4px 6px -1px rgb(10 19 34 / 0.05), 0 2px 4px -2px rgb(10 19 34 / 0.05);
+    background: var(--color-blue-50);
   }
 
   .quiz-recommendation__label {
@@ -285,13 +287,12 @@
     gap: 0.625rem;
   }
 
-  /* Next-steps blue panel + lead ----------------------------------------- */
+  /* Lead panel — square, bordered ---------------------------------------- */
   .quiz-lead {
     margin-top: 2rem;
     padding: 1.5rem;
     background: var(--color-blue-50);
     border: 1px solid var(--color-blue-200);
-    border-radius: 0.75rem;
   }
 
   .quiz-lead__title {
@@ -314,7 +315,8 @@
     background: none;
     border: none;
     color: var(--color-blue-400);
-    font-size: 0.875rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
     cursor: pointer;
     transition: color var(--hover-dur, 150ms) ease;
   }
@@ -324,9 +326,12 @@
   }
 
   /* Scale up -------------------------------------------------------------- */
-  @media (min-width: 640px) {
+  @media (min-width: 768px) {
     .quiz-card {
-      padding: 2rem;
+      padding: 2.5rem;
+      /* Holds the footer steady: tallest question (4 options) fits without the
+         card growing; results (gauge) may exceed this and grow naturally. */
+      min-height: 32rem;
     }
 
     .quiz-intro__title {

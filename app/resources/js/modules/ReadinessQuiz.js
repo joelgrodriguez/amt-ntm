@@ -415,11 +415,11 @@ export function initReadinessQuiz() {
       .join('');
 
     questionsScreen.innerHTML = `
+      ${index > 0 ? '<button type="button" class="quiz-back" data-quiz-back><span aria-hidden="true">←</span> Previous question</button>' : ''}
       <p class="quiz-question__label">${esc(q.label)}</p>
       <h2 class="quiz-question__title">${esc(q.question)}</h2>
       ${q.description ? `<p class="quiz-question__desc">${esc(q.description)}</p>` : ''}
       <div class="quiz-options" role="group" aria-label="${esc(q.question)}">${options}</div>
-      ${index > 0 ? '<button type="button" class="quiz-back" data-quiz-back>← Back</button>' : ''}
     `;
 
     questionsScreen.querySelectorAll('[data-quiz-option]').forEach((btn) => {
