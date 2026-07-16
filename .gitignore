@@ -91,3 +91,7 @@ docs/page-outlines-*.md
 
 # Local API tokens / credentials — never commit
 docs/tokens.md
+
+# Quiz app export — untracked scratch (Next.js app, has node_modules). The
+# durable spec lives in docs/specs/readiness-quiz-spec.md.
+quiz/
