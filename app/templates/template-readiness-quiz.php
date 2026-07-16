@@ -1,0 +1,102 @@
+<?php
+/**
+ * Template Name: Readiness Quiz
+ *
+ * Panel Machine Readiness Assessment. Renders the quiz shell (intro →
+ * questions → results → lead capture); all interaction is driven by
+ * app/resources/js/modules/ReadinessQuiz.js against the data-quiz-* markup
+ * contract below. Lead capture reuses the theme's HubSpot form.
+ *
+ * Replaces the dead Abacus.AI iframe that previously lived in this page's
+ * content (issue #94). Logic documented in docs/specs/readiness-quiz-spec.md.
+ *
+ * @package Standard
+ */
+
+declare(strict_types=1);
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+const READINESS_QUIZ_FORM_ID = '21d8e65b-52f3-4fb2-9fb7-c1463b90d843';
+
+get_header();
+
+while (have_posts()) :
+    the_post();
+    $post_id = get_the_ID();
+    ?>
+
+    <main id="primary" class="readiness-quiz-page">
+        <section class="section">
+            <div class="container section-content max-w-3xl">
+
+                <div
+                    class="readiness-quiz"
+                    data-readiness-quiz
+                >
+                    <!-- Progress -->
+                    <div class="quiz-progress" aria-hidden="false">
+                        <div class="quiz-progress__track">
+                            <div class="quiz-progress__fill" data-quiz-progress style="width:0%"></div>
+                        </div>
+                        <p class="quiz-progress__label" data-quiz-progress-label>
+                            <?php esc_html_e('Question 1', 'standard'); ?>
+                        </p>
+                    </div>
+
+                    <!-- Intro -->
+                    <div class="quiz-intro" data-quiz-intro>
+                        <p class="section-eyebrow"><?php esc_html_e('Panel Machine Readiness', 'standard'); ?></p>
+                        <h1 class="quiz-intro__title">
+                            <?php esc_html_e('Is your business ready for a portable rollforming machine?', 'standard'); ?>
+                        </h1>
+                        <p class="quiz-intro__lede">
+                            <?php esc_html_e('Answer a few questions about your operation and we’ll estimate your readiness and recommend the machine that fits.', 'standard'); ?>
+                        </p>
+                        <button type="button" class="btn btn-primary" data-quiz-start>
+                            <?php esc_html_e('Start the assessment', 'standard'); ?>
+                        </button>
+                    </div>
+
+                    <!-- Questions (rendered by JS) -->
+                    <div class="quiz-questions" data-quiz-questions hidden></div>
+
+                    <!-- Results (rendered by JS) -->
+                    <div class="quiz-results" data-quiz-results hidden></div>
+
+                    <!-- Lead capture -->
+                    <div class="quiz-lead" data-quiz-lead hidden>
+                        <div class="quiz-lead__intro">
+                            <h2 class="quiz-lead__title">
+                                <?php esc_html_e('Talk to a specialist about your recommendation', 'standard'); ?>
+                            </h2>
+                            <p class="quiz-lead__desc">
+                                <?php esc_html_e('Share your details and an NTM specialist will follow up with pricing, availability, and answers for your operation.', 'standard'); ?>
+                            </p>
+                        </div>
+                        <?php
+                        echo \Standard\HubSpot\render_form([
+                            'form_id'   => READINESS_QUIZ_FORM_ID,
+                            'target_id' => 'readiness-quiz-form-' . $post_id,
+                            'noscript_html' => '<p class="text-sm text-blue-600 m-0">'
+                                . esc_html__('Enable JavaScript to load the form, or call NTM Sales at ', 'standard')
+                                . '<a href="tel:+13032940538" class="font-mono text-blue-700 hover:text-blue-500">303.294.0538</a>.'
+                                . '</p>',
+                        ]);
+                        ?>
+                        <button type="button" class="quiz-restart" data-quiz-restart>
+                            <?php esc_html_e('Retake the assessment', 'standard'); ?>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <?php
+endwhile;
+
+get_footer();

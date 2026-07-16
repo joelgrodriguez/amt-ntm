@@ -1,0 +1,233 @@
+/**
+ * Readiness Quiz page styles.
+ *
+ * Structure for the Panel Machine Readiness Assessment (template-readiness-quiz.php
+ * + ReadinessQuiz.js). Mobile-first: single column at base, comfortable width
+ * capped by the template's max-w-3xl. Buttons/eyebrows reuse theme components.
+ */
+
+@layer components {
+  /* Progress -------------------------------------------------------------- */
+  .quiz-progress {
+    margin-bottom: 2rem;
+  }
+
+  .quiz-progress__track {
+    height: 6px;
+    background: var(--color-blue-100, #dbeafe);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .quiz-progress__fill {
+    height: 100%;
+    background: var(--color-blue-500, #3b82f6);
+    border-radius: 999px;
+    transition: width var(--resize-dur, 300ms) var(--resize-ease, cubic-bezier(0.22, 1, 0.36, 1));
+  }
+
+  .quiz-progress__label {
+    margin: 0.5rem 0 0;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-blue-500, #3b82f6);
+  }
+
+  /* Intro ----------------------------------------------------------------- */
+  .quiz-intro__title {
+    margin: 0.75rem 0 0.5rem;
+    font-size: 1.875rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .quiz-intro__lede {
+    margin: 0 0 1.5rem;
+    color: var(--color-blue-600, #4b6);
+    max-width: 42ch;
+  }
+
+  /* Questions ------------------------------------------------------------- */
+  .quiz-question__label {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-blue-400, #60a5fa);
+  }
+
+  .quiz-question__title {
+    margin: 0 0 0.75rem;
+    font-size: 1.375rem;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  .quiz-question__desc {
+    margin: 0 0 1.25rem;
+    color: var(--color-blue-600, #4b6);
+    font-size: 0.9375rem;
+  }
+
+  .quiz-options {
+    display: grid;
+    gap: 0.625rem;
+    margin-top: 1rem;
+  }
+
+  .quiz-option {
+    /* >= 44px touch target */
+    min-height: 3rem;
+    padding: 0.875rem 1rem;
+    text-align: left;
+    border: 1px solid var(--color-blue-200, #bfdbfe);
+    background: #fff;
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
+    line-height: 1.3;
+    color: var(--color-ink, #17202a);
+    cursor: pointer;
+    transition:
+      border-color var(--hover-dur, 150ms) ease,
+      background-color var(--hover-dur, 150ms) ease,
+      transform var(--hover-dur, 150ms) ease;
+  }
+
+  .quiz-option:hover {
+    border-color: var(--color-blue-500, #3b82f6);
+    background: var(--color-blue-50, #eff6ff);
+  }
+
+  .quiz-option:active {
+    transform: translateY(1px);
+  }
+
+  .quiz-back {
+    margin-top: 1.25rem;
+    padding: 0.5rem 0;
+    background: none;
+    border: none;
+    color: var(--color-blue-500, #3b82f6);
+    font-size: 0.875rem;
+    cursor: pointer;
+  }
+
+  .quiz-back:hover {
+    text-decoration: underline;
+  }
+
+  /* Results --------------------------------------------------------------- */
+  .quiz-results__label {
+    margin: 0 0 0.25rem;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-blue-400, #60a5fa);
+  }
+
+  .quiz-results__score {
+    margin: 0;
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--color-blue-700, #1d4ed8);
+  }
+
+  .quiz-results__score-max {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-blue-400, #60a5fa);
+  }
+
+  .quiz-results__level {
+    margin: 0.75rem 0 0.5rem;
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .quiz-results__desc {
+    margin: 0 0 1.5rem;
+    color: var(--color-blue-600, #4b6);
+    max-width: 48ch;
+  }
+
+  .quiz-recommendation {
+    padding: 1.25rem;
+    border: 1px solid var(--color-blue-200, #bfdbfe);
+    border-left-width: 4px;
+    border-left-color: var(--color-blue-500, #3b82f6);
+    background: var(--color-blue-50, #eff6ff);
+    border-radius: 0.5rem;
+  }
+
+  .quiz-recommendation__label {
+    margin: 0 0 0.25rem;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-blue-500, #3b82f6);
+  }
+
+  .quiz-recommendation__model {
+    margin: 0 0 1rem;
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .quiz-recommendation__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  /* Lead capture ---------------------------------------------------------- */
+  .quiz-lead {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-blue-200, #bfdbfe);
+  }
+
+  .quiz-lead__title {
+    margin: 0 0 0.5rem;
+    font-size: 1.375rem;
+    letter-spacing: -0.01em;
+  }
+
+  .quiz-lead__desc {
+    margin: 0 0 1.5rem;
+    color: var(--color-blue-600, #4b6);
+    max-width: 48ch;
+  }
+
+  .quiz-restart {
+    margin-top: 1.5rem;
+    padding: 0.5rem 0;
+    background: none;
+    border: none;
+    color: var(--color-blue-500, #3b82f6);
+    font-size: 0.875rem;
+    cursor: pointer;
+  }
+
+  .quiz-restart:hover {
+    text-decoration: underline;
+  }
+
+  /* Scale up: side-by-side recommendation actions on wider screens -------- */
+  @media (min-width: 640px) {
+    .quiz-recommendation__actions {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    .quiz-intro__title {
+      font-size: 2.25rem;
+    }
+  }
+}
