@@ -80,3 +80,17 @@ Use relative paths + `\Standard\Url\internal()`, not hardcoded prod URLs.
 The export's lead-capture step is a **HubSpot form embed** (`hubspot-form-container`).
 This theme already loads HubSpot forms natively — reuse `app/inc/hubspot.php`
 `hubspot_form()` + `app/resources/js/modules/HubspotForms.js`. Do NOT rebuild form handling.
+
+**Form ID (from the original embed):** `21d8e65b-52f3-4fb2-9fb7-c1463b90d843`
+Portal `4478417`, region `na1`. The theme's `hubspot_form()` already defaults
+`portal_id` to `4478417` and `region` to `na1`, so the call is simply:
+
+```php
+hubspot_form(['form_id' => '21d8e65b-52f3-4fb2-9fb7-c1463b90d843']);
+```
+
+Original embed for reference:
+```html
+<script src="//js.hsforms.net/forms/embed/v2.js"></script>
+<script>hbspt.forms.create({ portalId: "4478417", formId: "21d8e65b-52f3-4fb2-9fb7-c1463b90d843", region: "na1" });</script>
+```
