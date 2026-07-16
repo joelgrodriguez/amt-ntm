@@ -38,33 +38,38 @@ while (have_posts()) :
                 >
                     <!-- Progress -->
                     <div class="quiz-progress" aria-hidden="false">
+                        <div class="quiz-progress__head">
+                            <p class="quiz-progress__label" data-quiz-progress-label>
+                                <?php esc_html_e('Question 1', 'standard'); ?>
+                            </p>
+                            <span class="quiz-progress__pct" data-quiz-progress-pct>0%</span>
+                        </div>
                         <div class="quiz-progress__track">
                             <div class="quiz-progress__fill" data-quiz-progress style="width:0%"></div>
                         </div>
-                        <p class="quiz-progress__label" data-quiz-progress-label>
-                            <?php esc_html_e('Question 1', 'standard'); ?>
-                        </p>
                     </div>
 
-                    <!-- Intro -->
-                    <div class="quiz-intro" data-quiz-intro>
-                        <p class="section-eyebrow"><?php esc_html_e('Panel Machine Readiness', 'standard'); ?></p>
-                        <h1 class="quiz-intro__title">
-                            <?php esc_html_e('Is your business ready for a portable rollforming machine?', 'standard'); ?>
-                        </h1>
-                        <p class="quiz-intro__lede">
-                            <?php esc_html_e('Answer a few questions about your operation and we’ll estimate your readiness and recommend the machine that fits.', 'standard'); ?>
-                        </p>
-                        <button type="button" class="btn btn-primary" data-quiz-start>
-                            <?php esc_html_e('Start the assessment', 'standard'); ?>
-                        </button>
+                    <div class="quiz-card">
+                        <!-- Intro -->
+                        <div class="quiz-intro" data-quiz-intro>
+                            <p class="section-eyebrow"><?php esc_html_e('Panel Machine Readiness', 'standard'); ?></p>
+                            <h1 class="quiz-intro__title">
+                                <?php esc_html_e('Is your business ready for a portable rollforming machine?', 'standard'); ?>
+                            </h1>
+                            <p class="quiz-intro__lede">
+                                <?php esc_html_e('Answer a few questions about your operation and we’ll estimate your readiness and recommend the machine that fits.', 'standard'); ?>
+                            </p>
+                            <button type="button" class="btn btn-primary" data-quiz-start>
+                                <?php esc_html_e('Start the assessment', 'standard'); ?>
+                            </button>
+                        </div>
+
+                        <!-- Questions (rendered by JS) -->
+                        <div class="quiz-questions" data-quiz-questions hidden></div>
+
+                        <!-- Results (rendered by JS) -->
+                        <div class="quiz-results" data-quiz-results hidden></div>
                     </div>
-
-                    <!-- Questions (rendered by JS) -->
-                    <div class="quiz-questions" data-quiz-questions hidden></div>
-
-                    <!-- Results (rendered by JS) -->
-                    <div class="quiz-results" data-quiz-results hidden></div>
 
                     <!-- Lead capture -->
                     <div class="quiz-lead" data-quiz-lead hidden>
