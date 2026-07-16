@@ -59,7 +59,20 @@ for the specific machine; band sets the readiness message).
 2. **panel_sizes = small AND hydraulics = no** → **SSR™ MultiPro Jr.** (compact, manual shear, lower cost).
 3. **panel_sizes = small AND hydraulics = yes** → **SSH™ MultiPro** (hydraulic shear, roof panel).
 4. **additional_profiles = yes** → **SSQ3™ MultiPro** (multi-profile: board & batten, soffit, underdeck).
-5. _(remaining branches in results-display.tsx ~line 180+ — executor to finish extracting: large panels, commercial volume, etc. Default/fallback tier likely SSQ3 or SSH.)_
+5. **score ≥ 60 AND (job_type = commercial or both)** → **SSQ3™ MultiPro** (high volume + commercial focus).
+6. **panel_sizes = large** (not small) → **SSQ3™ MultiPro** (only machine handling up to 2.5" rib).
+7. **hydraulics = yes or nice** → **SSH™ MultiPro** (mid-range with hydraulics).
+8. **fallback (none of the above)** → **SSR™ MultiPro Jr.**
+
+Answer-value → variable mapping (from results-display.tsx):
+- `wantsNotching` = notching answer is Yes
+- `hasAdditionalProfiles` = additional_profiles is Yes
+- `wantsHydraulics` = hydraulics is "Very important" OR "Nice to have"
+- `noHydraulics` = hydraulics is "Not important"
+- `smallPanels` = panel_sizes is 1"–1.5" (the "small" option)
+- `isCommercial` = job_type is Commercial or Both
+
+Each answer must store both its points AND its option value (small/large, yes/no, commercial/both, etc.) so the tree can read values, not just the score.
 
 ## Machine URLs (verified live 2026-07-16)
 
