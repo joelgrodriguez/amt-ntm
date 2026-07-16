@@ -50,6 +50,11 @@ while (have_posts()) :
                     </div>
 
                     <div class="quiz-card">
+                        <!-- Card-anchored previous-question button (JS shows from Q2) -->
+                        <button type="button" class="quiz-back" data-quiz-back hidden aria-label="<?php esc_attr_e('Previous question', 'standard'); ?>">
+                            <?php icon('arrow-left', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+                        </button>
+
                         <!-- Intro -->
                         <div class="quiz-intro" data-quiz-intro>
                             <p class="section-eyebrow"><?php esc_html_e('Panel Machine Readiness', 'standard'); ?></p>

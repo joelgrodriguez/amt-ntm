@@ -385,6 +385,7 @@ export function initReadinessQuiz() {
   const progressFill = root.querySelector('[data-quiz-progress]');
   const progressLabel = root.querySelector('[data-quiz-progress-label]');
   const progressPct = root.querySelector('[data-quiz-progress-pct]');
+  const backBtn = root.querySelector('[data-quiz-back]');
 
   if (!questionsScreen || !resultsScreen) return () => {};
 
@@ -414,8 +415,13 @@ export function initReadinessQuiz() {
       )
       .join('');
 
+    // Persistent card-anchored back button: shown from Q2, hidden otherwise.
+    if (backBtn) {
+      if (index > 0) backBtn.removeAttribute('hidden');
+      else backBtn.setAttribute('hidden', '');
+    }
+
     questionsScreen.innerHTML = `
-      ${index > 0 ? '<button type="button" class="quiz-back" data-quiz-back><span aria-hidden="true">←</span> Previous question</button>' : ''}
       <p class="quiz-question__label">${esc(q.label)}</p>
       <h2 class="quiz-question__title">${esc(q.question)}</h2>
       ${q.description ? `<p class="quiz-question__desc">${esc(q.description)}</p>` : ''}
@@ -438,18 +444,6 @@ export function initReadinessQuiz() {
         { signal }
       );
     });
-
-    const back = questionsScreen.querySelector('[data-quiz-back]');
-    if (back) {
-      back.addEventListener(
-        'click',
-        () => {
-          index = Math.max(0, index - 1);
-          renderQuestion();
-        },
-        { signal }
-      );
-    }
   }
 
   function finish() {
@@ -459,6 +453,7 @@ export function initReadinessQuiz() {
     const display = Math.min(score, 100);
 
     hide(questionsScreen);
+    if (backBtn) backBtn.setAttribute('hidden', '');
     if (progressFill) progressFill.style.width = '100%';
     if (progressLabel) progressLabel.textContent = 'Complete';
     if (progressPct) progressPct.textContent = '100%';
@@ -504,6 +499,20 @@ export function initReadinessQuiz() {
     renderQuestion();
   }
 
+  // Card-anchored back button (single persistent handler).
+  if (backBtn) {
+    backBtn.addEventListener(
+      'click',
+      () => {
+        if (index > 0) {
+          index -= 1;
+          renderQuestion();
+        }
+      },
+      { signal }
+    );
+  }
+
   // Restart
   const restartBtn = root.querySelector('[data-quiz-restart]');
   if (restartBtn) {
@@ -514,6 +523,7 @@ export function initReadinessQuiz() {
         index = 0;
         hide(resultsScreen);
         hide(leadScreen);
+        if (backBtn) backBtn.setAttribute('hidden', '');
         if (intro) {
           show(intro);
         } else {
