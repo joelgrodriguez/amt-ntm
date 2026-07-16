@@ -92,16 +92,19 @@
   /* Card-anchored previous-question icon button — top-left of the card,
      same spot every question, so it never shifts the content. */
   .quiz-back {
+    /* Sits ON the card's top-left corner: anchored to 0,0 and pulled out by
+       half its size so its center lands on the corner, straddling the border. */
     position: absolute;
-    top: 1rem;
-    left: 1rem;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 2.25rem;
     height: 2.25rem;
     padding: 0;
-    background: none;
+    background: #fff;
     border: 1px solid var(--color-blue-200);
     color: var(--color-blue-500);
     cursor: pointer;
@@ -266,12 +269,12 @@
     max-width: 48ch;
   }
 
-  /* Recommendation card — square, bordered, no shadow -------------------- */
+  /* Recommendation block — white, square, bordered ----------------------- */
   .quiz-recommendation {
     margin-top: 2rem;
     padding: 1.5rem;
     border: 1px solid var(--color-blue-200);
-    background: var(--color-blue-50);
+    background: #fff;
   }
 
   .quiz-recommendation__label {
@@ -284,24 +287,37 @@
   }
 
   .quiz-recommendation__model {
-    margin: 0 0 1rem;
+    margin: 0 0 0.5rem;
     font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: -0.01em;
     color: var(--color-blue-900);
   }
 
-  .quiz-recommendation__actions {
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
+  .quiz-recommendation__article {
+    margin: 0 0 1.25rem;
+    font-size: 0.875rem;
   }
 
-  /* Lead panel — square, bordered ---------------------------------------- */
+  .quiz-recommendation__article a {
+    color: var(--color-blue-500);
+    text-decoration: none;
+  }
+
+  .quiz-recommendation__article a:hover {
+    text-decoration: underline;
+  }
+
+  /* The full product card dropped in below the recommendation. */
+  .quiz-recommendation__card {
+    margin-top: 0.5rem;
+  }
+
+  /* Lead panel — white, square, bordered --------------------------------- */
   .quiz-lead {
     margin-top: 2rem;
     padding: 1.5rem;
-    background: var(--color-blue-50);
+    background: #fff;
     border: 1px solid var(--color-blue-200);
   }
 

@@ -76,6 +76,35 @@ while (have_posts()) :
                         <div class="quiz-results" data-quiz-results hidden></div>
                     </div>
 
+                    <?php
+                    // Pre-rendered machine product cards (one per recommendation
+                    // key). The recommendation is chosen client-side, so we render
+                    // all three server-side via the canonical card and let the JS
+                    // reveal + open-in-new-tab the matched one. Keys match
+                    // MACHINES in ReadinessQuiz.js.
+                    $rec_cards = [
+                        'SSQ3' => 'ssq3-multipro',
+                        'SSH'  => 'ssh-roof-panel-machine',
+                        'SSR'  => 'ssr-multipro-jr-roof-panel-machine',
+                    ];
+                    ?>
+                    <div class="quiz-rec-cards" data-quiz-rec-cards hidden>
+                        <?php foreach ($rec_cards as $key => $slug) :
+                            $rec_post = get_page_by_path($slug, OBJECT, 'product');
+                            if (!$rec_post) {
+                                continue;
+                            }
+                            ?>
+                            <div class="quiz-rec-card" data-quiz-rec-card="<?php echo esc_attr($key); ?>" hidden>
+                                <?php
+                                get_template_part('templates/parts/card-product', null, [
+                                    'product' => \Standard\Search\get_product_card_data((int) $rec_post->ID),
+                                ]);
+                                ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+
                     <!-- Lead capture -->
                     <div class="quiz-lead" data-quiz-lead hidden>
                         <div class="quiz-lead__intro">

@@ -184,16 +184,19 @@ const BANDS = [
  */
 const MACHINES = {
   SSQ3: {
+    key: 'SSQ3',
     model: 'SSQ3™ MultiPro',
     url: '/machines/roof-wall-panel-machines/ssq3-multipro/',
     article: { title: 'The True Cost of an SSQ3 MultiPro Roof & Wall Panel Machine', url: '/learning-center/cost-of-an-ssq3-multipro-roof-wall-panel-machine/' },
   },
   SSH: {
+    key: 'SSH',
     model: 'SSH™ MultiPro',
     url: '/machines/roof-wall-panel-machines/ssh-roof-panel-machine/',
     article: { title: 'SSH MultiPro Roof Panel Machine: A Solid Portable Rollformer', url: '/learning-center/ssh-multipro-roof-panel-machine-a-solid-portable-roll-former/' },
   },
   SSR: {
+    key: 'SSR',
     model: 'SSR™ MultiPro Jr.',
     url: '/machines/roof-wall-panel-machines/ssr-multipro-jr-roof-panel-machine/',
     article: { title: 'The Budget-Friendly Cost of the SSR MultiPro Jr. Roof Panel Machine', url: '/learning-center/ntm-ssr-multipro-jr-best-budget-portable-rollformer/' },
@@ -346,20 +349,20 @@ function drawGauge(canvas, rawScore, maxScore = 100) {
   ctx.stroke();
   ctx.shadowColor = 'transparent';
 
-  // Hub.
+  // Score number + caption, lifted above the hub so the needle never overlaps.
+  ctx.textAlign = 'center';
+  ctx.font = '700 44px "Noto Sans", system-ui, sans-serif';
+  ctx.fillStyle = ink;
+  ctx.fillText(`${Math.round(score)}`, cx, cy - 44);
+  ctx.font = '13px "Noto Sans", system-ui, sans-serif';
+  ctx.fillStyle = muted;
+  ctx.fillText(`out of ${maxScore}`, cx, cy - 16);
+
+  // Hub (drawn after text so it sits cleanly at the pivot).
   ctx.beginPath();
-  ctx.arc(cx, cy, 14, 0, Math.PI * 2);
+  ctx.arc(cx, cy, 12, 0, Math.PI * 2);
   ctx.fillStyle = ink;
   ctx.fill();
-
-  // Score number + caption.
-  ctx.font = '700 46px "Noto Sans", system-ui, sans-serif';
-  ctx.fillStyle = ink;
-  ctx.textAlign = 'center';
-  ctx.fillText(`${Math.round(score)}`, cx, cy - 22);
-  ctx.font = '15px "Noto Sans", system-ui, sans-serif';
-  ctx.fillStyle = muted;
-  ctx.fillText(`out of ${maxScore}`, cx, cy + 20);
 
   // End labels.
   ctx.font = '700 11px "Noto Sans", system-ui, sans-serif';
@@ -386,6 +389,7 @@ export function initReadinessQuiz() {
   const progressLabel = root.querySelector('[data-quiz-progress-label]');
   const progressPct = root.querySelector('[data-quiz-progress-pct]');
   const backBtn = root.querySelector('[data-quiz-back]');
+  const recCards = root.querySelector('[data-quiz-rec-cards]');
 
   if (!questionsScreen || !resultsScreen) return () => {};
 
@@ -469,10 +473,10 @@ export function initReadinessQuiz() {
       <div class="quiz-recommendation">
         <p class="quiz-recommendation__label">Recommended machine</p>
         <h3 class="quiz-recommendation__model">${esc(machine.model)}</h3>
-        <div class="quiz-recommendation__actions">
-          <a class="btn btn-primary btn-sm" href="${esc(machine.url)}">View the ${esc(machine.model)}</a>
-          <a class="btn btn-outline-dark btn-sm" href="${esc(machine.article.url)}">${esc(machine.article.title)}</a>
-        </div>
+        <p class="quiz-recommendation__article">
+          <a href="${esc(machine.article.url)}" target="_blank" rel="noopener">${esc(machine.article.title)} ↗</a>
+        </p>
+        <div class="quiz-recommendation__card" data-quiz-rec-slot></div>
       </div>
     `;
     show(resultsScreen);
@@ -480,6 +484,23 @@ export function initReadinessQuiz() {
 
     const gauge = resultsScreen.querySelector('[data-quiz-gauge]');
     if (gauge) drawGauge(gauge, display, 100);
+
+    // Clone the matching pre-rendered product card into the results (clone, not
+    // move, so the pool survives a retake), open its links in a new tab.
+    const slot = resultsScreen.querySelector('[data-quiz-rec-slot]');
+    if (slot && recCards) {
+      const source = recCards.querySelector(`[data-quiz-rec-card="${machine.key}"]`);
+      if (source) {
+        const card = source.cloneNode(true);
+        card.removeAttribute('hidden');
+        card.removeAttribute('data-quiz-rec-card');
+        card.querySelectorAll('a[href]').forEach((a) => {
+          a.setAttribute('target', '_blank');
+          a.setAttribute('rel', 'noopener');
+        });
+        slot.appendChild(card);
+      }
+    }
   }
 
   // Start button (intro screen is optional; if absent, start immediately)
