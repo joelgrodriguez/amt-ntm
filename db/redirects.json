@@ -9681,6 +9681,32 @@
             "position": 362,
             "last_access": "-",
             "enabled": true
+        },
+        {
+            "id": 398,
+            "url": "/machines/accessories-add-on-equipment/uniq-control-system/",
+            "match_url": "/machines/accessories-add-on-equipment/uniq-control-system",
+            "match_data": {
+                "source": {
+                    "flag_query": "exact",
+                    "flag_case": true,
+                    "flag_trailing": true,
+                    "flag_regex": false
+                }
+            },
+            "action_code": 301,
+            "action_type": "url",
+            "action_data": {
+                "url": "/machines/accessories-add-on-equipment/uniq-automatic-control-system/"
+            },
+            "match_type": "url",
+            "title": "Duplicate UNIQ controller removed -> keeper (issue #96)",
+            "hits": 0,
+            "regex": false,
+            "group_id": 1,
+            "position": 363,
+            "last_access": "-",
+            "enabled": true
         }
     ]
 }
