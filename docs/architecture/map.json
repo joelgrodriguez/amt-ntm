@@ -71,10 +71,10 @@
     {
       "path": ".",
       "purpose": "Root-level manifests, docs, and configuration.",
-      "fileCount": 12,
+      "fileCount": 11,
       "categories": {
         "other": 3,
-        "docs": 6,
+        "docs": 5,
         "manifest": 1,
         "source": 1,
         "config": 1
@@ -140,9 +140,9 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 89,
+      "fileCount": 90,
       "categories": {
-        "docs": 89
+        "docs": 90
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
@@ -176,21 +176,21 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 52,
+      "fileCount": 66,
       "categories": {
         "source": 9,
-        "other": 41,
+        "other": 55,
         "docs": 2
       },
       "keyFiles": [
         "scripts/content/export-copy.php",
         "scripts/content/export-xlsx.php",
         "scripts/content/exports/.gitkeep",
-        "scripts/content/extract.php",
-        "scripts/content/manifest.php",
-        "scripts/content/README.md",
-        "scripts/db/000-template.sh.example",
-        "scripts/db/010-strip-hardcoded-buttons-from-machine-excerpts.php"
+        "scripts/content/exports/copy-review 1.xlsx",
+        "scripts/content/exports/copy-review-about.csv",
+        "scripts/content/exports/copy-review-all.csv",
+        "scripts/content/exports/copy-review-choose.csv",
+        "scripts/content/exports/copy-review-finance.csv"
       ]
     }
   ],
@@ -2497,7 +2497,7 @@
       "path": "app/templates/parts/front-page/waypoint.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3578
+      "size": 3485
     },
     {
       "path": "app/templates/parts/front-page/why-own.php",
@@ -3484,6 +3484,12 @@
       "size": 10130
     },
     {
+      "path": "docs/tokens.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 792
+    },
+    {
       "path": "package-lock.json",
       "category": "other",
       "role": "Repository file.",
@@ -3620,6 +3626,90 @@
       "category": "other",
       "role": "Repository file.",
       "size": 0
+    },
+    {
+      "path": "scripts/content/exports/copy-review 1.xlsx",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 164080
+    },
+    {
+      "path": "scripts/content/exports/copy-review-about.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 11280
+    },
+    {
+      "path": "scripts/content/exports/copy-review-all.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 118433
+    },
+    {
+      "path": "scripts/content/exports/copy-review-choose.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 7140
+    },
+    {
+      "path": "scripts/content/exports/copy-review-finance.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 12033
+    },
+    {
+      "path": "scripts/content/exports/copy-review-gutter.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 10015
+    },
+    {
+      "path": "scripts/content/exports/copy-review-home.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 15521
+    },
+    {
+      "path": "scripts/content/exports/copy-review-machines.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 14670
+    },
+    {
+      "path": "scripts/content/exports/copy-review-roof-wall.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 10728
+    },
+    {
+      "path": "scripts/content/exports/copy-review-safety.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 5403
+    },
+    {
+      "path": "scripts/content/exports/copy-review-start-here.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 13738
+    },
+    {
+      "path": "scripts/content/exports/copy-review-trailer.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 10882
+    },
+    {
+      "path": "scripts/content/exports/copy-review-uniq.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 7563
+    },
+    {
+      "path": "scripts/content/exports/copy-review.xlsx",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 160368
     },
     {
       "path": "scripts/content/extract.php",
@@ -3916,12 +4006,6 @@
       "size": 35767
     },
     {
-      "path": "TASK.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 2640
-    },
-    {
       "path": "TODO.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
@@ -4036,6 +4120,7 @@
     "docs/superpowers/specs/data-normalization-backlog.md",
     "docs/superpowers/specs/db-persistence-strategy.md",
     "docs/superpowers/specs/reporting-connectors.md",
+    "docs/tokens.md",
     "plans/001-php-lint-ci-baseline.md",
     "plans/002-machine-schema-hardening.md",
     "plans/003-seo-fallback-robots-canonicals.md",
@@ -4056,7 +4141,6 @@
     "README.md",
     "scripts/content/README.md",
     "scripts/db/README.md",
-    "TASK.md",
     "TODO.md"
   ],
   "configs": [
