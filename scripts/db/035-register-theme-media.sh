@@ -18,10 +18,12 @@
 set -euo pipefail
 
 uploads_dir="$(wp eval 'echo wp_get_upload_dir()["basedir"];')"
+dry_run="${DRY_RUN:-0}"
 
 # relative-path|title|alt
 media=(
   '2026/05/20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1-720p.mp4|20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1-720p|'
+  '2026/05/20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1-720p-optimized.mp4|20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1-720p-optimized|'
   '2026/07/20260708_NTM_SSQ3-Page-Panel-Running_V1-1080p.mp4|20260708_NTM_SSQ3-Page-Panel-Running_V1-1080p|'
   '2026/05/ntm-q3-hero-placeholder.png|ntm-q3-hero-placeholder|'
   '2026/05/ntm-q3-hero-placeholder-2.png|ntm-q3-hero-placeholder-2|'
@@ -56,6 +58,7 @@ media=(
 registered=0
 skipped=0
 missing=0
+would_register=0
 
 for row in "${media[@]}"; do
   IFS='|' read -r rel title alt <<<"$row"
@@ -76,6 +79,12 @@ for row in "${media[@]}"; do
     continue
   fi
 
+  if [[ "$dry_run" == "1" ]]; then
+    echo "    dry-run: would register $rel"
+    would_register=$((would_register + 1))
+    continue
+  fi
+
   args=(--skip-copy --title="$title" --porcelain)
   [[ -n "$alt" ]] && args+=(--alt="$alt")
   new_id="$(wp media import "$uploads_dir/$rel" "${args[@]}")"
@@ -83,4 +92,4 @@ for row in "${media[@]}"; do
   registered=$((registered + 1))
 done
 
-echo "    theme media: $registered registered, $skipped already present, $missing missing"
+echo "    theme media: $registered registered, $skipped already present, $missing missing, $would_register dry-run pending"
