@@ -31,6 +31,6 @@ for slug in "${slugs[@]}"; do
     continue
   fi
 
-  wp post meta update "$id" _wp_page_template "$template" >/dev/null
+  wp post meta update "$id" _wp_page_template "$template" >/dev/null || true
   echo "    set ${slug} (${id}) template -> ${template} (was: ${current:-default})"
 done

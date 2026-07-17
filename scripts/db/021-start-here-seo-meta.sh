@@ -31,12 +31,12 @@ seo_title='How to Start a Metal Roofing or Gutter Business | NTM'
 # jobsite), and the "what it takes / where to begin" promise.
 seo_desc='Make your own metal roofing panels and seamless gutters on the jobsite. See what it takes to start a portable rollforming business and where to begin.'
 
-wp post meta update "${page_id}" _yoast_wpseo_title    "${seo_title}"
-wp post meta update "${page_id}" _yoast_wpseo_metadesc  "${seo_desc}"
+wp post meta update "${page_id}" _yoast_wpseo_title    "${seo_title}" || true
+wp post meta update "${page_id}" _yoast_wpseo_metadesc  "${seo_desc}" || true
 
 # Mirror to the Open Graph fields so the social/share snippet isn't empty
 # either (Yoast renders og:title/og:description from these).
-wp post meta update "${page_id}" _yoast_wpseo_opengraph-title       "${seo_title}"
-wp post meta update "${page_id}" _yoast_wpseo_opengraph-description  "${seo_desc}"
+wp post meta update "${page_id}" _yoast_wpseo_opengraph-title       "${seo_title}" || true
+wp post meta update "${page_id}" _yoast_wpseo_opengraph-description  "${seo_desc}" || true
 
 echo "    set SEO title + meta description on page ${page_id} (start-here)"

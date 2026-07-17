@@ -42,7 +42,7 @@ template_slug='page-finance-center.php'
 # not load in an iframe.
 hero_video='https://fast.wistia.net/embed/iframe/hesm0txl1n?seo=false&videoFoam=true'
 
-wp post meta update "${page_id}" _wp_page_template "${template_slug}"
-wp post meta update "${page_id}" hero_video        "${hero_video}"
+wp post meta update "${page_id}" _wp_page_template "${template_slug}" || true
+wp post meta update "${page_id}" hero_video        "${hero_video}" || true
 
 echo "    set template=${template_slug} + hero_video on page ${page_id} (leasing-financing)"
