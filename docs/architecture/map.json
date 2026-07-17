@@ -71,10 +71,10 @@
     {
       "path": ".",
       "purpose": "Root-level manifests, docs, and configuration.",
-      "fileCount": 11,
+      "fileCount": 12,
       "categories": {
         "other": 3,
-        "docs": 5,
+        "docs": 6,
         "manifest": 1,
         "source": 1,
         "config": 1
@@ -691,7 +691,7 @@
       "path": "app/inc/machine-product-data.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 7881
+      "size": 9279
     },
     {
       "path": "app/inc/machine-schema.php",
@@ -3916,6 +3916,12 @@
       "size": 35767
     },
     {
+      "path": "TASK.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 2640
+    },
+    {
       "path": "TODO.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
@@ -4050,6 +4056,7 @@
     "README.md",
     "scripts/content/README.md",
     "scripts/db/README.md",
+    "TASK.md",
     "TODO.md"
   ],
   "configs": [
