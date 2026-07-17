@@ -16,13 +16,13 @@ Package manager: npm
 
 ## Key Directories
 
-- `.`: Root-level manifests, docs, and configuration. (11 files)
+- `.`: Root-level manifests, docs, and configuration. (12 files)
 - `.github`: Project area. (1 files)
-- `app`: Application code and framework conventions. (448 files)
+- `app`: Application code and framework conventions. (451 files)
 - `db`: Project area. (3 files)
-- `docs`: Project documentation. (85 files)
+- `docs`: Project documentation. (89 files)
 - `plans`: Project area. (16 files)
-- `scripts`: Developer automation scripts. (46 files)
+- `scripts`: Developer automation scripts. (52 files)
 
 ## Entrypoints
 
@@ -34,6 +34,7 @@ Package manager: npm
 - `app/resources/css/pages/finance-center.css`
 - `app/resources/css/pages/learning-center.css`
 - `app/resources/css/pages/media.css`
+- `app/resources/css/pages/readiness-quiz.css`
 - `app/resources/css/pages/roof-wall.css`
 - `app/resources/css/pages/single.css`
 - `app/resources/css/pages/start-here.css`
