@@ -56,7 +56,7 @@ if (empty($machines)) {
                 <?php esc_html_e('Three K-style configurations.', 'standard'); ?>
             </h2>
             <p class="section-subtitle text-blue-600 max-w-2xl mx-auto">
-                <?php esc_html_e('5", 6", and the 5"/6" Combo. Every MACH II runs polyurethane drive rollers, ships in 6 to 8 weeks, and is built for crews who treat their gutter machine like a member of payroll.', 'standard'); ?>
+                <?php esc_html_e('5", 6", and the 5"/6" Combo. Every MACH II runs polyurethane drive rollers and is built for crews who treat their gutter machine like a member of payroll.', 'standard'); ?>
             </p>
         </div>
 
