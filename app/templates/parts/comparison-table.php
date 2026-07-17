@@ -101,7 +101,7 @@ if (empty($machines) || empty($rows)) {
                                     $is_flagship = !empty($machine['badge']) || !empty($machine['featured']);
                                     $value       = $machine['specs'][$key] ?? '';
                                 ?>
-                                    <td class="py-3 px-3 text-center text-blue-600 border-r border-blue-200 <?php echo $is_flagship ? 'bg-blue-500/5' : ''; ?>">
+                                    <td class="py-3 px-3 text-center text-blue-600 border-r border-blue-200 break-words hyphens-auto <?php echo $is_flagship ? 'bg-blue-500/5' : ''; ?>">
                                         <?php echo $value !== '' ? esc_html($value) : '<span class="text-blue-300" aria-hidden="true">—</span>'; ?>
                                     </td>
                                 <?php endforeach; ?>
