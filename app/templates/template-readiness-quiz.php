@@ -38,33 +38,72 @@ while (have_posts()) :
                 >
                     <!-- Progress -->
                     <div class="quiz-progress" aria-hidden="false">
+                        <div class="quiz-progress__head">
+                            <p class="quiz-progress__label" data-quiz-progress-label>
+                                <?php esc_html_e('Question 1', 'standard'); ?>
+                            </p>
+                            <span class="quiz-progress__pct" data-quiz-progress-pct>0%</span>
+                        </div>
                         <div class="quiz-progress__track">
                             <div class="quiz-progress__fill" data-quiz-progress style="width:0%"></div>
                         </div>
-                        <p class="quiz-progress__label" data-quiz-progress-label>
-                            <?php esc_html_e('Question 1', 'standard'); ?>
-                        </p>
                     </div>
 
-                    <!-- Intro -->
-                    <div class="quiz-intro" data-quiz-intro>
-                        <p class="section-eyebrow"><?php esc_html_e('Panel Machine Readiness', 'standard'); ?></p>
-                        <h1 class="quiz-intro__title">
-                            <?php esc_html_e('Is your business ready for a portable rollforming machine?', 'standard'); ?>
-                        </h1>
-                        <p class="quiz-intro__lede">
-                            <?php esc_html_e('Answer a few questions about your operation and we’ll estimate your readiness and recommend the machine that fits.', 'standard'); ?>
-                        </p>
-                        <button type="button" class="btn btn-primary" data-quiz-start>
-                            <?php esc_html_e('Start the assessment', 'standard'); ?>
+                    <div class="quiz-card">
+                        <!-- Card-anchored previous-question button (JS shows from Q2) -->
+                        <button type="button" class="quiz-back" data-quiz-back hidden aria-label="<?php esc_attr_e('Previous question', 'standard'); ?>">
+                            <?php icon('arrow-left', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
                         </button>
+
+                        <!-- Intro -->
+                        <div class="quiz-intro" data-quiz-intro>
+                            <p class="section-eyebrow"><?php esc_html_e('Panel Machine Readiness', 'standard'); ?></p>
+                            <h1 class="quiz-intro__title">
+                                <?php esc_html_e('Is your business ready for a portable rollforming machine?', 'standard'); ?>
+                            </h1>
+                            <p class="quiz-intro__lede">
+                                <?php esc_html_e('Answer a few questions about your operation and we’ll estimate your readiness and recommend the machine that fits.', 'standard'); ?>
+                            </p>
+                            <button type="button" class="btn btn-primary" data-quiz-start>
+                                <?php esc_html_e('Start the assessment', 'standard'); ?>
+                            </button>
+                        </div>
+
+                        <!-- Questions (rendered by JS) -->
+                        <div class="quiz-questions" data-quiz-questions hidden></div>
+
+                        <!-- Results (rendered by JS) -->
+                        <div class="quiz-results" data-quiz-results hidden></div>
                     </div>
 
-                    <!-- Questions (rendered by JS) -->
-                    <div class="quiz-questions" data-quiz-questions hidden></div>
-
-                    <!-- Results (rendered by JS) -->
-                    <div class="quiz-results" data-quiz-results hidden></div>
+                    <?php
+                    // Pre-rendered machine product cards (one per recommendation
+                    // key). The recommendation is chosen client-side, so we render
+                    // all three server-side via the canonical card and let the JS
+                    // reveal + open-in-new-tab the matched one. Keys match
+                    // MACHINES in ReadinessQuiz.js.
+                    $rec_cards = [
+                        'SSQ3' => 'ssq3-multipro',
+                        'SSH'  => 'ssh-roof-panel-machine',
+                        'SSR'  => 'ssr-multipro-jr-roof-panel-machine',
+                    ];
+                    ?>
+                    <div class="quiz-rec-cards" data-quiz-rec-cards hidden>
+                        <?php foreach ($rec_cards as $key => $slug) :
+                            $rec_post = get_page_by_path($slug, OBJECT, 'product');
+                            if (!$rec_post) {
+                                continue;
+                            }
+                            ?>
+                            <div class="quiz-rec-card" data-quiz-rec-card="<?php echo esc_attr($key); ?>" hidden>
+                                <?php
+                                get_template_part('templates/parts/card-product', null, [
+                                    'product' => \Standard\Search\get_product_card_data((int) $rec_post->ID),
+                                ]);
+                                ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
 
                     <!-- Lead capture -->
                     <div class="quiz-lead" data-quiz-lead hidden>

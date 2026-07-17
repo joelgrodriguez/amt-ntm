@@ -184,16 +184,19 @@ const BANDS = [
  */
 const MACHINES = {
   SSQ3: {
+    key: 'SSQ3',
     model: 'SSQ3™ MultiPro',
     url: '/machines/roof-wall-panel-machines/ssq3-multipro/',
     article: { title: 'The True Cost of an SSQ3 MultiPro Roof & Wall Panel Machine', url: '/learning-center/cost-of-an-ssq3-multipro-roof-wall-panel-machine/' },
   },
   SSH: {
+    key: 'SSH',
     model: 'SSH™ MultiPro',
     url: '/machines/roof-wall-panel-machines/ssh-roof-panel-machine/',
     article: { title: 'SSH MultiPro Roof Panel Machine: A Solid Portable Rollformer', url: '/learning-center/ssh-multipro-roof-panel-machine-a-solid-portable-roll-former/' },
   },
   SSR: {
+    key: 'SSR',
     model: 'SSR™ MultiPro Jr.',
     url: '/machines/roof-wall-panel-machines/ssr-multipro-jr-roof-panel-machine/',
     article: { title: 'The Budget-Friendly Cost of the SSR MultiPro Jr. Roof Panel Machine', url: '/learning-center/ntm-ssr-multipro-jr-best-budget-portable-rollformer/' },
@@ -256,6 +259,121 @@ function esc(s) {
 }
 
 /**
+ * Draw the readiness gauge onto a canvas — a red→yellow→green arc with a
+ * needle pointing at the score. Ported from the original app's canvas gauge.
+ * The displayed needle/number is floored at 75% (a deliberate design choice
+ * from the original so the dial always reads encouragingly).
+ * @param {HTMLCanvasElement} canvas
+ * @param {number} rawScore
+ * @param {number} maxScore
+ */
+function drawGauge(canvas, rawScore, maxScore = 100) {
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  const score = Math.max(rawScore, maxScore * 0.75);
+  const dpr = window.devicePixelRatio || 1;
+  const displaySize = 300;
+  canvas.width = displaySize * dpr;
+  canvas.height = displaySize * dpr;
+  canvas.style.width = `${displaySize}px`;
+  canvas.style.height = `${displaySize}px`;
+  ctx.scale(dpr, dpr);
+
+  const size = displaySize;
+  const cx = size / 2;
+  const cy = size / 2;
+  const radius = size / 2.5;
+  const rootStyles = getComputedStyle(document.documentElement);
+  const ink = rootStyles.getPropertyValue('--color-blue-900').trim() || '#0A1322';
+  const muted = rootStyles.getPropertyValue('--color-blue-400').trim() || '#5A7691';
+
+  ctx.clearRect(0, 0, size, size);
+
+  const startAngle = Math.PI * 0.75;
+  const endAngle = Math.PI * 2.25;
+  const totalArc = endAngle - startAngle;
+
+  // Gradient arc (red → yellow → green), drawn in segments.
+  const segments = 120;
+  for (let i = 0; i < segments; i += 1) {
+    const t = i / (segments - 1);
+    const segStart = startAngle + totalArc * (i / segments);
+    const segEnd = startAngle + totalArc * Math.min((i + 1.5) / segments, 1);
+    let r;
+    let g;
+    let b;
+    if (t < 0.5) {
+      const lt = t / 0.5;
+      r = 220;
+      g = Math.round(40 + lt * 160);
+      b = Math.round(40 - lt * 20);
+    } else {
+      const lt = (t - 0.5) / 0.5;
+      r = Math.round(220 - lt * 210);
+      g = Math.round(200 - lt * 50);
+      b = Math.round(20 - lt * 10);
+    }
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, segStart, segEnd, false);
+    ctx.strokeStyle = `rgb(${r}, ${g}, ${b})`;
+    ctx.lineWidth = 30;
+    ctx.lineCap = i === 0 || i === segments - 1 ? 'round' : 'butt';
+    ctx.stroke();
+  }
+
+  // Dim the unfilled portion.
+  const pct = Math.min(score / maxScore, 1);
+  const needleAngle = startAngle + totalArc * pct;
+  if (pct < 0.98) {
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, needleAngle + 0.01, endAngle + 0.02, false);
+    ctx.strokeStyle = 'rgba(228, 236, 243, 0.85)';
+    ctx.lineWidth = 32;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+  }
+
+  // Needle.
+  const needleLen = radius - 20;
+  ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
+  ctx.shadowBlur = 6;
+  ctx.shadowOffsetX = 2;
+  ctx.shadowOffsetY = 2;
+  ctx.beginPath();
+  ctx.moveTo(cx, cy);
+  ctx.lineTo(cx + needleLen * Math.cos(needleAngle), cy + needleLen * Math.sin(needleAngle));
+  ctx.strokeStyle = ink;
+  ctx.lineWidth = 4;
+  ctx.lineCap = 'round';
+  ctx.stroke();
+  ctx.shadowColor = 'transparent';
+
+  // Score number + caption, lifted above the hub so the needle never overlaps.
+  ctx.textAlign = 'center';
+  ctx.font = '700 44px "Noto Sans", system-ui, sans-serif';
+  ctx.fillStyle = ink;
+  ctx.fillText(`${Math.round(score)}`, cx, cy - 44);
+  ctx.font = '13px "Noto Sans", system-ui, sans-serif';
+  ctx.fillStyle = muted;
+  ctx.fillText(`out of ${maxScore}`, cx, cy - 16);
+
+  // Hub (drawn after text so it sits cleanly at the pivot).
+  ctx.beginPath();
+  ctx.arc(cx, cy, 12, 0, Math.PI * 2);
+  ctx.fillStyle = ink;
+  ctx.fill();
+
+  // End labels.
+  ctx.font = '700 11px "Noto Sans", system-ui, sans-serif';
+  const labelR = radius + 28;
+  ctx.fillStyle = '#c81f2b';
+  ctx.fillText('0', cx + labelR * Math.cos(startAngle), cy + labelR * Math.sin(startAngle));
+  ctx.fillStyle = '#1f7a4d';
+  ctx.fillText('100', cx + labelR * Math.cos(endAngle), cy + labelR * Math.sin(endAngle));
+}
+
+/**
  * Initialize the readiness quiz.
  * @returns {Function} cleanup
  */
@@ -269,6 +387,9 @@ export function initReadinessQuiz() {
   const leadScreen = root.querySelector('[data-quiz-lead]');
   const progressFill = root.querySelector('[data-quiz-progress]');
   const progressLabel = root.querySelector('[data-quiz-progress-label]');
+  const progressPct = root.querySelector('[data-quiz-progress-pct]');
+  const backBtn = root.querySelector('[data-quiz-back]');
+  const recCards = root.querySelector('[data-quiz-rec-cards]');
 
   if (!questionsScreen || !resultsScreen) return () => {};
 
@@ -286,22 +407,29 @@ export function initReadinessQuiz() {
     const q = QUESTIONS[index];
     const total = QUESTIONS.length;
 
-    if (progressFill) progressFill.style.width = `${Math.round((index / total) * 100)}%`;
+    const pct = Math.round((index / total) * 100);
+    if (progressFill) progressFill.style.width = `${pct}%`;
     if (progressLabel) progressLabel.textContent = `Question ${index + 1} of ${total}`;
+    if (progressPct) progressPct.textContent = `${pct}%`;
 
     const options = q.options
       .map(
         (opt, i) =>
-          `<button type="button" class="quiz-option" data-quiz-option="${i}">${esc(opt.label)}</button>`
+          `<button type="button" class="quiz-option" data-quiz-option="${i}"><span class="quiz-option__dot" aria-hidden="true"></span><span>${esc(opt.label)}</span></button>`
       )
       .join('');
+
+    // Persistent card-anchored back button: shown from Q2, hidden otherwise.
+    if (backBtn) {
+      if (index > 0) backBtn.removeAttribute('hidden');
+      else backBtn.setAttribute('hidden', '');
+    }
 
     questionsScreen.innerHTML = `
       <p class="quiz-question__label">${esc(q.label)}</p>
       <h2 class="quiz-question__title">${esc(q.question)}</h2>
       ${q.description ? `<p class="quiz-question__desc">${esc(q.description)}</p>` : ''}
       <div class="quiz-options" role="group" aria-label="${esc(q.question)}">${options}</div>
-      ${index > 0 ? '<button type="button" class="quiz-back" data-quiz-back>← Back</button>' : ''}
     `;
 
     questionsScreen.querySelectorAll('[data-quiz-option]').forEach((btn) => {
@@ -320,18 +448,6 @@ export function initReadinessQuiz() {
         { signal }
       );
     });
-
-    const back = questionsScreen.querySelector('[data-quiz-back]');
-    if (back) {
-      back.addEventListener(
-        'click',
-        () => {
-          index = Math.max(0, index - 1);
-          renderQuestion();
-        },
-        { signal }
-      );
-    }
   }
 
   function finish() {
@@ -341,25 +457,50 @@ export function initReadinessQuiz() {
     const display = Math.min(score, 100);
 
     hide(questionsScreen);
+    if (backBtn) backBtn.setAttribute('hidden', '');
     if (progressFill) progressFill.style.width = '100%';
     if (progressLabel) progressLabel.textContent = 'Complete';
+    if (progressPct) progressPct.textContent = '100%';
 
     resultsScreen.innerHTML = `
-      <p class="quiz-results__label">Your readiness</p>
-      <p class="quiz-results__score">${display}<span class="quiz-results__score-max">/100</span></p>
-      <h2 class="quiz-results__level">${esc(band.level)}</h2>
+      <div class="quiz-results__intro">
+        <p class="quiz-results__eyebrow">Your readiness</p>
+        <h2 class="quiz-results__headline">Here’s where your operation stands</h2>
+      </div>
+      <div class="quiz-gauge"><canvas data-quiz-gauge aria-hidden="true"></canvas></div>
+      <p class="quiz-results__level" data-band="${esc(band.level)}">${esc(band.level)}</p>
       <p class="quiz-results__desc">${esc(band.description)}</p>
       <div class="quiz-recommendation">
         <p class="quiz-recommendation__label">Recommended machine</p>
         <h3 class="quiz-recommendation__model">${esc(machine.model)}</h3>
-        <div class="quiz-recommendation__actions">
-          <a class="btn btn-primary btn-sm" href="${esc(machine.url)}">View the ${esc(machine.model)}</a>
-          <a class="btn btn-outline-dark btn-sm" href="${esc(machine.article.url)}">${esc(machine.article.title)}</a>
-        </div>
+        <p class="quiz-recommendation__article">
+          <a href="${esc(machine.article.url)}" target="_blank" rel="noopener">${esc(machine.article.title)} ↗</a>
+        </p>
+        <div class="quiz-recommendation__card" data-quiz-rec-slot></div>
       </div>
     `;
     show(resultsScreen);
     show(leadScreen);
+
+    const gauge = resultsScreen.querySelector('[data-quiz-gauge]');
+    if (gauge) drawGauge(gauge, display, 100);
+
+    // Clone the matching pre-rendered product card into the results (clone, not
+    // move, so the pool survives a retake), open its links in a new tab.
+    const slot = resultsScreen.querySelector('[data-quiz-rec-slot]');
+    if (slot && recCards) {
+      const source = recCards.querySelector(`[data-quiz-rec-card="${machine.key}"]`);
+      if (source) {
+        const card = source.cloneNode(true);
+        card.removeAttribute('hidden');
+        card.removeAttribute('data-quiz-rec-card');
+        card.querySelectorAll('a[href]').forEach((a) => {
+          a.setAttribute('target', '_blank');
+          a.setAttribute('rel', 'noopener');
+        });
+        slot.appendChild(card);
+      }
+    }
   }
 
   // Start button (intro screen is optional; if absent, start immediately)
@@ -379,6 +520,20 @@ export function initReadinessQuiz() {
     renderQuestion();
   }
 
+  // Card-anchored back button (single persistent handler).
+  if (backBtn) {
+    backBtn.addEventListener(
+      'click',
+      () => {
+        if (index > 0) {
+          index -= 1;
+          renderQuestion();
+        }
+      },
+      { signal }
+    );
+  }
+
   // Restart
   const restartBtn = root.querySelector('[data-quiz-restart]');
   if (restartBtn) {
@@ -389,6 +544,7 @@ export function initReadinessQuiz() {
         index = 0;
         hide(resultsScreen);
         hide(leadScreen);
+        if (backBtn) backBtn.setAttribute('hidden', '');
         if (intro) {
           show(intro);
         } else {
