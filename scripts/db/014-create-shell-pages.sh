@@ -36,7 +36,9 @@ if [[ -n "$machines_id" ]]; then
   if [[ -z "$(find_page upgrades "$machines_id")" ]]; then
     old_id="$(find_page ntm-accessories "$machines_id")"
     if [[ -n "$old_id" ]]; then
-      wp post update "$old_id" --post_name=upgrades >/dev/null
+      # || true: an idempotent re-assert is a no-op on replay, and WP-CLI exits
+      # non-zero when nothing changed; under set -e that would abort db:apply.
+      wp post update "$old_id" --post_name=upgrades >/dev/null || true
       echo "    adopted 'ntm-accessories' (#$old_id) -> slug 'upgrades'"
     fi
   fi
@@ -49,7 +51,7 @@ if [[ -n "$machines_id" ]]; then
     if [[ -z "$(find_page "$move_slug" "$machines_id")" ]]; then
       stray_id="$(find_page "$move_slug" 0)"
       if [[ -n "$stray_id" ]]; then
-        wp post update "$stray_id" --post_parent="$machines_id" >/dev/null
+        wp post update "$stray_id" --post_parent="$machines_id" >/dev/null || true
         echo "    re-parented '$move_slug' (#$stray_id) under /machines/"
       fi
     fi
@@ -100,9 +102,11 @@ for row in "${pages[@]}"; do
     echo "    '$slug' exists (#$page_id)"
   fi
 
-  # Re-assert the bits the theme depends on, every run.
-  wp post update "$page_id" --post_status=publish --post_parent="$parent_id" >/dev/null
-  wp post meta update "$page_id" _wp_page_template "$template" >/dev/null
+  # Re-assert the bits the theme depends on, every run. || true: on replay these
+  # are no-ops, and WP-CLI exits non-zero when nothing changed — under set -e
+  # that would abort the whole db:apply chain at this script.
+  wp post update "$page_id" --post_status=publish --post_parent="$parent_id" >/dev/null || true
+  wp post meta update "$page_id" _wp_page_template "$template" >/dev/null || true
 done
 
 echo "    shell pages OK"

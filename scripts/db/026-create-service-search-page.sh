@@ -41,11 +41,11 @@ if [[ -z "${page_id}" ]]; then
   echo "    created Service Search page ${page_id} under service-hub (${parent_id})"
 else
   # Ensure it's published and correctly parented on re-runs.
-  wp post update "${page_id}" --post_parent="${parent_id}" --post_status=publish >/dev/null
+  wp post update "${page_id}" --post_parent="${parent_id}" --post_status=publish >/dev/null || true
   echo "    found Service Search page ${page_id} (re-parented to ${parent_id})"
 fi
 
-wp post meta update "${page_id}" _wp_page_template "${template_slug}" >/dev/null
+wp post meta update "${page_id}" _wp_page_template "${template_slug}" >/dev/null || true
 echo "    set template=${template_slug} on page ${page_id} (service-hub/search)"
 
 # New page = new permalink; flush so /service-hub/search/ resolves immediately.

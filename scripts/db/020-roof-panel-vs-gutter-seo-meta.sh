@@ -34,12 +34,12 @@ seo_title='Roof Panel vs. Gutter Machine: Which Do You Need? | NTM'
 # deciding factor (what you make), and that NTM builds both.
 seo_desc='Roof and wall panel machines form the metal panels for a roof; seamless gutter machines form the gutters that drain it. See which NTM machine your work needs.'
 
-wp post meta update "${page_id}" _yoast_wpseo_title    "${seo_title}"
-wp post meta update "${page_id}" _yoast_wpseo_metadesc  "${seo_desc}"
+wp post meta update "${page_id}" _yoast_wpseo_title    "${seo_title}" || true
+wp post meta update "${page_id}" _yoast_wpseo_metadesc  "${seo_desc}" || true
 
 # Mirror to the Open Graph fields so the social/share snippet isn't the
 # placeholder either (Yoast renders og:title/og:description from these).
-wp post meta update "${page_id}" _yoast_wpseo_opengraph-title       "${seo_title}"
-wp post meta update "${page_id}" _yoast_wpseo_opengraph-description  "${seo_desc}"
+wp post meta update "${page_id}" _yoast_wpseo_opengraph-title       "${seo_title}" || true
+wp post meta update "${page_id}" _yoast_wpseo_opengraph-description  "${seo_desc}" || true
 
 echo "    set SEO title + meta description on page ${page_id} (roof-panel-vs-gutter)"
