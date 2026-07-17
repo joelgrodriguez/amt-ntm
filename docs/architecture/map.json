@@ -47,6 +47,10 @@
       "reason": "Route, page, controller, or request entry file."
     },
     {
+      "path": "app/resources/css/pages/readiness-quiz.css",
+      "reason": "Route, page, controller, or request entry file."
+    },
+    {
       "path": "app/resources/css/pages/roof-wall.css",
       "reason": "Route, page, controller, or request entry file."
     },
@@ -100,14 +104,14 @@
     {
       "path": "app",
       "purpose": "Application code and framework conventions.",
-      "fileCount": 448,
+      "fileCount": 451,
       "categories": {
-        "source": 171,
+        "source": 172,
         "other": 44,
         "config": 2,
-        "route": 8,
+        "route": 9,
         "test": 2,
-        "template": 221
+        "template": 222
       },
       "keyFiles": [
         "app/404.php",
@@ -136,19 +140,19 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 85,
+      "fileCount": 89,
       "categories": {
-        "docs": 85
+        "docs": 89
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
+        "docs/deploy/fresh-prod-pull-runbook.md",
         "docs/deploy/prod-content-merge-plan.md",
         "docs/feedback/2026-06-02-annotated-screenshots-review.md",
         "docs/feedback/2026-06-03-navigation-search-review.md",
         "docs/feedback/2026-06-05-service-financing-review.md",
         "docs/feedback/2026-06-08-machine-pages-review.md",
-        "docs/feedback/2026-06-09-web-images-review-alex-actions.html",
-        "docs/feedback/2026-06-09-web-images-review.md"
+        "docs/feedback/2026-06-09-web-images-review-alex-actions.html"
       ]
     },
     {
@@ -172,10 +176,10 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 46,
+      "fileCount": 52,
       "categories": {
         "source": 9,
-        "other": 35,
+        "other": 41,
         "docs": 2
       },
       "keyFiles": [
@@ -207,7 +211,7 @@
       "path": ".gitignore",
       "category": "other",
       "role": "Repository file.",
-      "size": 1757
+      "size": 1966
     },
     {
       "path": "app/404.php",
@@ -501,7 +505,7 @@
       "path": "app/data/machines/mach-ii-combo-gutter.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 11918
+      "size": 11928
     },
     {
       "path": "app/data/machines/ssh-multipro.php",
@@ -597,7 +601,7 @@
       "path": "app/inc/desktop-nav.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 23607
+      "size": 24941
     },
     {
       "path": "app/inc/filters.php",
@@ -699,7 +703,7 @@
       "path": "app/inc/machines-data.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 54997
+      "size": 54809
     },
     {
       "path": "app/inc/machines.php",
@@ -753,7 +757,7 @@
       "path": "app/inc/search.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 56924
+      "size": 58652
     },
     {
       "path": "app/inc/seo.php",
@@ -813,7 +817,7 @@
       "path": "app/inc/woo/accessories.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 5594
+      "size": 13814
     },
     {
       "path": "app/inc/woo/accessory-tag-map.php",
@@ -1011,7 +1015,7 @@
       "path": "app/resources/css/_app.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 3822
+      "size": 3860
     },
     {
       "path": "app/resources/css/animations.css",
@@ -1167,13 +1171,13 @@
       "path": "app/resources/css/layout/header.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 3429
+      "size": 3892
     },
     {
       "path": "app/resources/css/layout/mega-menu.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 16204
+      "size": 16597
     },
     {
       "path": "app/resources/css/layout/pagination.css",
@@ -1203,7 +1207,7 @@
       "path": "app/resources/css/pages/finance-center.css",
       "category": "route",
       "role": "Route, page, controller, or request entry file.",
-      "size": 18290
+      "size": 20217
     },
     {
       "path": "app/resources/css/pages/learning-center.css",
@@ -1216,6 +1220,12 @@
       "category": "route",
       "role": "Route, page, controller, or request entry file.",
       "size": 1513
+    },
+    {
+      "path": "app/resources/css/pages/readiness-quiz.css",
+      "category": "route",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 9234
     },
     {
       "path": "app/resources/css/pages/roof-wall.css",
@@ -1245,7 +1255,7 @@
       "path": "app/resources/css/tokens.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 1243
+      "size": 1269
     },
     {
       "path": "app/resources/css/transitions.css",
@@ -1335,7 +1345,7 @@
       "path": "app/resources/js/_app.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 5079
+      "size": 5356
     },
     {
       "path": "app/resources/js/front-page.js",
@@ -1438,6 +1448,12 @@
       "category": "source",
       "role": "Application source code.",
       "size": 1619
+    },
+    {
+      "path": "app/resources/js/modules/ReadinessQuiz.js",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 20682
     },
     {
       "path": "app/resources/js/modules/RevealMore.js",
@@ -1641,7 +1657,7 @@
       "path": "app/templates/pages/finance-center/corbel.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 4806
+      "size": 4807
     },
     {
       "path": "app/templates/pages/finance-center/disclaimer.php",
@@ -1659,19 +1675,19 @@
       "path": "app/templates/pages/finance-center/hero.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 2014
+      "size": 2037
     },
     {
       "path": "app/templates/pages/finance-center/lenders.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 6521
+      "size": 9415
     },
     {
       "path": "app/templates/pages/finance-center/paths.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 6973
+      "size": 7235
     },
     {
       "path": "app/templates/pages/finance-center/section-179.php",
@@ -1791,7 +1807,7 @@
       "path": "app/templates/pages/machii/family-portrait.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 5143
+      "size": 5119
     },
     {
       "path": "app/templates/pages/machii/faq.php",
@@ -1815,7 +1831,7 @@
       "path": "app/templates/pages/machii/hero.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 4580
+      "size": 4590
     },
     {
       "path": "app/templates/pages/machii/variant-matrix.php",
@@ -2307,7 +2323,7 @@
       "path": "app/templates/parts/comparison-table.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 7474
+      "size": 7499
     },
     {
       "path": "app/templates/parts/contact-faq-list.php",
@@ -2694,6 +2710,12 @@
       "size": 2241
     },
     {
+      "path": "app/templates/template-readiness-quiz.php",
+      "category": "template",
+      "role": "Application source code.",
+      "size": 6707
+    },
+    {
       "path": "app/templates/template-service-hub-machine.php",
       "category": "template",
       "role": "Application source code.",
@@ -2751,7 +2773,7 @@
       "path": "app/templates/woo/product/parts/compatible-machines.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 2622
+      "size": 2632
     },
     {
       "path": "app/templates/woo/product/parts/configurator-finance.php",
@@ -2889,7 +2911,7 @@
       "path": "app/theme.json",
       "category": "other",
       "role": "Repository file.",
-      "size": 4375
+      "size": 4479
     },
     {
       "path": "app/woocommerce/.gitkeep",
@@ -2901,7 +2923,7 @@
       "path": "CLAUDE.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 21121
+      "size": 21117
     },
     {
       "path": "db/imports/content-departments.csv",
@@ -2919,7 +2941,7 @@
       "path": "db/redirects.json",
       "category": "other",
       "role": "Repository file.",
-      "size": 311642
+      "size": 328744
     },
     {
       "path": "DESIGN.md",
@@ -2932,6 +2954,12 @@
       "category": "docs",
       "role": "Project documentation for humans and agents.",
       "size": 3400
+    },
+    {
+      "path": "docs/deploy/fresh-prod-pull-runbook.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 5295
     },
     {
       "path": "docs/deploy/prod-content-merge-plan.md",
@@ -3390,10 +3418,22 @@
       "size": 288
     },
     {
+      "path": "docs/specs/navigation.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 3407
+    },
+    {
       "path": "docs/specs/pricing.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
       "size": 362
+    },
+    {
+      "path": "docs/specs/readiness-quiz-spec.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 6058
     },
     {
       "path": "docs/specs/search.md",
@@ -3436,6 +3476,12 @@
       "category": "docs",
       "role": "Project documentation for humans and agents.",
       "size": 9188
+    },
+    {
+      "path": "docs/superpowers/specs/reporting-connectors.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 10130
     },
     {
       "path": "package-lock.json",
@@ -3615,31 +3661,31 @@
       "path": "scripts/db/014-create-shell-pages.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 5035
+      "size": 5393
     },
     {
       "path": "scripts/db/020-roof-panel-vs-gutter-seo-meta.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 2253
+      "size": 2285
     },
     {
       "path": "scripts/db/021-start-here-seo-meta.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 2016
+      "size": 2048
     },
     {
       "path": "scripts/db/022-finance-center-template-and-video.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 2183
+      "size": 2199
     },
     {
       "path": "scripts/db/023-regenerate-product-card-thumbnails.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 2094
+      "size": 2825
     },
     {
       "path": "scripts/db/024-seed-knowledgebase.php",
@@ -3663,7 +3709,7 @@
       "path": "scripts/db/026-create-service-search-page.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 2352
+      "size": 2368
     },
     {
       "path": "scripts/db/027-quote-checklist-fix-stray-heading.sh",
@@ -3705,13 +3751,13 @@
       "path": "scripts/db/033-embed-template-quiz-pages.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 1254
+      "size": 1262
     },
     {
       "path": "scripts/db/035-register-theme-media.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 4297
+      "size": 4669
     },
     {
       "path": "scripts/db/036-import-content-departments.sh",
@@ -3772,6 +3818,42 @@
       "category": "other",
       "role": "Repository file.",
       "size": 3568
+    },
+    {
+      "path": "scripts/db/044-corbel-preferred-lender-logo.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 3250
+    },
+    {
+      "path": "scripts/db/045-accessory-compatibility-notes.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 3958
+    },
+    {
+      "path": "scripts/db/046-readiness-quiz-page-template.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 3723
+    },
+    {
+      "path": "scripts/db/047-ssq3-profile-tags.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 3976
+    },
+    {
+      "path": "scripts/db/048-plc-machine-notes-ezcounter-ssr.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 3841
+    },
+    {
+      "path": "scripts/db/049-draft-duplicate-uniq-controller.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 3896
     },
     {
       "path": "scripts/db/apply",
@@ -3860,6 +3942,7 @@
     "CLAUDE.md",
     "DESIGN.md",
     "docs/architecture-boundaries.md",
+    "docs/deploy/fresh-prod-pull-runbook.md",
     "docs/deploy/prod-content-merge-plan.md",
     "docs/feedback/2026-06-02-annotated-screenshots-review.md",
     "docs/feedback/2026-06-03-navigation-search-review.md",
@@ -3936,7 +4019,9 @@
     "docs/specs/learning-center.md",
     "docs/specs/machines.md",
     "docs/specs/nav.md",
+    "docs/specs/navigation.md",
     "docs/specs/pricing.md",
+    "docs/specs/readiness-quiz-spec.md",
     "docs/specs/search.md",
     "docs/specs/seo.md",
     "docs/specs/templates.md",
@@ -3944,6 +4029,7 @@
     "docs/specs/woo.md",
     "docs/superpowers/specs/data-normalization-backlog.md",
     "docs/superpowers/specs/db-persistence-strategy.md",
+    "docs/superpowers/specs/reporting-connectors.md",
     "plans/001-php-lint-ci-baseline.md",
     "plans/002-machine-schema-hardening.md",
     "plans/003-seo-fallback-robots-canonicals.md",
