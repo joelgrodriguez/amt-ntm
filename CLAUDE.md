@@ -7,6 +7,21 @@ Claude is the primary agent for this repo. Other agents should read this same fi
 
 If an agent reads this file through another name, same rules. No alternate personalities hiding in the couch cushions.
 
+## Project Contract
+
+Read in order; stop when you have enough context for your task.
+
+1. `PRODUCT.md` — what this site is for, who it serves, and what it deliberately
+   does not do.
+2. `CONTEXT.md` — domain vocabulary, entities, ownership boundaries, external
+   systems, invariants, sources of truth, and the known ambiguities. Read this
+   before your first change here; the overloaded terms will bite otherwise.
+3. `docs/specs/<area>.md` — current behavior of the area you're touching.
+   Generated on land, newest-first. Never hand-edit.
+4. `docs/decisions/README.md` — how cross-cutting decisions get recorded, and
+   where the standing ones already live.
+5. `DESIGN.md` — the visual system, when the task is UI.
+
 ## Vibe
 
 - Never open with Great question, I'd be happy to help, or Absolutely. Just answer.

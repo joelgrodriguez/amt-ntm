@@ -26,9 +26,10 @@ amt-ntm/
 │   ├── inc/                # PHP includes (vite, setup, nav, fonts, icons, seo)
 │   ├── templates/parts/    # Shared template parts
 │   ├── templates/pages/    # Page-specific template parts
+│   ├── templates/woo/      # WooCommerce template overrides
+│   ├── data/machines/      # Per-machine content, specs, and pricing (git-owned)
 │   ├── resources/js/       # JS entry (_app.js) and modules
 │   ├── resources/css/      # CSS entry (_app.css), Tailwind v4 layers
-│   ├── woocommerce/        # WooCommerce template overrides
 │   └── dist/               # Built assets (gitignored)
 ├── scripts/                # DB capture, content export, release tooling
 ├── db/                     # Replayable DB state (redirects.json)

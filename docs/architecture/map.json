@@ -71,10 +71,10 @@
     {
       "path": ".",
       "purpose": "Root-level manifests, docs, and configuration.",
-      "fileCount": 11,
+      "fileCount": 13,
       "categories": {
         "other": 3,
-        "docs": 5,
+        "docs": 7,
         "manifest": 1,
         "source": 1,
         "config": 1
@@ -82,12 +82,12 @@
       "keyFiles": [
         ".gitattributes",
         ".gitignore",
+        "AGENTS.md",
         "CLAUDE.md",
+        "CONTEXT.md",
         "DESIGN.md",
         "package-lock.json",
-        "package.json",
-        "PRODUCT.md",
-        "README.md"
+        "package.json"
       ]
     },
     {
@@ -140,19 +140,19 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 92,
+      "fileCount": 94,
       "categories": {
-        "docs": 92
+        "docs": 94
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
         "docs/audits/schema-pro-conflict-investigation.md",
+        "docs/decisions/README.md",
         "docs/deploy/fresh-prod-pull-runbook.md",
         "docs/deploy/prod-content-merge-plan.md",
         "docs/feedback/2026-06-02-annotated-screenshots-review.md",
         "docs/feedback/2026-06-03-navigation-search-review.md",
-        "docs/feedback/2026-06-05-service-financing-review.md",
-        "docs/feedback/2026-06-08-machine-pages-review.md"
+        "docs/feedback/2026-06-05-service-financing-review.md"
       ]
     },
     {
@@ -213,6 +213,12 @@
       "category": "other",
       "role": "Repository file.",
       "size": 1966
+    },
+    {
+      "path": "AGENTS.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 21847
     },
     {
       "path": "app/404.php",
@@ -665,6 +671,12 @@
       "size": 2550
     },
     {
+      "path": "app/inc/learning-center.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 339
+    },
+    {
       "path": "app/inc/learning-center/config.php",
       "category": "config",
       "role": "Project configuration.",
@@ -681,12 +693,6 @@
       "category": "source",
       "role": "Application source code.",
       "size": 3677
-    },
-    {
-      "path": "app/inc/learning-center.php",
-      "category": "source",
-      "role": "Application source code.",
-      "size": 339
     },
     {
       "path": "app/inc/machine-product-data.php",
@@ -1127,6 +1133,12 @@
       "size": 5337
     },
     {
+      "path": "app/resources/css/front-page.css",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 179
+    },
+    {
       "path": "app/resources/css/front-page/explore-machines.css",
       "category": "source",
       "role": "Application source code.",
@@ -1143,12 +1155,6 @@
       "category": "source",
       "role": "Application source code.",
       "size": 4907
-    },
-    {
-      "path": "app/resources/css/front-page.css",
-      "category": "source",
-      "role": "Application source code.",
-      "size": 179
     },
     {
       "path": "app/resources/css/layout/breadcrumbs.css",
@@ -1271,6 +1277,12 @@
       "size": 1495
     },
     {
+      "path": "app/resources/css/woo.css",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 190
+    },
+    {
       "path": "app/resources/css/woo/accessory-product.css",
       "category": "source",
       "role": "Application source code.",
@@ -1335,12 +1347,6 @@
       "category": "source",
       "role": "Application source code.",
       "size": 177
-    },
-    {
-      "path": "app/resources/css/woo.css",
-      "category": "source",
-      "role": "Application source code.",
-      "size": 190
     },
     {
       "path": "app/resources/js/_app.js",
@@ -2531,16 +2537,16 @@
       "size": 4148
     },
     {
-      "path": "app/templates/parts/learning-center/results.php",
-      "category": "template",
-      "role": "Application source code.",
-      "size": 6224
-    },
-    {
       "path": "app/templates/parts/learning-center.php",
       "category": "template",
       "role": "Application source code.",
       "size": 3477
+    },
+    {
+      "path": "app/templates/parts/learning-center/results.php",
+      "category": "template",
+      "role": "Application source code.",
+      "size": 6224
     },
     {
       "path": "app/templates/parts/mega-menu.php",
@@ -2942,7 +2948,13 @@
       "path": "CLAUDE.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 21117
+      "size": 21847
+    },
+    {
+      "path": "CONTEXT.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 10580
     },
     {
       "path": "db/imports/content-departments.csv",
@@ -2979,6 +2991,12 @@
       "category": "docs",
       "role": "Project documentation for humans and agents.",
       "size": 49008
+    },
+    {
+      "path": "docs/decisions/README.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 3724
     },
     {
       "path": "docs/deploy/fresh-prod-pull-runbook.md",
@@ -3299,6 +3317,12 @@
       "size": 12334
     },
     {
+      "path": "docs/presentations/navigation-flow.html",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 337
+    },
+    {
       "path": "docs/presentations/navigation-flow/choose-machine.html",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
@@ -3363,12 +3387,6 @@
       "category": "docs",
       "role": "Project documentation for humans and agents.",
       "size": 16220
-    },
-    {
-      "path": "docs/presentations/navigation-flow.html",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 337
     },
     {
       "path": "docs/presentations/website-update-notes.md",
@@ -3461,6 +3479,12 @@
       "size": 362
     },
     {
+      "path": "docs/specs/project-context.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 1354
+    },
+    {
       "path": "docs/specs/readiness-quiz-spec.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
@@ -3482,7 +3506,7 @@
       "path": "docs/specs/seo.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 3240
+      "size": 3965
     },
     {
       "path": "docs/specs/templates.md",
@@ -3632,13 +3656,13 @@
       "path": "PRODUCT.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 7341
+      "size": 6330
     },
     {
       "path": "README.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 2911
+      "size": 3001
     },
     {
       "path": "scripts/content/export-copy.php",
@@ -3962,7 +3986,7 @@
       "path": "scripts/release/dev-tooling-paths.txt",
       "category": "other",
       "role": "Repository file.",
-      "size": 361
+      "size": 372
     },
     {
       "path": "scripts/release/hooks/post-checkout",
@@ -4038,10 +4062,13 @@
     "scripts/tests/seo-sitemap-exclusions.test.php"
   ],
   "docs": [
+    "AGENTS.md",
     "CLAUDE.md",
+    "CONTEXT.md",
     "DESIGN.md",
     "docs/architecture-boundaries.md",
     "docs/audits/schema-pro-conflict-investigation.md",
+    "docs/decisions/README.md",
     "docs/deploy/fresh-prod-pull-runbook.md",
     "docs/deploy/prod-content-merge-plan.md",
     "docs/feedback/2026-06-02-annotated-screenshots-review.md",
@@ -4095,6 +4122,7 @@
     "docs/presentation/risk-qa-prep.md",
     "docs/presentation/slides.html",
     "docs/presentation/stakeholder-presentation-playbook.md",
+    "docs/presentations/navigation-flow.html",
     "docs/presentations/navigation-flow/choose-machine.html",
     "docs/presentations/navigation-flow/content-gap.html",
     "docs/presentations/navigation-flow/decisions.html",
@@ -4106,7 +4134,6 @@
     "docs/presentations/navigation-flow/sitemap-flow.html",
     "docs/presentations/navigation-flow/sitemap.html",
     "docs/presentations/navigation-flow/styles.css",
-    "docs/presentations/navigation-flow.html",
     "docs/presentations/website-update-notes.md",
     "docs/RECOVERY.md",
     "docs/specs/about.md",
@@ -4122,6 +4149,7 @@
     "docs/specs/nav.md",
     "docs/specs/navigation.md",
     "docs/specs/pricing.md",
+    "docs/specs/project-context.md",
     "docs/specs/readiness-quiz-spec.md",
     "docs/specs/release.md",
     "docs/specs/search.md",
