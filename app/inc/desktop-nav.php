@@ -441,10 +441,10 @@ function get_desktop_nav(): array {
             [
                 'kind'          => 'mega',
                 'id'            => 'owner-support',
-                'label'         => __('Get Owner Support', 'standard'),
+                'label'         => __('Get Support', 'standard'),
                 'type'          => 'flyout-groups',
                 'intro'         => [
-                    'title'           => __('Get Owner Support', 'standard'),
+                    'title'           => __('Get Support', 'standard'),
                     'secondary_label' => __('Visit the Service Hub', 'standard'),
                     'secondary_url'   => \Standard\Url\internal('/service-hub/'),
                     'secondary_links' => [
