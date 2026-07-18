@@ -176,10 +176,10 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 73,
+      "fileCount": 61,
       "categories": {
         "source": 11,
-        "other": 59,
+        "other": 47,
         "docs": 2,
         "test": 1
       },
@@ -187,11 +187,11 @@
         "scripts/content/export-copy.php",
         "scripts/content/export-xlsx.php",
         "scripts/content/exports/.gitkeep",
-        "scripts/content/exports/copy-review 1.xlsx",
-        "scripts/content/exports/copy-review-about.csv",
-        "scripts/content/exports/copy-review-all.csv",
-        "scripts/content/exports/copy-review-choose.csv",
-        "scripts/content/exports/copy-review-finance.csv"
+        "scripts/content/extract.php",
+        "scripts/content/manifest.php",
+        "scripts/content/README.md",
+        "scripts/db/000-template.sh.example",
+        "scripts/db/010-strip-hardcoded-buttons-from-machine-excerpts.php"
       ]
     }
   ],
@@ -2984,13 +2984,13 @@
       "path": "docs/deploy/fresh-prod-pull-runbook.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 6829
+      "size": 7655
     },
     {
       "path": "docs/deploy/prod-content-merge-plan.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 15181
+      "size": 15497
     },
     {
       "path": "docs/feedback/2026-06-02-annotated-screenshots-review.md",
@@ -3404,7 +3404,7 @@
       "path": "docs/specs/database.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 1202
+      "size": 2201
     },
     {
       "path": "docs/specs/db.md",
@@ -3632,7 +3632,7 @@
       "path": "README.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 2750
+      "size": 2911
     },
     {
       "path": "scripts/content/export-copy.php",
@@ -3651,90 +3651,6 @@
       "category": "other",
       "role": "Repository file.",
       "size": 0
-    },
-    {
-      "path": "scripts/content/exports/copy-review 1.xlsx",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 164080
-    },
-    {
-      "path": "scripts/content/exports/copy-review-about.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 11280
-    },
-    {
-      "path": "scripts/content/exports/copy-review-all.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 118433
-    },
-    {
-      "path": "scripts/content/exports/copy-review-choose.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 7140
-    },
-    {
-      "path": "scripts/content/exports/copy-review-finance.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 12033
-    },
-    {
-      "path": "scripts/content/exports/copy-review-gutter.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 10015
-    },
-    {
-      "path": "scripts/content/exports/copy-review-home.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 15521
-    },
-    {
-      "path": "scripts/content/exports/copy-review-machines.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 14670
-    },
-    {
-      "path": "scripts/content/exports/copy-review-roof-wall.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 10728
-    },
-    {
-      "path": "scripts/content/exports/copy-review-safety.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 5403
-    },
-    {
-      "path": "scripts/content/exports/copy-review-start-here.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 13738
-    },
-    {
-      "path": "scripts/content/exports/copy-review-trailer.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 10882
-    },
-    {
-      "path": "scripts/content/exports/copy-review-uniq.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 7563
-    },
-    {
-      "path": "scripts/content/exports/copy-review.xlsx",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 160368
     },
     {
       "path": "scripts/content/extract.php",
@@ -3872,7 +3788,7 @@
       "path": "scripts/db/035-register-theme-media.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 4802
+      "size": 5305
     },
     {
       "path": "scripts/db/036-import-content-departments.sh",
@@ -4055,6 +3971,18 @@
       "size": 450
     },
     {
+      "path": "scripts/release/required-media-preflight.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 2751
+    },
+    {
+      "path": "scripts/release/required-media.txt",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 242
+    },
+    {
       "path": "scripts/release/strip-dev-tooling.sh",
       "category": "other",
       "role": "Repository file.",
@@ -4064,7 +3992,7 @@
       "path": "scripts/release/to-master.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 1190
+      "size": 1429
     },
     {
       "path": "scripts/search-smoke.php",
