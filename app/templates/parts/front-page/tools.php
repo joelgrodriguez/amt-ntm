@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'eyebrow' => __('Know Before You Buy', 'standard'),
+    'eyebrow' => __('Tools & Owner Resources', 'standard'),
     'title'   => __('Tools & Resources.', 'standard'),
 ];
 
@@ -39,6 +39,11 @@ $tools = [
         'title' => __('Manuals & Specs', 'standard'),
         'url'   => '/machines/manuals/',
     ],
+    [
+        'icon'  => 'help-circle',
+        'title' => __('UL Test Booklets', 'standard'),
+        'url'   => '/learning-center/resource/ul-test-information/',
+    ],
 ];
 ?>
 
@@ -53,17 +58,13 @@ $tools = [
             'max_width'   => 'max-w-2xl',
         ]); ?>
 
-        <div class="grid grid-cols-2 border border-blue-200 md:grid-cols-4">
-            <?php foreach ($tools as $i => $tool) : ?>
+        <div class="grid grid-cols-2 gap-px border border-blue-200 bg-blue-200 md:grid-cols-5">
+            <?php foreach ($tools as $tool) : ?>
             <a
                 href="<?php echo esc_url(\Standard\Url\internal($tool['url'])); ?>"
-                class="group flex flex-col justify-between p-6 bg-blue-50 no-underline transition-colors duration-200 hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px] <?php
-                        echo $i % 2 === 0 ? 'border-r border-blue-200 ' : '';
-                        echo $i === 1 ? 'md:border-r md:border-blue-200 ' : '';
-                        echo $i < 2 ? 'max-md:border-b max-md:border-blue-200 ' : '';
-                    ?>"
+                class="group flex min-h-[9rem] flex-col justify-between bg-blue-50 p-5 no-underline transition-colors duration-200 hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px] sm:p-6"
                 >
-                    <h3 class="font-mono text-sm font-medium uppercase tracking-wider text-blue-700 mb-12 transition-colors duration-200 group-hover:text-blue-50 md:text-base">
+                    <h3 class="font-mono text-sm font-medium uppercase tracking-wider text-blue-700 transition-colors duration-200 group-hover:text-blue-50 md:text-base">
                         <?php echo esc_html($tool['title']); ?>
                     </h3>
                     <div class="flex items-end justify-between">
