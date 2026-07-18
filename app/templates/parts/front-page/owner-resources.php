@@ -1,6 +1,11 @@
 <?php
 /**
- * Front-page section: decision-support tile links.
+ * Front-page section: owner resources fast-lane.
+ *
+ * People who already own an NTM machine need a direct path to reference
+ * material — manuals, profiles, UL test info, and the Service Hub — without
+ * drilling through the sales funnel (service-dept feedback, Ron; issue #105).
+ * The buyer-facing decision tools live in the separate `tools` section.
  *
  * @package Standard
  *
@@ -14,54 +19,56 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'eyebrow' => __('Know Before You Buy', 'standard'),
-    'title'   => __('Shopping Tools.', 'standard'),
+    'eyebrow' => __('Already Own a Machine', 'standard'),
+    'title'   => __('Owner Resources.', 'standard'),
 ];
 
-// Buyer-facing decision tools only. Owner reference (manuals, profiles, UL,
-// service hub) lives in its own front-page/owner-resources section so people
-// who already own a machine aren't hunting through the sales funnel (#105).
-$tools = [
+$resources = [
     [
-        'icon'  => 'filter',
-        'title' => __('Compare Models', 'standard'),
-        'url'   => '/machines/',
+        'icon'  => 'life-buoy',
+        'title' => __('Get Support', 'standard'),
+        'url'   => '/service-hub/',
     ],
     [
-        'icon'  => 'help-circle',
-        'title' => __('Machine Quiz', 'standard'),
-        'url'   => '/roof-panel-machine-assessment-quiz/',
+        'icon'  => 'file-text',
+        'title' => __('Manuals & Specs', 'standard'),
+        'url'   => '/machines/manuals/',
     ],
     [
-        'icon'  => 'trending-up',
-        'title' => __('Profit Calculator', 'standard'),
-        'url'   => '/learning-center/download/portable-rollforming-profit-calculator/',
+        'icon'  => 'folder',
+        'title' => __('Panel Profiles', 'standard'),
+        'url'   => '/profiles/',
+    ],
+    [
+        'icon'  => 'check',
+        'title' => __('UL Test Booklets', 'standard'),
+        'url'   => '/learning-center/resource/ul-test-information/',
     ],
 ];
 ?>
 
-<section class="section bg-blue-50" aria-labelledby="tools-title">
+<section class="section bg-blue-50 border-t border-blue-200" aria-labelledby="owner-resources-title">
     <div class="container grid gap-12 lg:gap-16">
 
         <?php get_template_part('templates/parts/section-header', null, [
-            'id'          => 'tools-title',
+            'id'          => 'owner-resources-title',
             'eyebrow'     => $content['eyebrow'],
             'eyebrow_dot' => false,
             'title'       => $content['title'],
             'max_width'   => 'max-w-2xl',
         ]); ?>
 
-        <div class="grid grid-cols-2 gap-px border border-blue-200 bg-blue-200 md:grid-cols-3">
-            <?php foreach ($tools as $tool) : ?>
+        <div class="grid grid-cols-2 gap-px border border-blue-200 bg-blue-200 md:grid-cols-4">
+            <?php foreach ($resources as $resource) : ?>
             <a
-                href="<?php echo esc_url(\Standard\Url\internal($tool['url'])); ?>"
+                href="<?php echo esc_url(\Standard\Url\internal($resource['url'])); ?>"
                 class="group flex min-h-[9rem] flex-col justify-between bg-blue-50 p-5 no-underline transition-colors duration-200 hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px] sm:p-6"
                 >
                     <h3 class="font-mono text-sm font-medium uppercase tracking-wider text-blue-700 transition-colors duration-200 group-hover:text-blue-50 md:text-base">
-                        <?php echo esc_html($tool['title']); ?>
+                        <?php echo esc_html($resource['title']); ?>
                     </h3>
                     <div class="flex items-end justify-between">
-                        <?php icon($tool['icon'], [
+                        <?php icon($resource['icon'], [
                             'class'       => 'w-8 h-8 text-blue-700 transition-colors duration-200 group-hover:text-blue-50 md:w-10 md:h-10',
                             'aria-hidden' => 'true',
                         ]); ?>
