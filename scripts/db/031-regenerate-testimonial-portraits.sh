@@ -18,6 +18,8 @@
 
 set -euo pipefail
 
+DRY_RUN="${DRY_RUN-1}"
+
 # Filenames of the six portraits the slider renders (uploads/2025/06/<name>.png).
 portraits=(
   "Danaik-1.png"
@@ -45,8 +47,11 @@ if [[ ${#ids[@]} -eq 0 ]]; then
   exit 0
 fi
 
-echo "    regenerating ${#ids[@]} testimonial portrait(s): ${ids[*]}"
-# FAIL-SOFT: don't let one broken attachment abort the whole db:apply run.
-if ! wp media regenerate "${ids[@]}" --yes; then
-  echo "    !! some portraits failed to regenerate (see above) — continuing."
+if [[ "$DRY_RUN" != "0" ]]; then
+  echo "    [dry-run] would regenerate ${#ids[@]} testimonial portrait(s): ${ids[*]}"
+  exit 0
 fi
+
+echo "    regenerating ${#ids[@]} testimonial portrait(s): ${ids[*]}"
+wp media regenerate "${ids[@]}" --yes
+echo "    testimonial portraits regenerated"

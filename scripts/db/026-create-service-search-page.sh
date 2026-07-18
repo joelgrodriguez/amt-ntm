@@ -18,6 +18,8 @@
 
 set -euo pipefail
 
+DRY_RUN="${DRY_RUN-1}"
+
 template_slug='templates/template-service-search.php'
 
 # Parent: the Service Hub landing page (slug service-hub).
@@ -35,19 +37,56 @@ page_id="$(wp post list --post_type=page --name="search" --post_parent="${parent
              --field=ID --format=ids 2>/dev/null | head -n1 || true)"
 
 if [[ -z "${page_id}" ]]; then
+  if [[ "$DRY_RUN" != "0" ]]; then
+    echo "    [dry-run] would create Service Search page under service-hub (${parent_id})"
+    echo "    [dry-run] would set template=${template_slug} and flush rewrite rules"
+    exit 0
+  fi
+
   page_id="$(wp post create --post_type=page --post_status=publish \
                --post_title="Service Search" --post_name="search" \
                --post_parent="${parent_id}" --porcelain)"
+  if [[ -z "$page_id" || ! "$page_id" =~ ^[0-9]+$ ]]; then
+    echo "    ERROR: failed to create Service Search page" >&2
+    exit 1
+  fi
   echo "    created Service Search page ${page_id} under service-hub (${parent_id})"
 else
-  # Ensure it's published and correctly parented on re-runs.
-  wp post update "${page_id}" --post_parent="${parent_id}" --post_status=publish >/dev/null || true
-  echo "    found Service Search page ${page_id} (re-parented to ${parent_id})"
+  if [[ "$DRY_RUN" != "0" ]]; then
+    echo "    [dry-run] would assert Service Search page ${page_id}: parent=${parent_id}, status=publish"
+    echo "    [dry-run] would set template=${template_slug} on page ${page_id}"
+    echo "    [dry-run] would flush rewrite rules"
+    exit 0
+  fi
+
+  current_parent="$(wp post get "${page_id}" --field=post_parent 2>/dev/null)"
+  current_status="$(wp post get "${page_id}" --field=post_status 2>/dev/null)"
+
+  if [[ "$current_parent" != "$parent_id" || "$current_status" != "publish" ]]; then
+    wp post update "${page_id}" --post_parent="${parent_id}" --post_status=publish >/dev/null
+  fi
+
+  actual_parent="$(wp post get "${page_id}" --field=post_parent 2>/dev/null)"
+  actual_status="$(wp post get "${page_id}" --field=post_status 2>/dev/null)"
+  if [[ "$actual_parent" != "$parent_id" || "$actual_status" != "publish" ]]; then
+    echo "    ERROR: Service Search page ${page_id} did not persist parent/status" >&2
+    exit 1
+  fi
+
+  echo "    found Service Search page ${page_id} (parent ${actual_parent}, status ${actual_status})"
 fi
 
-wp post meta update "${page_id}" _wp_page_template "${template_slug}" >/dev/null || true
+current_template="$(wp post meta get "${page_id}" _wp_page_template 2>/dev/null || true)"
+if [[ "$current_template" != "$template_slug" ]]; then
+  wp post meta update "${page_id}" _wp_page_template "${template_slug}" >/dev/null
+fi
+actual_template="$(wp post meta get "${page_id}" _wp_page_template 2>/dev/null || true)"
+if [[ "$actual_template" != "$template_slug" ]]; then
+  echo "    ERROR: template did not persist on page ${page_id}" >&2
+  exit 1
+fi
 echo "    set template=${template_slug} on page ${page_id} (service-hub/search)"
 
 # New page = new permalink; flush so /service-hub/search/ resolves immediately.
-wp rewrite flush >/dev/null 2>&1 || true
+wp rewrite flush >/dev/null
 echo "    flushed rewrite rules"

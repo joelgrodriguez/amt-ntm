@@ -21,6 +21,13 @@
 
 set -euo pipefail
 
+DRY_RUN="${DRY_RUN-1}"
+
 csv="${CONTENT_DEPT_CSV-$WP_PATH/wp-content/themes/amt-ntm/db/imports/content-departments.csv}"
+
+if [[ "$DRY_RUN" != "0" ]]; then
+  echo "    [dry-run] would import content_department assignments from ${csv}"
+  exit 0
+fi
 
 wp ntm service-hub import-csv "$csv"

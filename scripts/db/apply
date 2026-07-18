@@ -40,16 +40,85 @@ WP_PHP_BIN="${WP_PHP_BIN-php8.3}"
 DRY_RUN="${DRY_RUN-0}"
 export DRY_RUN
 
+# Microsoft Clarity writes analytics rows and version-check transients merely
+# by loading under WP-CLI. Dry-run must inspect WordPress without those side
+# effects, while still loading domain plugins such as WooCommerce, Redirection,
+# Schema Pro, CPT-UI, and SCF. Override with DRY_RUN_SKIP_PLUGINS="" if needed.
+DRY_RUN_SKIP_PLUGINS="${DRY_RUN_SKIP_PLUGINS-microsoft-clarity}"
+export DRY_RUN_SKIP_PLUGINS
+DRY_RUN_DISABLE_WP_CRON_EXEC="${DRY_RUN_DISABLE_WP_CRON_EXEC-if (!defined('DISABLE_WP_CRON')) { define('DISABLE_WP_CRON', true); }}"
+export DRY_RUN_DISABLE_WP_CRON_EXEC
+
+wp_global_args() {
+  if [[ "${DRY_RUN:-0}" != "0" ]]; then
+    if [[ -n "${DRY_RUN_DISABLE_WP_CRON_EXEC:-}" ]]; then
+      printf '%s\n' "--exec=${DRY_RUN_DISABLE_WP_CRON_EXEC}"
+    fi
+    if [[ -n "${DRY_RUN_SKIP_PLUGINS:-}" ]]; then
+      printf '%s\n' "--skip-plugins=${DRY_RUN_SKIP_PLUGINS}"
+    fi
+  fi
+}
+export -f wp_global_args
+
+docker() {
+  if [[ "${DRY_RUN:-0}" != "0" && "${1:-}" == "exec" ]]; then
+    local args=("$@")
+    local wp_index=""
+    local has_skip=0
+    local has_cron_exec=0
+    local injected=()
+    local i
+
+    for i in "${!args[@]}"; do
+      if [[ "${args[$i]}" == "/usr/local/bin/wp" ]]; then
+        wp_index="$i"
+      elif [[ "${args[$i]}" == --skip-plugins* ]]; then
+        has_skip=1
+      elif [[ "${args[$i]}" == --exec=*DISABLE_WP_CRON* ]]; then
+        has_cron_exec=1
+      fi
+    done
+
+    if [[ -n "$wp_index" ]]; then
+      if [[ "$has_cron_exec" -eq 0 && -n "${DRY_RUN_DISABLE_WP_CRON_EXEC:-}" ]]; then
+        injected+=("--exec=${DRY_RUN_DISABLE_WP_CRON_EXEC}")
+      fi
+      if [[ "$has_skip" -eq 0 && -n "${DRY_RUN_SKIP_PLUGINS:-}" ]]; then
+        injected+=("--skip-plugins=${DRY_RUN_SKIP_PLUGINS}")
+      fi
+    fi
+
+    if [[ ${#injected[@]} -gt 0 ]]; then
+      args=(
+        "${args[@]:0:$((wp_index + 1))}"
+        "${injected[@]}"
+        "${args[@]:$((wp_index + 1))}"
+      )
+      command docker "${args[@]}"
+      return
+    fi
+  fi
+
+  command docker "$@"
+}
+export -f docker
+
 wp() {
+  local global_args=()
+  while IFS= read -r arg; do
+    [[ -n "$arg" ]] && global_args+=("$arg")
+  done < <(wp_global_args)
+
   if [[ -n "$WP_CONTAINER" ]]; then
     # -e flags forward the migration-script env (NTM_*) into the container —
     # scripts that pipe PHP through `wp eval-file` read config via getenv().
     # docker omits any -e VAR that is unset on the host, so this list is safe.
     docker exec \
       -e DRY_RUN -e NTM_DRY_RUN -e NTM_POST_ID -e NTM_MACHINES_ID -e NTM_TEMPLATE \
-      "$WP_CONTAINER" "$WP_PHP_BIN" /usr/local/bin/wp --path="$WP_PATH" --allow-root "$@"
+      "$WP_CONTAINER" "$WP_PHP_BIN" /usr/local/bin/wp "${global_args[@]}" --path="$WP_PATH" --allow-root "$@"
   else
-    command wp --path="$WP_PATH" "$@"
+    command wp "${global_args[@]}" --path="$WP_PATH" "$@"
   fi
 }
 export -f wp

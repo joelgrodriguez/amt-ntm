@@ -17,6 +17,9 @@
 
 set -euo pipefail
 
+DRY_RUN="${DRY_RUN-1}"
+export NTM_DRY_RUN="$DRY_RUN"
+
 theme="${THEME_DIR-$WP_PATH/wp-content/themes/amt-ntm}"
 
 wp eval-file "$theme/scripts/db/038-disable-content-shadowing-redirects.php"
