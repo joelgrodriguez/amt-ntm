@@ -2,6 +2,17 @@
 
 <!-- admiral:auto — appended on land, newest first. Read top-down for current behavior. -->
 
+## Remove retired product categories from Yoast XML sitemap — #114
+*Landed 2026-07-18 · type: bugfix*
+
+- Exclude only /product-category/roof-wall-panel-machines/, /product-category/gutter-machines/, and /product-category/accessories-add-on-equipment/ from product_cat-sitemap.xml
+- Keep the product_cat taxonomy sitemap and all active product categories intact
+- Preserve the existing 301 redirects to /roof-wall-panel-machines/, /seamless-gutter-machines/, and /machines/
+- Resolve term IDs safely from stable slugs rather than hardcoding environment-specific IDs
+- Add focused regression coverage for the exclusion behavior
+- Verify rendered local sitemap omits all three retired URLs
+- npm run build and PHP lint pass
+
 ## Make WooCommerce/theme code authoritative for Product schema while keeping Schema Pro active for FAQ blocks and useful VideoObject output.
 
 After issue 107 lands, add scripts/db/051 to draft only the generic published Schema Pro Product rule. Resolve it by stable title, aiosrs-schema post type, product schema type, and product|all targeting. Purge only Schema Pro optimized cache rows containing that mapped Product output or empty Product-rule arrays; do not remove FAQPage or VideoObject data. Update app/inc/machine-schema.php so manufacturer references the canonical home #organization identity instead of creating an unlinked differently named Organization. Verify the theme fallback defines the same ID. — #108
