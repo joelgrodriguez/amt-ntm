@@ -2,6 +2,18 @@
 
 <!-- admiral:auto — appended on land, newest first. Read top-down for current behavior. -->
 
+## Disable only Schema Pro global SiteNavigationElement output while keeping Schema Pro, its FAQ blocks/rules, Article rule, and useful VideoObject output active.
+
+After issue 108 lands, add scripts/db/052 to remove or disable the wp-schema-pro-global-schemas site-navigation-element mapping only when it still points to legacy menu ID 42. Purge only wp_schema_pro_optimized_structured_data rows containing SiteNavigationElement. Preserve every other Schema Pro option and cache entity. Visible navigation remains owned by app/inc/desktop-nav.php and app/inc/mobile-nav.php. — #109
+*Landed 2026-07-18 · type: bugfix*
+
+- Schema Pro stays active
+- Global menu ID 42 schema mapping is disabled with a guarded replayable DB migration
+- Only cache rows containing SiteNavigationElement are purged
+- Visible hardcoded navigation and FAQ blocks are unchanged
+- npm run build passes
+- Migration dry-run proves scope and idempotency
+
 ## Client-reported: the desktop mega menu looks broken on standard laptop screens (14", Windows scaling). Reproduced with Playwright at 1280×620, 1024×550, and 1440×750. Three confirmed root causes, all in the theme's desktop header/mega-menu layer:
 
 1. **Panel folds mid-card and scrolls internally.** `.mega-panel` (`app/resources/css/layout/mega-menu.css`) is `height: auto; max-height: calc(100vh - 4rem)`. On short viewports the Choose Your Machine panel content (~890px) exceeds the cap (~790px), so the second card row clips at the fold and the content area scrolls. Decision (Joel): the `tabbed-machines` panel should extend **full-height to the viewport bottom** on screens where content doesn't fit, with content scrolling inside. Short flyout panels (`flyout-groups`) keep the current content-height behavior.
