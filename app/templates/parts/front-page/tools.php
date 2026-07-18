@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
 
 $content = [
     'eyebrow' => __('Know Before You Buy', 'standard'),
-    'title'   => __('Decision Tools.', 'standard'),
+    'title'   => __('Tools & Resources.', 'standard'),
 ];
 
 $tools = [
