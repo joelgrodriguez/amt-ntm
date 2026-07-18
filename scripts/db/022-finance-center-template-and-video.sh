@@ -23,6 +23,8 @@
 
 set -euo pipefail
 
+DRY_RUN="${DRY_RUN-1}"
+
 # Resolve by slug so the script survives a different post ID on a fresh prod
 # pull (don't hardcode 217).
 page_id="$(wp post list --post_type=page --name="leasing-financing" \
@@ -42,7 +44,32 @@ template_slug='page-finance-center.php'
 # not load in an iframe.
 hero_video='https://fast.wistia.net/embed/iframe/hesm0txl1n?seo=false&videoFoam=true'
 
-wp post meta update "${page_id}" _wp_page_template "${template_slug}" || true
-wp post meta update "${page_id}" hero_video        "${hero_video}" || true
+set_meta() { # key value
+  local key="$1"
+  local value="$2"
+  local current
+  local actual
+
+  if [[ "$DRY_RUN" != "0" ]]; then
+    echo "    [dry-run] would set ${key} on page ${page_id}"
+    return
+  fi
+
+  current="$(wp post meta get "${page_id}" "${key}" 2>/dev/null || true)"
+  if [[ "$current" == "$value" ]]; then
+    echo "    ${key} already set on page ${page_id}"
+    return
+  fi
+
+  wp post meta update "${page_id}" "${key}" "${value}" >/dev/null
+  actual="$(wp post meta get "${page_id}" "${key}" 2>/dev/null || true)"
+  if [[ "$actual" != "$value" ]]; then
+    echo "    ERROR: ${key} did not persist on page ${page_id}" >&2
+    exit 1
+  fi
+}
+
+set_meta _wp_page_template "${template_slug}"
+set_meta hero_video "${hero_video}"
 
 echo "    set template=${template_slug} + hero_video on page ${page_id} (leasing-financing)"

@@ -28,7 +28,7 @@
 # SAFE BY DESIGN: single attachment, resolves/reuses by stable title,
 # idempotent. DRY_RUN=1 by default; DRY_RUN=0 to write.
 
-set -uo pipefail
+set -euo pipefail
 
 DRY_RUN="${DRY_RUN-1}"   # default safe: report only. DRY_RUN=0 to apply.
 
@@ -57,11 +57,15 @@ fi
 
 # Fetch into the container's uploads dir, import, then remove the staged copy
 # (media import copies the file into the year/month structure itself).
-docker exec "${WP_CONTAINER}" bash -lc "curl -sSL '${SRC_URL}' -o '${STAGE}'"
-id="$($WP media import "${STAGE}" --title="${TITLE}" --alt="Corbel" --porcelain 2>/dev/null | tail -1)"
-docker exec "${WP_CONTAINER}" rm -f "${STAGE}"
+cleanup_stage() {
+  docker exec "${WP_CONTAINER}" rm -f "${STAGE}" >/dev/null 2>&1 || true
+}
+trap cleanup_stage EXIT
 
-if [ -n "${id}" ]; then
+docker exec "${WP_CONTAINER}" bash -lc "curl -fsSL '${SRC_URL}' -o '${STAGE}'"
+id="$($WP media import "${STAGE}" --title="${TITLE}" --alt="Corbel" --porcelain | tail -1)"
+
+if [[ -n "${id}" && "${id}" =~ ^[0-9]+$ ]]; then
   url="$($WP post get "${id}" --field=guid 2>/dev/null)"
   echo "OK: imported '${TITLE}' as attachment ID ${id} -> ${url}"
 else

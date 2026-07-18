@@ -12,6 +12,8 @@
 
 set -euo pipefail
 
+DRY_RUN="${DRY_RUN-1}"
+
 template='templates/template-embed.php'
 slugs=(
   'portable-rollforming-machine-readiness-assessment'
@@ -25,12 +27,23 @@ for slug in "${slugs[@]}"; do
     continue
   fi
 
+  if [[ "$DRY_RUN" != "0" ]]; then
+    echo "    [dry-run] would set ${slug} (${id}) template -> ${template}"
+    continue
+  fi
+
   current="$(wp post meta get "$id" _wp_page_template 2>/dev/null | tr -d '[:space:]' || true)"
   if [[ "$current" == "$template" ]]; then
     echo "    no change: ${slug} (${id}) already uses Full Height Embed"
     continue
   fi
 
-  wp post meta update "$id" _wp_page_template "$template" >/dev/null || true
+  wp post meta update "$id" _wp_page_template "$template" >/dev/null
+  actual="$(wp post meta get "$id" _wp_page_template 2>/dev/null || true)"
+  if [[ "$actual" != "$template" ]]; then
+    echo "    ERROR: template did not persist on ${slug} (${id})" >&2
+    exit 1
+  fi
+
   echo "    set ${slug} (${id}) template -> ${template} (was: ${current:-default})"
 done
