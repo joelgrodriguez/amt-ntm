@@ -47,7 +47,7 @@ $resources = [
 ];
 ?>
 
-<section class="section bg-blue-50 border-t border-blue-200" aria-labelledby="owner-resources-title">
+<section class="section bg-white border-y border-blue-200" aria-labelledby="owner-resources-title">
     <div class="container grid gap-12 lg:gap-16">
 
         <?php get_template_part('templates/parts/section-header', null, [
