@@ -40,7 +40,7 @@ $tools = [
         'url'   => '/machines/manuals/',
     ],
     [
-        'icon'  => 'help-circle',
+        'icon'  => 'life-buoy',
         'title' => __('UL Test Booklets', 'standard'),
         'url'   => '/learning-center/resource/ul-test-information/',
     ],
