@@ -104,14 +104,14 @@
     {
       "path": "app",
       "purpose": "Application code and framework conventions.",
-      "fileCount": 451,
+      "fileCount": 454,
       "categories": {
-        "source": 172,
+        "source": 173,
         "other": 44,
         "config": 2,
         "route": 9,
         "test": 2,
-        "template": 222
+        "template": 224
       },
       "keyFiles": [
         "app/404.php",
@@ -146,13 +146,13 @@
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
+        "docs/audits/schema-pro-conflict-investigation.md",
         "docs/deploy/fresh-prod-pull-runbook.md",
         "docs/deploy/prod-content-merge-plan.md",
         "docs/feedback/2026-06-02-annotated-screenshots-review.md",
         "docs/feedback/2026-06-03-navigation-search-review.md",
         "docs/feedback/2026-06-05-service-financing-review.md",
-        "docs/feedback/2026-06-08-machine-pages-review.md",
-        "docs/feedback/2026-06-09-web-images-review-alex-actions.html"
+        "docs/feedback/2026-06-08-machine-pages-review.md"
       ]
     },
     {
@@ -176,21 +176,21 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 66,
+      "fileCount": 53,
       "categories": {
         "source": 9,
-        "other": 55,
+        "other": 42,
         "docs": 2
       },
       "keyFiles": [
         "scripts/content/export-copy.php",
         "scripts/content/export-xlsx.php",
         "scripts/content/exports/.gitkeep",
-        "scripts/content/exports/copy-review 1.xlsx",
-        "scripts/content/exports/copy-review-about.csv",
-        "scripts/content/exports/copy-review-all.csv",
-        "scripts/content/exports/copy-review-choose.csv",
-        "scripts/content/exports/copy-review-finance.csv"
+        "scripts/content/extract.php",
+        "scripts/content/manifest.php",
+        "scripts/content/README.md",
+        "scripts/db/000-template.sh.example",
+        "scripts/db/010-strip-hardcoded-buttons-from-machine-excerpts.php"
       ]
     }
   ],
@@ -505,7 +505,7 @@
       "path": "app/data/machines/mach-ii-combo-gutter.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 11928
+      "size": 11926
     },
     {
       "path": "app/data/machines/ssh-multipro.php",
@@ -547,7 +547,7 @@
       "path": "app/front-page.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 2784
+      "size": 3107
     },
     {
       "path": "app/functions.php",
@@ -601,7 +601,7 @@
       "path": "app/inc/desktop-nav.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 24941
+      "size": 25062
     },
     {
       "path": "app/inc/filters.php",
@@ -1345,7 +1345,7 @@
       "path": "app/resources/js/_app.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 5356
+      "size": 5640
     },
     {
       "path": "app/resources/js/front-page.js",
@@ -1442,6 +1442,12 @@
       "category": "source",
       "role": "Application source code.",
       "size": 9833
+    },
+    {
+      "path": "app/resources/js/modules/ProfileExpand.js",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 2879
     },
     {
       "path": "app/resources/js/modules/ProfileGallery.js",
@@ -2464,6 +2470,12 @@
       "size": 3074
     },
     {
+      "path": "app/templates/parts/front-page/owner-resources.php",
+      "category": "template",
+      "role": "Application source code.",
+      "size": 3205
+    },
+    {
       "path": "app/templates/parts/front-page/quiz.php",
       "category": "template",
       "role": "Application source code.",
@@ -2491,7 +2503,7 @@
       "path": "app/templates/parts/front-page/tools.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3126
+      "size": 2974
     },
     {
       "path": "app/templates/parts/front-page/waypoint.php",
@@ -2570,6 +2582,12 @@
       "category": "template",
       "role": "Application source code.",
       "size": 1993
+    },
+    {
+      "path": "app/templates/parts/profile-expandable-list.php",
+      "category": "template",
+      "role": "Application source code.",
+      "size": 3201
     },
     {
       "path": "app/templates/parts/related-posts.php",
@@ -2719,13 +2737,13 @@
       "path": "app/templates/template-service-hub-machine.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 17466
+      "size": 21557
     },
     {
       "path": "app/templates/template-service-hub.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 31763
+      "size": 31757
     },
     {
       "path": "app/templates/template-service-search.php",
@@ -2803,7 +2821,7 @@
       "path": "app/templates/woo/product/parts/default-profiles.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 2883
+      "size": 3253
     },
     {
       "path": "app/templates/woo/product/parts/default-specs.php",
@@ -2857,7 +2875,7 @@
       "path": "app/templates/woo/product/parts/profile-selector.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3466
+      "size": 3832
     },
     {
       "path": "app/templates/woo/product/parts/resources.php",
@@ -2956,10 +2974,16 @@
       "size": 3400
     },
     {
+      "path": "docs/audits/schema-pro-conflict-investigation.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 49008
+    },
+    {
       "path": "docs/deploy/fresh-prod-pull-runbook.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 5295
+      "size": 6829
     },
     {
       "path": "docs/deploy/prod-content-merge-plan.md",
@@ -3484,12 +3508,6 @@
       "size": 10130
     },
     {
-      "path": "docs/tokens.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 792
-    },
-    {
       "path": "package-lock.json",
       "category": "other",
       "role": "Repository file.",
@@ -3626,90 +3644,6 @@
       "category": "other",
       "role": "Repository file.",
       "size": 0
-    },
-    {
-      "path": "scripts/content/exports/copy-review 1.xlsx",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 164080
-    },
-    {
-      "path": "scripts/content/exports/copy-review-about.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 11280
-    },
-    {
-      "path": "scripts/content/exports/copy-review-all.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 118433
-    },
-    {
-      "path": "scripts/content/exports/copy-review-choose.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 7140
-    },
-    {
-      "path": "scripts/content/exports/copy-review-finance.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 12033
-    },
-    {
-      "path": "scripts/content/exports/copy-review-gutter.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 10015
-    },
-    {
-      "path": "scripts/content/exports/copy-review-home.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 15521
-    },
-    {
-      "path": "scripts/content/exports/copy-review-machines.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 14670
-    },
-    {
-      "path": "scripts/content/exports/copy-review-roof-wall.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 10728
-    },
-    {
-      "path": "scripts/content/exports/copy-review-safety.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 5403
-    },
-    {
-      "path": "scripts/content/exports/copy-review-start-here.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 13738
-    },
-    {
-      "path": "scripts/content/exports/copy-review-trailer.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 10882
-    },
-    {
-      "path": "scripts/content/exports/copy-review-uniq.csv",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 7563
-    },
-    {
-      "path": "scripts/content/exports/copy-review.xlsx",
-      "category": "other",
-      "role": "Repository file.",
-      "size": 160368
     },
     {
       "path": "scripts/content/extract.php",
@@ -3946,6 +3880,12 @@
       "size": 3896
     },
     {
+      "path": "scripts/db/050-retire-homepage-schema-pro-graph.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 11146
+    },
+    {
       "path": "scripts/db/apply",
       "category": "other",
       "role": "Repository file.",
@@ -4032,6 +3972,7 @@
     "CLAUDE.md",
     "DESIGN.md",
     "docs/architecture-boundaries.md",
+    "docs/audits/schema-pro-conflict-investigation.md",
     "docs/deploy/fresh-prod-pull-runbook.md",
     "docs/deploy/prod-content-merge-plan.md",
     "docs/feedback/2026-06-02-annotated-screenshots-review.md",
@@ -4120,7 +4061,6 @@
     "docs/superpowers/specs/data-normalization-backlog.md",
     "docs/superpowers/specs/db-persistence-strategy.md",
     "docs/superpowers/specs/reporting-connectors.md",
-    "docs/tokens.md",
     "plans/001-php-lint-ci-baseline.md",
     "plans/002-machine-schema-hardening.md",
     "plans/003-seo-fallback-robots-canonicals.md",
