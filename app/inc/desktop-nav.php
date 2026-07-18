@@ -252,7 +252,7 @@ function get_desktop_nav(): array {
                 'view_all_label' => __('See all machines', 'standard'),
                 'secondary_links' => [
                     [
-                        'label' => __('Build and Quote', 'standard'),
+                        'label' => __('Build your machine', 'standard'),
                         'url'   => \Standard\Url\internal('/configurator/'),
                     ],
                 ],
@@ -351,7 +351,7 @@ function get_desktop_nav(): array {
                     'secondary_url'   => \Standard\Url\with_query('/contact/', ['form' => 'quote']),
                     'secondary_links' => [
                         [
-                            'label' => __('Build and Quote', 'standard'),
+                            'label' => __('Build your machine', 'standard'),
                             'url'   => \Standard\Url\internal('/configurator/'),
                         ],
                         [
