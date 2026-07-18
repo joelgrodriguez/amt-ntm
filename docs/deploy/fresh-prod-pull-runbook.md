@@ -96,18 +96,23 @@ this row is a no-op.
 
 Some deliverables are **binary files in `wp-content/uploads/`**, which is
 neither in the theme git repo nor in the DB-script channel. `git pull` won't
-bring them and `db:apply` only registers the *attachment row* — the file itself
-must already be on disk. **You must upload these to prod manually (MyKinsta)**,
-then the matching `db:apply` script registers them.
+bring them, `db:apply` can only register attachment rows, and a DevKinsta
+**database-only** push cannot transfer uploads. Cutover requires a DevKinsta
+**Files + Database** push to Kinsta staging before release.
 
 | File | Where | Registered by | Why it matters |
 |---|---|---|---|
-| `20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1-720p-optimized.mp4` | prod `/wp-content/uploads/2026/05/` | `scripts/db/035` | The MACH II family + Combo hero videos point at this optimized file (#85). **If it's not uploaded, both hero videos 404.** |
+| `2026/05/20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1-720p-optimized.mp4` | staging `/wp-content/uploads/2026/05/` | `scripts/db/035` | The MACH II family + Combo hero videos point at this optimized file (#85). **If it's not uploaded, both hero videos 404.** |
+| `2026/07/20270713_NTM_MACHII-Motor-Panel.jpg` | staging `/wp-content/uploads/2026/07/` | Not registered | The MACH II Combo motor-panel image is consumed directly by `content_url()` and needs no attachment row. If the file is missing, the direct image URL 404s. |
 
 Steps at cutover:
-1. Upload the file above to prod's `/wp-content/uploads/2026/05/` via MyKinsta.
-2. Run `npm run db:apply` (035 registers the attachment).
-3. Verify the hero video plays on the MACH II family + Combo pages.
+1. Run `npm run db:apply` locally (035 registers the video attachment; the motor-panel image intentionally has no attachment row).
+2. Push `newtech` to Kinsta staging from DevKinsta with **Files + Database** selected. Database-only is wrong here; uploads are files, and staging needs the replayed attachment row from step 1.
+3. Verify the required media reached staging:
+   `RELEASE_TARGET_BASE_URL=https://<kinsta-staging-host> scripts/release/required-media-preflight.sh`.
+   `npm run release:master` runs this same preflight before it can push `master`;
+   running it directly just catches the problem earlier.
+4. Verify the hero video plays on the MACH II family + Combo pages and the MACH II Combo motor-panel image renders.
 
 The original (`...720p.mp4`, no `-optimized`) is kept on prod for rollback; you
 don't need to touch it.
@@ -138,8 +143,9 @@ Spot-check the highest-risk items (these are the ones a pull silently breaks):
 - **Duplicate UNIQ controller** (`049`): only ONE UNIQ Automatic Control System
   is published (the $22,500 one); the old `/…/uniq-control-system/` URL 301s to
   it.
-- **MACH II hero video** (manual upload + `035`): the family + Combo hero videos
-  play (see the Manual assets section — this needs the file uploaded first).
+- **MACH II required media** (Files + Database push + preflight): the family +
+  Combo hero videos play, and the MACH II Combo motor-panel image renders (see
+  the Manual assets section).
 
 Full dry-run preview of what each script would touch:
 `DRY_RUN=1 npm run db:apply`.

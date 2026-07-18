@@ -194,8 +194,13 @@ wp relevanssi index                     # search depends on it
 3. Re-run Phase R + V — should be ~30 min since everything is scripted. Re-run the
    cross-DB diff (queries in git history / this doc) against the new donor to catch
    surprises added after `newtech_1` was taken.
-4. DevKinsta push `newtech` (files + DB) to **Kinsta staging**, QA there (Yoast
-   active, HTTPS URLs, HubSpot form loads, GA/pixels firing).
+4. DevKinsta push `newtech` (**Files + Database**, not database-only) to
+   **Kinsta staging**, then run
+   `RELEASE_TARGET_BASE_URL=https://<kinsta-staging-host> scripts/release/required-media-preflight.sh`.
+   This proves the MACH II optimized video and motor-panel image exist locally
+   and are reachable on staging before `scripts/release/to-master.sh` can push
+   `master`. QA there (Yoast active, HTTPS URLs, HubSpot form loads, GA/pixels
+   firing).
 5. Kinsta staging → live (Kinsta takes an automatic backup; note the restore point).
 6. Post-launch: watch Redirection 404 log + GSC coverage for a week; lift freeze.
 

@@ -22,7 +22,7 @@ Package manager: npm
 - `db`: Project area. (3 files)
 - `docs`: Project documentation. (91 files)
 - `plans`: Project area. (16 files)
-- `scripts`: Developer automation scripts. (73 files)
+- `scripts`: Developer automation scripts. (61 files)
 
 ## Entrypoints
 

@@ -1,0 +1,4 @@
+# Paths relative to wp-content/uploads that must exist locally and on the
+# staging target before master is pushed.
+2026/05/20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1-720p-optimized.mp4
+2026/07/20270713_NTM_MACHII-Motor-Panel.jpg
