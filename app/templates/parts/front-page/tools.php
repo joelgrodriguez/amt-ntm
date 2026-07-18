@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
 
 $content = [
     'eyebrow' => __('Know Before You Buy', 'standard'),
-    'title'   => __('Shopping Tools.', 'standard'),
+    'title'   => __('Compare & Decide.', 'standard'),
 ];
 
 // Buyer-facing decision tools only. Owner reference (manuals, profiles, UL,
