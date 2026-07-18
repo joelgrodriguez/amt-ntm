@@ -8,6 +8,7 @@
     "build": "vite build",
     "lint:php": "find app -name '*.php' -not -path '*/node_modules/*' -print0 | xargs -0 -P 4 -n 20 php -l > /dev/null && echo 'PHP lint OK'",
     "db:apply": "scripts/db/apply",
+    "test:db-migrations": "php scripts/db/tests/migration-guards.test.php",
     "content:export": "php scripts/content/export-copy.php",
     "content:xlsx": "php scripts/content/export-xlsx.php",
     "preview": "vite preview",
