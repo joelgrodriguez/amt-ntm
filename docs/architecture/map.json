@@ -176,10 +176,10 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 54,
+      "fileCount": 55,
       "categories": {
         "source": 9,
-        "other": 43,
+        "other": 44,
         "docs": 2
       },
       "keyFiles": [
@@ -3469,7 +3469,7 @@
       "path": "docs/specs/seo.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 2096
+      "size": 3240
     },
     {
       "path": "docs/specs/templates.md",
@@ -3890,6 +3890,12 @@
       "category": "other",
       "role": "Repository file.",
       "size": 11241
+    },
+    {
+      "path": "scripts/db/052-disable-schema-pro-site-navigation.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 8346
     },
     {
       "path": "scripts/db/apply",
