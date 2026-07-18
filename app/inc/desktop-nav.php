@@ -254,7 +254,6 @@ function get_desktop_nav(): array {
                     [
                         'label' => __('Build and Quote', 'standard'),
                         'url'   => \Standard\Url\internal('/configurator/'),
-                        'badge' => __('NEW', 'standard'),
                     ],
                 ],
                 'tabs'           => [
@@ -354,7 +353,6 @@ function get_desktop_nav(): array {
                         [
                             'label' => __('Build and Quote', 'standard'),
                             'url'   => \Standard\Url\internal('/configurator/'),
-                            'badge' => __('NEW', 'standard'),
                         ],
                         [
                             'label' => __('Learning Center', 'standard'),
@@ -373,7 +371,6 @@ function get_desktop_nav(): array {
                             [
                                 'label' => __('Configure Your NTM Machine', 'standard'),
                                 'url'   => \Standard\Url\internal('/configurator/'),
-                                'badge' => __('NEW', 'standard'),
                             ],
                             [
                                 'label' => __('How to get a quote on an NTM machine', 'standard'),
