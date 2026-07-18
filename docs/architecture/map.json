@@ -3860,7 +3860,7 @@
       "path": "scripts/db/046-readiness-quiz-page-template.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 5239
+      "size": 5423
     },
     {
       "path": "scripts/db/046-readiness-quiz-page-template.sh",
@@ -3932,7 +3932,7 @@
       "path": "scripts/db/tests/migration-guards.test.php",
       "category": "test",
       "role": "Automated test or test support file.",
-      "size": 12939
+      "size": 17136
     },
     {
       "path": "scripts/release/clean-dev-tooling-worktree.sh",

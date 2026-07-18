@@ -47,6 +47,10 @@ function ntm_046_expected_page_error($post, int $id, string $expected_title, str
         return "id={$id}: expected page, found " . (string) ($post->post_type ?? 'unknown');
     }
 
+    if ((string) ($post->post_status ?? '') !== 'publish') {
+        return "id={$id}: status mismatch - expected publish, found " . (string) ($post->post_status ?? 'unknown');
+    }
+
     $title = ntm_046_decode_text($post->post_title ?? '');
     if ($title !== $expected_title) {
         return "id={$id}: title mismatch - expected \"{$expected_title}\", found \"{$title}\"";

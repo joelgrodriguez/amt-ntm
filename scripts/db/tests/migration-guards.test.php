@@ -196,6 +196,27 @@ function ntm_test_assert_no_writes(string $message): void
 }
 
 $tests = [
+    '046 rejects missing page before writing' => function (): void {
+        ntm_test_reset();
+
+        [$status, $output] = ntm_test_capture(fn (): int => ntm_046_run(false));
+
+        ntm_test_assert_same(1, $status, '046 should fail missing page');
+        ntm_test_assert_contains('missing page', $output, '046 should report missing page');
+        ntm_test_assert_no_writes('046 missing page');
+    },
+
+    '046 rejects non-published page before writing' => function (): void {
+        ntm_test_reset();
+        ntm_test_seed_046(['post_status' => 'draft']);
+
+        [$status, $output] = ntm_test_capture(fn (): int => ntm_046_run(false));
+
+        ntm_test_assert_same(1, $status, '046 should fail non-published page');
+        ntm_test_assert_contains('status mismatch', $output, '046 should report status mismatch');
+        ntm_test_assert_no_writes('046 non-published page');
+    },
+
     '046 rejects unknown non-empty content before writing' => function (): void {
         ntm_test_reset();
         ntm_test_seed_046(['post_content' => '<p>Keep this human copy.</p>']);
@@ -250,6 +271,23 @@ $tests = [
         ntm_test_assert_same(1, count($GLOBALS['wpdb']->updates), '046 should clear content exactly once');
     },
 
+    '046 dry-run reports pending template and content changes without writing' => function (): void {
+        ntm_test_reset();
+        ntm_test_seed_046([
+            'post_content' => '<iframe src="https://readinessassessment.b.abacusai.app/quiz"></iframe>',
+        ]);
+
+        [$status, $output] = ntm_test_capture(fn (): int => ntm_046_run(true));
+
+        ntm_test_assert_same(0, $status, '046 dry-run should succeed on safe pending write');
+        ntm_test_assert_contains('DRY id=20405', $output, '046 dry-run should identify dry output');
+        ntm_test_assert_contains('template: (default) -> templates/template-readiness-quiz.php', $output, '046 dry-run should report template change');
+        ntm_test_assert_contains('content : legacy iframe host readinessassessment.b.abacusai.app -> (empty)', $output, '046 dry-run should report content clear');
+        ntm_test_assert_same('', $GLOBALS['ntm_test_meta'][20405]['_wp_page_template'], '046 dry-run should leave template untouched');
+        ntm_test_assert_same('<iframe src="https://readinessassessment.b.abacusai.app/quiz"></iframe>', $GLOBALS['ntm_test_posts'][20405]->post_content, '046 dry-run should leave content untouched');
+        ntm_test_assert_no_writes('046 dry-run pending write');
+    },
+
     '046 is idempotent when template and content are already correct' => function (): void {
         ntm_test_reset();
         ntm_test_seed_046([], 'templates/template-readiness-quiz.php');
@@ -259,6 +297,19 @@ $tests = [
         ntm_test_assert_same(0, $status, '046 should no-op clean state');
         ntm_test_assert_contains('already on quiz template', $output, '046 should report idempotent state');
         ntm_test_assert_no_writes('046 idempotent state');
+    },
+
+    '049 rejects missing keeper before drafting duplicate' => function (): void {
+        ntm_test_reset();
+        ntm_test_seed_049();
+        unset($GLOBALS['ntm_test_posts'][18732]);
+
+        [$status, $output] = ntm_test_capture(fn (): int => ntm_049_run(false));
+
+        ntm_test_assert_same(1, $status, '049 should fail missing keeper');
+        ntm_test_assert_contains('missing product', $output, '049 should report missing keeper product');
+        ntm_test_assert_same('publish', $GLOBALS['ntm_test_posts'][2799]->post_status, '049 should leave duplicate published when keeper is missing');
+        ntm_test_assert_no_writes('049 missing keeper');
     },
 
     '049 rejects unsafe keeper identity before drafting duplicate' => function (): void {
@@ -271,6 +322,18 @@ $tests = [
         ntm_test_assert_contains('price mismatch', $output, '049 should report keeper mismatch');
         ntm_test_assert_same('publish', $GLOBALS['ntm_test_posts'][2799]->post_status, '049 should leave duplicate published');
         ntm_test_assert_no_writes('049 unsafe keeper');
+    },
+
+    '049 rejects missing duplicate before drafting' => function (): void {
+        ntm_test_reset();
+        ntm_test_seed_049();
+        unset($GLOBALS['ntm_test_posts'][2799]);
+
+        [$status, $output] = ntm_test_capture(fn (): int => ntm_049_run(false));
+
+        ntm_test_assert_same(1, $status, '049 should fail missing duplicate');
+        ntm_test_assert_contains('missing product', $output, '049 should report missing duplicate product');
+        ntm_test_assert_no_writes('049 missing duplicate');
     },
 
     '049 rejects unsafe duplicate identity before drafting' => function (): void {
@@ -307,6 +370,20 @@ $tests = [
         ntm_test_assert_same(1, $status, '049 should fail when status does not persist');
         ntm_test_assert_contains('status was not draft after update', $output, '049 should report non-persistent write');
         ntm_test_assert_same('publish', $GLOBALS['ntm_test_posts'][2799]->post_status, '049 duplicate should still be publish in no-persist scenario');
+    },
+
+    '049 dry-run reports pending draft without writing' => function (): void {
+        ntm_test_reset();
+        ntm_test_seed_049();
+
+        [$status, $output] = ntm_test_capture(fn (): int => ntm_049_run(true));
+
+        ntm_test_assert_same(0, $status, '049 dry-run should succeed on safe pending write');
+        ntm_test_assert_contains('DRY id=2799', $output, '049 dry-run should identify dry output');
+        ntm_test_assert_contains('would set to draft', $output, '049 dry-run should report draft action');
+        ntm_test_assert_contains('keeper verified published', $output, '049 dry-run should report verified keeper');
+        ntm_test_assert_same('publish', $GLOBALS['ntm_test_posts'][2799]->post_status, '049 dry-run should leave duplicate published');
+        ntm_test_assert_no_writes('049 dry-run pending write');
     },
 
     '049 is idempotent when duplicate is already draft and keeper is safe' => function (): void {
