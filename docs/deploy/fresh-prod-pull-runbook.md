@@ -92,6 +92,28 @@ this row is a no-op.
 
 ---
 
+## ⚠️ Manual assets — uploads binaries (NOT git, NOT db:apply)
+
+Some deliverables are **binary files in `wp-content/uploads/`**, which is
+neither in the theme git repo nor in the DB-script channel. `git pull` won't
+bring them and `db:apply` only registers the *attachment row* — the file itself
+must already be on disk. **You must upload these to prod manually (MyKinsta)**,
+then the matching `db:apply` script registers them.
+
+| File | Where | Registered by | Why it matters |
+|---|---|---|---|
+| `20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1-720p-optimized.mp4` | prod `/wp-content/uploads/2026/05/` | `scripts/db/035` | The MACH II family + Combo hero videos point at this optimized file (#85). **If it's not uploaded, both hero videos 404.** |
+
+Steps at cutover:
+1. Upload the file above to prod's `/wp-content/uploads/2026/05/` via MyKinsta.
+2. Run `npm run db:apply` (035 registers the attachment).
+3. Verify the hero video plays on the MACH II family + Combo pages.
+
+The original (`...720p.mp4`, no `-optimized`) is kept on prod for rollback; you
+don't need to touch it.
+
+---
+
 ## After the replay: flush + verify
 
 ```bash
@@ -111,6 +133,13 @@ Spot-check the highest-risk items (these are the ones a pull silently breaks):
   placeholder.
 - **Placeholder schema purged** (`041`/`042`): no broken placeholder JSON-LD in
   page source.
+- **Product copy notes** (`048`): EZ-Counter, PLC07, PLC08 excerpts show their
+  machine-fitment notes.
+- **Duplicate UNIQ controller** (`049`): only ONE UNIQ Automatic Control System
+  is published (the $22,500 one); the old `/…/uniq-control-system/` URL 301s to
+  it.
+- **MACH II hero video** (manual upload + `035`): the family + Combo hero videos
+  play (see the Manual assets section — this needs the file uploaded first).
 
 Full dry-run preview of what each script would touch:
 `DRY_RUN=1 npm run db:apply`.
