@@ -2,6 +2,16 @@
 
 <!-- admiral:auto — appended on land, newest first. Read top-down for current behavior. -->
 
+## Make `DRY_RUN=1 npm run db:apply` genuinely read-only across every numbered migration, and stop masking real write failures in the legacy scripts touched by this fix. — #110
+*Landed 2026-07-18 · type: bugfix*
+
+- `DRY_RUN=1` dispatches every numbered migration without changing WordPress posts, metadata, terms, options, redirects, media files/metadata, caches, or rewrite state.
+- Scripts 014, 020, 021, 022, 024, 026, 031, 032, 033, 036, 037, and 038 report intended actions instead of writing.
+- Broad `|| true` handling is removed from write paths in those scripts; expected read-side no-match cases remain explicit, while real WP-CLI failures stop the replay.
+- Real-mode writes check command results or verify the expected post-write state instead of assuming success.
+- A repeatable repository-owned regression check proves the dry-run contract against the disposable local WordPress database and detects future numbered migrations that omit dry-run handling.
+- `npm run build` passes.
+
 ## Harden destructive DB migration identity guards so a fresh production pull cannot cause unrelated content or the wrong WooCommerce product to be modified. — #111
 *Landed 2026-07-18 · type: bugfix*
 
