@@ -89,7 +89,8 @@ function kb_attachment_by_slug(string $slug): int {
  * Prefers the article's image_slug (attachment post_name — stable across a
  * fresh prod pull). Falls back to the product photo of the article's first
  * machine, sideloaded from the remote URL once if it isn't already an
- * attachment. Returns 0 when nothing resolves.
+ * attachment. Returns 0 when nothing resolves; returns -1 in dry-run when a
+ * fallback image would need to be sideloaded before assigning it.
  */
 function kb_resolve_image(array $article, bool $dry): int {
     $slug = (string) ($article['image_slug'] ?? '');
@@ -123,7 +124,7 @@ function kb_resolve_image(array $article, bool $dry): int {
 
     if ($dry) {
         echo "    [dry-run] would sideload fallback image {$url}\n";
-        return 0;
+        return -1;
     }
 
     require_once ABSPATH . 'wp-admin/includes/media.php';
@@ -136,6 +137,61 @@ function kb_resolve_image(array $article, bool $dry): int {
     }
 
     return (int) $id;
+}
+
+/**
+ * Report the non-post writes that a dry run would perform for one article.
+ */
+function kb_report_dry_run_relationships(int $post_id, int $image_id, array $machine_slugs): void {
+    if ($image_id > 0) {
+        if ($post_id > 0 && (int) get_post_thumbnail_id($post_id) === $image_id) {
+            echo "    [dry-run] featured image #{$image_id} already set.\n";
+        } elseif ($post_id > 0) {
+            echo "    [dry-run] would set featured image #{$image_id} on post {$post_id}.\n";
+        } else {
+            echo "    [dry-run] would set featured image #{$image_id} after creating the article.\n";
+        }
+    } elseif ($image_id === -1) {
+        echo "    [dry-run] would use the sideloaded fallback image as the featured image.\n";
+    } else {
+        echo "    [dry-run] no featured image attachment resolved; no image write planned.\n";
+    }
+
+    if ($post_id > 0) {
+        $department_slugs = wp_get_object_terms($post_id, KB_DEPT_TAX, ['fields' => 'slugs']);
+        if (is_wp_error($department_slugs)) {
+            fwrite(STDERR, "    failed to read " . KB_DEPT_TAX . " on knowledgebase post {$post_id}: " . $department_slugs->get_error_message() . "\n");
+            exit(1);
+        }
+
+        sort($department_slugs);
+        $wanted_department_slugs = [KB_DEPT_TERM];
+        if ($department_slugs === $wanted_department_slugs) {
+            echo "    [dry-run] " . KB_DEPT_TAX . " already set to " . KB_DEPT_TERM . ".\n";
+        } else {
+            echo "    [dry-run] would set " . KB_DEPT_TAX . " to " . KB_DEPT_TERM . ".\n";
+        }
+
+        $assigned_machine_slugs = wp_get_object_terms($post_id, 'post_tag', ['fields' => 'slugs']);
+        if (is_wp_error($assigned_machine_slugs)) {
+            fwrite(STDERR, "    failed to read machine tags on knowledgebase post {$post_id}: " . $assigned_machine_slugs->get_error_message() . "\n");
+            exit(1);
+        }
+
+        $wanted_machine_slugs = $machine_slugs;
+        sort($assigned_machine_slugs);
+        sort($wanted_machine_slugs);
+        if ($assigned_machine_slugs === $wanted_machine_slugs) {
+            echo "    [dry-run] machine post_tag terms already match: " . implode(', ', $machine_slugs) . ".\n";
+        } else {
+            echo "    [dry-run] would replace machine post_tag terms with: " . implode(', ', $machine_slugs) . ".\n";
+        }
+
+        return;
+    }
+
+    echo "    [dry-run] would assign " . KB_DEPT_TAX . " term: " . KB_DEPT_TERM . ".\n";
+    echo "    [dry-run] would assign machine post_tag terms: " . implode(', ', $machine_slugs) . ".\n";
 }
 
 $created = 0;
@@ -173,12 +229,16 @@ foreach ($articles as $article) {
         $postarr['post_date'] = $published . ' 09:00:00';
     }
 
+    $machine_slugs = array_values(array_filter((array) ($article['machine_slugs'] ?? [])));
+
     if (!empty($existing)) {
         $post_id = (int) $existing[0];
         $postarr['ID'] = $post_id;
 
         if ($dry) {
-            printf("    [dry-run] would update #%d  %s  [%s]\n", $post_id, $title, implode(', ', (array) ($article['machine_slugs'] ?? [])));
+            printf("    [dry-run] would update #%d  %s  [%s]\n", $post_id, $title, implode(', ', $machine_slugs));
+            $image_id = kb_resolve_image($article, $dry);
+            kb_report_dry_run_relationships($post_id, $image_id, $machine_slugs);
             $updated++;
             continue;
         }
@@ -193,7 +253,10 @@ foreach ($articles as $article) {
         $verb = 'updated';
     } else {
         if ($dry) {
-            printf("    [dry-run] would create knowledgebase article: %s  [%s]\n", $title, implode(', ', (array) ($article['machine_slugs'] ?? [])));
+            printf("    [dry-run] would create knowledgebase article: %s  [%s]\n", $title, implode(', ', $machine_slugs));
+            echo "    [dry-run] would set " . KB_META_KEY . " to {$source_url}.\n";
+            $image_id = kb_resolve_image($article, $dry);
+            kb_report_dry_run_relationships(0, $image_id, $machine_slugs);
             $created++;
             continue;
         }
@@ -240,7 +303,6 @@ foreach ($articles as $article) {
 
     // Machine tags: one post_tag per mapped machine slug. `false` replaces the
     // full set each run, so removing a slug from the fixture un-tags it too.
-    $machine_slugs = array_values(array_filter((array) ($article['machine_slugs'] ?? [])));
     $tag_result = wp_set_object_terms($post_id, $machine_slugs, 'post_tag', false);
     if (is_wp_error($tag_result)) {
         fwrite(STDERR, "    failed to assign machine tags on knowledgebase post {$post_id}: " . $tag_result->get_error_message() . "\n");

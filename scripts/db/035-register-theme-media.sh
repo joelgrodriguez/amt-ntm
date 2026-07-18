@@ -18,7 +18,7 @@
 set -euo pipefail
 
 uploads_dir="$(wp eval 'echo wp_get_upload_dir()["basedir"];')"
-dry_run="${DRY_RUN:-0}"
+DRY_RUN="${DRY_RUN-1}"
 
 # relative-path|title|alt
 media=(
@@ -79,7 +79,7 @@ for row in "${media[@]}"; do
     continue
   fi
 
-  if [[ "$dry_run" == "1" ]]; then
+  if [[ "$DRY_RUN" != "0" ]]; then
     echo "    dry-run: would register $rel"
     would_register=$((would_register + 1))
     continue
@@ -88,6 +88,11 @@ for row in "${media[@]}"; do
   args=(--skip-copy --title="$title" --porcelain)
   [[ -n "$alt" ]] && args+=(--alt="$alt")
   new_id="$(wp media import "$uploads_dir/$rel" "${args[@]}")"
+  if [[ -z "$new_id" || ! "$new_id" =~ ^[0-9]+$ ]]; then
+    echo "    ERROR: failed to import media item: $rel" >&2
+    exit 1
+  fi
+
   echo "    registered #$new_id  $rel"
   registered=$((registered + 1))
 done

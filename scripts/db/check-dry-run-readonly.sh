@@ -2,9 +2,11 @@
 #
 # Regression check for the db:apply dry-run contract.
 #
-# It proves two things:
+# It proves three things:
 #   1. Every numbered shell migration declares dry-run handling.
-#   2. DRY_RUN=1 scripts/db/apply leaves the target DB and uploads inventory
+#   2. Numbered migrations with known write primitives have a dry-run branch,
+#      not just a decorative DRY_RUN token.
+#   3. DRY_RUN=1 scripts/db/apply leaves the target DB and uploads inventory
 #      unchanged.
 
 set -euo pipefail
@@ -40,36 +42,136 @@ fail() {
 }
 
 static_check() {
+  if ! scan_static_coverage "$HERE"; then
+    exit 1
+  fi
+}
+
+scan_static_coverage() {
+  local dir="$1"
   local missing=()
+  local unguarded=()
   local script
+  local failed=0
 
   shopt -s nullglob
-  for script in "$HERE"/[0-9]*.sh; do
-    if ! awk '!/^[[:space:]]*#/ && /DRY_RUN|NTM_DRY_RUN|dry_run/ { found = 1 } END { exit(found ? 0 : 1) }' "$script"; then
-      missing+=("${script#$ROOT/}")
+  for script in "$dir"/[0-9]*.sh; do
+    if ! has_dry_run_declaration "$script"; then
+      missing+=("$(display_path "$script")")
     fi
   done
 
   if [[ ${#missing[@]} -gt 0 ]]; then
     printf 'ERROR: numbered DB migrations missing dry-run handling:\n' >&2
     printf '  - %s\n' "${missing[@]}" >&2
-    exit 1
+    failed=1
+  fi
+
+  for script in "$dir"/[0-9]*.sh "$dir"/[0-9]*.php; do
+    [[ -e "$script" ]] || continue
+
+    if has_write_primitive "$script" && ! has_dry_run_branch "$script"; then
+      unguarded+=("$(display_path "$script")")
+    fi
+  done
+
+  if [[ ${#unguarded[@]} -gt 0 ]]; then
+    printf 'ERROR: numbered DB migrations with write primitives need a dry-run branch:\n' >&2
+    printf '  - %s\n' "${unguarded[@]}" >&2
+    failed=1
   fi
 
   local broad_write_suppression
   broad_write_suppression="$(
     awk '
+      /^[[:space:]]*(#|\/\/|\*)/ { next }
       /\|\|[[:space:]]*true/ {
-        if ($0 ~ /(wp[[:space:]]+post[[:space:]]+(create|update|delete)|wp[[:space:]]+post[[:space:]]+meta[[:space:]]+(add|update|delete)|wp[[:space:]]+media[[:space:]]+(import|regenerate)|wp[[:space:]]+rewrite[[:space:]]+flush|wp[[:space:]]+db[[:space:]]+query.*(UPDATE|DELETE|INSERT)|wp_update_post|wp_insert_post|update_post_meta|delete_post_meta|delete_metadata|wp_set_object_terms|set_post_thumbnail|update_option|flush_rewrite_rules)/) {
+        if ($0 ~ /(wp[[:space:]]+post[[:space:]]+(create|update|delete)|wp[[:space:]]+post[[:space:]]+meta[[:space:]]+(add|update|delete)|wp[[:space:]]+media[[:space:]]+(import|regenerate)|wp[[:space:]]+rewrite[[:space:]]+flush|wp[[:space:]]+db[[:space:]]+query.*(UPDATE|DELETE|INSERT|REPLACE)|wp_update_post[[:space:]]*\(|wp_insert_post[[:space:]]*\(|wp_delete_post[[:space:]]*\(|update_post_meta[[:space:]]*\(|delete_post_meta[[:space:]]*\(|delete_metadata[[:space:]]*\(|wp_set_object_terms[[:space:]]*\(|wp_update_term_count_now[[:space:]]*\(|set_post_thumbnail[[:space:]]*\(|media_sideload_image[[:space:]]*\(|update_option[[:space:]]*\(|flush_rewrite_rules[[:space:]]*\(|Red_Item::create[[:space:]]*\(|Red_Module::flush_by_module[[:space:]]*\(|\$wpdb->(update|insert|delete)[[:space:]]*\()/) {
           print FILENAME ":" FNR ":" $0
         }
       }
-    ' "$HERE"/[0-9]*.sh "$HERE"/[0-9]*.php
+    ' "$dir"/[0-9]*.sh "$dir"/[0-9]*.php
   )"
 
   if [[ -n "$broad_write_suppression" ]]; then
     printf 'ERROR: write-path || true suppression found:\n%s\n' "$broad_write_suppression" >&2
-    exit 1
+    failed=1
+  fi
+
+  return "$failed"
+}
+
+display_path() {
+  local path="$1"
+  if [[ "$path" == "$ROOT/"* ]]; then
+    printf '%s\n' "${path#$ROOT/}"
+  else
+    printf '%s\n' "$path"
+  fi
+}
+
+has_dry_run_declaration() {
+  awk '!/^[[:space:]]*(#|\/\/|\*)/ && /DRY_RUN|NTM_DRY_RUN|dry_run/ { found = 1 } END { exit(found ? 0 : 1) }' "$1"
+}
+
+has_write_primitive() {
+  awk '
+    /^[[:space:]]*(#|\/\/|\*)/ { next }
+    /(wp[[:space:]]+post[[:space:]]+(create|update|delete)|wp[[:space:]]+post[[:space:]]+meta[[:space:]]+(add|update|delete)|wp[[:space:]]+media[[:space:]]+(import|regenerate)|wp[[:space:]]+rewrite[[:space:]]+flush|wp[[:space:]]+db[[:space:]]+query.*(UPDATE|DELETE|INSERT|REPLACE)|wp_update_post[[:space:]]*\(|wp_insert_post[[:space:]]*\(|wp_delete_post[[:space:]]*\(|update_post_meta[[:space:]]*\(|delete_post_meta[[:space:]]*\(|delete_metadata[[:space:]]*\(|wp_set_object_terms[[:space:]]*\(|wp_update_term_count_now[[:space:]]*\(|set_post_thumbnail[[:space:]]*\(|media_sideload_image[[:space:]]*\(|update_option[[:space:]]*\(|flush_rewrite_rules[[:space:]]*\(|Red_Item::create[[:space:]]*\(|Red_Module::flush_by_module[[:space:]]*\(|\$wpdb->(update|insert|delete)[[:space:]]*\()/ {
+      found = 1
+    }
+    END { exit(found ? 0 : 1) }
+  ' "$1"
+}
+
+has_dry_run_branch() {
+  awk '
+    /^[[:space:]]*(#|\/\/|\*)/ { next }
+    /(if[[:space:]]+.*(DRY_RUN|NTM_DRY_RUN|dry_run|is_dry_run)|if[[:space:]]*\(.*\$dry|\$dry[[:space:]]*\?)/ {
+      found = 1
+    }
+    END { exit(found ? 0 : 1) }
+  ' "$1"
+}
+
+static_checker_self_test() {
+  local fixture="$tmp/static-fixture"
+  local pass_dir="$fixture/pass"
+  local fail_dir="$fixture/fail"
+  local output="$fixture/fail.out"
+
+  mkdir -p "$pass_dir" "$fail_dir"
+
+  # Deliberately synthetic: this proves the guard without dirtying any real WP DB.
+  cat > "$pass_dir/001-guarded.sh" <<'EOF'
+#!/usr/bin/env bash
+set -euo pipefail
+DRY_RUN="${DRY_RUN-1}"
+if [[ "$DRY_RUN" != "0" ]]; then
+  echo "dry-run: would update fixture"
+  exit 0
+fi
+wp post meta update 123 _fixture value
+EOF
+
+  cat > "$fail_dir/001-token-only.sh" <<'EOF'
+#!/usr/bin/env bash
+set -euo pipefail
+DRY_RUN="${DRY_RUN-1}"
+echo "has the token, but no guard"
+wp post meta update 123 _fixture value
+EOF
+
+  if ! scan_static_coverage "$pass_dir" >/dev/null 2>&1; then
+    fail "static coverage rejected the guarded synthetic fixture"
+  fi
+
+  if scan_static_coverage "$fail_dir" >"$output" 2>&1; then
+    fail "static coverage accepted a token-only synthetic fixture with an unguarded write"
+  fi
+
+  if ! grep -q "001-token-only.sh" "$output"; then
+    fail "static coverage failed but did not name the unguarded synthetic fixture"
   fi
 }
 
@@ -206,6 +308,9 @@ assert_same() {
 
 tmp="$(mktemp -d "${TMPDIR:-/tmp}/ntm-dry-run-check-XXXXXX")"
 trap 'rm -rf "$tmp"' EXIT
+
+echo "==> Proving static coverage with synthetic fixtures"
+static_checker_self_test
 
 echo "==> Static dry-run coverage check"
 static_check

@@ -3709,13 +3709,13 @@
       "path": "scripts/db/023-regenerate-product-card-thumbnails.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 2825
+      "size": 2358
     },
     {
       "path": "scripts/db/024-seed-knowledgebase.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 10474
+      "size": 13456
     },
     {
       "path": "scripts/db/024-seed-knowledgebase.sh",
@@ -3781,7 +3781,7 @@
       "path": "scripts/db/035-register-theme-media.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 4669
+      "size": 4802
     },
     {
       "path": "scripts/db/036-import-content-departments.sh",
@@ -3847,7 +3847,7 @@
       "path": "scripts/db/044-corbel-preferred-lender-logo.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 3250
+      "size": 3336
     },
     {
       "path": "scripts/db/045-accessory-compatibility-notes.sh",
@@ -3907,7 +3907,7 @@
       "path": "scripts/db/check-dry-run-readonly.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 6817
+      "size": 10552
     },
     {
       "path": "scripts/db/diff-prod-vs-dev.sh",
