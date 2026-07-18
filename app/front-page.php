@@ -72,6 +72,7 @@ get_header();
     <?php get_template_part('templates/parts/front-page/social-proof'); ?>
     <?php get_template_part('templates/parts/learning-center'); ?>
     <?php get_template_part('templates/parts/front-page/tools'); ?>
+    <?php get_template_part('templates/parts/front-page/owner-resources'); ?>
 
     <?php // CLOSE ?>
     <?php get_template_part('templates/parts/front-page/three-step-plan'); ?>
