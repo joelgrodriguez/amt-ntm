@@ -11,9 +11,9 @@
 # WHAT IT DOES: resolves exactly one Schema Pro source post by title "Product",
 # post_type aiosrs-schema, schema type product, and exact product|all targeting.
 # It drafts that source post only when it is published, then purges only Schema
-# Pro optimized cache rows that are Product-rule artifacts: parsed JSON-LD with
-# a root/direct @type Product and no FAQPage/VideoObject, or product posts whose
-# cached JSON-LD is the empty array [].
+# Pro optimized cache rows on product posts that are Product-rule artifacts:
+# parsed JSON-LD with a root/direct @type Product and no FAQPage/VideoObject, or
+# cached JSON-LD that is the empty array [].
 #
 # SCOPE: Schema Pro stays active. FAQ, Article, Video, and custom rules/posts are
 # untouched. Cache rows containing FAQPage or VideoObject are explicitly
@@ -21,9 +21,11 @@
 #
 # LOCAL DB EVIDENCE (read-only, 2026-07-18): "Product" is post 4656 with
 # bsf-aiosrs-schema-type=product and bsf-aiosrs-schema-location rule product|all.
-# wp_schema_pro_optimized_structured_data currently has 6 Product-only rows and
-# 72 product-post empty [] rows to purge; 1 homepage row with Product+FAQPage+
-# VideoObject and FAQ/Video rows are protected.
+# wp_schema_pro_optimized_structured_data currently has 4 product-post Product
+# JSON-LD rows and 72 product-post empty [] rows to purge; 2 learning-center
+# post caches with Product JSON-LD are preserved for a separate content-mapping
+# issue, and 1 homepage row with Product+FAQPage+VideoObject plus FAQ/Video rows
+# are protected.
 #
 # SAFE BY DESIGN: DRY_RUN=1 by default; set DRY_RUN=0 to write. Re-runs no-op
 # after the rule is draft and matching cache rows are gone. Cache rows are
@@ -248,7 +250,7 @@ foreach ($cache_rows as $cache_row) {
     }
 
     $reason = '';
-    if (isset($direct_type_lookup['Product'])) {
+    if ((string) $cache_row->post_type === 'product' && isset($direct_type_lookup['Product'])) {
         $reason = 'Product JSON-LD';
     } elseif ((string) $cache_row->post_type === 'product' && $profile['empty_jsonld_array']) {
         $reason = 'product empty [] cache';

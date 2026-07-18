@@ -3889,7 +3889,7 @@
       "path": "scripts/db/051-retire-schema-pro-product-rule.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 11064
+      "size": 11241
     },
     {
       "path": "scripts/db/apply",
