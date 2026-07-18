@@ -69,7 +69,7 @@ return [
                 __('Push-button RUN/JOG at entry & exit ends', 'standard'),
                 __('Power interruption safety circuit', 'standard'),
             ],
-            'image'    => content_url('/uploads/2026/05/ntm-mach2-electric-power-pack-001.jpg'),
+            'image'    => content_url('/uploads/2026/07/20270713_NTM_MACHII-Motor-Panel.jpg'),
         ],
     ],
     'fit' => [
