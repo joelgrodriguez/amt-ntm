@@ -18,11 +18,11 @@ Package manager: npm
 
 - `.`: Root-level manifests, docs, and configuration. (11 files)
 - `.github`: Project area. (1 files)
-- `app`: Application code and framework conventions. (451 files)
+- `app`: Application code and framework conventions. (454 files)
 - `db`: Project area. (3 files)
 - `docs`: Project documentation. (90 files)
 - `plans`: Project area. (16 files)
-- `scripts`: Developer automation scripts. (66 files)
+- `scripts`: Developer automation scripts. (53 files)
 
 ## Entrypoints
 
