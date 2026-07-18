@@ -176,21 +176,21 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 55,
+      "fileCount": 69,
       "categories": {
         "source": 9,
-        "other": 44,
+        "other": 58,
         "docs": 2
       },
       "keyFiles": [
         "scripts/content/export-copy.php",
         "scripts/content/export-xlsx.php",
         "scripts/content/exports/.gitkeep",
-        "scripts/content/extract.php",
-        "scripts/content/manifest.php",
-        "scripts/content/README.md",
-        "scripts/db/000-template.sh.example",
-        "scripts/db/010-strip-hardcoded-buttons-from-machine-excerpts.php"
+        "scripts/content/exports/copy-review 1.xlsx",
+        "scripts/content/exports/copy-review-about.csv",
+        "scripts/content/exports/copy-review-all.csv",
+        "scripts/content/exports/copy-review-choose.csv",
+        "scripts/content/exports/copy-review-finance.csv"
       ]
     }
   ],
@@ -3445,7 +3445,7 @@
       "path": "docs/specs/navigation.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 3407
+      "size": 4335
     },
     {
       "path": "docs/specs/pricing.md",
@@ -3644,6 +3644,90 @@
       "category": "other",
       "role": "Repository file.",
       "size": 0
+    },
+    {
+      "path": "scripts/content/exports/copy-review 1.xlsx",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 164080
+    },
+    {
+      "path": "scripts/content/exports/copy-review-about.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 11280
+    },
+    {
+      "path": "scripts/content/exports/copy-review-all.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 118433
+    },
+    {
+      "path": "scripts/content/exports/copy-review-choose.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 7140
+    },
+    {
+      "path": "scripts/content/exports/copy-review-finance.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 12033
+    },
+    {
+      "path": "scripts/content/exports/copy-review-gutter.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 10015
+    },
+    {
+      "path": "scripts/content/exports/copy-review-home.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 15521
+    },
+    {
+      "path": "scripts/content/exports/copy-review-machines.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 14670
+    },
+    {
+      "path": "scripts/content/exports/copy-review-roof-wall.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 10728
+    },
+    {
+      "path": "scripts/content/exports/copy-review-safety.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 5403
+    },
+    {
+      "path": "scripts/content/exports/copy-review-start-here.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 13738
+    },
+    {
+      "path": "scripts/content/exports/copy-review-trailer.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 10882
+    },
+    {
+      "path": "scripts/content/exports/copy-review-uniq.csv",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 7563
+    },
+    {
+      "path": "scripts/content/exports/copy-review.xlsx",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 160368
     },
     {
       "path": "scripts/content/extract.php",
