@@ -17,76 +17,49 @@
 # link 301s instead of 404ing. Product status is DB state wiped by a fresh prod
 # pull, so this must be replayable.
 #
-# SAFETY: resolves by ID and asserts BOTH the title AND the $21,700 price before
-# writing — the price assert guarantees we never accidentally draft the $22,500
-# keeper if post IDs shift after a prod pull. Mismatch => skip loudly.
+# SAFETY: resolves both products by ID and asserts exact product type, title,
+# slug, status where relevant, and price before writing. The keeper must be the
+# published $22,500 product before the $21,700 duplicate can be drafted.
+# Mismatch => fail loudly.
 #
 # IDEMPOTENT: no-op if 2799 is already draft. DRY_RUN=1 by default; DRY_RUN=0 to write.
 
 set -uo pipefail
 
 DRY_RUN="${DRY_RUN-1}"   # default safe: report only. DRY_RUN=0 to apply.
+export NTM_DRY_RUN="$DRY_RUN"
 
 WP_CONTAINER="${WP_CONTAINER-devkinsta_fpm}"
 WP_PATH="${WP_PATH-/www/kinsta/public/newtech}"
-WP="docker exec ${WP_CONTAINER} php8.3 /usr/local/bin/wp --path=${WP_PATH} --allow-root"
+WP_PHP_BIN="${WP_PHP_BIN-php8.3}"
+
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+php_file="$HERE/049-draft-duplicate-uniq-controller.php"
 
 echo "== 049 draft duplicate UNIQ controller (DRY_RUN=${DRY_RUN}) =="
 
-# DRY_RUN passed as a literal below: host env does not cross the docker exec
-# boundary, so getenv() inside the container always reads unset (see 045).
-# shellcheck disable=SC2086
-$WP eval '
-$dry = "'"${DRY_RUN}"'" !== "0";
+if [[ ! -f "$php_file" ]]; then
+  echo "FAIL: migration payload missing: $php_file" >&2
+  exit 1
+fi
 
-$id            = 2799;
-$expect_title  = "UNIQ";                 // must contain
-$expect_price  = "21700";                // the duplicate, NOT the 22500 keeper
-$keeper_id     = 18732;
+status=0
+if [[ -n "$WP_CONTAINER" ]]; then
+  in_container="/tmp/$(basename "$php_file")"
+  if ! docker cp "$php_file" "${WP_CONTAINER}:${in_container}" >/dev/null; then
+    echo "FAIL: could not copy migration payload into ${WP_CONTAINER}" >&2
+    exit 1
+  fi
+  docker exec -e NTM_DRY_RUN "$WP_CONTAINER" "$WP_PHP_BIN" \
+    /usr/local/bin/wp --path="$WP_PATH" --allow-root eval-file "$in_container" || status=$?
+  docker exec "$WP_CONTAINER" rm -f "$in_container" >/dev/null 2>&1 || true
+else
+  wp eval-file "$php_file" || status=$?
+fi
 
-$p = get_post($id);
-if (!$p || $p->post_type !== "product") {
-    echo "SKIP id={$id}: not a product (post IDs may have shifted after a prod pull)\n";
-    return;
-}
-if (stripos($p->post_title, $expect_title) === false) {
-    echo "SKIP id={$id}: title mismatch — expected to contain \"{$expect_title}\", found \"{$p->post_title}\"\n";
-    return;
-}
-$price = (string) get_post_meta($id, "_regular_price", true);
-if (strpos($price, $expect_price) === false) {
-    echo "SKIP id={$id}: price mismatch — expected {$expect_price} (the duplicate), found \"{$price}\". Refusing to draft — this may be the keeper.\n";
-    return;
-}
-
-// Sanity: the keeper must exist and be the 22500 one, else we could be about to
-// leave the catalog with ZERO UNIQ controllers.
-$keeper = get_post($keeper_id);
-$keeper_price = $keeper ? (string) get_post_meta($keeper_id, "_regular_price", true) : "";
-if (!$keeper || strpos($keeper_price, "22500") === false) {
-    echo "ABORT: keeper id={$keeper_id} not found at price 22500 (found \"{$keeper_price}\"). Not drafting {$id} — would leave no UNIQ controller listed.\n";
-    return;
-}
-
-if ($p->post_status === "draft") {
-    echo "OK id={$id}: already draft — " . html_entity_decode($p->post_title) . "\n";
-    return;
-}
-
-if ($dry) {
-    echo "DRY id={$id}: would set to draft — " . html_entity_decode($p->post_title) . " (\${$price})\n";
-    echo "     keeper stays: id={$keeper_id} " . html_entity_decode($keeper->post_title) . " (\${$keeper_price})\n";
-    return;
-}
-
-$res = wp_update_post(["ID" => $id, "post_status" => "draft"], true);
-if (is_wp_error($res)) {
-    echo "FAIL id={$id}: " . $res->get_error_message() . "\n";
-    return;
-}
-clean_post_cache($id);
-echo "WROTE id={$id}: set to draft — " . html_entity_decode($p->post_title) . "\n";
-echo "     keeper stays published: id={$keeper_id} " . html_entity_decode($keeper->post_title) . "\n";
-'
+if [[ "$status" -ne 0 ]]; then
+  echo "== 049 failed =="
+  exit "$status"
+fi
 
 echo "== 049 done =="

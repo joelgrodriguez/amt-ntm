@@ -15,73 +15,50 @@
 #   2. Replaces the post_content (the dead iframe) with an empty string — the
 #      template renders the quiz, so no post body is needed.
 #
-# Resolves the page by ID and asserts its title before writing: a fresh prod
-# pull can renumber posts, so a blind ID write could hit the wrong page. Title
-# mismatch => skip loudly, do not write.
+# Resolves the page by ID and asserts exact title + slug before writing: a fresh
+# prod pull can renumber posts, so a blind ID write could hit the wrong page.
+# Mismatch => fail loudly, do not write.
 #
-# SAFE BY DESIGN: single page, asserts identity, idempotent (re-run is a no-op
-# once template + empty content are in place). DRY_RUN=1 by default; DRY_RUN=0 to write.
+# SAFE BY DESIGN: single page, asserts identity, only clears empty content or
+# the known legacy iframe host, idempotent (re-run is a no-op once template +
+# empty content are in place). DRY_RUN=1 by default; DRY_RUN=0 to write.
 
 set -uo pipefail
 
 DRY_RUN="${DRY_RUN-1}"   # default safe: report only. DRY_RUN=0 to apply.
+export NTM_DRY_RUN="$DRY_RUN"
 
 WP_CONTAINER="${WP_CONTAINER-devkinsta_fpm}"
 WP_PATH="${WP_PATH-/www/kinsta/public/newtech}"
+WP_PHP_BIN="${WP_PHP_BIN-php8.3}"
+
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+php_file="$HERE/046-readiness-quiz-page-template.php"
 
 echo "== 046 readiness-quiz page template (DRY_RUN=${DRY_RUN}) =="
 
-# DRY_RUN passed as a literal below: host env does not cross the docker exec
-# boundary, so getenv() inside the container always reads unset (see 045).
-docker exec "${WP_CONTAINER}" php8.3 /usr/local/bin/wp --path="${WP_PATH}" --allow-root eval '
-$dry = "'"${DRY_RUN}"'" !== "0";
-$id = 20405;
-$expect_title = "Panel Machine Readiness Quiz";
-$template = "templates/template-readiness-quiz.php";
+if [[ ! -f "$php_file" ]]; then
+  echo "FAIL: migration payload missing: $php_file" >&2
+  exit 1
+fi
 
-$p = get_post($id);
-if (!$p || $p->post_type !== "page") {
-    echo "SKIP id={$id}: not a page (post IDs may have shifted after a prod pull)\n";
-    return;
-}
-if (stripos($p->post_title, $expect_title) === false) {
-    echo "SKIP id={$id}: title mismatch — expected \"{$expect_title}\", found \"{$p->post_title}\"\n";
-    return;
-}
+status=0
+if [[ -n "$WP_CONTAINER" ]]; then
+  in_container="/tmp/$(basename "$php_file")"
+  if ! docker cp "$php_file" "${WP_CONTAINER}:${in_container}" >/dev/null; then
+    echo "FAIL: could not copy migration payload into ${WP_CONTAINER}" >&2
+    exit 1
+  fi
+  docker exec -e NTM_DRY_RUN "$WP_CONTAINER" "$WP_PHP_BIN" \
+    /usr/local/bin/wp --path="$WP_PATH" --allow-root eval-file "$in_container" || status=$?
+  docker exec "$WP_CONTAINER" rm -f "$in_container" >/dev/null 2>&1 || true
+else
+  wp eval-file "$php_file" || status=$?
+fi
 
-$cur_template = get_page_template_slug($id);
-$has_iframe = strpos($p->post_content, "abacusai") !== false;
-$content_empty = trim($p->post_content) === "";
-
-if ($cur_template === $template && $content_empty) {
-    echo "OK id={$id}: already on quiz template with empty content — {$p->post_title}\n";
-    return;
-}
-
-if ($dry) {
-    echo "DRY id={$id}: {$p->post_title}\n";
-    echo "      template: " . ($cur_template ?: "(default)") . " -> {$template}\n";
-    echo "      content : " . ($has_iframe ? "dead Abacus iframe" : ($content_empty ? "(already empty)" : "(other)")) . " -> (empty)\n";
-    return;
-}
-
-// Template is stored as post meta. Set it directly rather than via
-// wp_update_post()s page_template field, which validates the slug against the
-// ACTIVE theme dir and errors ("Invalid page template") when this script runs
-// before the template file has landed in the served checkout (e.g. from a
-// worktree pre-merge). The meta value is authoritative once the file exists.
-update_post_meta($id, "_wp_page_template", $template);
-
-// Clear the dead iframe content with a direct DB update to avoid
-// wp_update_post()s incidental template revalidation on save.
-global $wpdb;
-$ok = $wpdb->update($wpdb->posts, ["post_content" => ""], ["ID" => $id]);
-if ($ok === false) {
-    echo "FAIL id={$id}: could not clear post_content\n";
-    return;
-}
-clean_post_cache($id);
-echo "WROTE id={$id}: template set to {$template}, iframe content cleared — {$p->post_title}\n";
-'
+if [[ "$status" -ne 0 ]]; then
+  echo "== 046 failed =="
+  exit "$status"
+fi
 
 echo "== 046 done =="
