@@ -15,6 +15,17 @@ npm run db:apply              # replays scripts/db/NNN-*.sh against DevKinsta
 
 Then re-import the other two channels (see below): redirects and ACF/CPT-UI.
 
+Preview/replay safety check:
+
+```bash
+npm run db:check-dry-run      # proves DRY_RUN=1 db:apply is read-only
+```
+
+During dry-run, the runner also disables WP-Cron and skips only the Microsoft
+Clarity plugin. Clarity writes analytics/version-check rows merely by loading
+under WP-CLI; WooCommerce, Redirection, Schema Pro, CPT-UI, and SCF still load
+so migrations inspect the real site shape.
+
 ## The four capture channels — where does my change go?
 
 | You changed… | Capture it as… |

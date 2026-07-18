@@ -14,6 +14,8 @@
 
 set -euo pipefail
 
+DRY_RUN="${DRY_RUN-1}"
+
 # Resolve the page by slug so the script survives a different post ID on a fresh
 # prod pull (don't hardcode 20670).
 page_id="$(wp post list --post_type=page --name="start-here" \
@@ -31,12 +33,37 @@ seo_title='How to Start a Metal Roofing or Gutter Business | NTM'
 # jobsite), and the "what it takes / where to begin" promise.
 seo_desc='Make your own metal roofing panels and seamless gutters on the jobsite. See what it takes to start a portable rollforming business and where to begin.'
 
-wp post meta update "${page_id}" _yoast_wpseo_title    "${seo_title}"
-wp post meta update "${page_id}" _yoast_wpseo_metadesc  "${seo_desc}"
+set_meta() { # key value
+  local key="$1"
+  local value="$2"
+  local current
+  local actual
+
+  if [[ "$DRY_RUN" != "0" ]]; then
+    echo "    [dry-run] would set ${key} on page ${page_id}"
+    return
+  fi
+
+  current="$(wp post meta get "${page_id}" "${key}" 2>/dev/null || true)"
+  if [[ "$current" == "$value" ]]; then
+    echo "    ${key} already set on page ${page_id}"
+    return
+  fi
+
+  wp post meta update "${page_id}" "${key}" "${value}" >/dev/null
+  actual="$(wp post meta get "${page_id}" "${key}" 2>/dev/null || true)"
+  if [[ "$actual" != "$value" ]]; then
+    echo "    ERROR: ${key} did not persist on page ${page_id}" >&2
+    exit 1
+  fi
+}
+
+set_meta _yoast_wpseo_title "${seo_title}"
+set_meta _yoast_wpseo_metadesc "${seo_desc}"
 
 # Mirror to the Open Graph fields so the social/share snippet isn't empty
 # either (Yoast renders og:title/og:description from these).
-wp post meta update "${page_id}" _yoast_wpseo_opengraph-title       "${seo_title}"
-wp post meta update "${page_id}" _yoast_wpseo_opengraph-description  "${seo_desc}"
+set_meta _yoast_wpseo_opengraph-title "${seo_title}"
+set_meta _yoast_wpseo_opengraph-description "${seo_desc}"
 
 echo "    set SEO title + meta description on page ${page_id} (start-here)"

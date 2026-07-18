@@ -12,16 +12,20 @@
 # Resolved by _wp_attached_file path, never by ID: the redesign-era IDs
 # (20654-20745) collide with rows production allocated independently.
 #
-# IDEMPOTENT: skips any file already registered; skips (with a warning) files
-# missing from uploads.
+# IDEMPOTENT: skips any file already registered; skips optional files missing
+# from uploads, but fails when release-required media is missing.
 
 set -euo pipefail
 
 uploads_dir="$(wp eval 'echo wp_get_upload_dir()["basedir"];')"
+DRY_RUN="${DRY_RUN-1}"
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+REQUIRED_MEDIA_INVENTORY="${REQUIRED_MEDIA_INVENTORY:-$ROOT/scripts/release/required-media.txt}"
 
 # relative-path|title|alt
 media=(
   '2026/05/20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1-720p.mp4|20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1-720p|'
+  '2026/05/20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1-720p-optimized.mp4|20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1-720p-optimized|'
   '2026/07/20260708_NTM_SSQ3-Page-Panel-Running_V1-1080p.mp4|20260708_NTM_SSQ3-Page-Panel-Running_V1-1080p|'
   '2026/05/ntm-q3-hero-placeholder.png|ntm-q3-hero-placeholder|'
   '2026/05/ntm-q3-hero-placeholder-2.png|ntm-q3-hero-placeholder-2|'
@@ -56,9 +60,27 @@ media=(
 registered=0
 skipped=0
 missing=0
+would_register=0
+
+is_required_media() {
+  [[ -f "$REQUIRED_MEDIA_INVENTORY" ]] && grep -Fxq "$1" "$REQUIRED_MEDIA_INVENTORY"
+}
+
+media_file_exists() {
+  local rel_b64
+
+  # Path goes through base64 so quoting survives the docker-exec + wp-eval hop.
+  rel_b64="$(printf %s "$uploads_dir/$1" | base64)"
+  wp eval "exit(file_exists(base64_decode('$rel_b64')) ? 0 : 1);" >/dev/null 2>&1
+}
 
 for row in "${media[@]}"; do
   IFS='|' read -r rel title alt <<<"$row"
+
+  if is_required_media "$rel" && ! media_file_exists "$rel"; then
+    echo "    ERROR: required media file missing: $rel" >&2
+    exit 1
+  fi
 
   existing="$(wp post list --post_type=attachment --post_status=inherit \
                 --meta_key=_wp_attached_file --meta_value="$rel" \
@@ -68,19 +90,28 @@ for row in "${media[@]}"; do
     continue
   fi
 
-  # Path goes through base64 so quoting survives the docker-exec + wp-eval hop.
-  rel_b64="$(printf %s "$uploads_dir/$rel" | base64)"
-  if ! wp eval "exit(file_exists(base64_decode('$rel_b64')) ? 0 : 1);" >/dev/null 2>&1; then
+  if ! media_file_exists "$rel"; then
     echo "    !! file missing, skipped: $rel"
     missing=$((missing + 1))
+    continue
+  fi
+
+  if [[ "$DRY_RUN" != "0" ]]; then
+    echo "    dry-run: would register $rel"
+    would_register=$((would_register + 1))
     continue
   fi
 
   args=(--skip-copy --title="$title" --porcelain)
   [[ -n "$alt" ]] && args+=(--alt="$alt")
   new_id="$(wp media import "$uploads_dir/$rel" "${args[@]}")"
+  if [[ -z "$new_id" || ! "$new_id" =~ ^[0-9]+$ ]]; then
+    echo "    ERROR: failed to import media item: $rel" >&2
+    exit 1
+  fi
+
   echo "    registered #$new_id  $rel"
   registered=$((registered + 1))
 done
 
-echo "    theme media: $registered registered, $skipped already present, $missing missing"
+echo "    theme media: $registered registered, $skipped already present, $missing missing, $would_register dry-run pending"

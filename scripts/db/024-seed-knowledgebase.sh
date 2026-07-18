@@ -20,6 +20,9 @@
 
 set -euo pipefail
 
+DRY_RUN="${DRY_RUN-1}"
+export NTM_DRY_RUN="$DRY_RUN"
+
 # Mirror the apply runner's target resolution. We can't reuse the inherited
 # wp() for this one call: eval-file needs stdin, and that wrapper's `docker exec`
 # has no -i. So pipe directly, honoring the same WP_CONTAINER / WP_PATH.
@@ -35,16 +38,22 @@ if [[ ! -r "$PHP_FILE" ]]; then
 fi
 
 if [[ -n "$WP_CONTAINER" ]]; then
-  docker exec -i "$WP_CONTAINER" "${WP_PHP_BIN:-php8.3}" /usr/local/bin/wp --path="$WP_PATH" --allow-root eval-file - < "$PHP_FILE"
+  docker exec -i -e NTM_DRY_RUN "$WP_CONTAINER" "${WP_PHP_BIN:-php8.3}" /usr/local/bin/wp --path="$WP_PATH" --allow-root eval-file - < "$PHP_FILE"
 else
   command wp --path="$WP_PATH" eval-file - < "$PHP_FILE"
 fi
 
 # Flush rewrites so the new CPT's permalinks resolve on a fresh DB.
+if [[ "$DRY_RUN" != "0" ]]; then
+  echo "    [dry-run] would flush rewrite rules after seeding knowledgebase articles"
+  echo "    knowledgebase articles checked; rewrites not flushed in dry run"
+  exit 0
+fi
+
 if [[ -n "$WP_CONTAINER" ]]; then
-  docker exec "$WP_CONTAINER" "${WP_PHP_BIN:-php8.3}" /usr/local/bin/wp --path="$WP_PATH" --allow-root rewrite flush >/dev/null 2>&1 || true
+  docker exec "$WP_CONTAINER" "${WP_PHP_BIN:-php8.3}" /usr/local/bin/wp --path="$WP_PATH" --allow-root rewrite flush >/dev/null
 else
-  command wp --path="$WP_PATH" rewrite flush >/dev/null 2>&1 || true
+  command wp --path="$WP_PATH" rewrite flush >/dev/null
 fi
 
 echo "    knowledgebase articles seeded + rewrites flushed"

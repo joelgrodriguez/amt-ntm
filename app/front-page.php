@@ -56,6 +56,10 @@ get_header();
     <?php // ROUTE ?>
     <?php get_template_part('templates/parts/front-page/explore-machines'); ?>
     <?php get_template_part('templates/parts/front-page/waypoint'); ?>
+    <?php // Owner Resources lives in ROUTE, right after wayfinding: people who
+          // already own a machine peel off to manuals/profiles/UL/support here
+          // instead of scrolling the whole sales funnel to reach it (Ron, #105). ?>
+    <?php get_template_part('templates/parts/front-page/owner-resources'); ?>
     <?php get_template_part('templates/parts/front-page/quiz'); ?>
 
     <?php // SELL ?>

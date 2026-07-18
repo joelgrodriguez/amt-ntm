@@ -4,7 +4,10 @@
 # Run from a master checkout only:
 #   git switch master
 #   git pull --ff-only origin master
-#   ./scripts/release/to-master.sh
+#   RELEASE_TARGET_BASE_URL=https://<kinsta-staging-host> ./scripts/release/to-master.sh
+#
+# The target must already have received a DevKinsta Files + Database push;
+# database-only does not transfer wp-content/uploads.
 #
 # Pushes origin/master when complete. Dev keeps all agent/shogun tooling.
 set -euo pipefail
@@ -37,6 +40,8 @@ fi
 npm run lint:php
 
 npm run build
+
+"$ROOT/scripts/release/required-media-preflight.sh"
 
 git push origin master
 

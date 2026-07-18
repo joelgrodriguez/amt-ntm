@@ -370,14 +370,14 @@ function get_machine_categories(bool $include_dormant = false): array {
                     'highlights' => [
                         '5"/6" combo K-style gutters from raw coil',
                         'Up to 50 feet per minute with polyurethane drive rollers',
-                        'Industry standard for 30+ years, 6–8 week lead time',
+                        'Industry standard for 30+ years',
                     ],
                     'specs'      => [
                         'profiles'  => 'K-style',
                         'size'      => '5" / 6"',
                         'speed'     => '~50 FPM',
                         'drive'     => 'Polyurethane rollers',
-                        'lead_time' => '6–8 weeks',
+                        'lead_time' => 'Contact for availability',
                         'best_for'  => 'Crews running both sizes',
                     ],
                 ],
@@ -394,14 +394,14 @@ function get_machine_categories(bool $include_dormant = false): array {
                     'highlights' => [
                         '5" K-style gutters from raw coil',
                         'Up to 50 feet per minute with polyurethane drive rollers',
-                        'Industry standard for 30+ years, 6–8 week lead time',
+                        'Industry standard for 30+ years',
                     ],
                     'specs'      => [
                         'profiles'  => 'K-style',
                         'size'      => '5"',
                         'speed'     => '~50 FPM',
                         'drive'     => 'Polyurethane rollers',
-                        'lead_time' => '6–8 weeks',
+                        'lead_time' => 'Contact for availability',
                         'best_for'  => 'Residential gutter',
                     ],
                 ],
@@ -418,14 +418,14 @@ function get_machine_categories(bool $include_dormant = false): array {
                     'highlights' => [
                         '6" K-style gutters from raw coil',
                         'Up to 50 feet per minute with polyurethane drive rollers',
-                        'Industry standard for 30+ years, 6–8 week lead time',
+                        'Industry standard for 30+ years',
                     ],
                     'specs'      => [
                         'profiles'  => 'K-style',
                         'size'      => '6"',
                         'speed'     => '~50 FPM',
                         'drive'     => 'Polyurethane rollers',
-                        'lead_time' => '6–8 weeks',
+                        'lead_time' => 'Contact for availability',
                         'best_for'  => 'Larger homes / light commercial',
                     ],
                 ],
@@ -676,7 +676,7 @@ function get_roof_wall_faq_items(): array {
     return [
         [
             'question' => 'How long does it take to get a roof panel machine after ordering?',
-            'answer'   => 'Lead times vary by model, but most NTM roof and wall panel machines ship within 4–8 weeks. The SSQ3 MultiPro and SSQ II MultiPro are our highest-demand models; contact your specialist for current availability.',
+            'answer'   => 'Lead times vary by model and configuration. The SSQ3 MultiPro and SSQ II MultiPro are our highest-demand models; your account specialist will confirm exact lead time at order.',
         ],
         [
             'question' => 'How much does a portable roof panel machine cost?',
@@ -779,7 +779,7 @@ function get_gutter_faq_items(): array {
         ],
         [
             'question' => 'How long does delivery take after ordering?',
-            'answer'   => 'Most NTM gutter machines ship within 6–8 weeks. The MACH II line is our highest-volume product; contact your specialist for exact availability at order time.',
+            'answer'   => 'Lead times vary by model and configuration. The MACH II line is our highest-volume product; your account specialist will confirm exact lead time at order.',
         ],
         [
             'question' => 'What warranty comes with NTM gutter machines?',
@@ -799,7 +799,7 @@ function get_gutter_faq_items(): array {
         ],
         [
             'question' => 'How long will it take to get my machine?',
-            'answer'   => 'Most NTM gutter machines ship within 6–8 weeks because the MACH II line is built in volume. Custom configurations and the BG7 box gutter machine may take longer depending on options. Your account specialist will give you an exact lead time at order confirmation.',
+            'answer'   => 'Lead times vary by model and configuration. The MACH II line is built in volume, while custom configurations and the BG7 box gutter machine may take longer depending on options. Your account specialist will confirm exact lead time at order.',
         ],
         [
             'question' => 'What do I do if I need help with my gutter machine?',
@@ -1150,7 +1150,7 @@ function get_faq_items(): array {
         ],
         [
             'question' => 'How long will it take to get my machine?',
-            'answer'   => 'Lead times vary by model. Most NTM gutter machines ship within 6–8 weeks; roof and wall panel machines typically ship within 4–8 weeks. The SSQ3 MultiPro and SSQ II MultiPro are our highest-demand roof panel models. Your account specialist will confirm exact lead time at order.',
+            'answer'   => 'Lead times vary by model and configuration. The SSQ3 MultiPro and SSQ II MultiPro are our highest-demand roof panel models. Your account specialist will confirm exact lead time at order.',
         ],
         [
             'question' => 'How do I purchase an NTM machine?',

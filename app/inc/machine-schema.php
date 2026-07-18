@@ -50,6 +50,7 @@ function build_product_schema(\WC_Product $product, array $machine): ?array {
     $overrides = $machine['schema'] ?? [];
     $hero      = $machine['hero'] ?? [];
     $specs     = $machine['specs'] ?? [];
+    $organization_id = home_url('/') . '#organization';
 
     $schema = [
         '@context'    => 'https://schema.org',
@@ -62,8 +63,7 @@ function build_product_schema(\WC_Product $product, array $machine): ?array {
             'name'  => $overrides['brand'] ?? 'New Tech Machinery',
         ],
         'manufacturer' => [
-            '@type' => 'Organization',
-            'name'  => $overrides['manufacturer'] ?? 'New Tech Machinery',
+            '@id' => $organization_id,
         ],
     ];
 

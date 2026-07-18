@@ -23,9 +23,43 @@
 
 set -euo pipefail
 
+DRY_RUN="${DRY_RUN-1}"
+
 find_page() { # slug parent_id -> id or empty
   wp post list --post_type=page --name="$1" --post_parent="$2" \
     --field=ID --format=ids 2>/dev/null | awk '{print $1}' || true
+}
+
+is_dry_run() {
+  [[ "$DRY_RUN" != "0" ]]
+}
+
+assert_post_field() { # post_id field expected context
+  local post_id="$1"
+  local field="$2"
+  local expected="$3"
+  local context="$4"
+  local actual
+
+  actual="$(wp post get "$post_id" --field="$field" 2>/dev/null)"
+  if [[ "$actual" != "$expected" ]]; then
+    echo "    ERROR: ${context}: expected ${field}='${expected}', got '${actual}'" >&2
+    exit 1
+  fi
+}
+
+assert_post_meta() { # post_id key expected context
+  local post_id="$1"
+  local key="$2"
+  local expected="$3"
+  local context="$4"
+  local actual
+
+  actual="$(wp post meta get "$post_id" "$key" 2>/dev/null)"
+  if [[ "$actual" != "$expected" ]]; then
+    echo "    ERROR: ${context}: expected ${key}='${expected}', got '${actual}'" >&2
+    exit 1
+  fi
 }
 
 machines_id="$(wp post list --post_type=page --name=machines \
@@ -36,8 +70,13 @@ if [[ -n "$machines_id" ]]; then
   if [[ -z "$(find_page upgrades "$machines_id")" ]]; then
     old_id="$(find_page ntm-accessories "$machines_id")"
     if [[ -n "$old_id" ]]; then
-      wp post update "$old_id" --post_name=upgrades >/dev/null
-      echo "    adopted 'ntm-accessories' (#$old_id) -> slug 'upgrades'"
+      if is_dry_run; then
+        echo "    [dry-run] would adopt 'ntm-accessories' (#$old_id) -> slug 'upgrades'"
+      else
+        wp post update "$old_id" --post_name=upgrades >/dev/null
+        assert_post_field "$old_id" post_name upgrades "adopt ntm-accessories"
+        echo "    adopted 'ntm-accessories' (#$old_id) -> slug 'upgrades'"
+      fi
     fi
   fi
 
@@ -49,8 +88,13 @@ if [[ -n "$machines_id" ]]; then
     if [[ -z "$(find_page "$move_slug" "$machines_id")" ]]; then
       stray_id="$(find_page "$move_slug" 0)"
       if [[ -n "$stray_id" ]]; then
-        wp post update "$stray_id" --post_parent="$machines_id" >/dev/null
-        echo "    re-parented '$move_slug' (#$stray_id) under /machines/"
+        if is_dry_run; then
+          echo "    [dry-run] would re-parent '$move_slug' (#$stray_id) under /machines/"
+        else
+          wp post update "$stray_id" --post_parent="$machines_id" >/dev/null
+          assert_post_field "$stray_id" post_parent "$machines_id" "re-parent ${move_slug}"
+          echo "    re-parented '$move_slug' (#$stray_id) under /machines/"
+        fi
       fi
     fi
   done
@@ -92,17 +136,42 @@ for row in "${pages[@]}"; do
   page_id="$(find_page "$slug" "$parent_id")"
 
   if [[ -z "$page_id" ]]; then
+    if is_dry_run; then
+      echo "    [dry-run] would create '$slug' under parent ${parent_id} with template '${template}'"
+      continue
+    fi
+
     page_id="$(wp post create --post_type=page --post_status=publish \
                  --post_title="$title" --post_name="$slug" \
                  --post_parent="$parent_id" --post_content="$content" --porcelain)"
+    if [[ -z "$page_id" || ! "$page_id" =~ ^[0-9]+$ ]]; then
+      echo "    ERROR: failed to create '$slug' page" >&2
+      exit 1
+    fi
     echo "    created '$slug' (#$page_id)"
   else
     echo "    '$slug' exists (#$page_id)"
   fi
 
   # Re-assert the bits the theme depends on, every run.
-  wp post update "$page_id" --post_status=publish --post_parent="$parent_id" >/dev/null
-  wp post meta update "$page_id" _wp_page_template "$template" >/dev/null
+  if is_dry_run; then
+    echo "    [dry-run] would assert '$slug' (#$page_id): status=publish, parent=${parent_id}, template=${template}"
+    continue
+  fi
+
+  current_status="$(wp post get "$page_id" --field=post_status 2>/dev/null)"
+  current_parent="$(wp post get "$page_id" --field=post_parent 2>/dev/null)"
+  if [[ "$current_status" != "publish" || "$current_parent" != "$parent_id" ]]; then
+    wp post update "$page_id" --post_status=publish --post_parent="$parent_id" >/dev/null
+  fi
+  assert_post_field "$page_id" post_status publish "assert ${slug} status"
+  assert_post_field "$page_id" post_parent "$parent_id" "assert ${slug} parent"
+
+  current_template="$(wp post meta get "$page_id" _wp_page_template 2>/dev/null || true)"
+  if [[ "$current_template" != "$template" ]]; then
+    wp post meta update "$page_id" _wp_page_template "$template" >/dev/null
+  fi
+  assert_post_meta "$page_id" _wp_page_template "$template" "assert ${slug} template"
 done
 
 echo "    shell pages OK"

@@ -252,9 +252,8 @@ function get_desktop_nav(): array {
                 'view_all_label' => __('See all machines', 'standard'),
                 'secondary_links' => [
                     [
-                        'label' => __('Build and Quote', 'standard'),
+                        'label' => __('Build your machine', 'standard'),
                         'url'   => \Standard\Url\internal('/configurator/'),
-                        'badge' => __('NEW', 'standard'),
                     ],
                 ],
                 'tabs'           => [
@@ -352,9 +351,8 @@ function get_desktop_nav(): array {
                     'secondary_url'   => \Standard\Url\with_query('/contact/', ['form' => 'quote']),
                     'secondary_links' => [
                         [
-                            'label' => __('Build and Quote', 'standard'),
+                            'label' => __('Build your machine', 'standard'),
                             'url'   => \Standard\Url\internal('/configurator/'),
-                            'badge' => __('NEW', 'standard'),
                         ],
                         [
                             'label' => __('Learning Center', 'standard'),
@@ -441,11 +439,11 @@ function get_desktop_nav(): array {
             [
                 'kind'          => 'mega',
                 'id'            => 'owner-support',
-                'label'         => __('Get Owner Support', 'standard'),
+                'label'         => __('Get Support', 'standard'),
                 'type'          => 'flyout-groups',
                 'intro'         => [
-                    'title'           => __('Get Owner Support', 'standard'),
-                    'secondary_label' => __('Visit the Service Hub', 'standard'),
+                    'title'           => __('Get Support', 'standard'),
+                    'secondary_label' => __('Service Hub', 'standard'),
                     'secondary_url'   => \Standard\Url\internal('/service-hub/'),
                     'secondary_links' => [
                         [
@@ -474,6 +472,10 @@ function get_desktop_nav(): array {
                             [
                                 'label' => __('Machine manuals', 'standard'),
                                 'url'   => \Standard\Url\internal('/machines/manuals/'),
+                            ],
+                            [
+                                'label' => __('UL test booklets', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/resource/ul-test-information/'),
                             ],
                             [
                                 'label' => __('Request training', 'standard'),

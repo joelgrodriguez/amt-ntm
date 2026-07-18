@@ -26,6 +26,8 @@ if (!defined('WP_CLI') || !WP_CLI) {
     return;
 }
 
+$dry = getenv('NTM_DRY_RUN') !== '0';
+
 global $wpdb;
 
 $rows = $wpdb->get_results(
@@ -35,6 +37,7 @@ $rows = $wpdb->get_results(
 
 $disabled = 0;
 $kept     = 0;
+$failed   = 0;
 
 foreach ($rows as $row) {
     // Query-specific rows (e.g. /search-results/?_sf_s=... marketing
@@ -56,17 +59,37 @@ foreach ($rows as $row) {
         continue;
     }
 
-    $wpdb->update(
+    if ($dry) {
+        $disabled++;
+        WP_CLI::log("    [dry-run] would disable #{$row->id}  {$row->url}  (shadows {$post->post_type} '{$post->post_name}')");
+        continue;
+    }
+
+    $result = $wpdb->update(
         "{$wpdb->prefix}redirection_items",
         ['status' => 'disabled'],
         ['id' => (int) $row->id]
     );
+
+    if ($result !== 1) {
+        $failed++;
+        WP_CLI::warning("could not disable #{$row->id}  {$row->url}");
+        continue;
+    }
+
     $disabled++;
     WP_CLI::log("    disabled #{$row->id}  {$row->url}  (shadows {$post->post_type} '{$post->post_name}')");
 }
 
-if ($disabled > 0 && class_exists('Red_Module')) {
+if ($failed > 0) {
+    WP_CLI::error("Shadowing redirects: {$disabled} disabled, {$kept} kept, {$failed} FAILED.");
+}
+
+if (!$dry && $disabled > 0 && class_exists('Red_Module')) {
     Red_Module::flush_by_module(1); // rebuild the WordPress-module redirect cache
 }
 
-WP_CLI::success("Shadowing redirects: {$disabled} disabled, {$kept} kept.");
+WP_CLI::success($dry
+    ? "Shadowing redirects: {$disabled} would be disabled, {$kept} kept."
+    : "Shadowing redirects: {$disabled} disabled, {$kept} kept."
+);

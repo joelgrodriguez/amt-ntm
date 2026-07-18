@@ -79,6 +79,30 @@ function get_profile_tag_aliases(): array {
 }
 
 /**
+ * Explicit published profile post_tag slug → WooCommerce product slug map.
+ *
+ * Profile tags come from editorial taxonomy state, not WooCommerce, so the
+ * names drift. Keep the known machine tags pinned to the canonical products
+ * and let unknown tags fall back to their tag archives in the template.
+ *
+ * @return array<string, string>
+ */
+function get_profile_tag_product_slugs(): array {
+    return [
+        'ssq3-multipro'                         => 'ssq3-multipro',
+        'ssq-ii-multipro-roof-panel-machine'    => 'ssq-roof-panel-machine',
+        'ssh-multipro-roof-panel-machine'       => 'ssh-roof-panel-machine',
+        'ssr-multipro-roof-panel-machine'       => 'ssr-multipro-jr-roof-panel-machine',
+        '5vc-5v-crimp-roof-panel-machine'       => '5vc-5v-crimp-roof-panel-machine',
+        'wav-wall-panel-machine'                => 'wav-wall-panel-machine',
+        'mach-ii-5-gutter-machine'              => 'mach-ii-5-gutter-machine',
+        'mach-ii-6-gutter-machine'              => 'mach-ii-6-gutter-machine',
+        'mach-ii-5-6-gutter-machine'            => 'mach-ii-5-6-combo-gutter-machine',
+        'bg7-box-gutter-machine'                => 'bg7-box-gutter-machine',
+    ];
+}
+
+/**
  * Resolve a machine slug to a machine data key.
  *
  * Accepts a machine data key, WooCommerce product slug, or known profile tag
@@ -121,7 +145,13 @@ function resolve_machine_key(string $slug): ?string {
  */
 function get_machine_product_slug_candidates(string $slug): array {
     $candidates = [$slug];
-    $key        = resolve_machine_key($slug);
+
+    $profile_tag_product_slugs = get_profile_tag_product_slugs();
+    if (isset($profile_tag_product_slugs[$slug])) {
+        $candidates[] = $profile_tag_product_slugs[$slug];
+    }
+
+    $key = resolve_machine_key($slug);
 
     if ($key !== null) {
         foreach (get_slug_aliases() as $woo_slug => $data_key) {

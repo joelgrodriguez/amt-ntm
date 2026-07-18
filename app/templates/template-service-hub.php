@@ -87,7 +87,7 @@ get_header();
     get_template_part('templates/parts/hero-category', null, [
         'section_id' => 'service-hub-hero',
         'content'    => [
-            'kicker'           => __('Service Hub // Owner Support', 'standard'),
+            'kicker'           => __('Service Hub // Support', 'standard'),
             'title'            => __('Everything for your<br class="hidden lg:inline"> NTM machine.', 'standard'),
             'subtitle'         => __('Manuals, troubleshooting, parts, and videos for every machine you run. Backed by the people who built them.', 'standard'),
             'cta_primary'      => __('Find your machine', 'standard'),

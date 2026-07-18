@@ -19,7 +19,7 @@ return [
         'subtitle'   => __('The combo runs both 5" and 6" K-style seamless gutters. Maximum versatility for gutter contractors.', 'standard'),
         'hero_image' => 'https://newtechmachinery.com/wp-content/uploads/2026/05/ntm-mach2-gutter-install-abel-002.jpg',
         'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_MACH-II-5-6-Combo_1000x1000.png',
-        'video'      => content_url('/uploads/2026/05/20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1-720p.mp4'),
+        'video'      => content_url('/uploads/2026/05/20260511_NTM_Abel-Highlight-MACH-II-In-Action-Video_V1-720p-optimized.mp4'),
     ],
     'stats' => [
         ['value' => '5" & 6"',   'label' => __('K-Style Sizes', 'standard')],
@@ -69,7 +69,7 @@ return [
                 __('Push-button RUN/JOG at entry & exit ends', 'standard'),
                 __('Power interruption safety circuit', 'standard'),
             ],
-            'image'    => content_url('/uploads/2026/05/ntm-mach2-electric-power-pack-001.jpg'),
+            'image'    => content_url('/uploads/2026/07/20270713_NTM_MACHII-Motor-Panel.jpg'),
         ],
     ],
     'fit' => [

@@ -25,17 +25,24 @@
 
 set -euo pipefail
 
+DRY_RUN="${DRY_RUN-1}"   # default safe: report only. DRY_RUN=0 to apply.
+
+# In dry mode, DO NOT actually regenerate: `media regenerate` rebuilds every
+# product-card thumbnail (thousands of attachments, many minutes, no way to
+# preview without doing the work). A preview run must stay fast and side-effect
+# free, so just report the intent and return.
+if [[ "$DRY_RUN" != "0" ]]; then
+  count="$(wp post list --post_type=attachment --post_mime_type=image \
+             --format=count 2>/dev/null || echo '?')"
+  echo "    DRY: would regenerate the 'product-card' size for ~${count} image attachments (skipped in dry run)."
+  echo "    product-card thumbnails: dry run, nothing regenerated."
+  return 0 2>/dev/null || exit 0
+fi
+
 # Regenerate just the product-card size, no confirmation prompt, across all
 # attachments. Yes/no is auto-answered so the script is non-interactive under
 # `npm run db:apply`.
 #
-# FAIL-SOFT: `media regenerate` exits non-zero if ANY attachment fails, which
-# would abort the whole db:apply run (set -e). Thumbnails are best-effort —
-# the known benign failure is PDF attachments where ImageMagick's security
-# policy forbids PDF rasterization (DevKinsta's container default). Warn and
-# continue instead of killing the replay pipeline.
-if ! wp media regenerate --image_size=product-card --yes; then
-  echo "    !! some product-card thumbnails failed to regenerate (see above) — continuing."
-fi
+wp media regenerate --image_size=product-card --yes
 
 echo "    product-card thumbnails regenerated (no-crop 16:9 bounding box)."

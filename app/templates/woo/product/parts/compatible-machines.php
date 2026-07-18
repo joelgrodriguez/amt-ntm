@@ -23,7 +23,7 @@ if (!$product instanceof \WC_Product) {
     return;
 }
 
-$cards = \Standard\Woo\Accessories\get_compatible_machine_product_cards(8);
+$cards = \Standard\Woo\Accessories\get_compatible_machine_product_cards($product, 8);
 
 if ($cards === []) {
     return;

@@ -81,6 +81,32 @@ $brochure_url = isset($resources['brochure']) ? \Standard\Url\canonical((string)
 // so an owner gets it whether or not troubleshooting articles are tagged yet.
 $faqs = \is_array($data['faq'] ?? null) ? $data['faq'] : [];
 
+$profile_tag_slugs = array_values(array_unique(array_filter(
+    array_map('strval', (array) ($data['profiles']['tag_slugs'] ?? [])),
+    static fn(string $tag): bool => $tag !== ''
+)));
+$profiles = [];
+
+if (!empty($profile_tag_slugs)) {
+    // Match the machine product profile selector: machine profile tags -> profile posts.
+    $profiles = get_posts([
+        'post_type'           => 'profile',
+        'post_status'         => 'publish',
+        'posts_per_page'      => -1,
+        'orderby'             => 'menu_order title',
+        'order'               => 'ASC',
+        'ignore_sticky_posts' => true,
+        'no_found_rows'       => true,
+        'tax_query'           => [
+            [
+                'taxonomy' => 'post_tag',
+                'field'    => 'slug',
+                'terms'    => $profile_tag_slugs,
+            ],
+        ],
+    ]);
+}
+
 $groups      = get_content_groups($slug);
 $has_content = false;
 foreach ($groups as $group) {
@@ -185,6 +211,63 @@ get_header();
                 <?php get_template_part('templates/parts/contact-faq-list', null, [
                     'faqs' => $faqs,
                 ]); ?>
+            </div>
+        </section>
+    <?php endif; ?>
+
+    <?php if (!empty($profiles)) : ?>
+        <?php
+        $profile_count     = count($profiles);
+        $profile_carousel  = 'service-hub-profiles-' . sanitize_html_class($slug);
+        $profile_grid      = $profile_carousel . '-grid';
+        $profiles_title_id = 'service-hub-machine-profiles-title';
+        $show_all_label    = sprintf(
+            /* translators: %d is the number of profiles available for a machine. */
+            _n('See All %d Profile', 'See All %d Profiles', $profile_count, 'standard'),
+            $profile_count
+        );
+        $collapse_label = __('Collapse Profiles', 'standard');
+        ?>
+        <section id="machine-profiles" class="container section-compact" aria-labelledby="<?php echo esc_attr($profiles_title_id); ?>">
+            <div class="section-content"
+                 data-profile-expand
+                 data-profile-expand-show-label="<?php echo esc_attr($show_all_label); ?>"
+                 data-profile-expand-collapse-label="<?php echo esc_attr($collapse_label); ?>">
+
+                <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+                    <div class="section-header-left max-w-2xl">
+                        <p class="section-eyebrow"><?php esc_html_e('Machine profiles', 'standard'); ?></p>
+                        <div class="section-divider"></div>
+                        <h2 id="<?php echo esc_attr($profiles_title_id); ?>" class="section-title">
+                            <?php esc_html_e('Profiles this machine runs.', 'standard'); ?>
+                        </h2>
+                        <p class="section-subtitle">
+                            <?php esc_html_e('Open the profile pages for gauges, widths, and setup details tied to this machine.', 'standard'); ?>
+                        </p>
+                    </div>
+                    <div data-profile-expand-compact class="flex gap-2 shrink-0 self-end md:self-auto">
+                        <button type="button"
+                                data-carousel-prev="<?php echo esc_attr($profile_carousel); ?>"
+                                class="carousel__nav"
+                                aria-label="<?php esc_attr_e('Previous profiles', 'standard'); ?>">
+                            <?php icon('arrow-left', ['class' => 'w-4 h-4 text-blue-700']); ?>
+                        </button>
+                        <button type="button"
+                                data-carousel-next="<?php echo esc_attr($profile_carousel); ?>"
+                                class="carousel__nav"
+                                aria-label="<?php esc_attr_e('Next profiles', 'standard'); ?>">
+                            <?php icon('arrow-right', ['class' => 'w-4 h-4 text-blue-700']); ?>
+                        </button>
+                    </div>
+                </div>
+
+                <?php get_template_part('templates/parts/profile-expandable-list', null, [
+                    'profiles'    => $profiles,
+                    'carousel_id' => $profile_carousel,
+                    'grid_id'     => $profile_grid,
+                    'show_label'  => $show_all_label,
+                ]); ?>
+
             </div>
         </section>
     <?php endif; ?>

@@ -39,12 +39,23 @@ if (empty($profile_ids)) {
     return;
 }
 
-$carousel_id = 'default-profiles-' . $product->get_id();
-$title_id    = 'default-profiles-title';
+$profile_count  = count($profile_ids);
+$carousel_id    = 'default-profiles-' . $product->get_id();
+$grid_id        = $carousel_id . '-grid';
+$title_id       = 'default-profiles-title';
+$show_all_label = sprintf(
+    /* translators: %d is the number of profiles available for a machine. */
+    _n('See All %d Profile', 'See All %d Profiles', $profile_count, 'standard'),
+    $profile_count
+);
+$collapse_label = __('Collapse Profiles', 'standard');
 ?>
 
 <section id="machine-profiles" class="section bg-blue-50" aria-labelledby="<?php echo esc_attr($title_id); ?>">
-    <div class="container section-content">
+    <div class="container section-content"
+         data-profile-expand
+         data-profile-expand-show-label="<?php echo esc_attr($show_all_label); ?>"
+         data-profile-expand-collapse-label="<?php echo esc_attr($collapse_label); ?>">
 
         <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
             <div>
@@ -53,7 +64,7 @@ $title_id    = 'default-profiles-title';
                     <?php esc_html_e('What it forms', 'standard'); ?>
                 </h2>
             </div>
-            <div class="flex gap-2 shrink-0 self-end md:self-auto">
+            <div data-profile-expand-compact class="flex gap-2 shrink-0 self-end md:self-auto">
                 <button type="button"
                         data-carousel-prev="<?php echo esc_attr($carousel_id); ?>"
                         class="carousel__nav"
@@ -69,16 +80,12 @@ $title_id    = 'default-profiles-title';
             </div>
         </div>
 
-        <ul id="<?php echo esc_attr($carousel_id); ?>" class="carousel__track list-none p-0 m-0">
-            <?php foreach ($profile_ids as $profile_id) : ?>
-                <li class="contents">
-                    <?php get_template_part('templates/parts/card-profile', null, [
-                        'profile' => $profile_id,
-                        'context' => 'carousel',
-                    ]); ?>
-                </li>
-            <?php endforeach; ?>
-        </ul>
+        <?php get_template_part('templates/parts/profile-expandable-list', null, [
+            'profiles'     => $profile_ids,
+            'carousel_id' => $carousel_id,
+            'grid_id'     => $grid_id,
+            'show_label'  => $show_all_label,
+        ]); ?>
 
     </div>
 </section>

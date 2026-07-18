@@ -21,6 +21,8 @@ if (!defined('WP_CLI') || !WP_CLI) {
     return;
 }
 
+$dry = getenv('NTM_DRY_RUN') !== '0';
+
 if (!class_exists('Red_Item')) {
     WP_CLI::error('Redirection plugin is not active — activate it before importing redirects.');
 }
@@ -62,6 +64,12 @@ foreach ($data['redirects'] as $redirect) {
     unset($redirect['id'], $redirect['hits'], $redirect['last_access'], $redirect['position']);
     $redirect['status'] = !empty($redirect['enabled']) ? 'enabled' : 'disabled';
 
+    if ($dry) {
+        $created++;
+        WP_CLI::log("    [dry-run] would create {$url} -> " . (string) ($redirect['action_data']['url'] ?? '?'));
+        continue;
+    }
+
     $item = Red_Item::create($redirect);
     if (is_wp_error($item)) {
         $failed++;
@@ -78,4 +86,7 @@ if ($failed > 0) {
     WP_CLI::error("Redirects: {$created} created, {$skipped} already present, {$failed} FAILED.");
 }
 
-WP_CLI::success("Redirects: {$created} created, {$skipped} already present.");
+WP_CLI::success($dry
+    ? "Redirects: {$created} would be created, {$skipped} already present."
+    : "Redirects: {$created} created, {$skipped} already present."
+);

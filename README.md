@@ -75,7 +75,9 @@ wipes every local DB change. Capture DB-side changes as replayable scripts in
 
 `dev` is the integration branch; feature branches merge into it. `npm run
 release:master` publishes `master` with dev-only tooling stripped (the strip
-list lives in `scripts/release/dev-tooling-paths.txt`).
+list lives in `scripts/release/dev-tooling-paths.txt`). Set
+`RELEASE_TARGET_BASE_URL` to the Kinsta staging base URL; the release gate
+normally requires required uploads to be present before pushing `master`.
 
 ## Kinsta Deployment
 

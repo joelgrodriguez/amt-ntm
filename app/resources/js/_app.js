@@ -24,7 +24,9 @@ import { initSearchModal } from './modules/SearchModal.js';
 import { initFilterDrawerSync } from './modules/FilterDrawerSync.js';
 import { initAvatarGroupHover } from './modules/AvatarGroupHover.js';
 import { initRevealMore } from './modules/RevealMore.js';
+import { initProfileExpand } from './modules/ProfileExpand.js';
 import { initProfileGallery } from './modules/ProfileGallery.js';
+import { initReadinessQuiz } from './modules/ReadinessQuiz.js';
 
 /** @type {Function|null} Cleanup function for mobile menu */
 let mobileMenuCleanup = null;
@@ -68,8 +70,14 @@ let avatarGroupHoverCleanup = null;
 /** @type {Function|null} Cleanup function for reveal-more groups */
 let revealMoreCleanup = null;
 
+/** @type {Function|null} Cleanup function for profile expand groups */
+let profileExpandCleanup = null;
+
 /** @type {Function|null} Cleanup function for profile gallery */
 let profileGalleryCleanup = null;
+
+/** @type {Function|null} Cleanup function for readiness quiz */
+let readinessQuizCleanup = null;
 
 /**
  * Executes callback when DOM is ready.
@@ -110,7 +118,9 @@ const initApp = () => {
   filterDrawerSyncCleanup = initFilterDrawerSync();
   avatarGroupHoverCleanup = initAvatarGroupHover();
   revealMoreCleanup = initRevealMore();
+  profileExpandCleanup = initProfileExpand();
   profileGalleryCleanup = initProfileGallery();
+  readinessQuizCleanup = initReadinessQuiz();
 };
 
 // Bootstrap
@@ -162,8 +172,14 @@ if (import.meta.hot) {
     if (revealMoreCleanup) {
       revealMoreCleanup();
     }
+    if (profileExpandCleanup) {
+      profileExpandCleanup();
+    }
     if (profileGalleryCleanup) {
       profileGalleryCleanup();
+    }
+    if (readinessQuizCleanup) {
+      readinessQuizCleanup();
     }
     // Reinitialize
     initApp();
