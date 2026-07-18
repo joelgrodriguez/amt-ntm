@@ -140,9 +140,9 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 91,
+      "fileCount": 92,
       "categories": {
-        "docs": 91
+        "docs": 92
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
@@ -176,12 +176,12 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 61,
+      "fileCount": 62,
       "categories": {
         "source": 11,
         "other": 47,
         "docs": 2,
-        "test": 1
+        "test": 2
       },
       "keyFiles": [
         "scripts/content/export-copy.php",
@@ -764,7 +764,7 @@
       "path": "app/inc/seo.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 8073
+      "size": 9442
     },
     {
       "path": "app/inc/service-hub-machines.php",
@@ -3467,6 +3467,12 @@
       "size": 6058
     },
     {
+      "path": "docs/specs/release.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 1320
+    },
+    {
       "path": "docs/specs/search.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
@@ -4001,6 +4007,12 @@
       "size": 35767
     },
     {
+      "path": "scripts/tests/seo-sitemap-exclusions.test.php",
+      "category": "test",
+      "role": "Automated test or test support file.",
+      "size": 4446
+    },
+    {
       "path": "TODO.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
@@ -4022,7 +4034,8 @@
   "tests": [
     "app/resources/js/modules/ScrollReveal.test.mjs",
     "app/resources/js/modules/SearchModal.test.mjs",
-    "scripts/db/tests/migration-guards.test.php"
+    "scripts/db/tests/migration-guards.test.php",
+    "scripts/tests/seo-sitemap-exclusions.test.php"
   ],
   "docs": [
     "CLAUDE.md",
@@ -4110,6 +4123,7 @@
     "docs/specs/navigation.md",
     "docs/specs/pricing.md",
     "docs/specs/readiness-quiz-spec.md",
+    "docs/specs/release.md",
     "docs/specs/search.md",
     "docs/specs/seo.md",
     "docs/specs/templates.md",

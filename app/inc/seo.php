@@ -22,9 +22,15 @@ if (!defined('ABSPATH')) {
 }
 
 const SCHEMA_JSON_FLAGS = JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT;
+const RETIRED_PRODUCT_CATEGORY_SLUGS = [
+    'roof-wall-panel-machines',
+    'gutter-machines',
+    'accessories-add-on-equipment',
+];
 
 add_action('wp_head', __NAMESPACE__ . '\\render_head_tags', 5);
 add_filter('wp_robots', __NAMESPACE__ . '\\robots_directives');
+add_filter('wpseo_exclude_from_sitemap_by_term_ids', __NAMESPACE__ . '\\exclude_retired_product_category_terms_from_yoast_sitemaps');
 
 /**
  * True when a dedicated SEO plugin owns the document head.
@@ -55,6 +61,40 @@ function robots_directives(array $robots): array
     }
 
     return $robots;
+}
+
+/**
+ * Remove retired Woo product-category archives from Yoast XML sitemaps.
+ *
+ * Yoast's public filter takes term IDs, so resolve IDs from stable slugs at
+ * runtime instead of baking local database IDs into the theme.
+ *
+ * @param array<int|string> $term_ids Existing term IDs already excluded.
+ * @return array<int> Term IDs Yoast should skip.
+ */
+function exclude_retired_product_category_terms_from_yoast_sitemaps(array $term_ids): array
+{
+    $excluded_term_ids = array_map('intval', $term_ids);
+
+    if (!taxonomy_exists('product_cat')) {
+        return array_values(array_unique($excluded_term_ids));
+    }
+
+    $retired_term_ids = get_terms([
+        'taxonomy'   => 'product_cat',
+        'slug'       => RETIRED_PRODUCT_CATEGORY_SLUGS,
+        'fields'     => 'ids',
+        'hide_empty' => false,
+    ]);
+
+    if (is_wp_error($retired_term_ids) || !is_array($retired_term_ids)) {
+        return array_values(array_unique($excluded_term_ids));
+    }
+
+    return array_values(array_unique(array_merge(
+        $excluded_term_ids,
+        array_map('intval', $retired_term_ids)
+    )));
 }
 
 /**
