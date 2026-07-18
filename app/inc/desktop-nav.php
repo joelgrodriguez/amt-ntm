@@ -371,6 +371,7 @@ function get_desktop_nav(): array {
                             [
                                 'label' => __('Configure Your NTM Machine', 'standard'),
                                 'url'   => \Standard\Url\internal('/configurator/'),
+                                'badge' => __('NEW', 'standard'),
                             ],
                             [
                                 'label' => __('How to get a quote on an NTM machine', 'standard'),
@@ -471,6 +472,10 @@ function get_desktop_nav(): array {
                             [
                                 'label' => __('Machine manuals', 'standard'),
                                 'url'   => \Standard\Url\internal('/machines/manuals/'),
+                            ],
+                            [
+                                'label' => __('UL test booklets', 'standard'),
+                                'url'   => \Standard\Url\internal('/learning-center/resource/ul-test-information/'),
                             ],
                             [
                                 'label' => __('Request training', 'standard'),
