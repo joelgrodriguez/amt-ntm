@@ -2,6 +2,19 @@
 
 <!-- admiral:auto — appended on land, newest first. Read top-down for current behavior. -->
 
+## Make WooCommerce/theme code authoritative for Product schema while keeping Schema Pro active for FAQ blocks and useful VideoObject output.
+
+After issue 107 lands, add scripts/db/051 to draft only the generic published Schema Pro Product rule. Resolve it by stable title, aiosrs-schema post type, product schema type, and product|all targeting. Purge only Schema Pro optimized cache rows containing that mapped Product output or empty Product-rule arrays; do not remove FAQPage or VideoObject data. Update app/inc/machine-schema.php so manufacturer references the canonical home #organization identity instead of creating an unlinked differently named Organization. Verify the theme fallback defines the same ID. — #108
+*Landed 2026-07-18 · type: bugfix*
+
+- Schema Pro stays active
+- Generic Schema Pro Product rule is disabled with a guarded replayable DB migration
+- Product cache rows are purged without touching FAQ or Video schema
+- Theme machine manufacturer references the canonical organization ID
+- WooCommerce and theme Product output remain authoritative
+- npm run build passes
+- Migration dry-run proves scope and idempotency
+
 ## Retire only the invalid homepage Schema Pro custom graph while keeping Schema Pro and all FAQ blocks/rules active.
 
 Implement a replayable scripts/db/050 migration using the safe patterns in scripts 041 and 042: resolve Home Page Custom Schema by title and aiosrs-schema type, verify special-front targeting plus unique graph signatures (#home-featured-machines, #customer-reviews, #brand-video), draft it, then purge only the front-page wp_schema_pro_optimized_structured_data row when those signatures match. DRY_RUN must default on, re-runs must no-op, and the direct docker exec/wp eval-file runner workaround must be preserved.

@@ -176,10 +176,10 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 53,
+      "fileCount": 54,
       "categories": {
         "source": 9,
-        "other": 42,
+        "other": 43,
         "docs": 2
       },
       "keyFiles": [
@@ -697,7 +697,7 @@
       "path": "app/inc/machine-schema.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 5666
+      "size": 5647
     },
     {
       "path": "app/inc/machines-data.php",
@@ -3469,7 +3469,7 @@
       "path": "docs/specs/seo.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 633
+      "size": 2096
     },
     {
       "path": "docs/specs/templates.md",
@@ -3884,6 +3884,12 @@
       "category": "other",
       "role": "Repository file.",
       "size": 11146
+    },
+    {
+      "path": "scripts/db/051-retire-schema-pro-product-rule.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 11241
     },
     {
       "path": "scripts/db/apply",
