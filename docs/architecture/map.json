@@ -3883,7 +3883,7 @@
       "path": "scripts/db/050-retire-homepage-schema-pro-graph.sh",
       "category": "other",
       "role": "Repository file.",
-      "size": 7959
+      "size": 11146
     },
     {
       "path": "scripts/db/apply",

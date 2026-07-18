@@ -83,6 +83,36 @@ $missing_signatures = static function (string $text) use ($signatures): array {
     return $missing;
 };
 
+$delete_metadata_meta_ids = static function (int $post_id, string $meta_key, $meta_value) use ($wpdb): array {
+    $table = _get_meta_table('post');
+
+    if (!$table) {
+        echo "    error: could not resolve WordPress postmeta table.\n";
+        exit(1);
+    }
+
+    $type_column = sanitize_key('post_id');
+    $id_column = 'meta_id';
+    $post_id = absint($post_id);
+
+    // Mirror delete_metadata(): callers pass slashed input; WP unslashes before
+    // maybe_serialize() and the exact meta_value SQL predicate.
+    $meta_key = wp_unslash($meta_key);
+    $meta_value = maybe_serialize(wp_unslash($meta_value));
+
+    $query = $wpdb->prepare(
+        "SELECT {$id_column} FROM {$table} WHERE meta_key = %s AND {$type_column} = %d",
+        $meta_key,
+        $post_id
+    );
+
+    if ('' !== $meta_value && null !== $meta_value && false !== $meta_value) {
+        $query .= $wpdb->prepare(' AND meta_value = %s', $meta_value);
+    }
+
+    return array_map('intval', $wpdb->get_col($query));
+};
+
 $schema_ids = $wpdb->get_col($wpdb->prepare(
     "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_title = %s AND post_status <> 'trash' ORDER BY ID ASC",
     $schema_post_type,
@@ -160,48 +190,100 @@ if (!$front_post instanceof WP_Post) {
     return;
 }
 
-$cache_values = get_post_meta($front_id, $cache_meta_key, false);
+$cache_rows = $wpdb->get_results($wpdb->prepare(
+    "SELECT meta_id, meta_value FROM {$wpdb->postmeta} WHERE post_id = %d AND meta_key = %s ORDER BY meta_id ASC",
+    $front_id,
+    $cache_meta_key
+));
 
-if (!$cache_values) {
+if (!$cache_rows) {
     echo "    skip: front page '{$front_post->post_title}' (post {$front_id}) has no {$cache_meta_key} rows.\n";
     echo $dry ? "    set DRY_RUN=0 to apply, or run via: npm run db:apply\n" : '';
     return;
 }
 
-$matching_cache_values = [];
+$matching_cache_rows = [];
 
-foreach ($cache_values as $index => $cache_value) {
-    if (!$missing_signatures($flatten($cache_value))) {
-        $matching_cache_values[$index] = $cache_value;
+foreach ($cache_rows as $cache_row) {
+    $cache_text = (string) $cache_row->meta_value;
+
+    if (!$missing_signatures($cache_text)) {
+        $matching_cache_rows[] = [
+            'meta_id' => (int) $cache_row->meta_id,
+            'raw_value' => $cache_text,
+            'delete_value' => wp_slash($cache_text),
+        ];
     }
 }
 
-if (!$matching_cache_values) {
-    echo "    skip: front page '{$front_post->post_title}' (post {$front_id}) cache has " . count($cache_values) . " {$cache_meta_key} row(s), none with the targeted graph signatures.\n";
+if (!$matching_cache_rows) {
+    echo "    skip: front page '{$front_post->post_title}' (post {$front_id}) cache has " . count($cache_rows) . " {$cache_meta_key} row(s), none with the targeted graph signatures.\n";
     echo $dry ? "    set DRY_RUN=0 to apply, or run via: npm run db:apply\n" : '';
     return;
 }
 
+$selected_meta_ids = array_map(static fn (array $row): int => $row['meta_id'], $matching_cache_rows);
+$selected_meta_id_lookup = array_fill_keys($selected_meta_ids, true);
+$delete_values = [];
+
+foreach ($matching_cache_rows as $cache_row) {
+    $matched_meta_ids = $delete_metadata_meta_ids($front_id, $cache_meta_key, $cache_row['delete_value']);
+
+    if (!in_array($cache_row['meta_id'], $matched_meta_ids, true)) {
+        echo "    error: delete_metadata predicate would not match selected cache meta_id {$cache_row['meta_id']}. Refusing to continue.\n";
+        exit(1);
+    }
+
+    $unexpected_meta_ids = array_values(array_filter(
+        $matched_meta_ids,
+        static fn (int $meta_id): bool => !isset($selected_meta_id_lookup[$meta_id])
+    ));
+
+    if ($unexpected_meta_ids) {
+        echo "    error: delete_metadata predicate for selected cache meta_id {$cache_row['meta_id']} would also match unexpected meta_id(s): " . implode(', ', $unexpected_meta_ids) . ". Refusing to continue.\n";
+        exit(1);
+    }
+
+    $delete_values[hash('sha256', $cache_row['raw_value'])] = [
+        'delete_value' => $cache_row['delete_value'],
+        'meta_ids' => $matched_meta_ids,
+    ];
+}
+
+echo "    verified delete_metadata predicate for " . count($matching_cache_rows) . " targeted front page cache row(s): meta_id " . implode(', ', $selected_meta_ids) . ".\n";
+
 if ($dry) {
-    echo "    [dry-run] would delete " . count($matching_cache_values) . " of " . count($cache_values) . " {$cache_meta_key} row(s) from front page '{$front_post->post_title}' (post {$front_id}).\n";
+    echo "    [dry-run] would delete " . count($matching_cache_rows) . " of " . count($cache_rows) . " {$cache_meta_key} row(s) from front page '{$front_post->post_title}' (post {$front_id}).\n";
     echo "    set DRY_RUN=0 to apply, or run via: npm run db:apply\n";
     return;
 }
 
-$deleted = 0;
+$deleted_meta_ids = [];
 
-foreach ($matching_cache_values as $cache_value) {
-    if (delete_post_meta($front_id, $cache_meta_key, $cache_value)) {
-        $deleted++;
+foreach ($delete_values as $delete_candidate) {
+    if (!delete_post_meta($front_id, $cache_meta_key, $delete_candidate['delete_value'])) {
+        echo "    error: delete_post_meta failed for targeted cache meta_id(s): " . implode(', ', $delete_candidate['meta_ids']) . ".\n";
+        exit(1);
     }
+
+    $deleted_meta_ids = array_merge($deleted_meta_ids, $delete_candidate['meta_ids']);
 }
 
-if ($deleted !== count($matching_cache_values)) {
-    echo "    error: deleted {$deleted} of " . count($matching_cache_values) . " matching front page cache row(s).\n";
+$remaining_meta_ids = [];
+
+foreach ($delete_values as $delete_candidate) {
+    $remaining_meta_ids = array_merge(
+        $remaining_meta_ids,
+        $delete_metadata_meta_ids($front_id, $cache_meta_key, $delete_candidate['delete_value'])
+    );
+}
+
+if ($remaining_meta_ids) {
+    echo "    error: targeted cache meta_id(s) still match after delete: " . implode(', ', array_unique($remaining_meta_ids)) . ".\n";
     exit(1);
 }
 
-echo "    deleted {$deleted} targeted {$cache_meta_key} row(s) from front page '{$front_post->post_title}' (post {$front_id}).\n";
+echo "    deleted " . count(array_unique($deleted_meta_ids)) . " targeted {$cache_meta_key} row(s) from front page '{$front_post->post_title}' (post {$front_id}).\n";
 PHP
 
 if [[ -n "${WP_CONTAINER:-}" ]]; then
