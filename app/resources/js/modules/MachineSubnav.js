@@ -22,8 +22,7 @@
  * Subnav is always fixed to the viewport top and hidden by default
  * (translated above its own height). It only becomes visible once the
  * hero scrolls out of view, sliding down gracefully. When the hero
- * re-enters view (scroll back up), it slides out again so the regular
- * header can do its scroll-up reveal without two bars competing.
+ * re-enters view (scroll back up), it slides out again.
  *
  * @returns {Function} Cleanup function.
  */
@@ -43,8 +42,6 @@ export function initMachineSubnav() {
   const visibilityObserver = new IntersectionObserver(
     ([entry]) => {
       // Hero in view → hide subnav. Hero out of view → show subnav.
-      // is-sticky is the same class name ScrollHeader checks to
-      // suppress its scroll-up reveal, so the two bars never stack.
       const shouldShow = !entry.isIntersecting;
       subnav.classList.toggle('is-sticky', shouldShow);
     },
