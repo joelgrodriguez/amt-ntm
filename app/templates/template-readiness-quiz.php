@@ -49,7 +49,7 @@ while (have_posts()) :
                         </div>
                     </div>
 
-                    <div class="quiz-card">
+                    <div class="quiz-card" data-quiz-card>
                         <!-- Card-anchored previous-question button (JS shows from Q2) -->
                         <button type="button" class="quiz-back" data-quiz-back hidden aria-label="<?php esc_attr_e('Previous question', 'standard'); ?>">
                             <?php icon('arrow-left', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
@@ -72,7 +72,7 @@ while (have_posts()) :
                         <!-- Questions (rendered by JS) -->
                         <div class="quiz-questions" data-quiz-questions hidden></div>
 
-                        <!-- Results (rendered by JS) -->
+                        <!-- Results (rendered by JS after lead form submit) -->
                         <div class="quiz-results" data-quiz-results hidden></div>
                     </div>
 
@@ -105,14 +105,17 @@ while (have_posts()) :
                         <?php endforeach; ?>
                     </div>
 
-                    <!-- Lead capture (required gate before results) -->
+                    <!-- Lead capture (required gate before results; primary panel while gated) -->
                     <div class="quiz-lead" data-quiz-lead hidden>
                         <div class="quiz-lead__intro">
-                            <h2 class="quiz-lead__title">
+                            <p class="quiz-lead__eyebrow" data-quiz-lead-eyebrow>
+                                <?php esc_html_e('Assessment complete', 'standard'); ?>
+                            </p>
+                            <h2 class="quiz-lead__title" data-quiz-lead-title>
                                 <?php esc_html_e('Unlock your readiness results', 'standard'); ?>
                             </h2>
-                            <p class="quiz-lead__desc">
-                                <?php esc_html_e('Share your details to see your readiness score and recommended machine. An NTM specialist can follow up with pricing, availability, and next steps for your operation.', 'standard'); ?>
+                            <p class="quiz-lead__desc" data-quiz-lead-desc>
+                                <?php esc_html_e('Your score and machine recommendation are ready. Share your details to unlock them — an NTM specialist can also follow up with pricing, availability, and next steps.', 'standard'); ?>
                             </p>
                         </div>
                         <?php
