@@ -15,14 +15,14 @@ return [
     'category' => __('Roof & Wall Panel Machines', 'standard'),
     'slogan'   => __('Built for standing seam perfection.', 'standard'),
     'hero' => [
-        'headline'   => __('8 Profiles. Hydraulic Power. Residential Precision.', 'standard'),
+        'headline'   => __('7 Profiles. Hydraulic Power. Residential Precision.', 'standard'),
         'subtitle'   => __('The high-performance solution to your residential and light commercial needs.', 'standard'),
         'hero_image' => 'https://newtechmachinery.com/wp-content/uploads/2025/09/Machine-on-rooftop-scaled.jpg',
         'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_SSH_1000x1000.png',
         'video'      => null,
     ],
     'stats' => [
-        ['value' => '8',          'label' => __('Panel Profiles', 'standard')],
+        ['value' => '7',          'label' => __('Panel Profiles', 'standard')],
         ['value' => '60 ft/min',  'label' => __('Max Speed', 'standard')],
         ['value' => 'Hydraulic',  'label' => __('Shear & Drive', 'standard')],
         ['value' => '24 ga',      'label' => __('Material Capacity', 'standard')],
@@ -88,7 +88,7 @@ return [
         'is_for' => [
             __('Residential and light commercial roofing contractors', 'standard'),
             __('Contractors who need hydraulic shear and drive at a mid-range price', 'standard'),
-            __('Businesses running 8 residential and light-commercial profiles', 'standard'),
+            __('Businesses running 7 residential and light-commercial profiles', 'standard'),
             __('Crews processing steel, aluminum, copper, or terne-coat stainless', 'standard'),
         ],
         'is_not_for' => [
@@ -245,11 +245,11 @@ return [
     'faq' => [
         [
             'question' => __('What profiles can the SSH produce?', 'standard'),
-            'answer'   => __('The SSH produces 8 panel profiles including mechanical seam, snap-lock, snap-lock with slotted flange, T-Panel, and Clip Relief options for residential and light commercial roofing.', 'standard'),
+            'answer'   => __('The SSH produces 7 panel profiles including mechanical seam, snap-lock, snap-lock with slotted flange, and T-Panel options for residential and light commercial roofing. Clip relief and rib rollers are available as tooling options.', 'standard'),
         ],
         [
             'question' => __('What\'s the difference between the SSH and SSQ II?', 'standard'),
-            'answer'   => __('The SSQ II produces 16 profiles (including wall panels) vs 8 for the SSH. The SSQ II is built for high-volume commercial + residential work, while the SSH is focused on residential and light commercial.', 'standard'),
+            'answer'   => __('The SSQ II produces 16 profiles (including wall panels) vs 7 for the SSH. The SSQ II is built for high-volume commercial + residential work, while the SSH is focused on residential and light commercial.', 'standard'),
         ],
         [
             'question' => __('Does the SSH include a controller?', 'standard'),

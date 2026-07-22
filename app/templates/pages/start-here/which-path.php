@@ -50,7 +50,7 @@ $lanes = [
         'title'   => __('See if it fits you', 'standard'),
         'fit'     => __('You get the concept and want an honest gut-check on whether you are ready to manufacture and sell your own product.', 'standard'),
         'points'  => [
-            __('A short readiness quiz, no signup', 'standard'),
+            __('A short readiness quiz with a personalized machine pick', 'standard'),
             __('Profit math you can run on your own numbers', 'standard'),
         ],
         'cta'     => __('Take the readiness quiz', 'standard'),
