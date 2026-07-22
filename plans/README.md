@@ -26,7 +26,7 @@ your row when done.
 | 003 | Demote mega/mobile menu panel titles from H2 | P2 | S | — | DONE (cf2629a) |
 | 004 | Homepage FAQ section + FAQPage JSON-LD | P2 | M | — | DONE (6645070) |
 | 005 | ItemList JSON-LD of machine lineup on front page | P3 | S | — | DONE (a8c19a6) |
-| 006 | Harden category landing-page H1s to absorb the 301 equity | P1 | S | — | TODO |
+| 006 | Harden category landing-page H1s to absorb the 301 equity | P1 | S | — | DONE |
 | 007 | Verify + monitor the category-URL consolidation | P2 | M | 006 (early) | TODO |
 
 Plans 001–005 executed 2026-07-21 on branch `joelgrodriguez/homepage-seo-aeo`

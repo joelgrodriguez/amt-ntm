@@ -8,7 +8,6 @@
   "stack": {
     "languages": [
       "CSS",
-      "HTML",
       "JavaScript",
       "PHP"
     ],
@@ -71,10 +70,10 @@
     {
       "path": ".",
       "purpose": "Root-level manifests, docs, and configuration.",
-      "fileCount": 13,
+      "fileCount": 11,
       "categories": {
         "other": 3,
-        "docs": 7,
+        "docs": 5,
         "manifest": 1,
         "source": 1,
         "config": 1
@@ -82,36 +81,37 @@
       "keyFiles": [
         ".gitattributes",
         ".gitignore",
-        "AGENTS.md",
         "CLAUDE.md",
         "CONTEXT.md",
-        "DESIGN.md",
+        "KINSTA_DEPLOYMENT_RESEARCH.md",
         "package-lock.json",
-        "package.json"
+        "package.json",
+        "PRODUCT.md"
       ]
     },
     {
       "path": ".github",
       "purpose": "Project area.",
-      "fileCount": 1,
+      "fileCount": 2,
       "categories": {
-        "config": 1
+        "config": 2
       },
       "keyFiles": [
-        ".github/workflows/ci.yml"
+        ".github/workflows/ci.yml",
+        ".github/workflows/deploy-kinsta-staging.yml"
       ]
     },
     {
       "path": "app",
       "purpose": "Application code and framework conventions.",
-      "fileCount": 454,
+      "fileCount": 457,
       "categories": {
-        "source": 173,
+        "source": 174,
         "other": 44,
         "config": 2,
         "route": 9,
         "test": 2,
-        "template": 224
+        "template": 226
       },
       "keyFiles": [
         "app/404.php",
@@ -140,48 +140,44 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 94,
+      "fileCount": 4,
       "categories": {
-        "docs": 94
+        "docs": 4
       },
       "keyFiles": [
-        "docs/architecture-boundaries.md",
         "docs/audits/schema-pro-conflict-investigation.md",
         "docs/decisions/README.md",
-        "docs/deploy/fresh-prod-pull-runbook.md",
-        "docs/deploy/prod-content-merge-plan.md",
-        "docs/feedback/2026-06-02-annotated-screenshots-review.md",
-        "docs/feedback/2026-06-03-navigation-search-review.md",
-        "docs/feedback/2026-06-05-service-financing-review.md"
+        "docs/specs/machines.md",
+        "docs/specs/project-context.md"
       ]
     },
     {
       "path": "plans",
       "purpose": "Project area.",
-      "fileCount": 16,
+      "fileCount": 8,
       "categories": {
-        "docs": 16
+        "docs": 8
       },
       "keyFiles": [
-        "plans/001-php-lint-ci-baseline.md",
-        "plans/002-machine-schema-hardening.md",
-        "plans/003-seo-fallback-robots-canonicals.md",
-        "plans/004-collapse-per-render-product-lookups.md",
-        "plans/005-trim-font-subsets.md",
-        "plans/006-a11y-commitments.md",
-        "plans/007-js-conversion-robustness.md",
-        "plans/008-repo-hygiene.md"
+        "plans/001-homepage-yoast-head-meta.md",
+        "plans/002-front-page-image-alts.md",
+        "plans/003-demote-nav-headings.md",
+        "plans/004-homepage-faq-section.md",
+        "plans/005-homepage-itemlist-schema.md",
+        "plans/006-category-landing-page-h1-hardening.md",
+        "plans/007-verify-and-monitor-category-consolidation.md",
+        "plans/README.md"
       ]
     },
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 62,
+      "fileCount": 66,
       "categories": {
         "source": 11,
-        "other": 47,
+        "other": 48,
         "docs": 2,
-        "test": 2
+        "test": 5
       },
       "keyFiles": [
         "scripts/content/export-copy.php",
@@ -209,16 +205,16 @@
       "size": 496
     },
     {
+      "path": ".github/workflows/deploy-kinsta-staging.yml",
+      "category": "config",
+      "role": "Project configuration.",
+      "size": 5036
+    },
+    {
       "path": ".gitignore",
       "category": "other",
       "role": "Repository file.",
       "size": 1966
-    },
-    {
-      "path": "AGENTS.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 21847
     },
     {
       "path": "app/404.php",
@@ -518,7 +514,7 @@
       "path": "app/data/machines/ssh-multipro.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 12676
+      "size": 12703
     },
     {
       "path": "app/data/machines/ssq-ii-multipro.php",
@@ -554,13 +550,13 @@
       "path": "app/front-page.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 3107
+      "size": 3256
     },
     {
       "path": "app/functions.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 1697
+      "size": 1727
     },
     {
       "path": "app/header.php",
@@ -704,7 +700,7 @@
       "path": "app/inc/machine-schema.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 5647
+      "size": 7619
     },
     {
       "path": "app/inc/machines-data.php",
@@ -716,7 +712,7 @@
       "path": "app/inc/machines.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 5361
+      "size": 5803
     },
     {
       "path": "app/inc/mega-menu.php",
@@ -734,7 +730,7 @@
       "path": "app/inc/page-templates.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 5428
+      "size": 7205
     },
     {
       "path": "app/inc/pdf-attachment.php",
@@ -753,6 +749,12 @@
       "category": "source",
       "role": "Application source code.",
       "size": 4210
+    },
+    {
+      "path": "app/inc/profile-groups.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 1479
     },
     {
       "path": "app/inc/related-posts.php",
@@ -1148,7 +1150,7 @@
       "path": "app/resources/css/front-page/hero-slider.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 7739
+      "size": 8069
     },
     {
       "path": "app/resources/css/front-page/router.css",
@@ -1328,7 +1330,7 @@
       "path": "app/resources/css/woo/machine-subnav.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 12067
+      "size": 12306
     },
     {
       "path": "app/resources/css/woo/product-card.css",
@@ -1418,7 +1420,7 @@
       "path": "app/resources/js/modules/HeroSlider.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 10410
+      "size": 10861
     },
     {
       "path": "app/resources/js/modules/HeroVideo.js",
@@ -1436,7 +1438,7 @@
       "path": "app/resources/js/modules/MachineSubnav.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 5402
+      "size": 5188
     },
     {
       "path": "app/resources/js/modules/MegaMenu.js",
@@ -1478,7 +1480,7 @@
       "path": "app/resources/js/modules/ScrollHeader.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 5944
+      "size": 5454
     },
     {
       "path": "app/resources/js/modules/ScrollReveal.js",
@@ -1778,7 +1780,7 @@
       "path": "app/templates/pages/gutter/hero.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 1213
+      "size": 1288
     },
     {
       "path": "app/templates/pages/gutter/learning-center.php",
@@ -2054,7 +2056,7 @@
       "path": "app/templates/pages/roof-wall/hero.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 1453
+      "size": 1530
     },
     {
       "path": "app/templates/pages/roof-wall/learning-center.php",
@@ -2324,7 +2326,7 @@
       "path": "app/templates/parts/card-product.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 5957
+      "size": 6371
     },
     {
       "path": "app/templates/parts/card-profile.php",
@@ -2450,7 +2452,13 @@
       "path": "app/templates/parts/front-page/explore-machines.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 7738
+      "size": 7747
+    },
+    {
+      "path": "app/templates/parts/front-page/faq.php",
+      "category": "template",
+      "role": "Application source code.",
+      "size": 4979
     },
     {
       "path": "app/templates/parts/front-page/final-cta.php",
@@ -2462,31 +2470,31 @@
       "path": "app/templates/parts/front-page/flagships.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 10377
+      "size": 10578
     },
     {
       "path": "app/templates/parts/front-page/hero-slide.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3640
+      "size": 5050
     },
     {
       "path": "app/templates/parts/front-page/hero-slider.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3074
+      "size": 3158
     },
     {
       "path": "app/templates/parts/front-page/owner-resources.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3205
+      "size": 3415
     },
     {
       "path": "app/templates/parts/front-page/quiz.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 2669
+      "size": 2667
     },
     {
       "path": "app/templates/parts/front-page/router.php",
@@ -2516,7 +2524,7 @@
       "path": "app/templates/parts/front-page/waypoint.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3485
+      "size": 3374
     },
     {
       "path": "app/templates/parts/front-page/why-own.php",
@@ -2528,7 +2536,7 @@
       "path": "app/templates/parts/hero-category.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 7902
+      "size": 7777
     },
     {
       "path": "app/templates/parts/ironclad-support.php",
@@ -2540,7 +2548,7 @@
       "path": "app/templates/parts/learning-center.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3477
+      "size": 3486
     },
     {
       "path": "app/templates/parts/learning-center/results.php",
@@ -2549,16 +2557,22 @@
       "size": 6224
     },
     {
+      "path": "app/templates/parts/machine-rib-rollers.php",
+      "category": "template",
+      "role": "Application source code.",
+      "size": 1468
+    },
+    {
       "path": "app/templates/parts/mega-menu.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 15741
+      "size": 15739
     },
     {
       "path": "app/templates/parts/mobile-menu-panel.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4759
+      "size": 4757
     },
     {
       "path": "app/templates/parts/mobile-menu.php",
@@ -2576,7 +2590,7 @@
       "path": "app/templates/parts/portability-dna.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4142
+      "size": 3960
     },
     {
       "path": "app/templates/parts/post-navigation.php",
@@ -2744,7 +2758,7 @@
       "path": "app/templates/template-service-hub-machine.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 21557
+      "size": 21898
     },
     {
       "path": "app/templates/template-service-hub.php",
@@ -2828,7 +2842,7 @@
       "path": "app/templates/woo/product/parts/default-profiles.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3253
+      "size": 3573
     },
     {
       "path": "app/templates/woo/product/parts/default-specs.php",
@@ -2882,7 +2896,7 @@
       "path": "app/templates/woo/product/parts/profile-selector.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3832
+      "size": 4149
     },
     {
       "path": "app/templates/woo/product/parts/resources.php",
@@ -2975,18 +2989,6 @@
       "size": 328744
     },
     {
-      "path": "DESIGN.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 33058
-    },
-    {
-      "path": "docs/architecture-boundaries.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 3400
-    },
-    {
       "path": "docs/audits/schema-pro-conflict-investigation.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
@@ -2999,484 +3001,10 @@
       "size": 3724
     },
     {
-      "path": "docs/deploy/fresh-prod-pull-runbook.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 7655
-    },
-    {
-      "path": "docs/deploy/prod-content-merge-plan.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 15497
-    },
-    {
-      "path": "docs/feedback/2026-06-02-annotated-screenshots-review.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 17290
-    },
-    {
-      "path": "docs/feedback/2026-06-03-navigation-search-review.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 19214
-    },
-    {
-      "path": "docs/feedback/2026-06-05-service-financing-review.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 13304
-    },
-    {
-      "path": "docs/feedback/2026-06-08-machine-pages-review.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 13376
-    },
-    {
-      "path": "docs/feedback/2026-06-09-web-images-review-alex-actions.html",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 4987
-    },
-    {
-      "path": "docs/feedback/2026-06-09-web-images-review.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 12908
-    },
-    {
-      "path": "docs/feedback/2026-06-17-stakeholder-review.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 31207
-    },
-    {
-      "path": "docs/feedback/README.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 3248
-    },
-    {
-      "path": "docs/handoff/01-context.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 4628
-    },
-    {
-      "path": "docs/handoff/02-the-change.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 5429
-    },
-    {
-      "path": "docs/handoff/03-mega-menu-spec.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 9236
-    },
-    {
-      "path": "docs/handoff/04-pages-to-build.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 7626
-    },
-    {
-      "path": "docs/handoff/05-pages-to-reuse.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 7126
-    },
-    {
-      "path": "docs/handoff/06-aesthetic-rules.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 5267
-    },
-    {
-      "path": "docs/handoff/07-verification.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 6674
-    },
-    {
-      "path": "docs/handoff/inventory/cutlist.csv",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 106
-    },
-    {
-      "path": "docs/handoff/inventory/download.csv",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 2122
-    },
-    {
-      "path": "docs/handoff/inventory/footprint.csv",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 685
-    },
-    {
-      "path": "docs/handoff/inventory/literature.csv",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 2634
-    },
-    {
-      "path": "docs/handoff/inventory/manual.csv",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 3333
-    },
-    {
-      "path": "docs/handoff/inventory/page.csv",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 7230
-    },
-    {
-      "path": "docs/handoff/inventory/post.csv",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 36776
-    },
-    {
-      "path": "docs/handoff/inventory/pricesheet.csv",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 870
-    },
-    {
-      "path": "docs/handoff/inventory/product.csv",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 6693
-    },
-    {
-      "path": "docs/handoff/inventory/profile.csv",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 2661
-    },
-    {
-      "path": "docs/handoff/inventory/resource.csv",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 1231
-    },
-    {
-      "path": "docs/handoff/inventory/video.csv",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 33038
-    },
-    {
-      "path": "docs/handoff/README.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 7209
-    },
-    {
-      "path": "docs/image-inventory.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 18818
-    },
-    {
-      "path": "docs/legal/compliance-claims-review.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 6811
-    },
-    {
-      "path": "docs/legal/safety-copy-review.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 6526
-    },
-    {
-      "path": "docs/ntm-machines.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 8696
-    },
-    {
-      "path": "docs/plans/2026-03-03-machines-page-design.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 3714
-    },
-    {
-      "path": "docs/plans/2026-03-03-machines-page-plan.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 37451
-    },
-    {
-      "path": "docs/plans/2026-03-12-machines-sales-enhancement.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 16589
-    },
-    {
-      "path": "docs/plans/2026-03-13-final-cta-specialist-collage.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 1567
-    },
-    {
-      "path": "docs/plans/2026-03-13-machine-product-page-design.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 40939
-    },
-    {
-      "path": "docs/plans/2026-03-13-seamless-gutter-machines.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 7043
-    },
-    {
-      "path": "docs/plans/2026-03-14-machine-data-layer-design.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 19134
-    },
-    {
-      "path": "docs/plans/2026-03-14-machine-data-layer-plan.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 69357
-    },
-    {
-      "path": "docs/plans/2026-04-06-premium-hero-overlay-design.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 10382
-    },
-    {
-      "path": "docs/plans/2026-05-22-search-implementation-plan.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 8999
-    },
-    {
-      "path": "docs/plans/2026-05-26-navigation-simplification-plan.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 15703
-    },
-    {
-      "path": "docs/plans/2026-05-27-buyer-journey-navigation-flow.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 14729
-    },
-    {
-      "path": "docs/plans/2026-06-01-engineered-motion-system.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 16792
-    },
-    {
-      "path": "docs/plans/2026-06-09-e-sola-feedback-design.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 17982
-    },
-    {
-      "path": "docs/presentation/notes.html",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 17532
-    },
-    {
-      "path": "docs/presentation/phase-2-brief.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 3063
-    },
-    {
-      "path": "docs/presentation/risk-qa-prep.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 10133
-    },
-    {
-      "path": "docs/presentation/slides.html",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 2512242
-    },
-    {
-      "path": "docs/presentation/stakeholder-presentation-playbook.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 12334
-    },
-    {
-      "path": "docs/presentations/navigation-flow.html",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 337
-    },
-    {
-      "path": "docs/presentations/navigation-flow/choose-machine.html",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 7985
-    },
-    {
-      "path": "docs/presentations/navigation-flow/content-gap.html",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 22458
-    },
-    {
-      "path": "docs/presentations/navigation-flow/decisions.html",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 8385
-    },
-    {
-      "path": "docs/presentations/navigation-flow/get-started.html",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 7681
-    },
-    {
-      "path": "docs/presentations/navigation-flow/how-to-buy.html",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 7585
-    },
-    {
-      "path": "docs/presentations/navigation-flow/index.html",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 7131
-    },
-    {
-      "path": "docs/presentations/navigation-flow/megamenu.html",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 22279
-    },
-    {
-      "path": "docs/presentations/navigation-flow/owner-support.html",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 7733
-    },
-    {
-      "path": "docs/presentations/navigation-flow/sitemap-flow.html",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 11133
-    },
-    {
-      "path": "docs/presentations/navigation-flow/sitemap.html",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 10032
-    },
-    {
-      "path": "docs/presentations/navigation-flow/styles.css",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 16220
-    },
-    {
-      "path": "docs/presentations/website-update-notes.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 198
-    },
-    {
-      "path": "docs/RECOVERY.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 4252
-    },
-    {
-      "path": "docs/specs/about.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 1218
-    },
-    {
-      "path": "docs/specs/backend.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 391
-    },
-    {
-      "path": "docs/specs/content.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 2194
-    },
-    {
-      "path": "docs/specs/database.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 2201
-    },
-    {
-      "path": "docs/specs/db.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 1395
-    },
-    {
-      "path": "docs/specs/docs.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 681
-    },
-    {
-      "path": "docs/specs/finance-center.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 655
-    },
-    {
-      "path": "docs/specs/frontend.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 5621
-    },
-    {
-      "path": "docs/specs/learning-center.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 387
-    },
-    {
       "path": "docs/specs/machines.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 3987
-    },
-    {
-      "path": "docs/specs/nav.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 288
-    },
-    {
-      "path": "docs/specs/navigation.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 4335
-    },
-    {
-      "path": "docs/specs/pricing.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 362
+      "size": 517
     },
     {
       "path": "docs/specs/project-context.md",
@@ -3485,64 +3013,10 @@
       "size": 1354
     },
     {
-      "path": "docs/specs/readiness-quiz-spec.md",
+      "path": "KINSTA_DEPLOYMENT_RESEARCH.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 6058
-    },
-    {
-      "path": "docs/specs/release.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 1320
-    },
-    {
-      "path": "docs/specs/search.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 789
-    },
-    {
-      "path": "docs/specs/seo.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 3965
-    },
-    {
-      "path": "docs/specs/templates.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 348
-    },
-    {
-      "path": "docs/specs/trailer.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 1197
-    },
-    {
-      "path": "docs/specs/woo.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 1239
-    },
-    {
-      "path": "docs/superpowers/specs/data-normalization-backlog.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 6781
-    },
-    {
-      "path": "docs/superpowers/specs/db-persistence-strategy.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 9188
-    },
-    {
-      "path": "docs/superpowers/specs/reporting-connectors.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 10130
+      "size": 22334
     },
     {
       "path": "package-lock.json",
@@ -3554,103 +3028,55 @@
       "path": "package.json",
       "category": "manifest",
       "role": "Project manifest or dependency declaration.",
-      "size": 1090
+      "size": 1304
     },
     {
-      "path": "plans/001-php-lint-ci-baseline.md",
+      "path": "plans/001-homepage-yoast-head-meta.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 8794
+      "size": 10971
     },
     {
-      "path": "plans/002-machine-schema-hardening.md",
+      "path": "plans/002-front-page-image-alts.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 7807
+      "size": 11022
     },
     {
-      "path": "plans/003-seo-fallback-robots-canonicals.md",
+      "path": "plans/003-demote-nav-headings.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 6800
+      "size": 6831
     },
     {
-      "path": "plans/004-collapse-per-render-product-lookups.md",
+      "path": "plans/004-homepage-faq-section.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 8961
+      "size": 12294
     },
     {
-      "path": "plans/005-trim-font-subsets.md",
+      "path": "plans/005-homepage-itemlist-schema.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 6157
+      "size": 8958
     },
     {
-      "path": "plans/006-a11y-commitments.md",
+      "path": "plans/006-category-landing-page-h1-hardening.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 10747
+      "size": 10242
     },
     {
-      "path": "plans/007-js-conversion-robustness.md",
+      "path": "plans/007-verify-and-monitor-category-consolidation.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 9261
-    },
-    {
-      "path": "plans/008-repo-hygiene.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 11106
-    },
-    {
-      "path": "plans/009-remove-placeholder-schema-db.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 9748
-    },
-    {
-      "path": "plans/010-purge-placeholder-schema-cache.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 6736
-    },
-    {
-      "path": "plans/011-machine-cross-sell.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 11195
-    },
-    {
-      "path": "plans/012-scoped-catalog-branch-fix.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 5977
-    },
-    {
-      "path": "plans/013-lc-type-options-manuals-profiles.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 5393
-    },
-    {
-      "path": "plans/014-filter-drawer-checked-sync.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 7163
-    },
-    {
-      "path": "plans/015-render-filter-counts.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 6135
+      "size": 9551
     },
     {
       "path": "plans/README.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 6001
+      "size": 6289
     },
     {
       "path": "PRODUCT.md",
@@ -3662,7 +3088,7 @@
       "path": "README.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 3001
+      "size": 3930
     },
     {
       "path": "scripts/content/export-copy.php",
@@ -3947,6 +3373,12 @@
       "size": 8346
     },
     {
+      "path": "scripts/db/053-homepage-yoast-head-meta.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 6976
+    },
+    {
       "path": "scripts/db/apply",
       "category": "other",
       "role": "Repository file.",
@@ -4031,16 +3463,28 @@
       "size": 35767
     },
     {
+      "path": "scripts/tests/page-templates.test.php",
+      "category": "test",
+      "role": "Automated test or test support file.",
+      "size": 3356
+    },
+    {
+      "path": "scripts/tests/profile-groups.test.php",
+      "category": "test",
+      "role": "Automated test or test support file.",
+      "size": 2255
+    },
+    {
+      "path": "scripts/tests/scroll-header.test.js",
+      "category": "test",
+      "role": "Automated test or test support file.",
+      "size": 2384
+    },
+    {
       "path": "scripts/tests/seo-sitemap-exclusions.test.php",
       "category": "test",
       "role": "Automated test or test support file.",
       "size": 4446
-    },
-    {
-      "path": "TODO.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 1859
     },
     {
       "path": "vite-plugin-theme-json.js",
@@ -4059,131 +3503,35 @@
     "app/resources/js/modules/ScrollReveal.test.mjs",
     "app/resources/js/modules/SearchModal.test.mjs",
     "scripts/db/tests/migration-guards.test.php",
+    "scripts/tests/page-templates.test.php",
+    "scripts/tests/profile-groups.test.php",
+    "scripts/tests/scroll-header.test.js",
     "scripts/tests/seo-sitemap-exclusions.test.php"
   ],
   "docs": [
-    "AGENTS.md",
     "CLAUDE.md",
     "CONTEXT.md",
-    "DESIGN.md",
-    "docs/architecture-boundaries.md",
     "docs/audits/schema-pro-conflict-investigation.md",
     "docs/decisions/README.md",
-    "docs/deploy/fresh-prod-pull-runbook.md",
-    "docs/deploy/prod-content-merge-plan.md",
-    "docs/feedback/2026-06-02-annotated-screenshots-review.md",
-    "docs/feedback/2026-06-03-navigation-search-review.md",
-    "docs/feedback/2026-06-05-service-financing-review.md",
-    "docs/feedback/2026-06-08-machine-pages-review.md",
-    "docs/feedback/2026-06-09-web-images-review-alex-actions.html",
-    "docs/feedback/2026-06-09-web-images-review.md",
-    "docs/feedback/2026-06-17-stakeholder-review.md",
-    "docs/feedback/README.md",
-    "docs/handoff/01-context.md",
-    "docs/handoff/02-the-change.md",
-    "docs/handoff/03-mega-menu-spec.md",
-    "docs/handoff/04-pages-to-build.md",
-    "docs/handoff/05-pages-to-reuse.md",
-    "docs/handoff/06-aesthetic-rules.md",
-    "docs/handoff/07-verification.md",
-    "docs/handoff/inventory/cutlist.csv",
-    "docs/handoff/inventory/download.csv",
-    "docs/handoff/inventory/footprint.csv",
-    "docs/handoff/inventory/literature.csv",
-    "docs/handoff/inventory/manual.csv",
-    "docs/handoff/inventory/page.csv",
-    "docs/handoff/inventory/post.csv",
-    "docs/handoff/inventory/pricesheet.csv",
-    "docs/handoff/inventory/product.csv",
-    "docs/handoff/inventory/profile.csv",
-    "docs/handoff/inventory/resource.csv",
-    "docs/handoff/inventory/video.csv",
-    "docs/handoff/README.md",
-    "docs/image-inventory.md",
-    "docs/legal/compliance-claims-review.md",
-    "docs/legal/safety-copy-review.md",
-    "docs/ntm-machines.md",
-    "docs/plans/2026-03-03-machines-page-design.md",
-    "docs/plans/2026-03-03-machines-page-plan.md",
-    "docs/plans/2026-03-12-machines-sales-enhancement.md",
-    "docs/plans/2026-03-13-final-cta-specialist-collage.md",
-    "docs/plans/2026-03-13-machine-product-page-design.md",
-    "docs/plans/2026-03-13-seamless-gutter-machines.md",
-    "docs/plans/2026-03-14-machine-data-layer-design.md",
-    "docs/plans/2026-03-14-machine-data-layer-plan.md",
-    "docs/plans/2026-04-06-premium-hero-overlay-design.md",
-    "docs/plans/2026-05-22-search-implementation-plan.md",
-    "docs/plans/2026-05-26-navigation-simplification-plan.md",
-    "docs/plans/2026-05-27-buyer-journey-navigation-flow.md",
-    "docs/plans/2026-06-01-engineered-motion-system.md",
-    "docs/plans/2026-06-09-e-sola-feedback-design.md",
-    "docs/presentation/notes.html",
-    "docs/presentation/phase-2-brief.md",
-    "docs/presentation/risk-qa-prep.md",
-    "docs/presentation/slides.html",
-    "docs/presentation/stakeholder-presentation-playbook.md",
-    "docs/presentations/navigation-flow.html",
-    "docs/presentations/navigation-flow/choose-machine.html",
-    "docs/presentations/navigation-flow/content-gap.html",
-    "docs/presentations/navigation-flow/decisions.html",
-    "docs/presentations/navigation-flow/get-started.html",
-    "docs/presentations/navigation-flow/how-to-buy.html",
-    "docs/presentations/navigation-flow/index.html",
-    "docs/presentations/navigation-flow/megamenu.html",
-    "docs/presentations/navigation-flow/owner-support.html",
-    "docs/presentations/navigation-flow/sitemap-flow.html",
-    "docs/presentations/navigation-flow/sitemap.html",
-    "docs/presentations/navigation-flow/styles.css",
-    "docs/presentations/website-update-notes.md",
-    "docs/RECOVERY.md",
-    "docs/specs/about.md",
-    "docs/specs/backend.md",
-    "docs/specs/content.md",
-    "docs/specs/database.md",
-    "docs/specs/db.md",
-    "docs/specs/docs.md",
-    "docs/specs/finance-center.md",
-    "docs/specs/frontend.md",
-    "docs/specs/learning-center.md",
     "docs/specs/machines.md",
-    "docs/specs/nav.md",
-    "docs/specs/navigation.md",
-    "docs/specs/pricing.md",
     "docs/specs/project-context.md",
-    "docs/specs/readiness-quiz-spec.md",
-    "docs/specs/release.md",
-    "docs/specs/search.md",
-    "docs/specs/seo.md",
-    "docs/specs/templates.md",
-    "docs/specs/trailer.md",
-    "docs/specs/woo.md",
-    "docs/superpowers/specs/data-normalization-backlog.md",
-    "docs/superpowers/specs/db-persistence-strategy.md",
-    "docs/superpowers/specs/reporting-connectors.md",
-    "plans/001-php-lint-ci-baseline.md",
-    "plans/002-machine-schema-hardening.md",
-    "plans/003-seo-fallback-robots-canonicals.md",
-    "plans/004-collapse-per-render-product-lookups.md",
-    "plans/005-trim-font-subsets.md",
-    "plans/006-a11y-commitments.md",
-    "plans/007-js-conversion-robustness.md",
-    "plans/008-repo-hygiene.md",
-    "plans/009-remove-placeholder-schema-db.md",
-    "plans/010-purge-placeholder-schema-cache.md",
-    "plans/011-machine-cross-sell.md",
-    "plans/012-scoped-catalog-branch-fix.md",
-    "plans/013-lc-type-options-manuals-profiles.md",
-    "plans/014-filter-drawer-checked-sync.md",
-    "plans/015-render-filter-counts.md",
+    "KINSTA_DEPLOYMENT_RESEARCH.md",
+    "plans/001-homepage-yoast-head-meta.md",
+    "plans/002-front-page-image-alts.md",
+    "plans/003-demote-nav-headings.md",
+    "plans/004-homepage-faq-section.md",
+    "plans/005-homepage-itemlist-schema.md",
+    "plans/006-category-landing-page-h1-hardening.md",
+    "plans/007-verify-and-monitor-category-consolidation.md",
     "plans/README.md",
     "PRODUCT.md",
     "README.md",
     "scripts/content/README.md",
-    "scripts/db/README.md",
-    "TODO.md"
+    "scripts/db/README.md"
   ],
   "configs": [
     ".github/workflows/ci.yml",
+    ".github/workflows/deploy-kinsta-staging.yml",
     "app/inc/learning-center/config.php",
     "app/resources/css/woo/configurator-cta.css",
     "vite.config.js"
