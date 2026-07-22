@@ -42,6 +42,10 @@ export function initHeroSlider(options = {}) {
   const realCount = slides.length;
   const firstClone = slides[0].cloneNode(true);
   firstClone.setAttribute('aria-hidden', 'true');
+  // The clone is purely visual (wrap-around glide): strip the duplicated
+  // id and keep its CTA link permanently out of the tab order.
+  firstClone.removeAttribute('id');
+  firstClone.setAttribute('inert', '');
   firstClone.dataset.cloneOf = '0';
   track.appendChild(firstClone);
   let currentIndex = 0;
@@ -83,6 +87,9 @@ export function initHeroSlider(options = {}) {
 
     currentIndex = isCloneTarget ? realCount : realIndex;
     hydrateSlide(slides[realIndex]);
+    // Keep one slide pre-hydrated ahead so autoplay/next never shows a
+    // still-loading image, without fetching the whole deck up front.
+    hydrateSlide(slides[(realIndex + 1) % realCount]);
 
     track.style.transform = `translateX(-${currentIndex * 100}%)`;
     segments.forEach((segment, i) => {
@@ -91,7 +98,11 @@ export function initHeroSlider(options = {}) {
       segment.setAttribute('aria-selected', String(isActive));
     });
     slides.forEach((slide, i) => {
-      slide.setAttribute('aria-hidden', String(i !== realIndex));
+      const isHidden = i !== realIndex;
+      slide.setAttribute('aria-hidden', String(isHidden));
+      // Hidden slides contain a focusable CTA link; inert keeps keyboard
+      // focus from landing on off-screen content (WCAG 2.4.3 / 4.1.2).
+      slide.toggleAttribute('inert', isHidden);
     });
     syncVideoPlayback();
   }
@@ -232,9 +243,12 @@ export function initHeroSlider(options = {}) {
     slider.setAttribute('aria-label', 'Featured machines');
 
     slides.forEach((slide, i) => {
-      slide.setAttribute('role', 'group');
+      // Tabbed-carousel pattern (APG): the pagination dots are tabs, so
+      // each slide is the tabpanel its dot's aria-controls points at.
+      slide.setAttribute('role', 'tabpanel');
       slide.setAttribute('aria-label', `Slide ${i + 1} of ${slides.length}`);
       slide.setAttribute('aria-hidden', String(i !== 0));
+      slide.toggleAttribute('inert', i !== 0);
     });
 
     segments.forEach((segment, i) => {
@@ -245,61 +259,45 @@ export function initHeroSlider(options = {}) {
   }
 
   /**
-   * Hydrate a single deferred slide's media (image + optional video).
-   * Media gets injected INSIDE the slide's photo region (which also
-   * holds the overlay + content stack), not into the slide root —
-   * the slide root now contains photo + spec band as siblings.
+   * Hydrate a single deferred slide's media. The server renders the full
+   * responsive markup (srcset/sizes via responsive_image) into an inert
+   * <template> per slide; hydration just moves it into the photo region,
+   * below the overlay. Nothing downloads until the template is unpacked.
    *
-   * No-op if the slide was already hydrated (data attrs are deleted
-   * on first hydration). Safe to call multiple times.
+   * No-op if the slide was already hydrated (the template is removed on
+   * first hydration). Safe to call multiple times.
    */
   function hydrateSlide(slide) {
-    if (!slide || !slide.dataset.imageUrl) return;
+    if (!slide) return;
+
+    const template = slide.querySelector('template.hero-slide__media-template');
+    if (!template) return;
 
     const photo = slide.querySelector('.hero__photo');
-    if (!photo) return;
-
-    const imageUrl = slide.dataset.imageUrl;
-    const imageAlt = slide.dataset.imageAlt || '';
-    const videoUrl = slide.dataset.videoUrl;
-
-    if (videoUrl) {
-      const video = document.createElement('video');
-      video.className = 'hero__media hero__media--video';
-      video.autoplay = true;
-      video.muted = true;
-      video.loop = true;
-      video.playsInline = true;
-      if (imageUrl) video.poster = imageUrl;
-      const source = document.createElement('source');
-      source.src = videoUrl;
-      source.type = 'video/mp4';
-      video.appendChild(source);
-      photo.insertBefore(video, photo.firstChild);
+    if (!photo) {
+      template.remove();
+      return;
     }
 
-    if (imageUrl) {
-      const img = document.createElement('img');
-      img.className = 'hero__media';
-      img.src = imageUrl;
-      img.alt = imageAlt;
-      img.loading = 'lazy';
-      img.decoding = 'async';
-      const overlay = photo.querySelector('.hero-overlay');
-      photo.insertBefore(img, overlay || photo.firstChild);
-    }
+    const media = document.importNode(template.content, true);
+    const overlay = photo.querySelector('.hero-overlay');
+    photo.insertBefore(media, overlay || photo.firstChild);
+    template.remove();
 
-    delete slide.dataset.imageUrl;
-    delete slide.dataset.imageAlt;
-    delete slide.dataset.videoUrl;
+    // Parsed `muted` markup doesn't reliably set the IDL property; enforce
+    // it so autoplay isn't blocked, then let syncVideoPlayback() drive play.
+    const video = photo.querySelector('video');
+    if (video) video.muted = true;
   }
 
   /**
-   * Hydrate all remaining deferred slides. Called from requestIdleCallback
-   * as a safety net; goToSlide eager-hydrates on user interaction.
+   * Idle safety net: pre-hydrate only the slide after the current one.
+   * goToSlide keeps one slide ahead hydrated from then on, so the deck
+   * loads as it's watched instead of all at once on page load.
    */
   function hydrateDeferredSlides() {
-    slides.forEach(hydrateSlide);
+    if (realCount < 2) return;
+    hydrateSlide(slides[(currentIndex + 1) % realCount]);
   }
 
   /**

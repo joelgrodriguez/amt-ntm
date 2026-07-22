@@ -86,6 +86,7 @@ $total_slides = count($slides);
                     class="hero-slider__segment <?php echo $i === 0 ? 'hero-slider__segment--active' : ''; ?>"
                     aria-label="<?php echo esc_attr(sprintf($content['go_to_slide'], $i + 1)); ?>"
                     aria-selected="<?php echo $i === 0 ? 'true' : 'false'; ?>"
+                    aria-controls="hero-slide-<?php echo esc_attr((string) $i); ?>"
                     role="tab"
                     data-slide="<?php echo esc_attr((string) $i); ?>"
                 ></button>
