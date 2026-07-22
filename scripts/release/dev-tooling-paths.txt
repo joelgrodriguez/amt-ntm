@@ -18,6 +18,7 @@ CLAUDE.md
 # Planning / design / internal docs
 DESIGN.md
 PRODUCT.md
+CONTEXT.md
 TODO.md
 docs
 plans

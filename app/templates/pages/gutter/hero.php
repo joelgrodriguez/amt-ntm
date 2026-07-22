@@ -18,6 +18,7 @@ if (!defined('ABSPATH')) {
 get_template_part('templates/parts/hero-category', null, [
     'section_id' => 'gutter-hero',
     'content'    => [
+        'h1'                => __('Seamless Gutter Machines', 'standard'),
         'kicker'            => __('SEAMLESS GUTTER MACHINES', 'standard'),
         'title'             => __('Seamless Gutters. Fabricated On-Site. Ready for Install.', 'standard'),
         'subtitle'          => __('Portable gutter machines that produce seamless K-style and box gutters right on the jobsite, from raw coil to finished product.', 'standard'),

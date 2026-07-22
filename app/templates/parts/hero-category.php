@@ -70,14 +70,12 @@ if ($pattern) {
 ?>
 <section id="<?php echo esc_attr($section_id); ?>" class="<?php echo esc_attr($section_classes); ?>" aria-labelledby="<?php echo esc_attr($section_id); ?>-title">
     <?php
-    // Screen-reader-only H1 carrying the WP page title (e.g. "Roof and
-    // Wall Panel Machines"). Mirrors the old theme's pattern and gives
-    // search engines the direct category keyword as the page's primary
-    // heading; the visible marketing headline below is an H2.
-    $page_title = function_exists('get_the_title') ? get_the_title() : '';
-    if ($page_title !== '') :
+    // Screen-reader-only H1 carrying an explicit title when provided, or the
+    // WP page title by default. The visible marketing headline below is an H2.
+    $h1 = $content['h1'] ?? (function_exists('get_the_title') ? get_the_title() : '');
+    if ($h1 !== '') :
     ?>
-        <h1 class="sr-only"><?php echo esc_html($page_title); ?></h1>
+        <h1 class="sr-only"><?php echo esc_html($h1); ?></h1>
     <?php endif; ?>
 
     <div class="container py-16 lg:py-20 xl:py-24">
