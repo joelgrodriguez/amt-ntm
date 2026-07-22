@@ -13,11 +13,14 @@
  *   - [data-quiz-questions]              — question screen (rendered into here)
  *   - [data-quiz-progress]               — progress bar fill element (width set)
  *   - [data-quiz-progress-label]         — "Question X of Y" text
+ *   - [data-quiz-card]                   — intro/questions/results shell; hidden
+ *                                          while the lead form gate is showing
+ *                                          so an empty card does not flash
  *   - [data-quiz-results]                — results screen (rendered into here
  *                                          only after the lead form is submitted)
  *   - [data-quiz-lead]                   — lead-capture gate wrapping the
- *                                          HubSpot form (shown after questions;
- *                                          results unlock on form submit)
+ *                                          HubSpot form (primary panel after
+ *                                          questions; results unlock on submit)
  *   - [data-quiz-restart]                — button that resets to intro
  *
  * The questions, scoring, and recommendation tree live in this module as data
@@ -386,6 +389,7 @@ export function initReadinessQuiz() {
   if (!root) return () => {};
 
   const intro = root.querySelector('[data-quiz-intro]');
+  const quizCard = root.querySelector('[data-quiz-card]');
   const questionsScreen = root.querySelector('[data-quiz-questions]');
   const resultsScreen = root.querySelector('[data-quiz-results]');
   const leadScreen = root.querySelector('[data-quiz-lead]');
@@ -394,6 +398,9 @@ export function initReadinessQuiz() {
   const progressPct = root.querySelector('[data-quiz-progress-pct]');
   const backBtn = root.querySelector('[data-quiz-back]');
   const recCards = root.querySelector('[data-quiz-rec-cards]');
+  const leadEyebrow = root.querySelector('[data-quiz-lead-eyebrow]');
+  const leadTitle = root.querySelector('[data-quiz-lead-title]');
+  const leadDesc = root.querySelector('[data-quiz-lead-desc]');
 
   if (!questionsScreen || !resultsScreen) return () => {};
 
@@ -408,8 +415,28 @@ export function initReadinessQuiz() {
   /** @type {{score:number, band:object, machine:object}|null} */
   let pendingResult = null;
 
+  const LEAD_COPY = {
+    gated: {
+      eyebrow: 'Assessment complete',
+      title: 'Unlock your readiness results',
+      desc: 'Your score and machine recommendation are ready. Share your details to unlock them — an NTM specialist can also follow up with pricing, availability, and next steps.',
+    },
+    unlocked: {
+      eyebrow: 'Thanks for sharing',
+      title: 'Talk to a specialist about your recommendation',
+      desc: 'Your results are above — an NTM specialist can follow up with pricing, availability, and next steps.',
+    },
+  };
+
   const show = (el) => el && el.removeAttribute('hidden');
   const hide = (el) => el && el.setAttribute('hidden', '');
+
+  function setLeadCopy(mode) {
+    const copy = LEAD_COPY[mode] ?? LEAD_COPY.gated;
+    if (leadEyebrow) leadEyebrow.textContent = copy.eyebrow;
+    if (leadTitle) leadTitle.textContent = copy.title;
+    if (leadDesc) leadDesc.textContent = copy.desc;
+  }
 
   function markCompleteProgress() {
     if (progressFill) progressFill.style.width = '100%';
@@ -485,8 +512,10 @@ export function initReadinessQuiz() {
       return;
     }
 
-    // Gate: form first, results only after HubSpot submit.
+    // Gate: hide the empty quiz card so only the lead form is primary.
     hide(resultsScreen);
+    hide(quizCard);
+    setLeadCopy('gated');
     show(leadScreen);
     leadScreen?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
@@ -520,18 +549,12 @@ export function initReadinessQuiz() {
         <div class="quiz-recommendation__card" data-quiz-rec-slot></div>
       </div>
     `;
+
+    // Bring the card back with results; keep lead (thank-you) below.
+    show(quizCard);
     show(resultsScreen);
-    // Keep the lead panel (HubSpot thank-you / form) visible after unlock.
+    setLeadCopy('unlocked');
     show(leadScreen);
-    const leadTitle = leadScreen?.querySelector('.quiz-lead__title');
-    const leadDesc = leadScreen?.querySelector('.quiz-lead__desc');
-    if (leadTitle) {
-      leadTitle.textContent = 'Talk to a specialist about your recommendation';
-    }
-    if (leadDesc) {
-      leadDesc.textContent =
-        'Thanks for sharing your details. Your results are above — an NTM specialist can follow up with pricing, availability, and next steps.';
-    }
 
     const gauge = resultsScreen.querySelector('[data-quiz-gauge]');
     if (gauge) drawGauge(gauge, display, 100);
@@ -553,7 +576,7 @@ export function initReadinessQuiz() {
       }
     }
 
-    resultsScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    quizCard?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   // Unlock results when the quiz lead form is submitted successfully.
@@ -613,6 +636,8 @@ export function initReadinessQuiz() {
         resultsScreen.innerHTML = '';
         hide(resultsScreen);
         hide(leadScreen);
+        setLeadCopy('gated');
+        show(quizCard);
         if (backBtn) backBtn.setAttribute('hidden', '');
         if (progressFill) progressFill.style.width = '0%';
         if (progressLabel) progressLabel.textContent = 'Question 1';
