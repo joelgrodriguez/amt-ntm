@@ -19,8 +19,8 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'eyebrow' => __('Already Own an NTM Machine?', 'standard'),
-    'title'   => __('Get the answers. Keep the work moving.', 'standard'),
+    'eyebrow' => __('Already Using an NTM Machine?', 'standard'),
+    'title'   => __('Machine Resources.', 'standard'),
     'body'    => __('Go straight to service support, manuals, panel profile details, and UL test documents.', 'standard'),
 ];
 
