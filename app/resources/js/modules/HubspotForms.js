@@ -45,6 +45,20 @@ function clearPlaceholder(target) {
   target.querySelector('[data-hubspot-placeholder]')?.remove();
 }
 
+/**
+ * Mount a single HubSpot form target (idempotent).
+ * Exported so gated UIs can force-load a form that is still off-screen.
+ *
+ * @param {HTMLElement} target
+ * @returns {Promise<boolean>}
+ */
+export async function ensureHubspotForm(target) {
+  if (!(target instanceof HTMLElement)) {
+    return false;
+  }
+  return mountForm(target);
+}
+
 async function mountForm(target) {
   if (target.dataset.hubspotLoaded === 'true') {
     return true;
@@ -70,7 +84,17 @@ async function mountForm(target) {
       portalId,
       formId,
       target: `#${target.id}`,
-      // Let page modules (e.g. readiness quiz) unlock content after submit.
+      // Let page modules (e.g. readiness quiz) swap loaders once fields paint.
+      onFormReady: () => {
+        target.dataset.hubspotReady = 'true';
+        target.dispatchEvent(
+          new CustomEvent('hubspot:formReady', {
+            bubbles: true,
+            detail: { formId, portalId },
+          })
+        );
+      },
+      // Let page modules unlock content after a successful submit.
       onFormSubmitted: () => {
         target.dispatchEvent(
           new CustomEvent('hubspot:formSubmitted', {
@@ -83,7 +107,14 @@ async function mountForm(target) {
     return true;
   } catch (_error) {
     target.dataset.hubspotLoaded = 'false';
+    target.dataset.hubspotReady = 'false';
     target.innerHTML = '<p class="text-sm text-blue-600">Form unavailable. Call New Tech Machinery directly.</p>';
+    target.dispatchEvent(
+      new CustomEvent('hubspot:formReady', {
+        bubbles: true,
+        detail: { formId, portalId, error: true },
+      })
+    );
     return false;
   }
 }
