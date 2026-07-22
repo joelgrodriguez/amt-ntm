@@ -48,7 +48,7 @@ $resources = [
 ];
 ?>
 
-<section class="section bg-white border-y border-blue-200" aria-labelledby="owner-resources-title">
+<section class="section bg-blue-50 border-y border-blue-200" aria-labelledby="owner-resources-title">
     <div class="container grid gap-12 lg:gap-16">
 
         <?php get_template_part('templates/parts/section-header', null, [
@@ -64,7 +64,7 @@ $resources = [
             <?php foreach ($resources as $resource) : ?>
             <a
                 href="<?php echo esc_url(\Standard\Url\internal($resource['url'])); ?>"
-                class="group flex min-h-[9rem] flex-col justify-between bg-blue-50 p-5 no-underline transition-colors duration-200 hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px] sm:p-6"
+                class="group flex min-h-[9rem] flex-col justify-between bg-white p-5 no-underline transition-colors duration-200 hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-blue-500 focus-visible:outline-offset-[-2px] sm:p-6"
                 >
                     <h3 class="font-mono text-sm font-medium uppercase tracking-wider text-blue-700 transition-colors duration-200 group-hover:text-blue-50 md:text-base">
                         <?php echo esc_html($resource['title']); ?>

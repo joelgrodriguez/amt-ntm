@@ -67,7 +67,7 @@ get_header();
           // then makes the profit/control case. Same story, no repeated copy. ?>
     <?php get_template_part('templates/parts/portability-dna', null, [
         'section_id' => 'home-portability-dna',
-        'background' => 'bg-white',
+        'background' => 'bg-blue-50',
     ]); ?>
     <?php get_template_part('templates/parts/front-page/why-own'); ?>
     <?php get_template_part('templates/parts/front-page/flagships'); ?>

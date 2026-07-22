@@ -59,7 +59,7 @@ $flagships = [
 $rendered_count = 0;
 ?>
 
-<section class="bg-white border-t border-blue-200" aria-labelledby="flagships-title">
+<section class="bg-blue-900 text-white border-y border-blue-700" aria-labelledby="flagships-title">
     <h2 id="flagships-title" class="sr-only">
         <?php esc_html_e('Our flagship machines', 'standard'); ?>
     </h2>
@@ -88,7 +88,7 @@ $rendered_count = 0;
         $rendered_count++;
         $is_first = $rendered_count === 1;
     ?>
-    <div class="<?php echo $is_first ? '' : 'border-t border-blue-200'; ?>">
+    <div class="<?php echo $is_first ? '' : 'border-t border-blue-700'; ?>">
         <div class="container">
             <div class="grid gap-10 py-16 lg:grid-cols-2 lg:gap-16 lg:py-24 lg:items-center">
 
@@ -117,7 +117,7 @@ $rendered_count = 0;
 
                     <!-- Spec strip: 3 mono spec cells under the image, hairline dividers -->
                     <?php if (!empty($stats)) : ?>
-                        <dl class="grid grid-cols-3 border-y border-blue-200" aria-label="<?php echo esc_attr(sprintf(__('%s key specs', 'standard'), $flagship['model_label'])); ?>">
+                        <dl class="grid grid-cols-3 border-y border-blue-700" aria-label="<?php echo esc_attr(sprintf(__('%s key specs', 'standard'), $flagship['model_label'])); ?>">
                             <?php foreach ($stats as $j => $stat) : ?>
                                 <?php
                                 // Front-page voice prefers terse single-word labels in
@@ -125,11 +125,11 @@ $rendered_count = 0;
                                 // longer "Tooling Changeover" for the SSQ3 detail page.
                                 $stat_label = preg_replace('/^Tooling\s+/i', '', $stat['label']);
                                 ?>
-                                <div class="py-3 px-3 <?php echo $j > 0 ? 'border-l border-blue-200' : ''; ?> <?php echo $j === 0 ? 'pl-0' : ''; ?>">
-                                    <dt class="font-mono uppercase tracking-wider text-[10px] text-blue-400 mb-1">
+                                <div class="py-3 px-3 <?php echo $j > 0 ? 'border-l border-blue-700' : ''; ?> <?php echo $j === 0 ? 'pl-0' : ''; ?>">
+                                    <dt class="font-mono uppercase tracking-wider text-[10px] text-blue-300 mb-1">
                                         <?php echo esc_html($stat_label); ?>
                                     </dt>
-                                    <dd class="font-mono font-medium text-blue-900 text-sm lg:text-base">
+                                    <dd class="font-mono font-medium text-white text-sm lg:text-base">
                                         <?php echo esc_html($stat['value']); ?>
                                     </dd>
                                 </div>
@@ -144,14 +144,14 @@ $rendered_count = 0;
                     <!-- Eyebrow: red dot + category. (Badge moved onto the image.) -->
                     <div class="flex items-center gap-3 flex-wrap">
                         <span class="w-2 h-2 bg-red shrink-0" aria-hidden="true"></span>
-                        <p class="font-mono uppercase tracking-wider text-xs text-blue-700">
+                        <p class="font-mono uppercase tracking-wider text-xs text-blue-300">
                             <?php echo esc_html($category); ?>
                         </p>
                     </div>
 
                     <!-- Headline. Allow <br> with class attr so the data
                          layer can insert responsive line breaks. -->
-                    <h3 class="font-sans font-medium text-blue-900 tracking-tight leading-tight text-3xl md:text-4xl lg:text-5xl">
+                    <h3 class="font-sans font-medium text-white tracking-tight leading-tight text-3xl md:text-4xl lg:text-5xl">
                         <?php echo wp_kses($headline, ['br' => ['class' => []]]); ?>
                     </h3>
 
@@ -159,7 +159,7 @@ $rendered_count = 0;
                         <!-- Subhead: bolded one-liner that names the model
                              explicitly, so the short marketing headline above
                              still carries the SSQ3 keyword for crawlers. -->
-                        <p class="font-sans font-medium text-blue-900 text-lg lg:text-xl max-w-xl leading-snug">
+                        <p class="font-sans font-medium text-blue-100 text-lg lg:text-xl max-w-xl leading-snug">
                             <?php echo esc_html($subhead); ?>
                         </p>
                     <?php endif; ?>
@@ -171,14 +171,14 @@ $rendered_count = 0;
                              prose when the data layer sets `bullets`. -->
                         <ul class="grid gap-3 max-w-xl" role="list">
                             <?php foreach ($bullets as $bullet) : ?>
-                                <li class="flex items-start gap-3 font-sans text-blue-600 text-base lg:text-lg leading-relaxed">
+                                <li class="flex items-start gap-3 font-sans text-blue-200 text-base lg:text-lg leading-relaxed">
                                     <span class="text-blue-400 shrink-0 leading-relaxed" aria-hidden="true">&bull;</span>
                                     <span><?php echo esc_html($bullet); ?></span>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
                     <?php elseif ($lede) : ?>
-                        <p class="font-sans text-blue-600 text-base lg:text-lg max-w-xl leading-relaxed">
+                        <p class="font-sans text-blue-200 text-base lg:text-lg max-w-xl leading-relaxed">
                             <?php echo esc_html($lede); ?>
                         </p>
                     <?php endif; ?>

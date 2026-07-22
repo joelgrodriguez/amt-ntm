@@ -53,7 +53,7 @@ if (!$query->have_posts()) {
 }
 ?>
 
-<section class="section pattern-dot-grid" aria-labelledby="learning-center-title">
+<section class="section bg-white pattern-dot-grid" aria-labelledby="learning-center-title">
     <div class="container section-content">
 
         <?php // Header left, "view all" link bottom-right on the opposite side.
