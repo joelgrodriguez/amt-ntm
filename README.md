@@ -78,4 +78,21 @@ wipes every local DB change. Capture DB-side changes as replayable scripts in
 release:master` publishes `master` with dev-only tooling stripped (the strip
 list lives in `scripts/release/dev-tooling-paths.txt`). Set
 `RELEASE_TARGET_BASE_URL` to the Kinsta staging base URL; the release gate
-requires a prior DevKinsta Files + Database push so required uploads are present.
+normally requires required uploads to be present before pushing `master`.
+
+## Kinsta Deployment
+
+A push to `master` runs `.github/workflows/deploy-kinsta-staging.yml`. GitHub
+Actions builds the ignored `app/dist/` assets, packages only `app/`, uploads the
+artifact over SFTP, switches the nested theme on the Kinsta `theme-update`
+staging environment, purges Kinsta caches, and smoke-tests the staging URL.
+
+The workflow intentionally does not deploy WordPress core, plugins, uploads, or
+the database. Its Kinsta connection values and dedicated SSH key are stored in
+the GitHub `staging` environment. The previous theme release remains on Kinsta
+as `wp-content/themes/amt-ntm/.app-previous` for a quick SSH rollback.
+
+After staging verification, promote only `wp-content/themes/amt-ntm` through
+MyKinsta's selective staging-to-live push. Review the environment-setting caveat
+in `KINSTA_DEPLOYMENT_RESEARCH.md` before promotion: Kinsta includes several
+environment settings even in a files-only selective push.

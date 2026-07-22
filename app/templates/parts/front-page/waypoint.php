@@ -44,10 +44,10 @@ $paths = [
 ];
 ?>
 
-<section class="bg-blue-900 text-white border-y border-blue-700" aria-labelledby="home-waypoint-title">
+<section class="bg-blue-900 text-white border-y border-blue-700 lg:hidden" aria-labelledby="home-waypoint-title">
     <div class="container py-8 md:py-10">
-        <div class="grid gap-5 md:grid-cols-3 md:items-center md:gap-8 lg:grid-cols-1 lg:items-start">
-            <div class="grid gap-2 md:col-span-1 lg:col-span-full">
+        <div class="grid gap-5 md:grid-cols-3 md:items-center md:gap-8">
+            <div class="grid gap-2 md:col-span-1">
                 <p class="font-mono text-xs font-medium uppercase tracking-widest text-blue-300 m-0">
                     <?php esc_html_e('Next step', 'standard'); ?>
                 </p>
@@ -56,7 +56,7 @@ $paths = [
                 </h2>
             </div>
 
-            <ul class="grid gap-2 sm:grid-cols-2 lg:grid-cols-4 md:col-span-2 lg:col-span-full m-0 p-0 list-none" role="list">
+            <ul class="grid gap-2 sm:grid-cols-2 md:col-span-2 m-0 p-0 list-none" role="list">
                 <?php foreach ($paths as $path) : ?>
                     <li class="grid">
                         <a
@@ -67,10 +67,10 @@ $paths = [
                                 <?php icon($path['icon'], ['class' => 'w-5 h-5']); ?>
                             </span>
                             <span class="grid min-w-0 gap-0.5">
-                                <span class="font-sans text-sm font-medium text-white lg:whitespace-nowrap">
+                                <span class="font-sans text-sm font-medium text-white">
                                     <?php echo esc_html($path['label']); ?>
                                 </span>
-                                <span class="font-sans text-sm text-blue-200 lg:whitespace-nowrap">
+                                <span class="font-sans text-sm text-blue-200">
                                     <?php echo esc_html($path['text']); ?>
                                 </span>
                             </span>

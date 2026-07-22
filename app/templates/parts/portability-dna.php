@@ -4,9 +4,9 @@
  *
  * NTM's on-demand manufacturing story as a reusable strip: a left-aligned
  * header band over a four-up proof grid (Unlimited Length · No Seams · Fewer
- * Leak Points · Controlled Waste). Each point carries a mono index, a mono
- * promise label, a sans title, and one supporting sentence — the engineered
- * spec-sheet voice the machine pages already speak.
+ * Leak Points · Controlled Waste). Each point carries a mono promise label,
+ * a sans title, and one supporting sentence — the engineered spec-sheet
+ * voice the machine pages already speak.
  *
  * This is the contractor-benefit frame of the "portability is our DNA"
  * narrative. The About page tells the same story as origin/belief prose
@@ -68,13 +68,11 @@ $subtitle = $content['subtitle'] ?? __('An NTM machine puts the rollformer on th
             </p>
         </div>
 
-        <ol class="grid gap-px bg-blue-200 border border-blue-200 sm:grid-cols-2 lg:grid-cols-4" role="list">
-            <?php foreach ($pillars as $idx => $pillar) : ?>
+        <?php // ul, not ol: the pillars are parallel proof points, not a
+              // sequence — numbering them was scaffolding, not information. ?>
+        <ul class="grid gap-px bg-blue-200 border border-blue-200 sm:grid-cols-2 lg:grid-cols-4" role="list">
+            <?php foreach ($pillars as $pillar) : ?>
                 <li class="grid content-start gap-3 bg-white p-6 lg:p-7">
-                    <div class="flex items-center gap-3 font-mono text-xs uppercase tracking-wider text-blue-500">
-                        <span><?php echo esc_html(sprintf('%02d', $idx + 1)); ?></span>
-                        <span class="w-8 h-px bg-blue-300" aria-hidden="true"></span>
-                    </div>
                     <p class="font-mono text-[11px] font-medium uppercase tracking-widest text-blue-500">
                         <?php echo esc_html($pillar['label']); ?>
                     </p>
@@ -86,7 +84,7 @@ $subtitle = $content['subtitle'] ?? __('An NTM machine puts the rollformer on th
                     </p>
                 </li>
             <?php endforeach; ?>
-        </ol>
+        </ul>
 
     </div>
 </section>

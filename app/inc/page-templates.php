@@ -17,6 +17,68 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * Reusable page templates editors may assign to ordinary pages.
+ *
+ * Route-specific and internal templates stay discoverable to WordPress for
+ * rendering, but are not part of the editor-facing API.
+ *
+ * @var list<string>
+ */
+const EDITOR_PAGE_TEMPLATE_ALLOWLIST = [
+    'templates/template-full-width.php',
+    'templates/template-prose.php',
+    'templates/template-lead-form.php',
+    'templates/template-hero-video.php',
+];
+
+/**
+ * Limit the Page editor dropdown to reusable templates.
+ *
+ * An existing internal assignment is included only for the page that already
+ * uses it. This keeps REST validation and no-change saves safe without making
+ * every routing template available everywhere.
+ *
+ * @param array<string, string> $templates
+ * @return array<string, string>
+ */
+function filter_editor_page_templates(array $templates, \WP_Theme $theme, ?\WP_Post $post, string $post_type): array
+{
+    if ($post_type !== 'page') {
+        return $templates;
+    }
+
+    $approved = [];
+
+    foreach (EDITOR_PAGE_TEMPLATE_ALLOWLIST as $template) {
+        if (isset($templates[$template])) {
+            $approved[$template] = $templates[$template];
+        }
+    }
+
+    if (!$post instanceof \WP_Post) {
+        return $approved;
+    }
+
+    $current = get_page_template_slug($post);
+
+    if (!is_string($current) || $current === '' || $current === 'default' || isset($approved[$current])) {
+        return $approved;
+    }
+
+    $label = isset($templates[$current])
+        ? $templates[$current]
+        : basename($current, '.php');
+
+    $approved[$current] = sprintf(
+        __('%s (Current internal template)', 'standard'),
+        $label
+    );
+
+    return $approved;
+}
+add_filter('theme_page_templates', __NAMESPACE__ . '\\filter_editor_page_templates', 10, 4);
+
+/**
  * Map old-theme template slugs to the new reusable templates.
  *
  * @return array<string, string>

@@ -42,6 +42,10 @@ if (empty($profiles)) {
     return;
 }
 
+$profile_groups = \Standard\ProfileGroups\partition_machine_profiles($profiles);
+$profiles       = $profile_groups['profiles'];
+$rib_rollers    = $profile_groups['rib_rollers'];
+
 $profile_copy = $machine['profiles'] ?? [];
 $eyebrow      = $profile_copy['eyebrow'] ?? __('Panel Profiles', 'standard');
 $title        = $profile_copy['title'] ?? __('Your Panels, Your Way', 'standard');
@@ -98,6 +102,10 @@ $collapse_label = __('Collapse Profiles', 'standard');
             'carousel_id' => $carousel_id,
             'grid_id'     => $grid_id,
             'show_label'  => $show_all_label,
+        ]); ?>
+
+        <?php get_template_part('templates/parts/machine-rib-rollers', null, [
+            'rib_rollers' => $rib_rollers,
         ]); ?>
 
     </div>

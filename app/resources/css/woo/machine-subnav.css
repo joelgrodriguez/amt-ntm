@@ -17,9 +17,7 @@
 /* Always fixed to the viewport top. Hidden by default (translated
    above its own height) so it never overlaps the hero. Slides down
    when JS adds .is-sticky once the hero exits view, and slides back
-   up when the hero re-enters. ScrollHeader checks the same .is-sticky
-   class to suppress its own scroll-up reveal, so the two bars never
-   stack. */
+   up when the hero re-enters. */
 .machine-subnav {
   position: fixed;
   top: 0;
@@ -35,6 +33,15 @@
 
 .machine-subnav.is-sticky {
   transform: translateY(0);
+}
+
+/* Below the desktop-rail breakpoint the machine nav is another fixed bar.
+   When the global header reveals on scroll-up, move this bar directly below
+   it instead of letting the higher-z-index header cover it. */
+@media (max-width: 63.999rem) {
+  body.header-is-revealed .machine-subnav.is-sticky {
+    transform: translateY(var(--header-height));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

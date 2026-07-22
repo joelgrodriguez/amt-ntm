@@ -39,6 +39,10 @@ if (empty($profile_ids)) {
     return;
 }
 
+$profile_groups = \Standard\ProfileGroups\partition_machine_profiles($profile_ids);
+$profile_ids    = $profile_groups['profiles'];
+$rib_rollers    = $profile_groups['rib_rollers'];
+
 $profile_count  = count($profile_ids);
 $carousel_id    = 'default-profiles-' . $product->get_id();
 $grid_id        = $carousel_id . '-grid';
@@ -85,6 +89,10 @@ $collapse_label = __('Collapse Profiles', 'standard');
             'carousel_id' => $carousel_id,
             'grid_id'     => $grid_id,
             'show_label'  => $show_all_label,
+        ]); ?>
+
+        <?php get_template_part('templates/parts/machine-rib-rollers', null, [
+            'rib_rollers' => $rib_rollers,
         ]); ?>
 
     </div>

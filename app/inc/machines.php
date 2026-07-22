@@ -59,6 +59,7 @@ function get_hero_slides(): array {
             // Slider-only image. Keeps data/machines/ssq3-multipro.php's
             // hero.hero_image free to drive the single-machine page.
             'background_image' => content_url('/uploads/2026/06/ssq3-machine-rear-panel-exit.jpg'),
+            'image_alt'        => __('NTM SSQ3 MultiPro portable rollforming machine forming a standing seam metal roof panel', 'standard'),
             // Image bias: anchor to the top edge when cover-cropped.
             'focal_point'      => 'center top',
             'cta_url'          => '/roof-wall-panel-machines/',
@@ -69,6 +70,7 @@ function get_hero_slides(): array {
         'mach-ii-combo-gutter' => [
             'title'     => __('Do More<br class="hidden lg:inline"> in Less Time', 'standard'),
             'slogan'    => __('Run 5- and 6-inch K-style seamless gutters on every job, single setup, no machine swap. NTM portable gutter machines keep the full ticket in-house.', 'standard'),
+            'image_alt' => __('Contractor running seamless gutter from an NTM MACH II portable gutter machine on a job site', 'standard'),
             'cta_url'   => '/seamless-gutter-machines/',
             'cta_label' => __('Explore Gutter Machines', 'standard'),
             // Slider-only: no video on the homepage hero. The machine's
@@ -90,6 +92,7 @@ function get_hero_slides(): array {
             'title'            => $meta['title'],
             'slogan'           => $meta['slogan'],
             'background_image' => \Standard\Url\canonical($meta['background_image'] ?? $data['hero']['hero_image'] ?? $data['hero']['image'] ?? ''),
+            'image_alt'        => $meta['image_alt'] ?? '',
             'background_video' => $meta['background_video'] ?? $data['hero']['video'] ?? '',
             'learn_more_url'   => $meta['cta_url'],
             'cta_label'        => $meta['cta_label'],
@@ -105,6 +108,7 @@ function get_hero_slides(): array {
         'title'            => __('Expand Your Capabilities', 'standard'),
         'slogan'           => __('Extend what your NTM machine already does. Trailers, decoilers, control upgrades, and tooling that add profiles, capacity, and faster job turnaround.', 'standard'),
         'background_image' => \Standard\Url\canonical('https://newtechmachinery.com/wp-content/uploads/2026/04/Jim-adjusting-his-machine-scaled.jpg'),
+        'image_alt'        => __('NTM owner adjusting his portable rollforming machine', 'standard'),
         'background_video' => '',
         'learn_more_url'   => '/machines/upgrades/',
         'cta_label'        => __('Explore Accessories', 'standard'),

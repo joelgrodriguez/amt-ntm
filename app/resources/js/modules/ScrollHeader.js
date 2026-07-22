@@ -48,19 +48,6 @@ export function init() {
   }
 
   /**
-   * On machine product pages a sub-nav sticks to the top of the viewport
-   * once the user scrolls past the hero. While it's stuck, the global
-   * scroll-up reveal would stack a second bar over it — double chrome.
-   * Suppress the reveal in that case; the subnav already gives the user
-   * contextual navigation.
-   * @returns {boolean}
-   */
-  function subnavIsSticky() {
-    const subnav = document.getElementById('machine-subnav');
-    return subnav !== null && subnav.classList.contains('is-sticky');
-  }
-
-  /**
    * Header should not auto-hide while the user is actively using it.
    * @returns {boolean}
    */
@@ -86,6 +73,7 @@ export function init() {
   function hideHeader() {
     clearAutoHideTimer();
     header.classList.add('header--sticky', 'header--hidden');
+    document.body.classList.remove('header-is-revealed');
   }
 
   /**
@@ -94,6 +82,7 @@ export function init() {
   function resetHeader() {
     clearAutoHideTimer();
     header.classList.remove('header--hidden', 'header--sticky');
+    document.body.classList.remove('header-is-revealed');
   }
 
   /**
@@ -102,18 +91,13 @@ export function init() {
   function revealStickyHeader() {
     header.classList.add('header--sticky');
     header.classList.remove('header--hidden');
+    document.body.classList.add('header-is-revealed');
   }
 
   /**
    * Show the sticky header and queue its idle auto-hide.
-   * No-ops when a machine sub-nav is currently sticky so the two bars
-   * don't stack.
    */
   function showStickyHeader() {
-    if (subnavIsSticky()) {
-      return;
-    }
-
     revealStickyHeader();
     scheduleAutoHide();
   }

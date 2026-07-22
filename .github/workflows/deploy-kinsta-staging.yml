@@ -1,0 +1,175 @@
+name: Deploy theme to Kinsta staging
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kinsta-staging
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: staging
+      url: ${{ vars.KINSTA_SITE_URL }}
+    env:
+      KINSTA_HOST: ${{ vars.KINSTA_HOST }}
+      KINSTA_PORT: ${{ vars.KINSTA_PORT }}
+      KINSTA_PUBLIC_PATH: ${{ vars.KINSTA_PUBLIC_PATH }}
+      KINSTA_USERNAME: ${{ vars.KINSTA_USERNAME }}
+
+    steps:
+      - name: Check out master
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate PHP
+        run: npm run lint:php
+
+      - name: Build production assets
+        run: npm run build
+
+      - name: Verify theme package
+        run: |
+          set -euo pipefail
+          test -f app/style.css
+          test -f app/functions.php
+          test -f app/dist/.vite/manifest.json
+          test ! -e app/.vite-dev-server
+
+      - name: Package theme
+        run: |
+          set -euo pipefail
+          tar \
+            --exclude='.vite-dev-server' \
+            -C app \
+            -czf "$RUNNER_TEMP/amt-ntm-${GITHUB_SHA}.tar.gz" \
+            .
+
+      - name: Configure SSH
+        env:
+          KINSTA_KNOWN_HOSTS: ${{ secrets.KINSTA_KNOWN_HOSTS }}
+          KINSTA_SSH_KEY: ${{ secrets.KINSTA_SSH_KEY }}
+        run: |
+          set -euo pipefail
+          install -d -m 700 "$HOME/.ssh"
+          printf '%s\n' "$KINSTA_SSH_KEY" > "$HOME/.ssh/kinsta_deploy"
+          printf '%s\n' "$KINSTA_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/kinsta_deploy" "$HOME/.ssh/known_hosts"
+
+      - name: Verify Kinsta target
+        run: |
+          set -euo pipefail
+          ssh \
+            -i "$HOME/.ssh/kinsta_deploy" \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
+            -p "$KINSTA_PORT" \
+            "$KINSTA_USERNAME@$KINSTA_HOST" \
+            "test -d '$KINSTA_PUBLIC_PATH/wp-content/themes/amt-ntm/app'"
+
+      - name: Upload release
+        run: |
+          set -euo pipefail
+          printf 'put %s %s\n' \
+            "$RUNNER_TEMP/amt-ntm-${GITHUB_SHA}.tar.gz" \
+            ".amt-ntm-${GITHUB_SHA}.tar.gz" \
+            | sftp \
+                -b - \
+                -i "$HOME/.ssh/kinsta_deploy" \
+                -o BatchMode=yes \
+                -o IdentitiesOnly=yes \
+                -P "$KINSTA_PORT" \
+                "$KINSTA_USERNAME@$KINSTA_HOST"
+
+      - name: Activate release and clear caches
+        run: |
+          set -euo pipefail
+          ssh \
+            -i "$HOME/.ssh/kinsta_deploy" \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
+            -p "$KINSTA_PORT" \
+            "$KINSTA_USERNAME@$KINSTA_HOST" \
+            bash -s -- \
+              "$KINSTA_PUBLIC_PATH" \
+              "$GITHUB_SHA" \
+              ".amt-ntm-${GITHUB_SHA}.tar.gz" <<'REMOTE'
+          set -euo pipefail
+
+          public_path="$1"
+          release_sha="$2"
+          archive="$HOME/$3"
+          theme_root="$public_path/wp-content/themes/amt-ntm"
+          current="$theme_root/app"
+          incoming="$theme_root/.app-incoming-$release_sha"
+          previous="$theme_root/.app-previous"
+
+          cleanup() {
+            rm -rf "$incoming"
+            rm -f "$archive"
+          }
+          trap cleanup EXIT
+
+          test -d "$theme_root"
+          test -d "$current"
+          test -f "$archive"
+
+          rm -rf "$incoming" "$previous"
+          mkdir -p "$incoming"
+          tar -xzf "$archive" -C "$incoming"
+
+          test -f "$incoming/style.css"
+          test -f "$incoming/functions.php"
+          test -f "$incoming/dist/.vite/manifest.json"
+          test ! -e "$incoming/.vite-dev-server"
+          printf '%s\n' "$release_sha" > "$incoming/.deploy-sha"
+
+          mv "$current" "$previous"
+          if ! mv "$incoming" "$current"; then
+            mv "$previous" "$current"
+            exit 1
+          fi
+
+          cd "$public_path"
+          if ! wp eval 'echo get_stylesheet(), PHP_EOL;' | grep -qx 'amt-ntm/app'; then
+            rm -rf "$current"
+            mv "$previous" "$current"
+            echo 'The deployed theme failed its WordPress boot check; restored the previous release.' >&2
+            exit 1
+          fi
+
+          if ! wp kinsta cache purge --all; then
+            echo '::warning::Theme deployed, but the Kinsta cache purge failed.' >&2
+          fi
+
+          echo "Deployed amt-ntm/app at $release_sha"
+          REMOTE
+
+      - name: Smoke test staging
+        run: |
+          curl \
+            --fail \
+            --location \
+            --retry 3 \
+            --retry-delay 5 \
+            --silent \
+            --show-error \
+            --output /dev/null \
+            "${{ vars.KINSTA_SITE_URL }}/"

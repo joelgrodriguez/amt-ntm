@@ -14,7 +14,7 @@
  *   ROUTE
  *   explore       (browse the catalog by category, with per-tab
  *                  jumps to the category landing pages)
- *   waypoint      (compact path reset after catalog browsing)
+ *   waypoint      (mobile/tablet path reset after catalog browsing)
  *   quiz          (10-question assessment for the unsure)
  *
  *   SELL
@@ -25,6 +25,7 @@
  *   social-proof  (trust, most anxiety-relieving first)
  *   learning      (recent posts, videos, downloads)
  *   tools         (research aids: calc, manuals, compare)
+ *   faq           (buyer-FAQ sampler + FAQPage schema for answer engines)
  *
  *   CLOSE
  *   three-step    (process: lead time + on-site training)
@@ -67,7 +68,7 @@ get_header();
           // then makes the profit/control case. Same story, no repeated copy. ?>
     <?php get_template_part('templates/parts/portability-dna', null, [
         'section_id' => 'home-portability-dna',
-        'background' => 'bg-white',
+        'background' => 'bg-blue-50',
     ]); ?>
     <?php get_template_part('templates/parts/front-page/why-own'); ?>
     <?php get_template_part('templates/parts/front-page/flagships'); ?>
@@ -76,6 +77,7 @@ get_header();
     <?php get_template_part('templates/parts/front-page/social-proof'); ?>
     <?php get_template_part('templates/parts/learning-center'); ?>
     <?php get_template_part('templates/parts/front-page/tools'); ?>
+    <?php get_template_part('templates/parts/front-page/faq'); ?>
 
     <?php // CLOSE ?>
     <?php get_template_part('templates/parts/front-page/three-step-plan'); ?>
