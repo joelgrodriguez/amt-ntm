@@ -107,6 +107,10 @@ if (!empty($profile_tag_slugs)) {
     ]);
 }
 
+$profile_groups = \Standard\ProfileGroups\partition_machine_profiles($profiles);
+$profiles       = $profile_groups['profiles'];
+$rib_rollers    = $profile_groups['rib_rollers'];
+
 $groups      = get_content_groups($slug);
 $has_content = false;
 foreach ($groups as $group) {
@@ -266,6 +270,10 @@ get_header();
                     'carousel_id' => $profile_carousel,
                     'grid_id'     => $profile_grid,
                     'show_label'  => $show_all_label,
+                ]); ?>
+
+                <?php get_template_part('templates/parts/machine-rib-rollers', null, [
+                    'rib_rollers' => $rib_rollers,
                 ]); ?>
 
             </div>

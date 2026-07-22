@@ -48,6 +48,7 @@ $theme_includes = [
     'inc/woo/accessories.php',
     'inc/woo/accessory-tag-map.php',
     'inc/machine-product-data.php',
+    'inc/profile-groups.php',
     'inc/woo/machine-template.php',
     'inc/machines.php',
     'inc/learning-center.php',
