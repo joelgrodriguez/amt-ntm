@@ -35,9 +35,9 @@ if ($slug === '' || $groups === []) {
         <button type="button" class="mobile-menu__back" data-action="back" aria-label="<?php esc_attr_e('Back', 'standard'); ?>">
             <?php icon('arrow-left', ['class' => 'w-5 h-5']); ?>
         </button>
-        <h2 id="mobile-menu-title-<?php echo esc_attr($slug); ?>" class="mobile-menu__panel-title">
+        <p id="mobile-menu-title-<?php echo esc_attr($slug); ?>" class="mobile-menu__panel-title">
             <?php echo esc_html($label); ?>
-        </h2>
+        </p>
         <span class="mobile-menu__panel-spacer" aria-hidden="true"></span>
     </header>
 

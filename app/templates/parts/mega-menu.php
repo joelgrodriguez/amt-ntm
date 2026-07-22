@@ -215,7 +215,7 @@ $panels = array_values(array_filter(
 
             <div class="mega-panel__sidebar">
                 <?php if (!empty($intro['title'])) : ?>
-                    <h2 class="px-5 mb-3 font-sans font-medium text-heading-sm text-blue-900"><?php echo esc_html($intro['title']); ?></h2>
+                    <p class="px-5 mb-3 font-sans font-medium text-heading-sm text-blue-900"><?php echo esc_html($intro['title']); ?></p>
                 <?php endif; ?>
                 <?php if (!empty($intro['body'])) : ?>
                     <p class="px-5 mb-6 font-sans text-sm leading-relaxed text-blue-600"><?php echo esc_html($intro['body']); ?></p>
