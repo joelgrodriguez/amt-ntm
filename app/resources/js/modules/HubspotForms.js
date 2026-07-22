@@ -70,6 +70,15 @@ async function mountForm(target) {
       portalId,
       formId,
       target: `#${target.id}`,
+      // Let page modules (e.g. readiness quiz) unlock content after submit.
+      onFormSubmitted: () => {
+        target.dispatchEvent(
+          new CustomEvent('hubspot:formSubmitted', {
+            bubbles: true,
+            detail: { formId, portalId },
+          })
+        );
+      },
     });
     return true;
   } catch (_error) {

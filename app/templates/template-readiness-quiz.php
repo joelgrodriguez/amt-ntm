@@ -3,9 +3,9 @@
  * Template Name: Readiness Quiz
  *
  * Panel Machine Readiness Assessment. Renders the quiz shell (intro →
- * questions → results → lead capture); all interaction is driven by
+ * questions → lead capture → results); all interaction is driven by
  * app/resources/js/modules/ReadinessQuiz.js against the data-quiz-* markup
- * contract below. Lead capture reuses the theme's HubSpot form.
+ * contract below. Results unlock only after the HubSpot lead form is submitted.
  *
  * Replaces the dead Abacus.AI iframe that previously lived in this page's
  * content (issue #94). Logic documented in docs/specs/readiness-quiz-spec.md.
@@ -105,14 +105,14 @@ while (have_posts()) :
                         <?php endforeach; ?>
                     </div>
 
-                    <!-- Lead capture -->
+                    <!-- Lead capture (required gate before results) -->
                     <div class="quiz-lead" data-quiz-lead hidden>
                         <div class="quiz-lead__intro">
                             <h2 class="quiz-lead__title">
-                                <?php esc_html_e('Talk to a specialist about your recommendation', 'standard'); ?>
+                                <?php esc_html_e('Unlock your readiness results', 'standard'); ?>
                             </h2>
                             <p class="quiz-lead__desc">
-                                <?php esc_html_e('Share your details and an NTM specialist will follow up with pricing, availability, and answers for your operation.', 'standard'); ?>
+                                <?php esc_html_e('Share your details to see your readiness score and recommended machine. An NTM specialist can follow up with pricing, availability, and next steps for your operation.', 'standard'); ?>
                             </p>
                         </div>
                         <?php

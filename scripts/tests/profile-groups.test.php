@@ -58,14 +58,14 @@ $groups = \Standard\ProfileGroups\partition_machine_profiles([
 ]);
 
 ntm_profile_groups_assert_same(
-    [$panel, $clip_relief, ...$additional_profiles],
+    [$panel, ...$additional_profiles],
     $groups['profiles'],
-    'SSH should retain its eight profiles, including Clip Relief, in the profile group.'
+    'SSH should count seven panel profiles; Clip Relief is tooling, not a profile.'
 );
 ntm_profile_groups_assert_same(
-    [$bead_ribs, $pencil_ribs, $striation_ribs, $v_ribs],
+    [$clip_relief, $bead_ribs, $pencil_ribs, $striation_ribs, $v_ribs],
     $groups['rib_rollers'],
-    'Known rib-roller posts should move to the rib-roller group in source order.'
+    'Clip Relief and known rib-roller posts should move to the rib-roller group in source order.'
 );
 
 $GLOBALS['ntm_profile_posts'][1046] = $bead_ribs;
