@@ -14,7 +14,7 @@
  *   ROUTE
  *   explore       (browse the catalog by category, with per-tab
  *                  jumps to the category landing pages)
- *   waypoint      (compact path reset after catalog browsing)
+ *   waypoint      (mobile/tablet path reset after catalog browsing)
  *   quiz          (10-question assessment for the unsure)
  *
  *   SELL

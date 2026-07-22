@@ -19,8 +19,9 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'eyebrow' => __('Already Own a Machine', 'standard'),
-    'title'   => __('Owner Resources.', 'standard'),
+    'eyebrow' => __('Already Own an NTM Machine?', 'standard'),
+    'title'   => __('Get the answers. Keep the work moving.', 'standard'),
+    'body'    => __('Go straight to service support, manuals, panel profile details, and UL test documents.', 'standard'),
 ];
 
 $resources = [
@@ -55,6 +56,7 @@ $resources = [
             'eyebrow'     => $content['eyebrow'],
             'eyebrow_dot' => false,
             'title'       => $content['title'],
+            'lede'        => $content['body'],
             'max_width'   => 'max-w-2xl',
         ]); ?>
 
