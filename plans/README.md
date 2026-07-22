@@ -26,11 +26,37 @@ your row when done.
 | 003 | Demote mega/mobile menu panel titles from H2 | P2 | S | — | DONE (cf2629a) |
 | 004 | Homepage FAQ section + FAQPage JSON-LD | P2 | M | — | DONE (6645070) |
 | 005 | ItemList JSON-LD of machine lineup on front page | P3 | S | — | DONE (a8c19a6) |
+| 006 | Harden category landing-page H1s to absorb the 301 equity | P1 | S | — | TODO |
+| 007 | Verify + monitor the category-URL consolidation | P2 | M | 006 (early) | TODO |
 
-Executed 2026-07-21 on branch `joelgrodriguez/homepage-seo-aeo` (off master
-@c5d139b — the planned-at commit, which is master's HEAD, not dev). db 053
-was applied to the local DevKinsta DB (`DRY_RUN=0`) and will replay at cutover
-via `npm run db:apply`.
+Plans 001–005 executed 2026-07-21 on branch `joelgrodriguez/homepage-seo-aeo`
+(off master @c5d139b). db 053 was applied to the local DevKinsta DB and will
+replay at cutover via `npm run db:apply`.
+
+**db 054 (follow-on, planned at `bc5ecf2`)**: after 001–005, a title/meta pass
+landed on branch `joelgrodriguez/seo-titles-054` — homepage title now leads
+"Portable Rollforming Machines for Metal Roofing & Gutters", optimized meta
+description, and the two category landing-page titles de-duplicated of their
+doubled brand. Applied locally; merge/push pending operator call.
+
+## Category-page consolidation (context for plans 006–007)
+
+The gutter/panel keyword strategy was investigated 2026-07-21 with GSC + live
+checks. Key finding that reshaped the work: the Woo product-category URLs
+(`/product-category/gutter-machines/`, `/product-category/roof-wall-panel-machines/`)
+**already 301-redirect to the marketing landing pages** (live on prod, in
+`db/redirects.json` dated ~2026-07-02). Those old URLs still show as the
+rankers in a 90-day GSC window (panel head terms at position 1–4) because
+Google is mid-transition — equity is flowing to the landing pages now. So the
+real work is NOT "add a redirect" (done) or "fix a thin page" (the panel
+landing page is actually richer than the gutter one). It is:
+- **006** — make the landing pages the strongest possible 301 targets: their
+  only H1 is a brand-first `sr-only` post_title; lead it with the head term.
+- **007** — verify the consolidation is complete/durable and *measure* whether
+  the rankings actually transfer over 4–8 weeks.
+
+Do 006 soon (harden the target while equity is transferring), then run 007's
+monitoring on a schedule.
 
 ### Deviation log
 
