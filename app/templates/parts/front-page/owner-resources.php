@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
 $content = [
     'eyebrow' => __('Already Using an NTM Machine?', 'standard'),
     'title'   => __('Machine Resources.', 'standard'),
-    'body'    => __('Go straight to service support, manuals, panel profile details, and UL test documents.', 'standard'),
+    'body'    => __('Find NTM machine manuals, service and support resources, panel profile specifications, and UL testing documentation.', 'standard'),
 ];
 
 $resources = [
