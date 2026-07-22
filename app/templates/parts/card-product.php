@@ -56,6 +56,15 @@ $price          = $product['price'] ?? '';
 $price_label    = $product['price_label'] ?? __('Starting at', 'standard');
 $explore_url    = $product['explore_url'] ?? '#';
 $badge          = $product['badge'] ?? '';
+
+// Image alt: name the machine and its category so the product image carries a
+// real description into image search and screen readers instead of alt="".
+// Partly restates the visible title on purpose — the category suffix adds
+// what the image otherwise loses out of context.
+$image_alt = $title;
+if ($title !== '' && $category_label !== '') {
+    $image_alt = $title . ' — ' . $category_label;
+}
 // Accessory vs machine determines CTA style (outline Explore vs filled
 // Build & Quote). Honor an explicit flag if the producer set one; fall
 // back to "no price === accessory" for legacy callers. A machine without
@@ -87,7 +96,7 @@ $show_description = $args['show_description'] ?? true;
         <?php endif; ?>
 
         <?php if ($image) : ?>
-            <?php \Standard\Images\responsive_image($image, '', 'product-card', [
+            <?php \Standard\Images\responsive_image($image, $image_alt, 'product-card', [
                 'class' => 'card-product__image',
             ]); ?>
         <?php else : ?>
