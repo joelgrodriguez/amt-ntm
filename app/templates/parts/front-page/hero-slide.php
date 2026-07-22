@@ -31,6 +31,14 @@ $cta_label        = $machine['cta_label'] ?? __('View Machine', 'standard');
 $focal_point      = $machine['focal_point'] ?? '';
 $is_first         = $index === 0;
 
+// Image alt: prefer the slide's curated alt; fall back to the headline with
+// tags stripped. The strip guards against a headline that embeds responsive
+// markup (e.g. <br>) leaking into the alt attribute.
+$image_alt = $machine['image_alt'] ?? '';
+if ($image_alt === '') {
+    $image_alt = wp_strip_all_tags($title);
+}
+
 $photo_style = $focal_point !== '' ? sprintf('--hero-pos: %s;', $focal_point) : '';
 ?>
 
@@ -59,7 +67,7 @@ $photo_style = $focal_point !== '' ? sprintf('--hero-pos: %s;', $focal_point) : 
             <?php endif; ?>
 
             <?php if ($background_image) : ?>
-                <?php \Standard\Images\responsive_image($background_image, $title, 'full', [
+                <?php \Standard\Images\responsive_image($background_image, $image_alt, 'full', [
                     'class'         => 'hero__media',
                     'loading'       => 'eager',
                     'fetchpriority' => 'high',
@@ -84,7 +92,7 @@ $photo_style = $focal_point !== '' ? sprintf('--hero-pos: %s;', $focal_point) : 
                 <?php endif; ?>
 
                 <?php if ($background_image) : ?>
-                    <?php \Standard\Images\responsive_image($background_image, $title, 'full', [
+                    <?php \Standard\Images\responsive_image($background_image, $image_alt, 'full', [
                         'class' => 'hero__media',
                     ]); ?>
                 <?php endif; ?>

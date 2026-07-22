@@ -97,7 +97,9 @@ $rendered_count = 0;
                 <div class="grid gap-4 <?php echo $image_first_on_lg ? 'lg:order-1' : 'lg:order-2'; ?>">
                     <?php if ($hero_image) : ?>
                         <div class="relative aspect-video overflow-hidden" data-reveal="image">
-                            <?php \Standard\Images\responsive_image($hero_image, $data['hero']['headline'] ?? '', 'large', [
+                            <?php // Strip tags: the headline embeds a responsive <br>, which
+                                  // must never leak into the alt attribute. ?>
+                            <?php \Standard\Images\responsive_image($hero_image, wp_strip_all_tags($data['hero']['headline'] ?? ''), 'large', [
                                 'class'   => 'w-full h-full object-cover block',
                                 'loading' => 'lazy',
                             ]); ?>
