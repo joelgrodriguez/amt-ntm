@@ -106,31 +106,42 @@ while (have_posts()) :
                     </div>
 
                     <!-- Lead capture (required gate before results; primary panel while gated) -->
-                    <div class="quiz-lead" data-quiz-lead hidden>
-                        <div class="quiz-lead__intro">
-                            <p class="quiz-lead__eyebrow" data-quiz-lead-eyebrow>
-                                <?php esc_html_e('Assessment complete', 'standard'); ?>
+                    <div class="quiz-lead is-calculating" data-quiz-lead hidden>
+                        <div class="quiz-lead__calculating" data-quiz-lead-calculating aria-live="polite">
+                            <span class="quiz-lead__spinner" aria-hidden="true"></span>
+                            <p class="quiz-lead__calculating-title">
+                                <?php esc_html_e('Calculating your results…', 'standard'); ?>
                             </p>
-                            <h2 class="quiz-lead__title" data-quiz-lead-title>
-                                <?php esc_html_e('Unlock your readiness results', 'standard'); ?>
-                            </h2>
-                            <p class="quiz-lead__desc" data-quiz-lead-desc>
-                                <?php esc_html_e('Your score and machine recommendation are ready. Share your details to unlock them — an NTM specialist can also follow up with pricing, availability, and next steps.', 'standard'); ?>
+                            <p class="quiz-lead__calculating-desc">
+                                <?php esc_html_e('Hang tight — scoring your answers and lining up the best machine fit.', 'standard'); ?>
                             </p>
                         </div>
-                        <?php
-                        echo \Standard\HubSpot\render_form([
-                            'form_id'   => READINESS_QUIZ_FORM_ID,
-                            'target_id' => 'readiness-quiz-form-' . $post_id,
-                            'noscript_html' => '<p class="text-sm text-blue-600 m-0">'
-                                . esc_html__('Enable JavaScript to load the form, or call NTM Sales at ', 'standard')
-                                . '<a href="tel:+13032940538" class="font-mono text-blue-700 hover:text-blue-500">303.294.0538</a>.'
-                                . '</p>',
-                        ]);
-                        ?>
-                        <button type="button" class="quiz-restart" data-quiz-restart>
-                            <?php esc_html_e('Retake the assessment', 'standard'); ?>
-                        </button>
+                        <div class="quiz-lead__body" data-quiz-lead-body hidden>
+                            <div class="quiz-lead__intro">
+                                <p class="quiz-lead__eyebrow" data-quiz-lead-eyebrow>
+                                    <?php esc_html_e('Results ready', 'standard'); ?>
+                                </p>
+                                <h2 class="quiz-lead__title" data-quiz-lead-title>
+                                    <?php esc_html_e('Unlock your readiness results', 'standard'); ?>
+                                </h2>
+                                <p class="quiz-lead__desc" data-quiz-lead-desc>
+                                    <?php esc_html_e('Your score and machine recommendation are ready. Share your details below to unlock them — an NTM specialist can also follow up with pricing, availability, and next steps.', 'standard'); ?>
+                                </p>
+                            </div>
+                            <?php
+                            echo \Standard\HubSpot\render_form([
+                                'form_id'   => READINESS_QUIZ_FORM_ID,
+                                'target_id' => 'readiness-quiz-form-' . $post_id,
+                                'noscript_html' => '<p class="text-sm text-blue-600 m-0">'
+                                    . esc_html__('Enable JavaScript to load the form, or call NTM Sales at ', 'standard')
+                                    . '<a href="tel:+13032940538" class="font-mono text-blue-700 hover:text-blue-500">303.294.0538</a>.'
+                                    . '</p>',
+                            ]);
+                            ?>
+                            <button type="button" class="quiz-restart" data-quiz-restart>
+                                <?php esc_html_e('Retake the assessment', 'standard'); ?>
+                            </button>
+                        </div>
                     </div>
                 </div>
 

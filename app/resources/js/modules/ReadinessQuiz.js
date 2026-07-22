@@ -21,16 +21,21 @@
  *   - [data-quiz-lead]                   — lead-capture gate wrapping the
  *                                          HubSpot form (primary panel after
  *                                          questions; results unlock on submit)
+ *   - [data-quiz-lead-calculating]       — "Calculating your results…" state
+ *   - [data-quiz-lead-body]              — unlock copy + form (shown once ready)
  *   - [data-quiz-restart]                — button that resets to intro
  *
  * The questions, scoring, and recommendation tree live in this module as data
  * so the whole quiz is one file with no server round-trip. Lead capture is the
  * theme's existing HubSpot form (rendered by the template). HubspotForms.js
- * dispatches `hubspot:formSubmitted` on the form mount; this module listens
- * and reveals results only after a successful submission.
+ * dispatches `hubspot:formReady` when fields paint and `hubspot:formSubmitted`
+ * on submit; this module shows a calculating state until ready, then unlocks
+ * results only after a successful submission.
  *
  * @module ReadinessQuiz
  */
+
+import { ensureHubspotForm } from './HubspotForms.js';
 
 const ROOT_SELECTOR = '[data-readiness-quiz]';
 
@@ -393,6 +398,8 @@ export function initReadinessQuiz() {
   const questionsScreen = root.querySelector('[data-quiz-questions]');
   const resultsScreen = root.querySelector('[data-quiz-results]');
   const leadScreen = root.querySelector('[data-quiz-lead]');
+  const leadCalculating = root.querySelector('[data-quiz-lead-calculating]');
+  const leadBody = root.querySelector('[data-quiz-lead-body]');
   const progressFill = root.querySelector('[data-quiz-progress]');
   const progressLabel = root.querySelector('[data-quiz-progress-label]');
   const progressPct = root.querySelector('[data-quiz-progress-pct]');
@@ -401,11 +408,17 @@ export function initReadinessQuiz() {
   const leadEyebrow = root.querySelector('[data-quiz-lead-eyebrow]');
   const leadTitle = root.querySelector('[data-quiz-lead-title]');
   const leadDesc = root.querySelector('[data-quiz-lead-desc]');
+  const hubspotMount = leadScreen?.querySelector('[data-hubspot-form]') ?? null;
 
   if (!questionsScreen || !resultsScreen) return () => {};
 
   const controller = new AbortController();
   const { signal } = controller;
+
+  /** Minimum time to show "Calculating…" so the transition feels intentional. */
+  const CALCULATING_MIN_MS = 900;
+  /** Fallback if HubSpot never fires onFormReady. */
+  const FORM_READY_TIMEOUT_MS = 12000;
 
   /** @type {Record<string, {points:number, value?:string}>} */
   let answers = {};
@@ -414,12 +427,17 @@ export function initReadinessQuiz() {
   let formSubmitted = false;
   /** @type {{score:number, band:object, machine:object}|null} */
   let pendingResult = null;
+  /** @type {ReturnType<typeof setTimeout>|null} */
+  let formReadyTimeout = null;
+  /** @type {number} */
+  let calculatingStartedAt = 0;
+  let waitingForForm = false;
 
   const LEAD_COPY = {
     gated: {
-      eyebrow: 'Assessment complete',
+      eyebrow: 'Results ready',
       title: 'Unlock your readiness results',
-      desc: 'Your score and machine recommendation are ready. Share your details to unlock them — an NTM specialist can also follow up with pricing, availability, and next steps.',
+      desc: 'Your score and machine recommendation are ready. Share your details below to unlock them — an NTM specialist can also follow up with pricing, availability, and next steps.',
     },
     unlocked: {
       eyebrow: 'Thanks for sharing',
@@ -436,6 +454,77 @@ export function initReadinessQuiz() {
     if (leadEyebrow) leadEyebrow.textContent = copy.eyebrow;
     if (leadTitle) leadTitle.textContent = copy.title;
     if (leadDesc) leadDesc.textContent = copy.desc;
+  }
+
+  function clearFormReadyTimeout() {
+    if (formReadyTimeout !== null) {
+      clearTimeout(formReadyTimeout);
+      formReadyTimeout = null;
+    }
+  }
+
+  /**
+   * Show calculating spinner; hide unlock copy + form until HubSpot is ready.
+   * Force-mounts the form because the body is display:none while calculating
+   * (IntersectionObserver would never see it).
+   */
+  function enterCalculatingState() {
+    waitingForForm = true;
+    calculatingStartedAt = Date.now();
+    leadScreen?.classList.add('is-calculating');
+    show(leadCalculating);
+    hide(leadBody);
+    clearFormReadyTimeout();
+    formReadyTimeout = setTimeout(() => {
+      // Don't leave the user stranded if HubSpot is slow or blocked.
+      revealLeadForm();
+    }, FORM_READY_TIMEOUT_MS);
+
+    if (hubspotMount) {
+      ensureHubspotForm(hubspotMount).catch(() => {
+        revealLeadForm();
+      });
+    } else {
+      // No form mount — still exit calculating so copy/restart appear.
+      revealLeadForm();
+    }
+  }
+
+  /**
+   * Swap calculating → unlock form. Honors a short minimum calculating time.
+   */
+  function revealLeadForm() {
+    if (!waitingForForm) {
+      // Already revealed (or never calculating) — keep body visible.
+      hide(leadCalculating);
+      show(leadBody);
+      leadScreen?.classList.remove('is-calculating');
+      return;
+    }
+
+    // Claim immediately so duplicate ready/timeout events don't double-reveal.
+    waitingForForm = false;
+    clearFormReadyTimeout();
+
+    const elapsed = Date.now() - calculatingStartedAt;
+    const wait = Math.max(0, CALCULATING_MIN_MS - elapsed);
+
+    const showForm = () => {
+      setLeadCopy('gated');
+      hide(leadCalculating);
+      show(leadBody);
+      leadScreen?.classList.remove('is-calculating');
+    };
+
+    if (wait > 0) {
+      setTimeout(showForm, wait);
+    } else {
+      showForm();
+    }
+  }
+
+  function isHubspotReady() {
+    return hubspotMount?.dataset.hubspotReady === 'true';
   }
 
   function markCompleteProgress() {
@@ -512,12 +601,17 @@ export function initReadinessQuiz() {
       return;
     }
 
-    // Gate: hide the empty quiz card so only the lead form is primary.
+    // Gate: hide the empty quiz card; show calculating until HubSpot is ready.
     hide(resultsScreen);
     hide(quizCard);
-    setLeadCopy('gated');
+    enterCalculatingState();
     show(leadScreen);
     leadScreen?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Form may already be mounted (retake after load, or prefetched).
+    if (isHubspotReady()) {
+      revealLeadForm();
+    }
   }
 
   /**
@@ -551,6 +645,11 @@ export function initReadinessQuiz() {
     `;
 
     // Bring the card back with results; keep lead (thank-you) below.
+    waitingForForm = false;
+    clearFormReadyTimeout();
+    leadScreen?.classList.remove('is-calculating');
+    hide(leadCalculating);
+    show(leadBody);
     show(quizCard);
     show(resultsScreen);
     setLeadCopy('unlocked');
@@ -579,8 +678,19 @@ export function initReadinessQuiz() {
     quizCard?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  // Unlock results when the quiz lead form is submitted successfully.
+  // Reveal unlock form once HubSpot fields are ready (or on hard timeout).
   if (leadScreen) {
+    leadScreen.addEventListener(
+      'hubspot:formReady',
+      () => {
+        if (waitingForForm || leadScreen.classList.contains('is-calculating')) {
+          revealLeadForm();
+        }
+      },
+      { signal }
+    );
+
+    // Unlock results when the quiz lead form is submitted successfully.
     leadScreen.addEventListener(
       'hubspot:formSubmitted',
       () => {
@@ -633,9 +743,14 @@ export function initReadinessQuiz() {
         answers = {};
         index = 0;
         pendingResult = null;
+        waitingForForm = false;
+        clearFormReadyTimeout();
         resultsScreen.innerHTML = '';
         hide(resultsScreen);
         hide(leadScreen);
+        leadScreen?.classList.add('is-calculating');
+        show(leadCalculating);
+        hide(leadBody);
         setLeadCopy('gated');
         show(quizCard);
         if (backBtn) backBtn.setAttribute('hidden', '');
@@ -652,6 +767,9 @@ export function initReadinessQuiz() {
       { signal }
     );
   }
+
+  // Abort also clears any pending calculating timers.
+  signal.addEventListener('abort', clearFormReadyTimeout);
 
   return () => controller.abort();
 }
