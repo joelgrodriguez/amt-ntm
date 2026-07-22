@@ -18,6 +18,7 @@ if (!defined('ABSPATH')) {
 get_template_part('templates/parts/hero-category', null, [
     'section_id' => 'roof-wall-hero',
     'content'    => [
+        'h1'                => __('Roof & Wall Panel Machines', 'standard'),
         'kicker'            => __('ROOF & WALL PANEL MACHINES', 'standard'),
         'title'             => __('Fabricate Panels On-Site. Cut Lead Times by 75%.', 'standard'),
         'subtitle'          => __('Portable rollformers that produce standing seam, flush wall, and board & batten panels right on the jobsite.', 'standard'),
