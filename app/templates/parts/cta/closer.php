@@ -17,6 +17,7 @@
  *     @type string $cta_primary         Button label.
  *     @type string $cta_primary_url     Button href (run through internal()).
  *     @type bool   $cta_primary_new_tab Optional. Open the primary button in a new tab. Default false.
+ *     @type string $cta_primary_icon    Optional. Primary button icon. Default arrow-right.
  *     @type string $cta_secondary       Optional secondary button label.
  *     @type string $cta_secondary_url   Optional secondary button href.
  *     @type string $section_id          ID for aria-labelledby.
@@ -34,6 +35,7 @@ $defaults = [
     'text'              => __('Join thousands of contractors who stopped waiting on suppliers and started rolling their own profits.', 'standard'),
     'cta_primary'       => __('Talk to a Specialist', 'standard'),
     'cta_primary_url'   => '/contact/',
+    'cta_primary_icon'  => 'arrow-right',
     'cta_secondary'     => '',
     'cta_secondary_url' => '',
     'section_id'        => 'closer-cta-title',
@@ -58,9 +60,9 @@ $primary_new_tab = !empty($content['cta_primary_new_tab']);
         </div>
 
         <div class="flex flex-wrap justify-center gap-3">
-            <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="btn btn-primary"<?php echo $primary_new_tab ? ' target="_blank" rel="noopener"' : ''; ?>>
+            <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_primary_url'])); ?>" class="btn btn-primary"<?php echo $primary_new_tab ? ' target="_blank" rel="noopener noreferrer"' : ''; ?>>
                 <?php echo esc_html($content['cta_primary']); ?>
-                <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
+                <?php icon($content['cta_primary_icon'], ['class' => 'w-5 h-5']); ?>
             </a>
             <?php if (!empty($content['cta_secondary']) && !empty($content['cta_secondary_url'])) : ?>
                 <a href="<?php echo esc_url(\Standard\Url\internal($content['cta_secondary_url'])); ?>" class="btn btn-outline-light">

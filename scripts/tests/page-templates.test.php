@@ -58,6 +58,7 @@ $all_templates = [
     'templates/template-prose.php' => 'Prose Page',
     'templates/template-lead-form.php' => 'Lead Form Landing',
     'templates/template-hero-video.php' => 'Video Landing',
+    'templates/template-careers.php' => 'Careers',
     'templates/template-service-hub.php' => 'Service Hub',
 ];
 
@@ -66,6 +67,7 @@ $approved_templates = [
     'templates/template-prose.php' => 'Prose Page',
     'templates/template-lead-form.php' => 'Lead Form Landing',
     'templates/template-hero-video.php' => 'Video Landing',
+    'templates/template-careers.php' => 'Careers',
 ];
 
 $theme = new WP_Theme();
