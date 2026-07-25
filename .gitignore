@@ -42,6 +42,10 @@ app/dist/
 app/resources/css/theme-vars.css
 app/.vite-dev-server
 
+# Kinsta deployment bookkeeping and rollback snapshot
+.app-previous/
+app/.deploy-sha
+
 # Reference assets (large images/PDFs for design reference only)
 docs/references/
 docs/*.pdf
