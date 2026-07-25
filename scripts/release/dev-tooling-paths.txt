@@ -15,6 +15,14 @@ CLAUDE.md
 .impeccable
 .playwright-mcp
 
+# Local deployment / export artifacts
+.app-previous
+quiz
+
+# Database migration / import tooling
+db
+scripts/db
+
 # Planning / design / internal docs
 DESIGN.md
 PRODUCT.md
