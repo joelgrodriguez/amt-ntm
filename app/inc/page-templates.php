@@ -29,6 +29,7 @@ const EDITOR_PAGE_TEMPLATE_ALLOWLIST = [
     'templates/template-prose.php',
     'templates/template-lead-form.php',
     'templates/template-hero-video.php',
+    'templates/template-careers.php',
 ];
 
 /**
