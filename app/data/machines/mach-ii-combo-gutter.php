@@ -45,7 +45,7 @@ return [
                 __('Stainless steel forming rollers', 'standard'),
                 __('Forward pulling easy cut shear with extra shear', 'standard'),
             ],
-            'image'    => content_url('/uploads/2024/07/inside-Mach-II-gutter-machine-scaled.jpg'),
+            'image'    => content_url('/uploads/2026/07/DSC01042-Topaz-Sharpen-Auto-Denoise.jpg'),
         ],
         [
             'id'       => 'frame',

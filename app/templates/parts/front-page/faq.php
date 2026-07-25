@@ -30,26 +30,27 @@ if (!defined('ABSPATH')) {
 }
 
 $content = [
-    'eyebrow' => __('Common Questions', 'standard'),
-    'title'   => __('Rollforming questions, answered.', 'standard'),
+    'eyebrow' => __('Portable Rollforming FAQs', 'standard'),
+    'title'   => __('Portable rollforming machine questions, answered.', 'standard'),
+    'lede'    => __('Get clear answers about portable rollforming machine costs, lead times, machine selection, financing, and producing roof panels or seamless gutters on-site.', 'standard'),
 ];
 
 $faqs = [
     [
-        'question' => __('What is a portable rollforming machine?', 'standard'),
-        'answer'   => __('A portable rollforming machine forms metal roof panels or seamless gutters from raw coil right on the jobsite. Because the panel is made on-site, it can run any length the roof needs — no factory length limits, no mid-panel seams, and no waiting on a supplier.', 'standard'),
+        'question' => __('What does a portable rollforming machine do?', 'standard'),
+        'answer'   => __('A portable rollforming machine turns metal coil into finished roof panels or seamless gutters at the jobsite. It produces panels to the exact required length, reducing factory lead times, transport limits, and mid-panel seams.', 'standard'),
     ],
     [
         'question' => __('How much does a portable rollforming machine cost?', 'standard'),
-        'answer'   => __('NTM seamless gutter machines start at $9,800. Roof panel machines range from $44,900 for the SSR MultiPro Jr. to $237,300+ for the commercial WAV wall panel machine. The flagship SSQ3 MultiPro starts at $85K, trailer sold separately.', 'standard'),
+        'answer'   => __('NTM portable rollforming machines currently start at $9,800 for a MACH II seamless gutter machine. Roof panel machines start at $44,900 for the SSR MultiPro Jr.; the flagship SSQ3 MultiPro starts at $85,000, with its trailer sold separately.', 'standard'),
     ],
     [
-        'question' => __('How long does it take to get an NTM machine?', 'standard'),
-        'answer'   => __('Lead time is 6 to 10 weeks from order. Financing is applied for in the same flow, and your crew runs panels with our team on-site during week one.', 'standard'),
+        'question' => __('How long does it take to receive an NTM rollforming machine?', 'standard'),
+        'answer'   => __('Current NTM lead time is 6 to 10 weeks from order. Financing can be completed during the purchase process, and week-one onboarding includes running panels with the NTM team on-site.', 'standard'),
     ],
     [
-        'question' => __('Which NTM machine is right for my business?', 'standard'),
-        'answer'   => __('It depends on what you sell: K-style gutters point to the MACH II line, and standing seam roofing to the SSR, SSH, or SSQ3 MultiPro. Take the 10-question machine quiz or talk to a specialist to match a machine to your jobs.', 'standard'),
+        'question' => __('Which portable rollforming machine is right for my business?', 'standard'),
+        'answer'   => __('Choose a machine based on the profiles and products your business sells. MACH II machines serve K-style gutter work; SSR, SSH, and SSQ3 MultiPro machines serve standing seam roofing. Use the 10-question machine quiz or talk to an NTM specialist for a job-specific recommendation.', 'standard'),
     ],
 ];
 
@@ -59,35 +60,40 @@ if ($faqs === []) {
 ?>
 
 <section class="section bg-white" aria-labelledby="faq-title">
-    <div class="container grid gap-12 lg:gap-16">
+    <div class="container grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-start lg:gap-16 xl:gap-24">
 
-        <?php get_template_part('templates/parts/section-header', null, [
-            'id'          => 'faq-title',
-            'eyebrow'     => $content['eyebrow'],
-            'eyebrow_dot' => false,
-            'title'       => $content['title'],
-            'max_width'   => 'max-w-2xl',
-            'cta'         => [
-                'label' => __('See all FAQs', 'standard'),
-                'url'   => \Standard\Url\internal('/faq/'),
-                'class' => 'btn btn-outline-dark',
-            ],
-        ]); ?>
+        <div class="lg:sticky lg:top-28">
+            <?php get_template_part('templates/parts/section-header', null, [
+                'id'             => 'faq-title',
+                'eyebrow'        => $content['eyebrow'],
+                'eyebrow_dot'    => false,
+                'title'          => $content['title'],
+                'lede'           => $content['lede'],
+                'max_width'      => 'max-w-xl',
+                'lede_max_width' => 'max-w-lg',
+                'cta'            => [
+                    'label' => __('View all rollforming FAQs', 'standard'),
+                    'url'   => \Standard\Url\internal('/faq/'),
+                    'class' => 'btn btn-outline-dark',
+                ],
+            ]); ?>
+        </div>
 
-        <dl class="grid gap-px border border-blue-200 bg-blue-200">
-            <?php foreach ($faqs as $faq) : ?>
-                <div class="bg-white p-6 sm:p-8" data-reveal="fade">
-                    <dt>
-                        <h3 class="font-sans text-lg font-medium tracking-tight text-blue-900 md:text-xl m-0">
-                            <?php echo esc_html($faq['question']); ?>
-                        </h3>
-                    </dt>
-                    <dd class="mt-3 m-0 font-sans text-base leading-relaxed text-blue-700 max-w-3xl">
-                        <?php echo esc_html($faq['answer']); ?>
-                    </dd>
-                </div>
+        <div data-accordion-group>
+            <?php foreach ($faqs as $index => $faq) : ?>
+                <details class="accordion"<?php echo $index === 0 ? ' open' : ''; ?>>
+                    <summary>
+                        <?php echo esc_html($faq['question']); ?>
+                        <span class="accordion__icon" aria-hidden="true">
+                            <?php icon('chevron-down', ['class' => 'w-5 h-5']); ?>
+                        </span>
+                    </summary>
+                    <div class="accordion__body text-base leading-relaxed text-blue-700">
+                        <p class="m-0"><?php echo esc_html($faq['answer']); ?></p>
+                    </div>
+                </details>
             <?php endforeach; ?>
-        </dl>
+        </div>
 
     </div>
 </section>
