@@ -21,7 +21,15 @@ $faqs    = $machine['faq'] ?? [];
 if (empty($faqs)) {
     return;
 }
+
+$faq_schema = \Standard\MachineSchema\build_faq_schema($machine);
 ?>
+
+<?php if ($faq_schema !== null) : ?>
+<script type="application/ld+json">
+<?php echo wp_json_encode($faq_schema, \Standard\MachineSchema\SCHEMA_JSON_FLAGS); ?>
+</script>
+<?php endif; ?>
 
 <section id="machine-faq" class="section" aria-labelledby="faq-title">
     <div class="container section-content">
@@ -36,7 +44,7 @@ if (empty($faqs)) {
             <?php foreach ($faqs as $faq) : ?>
                 <details class="accordion">
                     <summary>
-                        <?php echo esc_html($faq['question']); ?>
+                        <h3 class="accordion__question"><?php echo esc_html($faq['question']); ?></h3>
                         <span class="accordion__icon">
                             <?php icon('chevron-down', ['class' => 'w-5 h-5']); ?>
                         </span>

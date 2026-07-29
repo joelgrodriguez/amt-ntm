@@ -16,7 +16,6 @@ if (!defined('ABSPATH')) {
 }
 
 use function Standard\MachineProductData\get_machine_product_data;
-use function Standard\MachineSchema\render_machine_schema;
 
 /** @var \WC_Product|false $product */
 $product = wc_get_product(get_the_ID());
@@ -144,7 +143,6 @@ if (!$machine) {
 </main>
 
 <?php
-render_machine_schema($product, $machine);
 do_action('woocommerce_after_single_product');
 
 get_footer();

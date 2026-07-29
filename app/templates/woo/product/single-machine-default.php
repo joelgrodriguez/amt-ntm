@@ -17,12 +17,16 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+use function Standard\MachineProductData\get_machine_product_data;
+
 /** @var \WC_Product|false $product */
 $product = wc_get_product(get_the_ID());
 
 if (!$product) {
     return;
 }
+
+$machine = get_machine_product_data($product->get_slug());
 
 // Configurator URL routes through the woo-slug -> short-slug map so the
 // button never emits the raw product slug (e.g.
@@ -177,6 +181,10 @@ get_header();
         'section_id' => 'machine-default-ironclad-support',
     ]); ?>
 
+    <?php if (is_array($machine)) : ?>
+        <?php get_template_part('templates/woo/product/parts/faq', null, compact('machine')); ?>
+    <?php endif; ?>
+
     <?php
     $default_closer_url = \Standard\Woo\Catalog\get_configurator_url($product->get_slug());
     if ($default_closer_url !== '') {
@@ -203,9 +211,6 @@ get_header();
 </main>
 
 <?php
-if (method_exists(WC()->structured_data, 'generate_product_data')) {
-    WC()->structured_data->generate_product_data();
-}
 do_action('woocommerce_after_single_product');
 
 get_footer();
