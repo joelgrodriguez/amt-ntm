@@ -60,6 +60,8 @@ $theme_includes = [
     'inc/accessories-data.php',
     'inc/machine-schema.php',
     'inc/product-schema.php',
+    'inc/llms-txt.php',
+    'inc/site-health.php',
     'inc/seo.php',
     'inc/post-types.php',
     'inc/post-archive.php',

@@ -22,8 +22,10 @@ if (empty($comparison['compare_with'])) {
     return;
 }
 
-$best_for    = $comparison['best_for'] ?? '';
-$price_range = $machine['finance']['price_range'] ?? '';
+$best_for     = $comparison['best_for'] ?? '';
+$heading      = $comparison['heading'] ?? __('Which Machine Is Right for You?', 'standard');
+$intro        = $comparison['intro'] ?? '';
+$price_range  = $machine['finance']['price_range'] ?? '';
 $compare_slugs = $comparison['compare_with'];
 ?>
 
@@ -33,7 +35,10 @@ $compare_slugs = $comparison['compare_with'];
         <div class="section-header">
             <p class="section-eyebrow">Compare</p>
             <div class="section-divider-center"></div>
-            <h2 id="comparison-title" class="section-title">Which Machine Is Right for You?</h2>
+            <h2 id="comparison-title" class="section-title"><?php echo esc_html($heading); ?></h2>
+            <?php if ($intro !== '') : ?>
+                <p class="section-subtitle max-w-2xl mx-auto"><?php echo esc_html($intro); ?></p>
+            <?php endif; ?>
         </div>
 
         <div class="grid md:grid-cols-<?php echo esc_attr((string) min(count($compare_slugs) + 1, 4)); ?> gap-6 max-w-5xl mx-auto">
