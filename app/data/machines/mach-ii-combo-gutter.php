@@ -116,6 +116,8 @@ return [
     'comparison' => [
         'compare_with' => ['mach-ii-5-gutter', 'mach-ii-6-gutter'],
         'best_for'     => __('5" & 6" K-style gutter production', 'standard'),
+        'heading'      => __('Compare the MACH II Family', 'standard'),
+        'intro'        => __('The dimension table above labels each MACH II configuration; the combo is the 5"/6" model. Compare its fit with the dedicated 5" and 6" machines below.', 'standard'),
     ],
     'specs' => [
         // Sticky image beside the "Full Details" specs accordion.

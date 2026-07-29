@@ -21,6 +21,12 @@ if (!$product instanceof \WC_Product) {
 }
 
 $post_id = $product->get_id();
+$product_slug = $product->get_slug();
+$mach_ii_family_context = [
+    'mach-ii-5-gutter-machine' => __('Family comparison: This table compares the MACH II 5, MACH II 6, and 5"/6" Combo. Your current model is the MACH II 5; use that column for product-specific dimensions.', 'standard'),
+    'mach-ii-6-gutter-machine' => __('Family comparison: This table compares the MACH II 5, MACH II 6, and 5"/6" Combo. Your current model is the MACH II 6; use that column for product-specific dimensions.', 'standard'),
+];
+$specs_context = $mach_ii_family_context[$product_slug] ?? '';
 
 $acf_get = function (string $key) use ($post_id) {
     return function_exists('get_field') ? get_field($key, $post_id) : null;
@@ -52,10 +58,19 @@ if (!empty($standard_features)) {
 }
 if (!empty($specs_html)) {
     ob_start(); ?>
+    <?php if ($specs_context !== '') : ?>
+        <p class="mb-4 border-l-2 border-red pl-4 text-sm font-medium text-blue-900">
+            <?php echo esc_html($specs_context); ?>
+        </p>
+    <?php endif; ?>
     <div class="prose prose-sm text-blue-700 max-w-none">
         <?php echo wp_kses_post($specs_html); ?>
     </div>
-    <?php $sections[__('Specifications', 'standard')] = ob_get_clean();
+    <?php
+    $specs_title = $specs_context !== ''
+        ? __('MACH II Family Specifications Comparison', 'standard')
+        : __('Specifications', 'standard');
+    $sections[$specs_title] = ob_get_clean();
 }
 
 if (!empty($warranties)) {
