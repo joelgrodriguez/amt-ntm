@@ -59,6 +59,7 @@ $theme_includes = [
     'inc/finance-data.php',
     'inc/accessories-data.php',
     'inc/machine-schema.php',
+    'inc/product-schema.php',
     'inc/seo.php',
     'inc/post-types.php',
     'inc/post-archive.php',

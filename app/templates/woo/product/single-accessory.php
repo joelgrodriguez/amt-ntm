@@ -88,9 +88,6 @@ get_header();
 </main>
 
 <?php
-if (method_exists(WC()->structured_data, 'generate_product_data')) {
-    WC()->structured_data->generate_product_data();
-}
 do_action('woocommerce_after_single_product');
 
 get_footer();

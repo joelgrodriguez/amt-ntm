@@ -54,6 +54,12 @@
     @apply text-blue-500;
   }
 
+  .accordion__question {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+  }
+
   /* ── Icon ────────────────────────────────────────────────────────── */
   /* Chevron rotation rides the same --resize-dur/--resize-ease tokens the
    * body height tween reads (Accordion.js). Keeps the chevron landing in
