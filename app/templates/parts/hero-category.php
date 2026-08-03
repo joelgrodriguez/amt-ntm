@@ -20,9 +20,8 @@
  *                            poster, poster_alt}
  *                           cta_primary_icon defaults to 'arrow-down'.
  *                           Pass 'arrow-right' for navigation CTAs.
- *                           Wistia videos embed directly with their native
- *                           player (no click-to-play poster facade); the
- *                           poster is used only when there is no video.
+ *                           Wistia videos use a click-to-play facade so the
+ *                           player and media remain off the critical path.
  * @param array  $meta       Array of {label, value} mono rail items.
  * @param string $section_id ID used for aria-labelledby.
  * @param bool   $pattern    Render the dot-grid backdrop. Default true
@@ -36,8 +35,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use function Standard\Video\render_video_embed;
 use function Standard\Video\is_wistia_url;
+use function Standard\Video\render_video_embed;
+use function Standard\Video\render_wistia_facade;
 
 $content          = $args['content'] ?? [];
 $meta             = $args['meta'] ?? [];
@@ -50,12 +50,11 @@ $kicker           = $content['kicker'] ?? ($content['eyebrow'] ?? '');
 $cta_primary_icon = $content['cta_primary_icon'] ?? 'arrow-down';
 
 // Decide which video pipeline to use.
-// Wistia embeds directly with its native player (no click-to-play poster
-// facade) so it behaves like the About hero. Force eager loading — these
-// heroes are above the fold. Self-hosted mp4 still autoplays inline.
+// Wistia is represented by a lightweight poster/play facade. The real player
+// is created only after an explicit click.
 $is_mp4          = $video !== '' && preg_match('/\.mp4($|\?)/i', $video);
 $is_wistia       = $video !== '' && !$is_mp4 && is_wistia_url($video);
-$wistia_embed    = $is_wistia ? str_replace('loading="lazy"', 'loading="eager"', render_video_embed($video)) : '';
+$wistia_embed    = $is_wistia ? render_wistia_facade($video, (string) ($content['title'] ?? ''), $poster, true) : '';
 $other_embed     = ($video !== '' && !$is_mp4 && !$is_wistia) ? render_video_embed($video) : '';
 $has_wistia      = $wistia_embed !== '';
 $has_other_embed = $other_embed !== '';
@@ -163,7 +162,3 @@ if ($pattern) {
         </div>
     </div>
 </section>
-
-<?php if ($has_wistia) : ?>
-    <script src="https://fast.wistia.net/assets/external/E-v1.js" async></script>
-<?php endif; ?>

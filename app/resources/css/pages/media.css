@@ -23,8 +23,68 @@
 .video-responsive video,
 .video-responsive embed,
 .video-responsive object,
-.video-responsive img {
+.video-responsive img,
+.video-responsive .ntm-picture,
+.video-responsive .video-facade {
   @apply absolute inset-0 w-full h-full object-cover;
+}
+
+.ntm-picture {
+  display: contents;
+}
+
+/* WP Accessibility uses this one Dashicon on catalog pages. Reproduce the
+ * affordance without downloading the complete icon font. */
+.wpa-toggle .dashicons-media-text {
+  @apply inline-flex items-center justify-center font-sans text-[10px] font-bold;
+}
+
+.wpa-toggle .dashicons-media-text::before {
+  content: 'Aa';
+}
+
+.video-facade {
+  @apply relative block overflow-hidden bg-blue-800;
+}
+
+.video-facade__poster {
+  @apply absolute inset-0 w-full h-full object-cover;
+}
+
+.video-facade__button {
+  @apply absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 w-full h-full border-0 bg-blue-950/35 text-white cursor-pointer transition-colors;
+}
+
+.video-facade__button:hover,
+.video-facade__button:focus-visible {
+  @apply bg-blue-950/50 outline-none;
+}
+
+.video-facade__play {
+  @apply grid place-items-center w-16 h-16 rounded-full bg-red text-white shadow-lg transition-transform;
+}
+
+.video-facade__button:hover .video-facade__play,
+.video-facade__button:focus-visible .video-facade__play {
+  @apply scale-105;
+}
+
+.video-facade__play::before {
+  content: '';
+  width: 0;
+  height: 0;
+  margin-left: 0.25rem;
+  border-top: 0.55rem solid transparent;
+  border-bottom: 0.55rem solid transparent;
+  border-left: 0.85rem solid currentColor;
+}
+
+.video-facade__label {
+  @apply font-mono text-xs uppercase tracking-wider;
+}
+
+.video-facade--loaded iframe {
+  @apply absolute inset-0 w-full h-full;
 }
 
 /**

@@ -95,13 +95,11 @@ $directions_url = 'https://www.google.com/maps/dir//' . urlencode($contact_info[
                 <p class="text-blue-600 mb-6">
                     <?php echo esc_html($content['form_text']); ?>
                 </p>
-                <div id="contact-form" class="min-h-[24rem]">
-                    <noscript>
-                        <p class="font-sans text-blue-600 text-sm">
-                            <?php esc_html_e('Enable JavaScript to load the contact form, or email us directly.', 'standard'); ?>
-                        </p>
-                    </noscript>
-                </div>
+                <?php echo \Standard\HubSpot\render_form([
+                    'target_id' => 'contact-form',
+                    'form_id'   => '8819d347-bf19-49e1-8e49-cd45dbd7235f',
+                    'class'     => 'min-h-[24rem]',
+                ]); ?>
             </div>
 
         </div>

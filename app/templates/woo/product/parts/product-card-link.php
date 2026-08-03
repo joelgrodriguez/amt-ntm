@@ -22,9 +22,12 @@ if (!is_array($card) || empty($card['url']) || empty($card['title'])) {
 <a href="<?php echo esc_url($card['url']); ?>" class="block border border-blue-200 bg-white p-4 grid gap-3 hover:border-blue-400 transition-all group">
     <div class="bg-blue-50 aspect-square flex items-center justify-center overflow-hidden">
         <?php if (!empty($card['image_id'])) : ?>
-            <?php echo wp_get_attachment_image((int) $card['image_id'], 'product-card', false, [
-                'class' => 'w-full h-full object-contain p-3 transition-transform group-hover:scale-105',
-                'alt'   => $card['title'],
+            <?php echo \Standard\Images\get_attachment_picture((int) $card['image_id'], 'product-card', [
+                'class'    => 'w-full h-full object-contain p-3 transition-transform group-hover:scale-105',
+                'alt'      => $card['title'],
+                'loading'  => 'lazy',
+                'decoding' => 'async',
+                'sizes'    => '(max-width: 639px) calc(100vw - 2rem), (max-width: 1023px) calc(50vw - 2rem), 360px',
             ]); ?>
         <?php else : ?>
             <span class="text-blue-400 text-sm font-mono"><?php echo esc_html($card['title']); ?></span>

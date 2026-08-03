@@ -41,15 +41,24 @@ if (empty($featured_url)) {
         <div class="max-w-md mx-auto">
             <?php if (!empty($rotator)) : ?>
                 <?php \Standard\Images\responsive_image($rotator[0], $name . ' - 360 view', 'full', [
-                    'class' => 'max-w-full max-h-full object-contain',
+                    'class'    => 'max-w-full max-h-full object-contain',
+                    'loading'  => 'lazy',
+                    'decoding' => 'async',
+                    'sizes'    => '(max-width: 1023px) 100vw, 50vw',
                 ]); ?>
             <?php elseif (!empty($featured_url)) : ?>
                 <?php \Standard\Images\responsive_image($featured_url, $name, 'large', [
-                    'class' => 'max-w-full max-h-full object-contain',
+                    'class'    => 'max-w-full max-h-full object-contain',
+                    'loading'  => 'lazy',
+                    'decoding' => 'async',
+                    'sizes'    => '(max-width: 1023px) 100vw, 50vw',
                 ]); ?>
             <?php elseif (!empty($images[0])) : ?>
                 <?php \Standard\Images\responsive_image($images[0], $name, 'large', [
-                    'class' => 'max-w-full max-h-full object-contain',
+                    'class'    => 'max-w-full max-h-full object-contain',
+                    'loading'  => 'lazy',
+                    'decoding' => 'async',
+                    'sizes'    => '(max-width: 1023px) 100vw, 50vw',
                 ]); ?>
             <?php else : ?>
                 <div class="text-center grid gap-3">
@@ -70,7 +79,10 @@ if (empty($featured_url)) {
                 <?php foreach (array_slice($images, 0, 6) as $i => $thumb) : ?>
                     <div class="w-20 h-20 flex items-center justify-center overflow-hidden cursor-pointer hover:opacity-75 transition-opacity">
                         <?php \Standard\Images\responsive_image($thumb, $name . ' - angle ' . ($i + 1), 'thumbnail', [
-                            'class' => 'w-full h-full object-contain',
+                            'class'    => 'w-full h-full object-contain',
+                            'loading'  => 'lazy',
+                            'decoding' => 'async',
+                            'sizes'    => '80px',
                         ]); ?>
                     </div>
                 <?php endforeach; ?>

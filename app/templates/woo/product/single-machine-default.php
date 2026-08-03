@@ -68,7 +68,7 @@ get_header();
 
                 <div class="machine-default__gallery">
                     <?php
-                    $main_id = $product->get_image_id();
+                    $main_id = (int) $product->get_image_id();
                     $gallery_ids = array_filter(array_map('intval', $product->get_gallery_image_ids()));
                     $all_ids = [];
                     if ($main_id) {
@@ -87,11 +87,13 @@ get_header();
                             <div id="<?php echo esc_attr($gallery_carousel_id); ?>" class="machine-default__gallery-track">
                                 <?php foreach ($all_ids as $i => $gid) : ?>
                                     <figure class="machine-default__gallery-slide">
-                                        <?php echo wp_get_attachment_image($gid, 'large', false, [
-                                            'class'   => 'w-full h-full object-contain',
-                                            'alt'     => $product->get_name(),
-                                            'loading' => $i === 0 ? 'eager' : 'lazy',
+                                        <?php echo \Standard\Images\get_attachment_picture($gid, 'large', [
+                                            'class'         => 'w-full h-full object-contain',
+                                            'alt'           => $product->get_name(),
+                                            'loading'       => $i === 0 ? 'eager' : 'lazy',
                                             'fetchpriority' => $i === 0 ? 'high' : null,
+                                            'decoding'      => 'async',
+                                            'sizes'         => '(max-width: 1023px) 100vw, 50vw',
                                         ]); ?>
                                     </figure>
                                 <?php endforeach; ?>

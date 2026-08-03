@@ -18,6 +18,7 @@ if (!defined('ABSPATH')) {
 
 use function Standard\Video\is_wistia_url;
 use function Standard\Video\render_video_embed;
+use function Standard\Video\render_wistia_facade;
 
 $hero = is_array($args['hero'] ?? null) ? $args['hero'] : [];
 $section_id = (string) ($args['section_id'] ?? 'page-video-hero');
@@ -27,7 +28,9 @@ $title = (string) ($hero['title'] ?? '');
 $description = (string) ($hero['description'] ?? '');
 $legacy_content = (string) ($hero['legacy_content'] ?? '');
 $video = (string) ($hero['video'] ?? '');
-$embed_html = render_video_embed($video);
+$embed_html = is_wistia_url($video)
+    ? render_wistia_facade($video, $title, '', true)
+    : render_video_embed($video);
 $has_content = $title !== '' || $description !== '' || $legacy_content !== '';
 $has_video = $embed_html !== '';
 
@@ -35,9 +38,6 @@ if (!$has_content && !$has_video) {
     return;
 }
 
-if ($has_video && is_wistia_url($video)) {
-    wp_enqueue_script('wistia-external', 'https://fast.wistia.net/assets/external/E-v1.js', [], null, true);
-}
 ?>
 
 <section

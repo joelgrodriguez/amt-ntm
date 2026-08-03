@@ -41,6 +41,7 @@ if (!defined('ABSPATH')) {
 
 use function Standard\Video\render_video_embed;
 use function Standard\Video\is_wistia_url;
+use function Standard\Video\render_wistia_facade;
 
 $defaults = [
     'title'             => __('Who Is NTM?', 'standard'),
@@ -58,7 +59,9 @@ $defaults = [
 ];
 
 $args = wp_parse_args($args ?? [], $defaults);
-$embed_html = render_video_embed($args['video_url'] ?? null);
+$embed_html = is_wistia_url($args['video_url'] ?? null)
+    ? render_wistia_facade($args['video_url'] ?? null, (string) $args['title'])
+    : render_video_embed($args['video_url'] ?? null);
 
 if ($embed_html === '') {
     return;
@@ -131,7 +134,3 @@ if ($embed_html === '') {
         </div>
     </div>
 </section>
-
-<?php if (is_wistia_url($args['video_url'] ?? null)) : ?>
-    <script src="https://fast.wistia.net/assets/external/E-v1.js" async></script>
-<?php endif; ?>

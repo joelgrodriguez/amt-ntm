@@ -60,10 +60,12 @@ if (
                 <?php if (!empty($image)) : ?>poster="<?php echo esc_url($image); ?>"<?php endif; ?>
             ></video>
         <?php elseif (!empty($image)) : ?>
-            <?php \Standard\Images\responsive_image($image, $headline, 'full', [
+            <?php \Standard\Images\responsive_image($image, $headline, 'large', [
                 'class'         => 'hero__media',
                 'loading'       => 'eager',
                 'fetchpriority' => 'high',
+                'decoding'      => 'async',
+                'sizes'         => '100vw',
             ]); ?>
         <?php endif; ?>
 
