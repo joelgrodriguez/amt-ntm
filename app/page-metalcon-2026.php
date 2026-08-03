@@ -23,9 +23,10 @@ $metalcon_config = [
     'demo_length'   => '20-minute',    // TODO (#130): Placeholder until the demo length is confirmed.
     'demo_format'   => 'private demo', // TODO (#130): Placeholder until the demo format is confirmed.
     // TODO (#130): Stakeholder-selected stand-in — SSQ3 on its trailer at a show
-    // booth. Replace with the approved SSM artwork when it lands, and update the
-    // alt text in templates/pages/metalcon/hero.php at the same time.
-    'hero_image_id' => 19348,
+    // booth, optimized to 16:9 at 2000x1125 (301 KB JPEG, 167 KB WebP sidecar).
+    // Replace with the approved SSM artwork when it lands, and update the alt
+    // text in templates/pages/metalcon/hero.php at the same time.
+    'hero_image_id' => 21102,
 ];
 
 get_header();

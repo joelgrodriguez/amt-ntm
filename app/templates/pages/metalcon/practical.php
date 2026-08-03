@@ -78,7 +78,7 @@ $details = [
                     <?php esc_html_e('Ask for the time before the show. Sales will follow up and lock in the details.', 'standard'); ?>
                 </p>
                 <a href="#metalcon-meeting-form" class="btn btn-primary w-full whitespace-nowrap sm:w-auto">
-                    <?php esc_html_e('Request a meeting', 'standard'); ?>
+                    <?php esc_html_e('Save my spot', 'standard'); ?>
                     <?php icon('arrow-up', ['class' => 'h-5 w-5']); ?>
                 </a>
                 <a

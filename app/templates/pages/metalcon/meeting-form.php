@@ -26,20 +26,20 @@ $values = [
 $days = metalcon_preferred_days();
 ?>
 
-<section id="metalcon-meeting-form" class="scroll-mt-24 border-b border-blue-200 bg-blue-50 section" aria-labelledby="metalcon-form-title">
+<section id="metalcon-meeting-form" class="scroll-mt-24 bg-blue-50 section" aria-labelledby="metalcon-form-title">
     <div class="container">
         <div class="grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(420px,1.2fr)] lg:gap-16">
             <header class="section-header-left max-w-xl content-start">
-                <p class="section-eyebrow"><?php esc_html_e('Your private booth meeting', 'standard'); ?></p>
+                <p class="section-eyebrow"><?php esc_html_e('Exclusive first look', 'standard'); ?></p>
                 <div class="section-divider"></div>
                 <h2 id="metalcon-form-title" class="section-title">
-                    <?php esc_html_e('Request a time with the NTM team', 'standard'); ?>
+                    <?php esc_html_e('Sign up for the SSM first look', 'standard'); ?>
                 </h2>
                 <p class="section-subtitle">
-                    <?php esc_html_e('Tell us what you run today and which show day works best. We will follow up with an exact time.', 'standard'); ?>
+                    <?php esc_html_e('Wednesday October 7, at the open of METALCON. Tell us who you are and we will save you a spot.', 'standard'); ?>
                 </p>
                 <p class="text-sm leading-relaxed text-blue-600">
-                    <?php esc_html_e('Sales confirms the exact time by phone or email.', 'standard'); ?>
+                    <?php esc_html_e('We confirm your spot by phone or email.', 'standard'); ?>
                 </p>
             </header>
 
@@ -47,16 +47,16 @@ $days = metalcon_preferred_days();
                 <?php if ($status === 'thanks') : ?>
                     <div class="grid gap-3" role="status">
                         <h3 class="text-2xl font-medium tracking-tight text-blue-900">
-                            <?php esc_html_e('Your request is in.', 'standard'); ?>
+                            <?php esc_html_e('You are on the list.', 'standard'); ?>
                         </h3>
                         <p class="text-base leading-relaxed text-blue-600">
-                            <?php esc_html_e('Sales will contact you by phone or email to confirm the exact meeting time.', 'standard'); ?>
+                            <?php esc_html_e('We will contact you by phone or email to confirm your spot.', 'standard'); ?>
                         </p>
                     </div>
                 <?php else : ?>
                     <?php if ($status === 'error') : ?>
                         <div class="mb-6 border-l-4 border-red bg-red/5 p-4 text-blue-900" role="alert">
-                            <?php esc_html_e('We could not send your request. Check the required fields and try again.', 'standard'); ?>
+                            <?php esc_html_e('We could not send your sign-up. Check the required fields and try again.', 'standard'); ?>
                         </div>
                     <?php endif; ?>
 
@@ -106,7 +106,7 @@ $days = metalcon_preferred_days();
                         </div>
 
                         <button type="submit" class="btn btn-primary btn--commit w-full whitespace-nowrap sm:w-auto sm:justify-self-start">
-                            <?php esc_html_e('Request a meeting', 'standard'); ?>
+                            <?php esc_html_e('Save my spot', 'standard'); ?>
                         </button>
                     </form>
                 <?php endif; ?>
