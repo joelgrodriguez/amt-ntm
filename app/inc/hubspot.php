@@ -20,6 +20,9 @@ const META_FORM_ID = 'e5160c2b-c2f3-4a09-9eaa-0b9c5a3986a3';
 // Service-request form. Defaults to the general form until the dedicated
 // HubSpot form (NetSuite/HubSpot pipeline) is created; swap the literal then.
 const SERVICE_REQUEST_FORM_ID = DEFAULT_FORM_ID;
+// METALCON 2026 meeting-request form. Defaults to the general form until the
+// dedicated HubSpot form is created; swap the literal then.
+const METALCON_FORM_ID = DEFAULT_FORM_ID;
 
 /**
  * Render a lazy HubSpot form mount point.
