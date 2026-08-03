@@ -30,7 +30,7 @@ $highlights = [
 ];
 ?>
 
-<section class="section border-b border-blue-200 bg-white" aria-labelledby="metalcon-see-title">
+<section class="section bg-white" aria-labelledby="metalcon-see-title">
     <div class="container section-content">
         <header class="section-header-left max-w-2xl">
             <p class="section-eyebrow"><?php esc_html_e('Inside the booth', 'standard'); ?></p>
