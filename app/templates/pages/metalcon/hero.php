@@ -28,7 +28,7 @@ $hero_image_id = (int) $config['hero_image_id'];
 
 <section class="relative overflow-hidden bg-blue-900 text-white pattern-dot-grid pattern-dot-grid--dark" aria-labelledby="metalcon-hero-title">
     <div class="container py-16 md:py-20 lg:py-24">
-        <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(420px,560px)] lg:gap-16">
+        <div class="grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] lg:gap-10">
 
             <div class="grid max-w-2xl content-start gap-6 lg:gap-8">
                 <p class="font-mono text-xs font-medium uppercase tracking-widest text-blue-300">
@@ -81,7 +81,7 @@ $hero_image_id = (int) $config['hero_image_id'];
                     'loading'       => 'eager',
                     'fetchpriority' => 'high',
                     'decoding'      => 'async',
-                    'sizes'         => '(min-width: 1024px) 40vw, calc(100vw - 2rem)',
+                    'sizes'         => '(min-width: 1024px) 55vw, calc(100vw - 2rem)',
                 ]);
                 ?>
             </div>
