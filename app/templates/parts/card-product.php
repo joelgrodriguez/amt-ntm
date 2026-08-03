@@ -97,7 +97,10 @@ $show_description = $args['show_description'] ?? true;
 
         <?php if ($image) : ?>
             <?php \Standard\Images\responsive_image($image, $image_alt, 'product-card', [
-                'class' => 'card-product__image',
+                'class'    => 'card-product__image',
+                'loading'  => 'lazy',
+                'decoding' => 'async',
+                'sizes'    => '(max-width: 639px) calc(100vw - 2rem), (max-width: 1023px) calc(50vw - 2rem), 360px',
             ]); ?>
         <?php else : ?>
             <?php \Standard\Images\fallback_image(['class' => 'card-product__image']); ?>

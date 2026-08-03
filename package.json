@@ -12,6 +12,7 @@
     "test:page-templates": "php scripts/tests/page-templates.test.php",
     "test:product-schema": "php scripts/tests/product-schema.test.php",
     "test:site-health": "php scripts/tests/site-health.test.php",
+    "test:performance-assets": "php scripts/tests/performance-assets.test.php",
     "test:scroll-header": "node scripts/tests/scroll-header.test.js",
     "test:profile-groups": "php scripts/tests/profile-groups.test.php",
     "db:check-dry-run": "scripts/db/check-dry-run-readonly.sh",

@@ -48,9 +48,12 @@ if ($context === 'carousel') {
 <a href="<?php echo esc_url($card['url']); ?>" class="<?php echo esc_attr($root_classes); ?>">
     <div class="card-accessory__image">
         <?php if (!empty($card['image_id'])) : ?>
-            <?php echo wp_get_attachment_image((int) $card['image_id'], 'product-card', false, [
-                'class' => 'w-full h-full object-contain p-2 transition-transform group-hover:scale-105',
-                'alt'   => $card['title'],
+            <?php echo \Standard\Images\get_attachment_picture((int) $card['image_id'], 'product-card', [
+                'class'    => 'w-full h-full object-contain p-2 transition-transform group-hover:scale-105',
+                'alt'      => $card['title'],
+                'loading'  => 'lazy',
+                'decoding' => 'async',
+                'sizes'    => '(max-width: 639px) calc(100vw - 2rem), (max-width: 1023px) calc(50vw - 2rem), 360px',
             ]); ?>
         <?php else : ?>
             <span class="card-accessory__placeholder"><?php echo esc_html($card['title']); ?></span>

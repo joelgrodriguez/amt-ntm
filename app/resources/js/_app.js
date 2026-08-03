@@ -27,6 +27,8 @@ import { initRevealMore } from './modules/RevealMore.js';
 import { initProfileExpand } from './modules/ProfileExpand.js';
 import { initProfileGallery } from './modules/ProfileGallery.js';
 import { initReadinessQuiz } from './modules/ReadinessQuiz.js';
+import { initVideoFacades } from './modules/VideoFacade.js';
+import { initThirdPartyLoader } from './modules/ThirdPartyLoader.js';
 
 /** @type {Function|null} Cleanup function for mobile menu */
 let mobileMenuCleanup = null;
@@ -78,6 +80,8 @@ let profileGalleryCleanup = null;
 
 /** @type {Function|null} Cleanup function for readiness quiz */
 let readinessQuizCleanup = null;
+let videoFacadesCleanup = null;
+let thirdPartyLoaderCleanup = null;
 
 /**
  * Executes callback when DOM is ready.
@@ -121,6 +125,8 @@ const initApp = () => {
   profileExpandCleanup = initProfileExpand();
   profileGalleryCleanup = initProfileGallery();
   readinessQuizCleanup = initReadinessQuiz();
+  videoFacadesCleanup = initVideoFacades();
+  thirdPartyLoaderCleanup = initThirdPartyLoader();
 };
 
 // Bootstrap
@@ -180,6 +186,12 @@ if (import.meta.hot) {
     }
     if (readinessQuizCleanup) {
       readinessQuizCleanup();
+    }
+    if (videoFacadesCleanup) {
+      videoFacadesCleanup();
+    }
+    if (thirdPartyLoaderCleanup) {
+      thirdPartyLoaderCleanup();
     }
     // Reinitialize
     initApp();

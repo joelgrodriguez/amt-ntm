@@ -49,7 +49,7 @@ $url   = isset($args['url']) && is_string($args['url']) && $args['url'] !== ''
     ? $args['url']
     : get_permalink($profile);
 $title = get_the_title($profile);
-$thumb = get_the_post_thumbnail_url($profile, 'product-card');
+$thumb_id = get_post_thumbnail_id($profile);
 
 // Up to two machine tag names, with a "+N" suffix if more exist.
 $subtitle = '';
@@ -75,12 +75,14 @@ if ($context === 'carousel') {
    class="<?php echo esc_attr($root_classes); ?>">
 
     <div class="profile-card__image relative bg-blue-50 aspect-[16/9] overflow-hidden flex items-center justify-center border border-blue-200 group-hover:border-blue-500 transition-colors duration-200">
-        <?php if ($thumb) : ?>
-            <img src="<?php echo esc_url($thumb); ?>"
-                 alt="<?php echo esc_attr($title); ?>"
-                 class="w-full h-full object-cover transition-transform duration-200 group-hover:scale-105"
-                 loading="lazy"
-                 decoding="async">
+        <?php if ($thumb_id) : ?>
+            <?php echo \Standard\Images\get_attachment_picture((int) $thumb_id, 'product-card', [
+                'alt'      => $title,
+                'class'    => 'w-full h-full object-cover transition-transform duration-200 group-hover:scale-105',
+                'loading'  => 'lazy',
+                'decoding' => 'async',
+                'sizes'    => '(max-width: 639px) calc(100vw - 2rem), (max-width: 1023px) calc(50vw - 2rem), 360px',
+            ]); ?>
         <?php else : ?>
             <span class="font-mono text-blue-400 text-sm px-4 text-center">
                 <?php echo esc_html($title); ?>

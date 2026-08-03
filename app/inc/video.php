@@ -118,6 +118,116 @@ function render_video_embed(?string $video): string
 }
 
 /**
+ * Render a click-to-load facade for Wistia videos.
+ *
+ * No Wistia JavaScript, iframe, tracking pixel, or media request is made until
+ * the visitor deliberately starts the video.
+ */
+function render_wistia_facade(?string $video, string $title = '', string $poster = '', bool $eager = false): string
+{
+    $url = normalize_video_url($video);
+    if ($url === null || !is_wistia_url($url)) {
+        return '';
+    }
+
+    $media_id = get_wistia_media_id($url);
+    if ($media_id === '') {
+        return '';
+    }
+
+    $host = strtolower((string) wp_parse_url($url, PHP_URL_HOST));
+    if (host_matches($host, 'wistia.com') && preg_match('/medias\/([a-zA-Z0-9]+)/', $url, $matches)) {
+        $url = 'https://fast.wistia.net/embed/iframe/' . $matches[1] . '?videoFoam=true';
+    }
+
+    if (!str_contains($url, '/embed/iframe/')) {
+        return '';
+    }
+
+    $label = $title !== ''
+        ? sprintf(__('Play %s', 'standard'), $title)
+        : __('Play video', 'standard');
+
+    $poster_markup = '';
+    if ($poster !== '') {
+        $poster_attrs = [
+            'class'    => 'video-facade__poster',
+            'loading'  => $eager ? 'eager' : 'lazy',
+            'decoding' => 'async',
+            'sizes'    => '(max-width: 1023px) 100vw, 50vw',
+            'aria-hidden' => 'true',
+        ];
+        if ($eager) {
+            $poster_attrs['fetchpriority'] = 'high';
+        }
+
+        ob_start();
+        \Standard\Images\responsive_image($poster, '', 'large', $poster_attrs);
+        $poster_markup = (string) ob_get_clean();
+    } else {
+        $poster_markup = get_local_wistia_poster_markup($media_id, $eager);
+    }
+
+    return sprintf(
+        '<div class="video-facade" data-video-facade data-video-src="%s">%s<button type="button" class="video-facade__button" aria-label="%s"><span class="video-facade__play" aria-hidden="true"></span><span class="video-facade__label">%s</span></button></div>',
+        esc_url($url),
+        $poster_markup,
+        esc_attr($label),
+        esc_html__('Play video', 'standard')
+    );
+}
+
+/**
+ * Extract the stable media ID from a supported Wistia URL.
+ */
+function get_wistia_media_id(?string $video): string
+{
+    $url = normalize_video_url($video);
+    if ($url === null) {
+        return '';
+    }
+
+    if (!preg_match('~/(?:embed/iframe|medias)/([a-zA-Z0-9]+)~', $url, $matches)) {
+        return '';
+    }
+
+    return sanitize_key($matches[1]);
+}
+
+/**
+ * Render locally stored responsive Wistia poster images.
+ */
+function get_local_wistia_poster_markup(string $media_id, bool $eager = false): string
+{
+    $media_id = sanitize_key($media_id);
+    if ($media_id === '') {
+        return '';
+    }
+
+    $relative_dir = '/assets/images/wistia/';
+    $path_480 = THEME_DIR . $relative_dir . $media_id . '-480.webp';
+    $path_960 = THEME_DIR . $relative_dir . $media_id . '-960.webp';
+
+    if (!is_file($path_480) || !is_file($path_960)) {
+        return '';
+    }
+
+    $version = (string) max((int) filemtime($path_480), (int) filemtime($path_960));
+    $url_480 = add_query_arg('ver', $version, THEME_URI . $relative_dir . $media_id . '-480.webp');
+    $url_960 = add_query_arg('ver', $version, THEME_URI . $relative_dir . $media_id . '-960.webp');
+    $loading = $eager ? 'eager' : 'lazy';
+    $priority = $eager ? ' fetchpriority="high"' : '';
+
+    return sprintf(
+        '<picture class="ntm-picture"><source type="image/webp" srcset="%1$s 480w, %2$s 960w" sizes="(max-width: 1023px) 100vw, 50vw"><img src="%2$s" width="960" height="540" class="video-facade__poster" alt="" loading="%3$s" decoding="async" aria-hidden="true"%4$s></picture>',
+        esc_url($url_480),
+        esc_url($url_960),
+        esc_attr($loading),
+        $priority
+    );
+}
+
+/**
  * Normalize a video field value down to a validated URL.
  *
  * Accepts plain URLs or legacy iframe/embed HTML and returns the extracted src.

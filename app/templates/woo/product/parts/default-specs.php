@@ -201,7 +201,11 @@ if (empty($sections)) {
                             </div>
                             <?php if ($fp['image']) : ?>
                                 <div class="machine-default__blueprint-canvas pattern-dot-grid pattern-dot-grid--solid">
-                                    <img src="<?php echo esc_url($fp['image']); ?>" alt="<?php echo esc_attr(sprintf(__('%s footprint diagram', 'standard'), $product->get_name())); ?>" loading="lazy">
+                                    <?php \Standard\Images\responsive_image($fp['image'], sprintf(__('%s footprint diagram', 'standard'), $product->get_name()), 'large', [
+                                        'loading'  => 'lazy',
+                                        'decoding' => 'async',
+                                        'sizes'    => '(max-width: 1023px) 100vw, 45vw',
+                                    ]); ?>
                                 </div>
                             <?php endif; ?>
                             <figcaption class="machine-default__blueprint-title">
@@ -213,7 +217,12 @@ if (empty($sections)) {
             <?php elseif ($side_image_url) : ?>
                 <div class="hidden lg:block sticky top-24">
                     <div class="bg-white border border-blue-200 overflow-hidden">
-                        <img src="<?php echo esc_url($side_image_url); ?>" alt="<?php echo esc_attr($side_image_alt); ?>" class="w-full h-auto" loading="lazy">
+                        <?php \Standard\Images\responsive_image($side_image_url, $side_image_alt, 'large', [
+                            'class'    => 'w-full h-auto',
+                            'loading'  => 'lazy',
+                            'decoding' => 'async',
+                            'sizes'    => '45vw',
+                        ]); ?>
                     </div>
                 </div>
             <?php endif; ?>

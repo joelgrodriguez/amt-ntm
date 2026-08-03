@@ -62,6 +62,7 @@ $theme_includes = [
     'inc/product-schema.php',
     'inc/llms-txt.php',
     'inc/site-health.php',
+    'inc/performance.php',
     'inc/seo.php',
     'inc/post-types.php',
     'inc/post-archive.php',
