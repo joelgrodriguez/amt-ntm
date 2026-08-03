@@ -12,8 +12,8 @@
  * there is no CTA, and the meta strip carries the company metrics
  * (years / countries / facilities / category firsts).
  *
- * The video embeds directly (no facade, no lazy load) so it is ready to play
- * the moment the page renders.
+ * The video uses the shared click-to-play facade so Wistia stays off the
+ * critical rendering path.
  *
  * @package Standard
  * @usage About Page (page-about.php)
@@ -25,8 +25,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-use function Standard\Video\render_video_embed;
-use function Standard\Video\is_wistia_url;
+use function Standard\Video\render_wistia_facade;
 
 $content = [
     'eyebrow'   => __('About New Tech Machinery', 'standard'),
@@ -36,8 +35,7 @@ $content = [
     'video_url' => 'https://fast.wistia.net/embed/iframe/kdv2kphni1?seo=false&videoFoam=true',
 ];
 
-// Render directly and force eager loading — this video is not lazy-loaded.
-$embed_html = str_replace('loading="lazy"', 'loading="eager"', render_video_embed($content['video_url']));
+$embed_html = render_wistia_facade($content['video_url'], __('About New Tech Machinery', 'standard'), '', true);
 
 $metrics = [
     ['value' => '34+',  'label' => __('Years',           'standard')],
@@ -96,7 +94,3 @@ $metrics = [
         </div>
     </div>
 </section>
-
-<?php if ($embed_html !== '' && is_wistia_url($content['video_url'])) : ?>
-    <script src="https://fast.wistia.net/assets/external/E-v1.js" async></script>
-<?php endif; ?>
