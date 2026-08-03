@@ -83,7 +83,7 @@ $hero_image_id = (int) $config['hero_image_id'];
                 // artwork lands, replace the ID and rewrite this alt text so it
                 // describes the real image rather than the placeholder machine.
                 echo Images\get_attachment_picture($hero_image_id, 'large', [
-                    'alt'           => __('SSQ3 portable roof panel machine viewed from the side and rear', 'standard'),
+                    'alt'           => __('NTM SSQ3 portable roof panel machine loaded on its trailer at a trade show booth, with two coils mounted above the run-out table', 'standard'),
                     'class'         => 'block h-full w-full object-cover',
                     'loading'       => 'eager',
                     'fetchpriority' => 'high',

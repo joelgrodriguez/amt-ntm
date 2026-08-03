@@ -22,8 +22,10 @@ $metalcon_config = [
     'booth_number'  => 'TBD',          // TODO (#130): Replace with the confirmed booth number.
     'demo_length'   => '20-minute',    // TODO (#130): Placeholder until the demo length is confirmed.
     'demo_format'   => 'private demo', // TODO (#130): Placeholder until the demo format is confirmed.
-    // TODO (#130): Placeholder SSQ3 image. Replace with the approved SSM artwork.
-    'hero_image_id' => 20976,
+    // TODO (#130): Stakeholder-selected stand-in — SSQ3 on its trailer at a show
+    // booth. Replace with the approved SSM artwork when it lands, and update the
+    // alt text in templates/pages/metalcon/hero.php at the same time.
+    'hero_image_id' => 19348,
 ];
 
 get_header();
