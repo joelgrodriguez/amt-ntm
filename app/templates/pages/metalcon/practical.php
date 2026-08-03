@@ -77,8 +77,8 @@ $details = [
                 <p class="text-lg leading-relaxed text-blue-200">
                     <?php esc_html_e('Ask for the time before the show. Sales will follow up and lock in the details.', 'standard'); ?>
                 </p>
-                <a href="#metalcon-meeting-form" class="btn btn-primary w-full sm:w-60">
-                    <?php esc_html_e('Request a booth meeting', 'standard'); ?>
+                <a href="#metalcon-meeting-form" class="btn btn-primary w-full whitespace-nowrap sm:w-auto">
+                    <?php esc_html_e('Request a meeting', 'standard'); ?>
                     <?php icon('arrow-up', ['class' => 'h-5 w-5']); ?>
                 </a>
                 <a

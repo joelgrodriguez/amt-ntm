@@ -104,14 +104,15 @@
     {
       "path": "app",
       "purpose": "Application code and framework conventions.",
-      "fileCount": 457,
+      "fileCount": 478,
       "categories": {
-        "source": 174,
+        "source": 181,
         "other": 44,
+        "docs": 1,
         "config": 2,
         "route": 9,
         "test": 2,
-        "template": 226
+        "template": 239
       },
       "keyFiles": [
         "app/404.php",
@@ -140,12 +141,11 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 4,
+      "fileCount": 3,
       "categories": {
-        "docs": 4
+        "docs": 3
       },
       "keyFiles": [
-        "docs/audits/schema-pro-conflict-investigation.md",
         "docs/decisions/README.md",
         "docs/specs/machines.md",
         "docs/specs/project-context.md"
@@ -172,12 +172,12 @@
     {
       "path": "scripts",
       "purpose": "Developer automation scripts.",
-      "fileCount": 66,
+      "fileCount": 73,
       "categories": {
-        "source": 11,
-        "other": 48,
+        "source": 13,
+        "other": 50,
         "docs": 2,
-        "test": 5
+        "test": 8
       },
       "keyFiles": [
         "scripts/content/export-copy.php",
@@ -214,7 +214,7 @@
       "path": ".gitignore",
       "category": "other",
       "role": "Repository file.",
-      "size": 1966
+      "size": 2052
     },
     {
       "path": "app/404.php",
@@ -475,6 +475,12 @@
       "size": 333
     },
     {
+      "path": "app/assets/images/wistia/README.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 525
+    },
+    {
       "path": "app/data/knowledgebase/articles.php",
       "category": "source",
       "role": "Application source code.",
@@ -496,25 +502,25 @@
       "path": "app/data/machines/mach-ii-5-gutter.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 9653
+      "size": 9895
     },
     {
       "path": "app/data/machines/mach-ii-6-gutter.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 9643
+      "size": 9885
     },
     {
       "path": "app/data/machines/mach-ii-combo-gutter.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 11926
+      "size": 12194
     },
     {
       "path": "app/data/machines/ssh-multipro.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 12703
+      "size": 12752
     },
     {
       "path": "app/data/machines/ssq-ii-multipro.php",
@@ -556,13 +562,13 @@
       "path": "app/functions.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 1727
+      "size": 1864
     },
     {
       "path": "app/header.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 8986
+      "size": 9082
     },
     {
       "path": "app/home.php",
@@ -658,7 +664,7 @@
       "path": "app/inc/images.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 3786
+      "size": 8774
     },
     {
       "path": "app/inc/knowledgebase.php",
@@ -691,6 +697,12 @@
       "size": 3677
     },
     {
+      "path": "app/inc/llms-txt.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 6979
+    },
+    {
       "path": "app/inc/machine-product-data.php",
       "category": "source",
       "role": "Application source code.",
@@ -700,13 +712,13 @@
       "path": "app/inc/machine-schema.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 7619
+      "size": 3034
     },
     {
       "path": "app/inc/machines-data.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 54809
+      "size": 54802
     },
     {
       "path": "app/inc/machines.php",
@@ -721,6 +733,12 @@
       "size": 2869
     },
     {
+      "path": "app/inc/metalcon-form.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 3433
+    },
+    {
       "path": "app/inc/mobile-nav.php",
       "category": "source",
       "role": "Application source code.",
@@ -730,13 +748,19 @@
       "path": "app/inc/page-templates.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 7205
+      "size": 7243
     },
     {
       "path": "app/inc/pdf-attachment.php",
       "category": "source",
       "role": "Application source code.",
       "size": 1275
+    },
+    {
+      "path": "app/inc/performance.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 2994
     },
     {
       "path": "app/inc/post-archive.php",
@@ -751,10 +775,16 @@
       "size": 4210
     },
     {
+      "path": "app/inc/product-schema.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 10606
+    },
+    {
       "path": "app/inc/profile-groups.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 1479
+      "size": 1603
     },
     {
       "path": "app/inc/related-posts.php",
@@ -793,6 +823,12 @@
       "size": 2905
     },
     {
+      "path": "app/inc/site-health.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 4288
+    },
+    {
       "path": "app/inc/trailer-data.php",
       "category": "source",
       "role": "Application source code.",
@@ -808,7 +844,7 @@
       "path": "app/inc/video.php",
       "category": "source",
       "role": "Application source code.",
-      "size": 5797
+      "size": 9517
     },
     {
       "path": "app/inc/vite.php",
@@ -937,6 +973,12 @@
       "size": 2466
     },
     {
+      "path": "app/page-metalcon-2026.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 1574
+    },
+    {
       "path": "app/page-owner-resources.php",
       "category": "source",
       "role": "Application source code.",
@@ -1042,7 +1084,7 @@
       "path": "app/resources/css/components/accordion.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 3060
+      "size": 3144
     },
     {
       "path": "app/resources/css/components/buttons.css",
@@ -1126,7 +1168,7 @@
       "path": "app/resources/css/editor.css",
       "category": "source",
       "role": "Application source code.",
-      "size": 808
+      "size": 4300
     },
     {
       "path": "app/resources/css/fonts.css",
@@ -1228,13 +1270,13 @@
       "path": "app/resources/css/pages/media.css",
       "category": "route",
       "role": "Route, page, controller, or request entry file.",
-      "size": 1513
+      "size": 3028
     },
     {
       "path": "app/resources/css/pages/readiness-quiz.css",
       "category": "route",
       "role": "Route, page, controller, or request entry file.",
-      "size": 9234
+      "size": 10957
     },
     {
       "path": "app/resources/css/pages/roof-wall.css",
@@ -1354,13 +1396,13 @@
       "path": "app/resources/js/_app.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 5640
+      "size": 6075
     },
     {
       "path": "app/resources/js/front-page.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 1068
+      "size": 930
     },
     {
       "path": "app/resources/js/machine-product.js",
@@ -1385,12 +1427,6 @@
       "category": "source",
       "role": "Application source code.",
       "size": 3529
-    },
-    {
-      "path": "app/resources/js/modules/ContactLazy.js",
-      "category": "source",
-      "role": "Application source code.",
-      "size": 2256
     },
     {
       "path": "app/resources/js/modules/ExploreMachines.js",
@@ -1432,7 +1468,7 @@
       "path": "app/resources/js/modules/HubspotForms.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 3052
+      "size": 4217
     },
     {
       "path": "app/resources/js/modules/MachineSubnav.js",
@@ -1468,7 +1504,7 @@
       "path": "app/resources/js/modules/ReadinessQuiz.js",
       "category": "source",
       "role": "Application source code.",
-      "size": 20682
+      "size": 27970
     },
     {
       "path": "app/resources/js/modules/RevealMore.js",
@@ -1517,6 +1553,18 @@
       "category": "source",
       "role": "Application source code.",
       "size": 6804
+    },
+    {
+      "path": "app/resources/js/modules/ThirdPartyLoader.js",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 2819
+    },
+    {
+      "path": "app/resources/js/modules/VideoFacade.js",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 1389
     },
     {
       "path": "app/safelist.txt",
@@ -1963,6 +2011,42 @@
       "size": 1184
     },
     {
+      "path": "app/templates/pages/metalcon/hero.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 4360
+    },
+    {
+      "path": "app/templates/pages/metalcon/meeting-form.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 7106
+    },
+    {
+      "path": "app/templates/pages/metalcon/practical.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 4188
+    },
+    {
+      "path": "app/templates/pages/metalcon/proof.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 497
+    },
+    {
+      "path": "app/templates/pages/metalcon/what-youll-see.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 2363
+    },
+    {
+      "path": "app/templates/pages/metalcon/why-book-ahead.php",
+      "category": "template",
+      "role": "Route, page, controller, or request entry file.",
+      "size": 2610
+    },
+    {
       "path": "app/templates/pages/playlist/after.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
@@ -2146,7 +2230,7 @@
       "path": "app/templates/pages/start-here/which-path.php",
       "category": "template",
       "role": "Route, page, controller, or request entry file.",
-      "size": 8331
+      "size": 8353
     },
     {
       "path": "app/templates/pages/trailer/compatibility.php",
@@ -2266,7 +2350,7 @@
       "path": "app/templates/parts/about/manifesto.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4452
+      "size": 4157
     },
     {
       "path": "app/templates/parts/about/origin.php",
@@ -2308,7 +2392,7 @@
       "path": "app/templates/parts/card-accessory.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 2277
+      "size": 2486
     },
     {
       "path": "app/templates/parts/card-manual.php",
@@ -2326,13 +2410,49 @@
       "path": "app/templates/parts/card-product.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 6371
+      "size": 6568
     },
     {
       "path": "app/templates/parts/card-profile.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3628
+      "size": 3794
+    },
+    {
+      "path": "app/templates/parts/careers/faq.php",
+      "category": "template",
+      "role": "Application source code.",
+      "size": 4724
+    },
+    {
+      "path": "app/templates/parts/careers/hero.php",
+      "category": "template",
+      "role": "Application source code.",
+      "size": 3378
+    },
+    {
+      "path": "app/templates/parts/careers/life.php",
+      "category": "template",
+      "role": "Application source code.",
+      "size": 4296
+    },
+    {
+      "path": "app/templates/parts/careers/paths.php",
+      "category": "template",
+      "role": "Application source code.",
+      "size": 4674
+    },
+    {
+      "path": "app/templates/parts/careers/practices.php",
+      "category": "template",
+      "role": "Application source code.",
+      "size": 2906
+    },
+    {
+      "path": "app/templates/parts/careers/why.php",
+      "category": "template",
+      "role": "Application source code.",
+      "size": 3779
     },
     {
       "path": "app/templates/parts/comparison-table.php",
@@ -2374,7 +2494,7 @@
       "path": "app/templates/parts/cta/closer.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3042
+      "size": 3203
     },
     {
       "path": "app/templates/parts/cta/fit-helper.php",
@@ -2446,7 +2566,7 @@
       "path": "app/templates/parts/front-page/contact.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4820
+      "size": 4705
     },
     {
       "path": "app/templates/parts/front-page/explore-machines.php",
@@ -2458,7 +2578,7 @@
       "path": "app/templates/parts/front-page/faq.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4979
+      "size": 5669
     },
     {
       "path": "app/templates/parts/front-page/final-cta.php",
@@ -2512,7 +2632,7 @@
       "path": "app/templates/parts/front-page/three-step-plan.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 6432
+      "size": 6434
     },
     {
       "path": "app/templates/parts/front-page/tools.php",
@@ -2536,7 +2656,7 @@
       "path": "app/templates/parts/hero-category.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 7777
+      "size": 7535
     },
     {
       "path": "app/templates/parts/ironclad-support.php",
@@ -2560,7 +2680,7 @@
       "path": "app/templates/parts/machine-rib-rollers.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 1468
+      "size": 1476
     },
     {
       "path": "app/templates/parts/mega-menu.php",
@@ -2584,7 +2704,7 @@
       "path": "app/templates/parts/page-video-hero.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3492
+      "size": 3469
     },
     {
       "path": "app/templates/parts/portability-dna.php",
@@ -2698,13 +2818,19 @@
       "path": "app/templates/parts/video-section.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 6591
+      "size": 6612
     },
     {
       "path": "app/templates/template-articles.php",
       "category": "template",
       "role": "Application source code.",
       "size": 2852
+    },
+    {
+      "path": "app/templates/template-careers.php",
+      "category": "template",
+      "role": "Application source code.",
+      "size": 2230
     },
     {
       "path": "app/templates/template-corbel.php",
@@ -2752,7 +2878,7 @@
       "path": "app/templates/template-readiness-quiz.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 6707
+      "size": 7986
     },
     {
       "path": "app/templates/template-service-hub-machine.php",
@@ -2782,7 +2908,7 @@
       "path": "app/templates/woo/product/parts/accessory-hero.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 5664
+      "size": 5859
     },
     {
       "path": "app/templates/woo/product/parts/accessory-tabs.php",
@@ -2806,7 +2932,7 @@
       "path": "app/templates/woo/product/parts/comparison.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 4250
+      "size": 4559
     },
     {
       "path": "app/templates/woo/product/parts/compatible-machines.php",
@@ -2848,13 +2974,13 @@
       "path": "app/templates/woo/product/parts/default-specs.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 8775
+      "size": 10118
     },
     {
       "path": "app/templates/woo/product/parts/faq.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 1584
+      "size": 1874
     },
     {
       "path": "app/templates/woo/product/parts/final-cta.php",
@@ -2866,13 +2992,13 @@
       "path": "app/templates/woo/product/parts/gallery.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3406
+      "size": 4031
     },
     {
       "path": "app/templates/woo/product/parts/hero.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 5117
+      "size": 5206
     },
     {
       "path": "app/templates/woo/product/parts/machine-breakdown.php",
@@ -2890,7 +3016,7 @@
       "path": "app/templates/woo/product/parts/product-card-link.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 1453
+      "size": 1662
     },
     {
       "path": "app/templates/woo/product/parts/profile-selector.php",
@@ -2932,19 +3058,19 @@
       "path": "app/templates/woo/product/single-accessory.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 3679
+      "size": 3556
     },
     {
       "path": "app/templates/woo/product/single-machine-default.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 10067
+      "size": 10432
     },
     {
       "path": "app/templates/woo/product/single-machine.php",
       "category": "template",
       "role": "Application source code.",
-      "size": 6124
+      "size": 6022
     },
     {
       "path": "app/theme.json",
@@ -2989,12 +3115,6 @@
       "size": 328744
     },
     {
-      "path": "docs/audits/schema-pro-conflict-investigation.md",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 49008
-    },
-    {
       "path": "docs/decisions/README.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
@@ -3022,13 +3142,13 @@
       "path": "package-lock.json",
       "category": "other",
       "role": "Repository file.",
-      "size": 51566
+      "size": 52960
     },
     {
       "path": "package.json",
       "category": "manifest",
       "role": "Project manifest or dependency declaration.",
-      "size": 1304
+      "size": 1522
     },
     {
       "path": "plans/001-homepage-yoast-head-meta.md",
@@ -3253,6 +3373,12 @@
       "size": 1415
     },
     {
+      "path": "scripts/db/036-metalcon-2026-landing-page.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 5384
+    },
+    {
       "path": "scripts/db/037-import-redirects.php",
       "category": "source",
       "role": "Application source code.",
@@ -3379,6 +3505,12 @@
       "size": 6976
     },
     {
+      "path": "scripts/db/054-homepage-and-category-seo-titles.sh",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 7842
+    },
+    {
       "path": "scripts/db/apply",
       "category": "other",
       "role": "Repository file.",
@@ -3409,6 +3541,18 @@
       "size": 17136
     },
     {
+      "path": "scripts/media/generate-product-webp.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 2097
+    },
+    {
+      "path": "scripts/media/sync-wistia-thumbnails.php",
+      "category": "source",
+      "role": "Application source code.",
+      "size": 4454
+    },
+    {
       "path": "scripts/release/clean-dev-tooling-worktree.sh",
       "category": "other",
       "role": "Repository file.",
@@ -3418,7 +3562,7 @@
       "path": "scripts/release/dev-tooling-paths.txt",
       "category": "other",
       "role": "Repository file.",
-      "size": 372
+      "size": 514
     },
     {
       "path": "scripts/release/hooks/post-checkout",
@@ -3466,13 +3610,25 @@
       "path": "scripts/tests/page-templates.test.php",
       "category": "test",
       "role": "Automated test or test support file.",
-      "size": 3356
+      "size": 3458
+    },
+    {
+      "path": "scripts/tests/performance-assets.test.php",
+      "category": "test",
+      "role": "Automated test or test support file.",
+      "size": 4072
+    },
+    {
+      "path": "scripts/tests/product-schema.test.php",
+      "category": "test",
+      "role": "Automated test or test support file.",
+      "size": 13923
     },
     {
       "path": "scripts/tests/profile-groups.test.php",
       "category": "test",
       "role": "Automated test or test support file.",
-      "size": 2255
+      "size": 2266
     },
     {
       "path": "scripts/tests/scroll-header.test.js",
@@ -3485,6 +3641,12 @@
       "category": "test",
       "role": "Automated test or test support file.",
       "size": 4446
+    },
+    {
+      "path": "scripts/tests/site-health.test.php",
+      "category": "test",
+      "role": "Automated test or test support file.",
+      "size": 10421
     },
     {
       "path": "vite-plugin-theme-json.js",
@@ -3504,14 +3666,17 @@
     "app/resources/js/modules/SearchModal.test.mjs",
     "scripts/db/tests/migration-guards.test.php",
     "scripts/tests/page-templates.test.php",
+    "scripts/tests/performance-assets.test.php",
+    "scripts/tests/product-schema.test.php",
     "scripts/tests/profile-groups.test.php",
     "scripts/tests/scroll-header.test.js",
-    "scripts/tests/seo-sitemap-exclusions.test.php"
+    "scripts/tests/seo-sitemap-exclusions.test.php",
+    "scripts/tests/site-health.test.php"
   ],
   "docs": [
+    "app/assets/images/wistia/README.md",
     "CLAUDE.md",
     "CONTEXT.md",
-    "docs/audits/schema-pro-conflict-investigation.md",
     "docs/decisions/README.md",
     "docs/specs/machines.md",
     "docs/specs/project-context.md",

@@ -19,9 +19,13 @@ if (!defined('ABSPATH')) {
 // booth assignment and final demo plan are approved; section parts must read
 // from this array so the temporary details never get scattered across files.
 $metalcon_config = [
-    'booth_number' => 'TBD',          // TODO (#130): Replace with the confirmed booth number.
-    'demo_length'  => '20-minute',    // TODO (#130): Placeholder until the demo length is confirmed.
-    'demo_format'  => 'private demo', // TODO (#130): Placeholder until the demo format is confirmed.
+    'booth_number'  => 'TBD',          // TODO (#130): Replace with the confirmed booth number.
+    'demo_length'   => '20-minute',    // TODO (#130): Placeholder until the demo length is confirmed.
+    'demo_format'   => 'private demo', // TODO (#130): Placeholder until the demo format is confirmed.
+    // TODO (#130): Stakeholder-selected stand-in — SSQ3 on its trailer at a show
+    // booth. Replace with the approved SSM artwork when it lands, and update the
+    // alt text in templates/pages/metalcon/hero.php at the same time.
+    'hero_image_id' => 19348,
 ];
 
 get_header();
@@ -32,6 +36,8 @@ while (have_posts()) :
 
     <main id="primary">
         <?php get_template_part('templates/pages/metalcon/hero', null, ['config' => $metalcon_config]); ?>
+
+        <?php get_template_part('templates/pages/metalcon/meeting-form'); ?>
 
         <?php get_template_part('templates/pages/metalcon/what-youll-see'); ?>
 
