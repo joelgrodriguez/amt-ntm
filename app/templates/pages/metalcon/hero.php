@@ -26,7 +26,7 @@ $demo_format   = (string) $config['demo_format'];
 $hero_image_id = (int) $config['hero_image_id'];
 ?>
 
-<section class="relative overflow-hidden border-b border-blue-800 bg-blue-900 text-white pattern-dot-grid pattern-dot-grid--dark" aria-labelledby="metalcon-hero-title">
+<section class="relative overflow-hidden bg-blue-900 text-white pattern-dot-grid pattern-dot-grid--dark" aria-labelledby="metalcon-hero-title">
     <div class="container py-16 md:py-20 lg:py-24">
         <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(420px,560px)] lg:gap-16">
 
@@ -42,23 +42,16 @@ $hero_image_id = (int) $config['hero_image_id'];
                 </p>
 
                 <h1 id="metalcon-hero-title" class="text-balance text-4xl font-semibold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl">
-                    <?php esc_html_e('See the SSM Siding Machine run live — and run your own panel.', 'standard'); ?>
+                    <?php esc_html_e('An exclusive first look at the SSM siding machine.', 'standard'); ?>
                 </h1>
 
                 <p class="max-w-xl text-lg leading-relaxed text-blue-200 lg:text-xl">
-                    <?php
-                    printf(
-                        /* translators: 1: placeholder demo length, 2: placeholder demo format. */
-                        esc_html__('Book a %1$s %2$s with our team. Skip the floor crowd.', 'standard'),
-                        esc_html($demo_length),
-                        esc_html($demo_format)
-                    );
-                    ?>
+                    <?php esc_html_e('Sign up to see it run at the open of METALCON, Wednesday October 7.', 'standard'); ?>
                 </p>
 
                 <div class="flex flex-col gap-4 sm:flex-row">
                     <a href="#metalcon-meeting-form" class="btn btn-primary w-full whitespace-nowrap sm:w-auto">
-                        <?php esc_html_e('Request a meeting', 'standard'); ?>
+                        <?php esc_html_e('Save my spot', 'standard'); ?>
                         <?php icon('arrow-down', ['class' => 'h-5 w-5']); ?>
                     </a>
                     <a
@@ -73,15 +66,15 @@ $hero_image_id = (int) $config['hero_image_id'];
                 </div>
 
                 <p class="max-w-xl text-sm leading-relaxed text-blue-300">
-                    <?php esc_html_e('Sales will confirm your exact meeting time by phone or email. No calendar roulette.', 'standard'); ?>
+                    <?php esc_html_e('We confirm your spot by phone or email. No calendar roulette.', 'standard'); ?>
                 </p>
             </div>
 
-            <div class="aspect-[4/3] overflow-hidden border border-white/10 bg-blue-800">
+            <div class="aspect-video overflow-hidden border border-white/10 bg-blue-800">
                 <?php
-                // Placeholder ID 20976 shows the SSQ3. When the approved SSM
-                // artwork lands, replace the ID and rewrite this alt text so it
-                // describes the real image rather than the placeholder machine.
+                // Stand-in image shows the SSQ3, not the SSM. When the approved
+                // SSM artwork lands, replace hero_image_id in the page template
+                // and rewrite this alt text so it describes the real machine.
                 echo Images\get_attachment_picture($hero_image_id, 'large', [
                     'alt'           => __('NTM SSQ3 portable roof panel machine loaded on its trailer at a trade show booth, with two coils mounted above the run-out table', 'standard'),
                     'class'         => 'block h-full w-full object-cover',
