@@ -44,8 +44,6 @@ while (have_posts()) :
         'compat_eyebrow'     => __('Compatibility', 'standard'),
         'compat_heading'     => __('Rolls On', 'standard'),
         'compat_empty'       => __('No machines tagged yet.', 'standard'),
-        'tag_count_singular' => __('%d profile', 'standard'),
-        'tag_count_plural'   => __('%d profiles', 'standard'),
         'archive_url'        => $archive_url,
         'back_label'         => __('Back to all profiles', 'standard'),
         'spec_heading'       => __('Spec Sheet', 'standard'),
