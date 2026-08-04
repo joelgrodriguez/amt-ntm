@@ -320,3 +320,41 @@ SVG icons live in `app/assets/icons/`. Use the `icon()` helper in templates:
 - The Vite dev server URL is auto-detected.
 - When `npm run dev` runs, Vite writes the URL to `app/.vite-dev-server`.
 - PHP reads `app/.vite-dev-server` to load dev assets from Docker/DevKinsta or localhost.
+
+## Shogun Workflow
+
+Use `.shogun/README.md` as the local workflow guide for Superset worktrees.
+Superset tasks are the source of truth; `.shogun/active.md` and
+`.shogun/archive.md` are local notes only.
+If your agent supports skills, load the Shogun skill from `.agents/skills`,
+`.claude/skills`, or `.opencode/skills` before taking Shogun work.
+
+Task creation is mandatory here. If the user asks to create a task, ticket,
+issue, feature, bug, chore, TODO, or implementation plan and did not provide an
+existing Superset task ID or URL, create the parent Superset task first with
+`shogun task create`. Do this even when the user does not say "Shogun". Do not
+create only local graph nodes for user-requested work.
+
+Read `docs/architecture/map.json` and `docs/architecture/flows.json` before
+unfamiliar feature work. If files, routes, entrypoints, tests, commands,
+boundaries, or documented flows change, run `shogun map` and verify with
+`shogun map --check`.
+For plain feature requests, create the parent Superset task first with
+`shogun task create` unless the user already gave you a task ID or URL. Then
+inspect the code, add 3-6 dependency-ordered graph nodes with
+`shogun graph add ... --parent <superset-task-id>`, and claim the first ready
+node. Do not make the user paste a giant orchestration prompt.
+If Shogun mode is `mainline`, queue completed branches with `shogun queue add`
+and let `shogun queue run` land through validation/CI. Do not manually merge.
+
+Agents working in spawned worktrees must commit, validate with
+`npm run build`, update the Superset task summary, move the task to
+`Reviewing`, and stop. Do not merge into `dev`; Shogun lands reviewed
+work from the base checkout.
+
+Use this task flow: `Staged -> Processing -> Reviewing -> Verifying -> Done`.
+`Verifying` is a real Superset status (synced from the team's Linear issue
+statuses): Shogun moves a task there after landing the branch into
+`dev`, and `approve` is the only command that marks it `Done`. If
+review fails, move the task back to `Processing`; after `Done`, create a
+follow-up task.
