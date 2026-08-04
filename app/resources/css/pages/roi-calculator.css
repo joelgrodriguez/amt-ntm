@@ -40,6 +40,11 @@
     color: var(--color-blue-600);
   }
 
+  /* Inputs + results. One column until there is room to pair them. */
+  .roi-workspace {
+    display: grid;
+  }
+
   /* Steps ----------------------------------------------------------------- */
   .roi-step {
     padding: 1.5rem;
@@ -120,16 +125,24 @@
     box-shadow: inset 0 0 0 1px var(--color-blue-500); /* reads as 2px border, no layout shift */
   }
 
-  .roi-machine__size {
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-blue-400);
+  /* Product photo. The source shots are 1000×1000 with an opaque white
+     background, so the media bleeds to the card edges (cancelling the card
+     padding) — otherwise the white sits as a mismatched patch on the tinted
+     card. contain in a 3:2 box crops nothing off the machine. */
+  .roi-machine__media {
+    display: block;
+    margin: -1rem -1rem 0.75rem;
+    background: #fff;
+    border-bottom: 1px solid var(--color-blue-200);
   }
 
-  .roi-machine[aria-pressed="true"] .roi-machine__size {
-    color: var(--color-blue-500);
+  /* The sources are square, so `contain` sizes the machine to the box HEIGHT.
+     4:3 renders it ~12% larger than 3:2 for ~30px more card. */
+  .roi-machine__img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
   }
 
   .roi-machine__name {
@@ -504,6 +517,32 @@
     .roi-cta__actions {
       flex-direction: row;
       justify-content: center;
+    }
+  }
+
+  /* Landscape: inputs and results side by side, so the figures move while the
+     buyer is still typing instead of sitting below the fold. Needs the wider
+     canvas, hence the max-width bump. Columns stretch to a shared height so
+     the white/dark seam stays straight. */
+  @media (min-width: 1024px) {
+    .roi-calc {
+      max-width: 72rem;
+    }
+
+    .roi-workspace {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    }
+
+    /* No longer stacked directly above the results panel, so it needs its
+       own bottom edge back. */
+    .roi-step--inputs {
+      border-bottom: 1px solid var(--color-blue-200);
+    }
+
+    /* The column is too narrow for a two-up form; one field per row reads
+       better than six cramped half-width boxes. */
+    .roi-fields {
+      grid-template-columns: 1fr;
     }
   }
 }

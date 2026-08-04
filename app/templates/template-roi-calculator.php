@@ -52,21 +52,23 @@ while (have_posts()) :
                         <div class="roi-machines" role="group" aria-label="<?php esc_attr_e('Machine', 'standard'); ?>" data-roi-machines>
                             <?php
                             // Prices mirror MACHINES in RoiCalculator.js — update both together.
+                            // `slug` pulls the machine's product photo, so the picker stays in
+                            // sync with the catalog rather than carrying its own images.
                             $roi_machines = [
                                 '5in'   => [
-                                    'size'  => '5"',
+                                    'slug'  => 'mach-ii-5-gutter-machine',
                                     'name'  => __('5" Machine', 'standard'),
                                     'desc'  => __('Produces 5" K-style gutter', 'standard'),
                                     'price' => __('$9,800', 'standard'),
                                 ],
                                 '6in'   => [
-                                    'size'  => '6"',
+                                    'slug'  => 'mach-ii-6-gutter-machine',
                                     'name'  => __('6" Machine', 'standard'),
                                     'desc'  => __('Produces 6" K-style gutter', 'standard'),
                                     'price' => __('$10,500', 'standard'),
                                 ],
                                 'combo' => [
-                                    'size'  => '5" / 6"',
+                                    'slug'  => 'mach-ii-5-6-combo-gutter-machine',
                                     'name'  => __('5"/6" Combo', 'standard'),
                                     'desc'  => __('Produces both 5" and 6" gutter', 'standard'),
                                     'price' => __('$12,300', 'standard'),
@@ -74,14 +76,27 @@ while (have_posts()) :
                             ];
 
                             $roi_first = true;
-                            foreach ($roi_machines as $roi_key => $roi_machine) : ?>
+                            foreach ($roi_machines as $roi_key => $roi_machine) :
+                                $roi_product = get_page_by_path($roi_machine['slug'], OBJECT, 'product');
+                                $roi_thumb   = $roi_product ? get_the_post_thumbnail(
+                                    $roi_product->ID,
+                                    'medium',
+                                    [
+                                        'class'   => 'roi-machine__img',
+                                        'alt'     => '',
+                                        'loading' => 'lazy',
+                                    ]
+                                ) : '';
+                                ?>
                                 <button
                                     type="button"
                                     class="roi-machine"
                                     data-roi-machine="<?php echo esc_attr($roi_key); ?>"
                                     aria-pressed="<?php echo $roi_first ? 'true' : 'false'; ?>"
                                 >
-                                    <span class="roi-machine__size"><?php echo esc_html($roi_machine['size']); ?></span>
+                                    <?php if ($roi_thumb !== '') : ?>
+                                        <span class="roi-machine__media"><?php echo $roi_thumb; ?></span>
+                                    <?php endif; ?>
                                     <span class="roi-machine__name"><?php echo esc_html($roi_machine['name']); ?></span>
                                     <span class="roi-machine__desc"><?php echo esc_html($roi_machine['desc']); ?></span>
                                     <span class="roi-machine__price">
@@ -96,8 +111,12 @@ while (have_posts()) :
                         </div>
                     </div>
 
+                    <!-- Steps 2 + 3 pair up side by side from 1024px so the figures
+                         move while the buyer is still typing. Stacked below that. -->
+                    <div class="roi-workspace">
+
                     <!-- Step 2: inputs -->
-                    <div class="roi-step">
+                    <div class="roi-step roi-step--inputs">
                         <div class="roi-step__head">
                             <span class="roi-step__badge" aria-hidden="true">2</span>
                             <h2 class="roi-step__title"><?php esc_html_e('Configure your setup', 'standard'); ?></h2>
@@ -285,6 +304,8 @@ while (have_posts()) :
                             <?php esc_html_e('* Material cost estimates at 50 ft/min production speed. Does not include labor, overhead, installation, or other operating costs. Actual results will vary. Contact NTM for a personalized quote.', 'standard'); ?>
                         </p>
                     </div>
+
+                    </div><!-- /.roi-workspace -->
 
                     <!-- CTA (results are open; this is the conversion step) -->
                     <div class="roi-cta">
