@@ -50,9 +50,19 @@ function print_third_party_config(): void {
         return;
     }
 
+    $integrations = class_exists('\\Standard_Site_Integrations')
+        ? \Standard_Site_Integrations::instance()
+        : null;
+    $hubspot_owned = $integrations
+        && $integrations->integration_is_effective('hubspot_tracker');
+    $clarity_owned = $integrations
+        && $integrations->integration_is_effective('clarity');
+
     $config = [
-        'hubspotPortalId' => HUBSPOT_PORTAL_ID,
-        'clarityProjectId' => sanitize_key((string) get_option('clarity_project_id', '')),
+        'hubspotPortalId' => $hubspot_owned ? '' : HUBSPOT_PORTAL_ID,
+        'clarityProjectId' => $clarity_owned
+            ? ''
+            : sanitize_key((string) get_option('clarity_project_id', '')),
     ];
 
     echo '<script>window.ntmThirdPartyConfig = '
