@@ -3,8 +3,7 @@
  * Manuals — Page hero.
  *
  * Same asymmetric two-column rhythm as the profiles hero: H1 on the
- * left, quick-link nav to the catalog sections on the right. Full-bleed
- * pattern-square-grid behind the content on bg-blue-50.
+ * left, quick-link nav to the catalog sections on the right.
  *
  * @package Standard
  */
@@ -27,8 +26,7 @@ $hero_nav = [
 ];
 ?>
 
-<section class="pattern-square-grid border-b border-blue-200 bg-blue-50 pt-6 pb-6 lg:pt-12 lg:pb-12">
-    <div class="pattern-square-grid__overlay" aria-hidden="true"></div>
+<section class="border-b border-blue-200 bg-blue-50 pt-6 pb-6 lg:pt-12 lg:pb-12">
     <div class="container grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16">
 
         <div class="section-header-left max-w-3xl">
