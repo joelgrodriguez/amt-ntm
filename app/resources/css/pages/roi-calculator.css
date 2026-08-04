@@ -164,7 +164,8 @@
   }
 
   .roi-machine__price strong {
-    font-size: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.9375rem;
     font-weight: 700;
     color: var(--color-blue-500);
   }
@@ -202,6 +203,12 @@
     transition: border-color var(--hover-dur, 150ms) ease;
   }
 
+  /* The values typed here are figures too — the coil-material <select> is
+     the only control in this form holding words, so it stays sans. */
+  input.roi-field__control {
+    font-family: var(--font-mono);
+  }
+
   .roi-field__control:focus {
     outline: none;
     border-color: var(--color-blue-500);
@@ -235,7 +242,8 @@
 
   .roi-derived__value {
     margin: 0;
-    font-size: 1.375rem;
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
     font-weight: 700;
     letter-spacing: -0.01em;
     color: var(--color-blue-900);
@@ -271,10 +279,19 @@
     text-align: left;
   }
 
-  /* Revenue + savings: the two figures the page exists to produce. */
+  /* Revenue + savings: the two figures the page exists to produce.
+     Tinted panel + dark text + 1px border, the same shape as every other
+     surface in the theme — a solid saturated fill was the only element on
+     the page shouting. Every value is mixed from --color-green so the card
+     tracks the brand token instead of hardcoding a second green. */
   .roi-card--accent {
-    background: var(--color-green);
-    border-color: var(--color-green);
+    --roi-accent-bg: color-mix(in srgb, var(--color-green) 8%, #fff);
+    --roi-accent-line: color-mix(in srgb, var(--color-green) 35%, #fff);
+    /* 85% keeps secondary text at 4.85:1 on the tint; lighter mixes fail AA. */
+    --roi-accent-muted: color-mix(in srgb, var(--color-green) 85%, #fff);
+
+    background: var(--roi-accent-bg);
+    border-color: var(--roi-accent-line);
   }
 
   .roi-card__label {
@@ -287,24 +304,30 @@
   }
 
   .roi-card--accent .roi-card__label {
-    color: rgb(255 255 255 / 0.8);
+    color: var(--roi-accent-muted);
   }
 
+  /* Figures are mono throughout. Beyond matching the theme's numeric voice,
+     the fixed advance width stops live-updating digits from jittering as the
+     buyer types. */
   .roi-card__value {
     margin: 0;
-    font-size: 1.75rem;
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
     font-weight: 700;
-    line-height: 1.1;
+    line-height: 1.15;
     letter-spacing: -0.02em;
     color: var(--color-blue-900);
   }
 
   .roi-card--accent .roi-card__value {
-    color: #fff;
+    color: var(--color-green);
   }
 
-  /* Prompt shown in place of a figure, before its inputs are filled in. */
+  /* Prompt shown in place of a figure, before its inputs are filled in.
+     Back to sans — it is a sentence, not a number. */
   .roi-card__value.is-hint {
+    font-family: var(--font-sans);
     font-size: 0.9375rem;
     font-weight: 400;
     letter-spacing: 0;
@@ -312,7 +335,7 @@
   }
 
   .roi-card--accent .roi-card__value.is-hint {
-    color: rgb(255 255 255 / 0.8);
+    color: var(--roi-accent-muted);
   }
 
   .roi-card__sub {
@@ -323,7 +346,7 @@
   }
 
   .roi-card--accent .roi-card__sub {
-    color: rgb(255 255 255 / 0.75);
+    color: var(--roi-accent-muted);
   }
 
   /* Cost comparison bars -------------------------------------------------- */
@@ -365,8 +388,9 @@
     display: flex;
     align-items: center;
     height: 100%;
-    min-width: 2.5rem;
+    min-width: 3rem;
     padding: 0 0.5rem;
+    font-family: var(--font-mono);
     font-size: 0.75rem;
     font-weight: 700;
     color: #fff;
@@ -384,7 +408,8 @@
 
   /* The full-contrast copy of each figure — the bar label is decorative. */
   .roi-cmp__amount {
-    flex: 0 0 3.75rem;
+    flex: 0 0 4.25rem;
+    font-family: var(--font-mono);
     font-size: 0.8125rem;
     font-weight: 700;
     color: var(--color-blue-900);
@@ -410,9 +435,10 @@
   /* Payback --------------------------------------------------------------- */
   .roi-payback__months {
     margin: 0;
-    font-size: 2rem;
+    font-family: var(--font-mono);
+    font-size: 1.75rem;
     font-weight: 700;
-    line-height: 1.1;
+    line-height: 1.15;
     letter-spacing: -0.02em;
     color: var(--color-blue-900);
   }
@@ -423,7 +449,8 @@
     padding: 0.4375rem 1.25rem;
     background: var(--color-blue-500);
     color: #fff;
-    font-size: 0.9375rem;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
     font-weight: 700;
   }
 
