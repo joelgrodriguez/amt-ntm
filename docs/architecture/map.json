@@ -3,7 +3,7 @@
   "generatedBy": "shogun map",
   "project": {
     "name": "standard-press",
-    "root": "amt-ntm"
+    "root": "feedback"
   },
   "stack": {
     "languages": [
@@ -63,9 +63,9 @@
     {
       "path": ".",
       "purpose": "Root-level manifests, docs, and configuration.",
-      "fileCount": 12,
+      "fileCount": 13,
       "categories": {
-        "other": 4,
+        "other": 5,
         "docs": 5,
         "manifest": 1,
         "source": 1,
@@ -73,13 +73,13 @@
       },
       "keyFiles": [
         ".distignore",
+        ".git",
         ".gitattributes",
         ".gitignore",
         "CLAUDE.md",
         "DESIGN.md",
         "package-lock.json",
-        "package.json",
-        "PRODUCT.md"
+        "package.json"
       ]
     },
     {
@@ -120,9 +120,9 @@
     {
       "path": "docs",
       "purpose": "Project documentation.",
-      "fileCount": 60,
+      "fileCount": 66,
       "categories": {
-        "docs": 60
+        "docs": 66
       },
       "keyFiles": [
         "docs/architecture-boundaries.md",
@@ -132,7 +132,7 @@
         "docs/feedback/2026-06-08-machine-pages-review.md",
         "docs/feedback/2026-06-09-web-images-review-alex-actions.html",
         "docs/feedback/2026-06-09-web-images-review.md",
-        "docs/feedback/e_sola/NTM Site New Nav & Info Arch Working Session.docx"
+        "docs/feedback/README.md"
       ]
     },
     {
@@ -162,6 +162,12 @@
       "category": "other",
       "role": "Repository file.",
       "size": 607
+    },
+    {
+      "path": ".git",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 110
     },
     {
       "path": ".gitattributes",
@@ -2699,7 +2705,7 @@
       "path": "CLAUDE.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 13663
+      "size": 16330
     },
     {
       "path": "db/imports/ntmservice-service-articles.json",
@@ -2760,12 +2766,6 @@
       "category": "docs",
       "role": "Project documentation for humans and agents.",
       "size": 12908
-    },
-    {
-      "path": "docs/feedback/e_sola/NTM Site New Nav & Info Arch Working Session.docx",
-      "category": "docs",
-      "role": "Project documentation for humans and agents.",
-      "size": 4694612
     },
     {
       "path": "docs/feedback/README.md",
@@ -3080,6 +3080,48 @@
       "size": 4252
     },
     {
+      "path": "docs/superpowers/plans/2026-06-05-machine-sidebar-subnav.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 14033
+    },
+    {
+      "path": "docs/superpowers/plans/2026-06-05-nav-feedback-implementation.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 27323
+    },
+    {
+      "path": "docs/superpowers/plans/2026-06-05-service-financing-fixes.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 15555
+    },
+    {
+      "path": "docs/superpowers/plans/2026-06-10-web-images-implementation.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 30977
+    },
+    {
+      "path": "docs/superpowers/specs/2026-06-05-machine-sidebar-subnav-design.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 9223
+    },
+    {
+      "path": "docs/superpowers/specs/2026-06-05-service-financing-fixes-design.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 5641
+    },
+    {
+      "path": "docs/superpowers/todos/2026-06-05-service-financing-research-followups.md",
+      "category": "docs",
+      "role": "Project documentation for humans and agents.",
+      "size": 6646
+    },
+    {
       "path": "package-lock.json",
       "category": "other",
       "role": "Repository file.",
@@ -3183,7 +3225,6 @@
     "docs/feedback/2026-06-08-machine-pages-review.md",
     "docs/feedback/2026-06-09-web-images-review-alex-actions.html",
     "docs/feedback/2026-06-09-web-images-review.md",
-    "docs/feedback/e_sola/NTM Site New Nav & Info Arch Working Session.docx",
     "docs/feedback/README.md",
     "docs/feedback/roadmap.md",
     "docs/handoff/01-context.md",
@@ -3236,6 +3277,13 @@
     "docs/presentations/navigation-flow.html",
     "docs/presentations/website-update-notes.md",
     "docs/RECOVERY.md",
+    "docs/superpowers/plans/2026-06-05-machine-sidebar-subnav.md",
+    "docs/superpowers/plans/2026-06-05-nav-feedback-implementation.md",
+    "docs/superpowers/plans/2026-06-05-service-financing-fixes.md",
+    "docs/superpowers/plans/2026-06-10-web-images-implementation.md",
+    "docs/superpowers/specs/2026-06-05-machine-sidebar-subnav-design.md",
+    "docs/superpowers/specs/2026-06-05-service-financing-fixes-design.md",
+    "docs/superpowers/todos/2026-06-05-service-financing-research-followups.md",
     "PRODUCT.md",
     "README.md",
     "scripts/db/README.md",
