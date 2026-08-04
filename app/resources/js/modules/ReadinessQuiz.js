@@ -13,14 +13,18 @@
  *   - [data-quiz-questions]              — question screen (rendered into here)
  *   - [data-quiz-progress]               — progress bar fill element (width set)
  *   - [data-quiz-progress-label]         — "Question X of Y" text
- *   - [data-quiz-results]                — results screen (rendered into here)
- *   - [data-quiz-lead]                   — lead-capture screen wrapping the
- *                                          HubSpot form (revealed after results)
+ *   - [data-quiz-results]                — results screen (rendered into here
+ *                                          only after the lead form is submitted)
+ *   - [data-quiz-lead]                   — lead-capture gate wrapping the
+ *                                          HubSpot form (shown after questions;
+ *                                          results unlock on form submit)
  *   - [data-quiz-restart]                — button that resets to intro
  *
  * The questions, scoring, and recommendation tree live in this module as data
  * so the whole quiz is one file with no server round-trip. Lead capture is the
- * theme's existing HubSpot form (rendered by the template), not rebuilt here.
+ * theme's existing HubSpot form (rendered by the template). HubspotForms.js
+ * dispatches `hubspot:formSubmitted` on the form mount; this module listens
+ * and reveals results only after a successful submission.
  *
  * @module ReadinessQuiz
  */
@@ -399,9 +403,19 @@ export function initReadinessQuiz() {
   /** @type {Record<string, {points:number, value?:string}>} */
   let answers = {};
   let index = 0;
+  /** True after a successful HubSpot submit in this page session. */
+  let formSubmitted = false;
+  /** @type {{score:number, band:object, machine:object}|null} */
+  let pendingResult = null;
 
   const show = (el) => el && el.removeAttribute('hidden');
   const hide = (el) => el && el.setAttribute('hidden', '');
+
+  function markCompleteProgress() {
+    if (progressFill) progressFill.style.width = '100%';
+    if (progressLabel) progressLabel.textContent = 'Complete';
+    if (progressPct) progressPct.textContent = '100%';
+  }
 
   function renderQuestion() {
     const q = QUESTIONS[index];
@@ -450,17 +464,44 @@ export function initReadinessQuiz() {
     });
   }
 
+  /**
+   * End of questions: compute the result, then either gate on the lead form
+   * or (if already submitted this session) reveal results immediately.
+   */
   function finish() {
     const score = scoreOf(answers);
-    const band = bandOf(score);
-    const machine = recommend(score, answers);
-    const display = Math.min(score, 100);
+    pendingResult = {
+      score,
+      band: bandOf(score),
+      machine: recommend(score, answers),
+    };
 
     hide(questionsScreen);
     if (backBtn) backBtn.setAttribute('hidden', '');
-    if (progressFill) progressFill.style.width = '100%';
-    if (progressLabel) progressLabel.textContent = 'Complete';
-    if (progressPct) progressPct.textContent = '100%';
+    markCompleteProgress();
+
+    if (formSubmitted) {
+      revealResults();
+      return;
+    }
+
+    // Gate: form first, results only after HubSpot submit.
+    hide(resultsScreen);
+    show(leadScreen);
+    leadScreen?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  /**
+   * Render the score, readiness band, and machine recommendation.
+   * Called only after the lead form is submitted (or on retake after submit).
+   */
+  function revealResults() {
+    if (!pendingResult) return;
+
+    const { score, band, machine } = pendingResult;
+    const display = Math.min(score, 100);
+
+    markCompleteProgress();
 
     resultsScreen.innerHTML = `
       <div class="quiz-results__intro">
@@ -480,7 +521,17 @@ export function initReadinessQuiz() {
       </div>
     `;
     show(resultsScreen);
+    // Keep the lead panel (HubSpot thank-you / form) visible after unlock.
     show(leadScreen);
+    const leadTitle = leadScreen?.querySelector('.quiz-lead__title');
+    const leadDesc = leadScreen?.querySelector('.quiz-lead__desc');
+    if (leadTitle) {
+      leadTitle.textContent = 'Talk to a specialist about your recommendation';
+    }
+    if (leadDesc) {
+      leadDesc.textContent =
+        'Thanks for sharing your details. Your results are above — an NTM specialist can follow up with pricing, availability, and next steps.';
+    }
 
     const gauge = resultsScreen.querySelector('[data-quiz-gauge]');
     if (gauge) drawGauge(gauge, display, 100);
@@ -501,6 +552,22 @@ export function initReadinessQuiz() {
         slot.appendChild(card);
       }
     }
+
+    resultsScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Unlock results when the quiz lead form is submitted successfully.
+  if (leadScreen) {
+    leadScreen.addEventListener(
+      'hubspot:formSubmitted',
+      () => {
+        formSubmitted = true;
+        if (pendingResult) {
+          revealResults();
+        }
+      },
+      { signal }
+    );
   }
 
   // Start button (intro screen is optional; if absent, start immediately)
@@ -534,7 +601,7 @@ export function initReadinessQuiz() {
     );
   }
 
-  // Restart
+  // Restart — formSubmitted stays true so retakes do not re-gate after convert.
   const restartBtn = root.querySelector('[data-quiz-restart]');
   if (restartBtn) {
     restartBtn.addEventListener(
@@ -542,9 +609,14 @@ export function initReadinessQuiz() {
       () => {
         answers = {};
         index = 0;
+        pendingResult = null;
+        resultsScreen.innerHTML = '';
         hide(resultsScreen);
         hide(leadScreen);
         if (backBtn) backBtn.setAttribute('hidden', '');
+        if (progressFill) progressFill.style.width = '0%';
+        if (progressLabel) progressLabel.textContent = 'Question 1';
+        if (progressPct) progressPct.textContent = '0%';
         if (intro) {
           show(intro);
         } else {

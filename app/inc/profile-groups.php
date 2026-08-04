@@ -14,13 +14,16 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Profile posts that represent rib-roller tooling rather than panel profiles.
+ * Profile posts that represent panel-finish tooling rather than panel profiles.
+ * Clip relief and rib rollers live here so machine profile counts stay true
+ * (SSH/SSR: 7, SSQ: 16).
  *
  * Slugs are stable across environments; database IDs are not.
  *
  * @var list<string>
  */
 const RIB_ROLLER_SLUGS = [
+    'clip-relief',
     'bead-ribs-standard-or-wide',
     'pencil-ribs-small-or-large',
     'striation-ribs',

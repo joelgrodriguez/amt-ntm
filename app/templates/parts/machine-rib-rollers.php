@@ -1,6 +1,6 @@
 <?php
 /**
- * Rib-roller tooling listed separately from a machine's panel profiles.
+ * Clip relief and rib-roller tooling listed separately from panel profiles.
  *
  * @package Standard
  * @var array{rib_rollers: array} $args
@@ -28,7 +28,7 @@ if (!is_array($rib_rollers) || empty($rib_rollers)) {
             <?php esc_html_e('Rib Rollers', 'standard'); ?>
         </h3>
         <p class="section-subtitle">
-            <?php esc_html_e('Rib rollers add formed ribs to compatible panels; they are tooling options, not additional profiles.', 'standard'); ?>
+            <?php esc_html_e('Clip relief and rib rollers are tooling options for compatible panels — not additional panel profiles.', 'standard'); ?>
         </p>
     </div>
 
