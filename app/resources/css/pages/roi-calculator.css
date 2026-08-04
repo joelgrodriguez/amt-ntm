@@ -1,0 +1,575 @@
+/**
+ * ROI Calculator page styles.
+ *
+ * Structure ported from the standalone prototype in /calculator (numbered
+ * steps → machine cards → two-up inputs → dark results panel → payback), then
+ * conformed to DESIGN.md: ZERO border-radius, NO shadow — depth is border and
+ * a 1px translate, matching components/cards.css and pages/readiness-quiz.css.
+ * The prototype's gradients, Segoe UI stack and 14px corner radii are gone.
+ *
+ * Mobile-first: single column at base, two/three-up from 768px.
+ */
+
+@layer components {
+  /* Width is capped here, not with a max-w-* utility: the theme redefines
+     .container after Tailwind's utilities, so max-w-* loses the cascade.
+     pages/readiness-quiz.css caps .readiness-quiz for the same reason. */
+  .roi-calc {
+    width: 100%;
+    max-width: 56rem;
+    margin: 0 auto;
+  }
+
+  /* Intro ----------------------------------------------------------------- */
+  .roi-intro {
+    margin-bottom: 2rem;
+  }
+
+  .roi-intro__title {
+    margin: 0.75rem 0 0.5rem;
+    font-size: 1.875rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--color-blue-900);
+  }
+
+  .roi-intro__lede {
+    margin: 0;
+    max-width: 52ch;
+    color: var(--color-blue-600);
+  }
+
+  /* Inputs + results. One column until there is room to pair them. */
+  .roi-workspace {
+    display: grid;
+  }
+
+  /* Steps ----------------------------------------------------------------- */
+  .roi-step {
+    padding: 1.5rem;
+    background: #fff;
+    border: 1px solid var(--color-blue-200);
+    border-bottom: 0;
+  }
+
+  .roi-step__head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .roi-step__badge {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    background: var(--color-blue-500);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 700;
+  }
+
+  .roi-step__badge--invert {
+    background: #fff;
+    color: var(--color-blue-800);
+  }
+
+  .roi-step__title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--color-blue-900);
+  }
+
+  .roi-step__title--invert {
+    color: #fff;
+  }
+
+  /* Machine picker -------------------------------------------------------- */
+  .roi-machines {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .roi-machine {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-height: 3rem; /* >= 44px touch target */
+    padding: 1rem;
+    text-align: left;
+    background: var(--color-blue-50);
+    border: 1px solid var(--color-blue-200);
+    cursor: pointer;
+    transition:
+      border-color var(--hover-dur, 150ms) ease,
+      background-color var(--hover-dur, 150ms) ease,
+      transform var(--hover-dur, 150ms) ease;
+  }
+
+  .roi-machine:hover {
+    border-color: var(--color-blue-500);
+    background: #fff;
+    transform: translateY(-1px); /* depth via translate, per DESIGN.md */
+  }
+
+  .roi-machine[aria-pressed="true"] {
+    border-color: var(--color-blue-500);
+    background: #fff;
+    box-shadow: inset 0 0 0 1px var(--color-blue-500); /* reads as 2px border, no layout shift */
+  }
+
+  /* Product photo. The source shots are 1000×1000 with an opaque white
+     background, so the media bleeds to the card edges (cancelling the card
+     padding) — otherwise the white sits as a mismatched patch on the tinted
+     card. contain in a 3:2 box crops nothing off the machine. */
+  .roi-machine__media {
+    display: block;
+    margin: -1rem -1rem 0.75rem;
+    background: #fff;
+    border-bottom: 1px solid var(--color-blue-200);
+  }
+
+  /* The sources are square, so `contain` sizes the machine to the box HEIGHT.
+     4:3 renders it ~12% larger than 3:2 for ~30px more card. */
+  .roi-machine__img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+  }
+
+  .roi-machine__name {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--color-blue-900);
+  }
+
+  .roi-machine__desc {
+    font-size: 0.8125rem;
+    color: var(--color-blue-600);
+  }
+
+  .roi-machine__price {
+    margin-top: 0.25rem;
+    font-size: 0.8125rem;
+    color: var(--color-blue-600);
+  }
+
+  .roi-machine__price strong {
+    font-family: var(--font-mono);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--color-blue-500);
+  }
+
+  /* Inputs ---------------------------------------------------------------- */
+  .roi-fields {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .roi-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .roi-field__label {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-blue-800);
+  }
+
+  .roi-field__label span {
+    font-weight: 400;
+    color: var(--color-blue-400);
+  }
+
+  .roi-field__control {
+    min-height: 2.75rem; /* >= 44px touch target */
+    padding: 0.625rem 0.875rem;
+    background: #fff;
+    border: 1px solid var(--color-blue-200);
+    color: var(--color-blue-900);
+    font-size: 0.9375rem;
+    transition: border-color var(--hover-dur, 150ms) ease;
+  }
+
+  /* The values typed here are figures too — the coil-material <select> is
+     the only control in this form holding words, so it stays sans. */
+  input.roi-field__control {
+    font-family: var(--font-mono);
+  }
+
+  .roi-field__control:focus {
+    outline: none;
+    border-color: var(--color-blue-500);
+    box-shadow: inset 0 0 0 1px var(--color-blue-500);
+  }
+
+  .roi-field__hint {
+    margin: 0;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: var(--color-blue-400);
+  }
+
+  /* Derived cost-per-foot readout — an output sitting in the input grid. */
+  .roi-field--derived {
+    justify-content: center;
+    gap: 0.125rem;
+    padding: 0.875rem;
+    background: var(--color-blue-50);
+    border: 1px solid var(--color-blue-500);
+  }
+
+  .roi-derived__label {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-blue-400);
+  }
+
+  .roi-derived__value {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--color-blue-900);
+  }
+
+  .roi-derived__caption {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--color-blue-600);
+  }
+
+  /* Results panel --------------------------------------------------------- */
+  .roi-results {
+    padding: 1.5rem;
+    background: var(--color-blue-800);
+  }
+
+  .roi-cards {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .roi-card {
+    padding: 1.125rem 1rem;
+    background: #fff;
+    border: 1px solid var(--color-blue-200);
+    text-align: center;
+  }
+
+  .roi-card--outline {
+    background: var(--color-blue-50);
+    border-color: var(--color-blue-500);
+    text-align: left;
+  }
+
+  /* Revenue + savings: the two figures the page exists to produce.
+     Tinted panel + dark text + 1px border, the same shape as every other
+     surface in the theme — a solid saturated fill was the only element on
+     the page shouting. Every value is mixed from --color-green so the card
+     tracks the brand token instead of hardcoding a second green. */
+  .roi-card--accent {
+    --roi-accent-bg: color-mix(in srgb, var(--color-green) 8%, #fff);
+    --roi-accent-line: color-mix(in srgb, var(--color-green) 35%, #fff);
+    /* 85% keeps secondary text at 4.85:1 on the tint; lighter mixes fail AA. */
+    --roi-accent-muted: color-mix(in srgb, var(--color-green) 85%, #fff);
+
+    background: var(--roi-accent-bg);
+    border-color: var(--roi-accent-line);
+  }
+
+  .roi-card__label {
+    margin: 0 0 0.375rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-blue-400);
+  }
+
+  .roi-card--accent .roi-card__label {
+    color: var(--roi-accent-muted);
+  }
+
+  /* Figures are mono throughout. Beyond matching the theme's numeric voice,
+     the fixed advance width stops live-updating digits from jittering as the
+     buyer types. */
+  .roi-card__value {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--color-blue-900);
+  }
+
+  .roi-card--accent .roi-card__value {
+    color: var(--color-green);
+  }
+
+  /* Prompt shown in place of a figure, before its inputs are filled in.
+     Back to sans — it is a sentence, not a number. */
+  .roi-card__value.is-hint {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--color-blue-400);
+  }
+
+  .roi-card--accent .roi-card__value.is-hint {
+    color: var(--roi-accent-muted);
+  }
+
+  .roi-card__sub {
+    margin: 0.375rem 0 0;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: var(--color-blue-400);
+  }
+
+  .roi-card--accent .roi-card__sub {
+    color: var(--roi-accent-muted);
+  }
+
+  /* Cost comparison bars -------------------------------------------------- */
+  .roi-cmp__placeholder {
+    margin: 0;
+    padding: 0.5rem 0;
+    font-size: 0.9375rem;
+    color: var(--color-blue-400);
+  }
+
+  .roi-cmp__row {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .roi-cmp__row[hidden] {
+    display: none;
+  }
+
+  .roi-cmp__label {
+    flex: 0 0 5.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: right;
+    color: var(--color-blue-700);
+  }
+
+  .roi-cmp__track {
+    flex: 1 1 auto;
+    display: block;
+    height: 1.625rem;
+    background: var(--color-blue-100);
+    overflow: hidden;
+  }
+
+  .roi-cmp__fill {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    min-width: 3rem;
+    padding: 0 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    transition: width var(--resize-dur, 300ms) var(--resize-ease, cubic-bezier(0.22, 1, 0.36, 1));
+  }
+
+  .roi-cmp__fill--machine {
+    background: var(--color-blue-500);
+  }
+
+  .roi-cmp__fill--premade {
+    background: var(--color-red);
+  }
+
+  /* The full-contrast copy of each figure — the bar label is decorative. */
+  .roi-cmp__amount {
+    flex: 0 0 4.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-blue-900);
+  }
+
+  .roi-cmp__note {
+    margin: 0.5rem 0 0;
+    font-size: 0.8125rem;
+    text-align: center;
+    color: var(--color-blue-400);
+  }
+
+  .roi-cmp__note.is-positive {
+    font-weight: 700;
+    color: var(--color-green);
+  }
+
+  .roi-cmp__note.is-negative {
+    font-weight: 700;
+    color: var(--color-red);
+  }
+
+  /* Payback --------------------------------------------------------------- */
+  .roi-payback__months {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--color-blue-900);
+  }
+
+  .roi-payback__weeks {
+    display: inline-block;
+    margin: 0.5rem 0 0;
+    padding: 0.4375rem 1.25rem;
+    background: var(--color-blue-500);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+
+  .roi-payback__basis {
+    margin: 0.75rem auto 0;
+    max-width: 42ch;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--color-blue-600);
+  }
+
+  .roi-payback__message {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--color-blue-400);
+  }
+
+  .roi-payback__message.is-negative {
+    font-weight: 700;
+    color: var(--color-red);
+  }
+
+  .roi-disclaimer {
+    margin: 1rem 0 0;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    text-align: center;
+    color: rgb(255 255 255 / 0.55);
+  }
+
+  /* CTA ------------------------------------------------------------------- */
+  .roi-cta {
+    padding: 1.5rem;
+    background: #fff;
+    border: 1px solid var(--color-blue-200);
+    border-top: 0;
+    text-align: center;
+  }
+
+  .roi-cta__title {
+    margin: 0 0 0.5rem;
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--color-blue-900);
+  }
+
+  .roi-cta__desc {
+    margin: 0 auto 1.25rem;
+    max-width: 48ch;
+    color: var(--color-blue-600);
+  }
+
+  .roi-cta__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* Scale up -------------------------------------------------------------- */
+  @media (min-width: 768px) {
+    .roi-intro__title {
+      font-size: 2.25rem;
+    }
+
+    .roi-step,
+    .roi-results,
+    .roi-cta {
+      padding: 2rem;
+    }
+
+    .roi-machines {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .roi-fields,
+    .roi-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .roi-card--full {
+      grid-column: 1 / -1;
+    }
+
+    .roi-cmp__label {
+      flex-basis: 7rem;
+      font-size: 0.8125rem;
+    }
+
+    .roi-cta__actions {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+
+  /* Landscape: inputs and results side by side, so the figures move while the
+     buyer is still typing instead of sitting below the fold. Needs the wider
+     canvas, hence the max-width bump. Columns stretch to a shared height so
+     the white/dark seam stays straight. */
+  @media (min-width: 1024px) {
+    .roi-calc {
+      max-width: 72rem;
+    }
+
+    .roi-workspace {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    }
+
+    /* No longer stacked directly above the results panel, so it needs its
+       own bottom edge back. */
+    .roi-step--inputs {
+      border-bottom: 1px solid var(--color-blue-200);
+    }
+
+    /* The column is too narrow for a two-up form; one field per row reads
+       better than six cramped half-width boxes. */
+    .roi-fields {
+      grid-template-columns: 1fr;
+    }
+  }
+}
