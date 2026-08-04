@@ -394,8 +394,8 @@ Do not work untracked.
 **Hard rules for any agent working in a spawned Orca task worktree:**
 
 - Work only inside the claimed task's worktree and only on that task's goal.
-- Validate with `npm run build` and make it pass before review.
-- Run `admiral task review <n>` to hand off, then stop. Never run raw `git
+- Run targeted checks while working; do not poll or repeatedly run the full gate.
+- Run `admiral task review <n>` to validate once and hand off, then stop. Never run raw `git
   push`, never merge into `dev`, and never run `admiral task land`
   or `admiral task cleanup --apply` from a task worktree — landing happens
   separately from the clean integration worktree.
@@ -415,35 +415,36 @@ Do not work untracked.
   different-vendor model once, headless (e.g. `codex exec "<what you tried,
   what broke, what you need>"` if you are Claude, or the Claude equivalent if
   you are Codex), act on the answer, and note the consult in your Session
-  Report. Escalate to the commodore only for decisions that are not yours
-  (scope, product, anything irreversible) — one paragraph via `gh issue
-  comment <n> --body "<blocker>"`, not the full consult transcript.
+  Report. Escalate only for decisions that are not yours (scope, product,
+  anything irreversible) — one paragraph via `gh issue comment <n> --body
+  "<blocker>"`, not the full consult transcript.
 
 ## Model routing
 
 Pick the right agent CLI per work type; do not make the user type flags or model
-names. Load the `route` skill from `.agents/skills/route`, `.claude/skills/route`,
-or `.opencode/skills/route` for the full table and launch commands.
+names. `.admiral/config.json` under `router` is the operational source of truth.
+Load the `route` skill from `.agents/skills/route`, `.claude/skills/route`, or
+`.opencode/skills/route` for the default table and launch commands.
 
-Coding work runs on a three-seat cast: **orchestration/planning/analysis (the
-brain) -> Claude Fable 5 high**; **implementation/code-writing (the executor) ->
-Codex GPT-5.5 xhigh**; **codebase reading/scouting -> Grok Composer 2.5** (reads
-and reports back to the brain; writes only when explicitly routed to). In short:
-copy/marketing and research/web -> Grok (`grok-build`); docs, design, API, and
-report writeups -> Claude Opus; orchestrate/plan/analyze -> Claude Fable 5 high;
-write code -> Codex GPT-5.5 xhigh; read/scout a codebase -> Grok Composer; deep
-architecture, hard reasoning, debugging, and security -> Codex xhigh; cheap
-build/test verification -> GLM 5.2. Announce the routing call in one line, then
-proceed.
-For long unattended orchestration runs, prefer Codex as the driver seat to save
-Claude/Fable tokens; use Fable/Claude when the chain needs taste, planning
-judgment, or explicit Fable supervision.
+The configured seats are `orchestrator`, `scout`, `implementer`, `verifier`,
+`reviewer`, `marketer`, and `docs`. Codex Sol medium is the default long-lived
+driver/commodore. Fable 5 high is the bounded one-shot brain for consequential
+mission planning and synthesis, not the terminal watcher. Normal implementation
+-> Codex `gpt-5.6-sol` medium; reserve
+high/xhigh for hard reasoning, debugging, architecture, and exploit hunting.
+Scout/research/copy -> Grok 4.5. Docs/design/API/flagship taste -> pinned Claude
+Opus 4.8 xhigh. Mechanical verification -> GLM 5.2. Fable-primary fallbacks end
+with GLM; judgment-heavy fallbacks end with Gemini 3.1 Pro High; mechanical
+fallbacks end with Gemini 3.5 Flash High. Announce the routing call in one line,
+then proceed.
 
 When the work is a real code task, launch the routed model straight into the
 task's Orca worktree:
-`admiral task start <n> --agent-command "<full launch command>"` -- Admiral creates
-the worktree and runs the command in it with the task preamble embedded.
-One-off work (a piece of copy, a research lookup) runs inline without a Admiral task.
+`admiral task start <n> --route [seat]` -- Admiral creates the worktree and runs
+the configured command with the task preamble embedded. Use `--agent-command
+"<full launch command>"` only when you need an explicit command instead of the
+configured router. One-off work (a piece of copy, a research lookup) runs inline
+without an Admiral task.
 
 Spawning an agent into any Orca worktree always routes first. When asked to "create
 a branch and do X" or otherwise spawn a worktree, route X, then launch the chosen
@@ -451,7 +452,35 @@ model FLAGGED via `orca terminal create --worktree <selector> --command "<full
 launch string with model/effort/bypass>"`. Do not use a bare `orca worktree create
 --agent codex` -- a bare `--agent` id cannot carry model/effort/bypass flags, so it
 silently ignores routing. A spawned agent must be the routed model, not the default.
+If a spawned agent hits a spend/auth wall, relaunch the seat's fallback in the
+same Orca worktree with `orca terminal create --worktree issue:<n> --command
+"<fallback command>" --json`. Never run a second `admiral task start` for a
+same-worktree fallback.
 
-Apply the quality patterns from the route skill where they fit: cross-model review
-(the reviewer is never the author) after substantive work, and plan-then-attack
-before a thorny change.
+Apply the quality patterns from the route skill where they fit. **Substantial
+work** changes user-visible behavior, architecture, public APIs,
+authentication/security, stored data, payments, deployment behavior, or crosses
+multiple system boundaries. Documentation, copy-only edits, formatting,
+generated files, narrow tests, and mechanical configuration updates are not
+substantial. When uncertain, skip external review unless the change could
+realistically cause data loss, security exposure, downtime, or a broken customer
+workflow.
+
+After substantial work, run at most one cross-model review (the reviewer is
+never the author). The builder applies valid findings and the verifier runs the
+targeted checks; do not automatically launch a second review pass. Use
+plan-then-attack before a thorny change.
+
+Security is two passes: Fable threat-model strategy, then Codex Sol xhigh
+exploit hunting. Customer-facing pages are also two passes: Grok 4.5 writes the
+copy, then Gemini 3.1 Pro High critiques it read-only through the verified `agy`
+Antigravity command documented in the route skill.
+
+Gemini 3.5 Flash High handles bulk page, metadata, inventory critique, and
+mechanical terminal fallbacks. Gemini critics are workflow passes, not Admiral
+seats.
+
+`admiral task report <n>` recommends review lanes from issue `risk:*` labels; it
+does not launch reviewers. Default lanes are `cross-vendor` for every task, plus
+conditional `security`, `data-integrity`, `concurrency`, `accessibility`, and
+`performance` lanes from matching risk labels.

@@ -7,7 +7,9 @@ description: Coordinate Admiral-managed Orca coding work with GitHub issue tasks
 
 ## Contract
 
-Use `.admiral/README.md` and `.admiral/config.json` as the local contract. Tasks are GitHub issues driven through the `gh` CLI; Orca owns the spawned worktrees, terminals, and browser tabs; Admiral branches task work from the `dev` integration branch and validates with `npm run build`. Protected branches such as `main` and `master` are not Admiral development bases.
+Use `.admiral/README.md` and `.admiral/config.json` as the local contract. Tasks are GitHub issues driven through the `gh` CLI; Orca owns the spawned worktrees, terminals, and browser tabs; Admiral branches task work from the `dev` integration branch, and `task review` validates once with `npm run build` before handoff. Protected branches such as `main` and `master` are not Admiral development bases.
+
+Task stage lives only in GitHub issue state and `status:*` labels: an open issue with no `status:*` label is ready, `status:in-progress` means active, `status:in-review` means handed off, and closed means done. There is no second stage store.
 
 Task creation is mandatory in Admiral-installed repos. If the user asks to create a task, ticket, issue, feature, bug, chore, TODO, or implementation plan and does not provide an existing issue number or URL, run `admiral task create` before code work. Do this even if the user does not say "Admiral".
 
@@ -15,7 +17,42 @@ Task creation is mandatory in Admiral-installed repos. If the user asks to creat
 
 `admiral task create "<goal>"` opens the GitHub issue with no `status:*` label (open + unlabeled = ready). The issue number it prints is the task ID for every later command. Dependencies go in the issue's `## Blocked by` section via `--blocked-by 12,14`; a task is ready only when every blocker is closed.
 
-Do not merge into `dev` from an Orca captain's worktree. Do not run raw `git push`, `git merge`, `admiral task land`, or `admiral task cleanup --apply` from a spawned task worktree. Commit, validate, run `admiral task review <n>`, and stop. See the installed AGENTS.md Admiral Workflow section for the full hard-rules list, the Session Report table shape, and the two-failures-then-consult rule — this skill does not restate them.
+Do not merge into `dev` from an Orca captain's worktree. Do not run raw `git push`, `git merge`, `admiral task land`, or `admiral task cleanup --apply` from a spawned task worktree. Use targeted checks while working, commit, run `admiral task review <n>` for the single full gate, and stop. See the installed AGENTS.md Admiral Workflow section for the full hard-rules list, the Session Report table shape, and the two-failures-then-consult rule — this skill does not restate them.
+
+## Command Surface
+
+Supported task commands are `create`, `update`, `list`, `ready`, `start`, `sync`, `report`, `review`, `land`, `cleanup`, `iterate`, and `cancel`. If a task command is not in that list, do not invent it; use `gh issue comment` for coordination and `admiral task report` for handoff context.
+
+## Routing Contract
+
+Load the installed `route` skill and treat `.admiral/config.json` `router` as
+operational truth. Codex Sol medium is the default long-lived
+driver/commodore. Fable 5 high is the bounded one-shot brain for consequential
+mission planning and synthesis, not the terminal watcher. Codex
+`gpt-5.6-sol` medium is the normal builder; its implementation fallback
+is Gemini 3.5 Flash High through Antigravity. GLM 5.2 is the primary verifier,
+with Codex Sol medium and then Gemini 3.5 Flash High as fallbacks. Fable-primary
+seats end with GLM 5.2; judgment-heavy seats end with Gemini 3.1 Pro High.
+Grok 4.5 owns scouting, research, and copy. Bounded Fable high handles routine
+Codex-authored review. Pinned Claude Opus 4.8 xhigh is reserved for explicit
+flagship taste passes.
+
+Security is a two-pass workflow: Fable produces the threat-model strategy,
+then Codex Sol xhigh hunts concrete exploits and rates actual exploitability
+P0-P3. Customer-facing pages are also two passes: Grok 4.5 writes the copy,
+then Gemini 3.1 Pro High critiques it read-only through Antigravity:
+
+```bash
+agy --model "Gemini 3.1 Pro (High)" --mode plan --print "<critique prompt>" --print-timeout 10m
+```
+
+The Antigravity executable is `agy`; `--mode plan` prevents the critic from
+editing files.
+
+For repetitive page batches, metadata, and inventories, use Gemini 3.5 Flash
+High as a bulk critic. Send consequential or ambiguous findings to Gemini
+3.1 Pro High or pinned Opus 4.8 xhigh. Gemini critics are direct workflow
+passes, not additional Admiral seats.
 
 ## Knowledgebase
 
@@ -29,7 +66,7 @@ A durable behavior spec accretes at `docs/specs/<area>.md` as tasks land — a n
 
 1. Run `admiral task ready --json`. These are the open, unstarted, unblocked tasks.
 2. Pick one. If none are ready, inspect blockers with `admiral graph`.
-3. Start it with `admiral task start <n>`. This refuses blocked tasks, asks Orca to create a worktree on branch `<n>-<kebab-title>` from `dev`, and sets `status:in-progress`. Route the captain's model per work type (load the `route` skill): `admiral task start <n> --agent-command "<full launch command>"` launches a flagged captain (model, effort, bypass) that a bare `--agent` id can't express. Pass `--agent-command` more than once to run a captain squadron in the one worktree (e.g. one on the UI, one on the DB).
+3. Start it with `admiral task start <n>`. This refuses blocked tasks, asks Orca to create a worktree on branch `<n>-<kebab-title>` from `dev`, and sets `status:in-progress`. Use `admiral task start <n> --route [seat]` when the configured router can pick the launch command, or pass the routed command directly with `--agent-command "<full launch command>"`. `--agent-command` launches a flagged captain (model, effort, bypass) that a bare `--agent` id can't express. Pass it more than once to run several captains in one worktree.
 
 ## Plain Feature Requests
 
@@ -59,18 +96,21 @@ Advisor skills that audit and plan (e.g. `improve`) propose; Admiral disposes. W
   git changed files, inferred captain roles, and recent local Admiral events.
   Human-readable reports are Markdown headed `Session Report` with the content
   in a table, and include commits, changed files, recent output, and launched
-  captains.
-- If an agent hits a spend/auth wall, respawn it manually: `admiral task start
-  <n> --agent-command "<fallback command from the route table>"`.
+  captains. Reports also recommend review lanes from issue `risk:*` labels:
+  `cross-vendor` is baseline, while `security`, `data-integrity`,
+  `concurrency`, `accessibility`, and `performance` are conditional.
+- If an existing task worktree needs another agent terminal, launch it through
+  the configured provider directly; `admiral task start` creates task
+  worktrees, it is not a same-worktree respawn command.
 - If genuinely blocked on a decision, add the blocker as an issue and wire it with `admiral task update <n> --blocked-by <blocker>`.
 
 ## Finish Work
 
-1. Run the validation command.
+1. Run targeted checks while working; do not poll or repeatedly run the full gate.
 2. Commit the work on the task branch.
-3. Run `admiral task review <n> --summary "..."`. In the default local landing workflow it only sets `status:in-review`; it does not push and does not open a PR. If the project explicitly sets `workflow.landing` to `pr`, Admiral keeps the older PR review behavior.
+3. Run `admiral task review <n> --summary "..."`. It runs the configured full validation gate exactly once before handoff. In the default local landing workflow it then sets `status:in-review`; it does not push and does not open a PR. If the project explicitly sets `workflow.landing` to `pr`, Admiral keeps the older PR review behavior.
 
-Landing is `admiral task land <n>` from the clean `dev` integration checkout (human or commodore): it locally merges the task branch, validates, commits `Land #<n>: <title>`, closes the issue (done), removes the `status:*` label, and comments on each newly unblocked issue. It does not push. `admiral task cancel <n>` closes an issue as not planned instead; cleanup is manual after landing with `admiral task cleanup <n> --dry-run` then `admiral task cleanup <n> --apply`.
+Landing is `admiral task land <n>` from the clean `dev` integration checkout (human or reviewer/coordinator): it locally merges the task branch, validates, commits `Land #<n>: <title>`, closes the issue (done), removes the `status:*` label, comments on each newly unblocked issue, then removes the task worktree and attempts `git branch -d`. Git may retain an unmerged or squash-merged PR branch; Admiral warns with structured recovery/status details, never uses force, and never rolls back a successful land. It does not push. `admiral task cancel <n>` closes an issue as not planned instead; explicit `admiral task cleanup <n> --apply` remains available for canceled tasks and recovery.
 
 Before landing or handing off a squadron task, run `admiral task report <n>`
 to see which captains were launched, their inferred lanes (planning, reading,
@@ -80,13 +120,3 @@ attention.
 ## Judgment
 
 The blocked-by DAG is the order of operations. If it disagrees with the user's direct instruction, stop and surface the conflict.
-
-## Judgment layer
-
-Absorbed from the retired done-check / escalate / orchestrate skills (2026-07-06). Three contracts; `route` (or the config `router`) picks every model — never pick one here.
-
-**Mission loop** (for a real task driven end to end): draft the plan (arch/plan lane) → attack it with a *different* vendor ("this will be executed — find where it's wrong or underscoped") → execute in a worktree via `admiral task start --agent-command` with a `STATUS:` self-report line in the preamble → watch (below) → cross-vendor review → done gate (below). On both providers the preamble is embedded in the launch command, so the agent has it from the first line — no send/wait/read-back. Announce seat assignments in one line, then proceed. For long unattended runs, drive from Codex to save Claude tokens; drive from Claude when taste work (design/copy/docs) is in the chain.
-
-**Supervision** (a spawned agent is running): poll `orca terminal show` previews — the preview sees the boxed composer; the raw tail does not. `STATUS: DONE` → done gate. `STATUS: STUCK` / no output ~5 min (longer for xhigh reasoning — thinking ≠ stalled) / repeated identical error → re-route; a looping vendor won't un-loop itself, so re-route crosses vendors. **Credit/quota wall needs BOTH**: the terminal is dead (`connected`/`writable`/`lastOutputAt` from `orca terminal list --json`, not error text alone) AND an exhaustion string is the CLI's own last output (confirm with `orca terminal read` if it scrolled past). Then respawn the seat's routed fallback in the SAME worktree with the SAME task: `admiral task start <n> --agent-command "<fallback command from the route table>"`. Announce the swap in one line. Novel failure → surface, don't guess. Leave the dead terminal for forensics.
-
-**Done gate** (before advancing finished work): three requirements — validation green (delegate to a verifier, don't run it in the judging seat), cross-vendor review clean (`reviewer ≠ author`, different vendor), no P0 open. All three met → land to `dev` and notify in one line after (`✓ task #14 → dev — tests green, cross-review clean, no P0`). Anything else — inconclusive check, P2/P3 judgment calls, any P0, novel ambiguity — surface with the specific reason and stop. Never auto-advance to `master`/`main` or push remote.

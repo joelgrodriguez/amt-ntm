@@ -17,22 +17,27 @@ and `master` are never used as Admiral development bases.
    heading is closed.
 3. `admiral task start <n>` refuses blocked tasks (`--force` overrides), asks
    Orca to create a worktree on branch `<n>-<kebab-title>` from
-   `dev`, and sets `status:in-progress`. Pick the worktree's
-   model per work type via the `route` skill: `--agent-command "<full launch
-   command>"` launches a flagged agent (model/effort/bypass); pass it more than
-   once to run several collaborating agents in the one worktree.
-4. The worktree agent commits, validates with `npm run build`, then
-   runs `admiral task review <n>`. In the default local landing workflow this
+   `dev`, and sets `status:in-progress`. Use `--route [seat]` to
+   choose the launch command from the configured router; use `--agent-command
+   "<full launch command>"` when you already picked the exact flagged command.
+   `--agent-command` is repeatable for several collaborating agents in one
+   worktree. Routed seats enforce their configured wall-clock timeout; explicit
+   commands can opt in with `--timeout 10m`.
+4. The worktree agent uses targeted checks while working, commits, then runs
+   `admiral task review <n>`, which runs `npm run build` exactly once
+   before handoff. In the default local landing workflow review
    only sets `status:in-review`; it does not push and does not open a
-   PR. `admiral task report <n>` gives the commodore the fuller handoff view:
-   GitHub, Orca, git, inferred agent roles, and recent local Admiral events. If
-   an agent hits a spend/auth wall, respawn it manually: `admiral task start <n>
-   --agent-command "<fallback command from the route table>"`.
-5. From the clean `dev` integration worktree, the commodore runs
+   PR. `admiral task report <n>` gives the reviewer/coordinator the fuller
+   handoff view: GitHub, Orca, git, inferred agent roles, and recent local
+   Admiral events.
+5. From the clean `dev` integration worktree, the reviewer/coordinator runs
    `admiral task land <n>`. It merges the local task branch with
    `git merge --no-ff --no-commit`, validates, commits `Land #<n>: <title>`,
    closes the issue (done), and removes the `status:*` label. It does not
-   push. It comments `Unblocked: #<n> closed. All blockers clear.` on each
+   push. It then removes the provider worktree and attempts `git branch -d`.
+   Git may retain an unmerged or squash-merged PR branch; Admiral warns with
+   recovery/status details and never uses force or rolls back the successful
+   land. It comments `Unblocked: #<n> closed. All blockers clear.` on each
    issue this one was blocking once its last open blocker clears.
    `admiral task cancel <n>` closes an issue as not planned instead.
    `admiral task iterate <n>` reopens a closed issue and sends it back to
@@ -45,8 +50,23 @@ open (ready when unblocked) -> in-progress -> in-review -> closed
 ```
 
 Hard rule: spawned Orca worktree agents do not merge into `dev`,
-run raw `git push`, or run `admiral task land`. They commit, validate, run
-`admiral task review <n>`, and stop.
+run raw `git push`, or run `admiral task land`. They use targeted checks,
+commit, run `admiral task review <n>` for the single full gate, and stop.
+
+## Project Contract
+
+Admiral creates three concise, human-owned context files when they are missing
+and never overwrites them on install or upgrade:
+
+- `PRODUCT.md` defines the product purpose, users, outcomes, and boundaries.
+- `CONTEXT.md` records the current project state, direction, constraints, and
+  working agreements.
+- `docs/decisions/README.md` indexes durable technical and product decisions.
+
+Task preambles point to the files that exist in that order so agents can read
+only as much context as the task needs. The files guide the work; they do not
+track it. GitHub issues remain the task and lifecycle store, Orca worktrees
+remain the execution store, and Git history remains the change record.
 
 ## Task Contract
 
@@ -85,6 +105,15 @@ these labels with `gh issue edit`: `status:in-progress` and
 closes it as not planned and also removes the label -- closed is the
 terminal state, no label needed.
 
+## Review Lanes
+
+`admiral task report <n>` recommends advisory review lanes from issue labels. It
+does not spawn agents. `cross-vendor` is always present; the default
+`reviewLanes` config also maps optional labels to focused checks:
+`risk:security` -> `security`, `risk:data-integrity` -> `data-integrity`,
+`risk:concurrency` -> `concurrency`, `risk:accessibility` -> `accessibility`,
+and `risk:performance` -> `performance`.
+
 Run `admiral doctor` after install to verify gh is authenticated, the configured
 repo is reachable, and issue labels are readable.
 
@@ -94,7 +123,8 @@ repo is reachable, and issue labels are readable.
 admiral task create "Fix checkout tax rounding" --type bugfix --area checkout --blocked-by 12
 admiral task ready
 admiral task list
-admiral task start <n> --agent-command "codex -m gpt-5.5 -c model_reasoning_effort=high --dangerously-bypass-approvals-and-sandbox"
+admiral task start <n> --route
+admiral task start <n> --agent-command "codex -m gpt-5.6-sol -c model_reasoning_effort=medium --dangerously-bypass-approvals-and-sandbox"
 admiral task report <n>
 admiral task review <n> --summary "Committed fix"
 admiral task land <n>
@@ -104,6 +134,13 @@ admiral task cancel <n>
 admiral task iterate <n>
 admiral graph        # dependency DAG from the issue bodies
 ```
+
+Ordinary `admiral upgrade --apply` preserves configured router values while
+adding missing defaults. To adopt the package's current type mappings, seat
+commands, fallbacks, and runtime budgets, preview with
+`admiral upgrade --refresh-router`, then apply with
+`admiral upgrade --refresh-router --apply`. The preview names every router key
+that would change; custom router extensions and non-router config are preserved.
 
 Every command accepts `--json`. `task report <n> --json` is the best handoff
 format for automation because it includes the live issue status, Orca terminal
@@ -143,16 +180,22 @@ Use PR landing only when that is explicitly configured in `.admiral/config.json`
 
 ## Cleanup
 
-Cleanup is manual after QA:
+Successful landing cleans the task worktree automatically and asks Git to
+delete the local task branch only when Git confirms it is merged. Explicit
+cleanup remains available for canceled tasks and recovery after an
+automatic-cleanup warning:
 
 ```bash
 admiral task cleanup <n> --dry-run
 admiral task cleanup <n> --apply
 ```
 
-Cleanup refuses while the issue is still open unless `--force` is supplied. It removes the Orca
-worktree with `orca worktree rm --worktree issue:<n> --json` and deletes only
-the local task branch with `git branch -d`; it does not delete remote branches.
+Cleanup refuses while the issue is still open unless `--force` is supplied. It
+removes the Orca worktree with `orca worktree rm --worktree issue:<n> --json`
+and attempts to delete only the local task branch with `git branch -d`. The two
+steps are independent and idempotent; failures are warnings, and `--json`
+reports each status/error. Automatic landing cleanup uses the same non-force
+operations and never deletes remote branches.
 
 ## Multi-Agent Coordination
 
