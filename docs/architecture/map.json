@@ -83,6 +83,17 @@
       ]
     },
     {
+      "path": ".conductor",
+      "purpose": "Project area.",
+      "fileCount": 1,
+      "categories": {
+        "other": 1
+      },
+      "keyFiles": [
+        ".conductor/settings.local.toml"
+      ]
+    },
+    {
       "path": "app",
       "purpose": "Application code and framework conventions.",
       "fileCount": 420,
@@ -157,6 +168,12 @@
     }
   ],
   "files": [
+    {
+      "path": ".conductor/settings.local.toml",
+      "category": "other",
+      "role": "Repository file.",
+      "size": 107
+    },
     {
       "path": ".distignore",
       "category": "other",
@@ -2699,7 +2716,7 @@
       "path": "CLAUDE.md",
       "category": "docs",
       "role": "Project documentation for humans and agents.",
-      "size": 13663
+      "size": 16330
     },
     {
       "path": "db/imports/ntmservice-service-articles.json",
