@@ -217,6 +217,28 @@
     opacity: 1;
   }
 
+  /* Persistent selected state — shown when stepping back to an answered
+     question, so the previous pick is visible rather than implied. */
+  .quiz-option.is-selected {
+    border-color: var(--color-blue-500);
+    background: #fff;
+  }
+
+  .quiz-option.is-selected .quiz-option__dot {
+    border-color: var(--color-blue-500);
+  }
+
+  .quiz-option.is-selected .quiz-option__dot::after {
+    opacity: 1;
+  }
+
+  /* Programmatic focus targets for step changes. The keyboard ring still
+     shows via :focus-visible; this only suppresses the ring on scripted focus. */
+  .quiz-question__title:focus:not(:focus-visible),
+  .quiz-results__headline:focus:not(:focus-visible) {
+    outline: none;
+  }
+
   /* Results --------------------------------------------------------------- */
   .quiz-results__intro {
     text-align: center;

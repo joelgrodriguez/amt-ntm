@@ -30,7 +30,13 @@
  * theme's existing HubSpot form (rendered by the template). HubspotForms.js
  * dispatches `hubspot:formReady` when fields paint and `hubspot:formSubmitted`
  * on submit; this module shows a calculating state until ready, then unlocks
- * results only after a successful submission.
+ * results after a successful submission. The one exception is a hard form
+ * failure (HubSpot blocked or errored): there is nothing to submit, so results
+ * unlock anyway rather than stranding someone who answered every question.
+ *
+ * Scoring note: raw points run 37–150, so they are normalized to 0–100 for
+ * display and banding. The machine recommendation still reads raw points —
+ * its thresholds were tuned on that scale.
  *
  * @module ReadinessQuiz
  */
@@ -182,11 +188,51 @@ const QUESTIONS = [
   },
 ];
 
-/** Readiness bands by total score. First band whose ceiling the score is under. */
+/**
+ * Raw point range the question set can produce, derived from QUESTIONS so
+ * editing a question keeps the scale honest. Today that is 37–150: the floor
+ * is the sum of every cheapest option, which is why raw points cannot be shown
+ * on a 0–100 dial directly.
+ */
+const RAW_RANGE = QUESTIONS.reduce(
+  (range, q) => {
+    const points = q.options.map((o) => o.points);
+    return {
+      min: range.min + Math.min(...points),
+      max: range.max + Math.max(...points),
+    };
+  },
+  { min: 0, max: 0 }
+);
+
+/**
+ * Convert a raw point total into the 0–100 readiness score we display.
+ *
+ * We map the *achievable* range onto the dial rather than dividing by the max.
+ * Dividing by the max would strand the bottom quarter of the gauge (the lowest
+ * possible answer set still scores 25%) and squeeze every real respondent into
+ * a narrow slice of the scale.
+ *
+ * @param {number} raw
+ * @returns {number} 0–100
+ */
+function normalizeScore(raw) {
+  const span = RAW_RANGE.max - RAW_RANGE.min;
+  if (span <= 0) return 0;
+  const pct = ((raw - RAW_RANGE.min) / span) * 100;
+  return Math.round(Math.min(100, Math.max(0, pct)));
+}
+
+/**
+ * Readiness bands by normalized score. First band whose ceiling the score is
+ * under. Cut points are set on the 0–100 normalized scale, not raw points —
+ * on the raw scale the lowest band was unreachable and the top band swallowed
+ * almost everyone.
+ */
 const BANDS = [
   { max: 30, level: 'Not Ready', description: 'Your current volume and operations may not justify the investment in portable rollforming equipment at this time.' },
-  { max: 55, level: 'Somewhat Ready', description: 'You have some operational indicators that could benefit from portable equipment, but growth may be needed first.' },
-  { max: 80, level: 'Ready', description: 'Your operations show strong indicators for adopting portable rollforming equipment.' },
+  { max: 50, level: 'Somewhat Ready', description: 'You have some operational indicators that could benefit from portable equipment, but growth may be needed first.' },
+  { max: 72, level: 'Ready', description: 'Your operations show strong indicators for adopting portable rollforming equipment.' },
   { max: Infinity, level: 'Highly Ready', description: 'Your business is an excellent candidate for portable rollforming equipment. Let’s find the right machine for you.' },
 ];
 
@@ -225,7 +271,7 @@ function scoreOf(answers) {
 }
 
 /**
- * Map a total score to its readiness band.
+ * Map a normalized (0–100) score to its readiness band.
  * @param {number} score
  */
 function bandOf(score) {
@@ -235,7 +281,12 @@ function bandOf(score) {
 /**
  * Recommend a machine from the answer values. First matching branch wins.
  * Mirrors results-display.tsx getMachineRecommendation (see spec).
- * @param {number} score
+ *
+ * Takes the RAW point total, not the normalized score — the `score >= 60`
+ * threshold below was tuned against raw points in the original app, so feeding
+ * it a normalized value would silently change which machine we recommend.
+ *
+ * @param {number} score raw point total
  * @param {Record<string, {points:number, value?:string}>} answers
  * @returns {{model:string, url:string, article:{title:string, url:string}}}
  */
@@ -273,17 +324,21 @@ function esc(s) {
 /**
  * Draw the readiness gauge onto a canvas — a red→yellow→green arc with a
  * needle pointing at the score. Ported from the original app's canvas gauge.
- * The displayed needle/number is floored at 75% (a deliberate design choice
- * from the original so the dial always reads encouragingly).
+ *
+ * The original floored the needle at 75% so the dial always read encouragingly.
+ * That floor is gone: because we print the number inside the dial, a floored
+ * needle made the gauge contradict the band label beneath it (a "Somewhat
+ * Ready" result, which tops out at 50, was drawn reading 75).
+ *
  * @param {HTMLCanvasElement} canvas
- * @param {number} rawScore
+ * @param {number} value normalized 0–100 score
  * @param {number} maxScore
  */
-function drawGauge(canvas, rawScore, maxScore = 100) {
+function drawGauge(canvas, value, maxScore = 100) {
   const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
-  const score = Math.max(rawScore, maxScore * 0.75);
+  const score = Math.min(Math.max(value, 0), maxScore);
   const dpr = window.devicePixelRatio || 1;
   const displaySize = 300;
   canvas.width = displaySize * dpr;
@@ -425,6 +480,8 @@ export function initReadinessQuiz() {
   let index = 0;
   /** True after a successful HubSpot submit in this page session. */
   let formSubmitted = false;
+  /** True once we know the HubSpot form can't be shown (script blocked/failed). */
+  let formUnavailable = false;
   /** @type {{score:number, band:object, machine:object}|null} */
   let pendingResult = null;
   /** @type {ReturnType<typeof setTimeout>|null} */
@@ -443,6 +500,11 @@ export function initReadinessQuiz() {
       eyebrow: 'Thanks for sharing',
       title: 'Talk to a specialist about your recommendation',
       desc: 'Your results are above — an NTM specialist can follow up with pricing, availability, and next steps.',
+    },
+    unavailable: {
+      eyebrow: 'Results unlocked',
+      title: 'Our contact form didn’t load',
+      desc: 'We couldn’t load the form, so we’ve unlocked your results above. Call NTM Sales at 303.294.0538 to talk through your recommendation.',
     },
   };
 
@@ -481,12 +543,42 @@ export function initReadinessQuiz() {
     }, FORM_READY_TIMEOUT_MS);
 
     if (hubspotMount) {
-      ensureHubspotForm(hubspotMount).catch(() => {
-        revealLeadForm();
-      });
+      // Resolves false when the HubSpot script is blocked or fails to load.
+      ensureHubspotForm(hubspotMount)
+        .then((mounted) => {
+          if (!mounted) unlockWithoutForm();
+        })
+        .catch(() => {
+          unlockWithoutForm();
+        });
     } else {
       // No form mount — still exit calculating so copy/restart appear.
       revealLeadForm();
+    }
+  }
+
+  /**
+   * The lead form will never appear (HubSpot blocked or errored). Gating the
+   * results behind a form that cannot be submitted just strands someone who
+   * answered all 13 questions, so release the results and point them at the
+   * phone number instead.
+   *
+   * Only fires on a hard mount failure — a merely slow form still gates.
+   */
+  function unlockWithoutForm() {
+    if (formUnavailable) return;
+    formUnavailable = true;
+
+    const elapsed = Date.now() - calculatingStartedAt;
+    const wait = Math.max(0, CALCULATING_MIN_MS - elapsed);
+
+    revealLeadForm();
+
+    if (!pendingResult || formSubmitted) return;
+    if (wait > 0) {
+      setTimeout(() => revealResults(), wait);
+    } else {
+      revealResults();
     }
   }
 
@@ -510,7 +602,7 @@ export function initReadinessQuiz() {
     const wait = Math.max(0, CALCULATING_MIN_MS - elapsed);
 
     const showForm = () => {
-      setLeadCopy('gated');
+      setLeadCopy(formUnavailable && !formSubmitted ? 'unavailable' : 'gated');
       hide(leadCalculating);
       show(leadBody);
       leadScreen?.classList.remove('is-calculating');
@@ -533,7 +625,12 @@ export function initReadinessQuiz() {
     if (progressPct) progressPct.textContent = '100%';
   }
 
-  function renderQuestion() {
+  /**
+   * Render the current question.
+   * @param {{focus?: boolean}} [opts] focus:false for the auto-start path, so
+   *   we never steal focus from the top of the page on load.
+   */
+  function renderQuestion({ focus = true } = {}) {
     const q = QUESTIONS[index];
     const total = QUESTIONS.length;
 
@@ -542,11 +639,14 @@ export function initReadinessQuiz() {
     if (progressLabel) progressLabel.textContent = `Question ${index + 1} of ${total}`;
     if (progressPct) progressPct.textContent = `${pct}%`;
 
+    // Restore the previous pick when stepping back, so the card shows what was
+    // already answered instead of looking untouched.
+    const chosen = answers[q.id]?.index;
     const options = q.options
-      .map(
-        (opt, i) =>
-          `<button type="button" class="quiz-option" data-quiz-option="${i}"><span class="quiz-option__dot" aria-hidden="true"></span><span>${esc(opt.label)}</span></button>`
-      )
+      .map((opt, i) => {
+        const selected = i === chosen;
+        return `<button type="button" class="quiz-option${selected ? ' is-selected' : ''}" aria-pressed="${selected ? 'true' : 'false'}" data-quiz-option="${i}"><span class="quiz-option__dot" aria-hidden="true"></span><span>${esc(opt.label)}</span></button>`;
+      })
       .join('');
 
     // Persistent card-anchored back button: shown from Q2, hidden otherwise.
@@ -557,17 +657,24 @@ export function initReadinessQuiz() {
 
     questionsScreen.innerHTML = `
       <p class="quiz-question__label">${esc(q.label)}</p>
-      <h2 class="quiz-question__title">${esc(q.question)}</h2>
+      <h2 class="quiz-question__title" tabindex="-1">${esc(q.question)}</h2>
       ${q.description ? `<p class="quiz-question__desc">${esc(q.description)}</p>` : ''}
       <div class="quiz-options" role="group" aria-label="${esc(q.question)}">${options}</div>
     `;
+
+    // Each answer replaces the card's contents, which would otherwise drop
+    // focus to the top of the document. Send it to the new question instead.
+    if (focus) {
+      questionsScreen.querySelector('.quiz-question__title')?.focus({ preventScroll: true });
+    }
 
     questionsScreen.querySelectorAll('[data-quiz-option]').forEach((btn) => {
       btn.addEventListener(
         'click',
         () => {
-          const opt = q.options[Number(btn.dataset.quizOption)];
-          answers[q.id] = { points: opt.points, value: opt.value };
+          const i = Number(btn.dataset.quizOption);
+          const opt = q.options[i];
+          answers[q.id] = { points: opt.points, value: opt.value, index: i };
           if (index < QUESTIONS.length - 1) {
             index += 1;
             renderQuestion();
@@ -585,18 +692,22 @@ export function initReadinessQuiz() {
    * or (if already submitted this session) reveal results immediately.
    */
   function finish() {
-    const score = scoreOf(answers);
+    const raw = scoreOf(answers);
+    const score = normalizeScore(raw);
     pendingResult = {
       score,
       band: bandOf(score),
-      machine: recommend(score, answers),
+      // Raw, not normalized — see recommend()'s docblock.
+      machine: recommend(raw, answers),
     };
 
     hide(questionsScreen);
     if (backBtn) backBtn.setAttribute('hidden', '');
     markCompleteProgress();
 
-    if (formSubmitted) {
+    // Already converted, or the form is broken and gating would only strand
+    // them — either way show the results now.
+    if (formSubmitted || formUnavailable) {
       revealResults();
       return;
     }
@@ -622,14 +733,13 @@ export function initReadinessQuiz() {
     if (!pendingResult) return;
 
     const { score, band, machine } = pendingResult;
-    const display = Math.min(score, 100);
 
     markCompleteProgress();
 
     resultsScreen.innerHTML = `
       <div class="quiz-results__intro">
         <p class="quiz-results__eyebrow">Your readiness</p>
-        <h2 class="quiz-results__headline">Here’s where your operation stands</h2>
+        <h2 class="quiz-results__headline" tabindex="-1">Here’s where your operation stands</h2>
       </div>
       <div class="quiz-gauge"><canvas data-quiz-gauge aria-hidden="true"></canvas></div>
       <p class="quiz-results__level" data-band="${esc(band.level)}">${esc(band.level)}</p>
@@ -652,11 +762,11 @@ export function initReadinessQuiz() {
     show(leadBody);
     show(quizCard);
     show(resultsScreen);
-    setLeadCopy('unlocked');
+    setLeadCopy(formUnavailable && !formSubmitted ? 'unavailable' : 'unlocked');
     show(leadScreen);
 
     const gauge = resultsScreen.querySelector('[data-quiz-gauge]');
-    if (gauge) drawGauge(gauge, display, 100);
+    if (gauge) drawGauge(gauge, score, 100);
 
     // Clone the matching pre-rendered product card into the results (clone, not
     // move, so the pool survives a retake), open its links in a new tab.
@@ -676,13 +786,23 @@ export function initReadinessQuiz() {
     }
 
     quizCard?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Move focus to the results heading so keyboard and screen-reader users
+    // land on the answer instead of being left on a button that no longer exists.
+    resultsScreen.querySelector('.quiz-results__headline')?.focus({ preventScroll: true });
   }
 
   // Reveal unlock form once HubSpot fields are ready (or on hard timeout).
   if (leadScreen) {
     leadScreen.addEventListener(
       'hubspot:formReady',
-      () => {
+      (event) => {
+        // HubspotForms.js fires this with error:true when the script failed and
+        // it swapped in the "call us" fallback — there is no form to submit.
+        if (event.detail?.error) {
+          unlockWithoutForm();
+          return;
+        }
         if (waitingForForm || leadScreen.classList.contains('is-calculating')) {
           revealLeadForm();
         }
@@ -717,7 +837,7 @@ export function initReadinessQuiz() {
     );
   } else {
     show(questionsScreen);
-    renderQuestion();
+    renderQuestion({ focus: false });
   }
 
   // Card-anchored back button (single persistent handler).
