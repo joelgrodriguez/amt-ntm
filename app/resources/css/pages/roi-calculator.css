@@ -1,0 +1,509 @@
+/**
+ * ROI Calculator page styles.
+ *
+ * Structure ported from the standalone prototype in /calculator (numbered
+ * steps → machine cards → two-up inputs → dark results panel → payback), then
+ * conformed to DESIGN.md: ZERO border-radius, NO shadow — depth is border and
+ * a 1px translate, matching components/cards.css and pages/readiness-quiz.css.
+ * The prototype's gradients, Segoe UI stack and 14px corner radii are gone.
+ *
+ * Mobile-first: single column at base, two/three-up from 768px.
+ */
+
+@layer components {
+  /* Width is capped here, not with a max-w-* utility: the theme redefines
+     .container after Tailwind's utilities, so max-w-* loses the cascade.
+     pages/readiness-quiz.css caps .readiness-quiz for the same reason. */
+  .roi-calc {
+    width: 100%;
+    max-width: 56rem;
+    margin: 0 auto;
+  }
+
+  /* Intro ----------------------------------------------------------------- */
+  .roi-intro {
+    margin-bottom: 2rem;
+  }
+
+  .roi-intro__title {
+    margin: 0.75rem 0 0.5rem;
+    font-size: 1.875rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--color-blue-900);
+  }
+
+  .roi-intro__lede {
+    margin: 0;
+    max-width: 52ch;
+    color: var(--color-blue-600);
+  }
+
+  /* Steps ----------------------------------------------------------------- */
+  .roi-step {
+    padding: 1.5rem;
+    background: #fff;
+    border: 1px solid var(--color-blue-200);
+    border-bottom: 0;
+  }
+
+  .roi-step__head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .roi-step__badge {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    background: var(--color-blue-500);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    font-weight: 700;
+  }
+
+  .roi-step__badge--invert {
+    background: #fff;
+    color: var(--color-blue-800);
+  }
+
+  .roi-step__title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--color-blue-900);
+  }
+
+  .roi-step__title--invert {
+    color: #fff;
+  }
+
+  /* Machine picker -------------------------------------------------------- */
+  .roi-machines {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .roi-machine {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-height: 3rem; /* >= 44px touch target */
+    padding: 1rem;
+    text-align: left;
+    background: var(--color-blue-50);
+    border: 1px solid var(--color-blue-200);
+    cursor: pointer;
+    transition:
+      border-color var(--hover-dur, 150ms) ease,
+      background-color var(--hover-dur, 150ms) ease,
+      transform var(--hover-dur, 150ms) ease;
+  }
+
+  .roi-machine:hover {
+    border-color: var(--color-blue-500);
+    background: #fff;
+    transform: translateY(-1px); /* depth via translate, per DESIGN.md */
+  }
+
+  .roi-machine[aria-pressed="true"] {
+    border-color: var(--color-blue-500);
+    background: #fff;
+    box-shadow: inset 0 0 0 1px var(--color-blue-500); /* reads as 2px border, no layout shift */
+  }
+
+  .roi-machine__size {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-blue-400);
+  }
+
+  .roi-machine[aria-pressed="true"] .roi-machine__size {
+    color: var(--color-blue-500);
+  }
+
+  .roi-machine__name {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--color-blue-900);
+  }
+
+  .roi-machine__desc {
+    font-size: 0.8125rem;
+    color: var(--color-blue-600);
+  }
+
+  .roi-machine__price {
+    margin-top: 0.25rem;
+    font-size: 0.8125rem;
+    color: var(--color-blue-600);
+  }
+
+  .roi-machine__price strong {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-blue-500);
+  }
+
+  /* Inputs ---------------------------------------------------------------- */
+  .roi-fields {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .roi-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .roi-field__label {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-blue-800);
+  }
+
+  .roi-field__label span {
+    font-weight: 400;
+    color: var(--color-blue-400);
+  }
+
+  .roi-field__control {
+    min-height: 2.75rem; /* >= 44px touch target */
+    padding: 0.625rem 0.875rem;
+    background: #fff;
+    border: 1px solid var(--color-blue-200);
+    color: var(--color-blue-900);
+    font-size: 0.9375rem;
+    transition: border-color var(--hover-dur, 150ms) ease;
+  }
+
+  .roi-field__control:focus {
+    outline: none;
+    border-color: var(--color-blue-500);
+    box-shadow: inset 0 0 0 1px var(--color-blue-500);
+  }
+
+  .roi-field__hint {
+    margin: 0;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: var(--color-blue-400);
+  }
+
+  /* Derived cost-per-foot readout — an output sitting in the input grid. */
+  .roi-field--derived {
+    justify-content: center;
+    gap: 0.125rem;
+    padding: 0.875rem;
+    background: var(--color-blue-50);
+    border: 1px solid var(--color-blue-500);
+  }
+
+  .roi-derived__label {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-blue-400);
+  }
+
+  .roi-derived__value {
+    margin: 0;
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--color-blue-900);
+  }
+
+  .roi-derived__caption {
+    margin: 0;
+    font-size: 0.75rem;
+    color: var(--color-blue-600);
+  }
+
+  /* Results panel --------------------------------------------------------- */
+  .roi-results {
+    padding: 1.5rem;
+    background: var(--color-blue-800);
+  }
+
+  .roi-cards {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .roi-card {
+    padding: 1.125rem 1rem;
+    background: #fff;
+    border: 1px solid var(--color-blue-200);
+    text-align: center;
+  }
+
+  .roi-card--outline {
+    background: var(--color-blue-50);
+    border-color: var(--color-blue-500);
+    text-align: left;
+  }
+
+  /* Revenue + savings: the two figures the page exists to produce. */
+  .roi-card--accent {
+    background: var(--color-green);
+    border-color: var(--color-green);
+  }
+
+  .roi-card__label {
+    margin: 0 0 0.375rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-blue-400);
+  }
+
+  .roi-card--accent .roi-card__label {
+    color: rgb(255 255 255 / 0.8);
+  }
+
+  .roi-card__value {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--color-blue-900);
+  }
+
+  .roi-card--accent .roi-card__value {
+    color: #fff;
+  }
+
+  /* Prompt shown in place of a figure, before its inputs are filled in. */
+  .roi-card__value.is-hint {
+    font-size: 0.9375rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--color-blue-400);
+  }
+
+  .roi-card--accent .roi-card__value.is-hint {
+    color: rgb(255 255 255 / 0.8);
+  }
+
+  .roi-card__sub {
+    margin: 0.375rem 0 0;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: var(--color-blue-400);
+  }
+
+  .roi-card--accent .roi-card__sub {
+    color: rgb(255 255 255 / 0.75);
+  }
+
+  /* Cost comparison bars -------------------------------------------------- */
+  .roi-cmp__placeholder {
+    margin: 0;
+    padding: 0.5rem 0;
+    font-size: 0.9375rem;
+    color: var(--color-blue-400);
+  }
+
+  .roi-cmp__row {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .roi-cmp__row[hidden] {
+    display: none;
+  }
+
+  .roi-cmp__label {
+    flex: 0 0 5.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: right;
+    color: var(--color-blue-700);
+  }
+
+  .roi-cmp__track {
+    flex: 1 1 auto;
+    display: block;
+    height: 1.625rem;
+    background: var(--color-blue-100);
+    overflow: hidden;
+  }
+
+  .roi-cmp__fill {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    min-width: 2.5rem;
+    padding: 0 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    transition: width var(--resize-dur, 300ms) var(--resize-ease, cubic-bezier(0.22, 1, 0.36, 1));
+  }
+
+  .roi-cmp__fill--machine {
+    background: var(--color-blue-500);
+  }
+
+  .roi-cmp__fill--premade {
+    background: var(--color-red);
+  }
+
+  /* The full-contrast copy of each figure — the bar label is decorative. */
+  .roi-cmp__amount {
+    flex: 0 0 3.75rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-blue-900);
+  }
+
+  .roi-cmp__note {
+    margin: 0.5rem 0 0;
+    font-size: 0.8125rem;
+    text-align: center;
+    color: var(--color-blue-400);
+  }
+
+  .roi-cmp__note.is-positive {
+    font-weight: 700;
+    color: var(--color-green);
+  }
+
+  .roi-cmp__note.is-negative {
+    font-weight: 700;
+    color: var(--color-red);
+  }
+
+  /* Payback --------------------------------------------------------------- */
+  .roi-payback__months {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--color-blue-900);
+  }
+
+  .roi-payback__weeks {
+    display: inline-block;
+    margin: 0.5rem 0 0;
+    padding: 0.4375rem 1.25rem;
+    background: var(--color-blue-500);
+    color: #fff;
+    font-size: 0.9375rem;
+    font-weight: 700;
+  }
+
+  .roi-payback__basis {
+    margin: 0.75rem auto 0;
+    max-width: 42ch;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--color-blue-600);
+  }
+
+  .roi-payback__message {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--color-blue-400);
+  }
+
+  .roi-payback__message.is-negative {
+    font-weight: 700;
+    color: var(--color-red);
+  }
+
+  .roi-disclaimer {
+    margin: 1rem 0 0;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    text-align: center;
+    color: rgb(255 255 255 / 0.55);
+  }
+
+  /* CTA ------------------------------------------------------------------- */
+  .roi-cta {
+    padding: 1.5rem;
+    background: #fff;
+    border: 1px solid var(--color-blue-200);
+    border-top: 0;
+    text-align: center;
+  }
+
+  .roi-cta__title {
+    margin: 0 0 0.5rem;
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--color-blue-900);
+  }
+
+  .roi-cta__desc {
+    margin: 0 auto 1.25rem;
+    max-width: 48ch;
+    color: var(--color-blue-600);
+  }
+
+  .roi-cta__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* Scale up -------------------------------------------------------------- */
+  @media (min-width: 768px) {
+    .roi-intro__title {
+      font-size: 2.25rem;
+    }
+
+    .roi-step,
+    .roi-results,
+    .roi-cta {
+      padding: 2rem;
+    }
+
+    .roi-machines {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .roi-fields,
+    .roi-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .roi-card--full {
+      grid-column: 1 / -1;
+    }
+
+    .roi-cmp__label {
+      flex-basis: 7rem;
+      font-size: 0.8125rem;
+    }
+
+    .roi-cta__actions {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+}

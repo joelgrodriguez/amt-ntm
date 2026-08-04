@@ -27,6 +27,7 @@ import { initRevealMore } from './modules/RevealMore.js';
 import { initProfileExpand } from './modules/ProfileExpand.js';
 import { initProfileGallery } from './modules/ProfileGallery.js';
 import { initReadinessQuiz } from './modules/ReadinessQuiz.js';
+import { initRoiCalculator } from './modules/RoiCalculator.js';
 import { initVideoFacades } from './modules/VideoFacade.js';
 import { initThirdPartyLoader } from './modules/ThirdPartyLoader.js';
 
@@ -80,6 +81,9 @@ let profileGalleryCleanup = null;
 
 /** @type {Function|null} Cleanup function for readiness quiz */
 let readinessQuizCleanup = null;
+
+/** @type {Function|null} Cleanup function for ROI calculator */
+let roiCalculatorCleanup = null;
 let videoFacadesCleanup = null;
 let thirdPartyLoaderCleanup = null;
 
@@ -125,6 +129,7 @@ const initApp = () => {
   profileExpandCleanup = initProfileExpand();
   profileGalleryCleanup = initProfileGallery();
   readinessQuizCleanup = initReadinessQuiz();
+  roiCalculatorCleanup = initRoiCalculator();
   videoFacadesCleanup = initVideoFacades();
   thirdPartyLoaderCleanup = initThirdPartyLoader();
 };
@@ -186,6 +191,9 @@ if (import.meta.hot) {
     }
     if (readinessQuizCleanup) {
       readinessQuizCleanup();
+    }
+    if (roiCalculatorCleanup) {
+      roiCalculatorCleanup();
     }
     if (videoFacadesCleanup) {
       videoFacadesCleanup();
