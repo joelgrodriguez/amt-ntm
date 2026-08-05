@@ -23,6 +23,12 @@ const LANDING_TEMPLATES = [
 ];
 
 /** @var list<string> */
+const LANDING_PAGE_SLUGS = [
+    'no-payments-until-2027',
+    'second-profile-50',
+];
+
+/** @var list<string> */
 const MACHINE_CATEGORIES = [
     'roof-wall-panel-machines',
     'gutter-machines',
@@ -37,6 +43,10 @@ function is_eligible_page(): bool {
     }
 
     if (is_front_page()) {
+        return true;
+    }
+
+    if (is_page(LANDING_PAGE_SLUGS)) {
         return true;
     }
 

@@ -160,6 +160,8 @@ get_header();
         </div>
     </section>
 
+    <?php get_template_part('templates/parts/gutter-roi-strip', null, compact('product')); ?>
+
     <?php get_template_part('templates/woo/product/parts/default-specs', null, compact('product')); ?>
 
     <?php
