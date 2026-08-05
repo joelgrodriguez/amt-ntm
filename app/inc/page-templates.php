@@ -17,10 +17,10 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Reusable page templates editors may assign to ordinary pages.
+ * Page templates editors may assign to ordinary pages.
  *
- * Route-specific and internal templates stay discoverable to WordPress for
- * rendering, but are not part of the editor-facing API.
+ * Route-specific templates stay hidden unless an editor must create their
+ * database-backed page manually in another environment.
  *
  * @var list<string>
  */
@@ -30,6 +30,8 @@ const EDITOR_PAGE_TEMPLATE_ALLOWLIST = [
     'templates/template-lead-form.php',
     'templates/template-hero-video.php',
     'templates/template-careers.php',
+    'templates/template-roi-calculator.php',
+    'page-metalcon-2026.php',
 ];
 
 /**
