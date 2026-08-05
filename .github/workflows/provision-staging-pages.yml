@@ -1,0 +1,162 @@
+name: Provision staging campaign pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kinsta-staging-content
+  cancel-in-progress: false
+
+jobs:
+  provision:
+    name: Create and verify pages
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: staging
+      url: ${{ vars.KINSTA_SITE_URL }}
+    env:
+      KINSTA_HOST: ${{ vars.KINSTA_HOST }}
+      KINSTA_PORT: ${{ vars.KINSTA_PORT }}
+      KINSTA_PUBLIC_PATH: ${{ vars.KINSTA_PUBLIC_PATH }}
+      KINSTA_SITE_URL: ${{ vars.KINSTA_SITE_URL }}
+      KINSTA_USERNAME: ${{ vars.KINSTA_USERNAME }}
+
+    steps:
+      - name: Configure SSH
+        env:
+          KINSTA_KNOWN_HOSTS: ${{ secrets.KINSTA_KNOWN_HOSTS }}
+          KINSTA_SSH_KEY: ${{ secrets.KINSTA_SSH_KEY }}
+        run: |
+          set -euo pipefail
+          install -d -m 700 "$HOME/.ssh"
+          printf '%s\n' "$KINSTA_SSH_KEY" > "$HOME/.ssh/kinsta_deploy"
+          printf '%s\n' "$KINSTA_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/kinsta_deploy" "$HOME/.ssh/known_hosts"
+
+      - name: Create and configure campaign pages
+        run: |
+          set -euo pipefail
+          ssh \
+            -i "$HOME/.ssh/kinsta_deploy" \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
+            -p "$KINSTA_PORT" \
+            "$KINSTA_USERNAME@$KINSTA_HOST" \
+            bash -s -- "$KINSTA_PUBLIC_PATH" <<'REMOTE'
+          set -euo pipefail
+
+          public_path="$1"
+          cd "$public_path"
+
+          ensure_page() {
+            slug="$1"
+            title="$2"
+            template="$3"
+
+            page_id="$(
+              wp post list \
+                --post_type=page \
+                --post_status=any \
+                --post_parent=0 \
+                --name="$slug" \
+                --format=ids \
+                | awk '{ print $1 }'
+            )"
+
+            if [[ -z "$page_id" ]]; then
+              page_id="$(
+                wp post create \
+                  --post_type=page \
+                  --post_status=publish \
+                  --post_title="$title" \
+                  --post_name="$slug" \
+                  --porcelain
+              )"
+              echo "Created $slug as page $page_id."
+            else
+              wp post update "$page_id" \
+                --post_status=publish \
+                --post_title="$title" \
+                --post_name="$slug" \
+                >/dev/null
+              echo "Updated $slug on page $page_id."
+            fi
+
+            if [[ "$template" == "default" ]]; then
+              wp post meta delete "$page_id" _wp_page_template >/dev/null 2>&1 || true
+            else
+              wp post meta update "$page_id" _wp_page_template "$template" >/dev/null
+            fi
+
+            actual_status="$(wp post get "$page_id" --field=post_status)"
+            actual_slug="$(wp post get "$page_id" --field=post_name)"
+            actual_template="$(wp post meta get "$page_id" _wp_page_template 2>/dev/null || true)"
+
+            [[ "$actual_status" == "publish" ]]
+            [[ "$actual_slug" == "$slug" ]]
+
+            if [[ "$template" == "default" ]]; then
+              [[ -z "$actual_template" || "$actual_template" == "default" ]]
+            else
+              [[ "$actual_template" == "$template" ]]
+            fi
+          }
+
+          ensure_page \
+            'no-payments-until-2027' \
+            'No Payments Until 2027' \
+            'default'
+
+          ensure_page \
+            'second-profile-50' \
+            'Second Profile 50% Off' \
+            'default'
+
+          ensure_page \
+            'gutter-machine-roi-calculator' \
+            'Gutter Machine ROI Calculator' \
+            'templates/template-roi-calculator.php'
+
+          ensure_page \
+            'metalcon-2026' \
+            'METALCON 2026' \
+            'page-metalcon-2026.php'
+
+          wp rewrite flush >/dev/null
+          wp kinsta cache purge --all || echo '::warning::Pages are ready, but the Kinsta cache purge failed.'
+          REMOTE
+
+      - name: Verify rendered templates
+        run: |
+          set -euo pipefail
+
+          verify_page() {
+            route="$1"
+            marker="$2"
+            body="$(
+              curl \
+                --fail \
+                --location \
+                --retry 3 \
+                --retry-delay 5 \
+                --silent \
+                --show-error \
+                "$KINSTA_SITE_URL/$route/"
+            )"
+
+            if ! grep -Fq "$marker" <<< "$body"; then
+              echo "Expected template marker not found on /$route/: $marker" >&2
+              exit 1
+            fi
+
+            echo "Verified $KINSTA_SITE_URL/$route/"
+          }
+
+          verify_page 'no-payments-until-2027' 'class="fall-promotion"'
+          verify_page 'second-profile-50' 'class="fall-promotion"'
+          verify_page 'gutter-machine-roi-calculator' 'data-roi-calculator'
+          verify_page 'metalcon-2026' 'id="metalcon-meeting-form"'
