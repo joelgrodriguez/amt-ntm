@@ -35,6 +35,7 @@ $performance = read_theme_file('app/inc/performance.php');
 $video = read_theme_file('app/inc/video.php');
 $header = read_theme_file('app/header.php');
 $loader = read_theme_file('app/resources/js/modules/ThirdPartyLoader.js');
+$empty_shell = read_theme_file('app/templates/template-empty-shell.php');
 $wistia_sync = read_theme_file('scripts/media/sync-wistia-thumbnails.php');
 $machine_template = read_theme_file('app/templates/woo/product/single-machine-default.php');
 $accessory_hero = read_theme_file('app/templates/woo/product/parts/accessory-hero.php');
@@ -58,6 +59,14 @@ check(str_contains($loader, 'requestIdleCallback'), 'Replay/chat loader must ret
 check(str_contains($loader, "window.addEventListener('load'"), 'Replay/chat idle scheduling must wait for page load.');
 check(str_contains($loader, 'loadClarity'), 'Clarity must load through the non-essential third-party gate.');
 check(str_contains($loader, 'loadHubspot'), 'HubSpot chat must load through the non-essential third-party gate.');
+check(
+    !str_contains($empty_shell, 'body.configurator-empty-shell iframe,'),
+    'Empty shell styles must not resize unrelated third-party iframes such as HubSpot chat.'
+);
+check(
+    str_contains($empty_shell, 'body.configurator-empty-shell #primary iframe,'),
+    'Empty shell iframe sizing must stay scoped to the primary embed canvas.'
+);
 
 foreach (['w1u1r55n9v', 'kdv2kphni1', 'd43ez7v1wc', 'vf198bnz3w', 'jxmgaicen7', 'qmq0ibzvx7', 'gxl0kqlpxl'] as $media_id) {
     check(

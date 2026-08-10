@@ -36,9 +36,8 @@ if (!defined('ABSPATH')) {
             margin: 0;
         }
 
-        body.configurator-empty-shell iframe,
-        body.configurator-empty-shell .op-interactive,
-        body.configurator-empty-shell .op-interactive iframe {
+        body.configurator-empty-shell #primary iframe,
+        body.configurator-empty-shell #primary .op-interactive {
             display: block;
             width: 100%;
             min-height: 100vh;
