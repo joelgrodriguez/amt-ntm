@@ -19,7 +19,13 @@ function check(bool $condition, string $message): void
 function read_theme_file(string $relative): string
 {
     global $root;
-    $contents = file_get_contents($root . '/' . $relative);
+    $path = $root . '/' . $relative;
+
+    if (!is_file($path)) {
+        return '';
+    }
+
+    $contents = file_get_contents($path);
     return is_string($contents) ? $contents : '';
 }
 
@@ -35,7 +41,8 @@ $performance = read_theme_file('app/inc/performance.php');
 $video = read_theme_file('app/inc/video.php');
 $header = read_theme_file('app/header.php');
 $loader = read_theme_file('app/resources/js/modules/ThirdPartyLoader.js');
-$empty_shell = read_theme_file('app/templates/template-empty-shell.php');
+$page_templates = read_theme_file('app/inc/page-templates.php');
+$configurator_shell = read_theme_file('app/templates/template-configurator-shell.php');
 $wistia_sync = read_theme_file('scripts/media/sync-wistia-thumbnails.php');
 $machine_template = read_theme_file('app/templates/woo/product/single-machine-default.php');
 $accessory_hero = read_theme_file('app/templates/woo/product/parts/accessory-hero.php');
@@ -59,13 +66,26 @@ check(str_contains($loader, 'requestIdleCallback'), 'Replay/chat loader must ret
 check(str_contains($loader, "window.addEventListener('load'"), 'Replay/chat idle scheduling must wait for page load.');
 check(str_contains($loader, 'loadClarity'), 'Clarity must load through the non-essential third-party gate.');
 check(str_contains($loader, 'loadHubspot'), 'HubSpot chat must load through the non-essential third-party gate.');
+check($configurator_shell !== '', 'The configurator page tree must use its dedicated shell template.');
 check(
-    !str_contains($empty_shell, 'body.configurator-empty-shell iframe,'),
-    'Empty shell styles must not resize unrelated third-party iframes such as HubSpot chat.'
+    !str_contains($configurator_shell, 'Template Name:'),
+    'The internal configurator shell must not be assignable as a generic WordPress page template.'
 );
 check(
-    str_contains($empty_shell, 'body.configurator-empty-shell #primary iframe,'),
-    'Empty shell iframe sizing must stay scoped to the primary embed canvas.'
+    !str_contains($configurator_shell, 'min-height: 100vh'),
+    'Configurator sizing must not override the dynamic iOS viewport with a 100vh minimum.'
+);
+check(
+    str_contains($configurator_shell, 'body.configurator-shell #primary iframe,'),
+    'Configurator iframe sizing must stay scoped to the primary embed canvas.'
+);
+check(
+    str_contains($page_templates, "get_theme_file_path('templates/template-configurator-shell.php')"),
+    'Configurator routing must use the dedicated shell template.'
+);
+check(
+    !str_contains($page_templates, 'template-empty-shell.php'),
+    'Configurator routing must not retain the obsolete generic shell filename.'
 );
 
 foreach (['w1u1r55n9v', 'kdv2kphni1', 'd43ez7v1wc', 'vf198bnz3w', 'jxmgaicen7', 'qmq0ibzvx7', 'gxl0kqlpxl'] as $media_id) {

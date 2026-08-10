@@ -145,7 +145,7 @@ function is_configurator_page_tree(int $post_id): bool
 /**
  * Render configurator pages with only wp_head(), content, and wp_footer().
  */
-function include_configurator_empty_shell(string $template): string
+function include_configurator_shell(string $template): string
 {
     if (!is_page() || is_front_page()) {
         return $template;
@@ -157,11 +157,11 @@ function include_configurator_empty_shell(string $template): string
         return $template;
     }
 
-    $empty_shell = get_theme_file_path('templates/template-empty-shell.php');
+    $configurator_shell = get_theme_file_path('templates/template-configurator-shell.php');
 
-    return file_exists($empty_shell) ? $empty_shell : $template;
+    return file_exists($configurator_shell) ? $configurator_shell : $template;
 }
-add_filter('template_include', __NAMESPACE__ . '\\include_configurator_empty_shell', 30);
+add_filter('template_include', __NAMESPACE__ . '\\include_configurator_shell', 30);
 
 /**
  * Read the first non-empty ACF/custom-field value from a page.

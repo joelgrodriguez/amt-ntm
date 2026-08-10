@@ -1,8 +1,10 @@
 <?php
 /**
- * Template Name: Empty Shell
+ * Configurator-only document shell.
  *
- * Full document shell for embedded tools that bring their own UI.
+ * Renders the /configurator/ page tree without the normal site chrome. The
+ * page content owns the dynamic viewport height so iOS browser controls can
+ * resize without a competing 100vh minimum on the shell or iframe.
  *
  * @package Standard
  */
@@ -22,31 +24,30 @@ if (!defined('ABSPATH')) {
     <?php wp_head(); ?>
     <style>
         html,
-        body.configurator-empty-shell {
-            min-height: 100%;
+        body.configurator-shell {
+            height: 100%;
             margin: 0;
         }
 
-        body.configurator-empty-shell #primary {
+        body.configurator-shell #primary,
+        body.configurator-shell #primary > * {
             width: 100%;
-            min-height: 100vh;
-        }
-
-        body.configurator-empty-shell #primary > * {
+            height: 100%;
             margin: 0;
         }
 
-        body.configurator-empty-shell #primary iframe,
-        body.configurator-empty-shell #primary .op-interactive {
+        body.configurator-shell #primary iframe,
+        body.configurator-shell #primary .op-interactive {
             display: block;
             width: 100%;
-            min-height: 100vh;
+            height: 100%;
+            min-height: 0;
             border: 0;
         }
     </style>
 </head>
 
-<body <?php body_class('configurator-empty-shell'); ?>>
+<body <?php body_class('configurator-shell'); ?>>
 <?php wp_body_open(); ?>
 
 <main id="primary">
