@@ -57,9 +57,13 @@ function print_third_party_config(): void {
         && $integrations->integration_is_effective('hubspot_tracker');
     $clarity_owned = $integrations
         && $integrations->integration_is_effective('clarity');
+    $post_id = is_page() ? get_queried_object_id() : 0;
+    $is_configurator = $post_id > 0
+        && function_exists('\\Standard\\PageTemplates\\is_configurator_page_tree')
+        && \Standard\PageTemplates\is_configurator_page_tree($post_id);
 
     $config = [
-        'hubspotPortalId' => $hubspot_owned ? '' : HUBSPOT_PORTAL_ID,
+        'hubspotPortalId' => $hubspot_owned || $is_configurator ? '' : HUBSPOT_PORTAL_ID,
         'clarityProjectId' => $clarity_owned
             ? ''
             : sanitize_key((string) get_option('clarity_project_id', '')),
