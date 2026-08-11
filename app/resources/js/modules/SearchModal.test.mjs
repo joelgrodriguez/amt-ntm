@@ -10,7 +10,7 @@ const manifest = {
   },
   machines: [
     { key: 'ssq3-multipro', title: 'SSQ3 MultiPro', url: '/machines/roof-wall-panel-machines/ssq3-roof-panel-machine/', subtype: 'product', category: 'roof-wall-panel-machines', active: true },
-    { key: 'ssq-ii-multipro', title: 'SSQ II MultiPro', url: '/machines/roof-wall-panel-machines/ssq-roof-panel-machine/', subtype: 'product', category: 'roof-wall-panel-machines', active: false, status: 'Discontinued' },
+    { key: 'ssq-ii-multipro', title: 'SSQ II MultiPro', url: '/machines/roof-wall-panel-machines/ssq-roof-panel-machine/', subtype: 'product', category: 'roof-wall-panel-machines', active: false, status: 'Discontinuing Sep. 30, 2026' },
     { key: 'ssh-multipro', title: 'SSH MultiPro', url: '/machines/roof-wall-panel-machines/ssh-roof-panel-machine/', subtype: 'product', category: 'roof-wall-panel-machines', active: true },
     { key: 'ssr-multipro-jr', title: 'SSR MultiPro Jr.', url: '/machines/roof-wall-panel-machines/ssr-roof-panel-machine/', subtype: 'product', category: 'roof-wall-panel-machines', active: true },
     { key: '5vc-5v-crimp', title: '5VC-5V Crimp', url: '/machines/roof-wall-panel-machines/5vc-5v-crimp-roof-panel-machine/', subtype: 'product', category: 'roof-wall-panel-machines', active: true },
@@ -63,7 +63,7 @@ test('localMachineSuggestions: exact inactive aliases stay searchable without wi
     localMachineSuggestions('SSQ2', '', manifest).map((item) => item.machineKey),
     ['ssq-ii-multipro', 'ssq3-multipro'],
   );
-  assert.equal(localMachineSuggestions('SSQ2', '', manifest)[0].status, 'Discontinued');
+  assert.equal(localMachineSuggestions('SSQ2', '', manifest)[0].status, 'Discontinuing Sep. 30, 2026');
 
   assert.deepEqual(
     localMachineSuggestions('roof panel machine', '', manifest).map((item) => item.machineKey),

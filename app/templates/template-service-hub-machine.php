@@ -203,7 +203,7 @@ get_header();
         </div>
     </header>
 
-    <?php if (\Standard\MachineStatus\is_discontinued($slug)) : ?>
+    <?php if (\Standard\MachineStatus\has_status($slug)) : ?>
         <?php get_template_part('templates/parts/machine-status-notice', null, [
             'machine_slug' => $slug,
             'context'      => 'support',

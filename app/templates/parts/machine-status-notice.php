@@ -1,6 +1,6 @@
 <?php
 /**
- * Compact discontinued-machine notice with one replacement action.
+ * Compact machine lifecycle notice with primary and secondary actions.
  *
  * @package Standard
  * @var array{machine_slug?:string,context?:string,contained?:bool} $args
@@ -13,20 +13,12 @@ if (!defined('ABSPATH')) {
 }
 
 $machine_slug = (string) ($args['machine_slug'] ?? '');
-$context      = (string) ($args['context'] ?? 'resource');
 $contained    = !empty($args['contained']);
 $status       = \Standard\MachineStatus\get_status($machine_slug);
 
 if ($status === null) {
     return;
 }
-
-$copy = match ($context) {
-    'sales' => __('The SSQ II MultiPro is discontinued. The SSQ3 MultiPro is its current replacement.', 'standard'),
-    'support' => __('The SSQ II is discontinued. Manuals, parts, and service remain available for current owners.', 'standard'),
-    'archive' => __('The SSQ II is discontinued. Parts and owner resources remain available; new machine buyers should explore the SSQ3.', 'standard'),
-    default => __('The SSQ II is discontinued. This resource remains available for current owners.', 'standard'),
-};
 
 $root_classes = $contained
     ? 'border-x border-b border-blue-200 bg-white p-5 lg:p-6'
@@ -44,12 +36,18 @@ $inner_classes = $contained
                 <?php echo esc_html($status['label']); ?>
             </p>
             <p class="m-0 font-sans text-blue-700" style="font-size: var(--text-body); line-height: var(--leading-body);">
-                <?php echo esc_html($copy); ?>
+                <?php esc_html_e('This is your last chance to purchase an SSQ II MultiPro before it is discontinued.', 'standard'); ?>
+                <span class="lg:block"><?php esc_html_e('Build and request your quote today.', 'standard'); ?></span>
             </p>
         </div>
-        <a href="<?php echo esc_url(\Standard\MachineStatus\get_replacement_url($machine_slug)); ?>" class="btn btn-primary shrink-0">
-            <?php esc_html_e('Explore SSQ3', 'standard'); ?>
-            <?php icon('arrow-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
-        </a>
+        <div class="flex shrink-0 flex-col gap-2 sm:flex-row sm:items-center">
+            <a href="<?php echo esc_url(\Standard\MachineStatus\get_configurator_url($machine_slug)); ?>" class="btn btn-primary">
+                <?php esc_html_e('Build & Quote SSQ II', 'standard'); ?>
+                <?php icon('arrow-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
+            </a>
+            <a href="<?php echo esc_url(\Standard\MachineStatus\get_replacement_url($machine_slug)); ?>" class="btn btn-secondary">
+                <?php esc_html_e('Explore SSQ3', 'standard'); ?>
+            </a>
+        </div>
     </div>
 </aside>

@@ -2,8 +2,8 @@
 /**
  * Machine lifecycle status and replacement paths.
  *
- * Keeps discontinued-model behavior in one place so sales pages, owner
- * resources, search, and machine-readable output cannot drift apart.
+ * Keeps lifecycle messaging and sales routes in one place so pages, search,
+ * and machine-readable output cannot drift apart.
  *
  * @package Standard
  */
@@ -17,12 +17,16 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * @return array<string, array{label:string,replacement_key:string,replacement_name:string,replacement_url:string}>
+ * @return array<string, array{state:string,label:string,short_label:string,deadline:string,configurator_url:string,replacement_key:string,replacement_name:string,replacement_url:string}>
  */
 function get_statuses(): array {
     return [
         'ssq-ii-multipro' => [
-            'label'            => __('Discontinued', 'standard'),
+            'state'            => 'sunsetting',
+            'label'            => __('Will Be Discontinued September 30, 2026', 'standard'),
+            'short_label'      => __('Discontinuing Sep. 30, 2026', 'standard'),
+            'deadline'         => '2026-09-30',
+            'configurator_url' => '/configurator/ssqii/',
             'replacement_key'  => 'ssq3-multipro',
             'replacement_name' => 'SSQ3 MultiPro',
             'replacement_url'  => '/machines/roof-wall-panel-machines/ssq3-multipro/',
@@ -52,14 +56,31 @@ function resolve_machine_key(string $slug): string {
 }
 
 /**
- * @return array{label:string,replacement_key:string,replacement_name:string,replacement_url:string}|null
+ * @return array{state:string,label:string,short_label:string,deadline:string,configurator_url:string,replacement_key:string,replacement_name:string,replacement_url:string}|null
  */
 function get_status(string $slug): ?array {
     return get_statuses()[resolve_machine_key($slug)] ?? null;
 }
 
-function is_discontinued(string $slug): bool {
+function has_status(string $slug): bool {
     return get_status($slug) !== null;
+}
+
+function is_sunsetting(string $slug): bool {
+    return (get_status($slug)['state'] ?? '') === 'sunsetting';
+}
+
+function is_discontinued(string $slug): bool {
+    return (get_status($slug)['state'] ?? '') === 'discontinued';
+}
+
+function get_configurator_url(string $slug): string {
+    $status = get_status($slug);
+    if ($status === null || $status['configurator_url'] === '') {
+        return '';
+    }
+
+    return \Standard\Url\internal($status['configurator_url']);
 }
 
 function get_replacement_url(string $slug): string {
@@ -84,7 +105,7 @@ function title_mentions_discontinued_machine(string $title): bool {
 }
 
 /**
- * Limit the resource notice to pages primarily about the discontinued model.
+ * Limit the resource notice to pages primarily about the affected model.
  * Passing compatibility mentions remain untouched.
  */
 function is_focused_content(?int $post_id = null): bool {

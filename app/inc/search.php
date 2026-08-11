@@ -38,7 +38,6 @@ const MACHINE_SEARCH_CATALOG = [
             'title'   => 'SSQ II MultiPro',
             'slug'    => 'ssq-roof-panel-machine',
             'active'  => false,
-            'status'  => 'Discontinued',
         ],
         [
             'key'     => 'ssh-multipro',
@@ -653,14 +652,14 @@ function get_machine_modifier_intent_groups(): array {
 }
 
 /**
- * @return array<string, array<int, array{key:string,title:string,slug:string,active?:bool,status?:string}>>
+ * @return array<string, array<int, array{key:string,title:string,slug:string,active?:bool}>>
  */
 function get_machine_search_catalog(): array {
     return MACHINE_SEARCH_CATALOG;
 }
 
 /**
- * @return array<int, array{key:string,title:string,slug:string,active?:bool,status?:string,category:string}>
+ * @return array<int, array{key:string,title:string,slug:string,active?:bool,category:string}>
  */
 function get_machine_search_catalog_items(): array {
     $items = [];
@@ -713,7 +712,7 @@ function get_machine_search_category_keys(string $category): array {
  *
  * @return array{
  *   limit:int,
-     *   machines:array<int, array{key:string,title:string,url:string,subtype:string,category:string,active:bool,status:string}>,
+ *   machines:array<int, array{key:string,title:string,url:string,subtype:string,category:string,active:bool,status:string}>,
  *   categories:array<string, string[]>,
  *   exactGroups:array<int, array{keys:string[],patterns:string[],family?:bool}>,
  *   categoryGroups:array<int, array{category:string,phrases:string[],keys:string[]}>,
@@ -725,6 +724,7 @@ function get_machine_suggestion_manifest(): array {
     $categories = get_active_machine_keys_by_product_category();
 
     foreach (get_machine_search_catalog_items() as $machine) {
+        $status = \Standard\MachineStatus\get_status($machine['key']);
         $machines[] = [
             'key'      => $machine['key'],
             'title'    => $machine['title'],
@@ -732,7 +732,7 @@ function get_machine_suggestion_manifest(): array {
             'subtype'  => 'product',
             'category' => $machine['category'],
             'active'   => !array_key_exists('active', $machine) || $machine['active'] !== false,
-            'status'   => (string) ($machine['status'] ?? ''),
+            'status'   => (string) ($status['short_label'] ?? ''),
         ];
     }
 
@@ -1719,6 +1719,8 @@ function get_product_card_data(int $post_id): array {
 
     $price = $product->get_price();
     $image = \wp_get_attachment_url((int) $product->get_image_id());
+    $machine_status = \Standard\MachineStatus\get_status($product->get_slug());
+    $is_sunsetting = \Standard\MachineStatus\is_sunsetting($product->get_slug());
     $is_discontinued = \Standard\MachineStatus\is_discontinued($product->get_slug());
     $build_url = \function_exists('Standard\\Woo\\Catalog\\get_configurator_url')
         ? \Standard\Woo\Catalog\get_configurator_url($product->get_slug())
@@ -1732,9 +1734,11 @@ function get_product_card_data(int $post_id): array {
         'category_label' => \function_exists('Standard\\Woo\\Catalog\\get_primary_category_label')
             ? \Standard\Woo\Catalog\get_primary_category_label($product)
             : '',
-        'descriptor'     => $is_discontinued
-            ? \__('Technical information and owner resources for the discontinued SSQ II MultiPro.', 'standard')
-            : \wp_strip_all_tags($product->get_short_description()),
+        'descriptor'     => $is_sunsetting
+            ? \__('Last chance to purchase the SSQ II MultiPro before September 30, 2026.', 'standard')
+            : ($is_discontinued
+                ? \__('Technical information and owner resources for the discontinued SSQ II MultiPro.', 'standard')
+                : \wp_strip_all_tags($product->get_short_description())),
         'image'          => is_string($image) ? $image : '',
         'price'          => !$is_discontinued && $price !== '' ? '$' . \number_format((float) $price) : '',
         'price_label'    => \__('Starting at', 'standard'),
@@ -1742,11 +1746,13 @@ function get_product_card_data(int $post_id): array {
         'build_url'      => $is_discontinued
             ? \Standard\MachineStatus\get_replacement_url($product->get_slug())
             : $build_url,
-        'badge'          => $is_discontinued ? \__('Discontinued', 'standard') : '',
-        'cta_label'      => $is_discontinued ? \__('Explore SSQ3', 'standard') : '',
-        'cta_url'        => $is_discontinued
-            ? \Standard\MachineStatus\get_replacement_url($product->get_slug())
-            : '',
+        'badge'          => $machine_status['short_label'] ?? '',
+        'cta_label'      => $is_sunsetting
+            ? \__('Build & Quote SSQ II', 'standard')
+            : ($is_discontinued ? \__('Explore SSQ3', 'standard') : ''),
+        'cta_url'        => $is_sunsetting
+            ? $build_url
+            : ($is_discontinued ? \Standard\MachineStatus\get_replacement_url($product->get_slug()) : ''),
         'is_accessory'   => false,
     ];
 }

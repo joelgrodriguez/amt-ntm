@@ -46,7 +46,7 @@ $short = $strip_tm((string) ($machine['short_name'] ?? $name));
 $desc  = (string) ($machine['descriptor'] ?? '');
 $image = (string) ($machine['image'] ?? '');
 $url   = \Standard\Url\internal('/service-hub/' . $slug . '/');
-$is_discontinued = \Standard\MachineStatus\is_discontinued($slug);
+$machine_status = \Standard\MachineStatus\get_status($slug);
 $fallback_classes = 'absolute inset-0 flex items-center justify-center p-2 text-center font-mono font-medium text-blue-600';
 ?>
 <a href="<?php echo esc_url($url); ?>"
@@ -75,9 +75,9 @@ $fallback_classes = 'absolute inset-0 flex items-center justify-center p-2 text-
             <span class="font-medium text-heading-sm text-blue-900 transition-colors duration-200 group-hover:text-blue-500">
                 <?php echo esc_html($name); ?>
             </span>
-            <?php if ($is_discontinued) : ?>
+            <?php if ($machine_status !== null) : ?>
                 <span class="font-mono font-medium uppercase tracking-wider text-red" style="font-size: 10px;">
-                    <?php esc_html_e('Discontinued', 'standard'); ?>
+                    <?php echo esc_html($machine_status['short_label']); ?>
                 </span>
             <?php endif; ?>
         </span>

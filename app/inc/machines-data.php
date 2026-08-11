@@ -237,7 +237,7 @@ function get_machine_categories(bool $include_dormant = false): array {
                 ],
                 [
                     'slug'              => 'ssq-ii-multipro',
-                    'configurator_slug' => '',
+                    'configurator_slug' => 'ssqii',
                     'name'              => 'SSQ II™ MultiPro',
                     'short_name' => 'SSQ II MultiPro',
                     'descriptor' => 'The proven multi-profile workhorse',

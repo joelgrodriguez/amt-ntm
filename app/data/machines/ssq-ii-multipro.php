@@ -16,7 +16,7 @@ return [
     'slogan'   => __('Versatility meets precision.', 'standard'),
     'hero' => [
         'headline'   => __('16 Quick-Change Profiles. One Proven Machine.', 'standard'),
-        'subtitle'   => __('The proven 16-profile predecessor to the SSQ3 MultiPro. Technical specifications and owner resources remain available.', 'standard'),
+        'subtitle'   => __('Available for purchase through September 30, 2026. Configure and request your SSQ II quote while it is still available.', 'standard'),
         'hero_image' => 'https://newtechmachinery.com/wp-content/uploads/2025/12/starting-SSQ-on-job-site-1024x576-1.jpg',
         'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_SSQ-II_1000x1000.png',
         'video'      => null,
@@ -29,8 +29,8 @@ return [
     ],
     'finance' => [
         'monthly_price' => null,
-        'price_range'   => null,
-        'note'          => null,
+        'price_range'   => __('$120K – $130K', 'standard'),
+        'note'          => __('Depending on profile; notching option not included', 'standard'),
         'apr'           => '5.49%',
         'months'        => '72',
     ],
@@ -240,7 +240,7 @@ return [
     'faq' => [
         [
             'question' => __('How does the SSQ II compare to the SSQ3?', 'standard'),
-            'answer'   => __('The discontinued SSQ II and the current SSQ3 produce the same 16 profiles. The SSQ3 adds QWIKSwap™ tooling (25-minute changeover vs 45), cover inspection windows, RFID sensors, shear strobe, and interior LEDs.', 'standard'),
+            'answer'   => __('The SSQ II will be discontinued September 30, 2026. It and the current SSQ3 produce the same 16 profiles. The SSQ3 adds QWIKSwap™ tooling (25-minute changeover vs 45), cover inspection windows, RFID sensors, shear strobe, and interior LEDs.', 'standard'),
         ],
         [
             'question' => __('How long does tooling changeover take?', 'standard'),
@@ -260,9 +260,9 @@ return [
         ],
     ],
     'schema' => [
-        'low_price'    => null,
-        'high_price'   => null,
-        'availability' => 'Discontinued',
+        'low_price'    => '120000',
+        'high_price'   => '130000',
+        'availability' => 'InStock',
         'brand'        => 'New Tech Machinery',
         'manufacturer' => 'New Tech Machinery',
         'category'     => __('Roof & Wall Panel Machines', 'standard'),

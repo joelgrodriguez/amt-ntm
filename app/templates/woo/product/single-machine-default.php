@@ -27,6 +27,8 @@ if (!$product) {
 }
 
 $machine = get_machine_product_data($product->get_slug());
+$machine_status = \Standard\MachineStatus\get_status($product->get_slug());
+$is_sunsetting = \Standard\MachineStatus\is_sunsetting($product->get_slug());
 $is_discontinued = \Standard\MachineStatus\is_discontinued($product->get_slug());
 $replacement_url = $is_discontinued
     ? \Standard\MachineStatus\get_replacement_url($product->get_slug())
@@ -66,7 +68,7 @@ get_header();
 
 <main id="primary" class="machine-default">
 
-    <?php if ($is_discontinued) : ?>
+    <?php if ($machine_status !== null) : ?>
         <?php get_template_part('templates/parts/machine-status-notice', null, [
             'machine_slug' => $product->get_slug(),
             'context'      => 'sales',
@@ -141,9 +143,13 @@ get_header();
                         <?php echo esc_html($product->get_name()); ?>
                     </h1>
 
-                    <?php $short = $is_discontinued
-                        ? __('Technical specifications and owner resources for the discontinued SSQ II MultiPro.', 'standard')
-                        : $product->get_short_description(); ?>
+                    <?php
+                    $short = match (true) {
+                        $is_discontinued => __('Technical specifications and owner resources for the discontinued SSQ II MultiPro.', 'standard'),
+                        $is_sunsetting => __('Available for purchase through September 30, 2026. Configure your SSQ II and request a quote while it is still available.', 'standard'),
+                        default => $product->get_short_description(),
+                    };
+                    ?>
                     <?php if ($short) : ?>
                         <div class="machine-default__excerpt prose prose-blue max-w-none">
                             <?php echo wp_kses_post(wpautop($short)); ?>
