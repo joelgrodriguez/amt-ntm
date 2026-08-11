@@ -45,3 +45,10 @@ $args = wp_parse_args($args ?? [], [
         </div>
     </div>
 </header>
+
+<?php if (\Standard\MachineStatus\is_focused_content((int) get_the_ID())) : ?>
+    <?php get_template_part('templates/parts/machine-status-notice', null, [
+        'machine_slug' => 'ssq-ii-multipro',
+        'context'      => 'resource',
+    ]); ?>
+<?php endif; ?>

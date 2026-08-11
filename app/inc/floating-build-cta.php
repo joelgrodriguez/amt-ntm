@@ -86,6 +86,20 @@ function get_context(): ?array {
         return null;
     }
 
+    if (is_singular('product') && function_exists('wc_get_product')) {
+        $product = wc_get_product(get_queried_object_id());
+        if (
+            $product instanceof \WC_Product
+            && \Standard\MachineStatus\is_discontinued($product->get_slug())
+        ) {
+            return [
+                'url'        => \Standard\MachineStatus\get_replacement_url($product->get_slug()),
+                'label'      => __('Explore SSQ3', 'standard'),
+                'aria_label' => __('Explore the SSQ3 MultiPro replacement machine', 'standard'),
+            ];
+        }
+    }
+
     $url = get_url();
 
     if ($url === '') {

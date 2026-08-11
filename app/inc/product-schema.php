@@ -196,7 +196,13 @@ function build_machine_product_schema(\WC_Product $product, array $machine): arr
         $schema['category'] = $overrides['category'];
     }
 
-    if (!empty($overrides['low_price'])) {
+    if (($overrides['availability'] ?? '') === 'Discontinued') {
+        $schema['offers'] = [
+            '@type'        => 'Offer',
+            'availability' => 'https://schema.org/Discontinued',
+            'url'          => get_permalink($product->get_id()),
+        ];
+    } elseif (!empty($overrides['low_price'])) {
         $offer = [
             '@type'         => 'AggregateOffer',
             'priceCurrency' => 'USD',

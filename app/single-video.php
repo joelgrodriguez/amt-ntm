@@ -54,6 +54,13 @@ get_header();
 
                         <?php the_title('<h1 class="font-sans font-semibold text-heading lg:text-heading-lg text-blue-900 leading-tight tracking-tight m-0">', '</h1>'); ?>
                     </header>
+                    <?php if (\Standard\MachineStatus\is_focused_content((int) get_the_ID())) : ?>
+                        <?php get_template_part('templates/parts/machine-status-notice', null, [
+                            'machine_slug' => 'ssq-ii-multipro',
+                            'context'      => 'resource',
+                            'contained'    => true,
+                        ]); ?>
+                    <?php endif; ?>
                     <div class="prose prose-lg max-w-full">
                         <?php the_content(); ?>
                     </div>

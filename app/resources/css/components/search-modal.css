@@ -385,6 +385,11 @@
     line-height: 1.4;
   }
 
+  .search-modal__results-badge {
+    @apply shrink-0 border border-red px-2 py-1 font-mono font-medium uppercase tracking-wider text-red;
+    font-size: 0.625rem;
+  }
+
   .search-modal__results-item:hover .search-modal__results-title,
   .search-modal__results-item[data-active="true"] .search-modal__results-title {
     @apply text-blue-900;

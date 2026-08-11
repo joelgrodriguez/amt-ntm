@@ -21,6 +21,7 @@ define('THEME_URI', get_template_directory_uri());
  */
 $theme_includes = [
     'inc/urls.php',
+    'inc/machine-status.php',
     'inc/vite.php',
     'inc/setup.php',
     'inc/search.php',

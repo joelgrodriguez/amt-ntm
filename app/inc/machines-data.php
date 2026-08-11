@@ -237,7 +237,7 @@ function get_machine_categories(bool $include_dormant = false): array {
                 ],
                 [
                     'slug'              => 'ssq-ii-multipro',
-                    'configurator_slug' => 'ssqii',
+                    'configurator_slug' => '',
                     'name'              => 'SSQ II™ MultiPro',
                     'short_name' => 'SSQ II MultiPro',
                     'descriptor' => 'The proven multi-profile workhorse',
@@ -676,7 +676,7 @@ function get_roof_wall_faq_items(): array {
     return [
         [
             'question' => 'How long does it take to get a roof panel machine after ordering?',
-            'answer'   => 'Lead times vary by model and configuration. The SSQ3 MultiPro and SSQ II MultiPro are our highest-demand models; your account specialist will confirm exact lead time at order.',
+            'answer'   => 'Lead times vary by model and configuration. The SSQ3 MultiPro is our flagship roof and wall panel machine; your account specialist will confirm exact lead time at order.',
         ],
         [
             'question' => 'How much does a portable roof panel machine cost?',
@@ -1126,7 +1126,7 @@ function get_faq_items(): array {
         ],
         [
             'question' => 'Which machine is right for my business?',
-            'answer'   => 'It depends on the work you do. The SSQ3 and SSQ II are ideal for contractors doing both commercial and residential work with up to 16 profiles. The SSH is built for residential and light commercial. The SSR Jr. is the most affordable entry point. Talk to a specialist for a tailored recommendation.',
+            'answer'   => 'It depends on the work you do. The SSQ3 is ideal for contractors doing both commercial and residential work with up to 16 profiles. The SSH is built for residential and light commercial. The SSR Jr. is the most affordable entry point. Talk to a specialist for a tailored recommendation.',
         ],
         [
             'question' => 'How are NTM machines powered?',
@@ -1150,7 +1150,7 @@ function get_faq_items(): array {
         ],
         [
             'question' => 'How long will it take to get my machine?',
-            'answer'   => 'Lead times vary by model and configuration. The SSQ3 MultiPro and SSQ II MultiPro are our highest-demand roof panel models. Your account specialist will confirm exact lead time at order.',
+            'answer'   => 'Lead times vary by model and configuration. The SSQ3 MultiPro is our flagship roof and wall panel model. Your account specialist will confirm exact lead time at order.',
         ],
         [
             'question' => 'How do I purchase an NTM machine?',

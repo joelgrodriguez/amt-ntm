@@ -230,6 +230,7 @@ export const localMachineSuggestions = (query, scope, manifest) => {
       url: machine.url,
       subtype: machine.subtype || 'product',
       machineKey: machine.key,
+      status: machine.status || '',
       local: true,
     }));
 };
@@ -586,6 +587,12 @@ export const initSearchModal = () => {
       title.textContent = decodeEntities(item.title || '');
 
       link.append(type, title);
+      if (item.status) {
+        const status = document.createElement('span');
+        status.className = 'search-modal__results-badge';
+        status.textContent = decodeEntities(item.status);
+        link.append(status);
+      }
       li.append(link);
       resultsList.append(li);
     });

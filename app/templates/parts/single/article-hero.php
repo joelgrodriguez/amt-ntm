@@ -84,3 +84,11 @@ $reading_time     = $show_meta ? max(1, (int) ceil($word_count / 220)) : 0;
         </figure>
     <?php endif; ?>
 </header>
+
+<?php if (\Standard\MachineStatus\is_focused_content((int) get_the_ID())) : ?>
+    <?php get_template_part('templates/parts/machine-status-notice', null, [
+        'machine_slug' => 'ssq-ii-multipro',
+        'context'      => 'resource',
+        'contained'    => true,
+    ]); ?>
+<?php endif; ?>

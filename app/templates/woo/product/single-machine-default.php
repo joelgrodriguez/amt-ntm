@@ -27,12 +27,18 @@ if (!$product) {
 }
 
 $machine = get_machine_product_data($product->get_slug());
+$is_discontinued = \Standard\MachineStatus\is_discontinued($product->get_slug());
+$replacement_url = $is_discontinued
+    ? \Standard\MachineStatus\get_replacement_url($product->get_slug())
+    : '';
 
 // Configurator URL routes through the woo-slug -> short-slug map so the
 // button never emits the raw product slug (e.g.
 // ssr-multipro-jr-roof-panel-machine). Empty string means this machine
 // has no configurator page; fall back to /contact/ in that case.
-$configurator_url = \Standard\Woo\Catalog\get_configurator_url($product->get_slug());
+$configurator_url = $is_discontinued
+    ? ''
+    : \Standard\Woo\Catalog\get_configurator_url($product->get_slug());
 
 $video_url   = null;
 $video_title = null;
@@ -59,6 +65,13 @@ get_header();
 ?>
 
 <main id="primary" class="machine-default">
+
+    <?php if ($is_discontinued) : ?>
+        <?php get_template_part('templates/parts/machine-status-notice', null, [
+            'machine_slug' => $product->get_slug(),
+            'context'      => 'sales',
+        ]); ?>
+    <?php endif; ?>
 
     <?php do_action('woocommerce_before_single_product'); ?>
 
@@ -128,7 +141,9 @@ get_header();
                         <?php echo esc_html($product->get_name()); ?>
                     </h1>
 
-                    <?php $short = $product->get_short_description(); ?>
+                    <?php $short = $is_discontinued
+                        ? __('Technical specifications and owner resources for the discontinued SSQ II MultiPro.', 'standard')
+                        : $product->get_short_description(); ?>
                     <?php if ($short) : ?>
                         <div class="machine-default__excerpt prose prose-blue max-w-none">
                             <?php echo wp_kses_post(wpautop($short)); ?>
@@ -136,8 +151,10 @@ get_header();
                     <?php endif; ?>
 
                     <div class="machine-default__actions">
-                        <a href="<?php echo esc_url($configurator_url ?: \Standard\Url\internal('/contact/')); ?>" class="btn btn-primary"<?php echo $configurator_url ? ' target="_blank" rel="noopener"' : ''; ?>>
-                            <?php echo $configurator_url ? esc_html__('Build & Quote', 'standard') : esc_html__('Get a Quote', 'standard'); ?>
+                        <a href="<?php echo esc_url($is_discontinued ? $replacement_url : ($configurator_url ?: \Standard\Url\internal('/contact/'))); ?>" class="btn btn-primary"<?php echo $configurator_url ? ' target="_blank" rel="noopener"' : ''; ?>>
+                            <?php echo $is_discontinued
+                                ? esc_html__('Explore SSQ3', 'standard')
+                                : ($configurator_url ? esc_html__('Build & Quote', 'standard') : esc_html__('Get a Quote', 'standard')); ?>
                             <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                         </a>
                         <a href="<?php echo esc_url(\Standard\Url\internal('/contact/')); ?>" class="btn btn-secondary">
@@ -190,8 +207,18 @@ get_header();
     <?php endif; ?>
 
     <?php
-    $default_closer_url = \Standard\Woo\Catalog\get_configurator_url($product->get_slug());
-    if ($default_closer_url !== '') {
+    $default_closer_url = $is_discontinued
+        ? $replacement_url
+        : \Standard\Woo\Catalog\get_configurator_url($product->get_slug());
+    if ($is_discontinued) {
+        get_template_part('templates/parts/cta/closer', null, [
+            'section_id'      => 'machine-default-closer-title',
+            'title'           => __('The SSQ3 carries the work forward.', 'standard'),
+            'text'            => __('Explore the current 16-profile MultiPro for new machine purchases.', 'standard'),
+            'cta_primary'     => __('Explore SSQ3', 'standard'),
+            'cta_primary_url' => $replacement_url,
+        ]);
+    } elseif ($default_closer_url !== '') {
         get_template_part('templates/parts/cta/closer', null, [
             'section_id'        => 'machine-default-closer-title',
             'title'             => sprintf(__('Build your %s.', 'standard'), $product->get_name()),

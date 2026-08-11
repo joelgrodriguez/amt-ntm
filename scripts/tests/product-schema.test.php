@@ -402,6 +402,45 @@ namespace {
 
     $GLOBALS['ntm_product'] = new WC_Product(
         42,
+        'SSQ II MultiPro',
+        'ssq-roof-panel-machine',
+        'Technical specifications for the SSQ II MultiPro.',
+        903
+    );
+    $GLOBALS['ntm_machine_data']['ssq-roof-panel-machine'] = [
+        'hero' => [
+            'subtitle' => 'Technical specifications for the SSQ II MultiPro.',
+        ],
+        'stats' => [],
+        'specs' => [],
+        'schema' => [
+            'low_price' => null,
+            'high_price' => null,
+            'availability' => 'Discontinued',
+            'brand' => 'New Tech Machinery',
+            'category' => 'Roof & Wall Panel Machines',
+        ],
+    ];
+
+    ob_start();
+    do_action('wp_footer');
+    $rendered = (string) ob_get_clean();
+
+    $products = ntm_product_nodes($rendered);
+    ntm_assert_same(1, count($products), 'A discontinued machine page should retain one Product entity.');
+    ntm_assert_same(
+        'https://schema.org/Discontinued',
+        $products[0]['offers']['availability'] ?? null,
+        'A discontinued machine should publish its permanent availability state.'
+    );
+    ntm_assert_same(
+        false,
+        isset($products[0]['offers']['lowPrice']) || isset($products[0]['offers']['price']),
+        'A discontinued machine must not publish an active sales price.'
+    );
+
+    $GLOBALS['ntm_product'] = new WC_Product(
+        42,
         'MACH II Gutter Machine Cart',
         'mach-ii-gutter-machine-cart',
         'Portable cart for MACH II gutter machines.',

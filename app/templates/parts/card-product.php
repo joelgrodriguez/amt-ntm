@@ -56,6 +56,8 @@ $price          = $product['price'] ?? '';
 $price_label    = $product['price_label'] ?? __('Starting at', 'standard');
 $explore_url    = $product['explore_url'] ?? '#';
 $badge          = $product['badge'] ?? '';
+$cta_label      = $product['cta_label'] ?? '';
+$cta_url        = $product['cta_url'] ?? '';
 
 // Image alt: name the machine and its category so the product image carries a
 // real description into image search and screen readers instead of alt="".
@@ -134,8 +136,8 @@ $show_description = $args['show_description'] ?? true;
 
             <div class="card-product__cta">
                 <?php if (!$is_accessory) : ?>
-                    <a href="<?php echo esc_url($explore_url); ?>" class="btn btn-sm btn-outline-dark card-product__cta-build relative z-10">
-                        <?php esc_html_e('Build & Quote', 'standard'); ?>
+                    <a href="<?php echo esc_url($cta_url !== '' ? $cta_url : $explore_url); ?>" class="btn btn-sm btn-outline-dark card-product__cta-build relative z-10">
+                        <?php echo esc_html($cta_label !== '' ? $cta_label : __('Build & Quote', 'standard')); ?>
                     </a>
                 <?php else : ?>
                     <a href="<?php echo esc_url($explore_url); ?>" class="btn btn-sm btn-outline-dark relative z-10">

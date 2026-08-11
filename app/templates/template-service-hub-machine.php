@@ -203,6 +203,13 @@ get_header();
         </div>
     </header>
 
+    <?php if (\Standard\MachineStatus\is_discontinued($slug)) : ?>
+        <?php get_template_part('templates/parts/machine-status-notice', null, [
+            'machine_slug' => $slug,
+            'context'      => 'support',
+        ]); ?>
+    <?php endif; ?>
+
     <?php if (!empty($faqs)) : ?>
         <?php /* FAQ leads the page — an owner usually lands with a question.
                 Centered column (mx-auto), left-aligned text for readability.

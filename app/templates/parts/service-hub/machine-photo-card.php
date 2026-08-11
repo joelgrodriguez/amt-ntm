@@ -46,6 +46,7 @@ $short = $strip_tm((string) ($machine['short_name'] ?? $name));
 $desc  = (string) ($machine['descriptor'] ?? '');
 $image = (string) ($machine['image'] ?? '');
 $url   = \Standard\Url\internal('/service-hub/' . $slug . '/');
+$is_discontinued = \Standard\MachineStatus\is_discontinued($slug);
 $fallback_classes = 'absolute inset-0 flex items-center justify-center p-2 text-center font-mono font-medium text-blue-600';
 ?>
 <a href="<?php echo esc_url($url); ?>"
@@ -70,8 +71,15 @@ $fallback_classes = 'absolute inset-0 flex items-center justify-center p-2 text-
     </div>
 
     <div class="flex flex-col gap-0.5 min-w-0">
-        <span class="font-medium text-heading-sm text-blue-900 transition-colors duration-200 group-hover:text-blue-500">
-            <?php echo esc_html($name); ?>
+        <span class="flex flex-wrap items-center gap-2">
+            <span class="font-medium text-heading-sm text-blue-900 transition-colors duration-200 group-hover:text-blue-500">
+                <?php echo esc_html($name); ?>
+            </span>
+            <?php if ($is_discontinued) : ?>
+                <span class="font-mono font-medium uppercase tracking-wider text-red" style="font-size: 10px;">
+                    <?php esc_html_e('Discontinued', 'standard'); ?>
+                </span>
+            <?php endif; ?>
         </span>
         <?php if ($desc !== '' && !$compact) : ?>
             <span class="font-sans text-blue-600" style="font-size: var(--text-body); line-height: var(--leading-body);">

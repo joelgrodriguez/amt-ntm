@@ -10,7 +10,7 @@ const manifest = {
   },
   machines: [
     { key: 'ssq3-multipro', title: 'SSQ3 MultiPro', url: '/machines/roof-wall-panel-machines/ssq3-roof-panel-machine/', subtype: 'product', category: 'roof-wall-panel-machines', active: true },
-    { key: 'ssq-ii-multipro', title: 'SSQ II MultiPro', url: '/machines/roof-wall-panel-machines/ssq-roof-panel-machine/', subtype: 'product', category: 'roof-wall-panel-machines', active: false },
+    { key: 'ssq-ii-multipro', title: 'SSQ II MultiPro', url: '/machines/roof-wall-panel-machines/ssq-roof-panel-machine/', subtype: 'product', category: 'roof-wall-panel-machines', active: false, status: 'Discontinued' },
     { key: 'ssh-multipro', title: 'SSH MultiPro', url: '/machines/roof-wall-panel-machines/ssh-roof-panel-machine/', subtype: 'product', category: 'roof-wall-panel-machines', active: true },
     { key: 'ssr-multipro-jr', title: 'SSR MultiPro Jr.', url: '/machines/roof-wall-panel-machines/ssr-roof-panel-machine/', subtype: 'product', category: 'roof-wall-panel-machines', active: true },
     { key: '5vc-5v-crimp', title: '5VC-5V Crimp', url: '/machines/roof-wall-panel-machines/5vc-5v-crimp-roof-panel-machine/', subtype: 'product', category: 'roof-wall-panel-machines', active: true },
@@ -26,7 +26,7 @@ const manifest = {
     { keys: ['mach-ii-6-gutter'], patterns: ['\\bgm\\s*6\\b(?!\\s*\\d)', '\\bmach\\s*(?:ii|2)\\s*6\\b(?!\\s*\\d)'] },
     { keys: ['ssq3-multipro'], patterns: ['\\bssq\\b(?!\\s*(?:ii|2|3|[0-9][a-z0-9]*))'] },
     { keys: ['ssq3-multipro'], patterns: ['\\bssq\\s*3\\b', '\\bq\\s*3\\b'] },
-    { keys: ['ssq-ii-multipro'], patterns: ['\\bssq\\s*(?:ii|2)\\b'] },
+    { keys: ['ssq-ii-multipro', 'ssq3-multipro'], patterns: ['\\bssq\\s*(?:ii|2)\\b'] },
     { keys: ['mach-ii-combo-gutter', 'mach-ii-5-gutter', 'mach-ii-6-gutter'], patterns: ['\\bmach\\s*(?:ii|2)\\b(?!\\s*(?:5|6|combo))'], family: true },
     { keys: ['bg7-box-gutter'], patterns: ['\\bbg\\s*7\\b'] },
   ],
@@ -61,8 +61,9 @@ test('localMachineSuggestions: category matches use active machine sets only', (
 test('localMachineSuggestions: exact inactive aliases stay searchable without widening active sets', () => {
   assert.deepEqual(
     localMachineSuggestions('SSQ2', '', manifest).map((item) => item.machineKey),
-    ['ssq-ii-multipro'],
+    ['ssq-ii-multipro', 'ssq3-multipro'],
   );
+  assert.equal(localMachineSuggestions('SSQ2', '', manifest)[0].status, 'Discontinued');
 
   assert.deepEqual(
     localMachineSuggestions('roof panel machine', '', manifest).map((item) => item.machineKey),
