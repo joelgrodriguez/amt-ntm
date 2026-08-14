@@ -47,7 +47,7 @@ $paths = [
         'title'   => __('Finance through an institution', 'standard'),
         'fit'     => __('You’d rather compare lenders directly. NTM keeps a directory of proven equipment finance institutions contractors already use.', 'standard'),
         'points'  => [
-            __('First National Bank, Apex, American Bank, Crest, and ACG', 'standard'),
+            __('First National Bank, Apex, American Bank, and Crest', 'standard'),
             __('Compare terms and pick the one that fits your business', 'standard'),
         ],
         'cta'     => __('See the lender directory', 'standard'),

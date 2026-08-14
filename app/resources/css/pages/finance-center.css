@@ -517,10 +517,10 @@
     background-color: var(--color-blue-50);
   }
 
-  /* Featured (preferred) row: spans the full width above the two-up grid so
-     Corbel reads as the lead partner, not one peer among the alphabetical
-     rows. Only the grid-column span belongs here; geometry stays shared. */
-  .lender-list__item--featured {
+  /* Corbel leads above the peer grid, while bring-your-own-lender closes it.
+     Both span the full directory width. */
+  .lender-list__item--featured,
+  .lender-list__item--full {
     grid-column: 1 / -1;
   }
 

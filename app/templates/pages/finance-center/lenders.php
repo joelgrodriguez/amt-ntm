@@ -45,12 +45,6 @@ $featured = [
 // push. NTM doesn't finance in-house and isn't affiliated with any of them.
 $lenders = [
     [
-        'name' => __('ACG Equipment Finance', 'standard'),
-        'note' => __('Section 179 Elite financing programs', 'standard'),
-        'logo' => $uploads . '2021/06/NTM_ACGFinanceFlyerGraphic.jpeg',
-        'url'  => 'https://acgequipmentfinance.com/',
-    ],
-    [
         'name' => __('American Bank', 'standard'),
         'note' => __('Equipment finance for small to mid-size business', 'standard'),
         'logo' => $uploads . '2024/02/AB_Equipment_Finance_horizontal.jpg',
@@ -172,7 +166,7 @@ $lenders = [
             <?php /* Not a partner site — the "use your own bank/credit union" path.
                      Renders as a static (non-link) row with a typographic mark
                      in the logo column, since there's nowhere external to send. */ ?>
-            <li class="lender-list__item">
+            <li class="lender-list__item lender-list__item--full">
                 <div class="lender-list__row">
                     <span class="lender-list__logo-wrap lender-list__mark" aria-hidden="true">
                         <?php esc_html_e('BYO', 'standard'); ?>
