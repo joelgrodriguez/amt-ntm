@@ -44,6 +44,14 @@
   @apply w-full h-auto;
 }
 
+/* Tailwind Typography styles kbd as a raised keycap by default. Keep prose
+   flat while retaining a clear key boundary. */
+.prose :where(kbd):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+  background-color: var(--color-blue-50);
+  border: 1px solid var(--color-blue-200);
+  box-shadow: none;
+}
+
 /* Override Gutenberg block constraints */
 .prose figure,
 .prose .wp-block-image {

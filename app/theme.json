@@ -12,6 +12,9 @@
   },
   "settings": {
     "appearanceTools": true,
+    "shadow": {
+      "defaultPresets": false
+    },
     "color": {
       "defaultPalette": false,
       "defaultGradients": false,

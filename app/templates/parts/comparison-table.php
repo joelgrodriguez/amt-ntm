@@ -68,7 +68,7 @@ if (empty($machines) || empty($rows)) {
                     <caption class="sr-only"><?php echo esc_html($content['title']); ?></caption>
                     <thead>
                         <tr>
-                            <th scope="col" class="bg-blue-800 text-white py-4 px-4 text-left font-medium text-base border-r border-blue-700 sticky left-0 z-10 shadow-[6px_0_8px_-6px_rgba(10,19,34,0.18)] md:static md:shadow-none">
+                            <th scope="col" class="bg-blue-800 text-white py-4 px-4 text-left font-medium text-base border-r border-blue-700 sticky left-0 z-10 md:static">
                                 <?php esc_html_e('Machine', 'standard'); ?>
                             </th>
                             <?php foreach ($machines as $machine) :
@@ -94,7 +94,7 @@ if (empty($machines) || empty($rows)) {
                     <tbody>
                         <?php foreach ($rows as $key => $label) : ?>
                             <tr class="border-b border-blue-200">
-                                <th scope="row" class="py-3 px-4 font-medium text-blue-800 text-left border-r border-blue-200 sticky left-0 bg-white z-10 shadow-[6px_0_8px_-6px_rgba(10,19,34,0.12)] md:static md:shadow-none">
+                                <th scope="row" class="py-3 px-4 font-medium text-blue-800 text-left border-r border-blue-200 sticky left-0 bg-white z-10 md:static">
                                     <?php echo esc_html($label); ?>
                                 </th>
                                 <?php foreach ($machines as $machine) :
@@ -108,7 +108,7 @@ if (empty($machines) || empty($rows)) {
                             </tr>
                         <?php endforeach; ?>
                         <tr>
-                            <td class="py-4 px-4 border-r border-blue-200 sticky left-0 bg-white z-10 shadow-[6px_0_8px_-6px_rgba(10,19,34,0.12)] md:static md:shadow-none"></td>
+                            <td class="py-4 px-4 border-r border-blue-200 sticky left-0 bg-white z-10 md:static"></td>
                             <?php foreach ($machines as $machine) :
                                 $is_flagship = !empty($machine['badge']) || !empty($machine['featured']);
                             ?>

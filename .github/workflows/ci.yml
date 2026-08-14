@@ -12,6 +12,7 @@ jobs:
         with:
           php-version: '8.3'
       - run: npm run lint:php
+      - run: npm run test:design-system
   build:
     runs-on: ubuntu-latest
     steps:

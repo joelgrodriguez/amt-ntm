@@ -354,6 +354,7 @@ function drawGauge(canvas, value, maxScore = 100) {
   const rootStyles = getComputedStyle(document.documentElement);
   const ink = rootStyles.getPropertyValue('--color-blue-900').trim() || '#0A1322';
   const muted = rootStyles.getPropertyValue('--color-blue-400').trim() || '#5A7691';
+  const paper = rootStyles.getPropertyValue('--color-white').trim() || '#FFFFFF';
 
   ctx.clearRect(0, 0, size, size);
 
@@ -403,18 +404,16 @@ function drawGauge(canvas, value, maxScore = 100) {
 
   // Needle.
   const needleLen = radius - 20;
-  ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
-  ctx.shadowBlur = 6;
-  ctx.shadowOffsetX = 2;
-  ctx.shadowOffsetY = 2;
   ctx.beginPath();
   ctx.moveTo(cx, cy);
   ctx.lineTo(cx + needleLen * Math.cos(needleAngle), cy + needleLen * Math.sin(needleAngle));
+  ctx.lineCap = 'round';
+  ctx.strokeStyle = paper;
+  ctx.lineWidth = 6;
+  ctx.stroke();
   ctx.strokeStyle = ink;
   ctx.lineWidth = 4;
-  ctx.lineCap = 'round';
   ctx.stroke();
-  ctx.shadowColor = 'transparent';
 
   // Score number + caption, lifted above the hub so the needle never overlaps.
   ctx.textAlign = 'center';

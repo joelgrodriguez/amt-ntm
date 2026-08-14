@@ -278,13 +278,6 @@
     position: relative;
   }
 
-  /* Slight lift off the dark surface — no glow, just an honest shadow. */
-  @media (min-width: 1024px) {
-    .configurator-cta__quote {
-      box-shadow: 0 24px 48px -16px rgb(0 0 0 / 0.35);
-    }
-  }
-
   .configurator-cta__quote-header {
     display: grid;
     gap: 4px;
