@@ -64,6 +64,26 @@ function get_slug_aliases(): array {
 }
 
 /**
+ * Canonical published WooCommerce slug for each machine data key.
+ *
+ * @return array<string, string>
+ */
+function get_canonical_product_slugs(): array {
+    return [
+        'ssq3-multipro'        => 'ssq3-multipro',
+        'ssq-ii-multipro'      => 'ssq-roof-panel-machine',
+        'ssh-multipro'         => 'ssh-roof-panel-machine',
+        'ssr-multipro-jr'      => 'ssr-multipro-jr-roof-panel-machine',
+        '5vc-5v-crimp'         => '5vc-5v-crimp-roof-panel-machine',
+        'wav-wall-panel'       => 'wav-wall-panel-machine',
+        'mach-ii-5-gutter'     => 'mach-ii-5-gutter-machine',
+        'mach-ii-6-gutter'     => 'mach-ii-6-gutter-machine',
+        'mach-ii-combo-gutter' => 'mach-ii-5-6-combo-gutter-machine',
+        'bg7-box-gutter'       => 'bg7-box-gutter-machine',
+    ];
+}
+
+/**
  * Explicit profile tag slug → data key aliases.
  *
  * Most profile tag slugs resolve by exact Woo alias or data-key prefix. Keep
@@ -154,6 +174,11 @@ function get_machine_product_slug_candidates(string $slug): array {
     $key = resolve_machine_key($slug);
 
     if ($key !== null) {
+        $canonical_slugs = get_canonical_product_slugs();
+        if (isset($canonical_slugs[$key])) {
+            $candidates[] = $canonical_slugs[$key];
+        }
+
         foreach (get_slug_aliases() as $woo_slug => $data_key) {
             if ($data_key === $key) {
                 $candidates[] = $woo_slug;

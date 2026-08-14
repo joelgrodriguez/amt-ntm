@@ -39,6 +39,19 @@ namespace {
         return 'https://newtechmachinery.com/wp-content' . $path;
     }
 
+    function wc_get_products(array $args = []): array
+    {
+        return array_map(
+            static fn(string $slug): NtmTestProduct => new NtmTestProduct($slug),
+            array_values(\Standard\MachineProductData\get_canonical_product_slugs())
+        );
+    }
+
+    function wp_get_attachment_url(int $attachment_id): string
+    {
+        return '';
+    }
+
     function sanitize_key(string $key): string
     {
         return strtolower((string) preg_replace('/[^a-z0-9_\-]/', '', $key));
@@ -60,6 +73,33 @@ namespace {
             throw new \RuntimeException($message);
         }
     }
+
+    final class NtmTestProduct
+    {
+        public function __construct(private readonly string $slug)
+        {
+        }
+
+        public function get_slug(): string
+        {
+            return $this->slug;
+        }
+
+        public function get_permalink(): string
+        {
+            return home_url('/machines/test/' . $this->slug . '/');
+        }
+
+        public function get_price(): string
+        {
+            return '';
+        }
+
+        public function get_image_id(): int
+        {
+            return 0;
+        }
+    }
 }
 
 namespace Standard\Url {
@@ -74,10 +114,45 @@ namespace Standard\Url {
     }
 }
 
+namespace Standard\Woo\Cache {
+    function get_products(array $args = []): array
+    {
+        return \wc_get_products($args);
+    }
+}
+
 namespace {
     require __DIR__ . '/../../app/inc/machine-product-data.php';
     require __DIR__ . '/../../app/inc/machines-data.php';
     require __DIR__ . '/../../app/inc/legacy-build-finance.php';
+
+    $ssr_candidates = \Standard\MachineProductData\get_machine_product_slug_candidates('ssr-multipro-jr');
+    ntm_assert(
+        ($ssr_candidates[1] ?? '') === 'ssr-multipro-jr-roof-panel-machine',
+        'SSR must prefer its published WooCommerce slug over older aliases.'
+    );
+    ntm_assert(
+        \Standard\MachinesData\get_product_url('ssr-multipro-jr')
+            === 'https://newtechmachinery.com/machines/test/ssr-multipro-jr-roof-panel-machine/',
+        'SSR must resolve to its canonical published product permalink.'
+    );
+
+    foreach (\Standard\MachinesData\get_machine_categories() as $category) {
+        foreach ($category['machines'] as $machine) {
+            $url = (string) ($machine['url'] ?? '');
+            ntm_assert(
+                $url !== '' && $url !== '#',
+                (string) ($machine['slug'] ?? 'Unknown machine') . ' must have an active product URL.'
+            );
+        }
+    }
+
+    $all_machines    = \Standard\MachinesData\get_machine_categories(true);
+    $active_machines = \Standard\MachinesData\get_machine_categories();
+    ntm_assert(
+        count($all_machines['roof-wall']['machines']) > count($active_machines['roof-wall']['machines']),
+        'Dormant machines must stay excluded from the active lineup.'
+    );
 
     ntm_assert(
         \Standard\MachinesData\get_configurator_url('mach-ii-combo-gutter')

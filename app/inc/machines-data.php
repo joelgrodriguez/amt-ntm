@@ -24,8 +24,8 @@ if (!defined('ABSPATH')) {
  * Builds a slug→URL map on first call, then serves from cache. Accepts
  * either a WooCommerce product slug (e.g. ssq-roof-panel-machine) or a
  * machines-data slug (e.g. ssq-ii-multipro). When the data slug doesn't
- * match a WC product directly, the alias map in machine-product-data.php
- * is consulted in reverse to find the corresponding WC slug.
+ * match a WC product directly, the ordered canonical candidates from
+ * machine-product-data.php are checked.
  *
  * @param string $slug Product slug.
  * @return string Product permalink or '#'.
@@ -50,10 +50,11 @@ function get_product_url(string $slug): string {
     if (isset($urls[$slug])) {
         return $urls[$slug];
     }
-    if (function_exists('Standard\\MachineProductData\\get_slug_aliases')) {
-        $wc_slug = array_search($slug, \Standard\MachineProductData\get_slug_aliases(), true);
-        if ($wc_slug !== false && isset($urls[$wc_slug])) {
-            return $urls[$wc_slug];
+    if (function_exists('Standard\\MachineProductData\\get_machine_product_slug_candidates')) {
+        foreach (\Standard\MachineProductData\get_machine_product_slug_candidates($slug) as $wc_slug) {
+            if (isset($urls[$wc_slug])) {
+                return $urls[$wc_slug];
+            }
         }
     }
 
@@ -120,10 +121,11 @@ function get_product_price(string $slug): ?string {
         return $prices[$slug];
     }
 
-    if (function_exists('Standard\\MachineProductData\\get_slug_aliases')) {
-        $wc_slug = array_search($slug, \Standard\MachineProductData\get_slug_aliases(), true);
-        if ($wc_slug !== false && isset($prices[$wc_slug])) {
-            return $prices[$wc_slug];
+    if (function_exists('Standard\\MachineProductData\\get_machine_product_slug_candidates')) {
+        foreach (\Standard\MachineProductData\get_machine_product_slug_candidates($slug) as $wc_slug) {
+            if (isset($prices[$wc_slug])) {
+                return $prices[$wc_slug];
+            }
         }
     }
 
@@ -165,10 +167,11 @@ function get_product_image(string $slug): string {
         return $images[$slug];
     }
 
-    if (function_exists('Standard\\MachineProductData\\get_slug_aliases')) {
-        $wc_slug = array_search($slug, \Standard\MachineProductData\get_slug_aliases(), true);
-        if ($wc_slug !== false && isset($images[$wc_slug])) {
-            return $images[$wc_slug];
+    if (function_exists('Standard\\MachineProductData\\get_machine_product_slug_candidates')) {
+        foreach (\Standard\MachineProductData\get_machine_product_slug_candidates($slug) as $wc_slug) {
+            if (isset($images[$wc_slug])) {
+                return $images[$wc_slug];
+            }
         }
     }
 
