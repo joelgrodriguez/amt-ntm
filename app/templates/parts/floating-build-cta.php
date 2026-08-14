@@ -38,6 +38,8 @@ if ($url === '') {
     aria-hidden="true"
     target="_blank"
     rel="noopener"
+    data-analytics-cta
+    data-analytics-location="floating_build_cta"
 >
     <?php icon('settings', ['class' => 'w-5 h-5']); ?>
     <span class="floating-build-cta__label"><?php echo esc_html($label); ?></span>

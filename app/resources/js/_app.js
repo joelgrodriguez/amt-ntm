@@ -30,6 +30,7 @@ import { initReadinessQuiz } from './modules/ReadinessQuiz.js';
 import { initRoiCalculator } from './modules/RoiCalculator.js';
 import { initVideoFacades } from './modules/VideoFacade.js';
 import { initThirdPartyLoader } from './modules/ThirdPartyLoader.js';
+import { initFunnelAnalytics } from './modules/FunnelAnalytics.js';
 
 /** @type {Function|null} Cleanup function for mobile menu */
 let mobileMenuCleanup = null;
@@ -86,6 +87,7 @@ let readinessQuizCleanup = null;
 let roiCalculatorCleanup = null;
 let videoFacadesCleanup = null;
 let thirdPartyLoaderCleanup = null;
+let funnelAnalyticsCleanup = null;
 
 /**
  * Executes callback when DOM is ready.
@@ -107,6 +109,7 @@ const domReady = (callback) => {
  * @returns {void}
  */
 const initApp = () => {
+  funnelAnalyticsCleanup = initFunnelAnalytics();
   mobileMenuCleanup = initMobileMenu();
   megaMenuCleanup = initMegaMenu();
   initScrollReveal();
@@ -143,6 +146,9 @@ if (import.meta.hot) {
     // Cleanup previous module instances
     if (mobileMenuCleanup) {
       mobileMenuCleanup();
+    }
+    if (funnelAnalyticsCleanup) {
+      funnelAnalyticsCleanup();
     }
     if (megaMenuCleanup) {
       megaMenuCleanup();

@@ -6,6 +6,8 @@
  * @file HubspotForms.js
  */
 
+import { trackHubspotFormSubmit } from './FunnelAnalytics.js';
+
 const HUBSPOT_SRC = 'https://js.hsforms.net/forms/embed/v2.js';
 
 let scriptPromise = null;
@@ -96,6 +98,7 @@ async function mountForm(target) {
       },
       // Let page modules unlock content after a successful submit.
       onFormSubmitted: () => {
+        trackHubspotFormSubmit(formId);
         target.dispatchEvent(
           new CustomEvent('hubspot:formSubmitted', {
             bubbles: true,

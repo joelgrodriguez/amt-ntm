@@ -87,7 +87,7 @@ $show_description = $args['show_description'] ?? true;
 
 ?>
 
-<article class="<?php echo esc_attr($root_class); ?>">
+<article class="<?php echo esc_attr($root_class); ?>" data-machine-id="<?php echo esc_attr((string) ($product['id'] ?? '')); ?>">
     <div class="card-product__image-wrapper">
         <?php if ($badge) : ?>
             <!-- Flagship badge: styling lives on .card-product__badge
@@ -134,7 +134,7 @@ $show_description = $args['show_description'] ?? true;
             <?php endif; ?>
 
             <div class="card-product__cta">
-                <a href="<?php echo esc_url($action['url']); ?>" class="btn btn-sm btn-outline-dark <?php echo !$is_accessory ? 'card-product__cta-build ' : ''; ?>relative z-10"<?php echo $action['new_tab'] ? ' target="_blank" rel="noopener"' : ''; ?>>
+                <a href="<?php echo esc_url($action['url']); ?>" class="btn btn-sm btn-outline-dark <?php echo !$is_accessory ? 'card-product__cta-build ' : ''; ?>relative z-10" data-analytics-cta data-analytics-location="product_card"<?php echo $action['new_tab'] ? ' target="_blank" rel="noopener"' : ''; ?>>
                         <?php echo esc_html($action['label']); ?>
                     <?php if ($is_accessory) : ?>
                         <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
