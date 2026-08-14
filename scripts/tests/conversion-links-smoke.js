@@ -70,9 +70,10 @@ function getSalesLinks(html, pageUrl) {
     }
 
     const href = anchor.match(/\shref=["']([^"']+)["']/i)?.[1] || '';
-    if (href === '' || href.startsWith('#')) {
-      continue;
-    }
+    assert(
+      href !== '' && !href.startsWith('#'),
+      `${pageUrl} rendered a selected sales link with an empty or placeholder destination.`
+    );
 
     const url = new URL(href.replaceAll('&amp;', '&'), pageUrl);
     if (url.origin === origin) {

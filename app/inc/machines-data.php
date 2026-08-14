@@ -523,6 +523,7 @@ function to_card_product(array $machine, string $category_key): array {
 
     return [
         'id'             => $slug,
+        'machine_id'     => $slug,
         'title'          => $machine['short_name'] ?? $machine['name'] ?? '',
         'category_label' => $is_gutter
             ? \__('Seamless Gutter Machine', 'standard')

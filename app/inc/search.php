@@ -1722,12 +1722,17 @@ function get_product_card_data(int $post_id): array {
     $machine_status = \Standard\MachineStatus\get_status($product->get_slug());
     $is_sunsetting = \Standard\MachineStatus\is_sunsetting($product->get_slug());
     $is_discontinued = \Standard\MachineStatus\is_discontinued($product->get_slug());
+    $machine_id = get_canonical_machine_keys_by_product_id()[$post_id] ?? '';
+    $is_accessory = $machine_id === ''
+        && \taxonomy_exists('product_cat')
+        && \has_term('accessories-add-on-equipment', 'product_cat', $post_id);
     $build_url = \function_exists('Standard\\Woo\\Catalog\\get_configurator_url')
         ? \Standard\Woo\Catalog\get_configurator_url($product->get_slug())
         : '';
 
     return [
         'id'             => $product->get_id(),
+        'machine_id'     => $machine_id,
         'title'          => \function_exists('Standard\\Woo\\Catalog\\get_short_title')
             ? \Standard\Woo\Catalog\get_short_title($product->get_name())
             : $product->get_name(),
@@ -1753,7 +1758,7 @@ function get_product_card_data(int $post_id): array {
         'cta_url'        => $is_sunsetting
             ? $build_url
             : ($is_discontinued ? \Standard\MachineStatus\get_replacement_url($product->get_slug()) : ''),
-        'is_accessory'   => false,
+        'is_accessory'   => $is_accessory,
     ];
 }
 

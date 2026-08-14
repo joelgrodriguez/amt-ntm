@@ -210,6 +210,9 @@ function get_woocommerce_products(string $category_slug): array {
 
         $formatted[] = [
             'id'             => $product->get_id(),
+            'machine_id'     => $is_accessory
+                ? ''
+                : (\Standard\MachineProductData\resolve_machine_key($product->get_slug()) ?: $product->get_slug()),
             'title'          => get_short_title($product->get_name()),
             'category_label' => get_primary_category_label($product),
             'description'    => $description,
@@ -364,6 +367,7 @@ function format_sample_machine_product(array $machine, string $category_slug): a
 
     return [
         'id'             => $public_slug,
+        'machine_id'     => $slug,
         'title'          => $machine['short_name'] ?? $machine['name'] ?? '',
         'category_label' => $is_gutter ? \__('Seamless Gutter Machine', 'standard') : \__('Roof & Wall Panel Machine', 'standard'),
         'description'    => $machine['description'] ?? '',

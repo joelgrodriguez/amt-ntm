@@ -167,7 +167,7 @@ if (empty($machines)) {
                         <?php endif; ?>
 
                         <div class="flex flex-wrap gap-3 pt-2">
-                            <a href="<?php echo esc_url($build_url); ?>" class="btn btn-primary">
+                            <a href="<?php echo esc_url($build_url); ?>" class="btn btn-primary" target="_blank" rel="noopener" data-analytics-cta data-analytics-location="machii_variant" data-machine-id="<?php echo esc_attr((string) $slug); ?>">
                                 <?php esc_html_e('Build & Finance', 'standard'); ?>
                                 <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                             </a>

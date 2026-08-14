@@ -57,6 +57,7 @@ $price_label    = $product['price_label'] ?? __('Starting at', 'standard');
 $explore_url    = $product['explore_url'] ?? '#';
 $badge          = $product['badge'] ?? '';
 $action         = \Standard\ProductCard\get_action($product);
+$machine_id     = (string) ($product['machine_id'] ?? '');
 
 // Image alt: name the machine and its category so the product image carries a
 // real description into image search and screen readers instead of alt="".
@@ -87,7 +88,7 @@ $show_description = $args['show_description'] ?? true;
 
 ?>
 
-<article class="<?php echo esc_attr($root_class); ?>" data-machine-id="<?php echo esc_attr((string) ($product['id'] ?? '')); ?>">
+<article class="<?php echo esc_attr($root_class); ?>"<?php echo $machine_id !== '' ? ' data-machine-id="' . esc_attr($machine_id) . '"' : ''; ?>>
     <div class="card-product__image-wrapper">
         <?php if ($badge) : ?>
             <!-- Flagship badge: styling lives on .card-product__badge

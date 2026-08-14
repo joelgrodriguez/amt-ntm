@@ -19,7 +19,9 @@ if (!defined('ABSPATH')) {
  */
 function get_action(array $product): array {
     $explore_url  = (string) ($product['explore_url'] ?? '');
-    $is_accessory = (bool) ($product['is_accessory'] ?? false);
+    $is_accessory = array_key_exists('is_accessory', $product)
+        ? (bool) $product['is_accessory']
+        : empty($product['price']);
 
     if ($is_accessory) {
         return [

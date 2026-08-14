@@ -39,6 +39,11 @@ namespace {
         return 'https://newtechmachinery.com/wp-content' . $path;
     }
 
+    function get_template_directory(): string
+    {
+        return dirname(__DIR__, 2) . '/app';
+    }
+
     function wc_get_products(array $args = []): array
     {
         return array_map(
@@ -112,6 +117,11 @@ namespace Standard\Url {
     {
         return $url;
     }
+
+    function resource_path_resolves(string $path): bool
+    {
+        return true;
+    }
 }
 
 namespace Standard\Woo\Cache {
@@ -180,6 +190,15 @@ namespace {
             && $accessory_action['url'] === 'https://newtechmachinery.com/accessories/test-accessory/',
         'Accessory cards must keep Explore behavior.'
     );
+    $legacy_accessory_action = \Standard\ProductCard\get_action([
+        'explore_url' => home_url('/accessories/legacy-accessory/'),
+        'price'       => '',
+    ]);
+    ntm_assert(
+        $legacy_accessory_action['label'] === 'Explore'
+            && $legacy_accessory_action['url'] === 'https://newtechmachinery.com/accessories/legacy-accessory/',
+        'Legacy accessory cards without an explicit flag must keep Explore behavior.'
+    );
     ntm_assert(
         !\Standard\FloatingBuildCta\is_eligible_product_slug('bg7-box-gutter-machine'),
         'BG7 must not be eligible for the floating CTA.'
@@ -202,6 +221,11 @@ namespace {
             ntm_assert(
                 $url !== '' && $url !== '#',
                 (string) ($machine['slug'] ?? 'Unknown machine') . ' must have an active product URL.'
+            );
+            $card = \Standard\MachinesData\to_card_product($machine, 'roof-wall');
+            ntm_assert(
+                ($card['machine_id'] ?? '') === ($machine['slug'] ?? ''),
+                'Machine card analytics must use the canonical machine key.'
             );
         }
     }
@@ -263,6 +287,19 @@ namespace {
     ntm_assert(
         $placeholder_files === ['search-modal.php' => 1],
         'Only the JavaScript-owned hidden search-modal link may render href="#".'
+    );
+    ntm_assert(
+        str_contains(
+            (string) file_get_contents(__DIR__ . '/../../app/templates/pages/machii/variant-matrix.php'),
+            'target="_blank" rel="noopener" data-analytics-cta'
+        ),
+        'MACH II configurator CTAs must use the new-tab noopener convention.'
+    );
+    $search_source = (string) file_get_contents(__DIR__ . '/../../app/inc/search.php');
+    ntm_assert(
+        str_contains($search_source, "'machine_id'     => \$machine_id")
+            && str_contains($search_source, "'is_accessory'   => \$is_accessory"),
+        'Search product cards must preserve machine IDs and accessory behavior.'
     );
 
     echo "Conversion path tests passed.\n";

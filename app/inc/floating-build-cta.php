@@ -28,12 +28,6 @@ const LANDING_PAGE_SLUGS = [
     'second-profile-50',
 ];
 
-/** @var list<string> */
-const MACHINE_CATEGORIES = [
-    'roof-wall-panel-machines',
-    'gutter-machines',
-];
-
 /**
  * Whether the current request should render the floating CTA.
  */

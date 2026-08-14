@@ -216,6 +216,7 @@ function get_compatible_machine_product_cards(\WC_Product|\WP_Post|int $accessor
 
         $cards[] = [
             'id'             => $product->get_id(),
+            'machine_id'     => \Standard\MachineProductData\resolve_machine_key($woo_slug) ?: $woo_slug,
             'title'          => \Standard\Woo\Catalog\get_short_title($product->get_name()),
             'category_label' => $is_gutter
                 ? \__('Seamless Gutter Machine', 'standard')
