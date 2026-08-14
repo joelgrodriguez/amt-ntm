@@ -121,10 +121,69 @@ namespace Standard\Woo\Cache {
     }
 }
 
+namespace Standard\Woo\Catalog {
+    function get_configurator_url(string $slug): string
+    {
+        return $slug === 'bg7-box-gutter-machine'
+            ? ''
+            : \home_url('/configurator/test/');
+    }
+}
+
+namespace Standard\MachineStatus {
+    function is_discontinued(string $slug): bool
+    {
+        return false;
+    }
+}
+
 namespace {
     require __DIR__ . '/../../app/inc/machine-product-data.php';
     require __DIR__ . '/../../app/inc/machines-data.php';
     require __DIR__ . '/../../app/inc/legacy-build-finance.php';
+    require __DIR__ . '/../../app/inc/product-card.php';
+    require __DIR__ . '/../../app/inc/floating-build-cta.php';
+
+    $supported_action = \Standard\ProductCard\get_action([
+        'explore_url' => home_url('/machines/test-machine/'),
+        'build_url'   => home_url('/configurator/test-machine/'),
+        'is_accessory' => false,
+    ]);
+    ntm_assert(
+        $supported_action === [
+            'label'   => 'Build & Quote',
+            'url'     => 'https://newtechmachinery.com/configurator/test-machine/',
+            'new_tab' => true,
+        ],
+        'Supported machine cards must open their direct configurator in a new tab.'
+    );
+
+    $unsupported_action = \Standard\ProductCard\get_action([
+        'explore_url'  => home_url('/machines/test-machine/'),
+        'build_url'    => '',
+        'is_accessory' => false,
+    ]);
+    ntm_assert(
+        $unsupported_action['label'] === 'Get a Quote'
+            && $unsupported_action['url'] === 'https://newtechmachinery.com/contact/'
+            && $unsupported_action['new_tab'] === false,
+        'Unsupported machines must use a truthful same-tab contact action.'
+    );
+
+    $accessory_action = \Standard\ProductCard\get_action([
+        'explore_url'  => home_url('/accessories/test-accessory/'),
+        'build_url'    => '',
+        'is_accessory' => true,
+    ]);
+    ntm_assert(
+        $accessory_action['label'] === 'Explore'
+            && $accessory_action['url'] === 'https://newtechmachinery.com/accessories/test-accessory/',
+        'Accessory cards must keep Explore behavior.'
+    );
+    ntm_assert(
+        !\Standard\FloatingBuildCta\is_eligible_product_slug('bg7-box-gutter-machine'),
+        'BG7 must not be eligible for the floating CTA.'
+    );
 
     $ssr_candidates = \Standard\MachineProductData\get_machine_product_slug_candidates('ssr-multipro-jr');
     ntm_assert(

@@ -56,7 +56,25 @@ function is_eligible_page(): bool {
         }
     }
 
-    return is_singular('product') && has_term(MACHINE_CATEGORIES, 'product_cat');
+    if (!is_singular('product') || !function_exists('wc_get_product')) {
+        return false;
+    }
+
+    $product = wc_get_product(get_queried_object_id());
+
+    return $product instanceof \WC_Product
+        && is_eligible_product_slug($product->get_slug());
+}
+
+/**
+ * Product pages only get the floating control when it has an honest target.
+ */
+function is_eligible_product_slug(string $slug): bool {
+    if (\Standard\MachineStatus\is_discontinued($slug)) {
+        return true;
+    }
+
+    return get_configurator_url($slug) !== '';
 }
 
 /**
@@ -72,6 +90,8 @@ function get_url(): string {
             if ($url !== '') {
                 return $url;
             }
+
+            return '';
         }
     }
 

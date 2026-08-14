@@ -11,9 +11,9 @@
  *
  * Link model: the whole card is one link to `explore_url` (expanded hit area
  * via ::after on the title anchor). Machines get a single inline filled
- * "Build & Quote" CTA pointing at `explore_url` — the Woo single-machine
- * template hosts the configurator entry point, not the card. Accessories get
- * a quieter outline "Explore" CTA to the same destination. Either CTA lifts
+ * "Build & Quote" CTA pointing at `build_url`. Unsupported machines get a
+ * truthful "Get a Quote" contact CTA. Accessories get a quieter outline
+ * "Explore" CTA to the product page. Either CTA lifts
  * above the card-wide ::after overlay via z-index.
  *
  * @package Standard
@@ -56,8 +56,7 @@ $price          = $product['price'] ?? '';
 $price_label    = $product['price_label'] ?? __('Starting at', 'standard');
 $explore_url    = $product['explore_url'] ?? '#';
 $badge          = $product['badge'] ?? '';
-$cta_label      = $product['cta_label'] ?? '';
-$cta_url        = $product['cta_url'] ?? '';
+$action         = \Standard\ProductCard\get_action($product);
 
 // Image alt: name the machine and its category so the product image carries a
 // real description into image search and screen readers instead of alt="".
@@ -135,16 +134,12 @@ $show_description = $args['show_description'] ?? true;
             <?php endif; ?>
 
             <div class="card-product__cta">
-                <?php if (!$is_accessory) : ?>
-                    <a href="<?php echo esc_url($cta_url !== '' ? $cta_url : $explore_url); ?>" class="btn btn-sm btn-outline-dark card-product__cta-build relative z-10">
-                        <?php echo esc_html($cta_label !== '' ? $cta_label : __('Build & Quote', 'standard')); ?>
-                    </a>
-                <?php else : ?>
-                    <a href="<?php echo esc_url($explore_url); ?>" class="btn btn-sm btn-outline-dark relative z-10">
-                        <?php esc_html_e('Explore', 'standard'); ?>
+                <a href="<?php echo esc_url($action['url']); ?>" class="btn btn-sm btn-outline-dark <?php echo !$is_accessory ? 'card-product__cta-build ' : ''; ?>relative z-10"<?php echo $action['new_tab'] ? ' target="_blank" rel="noopener"' : ''; ?>>
+                        <?php echo esc_html($action['label']); ?>
+                    <?php if ($is_accessory) : ?>
                         <?php icon('arrow-right', ['class' => 'w-4 h-4']); ?>
-                    </a>
-                <?php endif; ?>
+                    <?php endif; ?>
+                </a>
             </div>
         </div>
     </div>
