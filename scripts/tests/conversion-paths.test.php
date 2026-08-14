@@ -247,5 +247,23 @@ namespace {
         );
     }
 
+    $placeholder_files = [];
+    $iterator = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator(__DIR__ . '/../../app', FilesystemIterator::SKIP_DOTS)
+    );
+    foreach ($iterator as $file) {
+        if ($file->getExtension() !== 'php') {
+            continue;
+        }
+        $count = substr_count((string) file_get_contents($file->getPathname()), 'href="#"');
+        if ($count > 0) {
+            $placeholder_files[$file->getFilename()] = $count;
+        }
+    }
+    ntm_assert(
+        $placeholder_files === ['search-modal.php' => 1],
+        'Only the JavaScript-owned hidden search-modal link may render href="#".'
+    );
+
     echo "Conversion path tests passed.\n";
 }

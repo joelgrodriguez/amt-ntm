@@ -19,6 +19,7 @@
     "test:machine-status": "php scripts/tests/machine-status.test.php",
     "test:conversion-paths": "php scripts/tests/conversion-paths.test.php",
     "test:funnel-analytics": "node scripts/tests/funnel-analytics.test.js",
+    "smoke:conversion-links": "node scripts/tests/conversion-links-smoke.js",
     "db:check-dry-run": "scripts/db/check-dry-run-readonly.sh",
     "content:export": "php scripts/content/export-copy.php",
     "content:xlsx": "php scripts/content/export-xlsx.php",
