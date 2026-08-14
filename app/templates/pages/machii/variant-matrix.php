@@ -80,7 +80,7 @@ if (empty($machines)) {
                 $configurator_slug = $machine['configurator_slug'] ?? '';
                 $build_url = $configurator_slug !== ''
                     ? \Standard\Url\internal('/configurator/' . $configurator_slug . '/')
-                    : \Standard\Url\with_query('/build-finance/', ['machine' => $slug]);
+                    : \Standard\Url\internal('/contact-us/');
                 $explore_url = $machine['url'] ?? '#';
 
                 $spec_rows = [];

@@ -82,7 +82,7 @@ $rendered_count = 0;
 
         $cta_label = $flagship['cta_label'] ?? __('Explore', 'standard');
         $cta_url   = $flagship['cta_url']
-            ?? \Standard\Url\with_query('/build-finance/', ['machine' => $flagship['data_slug']]);
+            ?? \Standard\MachinesData\get_configurator_url((string) $flagship['data_slug']);
 
         $image_first_on_lg = $flagship['image_align'] === 'left';
         $rendered_count++;

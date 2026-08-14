@@ -61,6 +61,32 @@ function get_product_url(string $slug): string {
 }
 
 /**
+ * Resolve a machine data key, WooCommerce slug, or legacy slug to its
+ * canonical configurator URL.
+ */
+function get_configurator_url(string $slug): string {
+    $machine_key = function_exists('Standard\\MachineProductData\\resolve_machine_key')
+        ? \Standard\MachineProductData\resolve_machine_key($slug)
+        : $slug;
+
+    foreach (get_machine_categories(true) as $category) {
+        foreach ($category['machines'] as $machine) {
+            if (($machine['slug'] ?? '') !== $machine_key) {
+                continue;
+            }
+
+            $configurator_slug = (string) ($machine['configurator_slug'] ?? '');
+
+            return $configurator_slug !== ''
+                ? \Standard\Url\internal('/configurator/' . $configurator_slug . '/')
+                : '';
+        }
+    }
+
+    return '';
+}
+
+/**
  * Get a WooCommerce product's starting price for a machine slug.
  *
  * Uses the same slug → product lookup (with alias fallback) as
@@ -1154,7 +1180,7 @@ function get_faq_items(): array {
         ],
         [
             'question' => 'How do I purchase an NTM machine?',
-            'answer'   => 'Purchase directly from NTM through our sales team or through an authorized dealer in your region. Start by building a quote in the online configurator at /build-finance/ or by talking with a machine specialist who will walk you through pricing, configuration, and lead time.',
+            'answer'   => 'Purchase directly from NTM through our sales team or through an authorized dealer in your region. Start by building a quote in the online configurator or by talking with a machine specialist who will walk you through pricing, configuration, and lead time.',
         ],
     ];
 }
