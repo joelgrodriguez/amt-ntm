@@ -15,13 +15,25 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// Stakeholder placeholders for issue #130. Replace these values once the
-// booth assignment and final demo plan are approved; section parts must read
-// from this array so the temporary details never get scattered across files.
+// Keep event facts in one config so each page section renders the same details.
 $metalcon_config = [
-    'booth_number'  => 'TBD',          // TODO (#130): Replace with the confirmed booth number.
-    'demo_length'   => '20-minute',    // TODO (#130): Placeholder until the demo length is confirmed.
-    'demo_format'   => 'private demo', // TODO (#130): Placeholder until the demo format is confirmed.
+    'booth_number'  => '1525',
+    'demo_length'   => '20-minute',
+    'demo_format'   => 'private demo',
+    'demo_schedule' => [
+        [
+            'date'  => 'Wednesday, October 7',
+            'times' => ['10:30 a.m.', '1:30 p.m.', '3:00 p.m.'],
+        ],
+        [
+            'date'  => 'Thursday, October 8',
+            'times' => ['10:30 a.m.', '1:30 p.m.', '3:00 p.m.'],
+        ],
+        [
+            'date'  => 'Friday, October 9',
+            'times' => ['9:30 a.m.'],
+        ],
+    ],
     'hero_image_url' => 'https://newtechmachinery.com/wp-content/uploads/2026/08/Covered-machine-tradeshow-image.png',
 ];
 

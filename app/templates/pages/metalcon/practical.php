@@ -16,13 +16,14 @@ if (!defined('ABSPATH')) {
 
 $config = isset($args['config']) && is_array($args['config']) ? $args['config'] : [];
 
-if (!isset($config['booth_number'], $config['demo_length'], $config['demo_format'])) {
+if (!isset($config['booth_number'], $config['demo_length'], $config['demo_format'], $config['demo_schedule']) || !is_array($config['demo_schedule'])) {
     return;
 }
 
 $booth_number = (string) $config['booth_number'];
 $demo_length  = (string) $config['demo_length'];
 $demo_format  = (string) $config['demo_format'];
+$demo_schedule = $config['demo_schedule'];
 
 $details = [
     [
@@ -58,6 +59,41 @@ $details = [
                         <?php esc_html_e('October 7-9, 2026 · Orange County Convention Center', 'standard'); ?>
                     </p>
                 </header>
+
+                <div class="grid gap-4" aria-labelledby="metalcon-demo-schedule-title">
+                    <div>
+                        <h3 id="metalcon-demo-schedule-title" class="font-mono text-xs font-medium uppercase tracking-widest text-blue-300">
+                            <?php esc_html_e('Live SSM demo schedule', 'standard'); ?>
+                        </h3>
+                        <p class="mt-2 text-base text-blue-200">
+                            <?php
+                            printf(
+                                /* translators: %s: booth number. */
+                                esc_html__('Visit booth #%s at one of these times.', 'standard'),
+                                esc_html($booth_number)
+                            );
+                            ?>
+                        </p>
+                    </div>
+
+                    <ul class="grid gap-px border border-blue-700 bg-blue-700 sm:grid-cols-3" role="list">
+                        <?php foreach ($demo_schedule as $session) : ?>
+                            <?php
+                            $date  = isset($session['date']) ? (string) $session['date'] : '';
+                            $times = isset($session['times']) && is_array($session['times']) ? $session['times'] : [];
+                            if ($date === '' || $times === []) {
+                                continue;
+                            }
+                            ?>
+                            <li class="grid content-start gap-2 bg-blue-900 p-5">
+                                <h4 class="text-base font-medium text-white"><?php echo esc_html($date); ?></h4>
+                                <p class="text-sm leading-relaxed text-blue-200">
+                                    <?php echo esc_html(implode(' · ', array_map('strval', $times))); ?>
+                                </p>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
 
                 <dl class="grid gap-px border border-blue-700 bg-blue-700 sm:grid-cols-2">
                     <?php foreach ($details as $detail) : ?>
