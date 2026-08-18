@@ -69,7 +69,7 @@ $hero_image_url = (string) $config['hero_image_url'];
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <?php esc_html_e('Free show pass', 'standard'); ?>
+                    <?php esc_html_e('Register for METALCON', 'standard'); ?>
                     <?php icon('external-link', ['class' => 'h-5 w-5']); ?>
                 </a>
             </div>
