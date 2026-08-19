@@ -183,6 +183,8 @@ get_header();
         </div>
     </section>
 
+    <?php get_template_part('templates/parts/gutter-roi-strip', null, compact('product')); ?>
+
     <?php get_template_part('templates/woo/product/parts/default-specs', null, compact('product')); ?>
 
     <?php
@@ -201,8 +203,6 @@ get_header();
     <?php get_template_part('templates/parts/trailer-strip', null, compact('product')); ?>
 
     <?php get_template_part('templates/woo/product/parts/default-profiles', null, compact('product')); ?>
-
-    <?php get_template_part('templates/parts/gutter-roi-strip', null, compact('product')); ?>
 
     <?php get_template_part('templates/parts/ironclad-support', null, [
         'section_id' => 'machine-default-ironclad-support',

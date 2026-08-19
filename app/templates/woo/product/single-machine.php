@@ -59,6 +59,8 @@ if (!$machine) {
         <?php get_template_part('templates/woo/product/parts/stats-bar', null, compact('machine')); ?>
     </div>
 
+    <?php get_template_part('templates/parts/gutter-roi-strip', null, compact('product')); ?>
+
     <?php
     get_template_part('templates/parts/video-section', null, [
         'title'      => $product->get_name(),
@@ -81,8 +83,6 @@ if (!$machine) {
                   // get_template_part('templates/woo/product/parts/machine-fit', null, compact('machine')); ?>
 
             <?php get_template_part('templates/woo/product/parts/profile-selector', null, compact('product', 'machine')); ?>
-
-            <?php get_template_part('templates/parts/gutter-roi-strip', null, compact('product')); ?>
 
             <?php get_template_part('templates/woo/product/parts/accessories', null, compact('product', 'machine')); ?>
 
