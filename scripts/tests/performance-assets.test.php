@@ -62,10 +62,10 @@ check(str_contains($performance, "wp_dequeue_style('dashicons')"), 'Public catal
 check(!str_contains($performance, 'google_gtagjs'), 'Theme must not delay Site Kit/GA page-view measurement.');
 check(!str_contains($performance, 'jquery-bind-first'), 'Theme must not delay PixelYourSite/Meta measurement.');
 check(!str_contains($loader, 'data-ntm-deferred-script'), 'Core analytics must not pass through the replay/chat gate.');
-check(str_contains($loader, 'requestIdleCallback'), 'Replay/chat loader must retain its post-load idle fallback.');
-check(str_contains($loader, "window.addEventListener('load'"), 'Replay/chat idle scheduling must wait for page load.');
+check(str_contains($loader, 'requestIdleCallback'), 'Replay loader must retain its post-load idle fallback.');
+check(str_contains($loader, "window.addEventListener('load'"), 'Replay idle scheduling must wait for page load.');
 check(str_contains($loader, 'loadClarity'), 'Clarity must load through the non-essential third-party gate.');
-check(str_contains($loader, 'loadHubspot'), 'HubSpot chat must load through the non-essential third-party gate.');
+check(!str_contains($loader, 'loadHubspot'), 'HubSpot chat must remain dormant when Corbel assistant is enabled.');
 check($configurator_shell !== '', 'The configurator page tree must use its dedicated shell template.');
 check(
     !str_contains($configurator_shell, 'Template Name:'),

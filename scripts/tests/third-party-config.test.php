@@ -100,14 +100,14 @@ namespace {
         'Configurator child pages must not load HubSpot chat.'
     );
     ntm_assert_same(
-        \Standard\Performance\HUBSPOT_PORTAL_ID,
+        '',
         ntm_get_third_party_config(true, 'machines')['hubspotPortalId'],
-        'Ordinary pages must keep HubSpot chat enabled.'
+        'Ordinary pages must keep HubSpot chat dormant.'
     );
     ntm_assert_same(
-        \Standard\Performance\HUBSPOT_PORTAL_ID,
+        '',
         ntm_get_third_party_config(false, '')['hubspotPortalId'],
-        'Non-page requests must keep HubSpot chat enabled.'
+        'Non-page requests must keep HubSpot chat dormant.'
     );
 
     echo "Third-party configuration tests passed.\n";

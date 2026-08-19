@@ -1,6 +1,5 @@
 /**
- * Load non-essential replay and chat scripts after interaction or post-load
- * idle time.
+ * Load non-essential replay scripts after interaction or post-load idle time.
  *
  * Measurement-critical GA and Meta scripts retain their vendor-provided
  * async/defer behavior so landing-page attribution is not sacrificed.
@@ -8,7 +7,6 @@
 
 const INTERACTION_EVENTS = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
 const IDLE_TIMEOUT_MS = 1500;
-const HUBSPOT_STAGGER_MS = 500;
 
 function loadScript(src, attributes = {}) {
   return new Promise((resolve) => {
@@ -37,17 +35,7 @@ function loadClarity(projectId) {
   loadScript(`https://www.clarity.ms/tag/${encodeURIComponent(projectId)}`);
 }
 
-function loadHubspot(portalId) {
-  if (!portalId || document.querySelector('#hs-script-loader, [data-ntm-hubspot-chat]')) return;
-
-  loadScript(`https://js.hs-scripts.com/${encodeURIComponent(portalId)}.js`, {
-    id: 'hs-script-loader',
-    'data-ntm-hubspot-chat': 'true',
-  });
-}
-
 export function initThirdPartyLoader() {
-  const config = window.ntmThirdPartyConfig || {};
   const controller = new AbortController();
   const { signal } = controller;
   let started = false;
@@ -62,11 +50,7 @@ export function initThirdPartyLoader() {
       window.cancelIdleCallback(idleCallback);
     }
 
-    loadClarity(config.clarityProjectId);
-    timer = window.setTimeout(
-      () => loadHubspot(config.hubspotPortalId),
-      HUBSPOT_STAGGER_MS
-    );
+    loadClarity((window.ntmThirdPartyConfig || {}).clarityProjectId);
   };
 
   INTERACTION_EVENTS.forEach((eventName) => {

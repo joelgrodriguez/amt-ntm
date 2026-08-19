@@ -38,6 +38,7 @@ $theme_includes = [
     'inc/hubspot.php',
     'inc/metalcon-form.php',
     'inc/page-templates.php',
+    'inc/corbel.php',
     'inc/content-taxonomy.php',
     'inc/breadcrumbs.php',
     'inc/related-posts.php',

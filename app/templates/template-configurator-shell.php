@@ -2,9 +2,9 @@
 /**
  * Configurator-only document shell.
  *
- * Renders the /configurator/ page tree without the normal site chrome. The
- * page content owns the dynamic viewport height so iOS browser controls can
- * resize without a competing 100vh minimum on the shell or iframe.
+ * Renders the /configurator/ page tree without the normal site chrome. Corbel
+ * owns the embedded frame height so iOS browser controls can resize without a
+ * competing 100vh minimum on the shell or iframe.
  *
  * @package Standard
  */
@@ -51,12 +51,7 @@ if (!defined('ABSPATH')) {
 <?php wp_body_open(); ?>
 
 <main id="primary">
-    <?php
-    while (have_posts()) :
-        the_post();
-        the_content();
-    endwhile;
-    ?>
+    <?php \Standard\Corbel\render_configurator_placeholder(); ?>
 </main>
 
 <?php wp_footer(); ?>

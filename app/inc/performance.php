@@ -13,8 +13,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-const HUBSPOT_PORTAL_ID = '4478417';
-
 /**
  * Product detail and machine/accessory landing pages use theme-owned UI.
  */
@@ -53,17 +51,13 @@ function print_third_party_config(): void {
     $integrations = class_exists('\\Standard_Site_Integrations')
         ? \Standard_Site_Integrations::instance()
         : null;
-    $hubspot_owned = $integrations
-        && $integrations->integration_is_effective('hubspot_tracker');
     $clarity_owned = $integrations
         && $integrations->integration_is_effective('clarity');
-    $post_id = is_page() ? get_queried_object_id() : 0;
-    $is_configurator = $post_id > 0
-        && function_exists('\\Standard\\PageTemplates\\is_configurator_page_tree')
-        && \Standard\PageTemplates\is_configurator_page_tree($post_id);
 
     $config = [
-        'hubspotPortalId' => $hubspot_owned || $is_configurator ? '' : HUBSPOT_PORTAL_ID,
+        // Keep the legacy key shape while the Corbel assistant replaces chat.
+        // HubSpot forms still load through HubspotForms.js when a form exists.
+        'hubspotPortalId' => '',
         'clarityProjectId' => $clarity_owned
             ? ''
             : sanitize_key((string) get_option('clarity_project_id', '')),
