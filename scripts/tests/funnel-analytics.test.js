@@ -26,6 +26,17 @@ assert(
 );
 assert(!APPROVED_FIELDS.includes('email'), 'Email must never be an approved analytics field.');
 
+delete window.dataLayer;
+assert(
+  emitAnalyticsEvent(EVENT_NAMES.CHAT_INTERACTION, {
+    chat_vendor: 'hubspot',
+    page_path: '/machines/',
+  }),
+  'Chat analytics must create the dataLayer queue when GTM has not loaded yet.'
+);
+assert(window.dataLayer[0].chat_vendor === 'hubspot', 'Chat analytics must identify HubSpot without personal data.');
+
+window.dataLayer.length = 0;
 emitAnalyticsEvent(EVENT_NAMES.CTA_CLICK, {
   machine_id: 'ssr-multipro-jr',
   page_path: '/machines/',
@@ -67,8 +78,8 @@ assert(
 
 delete window.dataLayer;
 assert(
-  emitAnalyticsEvent(EVENT_NAMES.CTA_CLICK, {}) === false,
-  'Blocked analytics must fail open without throwing.'
+  emitAnalyticsEvent('unapproved_event', {}) === false,
+  'Unapproved analytics events must fail closed.'
 );
 
 console.log('Funnel analytics tests passed.');

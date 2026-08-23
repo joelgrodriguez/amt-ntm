@@ -42,7 +42,7 @@ export function emitAnalyticsEvent(eventName, payload = {}) {
 
   try {
     if (!Array.isArray(window.dataLayer)) {
-      return false;
+      window.dataLayer = [];
     }
 
     window.dataLayer.push({
