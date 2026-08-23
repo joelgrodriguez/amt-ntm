@@ -37,19 +37,28 @@ check(
 );
 check(
     str_contains($integration, "add_action('wp_head', __NAMESPACE__ . '\\\\render_loader', 1);"),
-    'Corbel loader must be emitted once from the document head.'
+    'Configurator pages must emit the Corbel loader from the document head.'
 );
 check(
-    str_contains($integration, "add_action('wp_footer', __NAMESPACE__ . '\\\\render_assistant_placeholder', 1);"),
-    'Corbel assistant target must be emitted from the document footer.'
+    str_contains($integration, 'function is_configurator_request(): bool'),
+    'The eager Corbel loader must be limited to configurator requests.'
+);
+check(
+    str_contains($integration, "\\has_block('corbel/configurator')"),
+    'Corbel configurator blocks must retain their loader outside route templates.'
+);
+check(
+    str_contains($integration, 'function take_frontend_loader_ownership(): void')
+        && str_contains($integration, "'assistant_policy'] = 'never'"),
+    'The installed plugin must not load its floating assistant.'
 );
 check(
     str_contains($integration, 'id="corbelConfigurator"'),
     'Configurator target must use the exact Corbel ID.'
 );
 check(
-    str_contains($integration, 'id="corbelAssistant"'),
-    'Assistant target must use the exact Corbel ID.'
+    !str_contains($integration, 'function render_assistant_placeholder'),
+    'The theme must not render the floating assistant target.'
 );
 check(
     str_contains($integration, 'data-corbel-configurator-url'),

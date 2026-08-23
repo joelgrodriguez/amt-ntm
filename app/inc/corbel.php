@@ -33,11 +33,68 @@ const PRODUCT_IDS_BY_PAGE_SLUG = [
 const CONFIGURATOR_URL = 'https://app.corbelpay.com/reception/newtechmachinery/quote/new';
 
 /**
- * Load Corbel's website plugin once in the document head.
+ * Keep the installed Corbel plugin as an editor/configurator dependency while
+ * the theme owns front-end loader and assistant decisions.
+ */
+function take_frontend_loader_ownership(): void
+{
+    if (!class_exists('Corbel\\Loader')) {
+        return;
+    }
+
+    \remove_action('wp_head', ['Corbel\\Loader', 'print_if_needed'], 1);
+    \remove_action('wp_footer', ['Corbel\\Loader', 'print_if_needed'], 0);
+}
+add_action('after_setup_theme', __NAMESPACE__ . '\\take_frontend_loader_ownership', 20);
+
+/**
+ * Prevent the plugin from rendering its optional floating assistant.
+ *
+ * @param mixed $settings
+ * @return mixed
+ */
+function disable_plugin_assistant($settings)
+{
+    if (is_admin()) {
+        return $settings;
+    }
+
+    $settings = is_array($settings) ? $settings : ['enabled' => true];
+    $settings['assistant_policy'] = 'never';
+
+    return $settings;
+}
+add_filter('option_corbel_settings', __NAMESPACE__ . '\\disable_plugin_assistant', PHP_INT_MAX);
+
+/**
+ * Whether the current page needs Corbel's configurator runtime.
+ */
+function is_configurator_request(): bool
+{
+    $post_id = (int) get_queried_object_id();
+
+    if (
+        $post_id > 0
+        && function_exists('Standard\\PageTemplates\\is_configurator_page_tree')
+        && \Standard\PageTemplates\is_configurator_page_tree($post_id)
+    ) {
+        return true;
+    }
+
+    if (function_exists('has_block') && \has_block('corbel/configurator')) {
+        return true;
+    }
+
+    return function_exists('is_page_template')
+        && \is_page_template('templates/template-corbel.php');
+}
+
+/**
+ * Load Corbel in the head only when its configurator is present.
  */
 function render_loader(): void
 {
-    if (is_admin()) {
+    if (is_admin() || !is_configurator_request()) {
         return;
     }
 
@@ -158,16 +215,3 @@ function render_configurator_placeholder(): void
 
     echo '></div>' . "\n";
 }
-
-/**
- * Render the target for Corbel's optional floating assistant.
- */
-function render_assistant_placeholder(): void
-{
-    if (is_admin()) {
-        return;
-    }
-
-    echo '<div id="corbelAssistant"></div>' . "\n";
-}
-add_action('wp_footer', __NAMESPACE__ . '\\render_assistant_placeholder', 1);
