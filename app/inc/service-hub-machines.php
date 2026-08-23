@@ -155,8 +155,8 @@ function get_service_tag_slugs(string $machine_slug): array {
  * Grouped service content for one machine.
  *
  * Returns groups in display order; each group is a WP_Query of
- * service-repair content tagged with this machine, limited to that
- * group's post types. Empty groups are dropped by the caller.
+ * service-repair content tagged with this machine for that group's post types.
+ * Empty groups are dropped by the caller.
  *
  * @return array<int, array{label: string, query: \WP_Query}>
  */
@@ -178,7 +178,7 @@ function get_content_groups(string $machine_slug): array {
         $query = new \WP_Query([
             'post_type'           => $group['types'],
             'post_status'         => 'publish',
-            'posts_per_page'      => 24,
+            'posts_per_page'      => -1,
             'ignore_sticky_posts' => true,
             'orderby'             => 'date',
             'order'               => 'DESC',

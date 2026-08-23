@@ -237,13 +237,9 @@ get_header();
             _n('See All %d Profile', 'See All %d Profiles', $profile_count, 'standard'),
             $profile_count
         );
-        $collapse_label = __('Collapse Profiles', 'standard');
         ?>
         <section id="machine-profiles" class="container section-compact" aria-labelledby="<?php echo esc_attr($profiles_title_id); ?>">
-            <div class="section-content"
-                 data-profile-expand
-                 data-profile-expand-show-label="<?php echo esc_attr($show_all_label); ?>"
-                 data-profile-expand-collapse-label="<?php echo esc_attr($collapse_label); ?>">
+            <div class="section-content" data-expandable-list>
 
                 <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
                     <div class="section-header-left max-w-2xl">
@@ -255,20 +251,6 @@ get_header();
                         <p class="section-subtitle">
                             <?php esc_html_e('Open the profile pages for gauges, widths, and setup details tied to this machine.', 'standard'); ?>
                         </p>
-                    </div>
-                    <div data-profile-expand-compact class="flex gap-2 shrink-0 self-end md:self-auto">
-                        <button type="button"
-                                data-carousel-prev="<?php echo esc_attr($profile_carousel); ?>"
-                                class="carousel__nav"
-                                aria-label="<?php esc_attr_e('Previous profiles', 'standard'); ?>">
-                            <?php icon('arrow-left', ['class' => 'w-4 h-4 text-blue-700']); ?>
-                        </button>
-                        <button type="button"
-                                data-carousel-next="<?php echo esc_attr($profile_carousel); ?>"
-                                class="carousel__nav"
-                                aria-label="<?php esc_attr_e('Next profiles', 'standard'); ?>">
-                            <?php icon('arrow-right', ['class' => 'w-4 h-4 text-blue-700']); ?>
-                        </button>
                     </div>
                 </div>
 
@@ -289,48 +271,49 @@ get_header();
 
     <?php if ($has_content) : ?>
         <?php
-        // Cards beyond this many ship hidden; RevealMore.js reveals the next
-        // batch per click. Two rows on the 3-col grid.
         $reveal_batch = 6;
         ?>
-        <?php foreach ($groups as $group) : ?>
+        <?php foreach ($groups as $group_index => $group) : ?>
             <?php
             if (!$group['query']->have_posts()) { continue; }
-            $found     = (int) $group['query']->found_posts;
+            $found     = (int) $group['query']->post_count;
             $overflow  = $found > $reveal_batch;
-            $remaining = $found - $reveal_batch;
             $index     = 0;
+            $grid_id   = 'service-content-' . sanitize_html_class($slug) . '-' . (int) $group_index;
+            $show_all_label = sprintf(
+                /* translators: 1: content count, 2: content group label. */
+                __('See All %1$d %2$s', 'standard'),
+                $found,
+                $group['label']
+            );
+            $collapse_group_label = sprintf(
+                /* translators: %s is a content group label such as Manuals. */
+                __('Collapse %s', 'standard'),
+                $group['label']
+            );
             ?>
             <section class="container section-compact" aria-label="<?php echo esc_attr($group['label']); ?>">
                 <h2 class="font-mono font-medium uppercase tracking-wider text-blue-700 mb-6" style="font-size: var(--text-caption);">
                     <?php echo esc_html($group['label']); ?>
                     <span class="text-blue-400">&middot; <?php echo $found; ?></span>
                 </h2>
-                <div data-reveal-group data-reveal-batch="<?php echo (int) $reveal_batch; ?>">
-                    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div data-expandable-list>
+                    <div id="<?php echo esc_attr($grid_id); ?>"
+                         data-expandable-list-content
+                         class="t-resize grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                         <?php while ($group['query']->have_posts()) : $group['query']->the_post(); ?>
-                            <?php /* Past the first batch: ship hidden + reveal-item so
-                                    JS can fade them in. With JS off they'd show (JS only
-                                    removes hidden), but the reveal items also carry the
-                                    transition base class. */ ?>
-                            <div data-reveal-item class="reveal-item<?php echo $index >= $reveal_batch ? ' hidden' : ''; ?>">
+                            <div<?php if ($index >= $reveal_batch) : ?> data-expandable-list-expanded data-expandable-list-no-js-visible<?php endif; ?>>
                                 <?php get_template_part('templates/parts/card-post'); ?>
                             </div>
                             <?php $index++; ?>
                         <?php endwhile; ?>
                     </div>
                     <?php if ($overflow) : ?>
-                        <?php /* Ships hidden; RevealMore.js shows it once it confirms
-                                there's overflow to reveal, so no-JS visitors (who see
-                                every card) never get a dead button. */ ?>
-                        <div data-reveal-controls class="hidden mt-8 flex justify-center">
-                            <button type="button" data-reveal-button data-reveal-remaining="<?php echo (int) $remaining; ?>"
-                                    class="btn btn-md btn-secondary group">
-                                <?php esc_html_e('Show more', 'standard'); ?>
-                                <span class="text-blue-400">(<span data-reveal-count><?php echo (int) min($reveal_batch, $remaining); ?></span>)</span>
-                                <?php icon('chevron-down', ['class' => 'w-4 h-4 transition-transform duration-200 group-hover:translate-y-0.5']); ?>
-                            </button>
-                        </div>
+                        <?php get_template_part('templates/parts/expandable-list-toggle', null, [
+                            'region_id'      => $grid_id,
+                            'show_label'     => $show_all_label,
+                            'collapse_label' => $collapse_group_label,
+                        ]); ?>
                     <?php endif; ?>
                 </div>
             </section>

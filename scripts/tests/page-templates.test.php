@@ -20,6 +20,9 @@ final class WP_Post
 /** @var array<int, string> */
 $ntm_template_slugs = [];
 
+/** @var array<int, string> */
+$ntm_page_uris = [];
+
 function add_filter(string $hook, callable|string $callback, int $priority = 10, int $accepted_args = 1): bool
 {
     return true;
@@ -30,6 +33,13 @@ function get_page_template_slug(int|WP_Post|null $post = null): string|false
     $post_id = $post instanceof WP_Post ? $post->ID : (int) $post;
 
     return $GLOBALS['ntm_template_slugs'][$post_id] ?? false;
+}
+
+function get_page_uri(int|WP_Post|null $post = null): string|false
+{
+    $post_id = $post instanceof WP_Post ? $post->ID : (int) $post;
+
+    return $GLOBALS['ntm_page_uris'][$post_id] ?? false;
 }
 
 function __(string $text, string $domain = 'default'): string
@@ -110,6 +120,18 @@ ntm_assert_same(
     $all_templates,
     \Standard\PageTemplates\filter_editor_page_templates($all_templates, $theme, null, 'post'),
     'Unrelated post types should be untouched.'
+);
+
+$GLOBALS['ntm_page_uris'][40] = 'configurator/product';
+ntm_assert_same(
+    true,
+    \Standard\PageTemplates\is_configurator_page_tree(40),
+    'Configurator child pages should use the configurator shell.'
+);
+ntm_assert_same(
+    false,
+    \Standard\PageTemplates\is_configurator_page_tree(599),
+    'Non-page query objects should not cause a type error.'
 );
 
 echo "Page template filter tests passed.\n";

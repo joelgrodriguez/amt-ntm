@@ -137,7 +137,13 @@ add_filter('template_include', __NAMESPACE__ . '\\include_legacy_page_template',
  */
 function is_configurator_page_tree(int $post_id): bool
 {
-    $page_uri = trim(get_page_uri($post_id), '/');
+    $page_uri = get_page_uri($post_id);
+
+    if (!is_string($page_uri)) {
+        return false;
+    }
+
+    $page_uri = trim($page_uri, '/');
 
     return $page_uri === 'configurator' || strpos($page_uri, 'configurator/') === 0;
 }

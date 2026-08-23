@@ -121,7 +121,8 @@ return [
         'tag_slugs' => ['ssq-ii-multipro-roof-panel-machine'],
     ],
     'accessories' => [
-        'product_tag' => 'SSQII',
+        'product_tag'   => 'SSQIII',
+        'product_slugs' => ['remote-4-button-start'],
     ],
     'testimonials' => [],
     'case_study' => [

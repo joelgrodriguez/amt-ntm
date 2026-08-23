@@ -51,6 +51,9 @@ if (!$query->have_posts()) {
 $total          = (int) $query->found_posts;
 $has_more       = $total > $per_page;
 $archive_link   = get_category_link($category_id);
+$archive_link   = is_wp_error($archive_link)
+    ? ''
+    : add_query_arg(['post_type' => 'profile'], $archive_link);
 $view_all_label = sprintf(
     /* translators: %d total profiles in this category. */
     __('View all %d', 'standard'),

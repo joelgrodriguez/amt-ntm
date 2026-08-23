@@ -60,14 +60,10 @@ $show_all_label = sprintf(
     _n('See All %d Profile', 'See All %d Profiles', $profile_count, 'standard'),
     $profile_count
 );
-$collapse_label = __('Collapse Profiles', 'standard');
 ?>
 
 <section id="machine-profiles" class="section" aria-labelledby="<?php echo esc_attr($title_id); ?>">
-    <div class="container section-content"
-         data-profile-expand
-         data-profile-expand-show-label="<?php echo esc_attr($show_all_label); ?>"
-         data-profile-expand-collapse-label="<?php echo esc_attr($collapse_label); ?>">
+    <div class="container section-content" data-expandable-list>
 
         <div class="flex items-end justify-between gap-4 mb-10">
             <div class="section-header-left mb-0">
@@ -80,20 +76,6 @@ $collapse_label = __('Collapse Profiles', 'standard');
                 <p class="section-subtitle max-w-xl">
                     <?php echo esc_html($subtitle); ?>
                 </p>
-            </div>
-            <div data-profile-expand-compact class="flex gap-2 shrink-0">
-                <button type="button"
-                        data-carousel-prev="<?php echo esc_attr($carousel_id); ?>"
-                        class="carousel__nav"
-                        aria-label="<?php esc_attr_e('Previous profiles', 'standard'); ?>">
-                    <span class="text-blue-600">&larr;</span>
-                </button>
-                <button type="button"
-                        data-carousel-next="<?php echo esc_attr($carousel_id); ?>"
-                        class="carousel__nav"
-                        aria-label="<?php esc_attr_e('Next profiles', 'standard'); ?>">
-                    <span class="text-blue-600">&rarr;</span>
-                </button>
             </div>
         </div>
 

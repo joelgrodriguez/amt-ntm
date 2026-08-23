@@ -97,7 +97,7 @@ function compatible_machine_slug_map(): array {
         'plc07-computer-control-2'                  => ['bg7-box-gutter-machine'],
         'plc08-computer-control'                    => ['5vc-5v-crimp-roof-panel-machine'],
         'qcpp-e-qcpp-g-quick-change-power-pack'     => ['ssq3-multipro', 'ssq-roof-panel-machine', 'ssh-roof-panel-machine', '5vc-5v-crimp-roof-panel-machine', 'bg7-box-gutter-machine'],
-        'remote-4-button-start'                     => array_merge($mach_ii, ['ssh-roof-panel-machine', 'ssr-multipro-jr-roof-panel-machine', '5vc-5v-crimp-roof-panel-machine', 'bg7-box-gutter-machine']),
+        'remote-4-button-start'                     => array_merge($mach_ii, ['ssq3-multipro', 'ssh-roof-panel-machine', 'ssr-multipro-jr-roof-panel-machine', '5vc-5v-crimp-roof-panel-machine', 'bg7-box-gutter-machine']),
         'riser-pads'                                => $mach_ii,
         'rosg1-run-out-stand'                       => array_merge($mach_ii, ['bg7-box-gutter-machine']),
         'run-out-table-rosr-10'                     => ['ssr-multipro-jr-roof-panel-machine'],

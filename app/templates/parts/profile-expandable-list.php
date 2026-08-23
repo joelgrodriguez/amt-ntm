@@ -2,9 +2,8 @@
 /**
  * Profile carousel with an in-place expanded grid.
  *
- * Renders the compact carousel view, the hidden expanded grid view, and the
- * toggle control. The nearest ancestor with `data-profile-expand` owns the
- * show/collapse labels so header controls can participate in the same state.
+ * Renders the compact carousel view, the expanded grid view, and the shared
+ * bottom-anchored toggle control.
  *
  * Args:
  *   profiles    (array):  Profile posts or IDs.
@@ -40,15 +39,10 @@ if (empty($profiles)) {
     return;
 }
 
-$carousel_id = sanitize_html_class((string) ($args['carousel_id'] ?? 'profiles-carousel'));
-$grid_id     = sanitize_html_class((string) ($args['grid_id'] ?? $carousel_id . '-grid'));
-
-if ($carousel_id === '') {
-    $carousel_id = 'profiles-carousel';
-}
+$grid_id = sanitize_html_class((string) ($args['grid_id'] ?? 'profiles-grid'));
 
 if ($grid_id === '') {
-    $grid_id = $carousel_id . '-grid';
+    $grid_id = 'profiles-grid';
 }
 
 $profile_count = count($profiles);
@@ -60,43 +54,24 @@ $show_label    = (string) ($args['show_label'] ?? sprintf(
 ?>
 
 <div class="grid gap-6">
-    <ul id="<?php echo esc_attr($carousel_id); ?>"
-        data-profile-expand-compact
-        class="carousel__track list-none p-0 m-0">
-        <?php foreach ($profiles as $profile) : ?>
-            <li class="contents">
+    <ul id="<?php echo esc_attr($grid_id); ?>"
+        data-expandable-list-content
+        class="t-resize grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 list-none p-0 m-0">
+        <?php foreach ($profiles as $index => $profile) : ?>
+            <li<?php if ($index >= 4) : ?> data-expandable-list-expanded data-expandable-list-no-js-visible<?php endif; ?>>
                 <?php get_template_part('templates/parts/card-profile', null, [
                     'profile' => $profile,
-                    'context' => 'carousel',
+                    'context' => 'grid',
                 ]); ?>
             </li>
         <?php endforeach; ?>
     </ul>
 
-    <div data-profile-expand-controls class="hidden flex justify-center">
-        <button type="button"
-                data-profile-expand-button
-                class="btn btn-md btn-secondary group"
-                aria-expanded="false"
-                aria-controls="<?php echo esc_attr($grid_id); ?>">
-            <span data-profile-expand-label><?php echo esc_html($show_label); ?></span>
-            <?php icon('chevron-down', ['class' => 'w-4 h-4 transition-transform duration-200']); ?>
-        </button>
-    </div>
-
-    <div id="<?php echo esc_attr($grid_id); ?>"
-         data-profile-expand-grid
-         class="hidden"
-         hidden>
-        <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 list-none p-0 m-0">
-            <?php foreach ($profiles as $profile) : ?>
-                <li>
-                    <?php get_template_part('templates/parts/card-profile', null, [
-                        'profile' => $profile,
-                        'context' => 'grid',
-                    ]); ?>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
+    <?php if ($profile_count > 4) : ?>
+        <?php get_template_part('templates/parts/expandable-list-toggle', null, [
+            'region_id'      => $grid_id,
+            'show_label'     => $show_label,
+            'collapse_label' => __('Collapse Profiles', 'standard'),
+        ]); ?>
+    <?php endif; ?>
 </div>

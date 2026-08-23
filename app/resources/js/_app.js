@@ -23,8 +23,7 @@ import { initHubspotForms } from './modules/HubspotForms.js';
 import { initSearchModal } from './modules/SearchModal.js';
 import { initFilterDrawerSync } from './modules/FilterDrawerSync.js';
 import { initAvatarGroupHover } from './modules/AvatarGroupHover.js';
-import { initRevealMore } from './modules/RevealMore.js';
-import { initProfileExpand } from './modules/ProfileExpand.js';
+import { initExpandableLists } from './modules/ExpandableList.js';
 import { initProfileGallery } from './modules/ProfileGallery.js';
 import { initReadinessQuiz } from './modules/ReadinessQuiz.js';
 import { initRoiCalculator } from './modules/RoiCalculator.js';
@@ -71,11 +70,8 @@ let filterDrawerSyncCleanup = null;
 /** @type {Function|null} Cleanup function for avatar group hover */
 let avatarGroupHoverCleanup = null;
 
-/** @type {Function|null} Cleanup function for reveal-more groups */
-let revealMoreCleanup = null;
-
-/** @type {Function|null} Cleanup function for profile expand groups */
-let profileExpandCleanup = null;
+/** @type {Function|null} Cleanup function for expandable card lists */
+let expandableListsCleanup = null;
 
 /** @type {Function|null} Cleanup function for profile gallery */
 let profileGalleryCleanup = null;
@@ -128,8 +124,7 @@ const initApp = () => {
   searchModalCleanup = initSearchModal();
   filterDrawerSyncCleanup = initFilterDrawerSync();
   avatarGroupHoverCleanup = initAvatarGroupHover();
-  revealMoreCleanup = initRevealMore();
-  profileExpandCleanup = initProfileExpand();
+  expandableListsCleanup = initExpandableLists();
   profileGalleryCleanup = initProfileGallery();
   readinessQuizCleanup = initReadinessQuiz();
   roiCalculatorCleanup = initRoiCalculator();
@@ -186,11 +181,8 @@ if (import.meta.hot) {
     if (avatarGroupHoverCleanup) {
       avatarGroupHoverCleanup();
     }
-    if (revealMoreCleanup) {
-      revealMoreCleanup();
-    }
-    if (profileExpandCleanup) {
-      profileExpandCleanup();
+    if (expandableListsCleanup) {
+      expandableListsCleanup();
     }
     if (profileGalleryCleanup) {
       profileGalleryCleanup();

@@ -41,6 +41,8 @@ if (
     }
 }
 
+$is_ssq3 = $product instanceof \WC_Product && $product->get_slug() === 'ssq3-multipro';
+
 get_header();
 if (!$machine) {
     while (have_posts()) {
@@ -86,11 +88,19 @@ if (!$machine) {
 
             <?php get_template_part('templates/woo/product/parts/accessories', null, compact('product', 'machine')); ?>
 
-            <?php get_template_part('templates/parts/trailer-strip', null, compact('product')); ?>
+            <?php if (!$is_ssq3) : ?>
+                <?php get_template_part('templates/parts/trailer-strip', null, compact('product')); ?>
+            <?php endif; ?>
 
             <?php get_template_part('templates/woo/product/parts/blueprint', null, compact('machine')); ?>
 
             <?php get_template_part('templates/woo/product/parts/specs-accordion', null, compact('product', 'machine')); ?>
+
+            <?php if ($is_ssq3) : ?>
+                <div class="mt-12 lg:mt-16">
+                    <?php get_template_part('templates/parts/trailer-strip', null, compact('product')); ?>
+                </div>
+            <?php endif; ?>
 
             <?php get_template_part('templates/woo/product/parts/resources', null, compact('machine')); ?>
 

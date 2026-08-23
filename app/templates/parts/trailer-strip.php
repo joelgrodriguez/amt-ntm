@@ -2,9 +2,9 @@
 /**
  * Reusable Trailer Strip
  *
- * Compact industrial spec-sheet band shown on compatible machine product pages,
- * directly after the accessories section. Surfaces the trailer(s) that fit this
- * machine and routes to the full /machines/trailer/ story. Data-driven and
+ * Compact industrial spec-sheet band shown on compatible machine product pages.
+ * Surfaces the trailer(s) that fit this machine and routes to the full
+ * /machines/trailer/ story. Data-driven and
  * gated: it renders nothing for machines with no compatible trailer (MACH II),
  * so callers can include it unconditionally.
  *
