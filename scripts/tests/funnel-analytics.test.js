@@ -21,8 +21,8 @@ globalThis.window = {
 };
 
 assert(
-  Object.values(EVENT_NAMES).join(',') === 'cta_click,configurator_open,hubspot_form_submit',
-  'The funnel must expose the three approved event names.'
+  Object.values(EVENT_NAMES).join(',') === 'cta_click,configurator_open,hubspot_form_submit,chat_interaction,chat_conversation_started',
+  'The funnel must expose the approved conversion and HubSpot chat event names.'
 );
 assert(!APPROVED_FIELDS.includes('email'), 'Email must never be an approved analytics field.');
 

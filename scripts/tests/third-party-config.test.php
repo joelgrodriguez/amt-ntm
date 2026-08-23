@@ -10,6 +10,8 @@ namespace {
 
     $ntm_is_page = false;
     $ntm_page_uri = '';
+    $ntm_has_corbel_block = false;
+    $ntm_is_corbel_template = false;
 
     function add_action(string $hook, callable|string $callback, int $priority = 10): bool
     {
@@ -29,6 +31,16 @@ namespace {
     function is_page(array|string|int $page = ''): bool
     {
         return $GLOBALS['ntm_is_page'];
+    }
+
+    function is_page_template(string $template = ''): bool
+    {
+        return $GLOBALS['ntm_is_corbel_template'];
+    }
+
+    function has_block(string $block_name): bool
+    {
+        return $GLOBALS['ntm_has_corbel_block'];
     }
 
     function get_queried_object_id(): int
@@ -57,10 +69,17 @@ namespace {
     }
 
     /** @return array{hubspotPortalId: string, clarityProjectId: string} */
-    function ntm_get_third_party_config(bool $is_page, string $page_uri): array
+    function ntm_get_third_party_config(
+        bool $is_page,
+        string $page_uri,
+        bool $has_corbel_block = false,
+        bool $is_corbel_template = false
+    ): array
     {
         $GLOBALS['ntm_is_page'] = $is_page;
         $GLOBALS['ntm_page_uri'] = $page_uri;
+        $GLOBALS['ntm_has_corbel_block'] = $has_corbel_block;
+        $GLOBALS['ntm_is_corbel_template'] = $is_corbel_template;
 
         ob_start();
         \Standard\Performance\print_third_party_config();
@@ -87,6 +106,7 @@ namespace {
 
 namespace {
     require __DIR__ . '/../../app/inc/page-templates.php';
+    require __DIR__ . '/../../app/inc/corbel.php';
     require __DIR__ . '/../../app/inc/performance.php';
 
     ntm_assert_same(
@@ -101,13 +121,23 @@ namespace {
     );
     ntm_assert_same(
         '',
-        ntm_get_third_party_config(true, 'machines')['hubspotPortalId'],
-        'Ordinary pages must keep HubSpot chat dormant.'
+        ntm_get_third_party_config(true, 'landing-page', true)['hubspotPortalId'],
+        'Pages with a Corbel configurator block must not load HubSpot chat.'
     );
     ntm_assert_same(
         '',
+        ntm_get_third_party_config(true, 'landing-page', false, true)['hubspotPortalId'],
+        'Pages using the legacy Corbel template must not load HubSpot chat.'
+    );
+    ntm_assert_same(
+        \Standard\Performance\HUBSPOT_PORTAL_ID,
+        ntm_get_third_party_config(true, 'machines')['hubspotPortalId'],
+        'Ordinary pages must load HubSpot chat.'
+    );
+    ntm_assert_same(
+        \Standard\Performance\HUBSPOT_PORTAL_ID,
         ntm_get_third_party_config(false, '')['hubspotPortalId'],
-        'Non-page requests must keep HubSpot chat dormant.'
+        'Public non-page requests must load HubSpot chat.'
     );
 
     echo "Third-party configuration tests passed.\n";
