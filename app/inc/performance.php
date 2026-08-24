@@ -13,8 +13,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-const HUBSPOT_PORTAL_ID = '4478417';
-
 /**
  * Product detail and machine/accessory landing pages use theme-owned UI.
  */
@@ -53,15 +51,13 @@ function print_third_party_config(): void {
     $integrations = class_exists('\\Standard_Site_Integrations')
         ? \Standard_Site_Integrations::instance()
         : null;
-    $hubspot_owned = $integrations
-        && $integrations->integration_is_effective('hubspot_tracker');
     $clarity_owned = $integrations
         && $integrations->integration_is_effective('clarity');
     $is_configurator = function_exists('Standard\\Corbel\\is_configurator_request')
         && \Standard\Corbel\is_configurator_request();
 
     $config = [
-        'hubspotPortalId' => $hubspot_owned || $is_configurator ? '' : HUBSPOT_PORTAL_ID,
+        'corbelChatScriptUrl' => $is_configurator ? '' : \Standard\Corbel\SCRIPT_URL,
         'clarityProjectId' => $clarity_owned
             ? ''
             : sanitize_key((string) get_option('clarity_project_id', '')),
@@ -74,23 +70,19 @@ function print_third_party_config(): void {
 add_action('wp_head', __NAMESPACE__ . '\\print_third_party_config', 2);
 
 /**
- * Configurators use Corbel as their only interactive vendor surface.
+ * Corbel replaces HubSpot chat. HubSpot forms load through HubspotForms.js.
  */
-function dequeue_hubspot_on_configurators(): void {
-    if (
-        is_admin()
-        || !function_exists('Standard\\Corbel\\is_configurator_request')
-        || !\Standard\Corbel\is_configurator_request()
-    ) {
+function dequeue_hubspot_chat_loaders(): void {
+    if (is_admin()) {
         return;
     }
 
     \wp_dequeue_script('leadin-script-loader-js');
     \wp_dequeue_script('standard-hubspot-tracker');
 }
-add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\dequeue_hubspot_on_configurators', 999);
-add_action('wp_print_scripts', __NAMESPACE__ . '\\dequeue_hubspot_on_configurators', 0);
-add_action('wp_print_footer_scripts', __NAMESPACE__ . '\\dequeue_hubspot_on_configurators', 0);
+add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\dequeue_hubspot_chat_loaders', 999);
+add_action('wp_print_scripts', __NAMESPACE__ . '\\dequeue_hubspot_chat_loaders', 0);
+add_action('wp_print_footer_scripts', __NAMESPACE__ . '\\dequeue_hubspot_chat_loaders', 0);
 
 /**
  * Remove assets from plugins whose UI is not present on theme-owned catalog

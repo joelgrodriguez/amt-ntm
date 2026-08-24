@@ -21,20 +21,18 @@ globalThis.window = {
 };
 
 assert(
-  Object.values(EVENT_NAMES).join(',') === 'cta_click,configurator_open,hubspot_form_submit,chat_interaction,chat_conversation_started',
-  'The funnel must expose the approved conversion and HubSpot chat event names.'
+  Object.values(EVENT_NAMES).join(',') === 'cta_click,configurator_open,hubspot_form_submit',
+  'The funnel must expose the three approved conversion event names.'
 );
 assert(!APPROVED_FIELDS.includes('email'), 'Email must never be an approved analytics field.');
 
 delete window.dataLayer;
 assert(
-  emitAnalyticsEvent(EVENT_NAMES.CHAT_INTERACTION, {
-    chat_vendor: 'hubspot',
+  emitAnalyticsEvent(EVENT_NAMES.CTA_CLICK, {
     page_path: '/machines/',
   }),
-  'Chat analytics must create the dataLayer queue when GTM has not loaded yet.'
+  'Analytics must create the dataLayer queue when GTM has not loaded yet.'
 );
-assert(window.dataLayer[0].chat_vendor === 'hubspot', 'Chat analytics must identify HubSpot without personal data.');
 
 window.dataLayer.length = 0;
 emitAnalyticsEvent(EVENT_NAMES.CTA_CLICK, {

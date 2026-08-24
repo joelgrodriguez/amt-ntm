@@ -9,8 +9,6 @@ export const EVENT_NAMES = Object.freeze({
   CTA_CLICK: 'cta_click',
   CONFIGURATOR_OPEN: 'configurator_open',
   HUBSPOT_FORM_SUBMIT: 'hubspot_form_submit',
-  CHAT_INTERACTION: 'chat_interaction',
-  CHAT_CONVERSATION_STARTED: 'chat_conversation_started',
 });
 
 export const APPROVED_FIELDS = Object.freeze([
@@ -19,7 +17,6 @@ export const APPROVED_FIELDS = Object.freeze([
   'cta_location',
   'destination',
   'form_id',
-  'chat_vendor',
 ]);
 
 let clickHandler = null;
