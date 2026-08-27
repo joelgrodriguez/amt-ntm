@@ -9,6 +9,7 @@
 const INTERACTION_EVENTS = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
 const IDLE_TIMEOUT_MS = 1500;
 const CHAT_STAGGER_MS = 500;
+const LOCAL_CORBEL_CONFIG_URL = 'data:application/json,%7B%22enabled%22%3Atrue%7D';
 
 function loadScript(src, attributes = {}) {
   return new Promise((resolve) => {
@@ -44,7 +45,12 @@ function loadCorbel(scriptUrl) {
   placeholder.id = 'corbelAssistant';
   document.body.appendChild(placeholder);
 
-  loadScript(scriptUrl, { 'data-ntm-corbel-chat': 'true' });
+  const attributes = { 'data-ntm-corbel-chat': 'true' };
+  if (window.location.hostname.endsWith('.local')) {
+    attributes['data-assistant-config-url'] = LOCAL_CORBEL_CONFIG_URL;
+  }
+
+  loadScript(scriptUrl, attributes);
 }
 
 export function initThirdPartyLoader() {

@@ -66,6 +66,7 @@ check(str_contains($loader, 'requestIdleCallback'), 'Replay loader must retain i
 check(str_contains($loader, "window.addEventListener('load'"), 'Replay idle scheduling must wait for page load.');
 check(str_contains($loader, 'loadClarity'), 'Clarity must load through the non-essential third-party gate.');
 check(str_contains($loader, 'loadCorbel'), 'Corbel chat must load through the third-party gate.');
+check(str_contains($loader, "hostname.endsWith('.local')"), 'Local sites must bypass Corbel production origin validation for browser testing.');
 check(!str_contains($loader, 'loadHubspot'), 'The theme must not load HubSpot chat.');
 check(str_contains($performance, 'dequeue_hubspot_chat_loaders'), 'Public pages must suppress plugin-owned HubSpot loaders.');
 check(str_contains($performance, "wp_dequeue_script('leadin-script-loader-js')"), 'The official HubSpot chat loader must be removed.');
