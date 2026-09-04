@@ -68,7 +68,7 @@ namespace {
         return json_encode($value, $flags);
     }
 
-    /** @return array{corbelChatScriptUrl: string, clarityProjectId: string} */
+    /** @return array{hubspotPortalId: string, clarityProjectId: string} */
     function ntm_get_third_party_config(
         bool $is_page,
         string $page_uri,
@@ -111,33 +111,33 @@ namespace {
 
     ntm_assert_same(
         '',
-        ntm_get_third_party_config(true, 'configurator')['corbelChatScriptUrl'],
-        'The configurator root must not duplicate the Corbel loader.'
+        ntm_get_third_party_config(true, 'configurator')['hubspotPortalId'],
+        'The configurator root must not load HubSpot chat.'
     );
     ntm_assert_same(
         '',
-        ntm_get_third_party_config(true, 'configurator/roof-panel-machines')['corbelChatScriptUrl'],
-        'Configurator child pages must not duplicate the Corbel loader.'
+        ntm_get_third_party_config(true, 'configurator/roof-panel-machines')['hubspotPortalId'],
+        'Configurator child pages must not load HubSpot chat.'
     );
     ntm_assert_same(
         '',
-        ntm_get_third_party_config(true, 'landing-page', true)['corbelChatScriptUrl'],
-        'Pages with a Corbel block must not duplicate the Corbel loader.'
+        ntm_get_third_party_config(true, 'landing-page', true)['hubspotPortalId'],
+        'Pages with a Corbel configurator block must not load HubSpot chat.'
     );
     ntm_assert_same(
         '',
-        ntm_get_third_party_config(true, 'landing-page', false, true)['corbelChatScriptUrl'],
-        'Pages using the Corbel template must not duplicate the Corbel loader.'
+        ntm_get_third_party_config(true, 'landing-page', false, true)['hubspotPortalId'],
+        'Pages using the legacy Corbel template must not load HubSpot chat.'
     );
     ntm_assert_same(
-        \Standard\Corbel\SCRIPT_URL,
-        ntm_get_third_party_config(true, 'machines')['corbelChatScriptUrl'],
-        'Ordinary pages must load Corbel chat.'
+        \Standard\Performance\HUBSPOT_PORTAL_ID,
+        ntm_get_third_party_config(true, 'machines')['hubspotPortalId'],
+        'Ordinary pages must load HubSpot chat.'
     );
     ntm_assert_same(
-        \Standard\Corbel\SCRIPT_URL,
-        ntm_get_third_party_config(false, '')['corbelChatScriptUrl'],
-        'Public non-page requests must load Corbel chat.'
+        \Standard\Performance\HUBSPOT_PORTAL_ID,
+        ntm_get_third_party_config(false, '')['hubspotPortalId'],
+        'Public non-page requests must load HubSpot chat.'
     );
 
     echo "Third-party configuration tests passed.\n";

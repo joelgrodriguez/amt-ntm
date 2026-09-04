@@ -1,15 +1,16 @@
 /**
- * Load non-essential replay and Corbel chat scripts after interaction or
+ * Load non-essential replay and HubSpot chat scripts after interaction or
  * post-load idle time.
  *
  * Measurement-critical GA and Meta scripts retain their vendor-provided
  * async/defer behavior so landing-page attribution is not sacrificed.
  */
 
+import { emitAnalyticsEvent, EVENT_NAMES } from './FunnelAnalytics.js';
+
 const INTERACTION_EVENTS = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
 const IDLE_TIMEOUT_MS = 1500;
-const CHAT_STAGGER_MS = 500;
-const LOCAL_CORBEL_CONFIG_URL = 'data:application/json,%7B%22enabled%22%3Atrue%7D';
+const HUBSPOT_STAGGER_MS = 500;
 
 function loadScript(src, attributes = {}) {
   return new Promise((resolve) => {
@@ -38,19 +39,49 @@ function loadClarity(projectId) {
   loadScript(`https://www.clarity.ms/tag/${encodeURIComponent(projectId)}`);
 }
 
-function loadCorbel(scriptUrl) {
-  if (!scriptUrl || document.querySelector('#corbelAssistant, [data-ntm-corbel-chat]')) return;
+function registerHubspotEvents() {
+  if (window.__ntmHubspotAnalyticsRegistered) return;
+  window.__ntmHubspotAnalyticsRegistered = true;
 
-  const placeholder = document.createElement('div');
-  placeholder.id = 'corbelAssistant';
-  document.body.appendChild(placeholder);
+  const onReady = () => {
+    let interacted = false;
+    let conversationStarted = false;
 
-  const attributes = { 'data-ntm-corbel-chat': 'true' };
-  if (window.location.hostname.endsWith('.local')) {
-    attributes['data-assistant-config-url'] = LOCAL_CORBEL_CONFIG_URL;
+    window.HubSpotConversations?.on('userInteractedWithWidget', () => {
+      if (interacted) return;
+      interacted = true;
+      emitAnalyticsEvent(EVENT_NAMES.CHAT_INTERACTION, {
+        chat_vendor: 'hubspot',
+        page_path: window.location.pathname,
+      });
+    });
+
+    window.HubSpotConversations?.on('conversationStarted', () => {
+      if (conversationStarted) return;
+      conversationStarted = true;
+      emitAnalyticsEvent(EVENT_NAMES.CHAT_CONVERSATION_STARTED, {
+        chat_vendor: 'hubspot',
+        page_path: window.location.pathname,
+      });
+    });
+  };
+
+  if (window.HubSpotConversations) {
+    onReady();
+    return;
   }
 
-  loadScript(scriptUrl, attributes);
+  window.hsConversationsOnReady = window.hsConversationsOnReady || [];
+  window.hsConversationsOnReady.push(onReady);
+}
+
+function loadHubspot(portalId) {
+  if (!portalId || document.querySelector('#hs-script-loader, [data-ntm-hubspot-chat]')) return;
+
+  loadScript(`https://js.hs-scripts.com/${encodeURIComponent(portalId)}.js`, {
+    id: 'hs-script-loader',
+    'data-ntm-hubspot-chat': 'true',
+  });
 }
 
 export function initThirdPartyLoader() {
@@ -60,6 +91,8 @@ export function initThirdPartyLoader() {
   let started = false;
   let timer = 0;
   let idleCallback = 0;
+
+  registerHubspotEvents();
 
   const start = () => {
     if (started) return;
@@ -71,8 +104,8 @@ export function initThirdPartyLoader() {
 
     loadClarity(config.clarityProjectId);
     timer = window.setTimeout(
-      () => loadCorbel(config.corbelChatScriptUrl),
-      CHAT_STAGGER_MS
+      () => loadHubspot(config.hubspotPortalId),
+      HUBSPOT_STAGGER_MS
     );
   };
 
