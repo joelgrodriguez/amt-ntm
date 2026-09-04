@@ -36,7 +36,7 @@ $theme_includes = [
     'inc/grid.php',
     'inc/video.php',
     'inc/hubspot.php',
-    'inc/metalcon-form.php',
+    'inc/metalcon-schedule.php',
     'inc/page-templates.php',
     'inc/corbel.php',
     'inc/content-taxonomy.php',
