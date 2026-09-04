@@ -84,6 +84,7 @@
 @import "./pages/embed-canvas.css";
 @import "./pages/readiness-quiz.css";
 @import "./pages/roi-calculator.css";
+@import "./pages/custom-wrap.css";
 /* pages/finance-center.css is its own Vite entry, enqueued only on the
  * NTM — Finance Center template (see app/inc/vite.php). */
 

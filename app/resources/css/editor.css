@@ -156,3 +156,5 @@ samp {
 .wp-block-group.is-layout-flow > * + * {
   margin-block-start: 1.25em;
 }
+
+@import "./pages/custom-wrap.css";

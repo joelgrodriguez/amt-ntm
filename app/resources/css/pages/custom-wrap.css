@@ -1,0 +1,145 @@
+/**
+ * SSQ3 custom wrap campaign.
+ *
+ * Gutenberg groups with a background get core padding, and flow layouts
+ * space every sibling the same. This page needs site-scale section
+ * padding plus tight type clusters (kicker → title → body → CTA).
+ */
+
+.custom-wrap-section {
+  padding-block: clamp(4rem, 5.5vw, 6.5rem) !important;
+  padding-inline: 0 !important;
+}
+
+.custom-wrap-section.is-layout-constrained {
+  padding-inline: 1rem !important;
+}
+
+.custom-wrap-section .wp-block-group.is-layout-flow > * + *,
+.custom-wrap-section .wp-block-column > * + *,
+.custom-wrap-section.is-layout-constrained > * + * {
+  margin-block-start: 0;
+}
+
+.custom-wrap-section .wp-block-heading,
+.custom-wrap-section p,
+.custom-wrap-section .wp-block-buttons,
+.custom-wrap-section .wp-block-image,
+.custom-wrap-section .wp-block-columns,
+.custom-wrap-section .wp-block-html {
+  margin: 0;
+}
+
+.custom-wrap-section .has-mono-font-family.has-caption-font-size {
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+.custom-wrap-section .wp-block-heading {
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  line-height: 1.15;
+}
+
+.custom-wrap-section h1.wp-block-heading {
+  line-height: 1.05;
+}
+
+.custom-wrap-section p {
+  line-height: 1.55;
+  max-width: 42rem;
+}
+
+.custom-wrap-section .has-text-align-center {
+  max-width: 40rem;
+  margin-inline: auto;
+}
+
+.custom-wrap-section .has-caption-font-size + .wp-block-heading {
+  margin-block-start: 0.5rem;
+}
+
+.custom-wrap-section .wp-block-heading + p {
+  margin-block-start: 0.75rem;
+}
+
+.custom-wrap-section .wp-block-heading + p.has-lg-font-size {
+  margin-block-start: 1rem;
+}
+
+.custom-wrap-section p + p {
+  margin-block-start: 1rem;
+}
+
+.custom-wrap-section .wp-block-html + .wp-block-heading {
+  margin-block-start: 0.75rem;
+}
+
+.custom-wrap-section p + .wp-block-buttons,
+.custom-wrap-section .wp-block-heading + .wp-block-buttons {
+  margin-block-start: 1.75rem;
+}
+
+.custom-wrap-section .wp-block-buttons + p {
+  margin-block-start: 1.15rem;
+}
+
+.custom-wrap-section .wp-block-heading + .wp-block-columns,
+.custom-wrap-section .wp-block-heading + .wp-block-group {
+  margin-block-start: 2.75rem;
+}
+
+.custom-wrap-section .wp-block-columns {
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+.custom-wrap-section .wp-block-html svg {
+  display: block;
+}
+
+.custom-wrap-section .wp-block-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.custom-wrap-section .wp-block-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.custom-wrap-section .wp-block-button__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0 1.5rem;
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-body);
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.custom-wrap-section.has-blue-900-background-color .wp-block-button.is-style-outline .wp-block-button__link {
+  color: var(--color-white);
+  background: transparent;
+  border: 1px solid rgb(255 255 255 / 0.45);
+}
+
+.custom-wrap-section.has-blue-900-background-color .wp-block-button.is-style-outline .wp-block-button__link:hover {
+  color: var(--color-blue-900);
+  background: var(--color-white);
+  border-color: var(--color-white);
+}
+
+@media (max-width: 781px) {
+  .custom-wrap-section .wp-block-columns {
+    gap: 2rem;
+  }
+}
