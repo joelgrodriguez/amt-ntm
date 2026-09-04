@@ -60,11 +60,22 @@ function print_third_party_config(): void {
     $is_configurator = function_exists('Standard\\Corbel\\is_configurator_request')
         && \Standard\Corbel\is_configurator_request();
 
+    // Configurator pages load Corbel eagerly and are excluded from the chat
+    // experiment; Corbel is functionally required there.
+    $chat_experiment = function_exists('Standard\\ChatExperiment\\get_client_config')
+        ? \Standard\ChatExperiment\get_client_config()
+        : ['enabled' => false];
+    if ($is_configurator) {
+        $chat_experiment['enabled'] = false;
+    }
+
     $config = [
         'hubspotPortalId' => $hubspot_owned || $is_configurator ? '' : HUBSPOT_PORTAL_ID,
+        'corbelScriptUrl' => $is_configurator ? '' : \Standard\Corbel\SCRIPT_URL,
         'clarityProjectId' => $clarity_owned
             ? ''
             : sanitize_key((string) get_option('clarity_project_id', '')),
+        'chatExperiment' => $chat_experiment,
     ];
 
     echo '<script>window.ntmThirdPartyConfig = '
@@ -74,14 +85,21 @@ function print_third_party_config(): void {
 add_action('wp_head', __NAMESPACE__ . '\\print_third_party_config', 2);
 
 /**
- * Configurators use Corbel as their only interactive vendor surface.
+ * Configurators use Corbel as their only interactive vendor surface. While
+ * the chat experiment runs the theme loader owns vendor choice, so the
+ * plugin-owned HubSpot loaders must stay out on every public page.
  */
 function dequeue_hubspot_on_configurators(): void {
-    if (
-        is_admin()
-        || !function_exists('Standard\\Corbel\\is_configurator_request')
-        || !\Standard\Corbel\is_configurator_request()
-    ) {
+    if (is_admin()) {
+        return;
+    }
+
+    $is_configurator = function_exists('Standard\\Corbel\\is_configurator_request')
+        && \Standard\Corbel\is_configurator_request();
+    $experiment_running = function_exists('Standard\\ChatExperiment\\is_running')
+        && \Standard\ChatExperiment\is_running();
+
+    if (!$is_configurator && !$experiment_running) {
         return;
     }
 

@@ -66,6 +66,21 @@ check(str_contains($loader, 'requestIdleCallback'), 'Replay loader must retain i
 check(str_contains($loader, "window.addEventListener('load'"), 'Replay idle scheduling must wait for page load.');
 check(str_contains($loader, 'loadClarity'), 'Clarity must load through the non-essential third-party gate.');
 check(str_contains($loader, 'loadHubspot'), 'HubSpot chat must load through the third-party gate.');
+check(str_contains($loader, 'loadCorbel'), 'Corbel chat must load through the same third-party gate.');
+check(str_contains($loader, 'resolveChatProvider'), 'Chat loading must resolve the experiment provider before injecting a vendor.');
+check(str_contains($performance, 'chatExperiment'), 'Third-party config must expose the chat experiment settings.');
+
+$chat_experiment = read_theme_file('app/inc/chat-experiment.php');
+$chat_experiment_js = read_theme_file('app/resources/js/modules/ChatExperiment.js');
+$chat_dashboard = read_theme_file('app/inc/chat-experiment-dashboard.php');
+check(str_contains($chat_experiment, "'status' => 'stopped'"), 'Chat experiment must default to stopped until started from the dashboard.');
+check(str_contains($chat_experiment, 'permission_callback'), 'Chat experiment tracking endpoint must declare its permission policy.');
+check(str_contains($chat_experiment, "'enum' => PROVIDERS"), 'Chat experiment endpoint must whitelist provider values.');
+check(str_contains($chat_experiment_js, 'Promise.resolve(PROVIDER_HUBSPOT)'), 'Chat experiment must default to HubSpot when the experiment is off.');
+check(str_contains($chat_experiment_js, 'SameSite=Lax'), 'Chat variant cookie must be sticky and SameSite-scoped.');
+check(str_contains($chat_experiment_js, 'sendBeacon'), 'Chat experiment tracking must survive page unloads via sendBeacon.');
+check(str_contains($chat_dashboard, 'check_admin_referer'), 'Chat experiment dashboard controls must be nonce-protected.');
+check(str_contains($chat_dashboard, "current_user_can('manage_options')"), 'Chat experiment dashboard controls must require manage_options.');
 check(str_contains($loader, 'HubSpotConversations'), 'HubSpot chat events must connect to funnel analytics.');
 check(str_contains($performance, 'dequeue_hubspot_on_configurators'), 'Configurator pages must suppress plugin-owned HubSpot loaders.');
 check(str_contains($performance, "wp_dequeue_script('leadin-script-loader-js')"), 'The official HubSpot plugin must not load on configurators.');

@@ -39,6 +39,8 @@ $theme_includes = [
     'inc/metalcon-schedule.php',
     'inc/page-templates.php',
     'inc/corbel.php',
+    'inc/chat-experiment.php',
+    'inc/chat-experiment-dashboard.php',
     'inc/content-taxonomy.php',
     'inc/breadcrumbs.php',
     'inc/related-posts.php',

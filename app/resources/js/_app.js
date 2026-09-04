@@ -29,6 +29,7 @@ import { initReadinessQuiz } from './modules/ReadinessQuiz.js';
 import { initRoiCalculator } from './modules/RoiCalculator.js';
 import { initVideoFacades } from './modules/VideoFacade.js';
 import { initThirdPartyLoader } from './modules/ThirdPartyLoader.js';
+import { initChatExperiment } from './modules/ChatExperiment.js';
 import { initFunnelAnalytics } from './modules/FunnelAnalytics.js';
 
 /** @type {Function|null} Cleanup function for mobile menu */
@@ -83,6 +84,7 @@ let readinessQuizCleanup = null;
 let roiCalculatorCleanup = null;
 let videoFacadesCleanup = null;
 let thirdPartyLoaderCleanup = null;
+let chatExperimentCleanup = null;
 let funnelAnalyticsCleanup = null;
 
 /**
@@ -129,6 +131,7 @@ const initApp = () => {
   readinessQuizCleanup = initReadinessQuiz();
   roiCalculatorCleanup = initRoiCalculator();
   videoFacadesCleanup = initVideoFacades();
+  chatExperimentCleanup = initChatExperiment();
   thirdPartyLoaderCleanup = initThirdPartyLoader();
 };
 
@@ -198,6 +201,9 @@ if (import.meta.hot) {
     }
     if (thirdPartyLoaderCleanup) {
       thirdPartyLoaderCleanup();
+    }
+    if (chatExperimentCleanup) {
+      chatExperimentCleanup();
     }
     // Reinitialize
     initApp();
