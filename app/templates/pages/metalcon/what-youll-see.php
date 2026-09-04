@@ -16,24 +16,23 @@ if (!defined('ABSPATH')) {
 
 $highlights = [
     [
-        'title' => __('SSM siding machine, running live', 'standard'),
-        'text'  => __('See the machine form siding panels on the show floor and get close to the full run cycle.', 'standard'),
+        'title' => __('New portable rollformer', 'standard'),
+        'text'  => __('See the future of portable rollforming in a new NTM machine like no other.', 'standard'),
     ],
     [
-        'title' => __('MACH II iPad kiosk', 'standard'),
-        'text'  => __('Explore the MACH II control experience at the booth kiosk and bring your workflow questions.', 'standard'),
+        'title' => __('Rollformer survey', 'standard'),
+        'text'  => __('Complete the feedback survey for a free golf kit and a chance to win a TaylorMade® golf bag.', 'standard'),
     ],
     [
-        'title' => __('Siding wall build', 'standard'),
-        'text'  => __('See formed siding installed as a finished wall assembly, not just a loose sample on a table.', 'standard'),
+        'title' => __('New panel profiles', 'standard'),
+        'text'  => __('See the panel profiles produced by our new machine.', 'standard'),
     ],
-];
-?>
+];?>
 
 <section class="section bg-white" aria-labelledby="metalcon-see-title">
     <div class="container section-content">
         <header class="section-header-left max-w-2xl">
-            <p class="section-eyebrow"><?php esc_html_e('Inside the booth', 'standard'); ?></p>
+            <p class="section-eyebrow"><?php esc_html_e('First-hand experience', 'standard'); ?></p>
             <div class="section-divider"></div>
             <h2 id="metalcon-see-title" class="section-title">
                 <?php esc_html_e('Three things worth seeing in person', 'standard'); ?>

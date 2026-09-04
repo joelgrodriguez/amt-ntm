@@ -19,21 +19,8 @@ if (!defined('ABSPATH')) {
 $metalcon_config = [
     'booth_number'  => '1525',
     'demo_length'   => '20-minute',
-    'demo_format'   => 'private demo',
-    'demo_schedule' => [
-        [
-            'date'  => 'Wednesday, October 7',
-            'times' => ['10:30 a.m.', '1:30 p.m.', '3:00 p.m.'],
-        ],
-        [
-            'date'  => 'Thursday, October 8',
-            'times' => ['10:30 a.m.', '1:30 p.m.', '3:00 p.m.'],
-        ],
-        [
-            'date'  => 'Friday, October 9',
-            'times' => ['9:30 a.m.'],
-        ],
-    ],
+    'demo_format'   => 'presentation',
+    'demo_schedule' => metalcon_presentation_schedule(),
     'hero_image_url' => 'https://newtechmachinery.com/wp-content/uploads/2026/08/Covered-machine-tradeshow-image.png',
 ];
 

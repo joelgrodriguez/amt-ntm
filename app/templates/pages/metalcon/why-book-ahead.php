@@ -16,19 +16,18 @@ if (!defined('ABSPATH')) {
 
 $reasons = [
     [
-        'title' => __('Hands-on machine time', 'standard'),
-        'text'  => __('Get dedicated time at the SSM instead of trying to learn through the floor crowd.', 'standard'),
+        'title' => __('Rollformer deep-dive', 'standard'),
+        'text'  => __('NTM techs will be on hand to show you the new machine features in detail.', 'standard'),
     ],
     [
-        'title' => __('Run your own panel', 'standard'),
-        'text'  => __('Go beyond watching. Request time to run a panel and talk through what you notice.', 'standard'),
+        'title' => __('Market opportunities', 'standard'),
+        'text'  => __('Get information on how the portable rollformer can open emerging markets for your business.', 'standard'),
     ],
     [
-        'title' => __('Talk real numbers', 'standard'),
-        'text'  => __('Bring your production goals and material questions to someone who knows the equipment.', 'standard'),
+        'title' => __('Business growth', 'standard'),
+        'text'  => __('Speak with an NTM account manager about how the new machine can help grow your operation.', 'standard'),
     ],
-];
-?>
+];?>
 
 <section class="section border-b border-blue-200 bg-blue-50" aria-labelledby="metalcon-book-title">
     <div class="container">

@@ -51,11 +51,11 @@ $hero_image_url = (string) $config['hero_image_url'];
             </p>
 
             <h1 id="metalcon-hero-title" class="text-balance text-4xl font-semibold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl">
-                <?php esc_html_e('An exclusive first look at the SSM siding machine.', 'standard'); ?>
+                <?php esc_html_e('An exclusive look at NTM’s groundbreaking new portable rollforming machine', 'standard'); ?>
             </h1>
 
             <p class="max-w-xl text-lg leading-relaxed text-blue-200 lg:text-xl">
-                <?php esc_html_e('Sign up to see it run at the open of METALCON, Wednesday October 7.', 'standard'); ?>
+                <?php esc_html_e('Sign up to see a special presentation at METALCON, October 7-9.', 'standard'); ?>
             </p>
 
             <div class="flex flex-col gap-4 sm:flex-row">

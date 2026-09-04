@@ -39,7 +39,7 @@ $details = [
         'value' => __('Wednesday and Thursday, 10am-5pm · Friday, 10am-1pm', 'standard'),
     ],
     [
-        'label' => __('Requested meeting', 'standard'),
+        'label' => __('Presentation', 'standard'),
         'value' => sprintf(__('%1$s %2$s · Exact time confirmed by phone or email', 'standard'), $demo_length, $demo_format),
     ],
 ];
@@ -63,7 +63,7 @@ $details = [
                 <div class="grid gap-4" aria-labelledby="metalcon-demo-schedule-title">
                     <div>
                         <h3 id="metalcon-demo-schedule-title" class="font-mono text-xs font-medium uppercase tracking-widest text-blue-300">
-                            <?php esc_html_e('Live SSM demo schedule', 'standard'); ?>
+                            <?php esc_html_e('Presentation schedule', 'standard'); ?>
                         </h3>
                         <p class="mt-2 text-base text-blue-200">
                             <?php

@@ -1,6 +1,6 @@
 <?php
 /**
- * METALCON 2026 — native meeting-request form.
+ * METALCON 2026 — native presentation sign-up form.
  *
  * @package Standard
  * @usage page-metalcon-2026.php
@@ -21,22 +21,22 @@ $values = [
     'email'         => sanitize_email(wp_unslash((string) ($_GET['metalcon_email'] ?? ''))),
     'phone'         => sanitize_text_field(wp_unslash((string) ($_GET['metalcon_phone'] ?? ''))),
     'run_today'     => sanitize_text_field(wp_unslash((string) ($_GET['metalcon_run_today'] ?? ''))),
-    'preferred_day' => sanitize_key(wp_unslash((string) ($_GET['metalcon_preferred_day'] ?? ''))),
+    'session'       => sanitize_key(wp_unslash((string) ($_GET['metalcon_session'] ?? ''))),
 ];
-$days = metalcon_preferred_days();
+$sessions = metalcon_presentation_sessions();
 ?>
 
 <section id="metalcon-meeting-form" class="scroll-mt-24 bg-blue-50 section" aria-labelledby="metalcon-form-title">
     <div class="container">
         <div class="grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(420px,1.2fr)] lg:gap-16">
             <header class="section-header-left max-w-xl content-start">
-                <p class="section-eyebrow"><?php esc_html_e('Exclusive first look', 'standard'); ?></p>
+                <p class="section-eyebrow"><?php esc_html_e('Special presentation', 'standard'); ?></p>
                 <div class="section-divider"></div>
                 <h2 id="metalcon-form-title" class="section-title">
-                    <?php esc_html_e('Sign up for the SSM first look', 'standard'); ?>
+                    <?php esc_html_e('Discover the future of portable rollforming', 'standard'); ?>
                 </h2>
                 <p class="section-subtitle">
-                    <?php esc_html_e('Wednesday October 7, at the open of METALCON. Tell us who you are and we will save you a spot.', 'standard'); ?>
+                    <?php esc_html_e('Sign up for the special presentation. Pick a date and time, tell us who you are, and we will save you a spot.', 'standard'); ?>
                 </p>
                 <p class="text-sm leading-relaxed text-blue-600">
                     <?php esc_html_e('We confirm your spot by phone or email.', 'standard'); ?>
@@ -94,11 +94,11 @@ $days = metalcon_preferred_days();
                         </div>
 
                         <div class="field">
-                            <label for="metalcon-preferred-day" class="field-label"><?php esc_html_e('Preferred day', 'standard'); ?></label>
-                            <select id="metalcon-preferred-day" class="field-select" name="preferred_day" required>
-                                <option value=""><?php esc_html_e('Choose a day', 'standard'); ?></option>
-                                <?php foreach ($days as $value => $label) : ?>
-                                    <option value="<?php echo esc_attr($value); ?>" <?php selected($values['preferred_day'], $value); ?>>
+                            <label for="metalcon-session" class="field-label"><?php esc_html_e('Date and time', 'standard'); ?></label>
+                            <select id="metalcon-session" class="field-select" name="session" required>
+                                <option value=""><?php esc_html_e('Choose a date and time', 'standard'); ?></option>
+                                <?php foreach ($sessions as $value => $label) : ?>
+                                    <option value="<?php echo esc_attr($value); ?>" <?php selected($values['session'], $value); ?>>
                                         <?php echo esc_html($label); ?>
                                     </option>
                                 <?php endforeach; ?>

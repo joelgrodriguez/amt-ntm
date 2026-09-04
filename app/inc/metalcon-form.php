@@ -1,6 +1,6 @@
 <?php
 /**
- * METALCON 2026 meeting-request form handler.
+ * METALCON 2026 presentation sign-up form handler.
  *
  * @package Standard
  */
@@ -17,14 +17,47 @@ if (!defined('NTM_METALCON_FORM_RECIPIENT')) {
     define('NTM_METALCON_FORM_RECIPIENT', (string) get_option('admin_email'));
 }
 
-/** @return array<string, string> */
-function metalcon_preferred_days(): array {
+/**
+ * Presentation sessions a visitor can pick, keyed by a stable slug.
+ *
+ * Single source of truth for the form select and the schedule shown on the
+ * page, so the two cannot drift.
+ *
+ * @return array<string, array{date: string, times: list<string>}>
+ */
+function metalcon_presentation_schedule(): array {
     return [
-        'wed-oct-7' => __('Wed Oct 7', 'standard'),
-        'thu-oct-8' => __('Thu Oct 8', 'standard'),
-        'fri-oct-9' => __('Fri Oct 9', 'standard'),
-        'any-day'   => __('Any day', 'standard'),
+        [
+            'date'  => __('Wednesday, October 7', 'standard'),
+            'times' => ['10:30 a.m.', '1:30 p.m.', '3:00 p.m.'],
+        ],
+        [
+            'date'  => __('Thursday, October 8', 'standard'),
+            'times' => ['10:30 a.m.', '1:30 p.m.', '3:00 p.m.'],
+        ],
+        [
+            'date'  => __('Friday, October 9', 'standard'),
+            'times' => ['9:30 a.m.'],
+        ],
     ];
+}
+
+/**
+ * Flat session options for the form: slug => "Wednesday, October 7 · 10:30 a.m.".
+ *
+ * @return array<string, string>
+ */
+function metalcon_presentation_sessions(): array {
+    $sessions = [];
+
+    foreach (metalcon_presentation_schedule() as $day) {
+        foreach ($day['times'] as $time) {
+            $slug = sanitize_title($day['date'] . ' ' . $time);
+            $sessions[$slug] = sprintf('%s · %s', $day['date'], $time);
+        }
+    }
+
+    return $sessions;
 }
 
 /**
@@ -43,7 +76,7 @@ function metalcon_form_redirect(string $status, array $args = []): void {
 }
 
 /**
- * Process a METALCON meeting request.
+ * Process a METALCON presentation sign-up.
  */
 function handle_metalcon_request(): void {
     $nonce = sanitize_text_field(wp_unslash((string) ($_POST['metalcon_nonce'] ?? '')));
@@ -60,8 +93,8 @@ function handle_metalcon_request(): void {
     $email         = sanitize_email(wp_unslash((string) ($_POST['email'] ?? '')));
     $phone         = sanitize_text_field(wp_unslash((string) ($_POST['phone'] ?? '')));
     $run_today     = sanitize_text_field(wp_unslash((string) ($_POST['run_today'] ?? '')));
-    $preferred_day = sanitize_key(wp_unslash((string) ($_POST['preferred_day'] ?? '')));
-    $days          = metalcon_preferred_days();
+    $session       = sanitize_key(wp_unslash((string) ($_POST['session'] ?? '')));
+    $sessions      = metalcon_presentation_sessions();
 
     $preserved = [
         'metalcon_name'          => $name,
@@ -69,7 +102,7 @@ function handle_metalcon_request(): void {
         'metalcon_email'         => $email,
         'metalcon_phone'         => $phone,
         'metalcon_run_today'     => $run_today,
-        'metalcon_preferred_day' => $preferred_day,
+        'metalcon_session'       => $session,
     ];
 
     if (
@@ -78,7 +111,7 @@ function handle_metalcon_request(): void {
         || $email === ''
         || !is_email($email)
         || $phone === ''
-        || !array_key_exists($preferred_day, $days)
+        || !array_key_exists($session, $sessions)
     ) {
         metalcon_form_redirect('error', $preserved);
     }
@@ -87,14 +120,14 @@ function handle_metalcon_request(): void {
         'ntm_metalcon_form_recipient',
         NTM_METALCON_FORM_RECIPIENT
     ));
-    $subject = sprintf(__('METALCON 2026 meeting request — %s', 'standard'), $company);
+    $subject = sprintf(__('METALCON 2026 presentation sign-up — %s', 'standard'), $company);
     $body = implode("\n", [
         'Name: ' . $name,
         'Company: ' . $company,
         'Email: ' . $email,
         'Phone: ' . $phone,
         'What do you run today: ' . ($run_today !== '' ? $run_today : 'Not provided'),
-        'Preferred day: ' . $days[$preferred_day],
+        'Presentation: ' . $sessions[$session],
     ]);
 
     if ($recipient === '' || !wp_mail($recipient, $subject, $body)) {
