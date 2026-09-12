@@ -69,6 +69,7 @@ check(str_contains($loader, 'loadHubspot'), 'HubSpot chat must load through the 
 check(str_contains($loader, 'loadCorbel'), 'Corbel chat must load through the same third-party gate.');
 check(str_contains($loader, 'resolveChatProvider'), 'Chat loading must resolve the experiment provider before injecting a vendor.');
 check(str_contains($performance, 'chatExperiment'), 'Third-party config must expose the chat experiment settings.');
+check(str_contains($performance, "const OPENAI_PIXEL_ID = 'NDfwnhABZgTXgzmdPNsp7K'"), 'OpenAI pixel ID must be theme-owned, not read from plugin settings.');
 check(str_contains($performance, "integration_is_effective('openai')"), 'OpenAI pixel must yield to the Site Integrations plugin when it owns the tag.');
 check(str_contains($performance, 'bzrcdn.openai.com/sdk/oaiq.min.js'), 'OpenAI pixel must load eagerly from the head to capture ad click IDs.');
 check(!str_contains($loader, 'oaiq'), 'OpenAI pixel must not wait behind the replay/chat gate.');

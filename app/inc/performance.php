@@ -14,6 +14,7 @@ if (!defined('ABSPATH')) {
 }
 
 const HUBSPOT_PORTAL_ID = '4478417';
+const OPENAI_PIXEL_ID = 'NDfwnhABZgTXgzmdPNsp7K';
 
 /**
  * Product detail and machine/accessory landing pages use theme-owned UI.
@@ -86,8 +87,8 @@ function print_third_party_config(): void {
 add_action('wp_head', __NAMESPACE__ . '\\print_third_party_config', 2);
 
 /**
- * OpenAI Ads pixel ID, read from the Site Integrations settings so the ID is
- * managed in one place. Empty when the plugin emits the pixel itself.
+ * OpenAI Ads pixel ID. Theme-owned like the HubSpot portal; empty only when
+ * the Site Integrations plugin has been switched on to emit the tag itself.
  */
 function get_openai_pixel_id(): string {
     $integrations = class_exists('\\Standard_Site_Integrations')
@@ -97,10 +98,7 @@ function get_openai_pixel_id(): string {
         return '';
     }
 
-    $settings = get_option('standard_site_integrations', []);
-    $pixel_id = is_array($settings) ? (string) ($settings['openai_pixel_id'] ?? '') : '';
-
-    return preg_replace('/[^A-Za-z0-9_-]/', '', $pixel_id);
+    return OPENAI_PIXEL_ID;
 }
 
 /**
