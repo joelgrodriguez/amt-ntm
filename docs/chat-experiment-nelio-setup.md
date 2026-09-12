@@ -76,7 +76,9 @@ weekly reports (compare rates, never raw counts — HubSpot has 4x traffic).
 3. Open a chat in each variant and confirm the counter appears on the
    dashboard and the GA4 DebugView events fire.
 4. Visit a `/configurator/...` page — Corbel loads for everyone.
-5. Stop the experiment — site returns to Corbel-only for all visitors.
+5. Stop the experiment — site returns to HubSpot-only for all visitors
+   (configurator pages stay on Corbel). Stopping is the kill switch: it
+   takes effect immediately with no deploy.
 6. Launch on production at 80/20 from the dashboard.
 
 ## Duration / decision rule
