@@ -75,6 +75,7 @@ function print_third_party_config(): void {
         'clarityProjectId' => $clarity_owned
             ? ''
             : sanitize_key((string) get_option('clarity_project_id', '')),
+        'openaiPixelId' => get_openai_pixel_id(),
         'chatExperiment' => $chat_experiment,
     ];
 
@@ -83,6 +84,44 @@ function print_third_party_config(): void {
         . ';</script>';
 }
 add_action('wp_head', __NAMESPACE__ . '\\print_third_party_config', 2);
+
+/**
+ * OpenAI Ads pixel ID, read from the Site Integrations settings so the ID is
+ * managed in one place. Empty when the plugin emits the pixel itself.
+ */
+function get_openai_pixel_id(): string {
+    $integrations = class_exists('\\Standard_Site_Integrations')
+        ? \Standard_Site_Integrations::instance()
+        : null;
+    if ($integrations && $integrations->integration_is_effective('openai')) {
+        return '';
+    }
+
+    $settings = get_option('standard_site_integrations', []);
+    $pixel_id = is_array($settings) ? (string) ($settings['openai_pixel_id'] ?? '') : '';
+
+    return preg_replace('/[^A-Za-z0-9_-]/', '', $pixel_id);
+}
+
+/**
+ * Print the OpenAI Ads pixel eagerly. Unlike replay and chat, it must capture
+ * the ChatGPT click identifier on the landing request before a fast bounce.
+ */
+function print_openai_pixel(): void {
+    if (is_admin()) {
+        return;
+    }
+
+    $pixel_id = get_openai_pixel_id();
+    if ('' === $pixel_id) {
+        return;
+    }
+
+    echo '<script id="ntm-openai-ads">window.oaiq=window.oaiq||function(){(window.oaiq.q=window.oaiq.q||[]).push(arguments);};'
+        . 'oaiq("init",{pixelId:' . wp_json_encode($pixel_id) . '});</script>'
+        . '<script async src="https://bzrcdn.openai.com/sdk/oaiq.min.js" id="ntm-openai-ads-loader"></script>';
+}
+add_action('wp_head', __NAMESPACE__ . '\\print_openai_pixel', 3);
 
 /**
  * Configurators use Corbel as their only interactive vendor surface. While

@@ -98,6 +98,21 @@ export function trackHubspotFormSubmit(formId) {
   });
 }
 
+/**
+ * Report a confirmed form submit to the OpenAI Ads pixel as a standard
+ * `lead_created` conversion. No-op when the pixel is not on the page.
+ */
+export function trackOpenAiLead(formId) {
+  if (typeof window.oaiq !== 'function') return;
+
+  window.oaiq(
+    'measure',
+    'lead_created',
+    { type: 'customer_action' },
+    { event_id: `hubspot_${String(formId || '')}_${Date.now()}` }
+  );
+}
+
 export function initFunnelAnalytics() {
   cleanupFunnelAnalytics();
 
