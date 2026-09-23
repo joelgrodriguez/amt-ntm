@@ -104,7 +104,7 @@ $price_html  = $product->get_price_html();
                 <?php endif; ?>
 
                 <div class="machine-default__actions">
-                    <a href="<?php echo esc_url(\Standard\Url\with_query('/contact/', ['product' => $product->get_slug()])); ?>" class="btn btn-primary">
+                    <a href="<?php echo esc_url(\Standard\Url\with_query('/contact/', ['accessory' => $product->get_slug()])); ?>" class="btn btn-primary">
                         <?php esc_html_e('Request a Quote', 'standard'); ?>
                         <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                     </a>

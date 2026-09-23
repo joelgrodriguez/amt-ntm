@@ -130,6 +130,38 @@ function include_legacy_page_template(string $template): string
 add_filter('template_include', __NAMESPACE__ . '\\include_legacy_page_template', 20);
 
 /**
+ * Keep `?product=` from replacing a page with a WooCommerce product.
+ *
+ * `product` is the product post type's public query var, so a URL like
+ * `/contact/?product=ntm-gutter-workstation` made WordPress render that product
+ * through the Contact template — no form, escaped description markup. Older
+ * accessory "Request a Quote" links used that shape and may still be cached or
+ * bookmarked. When the rewrite already resolved a page, drop the product lookup.
+ *
+ * @param array<string, mixed> $query_vars
+ * @return array<string, mixed>
+ */
+function keep_page_request_off_product_var(array $query_vars): array
+{
+    if (empty($query_vars['pagename']) || !isset($query_vars['product'])) {
+        return $query_vars;
+    }
+
+    if (($query_vars['post_type'] ?? '') === 'product') {
+        unset($query_vars['post_type']);
+    }
+
+    if (($query_vars['name'] ?? null) === $query_vars['product']) {
+        unset($query_vars['name']);
+    }
+
+    unset($query_vars['product']);
+
+    return $query_vars;
+}
+add_filter('request', __NAMESPACE__ . '\\keep_page_request_off_product_var');
+
+/**
  * Detect the /configurator/ page tree.
  *
  * Child pages do not inherit page-configurator.php in WordPress; routing by
