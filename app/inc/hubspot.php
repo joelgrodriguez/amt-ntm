@@ -54,13 +54,14 @@ function render_form(array $args = []): string
     $noscript_html = isset($args['noscript_html']) && is_string($args['noscript_html'])
         ? $args['noscript_html']
         : '<p class="text-sm text-blue-600">' . esc_html__('Enable JavaScript to load the form.', 'standard') . ' ' . $call_html . '</p>';
-    $failure_html = '<p class="text-sm text-blue-600">' . esc_html__('The form could not load.', 'standard') . ' ' . $call_html . '</p>';
+    $failure_html = '<p class="text-sm text-blue-600" role="status">' . esc_html__('The form could not load.', 'standard') . ' ' . $call_html . '</p>';
 
     ob_start();
     ?>
     <div
         id="<?php echo esc_attr($target_id); ?>"
         class="<?php echo esc_attr($class); ?>"
+        aria-busy="true"
         data-hubspot-form
         data-hubspot-region="<?php echo esc_attr($region); ?>"
         data-hubspot-portal-id="<?php echo esc_attr($portal_id); ?>"

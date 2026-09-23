@@ -45,6 +45,7 @@ function loadHubspotScript() {
 
 function clearPlaceholder(target) {
   target.querySelector('[data-hubspot-placeholder]')?.remove();
+  target.removeAttribute('aria-busy');
 }
 
 /**
@@ -74,9 +75,10 @@ function clearPlaceholderWhenFormArrives(target) {
 
 function showFallback(target) {
   const fallback = target.querySelector('template[data-hubspot-fallback]');
+  target.removeAttribute('aria-busy');
   target.innerHTML = fallback
     ? fallback.innerHTML
-    : '<p class="text-sm text-blue-600">Form unavailable. Call New Tech Machinery directly.</p>';
+    : '<p class="text-sm text-blue-600" role="status">Form unavailable. Call New Tech Machinery directly.</p>';
 }
 
 /**

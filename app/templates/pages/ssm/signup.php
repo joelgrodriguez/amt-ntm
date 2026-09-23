@@ -20,8 +20,18 @@ if (!isset($config['image_url'], $config['image_alt'])) {
     return;
 }
 
+$image_id  = (int) ($config['image_id'] ?? 0);
 $image_url = (string) $config['image_url'];
 $image_alt = (string) $config['image_alt'];
+$image_attrs = [
+    'alt'           => $image_alt,
+    'class'         => 'aspect-video h-auto w-full object-cover',
+    'loading'       => 'eager',
+    'fetchpriority' => 'high',
+    'decoding'      => 'async',
+    // Left grid column: full width below lg, about half the 1440px container above it.
+    'sizes'         => '(min-width: 1440px) 740px, (min-width: 1024px) 52vw, 100vw',
+];
 ?>
 
 <section id="ssm-signup" class="relative isolate overflow-hidden bg-blue-900 text-white" aria-labelledby="ssm-title">
@@ -49,8 +59,9 @@ $image_alt = (string) $config['image_alt'];
             echo HubSpot\render_form([
                 'form_id'   => HubSpot\SSM_FORM_ID,
                 'target_id' => 'ssm-signup-form',
-                // Reserve roughly the rendered form height so the page does not jump when it loads.
-                'class'     => 'min-h-[52rem] md:min-h-[44rem]',
+                // Measured rendered form height (Sep 2026) so the page does not jump when it loads.
+                // Re-measure if fields are added or removed in HubSpot.
+                'class'     => 'min-h-[76rem] md:min-h-[55rem]',
             ]);
             ?>
             <p class="mt-6 border-t border-blue-100 pt-4 text-sm leading-relaxed text-blue-600">
@@ -59,16 +70,20 @@ $image_alt = (string) $config['image_alt'];
         </div>
 
         <figure class="border border-blue-700 bg-blue-800 lg:col-start-1 lg:row-start-2 lg:self-start">
-            <img
-                src="<?php echo esc_url($image_url); ?>"
-                alt="<?php echo esc_attr($image_alt); ?>"
-                class="aspect-video h-auto w-full object-cover"
-                width="1200"
-                height="675"
-                loading="eager"
-                fetchpriority="high"
-                decoding="async"
-            >
+            <?php if ($image_id > 0) : ?>
+                <?php echo wp_get_attachment_image($image_id, 'full', false, $image_attrs); ?>
+            <?php else : ?>
+                <img
+                    src="<?php echo esc_url($image_url); ?>"
+                    alt="<?php echo esc_attr($image_alt); ?>"
+                    class="<?php echo esc_attr($image_attrs['class']); ?>"
+                    width="1200"
+                    height="675"
+                    loading="eager"
+                    fetchpriority="high"
+                    decoding="async"
+                >
+            <?php endif; ?>
         </figure>
     </div>
 </section>
