@@ -126,6 +126,11 @@ jobs:
             'METALCON 2026' \
             'page-metalcon-2026.php'
 
+          ensure_page \
+            'ssm' \
+            'SSM Portable Siding Machine' \
+            'default'
+
           wp rewrite flush >/dev/null
           wp kinsta cache purge --all || echo '::warning::Pages are ready, but the Kinsta cache purge failed.'
           REMOTE
@@ -160,3 +165,4 @@ jobs:
           verify_page 'second-profile-50' 'class="fall-promotion"'
           verify_page 'gutter-machine-roi-calculator' 'data-roi-calculator'
           verify_page 'metalcon-2026' 'id="metalcon-meeting-form"'
+          verify_page 'ssm' 'id="ssm-signup"'
