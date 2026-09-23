@@ -35,8 +35,8 @@ $image_attrs = [
 ?>
 
 <section id="ssm-signup" class="relative isolate overflow-hidden bg-blue-900 text-white" aria-labelledby="ssm-title">
-    <?php // Source order is text, form, image so the form comes second on mobile; the grid places the image under the text on desktop. ?>
-    <div class="relative container grid grid-cols-1 gap-10 py-12 md:py-20 lg:grid-cols-[minmax(0,1.1fr)_minmax(420px,0.9fr)] lg:gap-x-16 lg:gap-y-10 lg:py-24">
+    <?php // Source order is text, form, image so the form comes second on mobile; the grid places the image under the text on desktop. The 1fr second row absorbs the tall form card so the image sits right under the text. ?>
+    <div class="relative container grid grid-cols-1 gap-10 py-12 md:py-20 lg:grid-cols-[minmax(0,1.1fr)_minmax(420px,0.9fr)] lg:grid-rows-[auto_1fr] lg:gap-x-16 lg:gap-y-10 lg:py-24">
         <div class="grid content-start gap-5 lg:col-start-1 lg:row-start-1 lg:gap-8">
             <p class="font-mono text-xs font-medium uppercase tracking-widest text-blue-300">
                 <?php esc_html_e('Coming soon · New from NTM', 'standard'); ?>
