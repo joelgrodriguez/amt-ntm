@@ -22,14 +22,15 @@ $ssm_image_path = 'uploads/2026/08/Covered-machine-tradeshow-image.png';
 $ssm_config = [
     'image_id'  => attachment_url_to_postid(content_url($ssm_image_path)),
     'image_url' => 'https://newtechmachinery.com/wp-content/' . $ssm_image_path,
-    'image_alt' => __('A new NTM machine under a cover, waiting for its reveal', 'standard'),
 ];
 
 get_header();
 ?>
 
 <main id="primary">
-    <?php get_template_part('templates/pages/ssm/signup', null, ['config' => $ssm_config]); ?>
+    <?php get_template_part('templates/pages/ssm/hero', null, ['config' => $ssm_config]); ?>
+
+    <?php get_template_part('templates/pages/ssm/signup'); ?>
 </main>
 
 <?php
