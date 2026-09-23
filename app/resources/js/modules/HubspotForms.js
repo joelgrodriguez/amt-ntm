@@ -48,6 +48,38 @@ function clearPlaceholder(target) {
 }
 
 /**
+ * Keep the loading skeleton until HubSpot inserts its markup, so the card is
+ * never blank while the embed script downloads.
+ *
+ * @param {HTMLElement} target
+ * @returns {MutationObserver}
+ */
+function clearPlaceholderWhenFormArrives(target) {
+  const observer = new MutationObserver((mutations) => {
+    const formArrived = mutations.some((mutation) =>
+      Array.from(mutation.addedNodes).some(
+        (node) => node.nodeType === Node.ELEMENT_NODE && !node.matches('[data-hubspot-placeholder]')
+      )
+    );
+
+    if (formArrived) {
+      clearPlaceholder(target);
+      observer.disconnect();
+    }
+  });
+
+  observer.observe(target, { childList: true });
+  return observer;
+}
+
+function showFallback(target) {
+  const fallback = target.querySelector('template[data-hubspot-fallback]');
+  target.innerHTML = fallback
+    ? fallback.innerHTML
+    : '<p class="text-sm text-blue-600">Form unavailable. Call New Tech Machinery directly.</p>';
+}
+
+/**
  * Mount a single HubSpot form target (idempotent).
  * Exported so gated UIs can force-load a form that is still off-screen.
  *
@@ -77,7 +109,7 @@ async function mountForm(target) {
   }
 
   target.dataset.hubspotLoaded = 'true';
-  clearPlaceholder(target);
+  const placeholderObserver = clearPlaceholderWhenFormArrives(target);
 
   try {
     const hubspot = await loadHubspotScript();
@@ -88,6 +120,8 @@ async function mountForm(target) {
       target: `#${target.id}`,
       // Let page modules (e.g. readiness quiz) swap loaders once fields paint.
       onFormReady: () => {
+        placeholderObserver.disconnect();
+        clearPlaceholder(target);
         target.dataset.hubspotReady = 'true';
         target.dispatchEvent(
           new CustomEvent('hubspot:formReady', {
@@ -112,7 +146,8 @@ async function mountForm(target) {
   } catch (_error) {
     target.dataset.hubspotLoaded = 'false';
     target.dataset.hubspotReady = 'false';
-    target.innerHTML = '<p class="text-sm text-blue-600">Form unavailable. Call New Tech Machinery directly.</p>';
+    placeholderObserver.disconnect();
+    showFallback(target);
     target.dispatchEvent(
       new CustomEvent('hubspot:formReady', {
         bubbles: true,

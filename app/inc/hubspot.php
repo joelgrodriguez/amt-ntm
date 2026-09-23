@@ -50,9 +50,11 @@ function render_form(array $args = []): string
     $region = sanitize_hubspot_id((string) ($args['region'] ?? DEFAULT_REGION));
     $target_id = sanitize_html_class((string) ($args['target_id'] ?? 'hubspot-form-' . substr(md5($form_id . '-' . (string) get_the_ID()), 0, 10)));
     $class = trim('hubspot-form min-h-[28rem] ' . (string) ($args['class'] ?? ''));
+    $call_html = call_sales_html();
     $noscript_html = isset($args['noscript_html']) && is_string($args['noscript_html'])
         ? $args['noscript_html']
-        : '<p class="text-sm text-blue-600">' . esc_html__('Enable JavaScript to load the form, or call New Tech Machinery directly.', 'standard') . '</p>';
+        : '<p class="text-sm text-blue-600">' . esc_html__('Enable JavaScript to load the form.', 'standard') . ' ' . $call_html . '</p>';
+    $failure_html = '<p class="text-sm text-blue-600">' . esc_html__('The form could not load.', 'standard') . ' ' . $call_html . '</p>';
 
     ob_start();
     ?>
@@ -79,10 +81,38 @@ function render_form(array $args = []): string
         <noscript>
             <?php echo wp_kses_post($noscript_html); ?>
         </noscript>
+        <template data-hubspot-fallback><?php echo wp_kses_post($failure_html); ?></template>
     </div>
     <?php
 
     return (string) ob_get_clean();
+}
+
+/**
+ * "Call NTM Sales" sentence with a tap-to-call link, used when a form cannot load.
+ */
+function call_sales_html(): string
+{
+    $phone = null;
+
+    if (function_exists('Standard\\ContactData\\get_locations')) {
+        foreach (\Standard\ContactData\get_locations() as $location) {
+            if (!empty($location['phones'][0])) {
+                $phone = $location['phones'][0];
+                break;
+            }
+        }
+    }
+
+    if ($phone === null) {
+        return esc_html__('Call New Tech Machinery directly.', 'standard');
+    }
+
+    return sprintf(
+        /* translators: %s: linked NTM sales phone number. */
+        esc_html__('Call NTM Sales at %s.', 'standard'),
+        '<a class="font-medium text-blue-500 underline" href="tel:' . esc_attr($phone['tel']) . '">' . esc_html($phone['display']) . '</a>'
+    );
 }
 
 /**
