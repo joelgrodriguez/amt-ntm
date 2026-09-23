@@ -17,8 +17,8 @@ if (!defined('ABSPATH')) {
 // Placeholder copy until the final SSM copy is approved.
 $expectations = [
     __('Specs and pricing as soon as they are released', 'standard'),
-    __('A first look at the machine before it ships', 'standard'),
-    __('Answers from an NTM rollforming specialist', 'standard'),
+    __('SSM updates', 'standard'),
+    __('SSM order availability date', 'standard'),
 ];
 ?>
 
@@ -29,7 +29,7 @@ $expectations = [
             <p class="section-eyebrow"><?php esc_html_e('Early access', 'standard'); ?></p>
             <div class="section-divider"></div>
             <h2 id="ssm-signup-title" class="section-title">
-                <?php esc_html_e('Be first to see the SSM', 'standard'); ?>
+                <?php esc_html_e('Find out more about the SSM', 'standard'); ?>
             </h2>
         </header>
 
