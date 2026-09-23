@@ -57,11 +57,8 @@ $image_attrs = [
                 <?php esc_html_e('New from New Tech Machinery · Coming soon', 'standard'); ?>
             </p>
 
-            <h1 id="ssm-title" class="text-5xl font-medium leading-none tracking-tight text-white md:text-6xl">
-                <?php esc_html_e('The SSM', 'standard'); ?>
-                <span class="mt-4 block text-2xl leading-tight text-blue-200 md:text-3xl">
-                    <?php esc_html_e('Portable Siding Machine', 'standard'); ?>
-                </span>
+            <h1 id="ssm-title" class="text-balance text-4xl font-medium leading-tight tracking-tight text-white md:text-5xl">
+                <?php esc_html_e('SSM - Portable Siding Machine', 'standard'); ?>
             </h1>
 
             <p class="max-w-xl text-lg leading-relaxed text-blue-200 lg:text-xl">
