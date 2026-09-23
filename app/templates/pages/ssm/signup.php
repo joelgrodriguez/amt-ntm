@@ -39,12 +39,19 @@ $image_attrs = [
     <div class="relative container grid grid-cols-1 gap-10 py-12 md:py-20 lg:grid-cols-[minmax(0,1.1fr)_minmax(420px,0.9fr)] lg:grid-rows-[auto_1fr] lg:gap-x-16 lg:gap-y-10 lg:py-24">
         <div class="grid content-start gap-5 lg:col-start-1 lg:row-start-1 lg:gap-8">
             <p class="font-mono text-xs font-medium uppercase tracking-widest text-blue-300">
-                <?php esc_html_e('Coming soon · New from NTM', 'standard'); ?>
+                <?php esc_html_e('New from New Tech Machinery · Coming soon', 'standard'); ?>
             </p>
 
-            <h1 id="ssm-title" class="text-balance text-3xl font-medium leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
-                <?php esc_html_e('I want to learn more about the SSM Portable Siding Machine', 'standard'); ?>
+            <h1 id="ssm-title" class="text-balance text-4xl font-medium leading-none tracking-tight text-white sm:text-5xl">
+                <?php esc_html_e('The SSM', 'standard'); ?>
+                <span class="mt-3 block text-2xl leading-tight text-blue-200 sm:text-3xl">
+                    <?php esc_html_e('Portable Siding Machine', 'standard'); ?>
+                </span>
             </h1>
+
+            <p class="text-balance text-xl font-medium leading-snug text-white lg:text-2xl">
+                <?php esc_html_e('I want to learn more about the SSM Portable Siding Machine', 'standard'); ?>
+            </p>
 
             <p class="max-w-xl text-lg leading-relaxed text-blue-200 lg:text-xl">
                 <?php esc_html_e('A portable rollformer built for wall panels. Tell us about your business and we will send you SSM details as soon as they are ready.', 'standard'); ?>
