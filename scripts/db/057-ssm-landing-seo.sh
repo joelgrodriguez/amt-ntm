@@ -3,11 +3,27 @@
 # Set Yoast SEO and share metadata for the SSM coming-soon page (/ssm/).
 # The page stays noindex until the approved SSM render and specs are live;
 # delete the _yoast_wpseo_meta-robots-noindex meta to let search engines in.
+#
+# DRY_RUN=1 by default; scripts/db/apply sets DRY_RUN=0. For a non-Docker
+# target (Kinsta over SSH): WP_CONTAINER="" WP_PATH=/path DRY_RUN=0 bash this.
 
 set -euo pipefail
 
+DRY_RUN="${DRY_RUN-1}"
+WP_CONTAINER="${WP_CONTAINER-devkinsta_fpm}"
+WP_PATH="${WP_PATH-/www/kinsta/public/newtech}"
+WP_PHP_BIN="${WP_PHP_BIN-php8.3}"
+
+wp_with_plugins() {
+  if [[ -n "$WP_CONTAINER" ]]; then
+    docker exec "$WP_CONTAINER" "$WP_PHP_BIN" /usr/local/bin/wp --path="$WP_PATH" --allow-root --skip-themes "$@"
+  else
+    command wp --path="$WP_PATH" --skip-themes "$@"
+  fi
+}
+
 wp() {
-  command wp --skip-themes --skip-plugins "$@"
+  wp_with_plugins --skip-plugins "$@"
 }
 
 page_slug='ssm'
@@ -23,6 +39,11 @@ image_id="$(wp post list --post_type=attachment --meta_key=_wp_attached_file --m
 
 title='SSM Portable Siding Machine | Coming Soon | New Tech Machinery'
 description='Be first to hear about the SSM Portable Siding Machine, a new portable rollformer from NTM built for wall panels. Sign up for details.'
+
+if [[ "${DRY_RUN}" != "0" ]]; then
+  echo "[dry-run] Would set Yoast title, description, share image, and noindex on page ${page_id} (/${page_slug}/)."
+  exit 0
+fi
 
 wp post meta update "${page_id}" _yoast_wpseo_title "${title}" >/dev/null
 wp post meta update "${page_id}" _yoast_wpseo_metadesc "${description}" >/dev/null
@@ -40,6 +61,6 @@ else
 fi
 
 # Save once with plugins loaded so Yoast rebuilds its cached indexable from the meta above.
-command wp --skip-themes post update "${page_id}" --post_excerpt="${description}" >/dev/null
+wp_with_plugins post update "${page_id}" --post_excerpt="${description}" >/dev/null
 
 echo "Updated SEO metadata on page ${page_id} (/${page_slug}/). Noindex is on."

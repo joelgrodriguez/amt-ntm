@@ -3,11 +3,23 @@
 # Seed the editable Gutenberg content for the SSQ3 custom wrap campaign page.
 # The page stays private until the marketing team approves the copy and adds
 # final wrap photography.
+#
+# DRY_RUN=1 by default; scripts/db/apply sets DRY_RUN=0. For a non-Docker
+# target (Kinsta over SSH): WP_CONTAINER="" WP_PATH=/path DRY_RUN=0 bash this.
 
 set -euo pipefail
 
+DRY_RUN="${DRY_RUN-1}"
+WP_CONTAINER="${WP_CONTAINER-devkinsta_fpm}"
+WP_PATH="${WP_PATH-/www/kinsta/public/newtech}"
+WP_PHP_BIN="${WP_PHP_BIN-php8.3}"
+
 wp() {
-  command wp --skip-themes --skip-plugins "$@"
+  if [[ -n "$WP_CONTAINER" ]]; then
+    docker exec "$WP_CONTAINER" "$WP_PHP_BIN" /usr/local/bin/wp --path="$WP_PATH" --allow-root --skip-themes --skip-plugins "$@"
+  else
+    command wp --path="$WP_PATH" --skip-themes --skip-plugins "$@"
+  fi
 }
 
 page_slug='custom-wrap-option'
@@ -266,6 +278,11 @@ cat > "${content_file}" <<'BLOCKS'
 <!-- /wp:paragraph --></div>
 <!-- /wp:group -->
 BLOCKS
+
+if [[ "${DRY_RUN}" != "0" ]]; then
+  echo "[dry-run] Would replace content, excerpt, featured image, and template on page ${page_id} (/${page_slug}/)."
+  exit 0
+fi
 
 wp post update "${page_id}" \
   --post_content="$(cat "${content_file}")" \
