@@ -45,8 +45,8 @@ $lanes = [
         'price_note' => __('SSR™ entry machine · up to 16 profiles', 'standard'),
         'url'       => '/roof-wall-panel-machines/',
         'cta'       => __('View roof &amp; wall machines', 'standard'),
-        'image'     => content_url('/uploads/2021/03/rollforming-machine-on-roof.jpg'),
-        'image_alt' => __('A portable roof panel machine forming panels on a rooftop jobsite', 'standard'),
+        'image'     => content_url('/uploads/2026/06/ssq3-machine-side-loaded-coils-1536x864.jpg'),
+        'image_alt' => __('SSQ3 roof panel machine with side-loaded metal coils', 'standard'),
     ],
     [
         'eyebrow'   => __('Lane B', 'standard'),
