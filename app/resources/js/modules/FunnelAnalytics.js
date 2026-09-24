@@ -99,6 +99,35 @@ export function trackHubspotFormSubmit(formId) {
 }
 
 /**
+ * Standard Site Integrations sends leads itself for destinations it owns and
+ * listens for `hubspot:formSubmitted`; the theme stays silent there so each
+ * lead is counted once.
+ */
+function pluginOwns(destination) {
+  return window.standardTrackingConfig?.destinations?.[destination] === true;
+}
+
+/**
+ * Report a confirmed form submit to GA4 as `generate_lead` through the page's
+ * gtag (Site Kit today). Sends only the form ID; GA4 attaches the page URL.
+ */
+export function trackGa4Lead(formId) {
+  if (pluginOwns('ga4') || typeof window.gtag !== 'function') {
+    return false;
+  }
+
+  // A throwing tag must not stop the form's own submit handling.
+  try {
+    window.gtag('event', 'generate_lead', {
+      form_id: String(formId || ''),
+    });
+    return true;
+  } catch (_error) {
+    return false;
+  }
+}
+
+/**
  * Report a confirmed form submit to the OpenAI Ads pixel as a standard
  * `lead_created` conversion. No-op when the pixel is not on the page.
  */
