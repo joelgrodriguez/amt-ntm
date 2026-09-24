@@ -377,11 +377,19 @@ function bare_host(string $host): string
  * shared by all visitors; CF-Connecting-IP carries the visitor's address and
  * Cloudflare overwrites any client-supplied value. The IP is stored only as a
  * salted hash in a transient that expires within the hour.
+ *
+ * Without a visitor IP the request is allowed unlimited: falling back to the
+ * shared proxy address would pool every visitor into one bucket and silently
+ * drop real A/B data, which is worse than admitting a few extra beacons.
  */
 function consume_client_allowance(): bool
 {
-    $raw = $_SERVER['HTTP_CF_CONNECTING_IP'] ?? $_SERVER['REMOTE_ADDR'] ?? '';
-    $ip = filter_var(wp_unslash((string) $raw), FILTER_VALIDATE_IP) ?: 'unknown';
+    $raw = $_SERVER['HTTP_CF_CONNECTING_IP'] ?? '';
+    $ip = filter_var(wp_unslash((string) $raw), FILTER_VALIDATE_IP);
+    if ($ip === false) {
+        return true;
+    }
+
     $key = 'ntm_chat_rl_' . substr(wp_hash($ip), 0, 24);
 
     $used = (int) get_transient($key);

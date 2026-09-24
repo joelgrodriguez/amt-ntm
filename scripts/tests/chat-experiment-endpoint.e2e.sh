@@ -84,6 +84,17 @@ check "one client is capped at $LIMIT per hour" 429 "${first_block%@*}" "$LIMIT"
 b=$(hits); s=$(post "10.8.$RUN_ID" -H "Origin: $BASE")
 check "a different client is unaffected by the flood" 201 "$s" 1 "$b"
 
+# Without CF-Connecting-IP the only address is the shared proxy, so a limit
+# would pool every visitor into one bucket and silently drop real traffic.
+b=$(hits); accepted=0; first_block=""
+for i in $(seq 1 $((LIMIT + 5))); do
+  s=$(curl -sk -o /dev/null -w '%{http_code}' -X POST "$URL" -H 'Content-Type: application/json' \
+    -H "Origin: $BASE" --data '{"provider":"hubspot","metric":"question_resolved"}')
+  if [[ "$s" == 201 ]]; then accepted=$((accepted + 1)); elif [[ -z "$first_block" ]]; then first_block="$s@$i"; fi
+done
+log "INFO  no visitor IP: accepted=$accepted first_block=${first_block:-none}"
+check "missing visitor IP is never rate limited" 201 "${first_block:-201}" "$((LIMIT + 5))" "$b"
+
 state="$("${WP[@]}" option get ntm_chat_experiment --format=json 2>/dev/null | tail -1)"
 "${WP[@]}" option patch update ntm_chat_experiment status stopped >/dev/null 2>&1
 b=$(hits); s=$(post "10.9.$RUN_ID" -H "Origin: $BASE")
