@@ -1,0 +1,21 @@
+chat-experiment endpoint E2E  20260924T202516Z
+target=https://newtech.local/wp-json/ntm/v1/chat-experiment/track  commit=fd2194f4  branch=dev
+state={"status":"running","corbel_split":20,"started_at":"2026-09-22 10:43:52","stopped_at":""}
+limit_per_client_per_hour=120  run_id=39.180
+
+PASS  same-origin beacon is counted  status=201 delta=1
+PASS  www origin is counted  status=201 delta=1
+PASS  same-site referer without Origin is counted  status=201 delta=1
+PASS  foreign origin is rejected and not counted  status=403 delta=0
+PASS  no Origin and no Referer is rejected  status=403 delta=0
+PASS  unknown metric is rejected  status=400 delta=0
+INFO  flood: accepted=120 first_block=429@121
+PASS  one client is capped at 120 per hour  status=429 delta=120
+PASS  a different client is unaffected by the flood  status=201 delta=1
+INFO  no visitor IP: accepted=125 first_block=none
+PASS  missing visitor IP is never rate limited  status=201 delta=125
+PASS  stopped experiment counts nothing  status=202 delta=0
+state restored={"status":"running","corbel_split":20,"started_at":"2026-09-22 10:43:52","stopped_at":""}
+
+RESULT: PASS
+evidence: docs/test-evidence/chat-experiment-endpoint-20260924T202516Z.log
