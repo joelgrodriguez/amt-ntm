@@ -294,15 +294,20 @@ function erfc(float $x): float
     return $x >= 0 ? $y : 2 - $y;
 }
 
+/** Tracked events accepted from one client per hour. */
+const RATE_LIMIT_PER_HOUR = 120;
+
 /**
  * Public tracking endpoint. Aggregate counters only — no cookies read, no
- * IP/UA stored — so it is safe to expose unauthenticated.
+ * raw IP/UA stored. Visitors are anonymous and pages are cached, so a nonce
+ * cannot work; a same-site check plus a per-client rate limit keeps the
+ * counters from being inflated.
  */
 function register_rest_routes(): void
 {
     register_rest_route('ntm/v1', '/chat-experiment/track', [
         'methods' => 'POST',
-        'permission_callback' => '__return_true',
+        'permission_callback' => __NAMESPACE__ . '\\check_same_site',
         'args' => [
             'provider' => [
                 'required' => true,
@@ -326,10 +331,65 @@ function handle_track_request(\WP_REST_Request $request): \WP_REST_Response
         return new \WP_REST_Response(['tracked' => false], 202);
     }
 
+    if (!consume_client_allowance()) {
+        return new \WP_REST_Response(['tracked' => false], 429);
+    }
+
     increment_metric(
         (string) $request->get_param('provider'),
         (string) $request->get_param('metric')
     );
 
     return new \WP_REST_Response(['tracked' => true], 201);
+}
+
+/**
+ * Accept only beacons sent from this site's own pages. Browsers attach
+ * Origin to POST requests; Referer is the fallback. This stops cross-site
+ * posts; scripted clients that forge headers are bounded by the rate limit.
+ *
+ * @return true|\WP_Error
+ */
+function check_same_site(\WP_REST_Request $request)
+{
+    $source = (string) ($request->get_header('origin') ?: $request->get_header('referer'));
+    $host = wp_parse_url($source, PHP_URL_HOST);
+    $site_host = wp_parse_url(home_url(), PHP_URL_HOST);
+
+    if (is_string($host) && is_string($site_host) && bare_host($host) === bare_host($site_host)) {
+        return true;
+    }
+
+    return new \WP_Error('ntm_chat_experiment_cross_site', 'Cross-site tracking is not accepted.', ['status' => 403]);
+}
+
+function bare_host(string $host): string
+{
+    $host = strtolower($host);
+
+    return str_starts_with($host, 'www.') ? substr($host, 4) : $host;
+}
+
+/**
+ * Count this request against the client's hourly allowance.
+ *
+ * Kinsta serves every request through Cloudflare, so REMOTE_ADDR is a proxy
+ * shared by all visitors; CF-Connecting-IP carries the visitor's address and
+ * Cloudflare overwrites any client-supplied value. The IP is stored only as a
+ * salted hash in a transient that expires within the hour.
+ */
+function consume_client_allowance(): bool
+{
+    $raw = $_SERVER['HTTP_CF_CONNECTING_IP'] ?? $_SERVER['REMOTE_ADDR'] ?? '';
+    $ip = filter_var(wp_unslash((string) $raw), FILTER_VALIDATE_IP) ?: 'unknown';
+    $key = 'ntm_chat_rl_' . substr(wp_hash($ip), 0, 24);
+
+    $used = (int) get_transient($key);
+    if ($used >= RATE_LIMIT_PER_HOUR) {
+        return false;
+    }
+
+    set_transient($key, $used + 1, HOUR_IN_SECONDS);
+
+    return true;
 }

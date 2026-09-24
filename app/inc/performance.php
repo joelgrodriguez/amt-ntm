@@ -122,6 +122,23 @@ function print_openai_pixel(): void {
 add_action('wp_head', __NAMESPACE__ . '\\print_openai_pixel', 3);
 
 /**
+ * Visitor-identification tracker (sales trial, Sep 2026). The vendor's email
+ * arrived with Darktrace-rewritten links; these are the decoded originals.
+ */
+const VISITOR_ID_SCRIPT_URL = 'https://secure.smart-business-intuition.com/js/820747.js';
+const VISITOR_ID_PIXEL_URL = 'https://secure.smart-business-intuition.com/820747.png';
+
+function print_visitor_id_tracker(): void {
+    if (is_admin()) {
+        return;
+    }
+
+    echo '<script async src="' . esc_url(VISITOR_ID_SCRIPT_URL) . '" id="ntm-visitor-id"></script>'
+        . '<noscript><img alt="" src="' . esc_url(VISITOR_ID_PIXEL_URL) . '" style="display:none;" /></noscript>';
+}
+add_action('wp_head', __NAMESPACE__ . '\\print_visitor_id_tracker', 4);
+
+/**
  * Configurators use Corbel as their only interactive vendor surface. While
  * the chat experiment runs the theme loader owns vendor choice, so the
  * plugin-owned HubSpot loaders must stay out on every public page.

@@ -30,7 +30,8 @@
     "release:strip": "scripts/release/strip-dev-tooling.sh",
     "release:clean": "scripts/release/clean-dev-tooling-worktree.sh",
     "release:hooks": "scripts/release/install-git-hooks.sh",
-    "release:master": "scripts/release/to-master.sh"
+    "release:master": "scripts/release/to-master.sh",
+    "test:chat-experiment-e2e": "bash scripts/tests/chat-experiment-endpoint.e2e.sh"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",
