@@ -2,8 +2,10 @@
 // is the only buying path, in real Chrome against a running site.
 //
 // Protects:
-// - The old buying URL (/configurator/ssqii/) redirects to the SSQ3
+// - The old buying URL (/configurator/ssqii/) hands visitors to the SSQ3
 //   configurator and keeps tracking parameters.
+// - Tracking parameters reach the Corbel quote form from the browser, so a
+//   page cache that ignores utm_* cannot drop them.
 // - No checked page links to the SSQ II configurator or carries its expired
 //   offer copy, price, or Corbel catalog ID.
 // - SSQ II resources keep their content and lead their notice with the SSQ3.
@@ -106,28 +108,18 @@ function checkNotice(name, html) {
 log(`# SSQ II retirement E2E  ${STAMP}`);
 log(`base=${BASE}  commit=${execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim()}  branch=${execSync('git branch --show-current', { cwd: ROOT }).toString().trim()}  dirty=${execSync('git status --porcelain', { cwd: ROOT }).toString().trim() !== ''}`);
 
-// 1. Old buying URL.
+// 1. Old buying URL. The hand-off runs in the browser: production's edge cache
+// ignores utm_* and click IDs, so a server redirect would lose them.
 log('\n## Old buying URL');
 {
   const plain = await get(SSQ2_CONFIGURATOR, { follow: false });
-  check('old SSQ II configurator URL redirects permanently', plain.status === 301, `status ${plain.status}`);
-  check('redirect lands on the SSQ3 configurator', plain.location !== '' && pathOf(plain.location) === SSQ3_CONFIGURATOR, plain.location);
+  check('old SSQ II configurator URL answers without the SSQ II form', plain.status === 200, `status ${plain.status}`);
+  check('old URL names the SSQ3 configurator as canonical', new RegExp(`<link rel="canonical" href="[^"]*${SSQ3_CONFIGURATOR}"`).test(plain.html));
+  check('old URL is not indexable', /<meta name="robots" content="noindex/.test(plain.html));
+  checkNoExpiredOffer('old buying URL', plain.html);
 
-  const tracked = await get(`${SSQ2_CONFIGURATOR}?utm_source=e2e&utm_campaign=ssq2-retirement&gclid=abc123`, { follow: false });
-  const target = tracked.location ? new URL(tracked.location, BASE) : null;
-  check(
-    'redirect keeps tracking parameters',
-    target !== null
-      && target.pathname === SSQ3_CONFIGURATOR
-      && target.searchParams.get('utm_source') === 'e2e'
-      && target.searchParams.get('utm_campaign') === 'ssq2-retirement'
-      && target.searchParams.get('gclid') === 'abc123',
-    tracked.location
-  );
-
-  const landed = await get(SSQ2_CONFIGURATOR);
-  check('followed redirect serves the SSQ3 catalog ID', /data-corbel-product-id="ssq3"/.test(landed.html));
-  checkNoExpiredOffer('followed redirect', landed.html);
+  const tracked = await get(`${SSQ2_CONFIGURATOR}?utm_source=e2e-server-marker`, { follow: false });
+  check('old URL response does not vary by tracking parameter', !tracked.html.includes('e2e-server-marker'));
 }
 
 // 2. SSQ II product page: a product notice, not a sales page.
@@ -149,7 +141,6 @@ for (const [name, path, keeps] of [
   ['SSQ II article', '/learning-center/ssq-roof-panel-machine-features-benefits/', 'Review of the SSQ II'],
   ['SSQ II training video', '/learning-center/video/ssq-training-general-overview-video/', 'Training General Overview'],
   ['SSQ II price sheet', '/learning-center/pricesheet/ssqii-roof-panel-machine-pricing/', 'SSQII Roof Panel Machine Pricing'],
-  ['SSQ II service hub', '/service-hub/ssq-ii-multipro/', 'SSQ II'],
   ['SSQII accessory archive', '/product-tag/ssqii/', 'SSQII'],
 ]) {
   const page = await get(path);
@@ -157,6 +148,16 @@ for (const [name, path, keeps] of [
   check(`${name}: keeps its own content`, page.html.includes(keeps));
   checkNoExpiredOffer(name, page.html);
   checkNotice(name, page.html);
+}
+
+// Support page for current owners: content stays, and no sales notice.
+{
+  const hub = await get('/service-hub/ssq-ii-multipro/');
+  check('SSQ II service hub: resolves', hub.status === 200, `status ${hub.status}`);
+  check('SSQ II service hub: keeps the owner manual', hub.html.includes('/learning-center/manual/ssq-ii-roof-panel-machine-manual/'));
+  check('SSQ II service hub: keeps SSQ II support content', /SSQ II/.test(hub.html));
+  check('SSQ II service hub: shows no sales notice', noticeOf(hub.html) === '');
+  checkNoExpiredOffer('SSQ II service hub', hub.html);
 }
 
 // 4. Active sales paths never offer the SSQ II.
@@ -189,23 +190,47 @@ log('\n## SSQ3 quote path');
   check('SSQ3 product page links to its configurator', hrefsOf(product.html).includes(SSQ3_CONFIGURATOR));
   check('SSQ3 product page shows no status notice', noticeOf(product.html) === '');
 
-  const page = await context.newPage();
-  await sleep(PAUSE_MS);
-  await page.goto(`${BASE}${SSQ2_CONFIGURATOR}?utm_source=e2e`, { waitUntil: 'load' });
-  const landedUrl = new URL(page.url());
-  check('browser on the old URL ends on the SSQ3 configurator', landedUrl.pathname === SSQ3_CONFIGURATOR && landedUrl.searchParams.get('utm_source') === 'e2e', page.url());
+  const served = await get(`${SSQ3_CONFIGURATOR}?utm_source=e2e-server-marker`);
+  // Scoped to the Corbel target: plugins such as Jetpack Stats echo utm_* elsewhere.
+  const corbelTarget = served.html.match(/<main id="primary"[\s\S]*?<\/main>/)?.[0] || '';
+  check('SSQ3 Corbel target does not vary by tracking parameter', corbelTarget.includes('corbelConfigurator') && !corbelTarget.includes('e2e-server-marker'));
 
-  let frameSrc = '';
+  const page = await context.newPage();
+  const corbelFrame = async () => {
+    try {
+      const frame = page.locator('iframe[src*="corbelpay.com"]').first();
+      await frame.waitFor({ state: 'attached', timeout: 30000 });
+      return new URL((await frame.getAttribute('src')) || '');
+    } catch {
+      return null;
+    }
+  };
+
+  await sleep(PAUSE_MS);
+  await page.goto(`${BASE}${SSQ2_CONFIGURATOR}?utm_source=e2e&utm_campaign=ssq2-retirement&gclid=abc123#top`, { waitUntil: 'load' });
   try {
-    const frame = page.locator('iframe[src*="corbelpay.com"]').first();
-    await frame.waitFor({ state: 'attached', timeout: 30000 });
-    frameSrc = (await frame.getAttribute('src')) || '';
+    await page.waitForURL(`**${SSQ3_CONFIGURATOR}**`, { timeout: 15000 });
   } catch {
     // Reported by the check below.
   }
-  const frameUrl = frameSrc ? new URL(frameSrc) : null;
-  check('Corbel quote form loads for the SSQ3', frameUrl?.searchParams.get('o') === 'ssq3', frameSrc || 'no Corbel iframe');
-  check('Corbel quote form receives the tracking parameter', frameUrl?.searchParams.get('utm_source') === 'e2e', frameSrc);
+  const landedUrl = new URL(page.url());
+  check(
+    'browser on the old URL ends on the SSQ3 configurator with its tracking parameters',
+    landedUrl.pathname === SSQ3_CONFIGURATOR
+      && landedUrl.searchParams.get('utm_source') === 'e2e'
+      && landedUrl.searchParams.get('utm_campaign') === 'ssq2-retirement'
+      && landedUrl.searchParams.get('gclid') === 'abc123',
+    page.url()
+  );
+
+  const frameUrl = await corbelFrame();
+  check('Corbel quote form loads for the SSQ3', frameUrl?.searchParams.get('o') === 'ssq3', frameUrl?.href || 'no Corbel iframe');
+  check(
+    'Corbel quote form receives the campaign parameters',
+    frameUrl?.searchParams.get('utm_source') === 'e2e' && frameUrl?.searchParams.get('utm_campaign') === 'ssq2-retirement',
+    frameUrl?.href
+  );
+  check('Corbel quote form receives only utm_ parameters', frameUrl !== null && !frameUrl.searchParams.has('gclid'), frameUrl?.href);
   await page.waitForTimeout(4000);
   await page.screenshot({ path: join(EVIDENCE_DIR, `ssq2-retirement-${STAMP}-ssq3-configurator.png`) });
 
@@ -222,6 +247,17 @@ log('\n## SSQ3 quote path');
     // Reported by the check below.
   }
   check('notice CTA opens the SSQ3 product page', new URL(page.url()).pathname === SSQ3_PRODUCT, page.url());
+
+  // Control: another machine's configurator forwards campaign parameters too,
+  // and without them keeps Corbel's default URL.
+  await sleep(PAUSE_MS);
+  await page.goto(`${BASE}/configurator/ssh/?utm_source=e2e`, { waitUntil: 'load' });
+  const sshFrame = await corbelFrame();
+  check('SSH quote form keeps its catalog ID and the campaign parameter', sshFrame?.searchParams.get('o') === 'ssh-multipro-panel' && sshFrame?.searchParams.get('utm_source') === 'e2e', sshFrame?.href || 'no Corbel iframe');
+  await sleep(PAUSE_MS);
+  await page.goto(`${BASE}/configurator/ssh/`, { waitUntil: 'load' });
+  const plainFrame = await corbelFrame();
+  check('SSH quote form without campaign parameters is unchanged', plainFrame?.searchParams.get('o') === 'ssh-multipro-panel' && ![...plainFrame.searchParams.keys()].some((key) => key.startsWith('utm_')), plainFrame?.href || 'no Corbel iframe');
   await page.close();
 }
 

@@ -84,21 +84,14 @@ namespace {
 
     foreach (['/configurator/ssqii/', '/configurator/ssqii', '/Configurator/SSQII/'] as $path) {
         ntm_assert(
-            \Standard\MachineStatus\get_retired_configurator_redirect($path, [])
+            \Standard\MachineStatus\get_retired_configurator_target($path)
                 === 'https://newtechmachinery.com/configurator/ssq3-multi-pro/',
-            $path . ' should redirect to the SSQ3 configurator.'
+            $path . ' should hand off to the SSQ3 configurator.'
         );
     }
-    ntm_assert(
-        \Standard\MachineStatus\get_retired_configurator_redirect(
-            '/configurator/ssqii/',
-            ['utm_source' => 'email', 'utm_campaign' => 'fall sale', 'gclid' => 'abc', 'nested' => ['x']]
-        ) === 'https://newtechmachinery.com/configurator/ssq3-multi-pro/?utm_source=email&utm_campaign=fall%20sale&gclid=abc',
-        'The retired configurator redirect should keep scalar tracking parameters.'
-    );
     foreach (['/configurator/ssq3-multi-pro/', '/configurator/ssh/', '/configurator/', '/configurator/ssqii-accessories/'] as $path) {
         ntm_assert(
-            \Standard\MachineStatus\get_retired_configurator_redirect($path, []) === '',
+            \Standard\MachineStatus\get_retired_configurator_target($path) === '',
             $path . ' must keep serving its own configurator.'
         );
     }

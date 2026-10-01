@@ -1,0 +1,111 @@
+# SSQ II retirement E2E  20261001T043844Z
+base=https://newtechmachinery.com  commit=06a42671  branch=dev  dirty=false
+
+## Old buying URL
+PASS  old SSQ II configurator URL redirects permanently  (status 301)
+PASS  redirect lands on the SSQ3 configurator  (https://newtechmachinery.com/configurator/ssq3-multi-pro/)
+PASS  redirect keeps tracking parameters  (https://newtechmachinery.com/configurator/ssq3-multi-pro/?utm_source=e2e&utm_campaign=ssq2-retirement&gclid=abc123)
+PASS  followed redirect serves the SSQ3 catalog ID
+PASS  followed redirect: no expired SSQ II offer
+
+## SSQ II product page
+PASS  SSQ II product page still resolves  (status 200)
+PASS  SSQ II product page: no expired SSQ II offer
+PASS  SSQ II product page: status notice renders
+PASS  SSQ II product page: notice leads with the SSQ3 MultiPro  (Current model The SSQ3 MultiPro is NTM’s current 16-profile roof and wall panel machine. The SSQ II MultiPro was discontinued September 30, )
+PASS  SSQ II product page: notice keeps the retirement date as context
+PASS  SSQ II product page: notice links to the SSQ3 page  (/machines/roof-wall-panel-machines/ssq3-multipro/ /configurator/ssq3-multi-pro/)
+PASS  SSQ II product page: notice links to the SSQ3 configurator  (/machines/roof-wall-panel-machines/ssq3-multipro/ /configurator/ssq3-multi-pro/)
+PASS  SSQ II product page shows no price
+PASS  SSQ II Product schema is Discontinued
+PASS  SSQ II product page keeps the owner manual link
+PASS  SSQ II product page keeps legacy specs
+
+## Historical resources
+PASS  SSQ II article: resolves  (status 200)
+PASS  SSQ II article: keeps its own content
+PASS  SSQ II article: no expired SSQ II offer
+PASS  SSQ II article: status notice renders
+PASS  SSQ II article: notice leads with the SSQ3 MultiPro  (Current model The SSQ3 MultiPro is NTM’s current 16-profile roof and wall panel machine. The SSQ II MultiPro was discontinued September 30, )
+PASS  SSQ II article: notice keeps the retirement date as context
+PASS  SSQ II article: notice links to the SSQ3 page  (/machines/roof-wall-panel-machines/ssq3-multipro/ /configurator/ssq3-multi-pro/)
+PASS  SSQ II article: notice links to the SSQ3 configurator  (/machines/roof-wall-panel-machines/ssq3-multipro/ /configurator/ssq3-multi-pro/)
+PASS  SSQ II training video: resolves  (status 200)
+PASS  SSQ II training video: keeps its own content
+PASS  SSQ II training video: no expired SSQ II offer
+PASS  SSQ II training video: status notice renders
+PASS  SSQ II training video: notice leads with the SSQ3 MultiPro  (Current model The SSQ3 MultiPro is NTM’s current 16-profile roof and wall panel machine. The SSQ II MultiPro was discontinued September 30, )
+PASS  SSQ II training video: notice keeps the retirement date as context
+PASS  SSQ II training video: notice links to the SSQ3 page  (/machines/roof-wall-panel-machines/ssq3-multipro/ /configurator/ssq3-multi-pro/)
+PASS  SSQ II training video: notice links to the SSQ3 configurator  (/machines/roof-wall-panel-machines/ssq3-multipro/ /configurator/ssq3-multi-pro/)
+PASS  SSQ II price sheet: resolves  (status 200)
+PASS  SSQ II price sheet: keeps its own content
+PASS  SSQ II price sheet: no expired SSQ II offer
+PASS  SSQ II price sheet: status notice renders
+PASS  SSQ II price sheet: notice leads with the SSQ3 MultiPro  (Current model The SSQ3 MultiPro is NTM’s current 16-profile roof and wall panel machine. The SSQ II MultiPro was discontinued September 30, )
+PASS  SSQ II price sheet: notice keeps the retirement date as context
+PASS  SSQ II price sheet: notice links to the SSQ3 page  (/machines/roof-wall-panel-machines/ssq3-multipro/ /configurator/ssq3-multi-pro/)
+PASS  SSQ II price sheet: notice links to the SSQ3 configurator  (/machines/roof-wall-panel-machines/ssq3-multipro/ /configurator/ssq3-multi-pro/)
+PASS  SSQ II service hub: resolves  (status 200)
+PASS  SSQ II service hub: keeps its own content
+PASS  SSQ II service hub: no expired SSQ II offer
+PASS  SSQ II service hub: status notice renders
+PASS  SSQ II service hub: notice leads with the SSQ3 MultiPro  (Current model The SSQ3 MultiPro is NTM’s current 16-profile roof and wall panel machine. The SSQ II MultiPro was discontinued September 30, )
+PASS  SSQ II service hub: notice keeps the retirement date as context
+PASS  SSQ II service hub: notice links to the SSQ3 page  (/machines/roof-wall-panel-machines/ssq3-multipro/ /configurator/ssq3-multi-pro/)
+PASS  SSQ II service hub: notice links to the SSQ3 configurator  (/machines/roof-wall-panel-machines/ssq3-multipro/ /configurator/ssq3-multi-pro/)
+PASS  SSQII accessory archive: resolves  (status 200)
+PASS  SSQII accessory archive: keeps its own content
+FAIL  SSQII accessory archive: no expired SSQ II offer  (SSQ II configurator link)
+PASS  SSQII accessory archive: status notice renders
+PASS  SSQII accessory archive: notice leads with the SSQ3 MultiPro  (Current model The SSQ3 MultiPro is NTM’s current 16-profile roof and wall panel machine. The SSQ II MultiPro was discontinued September 30, )
+PASS  SSQII accessory archive: notice keeps the retirement date as context
+PASS  SSQII accessory archive: notice links to the SSQ3 page  (/machines/roof-wall-panel-machines/ssq3-multipro/ /configurator/ssq3-multi-pro/)
+PASS  SSQII accessory archive: notice links to the SSQ3 configurator  (/machines/roof-wall-panel-machines/ssq3-multipro/ /configurator/ssq3-multi-pro/)
+
+## Active sales paths
+PASS  /: resolves  (status 200)
+PASS  /: no expired SSQ II offer
+PASS  /machines/: resolves  (status 200)
+PASS  /machines/: no expired SSQ II offer
+PASS  /roof-wall-panel-machines/: resolves  (status 200)
+PASS  /roof-wall-panel-machines/: no expired SSQ II offer
+PASS  /choose-your-machine/: resolves  (status 200)
+PASS  /choose-your-machine/: no expired SSQ II offer
+PASS  /compare-roof-panel-machines/: resolves  (status 200)
+PASS  /compare-roof-panel-machines/: no expired SSQ II offer
+PASS  /configurator/: resolves  (status 200)
+PASS  /configurator/: no expired SSQ II offer
+PASS  /?s=SSQ+II: resolves  (status 200)
+PASS  /?s=SSQ+II: no expired SSQ II offer
+PASS  /llms.txt: resolves  (status 200)
+PASS  /llms.txt: no expired SSQ II offer
+PASS  machine chooser does not list the SSQ II
+PASS  machine chooser lists the SSQ3
+PASS  home quiz teaser does not name the SSQ II as a choice
+PASS  SSQ II search still surfaces the SSQ3
+PASS  llms.txt names the SSQ3 as the current model
+
+## SSQ3 quote path
+PASS  SSQ3 product page resolves  (status 200)
+PASS  SSQ3 product page links to its configurator
+PASS  SSQ3 product page shows no status notice
+FAIL  browser on the old URL ends on the SSQ3 configurator  (https://newtechmachinery.com/configurator/ssq3-multi-pro/)
+PASS  Corbel quote form loads for the SSQ3  (https://app.corbelpay.com/reception/newtechmachinery/quote/new?o=ssq3&pp=%2Fconfigurator%2Fssq3-multi-pro%2F&embed=true)
+FAIL  Corbel quote form receives the tracking parameter  (https://app.corbelpay.com/reception/newtechmachinery/quote/new?o=ssq3&pp=%2Fconfigurator%2Fssq3-multi-pro%2F&embed=true)
+PASS  notice CTA opens the SSQ3 product page  (https://newtechmachinery.com/machines/roof-wall-panel-machines/ssq3-multipro/)
+
+## Controls
+PASS  /configurator/ssh/ serves its own configurator  (status 200)
+PASS  /configurator/ssr/ serves its own configurator  (status 200)
+PASS  /configurator/wav/ serves its own configurator  (status 200)
+PASS  /configurator/machii/ serves its own configurator  (status 200)
+PASS  /configurator/5vc/ serves its own configurator  (status 200)
+PASS  SSH product page has no status notice
+PASS  SSH product page keeps its own configurator link
+PASS  SSH product page keeps its price schema
+PASS  SSQ200 profile page has no status notice  (status 200)
+PASS  SSQ210A profile page has no status notice  (status 200)
+PASS  SSQ275 profile page has no status notice  (status 200)
+
+RESULT: FAIL

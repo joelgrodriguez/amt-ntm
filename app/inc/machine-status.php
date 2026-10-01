@@ -63,10 +63,6 @@ function get_status(string $slug): ?array {
     return get_statuses()[resolve_machine_key($slug)] ?? null;
 }
 
-function has_status(string $slug): bool {
-    return get_status($slug) !== null;
-}
-
 function is_discontinued(string $slug): bool {
     return (get_status($slug)['state'] ?? '') === 'discontinued';
 }
@@ -95,35 +91,29 @@ function get_replacement_name(string $slug): string {
 
 /**
  * Resolve where a retired configurator URL now leads, or '' when the path is
- * not retired. Scalar query parameters carry over so campaign tracking on old
- * links still reaches the replacement configurator.
- *
- * @param array<array-key, mixed> $query
+ * not retired.
  */
-function get_retired_configurator_redirect(string $request_path, array $query): string {
+function get_retired_configurator_target(string $request_path): string {
     $request_path = '/' . trim(strtolower($request_path), '/') . '/';
 
     foreach (get_statuses() as $status) {
-        if ($status['state'] !== 'discontinued' || $status['retired_configurator_path'] !== $request_path) {
-            continue;
+        if ($status['state'] === 'discontinued' && $status['retired_configurator_path'] === $request_path) {
+            return \Standard\Url\internal($status['replacement_configurator_url']);
         }
-
-        $target = \Standard\Url\internal($status['replacement_configurator_url']);
-        $query  = array_filter($query, 'is_scalar');
-
-        return $query === []
-            ? $target
-            : $target . '?' . http_build_query($query, '', '&', PHP_QUERY_RFC3986);
     }
 
     return '';
 }
 
 /**
- * Send old buying links to the replacement configurator. Matching the request
- * path keeps the redirect working if the legacy WordPress page is unpublished.
+ * Hand old buying links to the replacement configurator.
+ *
+ * The hand-off runs in the browser. Kinsta's edge cache ignores utm_* and
+ * click IDs in its cache key, so a server redirect is cached once and loses
+ * every later visitor's tracking parameters. Matching the request path keeps
+ * this working if the legacy WordPress page is unpublished.
  */
-function redirect_retired_configurator(): void {
+function render_retired_configurator_handoff(): void {
     $request_path = (string) wp_parse_url((string) ($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH);
     $home_path    = rtrim((string) wp_parse_url(home_url('/'), PHP_URL_PATH), '/');
 
@@ -131,15 +121,33 @@ function redirect_retired_configurator(): void {
         $request_path = substr($request_path, strlen($home_path));
     }
 
-    $target = get_retired_configurator_redirect($request_path, wp_unslash($_GET));
+    $target = get_retired_configurator_target($request_path);
     if ($target === '') {
         return;
     }
 
-    wp_safe_redirect($target, 301);
+    status_header(200);
+    header('Content-Type: text/html; charset=' . get_bloginfo('charset'));
+    ?>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
+<head>
+    <meta charset="<?php bloginfo('charset'); ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="<?php echo esc_url($target); ?>">
+    <title><?php esc_html_e('SSQ3 MultiPro Configurator', 'standard'); ?></title>
+    <script>location.replace(<?php echo wp_json_encode($target); ?> + location.search + location.hash);</script>
+    <noscript><meta http-equiv="refresh" content="0;url=<?php echo esc_url($target); ?>"></noscript>
+</head>
+<body>
+    <p><a href="<?php echo esc_url($target); ?>"><?php esc_html_e('Continue to the SSQ3 MultiPro configurator', 'standard'); ?></a></p>
+</body>
+</html>
+    <?php
     exit;
 }
-add_action('template_redirect', __NAMESPACE__ . '\\redirect_retired_configurator', 1);
+add_action('template_redirect', __NAMESPACE__ . '\\render_retired_configurator_handoff', 1);
 
 /**
  * Match content whose subject is the SSQ II, without false positives such as
