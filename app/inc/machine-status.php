@@ -136,6 +136,9 @@ function redirect_retired_configurator(): void {
         return;
     }
 
+    // Kinsta's edge cache ignores utm_* and click IDs in its cache key, so a
+    // cached redirect would send every visitor to the first visitor's target.
+    nocache_headers();
     wp_safe_redirect($target, 301);
     exit;
 }
