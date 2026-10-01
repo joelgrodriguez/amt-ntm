@@ -4,6 +4,20 @@ Instructions for every agent working in the New Tech Machinery (NTM) theme repo.
 This is the only instruction file; do not add a `CLAUDE.md`. Global rules in
 `~/.agents/AGENTS.md` (tone, testing policy, model routing) still apply.
 
+## The one rule: work on `dev`
+
+All work happens on `dev` or on a feature branch cut from `dev`. `master` is
+not a working branch. It only receives `dev` through the release script, and
+exists to ship the theme to staging and then production.
+
+- Before any edit, run `git branch --show-current`. If it prints `master`,
+  switch to `dev` first.
+- Never commit, edit, or fix anything directly on `master`, even a one-line
+  hotfix. Fix it on `dev`, then release.
+- GitHub's default branch is `master`, so tools may suggest it as the base.
+  Branch from `dev` and target `dev` anyway.
+- Changes flow one way: feature branch → `dev` → `master`. Never backwards.
+
 ## Read first
 
 Stop when you have enough context for the task.
@@ -31,8 +45,8 @@ Stop when you have enough context for the task.
 ## Git
 
 - Work on a feature branch cut from `dev`. Merge finished work into `dev`.
-- Only the `master` checkout pushes `origin/master`. Never `git push origin dev:master`.
-- On `master`, do release work only.
+- `master` is touched only by `npm run release:master`. Never
+  `git push origin dev:master`.
 - A push to `dev` or `master` runs `.github/workflows/ci.yml`. A push to
   `master` also deploys to Kinsta staging. Check with Joel before pushing.
 
