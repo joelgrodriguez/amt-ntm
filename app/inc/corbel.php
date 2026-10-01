@@ -149,56 +149,27 @@ function get_configurator_product_id(int $post_id = 0): string
 }
 
 /**
- * Preserve campaign parameters that the legacy SSQ3 embed forwarded.
- *
- * @return array<string, string>
+ * Explicit Corbel URL for a catalog ID. The browser appends campaign
+ * parameters to it when the page URL carries any.
  */
-function get_utm_parameters(): array
+function get_configurator_url(string $product_id): string
 {
-    $parameters = [];
-
-    foreach ($_GET as $key => $value) {
-        if (
-            !is_string($key)
-            || !str_starts_with(strtolower($key), 'utm_')
-            || !is_scalar($value)
-        ) {
-            continue;
-        }
-
-        $value = \sanitize_text_field(\wp_unslash((string) $value));
-
-        if ($value !== '') {
-            $parameters[$key] = $value;
-        }
-    }
-
-    return $parameters;
-}
-
-/**
- * Build an explicit configurator URL when campaign parameters are present.
- *
- * @param array<string, string> $utm_parameters
- */
-function get_configurator_url(string $product_id, array $utm_parameters): string
-{
-    $query = $product_id !== '' ? ['o' => $product_id] : [];
-
-    foreach ($utm_parameters as $key => $value) {
-        $query[$key] = $value;
-    }
-
-    return \add_query_arg($query, CONFIGURATOR_URL);
+    return $product_id !== ''
+        ? \add_query_arg(['o' => $product_id], CONFIGURATOR_URL)
+        : CONFIGURATOR_URL;
 }
 
 /**
  * Render the target that Corbel replaces with the embedded configurator.
+ *
+ * Campaign parameters are forwarded in the browser, not in PHP. The page cache
+ * ignores utm_* in its cache key, so server-rendered values would be dropped
+ * or leak from one visitor to the next. The inline script runs while the
+ * document is still parsing, before Corbel mounts on DOMContentLoaded.
  */
 function render_configurator_placeholder(): void
 {
     $product_id = get_configurator_product_id();
-    $utm_parameters = get_utm_parameters();
 
     echo '<div id="corbelConfigurator"';
 
@@ -206,11 +177,25 @@ function render_configurator_placeholder(): void
         echo ' data-corbel-product-id="' . esc_attr($product_id) . '"';
     }
 
-    if ($utm_parameters !== []) {
-        echo ' data-corbel-configurator-url="'
-            . esc_attr(get_configurator_url($product_id, $utm_parameters))
-            . '"';
-    }
-
     echo '></div>' . "\n";
+    ?>
+<script>
+(function () {
+    var target = document.getElementById('corbelConfigurator');
+    var url = new URL(<?php echo wp_json_encode(get_configurator_url($product_id)); ?>);
+    var forwarded = false;
+
+    new URLSearchParams(window.location.search).forEach(function (value, key) {
+        if (key.toLowerCase().indexOf('utm_') === 0 && value !== '') {
+            url.searchParams.set(key, value);
+            forwarded = true;
+        }
+    });
+
+    if (target && forwarded) {
+        target.setAttribute('data-corbel-configurator-url', url.toString());
+    }
+})();
+</script>
+    <?php
 }
