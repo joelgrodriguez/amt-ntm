@@ -32,7 +32,8 @@
     "release:hooks": "scripts/release/install-git-hooks.sh",
     "release:master": "scripts/release/to-master.sh",
     "test:chat-experiment-e2e": "bash scripts/tests/chat-experiment-endpoint.e2e.sh",
-    "test:ga4-lead-e2e": "node scripts/tests/ga4-lead.e2e.mjs"
+    "test:ga4-lead-e2e": "node scripts/tests/ga4-lead.e2e.mjs",
+    "test:ssq2-retirement-e2e": "node scripts/tests/ssq2-retirement.e2e.mjs"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",

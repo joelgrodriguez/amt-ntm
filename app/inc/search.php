@@ -325,7 +325,7 @@ function get_post_type_filter_options(): array {
  */
 function get_popular_searches(): array {
     $defaults = [
-        ['label' => 'SSQ II',           'query' => 'SSQ II',           'post_type' => 'product'],
+        ['label' => 'SSQ3',             'query' => 'SSQ3',             'post_type' => 'product'],
         ['label' => 'MACH II',          'query' => 'MACH II',          'post_type' => 'product'],
         ['label' => 'Color visualizer', 'query' => 'color visualizer'],
         ['label' => 'Service & parts',  'query' => 'service',          'post_type' => 'manual'],
@@ -1720,7 +1720,6 @@ function get_product_card_data(int $post_id): array {
     $price = $product->get_price();
     $image = \wp_get_attachment_url((int) $product->get_image_id());
     $machine_status = \Standard\MachineStatus\get_status($product->get_slug());
-    $is_sunsetting = \Standard\MachineStatus\is_sunsetting($product->get_slug());
     $is_discontinued = \Standard\MachineStatus\is_discontinued($product->get_slug());
     $machine_id = get_canonical_machine_keys_by_product_id()[$post_id] ?? '';
     $is_accessory = $machine_id === ''
@@ -1739,11 +1738,9 @@ function get_product_card_data(int $post_id): array {
         'category_label' => \function_exists('Standard\\Woo\\Catalog\\get_primary_category_label')
             ? \Standard\Woo\Catalog\get_primary_category_label($product)
             : '',
-        'descriptor'     => $is_sunsetting
-            ? \__('Last chance to purchase the SSQ II MultiPro before September 30, 2026.', 'standard')
-            : ($is_discontinued
-                ? \__('Technical information and owner resources for the discontinued SSQ II MultiPro.', 'standard')
-                : \wp_strip_all_tags($product->get_short_description())),
+        'descriptor'     => $is_discontinued
+            ? \__('Technical information and owner resources for the discontinued SSQ II MultiPro.', 'standard')
+            : \wp_strip_all_tags($product->get_short_description()),
         'image'          => is_string($image) ? $image : '',
         'price'          => !$is_discontinued && $price !== '' ? '$' . \number_format((float) $price) : '',
         'price_label'    => \__('Starting at', 'standard'),
@@ -1752,12 +1749,8 @@ function get_product_card_data(int $post_id): array {
             ? \Standard\MachineStatus\get_replacement_url($product->get_slug())
             : $build_url,
         'badge'          => $machine_status['short_label'] ?? '',
-        'cta_label'      => $is_sunsetting
-            ? \__('Build & Quote SSQ II', 'standard')
-            : ($is_discontinued ? \__('Explore SSQ3', 'standard') : ''),
-        'cta_url'        => $is_sunsetting
-            ? $build_url
-            : ($is_discontinued ? \Standard\MachineStatus\get_replacement_url($product->get_slug()) : ''),
+        'cta_label'      => $is_discontinued ? \__('Explore SSQ3 MultiPro', 'standard') : '',
+        'cta_url'        => $is_discontinued ? \Standard\MachineStatus\get_replacement_url($product->get_slug()) : '',
         'is_accessory'   => $is_accessory,
     ];
 }

@@ -17,19 +17,20 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * @return array<string, array{state:string,label:string,short_label:string,deadline:string,configurator_url:string,replacement_key:string,replacement_name:string,replacement_url:string}>
+ * @return array<string, array{state:string,label:string,short_label:string,deadline:string,retired_configurator_path:string,replacement_key:string,replacement_name:string,replacement_url:string,replacement_configurator_url:string}>
  */
 function get_statuses(): array {
     return [
         'ssq-ii-multipro' => [
-            'state'            => 'sunsetting',
-            'label'            => __('Will Be Discontinued September 30, 2026', 'standard'),
-            'short_label'      => __('Discontinuing Sep. 30, 2026', 'standard'),
-            'deadline'         => '2026-09-30',
-            'configurator_url' => '/configurator/ssqii/',
-            'replacement_key'  => 'ssq3-multipro',
-            'replacement_name' => 'SSQ3 MultiPro',
-            'replacement_url'  => '/machines/roof-wall-panel-machines/ssq3-multipro/',
+            'state'                        => 'discontinued',
+            'label'                        => __('Discontinued September 30, 2026', 'standard'),
+            'short_label'                  => __('Discontinued', 'standard'),
+            'deadline'                     => '2026-09-30',
+            'retired_configurator_path'    => '/configurator/ssqii/',
+            'replacement_key'              => 'ssq3-multipro',
+            'replacement_name'             => 'SSQ3 MultiPro',
+            'replacement_url'              => '/machines/roof-wall-panel-machines/ssq3-multipro/',
+            'replacement_configurator_url' => '/configurator/ssq3-multi-pro/',
         ],
     ];
 }
@@ -56,7 +57,7 @@ function resolve_machine_key(string $slug): string {
 }
 
 /**
- * @return array{state:string,label:string,short_label:string,deadline:string,configurator_url:string,replacement_key:string,replacement_name:string,replacement_url:string}|null
+ * @return array{state:string,label:string,short_label:string,deadline:string,retired_configurator_path:string,replacement_key:string,replacement_name:string,replacement_url:string,replacement_configurator_url:string}|null
  */
 function get_status(string $slug): ?array {
     return get_statuses()[resolve_machine_key($slug)] ?? null;
@@ -66,21 +67,8 @@ function has_status(string $slug): bool {
     return get_status($slug) !== null;
 }
 
-function is_sunsetting(string $slug): bool {
-    return (get_status($slug)['state'] ?? '') === 'sunsetting';
-}
-
 function is_discontinued(string $slug): bool {
     return (get_status($slug)['state'] ?? '') === 'discontinued';
-}
-
-function get_configurator_url(string $slug): string {
-    $status = get_status($slug);
-    if ($status === null || $status['configurator_url'] === '') {
-        return '';
-    }
-
-    return \Standard\Url\internal($status['configurator_url']);
 }
 
 function get_replacement_url(string $slug): string {
@@ -92,9 +80,66 @@ function get_replacement_url(string $slug): string {
     return \Standard\Url\internal($status['replacement_url']);
 }
 
+function get_replacement_configurator_url(string $slug): string {
+    $status = get_status($slug);
+    if ($status === null) {
+        return '';
+    }
+
+    return \Standard\Url\internal($status['replacement_configurator_url']);
+}
+
 function get_replacement_name(string $slug): string {
     return get_status($slug)['replacement_name'] ?? '';
 }
+
+/**
+ * Resolve where a retired configurator URL now leads, or '' when the path is
+ * not retired. Scalar query parameters carry over so campaign tracking on old
+ * links still reaches the replacement configurator.
+ *
+ * @param array<array-key, mixed> $query
+ */
+function get_retired_configurator_redirect(string $request_path, array $query): string {
+    $request_path = '/' . trim(strtolower($request_path), '/') . '/';
+
+    foreach (get_statuses() as $status) {
+        if ($status['state'] !== 'discontinued' || $status['retired_configurator_path'] !== $request_path) {
+            continue;
+        }
+
+        $target = \Standard\Url\internal($status['replacement_configurator_url']);
+        $query  = array_filter($query, 'is_scalar');
+
+        return $query === []
+            ? $target
+            : $target . '?' . http_build_query($query, '', '&', PHP_QUERY_RFC3986);
+    }
+
+    return '';
+}
+
+/**
+ * Send old buying links to the replacement configurator. Matching the request
+ * path keeps the redirect working if the legacy WordPress page is unpublished.
+ */
+function redirect_retired_configurator(): void {
+    $request_path = (string) wp_parse_url((string) ($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH);
+    $home_path    = rtrim((string) wp_parse_url(home_url('/'), PHP_URL_PATH), '/');
+
+    if ($home_path !== '' && str_starts_with($request_path, $home_path)) {
+        $request_path = substr($request_path, strlen($home_path));
+    }
+
+    $target = get_retired_configurator_redirect($request_path, wp_unslash($_GET));
+    if ($target === '') {
+        return;
+    }
+
+    wp_safe_redirect($target, 301);
+    exit;
+}
+add_action('template_redirect', __NAMESPACE__ . '\\redirect_retired_configurator', 1);
 
 /**
  * Match content whose subject is the SSQ II, without false positives such as

@@ -90,12 +90,6 @@ $ntm_choose_catalog = [
             'chips'     => ['Panel Profiles', 'Tooling Changeover'],
         ],
         [
-            'key'       => 'ssq-ii-multipro',
-            'name'      => __('SSQ II™ MultiPro', 'standard'),
-            'best_when' => __('You want all 16 profiles at a lower entry than the SSQ3 and don\'t need its 25-minute changeover.', 'standard'),
-            'chips'     => ['Panel Profiles', 'Max Speed'],
-        ],
-        [
             'key'       => 'ssh-multipro',
             'name'      => __('SSH™ MultiPro', 'standard'),
             'best_when' => __('You run residential and light commercial standing seam and do not need all 16 profiles.', 'standard'),

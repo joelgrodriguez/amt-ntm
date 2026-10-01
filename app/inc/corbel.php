@@ -25,7 +25,6 @@ const PRODUCT_IDS_BY_PAGE_SLUG = [
     'wav'           => 'wav-wall-panel',
     'ssh'           => 'ssh-multipro-panel',
     'ssr'           => 'ssr-multipro-panel',
-    'ssqii'         => 'ssq2-multipro-panel',
     'ssq3-multi-pro' => 'ssq3',
     'machii'        => 'mach2-gutter',
 ];

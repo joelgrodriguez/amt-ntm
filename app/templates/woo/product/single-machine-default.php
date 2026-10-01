@@ -28,7 +28,6 @@ if (!$product) {
 
 $machine = get_machine_product_data($product->get_slug());
 $machine_status = \Standard\MachineStatus\get_status($product->get_slug());
-$is_sunsetting = \Standard\MachineStatus\is_sunsetting($product->get_slug());
 $is_discontinued = \Standard\MachineStatus\is_discontinued($product->get_slug());
 $replacement_url = $is_discontinued
     ? \Standard\MachineStatus\get_replacement_url($product->get_slug())
@@ -146,7 +145,6 @@ get_header();
                     <?php
                     $short = match (true) {
                         $is_discontinued => __('Technical specifications and owner resources for the discontinued SSQ II MultiPro.', 'standard'),
-                        $is_sunsetting => __('Available for purchase through September 30, 2026. Configure your SSQ II and request a quote while it is still available.', 'standard'),
                         default => $product->get_short_description(),
                     };
                     ?>
@@ -159,7 +157,7 @@ get_header();
                     <div class="machine-default__actions">
                         <a href="<?php echo esc_url($is_discontinued ? $replacement_url : ($configurator_url ?: \Standard\Url\internal('/contact/'))); ?>" class="btn btn-primary"<?php echo $configurator_url ? ' target="_blank" rel="noopener"' : ''; ?>>
                             <?php echo $is_discontinued
-                                ? esc_html__('Explore SSQ3', 'standard')
+                                ? esc_html__('Explore SSQ3 MultiPro', 'standard')
                                 : ($configurator_url ? esc_html__('Build & Quote', 'standard') : esc_html__('Get a Quote', 'standard')); ?>
                             <?php icon('arrow-right', ['class' => 'w-5 h-5']); ?>
                         </a>
@@ -221,8 +219,10 @@ get_header();
             'section_id'      => 'machine-default-closer-title',
             'title'           => __('The SSQ3 carries the work forward.', 'standard'),
             'text'            => __('Explore the current 16-profile MultiPro for new machine purchases.', 'standard'),
-            'cta_primary'     => __('Explore SSQ3', 'standard'),
-            'cta_primary_url' => $replacement_url,
+            'cta_primary'       => __('Explore SSQ3 MultiPro', 'standard'),
+            'cta_primary_url'   => $replacement_url,
+            'cta_secondary'     => __('Build & Quote SSQ3', 'standard'),
+            'cta_secondary_url' => \Standard\MachineStatus\get_replacement_configurator_url($product->get_slug()),
         ]);
     } elseif ($default_closer_url !== '') {
         get_template_part('templates/parts/cta/closer', null, [

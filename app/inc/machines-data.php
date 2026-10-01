@@ -266,7 +266,7 @@ function get_machine_categories(bool $include_dormant = false): array {
                 ],
                 [
                     'slug'              => 'ssq-ii-multipro',
-                    'configurator_slug' => 'ssqii',
+                    'configurator_slug' => '',
                     'name'              => 'SSQ II™ MultiPro',
                     'short_name' => 'SSQ II MultiPro',
                     'descriptor' => 'The proven multi-profile workhorse',
@@ -722,7 +722,7 @@ function get_roof_wall_faq_items(): array {
         ],
         [
             'question' => 'What materials can these machines process?',
-            'answer'   => 'NTM roof and wall panel machines handle painted steel, Galvalume, aluminum, copper, zinc, and terne-coated stainless steel. The SSQ3 and SSQ II process up to 24 gauge steel. The WAV is purpose-built for heavy commercial wall panel work with 4 profiles on 25 polyurethane drive rollers.',
+            'answer'   => 'NTM roof and wall panel machines handle painted steel, Galvalume, aluminum, copper, zinc, and terne-coated stainless steel. The SSQ3 processes up to 24 gauge steel. The WAV is purpose-built for heavy commercial wall panel work with 4 profiles on 25 polyurethane drive rollers.',
         ],
         [
             'question' => 'Does New Tech Machinery offer financing?',
@@ -738,7 +738,7 @@ function get_roof_wall_faq_items(): array {
         ],
         [
             'question' => 'What panel profiles can NTM machines produce?',
-            'answer'   => 'NTM roof and wall panel machines produce standing seam roof panels, flush wall panels, board and batten siding, trapezoidal profiles, and the 5V crimp exposed-fastener profile. The SSQ3 and SSQ II MultiPro support up to 16 profiles from a single machine.',
+            'answer'   => 'NTM roof and wall panel machines produce standing seam roof panels, flush wall panels, board and batten siding, trapezoidal profiles, and the 5V crimp exposed-fastener profile. The SSQ3 MultiPro supports up to 16 profiles from a single machine.',
         ],
     ];
 }
@@ -1172,7 +1172,7 @@ function get_faq_items(): array {
         ],
         [
             'question' => 'What materials can NTM machines process?',
-            'answer'   => 'NTM machines work with painted steel, Galvalume, aluminum, copper, zinc, and terne-coated stainless steel. Gauge capacity varies by machine: the SSQ3 and SSQ II handle up to 24 gauge steel, while gutter machines process standard gutter coil stock.',
+            'answer'   => 'NTM machines work with painted steel, Galvalume, aluminum, copper, zinc, and terne-coated stainless steel. Gauge capacity varies by machine: the SSQ3 handles up to 24 gauge steel, while gutter machines process standard gutter coil stock.',
         ],
         [
             'question' => 'How do I finance an NTM machine?',

@@ -1,6 +1,7 @@
 <?php
 /**
- * Compact machine lifecycle notice with primary and secondary actions.
+ * Compact machine lifecycle notice. Leads with the current replacement model;
+ * the retirement date is secondary context.
  *
  * @package Standard
  * @var array{machine_slug?:string,context?:string,contained?:bool} $args
@@ -33,20 +34,20 @@ $inner_classes = $contained
         <div class="grid gap-1.5 max-w-3xl">
             <p class="m-0 inline-flex items-center gap-2 font-mono font-medium uppercase tracking-wider text-red" style="font-size: var(--text-caption);">
                 <span class="inline-block size-1.5 bg-red" aria-hidden="true"></span>
-                <?php echo esc_html($status['label']); ?>
+                <?php esc_html_e('Current model', 'standard'); ?>
             </p>
             <p class="m-0 font-sans text-blue-700" style="font-size: var(--text-body); line-height: var(--leading-body);">
-                <?php esc_html_e('This is your last chance to purchase an SSQ II MultiPro before it is discontinued.', 'standard'); ?>
-                <span class="lg:block"><?php esc_html_e('Build and request your quote today.', 'standard'); ?></span>
+                <?php esc_html_e('The SSQ3 MultiPro is NTM’s current 16-profile roof and wall panel machine.', 'standard'); ?>
+                <span class="lg:block"><?php esc_html_e('The SSQ II MultiPro was discontinued September 30, 2026.', 'standard'); ?></span>
             </p>
         </div>
         <div class="flex shrink-0 flex-col gap-2 sm:flex-row sm:items-center">
-            <a href="<?php echo esc_url(\Standard\MachineStatus\get_configurator_url($machine_slug)); ?>" class="btn btn-primary">
-                <?php esc_html_e('Build & Quote SSQ II', 'standard'); ?>
+            <a href="<?php echo esc_url(\Standard\MachineStatus\get_replacement_url($machine_slug)); ?>" class="btn btn-primary">
+                <?php esc_html_e('Explore SSQ3 MultiPro', 'standard'); ?>
                 <?php icon('arrow-right', ['class' => 'w-4 h-4', 'aria-hidden' => 'true']); ?>
             </a>
-            <a href="<?php echo esc_url(\Standard\MachineStatus\get_replacement_url($machine_slug)); ?>" class="btn btn-secondary">
-                <?php esc_html_e('Explore SSQ3', 'standard'); ?>
+            <a href="<?php echo esc_url(\Standard\MachineStatus\get_replacement_configurator_url($machine_slug)); ?>" class="btn btn-secondary">
+                <?php esc_html_e('Build & Quote SSQ3', 'standard'); ?>
             </a>
         </div>
     </div>

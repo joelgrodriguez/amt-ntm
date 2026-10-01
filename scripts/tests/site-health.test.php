@@ -228,12 +228,12 @@ namespace {
     ntm_assert(str_contains($llms, 'Starting at $12,300 USD'), 'llms.txt should publish the current MACH II Combo price.');
     ntm_assert(str_contains($llms, 'Starting at $71,600 USD'), 'llms.txt should include BG7 and its current price.');
     ntm_assert(
-        str_contains($llms, 'SSQ II MultiPro roof panel machine') && str_contains($llms, 'Available for purchase through September 30, 2026.'),
-        'llms.txt should identify the SSQ II final-sale deadline.'
+        str_contains($llms, 'SSQ II MultiPro roof panel machine') && str_contains($llms, 'the SSQ II was discontinued September 30, 2026.'),
+        'llms.txt should identify the SSQ II as discontinued.'
     );
     ntm_assert(
-        str_contains($llms, 'The [SSQ3 MultiPro]') && str_contains($llms, 'is its current successor.'),
-        'llms.txt should identify the SSQ3 as the current successor.'
+        str_contains($llms, 'The [SSQ3 MultiPro]') && str_contains($llms, 'is the current model'),
+        'llms.txt should identify the SSQ3 as the current model.'
     );
     ntm_assert(
         str_contains($llms, '/machines/gutter-machines/mach-ii-6-gutter-machine/'),
