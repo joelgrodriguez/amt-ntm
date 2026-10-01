@@ -58,6 +58,10 @@ function get_current_metadata_override(): ?array
             'title'       => 'BG7 7" Commercial Box Gutter Machine | NTM',
             'description' => 'Produce 7-inch commercial box gutters on site with the hydraulic BG7 gutter machine. Review profiles, specifications, pricing, accessories, and support.',
         ],
+        'ssq-roof-panel-machine' => [
+            'title'       => 'SSQ II MultiPro Specifications and Owner Resources | NTM',
+            'description' => 'The SSQ3 MultiPro is NTM\'s current 16-profile roof and wall panel machine. Find legacy SSQ II MultiPro specifications, manuals, and owner resources.',
+        ],
         'seamless-gutter-machines' => [
             'title'       => 'Portable Seamless Gutter Machines | NTM',
             'description' => 'Compare NTM portable seamless gutter machines for 5-inch and 6-inch K-style or 7-inch box gutters, including specifications, pricing, and support.',

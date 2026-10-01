@@ -248,8 +248,8 @@ return [
             'answer'   => __('The SSH produces 7 panel profiles including mechanical seam, snap-lock, snap-lock with slotted flange, and T-Panel options for residential and light commercial roofing. Clip relief and rib rollers are available as tooling options.', 'standard'),
         ],
         [
-            'question' => __('What\'s the difference between the SSH and SSQ II?', 'standard'),
-            'answer'   => __('The SSQ II produces 16 profiles (including wall panels) vs 7 for the SSH. The SSQ II is built for high-volume commercial + residential work, while the SSH is focused on residential and light commercial.', 'standard'),
+            'question' => __('What\'s the difference between the SSH and SSQ3?', 'standard'),
+            'answer'   => __('The SSQ3 produces 16 profiles (including wall panels) vs 7 for the SSH. The SSQ3 is built for high-volume commercial + residential work, while the SSH is focused on residential and light commercial.', 'standard'),
         ],
         [
             'question' => __('Does the SSH include a controller?', 'standard'),

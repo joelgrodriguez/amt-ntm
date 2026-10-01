@@ -329,7 +329,6 @@ function get_desktop_nav(): array {
                     '/configurator/ssq3-multi-pro/',
                     '/configurator/ssh/',
                     '/configurator/ssr/',
-                    '/configurator/ssqii/',
                     '/configurator/wav/',
                     '/configurator/machii/',
                     '/configurator/5vc/',

@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-const CONTENT_VERSION = '2026-07-29-v3';
+const CONTENT_VERSION = '2026-09-30-v1';
 const VERSION_OPTION  = 'standard_curated_llms_txt_version';
 
 add_action('after_setup_theme', __NAMESPACE__ . '\\sync_curated_llms_txt', 30);
@@ -94,7 +94,7 @@ function build_curated_llms_txt(string $base_url = ''): string
         '## Roof and wall panel machines',
         '',
         '- [SSQ3 MultiPro roof panel machine](' . $base_url . '/machines/roof-wall-panel-machines/ssq3-multipro/)',
-        '- [SSQ II MultiPro roof panel machine](' . $base_url . '/machines/roof-wall-panel-machines/ssq-roof-panel-machine/) — Available for purchase through September 30, 2026. The [SSQ3 MultiPro](' . $base_url . '/machines/roof-wall-panel-machines/ssq3-multipro/) is its current successor.',
+        '- [SSQ II MultiPro roof panel machine](' . $base_url . '/machines/roof-wall-panel-machines/ssq-roof-panel-machine/) — Legacy specifications and owner resources. The [SSQ3 MultiPro](' . $base_url . '/machines/roof-wall-panel-machines/ssq3-multipro/) is the current model; the SSQ II was discontinued September 30, 2026.',
         '- [SSH roof panel machine](' . $base_url . '/machines/roof-wall-panel-machines/ssh-roof-panel-machine/)',
         '- [SSR MultiPro Jr. roof panel machine](' . $base_url . '/machines/roof-wall-panel-machines/ssr-multipro-jr-roof-panel-machine/)',
         '- [5VC-5V CRIMP roof panel machine](' . $base_url . '/machines/roof-wall-panel-machines/5vc-5v-crimp-roof-panel-machine/)',

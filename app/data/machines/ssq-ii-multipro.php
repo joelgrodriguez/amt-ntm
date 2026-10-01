@@ -16,7 +16,7 @@ return [
     'slogan'   => __('Versatility meets precision.', 'standard'),
     'hero' => [
         'headline'   => __('16 Quick-Change Profiles. One Proven Machine.', 'standard'),
-        'subtitle'   => __('Available for purchase through September 30, 2026. Configure and request your SSQ II quote while it is still available.', 'standard'),
+        'subtitle'   => __('Technical specifications and owner resources for the discontinued SSQ II MultiPro.', 'standard'),
         'hero_image' => 'https://newtechmachinery.com/wp-content/uploads/2025/12/starting-SSQ-on-job-site-1024x576-1.jpg',
         'image'      => 'https://newtechmachinery.com/wp-content/uploads/2025/09/20250911_NTM_SSQ-II_1000x1000.png',
         'video'      => null,
@@ -29,10 +29,10 @@ return [
     ],
     'finance' => [
         'monthly_price' => null,
-        'price_range'   => __('$120K – $130K', 'standard'),
-        'note'          => __('Depending on profile; notching option not included', 'standard'),
-        'apr'           => '5.49%',
-        'months'        => '72',
+        'price_range'   => '',
+        'note'          => '',
+        'apr'           => '',
+        'months'        => '',
     ],
     'breakdown' => [
         [
@@ -240,7 +240,7 @@ return [
     'faq' => [
         [
             'question' => __('How does the SSQ II compare to the SSQ3?', 'standard'),
-            'answer'   => __('The SSQ II will be discontinued September 30, 2026. It and the current SSQ3 produce the same 16 profiles. The SSQ3 adds QWIKSwap™ tooling (25-minute changeover vs 45), cover inspection windows, RFID sensors, shear strobe, and interior LEDs.', 'standard'),
+            'answer'   => __('The SSQ3 is the current model; the SSQ II was discontinued September 30, 2026. Both produce the same 16 profiles. The SSQ3 adds QWIKSwap™ tooling (25-minute changeover vs 45), cover inspection windows, RFID sensors, shear strobe, and interior LEDs.', 'standard'),
         ],
         [
             'question' => __('How long does tooling changeover take?', 'standard'),
@@ -260,9 +260,9 @@ return [
         ],
     ],
     'schema' => [
-        'low_price'    => '120000',
-        'high_price'   => '130000',
-        'availability' => 'InStock',
+        'low_price'    => null,
+        'high_price'   => null,
+        'availability' => 'Discontinued',
         'brand'        => 'New Tech Machinery',
         'manufacturer' => 'New Tech Machinery',
         'category'     => __('Roof & Wall Panel Machines', 'standard'),
