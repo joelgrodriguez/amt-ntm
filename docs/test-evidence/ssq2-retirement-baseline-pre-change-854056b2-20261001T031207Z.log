@@ -1,0 +1,111 @@
+# SSQ II retirement E2E  20261001T031207Z
+base=https://newtech.local  commit=7cc48826  branch=dev  dirty=true
+
+## Old buying URL
+PASS  old SSQ II configurator URL redirects permanently  (status 301)
+FAIL  redirect lands on the SSQ3 configurator  (https://newtech.local/learning-center/pricesheet/ssqii-packages-price-sheet/)
+FAIL  redirect keeps tracking parameters  (https://newtech.local/learning-center/pricesheet/ssqii-packages-price-sheet/?utm_source=e2e&utm_campaign=ssq2-retirement&gclid=abc123)
+FAIL  followed redirect serves the SSQ3 catalog ID
+FAIL  followed redirect: no expired SSQ II offer  (SSQ II configurator link, SSQ II quote button, last-chance copy, pre-retirement badge, pre-retirement label)
+
+## SSQ II product page
+PASS  SSQ II product page still resolves  (status 200)
+FAIL  SSQ II product page: no expired SSQ II offer  (SSQ II configurator link, SSQ II quote button, last-chance copy, final-sale copy, pre-retirement badge, pre-retirement label)
+PASS  SSQ II product page: status notice renders
+FAIL  SSQ II product page: notice leads with the SSQ3 MultiPro  (Will Be Discontinued September 30, 2026 This is your last chance to purchase an SSQ II MultiPro before it is discontinued. Build and request)
+PASS  SSQ II product page: notice keeps the retirement date as context
+PASS  SSQ II product page: notice links to the SSQ3 page  (/configurator/ssqii/ /machines/roof-wall-panel-machines/ssq3-multipro/)
+FAIL  SSQ II product page: notice links to the SSQ3 configurator  (/configurator/ssqii/ /machines/roof-wall-panel-machines/ssq3-multipro/)
+FAIL  SSQ II product page shows no price
+FAIL  SSQ II Product schema is Discontinued
+PASS  SSQ II product page keeps the owner manual link
+PASS  SSQ II product page keeps legacy specs
+
+## Historical resources
+PASS  SSQ II article: resolves  (status 200)
+PASS  SSQ II article: keeps its own content
+FAIL  SSQ II article: no expired SSQ II offer  (SSQ II configurator link, SSQ II quote button, last-chance copy, pre-retirement badge, pre-retirement label)
+PASS  SSQ II article: status notice renders
+FAIL  SSQ II article: notice leads with the SSQ3 MultiPro  (Will Be Discontinued September 30, 2026 This is your last chance to purchase an SSQ II MultiPro before it is discontinued. Build and request)
+PASS  SSQ II article: notice keeps the retirement date as context
+PASS  SSQ II article: notice links to the SSQ3 page  (/configurator/ssqii/ /machines/roof-wall-panel-machines/ssq3-multipro/)
+FAIL  SSQ II article: notice links to the SSQ3 configurator  (/configurator/ssqii/ /machines/roof-wall-panel-machines/ssq3-multipro/)
+PASS  SSQ II training video: resolves  (status 200)
+PASS  SSQ II training video: keeps its own content
+FAIL  SSQ II training video: no expired SSQ II offer  (SSQ II configurator link, SSQ II quote button, last-chance copy, pre-retirement badge, pre-retirement label)
+PASS  SSQ II training video: status notice renders
+FAIL  SSQ II training video: notice leads with the SSQ3 MultiPro  (Will Be Discontinued September 30, 2026 This is your last chance to purchase an SSQ II MultiPro before it is discontinued. Build and request)
+PASS  SSQ II training video: notice keeps the retirement date as context
+PASS  SSQ II training video: notice links to the SSQ3 page  (/configurator/ssqii/ /machines/roof-wall-panel-machines/ssq3-multipro/)
+FAIL  SSQ II training video: notice links to the SSQ3 configurator  (/configurator/ssqii/ /machines/roof-wall-panel-machines/ssq3-multipro/)
+PASS  SSQ II price sheet: resolves  (status 200)
+PASS  SSQ II price sheet: keeps its own content
+FAIL  SSQ II price sheet: no expired SSQ II offer  (SSQ II configurator link, SSQ II quote button, last-chance copy, pre-retirement badge, pre-retirement label)
+PASS  SSQ II price sheet: status notice renders
+FAIL  SSQ II price sheet: notice leads with the SSQ3 MultiPro  (Will Be Discontinued September 30, 2026 This is your last chance to purchase an SSQ II MultiPro before it is discontinued. Build and request)
+PASS  SSQ II price sheet: notice keeps the retirement date as context
+PASS  SSQ II price sheet: notice links to the SSQ3 page  (/configurator/ssqii/ /machines/roof-wall-panel-machines/ssq3-multipro/)
+FAIL  SSQ II price sheet: notice links to the SSQ3 configurator  (/configurator/ssqii/ /machines/roof-wall-panel-machines/ssq3-multipro/)
+PASS  SSQ II service hub: resolves  (status 200)
+PASS  SSQ II service hub: keeps its own content
+FAIL  SSQ II service hub: no expired SSQ II offer  (SSQ II configurator link, SSQ II quote button, last-chance copy, pre-retirement badge, pre-retirement label)
+PASS  SSQ II service hub: status notice renders
+FAIL  SSQ II service hub: notice leads with the SSQ3 MultiPro  (Will Be Discontinued September 30, 2026 This is your last chance to purchase an SSQ II MultiPro before it is discontinued. Build and request)
+PASS  SSQ II service hub: notice keeps the retirement date as context
+PASS  SSQ II service hub: notice links to the SSQ3 page  (/configurator/ssqii/ /machines/roof-wall-panel-machines/ssq3-multipro/)
+FAIL  SSQ II service hub: notice links to the SSQ3 configurator  (/configurator/ssqii/ /machines/roof-wall-panel-machines/ssq3-multipro/)
+PASS  SSQII accessory archive: resolves  (status 200)
+PASS  SSQII accessory archive: keeps its own content
+FAIL  SSQII accessory archive: no expired SSQ II offer  (SSQ II configurator link, SSQ II quote button, last-chance copy, pre-retirement badge, pre-retirement label)
+PASS  SSQII accessory archive: status notice renders
+FAIL  SSQII accessory archive: notice leads with the SSQ3 MultiPro  (Will Be Discontinued September 30, 2026 This is your last chance to purchase an SSQ II MultiPro before it is discontinued. Build and request)
+PASS  SSQII accessory archive: notice keeps the retirement date as context
+PASS  SSQII accessory archive: notice links to the SSQ3 page  (/configurator/ssqii/ /machines/roof-wall-panel-machines/ssq3-multipro/)
+FAIL  SSQII accessory archive: notice links to the SSQ3 configurator  (/configurator/ssqii/ /machines/roof-wall-panel-machines/ssq3-multipro/)
+
+## Active sales paths
+PASS  /: resolves  (status 200)
+FAIL  /: no expired SSQ II offer  (pre-retirement badge)
+PASS  /machines/: resolves  (status 200)
+FAIL  /machines/: no expired SSQ II offer  (pre-retirement badge)
+PASS  /roof-wall-panel-machines/: resolves  (status 200)
+FAIL  /roof-wall-panel-machines/: no expired SSQ II offer  (pre-retirement badge)
+PASS  /choose-your-machine/: resolves  (status 200)
+FAIL  /choose-your-machine/: no expired SSQ II offer  (pre-retirement badge)
+PASS  /compare-roof-panel-machines/: resolves  (status 200)
+FAIL  /compare-roof-panel-machines/: no expired SSQ II offer  (pre-retirement badge)
+PASS  /configurator/: resolves  (status 200)
+PASS  /configurator/: no expired SSQ II offer
+PASS  /?s=SSQ+II: resolves  (status 200)
+FAIL  /?s=SSQ+II: no expired SSQ II offer  (SSQ II configurator link, SSQ II quote button, last-chance copy, pre-retirement badge)
+PASS  /llms.txt: resolves  (status 200)
+FAIL  /llms.txt: no expired SSQ II offer  (final-sale copy)
+FAIL  machine chooser does not list the SSQ II
+PASS  machine chooser lists the SSQ3
+FAIL  home quiz teaser does not name the SSQ II as a choice
+PASS  SSQ II search still surfaces the SSQ3
+FAIL  llms.txt names the SSQ3 as the current model
+
+## SSQ3 quote path
+PASS  SSQ3 product page resolves  (status 200)
+PASS  SSQ3 product page links to its configurator
+PASS  SSQ3 product page shows no status notice
+FAIL  browser on the old URL ends on the SSQ3 configurator  (https://newtech.local/learning-center/pricesheet/ssqii-packages-price-sheet/?utm_source=e2e)
+FAIL  Corbel quote form loads for the SSQ3  (no Corbel iframe)
+FAIL  Corbel quote form receives the tracking parameter
+FAIL  notice CTA opens the SSQ3 product page  (https://newtech.local/machines/roof-wall-panel-machines/ssq-roof-panel-machine/)
+
+## Controls
+PASS  /configurator/ssh/ serves its own configurator  (status 200)
+PASS  /configurator/ssr/ serves its own configurator  (status 200)
+PASS  /configurator/wav/ serves its own configurator  (status 200)
+PASS  /configurator/machii/ serves its own configurator  (status 200)
+PASS  /configurator/5vc/ serves its own configurator  (status 200)
+PASS  SSH product page has no status notice
+PASS  SSH product page keeps its own configurator link
+PASS  SSH product page keeps its price schema
+PASS  SSQ200 profile page has no status notice  (status 200)
+PASS  SSQ210A profile page has no status notice  (status 200)
+PASS  SSQ275 profile page has no status notice  (status 200)
+
+RESULT: FAIL
