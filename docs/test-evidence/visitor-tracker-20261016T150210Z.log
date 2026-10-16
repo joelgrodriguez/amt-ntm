@@ -1,0 +1,13 @@
+Visitor tracker E2E 20261016T150210Z
+command=node scripts/tests/visitor-tracker.e2e.mjs BASE=https://newtech.local
+commit=bfcc9fe3
+Boundaries: real local WordPress and Chrome; third-party and non-GET requests aborted; vendor ingestion unverified.
+chrome=155.0.8059.82
+public-page vendor requests: ["https://ddwl4m2hdecbv.cloudfront.net/b/XOE9GH3PRZOM/XOE9GH3PRZOM.js.gz"]
+FAIL AssertionError [ERR_ASSERTION]: Leadpipe must render the supplied account once in the page head
+
+0 !== 1
+
+    at scenario (file:///Users/jrodriguez/Development/kinsta/public/newtech/wp-content/themes/amt-ntm/scripts/tests/visitor-tracker.e2e.mjs:45:12)
+    at async file:///Users/jrodriguez/Development/kinsta/public/newtech/wp-content/themes/amt-ntm/scripts/tests/visitor-tracker.e2e.mjs:78:3
+RESULT: FAIL
