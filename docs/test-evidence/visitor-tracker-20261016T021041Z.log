@@ -1,0 +1,13 @@
+Visitor tracker E2E 20261016T021041Z
+command=node scripts/tests/visitor-tracker.e2e.mjs BASE=https://newtech.local
+commit=bfcc9fe3
+Boundaries: real local WordPress and Chrome; third-party and non-GET requests aborted; vendor ingestion unverified.
+chrome=155.0.8059.82
+public-page vendor requests: ["https://secure.smart-business-intuition.com/js/820747.js"]
+FAIL AssertionError [ERR_ASSERTION]: Lead Forensics script and noscript pixel must not render
+    at scenario (file:///Users/jrodriguez/Development/kinsta/public/newtech/wp-content/themes/amt-ntm/scripts/tests/visitor-tracker.e2e.mjs:41:12)
+    at runNextTicks (node:internal/process/task_queues:64:5)
+    at process.processImmediate (node:internal/timers:452:9)
+    at process.callbackTrampoline (node:internal/async_hooks:130:17)
+    at async file:///Users/jrodriguez/Development/kinsta/public/newtech/wp-content/themes/amt-ntm/scripts/tests/visitor-tracker.e2e.mjs:73:3
+RESULT: FAIL

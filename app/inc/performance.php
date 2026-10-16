@@ -122,7 +122,7 @@ function print_openai_pixel(): void {
 add_action('wp_head', __NAMESPACE__ . '\\print_openai_pixel', 3);
 
 /**
- * Visitor-identification tracker (sales trial, Sep 2026). The vendor's email
+ * Lead Forensics tracker (sales trial, Sep 2026). The vendor's email
  * arrived with Darktrace-rewritten links; these are the decoded originals.
  */
 const VISITOR_ID_SCRIPT_URL = 'https://secure.smart-business-intuition.com/js/820747.js';
@@ -136,7 +136,30 @@ function print_visitor_id_tracker(): void {
     echo '<script async src="' . esc_url(VISITOR_ID_SCRIPT_URL) . '" id="ntm-visitor-id"></script>'
         . '<noscript><img alt="" src="' . esc_url(VISITOR_ID_PIXEL_URL) . '" style="display:none;" /></noscript>';
 }
-add_action('wp_head', __NAMESPACE__ . '\\print_visitor_id_tracker', 4);
+// Lead Forensics is paused during the RB2B trial.
+// add_action('wp_head', __NAMESPACE__ . '\\print_visitor_id_tracker', 4);
+
+function print_rb2b_tracker(): void {
+    if (is_admin()) {
+        return;
+    }
+
+    echo '<script id="ntm-rb2b">!function(key){if(window.reb2b)return;window.reb2b={loaded:true};'
+        . 'var s=document.createElement("script");s.async=true;'
+        . 's.src="https://ddwl4m2hdecbv.cloudfront.net/b/"+key+"/"+key+".js.gz";'
+        . 'document.getElementsByTagName("script")[0].parentNode.insertBefore(s,document.getElementsByTagName("script")[0]);'
+        . '}("XOE9GH3PRZOM");</script>';
+}
+add_action('wp_head', __NAMESPACE__ . '\\print_rb2b_tracker', 4);
+
+function print_leadpipe_tracker(): void {
+    if (is_admin()) {
+        return;
+    }
+
+    echo '<script src="https://leadpipe.aws53.cloud/p/e66aa922-7659-4180-ad54-c3462b614191.js" async></script>';
+}
+add_action('wp_head', __NAMESPACE__ . '\\print_leadpipe_tracker', 4);
 
 /**
  * Configurators use Corbel as their only interactive vendor surface. While

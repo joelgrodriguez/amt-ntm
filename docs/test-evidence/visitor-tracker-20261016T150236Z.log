@@ -1,0 +1,12 @@
+Visitor tracker E2E 20261016T150236Z
+command=node scripts/tests/visitor-tracker.e2e.mjs BASE=https://newtech.local
+commit=bfcc9fe3
+Boundaries: real local WordPress and Chrome; third-party and non-GET requests aborted; vendor ingestion unverified.
+chrome=155.0.8059.82
+PASS public-page
+public-page vendor requests: ["https://leadpipe.aws53.cloud/p/e66aa922-7659-4180-ad54-c3462b614191.js","https://ddwl4m2hdecbv.cloudfront.net/b/XOE9GH3PRZOM/XOE9GH3PRZOM.js.gz"]
+PASS already-loaded
+already-loaded vendor requests: ["https://leadpipe.aws53.cloud/p/e66aa922-7659-4180-ad54-c3462b614191.js"]
+PASS javascript-disabled
+javascript-disabled vendor requests: []
+RESULT: PASS
